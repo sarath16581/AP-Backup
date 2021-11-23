@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Send it to the user that created the new Licence</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>PartnerInfo New Licence Rejected</name>
+    <style>freeForm</style>
+    <subject>New Licence for  {!Account.Facility__c} - Rejected</subject>
+    <textOnly>The request to assign new Licence for  {!Account.Facility__c} is Rejected.
+
+Reason for rejection:
+{!ApprovalRequest.Comments}
+
+regards,</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

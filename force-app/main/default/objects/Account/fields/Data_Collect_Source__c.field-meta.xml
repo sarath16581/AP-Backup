@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Data_Collect_Source__c</fullName>
+    <description>Code that identifies the way the monthly data for the LPO will be collected.</description>
+    <externalId>false</externalId>
+    <label>Data Collect Source</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Non-EPOS</fullName>
+                <default>false</default>
+                <label>Non-EPOS</label>
+            </value>
+            <value>
+                <fullName>EPOS</fullName>
+                <default>false</default>
+                <label>EPOS</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

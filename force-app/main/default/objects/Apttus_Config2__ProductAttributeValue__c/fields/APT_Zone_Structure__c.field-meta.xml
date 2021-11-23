@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Zone_Structure__c</fullName>
+    <description>Modification History : 
+Date : 12/06/2020
+Shashwat.a.nath@aupost.com.au commented the existing formula and updated it  make sure it works for Z6 price structure as previous formula would have trimmed the values as {Z6 instead of Z6</description>
+    <externalId>false</externalId>
+    <formula>/*RPAD(RIGHT(TEXT(APTS_Price_Structure__c), 4), 3)*/
+IF( Apttus_Config2__LineItemId__r.APT_Product_Code__c == &apos;APPC&apos;,&apos;APPC&apos;, MID( 
+     TEXT(APTS_Price_Structure__c), 
+     FIND(&quot;{&quot;, TEXT(APTS_Price_Structure__c))+1,  
+     (FIND(&quot;}&quot;, TEXT(APTS_Price_Structure__c))) - (FIND(&quot;{&quot;, TEXT(APTS_Price_Structure__c))+1)
+   ))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Zone Structure</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

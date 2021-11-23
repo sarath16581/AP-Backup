@@ -1,0 +1,207 @@
+<!--
+ - Created by shashwat.a.nath on 25/09/2019.
+ - This VF page is invoked from the Send to Partner Custom Button on Partner Agreement Document Record detail Page
+ - Multiple Remoting Calls are done to fetch info and update the Partner Agreement record
+ - On Getting a Valid Response the System Redirects the User to Conga Page and  to updated Partner Agreement Document Record detail Page
+ -->
+
+<apex:page standardController="Agreement_Document__c"
+           extensions="SendToPartnerPageController"
+           id="SendToPartnerPage">
+
+    <!--Included required scripts-->
+    <apex:includeScript value="/soap/ajax/36.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/36.0/apex.js"/>
+    <apex:includeScript value="/support/console/46.0/integration.js"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"/>
+    <!-- Script starts -->
+    <script type="text/javascript">
+        showMainMessage();
+        // Function to form the Conga URL
+        function showMainMessage() {
+            var box = new SimpleDialog("hersh" + Math.random(), true);
+            var congaUrl = "https://composer.congamerge.com?sessionId={!$API.Session_ID}" +
+            "&serverUrl={!$API.Partner_Server_URL_290}" +
+            "&id={!Agreement_Document__c.Id}" +
+            "&EmailTemplateId={!Agreement_Document__c.Conga_Email_Template__c}" +
+            "&EmailToId={!Agreement_Document__c.Nominated_Contact__c}" +
+            "&EmailCC={!Agreement_Document__c.Network_Manager_Email__c}"  +
+            "&DS7=2" +
+            "&BML=Send+Agreement+Document+To+Partner" +
+            "&SelectAttachments=1" +
+            "&QueryId=" +
+            "[LegalEntity]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Legal_Entity__c}?pv0={!Agreement_Document__c.Legal_Entity_Id__c}," +
+            "[Licence]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Licence__c}?pv0={!Agreement_Document__c.Licence_Id__c}," +
+            "[Facility]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Facility__c}?pv0={!Agreement_Document__c.Facility_Id__c}," +
+            "[Network]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Network__c}?pv0={!Agreement_Document__c.Network_Id__c}," +
+            "[ParentNetwork]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Parent_Network__c}?pv0={!Agreement_Document__c.Parent_Network_Id__c}";
+            var approvalType = "{!Agreement_Document__c.Approval_Type__c}";
+            var status = "{!Agreement_Document__c.Status__c}";
+
+            //First check to see if there is an attachment matching the document type name
+            var attName = "{!Agreement_Document__c.Document_Name__c}";
+
+            parent.box = box;
+            box.setTitle("Send to Partner");
+            box.createDialog();
+            box.setWidth(350);
+
+            if (((approvalType == "Full" || approvalType == "Single" ) && (status == "Approved" || status == "Awaiting Signature" ))|| (approvalType == 'No' && (status == 'Draft' || status == "Awaiting Signature" ))){
+                // Remote Action Initiated to fetch attachment associated to the Partner Agreement Record
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.SendToPartnerPageController.findAttachment}',
+                    '{!Agreement_Document__c.Document_Name__c}' ,
+                    '{!Agreement_Document__c.Id}',
+                    function (result, event) {
+                        if (event.status) {
+                            // On Success
+                            console.log(result);
+                            atts = result ;
+                            if (atts.length == 0 || !atts[0].Name.endsWith('.pdf')) {
+                                alert("A pdf attachment, with a title beginning with the name of Document Type '" + attName +"', was not found.");
+                                redirection();
+                            }
+                            else{
+                                console.log('Inside Box');
+                                fileName =  atts[0].Name,
+                                    fileName =  fileName.substr(0, fileName.lastIndexOf('.'));
+                                fileName = 'Document Generated: ' + fileName;
+                                // Remote Action Initiated to get Tasks associated to the Partner Agreement
+                                Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.SendToPartnerPageController.getActivityHistory}',
+                                    '{!Agreement_Document__c.Document_Name__c}' ,
+                                    '{!Agreement_Document__c.Id}',
+                                    function(result, event){
+                                        if (event.status) {
+                                            // On Success
+                                            box.setContentInnerHTML("How would you like to send?<br /><br /><button id=\"emailBtn\" class='btn'>Email</button>&nbsp;<button id=\"paperBtn\" class='btn'>Paper</button>&nbsp;<button class='btn' onclick='window.parent.box.hide();  redirection() ; return false;'>Cancel</button>");
+                                            $("#emailBtn").on("click", function () {
+                                                console.log(result.length);
+                                                window.parent.box.hide();
+                                                var emailURL = congaUrl + "&AttachmentId=" + atts[0].Id;
+                                                var nonComplaintDocsSent = false;
+                                                window.open(emailURL , "Conga", "width=700, height=550, menubar=0");
+                                                if(result.length > 0){
+                                                    console.log(result[0].LastModifiedDate);
+                                                    timeInterval = getTimeInterval(result[0].LastModifiedDate,atts[0].LastModifiedDate);
+                                                    if(timeInterval > 120){
+                                                        nonComplaintDocsSent = true
+                                                    }
+                                                }
+                                                else{
+                                                    nonComplaintDocsSent = true
+                                                }
+                                                updateADStatus(nonComplaintDocsSent);
+
+                                                return false;
+                                            });
+
+                                            $("#paperBtn").on("click", function () {
+                                                window.parent.box.hide();
+                                                var attUrl = "/servlet/servlet.FileDownload?file=";
+                                                var nonComplaintDocsSent = false;
+                                                alert("Print and present to the Customer.");
+
+                                                window.open(attUrl + atts[0].Id, attName, "width=700, height=550, menubar=0");
+                                                generateActivityHistory();
+                                                if(result.length > 0){
+                                                    timeInterval = getTimeInterval(result[0].LastModifiedDate,atts[0].LastModifiedDate);
+                                                    if(timeInterval > 120){
+                                                        nonComplaintDocsSent = true
+                                                    }
+                                                }else{
+                                                    nonComplaintDocsSent = true
+                                                }
+                                                updateADStatus(nonComplaintDocsSent);
+
+                                                return false;
+                                            });
+                                        }
+                                        else if (event.type === 'exception') {
+                                            // On Failure or Exception
+                                            alert('Something went wrong . Please reach out to your Admin');
+                                            redirection();
+                                        }
+                                    },
+                                    {escape: true}
+                                );
+                            }
+                        }
+                        else {
+                            // On Failure or Exception
+                            alert('Something went wrong . Please reach out to your Admin');
+                            redirection();
+                        }
+                    },
+                    {escape: true}
+
+                );
+                // Function to Update the Partner Agreement Record
+                function updateADStatus(nonComplaintDocsSent) {
+                    console.log('nonComplaintDocsSent' +nonComplaintDocsSent );
+                    var nonComplaintDoc = nonComplaintDocsSent;
+                    // Remote Action Invoked to Update the Agreement record
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.SendToPartnerPageController.updateAgreement}',
+                           '{!Agreement_Document__c.Id}',
+                        nonComplaintDoc,
+                        function(result, event){
+                            if (event.status) {
+                                redirection();
+                            }
+                            else if (event.type === 'exception') {
+                                alert('Something Went wrong.Please contact your admin');
+                            }
+                        },
+                        {escape: true}
+                    );
+
+                }
+
+                // Function to calculate difference in Tim eintervals
+                function getTimeInterval ( date1, date2 ) {
+                    date1 = new Date(date1);
+                    date2 = new Date(date2);
+
+                    // Convert both dates to milliseconds
+                    var date1_ms = date1.getTime();
+                    var date2_ms = date2.getTime();
+
+                    // Calculate the difference in milliseconds
+                    var difference_ms = date2_ms - date1_ms;
+                    // Return difference in seconds
+                    return Math.abs(Math.floor((difference_ms/1000)));
+                }
+            }
+            else {
+                box.setContentInnerHTML("Send to Partner’ is only permitted when the record is in ‘Approved’ or ‘Awaiting Signature’ state for Full and Single Approval, or ‘Draft’ state for No Approval<br /><br /><button class='btn' onclick='window.parent.box.hide();redirection(); return false;'>Cancel</button>");
+            }
+
+            box.setupDefaultButtons();
+            box.show();
+        }
+
+        // Function for redirection to the Record detail Page
+        function redirection(){
+            window.location='/{!Agreement_Document__c.Id}';
+        }
+
+        //Create task record
+        function generateActivityHistory(){
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.SendToPartnerPageController.generateActivityHistory}',
+                '{!Agreement_Document__c.Id}',
+                function(result, event){
+                    if (event.status) {
+                        console.log('Task Creation Successful');
+                    }
+                    else if (event.type === 'exception') {
+                        alert('Something Went wrong.Please contact your admin');
+                    }
+                },
+                {escape: true}
+            );
+        }
+
+    </script>
+</apex:page>

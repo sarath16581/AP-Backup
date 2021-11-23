@@ -1,0 +1,4 @@
+<apex:page controller="APT_CreateContractValidationController">
+	<apex:pageMessages rendered="{!IsError}"></apex:pageMessages>
+   	<apex:include rendered="{!NOT(IsError)}" pageName="APTS_GenerateDocs"/>
+</apex:page>

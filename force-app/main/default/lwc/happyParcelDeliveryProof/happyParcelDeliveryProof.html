@@ -1,0 +1,128 @@
+<!--
+    2020-04-01 nathan.franklin@auspost.com.au Created
+    2020-09-14 - Disha Kariya - Display safe drop image in card instead of modal. Issue with case detail view.
+    2020-09-18 - Ranjeewa Silva - Improved responsiveness on smaller screen sizes.
+    2020-09-21 - Disha kariya - Added Happy Parcel Card to display safe drop image.
+    2020-09-27 - Nathan Franklin - Changed Safe Drop eligibility functions and added pubsub methods
+    2020-10-05 - Disha Kariya - Allow safe drop attachment for case creation
+    2021-10-05 - Nathan Franklin - Changed the logic behind attaching delivery proof to case
+-->
+<template>
+
+	<div class="slds-grid slds-wrap slds-grid_vertical-stretch slds-grid_align-spread slds-gutters_direct-x-small wrapper" id="wrapper">
+		<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-grid_vertical-stretch slds-m-bottom_medium slds-is-relative">
+
+			<template if:false={safeDropLoading}>
+				<div class="attach-delivery-proof-wrapper">
+					<template if:true={canShowSafeDropAttach}>
+						<!-- note this is rendered rtl (right ot left) to position the checkbox on the right hand side -->
+						<div class="attach-delivery-proof-input slds-show_inline-block">
+							<lightning-input type="checkbox" label="?Attach" checked={attachDeliveryProof} onclick={handleDeliveryProofCheckboxClicked}></lightning-input>
+						</div>
+					</template>
+				</div>
+			</template>
+
+			<c-happy-parcel-card title="Safe Drop" heading-right-padding={rightSafedropHeadingPadding} icon-name="utility:record" loading={safeDropLoading} variant="vanilla-stretch" help-text={deliveryProofHelpText}>
+				<div class={safeDropCardBodyCssClass} style={animationCss}>
+					<template if:true={eligibilityStatusLabel}>
+						<div class="slds-grid slds-grid_vertical-stretch key-info">
+							<!-- user slds-grow to make sure this div is the same height as the title div in the Signature panel below -->
+							<div class="slds-col slds-grow title slds-p-around_small">
+								<template if:true={canShowSetSafeDropOption}>
+									<button class="slds-button slds-button_brand slds-m-right_small" onclick={handleSetSafeDrop}>Set</button>
+								</template>
+								<template if:true={canShowUnsetSafeDropOption}>
+									<button class="slds-button slds-button_brand slds-m-right_small" onclick={handleUnsetSafeDrop}>Unset</button>
+								</template>
+
+								{eligibilityStatusLabel}
+							</div>
+						</div>
+					</template>
+					<div class="slds-grow slds-grid">
+						<template if:true={canShowEligibilityStatus}>
+							<div class={safeDropContentCssClass}>
+								<span class="slds-text-heading_large">{eligibilityStatus}</span>
+							</div>
+						</template>
+						<template if:true={safeDropGuid}>
+							<div class={safeDropContentCssClass}>
+								<lightning-button icon-name="utility:photo" label="View" variant="brand" onclick={handleShowSafeDropClick}></lightning-button>
+							</div>
+						</template>
+					</div>
+				</div>
+			</c-happy-parcel-card>
+
+			<template if:true={safeDropPreferenceStatusMessage}>
+				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info animated pulse" style={animationCss} role="alert">
+					<h2>{safeDropPreferenceStatusMessage}</h2>
+				</div>
+			</template>
+
+			<template if:true={canShowSafeDropDownload}>
+				<lightning-button-icon class="absolute-bottom-left" icon-name="utility:download" size="x-small" variant="border" title="Download Delivery Proof" onclick={handleDownloadDeliveryProof}></lightning-button-icon>
+			</template>
+		</div>
+
+		<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-grid_vertical-stretch slds-m-bottom_medium slds-is-relative">
+
+			<template if:false={signatureLoading}>
+				<div class="attach-delivery-proof-wrapper slds-align-middle">
+					<template if:true={canShowSignatureAttach}>
+						<div class="attach-delivery-proof-input slds-show_inline-block">
+							<!-- note this is rendered rtl (right ot left) to position the checkbox on the right hand side -->
+							<lightning-input type="checkbox" label="?Attach" checked={attachDeliveryProof} onclick={handleDeliveryProofCheckboxClicked}></lightning-input>
+						</div>
+					</template>
+				</div>
+			</template>
+
+			<c-happy-parcel-card title="Signature On Delivery" heading-right-padding={rightSignatureHeadingPadding} icon-name="utility:edit" loading={signatureLoading} variant="vanilla-stretch" help-text={signatureHelpText}>
+				<div class={signatureCardBodyCssClass} style={animationCss}>
+					<div class="slds-grid slds-grid_vertical-stretch key-info">
+						<div class="slds-col slds-medium-size_1-of-4 title slds-p-around_small">Signature Required:</div>
+						<div class="slds-col slds-medium-size_1-of-4 slds-p-around_small text"><c-formatted-text-label value={signatureRequired} type="BOOLEAN" label=""></c-formatted-text-label></div>
+						<div class="slds-col slds-medium-size_1-of-4 title slds-p-around_small">Signatory Name:</div>
+						<div class="slds-col slds-medium-size_1-of-4 slds-p-around_small text">{signatoryName}</div>
+					</div>
+					<template if:true={base64SignatureImage}>
+						<div class="slds-grow slds-align_absolute-center">
+							<img src={base64SignatureImage} class="proof-image" />
+						</div>
+					</template>
+					<template if:false={base64SignatureImage}>
+						<div class="slds-grow slds-align_absolute-center slds-p-around_medium">
+							<!--<c-happy-parcel-custom-icon icon="close" colour="#ff0000"></c-happy-parcel-custom-icon>-->
+							<span class="slds-text-heading_large">Not Available</span>
+						</div>
+					</template>
+				</div>
+			</c-happy-parcel-card>
+
+			<template if:true={canShowSignatureDownload}>
+				<lightning-button-icon class="absolute-bottom-left" icon-name="utility:download" size="x-small" variant="border" title="Download Delivery Proof" onclick={handleDownloadDeliveryProof}></lightning-button-icon>
+			</template>
+		</div>
+
+	</div>
+
+    <!-- Show safe drop image -->
+    <!--	<c-modal title="Safe Drop Image" show-modal={showSafeDropModel} onclose={closeSafeDropModal}>-->
+    <template if:true={showSafeDropModel}>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-grid_vertical-stretch slds-m-bottom_medium">
+			<c-happy-parcel-card  title="Safe Drop Image" icon-name="utility:image" loading={loadingSafeDropImage} variant="vanilla-stretch" button-icon="utility:close" button-variant="bare" oncardbuttonclick={closeSafeDropModal}>
+				<template if:true={safeDropImageErrorMessage}>
+					{safeDropImageErrorMessage}
+				</template>
+				<template if:true={base64SafeDropImage}>
+					<img src={base64SafeDropImage} class="proof-image safedrop" />
+				</template>
+			</c-happy-parcel-card>
+        </div>
+    </template>
+    <!--	</c-modal>-->
+    <!-- END Show safe drop image -->
+
+</template>

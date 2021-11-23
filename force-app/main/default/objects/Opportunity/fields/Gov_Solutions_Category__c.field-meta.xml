@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Gov_Solutions_Category__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>•	Citizen Engagement Platform: Localised portal
+•	eLicencing:
+•	eVoting:
+•	Marketplaces: Connecting citizens, small business &amp; gov
+•	Other Gov Solutions: For TeS 
+•	Payment Disbursement: 
+•	Registry:</inlineHelpText>
+    <label>Gov Solutions Category</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Citizen Engagement Platform</fullName>
+                <default>false</default>
+                <label>Citizen Engagement Platform</label>
+            </value>
+            <value>
+                <fullName>eLicencing</fullName>
+                <default>false</default>
+                <label>eLicencing</label>
+            </value>
+            <value>
+                <fullName>eVoting</fullName>
+                <default>false</default>
+                <label>eVoting</label>
+            </value>
+            <value>
+                <fullName>Marketplaces</fullName>
+                <default>false</default>
+                <label>Marketplaces</label>
+            </value>
+            <value>
+                <fullName>Other Gov Solutions</fullName>
+                <default>false</default>
+                <label>Other Gov Solutions</label>
+            </value>
+            <value>
+                <fullName>Payment Disbursement</fullName>
+                <default>false</default>
+                <label>Payment Disbursement</label>
+            </value>
+            <value>
+                <fullName>Registry</fullName>
+                <default>false</default>
+                <label>Registry</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ServiceType__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( IsVIP__c, IMAGE(&quot;/servlet/servlet.FileDownload?file=015O0000000NBLJ&quot;, &quot;VIP&quot;, 16, 16),
+IF(IsPersonAccount, IMAGE(&quot;/servlet/servlet.FileDownload?file=015O0000000NBLF&quot;, &quot;Consumer&quot;, 16, 16),
+IF( AND( NOT(ISBLANK(Role_Type_Roll_Up__c)), Role_Type_Roll_Up__c ==&apos;Customer&apos;),
+IF( Text(ServiceSLA__c) == &apos;Enterprise&apos;, IMAGE(&quot;/servlet/servlet.FileDownload?file=015O0000000NBLH&quot;, &quot;Enterprise&quot;, 16, 16),
+IMAGE(&quot;/servlet/servlet.FileDownload?file=015O0000000NBLI&quot;, &quot;SMB&quot;, 16, 16)) ,
+IMAGE(&quot;/servlet/servlet.FileDownload?file=015O0000000NBLG&quot;, &quot;ConsumerSMB&quot;, 16, 16)) ) )</formula>
+    <label>Service Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

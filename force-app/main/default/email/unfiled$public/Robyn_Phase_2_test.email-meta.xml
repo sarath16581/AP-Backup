@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>test</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Robyn Phase 2 test</name>
+    <relatedEntityType>Case</relatedEntityType>
+    <style>none</style>
+    <subject>RE: 3 page document from 0363931872</subject>
+    <type>custom</type>
+    <uiType>SFX</uiType>
+</EmailTemplate>

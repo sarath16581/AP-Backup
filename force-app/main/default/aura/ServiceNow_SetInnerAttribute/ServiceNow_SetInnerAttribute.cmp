@@ -1,0 +1,10 @@
+<!--
+ - Created by hasantha on 17/5/19.
+ -->
+
+<aura:component description="ServiceNow_SetInnerAttribute" implements="flexipage:availableForAllPageTypes">
+    <aura:attribute name="paramComponent" type="object" />
+    <aura:attribute name="value" type="object" />
+    <aura:attribute name="attributeName" type="object" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"  />
+</aura:component>

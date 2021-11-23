@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Depot__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Depot responsible for the booking</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Business hub responsible for the booking</inlineHelpText>
+    <label>Depot</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <errorMessage>Only a Business Hub or Delivery network can be selected as a depot.</errorMessage>
+        <filterItems>
+            <field>Network__c.RecordType.DeveloperName</field>
+            <operation>equals</operation>
+            <value>Business_Hub_3</value>
+        </filterItems>
+        <filterItems>
+            <field>Network__c.RecordType.DeveloperName</field>
+            <operation>equals</operation>
+            <value>Delivery_1</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Network__c</referenceTo>
+    <relationshipLabel>Bookings (Depot)</relationshipLabel>
+    <relationshipName>Managed_Bookings</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

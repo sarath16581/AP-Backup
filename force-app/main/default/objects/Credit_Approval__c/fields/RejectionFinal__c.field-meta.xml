@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RejectionFinal__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Used to indicate to the CRO that the rejection of the approval request is final</description>
+    <externalId>false</externalId>
+    <label>Outright Rejection</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

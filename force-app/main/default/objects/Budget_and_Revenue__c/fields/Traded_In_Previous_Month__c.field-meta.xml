@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Traded_In_Previous_Month__c</fullName>
+    <description>Flags indicate whether the organiation has Traded In Previous Month</description>
+    <externalId>false</externalId>
+    <formula>IF(hidden_Revenue_In_Previous_Month__c != 0 &amp;&amp; Current_Year__c,     /* Green flag if Traded in Previous Month Current FY */
+IMAGE(&quot;/img/samples/flag_green.gif&quot;,&quot;Traded&quot;),
+IF(NOT(Current_Year__c),
+ &quot;NA&quot;,          /* If not in Current Year = show &quot;NA&quot; message */
+IMAGE(&quot;/img/samples/flag_red.gif&quot;,&quot;Did Not Trade&quot;)))         /* otherwise Red flag */</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Green flag indicates that the organisation has traded in the previous month</inlineHelpText>
+    <label>Traded In Previous Month</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

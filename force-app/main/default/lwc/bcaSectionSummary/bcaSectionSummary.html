@@ -1,0 +1,19 @@
+<template>
+    <div class="slds-section slds-is-open">
+        <h3 class="slds-section__title slds-theme_alt-inverse">
+            <span class="slds-truncate slds-p-horizontal_small" title={sectionNameLabel}>{sectionNameLabel}</span>
+        </h3>
+        <template if:true={secDataVal}>
+            <div aria-hidden="false" class="slds-section__content">
+                <template for:each={secDataVal} for:item="item">
+                  <tr key={item} ><c-bca-summary-row item={item} key={item}></c-bca-summary-row></tr>
+                </template>
+              <!--  <template for:each={secData} for:item="item">
+                    <p key={item} item={item} style='padding-left:10px'> <b>{item.Label}</b> : {item.Value} </p>
+                </template> -->
+            </div>
+        </template>
+    </div>
+
+
+</template>

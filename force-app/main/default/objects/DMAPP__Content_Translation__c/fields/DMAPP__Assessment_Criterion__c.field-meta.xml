@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Assessment_Criterion__c</fullName>
+    <deleteConstraint>Cascade</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Assessment Criterion</label>
+    <referenceTo>DMAPP__DM_TAS_Criterion__c</referenceTo>
+    <relationshipLabel>Content Translations</relationshipLabel>
+    <relationshipName>Content_Translations</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

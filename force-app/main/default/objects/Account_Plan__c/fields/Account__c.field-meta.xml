@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account__c</fullName>
+    <description>Phase 1 - Sales Process (PWC)
+13/11 CV - added filter to limit Account Lookup to Organisation only.</description>
+    <externalId>false</externalId>
+    <label>Organisation</label>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>Can only link an Account Plan to an Organisation</errorMessage>
+        <filterItems>
+            <field>Account.IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </filterItems>
+        <infoMessage>Select an Organisation to link the Account Plan to</infoMessage>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Account Plans</relationshipLabel>
+    <relationshipName>Account_Plans</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

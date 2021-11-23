@@ -1,0 +1,269 @@
+<apex:page showHeader="false" standardController="Case"
+	extensions="LogACallControllerExtension">
+	<apex:form id="formId">
+		<apex:includeScript value="/support/console/28.0/integration.js" />
+		<apex:includeScript value="/support/api/28.0/interaction.js" />
+		<apex:includeScript value="{!$Resource.jquery191}" />
+		<apex:stylesheet value="{!$Resource.jQueryUI1_10_3_Css}" />
+		<apex:includeScript value="{!$Resource.jQueryUI1_10_3}" />
+		<apex:includeScript value="{!$Resource.bootstrapJS}" />
+		<apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+		<apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+		<apex:stylesheet value="{!$Resource.SSSWCSS}" />
+		<apex:includeScript value="{!$Resource.SSSWJS}" />
+		<apex:includeScript value="{!$Resource.jQueryCookie}" />
+
+		<style>
+.ui-dialog-titlebar {
+	background: #3399CC;
+	border-color: #3399CC;
+	color: white;
+}
+
+.myDialogClass {
+	background: white;
+}
+
+.maxWidth {
+	width: 100%;
+}
+
+textarea.input-sm {
+	height: 160px;
+	resize: none;
+}
+
+.ui-autocomplete {
+	max-height: 244px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+}
+
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+</style>
+		<script>
+			var j$ = jQuery.noConflict();
+
+			var hfContactId = j$('[id$="hfContactId"]');
+			var txtContactName = j$('[id$="txtContactName"]');
+			var txtSubject = j$('[id$="txtSubject"]');
+			var txtDescription = j$('[id$="txtDescription"]');
+
+			function refreshFeed() {
+				Sfdc.canvas.publisher.publish({
+					name : 'publisher.refresh',
+					payload : {
+						feed : true
+					}
+				});
+			}
+
+			function showMessage() {
+				window.console&&console.log(">>>> showing the error message");
+				window.console&&console.log("current class = "
+						+ j$('[id$="pnlMessage"]').attr("class"));
+				j$('[id$="pnlMessage"]').removeClass('hide').addClass('show');
+				window.console&&console.log("after current class = "
+						+ j$('[id$="pnlMessage"]').attr("class"));
+				j$(".message").show();
+
+			}
+
+			function hideMessage() {
+				window.console&&console.log(">>>> hiding the error message");
+				j$('[id$="pnlMessage"]').removeClass('show').addClass('hide');
+				j$(".message").hide();
+			}
+
+			function showErrorPanel(msg) {
+				window.console&&console.log("error Message: " + msg);
+
+				j$(".messageText").html(msg);
+				showMessage();
+			}
+
+			function createLog() {
+				var caseId = '{!$CurrentPage.parameters.id}';
+				hfContactId = j$('[id$="hfContactId"]');
+				txtContactName = j$('[id$="txtContactName"]');
+				txtSubject = j$('[id$="txtSubject"]');
+				txtDescription = j$('[id$="txtDescription"]');
+			
+				var contactId = hfContactId.val() != null ? hfContactId.val().trim() : '';
+				var contactName = txtContactName.val() != null ? txtContactName.val().trim() : '';
+				var subject = txtSubject.val() != null ? txtSubject.val().trim() : '';
+				var description = txtDescription.val() != null ? txtDescription.val().trim() : '';
+				
+				if(subject == '' || description == '') {
+					showErrorPanel('Please enter a subject and a description.');
+				}else {			
+					LogACallControllerExtension.createLog(
+						caseId, 
+						contactId,
+						contactName, 
+						subject, 
+						description, 
+						function(result, event) {
+							if (event.status) {
+								if (result.indexOf('Success') == 0) {
+									window.console&&console.log('George says: create log '
+											+ result);
+
+									sforce.console.getFocusedPrimaryTabId(function(result){
+										sforce.console.refreshPrimaryTabById(result.id, true);
+									});
+								} else {
+									showErrorPanel(result);
+								}
+							}
+						});
+				}
+			}
+
+			function clearContactId() {
+				hfContactId.val('');
+				hideMessage();
+			}
+
+			function onSelectContactLookup(value) {
+				hfContactId.val(value);
+			}
+
+			function synchData_MiniCaseFieldSet_Subject(element) {
+				sforce.console.fireEvent('MiniCaseFieldSet_Subject',
+						j$(element).val(), null);
+			}
+
+			sforce.console.addEventListener('MiniCaseFieldSet_Subject',
+					function(result) {
+						var txtSubject = j$('[id$="txtSubject"]');
+						txtSubject.val(result.message);
+					});
+
+			function synchData_MiniCaseFieldSet_Description(element) {
+				sforce.console.fireEvent('MiniCaseFieldSet_Description', j$(
+						element).val(), null);
+			}
+
+			sforce.console.addEventListener('MiniCaseFieldSet_Description',
+					function(result) {
+						var txtDescription = j$('[id$="txtDescription"]');
+						txtDescription.val(result.message);
+					});
+
+			sforce.console.addEventListener('synchData_MiniCaseFieldSet_Clear',
+					function(result) {
+						setFieldSetFieldValues(true);
+					});
+
+			function setFieldSetFieldValues(clearValues) {
+			window.console&&console.log('George says: js cookie: ' + document.cookie);
+				var t = getCookie('MiniCaseFieldValues');
+				window.console&&console.log('Test cookie: ' + t);
+
+				var json = j$.cookie("MiniCaseFieldValues");
+				window.console&&console.log('Cookie value: ' + json);
+				if (json != null) {
+					var fieldValues = j$.evalJSON(json);
+
+					for ( var propertyName in fieldValues) {
+						if (fieldValues.hasOwnProperty(propertyName)) {
+							if (propertyName == 'Subject__c') {
+								txtSubject.val(fieldValues[propertyName]);
+							} else if (propertyName == 'Description__c') {
+								txtDescription.val(fieldValues[propertyName]);
+							}
+						}
+					}
+				}
+			}
+
+			function setCookie(cname, cvalue, exdays) {
+				var d = new Date();
+				d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+				var expires = "expires=" + d.toGMTString();
+				document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+
+			function getCookie(cname) {
+				var name = cname + "=";
+				var ca = document.cookie.split(';');
+				for (var i = 0; i < ca.length; i++) {
+					var c = ca[i].trim();
+					if (c.indexOf(name) == 0)
+						return c.substring(name.length, c.length);
+				}
+				return "";
+			}
+
+			function checkCookie() {
+				var user = getCookie("username");
+				if (user != "") {
+					alert("Welcome again " + user);
+				} else {
+					user = prompt("Please enter your name:", "");
+					if (user != "" && user != null) {
+						setCookie("username", user, 365);
+					}
+				}
+			}
+			
+			j$(function() {
+				setFieldSetFieldValues(false);
+			});
+		</script>
+		<apex:outputPanel styleClass="blockPanel">
+			<apex:outputpanel layout="block" styleClass="hide" id="pnlMessage">
+				<apex:pagemessage severity="error" strength="3"
+					summary="There is an error" />
+			</apex:outputpanel>
+			<div class="page-header">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-8 col-xs-offset-2">
+							<apex:commandButton styleClass="btn detail" value="Save"
+								onclick="createLog();return false;" rerender="formId"
+								id="btnSave" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<c:pleasewaitoverlay message="" />
+
+			<div id="case-summary">
+				<div class="case-field-float maxWidth">
+					<apex:outputLabel value="Contact Name" for="txtContactName" />
+					<apex:inputText value="{!txtContactName}" id="txtContactName"
+						onkeydown="clearContactId();"
+						styleClass="form-control input-sm string" />
+					<apex:inputHidden id="hfContactId" value="{!hfContactId}" />
+
+					<c:ContactLookupComponent id="ctLookup" assignTo="txtContactName"
+						onselect="onSelectContactLookup" />
+					<br />
+					<apex:outputLabel value="Subject" for="txtSubject" />
+					<apex:inputText value="{!txtSubject}" id="txtSubject" tabindex="60"
+						onchange="synchData_MiniCaseFieldSet_Subject(this);"
+						onkeydown="hideMessage();"
+						styleClass="form-control input-sm string" />
+					<br />
+					<apex:outputLabel value="Description" for="txtDescription" />
+					<apex:inputTextArea value="{!txtDescription}" id="txtDescription"
+						onchange="synchData_MiniCaseFieldSet_Description(this);"
+						onkeydown="hideMessage();" tabindex="60"
+						styleClass="form-control input-sm string" />
+					<br /> <br />
+
+				</div>
+			</div>
+		</apex:outputPanel>
+
+	</apex:form>
+</apex:page>

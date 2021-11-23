@@ -1,0 +1,243 @@
+<!--
+ @description
+ Address validation from AME service.
+ This form presents a tool to search for an address, select an address from a list of addresses.Enter a manual address if
+ the address doesnt not match to that of the service.
+ @author Hara Sahoo
+ @date 2020-07-06
+ @changelog : 
+ 2020-07-06 : Created : Change made for roll out of Safe Drop feature on Missing Items form
+ 2020-11-26 : Added   : hara.sahoo@auspost.com.au Added click tracking for adobe analytics
+ 09/03/2021 : hara.sahoo@auspost.com.au : Changes made as part of tracking id and dpid url paramteres and auto-progression
+-->
+
+<aura:component extends="c:SS_uiWizardPage" controller="ChasSafeDropController" description="Missing Items wizard page 1: Address validation from AME">
+    <!-- Component attributes-->
+    <aura:attribute name="addressLine1" type="String" default =''/>
+    <aura:attribute name="city" type="String" default =''/>
+    <aura:attribute name="state" type="String" default =''/>
+    <aura:attribute name="postcode" type="String" default =''/>
+    <aura:attribute name="inputFieldCount" type="Integer" />
+    <aura:attribute name="selectedAddress" type="String" default =''/>
+    <aura:attribute name="overrideAddress" type="String" default =''/>
+    <aura:attribute name="isOverriden" type="Boolean" default="false"/>
+    <aura:attribute name="addressTyped" type="String" default =''/>
+    <aura:attribute name="imageString" type="String" default = ''/>
+    <aura:attribute name="imageSrc" type="String" default=''/>
+    <aura:attribute name="imageExists" type="Boolean" default="false"/>
+    <aura:attribute name="didItHelp" type="Boolean" default="false"/>
+    <aura:attribute name="dpid" type="String" default =''/>
+    <aura:attribute name="addressMatched" type="String" default=""/>
+    <aura:attribute name="rotate" type="String" default="down" />
+    <aura:attribute name="duplicateCase" type="String" default=''/>
+    <aura:attribute name="isEligibleForMyNetworkAssignment" type="String" default=''/>
+    <aura:attribute name="dpidFromUrl"  type="String" default="" />
+    <aura:attribute name="isFromBackButton"  type="Boolean" default="false" />
+    
+    <!-- Message handling attributes-->
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+    <aura:attribute name="showError" type="Boolean" />
+    <aura:attribute name="error" type="String" default=''/>
+    <aura:attribute name="inputError" type="Boolean" default="false"/>
+    <aura:attribute name="inputFieldError" type="Boolean" default="false"/>
+    <aura:attribute name="formValid" type="Boolean" default="false"/>
+    <aura:attribute name="error500" type="Boolean" default="false"/>
+    <aura:attribute name="inputErr" type="List"/>
+    <aura:attribute name="displaySpinner" type="Boolean" default="false"/>
+    
+    <aura:attribute name="recipientOrSenderRadioGroup" type="List"
+                    default="[
+                             {'label':'Recipient', image:'','id':'firstRadio'},
+                             {'label':'Sender', image:'','id':'secondRadio'}
+                             ]"
+                    description='The radio button label and its image URL to display'/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:handler name="chasGenComponentEvent" event="c:chasGenComponentEvent" action="{!c.onchange}"/>
+    
+    <!--<aura:handler name="render" value="{!this}" action="{!c.onRender}"/>-->
+    <!--Go back button-->
+    <!--<div class="left-padding">
+        <img src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/back_arrow.png" alt="Go back"/><label>&nbsp;</label>
+        <lightning:button label="BACK" variant="base" onclick="{!c.goBackHandler}" class="goBack"/>
+    </div>-->
+    
+    <!--Not relevant anymore, as auto progression skips through these pages-->
+    <!--Error handling if consignment service returns 500 code-->
+    <!--<aura:if isTrue="{!(v.error500)}">
+        <div class="outer-box">
+            <div>
+                <c:ChasInfoTile heading="Whoops, something's gone wrong." image="/chas-icons/pngs/UI/icons/it_error.png">
+                    <p>Please try again in a few minutes.</p>
+                </c:ChasInfoTile>
+            </div>
+        </div>
+    </aura:if>-->
+    
+    <aura:if isTrue="{! and(v.dpidFromUrl !=null  , v.addressMatched == 'Match', !v.isFromBackButton)}">
+        <!--Display a spinner and autoprogress the form, if the tracking Id and dpId are passed in the query parameters-->
+        <lightning:spinner class="{!if(v.displaySpinner, '', 'slds-hidden')}"/>
+        <aura:set attribute="else">
+            <!--Go back button-->
+            <div class="left-padding">
+                <img src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/back_arrow.png" alt="Go back"/><label>&nbsp;</label>
+                <lightning:button label="BACK" variant="base" onclick="{!c.goBackHandler}" class="goBack"/>
+            </div>
+            <!--Address lookup for AME integration-->
+            <aura:if isTrue="{!and(not(v.imageExists),v.addressMatched != 'noMatch')}">
+                <legend class="chas-header left-padding">
+                    <h2>Confirm the delivery address</h2>
+                </legend>
+                <c:ChasForm customStyle="left-padding">
+                    <div class="form-input-container outer-box">
+                        <legend class="bottom-padding chas-heading_medium">
+                            <div style="color: #4D4D54;font-weight:400;">We’ll check that this matches what’s in our system.</div>
+                        </legend>
+                        <legend class="chas-heading_medium">
+                        </legend>
+                        
+                        <!-- Errors -->
+                        <div>
+                            <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }"/>
+                            <c:chasMissingItemAddressLookup aura:id="searchAddress" inputFieldError="{!v.inputFieldError}" inputError="{!v.inputError}" errorMessage="{!v.errorMessage}" onshowError="{!c.getShowError}" onvaluechange="{!c.getOverrideAddress}" onsearchtermchange="{!c.getSelectedAddress}" onaddressOverride="{!c.checkOverride}" onaddressTyped="{!c.getAddressTyped}"/>
+                        </div>
+                        
+                        
+                        <aura:if isTrue="{!(v.error500)}">
+                            <div style="padding-top:32px;">
+                                <c:ChasInfoTile heading="Whoops, something's gone wrong." image="/chas-icons/pngs/UI/icons/it_error.png">
+                                    <p>Please try again in a few minutes.</p>
+                                </c:ChasInfoTile>
+                            </div>
+                        </aura:if>
+                        
+                        
+                        <div style="padding-top:32px;">
+                            <aura:if isTrue="{!not(v.isOverriden)}">
+                                <lightning:button label="Continue" disabled="false" variant="brand" class="{! 'chas-button loading-' + v.isLoading}" onclick="{!c.callRedirectService}"/>
+                            </aura:if>
+                            <aura:if isTrue="{!v.isOverriden}">
+                                <lightning:button label="Continue" disabled="false" variant="brand" class="{! 'chas-button loading-' + v.isLoading}" onclick="{!c.manualEntryFlow}"/>
+                            </aura:if>
+                        </div>
+                        
+                    </div>
+                </c:ChasForm>
+            </aura:if>
+        </aura:set>
+    </aura:if>
+    <!-- Check if the address entered by the user doesnt match to that of the tracking service-->
+    <aura:if isTrue="{! and( not(v.isOverriden) , v.addressMatched == 'noMatch')}">
+        <legend class="chas-header left-padding">
+            <h2>This parcel may have been addressed incorrectly</h2>
+        </legend>
+        <c:ChasForm customStyle="left-padding">
+            <div class=" outer-box">
+                <!--Error summary-->
+                <aura:if isTrue="{! v.showErrorSummary }">
+                    <c:ChasErrorSummary aura:id="chasErrorSummary" errors="{! v.errors }"/>
+                </aura:if>
+                <div class="address-box">
+                    <h4>{!(v.selectedAddress == '' ? v.overrideAddress:v.selectedAddress)}</h4>
+                </div>
+                <legend style="padding-bottom:32px;border-bottom: 1px solid #e2e2e2;">
+                    <h4>This isn’t the delivery address we have in our system. Let’s see what’s happened.</h4>
+                </legend>
+                <!-- Recipient/Sender Radio Buttions Group-->
+                <div class="form-input-container" style="margin-top:32px">
+                    <c:ChasRadioButtons
+                                        aura:id="chasInput"
+                                        name="recipientOrSenderRadioButtons"
+                                        required="true"
+                                        label="Are you the recipient or sender?"
+                                        options="{!v.recipientOrSenderRadioGroup}"
+                                        value="{!v.wizardData.selectedRadio1}"/>
+                </div>
+                <div>
+                    <c:ChasNavButtons nextLabel="Continue" disabled="false" nextAction="{! c.goForward }" />
+                </div>
+            </div>
+        </c:ChasForm>
+    </aura:if>
+    <!-- Display safe drop image, if address matched from the adrress lookup--> 
+    <aura:if isTrue="{!v.imageExists}">
+        <aura:if isTrue="{!not(or(v.dpidFromUrl == null))}">
+            <!--Go back button-->
+            <div class="left-padding">
+                <img src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/back_arrow.png" alt="Go back"/><label>&nbsp;</label>
+                <lightning:button label="BACK" variant="base" onclick="{!c.goBackHandler}" class="goBack"/>
+            </div>
+        </aura:if>
+        <legend class="chas-header_small left-padding ">
+            <h2 style="letter-spacing: .8px;">We left your parcel in a safe place</h2>
+        </legend>
+        <div class="outer-box-div">
+            <legend class="chas-heading_medium">
+                <p class="para1">The postie didn’t need a signature, so they left your parcel at the delivery address and took this photo of the location.</p>
+            </legend>
+            
+            <div class="img-div">
+                <aura:if isTrue="{!v.rotate == 'down'?'true':'false'}">
+                    <img src="{!v.imageSrc}" class="image down" width="280" height="370" alt="safe drop image"></img>
+                </aura:if>
+                <aura:if isTrue="{!v.rotate == 'top'?'true':'false'}">
+                    <img src="{!v.imageSrc}" class="image top" width="280" height="370" alt="safe drop image"></img>
+                </aura:if>
+                <aura:if isTrue="{!v.rotate == 'left'?'true':'false'}">
+                    <img src="{!v.imageSrc}" class="image left" width="280" height="370" alt="safe drop image"></img>
+                </aura:if>
+                <aura:if isTrue="{!v.rotate == 'right'?'true':'false'}">
+                    <img src="{!v.imageSrc}" class="image right" width="280" height="370" alt="safe drop image"></img>
+                </aura:if>
+            </div>
+            <div class="img-footer-div">
+                <aura:if isTrue="{!v.wizardData.safedropDelivered != null}">
+                    <p style="color: #4D4D54;padding-bottom:24px">Photo taken at {!v.wizardData.safedropDelivered}</p>
+                </aura:if>
+                
+                <div style="display: flex;">
+                    <div class="inner-action" onclick="{!c.download}">
+                        <img style="padding-right:8px" src="{! $Resource.ChasIcons + '/chas-icons/svgs/UI/icons/Download.svg' }" alt="Download image"/>
+                        <label>Download</label>
+                    </div>
+                    <div class="inner-action" onclick="{!c.toggle}">
+                        <img style="padding-right:8px" src="{! $Resource.ChasIcons + '/chas-icons/svgs/UI/icons/Rotate.svg' }" alt="Rotate image"/>
+                        <label>Rotate</label>
+                    </div>
+                </div>            
+            </div>
+            <!--Navigation buttons-->
+            <!-- 1. Still need to submit an enquiry? = Case creation form-->
+            <!-- 2. No,this helped = Redirects to the feedback survey form(external)-->
+            
+            <div class="para2" style="padding-top:40px">
+                <aura:if isTrue="{!and(v.imageExists , !v.didItHelp)}">
+                    <legend class="chas-heading_small">
+                        <div style="margin-bottom:8px">Still need to submit an enquiry?</div>
+                    </legend>
+                    <legend class="chas-heading_medium">
+                        <div style="color: #4D4D54;font-weight:400;">No need to call – most enquiries like this go straight to the postie for them to investigate.</div>
+                    </legend>
+                    <div class="chas-button-box">
+                        <lightning:button label="Yes, continue" variant="brand" class="chas-button" onclick="{!c.goForward}"/>
+                        <!--<c:ChasNavButtons nextLabel="Yes,continue" disabled="false" nextAction="{! c.goForward }" />-->
+                        <label>&nbsp;</label><label>&nbsp;</label>
+                        <lightning:button label="No, this helped" variant="neutral" class="chas-button btn-padding" onclick="{!c.requestSurvey}"/>
+                    </div>
+                </aura:if>
+                
+                <!--Feedback survey-->
+                <aura:if isTrue="{!and(v.imageExists ,v.didItHelp)}">
+                    <legend class="slds-form-element__label">
+                        <h3 style="letter-spacing: .8px;">We're glad to hear it!</h3>
+                    </legend>
+                    <legend>
+                        <h4 style="color: #4D4D54;letter-spacing: .8px;">Showing the photo here is something new for us, so we'd love to hear your feedback. Otherwise, you can simply leave this page.</h4>
+                    </legend>
+                    <div class="chas-button-box">
+                        <lightning:button label="Give feedback" variant="neutral" class="chas-button" onclick="{!c.giveFeedback}"/>
+                    </div>
+                </aura:if>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

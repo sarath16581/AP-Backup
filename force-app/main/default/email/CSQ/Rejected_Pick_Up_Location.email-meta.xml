@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>SFDC_Blank</letterhead>
+    <name>Rejected Pick Up Location</name>
+    <style>freeForm</style>
+    <subject>Rejected Pick Up Location</subject>
+    <textOnly>Hello There,
+
+Please note that this location has been rejected.
+
+Location Type: {!Pick_Up_Location__c.Location_Type__c}
+Sales Team: {!Pick_Up_Location__c.CSQ_Sales_team__c}
+State:{!Pick_Up_Location__c.State__c}
+Service:{!Pick_Up_Location__c.Service_final__c}
+Post Code: {!Pick_Up_Location__c.Postcode__c}
+
+https://auspost.my.salesforce.com/{!Pick_Up_Location__c.Id}
+
+Approver Comments :  {!ApprovalRequest.Comments}
+
+Thanks,
+
+Salesforce Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,78 @@
+<!--
+    STP:20/02/2020: 
+    This is the parent component which contains a sub component which queries and display the each selected product questions.
+-->
+<aura:component controller='BG_QualificationApex'>
+    <aura:attribute name="selectedProducts" type="List"/>
+    <aura:attribute name="selectedProductsQuestions" type="Map" />
+    <aura:attribute name="selectedProductRelatedQuestions" type="Map"/>
+    <aura:attribute name="currentProgressStep" type="Integer" default='3'/>
+    <aura:attribute name="hasErrorInCurrentStep" type="Boolean" default='false'/>
+    <aura:attribute name="errorMessage" type="String" default='Please make sure the required questions are answered on all Customer Needs Category tabs before proceeding.'/>    
+    <aura:attribute name="showErrorMessage" type="Boolean" default='false'/>
+    <aura:attribute name="qualificationRecordId" type="String" />
+    <aura:attribute name="existingQualification" type="Object"/>
+    <aura:attribute name="editFlow" type="Boolean" default='false' />
+    <aura:attribute name="hasBgSalesPermissionSet" type="Boolean" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="isManualOpp" type="Boolean" />
+
+    <aura:attribute name="discoveryCategoryQuestions" type="Object"/>
+    <aura:attribute name="productEstimateMap" type="Map" default='{}' />
+    <aura:attribute name="productNotesMap" type="Map" default='{}'/>
+    <aura:attribute name="totalEstimatedRevenue" type="Decimal" default=''/>
+    <aura:attribute name="summaryNotes" type="String" default=''/>
+    <aura:attribute name="selectedPrimaryProduct" type="String"/>
+    
+    <aura:attribute name="isLoading" type="Boolean" default='false'/>
+    <aura:attribute name="savedAsDraft" type="Boolean" default='false'/>
+
+    <!--Event cmp -->
+    <aura:registerEvent name="genCmpEvent" type="c:BG_GenericComponentEvent"/>
+    
+    <!-- Progress BAR -->
+    <div>
+        <c:BG_QualificationProgressIndicator currentProgressStep='{!v.currentProgressStep}'
+                                             hasErrorInCurrentStep='{!v.hasErrorInCurrentStep}'/>
+        <br/>
+    </div>
+    
+    <div class='slds-text-align_left headFont'>
+        Customer Needs Questions
+    </div>
+    
+    <div style='width:100%; overflow-x: scroll;' >
+        <c:BG_SelectedProductsQuestions aura:id='field'  selectedProducts='{!v.selectedProducts}'
+                                        selectedProductsQuestions='{!v.selectedProductsQuestions}'
+                                        selectedProductRelatedQuestions='{!v.selectedProductRelatedQuestions}'
+                                        qualId='{!v.qualId}'
+                                        existingQualification='{!v.existingQualification}'
+                                        recordId='{!v.recordId}'
+                                        isManualOpp='{!v.isManualOpp}' />
+    </div> 
+    <!-- ERROR Message -->
+    <aura:if isTrue='{!v.showErrorMessage == true}'>
+        <p class='errorFont'>{!v.errorMessage}</p>
+    </aura:if>
+    <aura:if isTrue="{!v.isLoading}">
+            <div >
+                <lightning:spinner alternativeText="Loading" size="small" />
+            </div>            
+        </aura:if> 
+        <aura:if isTrue="{!v.savedAsDraft}">
+            <div>
+                <p class='slds-text-color_success'>Saved as draft</p>
+            </div>            
+        </aura:if> 
+    <!--Buttons Section -->
+    <div class='slds-grid slds-wrap'>
+        <div class='slds-size_1-of-2 slds-text-align_left'>
+            <lightning:button aura:Id='saveButton' onclick="{!c.saveResponse}" label="Save for later" variant="brand-outline" />
+        </div>
+        <div class='slds-size_1-of-2 slds-text-align_right'>
+            <lightning:button aura:Id='back2'  onclick="{!c.showPrductServices}" label="Back" variant="brand-outline" />
+            <lightning:button aura:Id='nextButton'  onclick="{!c.showReview}" label="Next" variant="brand" />
+        </div>
+    </div>
+    
+</aura:component>

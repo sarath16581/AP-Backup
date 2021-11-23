@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Quick_Proposal</fullName>
+    <availability>online</availability>
+    <description>Quickly create opportunity with defaults and navigate user in to a new proposal</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Quick Proposal</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/37.0/connection.js&quot;)} 
+
+var oppty = new sforce.SObject(&quot;Opportunity&quot;); 
+
+oppty.Name = &apos;Quick Opportunity&apos;;
+oppty.AccountId = &apos;{!Account.Id}&apos;; 
+oppty.Type = &apos;Existing Customer&apos;; 
+oppty.Offering_Type__c = &apos;Product&apos;; 
+oppty.StageName = &apos;Identify&apos;; 
+oppty.CloseDate = &apos;2016-12-01&apos;; 
+
+var result = sforce.connection.create([oppty]); 
+
+if(result[0].getBoolean(&quot;success&quot;)){ 
+window.location = &quot;/apex/Apttus_Proposal__OpportunityProposalNew?id=&quot; + result[0].id + &quot;&amp;recordTypeId=012O000000010MdIAI&quot;; 
+}else{ 
+alert(&apos;Could not create record &apos;+result); 
+}</url>
+</WebLink>

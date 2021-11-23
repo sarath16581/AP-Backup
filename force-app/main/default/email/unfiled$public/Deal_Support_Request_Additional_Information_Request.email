@@ -1,0 +1,12 @@
+Hi {!Deal_Support_Request__c.Requestor__c}
+
+Support Team has requested below information for your request :
+{!Deal_Support_Request__c.Additional_Information_Requested__c}
+
+Kindly navigate to the request using below link to assist with the information.
+{!Deal_Support_Request__c.Link}
+
+Upon Providing the necessary details, Re-submit the request to the Support team by clicking Re-Submit Button on Request
+
+Regards
+Deal Support Team

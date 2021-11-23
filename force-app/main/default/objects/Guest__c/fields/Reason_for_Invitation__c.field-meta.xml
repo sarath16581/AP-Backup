@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_for_Invitation__c</fullName>
+    <externalId>false</externalId>
+    <label>Reason for Invitation</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New opportunity</fullName>
+                <default>false</default>
+                <label>New opportunity</label>
+            </value>
+            <value>
+                <fullName>Increase engagement</fullName>
+                <default>false</default>
+                <label>Increase engagement</label>
+            </value>
+            <value>
+                <fullName>Close deal</fullName>
+                <default>false</default>
+                <label>Close deal</label>
+            </value>
+            <value>
+                <fullName>Influence</fullName>
+                <default>false</default>
+                <label>Influence</label>
+            </value>
+            <value>
+                <fullName>Support</fullName>
+                <default>false</default>
+                <label>Support</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Validate_Average_Chargeable_Weight</fullName>
+    <active>true</active>
+    <errorConditionFormula>(Apttus_Config2__LineItemId__r.Apttus_Config2__ProductId__r.ProductCode == &apos;eParcelStandard&apos; || Apttus_Config2__LineItemId__r.Apttus_Config2__ProductId__r.ProductCode == &apos;eParcelExpress&apos;) &amp;&amp; ( APT_Average_Chargeable_Weight_Kg__c &lt; 0.5)</errorConditionFormula>
+    <errorMessage>Invalid Average Chargeable Weight (Kg). Minimum value can be 0.5 kg.</errorMessage>
+</ValidationRule>

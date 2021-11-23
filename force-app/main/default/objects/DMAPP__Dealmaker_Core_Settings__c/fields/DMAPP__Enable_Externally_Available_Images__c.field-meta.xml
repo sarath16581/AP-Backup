@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Enable_Externally_Available_Images__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If this option is enabled this will allow all the images that are uploaded to our Salesforce instance to be externally available</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If this option is enabled this will allow all the images that are uploaded to our Salesforce instance to be externally available</inlineHelpText>
+    <label>Enable Externally Available Images</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Submit_TE_for_Approval__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF ( 
+OR( 
+AND (ISPICKVAL(Status_Category__c,&quot;In Authoring&quot;), ISPICKVAL(Status__c,&quot;Author Contract&quot;)), 
+AND (ISPICKVAL(Status_Category__c,&quot;In Authoring&quot;), ISPICKVAL(Status__c,&quot;Submitted Request&quot;)), 
+AND( 
+ISPICKVAL(Status_Category__c,&quot;Request&quot;), 
+OR(ISPICKVAL(Status__c,&quot;Request&quot;),ISPICKVAL(Status__c,&quot;In Amendment&quot;),ISPICKVAL(Status__c,&quot;In Renewal&quot;),ISPICKVAL(Status__c,&quot;&quot;)) 
+) 
+), HYPERLINK(&quot;/apex/Apttus_Approval__ApprovalContextSubmit?sObjectType=Apttus__APTS_Agreement__c&amp;sObjectId=&quot;&amp;Id, IMAGE(&quot;/resource/Apttus__Button_SubmitRequest&quot;, &quot;Submit Request&quot;),&quot;_self&quot;), NULL)</formula>
+    <label>Submit TE for Approval</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

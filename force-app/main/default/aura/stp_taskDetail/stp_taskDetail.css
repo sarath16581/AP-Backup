@@ -1,0 +1,29 @@
+.THIS .paper-card {
+    /*    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+    border-radius: 3px;
+}
+
+.THIS .startrack-btton-separator {
+    margin-right:2px ;
+}
+
+.THIS .task-details {
+    margin-left:5px;
+}
+
+.THIS .custom-post-button {
+    margin-bottom: .75rem;
+    margin-top: .75rem;
+}
+
+.THIS .feed-item-container {
+    background-color: red;
+}
+
+.THIS .input-element {
+     display: flex;
+ }
+
+ .THIS :lightning-input :input-element ::label {
+     width:80%;
+ }

@@ -1,0 +1,31 @@
+<!--Component for the Post Idea or Join Ideas group section on Ideas List Page-->
+<aura:component controller="brideas_IdeasCtrl" implements="forceCommunity:availableForAllPageTypes" access="global">
+	<aura:attribute name="commonVars" type="Object" description="Used to share common variables for child components" />    
+	<aura:attribute name="userInfo" type="Object" description="Represents information about current user" />
+	<aura:attribute name="showCreateModal" type="Boolean" default="true" description="Define visibility of modal window with idea creating form" />
+	<aura:attribute name="showJoinGroupModal" type="Boolean" default="true" description="Define visibility of modal window with survey in iframe" />
+    <aura:attribute name="communityName" type="String" access="global" />
+    <aura:attribute name="filters" type="Object" description="All filters options and status" />
+    
+	<aura:registerEvent name="ideasErrorEvent" type="c:brideas_Error" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />    
+    
+    <div class="slds-col slds-size--1-of-1 slds-order--1 slds-large-size--1-of-3 slds-large-order--2 slds-p-left--medium right-col">
+                <div class="post-idea-button slds-p-right--small">
+                    <aura:if isTrue="{!and(not(empty(v.userInfo.Super)), equals(v.userInfo.Super,'true'))}">
+                        <lightning:button label="{!$Label.c.OpenPostIdea}" class="big-button" onclick="{!c.openCreateDialog}" variant="base" title="Click to post an idea"/>
+                    </aura:if>
+                    <aura:if isTrue="{!notequals(v.userInfo.Super,'true')}">
+                        <lightning:button label="{!$Label.c.JoinIdeasGroup}" class="big-button join" onclick="{!c.joinIdeasGroup}" variant="base" title="Click to join the ideas group"/>
+                    </aura:if>
+                </div>
+   </div>
+   
+<c:brideas_CreateForm isVisible="{!v.showCreateModal}"
+                              communityName="{!v.communityName}"
+                              categoryOptions="{!v.filters.category.options}" 
+                              activeCategory="{#v.filters.category.selected}">
+</c:brideas_CreateForm>
+<c:brideas_JoinGroupForm isVisible="{!v.showJoinGroupModal}" />
+</aura:component>

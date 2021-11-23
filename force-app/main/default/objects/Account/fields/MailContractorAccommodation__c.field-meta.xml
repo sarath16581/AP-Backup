@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MailContractorAccommodation__c</fullName>
+    <description>Number of mail contractors accommodated</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Number of mail contractors accommodated.</inlineHelpText>
+    <label>Mail Contractor Accommodation</label>
+    <precision>10</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

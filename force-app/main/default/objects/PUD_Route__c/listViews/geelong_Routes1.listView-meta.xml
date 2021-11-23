@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>geelong_Routes1</fullName>
+    <columns>NAME</columns>
+    <columns>Depot__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>Gee</value>
+    </filters>
+    <label>geelong Routes</label>
+    <sharedTo>
+        <group>GEELONG_MAIL_CENTRE_TRANSPORT</group>
+    </sharedTo>
+</ListView>

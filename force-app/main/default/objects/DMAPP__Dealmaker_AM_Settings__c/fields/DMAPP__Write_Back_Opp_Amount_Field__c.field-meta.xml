@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Write_Back_Opp_Amount_Field__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Should the opportunity amount be written back to the custom field</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If you have set a value in the &apos;Opp Amount Field&apos; this field should be ticked. This will mean that when you qualify a potential opportunity its amount value will be saved to the custom Opp Amount Field you have set.</inlineHelpText>
+    <label>Write Back Opp Amount Field</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

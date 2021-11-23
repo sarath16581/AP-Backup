@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Item_Shortage_Number_Check</fullName>
+    <active>true</active>
+    <description>No. of Item Shortage can&apos;t be greater than the total number of items in the consignment.</description>
+    <errorConditionFormula>AND(OR(ISPICKVAL(Enquiry_Type__c,&quot;SF25&quot;),ISPICKVAL(Enquiry_Type__c,&quot;Final Shortage&quot;)), OR(ISPICKVAL(ResolutionCode__c, &quot;Resolved - Final Shortage&quot;),ISPICKVAL(ResolutionCode__c, &quot;Unresolved - Final Shortage&quot;)), ISPICKVAL(Status, &quot;Closed&quot;), No_of_Item_s_Short__c &gt;  CalculatedNumberofItems__c)</errorConditionFormula>
+    <errorDisplayField>No_of_Item_s_Short__c</errorDisplayField>
+    <errorMessage>Number of items short can&apos;t be greater than the number of items in the consignment</errorMessage>
+</ValidationRule>

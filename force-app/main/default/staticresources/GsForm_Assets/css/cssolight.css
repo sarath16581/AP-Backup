@@ -1,0 +1,314 @@
+/* CSSO Light custom CSS 
+Developer: George Metaxas
+Australia Post
+
+DATE: 2012
+
+*/
+/* Global overrides */
+h1 {
+	font-size:35px!important;
+}
+.cssolight-container a {
+	text-decoration: underline;
+}
+a.cancel-link {
+	margin:15px 20px 0 0!important;
+}
+.form-buttons a,.form-buttons input[type="submit"],.form-buttons input[type="button"],.form-buttons button {
+	float:left;
+}
+.tabs-is-white .nav-container {
+	display: block !important;
+	border-spacing: 0px !important;
+	margin: 0 -1px -1px !important;
+}
+.content-panel {
+	min-height: 500px;
+}
+
+/************/
+/* CSSO widget global */
+dl.csso-global {
+	margin: 0 0 0 auto !important;
+	width: 270px;
+	text-align: right;
+}
+dl.csso-global dt span.csso-icon {
+	background: url(images/csso-account2.png) no-repeat left 0;
+	height: 20px;
+	padding-left: 25px;
+	display: inline-block;
+	vertical-align: middle;
+}
+dl.csso-global dt.active-session span.acc-options {
+	background: url(images/csso-drop-arrow.png) no-repeat right 0;
+	height: 8px;
+	padding: 0 0 2px 20px;
+	display: inline-block;
+	vertical-align: middle;
+}
+dt.active-session {
+	text-align: right;
+	z-index: 100;
+}
+dd.csso-menu {
+	margin: 3px 0 0 0 !important;
+	z-index: 1000;
+	position: relative;
+	background: #5e514d;
+	-webkit-border-bottom-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	width: 202px;
+	left: 68px;
+}
+ul.csso-options {
+	padding-bottom: 10px;
+}
+ul.csso-options li {
+	float: none !important;
+	font-family: "letter_one",Arial,sans-serif;
+	font-size: 13px;
+	padding: 6px 20px;
+	margin: 0 !important;
+	text-align: left !important;
+} 
+ul.csso-options li a {
+	color: #fff;
+}
+ul.csso-options li a:hover {
+	color: #fff;
+}
+ul.csso-options li.first {
+	padding-top: 20px;
+}
+ul.csso-options li.acc-no {
+	font-family: Arial,sans-serif;
+	background: #edeae6 !important;
+	padding: 18px 20px !important;
+}
+ul.csso-options li.acc-no span {
+	font: normal 16px/26px letter_one,Arial,sans-serif !important;
+	color: #5e514d !important;
+	display: inline-block;	
+}
+/***********/
+/* CMS My account page headings and MORE GLOBAL */
+.form-success {
+padding: 15px 18px 15px 18px;
+margin: 20px 0;
+border: 2px solid #067a3d;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+color: #067a3d;
+}
+.form-success h3 {
+font: 700 13px/20px Arial,sans-serif;
+color: #067a3d;
+margin: 0 0 6px 0;
+}
+.form-success h3.only {
+font: 700 13px/20px Arial,sans-serif;
+color: #067a3d;
+margin: 0;
+}
+.grid-heading {
+	padding: 20px;
+	background: #E2DFDA;
+	-webkit-border-radius: 3px;
+border-radius: 3px;
+margin-bottom: 15px;
+}
+.grid-heading h2 {
+	margin-bottom: 0 !important;
+}
+.grid-heading span.mini-vector {
+	float: right;
+	margin-top: -15px !important;
+}
+/***********/
+
+body.fancybox {
+	min-width: 610px !important;
+	width: 610px !important;
+}
+.cssolight-container {
+	background:#fff;
+	width:610px;
+	padding: 15px;
+}
+
+form.csso-create-account {
+	margin:10px 0;
+}
+
+form.csso-login {
+	margin-bottom:10px;
+}
+.form a {
+	text-decoration: underline;
+}
+.form a.primary-cta, .form a.secondary-cta {
+	text-decoration: none !important;
+}
+.cssolight-container h1 {
+	margin-top:0!important;
+}
+
+.form-tabs {
+	border:1px solid #D9D5CE;
+	padding:20px 20px 0!important;
+}
+
+.cssolight-container ul.tabs-back-next {
+	display:none!important;
+}
+
+.tabs-container,.tabs-container .tabs {
+	margin:0!important;
+}
+
+span.label-note {
+	color:#A79A9A;
+}
+.input-email {
+	width: 350px;	
+}
+input.email-field {
+	width: 250px;
+}
+
+.form-actions {
+	float:right;
+	clear:both;
+	display:inline-block;
+}
+
+.csso-password input {
+	width:248px!important;
+}
+form fieldset.subscriptionContainer {
+	margin: 0px !important;
+}
+
+/* Password indicator */
+.password {
+	font-size:13px;
+	border:1px solid #c93;
+	width:200px;
+	font-family:arial,sans-serif;
+}
+
+.pstrength-minchar {
+	font-size:10px;
+}
+
+.csso-strength-indicator {
+	margin-left:20px;
+	display:inline-block;
+	position:relative;
+	width:150px;
+	top:-8px;
+}
+
+span.secure-lock {
+	float:left;
+	background:url(images/secure-lock-inner.png) no-repeat left 0;
+	height:30px;
+	display:block;
+	padding:0 0 0 25px;
+	width:45px;
+	font-size:10px;
+	line-height:14px;
+	margin:10px 0 0 10px;
+}
+
+.disclaimer {
+	margin:0 0 10px!important;
+	padding-top:0!important;
+	border:0!important;
+}
+
+.intro-content .value-proposition {
+	margin-bottom:0!important;
+}
+
+.two-step .step-callout {
+	width:285px;
+	float:left;
+}
+
+.step-callout {
+	margin-right:20px;
+}
+
+.step-callout h1,.step-callout h2 {
+	color:#DC1928;
+}
+
+.step-callout h1 {
+	margin-bottom:0!important;
+}
+
+.step-callout-container .last {
+	margin-right:0!important;
+}
+
+/* Account info module */
+.csso-account-info {
+	border:1px solid #E2DFDA;
+	padding:19px 19px 9px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	margin:20px 0;
+}
+
+.account-details,.account-number {
+	float:left;
+	width:365px;
+}
+
+.account-details {
+	border-right:1px solid #E2DFDA;
+	margin-right:20px;
+}
+
+.account-details h2 {
+	margin:0!important;
+}
+
+.acc-options input {
+	float:left;
+	margin-right:10px;
+}
+.acc-options a {
+	float:left;
+	margin-right:10px;
+}
+
+.account-details p span,p.cust-no span {
+	font:normal 16px/26px letter_one,Arial,sans-serif;
+	color:#5E514D;
+}
+
+p.cust-no {
+	margin-top:0!important;
+}
+
+.grid-items li .redirect-list {
+	margin-left:-241px;
+}
+
+
+/****** IE8 CSS fixes *****/
+.lt-ie9 .tabs-is-white .nav-container {
+	margin: 0 0 -1px !important;
+}
+html.no-flexbox body.lt-ie9 {
+	min-width: 610px !important;
+}
+.lt-ie9 .input-large {
+	width: 410px !important;
+}

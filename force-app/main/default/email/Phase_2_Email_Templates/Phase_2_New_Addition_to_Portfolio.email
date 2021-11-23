@@ -1,0 +1,6 @@
+The following organisation has been added to your portfolio: 
+
+Organisation: {!Account.Name} 
+Number: {!Account.AccountNumber} 
+
+You can use this link to view the Organisation: {!Account.Link}

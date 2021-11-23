@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>FileSearchActivity</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>This report helps monitor the performance of files</description>
+    <label>File Search Activity</label>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>SearchTerm</field>
+            <table>FileSearchActivity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>QueryDate</field>
+            <table>FileSearchActivity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CountQueries</field>
+            <table>FileSearchActivity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CountUsers</field>
+            <table>FileSearchActivity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>AvgNumResults</field>
+            <table>FileSearchActivity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Period</field>
+            <table>FileSearchActivity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>QueryLanguage</field>
+            <table>FileSearchActivity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ClickRank</field>
+            <table>FileSearchActivity</table>
+        </columns>
+        <masterLabel>File Search Activity</masterLabel>
+    </sections>
+</ReportType>

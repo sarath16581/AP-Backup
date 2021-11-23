@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InboundQueryApiAsyncStatusInterval__c</fullName>
+    <description>The number of minutes in between each async soql status check. Should be between 5-20 minutes</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The number of minutes in between each async soql status check. Should be between 5-20 minutes</inlineHelpText>
+    <label>Inbound Query Api Async Status Interval</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,28 @@
+<!--
+* @author       : Jansi Rani. jansi.rani@auspost.com.au
+* @date         : 05/10/2020
+* @description  : Component for display a Content Document (File).
+--------------------------------------- History --------------------------------------------------
+05.10.2020    Jansi Rani   Created
+-->
+<template>
+  <template if:true={contentVersion}>
+    <td class="table-first-cell">
+      <a href="Javascript:void(0);" class="underline-dec" onclick={handleDownload}>{contentVersion.Title}</a>
+      <div lwc:dom="manual" id="downloader"></div>
+    </td>
+    <!--<td>{bilingAccName}</td>-->
+    <td> {contentVersion.Document_Type__c} </td> 
+    <td> <lightning-formatted-date-time value={contentVersion.Document_Date__c} year="numeric" month="numeric"
+      day="numeric"> </lightning-formatted-date-time></td>
+    <td> {contentVersion.Document_Interval__c} </td>
+    <td> {contentVersion.VersionNumber} </td>
+    <td>
+      <lightning-formatted-date-time value={contentVersion.ContentModifiedDate} year="numeric" month="numeric"
+        day="numeric">
+      </lightning-formatted-date-time>&nbsp;
+      <lightning-formatted-date-time value={contentVersion.ContentModifiedDate} hour="2-digit" minute="2-digit"
+        hour12="true"></lightning-formatted-date-time>
+    </td>
+  </template>
+</template>

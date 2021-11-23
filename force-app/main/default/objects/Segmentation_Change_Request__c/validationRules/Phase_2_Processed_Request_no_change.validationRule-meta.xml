@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phase_2_Processed_Request_no_change</fullName>
+    <active>true</active>
+    <errorConditionFormula>text(PRIORVALUE(  Approval_Status__c))=&quot;Processed&quot;||text(PRIORVALUE( Approval_Status__c))=&quot;Cancelled&quot;</errorConditionFormula>
+    <errorMessage>Processed or Cancelled Change Requests cannot be modified. Please raise another Request if needed.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,15 @@
+:host {
+    display: table-row;
+}
+
+.boldRow{
+    font-weight: bold; 
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+.checkbox-border{
+    border-color: black;
+}

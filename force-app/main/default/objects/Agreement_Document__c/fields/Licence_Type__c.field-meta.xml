@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Licence_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Licence Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>LPO</fullName>
+                <default>false</default>
+                <label>LPO</label>
+            </value>
+            <value>
+                <fullName>CPA</fullName>
+                <default>false</default>
+                <label>CPA</label>
+            </value>
+            <value>
+                <fullName>CMA</fullName>
+                <default>false</default>
+                <label>CMA</label>
+            </value>
+            <value>
+                <fullName>PP</fullName>
+                <default>false</default>
+                <label>PP</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

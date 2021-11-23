@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This calls a flow that allows LBP to select from the identified products</description>
+    <flowDefinition>LPO_Add_Products</flowDefinition>
+    <label>Select Essential Products</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

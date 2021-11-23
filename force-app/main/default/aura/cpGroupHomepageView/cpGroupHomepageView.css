@@ -1,0 +1,99 @@
+/*  **********************************************
+   @import 'variables';
+   Sass Variables
+   Are
+   Here
+   ***********************************************
+*/
+
+
+/*  **********************************************
+   Home page group feed custom component
+   Is
+   Here
+   ***********************************************
+*/
+
+.THIS.cp-chatter-group-block {
+    background: #feeee9;
+}
+
+.THIS .cp-chatter-group-block-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+.THIS ul.cp-chatter-group-iterations {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 12px;
+}
+
+.THIS li.cp-chatter-group-feed-items {
+    background: white;
+    width: 100%;
+    min-height: 114px;
+    border-radius: 5px;
+    margin-bottom: 12px;
+    padding: 20px;
+}
+
+.THIS li.cp-group-name {
+    margin-bottom: 12px;
+}
+
+.THIS li.cp-group-name h3 {
+    font-family: 'letterbold';
+    font-size: 16px;
+    line-height: 125%;
+}
+
+.THIS ul.cp-group-card-lower {
+    display: flex;
+    align-items: center;
+}
+
+.THIS ul.cp-group-card-lower li.cp-group-date {
+    padding-left: 12px;
+}
+
+.THIS img {
+    border-radius: 8px;
+}
+
+@media (min-width: 500px) {
+    .THIS li.cp-chatter-group-feed-items {
+        width: 48%;
+    }
+}
+
+.THIS .cp-group-button-box {
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 85px;
+}
+
+.THIS .cp-a-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 3px;
+    min-width: 200px;
+    height: 50px;
+    margin: 50px 0 70px;
+}
+
+.THIS .cp-a-button a {
+    width: 100%;
+    height: 100%;
+    padding: 12px 24px;
+}
+
+.THIS .cp-a-button a span {
+    font-family: 'letterbold';
+}

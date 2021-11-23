@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Requested_For__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Only the requestor&apos;s manager is able to create a case. This is used for Sales Manager Review Exception cases.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>These cases can only be created by your Manager. The “Requestor” field is to be used for the Account Manager or Sales Representative that wants to make the claim</inlineHelpText>
+    <label>Requestor</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>1 OR 2 OR (3 AND 4)</booleanFilter>
+        <errorMessage>You are not the current manager of the person named in the “Requestor” field. Only the manager has permissions to create a case.</errorMessage>
+        <filterItems>
+            <field>User.Manager.Username</field>
+            <operation>equals</operation>
+            <valueField>$User.Username</valueField>
+        </filterItems>
+        <filterItems>
+            <field>$Profile.Name</field>
+            <operation>equals</operation>
+            <value>OPC Adminstration, System Administrator, Sales Operations Super User, Sales Admin</value>
+        </filterItems>
+        <filterItems>
+            <field>$UserRole.Name</field>
+            <operation>contains</operation>
+            <value>Sales Manager, Director Sales, Team Leader</value>
+        </filterItems>
+        <filterItems>
+            <field>User.Username</field>
+            <operation>equals</operation>
+            <valueField>$User.Username</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Cases2</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

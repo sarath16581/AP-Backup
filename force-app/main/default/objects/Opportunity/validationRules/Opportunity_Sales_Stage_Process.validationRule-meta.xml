@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Sales_Stage_Process</fullName>
+    <active>true</active>
+    <description>This validation rule will not allow users to set an Opporunity Stage to a previous stage. 26/03/18 updated to exclude &apos;Sales Admin&apos;</description>
+    <errorConditionFormula>IF (($Profile.Name &lt;&gt; &quot;System Administrator&quot; &amp;&amp; $Profile.Name &lt;&gt; &quot;Sales Admin&quot; ) &amp;&amp; Calculated_Sales_Stage_Number__c &lt; PRIORVALUE( Calculated_Sales_Stage_Number__c ), true, false)</errorConditionFormula>
+    <errorMessage>You are not allowed to go back in the Sales Process.</errorMessage>
+</ValidationRule>

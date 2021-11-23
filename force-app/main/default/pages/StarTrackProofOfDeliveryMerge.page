@@ -1,0 +1,35 @@
+<apex:page standardController="Proof_of_Delivery__c" showHeader="false" sidebar="false">
+    <table style="border-collapse:collapse;border-spacing:0;width:100%;">
+        <tr>
+            <td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;width:20%;"><apex:image url="{!$Resource.StarTrackLogo}" width="130" height="153"/></td>
+            <td style="font-family:Arial, sans-serif;font-size:36px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;">Proof of Delivery</td>
+        </tr>
+    </table><br/><br/>
+    <table style="border-collapse:collapse;border-spacing:0;width:100%;">
+        <tr>
+            <td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;width:20%;">Consignment #:</td>
+            <td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;">{!Proof_of_Delivery__c.Consignment__r.Name}</td>
+        </tr>
+        <tr>
+            <td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;width:20%;">Article Listing:</td>
+            <td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;">{!Proof_of_Delivery__c.Article_Listing__c}</td>
+        </tr>        
+        <tr>
+            <td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;width:20%;">Received Date:</td>
+            <td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;">{!Proof_of_Delivery__c.POD_Received_Date__c}</td>
+        </tr>
+        <tr>
+            <td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;width:20%;">Delivery Address:</td>
+            <td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;">{!Proof_of_Delivery__c.Delivery_Address__c}</td>
+        </tr>
+        <tr>
+            <td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;width:20%;">Signed By:</td>
+            <td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;">{!Proof_of_Delivery__c.Signed_by__c}</td>
+        </tr>
+    </table><br/><br/>
+    <table style="border-collapse:collapse;border-spacing:0;width:100%;">
+        <tr>
+            <td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;"><apex:image url="/servlet/servlet.FileDownload?file={!Proof_of_Delivery__c.AttachmentId__c}"/></td>
+        </tr>
+    </table>
+</apex:page>

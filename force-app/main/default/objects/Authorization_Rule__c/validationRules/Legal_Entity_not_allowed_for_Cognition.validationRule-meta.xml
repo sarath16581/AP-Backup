@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Legal_Entity_not_allowed_for_Cognition</fullName>
+    <active>true</active>
+    <description>Cognition access can be granted to Billing Account only, not to Legal Entity</description>
+    <errorConditionFormula>if( RecordType.DeveloperName == &apos;Cognition_Rules&apos;, 
+(!(ISBLANK(Account__c)) &amp;&amp; ISBLANK(Billing_Account__c)),false)</errorConditionFormula>
+    <errorMessage>Cognition access can be granted to Billing Account only, not to Legal Entity</errorMessage>
+</ValidationRule>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EC_G_Lead_Nurture_Program</fullName>
+    <columns>NAME</columns>
+    <columns>et4ae5__EmailName__c</columns>
+    <columns>et4ae5__FromName__c</columns>
+    <columns>et4ae5__Subject__c</columns>
+    <columns>et4ae5__DateSent__c</columns>
+    <columns>et4ae5__NumberSent__c</columns>
+    <columns>et4ae5__Number_Delivered__c</columns>
+    <columns>et4ae5__Deliverability_Rate__c</columns>
+    <columns>et4ae5__Number_Bounced__c</columns>
+    <columns>et4ae5__NumberofHardBounces__c</columns>
+    <columns>et4ae5__NumberofSoftBounces__c</columns>
+    <columns>et4ae5__NumberofUniqueClicks__c</columns>
+    <columns>et4ae5__NumberofUniqueOpens__c</columns>
+    <columns>et4ae5__Number_Not_Opened__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>et4ae5__Business_Unit__c</field>
+        <operation>equals</operation>
+        <value>CACS</value>
+    </filters>
+    <filters>
+        <field>et4ae5__NumberSent__c</field>
+        <operation>greaterThan</operation>
+        <value>0</value>
+    </filters>
+    <label>EC&amp;G Lead Nurture Program</label>
+    <sharedTo>
+        <role>External_Users</role>
+    </sharedTo>
+</ListView>

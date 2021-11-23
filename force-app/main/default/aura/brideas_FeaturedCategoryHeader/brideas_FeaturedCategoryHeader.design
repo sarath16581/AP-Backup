@@ -1,0 +1,8 @@
+<design:component label="Ideas Featured Category Header">
+    <design:attribute name="configTitleText"
+                      label="Title text"
+                      description="Text before category" />
+    <design:attribute name="configDescription"
+                      label="Description"
+                      description="Description text" />
+</design:component>

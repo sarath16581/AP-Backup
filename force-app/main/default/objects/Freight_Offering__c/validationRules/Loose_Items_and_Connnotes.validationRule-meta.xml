@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Loose_Items_and_Connnotes</fullName>
+    <active>true</active>
+    <errorConditionFormula>And( Incompatible_Freight__c = true,  
+(or(
+and (   ISBLANK(  Loose_undersize_Qty_Connotes__c  ),   
+
+not( ISBLANK(   Loose_undersize_Qty_Items__c   ))),
+
+
+and (   ISBLANK( Loose_undersize_Qty_Items__c ),   
+
+not( ISBLANK(   Loose_undersize_Qty_Connotes__c ))))))</errorConditionFormula>
+    <errorMessage>Please make sure that you have entered a value for Loose Qty Items and  Medical Qty Connotes fields for Incompatible Freight</errorMessage>
+</ValidationRule>

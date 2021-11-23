@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Revenue_by_Organisation__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Created to fetch the values for &apos;Traded in the Last 3 Months&apos; and &apos;Traded in the Last 6 Months&apos; fields.</description>
+    <externalId>false</externalId>
+    <label>Revenue by Organisation</label>
+    <referenceTo>Revenue_by_Organisation__c</referenceTo>
+    <relationshipLabel>Sales Coverage Change Requests</relationshipLabel>
+    <relationshipName>Sales_Coverage_Change_Requests</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

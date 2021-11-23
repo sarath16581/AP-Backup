@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <frameHeight>795</frameHeight>
+    <hasSidebar>false</hasSidebar>
+    <label>Sales Process Funnel</label>
+    <motif>Custom26: Flag</motif>
+    <url>https://www.saleswebserver.net/sfdc/MillerHeiman6/ShowSalesFunnel.asp?SessionID={!API.Session_ID}&amp;EndPoint={!API.Partner_Server_URL_260}</url>
+    <urlEncodingKey>UTF-8</urlEncodingKey>
+</CustomTab>

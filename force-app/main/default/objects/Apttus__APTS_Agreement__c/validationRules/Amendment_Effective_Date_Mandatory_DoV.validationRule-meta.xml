@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Amendment_Effective_Date_Mandatory_DoV</fullName>
+    <active>true</active>
+    <description>Amendment Effective Date is mandatory for DoV Contract Type</description>
+    <errorConditionFormula>ISPICKVAL(APT_Contract_Type__c ,&apos;DoV Contract&apos;) &amp;&amp; Apttus__Amendment_Effective_Date__c ==null</errorConditionFormula>
+    <errorDisplayField>Apttus__Amendment_Effective_Date__c</errorDisplayField>
+    <errorMessage>Amendment Effective Date is mandatory for DoV Contract Type</errorMessage>
+</ValidationRule>

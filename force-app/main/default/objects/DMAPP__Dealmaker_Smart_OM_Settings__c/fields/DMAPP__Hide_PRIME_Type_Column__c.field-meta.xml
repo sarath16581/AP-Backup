@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Hide_PRIME_Type_Column__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If this is checked in a customer account the Actions tab should not show the &apos;PRIME Action Type&apos; column and obviously this is not shown when the user is creating an action (given the action create is done inline). So the PRIME type is not mandatory with this setting checked</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If this is checked in a customer account the Actions tab should not show the &apos;PRIME Action Type&apos; column and obviously this is not shown when the user is creating an action (given the action create is done inline)</inlineHelpText>
+    <label>Hide PRIME Type Column</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

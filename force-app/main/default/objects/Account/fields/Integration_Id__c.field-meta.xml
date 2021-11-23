@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Integration_Id__c</fullName>
+    <caseSensitive>true</caseSensitive>
+    <description>Unique Integraton ID - allows for single operation insert of Account+Related objects, and idempotence - thereby preventing duplicates.  Added as part of My Post Business Initiative</description>
+    <externalId>true</externalId>
+    <label>Integration Id</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

@@ -1,0 +1,16 @@
+<apex:page standardController="Case" recordSetVar="cases" action="{!selectedCases}" extensions="CustomerOnboardingViewContactStatusCtrl">
+   <apex:includeLightning />
+    <apex:outputPanel id="pageMessages">
+        <apex:pageMessages id="pageMessageError"/>
+
+    </apex:outputPanel>
+    <div id="LcDisplayId"></div>
+	
+    <script type="text/javascript">
+        $Lightning.use("c:CustomerOnboardingApp", function() {
+            $Lightning.createComponent("c:CustomerOnboardingViewContactStatus", {
+                    "caseIdList" : {!jsonCases}
+            }, "LcDisplayId", function(component) {});
+        });
+    </script>
+</apex:page>

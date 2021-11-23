@@ -1,0 +1,82 @@
+<!--
+* @author avula.jansirani@auspost.com.au
+* @date 2020-11-12
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: reusable summary table row for Business Credit Account form
+* @changelog
+* 2020-01-20 avula.jansirani@auspost.com.au Created
+*
+-->
+<template>
+    <div data-id='bcasummaryrow'>
+        <table>
+            <tbody>
+                <tr class="slds-grid slds-p-bottom_medium">
+                    <td class="slds-col slds-p-right_small slds-size_1-of-3 summary-row-title">{label}</td>
+                    <td class="slds-col slds-size_2-of-3">
+                        <div class="summary-row-detail">
+                            <!--ABN Status type -->
+                            <template if:true={isDataIsABNStatusType}>{value} from <lightning-formatted-date-time value={abnStatusDate} year="numeric" month="numeric"
+                                day="numeric"> </lightning-formatted-date-time></template>
+
+                             <!--Text type -->
+                             <template if:true={isDataIsStringType}>{value}</template>
+
+                              <!--accnumber type --> 
+                              <template if:true={isDataIsAccNumber}>{value}</template>
+
+                             <!--Currency type -->
+                             <template if:true={isDataIsCurrencyType}>$
+                                <lightning-formatted-number value={value} maximum-fraction-digits="0"></lightning-formatted-number></template>
+
+                            <!--date type -->
+                            <template if:true={isDataIsDateType}>
+                                <lightning-formatted-date-time value={value} year="numeric" month="numeric"
+                                    day="numeric">
+                                </lightning-formatted-date-time>
+                            </template>
+
+                            <!--DateTime type -->
+                            <template if:true={isDataIsDateTimeType}>
+                                <lightning-formatted-date-time value={value} year="numeric" month="numeric"
+                                    day="numeric">
+                                </lightning-formatted-date-time>&nbsp;
+                                <lightning-formatted-date-time value={value} hour="2-digit" minute="2-digit"
+                                    hour12="true">
+                                </lightning-formatted-date-time>
+                            </template>
+
+                            <!--MultiValues type -->
+                            <template if:true={isMultiValues}>
+                                <template iterator:it={multiValues}>
+
+                                    <template if:true={it.first}>
+                                        <!-- first value-->
+                                        <b key={it.value.val}>{it.value.val}</b> <br key={it.value.val} />  <!-- TO DO:No need break for one value, in our scenario always have multiple values, in single value case display break on conditional-->
+                                    </template>
+
+                                    <template if:false={it.first}>
+                                        <template if:false={it.last}>
+                                            <!-- other than first and last values-->
+                                            <span class="summary-row-detail-multi" key={it.value.val}>{it.value.val}</span><br key={it.value.val} />
+                                        </template>
+                                    </template>
+                            
+                                    <template if:true={it.last}>
+                                        <!-- last value-->
+                                        <span class="summary-row-detail-multi" key={it.value.val}>{it.value.val}</span>
+                                    </template>
+                            
+                                </template>
+                            </template>
+
+
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</template>

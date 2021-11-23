@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Saturday_Route__c</fullName>
+    <externalId>false</externalId>
+    <formula>Job_Template__r.Route_Template__r.Saturday__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Saturday Route</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SLA</fullName>
+    <columns>Contract_Performance_Agreement_link__c</columns>
+    <columns>Measurement__c</columns>
+    <columns>Result__c</columns>
+    <columns>NAME</columns>
+    <columns>Contract_Performance_SLA_COA__c</columns>
+    <columns>Cycle__c</columns>
+    <columns>Result_Due_Date_Reminder__c</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>OWNER.LAST_NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Type__c</field>
+        <operation>equals</operation>
+        <value>SLA</value>
+    </filters>
+    <label>SLA</label>
+    <language>en_US</language>
+</ListView>

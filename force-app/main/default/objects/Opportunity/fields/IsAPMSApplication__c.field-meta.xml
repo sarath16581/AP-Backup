@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsAPMSApplication__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>2014-04 This field determines whether this opportunity relate to APMS Application.</description>
+    <externalId>false</externalId>
+    <label>APMS Application?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@auspost.com.au</email>
+    <name>Sales Coordinator</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>StarTrack_Business_Enablement_Team</publicGroup>
+        </publicGroups>
+        <users>
+            <user>shelley.morgan@auspost.com.au</user>
+            <user>vera.octavia@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Facility_Timings_Name__c</fullName>
+    <externalId>false</externalId>
+    <label>Facility Timings Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Conveyance Times</fullName>
+                <default>true</default>
+                <label>Conveyance Times</label>
+            </value>
+            <value>
+                <fullName>Box Sorting Times</fullName>
+                <default>false</default>
+                <label>Box Sorting Times</label>
+            </value>
+            <value>
+                <fullName>Mail Arrival Times</fullName>
+                <default>false</default>
+                <label>Mail Arrival Times</label>
+            </value>
+            <value>
+                <fullName>Mail Closing Times</fullName>
+                <default>false</default>
+                <label>Mail Closing Times</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

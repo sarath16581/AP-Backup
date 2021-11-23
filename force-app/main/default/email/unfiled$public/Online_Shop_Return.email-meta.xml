@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Hi team,  Card id: xxxxxxxxxxxxxxxxxx  Funds have been removed from the account and card cancelled.  Cheers  Cornelia Nowak  Transaction Analyst Card Transactions Monitoring Finance &amp; Shared Services  180 Lonsdale St, Melbourne 3000  P 03 93220185 |  F 1300 306 865 E Cornelia.Nowak@auspost.com.au  W auspost.com.au</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Online Shop Return</name>
+    <relatedEntityType>Case</relatedEntityType>
+    <style>none</style>
+    <subject>RE: FW: Suspect fraud - Transaction reference number : epPS9.9SRHEAAAFa_2hNG9Sy Order No: 00320364</subject>
+    <type>custom</type>
+    <uiType>SFX</uiType>
+</EmailTemplate>

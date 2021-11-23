@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Legal_Entity_must_be_related_to_Contact</fullName>
+    <active>true</active>
+    <description>If Legal Entity is specified, then it must be Contact&apos;s Legal Entity.</description>
+    <errorConditionFormula>!(ISBLANK(Account__c)) &amp;&amp; (Account__c != Contact__r.Account.Id)</errorConditionFormula>
+    <errorMessage>This Contact is not related to the selected Legal Entity.</errorMessage>
+</ValidationRule>

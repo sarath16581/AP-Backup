@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CAR_My_Open_Cases</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>Origin__c</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>Requestor__c</columns>
+    <columns>CASES.EMAIL</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>Work_Type__c</columns>
+    <columns>Support_Work_Type__c</columns>
+    <columns>Priority_icon__c</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>Business_Days__c</columns>
+    <columns>CASES.ESCALATION_STATE</columns>
+    <columns>CASES.STATUS</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.CAR_Request</value>
+    </filters>
+    <label>CAR - My Open Cases</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>StarTrack_Business_Enablement_Team</group>
+    </sharedTo>
+</ListView>

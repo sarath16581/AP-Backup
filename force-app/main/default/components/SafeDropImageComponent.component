@@ -1,0 +1,80 @@
+<apex:component controller="SafeDropImageComponentController">
+	<apex:attribute name="SafeDropGuid" type="String" required="true" description="" />
+
+	<style type="text/css">
+		#wrapper-image {
+			padding: 10px 20px 20px;
+		}
+		#wrapper-image img {
+			width: 100% !important;
+			max-width: 500px !important;
+			height: auto !important;
+		}
+	</style>
+
+
+
+
+	<!-- MAIN APP BODY -->
+	<p style="text-align:center;">
+		<!--<input class="btn btn-sm btn-default" name="btnSafeDropActivate" id="btnSafeDropActivate" title="Show Safe Drop Image" type="button" value="Show Safe Drop Image" />--></p>
+
+	<div id="wrapper-image"></div>
+	<!-- / MAIN APP BODY -->
+
+	<c:ScriptLoader jsLibraries="jquery" />
+
+	<script type="text/javascript">
+		jQuery(function($) {
+			//$(document).on('click', '#btnSafeDropActivate', function() {
+				var guidId = '{!SafeDropGuid}';
+				var text = "";
+
+				if(guidId != '') {
+					// show waiting wheel courtesy of LoadingSpinnerComponent
+					showSafeDropLoading();
+
+					// use Apex to get the image from the Safe Drop API using remote actions
+					SafeDropImageComponentController.getArticleImage(
+						guidId,
+						function(result, event) {
+							console.log(result);
+							console.log(event);
+
+							if(event.type === 'exception') {
+								setSafeDropResponse('ERROR: ' + event.statusCode + ': ' + JSON.stringify(event));
+							} else if (event.status) {
+								if(result.isError == true) {
+									setSafeDropResponse(result.errorMessage);
+								} else {
+									setSafeDropResponse($('<img/>').prop('src', 'data:image/jpeg;base64,' + result.imageBody));
+								}
+							} else {
+								console.log('SAFEDROP IMAGE ROUTING ERROR:', event);
+							}
+
+							// hide waiting wheel courtesy of LoadingSpinnerComponent
+							hideSafeDropLoading();
+						}
+					);
+				} else {
+					setSafeDropResponse('No guidId Set');
+				}
+			//});
+		});
+	</script>
+	<script type="text/javascript">
+		function setSafeDropResponse($response) {
+			var $wrapper;
+			if(typeof $response === 'string') {
+				$wrapper = jQuery('<div />').text($response);
+			} else {
+				$wrapper = $response;
+			}
+			
+			jQuery('#wrapper-image').empty().append($wrapper);
+		}
+	</script>
+
+	<c:LoadingSpinnerComponent showFunctionName="showSafeDropLoading" hideFunctionName="hideSafeDropLoading"  />
+</apex:component>

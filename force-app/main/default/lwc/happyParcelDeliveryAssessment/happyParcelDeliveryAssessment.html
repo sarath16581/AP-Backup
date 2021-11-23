@@ -1,0 +1,46 @@
+<!--
+    2020-04-01 nathan.franklin@auspost.com.au Created
+-->
+<template>
+
+	<c-happy-parcel-card title="Distance" icon-name="utility:pinned" loading={loading} variant="stretch" help-text={helpText}>
+		<div class="slds-align_absolute-center animated pulse" style={animationCss}>
+			<template if:true={isAvailable}>
+				<template if:true={isHappy}>
+					<div class="slds-grid slds-grid_align-spread slds-align_absolute-center">
+						<div class="slds-col slds-m-right_small">
+							<c-happy-parcel-custom-icon size="large" icon="happy-face" class="slds-show_inline-block"></c-happy-parcel-custom-icon>
+						</div>
+						<div class="slds-col slds-m-left_small">
+							<p class="slds-p-bottom_medium">
+								Distance &lt; {thresholdDisplay}
+							</p>
+							<p>
+								<a href={mapLink} target="_blank">View in Maps</a>
+							</p>
+						</div>
+					</div>
+				</template>
+				<template if:true={isSad}>
+					<div class="slds-grid slds-grid_align-spread slds-align_absolute-center">
+						<div class="slds-col slds-m-right_small">
+							<c-happy-parcel-custom-icon size="large" icon="sad-face" class="slds-show_inline-block"></c-happy-parcel-custom-icon>
+						</div>
+						<div class="slds-col slds-m-left_small slds-text-align_center">
+							<p class="slds-p-bottom_medium">
+								Distance &gt; {thresholdDisplay}
+							</p>
+							<p>
+								<a href={mapLink} target="_blank">View in Maps</a>
+							</p>
+						</div>
+					</div>
+				</template>
+			</template>
+			<template if:false={isAvailable}>
+				<lightning-icon icon-name="utility:dash" size="medium"></lightning-icon>
+			</template>
+		</div>
+	</c-happy-parcel-card>
+
+</template>

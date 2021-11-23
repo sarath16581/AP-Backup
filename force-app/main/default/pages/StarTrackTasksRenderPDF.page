@@ -1,0 +1,73 @@
+<apex:page renderAs="PDF" controller="StarTrackTasksRenderPDF_ControllerX" applyHtmlTag="false" applyBodyTag="false" showHeader="false">
+    <html>
+    <head>
+        <style type="text/css">
+            div {
+                font-family: sans-serif;
+            }
+            div.pbSubheader{
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+        <!-- <apex:image id="barcode" /> -->
+        <apex:pageBlock id="pageBlock" tabStyle="StarTrack_Operations__tab">
+            <apex:variable var="cnt" value="{!1}" />
+            <apex:repeat value="{!taskList}" var="tsk">
+                <div style="{!IF(cnt < listSize, 'page-break-after:always;','')}">                               
+                <!-- <div><apex:image rendered="{!tsk.CaseObject__r.ArticleTest__r.Barcode__c != null}" url="https://www.barcodesinc.com/generator_files/image.php?code={!tsk.CaseObject__r.ArticleTest__r.Barcode__c}&style=325&type=C128B&width=200&height=50&xres=1&font=3%22%20rel=%22nofollow%22%3E"/></div> -->
+                <div><h3>StarTrack Operations Task</h3></div>
+                <div style="width:100%; height:3px; background:black;"></div>
+                <div><h6>Consignment: &nbsp; <apex:outputField value="{!tsk.CaseObject__r.ArticleTest__c}"/></h6></div>
+                <div><h6>{!tsk.Subject}</h6></div>
+                <div><h6>{!tsk.Description}</h6></div>
+                <div><h6><apex:outputField rendered="{!tsk.Primary_Capture_Details__c != 'n/a' && tsk.Primary_Capture_Details__c != ''}" value="{!tsk.Primary_Capture_Details__c}"/></h6></div>
+                <div style="width:100%; height:3px; background:black;"></div>
+
+                <apex:pageBlockSection id="sectionDetail" title="Detail :" collapsible="false" columns="2">
+                    <apex:repeat value="{!$ObjectType.Task.FieldSets.Task_Printed_View}" var="td">
+                        <apex:pageBlockSectionItem dataStyle="width: 25%;" rendered="{!IF( AND(td != 'CaseObject__r.ArticleCubing__c', td != 'CaseObject__r.Description_of_packaging__c', td != 'CaseObject__r.Article_ActualWeight__c', td != 'CaseObject__r.Description_of_contents__c'), true, false)}">
+                            <apex:outputPanel >
+                                <apex:outputLabel rendered="{!td != 'CreatedDate' && td != 'CaseObject__r.Related_Billing_Account__c'}" value="{!td.Label}" style="font-size: 10px; width: 20%;" />
+                                <apex:outputLabel rendered="{!td == 'CreatedDate'}" value="Task Created Date" style="font-size: 10px; width: 20%;" />
+                                <apex:outputLabel rendered="{!td == 'CaseObject__r.Related_Billing_Account__c'}" value="Billing Account" style="font-size: 10px; width: 20%;" />
+                            </apex:outputPanel>
+                            <apex:outputPanel style="font-size: 10px; ">
+                                <apex:outputField value="{!tsk[td]}" style="width: 30%;"/>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem dataStyle="width: 25%;" rendered="{!IF( OR(td == 'CaseObject__r.ArticleCubing__c', td == 'CaseObject__r.Description_of_packaging__c', td == 'CaseObject__r.Article_ActualWeight__c', td == 'CaseObject__r.Description_of_contents__c'), true, false)}">
+                            <apex:outputPanel style="width: 100%">
+                            </apex:outputPanel>
+                            <apex:outputPanel style="width: 100%">
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem dataStyle="width: 25%;" rendered="{!IF( OR(td == 'CaseObject__r.ArticleCubing__c', td == 'CaseObject__r.Description_of_packaging__c', td == 'CaseObject__r.Article_ActualWeight__c', td == 'CaseObject__r.Description_of_contents__c'), true, false)}">
+                            <apex:outputPanel >
+                                <apex:outputLabel value="{!td.Label}" style="font-size: 10px; width: 20%;" />
+                            </apex:outputPanel>
+                            <apex:outputPanel style="font-size: 10px; ">
+                                <apex:outputField value="{!tsk[td]}" style="font-size: 10px; width: 30%;"/>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:repeat>
+                </apex:pageBlockSection>
+                </div>
+                <apex:variable var="cnt" value="{!cnt+1}"/>
+            </apex:repeat>
+        </apex:pageBlock>
+        </div>
+        </body>
+        <!--script type="text/javascript">
+	        var obj = document.getElementById("{!$Component.barcode}");
+	        JsBarcode(obj, "9780199532179", {
+				format:"EAN13",
+				displayValue:true,
+				fontSize:24,
+				lineColor: "#0cc"
+			});
+        </script-->
+    </html>
+</apex:page>

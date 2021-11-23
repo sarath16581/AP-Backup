@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Call_Cycle_Value__c</fullName>
+    <externalId>false</externalId>
+    <formula>(Today()-Last_Activity_Date__c)-(Call_Cycle_Frequency__c * 7)</formula>
+    <inlineHelpText>Calculated field based on current day minus “Last Activity Date” less the Call/Meeting Cycle Frequency multiplied by 7, to provide number of days</inlineHelpText>
+    <label>Call/Meeting Cycle Value</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

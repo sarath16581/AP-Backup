@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfo_Check_Email_Name_Fields</fullName>
+    <active>true</active>
+    <description>Contact belongs to a Legal Entity that has Licence. Name and Email address can only be updated by PartnerInfo Users</description>
+    <errorConditionFormula>AND(
+OR(Account.Has_Licence__c = true,  CreatedBy.Profile.Name=&apos;PartnerInfo Read Only&apos;), 
+OR(
+ISCHANGED(FirstName),
+ISCHANGED(LastName),
+ISCHANGED(Email)
+),
+$Profile.Name&lt;&gt; &apos;PartnerInfo Read Only&apos;
+)</errorConditionFormula>
+    <errorMessage>This Contact belongs to a Legal Entity that has Licence. Name and Email address can only be updated by PartnerInfo Users</errorMessage>
+</ValidationRule>

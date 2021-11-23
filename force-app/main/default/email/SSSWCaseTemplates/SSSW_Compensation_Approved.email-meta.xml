@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SSSW - Used to notify the Customer when a compensation is approved</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Compensation Approved</name>
+    <style>none</style>
+    <subject>{!Compensation__c.Name} Compensation Approved</subject>
+    <textOnly>Your compensation has been approved
+Case {!Case.CaseNumber}
+Hi {!Contact.Name}
+
+A decision has been made about your case {!Case.CaseNumber}, and you qualify for compensation. You will receive your compensation shortly and the details for this compensation can be found below.
+
+Compensation Type:  {!Compensation__c.RecordType}
+Compensation Amount:  ${!IF(Compensation__c.RecordType=&quot;Replacement Product&quot;, Compensation__c.Replacement_Value__c, Compensation__c.Total_Compensation_Amount__c)}
+
+
+We apologise for any inconvenience caused.
+Thank you,
+
+Australia Post
+W auspost.com.au
+{!Case.EmailThreadID__c}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Forum_Name__c</fullName>
+    <externalId>false</externalId>
+    <label>Forum Name</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Document_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Commit to Pursue (Identify or Qualify Stage)</fullName>
+                <default>false</default>
+                <label>Commit to Pursue (Identify or Qualify Stage)</label>
+            </value>
+            <value>
+                <fullName>Commit to Propose (Propose Stage)</fullName>
+                <default>false</default>
+                <label>Commit to Propose (Propose Stage)</label>
+            </value>
+            <value>
+                <fullName>Commit to Contract (Negotiate Stage)</fullName>
+                <default>false</default>
+                <label>Commit to Contract (Negotiate Stage)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

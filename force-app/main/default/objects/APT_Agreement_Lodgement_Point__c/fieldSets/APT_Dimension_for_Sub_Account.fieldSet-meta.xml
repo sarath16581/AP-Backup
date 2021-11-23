@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Dimension_for_Sub_Account</fullName>
+    <description>It is used when we export sub accounts.</description>
+    <displayedFields>
+        <field>APT_Lodgement_Point_Name__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>APT_Lodgement_Point_Lookup__r.APT_GA_Code__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>APT_Lodgement_Point_Lookup__r.APT_Distribution_Channel__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <label>Dimension for Sub Account</label>
+</FieldSet>

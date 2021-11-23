@@ -1,0 +1,64 @@
+/*
+    2020-04-01 nathan.franklin@auspost.com.au Created
+*/
+svg {
+    display: block;
+}
+svg.xx-small {
+    width: 10px;
+    height: 10px;
+}
+
+svg.x-small {
+    width: 16px;
+    height: 16px;
+}
+svg.small {
+    width: 20px;
+    height: 20px;
+}
+svg.s-medium {
+    width: 24px;
+    height: 24px;
+}
+svg.medium {
+    width: 30px;
+    height: 30px;
+}
+svg.l-medium {
+    width: 40px;
+    height: 40px;
+}
+svg.l-medium-48 {
+    width: 48px;
+    height: 48px;
+}
+svg.large {
+    width: 80px;
+    height: 80px;
+}
+svg.x-large {
+    width: 120px;
+    height: 120px;
+}
+svg.xx-large {
+    width: 160px;
+    height: 160px;
+}
+
+svg.maintain-width-ratio {
+    height: auto;
+}
+svg.maintain-height-ratio {
+    width: auto;
+}
+
+svg.logo {
+    width: 180px;
+    height: 37px;
+}
+
+svg.x-small-help {
+    width: 16px;
+    height: 24px;
+}

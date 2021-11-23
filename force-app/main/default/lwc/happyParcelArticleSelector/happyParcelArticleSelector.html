@@ -1,0 +1,37 @@
+<!--
+    2020-04-01 nathan.franklin@auspost.com.au Created
+-->
+<template>
+
+	<div class="slds-grid slds-wrap slds-p-around_medium slds-is-relative">
+
+		<template if:true={loading}>
+			<lightning-spinner variant="brand" size="small" alternative-text="Loading search results..."></lightning-spinner>
+		</template>
+		<div class="slds-col slds-grow-none slds-p-right_medium">
+			<label for="article" class="slds-form-element__label input-label">Article</label>
+		</div>
+		<div class="slds-col">
+			<template if:true={readOnly}>
+				<!-- custom css to hide the X in read only mode... the things we have to do.... -->
+				<div class="slds-box_border" style="overflow:hidden">
+					<span onkeyup={handleSearch}>
+						<lightning-input type="search" onchange={convertToUppercase} name="article" variant="label-hidden" value={trackingId} disabled style="width:calc(100% + 50px);margin-left:-1px;margin-top:-1px;margin-bottom:-1px;">
+						</lightning-input>
+					</span>
+
+					<lightning-icon icon-name="utility:lock" alternative-text="Read Only" size="x-small" class="read-only-lock">
+					</lightning-icon>
+				</div>
+			</template>
+			<template if:false={readOnly}>
+				<span onkeyup={handleSearch}>
+					<!-- custom css to hide the X -->
+					<lightning-input type="search" onchange={convertToUppercase} name="article" variant="label-hidden" value={trackingId}>
+					</lightning-input>
+				</span>
+			</template>
+		</div>
+	</div>
+
+</template>

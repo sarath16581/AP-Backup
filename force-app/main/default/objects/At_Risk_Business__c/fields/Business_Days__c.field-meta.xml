@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Days__c</fullName>
+    <externalId>false</externalId>
+    <formula>If( ISBLANK( Closed_Date__c ), 
+(5 * ( FLOOR( ( Today () - DATE( 1900, 1, 8) ) / 7 ) ) + MIN( 5, MOD( Today () - DATE( 1900, 1, 8), 7 ) ) ) - (5 * ( FLOOR( ( Identified_Date__c - DATE( 1900, 1, 8) ) / 7 ) ) + MIN( 5, MOD( Identified_Date__c - DATE( 1900, 1, 8), 7 ) ) ),
+(5 * ( FLOOR( ( Closed_Date__c - DATE( 1900, 1, 8) ) / 7 ) ) + MIN( 5, MOD( Closed_Date__c - DATE( 1900, 1, 8), 7 ) ) ) - (5 * ( FLOOR( ( Identified_Date__c - DATE( 1900, 1, 8) ) / 7 ) ) + MIN( 5, MOD( Identified_Date__c - DATE( 1900, 1, 8), 7 ) ) ))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Business Days</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,92 @@
+<!--
+  * @author       : Jansi Rani. avula.jansirani@auspost.com.au
+  * @date         : 30/07/2020
+  * @description  : Component for enquiries list wrapper on home page.
+--------------------------------------- History --------------------------------------------------
+30.07.2020    Jansi Rani   Created
+27-10-2020    Jansi Rani   added 'showEnquiryTypes' to dislay enquiryType filter Option only when selected all billing accounts
+19-11-2020    Jansi Rani   [JIRA:BGICS-353] added 'help text note' for your enquiries section
+18-02-2021   Jansi rani    [JIRA:BGICS-353] updated 'help text'
+-->
+<template>
+    <div class="section-container slds-p-around_large slds-m-bottom_x-large">
+        <!-- Your enquires Text Heading-->
+        <h3>Your enquiries</h3>
+        <!--help text note-->
+        <div class="slds-grid slds-wrap slds-p-top_x-small">
+            <div class="slds-col slds-size_1-of-1 slds-p-right_medium mobile-no-padding">
+                View, add comments or resolve existing enquiries. Use the search or filters to find. Click on table headers to sort the results.
+            </div>
+        </div>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12 slds-p-right_medium mobile-no-padding">
+                <!-- Enquires SECTION-->
+                <div onkeyup={handleSearchKeyUp}>
+                    <lightning-input data-id="search" label="" type="search"
+                        placeholder="Search by keyword, enquiry or tracking number" onchange={handleChange}>
+                    </lightning-input>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12 slds-p-right_x-small mobile-no-padding">
+                <!-- page selection combobox-->
+                <lightning-combobox data-id="pageSelection" label="" value={defaultPageSize} options={pageSizeOptions}
+                    onchange={handleChange}>
+                </lightning-combobox>
+            </div>
+
+            <template if:true={showEnquiryTypesFilter}>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-12 mobile-no-padding">
+                    <!-- page selection combobox-->
+                    <lightning-combobox data-id="enquiryType" label="" value="" options={enquiryTypeOptions}
+                        onchange={handleChange}>
+                    </lightning-combobox>
+                </div>
+            </template>
+
+        </div>
+
+        <div class="slds-grid slds-wrap">
+            <div
+                class="slds-col slds-size_1-of-1 slds-large-size_3-of-12 slds-p-right_x-small mobile-no-padding">
+                <!-- Organization combobox-->
+                <lightning-combobox data-id="organisation" label="" value={defaultOrg} options={orgPicklistOptions}
+                    onchange={handleChange}>
+                </lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_1-of-1  slds-large-size_3-of-12 slds-p-right_medium mobile-no-padding">
+                <!-- Billing Account combobox-->
+                <lightning-combobox data-id="billingAccount" label="" value="" options={billingAccPicklistOptions}
+                    onchange={handleChange}>
+                </lightning-combobox>
+            </div>
+            <div
+                class="slds-col slds-size_1-of-1 slds-large-size_2-of-12 slds-p-right_x-small mobile-no-padding">
+                <!-- From date-->
+                <lightning-input type="date" data-id="fromdate" placeholder="From Date" label=""
+                    onchange={handleChange}>
+                </lightning-input>
+            </div>
+            <div
+                class="slds-col slds-size_1-of-1 slds-large-size_2-of-12 slds-p-right_x-small mobile-no-padding">
+                <!-- To Date-->
+                <lightning-input type="date" data-id="todate" placeholder="To Date" label="" onchange={handleChange}>
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12">
+                <!-- Status combobox-->
+                <lightning-combobox data-id="status" label="" value="" options={getStatusOptions}
+                    onchange={handleChange}>
+                </lightning-combobox>
+            </div>
+        </div>
+        <br>
+        <!--Enquires-->
+        <c-bsp-enquiries-list search-text={searchText} page-size-filter-option={pageSizeFilterOption}
+            org-filter-option={orgFilterOption} billing-acc-filter-option={billingAccFilterOption}
+            fromdata-filter-option={fromdataFilterOption} to-date-filter-option={toDateFilterOption}
+            status-filter-option={statusFilterOption}
+            enquiry-type-filter-option={enquiryTypeFilterOption}></c-bsp-enquiries-list>
+
+    </div>
+
+</template>

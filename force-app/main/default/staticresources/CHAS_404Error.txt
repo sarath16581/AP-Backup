@@ -1,0 +1,15 @@
+
+{
+    "articles": [],
+    "errors": 
+	[
+		{
+   			"trackingRef":null,
+			"responseMessage":null,
+	  		"responseCode":404,
+   			"message":null,
+   			"href":null,
+   			"code":null
+		}
+	]
+}

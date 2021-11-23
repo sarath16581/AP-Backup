@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vic_Tas_Government_Support_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Vic/Tas Government Support</label>
+    <language>en_US</language>
+    <queue>Vic_Tas_Government_Support</queue>
+    <sharedTo>
+        <role>Business_Reporting</role>
+        <role>SalesOperations</role>
+    </sharedTo>
+</ListView>

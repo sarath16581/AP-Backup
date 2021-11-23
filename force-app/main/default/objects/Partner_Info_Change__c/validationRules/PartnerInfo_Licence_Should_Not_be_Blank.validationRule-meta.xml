@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfo_Licence_Should_Not_be_Blank</fullName>
+    <active>true</active>
+    <description>if Licence fields are changed, then licence should NOT be blank.</description>
+    <errorConditionFormula>OR( 
+NOT(ISBLANK(Accounts_Receivable_ID__c)), 
+NOT(ISBLANK(SAP_Vendor_ID__c)), 
+NOT(ISBLANK(Assignment_Effective_To_Date__c)), 
+NOT(ISBLANK(Interrupted_End_Date__c)), 
+NOT(ISBLANK(Interrupted_Start_Date__c)), 
+NOT(ISBLANK(TEXT(Licence_Status__c))), 
+NOT(ISBLANK(TEXT(Termination_Reason__c))), 
+NOT(ISBLANK(Payment_Summary_Delivery__c)) 
+) 
+&amp;&amp; 
+ISBLANK(Licence__c)</errorConditionFormula>
+    <errorMessage>Licence should NOT be blank.</errorMessage>
+</ValidationRule>

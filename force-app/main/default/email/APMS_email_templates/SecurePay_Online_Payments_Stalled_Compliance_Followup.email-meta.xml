@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email template to do a followup on merchants stalled in the S.O.P. setup process</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SOP - Stalled Compliance Followup</name>
+    <style>none</style>
+    <subject>Finalise your SecurePay Online Payments account - {!Application__c.Name}</subject>
+    <textOnly>Hi {!Application__c.ContactFirstName__c},
+
+We can see that you have signed your SecurePay Online Payments agreement via Docusign – you’re almost done!
+
+You should have now received your Welcome Pack which has instructions to finalise your application and start taking payments online. The final step is to login to your account, complete the compliance checklist and then you’re ready to go. You may also need to provide your gateway credentials (Merchant ID and Transaction Password) that we have included in the Welcome Pack to your web developer so they can connect your shopping cart and SecurePay account.
+
+If you need help with either of these tasks, our team is on hand to help guide you. Please call us on 1300 656 372 (option 1), we’re here to help.
+
+Regards,
+
+The SecurePay Team
+SecurePay Pty Ltd – A business of Australia Post
+Level 8, 222 Exhibition St, Melbourne, VIC 3000
+P 1300 656 372 (option 1)
+E onlinepayments@securepay.com.au
+W securepay.com.au</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

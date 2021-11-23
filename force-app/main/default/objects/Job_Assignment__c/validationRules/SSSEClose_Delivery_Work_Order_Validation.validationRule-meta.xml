@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSEClose_Delivery_Work_Order_Validation</fullName>
+    <active>true</active>
+    <description>Validation used to ensure receiver&apos;s name and id are provided before closure of the delivery job assignment.</description>
+    <errorConditionFormula>RecordType.DeveloperName = &apos;Security_Express&apos; &amp;&amp; ISPICKVAL(Type__c , &apos;Delivery&apos;) &amp;&amp; 
+ISPICKVAL(Status__c ,&apos;Closed&apos;) &amp;&amp; 
+OR(ISBLANK(ID_Document_Number__c), ISBLANK(Receivers_Name__c), ISPICKVAL(Identification_Type__c,&apos;&apos;))</errorConditionFormula>
+    <errorMessage>Identification Type, ID Document Number and Receiver&apos;s Name must be provided before closing this job assignment.</errorMessage>
+</ValidationRule>

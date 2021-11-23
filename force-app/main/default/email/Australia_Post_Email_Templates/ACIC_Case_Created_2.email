@@ -1,0 +1,180 @@
+Please find attached an application to provide checking services to {!Case.APT_Approved_Entities__c}
+Kind Regards
+
+<p><strong>ACIC On-boarding Information</strong></p> 
+<table style="border-color: black;" border="1" cellspacing="0" cellpadding="1"> 
+<tbody> 
+<tr> 
+<td width="56"> 
+<p>1</p> 
+</td> 
+<td width="217"> 
+<p>Organisation Name</p> 
+<p>Legacy ID (APBCN)</p> 
+</td> 
+<td width="327"> 
+<p>{!Account.Name}</p> 
+<p>&nbsp;</p> 
+<p>{!Account.LEGACY_ID__c}</p> 
+</td> 
+</tr> 
+<tr> 
+<td width="56"> 
+<p>&nbsp;</p> 
+</td> 
+<td width="217"> 
+<p>Registered business name</p> 
+</td> 
+<td width="327"> 
+<p>{!Account.Organisation_Trading_Name__c}</p> 
+</td> 
+</tr> 
+<tr> 
+<td width="56"> 
+<p>&nbsp;</p> 
+</td> 
+<td width="217"> 
+<p>Trading name</p> 
+</td> 
+<td width="327"> 
+<p>{!Account.Organisation_Alternate_Name__c}</p> 
+</td> 
+</tr> 
+<tr> 
+<td width="56"> 
+<p>2</p> 
+</td> 
+<td width="217"> 
+<p>Organisation type</p> 
+<p>(Private/Government)</p> 
+</td> 
+<td width="327"> 
+<p>{!Account.Industry}</p> 
+</td> 
+</tr> 
+<tr> 
+<td width="56"> 
+<p>3</p> 
+</td> 
+<td width="217"> 
+<p>Australian Business Number</p> 
+<p>Australian Company Number (if applicable)</p> 
+</td> 
+<td width="327"> 
+<p>{!Account.ABN__c}</p> 
+<p>&nbsp;</p> 
+<p>{!Account.ACN__c}</p> 
+</td> 
+</tr> 
+<tr> 
+<td width="56"> 
+<p>4</p> 
+</td> 
+<td width="217"> 
+<p>Address</p> 
+<p>Contact no.</p> 
+</td> 
+<td width="327"> 
+<p>{!Account.ShippingAddress}</p> 
+<p>{!Case.Org_Phone__c}</p> 
+</td> 
+</tr> 
+<tr> 
+<td width="56"> 
+<p>5</p> 
+</td> 
+<td width="217"> 
+<p>Contact details</p> 
+</td> 
+<td width="327"> 
+<p></p> 
+</td> 
+</tr> 
+<tr> 
+<td width="56"> 
+<p>6</p> 
+</td> 
+<td width="217"> 
+<p>Subsidiaries/related entities (include organisations that the checks will be done on behalf of)</p> 
+</td> 
+<td width="327"> 
+<p></p> 
+</td> 
+</tr> 
+<tr> 
+<td width="56"> 
+<p>&nbsp;</p> 
+</td> 
+<td width="217"> 
+<p>Organisation purpose</p> 
+</td> 
+<td width="327"> 
+<p>{!Account.Website}</p> 
+</td> 
+</tr> 
+<tr> 
+<td width="56"> 
+<p>7</p> 
+</td> 
+<td width="217"> 
+<p>NPCS Check Purpose ( List all that this service may be used for)</p> 
+</td> 
+<td width="327"> 
+<p>New employees and Current employees,</p> 
+<p>New Volunteers and current volunteers</p> 
+</td> 
+</tr> 
+<tr> 
+<td width="56"> 
+<p>8</p> 
+</td> 
+<td width="217"> 
+<p>Applicable legislation (List, if applicable, any legislation under which the police check is required, this may influence the information that may be disclosed about the applicant)</p> 
+</td> 
+<td width="327"> 
+<p></p> 
+</td> 
+</tr> 
+<tr> 
+<td width="56"> 
+<p>9</p> 
+</td> 
+<td width="217"> 
+<p>Type of checks</p> 
+<p>(delete any type not applicable)</p> 
+</td> 
+<td width="327"> 
+<p>Standard</p> 
+<p>Volunteer</p> 
+</td> 
+</tr> 
+<tr> 
+<td width="56"> 
+<p>10</p> 
+</td> 
+<td width="217"> 
+<p>Estimated volume of transactions (p.a.)</p> 
+</td> 
+<td width="327"> 
+<p></p> 
+</td> 
+</tr> 
+<tr> 
+<td width="56"> 
+<p>11</p> 
+</td> 
+<td width="217"> 
+<p>Please provide a copy your:</p> 
+<p>1 - privacy policy (link to organisation website acceptable)</p> 
+<p>2 - ICT Security policy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p> 
+</td> 
+<td width="327"> 
+<p>{!Account.Website}</p> 
+</td> 
+</tr> 
+</tbody> 
+</table> 
+<p><strong>&nbsp;</strong></p>
+
+<b>To view this Case in full or add a new Comment follow this link</b></br>
+{!Case.Link}

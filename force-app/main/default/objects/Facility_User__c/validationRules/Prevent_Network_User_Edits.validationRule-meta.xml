@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Network_User_Edits</fullName>
+    <active>true</active>
+    <description>Prevents the user editing the Network User Record other than changing the Network. Validation only relevant for MyNetwork Portal Users.</description>
+    <errorConditionFormula>NOT(ISNEW()) &amp;&amp; $Profile.Name = &apos;MyNetwork Portal&apos; &amp;&amp;  OR(ISCHANGED(Email_Address__c),ISCHANGED(First_Name__c),ISCHANGED(Last_Name__c),ISCHANGED(Timezone__c),ISCHANGED(User_Role__c),ISCHANGED(User__c))</errorConditionFormula>
+    <errorMessage>Only the Network of an existing user can be changed. Please contact your MyNetwork administrator if any other details of a user needs to change.</errorMessage>
+</ValidationRule>

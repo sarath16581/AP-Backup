@@ -1,0 +1,470 @@
+<apex:page controller="SocialPersonaDetailCtr" standardStylesheets="false" showHeader="false">
+
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color:#494b4e;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        p {
+            font-size:12px;
+        }
+
+        h2 {
+            font-size: 14px;
+            color:#494b4e;
+            margin-left:10px;
+            min-width: 360px;
+        }
+
+        h3 {
+            font-weight: normal;
+        }
+
+
+        ul, li {
+            margin:0;
+            padding:0;
+            list-style: none;
+        }
+
+
+
+        .sidebar {
+            /*width: 24%; */
+            height:100vh;
+            margin:0;
+            padding:0;
+            background: #fff;
+            float:left;
+        }
+
+
+        .personaDetail {
+            min-width: 360px;
+        }
+
+        .personaHistory {
+            min-width: 360px;
+        }
+
+        .conversations {
+            min-width: 360px;
+        }
+
+        .personaId {
+            background: #f9f9f9;
+            width:94%;
+           /* white-space: nowrap; */
+            white-space: normal;
+            padding:3%;
+        }
+
+
+
+        .avatar {
+            width:60px;
+            height: 60px;
+            position: absolute;
+            display: inline-block;
+        }
+
+        .avatar .socialLabelTwitter {
+            width:18px;
+            height:18px;
+            background: #ffffff url('{!URLFOR($Resource.SideBarPostList, 'imgs/twitter-icon.png')}') no-repeat center center;
+            border-radius: 50%;
+            position: absolute;
+            bottom:0px;
+            right:0px;
+        }
+
+
+        .avatar .socialLabelFacebook {
+            width:18px;
+            height:18px;
+            background: #ffffff url('{!URLFOR($Resource.SideBarPostList, 'imgs/facebook-icon.png')}') no-repeat center center;
+            border-radius: 50%;
+            position: absolute;
+            bottom:0px;
+            right:0px;
+        }
+
+        .avatar img {
+            border-radius: 50%;
+            height: 62px;
+            width: 62px;
+        }
+
+        #componentSwitch {
+            padding:5px 0 0px 0;
+            border-bottom: 1px solid #ddd;
+            min-width: 360px;
+        }
+
+        #componentSwitch ul {
+            height:28px;
+        }
+
+        #componentSwitch li{
+            float:left;
+            font-size: 12px;
+            color:#494b4e;
+            width:25%;
+            padding:2px 0 8px 0;
+            text-align: center;
+
+        }
+
+        #componentSwitch li.active {
+
+            border-bottom: 2px solid #00a8ff;
+        }
+
+        #componentSwitch li.active:hover {
+         border-bottom: 2px solid #00a8ff;
+        }
+
+        #componentSwitch li:hover {
+            border-bottom: 2px solid #cfd0d2;
+            cursor: pointer;
+        }
+
+        ul.personaDetail {
+            border-bottom: 0;
+            padding-top: 2px;
+            margin-top: 10px;
+        }
+
+
+        .personaInfo {
+            display: inline-block;
+            vertical-align: top;
+            margin-left:80px;
+
+        }
+
+        .personaInfo h3 {
+            margin:0;
+        }
+
+        .personaInfo .twitterHandle {
+            color: #015ba7;
+            text-decoration: none;
+            font-size: 12px;
+            vertical-align: top;
+            margin: 0 0 10px 0;
+        }
+
+        .personaInfo ul {
+            margin: 0;
+            width:100%;
+        }
+
+
+        .personaInfo ul li {
+            font-size: 12px;
+            display: inline-block;
+            margin-right:10px;
+        }
+
+        .personaInfo ul li span{
+            font-weight: bold;
+        }
+
+
+        .postWrapper {
+            border-bottom: 1px solid #ededed;
+            padding:0 5% 3% 5%;
+            width:90%;
+        }
+
+
+        .postWrapper_Reply_Twitter, .postWrapper_Comment_Facebook{
+            border-bottom: 1px solid #ededed;
+            padding:0 5% 3% 15%;
+            width:80%;
+        }
+
+        .postWrapper_Reply_Facebook{
+            border-bottom: 1px solid #ededed;
+            padding:0 5% 3% 25%;
+            width:70%;
+        }
+
+        .postWrapper img {
+            position: absolute;
+            width:30px;
+            height:30px;
+            border-radius: 50%;
+        }
+
+        .postContent {
+
+            margin-left:40px;
+        }
+
+        .postContent p {
+            margin-top:5px;
+        }
+
+        .postInfo {
+            font-size: 12px;
+            color:#7d7d84;
+        }
+
+        .postInfo span.bullet {
+            margin:0 5px;
+            color:#ddd;
+        }
+
+        .postInfo span.caseInfo {
+            white-space: nowrap;
+        }
+
+        .postInfo img {
+            width: 10px;
+            height: 10px;
+            position: relative;
+            border-radius: 0;
+        }
+
+        ul.conversations {
+            border-bottom: 0;
+        }
+
+        .iconMargin {
+            margin-top: -3px;
+        }
+
+        ul.conversations .postWrapper {
+          margin-top:17px;
+        }
+
+
+
+        ul.conversations .postContent {
+           /* border-left: 1px dotted #ddd; */
+            margin-left: 15px;
+            padding-left: 24px;
+        }
+
+
+        ul.conversations .nest {
+
+        }
+
+        ul.conversations ul.nest {
+
+
+        }
+
+        ul.conversations ul.nest li.postWrapper ul.personaDetail  {
+            padding:5% 0 0 0;
+            border-bottom:0;
+            width:100%;
+            border-top:1px solid #ddd;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .show {
+            display:block;
+        }
+    </style>
+
+
+    <div class="sidebar">
+
+        <h2>Social Lookup</h2>
+
+        <div>
+
+            <div class="personaId">
+
+                <apex:outputPanel rendered="{!persona.Provider == 'Twitter'}" styleClass="avatar" layout="block">
+
+                    <apex:image url="{!persona.ExternalPictureURL}" alt="avatar" />
+
+                    <div class="socialLabelTwitter"></div>
+
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!persona.Provider == 'Twitter'}" styleClass="personaInfo" layout="block">
+
+                    <h3>{!persona.RealName}</h3>
+                    <a href="{!persona.ProfileUrl}" class="twitterHandle" target="_blank" >@{!persona.Name}</a>
+                    <ul>
+                        <li><apex:outputField value="{!persona.Followers}" rendered="{!$ObjectType.SocialPersona.fields.Followers.Accessible}" /> Followers</li>
+                        <li><apex:outputField value="{!persona.Following}" rendered="{!$ObjectType.SocialPersona.fields.Following.Accessible}" /> Following</li>
+                        <li><apex:outputField value="{!persona.NumberOfTweets}" rendered="{!$ObjectType.SocialPersona.fields.NumberOfTweets.Accessible}" /> Tweets</li>
+                    </ul>
+
+                </apex:outputPanel>
+
+
+                <apex:outputPanel rendered="{!persona.Provider == 'Facebook'}" styleClass="avatar" layout="block">
+
+                    <apex:image url="{!persona.ExternalPictureURL}" alt="avatar" />
+
+                    <div class="socialLabelFacebook"></div>
+
+                </apex:outputPanel>
+
+
+                <apex:outputPanel rendered="{!persona.Provider == 'Facebook'}" styleClass="personaInfo" layout="block">
+
+                    <h3>{!persona.RealName}</h3>
+                    <a href="{!persona.ProfileUrl}" class="twitterHandle" target="_blank" >{!persona.RealName} on Facebook</a>
+                    <ul>
+                        <li>
+                            <apex:outputPanel rendered="{!!ISBLANK(persona.NumberOfFriends)}">
+                                <apex:outputField value="{!persona.NumberOfFriends}" rendered="{!$ObjectType.SocialPersona.fields.NumberOfFriends.Accessible}" /> Friends
+                            </apex:outputPanel>
+                        </li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+
+                    </ul>
+
+                </apex:outputPanel>
+
+
+                <apex:outputPanel rendered="{!socialAccount!=Null}" styleClass="avatar" layout="block">
+
+                    <apex:image url="{!socialAccount.ExternalPictureURL}" alt="avatar" />
+
+
+                </apex:outputPanel>
+
+
+                <apex:outputPanel rendered="{!socialAccount!=Null}" styleClass="personaInfo" layout="block" >
+
+                    <h3>{!socialAccount.Username}</h3>
+
+                    <span class="twitterHandle">&nbsp;</span>
+
+                    <ul>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+
+                    </ul>
+
+                </apex:outputPanel>
+
+            </div>
+
+            <nav id="componentSwitch">
+                <ul>
+                    <li id="personaHistorySwitch" class="active">
+                        Persona History
+                    </li>
+                    <li id="conversationSwitch">
+                        Conversations
+                    </li>
+                    <li id="personaDetailSwitch" >
+                        Persona Detail
+                    </li>
+                    <span></span>
+                </ul>
+            </nav>
+
+            <ul class="personaHistory">
+
+                <apex:repeat value="{!PostList}" var="item">
+
+                    <li class="postWrapper">
+
+                        <apex:image rendered="{!!item.isOutbound}" url="{!item.Persona.ExternalPictureURL}" alt="avatar" />
+                        <apex:image rendered="{!item.isOutbound}" url="{!item.OutboundSocialAccount.ExternalPictureURL}" alt="avatar" />
+
+                        <div class="postContent">
+                            <p class="post">{!item.Content}</p>
+                            <div class="postInfo"><apex:image url="{!URLFOR($Resource.SideBarPostList, 'imgs/twitter-icon.png')}" rendered="{!item.Provider='Twitter'}" /><apex:image url="{!URLFOR($Resource.SideBarPostList, 'imgs/facebook-icon.png')}" rendered="{!item.Provider='Facebook'}" />
+                                <apex:outputPanel rendered="{!!item.isOutbound}">
+                                    Inbound
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!item.isOutbound}">
+                                    Outbound
+                                </apex:outputPanel>
+                                <span class="bullet">&bull;</span><apex:outputField value="{!item.posted}" /></div>
+                        </div>
+                    </li>
+
+                </apex:repeat>
+
+            </ul>
+
+
+
+            <ul class="conversations hide">
+
+                <apex:repeat value="{!PersonaConversation}" var="singleC">
+
+
+                    <apex:repeat value="{!PersonaConversation[singleC]}" var="p">
+
+                        <c:SocialConversationPost post="{!p}" />
+                    </apex:repeat>
+
+
+                </apex:repeat>
+
+
+            </ul>
+
+            <ul class="personaDetail hide">
+                <li class="postWrapper">
+                    <apex:outputField value="{!persona.RealName}" title="Real Name" />
+                </li>
+                <li class="postWrapper">
+                    <apex:outputField value="{!persona.provider}" title="Provider" />
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <c:ScriptLoader jsLibraries="jquery" />
+    <script type="text/javascript">
+        var j$ = jQuery.noConflict();
+        j$(document).ready(function() {
+
+            j$("#personaDetailSwitch").click(function() {
+                j$(this).addClass("active");
+                j$("#personaHistorySwitch").removeClass("active")
+                j$("#conversationSwitch").removeClass("active")
+                j$(".conversations").addClass("hide")
+                j$(".personaHistory").addClass("hide")
+                j$(".personaDetail").removeClass("hide")
+            });
+
+            j$("#personaHistorySwitch").click(function() {
+                j$(this).addClass("active");
+                j$("#personaDetailSwitch").removeClass("active")
+                j$("#conversationSwitch").removeClass("active")
+                j$(".conversations").addClass("hide")
+                j$(".personaHistory").removeClass("hide")
+                j$(".personaDetail").addClass("hide")
+            });
+
+                j$("#conversationSwitch").click(function() {
+                j$(this).addClass("active");
+                j$("#personaHistorySwitch").removeClass("active")
+                j$("#personaDetailSwitch").removeClass("active")
+                j$(".personaHistory").addClass("hide")
+                j$(".conversations").removeClass("hide")
+                j$(".personaDetail").addClass("hide")
+            });
+            j$('.caseInfo a').each(function(i,e){
+                j$(e).parent().html(j$(e).text());
+            });
+        });
+    </script>
+
+
+</apex:page>

@@ -1,0 +1,10 @@
+{
+    "result": {
+        "status": "Success",
+        "message": "New case record successfully inserted",
+        "sys_id": "c261b018db6d2b00b3a8da857a961905",
+        "number": "CS0251448",
+        "state": "New",
+        "salesforceID": "aEH5D0000004C9IWAU"
+    }
+}

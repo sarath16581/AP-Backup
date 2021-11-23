@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Location__c</fullName>
+    <externalId>false</externalId>
+    <label>Location</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Location.RecordType.Name</field>
+            <operation>equals</operation>
+            <value>Despatch Location</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Location</referenceTo>
+    <relationshipLabel>Linked Billing Accounts</relationshipLabel>
+    <relationshipName>Linked_Billing_Accounts</relationshipName>
+    <relationshipOrder>1</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

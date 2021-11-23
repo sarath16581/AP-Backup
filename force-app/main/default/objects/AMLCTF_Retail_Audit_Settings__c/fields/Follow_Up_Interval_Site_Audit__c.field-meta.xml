@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Follow_Up_Interval_Site_Audit__c</fullName>
+    <description>The number of days between an Audit Case&apos;s Audit Start Date and Audit End Date, for Site Audit record type. Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2 Project.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The number of days between an Audit Case&apos;s Audit Start Date and Audit End Date, for Site Audit record type. Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2 Project.</inlineHelpText>
+    <label>Follow-Up Interval - Site Audit</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

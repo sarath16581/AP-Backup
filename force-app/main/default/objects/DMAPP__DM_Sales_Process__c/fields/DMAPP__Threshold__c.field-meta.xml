@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Threshold__c</fullName>
+    <defaultValue>0.7</defaultValue>
+    <deprecated>false</deprecated>
+    <description>The likelihood that this opportunity will close for this sales process</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Used for Forecasting. 
+
+An opportunity must achieve the threshold percentage (and be within the forecasting close date) in order to be deemed &quot;Projected&quot; in the Forecast Analysis for Dealmaker.</inlineHelpText>
+    <label>Projected Threshold</label>
+    <precision>3</precision>
+    <required>true</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

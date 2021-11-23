@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product__c</fullName>
+    <description>What is the main product this opportunitiy is focused around</description>
+    <externalId>false</externalId>
+    <inlineHelpText>What is the main product this opportunitiy is focused around?</inlineHelpText>
+    <label>Product</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>3PL</fullName>
+                <default>false</default>
+                <label>3PL</label>
+            </value>
+            <value>
+                <fullName>AaE</fullName>
+                <default>false</default>
+                <label>AaE</label>
+            </value>
+            <value>
+                <fullName>Address Post</fullName>
+                <default>false</default>
+                <label>Address Post</label>
+            </value>
+            <value>
+                <fullName>Bank@Post</fullName>
+                <default>false</default>
+                <label>Bank@Post</label>
+            </value>
+            <value>
+                <fullName>Community Update</fullName>
+                <default>false</default>
+                <label>Community Update</label>
+            </value>
+            <value>
+                <fullName>Courier</fullName>
+                <default>false</default>
+                <label>Courier</label>
+            </value>
+            <value>
+                <fullName>Decipha</fullName>
+                <default>false</default>
+                <label>Decipha</label>
+            </value>
+            <value>
+                <fullName>Digital</fullName>
+                <default>false</default>
+                <label>Digital</label>
+            </value>
+            <value>
+                <fullName>Digital ID</fullName>
+                <default>false</default>
+                <label>Digital ID</label>
+            </value>
+            <value>
+                <fullName>Digital Mailbox</fullName>
+                <default>false</default>
+                <label>Digital Mailbox</label>
+            </value>
+            <value>
+                <fullName>Direct Access</fullName>
+                <default>false</default>
+                <label>Direct Access</label>
+            </value>
+            <value>
+                <fullName>eLetter</fullName>
+                <default>false</default>
+                <label>eLetter</label>
+            </value>
+            <value>
+                <fullName>eParcel</fullName>
+                <default>false</default>
+                <label>eParcel</label>
+            </value>
+            <value>
+                <fullName>Express AP</fullName>
+                <default>false</default>
+                <label>Express AP</label>
+            </value>
+            <value>
+                <fullName>Express Courier International</fullName>
+                <default>false</default>
+                <label>Express Courier International</label>
+            </value>
+            <value>
+                <fullName>Express eParcel</fullName>
+                <default>false</default>
+                <label>Express eParcel</label>
+            </value>
+            <value>
+                <fullName>Express Post</fullName>
+                <default>false</default>
+                <label>Express Post</label>
+            </value>
+            <value>
+                <fullName>Financial &amp; Commercial Services</fullName>
+                <default>false</default>
+                <label>Financial &amp; Commercial Services</label>
+            </value>
+            <value>
+                <fullName>First Direct Solutions</fullName>
+                <default>false</default>
+                <label>First Direct Solutions</label>
+            </value>
+            <value>
+                <fullName>Fulfilio</fullName>
+                <default>false</default>
+                <label>Fulfilio</label>
+            </value>
+            <value>
+                <fullName>Fulfilment &amp; Unaddressed</fullName>
+                <default>false</default>
+                <label>Fulfilment &amp; Unaddressed</label>
+            </value>
+            <value>
+                <fullName>ID&amp;G and F&amp;CS</fullName>
+                <default>false</default>
+                <label>ID&amp;G and F&amp;CS</label>
+            </value>
+            <value>
+                <fullName>ID&amp;V</fullName>
+                <default>false</default>
+                <label>ID&amp;V</label>
+            </value>
+            <value>
+                <fullName>Identity &amp; Government Services</fullName>
+                <default>false</default>
+                <label>Identity &amp; Government Services</label>
+            </value>
+            <value>
+                <fullName>International</fullName>
+                <default>false</default>
+                <label>International</label>
+            </value>
+            <value>
+                <fullName>International AP</fullName>
+                <default>false</default>
+                <label>International AP</label>
+            </value>
+            <value>
+                <fullName>Letters/Trusted Services</fullName>
+                <default>false</default>
+                <label>Letters/Trusted Services</label>
+            </value>
+            <value>
+                <fullName>Local Pickup and Delivery Services</fullName>
+                <default>false</default>
+                <label>Local Pickup and Delivery Services</label>
+            </value>
+            <value>
+                <fullName>Mail Collection</fullName>
+                <default>false</default>
+                <label>Mail Collection</label>
+            </value>
+            <value>
+                <fullName>Mail Products</fullName>
+                <default>false</default>
+                <label>Mail Products</label>
+            </value>
+            <value>
+                <fullName>Mailroom</fullName>
+                <default>false</default>
+                <label>Mailroom</label>
+            </value>
+            <value>
+                <fullName>Mail Services</fullName>
+                <default>false</default>
+                <label>Mail Services</label>
+            </value>
+            <value>
+                <fullName>MessengerPost Couriers</fullName>
+                <default>false</default>
+                <label>MessengerPost Couriers</label>
+            </value>
+            <value>
+                <fullName>MRS &amp; Data Insights</fullName>
+                <default>false</default>
+                <label>MRS &amp; Data Insights</label>
+            </value>
+            <value>
+                <fullName>NXF</fullName>
+                <default>false</default>
+                <label>NXF</label>
+            </value>
+            <value>
+                <fullName>On Demand</fullName>
+                <default>false</default>
+                <label>On Demand</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Other Postal Services</fullName>
+                <default>false</default>
+                <label>Other Postal Services</label>
+            </value>
+            <value>
+                <fullName>Other Retail Services</fullName>
+                <default>false</default>
+                <label>Other Retail Services</label>
+            </value>
+            <value>
+                <fullName>Parcel AP</fullName>
+                <default>false</default>
+                <label>Parcel AP</label>
+            </value>
+            <value>
+                <fullName>Parcel Post</fullName>
+                <default>false</default>
+                <label>Parcel Post</label>
+            </value>
+            <value>
+                <fullName>Parcels</fullName>
+                <default>false</default>
+                <label>Parcels</label>
+            </value>
+            <value>
+                <fullName>Payments</fullName>
+                <default>false</default>
+                <label>Payments</label>
+            </value>
+            <value>
+                <fullName>PostBillPay</fullName>
+                <default>false</default>
+                <label>PostBillPay</label>
+            </value>
+            <value>
+                <fullName>PostLogistics International</fullName>
+                <default>false</default>
+                <label>PostLogistics International</label>
+            </value>
+            <value>
+                <fullName>Print Post</fullName>
+                <default>false</default>
+                <label>Print Post</label>
+            </value>
+            <value>
+                <fullName>Retail Services</fullName>
+                <default>false</default>
+                <label>Retail Services</label>
+            </value>
+            <value>
+                <fullName>Securepay</fullName>
+                <default>false</default>
+                <label>Securepay</label>
+            </value>
+            <value>
+                <fullName>SecurePost</fullName>
+                <default>false</default>
+                <label>SecurePost</label>
+            </value>
+            <value>
+                <fullName>StarTrack</fullName>
+                <default>false</default>
+                <label>StarTrack</label>
+            </value>
+            <value>
+                <fullName>StarTrack Logistics</fullName>
+                <default>false</default>
+                <label>StarTrack Courier</label>
+            </value>
+            <value>
+                <fullName>Star Track Express</fullName>
+                <default>false</default>
+                <label>Star Track Express</label>
+            </value>
+            <value>
+                <fullName>ST FPP</fullName>
+                <default>false</default>
+                <label>StarTrack FPP</label>
+            </value>
+            <value>
+                <fullName>Star Track International</fullName>
+                <default>false</default>
+                <label>Star Track International</label>
+            </value>
+            <value>
+                <fullName>ST Premium</fullName>
+                <default>false</default>
+                <label>StarTrack Premium</label>
+            </value>
+            <value>
+                <fullName>ST Next Flight</fullName>
+                <default>false</default>
+                <label>ST Next Flight</label>
+            </value>
+            <value>
+                <fullName>Supply Chain</fullName>
+                <default>false</default>
+                <label>Supply Chain</label>
+            </value>
+            <value>
+                <fullName>UMS</fullName>
+                <default>false</default>
+                <label>UMS</label>
+            </value>
+            <value>
+                <fullName>VOI</fullName>
+                <default>false</default>
+                <label>VOI</label>
+            </value>
+            <value>
+                <fullName>Workforce Verification</fullName>
+                <default>false</default>
+                <label>Workforce Verification</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

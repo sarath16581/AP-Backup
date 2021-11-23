@@ -1,0 +1,22 @@
+<!--
+2019-04-28 nathan.franklin@auspost.com.au Removed optional display logic for AP (SSCR5)
+-->
+<apex:component controller="bspComponent">
+    <div class="right-panel">
+        <div class="l-sb-module">
+            <h2>Quicklinks</h2>
+            <ul style="list-style:disc outside none; ">
+                <li><a href="https://auspost.com.au/content/dam/auspost_corp/media/documents/business-support-portal-guide.pdf" target="_blank">Your guide to the BSP</a></li>
+                <li><a href="{!$Setup.CCUSettings__c.BSP_Australia_Post_FAQ__c}" target="_blank">FAQs - Australia Post</a></li>
+                <li><a href="{!$Setup.CCUSettings__c.BSP_StarTrack_FAQ__c}" target="_blank">FAQs - StarTrack</a></li>
+                <li><a href="https://online.auspost.com.au/eParcel/common/auth/login.do" target="_blank">Login to eParcel</a></li>
+                <li><a href="https://eparceltrack.auspost.com.au/" target="_blank">Login to eMerchant tracking</a></li>
+                <li><a href="https://id.auspost.com.au/csso/login" target="_blank">Login to My Business Account</a></li>
+                <apex:outputPanel rendered="{!isCognitionUser}" >
+                    <li><a href="/bsp/apex/cognitionvF" target="_blank">Cognition</a></li>
+                </apex:outputPanel>
+                <!-- Auspost requested to remove before christmas<li><a href="/bsp/servlet/servlet.FileDownload?file={!$Setup.CCUSettings__c.BulkUploadTemplateId__c}" download="BulkUploadTemplate.csv" type="csv">Download Bulk Upload Template</a></li>-->
+            </ul>
+        </div>
+    </div>
+</apex:component>

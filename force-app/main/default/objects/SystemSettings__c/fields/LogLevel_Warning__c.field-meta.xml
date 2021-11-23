@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LogLevel_Warning__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Determines if the Log messages at Warning level should be logged in the Application Log object.</description>
+    <externalId>false</externalId>
+    <label>LogLevel_Warning</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

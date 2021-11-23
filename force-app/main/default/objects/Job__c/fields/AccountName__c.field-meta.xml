@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AccountName__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Customer account that the job is related to</description>
+    <externalId>false</externalId>
+    <label>Account Name</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Jobs</relationshipLabel>
+    <relationshipName>Jobs</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

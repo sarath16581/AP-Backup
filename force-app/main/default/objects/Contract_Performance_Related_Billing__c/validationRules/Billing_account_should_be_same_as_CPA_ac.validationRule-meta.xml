@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Billing_account_should_be_same_as_CPA_ac</fullName>
+    <active>true</active>
+    <errorConditionFormula>!ISBLANK( Billing_Account__c)  &amp;&amp;  Billing_Account__r.Organisation__c  !=  Contract_Performance_Agreement__r.Account__c</errorConditionFormula>
+    <errorMessage>Customer on Billing account needs to match Account on Contract Performance Agreement</errorMessage>
+</ValidationRule>

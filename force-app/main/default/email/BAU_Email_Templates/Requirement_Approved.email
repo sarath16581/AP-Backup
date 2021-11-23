@@ -1,0 +1,11 @@
+Dear User,
+
+After close consideration, your Requirement Request {!Requirement__c.Name} has been approved and will be put in a backlog of work to be completed.  
+
+You will be notified when this item is ready to be tested and deployed to Salesforce.
+
+If you wish to view this record - click this link: {!Requirement__c.Link}
+
+Regards,
+
+BAU Team @ Australia Post

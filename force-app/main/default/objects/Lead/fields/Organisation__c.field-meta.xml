@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Organisation__c</fullName>
+    <description>Used to capture the sector of the organisation in Leads.  This will populate the Organisation Sector on the Organisation object when a lead is converted.</description>
+    <externalId>false</externalId>
+    <label>Organisation Sector</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Enterprise</fullName>
+                <default>false</default>
+                <label>Enterprise</label>
+            </value>
+            <value>
+                <fullName>Commercial Acquisition</fullName>
+                <default>false</default>
+                <label>Commercial Acquisition</label>
+            </value>
+            <value>
+                <fullName>Large Account</fullName>
+                <default>false</default>
+                <label>Large Account</label>
+            </value>
+            <value>
+                <fullName>Mid Market</fullName>
+                <default>false</default>
+                <label>Mid Market</label>
+            </value>
+            <value>
+                <fullName>Mid Market Acquisition</fullName>
+                <default>false</default>
+                <label>Mid Market Acquisition</label>
+            </value>
+            <value>
+                <fullName>Small Business</fullName>
+                <default>false</default>
+                <label>Small Business</label>
+            </value>
+            <value>
+                <fullName>Business Partners</fullName>
+                <default>false</default>
+                <label>Business Partners</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Solution_Specialist__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Phase 2</description>
+    <externalId>false</externalId>
+    <label>Solution Specialist</label>
+    <lookupFilter>
+        <active>false</active>
+        <errorMessage>The User doesn&apos;t meet the Solution Specialist Requirements.</errorMessage>
+        <filterItems>
+            <field>User.Profile.Name</field>
+            <operation>contains</operation>
+            <value>Solution Sales</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Custom_Pricing_Requests2</relationshipName>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

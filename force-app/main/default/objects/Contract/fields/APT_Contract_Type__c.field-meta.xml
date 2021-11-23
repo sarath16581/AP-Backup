@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Contract_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Contract Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Contract</fullName>
+                <default>true</default>
+                <label>New Contract</label>
+            </value>
+            <value>
+                <fullName>DoV Contract</fullName>
+                <default>false</default>
+                <label>DoV Contract</label>
+            </value>
+            <value>
+                <fullName>Renewal Contract</fullName>
+                <default>false</default>
+                <label>Renewal Contract</label>
+            </value>
+            <value>
+                <fullName>Migrated Contract</fullName>
+                <default>false</default>
+                <label>Migrated Contract</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

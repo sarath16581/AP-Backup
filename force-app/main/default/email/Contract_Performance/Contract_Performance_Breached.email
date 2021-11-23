@@ -1,0 +1,9 @@
+<messaging:emailTemplate subject="Contract Performance Breached" recipientType="User" relatedToType="Task">
+<messaging:plainTextEmailBody >
+This is an automated email.
+Contract Performance SLA/ COA has been breached details are below 
+
+{!relatedTo.Description}
+
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

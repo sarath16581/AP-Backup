@@ -1,0 +1,616 @@
+<apex:component >
+    <apex:attribute type="Case" required="true" name="currentCase" description="the binded case" />
+    <apex:attribute type="Article__c" required="true" name="relArticle" description="the binded Article" />
+    <apex:attribute type="string" required="true" name="senderSingleLineAddressFieldName" description="the name of the field used as single line for sender address" />
+    <apex:attribute type="string" required="true" name="addresseeSingleLineAddressFieldName" description="the name of the field used as single line for addressee address" />
+    <apex:attribute type="string" required="false" name="onkeydown" description="the detect changes" />
+    <apex:attribute type="string" required="false" name="onExternalSelect" description="the selected data from external select changes" />
+    <apex:attribute type="string" required="false" name="externalClear" description="clears the selected address fields" />
+    <apex:attribute type="string" required="false" name="copyFromContact" description="function used to pass data from contact" />
+    <apex:attribute type="string" required="false" name="senderSectionName" description="the name of the section that is used for the sender address" />
+    <apex:attribute type="string" required="false" name="addresseeSectionName" description="the name of the section that is used for the addressee address" />
+    <apex:attribute type="string" required="false" name="mlsSectionName" description="the name of the section used for Parcel Remediation (mls)"/>
+    <apex:attribute type="string" required="false" name="mlsFieldName" description="the name of the field used for Parcel Remediation (mls)"/>
+    <apex:attribute type="Boolean" required="false" name="remediationAvailable" description="is missort remediation available for this article (mls)"/>
+
+
+    <style>
+        .boxed_{!id} {
+            border-radius : 5px;
+            border: 1px solid #ccc;
+            border-top-color: rgb(204, 204, 204);
+            border-top-style: solid;
+            border-top-width: 1px;
+            border-right-color: rgb(204, 204, 204);
+            border-right-style: solid;
+            border-right-width: 1px;
+            border-bottom-color: rgb(204, 204, 204);
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            border-left-color: rgb(204, 204, 204);
+            border-left-style: solid;
+            border-left-width: 1px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .leftColumn_{!id}  {
+            width: 49%;
+            float:left;
+        }
+
+        .rightColumn_{!id} {
+            width: 49%;
+            float:right;
+        }
+
+        .statePostcode_{!id} {
+            width:100%;
+        }
+
+        .legendClass_{!id} {
+            display: block;
+            width:initial;
+            padding: 0;
+            margin-bottom: 0px;
+            font-size: 14px;
+            font-weight:bold;
+            /* line-height: inherit; */
+            /* color: #333; */
+            /* border: 0; */
+            border-bottom: 0px solid #e5e5e5;
+        }
+
+        .addressRow_{!id} label {
+            margin: 3px 0;
+        }
+
+        .upperCase {
+            text-transform:uppercase;
+        }
+
+        .senderAddressPanelName_{!id} {
+            display:none;
+            width:244px;
+        }
+        .addresseeAddressPanelName_{!id} {
+            display:none;
+            width:244px;
+        }
+        .mlsAddressPanelName_{!id} {
+            display:none;
+            width:244px;
+        }
+
+        .toggler_{!id} { margin-left: 4px; }
+        .hideMlsPanel {
+            display:none;
+        }
+    </style>
+    <script>
+        var j$ = jQuery.noConflict();
+
+        function toggleSenderAddressPanel_{!id}(el){
+            var c = j$('.senderAddressPanelName_{!id}');
+            var singleLineAddress = j$('.{!senderSingleLineAddressFieldName}');
+            console.log(j$('#{!senderSingleLineAddressFieldName}').find('span'));
+
+            if (c.is(":visible")) {
+                j$('.addressPanel_{!id}').append(c);
+                j$('#{!senderSingleLineAddressFieldName}').last('span').append(singleLineAddress);
+            } else {
+                j$('#{!senderSingleLineAddressFieldName}').last('span').append(c);
+                j$('.addressPanel_{!id}').append(singleLineAddress);
+            }
+            singleLineAddress.toggle();
+            c.toggle();
+        }
+
+        function toggleAddresseeAddressPanel_{!id}(el){
+            var c = j$('.addresseeAddressPanelName_{!id}');
+            var singleLineAddress = j$(".{!addresseeSingleLineAddressFieldName}");
+
+            if (c.is(":visible")) {
+                j$('.addressPanel_{!id}').append(c);
+                j$('#{!addresseeSingleLineAddressFieldName}').last('span').append(singleLineAddress);
+            } else {
+                j$('#{!addresseeSingleLineAddressFieldName}').last('span').append(c);
+                j$('.addressPanel_{!id}').append(singleLineAddress);
+            }
+            singleLineAddress.toggle();
+            c.toggle();
+        }
+        //13-02-2017 Dion Gunn: Added to support MLS Project requirements (Missorts & Looping Parcel Intervention)
+        function togglemlsAddressPanel_{!id}(el){
+            var c = j$('.mlsAddressPanelName_{!id}');
+            var singleLineAddress = j$(".{!mlsFieldName}");
+
+            if (c.is(":visible")) {
+                j$('.addressPanel_{!id}').append(c);
+                j$('#{!mlsFieldName}').last('span').append(singleLineAddress);
+            } else {
+                j$('#{!mlsFieldName}').last('span').append(c);
+                j$('.addressPanel_{!id}').append(singleLineAddress);
+            }
+            singleLineAddress.toggle();
+            c.toggle();
+        }
+
+        function toggleImage_{!id}(el){
+            var img = j$(el).find('img');
+            if(img.attr('src').indexOf('setup_plus.gif') != -1) {
+                img.attr('src', '/img/setup_minus.gif');
+            } else {
+                img.attr('src', '/img/setup_plus.gif');
+            }
+        }
+
+        j$(function() {
+            var senderSingleLineAddressFieldName = j$('#{!senderSingleLineAddressFieldName}');
+            if(senderSingleLineAddressFieldName && senderSingleLineAddressFieldName.is(":visible")) {
+                senderSingleLineAddressFieldName.find('label').append(j$('#senderToggler_{!id}'));
+                j$('#senderToggler_{!id}').show();
+            } else {
+                j$('#senderToggler_{!id}').hide();
+            }
+
+            var addresseeSingleLineAddressFieldName = j$('#{!addresseeSingleLineAddressFieldName}');
+            if(addresseeSingleLineAddressFieldName && addresseeSingleLineAddressFieldName.is(":visible")) {
+                addresseeSingleLineAddressFieldName.find('label').append(j$('#addressToggler_{!id}'));
+                j$('#addressToggler_{!id}').show();
+            } else {
+                j$('#addressToggler_{!id}').hide();
+            }
+            //13-02-2017 Dion Gunn: Added to support MLS Project requirements (Missorts & Looping Parcel Intervention)
+            var mlsFieldName = j$('#{!mlsFieldName}');
+            if(mlsFieldName && mlsFieldName.is(":visible")) {
+                mlsFieldName.find('label').append(j$('#mlsaddressToggler_{!id}'));
+                j$('#mlsaddressToggler_{!id}').show();
+            } else {
+                j$('#mlsaddressToggler_{!id}').hide();
+            }
+        });
+
+        function caseAddressComponentPostcodeSuburbSelect_{!id}(el, selected) {
+            //13-02-2017 Dion Gunn: modified to support MLS Project requirements (Missorts & Looping Parcel Intervention)
+            var postcodeField = j$('[id*="{!id}"][id$="txtAddress1Postcode"]');
+            var suburbField = j$('[id*="{!id}"][id$="txtAddress1City"]');
+            window.console&&console.log('Checking Address Postcode');
+            if(el.hasClass('Address2__c')) {
+                postcodeField = j$('[id*="{!id}"][id$="txtAddress2Postcode"]');
+                suburbField = j$('[id*="{!id}"][id$="txtAddress2City"]');
+            }
+            else if(el.hasClass('mls_Address__c')) {
+                postcodeField = j$('[id*="{!id}"][id$="txtmlsPostcode"]');
+                suburbField = j$('[id*="{!id}"][id$="txtmlsCity"]');
+            }
+            suburbField.val(selected.suburb);
+            postcodeField.val(selected.postcode);
+        }
+
+        function caseAddressComponentQASSelect_{!id}(selected, el, fullAddress) {
+            console.log(selected);
+            {!if(isBlank(onExternalSelect), 'caseAddressComponentSetValues_' + id, onExternalSelect)}(selected, el, fullAddress);
+        }
+
+        function clearDPID_{!id}(el){
+            var sender_line1 = j$('[id*="{!id}"][id$="txtAddress1Line1"]');
+            var sender_dpid = j$('[id*="{!id}"][id$="txtAddress1DPID"]');
+            var sender_hfdpid = j$('[id*="{!id}"][id$="hfAddress1DPID"]');
+
+            var addressee_line1 = j$('[id*="{!id}"][id$="txtAddress2Line1"]');
+            var addressee_dpid = j$('[id*="{!id}"][id$="txtAddress2DPID"]');
+            var addressee_hfdpid = j$('[id*="{!id}"][id$="hfAddress2DPID"]');
+
+            var mlsaddress_line1 = j$('[id*="{!id}"][id$="txtmlsLine1"]');
+            var mlsaddress_dpid = j$('[id*="{!id}"][id$="txtmlsDPID"]');
+            var mlsaddress_hfdpid = j$('[id*="{!id}"][id$="hfmlsDPID"]');
+            var mlsaddress_line2 = j$('[id*="{!id}"][id$="txtmlsLine2"]');
+            var mlsaddress_suburb = j$('[id*="{!id}"][id$="txtmlsCity"]');
+            var mlsaddress_state = j$('[id*="{!id}"][id$="txtmlsState"]');
+            var mlsaddress_postcode = j$('[id*="{!id}"][id$="txtmlsPostcode"]');
+
+            if(el.id == sender_line1.attr('id') || j$(el).hasClass('Address1__c')) {
+                j$('.Address1__c').val(j$(el).val());
+                sender_dpid.val('');
+                sender_hfdpid.val('');
+            } else if(el.id == addressee_line1.attr('id') || j$(el).hasClass('Address2__c')) {
+                j$('.Address2__c').val(j$(el).val());
+                addressee_dpid.val('');
+                addressee_hfdpid.val('');
+            } else if(el.id == mlsaddress_line1.attr('id') || j$(el).hasClass('mls_Address__c') || el.id == mlsaddress_line2.attr('id')
+                || el.id == mlsaddress_suburb.attr('id') || el.id == mlsaddress_state.attr('id') || el.id == mlsaddress_postcode.attr('id')) {
+                j$('.mls_Address__c').val(j$(el).val());
+                mlsaddress_dpid.val('');
+                mlsaddress_hfdpid.val('');
+            }
+        }
+
+        function {!if(isBlank(externalClear), 'clearFunctionName_' + id, externalClear)}(el) {
+            var sender_line1 = j$('[id*="{!id}"][id$="txtAddress1Line1"]');
+            var sender_line2 = j$('[id*="{!id}"][id$="txtAddress1Line2"]');
+            var sender_suburb = j$('[id*="{!id}"][id$="txtAddress1City"]');
+            var sender_state = j$('[id*="{!id}"][id$="txtAddress1State"]');
+            var sender_postcode = j$('[id*="{!id}"][id$="txtAddress1Postcode"]');
+            var sender_country = j$('[id*="{!id}"][id$="txtAddress1Country"]');
+            var sender_dpid = j$('[id*="{!id}"][id$="txtAddress1DPID"]');
+            var sender_hfdpid = j$('[id*="{!id}"][id$="hfAddress1DPID"]');
+
+            var addressee_line1 = j$('[id*="{!id}"][id$="txtAddress2Line1"]');
+            var addressee_line2 = j$('[id*="{!id}"][id$="txtAddress2Line2"]');
+            var addressee_suburb = j$('[id*="{!id}"][id$="txtAddress2City"]');
+            var addressee_state = j$('[id*="{!id}"][id$="txtAddress2State"]');
+            var addressee_postcode = j$('[id*="{!id}"][id$="txtAddress2Postcode"]');
+            var addressee_country = j$('[id*="{!id}"][id$="txtAddress2Country"]');
+            var addressee_dpid = j$('[id*="{!id}"][id$="txtAddress2DPID"]');
+            var addressee_hfdpid = j$('[id*="{!id}"][id$="hfAddress2DPID"]');
+
+            //13-02-2017 Dion Gunn: Added to support MLS Project requirements (Missorts & Looping Parcel Intervention)
+            var mlsaddress_line1 = j$('[id*="{!id}"][id$="txtmlsLine1"]');
+            var mlsaddress_line2 = j$('[id*="{!id}"][id$="txtmlsLine2"]');
+            var mlsaddress_suburb = j$('[id*="{!id}"][id$="txtmlsCity"]');
+            var mlsaddress_state = j$('[id*="{!id}"][id$="txtmlsState"]');
+            var mlsaddress_postcode = j$('[id*="{!id}"][id$="txtmlsPostcode"]');
+            var mlsaddress_dpid = j$('[id*="{!id}"][id$="txtmlsDPID"]');
+            var mlsaddress_hfdpid = j$('[id*="{!id}"][id$="hfmlsDPID"]');
+
+            if(el.id == sender_line1.attr('id') || j$(el).hasClass('Address1__c')) {
+                sender_line1.val(j$(el).val());
+                sender_line2.val('');
+                sender_suburb.val('');
+                sender_state.val('');
+                sender_postcode.val('');
+                sender_country.val('');
+                sender_dpid.val('');
+                sender_hfdpid.val('');
+            } else if(el.id == addressee_line1.attr('id') || j$(el).hasClass('Address2__c')) {
+                addressee_line1.val(j$(el).val());
+                addressee_line2.val('');
+                addressee_suburb.val('');
+                addressee_state.val('');
+                addressee_postcode.val('');
+                addressee_country.val('');
+                addressee_dpid.val('');
+                addressee_hfdpid.val('');
+                //13-02-2017 Dion Gunn: Added to support MLS Project requirements (Missorts & Looping Parcel Intervention)
+            } else if(el.id == mlsaddress_line1.attr('id') || j$(el).hasClass('mls_Address__c')) {
+                mlsaddress_line1.val(j$(el).val());
+                mlsaddress_line2.val('');
+                mlsaddress_suburb.val('');
+                mlsaddress_state.val('');
+                mlsaddress_postcode.val('');
+                mlsaddress_dpid.val('');
+                mlsaddress_hfdpid.val('');
+            }
+        }
+
+        //copyFromContact
+        function {!if(isBlank(copyFromContact), 'copyFromContact_' + id, copyFromContact)}(selected) {
+            var senderSectionName = '{!senderSectionName}' == '' ? 'Sender' : '{!senderSectionName}';
+            var addresseeSectionName = '{!addresseeSectionName}' == '' ? 'Addressee' : '{!addresseeSectionName}';
+            var mlsSectionName = '{!mlsSectionName}' == '' ? 'mlsAddress' : '{!mlsSectionName}';
+
+            if(selected.from == senderSectionName) {
+                var sender_line1 = j$('[id*="{!id}"][id$="txtAddress1Line1"]');
+                var sender_line2 = j$('[id*="{!id}"][id$="txtAddress1Line2"]');
+                var sender_suburb = j$('[id*="{!id}"][id$="txtAddress1City"]');
+                var sender_state = j$('[id*="{!id}"][id$="txtAddress1State"]');
+                var sender_postcode = j$('[id*="{!id}"][id$="txtAddress1Postcode"]');
+                var sender_country = j$('[id*="{!id}"][id$="txtAddress1Country"]');
+                var sender_dpid = j$('[id*="{!id}"][id$="txtAddress1DPID"]');
+                var sender_hfdpid = j$('[id*="{!id}"][id$="hfAddress1DPID"]');
+
+                sender_line1.val(selected.addressLine1);
+                sender_line2.val(selected.addressLine2);
+                sender_suburb.val(selected.city);
+                sender_state.val(selected.state);
+                sender_postcode.val(selected.postcode);
+                sender_country.val(selected.country);
+                sender_dpid.val(selected.dpid);
+                sender_hfdpid.val(selected.dpid);
+            } else if(selected.from == addresseeSectionName) {
+                var addressee_line1 = j$('[id*="{!id}"][id$="txtAddress2Line1"]');
+                var addressee_line2 = j$('[id*="{!id}"][id$="txtAddress2Line2"]');
+                var addressee_suburb = j$('[id*="{!id}"][id$="txtAddress2City"]');
+                var addressee_state = j$('[id*="{!id}"][id$="txtAddress2State"]');
+                var addressee_postcode = j$('[id*="{!id}"][id$="txtAddress2Postcode"]');
+                var addressee_country = j$('[id*="{!id}"][id$="txtAddress2Country"]');
+                var addressee_dpid = j$('[id*="{!id}"][id$="txtAddress2DPID"]');
+                var addressee_hfdpid = j$('[id*="{!id}"][id$="hfAddress2DPID"]');
+
+                addressee_line1.val(selected.addressLine1);
+                addressee_line2.val(selected.addressLine2);
+                addressee_suburb.val(selected.city);
+                addressee_state.val(selected.state);
+                addressee_postcode.val(selected.postcode);
+                addressee_country.val(selected.country);
+                addressee_dpid.val(selected.dpid);
+                addressee_hfdpid.val(selected.dpid);
+
+            } else if(selected.from == mlsSectionName) {
+                //13-02-2017 Dion Gunn: Added to support MLS Project requirements (Missorts & Looping Parcel Intervention)
+                var mlsaddress_line1 = j$('[id*="{!id}"][id$="txtmlsLine1"]');
+                var mlsaddress_line2 = j$('[id*="{!id}"][id$="txtmlsLine2"]');
+                var mlsaddress_suburb = j$('[id*="{!id}"][id$="txtmlsCity"]');
+                var mlsaddress_state = j$('[id*="{!id}"][id$="txtmlsState"]');
+                var mlsaddress_postcode = j$('[id*="{!id}"][id$="txtmlsPostcode"]');
+                var mlsaddress_dpid = j$('[id*="{!id}"][id$="txtmlsDPID"]');
+                var mlsaddress_hfdpid = j$('[id*="{!id}"][id$="hfmlsDPID"]');
+
+                mlsaddress_line1.val(selected.addressLine1);
+                mlsaddress_line2.val(selected.addressLine2);
+                mlsaddress_suburb.val(selected.city);
+                mlsaddress_state.val(selected.state);
+                mlsaddress_postcode.val(selected.postcode);
+                mlsaddress_dpid.val(selected.dpid);
+                mlsaddress_hfdpid.val(selected.dpid);
+            }
+        }
+
+        function {!if(isBlank(onExternalSelect), 'caseAddressComponentSetValues_' + id, onExternalSelect)}(selected, el, fullAddress) {
+            var sender_line1 = j$('[id*="{!id}"][id$="txtAddress1Line1"]');
+            var sender_line2 = j$('[id*="{!id}"][id$="txtAddress1Line2"]');
+            var sender_suburb = j$('[id*="{!id}"][id$="txtAddress1City"]');
+            var sender_state = j$('[id*="{!id}"][id$="txtAddress1State"]');
+            var sender_postcode = j$('[id*="{!id}"][id$="txtAddress1Postcode"]');
+            var sender_country = j$('[id*="{!id}"][id$="txtAddress1Country"]');
+            var sender_dpid = j$('[id*="{!id}"][id$="txtAddress1DPID"]');
+            var sender_hfdpid = j$('[id*="{!id}"][id$="hfAddress1DPID"]');
+
+            var addressee_line1 = j$('[id*="{!id}"][id$="txtAddress2Line1"]');
+            var addressee_line2 = j$('[id*="{!id}"][id$="txtAddress2Line2"]');
+            var addressee_suburb = j$('[id*="{!id}"][id$="txtAddress2City"]');
+            var addressee_state = j$('[id*="{!id}"][id$="txtAddress2State"]');
+            var addressee_postcode = j$('[id*="{!id}"][id$="txtAddress2Postcode"]');
+            var addressee_country = j$('[id*="{!id}"][id$="txtAddress2Country"]');
+            var addressee_dpid = j$('[id*="{!id}"][id$="txtAddress2DPID"]');
+            var addressee_hfdpid = j$('[id*="{!id}"][id$="hfAddress2DPID"]');
+
+            //13-02-2017 Dion Gunn: Added to support MLS Project requirements (Missorts & Looping Parcel Intervention)
+            var mlsaddress_line1 = j$('[id*="{!id}"][id$="txtmlsLine1"]');
+            var mlsaddress_line2 = j$('[id*="{!id}"][id$="txtmlsLine2"]');
+            var mlsaddress_suburb = j$('[id*="{!id}"][id$="txtmlsCity"]');
+            var mlsaddress_state = j$('[id*="{!id}"][id$="txtmlsState"]');
+            var mlsaddress_postcode = j$('[id*="{!id}"][id$="txtmlsPostcode"]');
+            var mlsaddress_dpid = j$('[id*="{!id}"][id$="txtmlsDPID"]');
+            var mlsaddress_hfdpid = j$('[id*="{!id}"][id$="hfmlsDPID"]');
+
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+            console.log(selected);
+            console.log(el);
+            console.log(fullAddress);
+
+            if(el.id == sender_line1.attr('id') || j$(el).hasClass('Address1__c')) {
+                j$('.Address1__c').val(fullAddress);
+                sender_line1.val(selected.addressLine1);
+                sender_line2.val(selected.addressLine2);
+                sender_suburb.val(selected.city);
+                sender_state.val(selected.state);
+                sender_postcode.val(selected.postcode);
+                sender_country.val('AU');
+                sender_dpid.val(selected.dpid);
+                sender_hfdpid.val(selected.dpid);
+
+            } else if(el.id == addressee_line1.attr('id') || j$(el).hasClass('Address2__c')) {
+                j$('.Address2__c').val(fullAddress);
+                addressee_line1.val(selected.addressLine1);
+                addressee_line2.val(selected.addressLine2);
+                addressee_suburb.val(selected.city);
+                addressee_state.val(selected.state);
+                addressee_postcode.val(selected.postcode);
+                addressee_country.val('AU');
+                addressee_dpid.val(selected.dpid);
+                addressee_hfdpid.val(selected.dpid);
+
+            } else if(el.id == mlsaddress_line1.attr('id') || j$(el).hasClass('mls_Address__c')) {
+                j$('.mls_Address__c').val(fullAddress);
+                mlsaddress_line1.val(selected.addressLine1);
+                mlsaddress_line2.val(selected.addressLine2);
+                mlsaddress_suburb.val(selected.city);
+                mlsaddress_state.val(selected.state);
+                mlsaddress_postcode.val(selected.postcode);
+                mlsaddress_dpid.val(selected.dpid);
+                mlsaddress_hfdpid.val(selected.dpid);
+            }
+        }
+    </script>
+
+    <a id="senderToggler_{!id}" class="toggler_{!id}" onclick="toggleSenderAddressPanel_{!id}(this);toggleImage_{!id}(this);" style="display:none;"><img  src="/img/setup_plus.gif" /></a>
+    <a id="addressToggler_{!id}" class="toggler_{!id}" onclick="toggleAddresseeAddressPanel_{!id}(this);toggleImage_{!id}(this);" style="display:none;"><img src="/img/setup_plus.gif" /></a>
+    <a id="mlsaddressToggler_{!id}" class="toggler_{!id}" onclick="togglemlsAddressPanel_{!id}(this);toggleImage_{!id}(this);" style="display:none;"><img src="/img/setup_plus.gif" /></a>
+    <c:PostcodeSuburbLookup className="AddressComponentPostcodeAutocomplete_{!id}" onselectFunctionName="caseAddressComponentPostcodeSuburbSelect_{!id}" />
+    <c:AddressValidation onselect="caseAddressComponentQASSelect_{!id}" styleClass="caseAddressComponentValidation_{!id}" />
+    <div class="addressPanel_{!id}">
+        <div class="senderAddressPanelName_{!id}">
+            <div class="addressRow_{!id}">
+                <apex:outputlabel for="txtAddress1Line1" value="Line 1"  />
+                <apex:inputtext id="txtAddress1Line1" value="{!currentCase.Address1Line1__c}" onkeydown="{!onkeydown}();" onchange="clearDPID_{!id}(this);"
+                                styleClass="form-control input-sm string caseAddressComponentValidation_{!id}" />
+            </div>
+            <div class="addressRow_{!id}">
+                <apex:outputlabel for="txtAddress1Line2" value="Line 2" />
+                <apex:inputtext id="txtAddress1Line2" value="{!currentCase.Address1line2__c}" onkeydown="{!onkeydown}();"
+                                styleClass="form-control input-sm string" />
+            </div>
+            <div class="addressRow_{!id}">
+                <apex:outputlabel for="txtAddress1City" value="Suburb" />
+                <apex:inputtext id="txtAddress1City" value="{!currentCase.Address1Suburb__c}" onkeydown="{!onkeydown}();"
+                                styleClass="form-control input-sm string AddressComponentPostcodeAutocomplete_{!id}" />
+            </div>
+            <div class="addressRow_{!id}">
+                <div class="leftColumn_{!id}">
+                    <apex:outputlabel for="txtAddress1State" value="State" />
+                    <apex:inputtext id="txtAddress1State" value="{!currentCase.Address1State__c}" onkeydown="{!onkeydown}();"
+                                    styleClass="form-control input-sm string statePostcode" />
+                </div>
+                <div class="rightColumn_{!id}">
+                    <apex:outputlabel for="txtAddress1Postcode" value="Postcode" />
+                    <apex:inputtext id="txtAddress1Postcode" value="{!currentCase.Address1Postcode__c}" onkeydown="{!onkeydown}();"
+                                    styleClass="form-control input-sm string statePostcode AddressComponentPostcodeAutocomplete_{!id}" />
+                </div>
+                <div style="clear:both;" />
+            </div>
+            <div class="addressRow_{!id}">
+                <div class="leftColumn_{!id}">
+                    <apex:outputlabel for="txtAddress1Country" value="Country Code" />
+                    <apex:inputtext id="txtAddress1Country" value="{!currentCase.Address1Country__c}" onkeydown="{!onkeydown}();"
+                                    styleClass="form-control input-sm string statePostcode upperCase caseAddressComponent_{!id}"  />
+                </div>
+                <div class="rightColumn_{!id}">
+                    <apex:outputlabel for="txtAddress1DPID" value="DPID" />
+                    <apex:inputtext id="txtAddress1DPID" value="{!currentCase.Address1DPID__c}" disabled="true"
+                                    styleClass="form-control input-sm string " />
+                    <apex:inputhidden id="hfAddress1DPID" value="{!currentCase.Address1DPID__c}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="addresseeAddressPanelName_{!id}">
+            <div class="addressRow_{!id}">
+                <apex:outputlabel for="txtAddress2Line1" value="Line 1" />
+                <apex:inputtext id="txtAddress2Line1" value="{!currentCase.Address2Line1__c}" onkeydown="{!onkeydown}();" onchange="clearDPID_{!id}(this);"
+                                styleClass="form-control input-sm string caseAddressComponentValidation_{!id}" />
+            </div>
+            <div class="addressRow_{!id}">
+                <apex:outputlabel for="txtAddress2Line2" value="Line 2" />
+                <apex:inputtext id="txtAddress2Line2" value="{!currentCase.Address2line2__c}" onkeydown="{!onkeydown}();"
+                                styleClass="form-control input-sm string" />
+            </div>
+            <div class="addressRow_{!id}">
+                <apex:outputlabel for="txtAddress2City" value="Suburb" />
+                <apex:inputtext id="txtAddress2City" value="{!currentCase.Address2Suburb__c}" onkeydown="{!onkeydown}();"
+                                styleClass="form-control input-sm string AddressComponentPostcodeAutocomplete_{!id}" />
+            </div>
+            <div class="addressRow_{!id}">
+                <div class="leftColumn_{!id}">
+                    <apex:outputlabel for="txtAddress2State" value="State" />
+                    <apex:inputtext id="txtAddress2State" value="{!currentCase.Address2State__c}" onkeydown="{!onkeydown}();"
+                                    styleClass="form-control input-sm string statePostcode" />
+                </div>
+                <div class="rightColumn_{!id}">
+                    <apex:outputlabel for="txtAddress2Postcode" value="Postcode" />
+                    <apex:inputtext id="txtAddress2Postcode" value="{!currentCase.Address2Postcode__c}" onkeydown="{!onkeydown}();"
+                                    styleClass="form-control input-sm string statePostcode AddressComponentPostcodeAutocomplete_{!id}" />
+                </div>
+                <div style="clear:both;" />
+            </div>
+            <div class="addressRow_{!id}">
+                <div class="leftColumn_{!id}">
+                    <apex:outputlabel for="txtAddress2Country" value="Country Code" />
+                    <apex:inputtext id="txtAddress2Country" value="{!currentCase.Address2Country__c}" onkeydown="{!onkeydown}();"
+                                    styleClass="form-control input-sm string statePostcode upperCase caseAddressComponent_{!id}"  />
+                </div>
+                <div class="rightColumn_{!id}">
+                    <apex:outputlabel for="txtAddress2DPID" value="DPID" />
+                    <apex:inputtext id="txtAddress2DPID" value="{!currentCase.Address2DPID__c}" disabled="true"
+                                    styleClass="form-control input-sm string " />
+                    <apex:inputhidden id="hfAddress2DPID" value="{!currentCase.Address2DPID__c}" />
+                </div>
+            </div>
+        </div>
+        <!--13-02-2017 Dion Gunn: Added to support MLS Project requirements (Missorts & Looping Parcel Intervention) -->
+        <div class="mlsAddressPanelName_{!id}">
+            <div class="addressRow_{!id}">
+                <apex:outputlabel for="txtmlsLine1" value="Line 1"/>
+                <apex:inputtext id="txtmlsLine1" value="{!relArticle.mls_AddressLine1__c}"
+                                onkeydown="{!onkeydown}();" onchange="clearDPID_{!id}(this);activateSave();"
+                                styleClass="form-control input-sm string caseAddressComponentValidation_{!id}"/>
+            </div>
+            <div class="addressRow_{!id}">
+                <apex:outputlabel for="txtmlsLine2" value="Line 2"/>
+                <apex:inputtext id="txtmlsLine2" value="{!relArticle.mls_AddressLine2__c}"
+                                onkeydown="{!onkeydown}();activateSave();clearDPID_{!id}(this);"
+                                styleClass="form-control input-sm string"/>
+            </div>
+            <div class="addressRow_{!id}">
+                <apex:outputlabel for="txtmlsCity" value="Suburb"/>
+                <apex:inputtext id="txtmlsCity" value="{!relArticle.mls_Suburb__c}" onkeydown="{!onkeydown}();activateSave();clearDPID_{!id}(this);"
+                                styleClass="form-control input-sm string AddressComponentPostcodeAutocomplete_{!id}"/>
+            </div>
+            <div class="addressRow_{!id}">
+                <div class="leftColumn_{!id}">
+                    <apex:outputlabel for="txtmlsState" value="State"/>
+                    <apex:inputtext id="txtmlsState" value="{!relArticle.mls_State__c}" onkeydown="{!onkeydown}();activateSave();clearDPID_{!id}(this);"
+                                    styleClass="form-control input-sm string statePostcode"/>
+                </div>
+                <div class="rightColumn_{!id}">
+                    <apex:outputlabel for="txtmlsPostcode" value="Postcode"/>
+                    <apex:inputtext id="txtmlsPostcode" value="{!relArticle.mls_Postcode__c}" onkeydown="{!onkeydown}();activateSave();clearDPID_{!id}(this);"
+                                     styleClass="form-control input-sm string statePostcode AddressComponentPostcodeAutocomplete_{!id}"/>
+                </div>
+            <!--    <div style="clear:both;"/> -->
+            </div>
+            <div class="addressRow_{!id}">
+                <div class="rightColumn_{!id}">
+                    <apex:outputlabel for="txtmlsDPID" value="DPID"/>
+                    <apex:inputtext id="txtmlsDPID" value="{!relArticle.mls_DPID__c}" disabled="true"
+                                    styleClass="form-control input-sm string "/>
+                    <apex:inputhidden id="hfmlsDPID" value="{!relArticle.mls_DPID__c}"/>
+                </div>
+            </div>
+        </div>
+        <!--16-03-2017 Dion Gunn: Added to support MLS Project requirements (Missorts & Looping Parcel Intervention) -->
+            <div class="mlsRemediate case-field-float">
+                <apex:outputlabel for="txtmlsRemediate" value="Correct Article Address"/>
+                <apex:inputCheckbox id="txtmlsRemediate" value="{!relArticle.mls_Remediate_Article__c}"
+                                    styleClass="checkbox txtmlsRemediate" onKeyDown="activateSave();"/>
+            </div>
+        <div class="mlsTextFields">
+            <div class="mlsDescription case-field-float pull-left">
+                    <apex:outputlabel for="txtmlsDescription" value="External Parcel Description (e.g Satchel,Box)"/>
+                    <apex:inputtext id="txtmlsDescription" value="{!relArticle.mls_Description__c}"
+                                    styleClass="form-control input-sm string mlsDescription" onKeyDown="activateSave();"/>
+                </div>
+            <div class="mlsInstructions case-field-float">
+                    <apex:outputlabel for="txtmlsInstructions" value="Remediation Instructions"/>
+                    <apex:inputtext id="txtmlsInstructions" value="{!relArticle.mls_Instructions__c}"
+                                    styleClass="form-control input-sm string mlsInstructions" onKeyDown="activateSave();"/>
+                </div>
+        </div>
+    </div>
+    <div class="alert alert-warning" id="remediationNotAvailable">
+        The related article is not suitable for remediation.
+    </div>
+    <div class="alert alert-info" id="remediationSectionInfo">
+        If a parcel has scanned several times in a processing facility, enter the correct address in these fields to trigger a message to the sorting machines.
+    </div>
+    <c:CountryLookup styleClass="caseAddressComponent_{!id}" display="code" />
+    <script type="application/javascript">
+        j$(document).ready(function() {
+            //Shift the mls related text fields up to the Remediation section
+            //Hide the fields and show the info bar if remediation not available for selected article.
+            var mlsFieldName = j$('#{!mlsFieldName}');
+            var mlsSectionPanel = j$("div[id='4Suggested Address Correction']");
+            if (mlsFieldName && mlsFieldName.is(":visible") && {!remediationAvailable}) {
+                mlsSectionPanel.prepend(j$(".mlsRemediate"));
+                mlsSectionPanel.append(j$(".mlsTextFields"));
+                j$('#mlsaddressToggler_{!id}').show();
+                j$("#remediationNotAvailable").hide();
+            } else if (!{!remediationAvailable}) {
+                j$('#mlsaddressToggler_{!id}').hide();
+                j$(".mlsRemediate").hide();
+                j$("#mls_Remediate_Article__c").hide();
+                j$(".mlsTextFields").hide();
+                j$("#mls_Address__c").hide();
+                j$("#remediationNotAvailable").show();
+                j$("#remediationSectionInfo").hide();
+            }
+            //Hide this notice if the case isn't a SSSW Delivery Case
+            if({!currentCase.RecordType.Name != 'SSSW Delivery'}) {
+                j$("#remediationNotAvailable").hide();
+            }
+            mlsSectionPanel.prepend(j$("#remediationSectionInfo"));
+            mlsSectionPanel.append(j$("#remediationNotAvailable"));
+            toggleRemediationSection();
+        });
+            //function to show/hide the remediation section based on the clearview codes.
+        function toggleRemediationSection() {
+            if (j$("#EnquirySubType__c select").val().toLowerCase() == 'delayed delivery') {
+                j$("div[id='\\:Suggested Address Correction-block']").show();
+            } else {
+                j$("div[id='\\:Suggested Address Correction-block']").hide();
+            }
+        }
+    </script>
+</apex:component>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Class__c</fullName>
+    <externalId>false</externalId>
+    <label>Class</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>2.1- FLAMMABLE GAS</fullName>
+                <default>false</default>
+                <label>2.1- FLAMMABLE GAS</label>
+            </value>
+            <value>
+                <fullName>2.2- NON-FLAMMABLE NO-TOXIC GAS</fullName>
+                <default>false</default>
+                <label>2.2- NON-FLAMMABLE NO-TOXIC GAS</label>
+            </value>
+            <value>
+                <fullName>3- FLAMMABLE LIQUID</fullName>
+                <default>false</default>
+                <label>3- FLAMMABLE LIQUID</label>
+            </value>
+            <value>
+                <fullName>5.1- OXIDIZING AGENT</fullName>
+                <default>false</default>
+                <label>5.1- OXIDIZING AGENT</label>
+            </value>
+            <value>
+                <fullName>9- MISCELLANEOUS DANGEROUS GOODS</fullName>
+                <default>false</default>
+                <label>9- MISCELLANEOUS DANGEROUS GOODS</label>
+            </value>
+            <value>
+                <fullName>2.1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>2.1</label>
+            </value>
+            <value>
+                <fullName>2.2</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>2.2</label>
+            </value>
+            <value>
+                <fullName>3</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>3</label>
+            </value>
+            <value>
+                <fullName>5.1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>5.1</label>
+            </value>
+            <value>
+                <fullName>9</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>9</label>
+            </value>
+            <value>
+                <fullName>tbc</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>tbc</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

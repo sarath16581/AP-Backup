@@ -1,0 +1,43 @@
+.THIS .padding-on-column {
+    padding-left: 0px !important;
+}
+
+.THIS .custom-cell-fixed{
+    background-color: none!important;
+    position: absolute;
+    top: 0;
+    min-height: 2rem;
+}
+
+.THIS .slds-text-color_weak {
+    color: #535F67;
+}
+
+
+.THIS table.user-list td.application-list li {
+    vertical-align: middle;
+}
+
+.THIS table.user-list td.application-list li span {
+    display: inline-block;
+    position: relative;
+}
+
+.THIS table.user-list td.application-list li span:before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    position: relative;
+    margin-right: 0.75rem;
+    border-radius: 50%;
+    background-color: #3E753F;
+}
+
+.THIS table.user-list td.application-list li span.pending:before {
+    background-color: #D0D5D8;
+}
+
+.THIS table.user-list td.application-list li span.error:before {
+    background-color:#BC111E;
+}

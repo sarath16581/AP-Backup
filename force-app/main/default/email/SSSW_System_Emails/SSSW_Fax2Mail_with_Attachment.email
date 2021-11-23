@@ -1,0 +1,38 @@
+<messaging:emailTemplate subject="Fax:{!relatedTo.id} for Case {!relatedTo.Case__r.CaseNumber}" recipientType="User" relatedToType="Fax__c">
+    <messaging:plainTextEmailBody >
+        Fax:{!relatedTo.id} 
+        Case:{!relatedTo.Case__r.CaseNumber} 
+        Number:{!relatedTo.To__c}  
+        Emailed To:{!relatedTo.Emailto__c}  
+        From:{!relatedTo.From__c}
+    </messaging:plainTextEmailBody>
+    
+    <messaging:attachment renderAs="PDF" filename="Fax.pdf">
+        <style>
+            div h3[style] {
+                color:black!important;
+                display: inline;
+            }
+            
+            .event-message-section {
+                border:1px solid black;
+                border-collapse: collapse;
+            }
+            
+            .event-message-section th, .event-message-section td {
+                border:1px solid black;
+            }   
+            h1 {
+        display: inline;
+        font-weight: bold;
+    }
+    h3{
+        display: inline;
+        font-weight: bold;
+    }
+       </style>    
+         
+        <!--<c:SSSWFaxContent faxCaseId="{!relatedTo.Case__r.Id}" />-->
+        <c:RetailFaxTemplate compId="{!relatedTo.Case__r.Id}"/>
+    </messaging:attachment>
+</messaging:emailTemplate>

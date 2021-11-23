@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UniqueKey__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Forces a unique record for Contact and Application. Set by:
+Workflow Rule: BAMUpdateContactAppUniqueKeyField on new record or update of con app or contact
+Apex Class: ContactUtility.updateConAppUniqueKey on merge (since workflow is not triggered on child records during a merge)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Forces a unique record for Contact and Application</inlineHelpText>
+    <label>Unique Key</label>
+    <length>40</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

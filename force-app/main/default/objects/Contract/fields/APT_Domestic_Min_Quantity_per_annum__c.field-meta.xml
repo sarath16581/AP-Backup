@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Domestic_Min_Quantity_per_annum__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>The value in this field is being populated in generated template.Domestic Minimum Quantity (per annum)</inlineHelpText>
+    <label>Domestic Min Quantity (Per Annum)</label>
+    <precision>10</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

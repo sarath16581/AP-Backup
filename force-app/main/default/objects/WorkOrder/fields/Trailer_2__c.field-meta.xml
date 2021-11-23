@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Trailer_2__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The second trailer attached to the truck on completion of a Collect Deliver job.  Used to calculate vehicle capacity. Set in class TDF_WorkOrderTriggerUtility</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The second trailer attached to the truck on completion of a Collect Deliver job.</inlineHelpText>
+    <label>Trailer 2</label>
+    <referenceTo>Location</referenceTo>
+    <relationshipLabel>Work Orders (Trailer 2)</relationshipLabel>
+    <relationshipName>Work_Orders2</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

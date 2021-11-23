@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Open_Jobs</fullName>
+    <columns>Job_Type__c</columns>
+    <columns>NAME</columns>
+    <columns>Connote_Number__c</columns>
+    <columns>Service_Code__c</columns>
+    <columns>Status__c</columns>
+    <columns>Pick_Up_Depot__c</columns>
+    <columns>First_Transit_Depot__c</columns>
+    <columns>Second_Transit_Depot__c</columns>
+    <columns>Delivery_Depot__c</columns>
+    <columns>Delivery_Date__c</columns>
+    <columns>Senders_Primary_Contact__c</columns>
+    <columns>Receiver_Primary_Contact__c</columns>
+    <columns>Cartons__c</columns>
+    <columns>Pallets__c</columns>
+    <columns>Weight_Kgs__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Closed,Cancelled</value>
+    </filters>
+    <label>All Open Jobs</label>
+    <language>en_US</language>
+    <sharedTo>
+        <role>SSSE_Application_Support</role>
+        <role>SSSE_Co_Ordinator</role>
+        <role>StarTrack_Service_Quality_Specialist</role>
+    </sharedTo>
+</ListView>

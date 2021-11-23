@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Transit_Depot1_Must_Be_Populated</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(TEXT(NumberofTransshipments__c)= &apos;1&apos;,ISBLANK( First_Transit_Depot__c))</errorConditionFormula>
+    <errorDisplayField>First_Transit_Depot__c</errorDisplayField>
+    <errorMessage>Depot Required</errorMessage>
+</ValidationRule>

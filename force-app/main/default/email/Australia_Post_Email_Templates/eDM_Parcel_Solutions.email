@@ -1,0 +1,77 @@
+<messaging:emailTemplate subject="Parcel solutions to suit your business." recipientType="Lead" >
+<messaging:htmlEmailBody >
+<apex:page standardStylesheets="false"
+    cache="false"
+    expires="0"
+    showheader="false"
+    sidebar="false"
+    title="Parcel Solutions"
+    docType="html-5.0"
+>
+
+<apex:stylesheet value="https://c.cs6.visual.force.com/resource/GsForm_Assets/css/style.css"/>
+
+
+
+<div class="body" style="width:100%;margin:0pc; padding:0px; border:0px solid; text-align:center;background-color:#FFF;font-family: Helvetica; font-size: 10pt;">
+<div class="edmBody" style="width:600px; margin:0px auto; text-align:left; font-size:1em;">   
+    <div class="header" style="background-color:#D3DAE0; padding:20px;">
+        <apex:image styleClass="logo" url="https://c.cs6.visual.force.com/resource/GsForm_Assets/css/images/auspost.png" style="margin:5px; float:right;"/>
+        <h1 style="clear:both; margin:0px;font-size:1.5em;">Parcel solutions to suit your business.</h1>
+    </div>
+    
+    <div class="whitebox" style="padding:10px; border:1px solid #F3F1EE; margin:10px; -moz-border-radius: 5px; border-radius: 5px;">
+        <p>Whether you are just starting out, growing your business locally or expanding internationally - Australia Post has a parcel solution to help.</p> 
+        <strong style="font-weight:normal;">What's more you may be eligible for one month of free parcel pick-ups'.</strong>
+    </div>
+    
+    <div class="greybox" style="padding:10px; border:1px solid #F3F1EE; margin:10px; -moz-border-radius: 5px; border-radius: 5px;background-color:#F3F1EE;">
+        <h2 STYLE="color:#5e514d;font-size:1.4em;">Sending up to 10 parcels per week?</h2>
+        <p>Click and Send is ideal for smaller businesses (sending fewer than 500 parcels per annum) who want an online delivery solution. With Click and Send you can enjoy integration with delivery choices, tracking and signature features.</p>
+        <p><a class="findOutMore" href="http://auspost.com.au/parcels-mail/click-and-send.html?cmpid=edm-smb-green-clicksend-find-130408" style="font-weight:bold;font-size:1.2em;color:#dc1928; text-decoration:underline;">find out more &gt;</a></p>
+        <strong style="font-weight:normal;">As a special bonus, you may be eligible for one month of free parcel pick-ups from your business.</strong>
+    </div>
+    
+    <div class="greybox" style="padding:10px; border:1px solid #F3F1EE; margin:10px; -moz-border-radius: 5px; border-radius: 5px;background-color:#F3F1EE;">
+        <h2 STYLE="color:#5e514d;font-size:1.4em;">Sending more than 10 parcels per week?</h2>
+        <p>eParcel is an online delivery solution for established eCommerce retailers that can help streamline product distribution. 
+        This solution is normally reserved for customers sending a minimum of 20 parcels per week (a minimum of 1000 parceis per annum), 
+        however as part of a special promotion, Australia Post is now offering this solution to new parcel customers sending 500+ parcels 
+        per annum. This is great news for businesses, as with eParcel you can integrate with delivery choices, 
+        customer returns and tracking.</p>
+        <p><a class="findOutMore" href="http://auspost.com.au/parcels-mail/eparcel.html?cmpid=edm-smb-green-eparcel-find-130408" style="font-weight:bold;font-size:1.2em;color:#dc1928; text-decoration:underline;">find out more &gt;</a></p>
+        <strong style="font-weight:normal;">For the first six months, you will receive free signature on delivery for every Parcel sent. As an extra special bonus, you may be eligible for one month of free parcel pick-ups from your business.</strong>
+    </div>
+    
+    <div class="greybox" style="padding:10px; border:1px solid #F3F1EE; margin:10px; -moz-border-radius: 5px; border-radius: 5px;background-color:#F3F1EE;">
+        <h2 STYLE="color:#5e514d;font-size:1.4em;">Get started</h2>
+        <p>Simply complete the <a href="https://auspost.secure.force.com/promotions?cmpid=edm-smb-green-force-form-130408" style="color:#dc1928; text-decoration:underline;">online form</a> and we will be in touch with you shortly.</p>
+        <p>Or give us a call on 1300 660 971 or visit your local <a href="http://auspost.com.au/in-store-support.html?cmpid=edm-smb-green-hub-visit-130408" style="color:#dc1928; text-decoration:underline;">Business Hub</a> today.</p>
+    </div>
+    
+    <div class="greybox" style="padding:10px; border:1px solid #F3F1EE; margin:10px; -moz-border-radius: 5px; border-radius: 5px;background-color:#F3F1EE;">
+        <h2 STYLE="color:#5e514d;font-size:1.4em;">Growing your business internationally?</h2>
+        <p>For a limited time, take advantage of a 20% rebate on our premium Express Courier International product.</p>
+        <p>To find out more about this offer, give us a call on 1300 660 971 or visit your local <a href="http://auspost.com.au/in-store-support.html?cmpid=edm-smb-green-hub-visit-130408" style="color:#dc1928; text-decoration:underline;">Business Hub</a> today.</p>
+    </div>
+    
+    <div class="tc" style="padding:0px 20px; font-size:0.8em;">
+        <p>#*Terms and conditions apply.This email was sent by Australia Post. 
+        If you do not wish to receive such information you can unsubscribe at any time. 
+        Australia Post does not represent, warrant or guarantee that the integrity of this email 
+        communication has been maintained nor that the communication is free of errors, viruses or interference.</p>
+    </div>
+    
+    <div class="footer" style="background-color:#D3DAE0; padding:20px;color:#5e514d; font-size:0.9em;padding: 2px 20px; text-decoration:none;">
+        <a href="http://auspost.com.au/pdfs/business-parcel-bonus-offer-terms-and-conditions.pdf" style="color:#5e514d; font-size:0.9em;padding: 2px 20px; text-decoration:none;">Terms &amp; conditions</a> | <a href="http://auspost.com.au/privacy.html" style="color:#5e514d; font-size:0.9em;padding: 2px 20px; text-decoration:none;">Privacy policy</a> | <a href="https://contactus.auspost.com.au/app/ask#email" style="color:#5e514d; font-size:0.9em;padding: 2px 20px; text-decoration:none;">Support</a> 
+    </div>
+    
+    
+</div>
+</div>
+
+</apex:page>
+
+</messaging:htmlEmailBody>
+
+</messaging:emailTemplate>

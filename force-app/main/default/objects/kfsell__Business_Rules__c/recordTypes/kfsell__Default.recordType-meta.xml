@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>kfsell__Default</fullName>
+    <active>true</active>
+    <label>Default</label>
+    <picklistValues>
+        <picklist>kfsell__BS_Req_for_certain_Rev_Range__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>kfsell__Business_Rule_Catagory__c</picklist>
+        <values>
+            <fullName>Buying Influences</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Competitor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Meeting Plan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Perspective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scorecard</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>kfsell__Criteria__c</picklist>
+        <values>
+            <fullName>A point for each red flag added %28icon%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Any data in this field%3B eventually be able to use language to derive competitive advantage data</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>At least one best action active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Economic buying influence identified</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Economic buying influence with key%2Fwin results and key win statement completed with rating</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>If Coach identified that is growth or trouble mode with medium or high degree of influence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>If best action</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>If pick list</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>If possible action</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>One point for each red flag</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>One point with each strength</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Only Alternative%2C Front Runner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Plus 1 to minus 5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Plus 2 to Plus 5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Populated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Populated for any BI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Populated- Concern%2C Discomfort%2C Worry%2C Fear%2C Panic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Populated- Euphoria%2C Great%2C Secure%2C Comfort%2C OK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Populated- Named Competitor%2FBuying from Someone Else</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Populated- Using Budget for Something Else%2C Using Internal Resources%2C Doing Nothing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Populated- assume a requirement from CRM%3F</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Populated- assume a requirement from CRM%3F Negative if too close to present date or 12 months from creation date%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Populated- either Active or Urgent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Populated- either Later or Work it in</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shared%2C Zero</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technical buying influence identified%3B adding another BI beyond coach or EBI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Total  1- 20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Total 21- 40</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Total 41-60</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Total 61-80</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Total 81-100</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>User buying influence identified%3B addding another BI beyond EBI or Coach</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>kfsell__Field_Name__c</picklist>
+        <values>
+            <fullName>Business Result%28s%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Buying Influence Role</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Buying Mode</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Competition Detail Field</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Competition Type- Negative</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Competition Type- Positive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Competitive Preference</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Stated Objective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Timing for Priorities- Negative</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Timing for Priorities- Positive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Degree of Influence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Evaluation of Objective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Evidence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>My Position Vs%2E Competition- Negative</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>My Position Vs%2E Competition- Positive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal Win%28s%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Place in Sales Funnel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Position is Negative</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Position is Positive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rating- Negative</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rating- Positive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SSO Close Date</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scorecard Total</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>kfsell__Is_a_Blue_Sheet_required__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>kfsell__Scorecard_Required__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Test_coverage_Percentage__c</fullName>
+    <defaultValue>0</defaultValue>
+    <description>to be decommissioned - User Support Query RT cleanup</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If the changeset contains Apex code, test class must be built as well.---Incl. Apex Code Yes/No If yes, Test Coverage percent (number field). Help text Must be minimum 80%</inlineHelpText>
+    <label>Test coverage Percentage</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Percent</type>
+</CustomField>

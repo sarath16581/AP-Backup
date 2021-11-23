@@ -1,0 +1,55 @@
+<template>
+    <lightning-card>
+        <div style="text-align:center;font-weight:700;font-size:150%;">
+            <h1>Use Offline Rates Checkout</h1>
+        </div>
+        <br/><br/>
+        <div style="width:100%;padding-left:50px;padding-right:250px;">
+            <p>
+                {label.confirmationMessage}
+            </p>
+        </div>
+        <template if:true={showToastMessage}>
+            <div class="demo-only" style="height:4rem">
+                <div class="slds-notify_container slds-is-relative">
+                    <div class={toastMessageClass} role="status">
+                        <span class="slds-assistive-text">{toastMessage.type}</span>
+                        <div class="slds-notify__content">
+                            <h2 class="slds-text-heading_small ">{toastMessage.message}</h2>
+                        </div>
+                        <div class="slds-notify__close">
+                            <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close" onclick={handleToastClose}>
+                                X
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </template>
+
+        <hr>
+        <div class="slds-p-horizontal_small">
+            <lightning-record-edit-form record-id={proposalId} object-api-name="Apttus_Proposal__Proposal__c" onsubmit={handleNext}>
+                <div class="slds-grid slds-wrap slds-m-left_xx-large slds-m-right_xx-large">
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-input-field field-name='APT_Use_Offline_Rates_Reason__c' required></lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-input-field field-name='APT_Use_Offline_Rates_Comments__c' required></lightning-input-field>
+                    </div>
+                </div>
+                <hr style="margin: 0.8rem;">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_4-of-12"></div>
+                    <div class="slds-col slds-size_4-of-12" style="text-align:center;">
+                        <lightning-button class="slds-m-top_small" variant="brand" type="submit" label="Next"></lightning-button> &nbsp;&nbsp;
+                        <lightning-button class="slds-m-top_small" variant="brand" label="Cancel" onclick={handleCancel}></lightning-button> &nbsp;&nbsp;             
+                    </div>
+                    <div class="slds-col slds-size_4-of-12"></div>
+                </div>
+            </lightning-record-edit-form>
+            <lightning-spinner variant="brand" alternative-text="Loading" size="large" if:true={isLoadingSpinner}></lightning-spinner>
+        </div>
+    </lightning-card>
+</template>

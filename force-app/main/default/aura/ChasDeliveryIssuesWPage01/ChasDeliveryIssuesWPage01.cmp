@@ -1,0 +1,296 @@
+<!--
+  * @changeLog :
+  * @date         : 19/06/2020
+  * Modified by   : Hara Sahoo
+  * @description  : 1. Added new labels for issuesType
+                    2. Added new section for incorrect delivery address and additonal information
+      @Modifield by Madhuri  - 15/10/2020 Content change  - small label changes -INC1644977
+  * @Modified by Hara 04/11/2020: Consignment search API integration, as part of the delivery issue automation
+  * @Modifield by Hara Sahoo - 11/01/2021 - Changes made as part of enquiry submission in an unauthenticated user context
+  * @Modifield by Hara Sahoo - 02/02/2021 - AME address validation for all address fields on the form 
+-->
+<aura:component extends="c:SS_uiWizardPage" controller='ChasApexController' description="Delivery Issues wizard page 1: Issue Details">
+    
+    <!-- Adobe Analytics Tracking Helpers -->
+    <!-- 29th April 2020- Swati.mogadala@auspost.com.au- Removed reference to onInit, since there is no definition for it in the controller -->
+    <ltng:require scripts="{!$Resource.GlobalAssets + '/js/lightning/adobeAnalyticsHelper.js'}"/>
+    <aura:registerEvent name="adobeAnalyticsInterfaceEvent" type="c:adobeAnalyticsInterfaceEvent"/>
+    <aura:attribute name="IssueName" type="String" />
+    <Aura:attribute name="showIssuesList" type="Boolean" default="true"/>
+    <aura:attribute name="issuesType" type="List"
+                    default="[
+                             {label:'Postie didn\'t knock before leaving a card', value: 'Postie didn\'t knock before leaving a card'},
+                             {label:'Late or missing item', value:'Late or missing item'},
+                             {label:'Item was left in an unsafe place', value:'Item was left in an unsafe place'},
+                             {label:'Item was taken to an inconvenient Post Office', value:'Item was taken to an inconvenient Post Office'},
+                             {label:'Item was damaged', value:'Item was damaged'},
+                             {label:'Incorrect delivery address needs fixing', value:'Incorrect delivery address needs fixing'},
+                             {label:'Something else', value:'Something else'}
+                             ]" /> 
+    
+    <aura:attribute name="parcelOrLetterRadioGroup" type="List"
+                    default="[
+                             {'label':'Parcel', 'id':'fifthRadio'},
+                             {'label':'Letter', 'id':'sixthRadio'}
+                             ]"/>    
+    <aura:attribute name="recipientOrSenderRadioGroup" type="List"
+                    default="[
+                             {'label':'Recipient', image:'','id':'firstRadio'},
+                             {'label':'Sender', image:'','id':'secondRadio'}
+                             ]"
+                    description='The radio button label and its image URL to display'/>
+    <aura:attribute name="parcelOrLetterRadioButtonsFlag" type="Boolean" default="false"/> 
+    <aura:attribute name="issueDateFlag" type="Boolean" default="false"/>
+    <aura:attribute name="deliveryAddress" type="String" default="Delivery address"/>
+    <aura:attribute name="inCorrectDeliveryAddressFlag" type="Boolean" default="false"/>
+    <aura:attribute name="isLandingPage" type="Boolean" default="false"/>  
+    <aura:attribute name="displaymyPostLoginForm" type="Boolean" default="false" />
+    <aura:attribute name="showErrorSummary" type="Boolean" default="false"/>
+    <aura:handler name="chasGenComponentEvent" event="c:chasGenComponentEvent" action="{!c.onchange}"/>
+    <aura:handler name="render" value="{!this}" action="{!c.onRender}"/>
+    <aura:handler name="chasSelectedIssueType" event="c:chasSelectedIssueType" action="{!c.selectedIssueHandler}"/>
+    <!-- Guest login attributes-->
+    <aura:handler name="chasmyPostLogin" event="c:ChasMyPostLogin" action="{!c.displaymyPostLoginForm}"/>
+    <aura:attribute name="authenticatedURL" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!-- Error attributes-->
+    <aura:attribute name="error500" type="Boolean" default="false"/>
+    <aura:attribute name="error400" type="Boolean" default="false"/>
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+    <aura:attribute name="isVerified"  type="Boolean" default="false" />
+    
+    <!-- AME attributes-->
+    <aura:attribute name="showError" type="Boolean" />
+    <aura:attribute name="incorrectShowError" type="Boolean" default="false"/>
+    <aura:attribute name="error" type="String" default=''/>
+    <aura:attribute name="fieldError" type="String" default=''/>
+    <aura:attribute name="inputError" type="Boolean" default="false"/>
+    <aura:attribute name="inputFieldError" type="Boolean" default="false"/>
+    <aura:attribute name="isOverriden" type="Boolean" default="false"/>
+    
+    <aura:if isTrue="{!v.showIssuesList}">
+        <legend class="chas-header left-padding">
+            <h2>Issue details</h2>
+        </legend>
+        <!--<c:ChasFieldset label="Issue details">-->
+        <c:ChasForm showAllFieldRequiredMsg="false" showIssueDetailMsg="true" customStyle="left-padding">
+            <!-- Login was successful, user authenticated -->
+            <aura:if isTrue="{!v.authUserData.isUserAuthenticated == true}">
+                <!-- Dont present the login options-->
+                <aura:set attribute="else">
+                    <!-- User is un-authenticated/guest -->
+                    <!-- Present user with login options authenticated/ un-authenticated-->
+                    <div class="slds-grid-address-login login-block">
+                        <div class="slds-col state-col-width">
+                            <c:ChasLoginOptions label="Continue with MyPost" myPostLogin="true" subLabel="to pre-fill some details. You'll also be able track your enquiry online."/>
+                        </div>
+                        <div class="slds-col separator-vertical separator-horizontal">
+                            <hr/>
+                        </div>
+                        <div class="slds-col state-col-width">
+                            <c:ChasLoginOptions label="Continue as a guest" subLabel="Enter all your details, then get updates on your enquiry via email or phone."/>
+                        </div>
+                    </div>  
+                </aura:set>
+            </aura:if>
+            <div>
+                <aura:iteration items="{!v.issuesType}" var="issueType">
+                    <c:ChasDeliveryIssueList aura:id="childid" label="{!issueType.label}" darkTheme="false" open="false"/> 
+                </aura:iteration>
+            </div>
+        </c:ChasForm>    
+        <!--</c:ChasFieldset>-->
+        <aura:set attribute='else'>
+            <!--Go back button-->
+            <div class="left-padding">
+                <img src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/back_arrow.png" alt="Go back"/><label>&nbsp;</label>
+                <lightning:button label="BACK" variant="base" onclick="{!c.goBackHandler}" class="goBack"/>
+            </div>
+            <c:ChasFieldset label="{!v.IssueName}" customStyle="left-padding"> 
+                <c:ChasForm customStyle="left-padding">
+                    <div class="outer-box">
+                        <!--Error summary-->
+                        
+                        <aura:if isTrue="{! v.showErrorSummary }">
+                            <c:ChasErrorSummary aura:id="chasErrorSummary" errors="{! v.errors }"/>
+                        </aura:if>
+                        <aura:if isTrue="{! v.IssueName == 'Item was damaged' }">
+                            <c:ChasBspDeflection borderStyle="info-box-left-bar bottom-gap">
+                                <p>
+                                    To make a <a href="https://auspost.com.au/receiving/delayed-lost-or-damaged-items/compensation" style="color:red;">compensation</a> claim, please take your packaged item to a Post Office for assessment. Otherwise, enter some details here and we'll investigate with your local delivery centre.
+                                </p>
+                            </c:ChasBspDeflection>
+                        </aura:if>        
+                        <aura:if isTrue="{!v.IssueName == 'Incorrect delivery address needs fixing'}">
+                            <c:ChasBspDeflection  borderStyle="info-box-left-bar bottom-gap">
+                                <p>
+                                    Use this form to request a minor change to the address you entered – like fixing an apartment number or misspelled street name.
+                                    To change the address completely, you'll need to <a href="https://auspost.com.au/receiving/manage-deliveries-in-transit/redirect-parcels-in-transit" style="color:red;">redirect your item</a> instead.
+                                </p>
+                            </c:ChasBspDeflection>
+                            <!-- Recipient/Sender Radio Buttions Group-->
+                            
+                            <c:ChasInput type='text' aura:id="chasInput" name="trackingNumber" required="true"
+                                         label='Tracking number' subLabel='' value='{! v.wizardData.trackingId }'
+                                         maxlength='50'/>  
+                            
+                            <c:ChasRadioButtons
+                                                aura:id="chasInput"
+                                                name="recipientOrSenderRadioButtons"
+                                                required="true"
+                                                label="Are you the recipient or sender?"
+                                                options="{!v.recipientOrSenderRadioGroup}"
+                                                value="{!v.wizardData.selectedRadio3}"/>
+                            <aura:set attribute='else'>
+                                <!--<c:ChasInput type='text' aura:id="chasInput" name="trackingNumberOptional" required="false"
+                                             label='Tracking number' subLabel='(optional)'
+                                             value='{! v.wizardData.trackingId }' maxlength='50'/>-->
+                                <c:ChasInputWithIcon type='text' aura:id="transferTrackingNumber" name="trackingNumberOptional" required="false" 
+                                                     label='Tracking number' subLabel='(optional)' 
+                                                     value='{! v.wizardData.trackingId}'
+                                                     onblur="{!c.searchTrackingNumberService}" isVerified="{!v.isVerified}" isLoading="{!v.isLoading}"/>
+                            </aura:set>
+                        </aura:if>
+                        <aura:if isTrue="{!v.parcelOrLetterRadioButtonsFlag}">
+                            <!-- Parcel or Letter Radio Buttons -->
+                            <c:ChasRadioButtons
+                                                aura:id="chasInput"
+                                                name="parcelOrLetterRadioButtons"
+                                                required="true"
+                                                label="Item type"
+                                                options="{! v.parcelOrLetterRadioGroup }"
+                                                value="{! v.wizardData.selectedRadio2 }"/>
+                        </aura:if>
+                        
+                        <!-- Issue Date -->
+                        <aura:if isTrue="{!v.issueDateFlag}">
+                            <c:ChasInput type='date' aura:id='chasInput' name='issueDate' required="true"
+                                         label='When did the issue occur?' value='{! v.wizardData.issueDate }' short="true"
+                                         placeholder="DD/MM/YYYY"/>
+                        </aura:if>
+                        
+                        <aura:if isTrue="{! v.IssueName != 'Incorrect delivery address needs fixing' }">
+                            <!-- Issue details -->
+                            <c:chasTextArea aura:id="chasInput" name="issueDetails" required="true" label="Please provide details"
+                                            value="{!v.wizardData.issueDetails}"/>
+                        </aura:if>
+                        
+                        <aura:if isTrue="{!v.inCorrectDeliveryAddressFlag}">
+                            <!-- Section separator-->
+                            <div class="separator-gap">
+                                <hr/>
+                            </div>
+                            
+                            <!--<c:ChasFieldset
+                                            label="Incorrect delivery address"
+                                            small="true">-->
+                            
+                            <!-- Address Line1-->
+                            <!--<c:ChasInput type='text' aura:id='chasInput' name='inCorrectAddressLine1' required="true"
+                                             label='Address line 1' value='{!v.wizardData.inCorrectDeliveryAddressLine1}'/>-->
+                            
+                            <!-- Address Line2-->
+                            <!--<c:ChasInput type='text' name='inCorrectAddressLine2' required="false" label='Address line 2'
+                                             subLabel='(optional)' value='{! v.wizardData.inCorrectDeliveryAddressLine2}'/>-->
+                            
+                            <!-- City-->
+                            <!--<c:ChasInput type='text' aura:id='chasInput' name='inCorrectDeliverycity' required="true" label='Suburb, town or city'
+                                             value='{!v.wizardData.inCorrectDeliveryCity}'/>-->
+                            <!--<div class="slds-grid-address">-->
+                            <!-- State -->
+                            <!--<div class="slds-col state-col-width">
+                                        <c:ChasSelect aura:id='chasInput' name='inCorrectDeliverystate' required="true" label='State'
+                                                      options="{!v.stateOptions}" value='{!v.wizardData.inCorrectDeliveryState}'/>-->
+                            <!--</div>-->
+                            
+                            <!-- Postcode -->
+                            <!--<div class="slds-col postcode-col-width col-separator">
+                                        <c:ChasInput type='text' aura:id='chasInput' name='inCorrectDeliverypostcode' required="true"
+                                                     label='Postcode' pattern="[0-9]*" value='{!v.wizardData.inCorrectDeliveryPostcode}'/>
+                                    </div>   -->                         
+                            <!--</div>
+                                
+                            </c:ChasFieldset>-->
+                            <!-- Incorrect delivery address-->
+                            <div id="AMEIncorrectDeliveryAddress" name="AMEIncorrectDeliveryAddress" class="AMEAddress">
+                                <c:ChasErrorMessages error="{! v.fieldError }" showError="{! v.incorrectShowError }"/>
+                                <c:chasMissingItemAddressLookup aura:id="searchAddress" label="Incorrect delivery address" searchAddressTerm="{!v.wizardData.incorrectDeliveryAddress}"
+                                                                inputFieldError="{!v.inputFieldError}" inputError="{!v.inputError}" 
+                                                                errorMessage="{!v.errorMessage}" onshowError="{!c.getIncorrectShowError}" 
+                                                                onvaluechange="{!c.getIncorrectOverrideAddress}" onsearchtermchange="{!c.getIncorrectSelectedAddress}" 
+                                                                onaddressOverride="{!c.checkOverride}" onaddressTyped="{!c.getIncorrectAddressTyped}"/>
+                            </div>
+                            <!-- Correct delivery address-->
+                            <div id="AMEDeliveryAddress" name="AMEDeliveryAddress" class="AMEAddress">
+                                <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }"/>
+                                <c:chasMissingItemAddressLookup aura:id="searchAddress" label="Correct delivery address" searchAddressTerm="{!v.wizardData.selectedDeliveryAddress}"
+                                                                inputFieldError="{!v.inputFieldError}" inputError="{!v.inputError}" 
+                                                                errorMessage="{!v.errorMessage}" onshowError="{!c.getShowError}" 
+                                                                onvaluechange="{!c.getOverrideAddress}" onsearchtermchange="{!c.getSelectedAddress}" 
+                                                                onaddressOverride="{!c.checkOverride}" onaddressTyped="{!c.getAddressTyped}"/>
+                            </div>
+                        </aura:if>
+                        <!-- Section separator-->
+                        <!--<div class="separator-gap">
+                            <hr/>
+                        </div>-->
+                        <!--<c:ChasFieldset
+                                        label="{!v.deliveryAddress}"
+                                        small="true">-->
+                        
+                        <!-- AME Integration-->
+                        <aura:if isTrue="{! v.IssueName != 'Incorrect delivery address needs fixing' }">
+                            <div id="AMEDeliveryAddress" name="AMEDeliveryAddress" class="AMEAddress">
+                                <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }"/>
+                                <c:chasMissingItemAddressLookup aura:id="searchAddress" label="Delivery address" searchAddressTerm="{!v.wizardData.selectedDeliveryAddress}"
+                                                                inputFieldError="{!v.inputFieldError}" inputError="{!v.inputError}" 
+                                                                errorMessage="{!v.errorMessage}" onshowError="{!c.getShowError}" 
+                                                                onvaluechange="{!c.getOverrideAddress}" onsearchtermchange="{!c.getSelectedAddress}" 
+                                                                onaddressOverride="{!c.checkOverride}" onaddressTyped="{!c.getAddressTyped}"/>
+                            </div>
+                            
+                        </aura:if>
+                            
+                            <!-- Address Line1-->
+                            <!--<c:ChasInput type='text' aura:id='chasInput' name='addressLine1' required="true"
+                                         label='Address line 1' value='{!v.wizardData.deliveryAddressLine1}'/>-->
+                            
+                            <!-- Address Line2-->
+                            <!--<c:ChasInput type='text' name='addressLine2' required="false" label='Address line 2'
+                                         subLabel='(optional)' value='{! v.wizardData.deliveryAddressLine2}'/>-->
+                            
+                            <!-- City-->
+                            <!--<c:ChasInput type='text' aura:id='chasInput' name='city' required="true" label='Suburb, town or city'
+                                         value='{!v.wizardData.deliveryCity}'/>-->
+                            
+                            <!--<div class="slds-grid-address">-->
+                                
+                                <!--<div class="slds-col state-col-width">
+                                    <c:ChasSelect aura:id='chasInput' name='state' required="true" label='State'
+                                                  options="{!v.stateOptions}" value='{!v.wizardData.deliveryState}'/>
+                                </div>-->
+                                <!-- Postcode -->
+                                <!--<div class="slds-col postcode-col-width col-separator">
+                                    <c:ChasInput type='text' aura:id='chasInput' name='postcode' required="true"
+                                                 label='Postcode' pattern="[0-9]*" value='{!v.wizardData.deliveryPostcode}'/>
+                                </div> 
+                            </div>  -->
+                            <!-- Additional Information-->
+                            <aura:if isTrue="{! v.IssueName == 'Incorrect delivery address needs fixing' }">
+                                <c:chasTextArea aura:id="chasInput" name="issueDescription" required="true" 
+                                                label="Description of issue" value="{!v.wizardData.issueDescription}">
+                                    <p class="chas-body_small">Anything else you think might help us investigate</p>
+                                </c:chasTextArea>
+                            </aura:if>
+                            
+                            <lightning:button label="Continue" variant="brand" onclick="{!c.goForward}" class="{! 'chas-button chas-input-search-button'}" />
+                            
+                        <!--</c:ChasFieldset>-->
+                    </div>
+                </c:ChasForm>  
+            </c:ChasFieldset>    
+        </aura:set> 
+    </aura:if>
+    
+</aura:component>

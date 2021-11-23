@@ -1,0 +1,19 @@
+<!-- 2018-06-01 clint.dsilva@auspost.com.au created -->
+<apex:page id="CaseConsignmentAttachment" standardController="Case" extensions="ConsignmentAssignmentExt" showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+    <apex:includeScript value="/support/console/42.0/integration.js"/>
+    <apex:includeLightning />
+    <apex:outputText value="Case number :  + {!case.casenumber}" rendered="false"/>
+    <apex:outputText value="Article Test :  + {!Case.ArticleTest__c}" rendered="false"/>
+    <div id="lightning" />
+    <script>
+        $Lightning.use("c:LtngOutConsignmentAttachment", function() {
+          $Lightning.createComponent("c:CaseConsignmentAttachment",
+          { label : "Consignment Assignment", caseID : "{!caseID}" , caseNumber : "{!case.casenumber}"},
+          "lightning",
+          function(cmp) {
+            // Consignment Attachment created callback
+          });
+        });
+
+    </script>
+</apex:page>

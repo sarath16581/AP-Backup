@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CNC_Team__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(Customer_Resolution__c, 
+&apos;CCM - Exgratia&apos;, &apos;10&apos;,
+&apos;CCM - Late Delivery Claims&apos;, &apos;23&apos;,
+&apos;CCM - Damages&apos;, &apos;24&apos;,
+&apos;Incorrect Pricing&apos;, &apos;33&apos;,
+&apos;Despatch ID - Incorrect Origin&apos;, &apos;34&apos;,
+&apos;Non Consolidation&apos;, &apos;36&apos;,
+&apos;Product Return&apos;, &apos;94&apos;,
+&apos;Satchel Migration&apos;, &apos;95&apos;,
+&apos;Rebate&apos;, &apos;98&apos;,
+&apos;Security Surcharge&apos;, &apos;&apos;,
+&apos;Fuel Surcharge&apos;, &apos;10&apos;,
+&apos;Consignment raised but not sent&apos;, &apos;41&apos;,
+&apos;Incorrect Service Level&apos;, &apos;42&apos;,
+&apos;Incorrect Weight Provided&apos;, &apos;43&apos;,
+&apos;Customer Incorrect Cubic Data&apos;, &apos;44&apos;,
+&apos;Consignment Transfer&apos;, &apos;46&apos;,
+&apos;Unable to supply finance copy&apos;, &apos;32&apos;,
+&apos;Consignment Surcharges&apos;, &apos;39&apos;,
+&apos;Revenue - CWC Recovery&apos;, &apos;68&apos;,
+&apos;Cash Transfer&apos;, &apos;70&apos;,
+&apos;Duplicated Cash Receipts&apos;, &apos;71&apos;,
+&apos;Receiver Reversals&apos;, &apos;73&apos;,
+&apos;Refund Credit Balance&apos;, &apos;74&apos;,
+&apos;General Ledger Adjustment&apos;, &apos;76&apos;,
+&apos;Prompt Payment Incentive&apos;, &apos;78&apos;,
+&apos;Negotiated settlement&apos;, &apos;79&apos;,
+&apos;Revenue Data Entry Error&apos;, &apos;80&apos;,
+&apos;Revenue - Duplicate Billing&apos;, &apos;87&apos;,
+&apos;Bad Debt Write Off&apos;, &apos;90&apos;,
+&apos;Small Debt Write Off&apos;, &apos;91&apos;,
+&apos;International Charge Error&apos;, &apos;96&apos;,
+&apos;Dishonoured Cheque&apos;, &apos;9A&apos;,
+&apos;Special Services&apos;, &apos;25&apos;,
+&apos;Operations Incorrect Cubic Data&apos;, &apos;50&apos;,
+&apos;Incorrect Weight&apos;, &apos;51&apos;,
+&apos;Cubic - Leopard Scanner&apos;, &apos;53&apos;,
+&apos;Returns Charges&apos;, &apos;55&apos;,
+&apos;Misdirect&apos;, &apos;56&apos;,
+&apos;No POD Available&apos;, &apos;57&apos;,
+&apos;Late Delivery Claims&apos;, &apos;58&apos;,
+&apos;Sub Docket Charges&apos;, &apos;59&apos;,
+&apos;Incorrect Misc Charges&apos;, &apos;5A&apos;,
+&apos;Second Delivery Charge/ADA&apos;, &apos;5B&apos;,
+&apos;No Track &amp; Trace Scanning&apos;, &apos;5X&apos;,
+ &apos;&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>CNC Team</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Record_Locked_on_Checkbox</fullName>
+    <active>true</active>
+    <description>Record Locked, when the ‘Entered in Team / PeopleSoft’ checkbox is checked</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;StarTrack&apos;,
+Entered_in_Team_PeopleSoft__c = true
+&amp;&amp;
+NOT(
+(PRIORVALUE( Entered_in_Team_PeopleSoft__c ))=false),
+$Permission.APR_Admin &lt;&gt; TRUE,
+$Profile.Name &lt;&gt; &apos;System Administrator&apos; 
+)</errorConditionFormula>
+    <errorMessage>Record Locked, APR has been processed in ERP. No changes are allowed on APR records.</errorMessage>
+</ValidationRule>

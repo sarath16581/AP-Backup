@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@auspost.com.au</email>
+    <name>SSSW Test Lab</name>
+    <queueMembers>
+        <users>
+            <user>abdul.halim@auspost.com.au</user>
+            <user>bernadette.fenech@auspost.com.au</user>
+            <user>bianca.malham@auspost.com.au</user>
+            <user>cayl.mccarron@auspost.com.au</user>
+            <user>charlie.rountree@auspost.com.au</user>
+            <user>elizabeth.burke@auspost.com.au</user>
+            <user>georgina.reid@auspost.com.au</user>
+            <user>jessica.manton2@auspost.com.au</user>
+            <user>jessica.padula@auspost.com.au</user>
+            <user>jodie.garson@auspost.com.au</user>
+            <user>john.mallia@auspost.com.au</user>
+            <user>lyn.cooke@auspost.com.au</user>
+            <user>natasha.sitkowski@auspost.com.au</user>
+            <user>queeny.chan@auspost.com.au</user>
+            <user>rory.mackinnon@auspost.com.au</user>
+            <user>samantha.milton@auspost.com.au</user>
+            <user>sandeep.jaswal@auspost.com.au</user>
+            <user>sree.kenche@auspost.com.au</user>
+            <user>srinivasa.ramachandran@auspost.com.au</user>
+            <user>stephanie.daniel@auspost.com.au</user>
+            <user>tanzy.edgell-hall@auspost.com.au</user>
+            <user>tori.muller2@auspost.com.au</user>
+            <user>vanessa.hayes@auspost.com.au</user>
+            <user>vishal.ravi@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

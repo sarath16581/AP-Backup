@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CAR_Request_Case_Creation_Check</fullName>
+    <active>true</active>
+    <description>This rule is created to ensure that the minimum details (Legal Entity Name, Work Type, Products &amp; Services Type, Subject and Description) are captured during case creation via salesforce.</description>
+    <errorConditionFormula>AND( ISNEW(), RecordType.DeveloperName =&apos;CAR_Request&apos;, OR(ISPICKVAL(Work_Type__c , &apos;&apos;), ISBLANK( Products_Services__c ), ISBLANK ( Subject ), ISBLANK( Description ), ISBLANK ( Calc_Link_Account__c )),ISBLANK( SuppliedEmail))</errorConditionFormula>
+    <errorMessage>Please ensure fields: Legal Entity Name, Work Type, Products &amp; Service Type, Subject and Description are entered.</errorMessage>
+</ValidationRule>

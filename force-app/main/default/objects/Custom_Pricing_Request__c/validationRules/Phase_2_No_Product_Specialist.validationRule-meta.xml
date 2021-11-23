@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phase_2_No_Product_Specialist</fullName>
+    <active>true</active>
+    <description>Phase 2</description>
+    <errorConditionFormula>AND(ISPICKVAL( Solution_Specialist_Required__c , &quot;No&quot;),  Product_Approver__c =&quot;&quot;, NOT(ISPICKVAL( Business_Unit__c ,&quot;Multi Business Unit&quot;)))</errorConditionFormula>
+    <errorDisplayField>Product_Approver__c</errorDisplayField>
+    <errorMessage>You must choose a Product Specialist</errorMessage>
+</ValidationRule>

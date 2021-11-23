@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Integrated_Job_Dispatch_Enabled__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates the network is eligible for integration with dispatch system for PUD Pickup and Delivery Jobs booked via the booking system. If eligible, Pickup and Delivery Jobs serviced by this network are sent to dispatch system via integration.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Indicates the network is eligible for integration with dispatch system for PUD Pickup and Delivery Jobs booked via the booking system. If eligible, Pickup and Delivery Jobs serviced by this network are sent to dispatch system via integration.</inlineHelpText>
+    <label>Integrated Job Dispatch Enabled</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

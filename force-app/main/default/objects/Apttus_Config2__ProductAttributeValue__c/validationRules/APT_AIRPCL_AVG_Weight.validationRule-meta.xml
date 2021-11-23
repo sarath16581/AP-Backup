@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_AIRPCL_AVG_Weight</fullName>
+    <active>true</active>
+    <description>Validate Airmail Parcel &gt;2kg AVG Weight(KG).</description>
+    <errorConditionFormula>ISPICKVAL(APT_Volume_Data__c, &apos;Yes&apos;)  &amp;&amp; ( APT_AirmailSmallParcelsGT2kgAnnualVolume__c  != 0 &amp;&amp; (NOT(APT_AirmailSmallParcelGT2kgAVGWeightKG__c &gt;= 2.000) ||  NOT(APT_AirmailSmallParcelGT2kgAVGWeightKG__c &lt;= 20))) &amp;&amp;  NOT(Apttus_Config2__IsTransient__c) &amp;&amp;  Apttus_Config2__LineItemId__r.Apttus_Config2__ProductId__r.ProductCode = &apos;InternationalBundle&apos;</errorConditionFormula>
+    <errorDisplayField>APT_AirmailSmallParcelGT2kgAVGWeightKG__c</errorDisplayField>
+    <errorMessage>Invalid value for Airmail Parcel greater than 2kg AVG Weight(KG). It must be greater than 2 kg and less than 20 kg.</errorMessage>
+</ValidationRule>

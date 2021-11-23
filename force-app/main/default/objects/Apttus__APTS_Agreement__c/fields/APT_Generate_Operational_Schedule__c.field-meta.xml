@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Generate_Operational_Schedule__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF ( ISPICKVAL( Apttus__Subtype__c , &apos;Short Form&apos;) , 
+HYPERLINK(&quot;apex/APT_GenerateOperationalSchedule?parentId=&quot; &amp;Id &amp;&quot;&amp;templateID=&quot;+ $Label.APT_ShortFormTemplateID +&quot;&amp;docFormat=DOC&quot;, IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;), 
+
+ IF(AND(ISPICKVAL( Apttus__Subtype__c , &apos;Long Form&apos;), ISPICKVAL(  Term__c , &apos;Open Ended&apos;)), HYPERLINK(&quot;apex/APT_GenerateOperationalSchedule?parentId=&quot; &amp;Id &amp;&quot;&amp;templateID=&quot;+ $Label.APT_LongFormOEOSID +&quot;&amp;docFormat=DOC&quot;, IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;), 
+
+
+ IF(AND(ISPICKVAL( Apttus__Subtype__c , &apos;Long Form&apos;), ISPICKVAL(  Term__c , &apos;Fixed Term&apos;)), HYPERLINK(&quot;apex/APT_GenerateOperationalSchedule?parentId=&quot; &amp;Id &amp;&quot;&amp;templateID=&quot;+ $Label.APT_LongFormFTOSID +&quot;&amp;docFormat=DOC&quot;, IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;), null) ) 
+
+)</formula>
+    <inlineHelpText>Generates Detailed OS in MS Word</inlineHelpText>
+    <label>Detailed Operational Schedule (DOS)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,52 @@
+<aura:component extends="c:ChasBaseInput" description="Standard text input">
+    <aura:attribute name="type" type="String" default="text"/>
+    <aura:attribute name="maxlength" type="Integer"/>
+    <aura:attribute name="placeholder" type="String"/>
+    <aura:attribute name="prefix" type="String"/>
+    <aura:attribute name="pattern" type="String"/>
+    <aura:attribute name="hint" type="String"/>
+    <aura:method name="reportInputValue" action="{!c.reportInputValue}" access="PUBLIC"/>
+
+
+    <div class="slds-form-element">
+        <!-- Label -->
+        <c:ChasInputLabel for="{! v.name }" label="{! v.label }" subLabel="{! v.subLabel }" helptext="{! v.helptext }"/>
+
+        <!-- Errors -->
+        <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }" id="{! v.name }" />
+
+        <div class="chas-input-field-container slds-form-element__control slds-grow">
+
+        	<aura:if isTrue="{! v.prefix }">
+        		<div class="prefix">{! v.prefix }</div>
+        	</aura:if>
+
+            <!-- Input -->
+            <input
+                type='{! v.type }'
+                id='{! v.name }'
+                name='{! v.name }'
+                required='{! v.required }'
+                value='{! v.value }'
+                oninput='{! c.updateValue }'
+                onblur='{! c.onchange }'
+                class="{! 'slds-input chas-input-field short-' + v.short }"
+                maxlength='{! v.maxlength }'
+                pattern='{! v.pattern }'
+                step='any'
+                placeholder="{! v.placeholder }"
+                aria-describedby="{! v.name + '-description ' + v.name + '-error' }"/>
+            <!-- <lightning:input type='{! v.type }' aura:id='chasInputField' id='{! v.name }' name='{! v.name }' required='{! v.required }' value='{! v.value }' onchange='{! c.onchange }' onblur='{! c.onchange }' class="{! 'chas-input-field short-' + v.short }"
+            variant='label-hidden' label='{! v.label }' formatter="{! v.formatter }" maxlength="{! v.maxlength }" step="any" /> -->
+        </div>
+
+        <div class="chas-below-input" id="{! v.name + '-description' }">
+            {! v.body }
+        </div>
+
+        <div class="chas-below-input">
+            {! v.hint }
+        </div>
+
+    </div>
+</aura:component>

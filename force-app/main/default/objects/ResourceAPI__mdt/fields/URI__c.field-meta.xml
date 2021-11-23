@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>URI__c</fullName>
+    <description>Everything after /lapi/ but not including the version number.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>The URI that invokes this API. Everything after /api/ but not including the version number. Use (.*?) to define a dynamic URL part.</inlineHelpText>
+    <label>URI</label>
+    <length>100</length>
+    <required>true</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

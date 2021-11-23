@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Remaining_Contracted_Days__c</fullName>
+    <description>If the agreement is In Effect, this value is calculated as Contract Duration Days less Contracted Days</description>
+    <externalId>false</externalId>
+    <formula>IF(AND(ISPICKVAL(Status_Category__c,&quot;In Effect&quot;), (Contract_Duration_Days__c &gt; 0), (Contracted_Days__c &gt; 0)), (Contract_Duration_Days__c - Contracted_Days__c), 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Remaining Contracted Days</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

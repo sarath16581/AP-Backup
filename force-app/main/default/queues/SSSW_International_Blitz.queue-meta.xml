@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@auspost.com.au</email>
+    <name>SSSW International BO Backlog</name>
+    <queueMembers>
+        <users>
+            <user>alex.rolfebennett@auspost.com.au</user>
+            <user>andrea.nonu@auspost.com.au</user>
+            <user>belinda.brown18@auspost.com.au</user>
+            <user>ben.simpson@auspost.com.au</user>
+            <user>brad.johnson12@auspost.com.au</user>
+            <user>courtney.keath@auspost.com.au</user>
+            <user>ellanor.reddy@auspost.com.au</user>
+            <user>emeline.nanai2@auspost.com.au</user>
+            <user>jake.mchutchison@auspost.com.au</user>
+            <user>jaymin.taylor36@auspost.com.au</user>
+            <user>keara.forde@auspost.com.au</user>
+            <user>kelly.hill11@auspost.com.au</user>
+            <user>laura.cruickshank2@auspost.com.au</user>
+            <user>leegal.david3@auspost.com.au</user>
+            <user>marcelle.cafun@auspost.com.au</user>
+            <user>marie.ohara@auspost.com.au</user>
+            <user>nan.yashpaul@auspost.com.au</user>
+            <user>nicola.hilton@auspost.com.au</user>
+            <user>nyanthiei.mapiou@auspost.com.au</user>
+            <user>paige.taylor21@auspost.com.au</user>
+            <user>sally.millwood@auspost.com.au</user>
+            <user>sam.weekes@auspost.com.au</user>
+            <user>suzanne.berwick@auspost.com.au</user>
+            <user>vienna.seuala@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

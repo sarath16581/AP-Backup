@@ -1,0 +1,81 @@
+<apex:page cache="false" contentType="text/html" showHeader="false" sidebar="false" standardStylesheets="false" title="Business Support Portal" docType="html-5.0">
+    <html lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+            <meta name="DC.Creator" scheme="AglsAgent" content="Australia Post" />
+            <meta name="DC.Title" content="Australia Post - Home" />
+            <title>Business Support Portal</title>
+            <meta name="viewport" content="width=device-width" />
+            <link rel="apple-touch-icon" sizes="144x144" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-144x144.png')}" />
+            <link rel="apple-touch-icon" sizes="114x114" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-114x114.png')}" />
+            <link rel="apple-touch-icon" sizes="72x72" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-72x72.png')}" />
+            <link rel="apple-touch-icon" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon.png')}" />
+            <link rel="shortcut icon" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/favicon.ico')}" />
+            <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/style.css')}" />
+            <script src="{!URLFOR($Resource.BSP_Asset,'js/head.js')}"></script>
+            <script src="{!URLFOR($Resource.BSP_Asset,'js/libs/jquery-1.8.2.min.js')}"></script>
+            <script src="{!URLFOR($Resource.BSP_Asset,'js/csso-widget.js')}"></script>
+            <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/cssolight.css')}" />
+            
+            <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/style-icams-addons.css')}" />
+
+            <!-- MRSO assets -->
+            <link href="{!URLFOR($Resource.BSP_Asset,'css/mrso/mrso-v2.css')}" rel="stylesheet" />
+            <link href="{!URLFOR($Resource.BSP_Asset,'css/mrso/lightbox.css')}" rel="stylesheet" />
+            <script src="{!URLFOR($Resource.BSP_Asset,'js/mrso/application.js')}"></script>
+            <script src="{!URLFOR($Resource.BSP_Asset,'js/mrso/lightbox.js')}"></script>
+          
+            <link href="{!URLFOR($Resource.BSP_Asset,'jquery-ui.css')}" rel="stylesheet" />
+            <script src="{!URLFOR($Resource.BSP_Asset,'jquery-ui.js')}"></script>
+
+            
+            <link rel="stylesheet" href="{!URLFOR($Resource.BSP_CSS)}"/>
+
+            <script src="{!URLFOR($Resource.BSP_JS)}"/>   
+            <script src="{!URLFOR($Resource.BSP_Asset,'GsForm_Script.js')}"></script>
+        </head>
+        <body>
+            <!-- START GE01 Header -->
+            <c:BSPPlainHeader />
+            <!-- END GE01 Header -->
+            
+            <!-- START 404 page search panel -->
+            <div class="ep-text-area">
+                <div class="ep-content">
+                    <h1>Page not found</h1>
+                    <p class="subtitle">The page you are looking for does not exist.</p>
+                    <p>
+                        <apex:outputText escape="false" value="{!$Label.Page_Not_Found}">
+                            <apex:param value="{!$Site.BaseUrl}"/>
+                        </apex:outputText>
+                    </p>
+                </div>
+                
+            </div> 
+            <!-- END 404 page search panel -->
+            
+            <!-- START GE02 Footer -->
+            <center>
+                <c:bspFooter />
+            </center>
+            <!-- END GE02 Footer -->
+
+        </body>
+        
+        <style>
+            a:visited{
+                color : blue;
+            }
+            .ep-text-area{
+                position : inherit; 
+                min-width: 100%;
+            }
+            
+            .ep-content{
+                width : 100%;
+                margin-left : 15%;
+            }
+        </style>
+    </html>
+</apex:page>

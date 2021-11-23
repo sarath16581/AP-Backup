@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Whatwasnegativeabouttheexperience__c</fullName>
+    <description>Factors that influenced customer to be unsatisfied with AP performance</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Factors that influenced customer to be unsatisfied with AP performance</inlineHelpText>
+    <label>What was negative about the experience?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>If Positive – Not Applicable</fullName>
+                <default>false</default>
+                <label>If Positive – Not Applicable</label>
+            </value>
+            <value>
+                <fullName>Pricing - Recent APR</fullName>
+                <default>false</default>
+                <label>Pricing - Recent APR</label>
+            </value>
+            <value>
+                <fullName>Pricing - Fuel Surcharge</fullName>
+                <default>false</default>
+                <label>Pricing - Fuel Surcharge</label>
+            </value>
+            <value>
+                <fullName>Pricing - Pricing Campaign</fullName>
+                <default>false</default>
+                <label>Pricing - Pricing Campaign</label>
+            </value>
+            <value>
+                <fullName>Pricing - Not Comparible to Competitor Offer</fullName>
+                <default>false</default>
+                <label>Pricing - Not Comparible to Competitor Offer</label>
+            </value>
+            <value>
+                <fullName>Operational - Service Levels</fullName>
+                <default>false</default>
+                <label>Operational - Service Levels</label>
+            </value>
+            <value>
+                <fullName>Operational - Supply of ULD&apos;s</fullName>
+                <default>false</default>
+                <label>Operational - Supply of ULD&apos;s</label>
+            </value>
+            <value>
+                <fullName>Operational - Transport Collections</fullName>
+                <default>false</default>
+                <label>Operational - Transport Collections</label>
+            </value>
+            <value>
+                <fullName>Service - Issue Resolution/Customer Service</fullName>
+                <default>false</default>
+                <label>Service - Issue Resolution/Customer Service</label>
+            </value>
+            <value>
+                <fullName>Operational - IT Issues</fullName>
+                <default>false</default>
+                <label>Operational - IT Issues</label>
+            </value>
+            <value>
+                <fullName>Operational - Visibility &amp; Tracking</fullName>
+                <default>false</default>
+                <label>Operational - Visibility &amp; Tracking</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>6</visibleLines>
+</CustomField>

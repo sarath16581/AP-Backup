@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>MasterLabel</columns>
+    <columns>DeveloperName</columns>
+    <columns>Create_Case_Team_Member_for_Child_Case__c</columns>
+    <columns>FieldSet__c</columns>
+    <columns>Notify_Child_Case_Owner__c</columns>
+    <columns>Notify_Child_Case_Team_Members__c</columns>
+    <columns>Source_RecordType_Id__c</columns>
+    <columns>Target_RecordType_Id__c</columns>
+    <columns>Owner_ID__c</columns>
+    <columns>Convert_attachment_to_files__c</columns>
+    <columns>Convert_files_to_attachment__c</columns>
+    <columns>Enable_file_and_attachment_sharing__c</columns>
+    <columns>IsActive__c</columns>
+    <columns>Case_Team_Member_Role__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+    <language>en_US</language>
+</ListView>

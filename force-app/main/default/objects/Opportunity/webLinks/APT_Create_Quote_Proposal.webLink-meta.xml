@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Create_Quote_Proposal</fullName>
+    <availability>online</availability>
+    <description>Create new quote/proposal from opportunity</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Create Proposal</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/apex/Apttus_Proposal__OpportunityProposalNew?id={!Opportunity.Id}&amp;recordTypeId={!$Label.APT_Proposal_Record_Type_ID}</url>
+</WebLink>

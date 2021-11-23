@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Transit_Mail_Points__c</fullName>
+    <description>The current  number of business transit mail points for the LPO</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The current  number of business transit mail points for the LPO</inlineHelpText>
+    <label>Business Transit Mail Points</label>
+    <precision>4</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,480 @@
+@font-face {
+    font-family: 'letterbold';
+    src: url('fonts/letter-bold-webfont.woff') format('woff'),
+         url('fonts/letter-bold-webfont.woff2') format('woff2');
+}
+body {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    background-color: #ece9e4;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    scrollbar-face-color: #655C5A;
+    min-height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.system {
+    margin: 15px;
+    color: #382f2d;
+    position: absolute;
+    font-size: 12px;
+}
+
+#liveAgentChatLogText {
+    margin-top: 15px;
+}
+
+#liveAgentChatLogText .name {
+    display: none;
+}
+#liveAgentChatLogText > div > span, #liveAgentChatLogText > span {
+    display: block;
+    line-height: 18px;
+    padding: 15px;
+    border-radius: 3px;
+    position: relative;
+    word-wrap: break-word;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#liveAgentChatLogText .operator {
+    background-color: #f3f1ee;
+    margin: 0 60px 10px 35px;
+    color: #1D252C;
+}
+#liveAgentChatLogText .operator:before {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    content: '';
+    bottom: 30%;
+    left: -7px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    background-color: #f3f1ee;
+}
+
+#liveAgentChatLogText .client {
+    background-color: #31313D;
+    margin: 0 35px 10px 60px;
+    color: #fff;
+}
+
+#liveAgentChatLogText .client:before {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    content: '';
+    float: right;
+    bottom: 30%;
+    right: 4px;
+    margin: 0 -10px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    background-color: #31313D;
+}
+
+#liveAgentChatLogText .system {
+    display: block;
+    margin-left: 20px;
+    padding: 0;
+    margin-bottom: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: normal;
+    text-align: left;
+    color: #736d6c;
+}
+
+#liveAgentSaveButton, #liveAgentEndButton { z-index: 2; }
+.liveAgentSendButton {
+    display: block;
+    width: 60px;
+    height: 40px;
+    padding: 10px;
+    position: absolute;
+    top: -10px;
+    right: -70px;
+}
+.liveAgentEndButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 1.95em;
+}
+
+#liveAgentChatLog {
+    border: 0px none;
+    position: absolute;
+    overflow-y: auto;
+    left: 0;
+    right: 0;
+    bottom: 93px;
+    padding-bottom: 25px;
+    top: 0;
+    width: 100%;
+}
+
+#liveAgentChatLogTyping {
+    display: block;
+    margin-left: 20px;
+    height: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #736d6c;
+    background-color: #fff;
+}
+#liveAgentChatLogTyping em, .system em{
+    font-style: normal;
+}
+
+#liveAgentClientChat.liveAgentStateWaiting #liveAgentChatLogTyping,
+#liveAgentClientChat.liveAgentStateEnded #liveAgentChatLogTyping {
+    display: none !important;
+}
+
+#waitingMessageWrapper {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+}
+#waitingMessageWrapper:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+#waitingMessageNew {
+    width: 100%;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    color: #736d6c;
+    display: inline-block;
+}
+
+#liveAgentClientChat.liveAgentStateWaiting #waitingMessageWrapper {
+    display: block;
+}
+#liveAgentClientChat.liveAgentStateWaiting #waitingMessageNew {
+    display: inline-block;
+}
+
+.waitingMessageQueuePosition {
+    margin-bottom: 10px;
+}
+
+.waitingMessageText {
+    font-size: 12px;
+}
+
+.bw-spinner {
+    background-image: url("favicons/loading.svg");
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    left: 47%;
+    //margin-left: -16px;
+    display: block;
+    //margin-bottom: 20px;
+}
+
+.loading {
+    -webkit-animation: rotation 1.5s infinite linear;
+    animation: rotation 1.5s infinite linear;
+}
+@-webkit-keyframes rotation {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(359deg);
+    }
+}
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+.liveAgentMessage, .liveAgentAlert {
+    position: absolute;
+    bottom: 93px;
+    height: 44px;
+    color: #736d6c;
+    font-size: 11px;
+    font-weight: bold;
+    background-color: #f9f8f7;
+    width: 100%;
+    display: none;
+}
+
+.liveAgentMessage:before, .liveAgentAlert:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.liveAgentAlert button{
+    display:none;
+}
+.liveAgentMessage p, .liveAgentAlert p {
+    margin: 0;
+    display: inline;
+}
+.liveAgentMessage div, .liveAgentAlert div {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px 10px;
+}
+
+#liveAgentClientChat.liveAgentStateStatusMessage #liveAgentChatLog, #liveAgentClientChat.with-alert-message #liveAgentChatLog {
+    bottom: 137px;
+}
+
+#liveAgentChatLog::-webkit-scrollbar {
+    width: 10px;
+}
+#liveAgentChatLog::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+#liveAgentChatLog::-webkit-scrollbar-thumb {
+    background-color: #655C5A;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+.hide_queuePos {
+    display: none;
+}
+
+:root {
+    --theme-primary-fg: #fff;
+    --theme-primary-bg: #dc1928;
+    --theme-secondary-fg: #dc1928;
+    --theme-secondary-bg: transparent;
+    --theme-body-fg: #382f2d;
+    --theme-body-bg: #f3f1ee;
+}
+.nw_Input {
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 93px;
+    padding: 20px;
+    background-color: #f9f8f7;
+    border-top: 1px solid #E2DFDA;
+    z-index: 20;
+    display: block;
+}
+
+#liveAgentClientChat.liveAgentStateWaiting .nw_Input {
+    display: none;
+}
+
+.nw_UserInputField {
+    box-sizing: border-box;
+    position: initial;
+    margin: 4px 0 0 4px;
+    width: 80%;
+    padding: 10px;
+    top: 6px;
+    line-height: 16px;
+    resize: none;
+    color: #382f2d;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    overflow: hidden;
+    border: 0;
+    background-color: #f9f8f7;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    outline: 1px dotted #535F67;
+}
+.nw_Disabled, .nw_Disabled:hover, .nw_Disabled:active {
+    cursor: default;
+    opacity: .3;
+    text-decoration: none;
+}
+.nw_UserSubmit {
+    position: absolute;
+    bottom: 21px;
+    right: 30px;
+    display: inline-block;
+    margin-top: 8px;
+    top: 20px;
+    cursor: pointer;
+}
+.nw_SubmitIcon {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath fill='%23292f33' fill-rule='nonzero' d='M2.01 21L23 12 2.01 3 2 10l15 2-15 2z'/%3E%3Cpath d='M0 0h24v24H0z'/%3E%3C/g%3E%3C/svg%3E");
+    background-color: transparent;
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    margin-left: 5px;
+    margin-bottom: 2px;
+}
+.nw_SubmitBtn {
+    right: -15px;
+    top: 22px;
+    width: 80px;
+    border: 0;
+    background: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #292f33;
+}
+
+.chatLogWindow {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    padding-bottom: 93px;
+}
+
+#hiddenContainer {
+    display: none;
+}
+
+#liveAgentClientChatSettings #liveAgentClientChat .nw_LiveAgentHeader{
+    background-color: #31313D;
+    height: 60px;
+    width: 100%;
+    color: #fff;
+    font-size: 16px;
+    display: table;
+    position: relative;
+    border-radius: 5px 5px 0px 0px;
+}
+.nw_AgentHeader {
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    line-height: 18px;
+    font-weight: 700;
+    font-size: 15px;
+    position: absolute;
+    width: 96px;
+    height: 24px;
+    left: 58px;
+    top: calc(50% - 24px/2 + 2px);
+    align-items: center;
+}
+.bw-share{
+    background : url("favicons/Share.svg");
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+}
+.bw-close{
+    background : url("favicons/Close.svg");
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+}
+.bw-aplogo{
+    background : url("favicons/aplogo.svg");
+    width: 136px;
+    height: 28px;
+}
+.bw-expand{
+    background : url("favicons/expand.svg");
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+}
+
+.bw-collapse{
+    background : url("favicons/collapse.svg");
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+}
+.nw_PrintControls {
+    position: inherit;
+    top: 20px;
+    display: table-cell;
+    padding-right: 25px;
+}
+.nw_CloseControls {
+    position: inherit;
+    top: 22px;
+    padding-right: 25px;
+    display: table-cell;
+}
+.nw_aplogoControls {
+    position: absolute;
+    height: 28px;
+    left: 18px;
+    top: 16px;
+    display: table-cell;
+}
+.nw_controls {
+    float: right;
+    height: inherit;
+    position: relative;
+    display: table-cell;
+}
+.nw_expandControls {
+    position: inherit;
+    top: 20px;
+    padding-right: 25px;
+    display: table-cell;
+}
+.nw_collapseControls {
+    position: inherit;
+    top: 20px;
+    padding-right: 25px;
+    display: table-cell;
+}
+
+.nw_PrintControls:hover, .nw_CloseControls:hover, .nw_expandControls:hover, .nw_collapseControls:hover{
+    cursor:pointer;
+}
+#nw_TranscriptPopup {
+    display: none;
+    background-color: #fff;
+    top: 55px;
+    position: absolute;
+    right: 30px;
+    z-index: 1;
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, .3)
+}

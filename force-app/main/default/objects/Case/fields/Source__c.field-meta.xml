@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Source__c</fullName>
+    <externalId>false</externalId>
+    <label>Source</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Board and Shareholder Liaison</fullName>
+                <default>false</default>
+                <label>Board and Shareholder Liaison</label>
+            </value>
+            <value>
+                <fullName>Critical Incident</fullName>
+                <default>false</default>
+                <label>Critical Incident</label>
+            </value>
+            <value>
+                <fullName>Customer</fullName>
+                <default>false</default>
+                <label>Customer</label>
+            </value>
+            <value>
+                <fullName>Duplicates</fullName>
+                <default>false</default>
+                <label>Duplicates</label>
+            </value>
+            <value>
+                <fullName>Executive complaints</fullName>
+                <default>false</default>
+                <label>Executive complaints</label>
+            </value>
+            <value>
+                <fullName>FOI</fullName>
+                <default>false</default>
+                <label>FOI</label>
+            </value>
+            <value>
+                <fullName>Insights and Analytics</fullName>
+                <default>false</default>
+                <label>Insights and Analytics</label>
+            </value>
+            <value>
+                <fullName>Internal Customer</fullName>
+                <default>false</default>
+                <label>Internal Customer</label>
+            </value>
+            <value>
+                <fullName>Internal Senior Management</fullName>
+                <default>false</default>
+                <label>Internal Senior Management</label>
+            </value>
+            <value>
+                <fullName>Ministerial</fullName>
+                <default>false</default>
+                <label>Ministerial</label>
+            </value>
+            <value>
+                <fullName>MRS</fullName>
+                <default>false</default>
+                <label>MRS</label>
+            </value>
+            <value>
+                <fullName>NPS</fullName>
+                <default>false</default>
+                <label>NPS</label>
+            </value>
+            <value>
+                <fullName>Ombudsman</fullName>
+                <default>false</default>
+                <label>Ombudsman</label>
+            </value>
+            <value>
+                <fullName>Ombudsman General</fullName>
+                <default>false</default>
+                <label>Ombudsman General</label>
+            </value>
+            <value>
+                <fullName>Ombudsman Level A</fullName>
+                <default>false</default>
+                <label>Ombudsman Level A</label>
+            </value>
+            <value>
+                <fullName>Ombudsman Level B</fullName>
+                <default>false</default>
+                <label>Ombudsman Level B</label>
+            </value>
+            <value>
+                <fullName>PIO – Supplementary</fullName>
+                <default>false</default>
+                <label>PIO – Supplementary</label>
+            </value>
+            <value>
+                <fullName>Root cause</fullName>
+                <default>false</default>
+                <label>Root cause</label>
+            </value>
+            <value>
+                <fullName>Security and Investigation</fullName>
+                <default>false</default>
+                <label>Security and Investigation</label>
+            </value>
+            <value>
+                <fullName>SPB</fullName>
+                <default>false</default>
+                <label>SPB</label>
+            </value>
+            <value>
+                <fullName>Tribunal</fullName>
+                <default>false</default>
+                <label>Tribunal</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

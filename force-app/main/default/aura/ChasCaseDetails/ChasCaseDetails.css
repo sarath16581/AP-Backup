@@ -1,0 +1,52 @@
+.THIS {
+	padding: 25px 15px 30px;
+}
+
+.THIS .ref-status {
+	display: flex;
+	flex-direction: column-reverse;
+	align-items: flex-start;
+}
+
+.THIS .status {
+	display: inline-block;
+	padding: 1px 13px;
+	border-radius: 0px;
+	font-family: 'APTypeText', helvetica, arial, sans-serif;
+	text-transform:uppercase;
+	font-size: 11px;
+	letter-spacing: 0.25px;
+	background-color: #1064a3;
+	color: white;
+}
+
+.THIS .status.black {
+	background-color: #31313D;
+}
+
+.THIS .status.green {
+	background-color: #158744;
+}
+
+.THIS .status.red {
+	background-color: #bc111e;	
+}
+
+.THIS .status.blue {
+	background-color: #1F78D1;
+}
+
+.THIS h2 {
+	margin-bottom: 7px;
+	margin-right: 13px;
+	line-height: 1.5rem;
+}
+
+@media (min-width: 680px) {
+	.THIS {
+		padding: 25px 35px 30px;
+	}
+	.THIS .ref-status {
+		flex-direction: row;
+	}
+}

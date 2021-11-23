@@ -1,0 +1,97 @@
+<!--
+2020-07-22 Neha Mehta This page used to generate Green Sheet for Tasks (SAM Green Sheet Integration)             
+                      Quick Action (MH Green Sheet) is created to fetch the details of Green sheet using this page.
+-->
+<apex:page standardController="Task" showHeader="false" >
+<style type="text/css">
+    .bPageBlock 
+    {
+        background-color:#FFF !important;
+        border:none !important;
+    }
+</style>
+<script type="text/JavaScript">
+    function getReturnURL() {
+        return '{!IF(ISBLANK(task.id), '', URLFOR($Action.Task.View, task.id))}';
+    }
+    function MM_openGreen(theURL) { 
+        window.open('https://www.saleswebserver.net/sfdc/MillerHeiman6/showgreensheet.asp?ID={!Task.Id}&SessionID={!$Api.Session_ID}&EndPoint=https://auspost.my.salesforce.com/services/Soap/u/24.0/&ReturnURL=' + getReturnURL(),'newgreen','toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=1000,height=600'); 
+    }
+    function MM_openSupport(theURL) { 
+        window.open('http://www.salesaccessmanager.com/website/support/index.php','newsupport','toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=300,height=300');
+    }
+    function MM_refreshParent(evt) {
+        if(evt.data == 'MM_refreshPage')
+        {
+            refreshParentPage();
+        }      
+    }    
+    function refreshParentPage() {
+        if((typeof sforce != 'undefined') && sforce && (!!sforce.one))
+        {
+            sforce.one.navigateToSObject('{!task.id}', 'detail');
+        }
+        else
+        {
+            window.top.location.href = getReturnURL();
+        }  
+    }    
+    if (window.addEventListener){
+          window.addEventListener('message', MM_refreshParent, false);
+    } else if (window.attachEvent){
+          window.attachEvent('message', MM_refreshParent);
+    }  
+</script>
+
+<apex:pageBlock > 
+    <div id="mm_greensheet_disabled" style="float:left;width:100%;text-align:center;display:none;">
+        <div style="color:#54698D;">Save CRM item for MHI applet link to become available.</div>
+    </div>
+    <div id="mm_greensheet" style="float:left;width:100%">
+        <div style="float:left;width:276px;max-width:100%;text-align:center;">
+            <a href="javascript:MM_openGreen('x')">
+              <img style="width:250px;max-width:100%;height:auto;" src="https://www.saleswebserver.net/sfdc/MillerHeiman6/Images/greensheet.png" alt="MHI Global - Conceptual Selling"/><br/>
+            </a>
+        </div>
+        <div id="mm_sf_classic" style="float:left;">   
+            <apex:pageBlockSection columns="2">
+                <apex:outputField value="{!Task.mh_Associated_Green_Sheet__c}"/>     
+                <!--<apex:outputField value="{!Task.mh_managers_notes_exist__c}"/>
+                <apex:outputField value="{!Task.mh_additional_notes_exist__c}"/>
+                <apex:outputField value="{!Task.mh_managers_review_date__c}"/>
+                <apex:outputField value="{!Task.mh_post_call_assessment_exists__c}"/>-->
+            </apex:pageBlockSection>        
+        </div>
+        <div id="mm_sf_lightning" style="float:left;">   
+            <apex:pageBlockSection columns="1">
+                <apex:outputField value="{!Task.mh_Associated_Green_Sheet__c}"/>
+            </apex:pageBlockSection>        
+        </div>
+        <div id="mm_links" style="clear:both;float:left;width:100%;padding:5px 12.5%;">
+            <div style="float:left;width:25%;text-align:center;"><a href="http://www.mhiglobal.com" target="_blank">www.mhiglobal.com</a></div> 
+            <div style="float:left;width:25%;text-align:center;"><a href="https://www.saleswebserver.net/sfdc/MillerHeiman6/sheethelp.asp?product=greensheet" target="_blank">Help Files</a></div> 
+            <div style="float:left;width:25%;text-align:center;"><a href="javascript:MM_openSupport('x')">Product Support</a></div> 
+        </div>
+    </div>
+</apex:pageBlock>
+
+<script type="text/JavaScript">    
+    //different fields for SF Classic and Lightning otherwise in Lightning some of the fields get cut off
+    if((typeof sforce != 'undefined') && sforce && (!!sforce.one))
+    {
+        document.getElementById("mm_sf_classic").style.display = 'none';
+        document.getElementById("mm_links").style.display = 'none';
+    }
+    else
+    {
+        document.getElementById("mm_sf_lightning").style.display = 'none';
+    }
+    
+    if (!getReturnURL()) 
+    {
+        document.getElementById("mm_greensheet").style.display = 'none';
+        document.getElementById("mm_greensheet_disabled").style.display = 'block';
+    }
+</script>
+
+</apex:page>

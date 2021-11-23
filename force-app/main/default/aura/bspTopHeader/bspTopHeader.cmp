@@ -1,0 +1,73 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller='bspBaseUplift' description="Bsp Custom Header">
+    <aura:attribute name="loggedInUserName" type="String" default="Log in" />
+    <aura:attribute name="communityUrl" type="String" default="" />
+    <aura:attribute name="status" type="String" default="show"/>
+    <aura:attribute name="showProfileMenu" type="Boolean" default="true" />
+    <aura:attribute name="isUserSSOAuthenticated" type="String" default="false" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <c:bspNavigationUtils aura:id="bspNavUtil"/>
+
+    <aura:if isTrue="{!v.status == 'show' ? true : false}">
+        <div class="global-header-container">
+            <header class="outer">
+                <div class="inner">
+
+                    <div class="custom-logo-container">
+                        <a data-link="homeLink" onclick="{!c.gotoUrl}" title="Australia Post Business Support Portal">
+                            <div class="brand-logo"><c:bspCustomIcons icon="ap-logo" size="logo"></c:bspCustomIcons></div>
+                            <div class="brand-logo"><c:bspCustomIcons icon="st-logo" size="logo"></c:bspCustomIcons></div>
+                            <span class="slds-assistive-text">Australia Post Business Support Portal</span>
+                        </a>
+                    </div>
+
+                    <aura:if isTrue="{!v.showProfileMenu}">
+                        <!-- DESKTOP NAV -->
+                        <div class="desktop-nav">
+                            <nav>
+                                <ul class="outer-nav slds-p-vertical_medium">
+                                    <li onmouseenter="{!c.openDesktopLogin}" onmouseleave="{!c.closeDesktopLogin}">
+                                        <a id="desktopLoginButton" class="nav-links" onclick="{!c.toggleDesktopLogin}" aria-expanded="false">
+                                            <span><img
+                                                    src="{! $Resource.ChasIcons + '/chas-icons/svgs/UI/icons/hf_user.svg' }"
+                                                    class="slds-icon slds-icon_x-small" alt="" /></span>
+                                            <span>{! v.loggedInUserName }</span>
+                                            <span><img
+                                                    src="{! $Resource.ChasIcons + '/chas-icons/pngs/UI/icons/ic_chevron_light.png' }"
+                                                    alt="" class="chevron slds-icon slds-icon_xx-small" /></span>
+                                        </a>
+                                        <div aura:id="desktopLogin" class="desktop-login">
+                                            <div class="desktop-login-inner">
+                                                <aura:if isTrue="{! v.loggedInUserName != 'Log in' }">
+                                                    <div class="desktop-account">
+                                                        <a class="desktop-login-links"
+                                                            data-link="updateUserDetailsLink"
+                                                            onclick="{!c.gotoUrl}">
+                                                            <span>Update details</span>
+                                                        </a>
+                                                        <aura:if isTrue="{! v.isUserSSOAuthenticated == false }">
+                                                            <a class="desktop-login-links"
+                                                                data-link="changePasswordLink"
+                                                                onclick="{!c.gotoUrl}">
+                                                                <span>Change password</span>
+                                                            </a>
+                                                        </aura:if>
+                                                        <a class="desktop-login-links login" 
+                                                            data-link="logoutLink"
+                                                            onclick="{!c.logout}">
+                                                            <span>Log out</span>
+                                                        </a>
+                                                    </div>
+                                                </aura:if>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </aura:if>
+                </div>
+            </header>
+        </div>
+    </aura:if>
+</aura:component>

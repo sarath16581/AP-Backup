@@ -1,0 +1,17 @@
+<apex:page standardController="Apttus__APTS_Agreement__c"
+    extensions="APT_ImportController"
+    action="{!doThirdParty}" >
+    
+    
+    <apex:form id="theForm">
+    <apex:pageBlock mode="edit"
+            id="agmtInfo">
+        <apex:outputText id="displayMsg" value="{!$Label.APT_Completing_Import_please_wait}" style="font-weight: bold;"/>
+    </apex:pageBlock>
+  
+
+    </apex:form>
+    
+    
+    
+</apex:page>

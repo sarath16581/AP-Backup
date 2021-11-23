@@ -1,0 +1,187 @@
+.THIS {
+	padding: 30px 15px;
+}
+
+.THIS .form-input-container .slds-form-element__label {
+	font-size: 16px;
+	font-weight: bold;
+	display: block;
+}
+
+.THIS .button-box {
+	padding-bottom: 30px;
+}
+
+.THIS .enquiry-resolved p {
+	margin: 10px 16px 10px 0;
+}
+
+.THIS .enquiry-resolved-buttons {
+	flex: 1;
+}
+
+.THIS .form-input-container {
+	padding-bottom: 40px;
+	width: 450px;
+}
+
+.THIS .comments-container {
+	padding-bottom: 30px;
+}
+
+.THIS .pattern {
+    position: relative;
+    width: 30px;
+    min-width: 30px;
+    margin-top: 1px;
+}
+
+.THIS .circle {
+	background-color: #1064a3;
+	border-radius: 50%;
+	border: 4px solid white;
+	left: -4px;
+    z-index: 1;
+    position: absolute;
+}
+
+.THIS .circle .inside {
+	width: 16px;
+	height: 16px;
+	background-color: #1064a3;
+	border-radius: 50%;
+	border: 2px solid #1064a3;	
+}
+
+.THIS .circle.little {
+	border-color: transparent;
+	background-color: transparent;
+}
+
+.THIS .circle.little .inside {
+	border: 4px solid white;
+}
+
+.THIS .circle.first {
+	margin-top: 21px;
+}
+
+.THIS .circle.open {
+	background-color: transparent;
+}
+
+.THIS .circle.open .inside {
+	background-color: white;
+}
+
+.THIS .line {
+	border-left: solid 2px #1064a3;
+	height: 100%;
+	left: 7px;
+    position: absolute;
+    top: 12px;
+}
+
+.THIS .line.last {
+	max-height: 21px;
+	top:0;
+}
+
+.THIS .line.grey,
+.THIS .circle.grey .inside {
+	border-color: #d0d5d8;
+}
+
+.THIS .comment-box {
+	padding-bottom: 25px;
+}
+
+.THIS .comment-box h3 {
+	display: block;
+}
+
+.THIS .comment-box p {
+	word-break: break-all;
+}
+
+.THIS .comment-details {
+	display: inline-block;
+}
+
+.THIS .comment-box .dot {
+	width: 4px;
+	height: 4px;
+	background-color: #616a7d;
+	border-radius: 50%;
+	margin: 0 8px;
+	display: inline-block;
+    vertical-align: middle;
+    margin-top: -2px;
+}
+
+.THIS .comment-box .green {
+	color: #00782c;
+}
+
+.THIS .comment-box.original-enquiry {
+	background-color: #f9f8f7;
+  	border: solid 1px #e2dfda;
+	border-radius: 3px;
+	padding: 20px 25px;
+	width: 777px;
+}
+
+.THIS .comment-box.original-enquiry h3 {
+	font-size: 1rem;
+}
+
+.THIS .comment-box.original-enquiry p {
+	font-size: 0.875rem;
+}
+
+.THIS .close-enquiry-top {
+	display: none;
+}
+
+.THIS .close-enquiry-bottom {
+	display: block;
+}
+
+@media(min-width: 480px) {
+	.THIS .close-enquiry-top {
+		display: inline-block;
+		margin-left: 10px;
+	}
+
+	.THIS .close-enquiry-bottom {
+		display: none;
+	}
+
+	.THIS .enquiry-resolved-buttons {
+		flex: 0;
+	}
+}
+
+@media(min-width: 680px) {
+	.THIS {
+		padding: 30px 35px;
+	}
+
+	.THIS .comments-container {
+		padding-bottom: 20px;
+	}
+
+	.THIS .comment-box {
+		padding-bottom: 40px;
+	}
+
+	.THIS .comment-box h3 {
+		display: inline-block;
+		margin-right: 10px;
+	}
+
+	.THIS .pattern {
+	    width: 35px;
+	    min-width: 35px;
+	}
+}

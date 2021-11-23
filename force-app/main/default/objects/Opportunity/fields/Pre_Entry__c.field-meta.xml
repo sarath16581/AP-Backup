@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pre_Entry__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This is a pre-entry scenario – rates have been loaded before customer signed off contract.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is a pre-entry scenario – rates have been loaded before customer signed off contract.</inlineHelpText>
+    <label>Pre-entry of rates authorised</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

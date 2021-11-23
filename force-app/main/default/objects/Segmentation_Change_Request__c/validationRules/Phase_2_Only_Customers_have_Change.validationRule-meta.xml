@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phase_2_Only_Customers_have_Change</fullName>
+    <active>true</active>
+    <errorConditionFormula>Organisation__r.Role_Type_Roll_Up__c =&quot;Prospect&quot;</errorConditionFormula>
+    <errorDisplayField>Organisation__c</errorDisplayField>
+    <errorMessage>You can not raise a change request for a Prospect.</errorMessage>
+</ValidationRule>

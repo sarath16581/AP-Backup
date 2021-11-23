@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Incumbent_Satisfaction__c</fullName>
+    <description>Phase 1 - Opportunity Assessment (PWC)
+
+Identify if the customer has indicated whether or not they are happy with this supplier and reasons they may choose to terminate that relationship</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Is the customer satisfied with their incumbents ? Would they change?</inlineHelpText>
+    <label>Incumbent Satisfaction</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

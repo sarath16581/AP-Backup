@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <decisions>
+        <name>Manager_Email_Not_Null</name>
+        <label>Manager Email Not Null</label>
+        <locationX>426</locationX>
+        <locationY>260</locationY>
+        <defaultConnectorLabel>[Default Outcome]</defaultConnectorLabel>
+        <rules>
+            <name>Not_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varManagerEmail</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue/>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_User_Manager_Email_on_Case</targetReference>
+            </connector>
+            <label>Not Null</label>
+        </rules>
+    </decisions>
+    <description>StarTrack - Populate Manager Email on Case</description>
+    <interviewLabel>StarTrack Populate Manager Email {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>StarTrack Populate Manager Email</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Lookup_User_Manager_Email</name>
+        <label>Lookup User Manager Email</label>
+        <locationX>425</locationX>
+        <locationY>122</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Manager_Email_Not_Null</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varCaseOwnerID</elementReference>
+            </value>
+        </filters>
+        <object>User</object>
+        <outputAssignments>
+            <assignToReference>varManagerEmail</assignToReference>
+            <field>Manager_Email__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_User_Manager_Email_on_Case</name>
+        <label>Update User Manager Email on Case</label>
+        <locationX>427</locationX>
+        <locationY>408</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varCaseID</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Manager_Email__c</field>
+            <value>
+                <elementReference>varManagerEmail</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <startElementReference>Lookup_User_Manager_Email</startElementReference>
+    <status>Active</status>
+    <variables>
+        <name>varCaseID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>500O0000007F9t1</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>varCaseOwnerID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>005O0000002aiUf</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>varManagerEmail</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

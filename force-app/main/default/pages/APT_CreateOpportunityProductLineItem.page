@@ -1,0 +1,184 @@
+<!--
+Description: The Visualforce page to handle Opportunity Product classification .
+Created By: Raviteja Epuri
+Created Date: 15th Feb, 2015
+Last Modified By:
+Last Modified Date:-->
+<!--Shashwat.Nath@Auspost.com Commented the Page Code as part of STP OPC Changes . This can be deleted after Decemeber 2020 -->
+<apex:page >
+<!--<apex:page controller="APT_CreateOpportunityProductLICntlr" sidebar="false" action="{!deleteOppProdLineItems}">
+    <style>
+        span.dateInput span.dateFormat{
+           display:none;
+        }
+        
+        
+        
+    </style>
+    <script> 
+        function setFocusOnLoad() {}   
+        function deleteRow1(recordId) {          
+           var confirmResult = confirm("Are you sure?");
+           if (confirmResult == true) {           
+            entrytodelete(recordId);
+           }         
+        }
+        
+      </script>
+     <apex:form id="frmId">-->
+      <!--Table to show entries  -->
+     <!--<apex:pageBlock title="{!$Label.APT_OppProdClassification}" id="pbid">-->
+     
+     <!-- Action funtion to clone entry -->
+        <!--<apex:actionFunction action="{!cloneEntry}" name="cloneEntry1" reRender="pgMsgs,lstproducts" status="pageStatus">
+            <apex:param name="entryToClone" value=""/>
+        </apex:actionFunction>-->
+     
+      <!-- Action funtion to delete entry -->
+       <!-- <apex:actionFunction action="{!deleteEntry}" name="entrytodelete" reRender="pgMsgs,frmId" status="pageStatus"> 
+         <apex:param name="rowidTodelete" value=""/>        
+        </apex:actionFunction>-->
+        
+      <!--  <apex:actionFunction action="{!populateTotalPrice}" name="populateTotalPrice1" reRender="pgMsgs,frmId" status="pageStatus"> 
+         <apex:param name="quantityVal" value=""/>
+         <apex:param name="unitsalespriceVal" value=""/>
+         <apex:param name="rowNum" value=""/>         
+        </apex:actionFunction>
+         <apex:outputPanel id="lstproducts">  
+         <apex:pagemessages rendered="{!haserrorMessages}" id="pgMsgs"/>
+         <apex:actionStatus id="pageStatus" >
+                    <apex:facet name="start"> 
+                    <apex:outputPanel >           
+                    <img src="{!$Resource.Apttus_DocuApi__Image_LoadingPage}" width="20" height="20" />
+                    <b><apex:outputLabel value="{!$Label.APT_Processing}"/></b>
+                    </apex:outputPanel>                        
+                    </apex:facet>
+                </apex:actionStatus>  <br/>  
+                
+        <apex:pageBlockSection >
+            <apex:pageBlockSectionItem >
+                <apex:outputPanel >
+                <apex:outputText value="Revenue Start Date" />
+                <apex:inputField value="{!opcForDates.APT_Revenue_Start_Date__c}" ></apex:inputField>
+                </apex:outputPanel>
+            
+                <apex:outputPanel >
+                <apex:outputText value="Revenue End Date" style="color: #4a4a56; font-weight: bold; font-size: 91%;"/>
+                <apex:inputField value="{!opcForDates.APT_Revenue_End_Date__c}"></apex:inputField>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:commandLink value="Update All Revenue Dates" action="{!updateAllFieldsWithOPCDates}"></apex:commandLink>
+            
+                <apex:commandLink value="Update Empty Dates" action="{!updateOPCDates}" style=" font-weight: bold; font-size: 91%;"></apex:commandLink>
+          </apex:pageBlockSectionItem>
+            
+    </apex:pageBlockSection>        
+        <apex:pageBlockTable value="{!lstEntries}"  var="oli" width="80%" id="pbTable" rendered="{!lstEntries.size >0}">-->
+            <!-- Disabled by Adrian Recio
+                 Description: clone and delete should not be allowed for OPC
+                 Date: 26/06/2017
+            -->
+            <!--
+                <apex:column >
+                  <u><a style="cursor: pointer;" onclick="deleteRow1('{!oli.APT_Sequence_Number__c}');"> <b>Delete</b> </a></u>                 
+                </apex:column>
+                <apex:column >
+                  <u><a style="cursor: pointer;" onclick="cloneEntry1('{!oli.APT_Sequence_Number__c}');"> <b>Clone</b> </a></u>                 
+                </apex:column>
+            -->
+              
+                <!--<apex:column value="{!oli.APT_Product_Text__c}" headerValue="{!$Label.APT_Product}" /> -->
+                <!-- (OPC Automation) 08/13/2019: Added read-only code for Classification field for Coverage Sales profile users -->
+                <!-- 03/03/2020 ADDED PROFILE BG BASE AS PART OF SALES TRANSFORMATION -->
+                <!--<apex:column headerValue="{!$Label.APT_Classification}">
+                    <apex:outputPanel layout="block"
+                                      styleClass="{! IF((($Profile.Name == 'Coverage Sales') || ($Profile.Name == 'BG Base') || ($Profile.Name == 'Hub Users') || ($Profile.Name == 'Product Sales') ||
+                                                         ($Profile.Name == 'Sales 3rd Party') || ($Profile.Name == 'SecurePay Super User') || ($Profile.Name == 'Solution Sales')
+                                                        ), '', 'requiredInput') }">
+                        <apex:outputPanel layout="block"
+                                          styleClass="{! IF((($Profile.Name == 'Coverage Sales') || ($Profile.Name == 'BG Base') || ($Profile.Name == 'Hub Users') || ($Profile.Name == 'Product Sales') ||
+                                                             ($Profile.Name == 'Sales 3rd Party') || ($Profile.Name == 'SecurePay Super User') || ($Profile.Name == 'Solution Sales')
+                                                            ), '', 'requiredBlock') }"/>
+                        <apex:inputField value="{!oli.APT_Classification__c}" html-disabled="true"
+                                         rendered="{! IF((($Profile.Name == 'Coverage Sales') || ($Profile.Name == 'BG Base') || ($Profile.Name == 'Hub Users') || ($Profile.Name == 'Product Sales') ||
+                                                          ($Profile.Name == 'Sales 3rd Party') || ($Profile.Name == 'SecurePay Super User') || ($Profile.Name == 'Solution Sales')
+                                                         ), true, false) }"/>
+                        <apex:inputField value="{!oli.APT_Classification__c}"
+                                         rendered="{! IF((($Profile.Name == 'Coverage Sales') || ($Profile.Name == 'BG Base') || ($Profile.Name == 'Hub Users') || ($Profile.Name == 'Product Sales') ||
+                                                          ($Profile.Name == 'Sales 3rd Party') || ($Profile.Name == 'SecurePay Super User') || ($Profile.Name == 'Solution Sales')
+                                                         ), false, true) }"/>
+                    </apex:outputPanel>
+                </apex:column>-->
+                <!-- (OPC Automation) 08/13/2019: Added checkbox to change Classification from Renewal to Growth -->
+                <!--<apex:column headerValue="{!$Label.APT_Change_Classification}"
+                             rendered="{! IF((($Profile.Name == 'Coverage Sales') || ($Profile.Name == 'Hub Users') || ($Profile.Name == 'Product Sales') || ($Profile.Name == 'BG Base') ||
+                                              ($Profile.Name == 'Sales 3rd Party') || ($Profile.Name == 'SecurePay Super User') || ($Profile.Name == 'Solution Sales') ||
+                                              ($Profile.Name == 'Business Enablement') ||($Profile.Name == 'Sales Admin') || ($Profile.Name == 'System Administrator') || ($Profile.Name == 'SSSW - Service Agent') || 
+                                              ($Profile.Name == 'Sales Contracts CME') || ($Profile.Name == 'Enterprise Onboarding')
+                                             ), true, false) }">
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                    <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputField value="{!oli.APT_Change_Classification__c}" html-disabled="true" rendered="{! IF(
+                                                                                                                    OR(oli.APT_Classification__c == 'Renewal', oli.APT_Classification__c == 'Growth',
+                                                                                                                        $Profile.Name == 'Business Enablement', $Profile.Name == 'Sales Admin', $Profile.Name == 'System Administrator', 
+                                                                                                                        $Profile.Name == 'SSSW - Service Agent', $Profile.Name == 'Sales Contracts CME', $Profile.Name == 'Enterprise Onboarding')
+                                                                                                                    ,false, true ) }" />
+                        <apex:inputField value="{!oli.APT_Change_Classification__c}" required="true" rendered="{! IF(
+                                                                                                               OR(oli.APT_Classification__c == 'Renewal', oli.APT_Classification__c == 'Growth',
+                                                                                                                   $Profile.Name == 'Business Enablement', $Profile.Name == 'Sales Admin', $Profile.Name == 'System Administrator', 
+                                                                                                                   $Profile.Name == 'SSSW - Service Agent', $Profile.Name == 'Sales Contracts CME', $Profile.Name == 'Enterprise Onboarding')
+                                                                                                                 ,true, false ) }" />
+                    </apex:outputPanel>
+                </apex:column>
+                <apex:column headerValue="{!$Label.APT_Quantity}">
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField value="{!oli.APT_Quantity__c}" id="quantityId" />
+                </apex:outputPanel>
+                </apex:column> 
+                <apex:column headerValue="{!$Label.APT_Unit_Sales_Price}" footerValue="Total"  style="width: 160px;">
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField value="{!oli.APT_Unit_Sales_Price__c}" id="unitPriceId"  style="width: 150px;"/>
+                </apex:outputPanel>
+                </apex:column>
+                <apex:column headerValue="{!$Label.APT_Total_Price}" > 
+                
+                 <b><apex:outputField value="{!oli.APT_TotalPrice__c}" />  </b>
+                 
+                 <apex:facet Name="footer">
+                     <apex:outputText value="${0, number, ###,###,###,##0.00}">  
+                      <apex:param value="{!TotalPrice}"/>  
+                 </apex:outputText>
+                 </apex:facet>
+                </apex:column>                                 
+                <apex:column headerValue="{!$Label.APT_Contract_Product}">
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                    <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputField value="{!oli.APT_Contract_Product__c}" required="true"/>
+                    </apex:outputPanel>
+                </apex:column>
+                <apex:column headerValue="{!$Label.APT_Revenue_Start_Date}"  style="width: 170x;">
+                <apex:outputPanel styleClass="requiredInput" layout="block">
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField value="{!oli.APT_Revenue_Start_Date__c}"  style="width: 150px;"/>
+                </apex:outputPanel>
+                </apex:column>
+                <apex:column headerValue="{!$Label.APT_Revenue_End_Date}" style="width: 170px;">
+                <apex:outputPanel styleClass="requiredInput" layout="block" >
+                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                <apex:inputField value="{!oli.APT_Revenue_End_Date__c}"  style="width: 150px;" />
+                </apex:outputPanel>
+                </apex:column> 
+                
+            </apex:pageBlockTable>            
+         </apex:outputPanel> 
+         <br/>
+         <center>
+         <apex:commandButton value="{!$Label.APT_Save}" action="{!saveRecords}" reRender="pgMsgs,frmId" status="pageStatus"/> &nbsp;        
+         <apex:commandButton value="{!saveAndGoBack}" action="{!BackToCart}" reRender="pgMsgs,frmId" status="pageStatus"/> &nbsp;        
+         </center>
+       </apex:pageBlock>
+       </apex:form>-->
+</apex:page>

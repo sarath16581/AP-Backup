@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LDC_System_Check__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>StarTrack - LDC System Check</description>
+    <externalId>false</externalId>
+    <label>LDC System Check</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

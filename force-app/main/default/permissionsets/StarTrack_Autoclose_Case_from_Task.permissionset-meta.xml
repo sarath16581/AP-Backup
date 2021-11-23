@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>StarTrack_Autoclose_Case_from_Task</name>
+    </customPermissions>
+    <description>Used for autoclosing Depot Collection, Redirection and Address Check cases from operations tasks. Used for initial limited rollout only.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>StarTrack Autoclose Case from Task</label>
+</PermissionSet>

@@ -1,0 +1,181 @@
+<!--
+Description: This visula force page is being called from 'Manage LP' button on Cart. This page will allow user 
+to select lodgement Point based on filter criteria and to insert Line Item Lodgement Point.
+Created By - Raviteja Epuri
+Created Date - 14th Nov, 2015
+Last Modified By -
+Last Modified Date -
+
+04-06-2021 : madhuri.awasthi@auspost.com.au
+            REQ2527341  Adding Lodgement Zone - Making PostCode field mandatory to make sure it is selected before Search
+-->
+<apex:page controller="APT_ManageLodgementPointController" tabStyle="Product2" sidebar="false">  
+    
+   <!-- Javascript function to show confirmation popup to delete Line Item lodgement point -->
+    <script>
+    
+        function deleteLodgementPoint1(lodgementPointId) {
+           var confirmResult = confirm("Are you sure?");
+           if (confirmResult == true) {           
+             DeleteLPoint(lodgementPointId);
+           }         
+        }   
+        
+         var newWin=null;
+         function openLookupPopup(name, id, prodConfid,source)
+         {        
+          var inputval = document.getElementById(name).value;          
+          var url="/apex/C__APT_ManageLodgementPointLookup?namefield=" + name + "&idfield=" + id +"&billAcc=" + inputval + "&prodConId=" + prodConfid + "&source=" + source;
+          newWin=window.open(url, 'Popup','height=500,width=600,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+          if (window.focus) 
+          {
+           newWin.focus();          
+            }
+            
+             return false;
+            }               
+         function closeLookupPopup()
+         {
+            if (null!=newWin)
+            {
+               newWin.close();
+            }  
+         }     
+    </script>
+    <apex:form id="form1">   
+         <!-- Action funtion to make IsSelected TRUE for selected Lodgement point 
+        <apex:actionFunction action="{!doSelectLodgementPointMthd}" name="selectLodgementPoint1" reRender="pgMsgs" status="pageStatus">
+            <apex:param name="selectedLodgementPointId" value=""/>
+        </apex:actionFunction>        
+        -->
+        <!-- Action funtion to delete Lodgement Point -->
+        <apex:actionFunction action="{!DeleteLP}" name="DeleteLPoint" reRender="selectedLPSesction,form1,LPlist" status="pageStatus"> 
+         <apex:param name="deleteLodgementPointId" value=""/>        
+        </apex:actionFunction>
+        
+        <!--Section to show Product,Zodgement zone & Billing Account  -->
+         <apex:pageBlock title="{!strGetValTitle}" >
+            <apex:pageBlockSection id="lpSection" title="{!$Label.APT_Manage_Quote_Lodgement_Point}" columns="2">
+                 <apex:OutputField value="{!lineItem.Apttus_Config2__ProductId__r.Name}" rendered="{!source =='lineItembtn'}"/> <br/>
+                 <apex:OutputField value="{!lineItem.Apttus_Config2__AttributeValueId__r.APT_Lodgement_Zone__r.Name}" rendered="{!source =='lineItembtn'}"/> <br/>                                            
+            </apex:pageBlockSection> 
+            <!-- Defect 1568 START -->
+                 <apex:InputHidden value="{!billingAccId}" id="bAccId"/> <br/>  
+                <!-- <b style="Margin-Left:11%;"> Billing Account </b> &nbsp;&nbsp;&nbsp;&nbsp;<apex:inputText value="{!billingAcc}" id="bAccName" disabled="false"/> <a href="#" onclick="openLookupPopup('{!$Component.bAccName}', '{!$Component.bAccId}', '{!prodConfigId}','billingAccCPQ'); return false"><img src="/s.gif"  class="lookupIcon" onmouseout="this.className='lookupIcon';" alt="Account Name Lookup (New Window)" onmouseover="this.className='lookupIconOn';"/></a>         
+                 -->
+         <!-- Defect 1568 END -->
+           
+     <!--Section to show search filter fields & buttons  -->
+     <apex:pageBlocksection title="{!$Label.APT_Search_for_Lodgement_Point}" Id="searchSection">  </apex:pageBlocksection> <br/>
+                <apex:outputPanel id="searchResultSection"> 
+                <Table width="95%" align="center"> <tr >
+                <td   width="170px"><b> Post Code </b> <br/><apex:InputField value="{!Network.Post_Code__c}" style="width:100px" required="true"/> </td>
+               
+                <td width="130px"><b> State </b>  <br/><apex:selectList value="{!stateVal}" size="1">
+                                                         <apex:selectOptions value="{!statePickval}"/>
+                                                         </apex:selectList> </td>
+                <td width="230px"><b> Transport Capability </b> <br/><apex:inputfield value="{!Network.APT_Transport_Capability__c}"/></td>
+                
+                <td width="190px"><b> Outlet Type </b>  <br/><apex:selectList value="{!bussinessUnit}" size="1">
+                                                         <apex:selectOptions value="{!bussinessPickval}"/>
+                                                         </apex:selectList> </td>
+                <td width="230px"><b> eParcel Enabled </b> <br/><apex:inputfield value="{!Network.APT_eParcel_Enabled__c}"/></td>
+                <apex:outputPanel layout="none" rendered="{!source = 'cartbtn'}" > <td ><b> Domestic Lodgement Zone </b> <br/><apex:selectList value="{!domesticLodgementZone}" size="1" ><apex:selectOptions value="{!domesticLodgementZoneVal}"/>
+                                                         </apex:selectList> </td> </apex:outputPanel>
+                </tr></Table><br/><br/>
+            
+             
+            <center>       
+            <apex:commandButton value="{!$Label.APT_Search_LP}" action="{!searchLPButton}" reRender="searchResultSection,pgMsgs" status="pageStatus" /> &nbsp;&nbsp;
+            <apex:commandButton value="{!$Label.APT_Display_all_Lodgement_Points_for_this_Lodgement_Zone}" action="{!showallLodgementpoints}" reRender="searchResultSection,searchSection" status="pageStatus" rendered="{!lineItem.Apttus_Config2__AttributeValueId__r.APT_Lodgement_Zone__c !=Null}"/> &nbsp;&nbsp;         
+            <apex:commandButton value="{!$Label.APT_Add_LP}" action="{!AddLP}"   reRender="selectedLPSesction,searchResultSection" status="pageStatus"/>  &nbsp;&nbsp;
+            
+            </center>
+                <apex:pagemessages rendered="{!haserrorMessages}" id="pgMsgs"/> <br/>           
+                <apex:actionStatus id="pageStatus" >
+                    <apex:facet name="start"> 
+                    <apex:outputPanel >                             
+                     <img src="{!$Resource.Apttus_DocuApi__Image_LoadingPage}" width="20" height="20" /> 
+                    <b><apex:outputLabel value="{!$Label.APT_Please_wait}"/></b>
+                    
+                    </apex:outputPanel>                        
+                    </apex:facet>
+                </apex:actionStatus>           
+            <apex:outputPanel rendered="{!listLodgementPointWrapper.size >0}" id="LPlist">  
+             <div style="overflow: scroll; height: 350px"> 
+              <!--Table to show resulted Lodgement point records  -->
+            <apex:pageBlockTable value="{!listLodgementPointWrapper}" var="lp" width="100%"  >                
+                <apex:column >
+                     <apex:inputCheckbox value="{!lp.IsSelected}"  />
+                </apex:column>
+                <apex:column >                 
+                <apex:facet name="header">LP Name</apex:facet>
+                       {!lp.lodgementPoint.Name}
+                </apex:column>
+                <apex:column value="{!lp.lodgementPoint.Org_ID__c}"/>
+                <apex:column value="{!lp.lodgementPoint.APT_DWS_ID__c}"/>
+                <apex:column value="{!lp.lodgementPoint.Post_Code__c}"/>
+                <apex:column >                 
+                <apex:facet name="header">Address</apex:facet>
+                       {!lp.lodgementPoint.Network_Address__c}
+                </apex:column>
+                <apex:column >                 
+                <apex:facet name="header">Outlet Type</apex:facet>
+                        <!-- Adrian Recio, 22/5/2017, Changed Business Unit to APT Business Unit -->
+                       {!lp.lodgementPoint.APT_Business_Unit__c }
+                </apex:column>                
+                <apex:column value="{!lp.lodgementPoint.APT_Transport_Capability__c}"/>
+                <apex:column value="{!lp.lodgementPoint.APT_MCAT__c}"/>
+                <apex:column value="{!lp.lodgementPoint.APT_Threshold_Categories__c}"/>
+                <apex:column value="{!lp.lodgementPoint.APT_Comments__c}"/>  
+                <apex:column value="{!lp.lodgementPoint.APT_eParcel_Enabled__c}"/> 
+                               
+            </apex:pageBlockTable> 
+            </div>  <br/>
+             
+             <div style="float:Right;">
+             <apex:outputText value="{!$Label.APT_Total_Lodgement_Points} {!searchRecCount}"  style="color:#969696"/> &nbsp;&nbsp;&nbsp;&nbsp;              
+             <b><apex:commandLink value="<<" action="{!searchLPButton}"  rendered="{!offSetVal>0}" reRender="searchResultSection,pgMsgs" status="pageStatus" title="{!$Label.APT_First}" /> 
+             <apex:outputText value="<<" style="color:#969696" rendered="{!offSetVal==0}" title="{!$Label.APT_First}"/> &nbsp;
+             <span> || </span> </b>&nbsp;
+             <b><apex:commandLink value="{!$Label.APT_Previous}" action="{!goPrevious}"  rendered="{!offSetVal>0}" reRender="searchResultSection,pgMsgs" status="pageStatus" title="{!$Label.APT_Previous}"/> 
+             <apex:outputText value="{!$Label.APT_Previous}" style="color:#969696" rendered="{!offSetVal==0}" title="{!$Label.APT_Previous}"/>&nbsp;
+             <span> || </span> </b>  &nbsp;            
+             <b><apex:commandLink value="{!$Label.APT_Next}" action="{!goNext}" rendered="{!(searchRecCount - offSetVal)>100}" reRender="searchResultSection,pgMsgs" status="pageStatus" title="{!$Label.APT_Next}"/>
+             <apex:outputText value="{!$Label.APT_Next}" style="color:#969696" rendered="{!(searchRecCount - offSetVal)<100}" title="{!$Label.APT_Next}"/>&nbsp;
+             <span> || </span> </b>&nbsp;
+             <b><apex:commandLink value=">>" action="{!goLast}"  rendered="{!(searchRecCount - offSetVal)>100}" reRender="searchResultSection,pgMsgs" status="pageStatus" title="{!$Label.APT_Last}"/> 
+             <apex:outputText value=">>" style="color:#969696" rendered="{!(searchRecCount - offSetVal)<100}" title="{!$Label.APT_Last}"/>   &nbsp;&nbsp;&nbsp;&nbsp;             
+             </b></div> <br/>
+               
+                
+             <center> 
+             
+             </center>       
+            </apex:outputPanel>             
+            </apex:outputPanel><br/> 
+        
+        <!--Table to show added Line Item Lodgement point records  -->
+         <apex:outputPanel id="selectedLPSesction">         
+         <apex:pageBlockTable value="{!listSelectedLodgementPointWrapper}" var="lps" width="80%"  rendered="{!listSelectedLodgementPointWrapper.size >0}">
+                <apex:column >
+                  <u><a style="cursor: pointer;" onclick="deleteLodgementPoint1('{!lps.ntwrk.Id}');"> <b>Delete</b> </a></u>
+                </apex:column>
+                <apex:column value="{!lps.Product}" headerValue="{!$Label.APT_Product}"/>
+                <apex:column value="{!lps.ntwrk.Name}" headerValue="{!$Label.APT_Lodgement_Point}"/>
+                <apex:column value="{!lps.lodgementZone}" headerValue="{!$Label.APT_Lodgement_Zone}"/>
+                <apex:column value="{!lps.ntwrk.Network_Address__c}" headerValue="{!$Label.APT_Address}"/>
+                <apex:column value="{!lps.ntwrk.Post_Code__c}" headerValue="{!$Label.APT_LP_Post_Code}"/>
+
+                <!-- Adrian Recio, 22/5/2017, Changed Business Unit to APT Business Unit -->
+                <apex:column value="{!lps.ntwrk.APT_Business_Unit__c}" headerValue="{!$Label.APT_Outlet_Type}"/>
+                <apex:column value="{!lps.ntwrk.APT_eParcel_Enabled__c}" headerValue="{!$Label.APT_eParcel_Enabled}"/> 
+                <apex:column value="{!lps.ntwrk.APT_Transport_Capability__c}" headerValue="{!$Label.APT_Transport_Capability}"/> 
+                <apex:column value="{!lps.ntwrk.Org_ID__c}" headerValue="{!$Label.APT_Organisation_ID}"/>
+                <apex:column value="{!lps.ntwrk.APT_DWS_ID__c}" headerValue="{!$Label.APT_DWS_ID}"/>                             
+            </apex:pageBlockTable>
+         </apex:outputPanel> <br/>
+        <center><apex:commandButton value="{!$Label.APT_Back_to_Shopping_Cart}" action="{!backToCart}"/></center>         
+    </apex:pageBlock>           
+    </apex:form>    
+</apex:page>

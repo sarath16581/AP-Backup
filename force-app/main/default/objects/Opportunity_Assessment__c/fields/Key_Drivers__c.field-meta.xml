@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Key_Drivers__c</fullName>
+    <description>Phase 1 - Opportunity Assessment (PWC)
+
+Concise description of the events that have caused the customer to take action including the major issues, drivers of this opportunity</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Why is the customer acting? i.e. key drivers, issues</inlineHelpText>
+    <label>Key Drivers</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

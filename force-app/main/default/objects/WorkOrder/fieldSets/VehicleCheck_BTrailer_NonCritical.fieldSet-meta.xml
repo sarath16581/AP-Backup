@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VehicleCheck_BTrailer_NonCritical</fullName>
+    <description>Used in Apex Class TDF_WorkOrderTriggerUtility.workOrderUpdateMethod to control creation of Vehicle Inspection Issue records</description>
+    <displayedFields>
+        <field>PDC_Trailer_B_Check_report__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>PDC_Trailer_B_Service_sticker__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>PDC_Trailer_B_Tyre_pressure__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <label>VehicleCheck BTrailer NonCritical</label>
+</FieldSet>

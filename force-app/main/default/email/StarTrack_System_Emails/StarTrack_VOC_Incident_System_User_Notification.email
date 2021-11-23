@@ -1,0 +1,31 @@
+<p style="font-family: Arial;">	
+Hi {!Case.OwnerFirstName},<br/>	
+<br/>	
+The below feedback has been received by the VOC team.	
+<br/>	
+Please investigate this matter and ensure that you provide the outcome details via the following link https://auspost.my.salesforce.com/{!Case.Id}.</b><br/>	
+<br/>	
+<b>Name</b>: {!Case.Recent_Caller_First_Name__c} {!Case.Recent_Caller_Last_Name__c}<br/>	
+<b>Address</b>: {!Case.Address__c}<br/>	
+<b>Depot</b>: {!Case.Network__c}<br/>	
+<b>Date of Incident</b>: {!Case.DateofIncident__c}<br/>	
+<b>Contact No</b>: {!Case.Recent_Contact_Mobile_Number__c }<br/>	
+<b>Contact Required</b>: {!IF(Case.CallBackRequired__c, "Yes", "No")}<br/>	
+</br>	
+<b>Feedback Description</b>: {!Case.Description}<br/>	
+</br>	
+<b>Consignment No.</b>: {!Case.ArticleTest__c}<br/>	
+<b>Booking Ref</b>: {!Case.Pickup_Booking_Reference__c}<br/>	
+<b>Rego No</b>: {!Case.Registration_Number__c}<br/>	
+<b>Journey</b>: {!Case.Journey__c}<br/>	
+<b>Feedback Reason</b>: {!Case.Feedback_Reason__c}<br/>	
+<br/>	
+Regards, <br/>	
+<br/>	
+{!Case.Case_Owner__c}<br/>	
+VOC Team<br/>	
+StarTrack<br/>	
+<br/>	
+<td style=" font:2px/3px Arial; color:White;"> {!Case.EmailThreadID__c}<br>	
+                                                              </td>	
+</p>

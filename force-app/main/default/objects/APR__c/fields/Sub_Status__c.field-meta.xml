@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Status__c</fullName>
+    <description>Annual Price Review Sub-Status</description>
+    <externalId>false</externalId>
+    <inlineHelpText>A dependant field based on the Status field that justifies the Status selection. Must be completed for all records.</inlineHelpText>
+    <label>Sub-Status</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Status__c</controllingField>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Account lost</fullName>
+                <default>false</default>
+                <label>Account lost</label>
+            </value>
+            <value>
+                <fullName>Changed Channel</fullName>
+                <default>false</default>
+                <label>Changed Channel</label>
+            </value>
+            <value>
+                <fullName>Contract under negotiation</fullName>
+                <default>false</default>
+                <label>Contract under negotiation</label>
+            </value>
+            <value>
+                <fullName>Different Anniversary date</fullName>
+                <default>false</default>
+                <label>Different Anniversary date</label>
+            </value>
+            <value>
+                <fullName>Gain additional business</fullName>
+                <default>false</default>
+                <label>Gain additional business</label>
+            </value>
+            <value>
+                <fullName>Long term agreement</fullName>
+                <default>false</default>
+                <label>Long term agreement</label>
+            </value>
+            <value>
+                <fullName>Management decision</fullName>
+                <default>false</default>
+                <label>Management decision</label>
+            </value>
+            <value>
+                <fullName>NiteRoad/Agent</fullName>
+                <default>false</default>
+                <label>NiteRoad/Agent</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Price Target Set</fullName>
+                <default>false</default>
+                <label>Price Target Set</label>
+            </value>
+            <value>
+                <fullName>Rate previously increased</fullName>
+                <default>false</default>
+                <label>Rate previously increased</label>
+            </value>
+            <value>
+                <fullName>Rates recently reviewed</fullName>
+                <default>false</default>
+                <label>Rates recently reviewed</label>
+            </value>
+            <value>
+                <fullName>Sales Director Delegation</fullName>
+                <default>false</default>
+                <label>Sales Director Delegation</label>
+            </value>
+            <value>
+                <fullName>Sales Negotiation</fullName>
+                <default>false</default>
+                <label>Sales Negotiation</label>
+            </value>
+            <value>
+                <fullName>Started after 1st August</fullName>
+                <default>false</default>
+                <label>Started after 1st August</label>
+            </value>
+            <value>
+                <fullName>Under Negotiation</fullName>
+                <default>false</default>
+                <label>Under Negotiation</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Exemption</controllingFieldValue>
+            <valueName>Changed Channel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exemption</controllingFieldValue>
+            <controllingFieldValue>Reduction</controllingFieldValue>
+            <controllingFieldValue>Deferral</controllingFieldValue>
+            <controllingFieldValue>Go early</controllingFieldValue>
+            <valueName>Gain additional business</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exemption</controllingFieldValue>
+            <controllingFieldValue>Accepted</controllingFieldValue>
+            <controllingFieldValue>Reduction</controllingFieldValue>
+            <controllingFieldValue>Deferral</controllingFieldValue>
+            <controllingFieldValue>Go early</controllingFieldValue>
+            <valueName>Long term agreement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exemption</controllingFieldValue>
+            <controllingFieldValue>Reduction</controllingFieldValue>
+            <controllingFieldValue>Deferral</controllingFieldValue>
+            <controllingFieldValue>Go early</controllingFieldValue>
+            <valueName>Management decision</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exemption</controllingFieldValue>
+            <controllingFieldValue>Reduction</controllingFieldValue>
+            <controllingFieldValue>Deferral</controllingFieldValue>
+            <controllingFieldValue>Go early</controllingFieldValue>
+            <valueName>NiteRoad/Agent</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exemption</controllingFieldValue>
+            <controllingFieldValue>Accepted</controllingFieldValue>
+            <controllingFieldValue>Deferral</controllingFieldValue>
+            <controllingFieldValue>Go early</controllingFieldValue>
+            <valueName>Price Target Set</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exemption</controllingFieldValue>
+            <controllingFieldValue>Reduction</controllingFieldValue>
+            <controllingFieldValue>Deferral</controllingFieldValue>
+            <controllingFieldValue>Go early</controllingFieldValue>
+            <valueName>Rates recently reviewed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exemption</controllingFieldValue>
+            <controllingFieldValue>Reduction</controllingFieldValue>
+            <controllingFieldValue>Deferral</controllingFieldValue>
+            <controllingFieldValue>Go early</controllingFieldValue>
+            <valueName>Sales Director Delegation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Exemption</controllingFieldValue>
+            <valueName>Started after 1st August</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accepted</controllingFieldValue>
+            <controllingFieldValue>Auto-Accepted</controllingFieldValue>
+            <controllingFieldValue>Account Lost</controllingFieldValue>
+            <controllingFieldValue>Open</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Deferral</controllingFieldValue>
+            <controllingFieldValue>Go early</controllingFieldValue>
+            <valueName>Different Anniversary date</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Unresolved</controllingFieldValue>
+            <valueName>Contract under negotiation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Unresolved</controllingFieldValue>
+            <valueName>Under Negotiation</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,58 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" controller='ChasCustomCaseListAndDetailController' description="Shows the list of all Cases for the logged in user.">
+    <aura:attribute name="caseList" type="Case[]"/>
+    <aura:attribute name="isLoading" type="Boolean" default="true"/>
+
+    <!-- Adobe Analytics Tracking Helpers -->
+    <c:adobeAnalyticsInterfaceComponent sitePrefix="auspost:help and support" pageViewTracking="true" pageViewTrackingType="helpsupport-form-navigate" pageViewFormName="form:enquiries" pageViewFormStep="summary" />
+
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }"/>
+
+    <div>
+
+        <aura:if isTrue="{! and(not(v.isLoading), empty(v.caseList)) }">
+
+            <div class="slds-text-align_center slds-p-vertical_xx-large slds-p-horizontal_medium">
+                <h2 class="chas-heading_large slds-m-bottom_x-small">You don’t have any open enquiries.</h2>
+                <p>Visit <a onclick="{! c.gotoHelpAndSupport }">help &amp; support</a> if you’d like to create a case.</p>
+            </div>
+
+            <aura:set attribute="else">
+                <div class="chas-mobile">
+
+                    <aura:iteration items="{! v.caseList }" var="caseVar">
+                        <c:ChasEachCaseCard caseObj='{!caseVar}'/>
+                    </aura:iteration>
+
+                </div>
+
+                <div class="chas-desktop">
+                    <div class="chas-table-box">
+                        <table>
+
+                            <tr class="chas-table-head">
+                                <th scope="col">Enquiry Type</th>
+                                <th scope="col">Reference no.</th>
+                                <th scope="col">Last updated</th>
+                                <th scope="col">Status</th>
+                            </tr>
+
+                            <aura:if isTrue="{! and(v.isLoading, empty(v.caseList)) }">
+                                <aura:iteration items="1,2,3,4,5" var="item">
+                                    <tr class="empty-row"><td/><td/><td/><td/></tr>
+                                </aura:iteration>
+
+                                <aura:set attribute="else">
+                                    <aura:iteration items="{! v.caseList }" var="caseVar">
+                                        <c:ChasEachCaseRow caseObj='{!caseVar}'/>
+                                    </aura:iteration>
+                                </aura:set>
+                            </aura:if>
+
+                        </table>
+                    </div>
+                </div>
+            </aura:set>
+        </aura:if>
+
+    </div>
+</aura:component>

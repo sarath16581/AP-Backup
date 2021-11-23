@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SSSW - Used to notify the Customer when the Case has been created via Snap It app</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW New Case Notification -Snap It</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Product or service enquiry
+
+Reference number {!Case.CaseNumber}
+
+
+Dear {!Case.PrimaryContactFirstName__c},
+
+
+An enquiry has been raised on your behalf by {!Case.Employee_Lastname__c}.
+
+Your reference number is {!Case.CaseNumber}.
+
+Sometimes enquiries can be resolved before we&apos;ve completed our investigation. If that happens, let us know here:
+
+CLOSE MY CASE
+
+If receiving a response takes longer than usual, please know we haven’t forgotten about you, it is just taking us a little longer as we are continuing to manage higher than normal enquiry volumes.
+
+We are people just like you, doing our best to assist through these difficult times. We will treat you with kindness and respect and ask that you do the same. All Australia Post employees have the right not to be subjected to any behaviour or abuse that includes threats of physical harm or violence, religious, cultural or racial insults, homophobic, sexist or other derogatory remarks.
+
+We thank you for your cooperation. We&apos;ll be in touch as soon as we can.
+
+
+Thank you,
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Privacy Notice
+This privacy notice outlines in general terms how Australia Post handles your personal information in respect of the Snap It(‘the App’).   Personal information is collected about you by Australia Post to fulfil services facilitated through the App. These services include the fulfilment of your enquiry or compliant, the identification and remediation of hazards or incidents related to the Australia Post network or operations and/or the fulfilment of a lead generation enquiry.   Information obtained through the App may also be used to send you correspondence pertaining to your query/complaint, follow up lead generating enquiries (including providing commercial correspondence (unless you have unsubscribed to it) and to provide service support.  If you provide the personal information of others to Australia Post it is your responsibility to advise those individuals that you have provided the information to Australia Post. If your personal information is not collected we may not be able communicate with you about your enquiry, services facilitated through this App or other Australia Post products or services you may be interested in.  Your personal information may be disclosed to contracted service providers that assist in fulfilling the Program (such as information technology support and service support operations). Some of these providers are located in Japan and the United States. The Australia Post Group ‘Privacy Policy’ contains more information and also how you can seek access to, and correction of, your personal information held by Australia Post. It also explains how you can complain about a breach of your privacy and how your complaint will be dealt with. For more information, please refer to the Australia Post Group Privacy Policy at: auspost.com.au/privacy.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

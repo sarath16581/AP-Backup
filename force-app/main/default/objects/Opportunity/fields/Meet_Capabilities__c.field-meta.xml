@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Meet_Capabilities__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Phase 1 - Opportunity Assessment (PWC)
+
+Identify whether our offering will likely meet the customers needs</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Can we meet their needs with our current capabilities?</inlineHelpText>
+    <label>Meet Capabilities</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

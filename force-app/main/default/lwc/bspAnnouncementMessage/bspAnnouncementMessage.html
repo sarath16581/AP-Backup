@@ -1,0 +1,17 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 21/08/2020
+  * @description  : Component for StarTrack delivery enquiry creation.
+--------------------------------------- History --------------------------------------------------
+08.09.2020    Jansi Rani   Created
+-->
+<template>
+    <template if:true={isShowAnnouncementMsg}>
+      <div class="full-width-parent warning-bgcolor">
+        <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-center slds-p-horizontal_medium slds-p-vertical_medium full-width-child">
+          <div class="slds-m-right_x-small"><c-bsp-custom-icons icon="round-exclaim-filled" size="medium" fill="#EDA51F" iconclass="icon-inline"></c-bsp-custom-icons></div>
+          <lightning-formatted-rich-text value={announcementMessage} class="announce-box"></lightning-formatted-rich-text>
+        </div>
+      </div> 
+    </template>
+</template>

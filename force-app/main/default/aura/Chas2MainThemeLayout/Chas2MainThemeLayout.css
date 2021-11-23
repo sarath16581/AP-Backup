@@ -1,0 +1,193 @@
+/*
+@changelog: 23-07-2010 hara.sahoo@auspost.com.au Added new styling as per the Help and Support form uplift 
+*/
+/* Colors */
+/* Sizing */
+.THIS .inner {
+  max-width: 1140px;
+  min-width: 320px;
+  margin-left: auto;
+  margin-right: auto; }
+
+.THIS .outer {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%); }
+
+/*  **********************************************
+   @import 'fonts';
+   Fonts
+   Are
+   Here
+   ***********************************************
+*/
+
+.THIS {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 285px;
+  /*background-color: #f3f1ee;*/
+    background-color:#F5F5F5;
+}
+  .THIS .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%; }
+/*Modified chas-header and chas-header_small, as per the new designs for Help and Support form uplift */
+  /* Old styling be deleted by 30-10-2020*/
+   /* .THIS .chas-header {
+    width: 100%;
+    letter-spacing: 0.8px;
+    padding-bottom: 11px;
+    border-bottom: 1px solid #e2dfda;
+    margin-bottom: 35px; }*/
+.THIS .chas-header {
+    width: 100%;
+    letter-spacing: 0.8px;
+    padding-bottom: 8px;
+}
+@media (max-width: 680px) {
+    .THIS .chas-header {
+        padding-bottom: 12px;
+    }
+}
+.THIS .chas-header_small {
+    width: 100%;
+    letter-spacing: 0.8px;
+    padding-bottom: 32px;
+    /*padding-top: 48px;
+    border-top: 1px solid #e2dfda;*/
+}
+@media (max-width: 480px) {
+    .THIS .chas-header_small {
+    padding-bottom: 24px;
+    /*padding-top: 40px;*/
+}
+}
+  @media (min-width: 680px) {
+    .THIS {
+      padding-bottom: 100px; }
+    /* Old styling be deleted by 30-10-2020*/
+      /*.THIS .chas-header_small {
+        margin-bottom: 35px; }
+    */ 
+}
+
+.THIS *,
+.THIS *:after,
+.THIS *:before {
+  box-sizing: border-box; }
+
+.THIS ::selection {
+  background: #b2d7fe; }
+
+/* Old styling be deleted by 30-10-2020*/
+/* Added to the Community Builder Custom CSS */
+/*
+body {
+  font-family: sans-serif;
+  font-size: 1rem;
+  color: #382F2D;
+  line-height: 1.5rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6, b, strong {
+  font-family: 'APLetterBoldFont', 'APLetterFont', helvetica, arial, sans-serif;
+  font-weight: bold; }
+h1 { font-size: 1.5rem; line-height: 2rem; }
+h2 { font-size: 1.25rem; line-height: 1.5rem; }
+h3 { font-size: 1.125rem; line-height: 1.5rem; }
+.chas-heading_large { font-size: 1.125rem; line-height: 1.5rem; }
+.chas-heading_medium { font-size: 1rem; line-height: 1.5rem; }
+.chas-heading_small { font-size: 1rem; line-height: 1.5rem; }
+.chas-body_regular { font-size: 1rem; line-height: 1.5rem; }
+.chas-body_small { color: #736d6c; font-size: 0.8125rem; font-weight:normal; line-height: 1rem; }
+.chas-error-message { color: #bc111e; font-size: 0.8125rem; line-height: 1.5rem; }
+.slds-form-element__label { color: #292f33; }
+
+.slds-button:focus,
+.slds-button:active {
+  box-shadow: none;    
+}
+
+.slds-button:focus:after {
+  border: 1px dotted #382F2D;
+  border-radius: 3px;
+  content: "";
+  display: block;
+  height: calc(100% + 10px);
+  left: -5px;
+  pointer-events: none;
+  position: absolute;
+  top: -5px;
+  width: calc(100% + 10px);
+}
+
+.slds-button.loading-true::after {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: .75s linear infinite spinnerRotate;
+  animation: .75s linear infinite spinnerRotate;
+  border: 2px solid currentColor;
+  border-bottom-color: transparent;
+  border-radius: 100%;
+  background: 0 0;
+  content: "";
+  margin: auto;
+  position: relative;
+  top: 0.3rem;
+  left: 0;
+  color: inherit;
+}
+
+@keyframes spinnerRotate {
+  0% {
+    -webkit-transform:rotate(0);
+    transform:rotate(0)
+  }
+  to {
+    -webkit-transform:rotate(360deg);
+    transform:rotate(360deg)
+  }
+}
+
+@media (min-width: 680px) {
+  h1 { font-size: 2rem; line-height: 2.5rem; }
+  h2 { font-size: 1.5rem; line-height: 2rem; }
+  h3 { font-size: 1.25rem; line-height: 2rem; }
+  .chas-heading_large { font-size: 1.25rem; line-height: 2rem; }   
+  .chas-heading_medium { font-size: 1.25rem; line-height: 1.5rem; }    
+  .chas-heading_small { font-size: 1.125rem; line-height: 1.5rem; }
+}
+
+.slds-popover_tooltip,
+.slds-popover--tooltip {
+    background: white;
+    box-shadow: 0 1px 12px 0 rgba(83, 95, 103, 0.3);
+    border-radius: 0;
+}
+.slds-popover_tooltip .slds-popover__body,
+.slds-popover--tooltip .slds-popover__body {
+    color: inherit;
+    font-size: .875rem;
+    padding: 0.875rem 1rem;
+}
+
+.slds-backdrop {
+  background: rgba(41, 47, 51, 0.65);
+}
+.slds-modal .slds-modal__content {
+    border-radius: 0;
+    box-shadow: none;
+}
+.slds-modal__close {
+    top: 0.25rem;
+    right: 0.25rem;
+    color: #292f33;
+}
+.slds-modal__close.slds-button--icon-inverse:hover,
+.slds-modal__close.slds-button--icon-inverse:focus {
+    color: rgb(174, 20, 32);
+}
+*/

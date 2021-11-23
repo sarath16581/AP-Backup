@@ -1,0 +1,11 @@
+<FONT FACE="Ap Letter" font size="2" >Hello {!Sales_Solution_Request__c.CreatedBy}<br/><br/>
+Your Sales Solution Request <b/> {!Sales_Solution_Request__c.Name}</b>
+has been approved to proceed.<br/><br/>
+I have assigned a Sales Solution Specialist, {!Sales_Solution_Request__c.Solution_Representative__c} to work with you on your request.
+<br/><br/>
+They will be in contact with you shortly.<br/><br/>
+<a href={!Sales_Solution_Request__c.Link}>
+Click To Open The Request</a>
+<br/><br/>Regards
+<br/><br/>
+{!Sales_Solution_Request__c.RecordType} Team<br/>

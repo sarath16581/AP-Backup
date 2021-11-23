@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Case</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>Service Delivery</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>Status</fieldNames>
+        <fieldNames>Product_Type__c</fieldNames>
+        <fieldNames>Work_Type__c</fieldNames>
+        <fieldNames>Support_Work_Type__c</fieldNames>
+        <info>&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;On the left are k&lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;ey fields&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; that should be filled in at this stage.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;To easily edit all fields on this case, use the Lightning console keyboard shortcut: press the &lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;&lt;u&gt;E&lt;/u&gt;&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; key on your keyboard.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Awaiting Customer Response</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Status</fieldNames>
+        <fieldNames>Product_Type__c</fieldNames>
+        <fieldNames>Work_Type__c</fieldNames>
+        <fieldNames>Support_Work_Type__c</fieldNames>
+        <info>&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;On the left are k&lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;ey fields&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; that should be filled in at this stage.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;To easily edit all fields on this case, use the Lightning console keyboard shortcut: press the &lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;&lt;u&gt;E&lt;/u&gt;&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; key on your keyboard.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Awaiting Internal Response</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Status</fieldNames>
+        <fieldNames>Network__c</fieldNames>
+        <fieldNames>Consignment_Numbers__c</fieldNames>
+        <fieldNames>ArticleTest__c</fieldNames>
+        <info>&lt;p&gt;On the left are &lt;b&gt;key fields &lt;/b&gt;that should be filled in at this stage.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;font-size: 10pt;&quot;&gt;✪ IMPORTANT:&lt;/b&gt;&lt;span style=&quot;font-size: 10pt;&quot;&gt; You must fill in the &lt;/span&gt;&lt;b style=&quot;font-size: 10pt;&quot;&gt;Network&lt;/b&gt;&lt;span style=&quot;font-size: 10pt;&quot;&gt; field before you set the &lt;/span&gt;&lt;b style=&quot;font-size: 10pt;&quot;&gt;Status &lt;/b&gt;&lt;span style=&quot;font-size: 10pt;&quot;&gt;to &lt;/span&gt;&lt;b style=&quot;font-size: 10pt;&quot;&gt;Awaiting Network Response.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;To easily edit all fields on this case, use the Lightning console keyboard shortcut: press the &lt;b&gt;&lt;u&gt;E &lt;/u&gt;&lt;/b&gt;key on your keyboard.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Awaiting Network Response</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Status</fieldNames>
+        <fieldNames>ResolutionCode__c</fieldNames>
+        <fieldNames>Product_Type__c</fieldNames>
+        <fieldNames>Work_Type__c</fieldNames>
+        <fieldNames>Support_Work_Type__c</fieldNames>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Please enter the resolution code&lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>Closed</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Status</fieldNames>
+        <fieldNames>Product_Type__c</fieldNames>
+        <fieldNames>Work_Type__c</fieldNames>
+        <fieldNames>Support_Work_Type__c</fieldNames>
+        <info>&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;On the left are k&lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;ey fields&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; that should be filled in at this stage.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;To easily edit all fields on this case, use the Lightning console keyboard shortcut: press the &lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;&lt;u&gt;E&lt;/u&gt;&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; key on your keyboard.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>In Progress</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Status</fieldNames>
+        <fieldNames>Product_Type__c</fieldNames>
+        <fieldNames>Work_Type__c</fieldNames>
+        <fieldNames>Support_Work_Type__c</fieldNames>
+        <info>&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;On the left are k&lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;ey fields&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; that should be filled in at this stage.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;To easily edit all fields on this case, use the Lightning console keyboard shortcut: press the &lt;/span&gt;&lt;b style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt;&lt;u&gt;E&lt;/u&gt;&lt;/b&gt;&lt;span style=&quot;font-family: Calibri; font-size: 11pt;&quot;&gt; key on your keyboard.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>New</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Sales_Ops_Delivery</recordTypeName>
+</PathAssistant>

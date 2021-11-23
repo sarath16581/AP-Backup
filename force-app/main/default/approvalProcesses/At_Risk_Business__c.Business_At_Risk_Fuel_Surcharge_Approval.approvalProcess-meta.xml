@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <allowRecall>true</allowRecall>
+    <allowedSubmitters>
+        <type>creator</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <type>owner</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Name</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <name>Key_Sales_Owner_General_Manager__c</name>
+                <type>relatedUserField</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <label>General Manager Approval</label>
+        <name>General_Manager_Approval</name>
+    </approvalStep>
+    <description>Approvals for when the Reason code is Price - Domestic Fuel Surcharge or Price - International Fuel Surcharge</description>
+    <emailTemplate>Australia_Post_Email_Templates/Business_At_Risk_Fuel_Surcharge_Approval_Template</emailTemplate>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <entryCriteria>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <field>At_Risk_Business__c.Key_Sales_Owner_General_Manager__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>At_Risk_Business__c.Reason__c</field>
+            <operation>equals</operation>
+            <value>Price - Domestic Fuel Surcharge,Price - International Fuel Surcharge</value>
+        </criteriaItems>
+    </entryCriteria>
+    <finalApprovalActions>
+        <action>
+            <name>Business_At_Risk_Fuel_Surcharge_Approved</name>
+            <type>Alert</type>
+        </action>
+        <action>
+            <name>Update_Status_to_Approved</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalApprovalActions>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
+    <finalRejectionActions>
+        <action>
+            <name>Business_At_Risk_Fuel_Surcharge_Rejected</name>
+            <type>Alert</type>
+        </action>
+        <action>
+            <name>Update_Status_to_Rejected</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalRejectionActions>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <initialSubmissionActions>
+        <action>
+            <name>Update_Status_to_Submitted</name>
+            <type>FieldUpdate</type>
+        </action>
+    </initialSubmissionActions>
+    <label>Business At Risk Fuel Surcharge Approval</label>
+    <processOrder>1</processOrder>
+    <recordEditability>AdminOrCurrentApprover</recordEditability>
+    <showApprovalHistory>true</showApprovalHistory>
+</ApprovalProcess>

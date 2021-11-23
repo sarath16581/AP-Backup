@@ -1,0 +1,17 @@
+/**
+ * Created by clint on 9/14/2018.
+ */
+
+
+.THIS .showIfSearchClicked {
+    display:block;
+}
+
+.THIS .startrack-shade_grey {
+    background:#CFD4D7;
+}
+
+.THIS .paper-card {
+     /*   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    border-radius: 3px;
+}

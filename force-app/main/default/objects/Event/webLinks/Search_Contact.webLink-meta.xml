@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Search_Contact</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Search Contact</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>var opportunityId = &apos;{!Event.What}&apos;;
+window.open(&apos;/apex/ContactFilteringSearch?from=RPM&amp;p=&apos;+opportunityId,&apos;_blank&apos;,&apos;Search Key Contact&apos;,&apos;width=300px,height=400px, resizable=no, scrollbars=no, toolbar=no, menubar=no&apos;);</url>
+</WebLink>

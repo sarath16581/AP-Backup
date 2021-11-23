@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Link__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>URL to the associated file.
+
+Note that if this is a video file, you should not include the file extension (e.g. .flv) in the URL. Dealmaker assumes that you will provide the required file types for the various browsers. 
+(1) .mp4
+(2) .webm
+(3) .flv.</inlineHelpText>
+    <label>Link</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

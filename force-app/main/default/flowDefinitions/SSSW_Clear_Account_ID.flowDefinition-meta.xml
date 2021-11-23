@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>1</activeVersionNumber>
+    <description>This is used to Clear the Account ID on a Case when a Contact is changed. Salesforce will automatically repopulate the Account with the Contacts matching Account on Save.</description>
+    <masterLabel>SSSW - Clear Account ID</masterLabel>
+</FlowDefinition>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>StarTrack Business Enablement email template used for on demand Email disclaimers</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Business Enablement Disclaimer Letter</name>
+    <style>none</style>
+    <subject>RE: {!Case.Subject}</subject>
+    <textOnly>Case No.: {!Case.CaseNumber}
+
+Dear [Insert Name]
+
+WITHOUT PREJUDICE
+
+Consignment No: [Insert Consignment #]
+Despatch Date: [Insert Despatch Date]
+Destination:  [Insert Destination]
+Result of investigation: [ Eg. Star Track was unable to find the 1 carton or provide proof of delivery on the above consignment]
+
+Our conditions of cartage referred to in our quotation and on our consignment notes clearly state that we are not ‘Common Carriers’ and that insurance is not included within the transport service provided
+
+Transit Warranty is offered as a separate service and is separately chargeable when requested by the consignor for those specific goods on the relative consignment note. In this instance Transit Warranty was not requested for the consignment, and consequently we are unable to process a claim as requested. Please refer your claim to your regular insurer who will require a copy of this letter to confirm that the goods were not also under Transit Warranty cover with the carrier.
+
+Yours sincerely
+
+{!User.Name}
+{!User.Title}
+
+Star Track Express Pty Ltd ABN 44 001 227 890 Trading as Star Track
+Startrack is a business of Australia Post
+W: auspost.com.au / startrack.com.au
+T: 13 23 45
+219-241 Cleveland Street, Strawberry Hills NSW 2012
+
+{!Case.Thread_Id}
+
+This email is sent by Star Track Express Pty Limited or one of its related entities (collectively referred to as “STARTRACK”). The information contained in this email is confidential and may contain legally privileged information. Confidentiality and legal privilege are not waived or lost by reason of mistaken delivery. The content of this email is the view or opinion of the stated author and does not necessarily reflect the view or opinion of STARTRACK. If you are not the intended recipient or the person responsible for the delivery of the message to the intended recipient, any dissemination of the information is strictly prohibited. If you have received this email in error, please contact the sender by return email and delete the email and any attachments from your computer. Although STARTRACK has taken care to ensure the attachments (if any) to this email are virus free, STARTRACK does not warrant that any such attachments are free of errors, viruses or other malicious codes and does not accept liability for any consequences to the recipient upon opening or using this email.
+Help &amp; Support  |  Terms &amp; Conditions  |  Privacy Policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

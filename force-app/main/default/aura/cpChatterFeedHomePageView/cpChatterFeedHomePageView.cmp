@@ -1,0 +1,29 @@
+<!-- 2021-08-30 naveen.rajanna@auspost.com.au RELEASE UPDATES Enable Aura Component Access Fix -->
+<aura:component controller="cpGetChatterFeeds" implements="force:appHostable,forceCommunity:availableForAllPageTypes" access="global">
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:attribute name="ChatterFeedWrapperElements" type="cpChatterFeedWrapper[]" access="public"/>
+
+	<aura:attribute name="cppageSize" type="Integer" default="5" access="public"/>
+
+	<!-- Display chatter feed elements -->
+	<div class="cp-chatter-feed-block">
+
+		<div>
+			<aura:iteration items="{!v.ChatterFeedWrapperElements}" var="feedElement">
+				<div class="cp-chatter-feed-items">
+					<c:cpChatterFeedIterator ChatterFeedElmnt="{!feedElement}"/>
+				</div>
+			</aura:iteration>
+		</div>
+
+		<div class="cp-chatter-button-box">
+			<div class="cp-a-button">
+				<a onclick="{!c.viewMore}" class="cp-button">
+					<span dir="ltr">View more questions</span>
+				</a>
+			</div>
+		</div>
+
+	</div>
+
+</aura:component>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fill_inbox</fullName>
+    <columns>NAME</columns>
+    <columns>Application__c</columns>
+    <columns>ExceptionType__c</columns>
+    <columns>ExceptionDetails__c</columns>
+    <columns>ClassName__c</columns>
+    <columns>isHandled__c</columns>
+    <columns>NumberOfTimesOccured__c</columns>
+    <columns>Severity__c</columns>
+    <columns>OrgId__c</columns>
+    <columns>ExceptionLogTimestamp__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ClassName__c</field>
+        <operation>contains</operation>
+        <value>fill</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>Fill inbox</label>
+    <language>en_US</language>
+</ListView>

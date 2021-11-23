@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealMgr__GuidanceType__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The guidance type associated with the dimensions. This determines the types of dimensions that may be included in the set.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The guidance type associated with the dimensions. This determines the types of dimensions that may be included in the set.</inlineHelpText>
+    <label>Guidance Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Deal Level</fullName>
+                <default>false</default>
+                <label>Deal Level</label>
+            </value>
+            <value>
+                <fullName>Line Level</fullName>
+                <default>false</default>
+                <label>Line Level</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

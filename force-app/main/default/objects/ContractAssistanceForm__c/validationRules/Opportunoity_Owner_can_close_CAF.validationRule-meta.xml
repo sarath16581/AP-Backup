@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunoity_Owner_can_close_CAF</fullName>
+    <active>true</active>
+    <errorConditionFormula>Opportunity__r.OwnerId !=  $User.Id  &amp;&amp;  ISPICKVAL(Status__c, &quot;Closed&quot;)</errorConditionFormula>
+    <errorMessage>Only Opportunity Owner can set  status to Closed</errorMessage>
+</ValidationRule>

@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <description>Status of the request</description>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Stage__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Request for Review Outcome</fullName>
+                <default>false</default>
+                <label>Request for Review Outcome</label>
+            </value>
+            <value>
+                <fullName>Closed-Disqualified</fullName>
+                <default>false</default>
+                <label>Closed-Disqualified</label>
+            </value>
+            <value>
+                <fullName>Draft</fullName>
+                <default>true</default>
+                <label>Draft</label>
+            </value>
+            <value>
+                <fullName>Submitted</fullName>
+                <default>false</default>
+                <label>Submitted</label>
+            </value>
+            <value>
+                <fullName>Pending Information</fullName>
+                <default>false</default>
+                <label>Pending Information</label>
+            </value>
+            <value>
+                <fullName>Received Information</fullName>
+                <default>false</default>
+                <label>Received Information</label>
+            </value>
+            <value>
+                <fullName>Completed</fullName>
+                <default>false</default>
+                <label>Completed</label>
+            </value>
+            <value>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+                <label>Accepted</label>
+            </value>
+            <value>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+                <label>Cancelled</label>
+            </value>
+            <value>
+                <fullName>Referred to Legal</fullName>
+                <default>false</default>
+                <label>Referred to Legal</label>
+            </value>
+            <value>
+                <fullName>Pending Information - Sales</fullName>
+                <default>false</default>
+                <label>Pending Information - Sales</label>
+            </value>
+            <value>
+                <fullName>Pending Information - Credit</fullName>
+                <default>false</default>
+                <label>Pending Information - Credit</label>
+            </value>
+            <value>
+                <fullName>Pending Information - Pricing</fullName>
+                <default>false</default>
+                <label>Pending Information - Pricing</label>
+            </value>
+            <value>
+                <fullName>Pending Information - Product</fullName>
+                <default>false</default>
+                <label>Pending Information - Product</label>
+            </value>
+            <value>
+                <fullName>Pending Information - Legal</fullName>
+                <default>false</default>
+                <label>Pending Information - Legal</label>
+            </value>
+            <value>
+                <fullName>Pending Information - Support</fullName>
+                <default>false</default>
+                <label>Pending Information - Support</label>
+            </value>
+            <value>
+                <fullName>Pending Information - Processing</fullName>
+                <default>false</default>
+                <label>Pending Information - Processing</label>
+            </value>
+            <value>
+                <fullName>Pending Information - Other</fullName>
+                <default>false</default>
+                <label>Pending Information - Other</label>
+            </value>
+            <value>
+                <fullName>Remedy Logged With IT</fullName>
+                <default>false</default>
+                <label>Remedy Logged With IT</label>
+            </value>
+            <value>
+                <fullName>Completed - Closed</fullName>
+                <default>false</default>
+                <label>Completed - Closed</label>
+            </value>
+            <value>
+                <fullName>Completed - Business Lost</fullName>
+                <default>false</default>
+                <label>Completed - Business Lost</label>
+            </value>
+            <value>
+                <fullName>Completed - Business Retained</fullName>
+                <default>false</default>
+                <label>Completed - Business Retained</label>
+            </value>
+            <value>
+                <fullName>Completed - Product Migration</fullName>
+                <default>false</default>
+                <label>Completed - Product Migration</label>
+            </value>
+            <value>
+                <fullName>Completed - Channel Migration</fullName>
+                <default>false</default>
+                <label>Completed - Channel Migration</label>
+            </value>
+            <value>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+                <label>In Progress</label>
+            </value>
+            <value>
+                <fullName>Roadblock</fullName>
+                <default>false</default>
+                <label>Roadblock</label>
+            </value>
+            <value>
+                <fullName>Approval Required</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Approval Required</label>
+            </value>
+            <value>
+                <fullName>Approved</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Approved</label>
+            </value>
+            <value>
+                <fullName>Assign to Bid Manager</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Assign to Bid Manager</label>
+            </value>
+            <value>
+                <fullName>Awaiting</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Awaiting</label>
+            </value>
+            <value>
+                <fullName>Closed</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Closed</label>
+            </value>
+            <value>
+                <fullName>Evaluating</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Evaluating</label>
+            </value>
+            <value>
+                <fullName>Fulfilled</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Fulfilled</label>
+            </value>
+            <value>
+                <fullName>Further Information Provided by Sales</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Further Information Provided by Sales</label>
+            </value>
+            <value>
+                <fullName>Further Information Required</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Further Information Required</label>
+            </value>
+            <value>
+                <fullName>Initial Review Required</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Initial Review Required</label>
+            </value>
+            <value>
+                <fullName>Lost</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Lost</label>
+            </value>
+            <value>
+                <fullName>New Request Initiated</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>New Request Initiated</label>
+            </value>
+            <value>
+                <fullName>No Bid</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>No Bid</label>
+            </value>
+            <value>
+                <fullName>Not Started</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Not Started</label>
+            </value>
+            <value>
+                <fullName>Pricing Response Provided</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Pricing Response Provided</label>
+            </value>
+            <value>
+                <fullName>Qualification Required</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Qualification Required</label>
+            </value>
+            <value>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Rejected</label>
+            </value>
+            <value>
+                <fullName>Requested</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Requested</label>
+            </value>
+            <value>
+                <fullName>Review of Pricing Response Requested</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Review of Pricing Response Requested</label>
+            </value>
+            <value>
+                <fullName>Submitted for Approval</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Submitted for Approval</label>
+            </value>
+            <value>
+                <fullName>Under Review</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Under Review</label>
+            </value>
+            <value>
+                <fullName>Upcoming</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Upcoming</label>
+            </value>
+            <value>
+                <fullName>With Fulfillment</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>With Fulfillment</label>
+            </value>
+            <value>
+                <fullName>Won</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Won</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>New</controllingFieldValue>
+            <valueName>Draft</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Submitted</controllingFieldValue>
+            <valueName>Submitted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <controllingFieldValue>Completed</controllingFieldValue>
+            <valueName>Pending Information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <controllingFieldValue>Completed</controllingFieldValue>
+            <valueName>Received Information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Referred to Legal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Pending Information - Sales</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Pending Information - Credit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Pending Information - Pricing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Pending Information - Product</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Pending Information - Legal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Pending Information - Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Pending Information - Processing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Pending Information - Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Remedy Logged With IT</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>In Progress</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Roadblock</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Completed</controllingFieldValue>
+            <valueName>Request for Review Outcome</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Completed</controllingFieldValue>
+            <valueName>Completed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Completed</controllingFieldValue>
+            <valueName>Completed - Business Lost</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Completed</controllingFieldValue>
+            <valueName>Completed - Business Retained</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Completed</controllingFieldValue>
+            <valueName>Completed - Product Migration</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Completed</controllingFieldValue>
+            <valueName>Completed - Channel Migration</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>Closed-Disqualified</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>Accepted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>Cancelled</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

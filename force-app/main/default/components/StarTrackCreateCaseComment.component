@@ -1,0 +1,124 @@
+<!--
+Author:        Patrick James Franco
+Company:       Cloud Sherpas
+Description:   Create Case Comment component for StarTrack Cases
+History
+November 23, 2015 - Patrick James Franco - Created
+August 12, 2016 - David Catindoy - Modified to cater all enhancements
+
+2019-12-06 Shashwat.Nath@auspost.com.au - added getsessionid() in relation to MW0003688 to allow session id to be passed during API calls
+-->
+
+<apex:component controller="StarTrackCreateCaseCommentController">
+<apex:attribute name="case" description="" type="Case" required="true" />
+<apex:includeScript value="/support/api/34.0/interaction.js"/>
+<apex:includeScript value="/canvas/sdk/js/publisher.js"/>
+
+<style type="text/css">
+    .requiredInput {
+        background-color: #fff;
+        border-color: #c23934;
+        box-shadow: #c23934 0 0 0 2px inset;
+        background-clip: padding-box;
+    }
+    .overChar{
+        color: red;
+    }
+    .lessChar{
+        color: #8392aa;
+    }
+</style>
+
+<script src="/soap/ajax/35.0/connection.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function createCaseComment(){
+        sforce.connection.sessionId='{!GETSESSIONID()}'; 
+        StarTrackCreateCaseCommentController.refreshCase('{!existingCase.Id}', function(caseRec, event) {
+            if (event.status) {
+                //if(caseRec.Status != 'Closed'){
+                    var comment = document.getElementById('commentTxa');
+                    var commentTxt = comment.value.replace(/\s+/g, '');
+                    if(commentTxt.length > 0){
+                        var caseComment = new sforce.SObject("CaseComment");
+                        caseComment.CommentBody = comment.value;
+                        caseComment.IsPublished = document.getElementById('publicCbx').checked;
+                        caseComment.ParentId = '{!Case.Id}';
+            
+                        var result = sforce.connection.create([caseComment]);
+                        if(result[0].getBoolean("success")){
+                            document.getElementById('commentTxa').value = '';
+                            document.getElementById('publicCbx').checked = false;
+            
+                            sforce.interaction.entityFeed.reloadFrame();
+                            Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload : {feed: true, objectRelatedLists: {}}});
+                            Sfdc.canvas.publisher.publish({name:"publisher.selectAction",payload:{actionName:"Case.Closed"}});
+                        }else{
+                            alert('Case comment creation failed due to the size limit exceed 4k bytes. Please reduce the size and try again.');
+                        }
+                        comment.className = comment.className.replace(" requiredInput", "");
+                        
+                    } else{
+                        comment.className = comment.className + ' requiredInput';
+                    }
+               // } else{
+                //    document.getElementById('j_id0:j_id1:j_id2:j_id9:errorDisplay').style.display = 'block';
+                 //   resizePA();
+                //}
+            } else if (event.type === 'exception') {
+                console.error(event.message, event.where);
+            }
+        });
+    }
+    
+    function resizePA(){
+        Sfdc.canvas.publisher.resize();
+    }
+    
+    function passVariable(){
+        var comment = document.getElementById('commentTxa').value;
+        commentChange(comment.length);
+    }
+</script>
+
+<apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+<div class="slds">
+    <apex:actionstatus id="counterStatus">
+        <apex:facet name="start">
+            <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb; height:100%; width:100%; opacity:0.65;">
+                <div class="waitingHolder" style="top: 40%; width: 50%;">
+                    <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                    <span class="waitingDescription">Loading...</span>
+                </div>
+            </div>
+        </apex:facet>
+    </apex:actionstatus>
+    <apex:form >
+        <apex:actionFunction name="commentChange" rerender="charCountDisplay, buttonId">
+            <apex:param name="setCount" value="" assignTo="{!charCount}"/>
+        </apex:actionFunction>
+        <apex:outputText value="Character Count: {!charCount}/3800" style="float: right; font-size: 12px; font-weight: bold;" styleClass="{!IF(charCount > 3800,'overChar', 'lessChar')}" id="charCountDisplay"/>
+        <apex:outputPanel id="mainPanel">
+            <apex:outputText id="errorDisplay" value="{!$Setup.StarTrack_Settings__c.StarTrack_Create_Comment_Error__c}" style="color: red; font-style:italic; display:none;"/>
+            <div class="slds-form--stacked">
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="commentTxa">Comment</label>
+                    <div class="slds-form-element__control">
+                        <textarea id="commentTxa" class="lds-publisher__input slds-textarea slds-text-longform" placeholder="Write a comment…" style="height: 100px;" onkeyup="passVariable()" onmouseup="resizePA(); passVariable();"/>
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="commentTxa">Public</label>
+                    <div class="slds-form-element__control">
+                        <label class="slds-checkbox" for="publicCbx">
+                            <input id="publicCbx" name="checkbox" type="checkbox"/>
+                            <span class="slds-checkbox--faux"></span>
+                            <span class="slds-form-element__label"></span>
+                        </label>
+                    </div>
+                </div>
+                <apex:commandButton id="buttonId" disabled="{!IF(charCount > 3800,'true', 'false')}" styleClass="slds-button slds-button--brand slds-button--small" style="position:fixed; bottom:0px; right:0px;" onclick="createCaseComment();" value="Submit" oncomplete="chatter.getPublisher().submit();"/>
+            </div>
+        </apex:outputPanel>
+    </apex:form>
+</div>
+</apex:component>

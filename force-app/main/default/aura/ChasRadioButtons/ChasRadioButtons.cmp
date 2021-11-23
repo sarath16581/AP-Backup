@@ -1,0 +1,28 @@
+<!--
+  * @changeLog :
+  * @date         : 25/07/2021 - Modified - Hara Sahoo : Added conditional helptext attribute
+-->
+<aura:component extends="c:ChasBaseInput" description="Radio button input group">
+<aura:attribute name="customStyle" type="String" default="" description="pass custom styles"/>
+<aura:attribute name="options"  type="List" />
+<aura:attribute name="helptext"  type="String" />
+
+<fieldset class="slds-form-element">
+	<aura:if isTrue="{! v.variant == 'label-hidden' }">
+		<legend class="slds-form-element__label slds-assistive-text">{! v.label }</legend>
+		<aura:set attribute="else">
+			<legend class="slds-form-element__label">{! v.label }
+				<aura:if isTrue="{! v.helptext }">
+                        <lightning:helptext content="{! v.helptext }" iconName="utility:help" class="chas-helptext"/>
+                </aura:if>
+			</legend>
+		</aura:set>
+	</aura:if>
+	<c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }" id="{! v.name }" />
+	<div class="slds-form-element__control" id="{! v.name }" aria-describedby="{! v.name + '-error' }">
+		<aura:iteration items="{! v.options }" var="option" >
+			<c:ChasEachRadioButton customStyle="{! v.customStyle}" label="{! option.label }" name="{! v.name }" image="{! option.image }" aura:id="{! option.id }" id="{! option.id }" value="{! v.value }" boxed="{! and(not(empty(option.boxed)), option.boxed) }" onchange="{! c.onchange }"/>
+		</aura:iteration>
+	</div>
+</fieldset>
+</aura:component>

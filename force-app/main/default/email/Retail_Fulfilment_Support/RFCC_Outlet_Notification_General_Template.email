@@ -1,0 +1,26 @@
+<table height="400" width="550" cellpadding="5" border="0" cellspacing="5" >
+<tr height="400" valign="top" >
+<td style=" color:#000000; font-size:12pt; background-color:#edeae6; font-family:arial; bLabel:main; bEditID:r3st1;" tEditID="c1r1" locked="0" aEditID="c1r1" >
+<![CDATA[<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font size="2">Hello&nbsp;{!Contact.FirstName},</font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font size="2"><br></font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font size="2">Here is an update on your open case with Retail Fulfilment:</font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font size="2"><br></font></p>
+
+<p class="MsoNormal" align="left"><font face="arial" size="2">{!Case.Last_Case_Comment}</font></p>
+
+<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font size="2">&nbsp;<o:p></o:p></font></p><p class="MsoNormal" align="left" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font size="2">Case:<span class="Apple-tab-span" style="white-space:pre">			</span></font><span style="font-size: small;">{!Case.CaseNumber}</span></p>
+
+<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font size="2">Type:<span class="Apple-tab-span" style="white-space:pre">			</span>{!Case.Type}<o:p></o:p></font></p>
+
+<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font size="2">Problem Type:<span class="Apple-tab-span" style="white-space:pre">		</span>{!Case.Problem_Type_Retail__c}<o:p></o:p></font></p>
+
+<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font size="2">Subject:<span class="Apple-tab-span" style="white-space:pre">			</span>{!Case.Subject}<o:p></o:p></font></p>
+
+<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font size="2">&nbsp;<o:p></o:p></font></p>
+
+<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font size="2">Thanks &amp; Regards,<o:p></o:p></font></p><p class="MsoNormal" align="left" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font face="arial" size="2">{!User.Name}</font></p>
+
+<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-family: 'Times New Roman', serif;"><font size="2">&nbsp;</font></span></p>
+
+<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font size="2">&nbsp;</font></p>
+
+<span style="color: rgb(0, 0, 0); font-family: Arial, sans-serif; font-size: 12pt;"><font size="2">{!Case.Thread_Id}</font></span>]]></td>
+</tr>
+</table>

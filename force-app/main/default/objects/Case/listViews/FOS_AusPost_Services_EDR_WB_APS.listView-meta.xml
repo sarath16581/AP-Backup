@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FOS_AusPost_Services_EDR_WB_APS</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>FOS_Membership__c</columns>
+    <columns>FOS_Dispute_Case_No__c</columns>
+    <columns>Last_Name__c</columns>
+    <columns>BSPLodgementDate__c</columns>
+    <columns>Retail_Products__c</columns>
+    <columns>FOS_Resolution_Point__c</columns>
+    <columns>FOS_Dispute_Fee__c</columns>
+    <columns>Due_Date__c</columns>
+    <columns>CASES.STATUS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Retail_Dispute_Enquiry</value>
+    </filters>
+    <filters>
+        <field>FOS_Membership__c</field>
+        <operation>equals</operation>
+        <value>Australia Post Services Pty Ltd (35661)</value>
+    </filters>
+    <filters>
+        <field>FOS_Dispute_Case_No__c</field>
+        <operation>notEqual</operation>
+        <value>Direct</value>
+    </filters>
+    <label>TeSPOR EDR Cases (35661) APS</label>
+    <language>en_US</language>
+    <sharedTo>
+        <role>Retail_Risk_Compliance</role>
+    </sharedTo>
+</ListView>

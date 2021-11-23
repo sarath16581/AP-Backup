@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CNC_Peoplesoft__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(Customer_Resolution__c,
+&apos;CCM - Exgratia&apos;, &apos;S22&apos;,
+&apos;CCM - Late Delivery Claims&apos;, &apos;S50&apos;,
+&apos;CCM - Damages&apos;, &apos;S07&apos;,
+&apos;Incorrect Pricing&apos;, &apos;S30&apos;,
+&apos;Despatch ID - Incorrect Origin&apos;, &apos;&apos;,
+&apos;Non Consolidation&apos;, &apos;&apos;,
+&apos;Product Return&apos;, &apos;C24&apos;,
+&apos;Satchel Migration&apos;, &apos;S25&apos;,
+&apos;Rebate&apos;, &apos;&apos;,
+&apos;Security Surcharge&apos;, &apos;S53&apos;,
+&apos;Fuel Surcharge&apos;, &apos;S60&apos;,
+&apos;Consignment raised but not sent&apos;, &apos;C15&apos;,
+&apos;Incorrect Service Level&apos;, &apos;C40&apos;,
+&apos;Incorrect Weight Provided&apos;, &apos;C11&apos;,
+&apos;Customer Incorrect Cubic Data&apos;, &apos;C06&apos;,
+&apos;Consignment Transfer&apos;, &apos;C44&apos;,
+&apos;Unable to supply finance copy&apos;, &apos;A51&apos;,
+&apos;Consignment Surcharges&apos;, &apos;S01&apos;,
+&apos;Revenue - CWC Recovery&apos;, &apos;A21&apos;,
+&apos;Cash Transfer&apos;, &apos;A42&apos;,
+&apos;Duplicated Cash Receipts&apos;, &apos;&apos;,
+&apos;Receiver Reversals&apos;, &apos;A70&apos;,
+&apos;Refund Credit Balance&apos;, &apos;&apos;,
+&apos;General Ledger Adjustment&apos;, &apos;&apos;,
+&apos;Prompt Payment Incentive&apos;, &apos;&apos;,
+&apos;Negotiated settlement&apos;, &apos;A22&apos;,
+&apos;Revenue Data Entry Error&apos;, &apos;A08&apos;,
+&apos;Revenue - Duplicate Billing&apos;, &apos;A52&apos;,
+&apos;Bad Debt Write Off&apos;, &apos;A60&apos;,
+&apos;Small Debt Write Off&apos;, &apos;A50&apos;,
+&apos;International Charge Error&apos;, &apos;&apos;,
+&apos;Dishonoured Cheque&apos;, &apos;A51&apos;,
+&apos;Special Services&apos;, &apos;&apos;,
+&apos;Operations Incorrect Cubic Data&apos;, &apos;O06&apos;,
+&apos;Incorrect Weight&apos;, &apos;O11&apos;,
+&apos;Cubic - Leopard Scanner&apos;, &apos;O60&apos;,
+&apos;Returns Charges&apos;, &apos;O54&apos;,
+&apos;Misdirect&apos;, &apos;&apos;,
+&apos;No POD Available&apos;, &apos;&apos;,
+&apos;Late Delivery Claims&apos;, &apos;O23&apos;,
+&apos;Sub Docket Charges&apos;, &apos;&apos;,
+&apos;Incorrect Misc Charges&apos;, &apos;&apos;,
+&apos;Second Delivery Charge/ADA&apos;, &apos;S02&apos;,
+&apos;No Track &amp; Trace Scanning&apos;, &apos;&apos;, 
+ &apos;&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>CNC Peoplesoft</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

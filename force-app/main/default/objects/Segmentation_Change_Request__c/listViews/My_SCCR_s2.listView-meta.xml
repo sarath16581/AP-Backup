@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_SCCR_s2</fullName>
+    <columns>NAME</columns>
+    <columns>Approval_Status__c</columns>
+    <columns>Hidden_Current_Org_Owner_Id__c</columns>
+    <columns>Proposed_Account_Manager__c</columns>
+    <columns>Proposed_Sales_Team__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>RECORDTYPE</columns>
+    <columns>Level2_Approver__c</columns>
+    <columns>Date_Request_Sent__c</columns>
+    <columns>Date_Request_Approved_Rejected__c</columns>
+    <filterScope>Mine</filterScope>
+    <label>My SCCR&apos;s</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>All_Users_Ex_SSSW</group>
+    </sharedTo>
+</ListView>

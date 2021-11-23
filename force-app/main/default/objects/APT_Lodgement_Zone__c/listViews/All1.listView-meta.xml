@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All1</fullName>
+    <columns>APT_Zone_Structure__c</columns>
+    <columns>NAME</columns>
+    <columns>OBJECT_ID</columns>
+    <columns>APT_Post_Code_Start__c</columns>
+    <columns>APT_Post_Code_End__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>APT_Zone_Structure__c</field>
+        <operation>equals</operation>
+        <value>Z6</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>Capital</value>
+    </filters>
+    <label>All</label>
+</ListView>

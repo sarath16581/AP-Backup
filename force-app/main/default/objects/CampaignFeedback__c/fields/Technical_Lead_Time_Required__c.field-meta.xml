@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Technical_Lead_Time_Required__c</fullName>
+    <description>How long to establish API connectivity</description>
+    <externalId>false</externalId>
+    <inlineHelpText>How long to establish API connectivity</inlineHelpText>
+    <label>Technical Lead Time Required</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>&lt;1 month</fullName>
+                <default>false</default>
+                <label>&lt;1 month</label>
+            </value>
+            <value>
+                <fullName>1 - 3 months</fullName>
+                <default>false</default>
+                <label>1 - 3 months</label>
+            </value>
+            <value>
+                <fullName>3 - 6 months</fullName>
+                <default>false</default>
+                <label>3 - 6 months</label>
+            </value>
+            <value>
+                <fullName>6 - 12 months</fullName>
+                <default>false</default>
+                <label>6 - 12 months</label>
+            </value>
+            <value>
+                <fullName>12 months +</fullName>
+                <default>false</default>
+                <label>12 months +</label>
+            </value>
+            <value>
+                <fullName>N/A (if not taking up API&apos;s)</fullName>
+                <default>false</default>
+                <label>N/A (if not taking up API&apos;s)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pending_Deactivation__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates that a deactivation request has been sent to Camunda for the Contact Application. When deactivation has been confirmed the record status will be set to &apos;Inactive&apos;.</description>
+    <externalId>false</externalId>
+    <label>Pending Deactivation</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

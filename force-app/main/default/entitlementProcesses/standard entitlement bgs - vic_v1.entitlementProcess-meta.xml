@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <businessHours>Service Delivery VIC</businessHours>
+    <description>Standard entitlement process for BGS Service Delivery for VIC Time Zone</description>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaBooleanFilter>1 AND 2</exitCriteriaBooleanFilter>
+    <exitCriteriaFilterItems>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>true</value>
+    </exitCriteriaFilterItems>
+    <exitCriteriaFilterItems>
+        <field>Case.RecordTypeId</field>
+        <operation>equals</operation>
+        <value>Service Delivery</value>
+    </exitCriteriaFilterItems>
+    <isVersionDefault>false</isVersionDefault>
+    <milestones>
+        <businessHours>Service Delivery VIC</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Service Delivery</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Response Time BGS</milestoneName>
+        <minutesToComplete>240</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Service Delivery VIC</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Service Delivery</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Resolution Time BGS</milestoneName>
+        <minutesToComplete>1920</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>Create_Task_for_Mgr_BGS</name>
+                <type>FlowAction</type>
+            </actions>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <name>Standard Entitlement BGS - VIC</name>
+    <versionMaster>5520k00000001iJ</versionMaster>
+    <versionNotes>2</versionNotes>
+    <versionNumber>1</versionNumber>
+</EntitlementProcess>

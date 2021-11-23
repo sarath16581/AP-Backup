@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BusinessCustomerType__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(OR( 
+BEGINS(TEXT(Account.Sales_Segment__c), &quot;Business Sales&quot;), 
+BEGINS(TEXT(Account.Sales_Segment__c), &quot;Inside Sales&quot;), 
+BEGINS(TEXT(Account.Sales_Segment__c), &quot;Parcel&quot;), 
+BEGINS(TEXT(Account.Sales_Segment__c), &quot;eCommerce&quot;)), 
+&quot;Business Sales&quot;, 
+IF(OR( 
+BEGINS(TEXT(Account.Sales_Segment__c), &quot;Enterprise&quot;), 
+BEGINS(TEXT(Account.Sales_Segment__c), &quot;Federal&quot;), 
+BEGINS(TEXT(Account.Sales_Segment__c), &quot;Financial Services&quot;), 
+BEGINS(TEXT(Account.Sales_Segment__c), &quot;State &amp; Local Government&quot;), 
+BEGINS(TEXT(Account.Sales_Segment__c), &quot;Strategic Accounts&quot;), 
+BEGINS(TEXT(Account.Sales_Segment__c), &quot;Letters and Mail&quot;)),&quot;Enterprise &amp; Government&quot;,&quot;Other&quot; 
+) 
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Classification is either “Business Sales”, “Enterprise &amp; Government” or “Other”.</inlineHelpText>
+    <label>Business Customer Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

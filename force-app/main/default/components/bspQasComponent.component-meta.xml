@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <description>2014-06 CCU / BSP This class is copied from AddressComponentV1, for QAS. AddressComponentV1 has specific CSS styling,   so need to create this replica to start new.</description>
+    <label>BSP QAS Component</label>
+</ApexComponent>

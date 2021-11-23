@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Whencouldbusinessbewonback__c</fullName>
+    <description>When could the business by recovered by (if there is Opportunity to recover lost business)?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>When could the business by recovered by (if there is Opportunity to recover lost business)?</inlineHelpText>
+    <label>When could business be won back?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Canwewinthisbusinessback__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1-3 months</fullName>
+                <default>false</default>
+                <label>1-3 months</label>
+            </value>
+            <value>
+                <fullName>3-6 months</fullName>
+                <default>false</default>
+                <label>3-6 months</label>
+            </value>
+            <value>
+                <fullName>6-12 months</fullName>
+                <default>false</default>
+                <label>6-12 months</label>
+            </value>
+            <value>
+                <fullName>&gt;12 months</fullName>
+                <default>false</default>
+                <label>&gt;12 months</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>1-3 months</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>3-6 months</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>6-12 months</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>&gt;12 months</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

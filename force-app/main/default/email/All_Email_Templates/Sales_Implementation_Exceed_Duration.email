@@ -1,0 +1,13 @@
+Hi
+
+This is an email notification to inform you case number {!Case.CaseNumber}   has exceed its expected duration period. For case details see below:
+
+Case Number: {!Case.CaseNumber} 
+Case Work Type: {!Case.Work_Type__c}
+Case Owner: {!Case.OwnerFullName}
+Legal Entity: {!Account.Name}
+Subject: {!Case.Subject} 
+
+Regards,
+
+Salesforce Support Team

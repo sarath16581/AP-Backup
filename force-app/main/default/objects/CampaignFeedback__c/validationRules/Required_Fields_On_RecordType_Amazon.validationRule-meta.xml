@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Fields_On_RecordType_Amazon</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND ( 
+ $Profile.Name &lt;&gt; &quot;System Administrator&quot;, 
+ RecordType.DeveloperName = &apos;Amazon&apos;, 
+ ISPICKVAL(Status__c, &apos;Completed&apos;),
+ TEXT( Are_you_selling_on_Amazon__c ) = &quot;Yes&quot;,
+
+ OR (
+  ISBLANK( DateofCommunication__c ),
+  TEXT( Selling_on_any_other_marketplace__c ) = &quot;&quot;,
+  ISBLANK( Monthly_estimated_volumes__c ),
+  TEXT( Restocking_frequency__c )= &quot;&quot;,
+  TEXT( Preference_in_connecting_to_delivery__c ) = &quot;&quot;
+ )
+)</errorConditionFormula>
+    <errorMessage>Mandatory when the status is completed: 
+•Date of Communication
+•Are you selling on Amazon?
+• Selling on any other marketplace?
+•Monthly estimated volumes
+•Restocking frequency?
+•Preference in connecting to delivery?</errorMessage>
+</ValidationRule>

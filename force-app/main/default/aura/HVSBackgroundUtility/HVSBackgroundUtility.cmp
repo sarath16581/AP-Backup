@@ -1,0 +1,12 @@
+<!--
+    STP:19/11/2020: Suman Gunaganti
+    Application Background Utility component controls the visibility of HVSQualificationsUtilitybar utility item
+-->
+<aura:component implements="lightning:backgroundUtilityItem">
+    <lightning:workspaceAPI aura:id="workspace" />
+    <lightning:utilityBarAPI aura:id="utilitybar" />
+
+    <!--Handlers  -->
+    <!--handler for tabfocused event-->
+   <aura:handler event="lightning:tabFocused" action="{! c.onTabFocused }" />
+</aura:component>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Making_Reason_as_Mandatory_for_Roadblock</fullName>
+    <active>true</active>
+    <description>This rule validates to make sure Reason field is not blank when status is Roadblock for Implementation requests</description>
+    <errorConditionFormula>CONTAINS(RecordType.DeveloperName, &apos;Sales_Implementation&apos;) &amp;&amp;
+ISPICKVAL(Status__c,&quot;Roadblock&quot;)&amp;&amp;
+ISBLANK(TEXT(Reason__c))</errorConditionFormula>
+    <errorDisplayField>Reason__c</errorDisplayField>
+    <errorMessage>Reason is required if the status of request is set as Roadblock</errorMessage>
+</ValidationRule>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contract_Reason__c</fullName>
+    <description>used by Sales implementation case</description>
+    <externalId>false</externalId>
+    <label>Contract Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Contract_Status__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Awaiting customer verbal acceptance</fullName>
+                <default>false</default>
+                <label>Awaiting customer verbal acceptance</label>
+            </value>
+            <value>
+                <fullName>Awaiting customer signature</fullName>
+                <default>false</default>
+                <label>Awaiting customer signature</label>
+            </value>
+            <value>
+                <fullName>Contract Data entry</fullName>
+                <default>false</default>
+                <label>Contract Data entry</label>
+            </value>
+            <value>
+                <fullName>Contract completion – Legal</fullName>
+                <default>false</default>
+                <label>Contract completion – Legal</label>
+            </value>
+            <value>
+                <fullName>No contract supplied</fullName>
+                <default>false</default>
+                <label>No contract supplied</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>On Hold</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Customer</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Internal</controllingFieldValue>
+            <valueName>Awaiting customer verbal acceptance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>On Hold</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Customer</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Internal</controllingFieldValue>
+            <valueName>Awaiting customer signature</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>On Hold</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Customer</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Internal</controllingFieldValue>
+            <valueName>Contract Data entry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>On Hold</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Customer</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Internal</controllingFieldValue>
+            <valueName>Contract completion – Legal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>On Hold</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Customer</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Internal</controllingFieldValue>
+            <valueName>No contract supplied</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

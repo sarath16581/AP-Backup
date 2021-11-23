@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnalyticSnapshot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <groupColumn>OPEN</groupColumn>
+    <mappings>
+        <sourceField>JobName</sourceField>
+        <sourceType>snapshot</sourceType>
+        <targetField>Analytic_Snapshot__c.Name</targetField>
+    </mappings>
+    <mappings>
+        <sourceField>FORMULA1</sourceField>
+        <sourceType>summary</sourceType>
+        <targetField>Analytic_Snapshot__c.OOC__c</targetField>
+    </mappings>
+    <name>OOC % Consumer</name>
+    <runningUser>stephanie.stolk@auspost.com.au</runningUser>
+    <sourceReport>Customer_Service_Archive/Out_of_Charter_Consumer1</sourceReport>
+    <targetObject>Analytic_Snapshot__c</targetObject>
+</AnalyticSnapshot>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Health__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF(DMAPP__Opportunity__r.IsWon,
+	1,
+	IF(DMAPP__Pause_Date__c&gt;=TODAY(),
+		0,
+		IF (DMAPP__Opportunity__r.LastModifiedDate &gt; LastModifiedDate,
+			IF (DMAPP__Opportunity__r.LastModifiedDate &gt; Now() - 30, 
+				1,
+				IF (DMAPP__Opportunity__r.LastModifiedDate &gt; Now() - 60,
+					2,
+					3
+				)
+			),
+			IF (LastModifiedDate &gt; Now() - 30, 
+				1,
+				IF (LastModifiedDate &gt; Now() - 60,
+					2,
+					3
+				)
+			)			
+		)
+	)
+)</formula>
+    <label>Health</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

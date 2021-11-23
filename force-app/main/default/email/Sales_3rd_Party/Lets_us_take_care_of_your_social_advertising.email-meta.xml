@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Lets us take care of your social advertising</name>
+    <style>none</style>
+    <subject>Let us take care of your social advertising</subject>
+    <textOnly>Hello,
+
+Thank you for your time on the phone just now regarding Social AdMate.
+
+You can find out more about Social AdMate at socialadmate.auspost (https://socialadmate.auspost/) 
+
+Give your business a social boost
+When you run a small business, there’s not a lot of spare time left in the day. It can make expanding on social media tricky, especially if you don’t know the ins and outs of advertising on social sites already.
+
+Social AdMate has you covered
+It’s a service that takes care of social advertising on Instagram and Facebook. So you can connect with more people, without having to find any extra time in your schedule.
+
+How it works
+There are four Social AdMate packages to choose from, ranging from Basic to Pro. A dedicated account manager will be on hand to help you decide on the best strategy.
+
+We’ll test out different advertisements to determine what works best, then manage all things social advertising – so you can focus on other parts of your business instead.
+
+Start socialising, head to socialadmate.auspost (https://socialadmate.auspost/) or call us on 1300266308.
+
+Kind regards,
+
+The Social AdMate team</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

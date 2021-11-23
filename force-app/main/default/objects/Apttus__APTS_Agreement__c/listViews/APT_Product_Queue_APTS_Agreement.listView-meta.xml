@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Product_Queue_APTS_Agreement</fullName>
+    <columns>NAME</columns>
+    <columns>Apttus__FF_Agreement_Number__c</columns>
+    <columns>APT_Contract_Number__c</columns>
+    <columns>Apttus__Requestor__c</columns>
+    <columns>APT_Contract_Value__c</columns>
+    <columns>APT_Contract_Volume__c</columns>
+    <filterScope>Queue</filterScope>
+    <label>Product Queue</label>
+    <queue>APT_Product_Queue</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

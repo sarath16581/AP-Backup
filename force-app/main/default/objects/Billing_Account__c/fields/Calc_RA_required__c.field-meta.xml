@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Calc_RA_required__c</fullName>
+    <description>StarTrack formula to evaluate RA required restriction</description>
+    <externalId>false</externalId>
+    <formula>IF(NOT(ISBLANK(TEXT(RA_required__c))), TEXT(RA_required__c ), TEXT(Organisation__r.RA_required__c))</formula>
+    <label>Is RA required?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

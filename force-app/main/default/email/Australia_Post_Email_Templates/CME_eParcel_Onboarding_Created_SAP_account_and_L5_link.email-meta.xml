@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>eParcel Onboarding created SAP account and L5 link</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>CME eParcel Onboarding - Created SAP account and L5 link</name>
+    <style>freeForm</style>
+    <subject>Created SAP account and L5 link - {!Case.Account} - Case {!Case.CaseNumber}</subject>
+    <textOnly>Hi {!Case.Requestor__c}
+
+
+Account {!Case.Billing_Number__c} has been created in SAP, and has been linked to L5name L5number in SAP.
+
+
+This will be linked to the Prospect in Salesforce pending a successful overnight data migration.
+
+
+
+Regards
+
+{!Case.OwnerFullName}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

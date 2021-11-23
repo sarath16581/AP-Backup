@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cancellation_reason__c</fullName>
+    <description>Picklist to contain the reason that the registration record has been cancelled</description>
+    <externalId>false</externalId>
+    <label>Cancellation reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Status__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Blacklisted</fullName>
+                <default>false</default>
+                <label>Blacklisted</label>
+            </value>
+            <value>
+                <fullName>Change in entity</fullName>
+                <default>false</default>
+                <label>Change in entity</label>
+            </value>
+            <value>
+                <fullName>Did not assign</fullName>
+                <default>false</default>
+                <label>Did not assign</label>
+            </value>
+            <value>
+                <fullName>No longer required</fullName>
+                <default>false</default>
+                <label>No longer required</label>
+            </value>
+            <value>
+                <fullName>Non-Participation</fullName>
+                <default>false</default>
+                <label>Non-Participation</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Cancelled</controllingFieldValue>
+            <valueName>Blacklisted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cancelled</controllingFieldValue>
+            <valueName>Change in entity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cancelled</controllingFieldValue>
+            <valueName>Did not assign</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cancelled</controllingFieldValue>
+            <valueName>No longer required</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cancelled</controllingFieldValue>
+            <valueName>Non-Participation</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

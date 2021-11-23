@@ -1,0 +1,171 @@
+<!--
+    2017-09-17  nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
+    2018-05-15  Hasantha.Liyanage@auspost.com.au    updated: make accessible from lightning component(cpVisualforceWrapper) ,
+                                                    show/hide elements based on teh isReadOnly parameter passed
+                                                    added resizemonitor.js
+                                                    updated articleID inputText field to input in order to be supported by lightning exp. (apex:input supports only on html-5.0)
+    2018-05-15 - Nathan Franklin - Update to include happy parcel capability and remove the need for isReadOnly
+    2020-10-08 - Disha Kariya - Added attachsafedrop for supported LWC events and supports safe drop attachment for SAP EM component.
+    2021-09-09 - seth.heang@auspost.com.au - Uplift SF API version to 52
+    2021-10-06 - Nathan Franklin - Change safedrop terminology to deliveryproof
+-->
+<apex:page standardController="Case" extensions="CaseSAPEMArticlesController"  showHeader="false" sidebar="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+    <html>
+    <head>
+        <style type="text/css">
+            #buttonActions {
+                background-color: #FEFEFE;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                border: 1px solid #EFEFEF;
+            }
+        </style>
+
+        <c:ScriptLoader jsLibraries="integration,jquery" csslibraries="ssswconsole" />
+    </head>
+    <body class="slds-scope">
+        <c:LoadingSpinnerComponent showFunctionName="querySAPShowProgress" hideFunctionName="querySAPHideProgress" topMargin="5%" />
+
+        <div style="" id="buttonActions">Actions:&nbsp;&nbsp;&nbsp;
+            <input type="button" class="btn" id="btnAction" value="" onclick="attachToCase();" />
+        </div>
+
+        <div id="pnlSAPEMArticleMessage" style="display:none;" >
+            <apex:pagemessage severity="error" strength="3" summary="There is an error" />
+        </div>
+
+        <div id="wrapper">
+            <c:LightningWrapper lightningApp="c:HappyParcelWrapperApp" lightningComponent="c:happyParcel"
+                                componentAttributes="{!happyParcelAttributes}"/>
+        </div>
+
+        <!-- a bit of a hackish job since this is more tactical to cover us up until lightning -->
+        <script>
+            var selectedArticles = [];
+            var caseOriginator = 'Customer';
+            var isConsignment = false;
+            var articleCount = 0;
+            var caseIsClosed = {!currentCase.isClosed};
+            var deliveryProofImage = [];
+
+            jQuery(function($) {
+
+                // define our dom events we will receive from the Happy Parcels lightning component
+                document.getElementById('wrapper').addEventListener('customerselect', handleHappyParcelLightningEvent);
+                document.getElementById('wrapper').addEventListener('customerdeselect', handleHappyParcelLightningEvent);
+                document.getElementById('wrapper').addEventListener('customerdetails', handleHappyParcelLightningEvent);
+                document.getElementById('wrapper').addEventListener('trackingsearchcomplete', handleHappyParcelLightningEvent);
+                document.getElementById('wrapper').addEventListener('selectedarticles', handleHappyParcelLightningEvent);
+                document.getElementById('wrapper').addEventListener('idclick', handleHappyParcelLightningEvent);
+                document.getElementById('wrapper').addEventListener('attachdeliveryproof', handleHappyParcelLightningEvent);
+
+                // sets up our action buttons
+                updateButtonDisplay();
+            });
+
+            /**
+             * This is the callback for anytime a lightning event is generated for Happy Parcel
+             */
+            function handleHappyParcelLightningEvent(e) {
+                console.log('handleHappyParcelLightningEvent', e);
+                if(e && e.detail && e.type === 'selectedarticles') {
+                    // this is used to track which articles are selected when viewing a consignment
+                    // allows child cases to be created and attached to the existing Case
+                    selectedArticles = e.detail;
+                } else if(e && e.type === 'customerselect' && e.detail) {
+                    // a customer details panel was selected.
+                    // this sets the case originator
+                    if(e.detail.type === 'sender') {
+                        caseOriginator = 'Sender';
+                    } else if(e.detail.type === 'receiver') {
+                        caseOriginator = 'Addressee';
+                    }
+                } else if(e && e.type === 'customerdeselect' && e.detail) {
+                    // a customer details panel was deselected
+                    // NOTE: a deselect event is NOT fired when the panel's selected property is being set to false as the result of the other panel's selected property being set to true
+                    // Reset the case originator back to it's default value
+                    caseOriginator = 'Customer';
+                } else if(e && e.type === 'trackingsearchcomplete' && e.detail) {
+                    articleCount = e.detail.articleCount;
+                    if(e.detail.isConsignment) {
+                        isConsignment = true;
+                    }
+
+                    // reset delivery proof tracking variable
+                    deliveryProofImage = [];
+                } else if(e && e.detail && e.type === 'idclick' && e.detail.id) {
+                    // this occurs if a link is clicked in Happy Parcel that requires a record page to be opened
+                    sforce.console.openPrimaryTab(null, '/' + e.detail.id, true);
+                } else if(e && e.detail && e.type === 'attachdeliveryproof') {
+	                deliveryProofImage = (deliveryProofImage ? deliveryProofImage : []);
+					if(e.detail.selected === true) {
+                        deliveryProofImage.push(e.detail.trackingId);
+					} else if(e.detail.selected === false) {
+                        deliveryProofImage = deliveryProofImage.filter(function(item) { return item !== e.detail.trackingId });
+					}
+	            }
+
+                updateButtonDisplay();
+            }
+
+            function updateButtonDisplay() {
+                if(articleCount === 1 && !caseIsClosed && selectedArticles.length === 1) {
+                    jQuery('#buttonActions').show();
+                    jQuery('#btnAction').val('Update Existing Case');
+                } else if(!caseIsClosed && selectedArticles.length > 0) {
+                    jQuery('#buttonActions').show();
+                    jQuery('#btnAction').val('Attach Articles')
+                } else if(articleCount === 1 && caseIsClosed && selectedArticles.length === 1) {
+                    jQuery('#buttonActions').show();
+                    jQuery('#btnAction').val('Clone New Case');
+                } else if(caseIsClosed && selectedArticles.length > 0) {
+                    jQuery('#buttonActions').show();
+                    jQuery('#btnAction').val('Clone New Case and Attach Articles');
+                } else {
+                    jQuery('#buttonActions').hide();
+                }
+            }
+
+            function attachToCase(){
+                querySAPShowProgress();
+
+                // is it a single article consignment?
+                var hasSingleArticle = (articleCount === 1 && isConsignment);
+
+                CaseSAPEMArticlesController.submit('{!id}', JSON.stringify(selectedArticles), caseOriginator, hasSingleArticle, JSON.stringify(deliveryProofImage), function(result, event){
+                    querySAPHideProgress();
+                    if(event.status) {
+                        window.console&&console.log('@@@@@@@@@@@@@@@@@@ attachToCase: ' + result + ' with: ' + selectedArticles);
+                        if(result != '') {
+                            if(result.indexOf('Error:')==0){
+                                sapEMArticleShowMessage(result);
+                            } else {
+                                window.console&&console.log('Id = {!id} | result = ' + result);
+                                if(result.indexOf('{!id}')==0) {
+                                    refreshPrimaryTab();
+                                }else{
+                                    sforce.console.openPrimaryTab(null, '/' + result, true);
+                                }
+                            }
+                        }
+                    }else{
+                        window.console&&console.log(event);
+                    }
+                });
+            }
+
+            function sapEMArticleShowMessage(msg) {
+                j$("#pnlSAPEMArticleMessage .messageText").html(msg);
+                j$('#pnlSAPEMArticleMessage .message').show();
+                j$('#pnlSAPEMArticleMessage').show();
+            }
+
+            function refreshPrimaryTab(){
+                sforce.console.getEnclosingPrimaryTabId(function(result){
+                    sforce.console.refreshPrimaryTabById(result.id, true);
+                });
+            }
+        </script>
+    </body>
+    </html>
+</apex:page>

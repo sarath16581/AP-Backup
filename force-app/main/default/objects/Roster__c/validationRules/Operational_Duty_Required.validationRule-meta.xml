@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Operational_Duty_Required</fullName>
+    <active>true</active>
+    <description>The operational duty field is required unless roster record has Gantt Assignment set to true.
+This is to allow Driver Assignment in Gantt to unassign a driver using the roster record, while still enforcing population of the field for the roster load</description>
+    <errorConditionFormula>AND(Gantt_Assignment__c = false,  ISBLANK(Duty__c))</errorConditionFormula>
+    <errorMessage>The Operational Duty field must be populated</errorMessage>
+</ValidationRule>

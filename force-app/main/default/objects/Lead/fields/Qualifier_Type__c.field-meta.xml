@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Qualifier_Type__c</fullName>
+    <description>Used to segment organisations into groups 
+Requested and owned by Christopher Doyle 
+Customer &amp; Market Analyst .
+Customer Data &amp; Insights</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Used to segment organisations into groups</inlineHelpText>
+    <label>Qualifier Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Service Addressable Market</fullName>
+                <default>false</default>
+                <label>New Service Addressable Market</label>
+            </value>
+            <value>
+                <fullName>Known Addressable Market</fullName>
+                <default>false</default>
+                <label>Known Addressable Market</label>
+            </value>
+            <value>
+                <fullName>New Addressable Product Market</fullName>
+                <default>false</default>
+                <label>New Addressable Product Market</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

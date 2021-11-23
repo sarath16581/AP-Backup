@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AUSTRAC_Registrations</fullName>
+    <columns>NAME</columns>
+    <columns>AUSTRAC_Expiry_Date_Formula__c</columns>
+    <columns>Account__c</columns>
+    <columns>Licensee__c</columns>
+    <columns>Type_of_Registration__c</columns>
+    <columns>Application_currently_with__c</columns>
+    <columns>Status__c</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Membership__c.AUSTRAC_Registration</value>
+    </filters>
+    <label>ALL AUSTRAC Registrations</label>
+</ListView>

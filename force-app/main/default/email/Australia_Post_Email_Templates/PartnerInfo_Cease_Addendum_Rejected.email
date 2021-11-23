@@ -1,0 +1,6 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[Request to cease the negotiated payment -&nbsp;&nbsp;{!Partner_Addendum__c.Sub_Type__c} &nbsp;early &nbsp;is rejected.<div><br></div><div>Licence - &nbsp;{!Partner_Addendum__c.Licence__c}</div><div>Facility -&nbsp;{!Partner_Addendum__c.Facility__c}</div><div><br></div><div><span style="background-color: rgb(255, 255, 255);">Reason for rejection:&nbsp;</span><span class="feedText" id="ext-gen23" style="position: relative; color: rgb(51, 51, 51); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13.008px; line-height: 15px; background-color: rgb(255, 255, 255);"><div class="feedcommenttext" id="ext-gen22" style="overflow: hidden; margin-top: 5px; line-height: 20px; padding-top: 8px;">{!ApprovalRequest.Comments}&nbsp;</div></span></div><div><br></div><div>regards,</div>]]></td>
+</tr>
+</table>

@@ -1,0 +1,369 @@
+<apex:component controller="APT_CartApprovalsComponentController" access="global" >
+    <apex:attribute name="RequestSO" 
+                    description="This is the Approval Request SObject." 
+                    type="Apttus_Approval__Approval_Request__c" 
+                    assignTo="{!approvalRequestSO}" />
+                    
+    <apex:attribute name="lineItemId" 
+                    description="This is the Line Item SObject Id." 
+                    type="String" 
+                    assignTo="{!lineItemSOId}" />
+                    
+    <apex:attribute name="cartId" 
+                    description="This is the Cart SObject Id." 
+                    type="String" 
+                    assignTo="{!cartSOId}" /> 
+                    
+    <apex:attribute name="proposalId" 
+                    description="This is the Proposal SObject Id." 
+                    type="String" 
+                    assignTo="{!proposalSOId}" />
+                    
+    <apex:outputText value="Legal Entity Name: "></apex:outputText>                
+    <apex:outputText value="{!approvalRequestSO.Apttus_CQApprov__CartId__r.Apttus_Config2__AccountId__r.Name}"></apex:outputText>
+    <br/>
+    <apex:outputText value="Customer number: "></apex:outputText>                
+    <apex:outputText value="{!approvalRequestSO.Apttus_CQApprov__CartId__r.Apttus_Config2__AccountId__r.Customer_Number__c}"></apex:outputText>
+    <br/>
+    <apex:outputText value="Opportunity Number: "></apex:outputText>                
+    <apex:outputText value="{!approvalRequestSO.Apttus_CQApprov__CartId__r.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.Opportunity_Number__c}"></apex:outputText>
+    
+    <!-- Kg Rounding --> 
+    <apex:outputPanel rendered="{!IF(lineItemSO.APT_Approval_Required3__c == true, true, false)}">
+        <br/>
+        <apex:outputText value="Opportunity Name: "></apex:outputText>                
+        <apex:outputText value="{!approvalRequestSO.Apttus_CQApprov__CartId__r.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.Name}"></apex:outputText>
+    </apex:outputPanel>
+    <!-- Kg Rounding --> 
+    
+    <apex:outputPanel rendered="{!IF(lineItemSO.APT_Product_Family__c != 'Postal Services' && lineItemSO.APT_Product_Name__c != 'Post Billpay', true, false)}">
+        <br/>
+        <apex:outputText value="Quote/Proposal: "></apex:outputText>                
+        <apex:outputText value="{!approvalRequestSO.Apttus_CQApprov__CartId__r.Apttus_QPConfig__Proposald__r.Name}"></apex:outputText>
+    </apex:outputPanel>
+    
+    <!-- Kg Rounding --> 
+    <apex:outputPanel rendered="{!IF(lineItemSO.APT_Approval_Required3__c == true, true, false)}">
+        <br/>
+        <apex:outputText value="Customer Category: "></apex:outputText>                
+        <apex:outputText rendered="{!IF(approvalRequestSO.Apttus_CQApprov__CartId__r.Apttus_QPConfig__Proposald__r.APT_Is_Existing_eParcel_Customer__c == 'Yes', true, false)}" value="Existing Customer"></apex:outputText>
+        <apex:outputText rendered="{!IF(approvalRequestSO.Apttus_CQApprov__CartId__r.Apttus_QPConfig__Proposald__r.APT_Is_Existing_eParcel_Customer__c == 'No', true, false)}" value="New Customer"></apex:outputText>
+    </apex:outputPanel>
+    <!-- Kg Rounding --> 
+    
+    <apex:outputPanel rendered="{!IF(lineItemSO.Apttus_CQApprov__Approval_Status__c != 'Approved' && lineItemSO.Apttus_CQApprov__Approval_Status__c != 'Rejected' , true, false)}">
+        <br/>
+        <br/>
+        <b><apex:outputText value="Requested By: "></apex:outputText></b>
+        <br/>
+        <apex:outputText value="Owner Full Name: "></apex:outputText>
+        <apex:outputText value="{!approvalRequestSO.Apttus_CQApprov__CartId__r.Owner.Name}"></apex:outputText>
+        <br/>
+        <br/>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!IF(lineItemSO.Apttus_CQApprov__Approval_Status__c = 'Approved' || lineItemSO.Apttus_CQApprov__Approval_Status__c = 'Rejected' , true, false)}">
+        <br/>
+        <br/>
+        <b><apex:outputText value="Responded By: "></apex:outputText></b>
+        <apex:outputText value="{!approvalRequestSO.Apttus_Approval__ActualApproverName__c}"></apex:outputText>
+        <br/>
+        <br/>
+    </apex:outputPanel>
+   <b>Details of Pricing Request:</b>
+        <!--Post Billpay------------------------------------------------------------------------>
+        <apex:outputPanel rendered="{!IF(lineItemSO.APT_Product_Name__c = 'Post Billpay', true, false)}">
+            <br/> 
+            <apex:outputText value="Product: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.Apttus_Config2__ProductId__r.Name}"></apex:outputText>
+            <br/> 
+            <apex:outputText value="Customer Type: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.APT_PostBillPay_Customer_Type__c}"></apex:outputText>
+            <br/> 
+            <apex:outputText value="Volume Threshold: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.APT_Volume_Thresholds__c}"></apex:outputText>
+            <br/> 
+            <apex:outputText value="Included Channels: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.APT_PostBillPay_Channel__c}"></apex:outputText>
+            <br/> 
+            <apex:outputText value="Pricing Reason: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.APT_Pricing_Reason__c}"></apex:outputText> 
+            <apex:outputPanel rendered="{!IF(lineItemSO.APT_Display_Adjustment_Amount__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="Seller Requested  Discount: {!lineItemSO.APT_Display_Adjustment_Amount__c } %"></apex:outputText>             
+            </apex:outputPanel>   
+            <apex:outputPanel rendered="{!IF(lineItemSO.APT_Display_Adjustment_Amount__c == null , true, false)}">
+                <br/>
+                <apex:outputText value="Seller Requested  Discount: 0.00 %"></apex:outputText>
+            </apex:outputPanel> 
+            <br/>
+            <apex:outputText value="Comments: "></apex:outputText>
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__SubmissionComment1__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="{!approvalRequestSO.Apttus_Approval__SubmissionComment1__c}"></apex:outputText>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__SubmissionComment2__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="{!approvalRequestSO.Apttus_Approval__SubmissionComment2__c}"></apex:outputText>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__SubmissionComment3__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="{!approvalRequestSO.Apttus_Approval__SubmissionComment3__c}"></apex:outputText>
+            </apex:outputPanel>   
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__Approval_Status__c == 'Reassigned', true, false)}">
+                <br/>
+                <apex:outputText value="Delegator Comments: "></apex:outputText>
+                <br/>
+                <apex:outputText value="{!delegateComments}" escape="false"/>
+            </apex:outputPanel>
+        </apex:outputPanel>    
+       <!--Postal pricing------------------------------------------------------------------------>
+        <apex:outputPanel rendered="{!IF(lineItemSO.APT_Product_Family__c = 'Postal Services' && lineItemSO.APT_Product_Name__c != 'Post Billpay' && lineItemSO.APT_Product_Name__c != 'eParcel' && lineItemSO.APT_Product_Name__c != 'eParcel Express' && lineItemSO.APT_Product_Name__c != 'International Bundle', true, false)}">
+            <br/> 
+            <apex:outputText value="Product: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.Apttus_Config2__ProductId__r.Name}"></apex:outputText>
+            <apex:outputPanel rendered="{!IF(lineItemSO.Service_Type_Print_Post__c != null, true, false)}">
+                <br/> 
+                <apex:outputText value="Service Type: "></apex:outputText>
+                <apex:outputText value="{!lineItemSO.Service_Type_Print_Post__c}"></apex:outputText>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!IF(lineItemSO.APT_Service_Type__c != null, true, false)}">
+                <br/> 
+                <apex:outputText value="Service Type: "></apex:outputText>
+                <apex:outputText value="{!lineItemSO.APT_Service_Type__c}"></apex:outputText>
+            </apex:outputPanel>
+            <br/> 
+            <apex:outputText value="Volume Threshold: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.APT_Volume_Thresholds__c}"></apex:outputText>
+            <br/> 
+            <apex:outputText value="Pricing Reason: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.APT_Pricing_Reason__c}"></apex:outputText> 
+            <apex:outputPanel rendered="{!IF(lineItemSO.APT_Display_Adjustment_Amount__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="Seller Requested  Discount: "></apex:outputText>{!lineItemSO.APT_Display_Adjustment_Amount__c} %        
+            </apex:outputPanel>   
+            <apex:outputPanel rendered="{!IF(lineItemSO.APT_Display_Adjustment_Amount__c== null , true, false)}">
+                <br/>
+                <apex:outputText value="Seller Requested  Discount: 0.00 %"></apex:outputText>
+            </apex:outputPanel> 
+            <br/>
+            <apex:outputText value="Comments: "></apex:outputText>
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__SubmissionComment1__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="{!approvalRequestSO.Apttus_Approval__SubmissionComment1__c}"></apex:outputText>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__SubmissionComment2__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="{!approvalRequestSO.Apttus_Approval__SubmissionComment2__c}"></apex:outputText>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__SubmissionComment3__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="{!approvalRequestSO.Apttus_Approval__SubmissionComment3__c}"></apex:outputText>
+            </apex:outputPanel> 
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__Approval_Status__c == 'Reassigned', true, false)}">
+                <br/>
+                <apex:outputText value="Delegator Comments: "></apex:outputText>
+                <br/>
+                <apex:outputText value="{!delegateComments}" escape="false"/>
+            </apex:outputPanel>
+        </apex:outputPanel>    
+        <!--Domestic approvals------------------------------------------------------------------------>
+        <apex:outputPanel rendered="{!IF(lineItemSO.APT_Product_Name__c = 'eParcel' || lineItemSO.APT_Product_Name__c = 'eParcel Express', true, false)}">
+            <br/> 
+            <apex:outputText value="Product Lines Requested: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.Apttus_Config2__ProductId__r.Name}"></apex:outputText>
+            <br/> 
+            <apex:outputText value="International Price: "></apex:outputText>
+            <!--<apex:outputText value="{!lineItemSO.Apttus_Config2__AttributeValueId__r.APT_Band_Original_Value__c}" ></apex:outputText>-->
+            <apex:outputText value="BAND 1" rendered="{!IF(lineItemSO.Apttus_Config2__AttributeValueId__r.Revenue_Committment__c == 'Less than 3,000', true, false)}"></apex:outputText>
+            <apex:outputText value="BAND 2" rendered="{!IF(lineItemSO.Apttus_Config2__AttributeValueId__r.Revenue_Committment__c == '3,000 - 4,999', true, false)}"></apex:outputText>
+            <apex:outputText value="BAND 3" rendered="{!IF(lineItemSO.Apttus_Config2__AttributeValueId__r.Revenue_Committment__c == '5,000 - 19,999', true, false)}"></apex:outputText>
+            <apex:outputText value="BAND 4" rendered="{!IF(lineItemSO.Apttus_Config2__AttributeValueId__r.Revenue_Committment__c == '20,000 - 34,999', true, false)}"></apex:outputText>
+            <apex:outputText value="BAND 5" rendered="{!IF(lineItemSO.Apttus_Config2__AttributeValueId__r.Revenue_Committment__c == '35,000 - 50,000' || lineItemSO.Apttus_Config2__AttributeValueId__r.Revenue_Committment__c == 'Above 50,000', true, false)}"></apex:outputText>
+            <br/>
+            <apex:outputText value="Category: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.Apttus_Config2__AttributeValueId__r.Category__c}"></apex:outputText>
+            <br/> 
+            <apex:outputText value="Price Structure: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.Apttus_Config2__AttributeValueId__r.APTS_Price_Structure__c}"></apex:outputText>
+            <br/>
+            <apex:outputText value="Lodgement Zone: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.Apttus_Config2__AttributeValueId__r.APT_Lodgement_Zone__r.Name}"></apex:outputText>
+            <br/>
+            <apex:outputText value="Pricing Reason: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.APT_Pricing_Reason__c}"></apex:outputText> 
+            
+            <apex:outputPanel rendered="{!IF(lineItemSO.APT_Display_Adjustment_Amount__c!= null, true, false)}">
+                <br/>
+                <apex:outputText value="Seller Requested  Discount - {!lineItemSO.APT_Display_Adjustment_Amount__c} %"></apex:outputText>                
+            </apex:outputPanel>   
+            <apex:outputPanel rendered="{!IF(lineItemSO.APT_Display_Adjustment_Amount__c== null , true, false)}">
+                <br/>
+                <apex:outputText value="Seller Requested  Discount - 0.00 %"></apex:outputText>
+            </apex:outputPanel> 
+            <br/>
+            <apex:outputText value="Comments: "></apex:outputText>
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__SubmissionComment1__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="{!approvalRequestSO.Apttus_Approval__SubmissionComment1__c}"></apex:outputText>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__SubmissionComment2__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="{!approvalRequestSO.Apttus_Approval__SubmissionComment2__c}"></apex:outputText>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__SubmissionComment3__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="{!approvalRequestSO.Apttus_Approval__SubmissionComment3__c}"></apex:outputText>
+            </apex:outputPanel> 
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__Approval_Status__c == 'Reassigned', true, false)}">
+                <br/>
+                <apex:outputText value="Delegator Comments: "></apex:outputText>
+                <br/>
+                <apex:outputText value="{!delegateComments}" escape="false"/>
+            </apex:outputPanel>
+        </apex:outputPanel>  
+
+        <!-- Kg Rounding -->
+        <apex:outputPanel rendered="{!IF((lineItemSO.APT_Product_Name__c = 'eParcel' || lineItemSO.APT_Product_Name__c = 'eParcel Express' )&& lineItemSO.APT_Approval_Required3__c == true, true, false)}">
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_CQApprov__CartId__r.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.Type == 'New Customer', true, false)}">
+                <br/>
+                <apex:outputText value="Request for an Exclusion to remove KG Rounding for this Customer."></apex:outputText>                
+            </apex:outputPanel> 
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_CQApprov__CartId__r.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__r.Type == 'Existing Customer', true, false)}">
+                <br/>
+                <apex:outputText value="Request for an Exclusion to Apply KG Rounding for this Customer."></apex:outputText>                
+            </apex:outputPanel> 
+            <br/> 
+            <br/> 
+            <apex:outputText value="Product Lines Requested: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.Apttus_Config2__ProductId__r.Name}"></apex:outputText>
+            <br/> 
+            <apex:outputText value="Pricing Category: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.Apttus_Config2__AttributeValueId__r.Category__c}"></apex:outputText>
+            <br/> 
+            <apex:outputText value="Price Structure: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.Apttus_Config2__AttributeValueId__r.APTS_Price_Structure__c}"></apex:outputText>
+            <br/>
+            <apex:outputText value="Lodgement Zone: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.Apttus_Config2__AttributeValueId__r.APT_Lodgement_Zone__r.Name}"></apex:outputText>
+            <br/>
+            <apex:outputText value="Comments: "></apex:outputText>
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__SubmissionComment1__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="{!approvalRequestSO.Apttus_Approval__SubmissionComment1__c}"></apex:outputText>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__SubmissionComment2__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="{!approvalRequestSO.Apttus_Approval__SubmissionComment2__c}"></apex:outputText>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__SubmissionComment3__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="{!approvalRequestSO.Apttus_Approval__SubmissionComment3__c}"></apex:outputText>
+            </apex:outputPanel> 
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__Approval_Status__c == 'Reassigned', true, false)}">
+                <br/>
+                <apex:outputText value="Delegator Comments: "></apex:outputText>
+                <br/>
+                <apex:outputText value="{!delegateComments}" escape="false"/>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        <!-- Kg Rounding -->
+        
+        <!--International approvals------------------------------------------------------------------------>
+        <apex:outputPanel rendered="{!IF(lineItemSO.APT_Product_Name__c = 'International Bundle', true, false)}">
+            <br/> 
+            <apex:outputText value="Product Lines Requested: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.Apttus_Config2__ProductId__r.Name}"></apex:outputText>
+            <br/>      
+            <apex:outputText value="International Price: "></apex:outputText>
+            <!--<apex:outputText value="{!lineItemSO.Apttus_Config2__AttributeValueId__r.APT_Band_Original_Value__c}" ></apex:outputText>-->
+            <apex:outputText value="BAND 1" rendered="{!IF(lineItemSO.Apttus_Config2__AttributeValueId__r.Revenue_Committment__c == 'Less than 3,000', true, false)}"></apex:outputText>
+            <apex:outputText value="BAND 2" rendered="{!IF(lineItemSO.Apttus_Config2__AttributeValueId__r.Revenue_Committment__c == '3,000 - 4,999', true, false)}"></apex:outputText>
+            <apex:outputText value="BAND 3" rendered="{!IF(lineItemSO.Apttus_Config2__AttributeValueId__r.Revenue_Committment__c == '5,000 - 19,999', true, false)}"></apex:outputText>
+            <apex:outputText value="BAND 4" rendered="{!IF(lineItemSO.Apttus_Config2__AttributeValueId__r.Revenue_Committment__c == '20,000 - 34,999', true, false)}"></apex:outputText>
+            <apex:outputText value="BAND 5" rendered="{!IF(lineItemSO.Apttus_Config2__AttributeValueId__r.Revenue_Committment__c == '35,000 - 50,000' || lineItemSO.Apttus_Config2__AttributeValueId__r.Revenue_Committment__c == 'Above 50,000', true, false)}"></apex:outputText>
+            <br/>
+            <apex:outputText value="Pricing Reason: "></apex:outputText>
+            <apex:outputText value="{!lineItemSO.APT_Pricing_Reason__c}"></apex:outputText> 
+            <apex:outputPanel rendered="{!IF(lineItemSO.APT_Display_Adjustment_Amount__c!= null && lineItemSO.Apttus_Config2__AdjustmentType__c != 'Offer Higher Band', true, false)}">
+                <br/>
+                <apex:outputText value="Seller Requested  Discount - {!lineItemSO.APT_Display_Adjustment_Amount__c} %"></apex:outputText>                
+            </apex:outputPanel>   
+            <apex:outputPanel rendered="{!IF(lineItemSO.APT_Display_Adjustment_Amount__c== null && lineItemSO.Apttus_Config2__AdjustmentType__c != 'Offer Higher Band', true, false)}">
+                <br/>
+                <apex:outputText value="Seller Requested  Discount - 0.00 %"></apex:outputText>
+            </apex:outputPanel> 
+            <br/>
+            <apex:outputText value="Seller Requested: Offer Higher Band Rates" rendered="{!IF(lineItemSO.Apttus_Config2__AdjustmentType__c == 'Offer Higher Band',true,false)}"></apex:outputText>
+            <br/>
+            <apex:outputText value="Comments: "></apex:outputText>
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__SubmissionComment1__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="{!approvalRequestSO.Apttus_Approval__SubmissionComment1__c}"></apex:outputText>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__SubmissionComment2__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="{!approvalRequestSO.Apttus_Approval__SubmissionComment2__c}"></apex:outputText>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__SubmissionComment3__c != null, true, false)}">
+                <br/>
+                <apex:outputText value="{!approvalRequestSO.Apttus_Approval__SubmissionComment3__c}"></apex:outputText>
+            </apex:outputPanel> 
+            <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__Approval_Status__c == 'Reassigned', true, false)}">
+                <br/>
+                <apex:outputText value="Delegator Comments: "></apex:outputText>
+                <br/>
+                <apex:outputText value="{!delegateComments}" escape="false"/>
+            </apex:outputPanel>
+        </apex:outputPanel>     
+    <br/>
+    <br/>
+    <apex:outputPanel rendered="{!IF(approvalRequestSO.Apttus_Approval__Approval_Status__c == 'Cancelled', false, true)}"> 
+    
+    <strong>Your Action:</strong><br/>
+    <strong>Approve or Reject this request</strong>.<br/>
+    <br/>
+    <b>To do this:</b>
+    <ol>
+        <li>Click reply to this email</li>
+        <li>Copy the text between the dashes and paste into your reply email</li>
+        <li>Delete either APPROVED or REJECTED (this must be the first line of the email)</li>
+        <li>Seller Applied Discount is for reply information only, do not delete</li>
+        <apex:outputPanel rendered="{!IF(lineItemSO.APT_Product_Name__c != 'Post Billpay', true, false)}">
+                <li>Add Approval Discount if required after the dash but before the % (can be left blank)</li>
+            </apex:outputPanel>
+        
+            <apex:outputPanel rendered="{!IF(lineItemSO.APT_Product_Name__c == 'Post Billpay', true, false)}">
+                <li>If you want to edit the Approved Discount, edit the value after the dash but before the %</li>
+            </apex:outputPanel>
+        <apex:outputPanel rendered="{!IF(lineItemSO.APT_Product_Family__c != 'Postal Services' && lineItemSO.APT_Product_Name__c != 'Post Billpay', true, false)}">
+            <li>If Approved, you must add the RK Code after the dash</li>
+        </apex:outputPanel>
+        <li>If either Approved or Rejected, you must put in your comments back to the requestor under the Approver Comments</li>
+        <li>Click Send</li>
+    </ol>
+   <apex:outputText >------------------------------------------------------------</apex:outputText>
+   <br/>
+   <br/>
+   <apex:outputText ><em>APPROVED or REJECTED</em></apex:outputText>
+    <apex:outputPanel rendered="{!IF(lineItemSO.APT_Product_Name__c != 'International Bundle', true, false)}">
+    <br/>
+    Seller Applied Discount - {!lineItemSO.APT_Display_Adjustment_Amount__c} %
+    <br/>
+    Approved Discount - {!lineItemSO.APT_Display_Adjustment_Amount__c} %
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!IF(lineItemSO.APT_Product_Family__c = 'Parcel Services', true, false)}">
+    <br/>
+    RK Code -
+    </apex:outputPanel>
+    <br/>
+    Approver Comments:
+    <br/>
+    <br/>
+    <apex:outputText >------------------------------------------------------------</apex:outputText>
+    <br/>
+    <br/>
+    </apex:outputPanel> 
+    Click on the link below: 
+    <br/>
+    <apex:outputLink value="{!proposalURL}">{!proposalURL}</apex:outputLink>
+</apex:component>

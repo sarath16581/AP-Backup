@@ -1,0 +1,12 @@
+Hello
+
+A new request has been created - Case {!Case.CaseNumber}
+
+You can review the case by following the link below
+
+{!Case.Link} or entering your case number into the search engine on the front page of SalesForce.com. 
+
+
+Regards
+
+Salesforce CRM Support

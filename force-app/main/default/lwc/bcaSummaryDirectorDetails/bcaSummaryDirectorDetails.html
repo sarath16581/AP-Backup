@@ -1,0 +1,43 @@
+<!--
+/* @author avula.jansirani@auspost.com.au
+* @date 2020-11-12
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: List of Director/Partner summary details . Used for showing list of director details details entered in the input step
+                for review before submitting a credit form.
+* @changelog
+* 2020-01-20 avula.jansirani@auspost.com.au
+*
+-->
+<template>
+    <div data-id='directorDetail'>
+        <template if:true={directorDetails}>
+            <div class="slds-section slds-is-open">
+                <div aria-hidden="false" class="slds-section__content">
+                
+                    <!--Header-->
+                    <c-bca-summary-step-header header-label={labelHeader} step-name={stepName}>
+                    </c-bca-summary-step-header>
+                    
+                    <!--Body-->
+                    <table width="100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <template for:each={directorDetails} for:item="director">
+                                        <c-bca-summary-each-director-details key={director.index}
+                                                                             directors-size={directorsSize}
+                                                                             director={director}
+                                                                             show-header={showHeader}
+                                                                             header-label={label}>
+                                        </c-bca-summary-each-director-details>
+                                    </template>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

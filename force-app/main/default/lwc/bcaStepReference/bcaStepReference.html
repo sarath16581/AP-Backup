@@ -1,0 +1,35 @@
+<!--
+* @author Victor.Cheng@auspost.com.au
+* @date 21/12/2020
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Step in Credit Application Form to input Reference details
+* @changelog
+* 21/12/2020 Victor.Cheng@auspost.com.au  Created
+*
+-->
+
+<!-- Bca Step Reference -->
+<template>
+    <div class="form-outer-box">
+        <div class="form-inner-box">
+            <lightning-input label="Business name" name="businessName" data-id="businessName"
+                             type="text" value={_businessReference.businessName} 
+                             required="true" max-length={fieldLength100}
+                             onfocusout={handleFocusOut} onchange={onChangeField}></lightning-input>
+            <lightning-input label="Contact person's full name" name="fullName" data-id="fullName"
+                             type="text" value={_businessReference.fullName} 
+                             required="true" max-length={fieldLength30}
+                             onfocusout={handleFocusOut} onchange={onChangeField} class="slds-p-top_large"></lightning-input>
+            <lightning-input label="Position title" name="positionTitle" data-id="positionTitle"
+                             type="text" value={_businessReference.positionTitle} 
+                             required="true" max-length={fieldLength30}
+                             onfocusout={handleFocusOut} onchange={onChangeField} class="slds-p-top_large"></lightning-input>
+            <lightning-input label="Phone number" name={PHONE_FIELD} data-id={PHONE_FIELD} type="tel" onfocusout={handleFocusOut}
+                            onchange={onChangeField} max-length={phoneMaxLength}
+                             required="true" 
+                             message-when-value-missing="Enter a phone number" class="slds-p-top_large slds-col slds-size_1-of-1 slds-medium-size_6-of-12 short-form-field">
+            </lightning-input>
+        </div>
+    </div>
+</template>

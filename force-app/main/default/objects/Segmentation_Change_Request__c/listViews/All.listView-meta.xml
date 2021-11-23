@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Change_Account_Manager__c</columns>
+    <columns>Hidden_Current_Org_Owner_Id__c</columns>
+    <columns>Organisation__c</columns>
+    <columns>Level2_Approver__c</columns>
+    <columns>Proposed_Account_Manager__c</columns>
+    <columns>RECORDTYPE</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+    <language>en_US</language>
+</ListView>

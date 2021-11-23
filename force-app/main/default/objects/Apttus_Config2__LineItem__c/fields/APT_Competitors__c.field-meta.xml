@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Competitors__c</fullName>
+    <externalId>false</externalId>
+    <label>Competitors</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+                <label>Not Applicable</label>
+            </value>
+            <value>
+                <fullName>DHL Global</fullName>
+                <default>false</default>
+                <label>DHL Global</label>
+            </value>
+            <value>
+                <fullName>DHL Express</fullName>
+                <default>false</default>
+                <label>DHL Express</label>
+            </value>
+            <value>
+                <fullName>Fedex</fullName>
+                <default>false</default>
+                <label>Fedex</label>
+            </value>
+            <value>
+                <fullName>UPS</fullName>
+                <default>false</default>
+                <label>UPS</label>
+            </value>
+            <value>
+                <fullName>Toll</fullName>
+                <default>false</default>
+                <label>Toll</label>
+            </value>
+            <value>
+                <fullName>Quantium</fullName>
+                <default>false</default>
+                <label>Quantium</label>
+            </value>
+            <value>
+                <fullName>Australia Post</fullName>
+                <default>false</default>
+                <label>Australia Post</label>
+            </value>
+            <value>
+                <fullName>Toll IPEC</fullName>
+                <default>false</default>
+                <label>Toll IPEC</label>
+            </value>
+            <value>
+                <fullName>Fastways</fullName>
+                <default>false</default>
+                <label>Fastways</label>
+            </value>
+            <value>
+                <fullName>TNT</fullName>
+                <default>false</default>
+                <label>TNT</label>
+            </value>
+            <value>
+                <fullName>Couriers Please</fullName>
+                <default>false</default>
+                <label>Couriers Please</label>
+            </value>
+            <value>
+                <fullName>Hunters Express</fullName>
+                <default>false</default>
+                <label>Hunters Express</label>
+            </value>
+            <value>
+                <fullName>Direct Freight</fullName>
+                <default>false</default>
+                <label>Direct Freight</label>
+            </value>
+            <value>
+                <fullName>Allied Express</fullName>
+                <default>false</default>
+                <label>Allied Express</label>
+            </value>
+            <value>
+                <fullName>Border Express</fullName>
+                <default>false</default>
+                <label>Border Express</label>
+            </value>
+            <value>
+                <fullName>Other / Local Couriers</fullName>
+                <default>false</default>
+                <label>Other / Local Couriers</label>
+            </value>
+            <value>
+                <fullName>Salmat</fullName>
+                <default>false</default>
+                <label>Salmat</label>
+            </value>
+            <value>
+                <fullName>PMP</fullName>
+                <default>false</default>
+                <label>PMP</label>
+            </value>
+            <value>
+                <fullName>Walker Network</fullName>
+                <default>false</default>
+                <label>Walker Network</label>
+            </value>
+            <value>
+                <fullName>Electronic</fullName>
+                <default>false</default>
+                <label>Electronic</label>
+            </value>
+            <value>
+                <fullName>Digital</fullName>
+                <default>false</default>
+                <label>Digital</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>3</visibleLines>
+</CustomField>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MyNetworkCasesPON</fullName>
+    <booleanFilter>(1 and 2)  OR (3 AND 4 AND 5 and 6 and 7)</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>NAME</columns>
+    <columns>EnquirySubType__c</columns>
+    <columns>Address2__c</columns>
+    <columns>Address2Suburb__c</columns>
+    <columns>Address2Postcode__c</columns>
+    <columns>Address1__c</columns>
+    <columns>Address1Suburb__c</columns>
+    <columns>Address1Postcode__c</columns>
+    <columns>CASES.LAST_UPDATE</columns>
+    <columns>UPDATEDBY_USER.ALIAS</columns>
+    <columns>NetworkName__c</columns>
+    <filterScope>Team</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>equals</operation>
+        <value>Awaiting Network Response</value>
+    </filters>
+    <filters>
+        <field>EnquirySubType__c</field>
+        <operation>notEqual</operation>
+        <value>Damage to property,Damage to vehicle,Staff Complaint</value>
+    </filters>
+    <filters>
+        <field>Permanent_Close__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>CASES.TYPE</field>
+        <operation>equals</operation>
+        <value>Feedback</value>
+    </filters>
+    <filters>
+        <field>CORE.USERS.ALIAS</field>
+        <operation>equals</operation>
+        <value>SSSW Network Queue</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>EnquirySubType__c</field>
+        <operation>notEqual</operation>
+        <value>Damage to property,Damage to vehicle,Staff Complaint</value>
+    </filters>
+    <label>My Network Cases</label>
+    <language>en_US</language>
+    <sharedTo>
+        <roleAndSubordinatesInternal>SSSW_PON_Manager</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

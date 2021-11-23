@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SI_CFF_Q1_Requirements_Score__c</fullName>
+    <description>I am satisfied that my customer&apos;s requirements have been captured &amp; understood by my Implementation Consultant.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>I am satisfied that my customer&apos;s requirements have been captured &amp; understood by my Implementation Consultant.</inlineHelpText>
+    <label>SI-CFF - Q1 Requirements Score</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

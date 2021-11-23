@@ -1,0 +1,199 @@
+<apex:component controller="AddressComponentV1Controller">
+
+ <script>
+    var j$ = jQuery.noConflict();
+    
+    function {!id}_selectedAddress(data){
+        var addressPanel = j$('.{!id}_addressPanel');
+        var txtLine1 = addressPanel.find('[id$="txtLine1"]');
+        var txtLine2 = addressPanel.find('[id$="txtLine2"]');
+        var txtCity = addressPanel.find('[id$="txtCity"]');
+        var txtState = addressPanel.find('[id$="txtState"]');
+        var txtPostcode = addressPanel.find('[id$="txtPostcode"]');
+        var txtDPID = addressPanel.find('[id$="txtDPID"]');
+        var hfDPID = addressPanel.find('[id$="hfDPID"]');
+        var txtCountry = addressPanel.find('[id$="txtCountry"]');
+        
+        txtLine1.val(data.addressLine1);
+        txtLine2.val(data.addressLine2);
+        txtCity.val(data.city);
+        txtState.val(data.state);
+        txtPostcode.val(data.postcode);
+        txtDPID.val(data.dpid);
+        hfDPID.val(data.dpid);
+        txtCountry.val('AU');
+        
+        {!id}_onselectedFunction({!IF(onselected != null, onselected, 'null')}, data);
+    }
+    
+    function {!id}_clearAddress(){
+        var addressPanel = j$('.{!id}_addressPanel');
+        var txtDPID = addressPanel.find('[id$="txtDPID"]');
+        var hfDPID = addressPanel.find('[id$="hfDPID"]');
+        txtDPID.val('');
+        hfDPID.val('');
+        {!id}_onchangeFunction({!IF(onchange != null, onchange, 'null')});
+    }
+    
+    function {!id}_onselectedFunction(onselectedFunctionName, data) {
+        if (onselectedFunctionName != null) {
+            onselectedFunctionName(data);
+        }
+    }
+    
+    function {!id}_onchangeFunction(onchangeFunctionName) {
+        if (onchangeFunctionName != null) {
+            onchangeFunctionName();
+        }
+    }
+    
+    function {!if(getAddress != null, getAddress, id + '_getAddress')}(){
+        var addressPanel = j$('.{!id}_addressPanel');
+        var txtLine1 = addressPanel.find('[id$="txtLine1"]');
+        var txtLine2 = addressPanel.find('[id$="txtLine2"]');
+        var txtCity = addressPanel.find('[id$="txtCity"]');
+        var txtState = addressPanel.find('[id$="txtState"]');
+        var txtPostcode = addressPanel.find('[id$="txtPostcode"]');
+        var txtDPID = addressPanel.find('[id$="txtDPID"]');
+        var hfDPID = addressPanel.find('[id$="hfDPID"]');
+        var txtCountry = addressPanel.find('[id$="txtCountry"]');
+    
+        var result = {};
+        result.addressLine1 = txtLine1.val();
+        result.addressLine2 = txtLine2.val();
+        result.city = txtCity.val();
+        result.state = txtState.val();
+        result.postcode = txtPostcode.val();
+        result.dpid = txtDPID.val();
+        result.country = txtCountry.val();
+        return result;
+    }
+    
+    function {!id}_checkInput(){
+        var key = event.keyCode || event.charCode;
+        if( key == 8 || key == 46 ) {
+            {!id}_clearAddress(); 
+        }
+    }
+    
+    <!-- 1551 -->
+    function noEnter(ev)  {
+        if (window.event && window.event.keyCode == 13 || ev.which == 13) {         
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>
+    <apex:attribute type="boolean" name="soletrader" required="false" description="check for sole trader" />
+    <c:AddressValidation onselect="{!id}_selectedAddress" styleClass="{!id}_addressValidation" onInit="{!id}_clearAddress" />
+    <apex:attribute type="string" name="legend" required="false" description="a legend for this address box" />
+    <apex:attribute type="integer" name="tabIndex" required="false" description="a tab index for this address box" default="1" />
+    <apex:attribute type="string" name="onchange" description="a callback on change" required="false" />
+    <apex:attribute type="string" name="onselected" description="a callback on selected" required="false" />
+    <apex:attribute type="string" name="getAddress" description="the function name used to get address object " required="false" />
+    <apex:attribute type="AddressExtension" name="address"
+        assignto="{!currentAddress}" description="the current address used" />
+    
+    <div class="detailList {!id}_addressPanel">
+    <table class="detailList" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <th class="labelCol vfLabelColTextWrap ">
+            <apex:outputlabel for="txtLine1" value="Street Name" />
+            
+            </th>
+            
+            <td class="dataCol">
+            <apex:panelGroup styleClass="requiredInput" >
+            <apex:panelGroup styleClass="requiredBlock" />
+            <apex:inputtext id="txtLine1" Required="True" label="Street Name Required" value="{!currentAddress.line1}"  onkeydown="{!id}_checkInput();"  
+                        styleClass="string {!id}_addressValidation"  onkeypress="return noEnter(event);"/>
+            </apex:panelGroup>
+            </td>
+        
+        </tr>
+        
+        <tr>
+            <th class="labelCol vfLabelColTextWrap ">
+            <apex:outputlabel for="txtLine2" value="Street Type" />
+            </th>
+            
+            <td class="dataCol">
+            <apex:inputtext id="txtLine2" value="{!currentAddress.line2}" onchange="{!id}_clearAddress()" onkeypress="return noEnter(event);"/>
+            </td>
+        
+        </tr>
+        
+        <tr>
+            <th class="labelCol vfLabelColTextWrap ">
+            <apex:outputlabel for="txtCity" value="Suburb" />&nbsp;&nbsp;&nbsp;
+            </th>
+            
+            <td class="dataCol">
+            <apex:panelGroup styleClass="requiredInput" >
+            <apex:panelGroup styleClass="requiredBlock" />
+            <apex:inputtext id="txtCity" Required="True" label="Suburb Required"  value="{!currentAddress.city}"  onchange="{!id}_clearAddress()" onkeypress="return noEnter(event);"/>
+            </apex:panelGroup>
+            </td>
+        
+        </tr>
+        
+        <tr>
+            <th class="labelCol vfLabelColTextWrap ">
+            <apex:outputlabel for="txtState" value="State" />
+            </th>
+            
+            <td class="dataCol">
+            <apex:panelGroup styleClass="requiredInput" >
+            <apex:panelGroup styleClass="requiredBlock" />
+            <apex:inputtext id="txtState" required="true" label="State Required" value="{!currentAddress.state}"  onchange="{!id}_clearAddress()" onkeypress="return noEnter(event);"/>
+            </apex:panelGroup>
+            </td>
+        
+        </tr>
+        
+        <tr>
+            <th class="labelCol vfLabelColTextWrap ">
+            <apex:outputlabel for="txtPostcode" value="Postcode" /> &nbsp;&nbsp;&nbsp;
+            
+            </th>
+            
+            <td class="dataCol">
+            <apex:panelGroup styleClass="requiredInput" >
+            <apex:panelGroup styleClass="requiredBlock"/>
+            <apex:inputtext id="txtPostcode"  Required="True" label="Postcode Required" maxlength="4" value="{!currentAddress.postcode}"  onchange="{!id}_clearAddress()" onkeypress="return noEnter(event);"/>
+            </apex:panelGroup>
+            </td>
+        
+        </tr>
+    
+    </table>
+    </div>
+        <apex:inputhidden id="txtCountry" value="{!currentAddress.country}" />
+    
+    <c:CountryLookup styleClass="addressComponent_{!id}" display="code" />
+    
+    <apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+        <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+        <apex:stylesheet value="{!$Resource.jQueryLayoutCSS}" />
+        <apex:stylesheet value="{!$Resource.jQueryUI1_10_3_Css}" />
+        <script src="{!URLFOR($Resource.jQuery111)}" />
+        <script src="{!URLFOR($Resource.bootstrapJS)}" />
+        <script src="{!URLFOR($Resource.jQueryUI1_10_3)}" />
+        <script src="{!URLFOR($Resource.jQueryLayout)}" />
+        <script src="/support/console/28.0/integration.js" />
+        <script src="/support/api/28.0/interaction.js" />
+        
+        <Style>
+        body{
+            font-size:   12px !important;
+            
+        }
+        .customerAgreed{
+            margin-right:10px;
+        }
+        .btn{
+            margin:5px !important;
+        }
+        </Style>
+</apex:component>

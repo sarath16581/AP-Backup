@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Allow_Sales_Process_Popup__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Enable Sales Process to be selected/changed on the page</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enable Playbook Sales Process to be selected/changed on the page</inlineHelpText>
+    <label>Allow Sales Process Popup</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

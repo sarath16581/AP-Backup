@@ -1,0 +1,1680 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Standard</fullName>
+    <active>true</active>
+    <businessProcess>Master</businessProcess>
+    <description>Record type for all standard leads</description>
+    <label>Standard</label>
+    <picklistValues>
+        <picklist>ACN_Status__c</picklist>
+        <values>
+            <fullName>Deregistered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No ACN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Registered</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Auth_Description__c</picklist>
+        <values>
+            <fullName>Authorised buyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decision Maker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General authority</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Influencer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Joint decision maker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Main decision maker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No authority</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opinion leader</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sole decision maker</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CNA_Status__c</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Started</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Channel_Preference__c</picklist>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Name</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Competitor__c</picklist>
+        <values>
+            <fullName>Allied Express</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Couriers Please</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DHL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fastway</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FedEx</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Smart Send</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TNT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Temando</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Toll IPEC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Toll Priority</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Contact_A__c</picklist>
+        <values>
+            <fullName>1st Contact Attempt</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2nd Contact Attempt</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3rd Contact Attempt</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_Pays__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_Relationship__c</picklist>
+        <values>
+            <fullName>Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Family%2FFriend</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_Type__c</picklist>
+        <values>
+            <fullName>Existing Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Former Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Holding User</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Customer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Disqualified_Lead_Reason__c</picklist>
+        <values>
+            <fullName>API Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Could not contact</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Declined by customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplicate Lead</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enquiry does not meet criteria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing customer%2C no opportunity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Contact Details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unsuccessful Contact Attempts</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Email_Electronic_Opt_In__c</picklist>
+        <values>
+            <fullName>NO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>YES</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Existing_Business_Credit_Account__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Hub_Catchment__c</picklist>
+        <values>
+            <fullName>ADELAIDE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ALBURY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ALEXANDRIA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ARCHERFIELD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BALLARAT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BALLINA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BATHURST</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BAYSWATER</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BENDIGO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BIBRA LAKE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BRISBANE CENTRAL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BUNDALL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAIRNS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CANBERRA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CARINGBAH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>COFFS HARBOUR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DANDENONG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FRENCHS FOREST</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GEELONG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HOBART</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HOPPERS CROSSING</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HUNTER</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KINGSGROVE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LAUNCESTON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LONSDALE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MACKAY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MACQUARIE PARK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MANSFIELD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MOORABBIN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MORETON BAY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MOUNT WAVERLEY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NAMBOUR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NEPEAN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OSBORNE PARK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PERTH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PORT MELBOURNE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ROCKHAMPTON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SA Rural and Remote</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SALISBURY SOUTH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SEAFORD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SEVEN HILLS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SHEPPARTON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SILVERWATER</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SMEATON GRANGE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SOMERTON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ST LEONARDS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TAMWORTH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TOOWOOMBA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TOWNSVILLE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TUGGERAH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VIRGINIA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WA Rural and Remote</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WANGARA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WELSHPOOL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WETHERILL PARK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WINNELLIE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WOLLONGONG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warrnambool</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>YATALA</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>In_Progress_Status__c</picklist>
+        <values>
+            <fullName>Called the Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lead sent to Payments Team</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Sent Application</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sent Quote</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Waiting on Signed Contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Waiting on more information</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Industry</picklist>
+        <values>
+            <fullName>Agriculture%2C Forestry and Fishing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Construction Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial and Insurance Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Government and Community</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Health Care and Social Assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manufacturing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mining</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional and Administrative Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recreation and Entertainment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Trade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Telecommunications and Media</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transport%2C Logistics and Warehousing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Utilities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wholesale</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Job_Title__c</picklist>
+        <values>
+            <fullName>AR Contact</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Administration Officer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Adver%2FProm%2FPR Mgr</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Adver%2FProm%2FPR Staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Advertising %26 Promotions Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Advertising Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Analyst</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Area Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Art Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Assistant Marketing Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Barrister</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Board Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Branch Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bus%2FComm%2FDev Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bus%2FComm%2FDev Staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Development Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CEO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Campaign Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chair</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chairman</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chairperson</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chief Engineer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chief Financial Offer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chief Information Officer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chief Operating Officer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client Services Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client Services Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commerical Development Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Communications Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Communications Mgr</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Communications Staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Company Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Company Secretary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contact left company</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Creative Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cust Services Mgr</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cust Services Staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Relations Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Response Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Services Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DM Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dead Mail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desp%2FWhse%2FMRoom Mgr</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desp%2FWhse%2FMRoom staf</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Despatch Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Development Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct Marketing Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct Marketing Mgr</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct Marketing Stf</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Director Of Marketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Director of Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Division Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Divisional Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Doctor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Executive Board</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finance Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finance Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finance Staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Controller</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Graphic Designer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group General Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Marketing Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HR Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HR Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HR Staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Human Resources Diretor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Human Resources Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IT %26 Database Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IT Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IT Staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IT%2E Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Joint Managing Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lawyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Legal Personnel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Logistics Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Logistics Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MD%2FCEO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mailroom Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Managing Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Assistant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Co-ordinator</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Communications Officer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Development Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Executive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Officer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Secretary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Media Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>National Marketing Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>National Sales Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Office Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Op%2FWork%2FGrp%2FProj Mgr</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Op%2FWork%2FGrp%2FProj Stf</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operations Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Owner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PDCC Contact</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PR Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal Assistant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Politician - Federal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Politician - Local</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Politician - State</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>President</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Principal - School</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Privacy Officer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Project Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Projects Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Promotions Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proprietor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proprietor%2FOwner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Relations Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purch%2FSupply%2FLog Mgr</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purch%2FSupply%2FLog Stf</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchasing Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purhasing Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Receptionist</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Regional Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales And Marketing Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Clerk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Officer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Secretary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Secretry%2FRecepnst%2FPA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State%2FReg%2FBr%2FDiv Mgr</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State%2FReg%2FBr%2FDiv Stf</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Supply Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Supply Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Systems Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vice President</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warehouse Manager</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LeadSource</picklist>
+        <values>
+            <fullName>3rd Party List</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Account Executive - Self</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Affiliate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Auspost website</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cold Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Event</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>National Contact Centre %E2%80%93 Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Newsletter Subscription</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Over The counter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Procurement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SBSub_Online</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SBSub_Retail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SBSub_Upload</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ST Website</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Social</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Webinar</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Lead_Creator_State__c</picklist>
+        <values>
+            <fullName>ACT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NSW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Qld</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WA</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Lead_Online_Trader__c</picklist>
+        <values>
+            <fullName>False</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>True</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Lead_Type__c</picklist>
+        <values>
+            <fullName>Consumer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Organisation</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Name</picklist>
+        <values>
+            <fullName>Dr%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Miss</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mr%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mrs%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ms%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prof%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Organisation__c</picklist>
+        <values>
+            <fullName>Business Partners</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Acquisition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enterprise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Large Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mid Market</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mid Market Acquisition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Parcels_per_week__c</picklist>
+        <values>
+            <fullName>1-9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10-19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20%2B</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Privacy_Marketing_Opt_Out__c</picklist>
+        <values>
+            <fullName>NO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>YES</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Product__c</picklist>
+        <values>
+            <fullName>Australia Post - Mail Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia Post - Parcel Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia Post - Trusted Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Startrack</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Products__c</picklist>
+        <values>
+            <fullName>Change of Address Notification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Identity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Domestic Freight %28B2B%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Domestic Parcels %28B2C%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fulfilment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Information and Mailroom Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International Parcels</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Physical Mail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Verification of Identity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workforce Verification</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Quantity_of_articles__c</picklist>
+        <values>
+            <fullName>1 to 10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>100 %2B</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11 to 19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20 to 100</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Rating</picklist>
+        <values>
+            <fullName>Cold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hot</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warm</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ReferralSource__c</picklist>
+        <values>
+            <fullName>At an industry event</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Google search</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>National peak body</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referral from an existing user of service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State peak body</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Regularity_of_Articles__c</picklist>
+        <values>
+            <fullName>Daily</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Monthly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Weekly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yearly</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Segment__c</picklist>
+        <values>
+            <fullName>Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consumer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enterprise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Send_Business_Credit_Account_Info__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Volume__c</picklist>
+        <values>
+            <fullName>%3E20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>0-9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10-19</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Webform__c</picklist>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Who_do_you_send_goods_to__c</picklist>
+        <values>
+            <fullName>Both</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Businesses</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consumer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Zing_Source__c</picklist>
+        <values>
+            <fullName>Direct Mail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Newspaper%2F Magazine</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Online %28External%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outdoor Billboard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Television</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ZING Postcard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eDirect Mail</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

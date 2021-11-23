@@ -1,0 +1,187 @@
+/***
+ * @author Nathan Franklin
+ * @date 2020-04-10
+ * @group Tests
+ * @tag Selector
+ * @tag Case
+ * @domain Core
+ * @description Test Class covering CasesSelector
+ * @changelog
+ * 2020-04-10 - Nathan Franklin - Created
+ * 2020-04-30 - Dheeraj Mandavilli - Updated - Removed Mockdatabase stubbing logic.
+ * 2020-05-01 - Dheeraj Mandavilli - Updated - Removed selectbyId Method.
+ * 2020-08-24 - Disha Kariya - Added tests for with Network and with Article
+ * 2020-10-18 - Nathan Franklin - Added tests for selectByCaseNumber
+ * 2021-03-02 - Ranjeewa Silva - Added tests for selectOpenCasesByCaseNumberOrReferenceId
+ * 2021-08-09 - Seth Heang - Added selectByReferenceIdOrderByCreatedDate test coverage
+ * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
+ */
+@IsTest
+public with sharing class CasesSelector_Test {
+
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectString() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CasesSelector selector = CasesSelector.newInstance();
+		QueryBuilder qb = selector.newQueryBuilder();
+		String soql = qb.toSoqlString();
+
+		System.assertEquals(true, Pattern.compile('(?is)\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select from Case');
+
+		Test.stopTest();
+
+	}
+
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CasesSelector selector = CasesSelector.newInstance();
+		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE});
+		String soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?is)RecordType\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select RecordType fields');
+
+		qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_OWNER});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?is)Owner\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Owner fields');
+
+		qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_CONTACT});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?is)Contact\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Contact fields');
+
+		qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE, CasesSelector.Options.WITH_CONTACT, CasesSelector.Options.WITH_OWNER});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?is)RecordType\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select RecordType fields');
+		System.assertEquals(true, Pattern.compile('(?is)Owner\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Owner fields');
+		System.assertEquals(true, Pattern.compile('(?is)Contact\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Contact fields');
+
+		//Testing field override
+		CasesSelector selectorNew = CasesSelector.newInstance(0, new Set<SObjectField>{Case.IssuePreviouslyReported__c});
+
+		qb = selectorNew.newQueryBuilder();
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)IssuePreviouslyReported__c.*?\\bfrom Case\\b').matcher(soql).find(), 'Resulting query does not select IssuePreviouslyReported__c field: ' + soql);
+
+		CasesSelector selectorNew2 = CasesSelector.newInstance(new Set<SObjectField>{Case.IssuePreviouslyReported__c});
+
+		qb = selectorNew2.newQueryBuilder();
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)IssuePreviouslyReported__c.*?\\bfrom Case\\b').matcher(soql).find(), 'Resulting query does not select IssuePreviouslyReported__c field: ' + soql);
+
+		qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_ARTICLE, CasesSelector.Options.WITH_NETWORK});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?is)ArticleTest__r\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Article fields'+soql);
+		System.assertEquals(true, Pattern.compile('(?is)Network__r\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Network fields'+soql);
+		Test.stopTest();
+
+	}
+
+	/**
+	 * Executes a query to ensure it returns expected results with actual inserted data
+	 */
+	@IsTest
+	public static void testSelectorIntegration() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
+
+		RecordType rt = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{'SSSWGeneralEnquiry'}).values()[0];
+
+		Account account = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		insert account;
+
+		Contact contact = ApplicationTestDataFactory.getContacts(1, account.Id, false)[0];
+		insert contact;
+
+		List<Case> cases = ApplicationTestDataFactory.getCases(2, new List<Id>{contact.Id, contact.Id}, false);
+		cases[0].RecordTypeId = rt.Id;
+		cases[0].Type = 'General Enquiry';
+		cases[1].RecordTypeId = rt.Id;
+		cases[1].Type = 'General Enquiry';
+        cases[1].ReferenceID__c = '5555000';
+		insert cases;
+
+		cases[0] = [Select Id, CaseNumber From Case Where Id = :cases[0].Id];
+
+		Set<Id> caseIds = new Set<Id>{cases[0].Id, cases[1].Id};
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+       	CasesSelector selector = CasesSelector.newInstance(2);
+		Map<Id, Case> results = selector.selectById(caseIds);
+		System.assertEquals(2, results.size(), 'Expected result size of 2');
+
+		results = selector.selectByCaseNumber(new Set<String>{cases[0].CaseNumber});
+		System.assertEquals(1, results.size(), 'Expected result size of 1');
+		System.assertEquals(cases[0].Id, results.values()[0].Id);
+
+		results = selector.selectById(caseIds, new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE, CasesSelector.Options.WITH_OWNER, CasesSelector.Options.WITH_CONTACT});
+		System.assertEquals(2, results.size(), 'Expected result size of 2');
+		System.assertNotEquals(null, results.values()[0].RecordType, 'Results did not include RecordType object');
+		System.assertNotEquals(null, results.values()[0].Contact, 'Results did not include Contact object');
+
+		//https://success.salesforce.com/issues_view?id=a1p30000000SwHDAA0
+		// Owner field is empty in this scenario
+		// The owner fields are included in the query as per above tests, it's just the integration test does not produce the actual values
+		// This problem is localised to only test classes
+		// The above URL documents that only custom objects are affected... It appears the same is true for Case.... oddly, this works when selecting from Account
+		//System.assertNotEquals(null, results.values()[0].Owner);
+
+		results = selector.selectOpenCasesByCaseNumberOrReferenceId(new Set<String>{cases[0].CaseNumber}, new Set<Id>{rt.Id}, new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE});
+		System.assertEquals(1, results.size(), 'Expected result size of 1');
+		System.assertNotEquals(null, results.values()[0].RecordType, 'Results did not include RecordType object');
+
+        results = selector.selectByReferenceIdOrderByCreatedDate(new Set<String>{cases[1].ReferenceID__c});
+		System.assertEquals(1, results.size(), 'Expected result size of 1');
+		
+		Test.stopTest();
+
+	}
+}

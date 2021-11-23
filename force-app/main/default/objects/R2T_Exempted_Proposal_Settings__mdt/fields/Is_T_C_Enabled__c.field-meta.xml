@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_T_C_Enabled__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>this field is to either show/hide the terms and condition button on the proposal record</description>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>this field is to either show/hide the terms and condition button on the proposal record</inlineHelpText>
+    <label>Is T&amp;C Enabled</label>
+    <type>Checkbox</type>
+</CustomField>

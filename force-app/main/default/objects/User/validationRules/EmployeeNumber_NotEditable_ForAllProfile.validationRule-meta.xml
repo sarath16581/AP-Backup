@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EmployeeNumber_NotEditable_ForAllProfile</fullName>
+    <active>true</active>
+    <description>Validation rule to assure that the Employee number standard field is not editable for all profiles except for System Admin and AP integration user.</description>
+    <errorConditionFormula>ISCHANGED( EmployeeNumber ) &amp;&amp; NOT( OR( $Profile.Name = &quot;System Administrator&quot;, $Profile.Name = &quot;AP Integration&quot;, $Profile.Name = &quot;AusPost Integration&quot;, $Profile.Name = &quot;AP Integration&quot;, $Profile.Name = &quot;Australia Post - Integration&quot; ))</errorConditionFormula>
+    <errorMessage>Only the Administrator is able to amend the Employee number field.</errorMessage>
+</ValidationRule>

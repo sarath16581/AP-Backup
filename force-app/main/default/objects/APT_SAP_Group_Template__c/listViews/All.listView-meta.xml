@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>APT_Charge_Code__c</columns>
+    <columns>APT_Price_Value__c</columns>
+    <columns>APT_Zone__c</columns>
+    <columns>APT_Weight_Range_Code__c</columns>
+    <columns>APT_Price_Value_Description__c</columns>
+    <columns>APT_Display_Order_Sequence__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

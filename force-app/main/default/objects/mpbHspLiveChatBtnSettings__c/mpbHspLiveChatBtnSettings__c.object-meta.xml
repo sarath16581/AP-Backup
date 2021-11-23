@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Custom setting for parameterising live agent chat button settings, used in MyPost Business Help &amp; Support Portal</description>
+    <enableFeeds>false</enableFeeds>
+    <label>MPB H&amp;S Live Chat Button Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

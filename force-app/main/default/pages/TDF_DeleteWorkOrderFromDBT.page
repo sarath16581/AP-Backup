@@ -1,0 +1,59 @@
+<apex:page docType="html-5.0" standardController="Route_Template__c" extensions="TDF_DeleteWorkOrderFromDBT_ControllerX">    
+    <apex:form >
+      <apex:pageMessages id="pageMsg"/>
+      <apex:actionFunction name="deleteWOs" action="{!deleteWorkOrders}" status="deleteWOStatus" reRender=""/>
+      <apex:actionStatus id="deleteWOStatus">
+         <apex:facet name="start">
+         <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; z-index: 1000; background-color: black;">
+             &nbsp;
+         </div>
+         <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 15% 50%">
+             <div style="display: inline-block; padding: 2px; background-color: #fff; width: 125px; margin-left: -60px;">
+                 <img src="/img/loading.gif" /><!--style="float: left; margin: 8px;" /-->
+                 <span>Please Wait...</span>
+             </div>
+         </div>
+         </apex:facet>
+      </apex:actionStatus>        
+      <apex:pageBlock >
+        <apex:pageBlockSection title="Delete Work Order" rendered="{!hasWorkOrder}">
+            Start Date : <apex:input id="startDateId" type="date" value="{!startDate}"/>
+            End Date : <apex:input type="date" value="{!endDate}"/>
+            <input type="hidden" value="{!woCount}" id="theHiddenInput"/>
+        </apex:pageBlockSection>
+        
+        <apex:outputText value="No Work Order found for current Duty Board" rendered="{!!hasWorkOrder}" style="font-size:x-large;"/>
+      </apex:pageBlock>
+
+      <apex:commandButton id="theHiddenInput" value="Delete" rendered="{!hasWorkOrder}" status="deleteWOStatus" rerender="pageMsg, popup" action="{!confirmDeletion}"/>
+      <apex:commandButton value="Back" action="{!cancel}"/>
+      
+      <apex:outputPanel id="popup">
+        <apex:outputPanel styleClass="customPopup" layout="block" rendered="{!displayPopUp}">
+          {!woCount} - Work Orders <br/>
+          {!woLICount} - Work Order Line Items<br/>
+          {!saCount} - Service Appointments <br/><br/><br/>
+          <apex:commandButton value="Confirm Delete?" action="{!deleteWorkOrders}" rerender="popup" status="deleteWOStatus"/>
+          <apex:commandButton value="Cancel" action="{!cancel}" rerender="popup"/>
+        </apex:outputPanel>
+        <apex:outputPanel styleClass="customPopup" layout="block" rendered="{!displaySuccessMessage}">
+          <b>Data deleted Successfully.!!!</b><br/><br/>
+          <apex:commandButton value="Close" action="{!cancel}" rerender="popup"/>
+        </apex:outputPanel>
+      </apex:outputPanel>      
+  </apex:form>
+
+  <style type="text/css">
+       .customPopup{
+            background-color: white;
+            border-style: solid;
+            border-width: 2px;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            width: 500px;
+            margin-left: -250px;
+            top:100px;
+        }
+    </style>  
+</apex:page>

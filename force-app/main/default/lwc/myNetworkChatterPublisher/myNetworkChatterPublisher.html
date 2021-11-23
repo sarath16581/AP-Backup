@@ -1,0 +1,70 @@
+<!--
+  * @author       : Hara Sahoo
+  * @date         : 23/03/2020
+  * @description  : Component for Case Chatter feed
+--------------------------------------- History --------------------------------------------------
+23.03.2020    Hara Sahoo    Created
+21.04.20      Hara Sahoo    Added custom validation to the text area field when left blank
+02.10.2020      Naseer Abbasi   Added custom textra lwc to address the custom height requirement
+-->
+<template>
+  <div class="lwc-card">
+  <lightning-accordion allow-multiple-sections-open onsectiontoggle={handleSectionToggle}
+    active-section-name={activeSections}>
+    <lightning-accordion-section name="A" label="Poster Notes">
+        <div class="slds-grid slds-wrap">
+            <lightning-layout-item size="6" >
+          <!--lightning-textarea class="lwc-textarea"
+                              name="feed" 
+                              value={chatterComment}
+                              placeholder="Use this as a scribble pad for internal facility notes only and not investigation responses. Notes recorded here are not private.
+Please make use of the Still Under Investigation checkbox when adding updates to the investigation."
+                              max-length="300"
+                              onchange={handleChangeEvent}>
+          </lightning-textarea-->
+          <c-lwctextarea fieldlabel="" name="feed" placeholder="Use this as a scribble pad for internal facility notes only and not investigation responses. Notes recorded here are not private.
+Please make use of the Still Under Investigation checkbox when adding updates to the investigation." rows="4" mxlength="300" onchangeinput={handleChangeEvent}></c-lwctextarea>
+    <template if:true={isRequired} >
+        <lightning-layout class="slds-p-top_medium">
+        <p style="color:#dc1928;">Please enter a note before clicking Comment.</p>
+    </lightning-layout>
+    </template>
+        <lightning-layout class="slds-p-top_medium">
+            <lightning-button label="Comment" data-key={recordId} onclick={handleOnPost} disabled={isButtonDisabled}></lightning-button>
+        </lightning-layout>
+</lightning-layout-item>  
+      <lightning-layout-item size="12" padding="horizontal-small">
+      <div  class="slds-m-around_small">
+          <template if:true={feed}>
+              <template for:each={feed} for:item="element">
+                  <lightning:card key={element.Id}>
+                      <div class="slds-media slds-no-space slds-grow" >
+                          <div class="slds-media__figure slds-p-around_x-small " >
+                              <span class="slds-avatar">
+                                  <lightning:avatar class="slds-avatar slds-avatar_medium slds-avatar_circle">
+                                      <img src="/sfsites/c/profilephoto/005/T" alt="Default profile pic in communities"></lightning:avatar>
+                                  </span>
+                              </div>
+                              
+                              <div class="slds-media__body slds-p-around_x-small slds-truncate" key={element.Id}>
+                                  <p style="font-weight: bold;color: rgb(16, 114, 206);">{element.feedCreatedBy}</p>
+                                  <p>{element.feedCreatedDate}</p>
+                                  <p title={element.postComment}>{element.postComment}</p>
+                              </div>
+                          </div>
+                      </lightning:card>
+                  </template>
+              </template>   
+          </div>
+          </lightning-layout-item>
+          
+        </div>
+    </lightning-accordion-section>
+    </lightning-accordion>
+    <div>
+        <template if:true={showLoadingSpinner}>
+            <lightning-spinner class="spins" size="medium"></lightning-spinner>
+        </template>
+    </div>
+</div>
+  </template>

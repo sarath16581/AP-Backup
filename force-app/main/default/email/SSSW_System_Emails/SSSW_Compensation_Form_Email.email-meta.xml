@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email on the compensation form</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Compensation Form Email</name>
+    <style>none</style>
+    <subject>You&apos;re eligible for compensation</subject>
+    <textOnly>Australia Post
+
+VIEW ONLINE
+
+You&apos;re eligible for compensation
+
+Hi {!Compensation__c.ContactFirstName__c},
+
+
+We&apos;re contacting you about your case for compensation, reference number: {!Compensation__c.Case_Number__c}
+
+Our investigation found you to be eligible for compensation.
+
+We&apos;ll compensate you for the value of {!Compensation__c.Total_Compensation_Amount__c}.
+
+To begin the compensation claim:
+
+Confirm the detail about your claim
+Review your compensation claim
+Fill out your bank details and submit
+
+Begin your compensation claim
+
+Is this compensation claim for a missing or lost item?
+
+Sometimes, missing things show up. If the item gets delivered after compensation has been paid, it can be kept. No need to pay us back or open another case.
+
+Thanks
+
+AusPost Customer Services
+
+
+
+
+Australia Post will never send you an unsolicited email asking for your password, credit card details or account information
+
+
+Connect with Australia Post
+
+
+
+Nothing in this email is intended to exclude or limit any rights or remedies that you may have under the Australian Consumer Law.
+
+This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don&apos;t think you should have received this email, please call us on 13 13 18. Visit auspost.com.au for further information on our online security.
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or inteference.
+
+Terms &amp; conditions  Help &amp; support  Privacy policy
+
+
+@ 2020 Australia Post. All Rights Reserved.
+
+Australia Post acknowledges the Traditional Custodians of the land on which we operate, live and gather as employees, and recognize their continuing connection to land, water and community. We pay respect to Elders past, present and emerging.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

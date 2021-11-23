@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Issue_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Issue Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Sub_Category__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Address incomplete</fullName>
+                <default>false</default>
+                <label>Address incomplete</label>
+            </value>
+            <value>
+                <fullName>Barcode Bad Print Quality</fullName>
+                <default>false</default>
+                <label>Barcode Bad Print Quality</label>
+            </value>
+            <value>
+                <fullName>Barcode Damaged</fullName>
+                <default>false</default>
+                <label>Barcode Damaged</label>
+            </value>
+            <value>
+                <fullName>Barcode out of Specification</fullName>
+                <default>false</default>
+                <label>Barcode out of Specification</label>
+            </value>
+            <value>
+                <fullName>Customer Refusal to Barcode</fullName>
+                <default>false</default>
+                <label>Customer Refusal to Barcode</label>
+            </value>
+            <value>
+                <fullName>No Barcode</fullName>
+                <default>false</default>
+                <label>No Barcode</label>
+            </value>
+            <value>
+                <fullName>Sorting/Routing Barcode obscured/damaged</fullName>
+                <default>false</default>
+                <label>Sorting/Routing Barcode obscured/damaged</label>
+            </value>
+            <value>
+                <fullName>Declared Incorrect Product</fullName>
+                <default>false</default>
+                <label>Declared Incorrect Product</label>
+            </value>
+            <value>
+                <fullName>Discrepancy has high impact</fullName>
+                <default>false</default>
+                <label>Discrepancy has high impact</label>
+            </value>
+            <value>
+                <fullName>Discrepancy has low impact</fullName>
+                <default>false</default>
+                <label>Discrepancy has low impact</label>
+            </value>
+            <value>
+                <fullName>Declared at higher pricing than actual category</fullName>
+                <default>false</default>
+                <label>Declared at higher pricing than actual category</label>
+            </value>
+            <value>
+                <fullName>Declared at lower pricing than actual category</fullName>
+                <default>false</default>
+                <label>Declared at lower pricing than actual category</label>
+            </value>
+            <value>
+                <fullName>Special services not declared</fullName>
+                <default>false</default>
+                <label>Special services not declared</label>
+            </value>
+            <value>
+                <fullName>Declared higher pricing than actual</fullName>
+                <default>false</default>
+                <label>Declared higher pricing than actual</label>
+            </value>
+            <value>
+                <fullName>Declared lower pricing than actual</fullName>
+                <default>false</default>
+                <label>Declared lower pricing than actual</label>
+            </value>
+            <value>
+                <fullName>Dangerous goods declaration unsigned</fullName>
+                <default>false</default>
+                <label>Dangerous goods declaration unsigned</label>
+            </value>
+            <value>
+                <fullName>Incorrect/ incomplete billing details</fullName>
+                <default>false</default>
+                <label>Incorrect/ incomplete billing details</label>
+            </value>
+            <value>
+                <fullName>Incorrect/incomplete Mailing Statement</fullName>
+                <default>false</default>
+                <label>Incorrect/incomplete Mailing Statement</label>
+            </value>
+            <value>
+                <fullName>No mailing statement</fullName>
+                <default>false</default>
+                <label>No mailing statement</label>
+            </value>
+            <value>
+                <fullName>No parcels with mailing statement</fullName>
+                <default>false</default>
+                <label>No parcels with mailing statement</label>
+            </value>
+            <value>
+                <fullName>No/Incomplete Dangerous goods/Customs declaration</fullName>
+                <default>false</default>
+                <label>No/Incomplete Dangerous goods/Customs declaration</label>
+            </value>
+            <value>
+                <fullName>Customer contract details missing or incomplete</fullName>
+                <default>false</default>
+                <label>Customer contract details missing or incomplete</label>
+            </value>
+            <value>
+                <fullName>Incorrect/incomplete Manifest</fullName>
+                <default>false</default>
+                <label>Incorrect/incomplete Manifest</label>
+            </value>
+            <value>
+                <fullName>No electronic copy of manifest provided</fullName>
+                <default>false</default>
+                <label>No electronic copy of manifest provided</label>
+            </value>
+            <value>
+                <fullName>No hardcopy of manifest provided</fullName>
+                <default>false</default>
+                <label>No hardcopy of manifest provided</label>
+            </value>
+            <value>
+                <fullName>Incorrect/ incomplete ULD label</fullName>
+                <default>false</default>
+                <label>Incorrect/ incomplete ULD label</label>
+            </value>
+            <value>
+                <fullName>No ULD Label</fullName>
+                <default>false</default>
+                <label>No ULD Label</label>
+            </value>
+            <value>
+                <fullName>Breakage/Product Damage</fullName>
+                <default>false</default>
+                <label>Breakage/Product Damage</label>
+            </value>
+            <value>
+                <fullName>Over weight</fullName>
+                <default>false</default>
+                <label>Over weight</label>
+            </value>
+            <value>
+                <fullName>Oversize dimensions</fullName>
+                <default>false</default>
+                <label>Oversize dimensions</label>
+            </value>
+            <value>
+                <fullName>Prohibited or dangerous goods</fullName>
+                <default>false</default>
+                <label>Prohibited or dangerous goods</label>
+            </value>
+            <value>
+                <fullName>Sealing/Packaging</fullName>
+                <default>false</default>
+                <label>Sealing/Packaging</label>
+            </value>
+            <value>
+                <fullName>No Postage Paid indicator</fullName>
+                <default>false</default>
+                <label>No Postage Paid indicator</label>
+            </value>
+            <value>
+                <fullName>No Return Address</fullName>
+                <default>false</default>
+                <label>No Return Address</label>
+            </value>
+            <value>
+                <fullName>Incorrect Stamps used (International vs. Domestic)</fullName>
+                <default>false</default>
+                <label>Incorrect Stamps used (International vs. Domestic)</label>
+            </value>
+            <value>
+                <fullName>Mixed country &amp; metro</fullName>
+                <default>false</default>
+                <label>Mixed country &amp; metro</label>
+            </value>
+            <value>
+                <fullName>Mixed states</fullName>
+                <default>false</default>
+                <label>Mixed states</label>
+            </value>
+            <value>
+                <fullName>Incorrect/ incomplete label data</fullName>
+                <default>false</default>
+                <label>Incorrect/ incomplete label data</label>
+            </value>
+            <value>
+                <fullName>ULD weight exceeds 600kg</fullName>
+                <default>false</default>
+                <label>ULD weight exceeds 600kg</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Inscriptions</controllingFieldValue>
+            <valueName>No Postage Paid indicator</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Inscriptions</controllingFieldValue>
+            <valueName>No Return Address</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Stamps</controllingFieldValue>
+            <valueName>Incorrect Stamps used (International vs. Domestic)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Incorrect mail sortation</controllingFieldValue>
+            <valueName>Mixed country &amp; metro</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Incorrect mail sortation</controllingFieldValue>
+            <valueName>Mixed states</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ULD</controllingFieldValue>
+            <valueName>Incorrect/ incomplete label data</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ULD</controllingFieldValue>
+            <valueName>ULD weight exceeds 600kg</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Actual exceeds M/s</controllingFieldValue>
+            <controllingFieldValue>Actual is less than M/s</controllingFieldValue>
+            <controllingFieldValue>Parcels not Cubed</controllingFieldValue>
+            <valueName>Discrepancy has high impact</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Actual exceeds M/s</controllingFieldValue>
+            <controllingFieldValue>Actual is less than M/s</controllingFieldValue>
+            <controllingFieldValue>Parcels not Cubed</controllingFieldValue>
+            <valueName>Discrepancy has low impact</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Address &amp;/or Barcode visibility</controllingFieldValue>
+            <valueName>Address incomplete</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Address &amp;/or Barcode visibility</controllingFieldValue>
+            <valueName>Barcode Bad Print Quality</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Address &amp;/or Barcode visibility</controllingFieldValue>
+            <valueName>Barcode Damaged</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Address &amp;/or Barcode visibility</controllingFieldValue>
+            <valueName>Barcode out of Specification</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Address &amp;/or Barcode visibility</controllingFieldValue>
+            <valueName>Customer Refusal to Barcode</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Address &amp;/or Barcode visibility</controllingFieldValue>
+            <valueName>No Barcode</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Address &amp;/or Barcode visibility</controllingFieldValue>
+            <valueName>Sorting/Routing Barcode obscured/damaged</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not eligible for Parcels</controllingFieldValue>
+            <valueName>Declared Incorrect Product</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Size/Weight/Thickness/Shape</controllingFieldValue>
+            <valueName>Declared at higher pricing than actual category</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Size/Weight/Thickness/Shape</controllingFieldValue>
+            <valueName>Declared at lower pricing than actual category</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Special services</controllingFieldValue>
+            <valueName>Special services not declared</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Zone/State Categories</controllingFieldValue>
+            <valueName>Declared higher pricing than actual</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Zone/State Categories</controllingFieldValue>
+            <valueName>Declared lower pricing than actual</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Mailing Statement</controllingFieldValue>
+            <valueName>Dangerous goods declaration unsigned</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Mailing Statement</controllingFieldValue>
+            <valueName>Incorrect/ incomplete billing details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Mailing Statement</controllingFieldValue>
+            <valueName>Incorrect/incomplete Mailing Statement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Mailing Statement</controllingFieldValue>
+            <valueName>No mailing statement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Mailing Statement</controllingFieldValue>
+            <valueName>No parcels with mailing statement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Mailing Statement</controllingFieldValue>
+            <controllingFieldValue>Parcel Manifest</controllingFieldValue>
+            <valueName>No/Incomplete Dangerous goods/Customs declaration</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Manifest</controllingFieldValue>
+            <valueName>Customer contract details missing or incomplete</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Manifest</controllingFieldValue>
+            <valueName>Incorrect/incomplete Manifest</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Manifest</controllingFieldValue>
+            <valueName>No electronic copy of manifest provided</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Manifest</controllingFieldValue>
+            <valueName>No hardcopy of manifest provided</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ULD Label</controllingFieldValue>
+            <valueName>Incorrect/ incomplete ULD label</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ULD Label</controllingFieldValue>
+            <valueName>No ULD Label</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Article characteristics</controllingFieldValue>
+            <valueName>Breakage/Product Damage</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Article characteristics</controllingFieldValue>
+            <valueName>Over weight</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Article characteristics</controllingFieldValue>
+            <valueName>Oversize dimensions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Article characteristics</controllingFieldValue>
+            <valueName>Prohibited or dangerous goods</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Article characteristics</controllingFieldValue>
+            <valueName>Sealing/Packaging</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

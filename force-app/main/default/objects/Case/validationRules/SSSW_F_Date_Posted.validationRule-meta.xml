@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_F_Date_Posted</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( ISBLANK(DatePosted__c), 
+NOT(ISPICKVAL( Origin , &quot;Web&quot;)),
+NOT(ISPICKVAL( Origin , &quot;Portal&quot;)),NOT(ISPICKVAL( Origin , &quot;Internal form&quot;)), 
+NOT(ISNEW()),
+ISBLANK(TEXT(CCUEnquiryType__c)),
+CONTAINS( RecordType.DeveloperName, &quot;SSSWDelivery&quot;), 
+ArticleRecordType__c &lt;&gt; &quot;Consignment&quot;,
+Bypass_Data_enforcement__c = FALSE,
+Email_Bypass_Data_enforcement__c = FALSE, 
+$Profile.Name &lt;&gt; &apos;SNNAP Integration&apos;, 
+OR ( 
+AND ( OR (ISPICKVAL (ProductCategory__c, &quot;Domestic Parcels&quot;),ISPICKVAL (ProductCategory__c, &quot;Domestic Letters&quot;)), 
+OR( 
+ISPICKVAL( EnquirySubType__c , &quot;Delayed - inside network&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;Delayed - outside network&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;Delayed delivery&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;Withdrawal from post&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;Remittance not received&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;RTS request&quot;)),
+
+
+AND ( OR (ISPICKVAL (ProductCategory__c, &quot;International Parcels&quot;),(ISPICKVAL (ProductCategory__c, &quot;International Letters&quot;)),
+OR(
+ISPICKVAL( EnquirySubType__c , &quot;Delayed&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;Delayed delivery&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;Withdrawal from post&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;Change address&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;Interception request&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;International Parcels - Other&quot;))
+
+)))))</errorConditionFormula>
+    <errorDisplayField>DatePosted__c</errorDisplayField>
+    <errorMessage>You must populate the field &apos;Date Posted&apos; before you can save this record</errorMessage>
+</ValidationRule>

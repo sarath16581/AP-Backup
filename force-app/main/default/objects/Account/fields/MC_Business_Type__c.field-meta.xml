@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MC_Business_Type__c</fullName>
+    <description>Phase 1 - Marketing Characteristics</description>
+    <externalId>false</externalId>
+    <label>Business Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Australian Public Company</fullName>
+                <default>false</default>
+                <label>Australian Public Company</label>
+            </value>
+            <value>
+                <fullName>Australian Private Company</fullName>
+                <default>false</default>
+                <label>Australian Private Company</label>
+            </value>
+            <value>
+                <fullName>Other Incorporated Entity</fullName>
+                <default>false</default>
+                <label>Other Incorporated Entity</label>
+            </value>
+            <value>
+                <fullName>Other Unincorporated Entity</fullName>
+                <default>false</default>
+                <label>Other Unincorporated Entity</label>
+            </value>
+            <value>
+                <fullName>Australia Government Department</fullName>
+                <default>false</default>
+                <label>Australia Government Department</label>
+            </value>
+            <value>
+                <fullName>Australian Government Statutory Authority</fullName>
+                <default>false</default>
+                <label>Australian Government Statutory Authority</label>
+            </value>
+            <value>
+                <fullName>Australia Government Other (incl govt-owned companies)</fullName>
+                <default>false</default>
+                <label>Australia Government Other (incl govt-owned companies)</label>
+            </value>
+            <value>
+                <fullName>Territory Government Entity</fullName>
+                <default>false</default>
+                <label>Territory Government Entity</label>
+            </value>
+            <value>
+                <fullName>State Government Department</fullName>
+                <default>false</default>
+                <label>State Government Department</label>
+            </value>
+            <value>
+                <fullName>State Government Statutory Authority</fullName>
+                <default>false</default>
+                <label>State Government Statutory Authority</label>
+            </value>
+            <value>
+                <fullName>State Government Other (incl govt-owned companies)</fullName>
+                <default>false</default>
+                <label>State Government Other (incl govt-owned companies)</label>
+            </value>
+            <value>
+                <fullName>Local Government Entity</fullName>
+                <default>false</default>
+                <label>Local Government Entity</label>
+            </value>
+            <value>
+                <fullName>Corporate Unit Trust</fullName>
+                <default>false</default>
+                <label>Corporate Unit Trust</label>
+            </value>
+            <value>
+                <fullName>Discretionary Investment Trust</fullName>
+                <default>false</default>
+                <label>Discretionary Investment Trust</label>
+            </value>
+            <value>
+                <fullName>Discretionary Services Management Trust</fullName>
+                <default>false</default>
+                <label>Discretionary Services Management Trust</label>
+            </value>
+            <value>
+                <fullName>Discretionary Trading Trust</fullName>
+                <default>false</default>
+                <label>Discretionary Trading Trust</label>
+            </value>
+            <value>
+                <fullName>Fixed Unit Trust</fullName>
+                <default>false</default>
+                <label>Fixed Unit Trust</label>
+            </value>
+            <value>
+                <fullName>Hybrid Trust</fullName>
+                <default>false</default>
+                <label>Hybrid Trust</label>
+            </value>
+            <value>
+                <fullName>Other Trust</fullName>
+                <default>false</default>
+                <label>Other Trust</label>
+            </value>
+            <value>
+                <fullName>Individual/Sole Trader</fullName>
+                <default>false</default>
+                <label>Individual/Sole Trader</label>
+            </value>
+            <value>
+                <fullName>Family Partnership</fullName>
+                <default>false</default>
+                <label>Family Partnership</label>
+            </value>
+            <value>
+                <fullName>Other Partnership</fullName>
+                <default>false</default>
+                <label>Other Partnership</label>
+            </value>
+            <value>
+                <fullName>Limited Partnership</fullName>
+                <default>false</default>
+                <label>Limited Partnership</label>
+            </value>
+            <value>
+                <fullName>Cooperative Society</fullName>
+                <default>false</default>
+                <label>Cooperative Society</label>
+            </value>
+            <value>
+                <fullName>Social and Sporting Clubs</fullName>
+                <default>false</default>
+                <label>Social and Sporting Clubs</label>
+            </value>
+            <value>
+                <fullName>APRA Regulated Non-Public Offer Fund</fullName>
+                <default>false</default>
+                <label>APRA Regulated Non-Public Offer Fund</label>
+            </value>
+            <value>
+                <fullName>APRA Regulated Public Offer Fund</fullName>
+                <default>false</default>
+                <label>APRA Regulated Public Offer Fund</label>
+            </value>
+            <value>
+                <fullName>Charitable Institution</fullName>
+                <default>false</default>
+                <label>Charitable Institution</label>
+            </value>
+            <value>
+                <fullName>Other Business</fullName>
+                <default>false</default>
+                <label>Other Business</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

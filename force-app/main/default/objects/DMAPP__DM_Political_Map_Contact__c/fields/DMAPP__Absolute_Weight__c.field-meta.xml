@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Absolute_Weight__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>CASE(DMAPP__Status__c, 
+&quot;Mentor&quot;, 2.1, 
+&quot;Enemy&quot;, 2.2, 
+&quot;Supporter&quot;, 1.1, 
+&quot;Non-Supporter&quot;, 1.2, 
+&quot;Neutral&quot;, 0, 
+&quot;Unknown&quot;, 0, 
+0) 
++ 
+CASE(DMAPP__Political__c, 
+&quot;Inner Circle&quot;, 2, 
+&quot;Political Structure&quot;, 1, 
+&quot;Unknown&quot;, 0, 
+&quot;Outside Political Structure&quot;, 0, 
+0)
++ 
+CASE(DMAPP__Key_Buyer_Role__c, 
+&quot;decision maker&quot;, 2, 
+&quot;approver&quot;, 2, 
+&quot;evaluator&quot;, 1, 
+&quot;user&quot;, 0, 
+&quot;other&quot;, 0, 
+0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Absolute Weight</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

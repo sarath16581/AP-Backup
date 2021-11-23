@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Opportunity_Mid_Probability__c</fullName>
+    <defaultValue>30</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field allows an administrator to specify a threshold probability above which Dealmaker Coach Rules will consider the Opportunity to be reasonably progressed.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field allows an administrator to specify a threshold probability above which Dealmaker Coach Rules will consider the Opportunity to be reasonably progressed.</inlineHelpText>
+    <label>Opportunity Mid Probability</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

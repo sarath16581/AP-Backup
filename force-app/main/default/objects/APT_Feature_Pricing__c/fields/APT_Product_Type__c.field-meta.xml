@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Product_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Product Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>EPR1</fullName>
+                <default>false</default>
+                <label>EPR1</label>
+            </value>
+            <value>
+                <fullName>EPR2</fullName>
+                <default>false</default>
+                <label>EPR2</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

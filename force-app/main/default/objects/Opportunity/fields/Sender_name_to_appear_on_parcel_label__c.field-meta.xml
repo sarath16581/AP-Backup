@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sender_name_to_appear_on_parcel_label__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>This field pre-fills the sender name on the parcel label when a new SAP or TEAM account is created. Changing this field after account creation has no effect. The TEAM character limit is 25 and SAP character limit is 40.</inlineHelpText>
+    <label>Sender name to appear on parcel label</label>
+    <length>40</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

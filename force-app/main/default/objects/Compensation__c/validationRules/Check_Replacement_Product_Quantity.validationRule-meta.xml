@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_Replacement_Product_Quantity</fullName>
+    <active>true</active>
+    <description>Replacement product quantity has to be greater than 0</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName = &apos;Replacement_Product&apos;,BLANKVALUE(Replacement_Product_Quantity__c,0) &lt;=0)</errorConditionFormula>
+    <errorDisplayField>Replacement_Product_Quantity__c</errorDisplayField>
+    <errorMessage>Replacement Product Quantity should be greater than 0</errorMessage>
+</ValidationRule>

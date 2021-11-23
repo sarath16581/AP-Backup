@@ -1,0 +1,28 @@
+<!--
+* @author avula.jansirani@auspost.com.au
+* @date 05/02/2021
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Step in Credit Application Form to input Business Email address to contact
+* @changelog
+* 05/02/2021 avula.jansirani@auspost.com.au  Created
+*
+-->
+<template>
+    <!--Email address for correspondence-->
+    <lightning-input label="Email address for correspondence"
+                     name="email" 
+                     data-id="email" 
+                     type="email"
+                     pattern="[a-zA-Z\-0-9._%+-]+@[a-zA-Z\-0-9.-]+\.[a-zA-Z]{2,}$"
+                     max-length={emailFieldMaxLength}
+                     value={displayValue} 
+                     onchange={handleChange} 
+                     onfocusout={handleFocusOut} 
+                     message-when-type-mismatch={emailAddressPatternMismatchMsg}
+                     message-when-value-missing={emailAddressValueMissingMsg}
+                     message-when-pattern-mismatch={emailAddressPatternMismatchMsg}
+                     required>
+    </lightning-input>
+
+</template>

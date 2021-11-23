@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__AM_Add_Value_Map__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Check this box to include value map data from Account Manager in the PowerPoint file.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check this box to include value map data from Smart Account Manager in the PowerPoint file.</inlineHelpText>
+    <label>AM Add Value Map</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

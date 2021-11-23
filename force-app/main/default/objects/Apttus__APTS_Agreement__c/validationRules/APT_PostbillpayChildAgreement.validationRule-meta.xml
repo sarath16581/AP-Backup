@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_PostbillpayChildAgreement</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+CONTAINS(RecordType.Name, &apos;Postbillpay Contract&apos;),
+OR(
+ ISBLANK( Apttus__Parent_Agreement__c ), 
+ NOT(CONTAINS( Apttus__Parent_Agreement__r.RecordType.Name , &apos;Letter of Intent&apos;)) 
+)
+)</errorConditionFormula>
+    <errorMessage>Postbillpay Contract must be a child of Letter of Intent.</errorMessage>
+</ValidationRule>

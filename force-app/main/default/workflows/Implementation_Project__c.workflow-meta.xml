@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Closed_Start_Date</fullName>
+        <field>Closed_Date__c</field>
+        <formula>today()</formula>
+        <name>Closed Start Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Implement_Date_Update</fullName>
+        <field>Implementation_Start_Date__c</field>
+        <formula>today()</formula>
+        <name>Implement Date Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Plan_Start_Date_Update</fullName>
+        <description>this rule fires when the Implementation hits stage &quot;Plan&quot;</description>
+        <field>Plan_Start_Date__c</field>
+        <formula>today()</formula>
+        <name>Plan Start Date Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Stabilise_Start_Date</fullName>
+        <field>Stabilise_Start_Date__c</field>
+        <formula>today()</formula>
+        <name>Stabilise Start Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Closed Start Date Update</fullName>
+        <actions>
+            <name>Closed_Start_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 or 2</booleanFilter>
+        <criteriaItems>
+            <field>Implementation_Project__c.Implementation_Stage__c</field>
+            <operation>equals</operation>
+            <value>Closed (Maintain)</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Implementation_Project__c.Implementation_Stage__c</field>
+            <operation>equals</operation>
+            <value>Closed (Lost)</value>
+        </criteriaItems>
+        <description>Creates the &quot;Stabilise&quot; Start Date in the custom field</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Implement Start Date Update</fullName>
+        <actions>
+            <name>Implement_Date_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Implementation_Project__c.Implementation_Stage__c</field>
+            <operation>equals</operation>
+            <value>Implement</value>
+        </criteriaItems>
+        <description>Creates the &quot;implement&quot; Start Date in the custom field</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Plan Start Date Update</fullName>
+        <actions>
+            <name>Plan_Start_Date_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Implementation_Project__c.Implementation_Stage__c</field>
+            <operation>equals</operation>
+            <value>Plan</value>
+        </criteriaItems>
+        <description>Creates the &quot;Plan&quot; Start Date in the custom field</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Stabilise Start Date Update</fullName>
+        <actions>
+            <name>Stabilise_Start_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Implementation_Project__c.Implementation_Stage__c</field>
+            <operation>equals</operation>
+            <value>Stabilise</value>
+        </criteriaItems>
+        <description>Creates the &quot;Stabilise&quot; Start Date in the custom field</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

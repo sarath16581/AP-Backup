@@ -1,0 +1,37 @@
+<!--
+* @author Andrew Judd ajudd@salesforce.com 
+* @date 2020-07-05
+* @domain Field Service 
+* @description  Page to apply imported roster data in the Roster object
+*               Provides ability to call TDF_ApplyRosterController to create Service Crew Member and Service Territory Member records
+*                   to facilitate driver assignment to duty service resources for the Crew based service resource set up
+*               Also allows call of delete functions to clear assignments
+*               Accessed from the Apply Roster button on the Roster list view
+*
+* @changelog 
+* 2020-07-14 - Andrew Judd - Created 
+-->
+<apex:page docType="html-5.0" standardController="Roster__c" extensions="TDF_ApplyRosterController">
+    <apex:stylesheet value="{!URLFOR($Resource.TDFLightningCSS, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
+    
+    <apex:form styleClass="slds-form" id="frm">
+
+        <apex:pageMessages />  
+        <apex:pageBlock id="duty_ass_rec">
+        <!--<apex:pageBlock title="Assign drivers to operational duties as per the roster reference of the selected record" id="duty_ass_rec">-->
+            <apex:pageBlockSection title="Assign drivers to operational duties as per the roster reference of the selected record">
+                <apex:outputField value="{!Roster__c.Roster_Reference__c}" id="rosterref"/>
+                <apex:outputField value="{!Roster__c.Service_Territory__c}" id="svcter"/>                
+            </apex:pageBlockSection>  
+
+            <div align="center" draggable="false" >
+                <apex:commandButton value="Apply Roster" title="Create operational driver to duty assignments for all roster records as per the roster reference of the selected record" action="{!applyRoster}" styleClass="slds-button slds-button_brand" />
+                <apex:commandButton value="Delete Roster"  title="Delete all roster records from the roster object with the same roster reference of this record" action="{!deleteRosterRecordsByRosterRef}" styleClass="slds-button slds-button_brand" />
+                <apex:commandButton value="Delete Roster Assignments" title="Clear all operational driver to duty assignments with the same roster reference as this record from tomorrow" action="{!deleteAssignmentsByRosterRef}" styleClass="slds-button slds-button_brand" />
+                <apex:commandButton value="Delete All Assignments" title="Clear all operational driver to duty assignments with the same service territory as this record from tomorrow" action="{!deleteAssignmentsByST}" styleClass="slds-button slds-button_brand" />
+                <apex:commandButton value="Back" action="{!goBack}"/> 
+            </div>
+
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

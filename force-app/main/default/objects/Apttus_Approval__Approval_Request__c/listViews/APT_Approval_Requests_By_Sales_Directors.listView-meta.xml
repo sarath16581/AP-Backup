@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Approval_Requests_By_Sales_Directors</fullName>
+    <columns>NAME</columns>
+    <columns>Apttus_QPApprov__ProposalId__c</columns>
+    <columns>Apttus_Approval__Initial_Submitter__c</columns>
+    <columns>APT_Account_Manager__c</columns>
+    <columns>Apttus_Approval__Assigned_To_Link__c</columns>
+    <columns>Apttus_Approval__Assigned_To__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>APT_UserType__c</field>
+        <operation>equals</operation>
+        <value>Sales Director</value>
+    </filters>
+    <filters>
+        <field>Apttus_Approval__RequestType__c</field>
+        <operation>equals</operation>
+        <value>Standard</value>
+    </filters>
+    <filters>
+        <field>Apttus_Approval__StepSequenceString__c</field>
+        <operation>equals</operation>
+        <value>1.1</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>greaterThan</operation>
+        <value>7/10/2021 12:00 AM</value>
+    </filters>
+    <label>Pricing Approval Request Assigned to me</label>
+    <language>en_US</language>
+</ListView>

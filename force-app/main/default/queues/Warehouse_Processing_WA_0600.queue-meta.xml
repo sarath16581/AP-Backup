@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>postwa.generic@dhl.com</email>
+    <name>Warehouse Processing – WA (0600)</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>Warehouse_Processing_WA_0600</publicGroup>
+        </publicGroups>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

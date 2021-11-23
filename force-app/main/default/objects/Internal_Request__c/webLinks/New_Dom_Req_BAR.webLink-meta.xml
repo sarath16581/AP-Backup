@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Dom_Req_BAR</fullName>
+    <availability>online</availability>
+    <description>New Domestic Internal Request on a BAR RL</description>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Domestic Parcel pricing BAR request</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>/aGI/e?&amp;RecordType=0122v000001d2Lc&amp;
+CF00N2v00000Iblns={!At_Risk_Business__c.Name}&amp;
+CF00N2v00000Iblns_lkid={!At_Risk_Business__c.Id}&amp;
+CF00N2v00000Iblod={!At_Risk_Business__c.Related_Opportunity__c}&amp;
+CF00N2v00000Iblod_lkid={!At_Risk_Business__c.Related_OpportunityId__c}&amp;
+00N2v00000Iblou=Business at Risk&amp;
+CF00N2v00000Ibloe={!At_Risk_Business__c.Legal_Entity_Name__c}&amp;
+retURL=%2F{!At_Risk_Business__c.Id}</url>
+</WebLink>

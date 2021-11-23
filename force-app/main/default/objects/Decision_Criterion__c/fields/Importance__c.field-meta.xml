@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Importance__c</fullName>
+    <defaultValue>0</defaultValue>
+    <description>Phase 1 - Opportunity Assessment (PWC) 
+
+Identify the importance of each criterion relative to one another (% weighting)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Importance to overall decision entered as a %</inlineHelpText>
+    <label>Importance</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

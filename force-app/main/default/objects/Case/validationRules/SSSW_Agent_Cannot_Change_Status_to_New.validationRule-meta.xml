@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Agent_Cannot_Change_Status_to_New</fullName>
+    <active>true</active>
+    <description>SSSW Prevents Agent from changing the Case Status to New. Agents should always act on the Case, they cannot simply change the status back to New</description>
+    <errorConditionFormula>CONTAINS($UserRole.DeveloperName, &apos;Service_Agent&apos;) 
+&amp;&amp; 
+ISCHANGED(Status) 
+&amp;&amp; 
+ISPICKVAL(Status, &apos;New&apos;)</errorConditionFormula>
+    <errorMessage>Status cannot be changed to &apos;New&apos;</errorMessage>
+</ValidationRule>

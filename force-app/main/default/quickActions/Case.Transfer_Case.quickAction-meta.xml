@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>StarTrack: Transfer of case ownership</description>
+    <height>130</height>
+    <icon>Transfer</icon>
+    <label>Transfer Case</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <page>StarTrackTransferCasePA</page>
+    <type>VisualforcePage</type>
+    <width>-100</width>
+</QuickAction>

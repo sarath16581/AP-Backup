@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unidentified_All</fullName>
+    <columns>NAME</columns>
+    <columns>Title__c</columns>
+    <columns>Unit_Type__c</columns>
+    <columns>Dimension__c</columns>
+    <columns>Date_Found__c</columns>
+    <columns>Freight_Location__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Un-Identified</value>
+    </filters>
+    <label>Unidentified - All</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>All_StarTrack_Users</group>
+        <group>Sales</group>
+        <roleAndSubordinatesInternal>SalesOperations</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

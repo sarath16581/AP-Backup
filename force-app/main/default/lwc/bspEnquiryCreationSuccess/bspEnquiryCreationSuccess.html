@@ -1,0 +1,41 @@
+<!--
+  @description       : Enquiry creation success message display component
+  @author            : avula.jansirani@auspost.com.au
+  @group             : 
+  @last modified on  : 09-16-2020
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   09-16-2020   avula.jansirani@auspost.com.au   Initial Version
+-->
+<template>
+    <template if:true={enquiyType}>
+
+        <!-- Success message-->
+        <div class="slds-p-around_x-large">
+            <!-- header-->
+            <h2 class="slds-p-bottom_medium">{headerText}</h2>
+            <p>
+                <!-- body-->
+                <lightning-formatted-rich-text  value={bodyText}></lightning-formatted-rich-text>
+
+                <br><br>
+                 <!-- note-->
+                 <lightning-formatted-rich-text  value={note}></lightning-formatted-rich-text>
+            </p>
+
+             <!-- back button-->
+            <div class="slds-p-top_medium">
+                <lightning-button label="Back to home" title="back" onclick={onClickCancel} class="brand-secondary-button">
+                </lightning-button>
+            </div>
+
+        </div>
+
+       
+
+    </template>
+
+
+
+</template>

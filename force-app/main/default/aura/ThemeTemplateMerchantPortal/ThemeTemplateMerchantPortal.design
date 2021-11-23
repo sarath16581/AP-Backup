@@ -1,0 +1,7 @@
+<design:component label="Theme Layout w/ Custom Header for Merchant Portal">
+    <design:attribute name="pageTitle" label="Page Title"/>
+    <design:attribute name="layoutWidth" label="Layout Width" datasource="contained,wide" />
+    <design:attribute name="cssClass" label="Additional Css Classes" />
+    <design:attribute name="showProfileMenu" label="Show Profile Menu" />
+    <design:attribute name="linkToHome" label="Add Home Link on Logo" />
+</design:component>

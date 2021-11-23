@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Subscribe__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>SSSW
+- set to true by &quot;SSSW - Overwrite ReferenceID&quot; WFR
+- if set to true triggers the &quot;SSSW - Article Subscription&quot; WFR
+
+DEPRECATED: This field has now been deprecated and should be removed when possible, AUG-2020</description>
+    <externalId>false</externalId>
+    <inlineHelpText>DEPRECATED: This field has now been deprecated and should be removed when possible, AUG-2020</inlineHelpText>
+    <label>(DEPRECATED) Subscribe</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

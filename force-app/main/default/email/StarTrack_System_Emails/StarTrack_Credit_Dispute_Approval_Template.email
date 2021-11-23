@@ -1,0 +1,11 @@
+Hi,<br>
+<br>
+{!User.Name} requested your approval for Case: {!Case.CaseNumber} with the following details:<br><br>
+Billing Account Number: {!Case.Billing_Number__c}<br>
+Billing Account Name: {!Case.Related_Billing_Account__c}<br>
+Amount Claimed: {!Case.Amount_Claimed__c}<br>
+<br>
+Please click this link ({!ApprovalRequest.Internal_URL}) to approve or reject this record.<br>
+<br>
+Thanks,<br>
+StarTrack Team

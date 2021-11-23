@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_guest_invitation_status</fullName>
+    <active>true</active>
+    <description>Unless the guest is invited, these fields may not be completed: Has Guest, Accepted, or Attended.</description>
+    <errorConditionFormula>And(Has_Guest__c =True, Invited__c =False) || And( NOT(ISBLANK(TEXT(Accepted__c))), Invited__c =False) || And( NOT(ISBLANK(TEXT( Attended__c ))), Invited__c =False)</errorConditionFormula>
+    <errorDisplayField>Invited__c</errorDisplayField>
+    <errorMessage>If a guest is not invited, you cannot complete - Has Guest, Accepted or Attended fields.</errorMessage>
+</ValidationRule>

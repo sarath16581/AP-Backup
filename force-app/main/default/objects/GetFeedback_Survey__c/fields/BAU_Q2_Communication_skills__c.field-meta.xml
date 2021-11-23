@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAU_Q2_Communication_skills__c</fullName>
+    <description>How would you rate the Business Systems Support Agent on:
+Communication skills</description>
+    <externalId>false</externalId>
+    <inlineHelpText>How would you rate the Business Systems Support Agent on:
+Communication skills</inlineHelpText>
+    <label>BAU Q2 - Communication skills</label>
+    <length>2</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

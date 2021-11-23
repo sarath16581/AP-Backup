@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_Cover_Type</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(Compensation_Amount__c  &gt;100,ISPICKVAL(Cover_Type__c,&quot;T&amp;C Cover&quot;))</errorConditionFormula>
+    <errorDisplayField>Cover_Type__c</errorDisplayField>
+    <errorMessage>Compensation for contents over $100 is not covered by T&amp;Cs. Select the correct cover type.</errorMessage>
+</ValidationRule>

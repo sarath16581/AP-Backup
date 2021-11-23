@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Holding_User_With_Role</fullName>
+    <active>true</active>
+    <description>Must have a Holding Role if Holding User is the Account Manager</description>
+    <errorConditionFormula>IF(
+
+AND(OwnerId = &quot;00590000000im7B&quot;, IsPersonAccount=False,
+( Holding_Role_Reference__c = &quot;&quot;), 
+
+OR($User.ProfileId = &quot;00e90000000hjnz&quot;, $User.ProfileId =&quot;00e90000000kuD3&quot;)),
+
+True,False)</errorConditionFormula>
+    <errorDisplayField>Holding_Role__c</errorDisplayField>
+    <errorMessage>Requires Holding Role when Account Manager is Holding User</errorMessage>
+</ValidationRule>

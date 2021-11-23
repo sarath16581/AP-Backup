@@ -1,0 +1,51 @@
+/*
+ * @date : 20-07-2020 hara.sahoo@auspost.com.au Added border styling to the slds-textarea,slds-input and slds-select elements
+*/
+.THIS .wizard-body-with-nav-inner {
+    max-width:656px;
+    padding:40px 0px 50px 0px !important;}
+  
+  @media (max-width: 680px) {
+  .THIS .outer-box {
+      border: 8px solid #F5F5F5;
+  }
+  }
+  
+  /*@media (min-width: 680px) {
+      .THIS .desktop-view {
+          display:block;
+      }
+      .THIS .mobile-view {
+          display:none;
+      }
+  }
+  @media (max-width: 680px) {
+      .THIS .desktop-view {
+          display:none;
+      }
+      .THIS .mobile-view {
+          display:block;
+      }
+  }*/
+.THIS .slds-grid-address{
+    display:flex;
+}
+.THIS .state-col-width,.THIS .postcode-col-width
+{
+    width:50%;
+}
+@media (min-width: 480px) {
+    .THIS .col-separator{
+        padding-left:16px;
+    }
+}
+/* Mobile view*/
+@media (max-width: 480px) {
+    .THIS .state-col-width , .THIS .postcode-col-width
+    {
+        width:100%;
+    }
+    .THIS .slds-grid-address{
+        display:block;
+    }
+}

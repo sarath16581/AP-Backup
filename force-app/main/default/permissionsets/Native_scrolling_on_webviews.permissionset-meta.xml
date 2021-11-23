@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Native scrolling on webviews</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Native scrolling on webviews</label>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>NativeWebviewScrolling</name>
+    </userPermissions>
+</PermissionSet>

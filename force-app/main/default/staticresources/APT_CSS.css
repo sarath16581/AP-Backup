@@ -1,0 +1,14 @@
+.main-cart-totals--overflow .main-cart-totals-container {
+    margin-left: 20.5rem;
+    height: 0;
+}
+
+.layout--rightcol .sidebar--configure-product .configure-product__price-name {
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    -ms-flex: none;
+    flex: none;
+    font-family: ProximaNovaSoft-Semibold;
+    font-size: .9rem;
+    width: 75%;
+}

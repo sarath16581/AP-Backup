@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Consignment__c</fullName>
+    <externalId>false</externalId>
+    <label>Consignment</label>
+    <referenceTo>Article__c</referenceTo>
+    <relationshipLabel>Book-In Notes</relationshipLabel>
+    <relationshipName>Book_In_Notes</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

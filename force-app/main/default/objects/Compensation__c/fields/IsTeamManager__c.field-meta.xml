@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsTeamManager__c</fullName>
+    <description>Field to determine if logged in user is the Team Manager for Performance report used by reporting team.</description>
+    <externalId>false</externalId>
+    <formula>(CreatedBy.ManagerId = $User.Id)</formula>
+    <label>Is Team Manager</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

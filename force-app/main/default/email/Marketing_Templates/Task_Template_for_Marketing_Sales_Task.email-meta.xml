@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Notification for Category Marketing Sales Tasks when loaded via Dataloader</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Task Template for Marketing Sales Task</name>
+    <style>none</style>
+    <subject>{!Task.Subject}</subject>
+    <textOnly>New Salesforce Task
+
+Hi there,
+
+{!Task.CreatedBy} has assigned you the following new Salesforce task to action:
+
+Subject: {!Task.Subject}
+Due Date: {!Task.ActivityDate}
+Priority: {!Task.Priority}
+Comments:
+{!Task.Description}
+
+Please click on this link to the task within Salesforce to access the relevant contact and task details: https://auspost.my.salesforce.com/{!Task.Id}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

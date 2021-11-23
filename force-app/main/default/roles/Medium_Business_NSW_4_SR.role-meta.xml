@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Edit</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>Medium Business NSW 4</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>Medium Business NSW 4 - SR</name>
+    <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    <parentRole>Medium_Business_NSW_4_Sales_Manager</parentRole>
+</Role>

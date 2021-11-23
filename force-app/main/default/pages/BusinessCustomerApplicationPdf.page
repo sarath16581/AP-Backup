@@ -1,0 +1,953 @@
+<apex:page id="customerAcquisitionFormv2PDF" 
+    name="customerAcquisitionFormv2PDF" 
+    cache="false" 
+    expires="0" 
+    contentType="text/html" 
+    showHeader="false" sidebar="false" 
+    controller="GsPdfFormController" 
+    standardStylesheets="False" 
+    title="Customer Acquisition Form" 
+    docType="html-5.0"
+    renderAs="pdf"
+    >
+
+<html class="no-js" lang="en"> 
+<head> 
+<meta charset="utf-8" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
+<meta name="DC.Creator" scheme="AglsAgent" content="Australia Post" /> 
+<meta name="DC.Title" content="Australia Post - Home" /> 
+<meta name="viewport" content="width=device-width" /> 
+
+<title>Business Customer Application Form</title> 
+
+<link rel="apple-touch-icon" sizes="144x144" href="{!URLFOR($Resource.GsForm_Assets,'css/images/favicons/apple-touch-icon-144x144.png')}" /> 
+<link rel="apple-touch-icon" sizes="114x114" href="{!URLFOR($Resource.GsForm_Assets,'css/images/favicons/apple-touch-icon-114x114.png')}" /> 
+<link rel="apple-touch-icon" sizes="72x72" href="{!URLFOR($Resource.GsForm_Assets,'css/images/favicons/apple-touch-icon-72x72.png')}" /> 
+<link rel="apple-touch-icon" href="{!URLFOR($Resource.GsForm_Assets,'css/images/favicons/apple-touch-icon.png')}" /> 
+<link rel="shortcut icon" href="{!URLFOR($Resource.GsForm_Assets,'css/images/favicons/favicon.ico')}" /> 
+
+<!-- breaks PDF rendering <link rel="stylesheet" href="{!URLFOR($Resource.GsForm_Assets,'css/style.css')}" /> -->
+<link rel="stylesheet" href="{!URLFOR($Resource.GsForm_Assets,'css/stylePDF.css')}" />
+<link rel="stylesheet" href="{!URLFOR($Resource.GsForm_Assets,'css/cssolight.css')}" /> 
+
+<!-- MRSO assets --> 
+<!-- puts odd images at the top of the PDF <link href="{!URLFOR($Resource.GsForm_Assets,'css/mrso/mrso-v2.css')}" rel="stylesheet" /> -->
+<link href="{!URLFOR($Resource.GsForm_Assets,'css/mrso/mrso-v2-PDF.css')}" rel="stylesheet" />
+<link href="{!URLFOR($Resource.GsForm_Assets,'css/mrso/lightbox.css')}" rel="stylesheet" /> 
+
+</head> 
+
+<body>
+
+<!-- START GE01 Header -->
+<div class="l-header">
+  <div id="header">
+    <header> 
+      
+      <!-- START top nav -->
+      <div class="top-nav clearfix"> </div>
+      <!-- END top nav --> 
+      
+      <!-- START logo --> 
+      <a href="#" class="main-logo"> <apex:image id="theImage" value="{!URLFOR($Resource.GsForm_Assets,'css/images/auspost.png')}" /> </a>
+      <!-- END logo --> 
+      
+      <!-- START primary nav -->
+      <div id="primary-nav" class="primary-nav clearfix">
+        <h3>Business customer application</h3>
+      </div>
+      <!-- END primary nav --> 
+      
+    </header>
+  </div>
+</div>
+<!-- END GE01 Header -->
+
+<div class="l-container l-wide">
+  <div class="l-main clearfix" role="main" id="main"> 
+    <!-- MAIN PANEL -->
+    <div class="content-panel"> 
+      
+      <!-- START CM51 Value prop  -->
+      <p class="value-proposition"></p>
+        <apex:form id="acquisitionForm" styleClass="form fn-validation">
+        
+<h2>Australia Post Business Credit Account and parcel volume requirements</h2>
+            <p>These questions will help us determine which Australia Post business products can best server your needs.</p>
+            <h3>Australia Post Business Credit Account details</h3>
+            <apex:outputPanel id="cred-acc-1" styleClass="checkbox input required input-columns">
+              <p>Are you an existing Australia Post Business Credit Account customer?</p>
+              <apex:outputText value="{!existingCreditAccount}" styleClass="FormOutputText" id="cred-acc-1-textbox"/>
+            </apex:outputPanel>
+            
+            <!-- display this section when it is an Australia Post credit account customer -->
+            <apex:outputPanel id="cred-acc-2" rendered="{!existingCreditAccount = 'Yes'}">                
+               <label for="credit-account-number">Australia Post Business Credit Account number</label>
+               <div class="input-medium">
+                  <apex:outputText value="{!appData.creditAccountNumber}" styleClass="FormOutputText"  id="credit-account-number"/>
+               </div>
+            </apex:outputPanel>
+            <!-- end -->
+            <apex:outputPanel id="cred-acc-7" styleClass="input input-small" rendered="{!existingCreditAccount = 'Yes'}">
+                <label>Do you currently lodge articles over the counter?</label>
+                <apex:outputtext value="{!appData.lodgeOverTheCounter}" styleClass="FormOutputText" />
+            </apex:outputPanel>
+            <apex:outputPanel id="cred-acc-8" styleClass="input input-large" rendered="{!existingCreditAccount = 'Yes'}">
+                <label>Which postal outlet do you currently lodge at?</label>
+                <apex:outputtext id="lodge-post-outlet" value="{!appData.lodgePostOutlet}" styleClass="FormOutputText" />
+            </apex:outputPanel>
+            
+            <!-- display this section when it is not an Australia Post credit account customer -->
+            <apex:outputPanel id="cred-acc-3"  styleClass="input required input-columns checkbox" rendered="{!existingCreditAccount = 'No'}">
+              <p>Would you like to apply for an Australia Post Business Credit Account?</p>
+              <apex:outputText value="{!applyForCreditAccount}" styleClass="FormOutputText"  id="cred-acc-3-textbox"/>
+            </apex:outputPanel>
+            <!-- end -->
+            
+            <!-- display this section when customer would like to apply for an Australia Post credit account -->
+            <apex:outputPanel id="cred-acc-4" styleClass="input required input-columns checkbox" rendered="{!existingCreditAccount = 'No' && (existingCreditAccount = 'Yes' || applyForCreditAccount = 'Yes')}">
+              <p>Do you require a credit limit greater than $5000?</p>
+              <apex:outputText value="{!appData.creditLimit5000}" styleClass="FormOutputText"  id="cred-acc-4-textbox"/>
+            </apex:outputPanel>
+            <!-- end -->
+          
+           <apex:outputPanel id="cred-acc-5" rendered="{!existingCreditAccount = 'Yes' || (existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No')}">  
+              <h3>Parcel volumes</h3>
+              <div>
+                <p>How many parcels does your business send per year?</p>
+                <div class="input input-medium">
+                    <apex:outputText value="{!appData.parcelsPerYear}" styleClass="FormOutputText"  id="cred-acc-5-textbox"/>
+                </div>
+              </div>
+            </apex:outputPanel>        
+        
+            <!-- DO NOT display this section when parcel is less than 500 -->
+            <apex:outputPanel id="cred-acc-6" styleClass="input input-columns checkbox" rendered="{!appData.parcelsPerYear = '500 - 999'}">
+                <p>Would you like to apply for the eParcel service?</p>
+                <apex:outputText value="{!appData.eParcelApplication}" styleClass="FormOutputText"  id="cred-acc-6-textbox"/>
+            </apex:outputPanel>
+            <!-- end -->                 
+
+			<apex:outputPanel id="cred-acc-9" rendered="{!appData.parcelsPerYear <> '' && (existingCreditAccount = 'Yes' || (existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No'))}"> 
+				<div>
+					<p>Would you like to apply for our International service?</p>
+					<apex:outputText value="{!appData.eciApplication}" styleClass="FormOutputText"  id="cred-acc-7-textbox"/>
+				</div>
+				<h3>International parcels</h3>
+				<div>
+					<p>Do you currently send or looking to send parcels overseas?</p>
+					<apex:outputText value="{!appData.sendParcelsOverseas}" styleClass="FormOutputText"  id="cred-acc-8-textbox"/>
+				</div>
+				<div>
+					<p>Which Express Courier International (ECI) product would you be interested to find out more?</p>
+					<apex:outputText value="{!appData.whichECI}" styleClass="FormOutputText"  id="cred-acc-9-textbox"/>
+				</div>
+			</apex:outputPanel>
+                    
+        
+        <h2>Business details</h2>
+        
+        <!--
+        START Error list
+        If there are serverside errors, include them as <li> elements
+        If there are no serverside errors, still include this DIV, but without any <li> elements. It will be used by JavaScript.
+        -->
+        <div class="form-errors hidden">
+          <h3>The following errors have occurred:</h3>
+          <ul>
+            <li>Autem nobis tenetur quia repellat veritatis qui culpa itaque dolorem unde modi tempore</li>
+            <li>Voluptate ea et eveniet ea non magnam</li>
+          </ul>
+        </div>
+        <!-- END Error list -->
+        
+          <div id="business-details-app">
+            <h3>Business name</h3>
+            <div class='input-group'>
+              <div class="input required input-medium">
+                <label for="company-name-textbox">Company or business name</label>
+                <apex:outputText value="{!LeadCompany}"  styleClass="FormOutputText"/>
+              </div>
+              <div class="input required input-medium">
+                <label for="trading-as-textbox">Trading as</label>
+                <apex:outputText value="{!LeadTradingName}" id="trading-as-textbox" styleClass="FormOutputText"/>
+              </div>
+              <div class="input required input-medium">
+                <label for="abn-number-textbox">ABN / ACN</label>
+                <apex:outputText value="{!LeadABN}" id="abn-number-textbox" styleClass="FormOutputText"/>             
+              </div>              
+              <div class="input required input-medium">
+                <label for="company-name-textbox">Type</label>
+                <apex:outputText value="{!AppData.businessType}"  styleClass="FormOutputText"/>
+              </div>  
+     
+              <!--
+            </div>
+            
+            <hr />
+            <div class='input-group'>
+                <div class="checkbox input-small">
+                    <label for="soletrader-checkbox">sole trader</label>
+                     <apex:outputText id="soletrader-checkbox" value="{!soleTraderCheckboxPdf}" styleClass="FormOutputText"/>
+                </div>
+                <div class="checkbox input-small">
+                    <label for="company-checkbox">company</label>
+                    <apex:outputText id="company-checkbox" value="{!companyCheckboxPdf}" styleClass="FormOutputText"/>
+                </div>
+                <div class="checkbox input-small">
+                    <label for="tt-checkbox">trading trust</label>
+                    <apex:outputText id="tt-checkbox" value="{!tradingTrustCheckboxPdf}" styleClass="FormOutputText"/>             
+                </div>
+            </div>
+            <div class='input-group'>
+                <div class="checkbox input-small">
+                    <label for="partnership-checkbox">partnership</label>
+                    <apex:outputText id="partnership-checkbox" value="{!partnershipCheckboxPdf}" styleClass="FormOutputText"/>                
+                </div>
+                <div class="checkbox input-small">
+                    <label for="gov-auth-checkbox">government authority</label>
+                    <apex:outputText id="gov-auth-checkbox" value="{!govAuthCheckboxPdf}" styleClass="FormOutputText"/>               
+                </div>
+                <div class="checkbox input-small">
+                    <label for="localgov-checkbox">local government</label>
+                    <apex:outputText id="localgov-checkbox" value="{!localGovCheckboxPdf}" styleClass="FormOutputText"/>               
+                </div>
+            </div>
+            <div class='input-group'>
+                <div class="checkbox input-small">
+                    <label for="int-cus-checkbox">international customer</label>
+                    <apex:outputText id="int-cus-checkbox" value="{!intCusCheckboxPdf}" styleClass="FormOutputText"/>                
+                </div>
+                          -->
+            </div>
+
+            <hr />
+            <apex:outputPanel id="ls" rendered="{!AppData.businessType=='Trading-trust'}">
+              <h3>Trust details</h3>
+              <div class='input-group'>
+                <div class="input input-medium">
+                  <label for="name-trust-textbox">Name of trust&nbsp;</label>
+                  <apex:outputText value="{!AppData.nameOfTrust}" id="name-trust-textbox" styleClass="FormOutputText"/>
+                </div>
+                <div class="input input-small">
+                  <label for="name-trustee-textbox">Name of trustee&nbsp;</label>
+                  <apex:outputText value="{!AppData.nameOfTrustee}" id="name-trustee-textbox" styleClass="FormOutputText"/>
+                </div>
+              </div>
+              <div class="input input-medium">
+                <label for="abn-trust-number-textbox">ABN / ACN</label>
+                <apex:outputText value="{!AppData.abnAcnTrust}" id="abn-trust-number-textbox" styleClass="FormOutputText"/> 
+              </div>
+              <hr/>
+            </apex:outputPanel>
+            
+            
+            <h3>Business postal address</h3>
+            <div class="input input-large">
+              <label for="address-line-1-textbox">Address line 1</label>
+              <apex:outputText value="{!leadStreet}" styleClass="FormOutputText"/>                                              
+            </div>
+            <div class="input input-large">
+              <label for="address-line-2-textbox">Address line 2</label>
+              <apex:outputText value="{!leadStreet2}" styleClass="FormOutputText"/>                                              
+            </div>
+            <div class='input-group'>
+              <div class="input input-medium">
+                <label for="city-textbox">City</label>
+                <apex:outputText value="{!leadCity}" styleClass="FormOutputText"/>      
+              </div>
+              <div class="input input-small">
+                <label for="state-textbox">State</label>
+                <apex:outputText value="{!leadState}" styleClass="FormOutputText"/>      
+              </div>
+              <div class="input input-small">
+                <label for="postcode-zip-textbox">Postcode / Zip</label>
+                <apex:outputText value="{!leadPostalcode}" styleClass="FormOutputText"/>      
+              </div>
+            </div>
+            <hr/>
+            <h3>Business type</h3>
+            <div class='input-group'>
+              <!--div class="input input-large">
+                <label for="nature-bus-textbox">Nature of business / main income producing activity</label>
+                <apex:outputText id="nature-bus-textbox" value="{!appData.natureOfBusiness}" styleClass="FormOutputText"/>  
+              </div-->
+              <div class="input input-large">
+                <label for="industry-type-textbox">Industry type</label>
+                <apex:outputText id="industry-type-textbox" value="{!appData.industryType}" styleClass="FormOutputText"/>                  
+              </div>
+            </div>
+            <br/>            
+            <div class='input-group'>
+            <div class="input input-small">
+                <label for="date-commenced-textbox">Date commenced</label>
+                <apex:outputText id="date-commenced-textbox" value="{!appData.dateCommenced}" styleClass="FormOutputText"/>                  
+            </div>
+            <div class="input input-small">
+                <label for="number-empl-textbox">Number of employees</label>
+                <apex:outputText id="number-empl-textbox" value="{!appData.numOfEmployees}" styleClass="FormOutputText"/>                  
+            </div>
+            <div class="input input-small">
+                <label for="premises-radio">Premises</label>
+                <apex:outputText value="{!appData.premisesRadio}" id="premises-radio" styleClass="FormOutputText"/>
+            </div>
+          </div>
+            
+            
+            
+            <hr/>
+            <h2>Contact details</h2>
+            <div class='input-group'>
+              <div class="input input-medium">
+                <label for="contact-details-contactname-textbox">Contact name</label>
+                <apex:outputText value="{!LeadFirstName} {!LeadLastName}" id="contact-details-contactname-textbox" styleClass="FormOutputText"/>
+              </div>              
+            </div>
+            <div class="input input-medium">
+              <label for="phone-textbox">Phone</label>
+              <apex:outputText value="{!leadPhone}" id="phone-textbox" styleClass="FormOutputText"/>              
+            </div>
+            <div class="input input-medium">
+              <label for="fax-textbox">Fax</label>
+              <apex:outputText value="{!leadFax}"  styleClass="FormOutputText"/>
+            </div>
+            <div class="input input-medium">
+              <label for="mobile-textbox">Mobile phone</label>
+              <apex:outputText value="{!leadMobilePhone}" id="mobile-textbox" styleClass="FormOutputText"/>
+            </div>
+            <div class="input input-medium"> 
+              <label for="email-textbox">Email</label>
+              <apex:outputText value="{!leadEmail}" id="email-textbox" styleClass="FormOutputText"/>
+            </div>
+            <div class="input input-medium">
+              <label for="website-textbox">Website</label>
+              <apex:outputText value="{!LeadWebsite}" id="website-textbox" styleClass="FormOutputText"/>
+            </div>
+            
+
+            
+            <!-- end -->
+          </div>
+        <hr/>
+        
+        
+        <!-- display this section when customer would like to apply for an Australia Post credit account -->
+               <!-- the next outup panel will not render for this stage, previous rerender below
+               rendered="{!existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No'}"
+               -->
+       <apex:outputPanel id="credit-acc-app-amount" rendered="{!existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No'}">
+          <h2>Australia Post Business Credit Account application</h2>
+          <h3>Credit amount details</h3>
+          <p>Credit amount required (must be less than $5000 and equivalent to two months average spend with Australia Post)</p>
+          <div class="input input-medium">
+            <apex:outputtext value="{!appData.creditAmountRequired}" styleClass="FormOutputText"  label="fax-textbox"  />
+          </div>
+       </apex:outputPanel>
+       <apex:outputPanel id="credit-acc-app" rendered="false">   
+          <hr/>
+          <h3>Trade / business references (details of 3 major customers are required)</h3>
+          <div class="input input-medium">
+            <label for="fax-textbox">Company or business name</label>
+            <apex:outputtext value="{!appData.companyorBusinessName}" styleClass="FormOutputText" label="fax-textbox"  />
+          </div>
+          <div class="input-group">
+            <div class="input input-medium">
+              <label for="fax-textbox">Contact name</label>
+              <apex:outputtext value="{!appData.contactName1}" styleClass="FormOutputText" label="fax-textbox"  />
+            </div>
+            <div class="input input-medium">
+              <label for="fax-textbox">Contact position title</label>
+              <apex:outputtext value="{!appData.contactPositionTitle1}" styleClass="FormOutputText" label="fax-textbox"  />
+            </div>
+          </div>
+          <div class="input input-medium">
+            <label for="fax-textbox">Phone</label>
+            <apex:outputtext value="{!appData.phone1}" styleClass="FormOutputText" label="fax-textbox"  />
+          </div>
+          <div class="input input-medium">
+            <label for="fax-textbox">Email</label>
+            <apex:outputtext value="{!appData.email1}" styleClass="FormOutputText" label="fax-textbox"  />
+          </div>
+          <hr/>
+          <div class="input input-medium">
+            <label for="fax-textbox">Company or business name</label>
+            <apex:outputtext value="{!appData.companyOrBusinessName2}" styleClass="FormOutputText" label="fax-textbox"  />
+          </div>
+          <div class="input-group">
+            <div class="input input-medium">
+              <label for="fax-textbox">Contact name</label>
+              <apex:outputtext value="{!appData.contactName2}" styleClass="FormOutputText" label="fax-textbox"  />
+            </div>
+            <div class="input input-medium">
+              <label for="fax-textbox">Contact position title</label>
+              <apex:outputtext value="{!appData.contactPositionTitle2}" styleClass="FormOutputText" label="fax-textbox"  />
+            </div>
+          </div>
+          <div class="input input-medium">
+            <label for="fax-textbox">Phone</label>
+            <apex:outputtext value="{!appData.phone2}" styleClass="FormOutputText" label="fax-textbox"  />
+          </div>
+          <div class="input input-medium">
+            <label for="fax-textbox">Email</label>
+            <apex:outputtext value="{!appData.email2}" styleClass="FormOutputText" label="fax-textbox"  />
+          </div>
+          <hr/>
+          <div class="input input-medium">
+            <label for="fax-textbox">Company or business name</label>
+            <apex:outputtext value="{!appData.companyOrBusinessName3}" styleClass="FormOutputText" label="fax-textbox"  />
+          </div>
+          <div class="input-group">
+            <div class="input input-medium">
+              <label for="fax-textbox">Contact name</label>
+              <apex:outputtext value="{!appData.contactName3}" styleClass="FormOutputText" label="fax-textbox"  />
+            </div>
+            <div class="input input-medium">
+              <label for="fax-textbox">Contact position title</label>
+              <apex:outputtext value="{!appData.contactPositionTitle3}" styleClass="FormOutputText" label="fax-textbox"  />
+            </div>
+          </div>
+          <div class="input input-medium">
+            <label for="fax-textbox">Phone</label>
+            <apex:outputtext value="{!appData.phone3}" styleClass="FormOutputText" label="fax-textbox"  />
+          </div>
+          <div class="input input-medium">
+            <label for="fax-textbox">Email</label>
+            <apex:outputtext value="{!appData.email3}" styleClass="FormOutputText" label="fax-textbox"  />
+          </div>
+          <hr/>
+          </apex:outputPanel>
+          
+          
+           <apex:outputPanel id="credit-acc-personal-app" rendered="{!existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No'}">      
+          
+          
+          <h3>Personal details of sole trader / partners / directors or trustees</h3>
+          <div class="input-group">
+            <div class="input required input-small">
+              <label for="exampleSelSmall">Title</label>
+                <apex:outputText value="{!appData.titlePD1}" styleClass="FormOutputText"/>
+            </div>
+            <div class="input input-large">
+              <label for="fax-textbox">Name</label>
+              <apex:outputtext value="{!appData.namePD1}" styleClass="FormOutputText" label="fax-textbox"  />
+            </div>
+          </div>
+          <div class="input input-large">
+            <label for="personal-address-line-1-textbox">Address line 1</label>
+            <apex:outputtext value="{!appData.address1PD1}" styleClass="FormOutputText" label="address-line-1-textbox" id="personal-address-line-1-textbox" />
+          </div>
+          <div class="input input-large">
+            <label for="personal-address-line-2-textbox">Address line 2</label>
+            <apex:outputtext value="{!appData.address2PD1}" styleClass="FormOutputText" label="address-line-2-textbox" id="personal-address-line-2-textbox" />
+          </div>
+          <div class='input-group'>
+            <div class="input input-medium">
+              <label for="personal-city-textbox">City</label>
+              <apex:outputtext value="{!appData.cityPD1}" styleClass="FormOutputText" label="city-textbox" id="personal-city-textbox" />
+            </div>
+            <div class="input input-small">
+              <label for="personal-state-textbox">State</label>
+              <apex:outputtext value="{!appData.statePD1}" styleClass="FormOutputText" label="state-textbox" id="personal-state-textbox" />
+            </div>
+            <div class="input input-small">
+              <label for="personal-postcode-zip-textbox">Postcode / Zip</label>
+              <apex:outputtext value="{!appData.postcodePD1}" styleClass="FormOutputText" label="postcode-zip-textbox" id="personal-postcode-zip-textbox" />
+            </div>
+          </div>
+          <div class="input required input-columns">
+            <p>Premises</p>
+            <div class="input-medium">
+                <apex:outputText value="{!appData.premisesPD1}" styleClass="FormOutputText" />
+            </div>
+          </div>
+          <div class="input input-medium">
+            <label for="postcode-zip-textbox">Driver's licence number</label>
+            <apex:outputtext value="{!appData.driversLicensePD1}" styleClass="FormOutputText" label="postcode-zip-textbox"  />
+          </div>
+          <div class="input input-small">
+            <label for="birth-textbox">Birth date</label>
+            <apex:outputtext value="{!appData.birthDatePD1}" styleClass="FormOutputText" label="brith-textbox"  />
+          </div>
+          <!--div class="input input-medium">
+            <label for="spouse-textbox">Name of spouse</label>
+            <apex:outputtext value="{!appData.nameOfSpousePD1}" styleClass="FormOutputText" label="spouse-textbox"  />
+          </div-->
+          <hr/>
+          <div class="input-group">
+            <div class="input required input-small">
+              <label for="exampleSelSmall">Title</label>
+              <apex:outputText value="{!appData.titlePD2}" styleClass="FormOutputText" />
+            </div>
+            <div class="input input-large">
+              <label for="fax-textbox">Name</label>
+              <apex:outputtext value="{!appData.namePD2}" styleClass="FormOutputText" label="fax-textbox"  />
+            </div>
+          </div>
+          <div class="input input-large">
+            <label for="address-line-1-textbox">Address line 1</label>
+            <apex:outputtext value="{!appData.address1PD2}" styleClass="FormOutputText" label="address-line-1-textbox"  />
+          </div>
+          <div class="input input-large">
+            <label for="address-line-2-textbox">Address line 2</label>
+            <apex:outputtext value="{!appData.address2PD2}" styleClass="FormOutputText" label="address-line-2-textbox"  />
+          </div>
+          <div class='input-group'>
+            <div class="input input-medium">
+              <label for="city-textbox">City</label>
+              <apex:outputtext value="{!appData.cityPD2}" styleClass="FormOutputText" label="city-textbox"  />
+            </div>
+            <div class="input input-small">
+              <label for="state-textbox">State</label>
+              <apex:outputtext value="{!appData.statePD2}" styleClass="FormOutputText" label="state-textbox"  />
+            </div>
+            <div class="input input-small">
+              <label for="postcode-zip-textbox">Postcode / Zip</label>
+              <apex:outputtext value="{!appData.postcodePD2}" styleClass="FormOutputText" label="postcode-zip-textbox"  />
+            </div>
+          </div>
+          <div class="input required input-medium">
+            <p>Premises</p>
+            <apex:outputText value="{!appData.premisesPD2}" styleClass="FormOutputText"/>
+          </div>
+          <div class="input input-medium">
+            <label for="postcode-zip-textbox">Driver's licence number</label>
+            <apex:outputtext value="{!appData.driversLicensePD2}" styleClass="FormOutputText" label="postcode-zip-textbox"  />
+          </div>
+          <div class="input input-small">
+            <label for="postcode-zip-textbox">Birth date</label>
+            <apex:outputtext value="{!appData.birthDatePD2}" styleClass="FormOutputText" label="postcode-zip-textbox"  />
+          </div>
+          <!--div class="input input-medium">
+            <label for="postcode-zip-textbox">Name of spouse</label>
+            <apex:outputtext value="{!appData.nameOfSpousePD2}" styleClass="FormOutputText" label="postcode-zip-textbox"  />
+          </div-->
+          <hr/>
+        </apex:outputPanel>
+        <!-- end -->
+        
+        <!-- display this section when customer would like eParcel service -->
+        <apex:outputPanel id="eparcel-acc-app"  rendered="{!appData.eParcelApplication = 'Yes'}">
+          <h2>eParcel application</h2>
+          <h3>Parcel lodgement information</h3>
+          <div class="input required input-columns">
+            <p>How will your parcels be lodged? (tick all that apply)</p>
+            <div class='input-group'>
+                <div class="input input-medium checkbox">
+                    <label for="soletrader-checkbox">pick up</label>
+                    <apex:outputText value="{!parcelPickUpPdf}" styleClass="FormOutputText"/>
+                </div>
+                <div class="input input-medium checkbox">
+                    <label for="company-checkbox" style="width: 200px;">drop off (at lodgement centre) </label>
+                    <apex:outputText value="{!parelDropOffPdf}" styleClass="FormOutputText"/>
+                </div>
+            </div>
+          </div>
+          <hr/>
+          <h3>Lodgement centres</h3>
+          <div class="input input-medium">
+            <label for="postcode-zip-textbox">Principle lodgement centre</label>
+            <apex:outputtext value="{!appData.principalLC}" styleClass="FormOutputText" label="postcode-zip-textbox"  />
+          </div>
+          <div class="input input-medium">
+            <label for="postcode-zip-textbox">Alternate lodgement centre</label>
+            <apex:outputtext value="{!appData.alternativeLC1}" styleClass="FormOutputText" label="postcode-zip-textbox"  />
+          </div>
+          <div class="input input-medium">
+            <label for="postcode-zip-textbox">Alternate lodgement centre</label>
+            <apex:outputtext value="{!appData.alternativeLC2}" styleClass="FormOutputText" label="postcode-zip-textbox"  />
+          </div>
+          <div class="input input-medium">
+            <label for="postcode-zip-textbox">Alternate lodgement centre</label>
+            <apex:outputtext value="{!appData.alternativeLC3}" styleClass="FormOutputText" label="postcode-zip-textbox"  />
+          </div>
+          <hr/>
+          <h3>Pick up address</h3>
+          <div class="input input-large">
+            <label for="address-line-1-textbox">Address line 1</label>
+            <apex:outputtext value="{!appData.address1PA}" styleClass="FormOutputText" label="address-line-1-textbox"  />
+          </div>
+          <div class="input input-large">
+            <label for="address-line-2-textbox">Address line 2</label>
+            <apex:outputtext value="{!appData.address2PA}" styleClass="FormOutputText" label="address-line-2-textbox"  />
+          </div>
+          <div class='input-group'>
+            <div class="input input-small">
+              <label for="city-textbox">City</label>
+              <apex:outputtext value="{!appData.cityPA}" styleClass="FormOutputText" label="city-textbox"  />
+            </div>
+            <div class="input input-small">
+              <label for="state-textbox">State</label>
+              <apex:outputtext value="{!appData.statePA}" styleClass="FormOutputText" label="state-textbox"  />
+            </div>
+            <div class="input input-small">
+              <label for="postcode-zip-textbox">Postcode / Zip</label>
+              <apex:outputtext value="{!appData.postcodePA}" styleClass="FormOutputText" label="postcode-zip-textbox"  />
+            </div>
+          </div>
+          <hr/>
+          <h3>Pick up / drop off times</h3>
+          <div class="input required input-columns">
+            <p>Please select your preferred pick up / drop off days</p>
+            <div class='input-group'>
+                <div class="input input-small checkbox checkbox-small">
+                  <label for="city-textbox"> Monday </label>
+                  <apex:outputtext value="{!mondayPickupPdf}" styleClass="FormOutputText" label="city-textbox"  />
+                </div>
+                <div class="input input-small checkbox checkbox-small">
+                  <label for="state-textbox"> Tuesday </label>
+                  <apex:outputtext value="{!tuesdayPickupPdf}" styleClass="FormOutputText" label="state-textbox"  />
+                </div>
+                <div class="input input-small checkbox checkbox-small">
+                  <label for="postcode-zip-textbox"> Wednesday </label>
+                  <apex:outputtext value="{!wednesdayPickupPdf}" styleClass="FormOutputText" label="postcode-zip-textbox"  />
+                </div>
+                <div class="input input-small checkbox checkbox-small">
+                  <label for="postcode-zip-textbox"> Thursday </label>
+                  <apex:outputtext value="{!thursdayPickupPdf}" styleClass="FormOutputText" label="postcode-zip-textbox"  />
+                </div>
+                <div class="input input-small checkbox checkbox-small">
+                  <label for="postcode-zip-textbox"> Friday </label>
+                  <apex:outputtext value="{!fridayPickupPdf}" styleClass="FormOutputText" label="postcode-zip-textbox"  />
+                </div>                
+          </div>
+          </div>
+          <p>What is your requested pick up / drop off time on the selected days?</p>
+          <div class="input input-small">
+            <apex:outputtext value="{!appData.requestedPickupTime}" styleClass="FormOutputText" label="state-textbox"  />
+          </div>
+          <hr/>
+          <h3>Transport and volume details</h3>
+          <p>Approximate volume per pick-up / drop off</p>
+          <div class="input input-small">
+            <apex:outputtext value="{!appData.pickupVolume}" styleClass="FormOutputText" label="state-textbox"  />
+          </div>
+          <div class="input required input-columns">
+            <p>Transport</p>
+            <div class='input-group'>
+                <div class="input input-small checkbox">
+                    <label for="exampleCheckbox_0"> van </label>
+                    <apex:outputtext id="exampleCheckbox_0" value="{!pickupTransportVanPdf}"  styleClass="FormOutputText"/>
+                </div>
+                <div class="input input-small checkbox">
+                    <label for="exampleCheckbox_1"> truck </label>
+                    <apex:outputtext id="exampleCheckbox_1" value="{!pickupTransportTruckPdf}"  styleClass="FormOutputText"/>
+                </div>
+            </div>
+          </div>
+          <div class="input required input-columns">
+            <p>Presentation method  (tick all that apply) </p>
+            <div class='input-group'>
+              <div class="input input-small checkbox">
+                <label for="exampleCheckbox_0">bag </label>
+                <apex:outputtext value="{!pickupPresentationMethodBagPdf}"  styleClass="FormOutputText"/>
+              </div>
+              <div class="input input-small checkbox">
+                <label for="exampleCheckbox_1">loose </label>
+                <apex:outputtext value="{!pickupPresentationMethodLoosePdf}"  styleClass="FormOutputText"/>
+              </div>
+              <div class="input input-small checkbox">
+                <label for="exampleCheckbox_1"> ULD </label>
+                <apex:outputtext value="{!pickupPresentationMethodUldPdf}"  styleClass="FormOutputText"/>   
+              </div>
+            </div>
+          </div>
+          <div class="input required input-columns">
+            <p>Destination (tick all that apply) </p>
+            <div class='input-group'>
+              <div class="input input-small checkbox">
+                 <label for="exampleCheckbox_0">metro </label>
+                 <apex:outputtext value="{!pickupDestinationMetroPdf}" styleClass="FormOutputText"/> 
+              </div>
+              <div class="input input-small checkbox">
+                 <label for="exampleCheckbox_1">state </label>
+                 <apex:outputtext value="{!pickupDestinationStatePdf}" styleClass="FormOutputText"/> 
+              </div>
+              <div class="input input-small checkbox">
+                 <label for="exampleCheckbox_1">interstate </label>
+                 <apex:outputtext value="{!pickupDestinationInterstatePdf}" styleClass="FormOutputText"/>                  
+              </div>
+              <div class="input input-small checkbox">
+                 <label for="exampleCheckbox_1">international </label>
+                 <apex:outputtext value="{!pickupDestinationInternationalPdf}" styleClass="FormOutputText"/>                 
+              </div>
+            </div>
+          </div >
+          <hr/>
+          <h3>Computer hardware and software specifications</h3>
+          <div class="input required input-columns">
+            <p>Operating system (tick all that apply) </p>
+            <div class='input-group'>
+              <div class="input input-small checkbox">
+                <label for="exampleCheckbox_0"> Windows XP </label>
+                <apex:outputtext value="{!osWinXpPdf}" styleClass="FormOutputText"/>                 
+              </div>
+              <div class="input input-small checkbox">
+                <label for="exampleCheckbox_1">Windows 7 </label>
+                <apex:outputtext value="{!osWin7Pdf}" styleClass="FormOutputText"/>  
+              </div>
+              <div class="input input-small checkbox">
+                <label for="exampleCheckbox_1">Mac OS X </label>
+                <apex:outputtext value="{!osMaxOsPdf}" styleClass="FormOutputText"/>
+              </div>
+            </div>
+          </div>
+          <div class="input input-medium">
+            <label for="city-textbox">other</label>
+            <apex:outputtext value="{!appData.osOther}" styleClass="FormOutputText" id="city-textbox"  />
+          </div>
+          <!-- div class="input required input-columns checkbox">
+            <p>Java runtime version 6 or above? </p>
+            <apex:outputText value="{!appData.javaRuntimeV6Above}" styleClass="FormOutputText"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>Adobe Reader version 8 or above? </p>
+            <apex:outputText value="{!appData.AdobeReaderV8above}" styleClass="FormOutputText"/>
+          </div>
+          <div class="input required input-columns">
+            <p>Internet browser (tick all that apply) </p>
+            <div class='input-group'>
+              <div class="input input-small checkbox" style="width: 200px;">
+                <label for="exampleCheckbox_0"> Internet Explorer 7 or above </label>
+                <apex:outputText value="{!browserIE7AbovePdf}" styleClass="FormOutputText"/>                  
+              </div>
+              <div class="input input-small checkbox">
+                <label for="exampleCheckbox_1"> Firefox </label>
+                <apex:outputText value="{!browserFFPdf}" styleClass="FormOutputText"/>                 
+              </div>
+              <div class="input input-small checkbox">
+                <label for="exampleCheckbox_1"> Safari </label>
+                <apex:outputText value="{!browserSafariPdf}" styleClass="FormOutputText"/>                 
+              </div>
+              <div class="input input-small checkbox">
+                <label for="exampleCheckbox_1"> Chrome </label>
+                <apex:outputText value="{!browserChromePdf}" styleClass="FormOutputText"/>                 
+              </div>
+            </div>
+          </div>
+          <div class="input required input-medium">
+            <label for="company-name-textbox">Printer make and model</label>
+            <apex:outputtext value="{!appData.printerMakeModel}" styleClass="FormOutputText" />
+          </div-->
+          <hr/>
+          <h2>Customer safety declaration</h2>
+          <h3>Vehicle and pedestrian access</h3>
+          <div class="input required input-columns checkbox">
+            <p>My site is free of obstacles eg bollards, parked cars, overhead powerlines, drain, gates, trees, stored goods etc. </p>
+            <apex:outputText value="{!appData.freeOfObstacles}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p><apex:outputText styleClass="FormOutputText" style="width:100% !important" value="{!appData.freeOfObstaclesComment}" rendered="{!appData.freeOfObstacles=='False'}"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>There is a designated loading / parking area on my site. </p>
+            <apex:outputText value="{!appData.designatedLoadingParkingArea}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.designatedLoadingParkingAreaComment}" rendered="{!appData.designatedLoadingParkingArea=='False'}"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>My site can be driven into and doesn't require reversing from e.g. street, industrial complex driveway.  </p>
+            <apex:outputText value="{!appData.noReversing}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.noReversingComment}" rendered="{!appData.noReversing=='False'}"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>There is enough room and clear vision to safely manoeuvre an Australia Post van. </p>
+            <apex:outputText value="{!appData.enoughRoom}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.enoughRoomComment}" rendered="{!appData.enoughRoom=='False'}"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>Pedestrian and public access areas are controlled at my site. </p>
+            <apex:outputText value="{!appData.controlledAccess}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.controlledAccessComment}" rendered="{!appData.controlledAccess=='False'}"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>The loading area is on even ground / has no slopes. </p>
+            <apex:outputText value="{!appData.noSlopes}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.noSlopesComment}" rendered="{!appData.noSlopes=='False'}"/>
+          </div>
+          <hr/>
+          <h3>Falls, slips and trips</h3>
+          <div class="input required input-columns checkbox">
+            <p>There are no slip, trip or fall hazards on my site. </p>
+            <apex:outputText value="{!appData.noSlipTripFallHazards}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.noSlipTripFallHazardsComment}" rendered="{!appData.noSlipTripFallHazards=='False'}"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>There is adequate lighting within the pick-up area. </p>
+            <apex:outputText value="{!appData.adequateLighting}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.adequateLightingComment}" rendered="{!appData.adequateLighting=='False'}"/>
+          </div>
+          <hr/>
+          <h3>Manual handling</h3>
+          <div class="input required input-columns checkbox">
+            <p>There is no requirement to lift large or awkward parcels / loads above 16kgs. <br/>
+              (Assistance will be provided to Australia Post where large or awkward collections are required eg loads above 16kg) </p>
+            <apex:outputText value="{!appData.noAbove16kgs}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.noAbove16kgsComment}" rendered="{!appData.noAbove16kgs=='False'}"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>My parcels / loads are stable / balanced and won't fall over during loading or transportation. </p>
+            <apex:outputText value="{!appData.stableBalancedParcel}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.stableBalancedParcelComment}" rendered="{!appData.stableBalancedParcel=='False'}"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>Stairs won't need to be used for pickup at my site. </p>
+            <apex:outputText value="{!appData.noStairNeeded}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.noStairNeededComment}" rendered="{!appData.noStairNeeded=='False'}"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>My parcels / loads won't need to be carried more than 10 metres.  </p>
+            <apex:outputText value="{!appData.noMoreThan10meters}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.noMoreThan10metersComment}" rendered="{!appData.noMoreThan10meters=='False'}"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>There is no requirement to frequently lift parcels / loads above shoulder height.  </p>
+            <apex:outputText value="{!appData.noShoulderHeight}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.noShoulderHeightComment}" rendered="{!appData.noShoulderHeight=='False'}"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>There is no requirement to lift parcels / loads in awkward or restricted spaces.  </p>
+            <apex:outputText value="{!appData.noLift}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.noLiftComment}" rendered="{!appData.noLift=='False'}"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>My parcels / loads don't contain any hazardous substances or sharp protrusions. </p>
+            <apex:outputText value="{!appData.noHazardousOrSharp}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.noHazardousOrSharpComment}" rendered="{!appData.noHazardousOrSharp=='False'}"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>My staff / colleagues will be on site at the time of collection.  </p>
+             <apex:outputText value="{!appData.staffOnSite}" styleClass="FormOutputText" />
+             <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.staffOnSiteComment}" rendered="{!appData.staffOnSite=='False'}"/>
+          </div>
+          <hr/>
+          <h3>Forklifts and moving vehicles</h3>
+          <div class="input required input-columns checkbox">
+            <p>There is no requirement to work close to load shifting equipment (forklift, pallet jack etc), mobile plant<br/>
+              and / or moving vehicles at my site.   </p>
+            <apex:outputText value="{!appData.noMovingVehicles}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.noMovingVehiclesComment}" rendered="{!appData.noMovingVehicles=='False'}"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>There is no requirement to operate load shifting equipment on sloping, uneven or rough surfaces at my site.  </p>
+            <apex:outputText value="{!appData.noLoadShiftingEquipment}" styleClass="FormOutputText" />
+            <br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.noLoadShiftingEquipmentComment}" rendered="{!appData.noLoadShiftingEquipment=='False'}"/>
+          </div>
+          <div class="input required input-columns checkbox">
+            <p>There is a floor traffic management plan in place and a designated safe zone for truck driver to stand etc.  </p>
+            <apex:outputText value="{!appData.hasFloorTrafficManagementPlan}" styleClass="FormOutputText" /><br />
+            <p>Please provide details for your responses</p> <apex:outputText styleClass="FormOutputText"  style="width:100% !important" value="{!appData.hasFloorTrafficManagementPlanComment}" rendered="{!appData.hasFloorTrafficManagementPlan=='False'}"/>
+          </div>
+          <hr/>
+        </apex:outputPanel>
+        <apex:outputPanel id="terms-conditions" >
+
+          <h2>Terms and conditions</h2>
+           <apex:outputPanel id="terms-conditions-information" styleClass="input required" rendered="{!appData.eParcelApplication = 'Yes'}" layout="block">
+            <p>Please complete the following declaration:</p>
+              <p>On behalf of the business nominated in this application, I, being a duly authorised officer (and named as the contact in the application) acknowledge that:</p>
+              <div id="terms-conditions-information">
+                  <label>
+                    <ol type="a">
+                          <li>all of the information provided in this application is true and complete.</li>
+                          <li>I understand that all information provided in the “Customer safety declaration” section in this application will be used for workplace health and safety purposes and failure to provide accurate information may prevent parcel pick-up.</li>
+                    </ol>
+                  </label>
+                  <div class="input-small">
+                      <apex:outputtext id="promotions-agree" value="{!appData.generalTAndC}" styleClass="FormOutputText"/> 
+                  </div>
+                  <p class="error-message">Please check the terms and conditions of promotions and offers</p>
+              </div>
+            </apex:outputPanel>              
+              <apex:outputPanel id="terms-conditions-business-credit" rendered="{!existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No'}"  styleClass="input required" layout="block">
+                  <h3>Australia Post Business Credit Account</h3>
+                  <label for="terms-agree">
+                      I have read and understood the&nbsp;<apex:outputLink value="{!$Resource.BusinessCreditAccountTermsAndConditions}" id="tc1">terms and conditions</apex:outputLink>&nbsp;for the operation, establishment and use of a Australia Post Business Credit Account.
+                  </label>
+                  <div class="input-small">
+                      <apex:outputtext id="terms-agree" value="{!appData.termsCreditAccount}" styleClass="FormOutputText"/>
+                  </div>
+                  <p class="error-message">Please check the terms and conditions of Australia Post Business Credit Account</p>                               
+              </apex:outputPanel>
+              <apex:outputPanel id="terms-conditions-eparcel" rendered="{!appData.eParcelApplication = 'Yes'}" styleClass="input required" layout="block">
+                   <h3>eParcel account</h3>
+                   <label for="eparcel-agree">                        
+                    I have read and understood the&nbsp;<apex:outputLink value="{!$Resource.TermsAndConditionsOfCarriage}" id="tc2">terms and conditions</apex:outputLink>&nbsp;for the operation, establishment and use of the eParcel Service.
+                  </label>
+                  <div class="input-small">
+                      <apex:outputtext id="eparcel-agree" value="{!appData.termsParcelService}" styleClass="FormOutputText"/>
+                  </div>
+                  <p class="error-message">Please check the terms and conditions of eParcel account</p>           
+              </apex:outputPanel>
+              <apex:outputPanel id="terms-conditions-eci" rendered="{!appData.eciApplication = 'Yes'}" styleClass="input required" layout="block">
+                  <h3>International parcels</h3>
+                  <label for="eci-agree">
+                  	I have read and understood the&nbsp;<apex:outputLink value="{!$Resource.InternationalTermsOfCarriage}" id="tc3" target="_blank">terms and conditions</apex:outputLink>&nbsp;for the operation, establishment and use of the International service.                        
+                  </label>
+                  <div class="input-small">
+                      <apex:outputtext id="eci-agree" value="{!appData.termsInternationalParcels}" styleClass="FormOutputText"/>
+                  </div>           
+                  <p class="error-message">Please check the terms and conditions of International parcels</p>
+              </apex:outputPanel>                            
+              <div id="terms-conditions-promo">
+                  <h3>Promotions and offers</h3>
+                  <label for="promotions-agree" >
+                      <div class="input-small">
+                          <apex:outputtext value="{!legalMarketingOptIn}" styleClass="FormOutputText"/>
+                      </div>
+                    We may use your personal information to tell you about other Australia Post products and services we think may be of benefit to you.
+                    Tick here if you wish to receive information about our products and services. </label>
+                    <p class="error-message">Please check the terms and conditions of promotions and offers</p>
+              </div>
+          </apex:outputPanel>
+      </apex:form>
+    </div>
+    <!-- END MAIN PANEL --> 
+    
+  </div>
+</div>
+
+<!-- START GE02 Footer -->
+<!--<div class="l-footer">
+  <div id="footer">
+    <footer>
+    <div class="sub-footer-links">
+      <ul>
+        <li><a href="#">About our site</a></li>
+        <li><a href="#">Terms &amp; conditions</a></li>
+        <li><a href="#">Privacy policy</a></li>
+        <li><a href="#">Support</a></li>
+      </ul>
+    </div>
+  </footer>
+  </div>
+</div>-->
+<!-- END GE02 Footer --> 
+<script src="js/script.js"></script>
+
+
+<!--[if lt IE 8]>
+    <script src="js/unsupportedIE.js"></script>
+<![endif]-->
+
+<!-- END Green Shoots v1 HTML --> 
+
+</body>
+</html>
+
+</apex:page>

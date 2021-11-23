@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Case_Closure_When_Owner_is_Queue</fullName>
+    <active>true</active>
+    <description>Prevent the user from closing the case record when it is owned by a queue.</description>
+    <errorConditionFormula>AND(
+    RecordType.Name = &apos;Voice of Customer Enquiry&apos;,
+    $User.FirstName +&apos; &apos;+ $User.LastName != &apos;System Support&apos;,
+    Owner_is_Queue__c,
+    ISPICKVAL(Status, &apos;Closed&apos;),
+    ISCHANGED(Status))</errorConditionFormula>
+    <errorMessage>You cannot close a case that is owned by a queue.</errorMessage>
+</ValidationRule>

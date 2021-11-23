@@ -1,0 +1,307 @@
+<!--
+ ------------------------------------- History --------------------------------------------------
+09.09.2021    Swati Mogadala REQ2596608- Added the header "Remaining Bottles" under 'ContainsWine'
+-->
+<template>
+    <div class="slds-m-horizontal_large slds-p-horizontal_large">
+        <div class="slds-text-heading_large slds-m-around_medium text-center">eParcel/Wine Damages
+        </div>
+        <template if:true={submitted}>
+            <div class="slds-m-around_large slds-p-around_large">
+                <template if:true={fileUploaded}>
+                    <div class="text-center slds-m-around_large">File {fileName} succesfully uploaded and attached to case {caseNumber}.</div>
+                    <div class="text-center">Article Id : {articleId}</div>
+                    <div class="text-center">Sender name : {senderName}</div>
+                    <div class="text-center">Addressee name : {addresseeName}</div>
+                </template>
+                <template if:false={fileUploaded}>
+                    <div class="text-center slds-m-around_large">Case {caseNumber} was successfully created.</div>
+                    <div class="text-center">Article Id : {articleId}</div>
+                    <div class="text-center">Sender name : {senderName}</div>
+                    <div class="text-center">Addressee name : {addresseeName}</div>
+                    <div class="slds-box text-center slds-no-print">If you would like to include a photo or file, attach here.
+                        <div class="slds-align_absolute-center slds-m-around_large">
+                            <lightning-file-upload
+                                label="Attach file (jpg, png, or pdf)"
+                                name="fileUploader"
+                                accept={acceptedFormats}
+                                record-id={caseId}
+                                onuploadfinished={handleUploadFinished}
+                                >
+                            </lightning-file-upload>
+                        </div>
+                    </div>
+                </template>
+                <div class="slds-p-around_medium">
+                    <button class="slds-align_absolute-center slds-button slds-button_outline-brand slds-no-print" 
+                            onclick={printScreen} title="Print" aria-label="Print">Print</button>
+                </div>
+            </div>
+        </template>
+        <template if:false={submitted}>
+            <template if:true={submitting}>
+                <lightning-spinner alternative-text="Loading"></lightning-spinner>
+            </template>
+            <div class="slds-text-heading_small slds-m-around_medium text-center">Please ensure before lodging this
+                form that the article has been scanned as “Damaged”</div>
+
+            <div class="slds-grid slds-wrap">
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <lightning-combobox class="form-input" label="Select your facility" required placeholder="Please select" value={values.facility} name="facility"
+                        options={facilityOptions} onchange={handleFacilityValueChange} field-level-help={selectOutletDamages}>
+                    </lightning-combobox>
+                </lightning-layout-item>
+                <lightning-layout-item size="6"></lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <c-article-search label="Full article ID" name="articleId" get-only-articles
+                        form-update-callback={handleFormUpdateWithArticleData} form-update-articleid={handleFormArticleID} onchange={handleArticleIDValueChange}>
+                    </c-article-search>
+                </lightning-layout-item>
+                <lightning-layout-item size="6"></lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <lightning-input required class="form-input" type="text" label="Addressee name" name="addresseeName"
+                        value={values.addresseeName} onchange={handleAddresseeNameChange}>
+                    </lightning-input>
+                    <lightning-input class="form-input" type="email" label="Addressee email" name="addresseeEmail"
+                        message-when-type-mismatch="Please enter a valid email address" value={values.addresseeEmail} onchange={handleValueChange}>
+                    </lightning-input>
+                    <c-qas-address-validation 
+                        required 
+                        class="form-input addressee-address" 
+                        label="Addressee address"
+                        address-change-handler={addresseeAddressChangeHandler}
+                        address-search-term-change-handler={addresseeAddressSearchTermChangeHandler}
+                        >
+                    </c-qas-address-validation>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <lightning-input required class="form-input" type="text" label="Sender name" name="senderName"
+                        value={values.senderName} onchange={handleSenderNameChange}>
+                    </lightning-input>
+                    <lightning-input class="form-input" type="email" label="Sender email" name="senderEmail"
+                        message-when-type-mismatch="Please enter a valid email address" value={values.senderEmail} onchange={handleValueChange}>
+                    </lightning-input>
+                    <c-qas-address-validation 
+                        required 
+                        class="form-input sender-address" 
+                        label="Sender address"
+                        address-change-handler={senderAddressChangeHandler}
+                        address-search-term-change-handler={senderAddressSearchTermChangeHandler}
+                        >
+                    </c-qas-address-validation>
+                    <lightning-input class="form-input" type="text" label="Sender company" name="senderCompany"
+                        value={values.senderCompany} onchange={handleValueChange}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="horizontal-small">
+                    <div class="slds-text-heading_small slds-m-around_medium text-center">Damage details</div>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <lightning-textarea required class="form-input"
+                        field-level-help="If contents are wine, include brand, type and year. If damaged wine unknown, please provide a description of all remaining wines."
+                        placeholder="Important: Details entered here will be sent to the customer"
+                        label="Details of product damage" name="damageDetails" value={values.damageDetails}
+                        onchange={handleDetailsChange} max-length="1500">
+                    </lightning-textarea>
+                    <span>{damageDetailsLength} characters remaining</span>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <lightning-textarea name="damageLocation" field-level-help="e.g. Loading dock, machine No. 1, Sorting array/area, Received in ULD, Drivers van, When delivering etc."
+                        onchange={handleDetailsChange} value={values.damageLocation} class="form-input"
+                        label="Location of damage" max-length="500">
+                    </lightning-textarea>
+                    <span>{locationDetailsLength} characters remaining</span>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="howDamageOccured">
+                        <lightning-combobox class="form-input" label="How the damage occurred (if known)" placeholder="Please select"
+                            value={values.howDamageOccured} options={howDamageOccuredOptions} required>
+                        </lightning-combobox>
+                    </c-lwc-form-element>
+                    <c-lwc-form-element visibility-state={visibilities} name="howDamageOccuredOptionalOther"
+                        render-config={howDamageOccuredOptionalOtherRenderConfig}>
+                        <lightning-textarea class="form-input" value={values.howDamageOccuredOptionalOther} label="Please specify" max-length="1500" required>
+                        </lightning-textarea>
+                    </c-lwc-form-element>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="isPartOfConsignment">
+                        <lightning-radio-group 
+                            required class="form-input" 
+                            label="Is this part of a consignment?" 
+                            value={values.isPartOfConsignment}
+                            options={yesNoOptions}>
+                        </lightning-radio-group>
+                    </c-lwc-form-element>  
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="totalArticlesInConsignment"
+                        render-config={consignementRenderConfig}>
+                        <lightning-input required class="form-input" type="number" label="Total articles in consignment"
+                            value={values.totalArticlesInConsignment} step="1" max="999">
+                        </lightning-input>
+                    </c-lwc-form-element>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="6" padding="horizontal-small">
+                     <c-lwc-form-element visibility-state={visibilities} name="doesContainWine">
+                        <lightning-radio-group 
+                            required class="form-input" 
+                            name= "doesContainWineRadio"
+                            label="Does the article contain wine/alcohol/liquid?"
+                            value={values.doesContainWine}
+                            options={yesNoOptions} onchange={handleDoesContainWineChange}>
+                        </lightning-radio-group>
+                    </c-lwc-form-element>  
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="totalItemInParcel"
+                        render-config={doesNotcontainWineRenderConfig}>
+                        <lightning-input required class="form-input" type="number" label="Total number of items in the parcel"
+                            value={values.totalItemInParcel} step="1" max="999">
+                        </lightning-input>
+                    </c-lwc-form-element>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="sustainedDamage"
+                    render-config={doesNotcontainWineRenderConfig}>
+                       <lightning-radio-group 
+                           required class="form-input" 
+                           label="Have all the items in the parcel sustained damage?"
+                           value={values.sustainedDamage}
+                           options={yesNoOptions}>
+                       </lightning-radio-group>
+                   </c-lwc-form-element>  
+               </lightning-layout-item>
+               <lightning-layout-item size="6" padding="horizontal-small">   
+                <c-lwc-form-element visibility-state={visibilities} name="sustainedDamageDetails"
+                        render-config={doesNotcontainSustainedDamage}>             
+                <lightning-textarea required class="form-input"
+                    placeholder="If there are too many items to list…. &#10; Please add a brief description of remaining intact items (E.g. 11 x Clothing items, 2 x Sneakers)"             
+                    label="Please list the items that have not sustained damage" 
+                    name="sustainedDamageDetails" value={values.sustainedDamageDetails}
+                    onchange={handleDetailsChange} max-length="1500">
+                </lightning-textarea>
+                <span>{sustainedDamageDetailsLength} characters remaining</span>
+            </c-lwc-form-element>              
+            </lightning-layout-item>
+                <template if:true={loading}>
+                    <lightning-spinner alternative-text="Loading"></lightning-spinner>
+                </template>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <c-lwc-form-element visibility-state={visibilities} render-config={containsWineRenderConfig}>
+                            <div class="slds-box slds-theme_alert">
+                                <h6>Damage Instructions</h6>
+                                <span>{articleDamageStandingInstructions}</span>
+                            </div>
+                    </c-lwc-form-element>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="totalBottlesInCarton"
+                        render-config={containsWineRenderConfig}>
+                        <lightning-input required class="form-input" type="number" label="Total bottles originally sent"
+                            value={values.totalBottlesInCarton} step="1" max="999">
+                        </lightning-input>
+                    </c-lwc-form-element>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="totalBottlesDamaged"
+                        render-config={containsWineRenderConfig}>
+                        <lightning-input required class="form-input" type="number" label="Total bottles damaged/broken"
+                            value={values.totalBottlesDamaged} step="1" max="999">
+                        </lightning-input>
+                    </c-lwc-form-element>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="noOfCapsDamaged"
+                        render-config={containsWineRenderConfig}>
+                        <div class= "slds-text-title_bold slds-text-align_left"><br>Remaining Bottles
+                            <lightning-helptext content="Condition report of remaining bottles. DO NOT include the broken bottle(s)"></lightning-helptext>
+                        </div>
+                        <lightning-input required class="form-input" type="number" label="Number of tops damaged"
+                            value={values.noOfCapsDamaged} step="1" max="999" field-level-help="If no tops damaged on remaining bottles, please enter 0">
+                        </lightning-input>
+                    </c-lwc-form-element>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small"><br><br>
+                    <c-lwc-form-element visibility-state={visibilities} name="noOfLabelsDamaged"
+                        render-config={containsWineRenderConfig}>
+                        <lightning-input required class="form-input" type="number" label="Number of labels damaged"
+                            value={values.noOfLabelsDamaged} step="1" max="999" field-level-help="If no labels damaged on remaining bottles, please enter 0">
+                        </lightning-input>
+                    </c-lwc-form-element>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="isCartonAdequate" render-config={containsWineRenderConfig}>
+                        <lightning-radio-group 
+                            required class="form-input" 
+                            label="Carton adequate?" 
+                            value={values.isCartonAdequate}
+                            options={yesNoOptions}>
+                        </lightning-radio-group>
+                    </c-lwc-form-element> 
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="cartonInadequecyDetails"
+                        render-config={notAdequateCartonRenderConfig}>
+                        <lightning-textarea class="form-input" name="cartonInadDetails" value={values.cartonInadequecyDetails} required label="Provide details"
+                            max-length="500" onchange={handleInadeqdetailschange}>
+                        </lightning-textarea>
+                        <span>{cartonadqlength} characters remaining</span> 
+                    </c-lwc-form-element>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="isDividerAdequate" render-config={containsWineRenderConfig}>
+                        <lightning-radio-group 
+                            required class="form-input" 
+                            label="Inserts or dividers adequate?" 
+                            value={values.isDividerAdequate}
+                            options={yesNoOptions}>
+                        </lightning-radio-group>
+                    </c-lwc-form-element> 
+                </lightning-layout-item> 
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="dividerInadequecyDetails"
+                        render-config={notAdequateDividerRenderConfig}>
+                        <lightning-textarea class="form-input" name="dividerInadDetails" value={values.dividerInadequecyDetails} required label="Provide details"
+                            max-length="500" onchange={handleInadeqdetailschange}>
+                        </lightning-textarea>
+                        <span>{divideradqlength} characters remaining</span>
+                    </c-lwc-form-element>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <c-lwc-form-element visibility-state={visibilities}
+                    render-config={containsWineRenderConfig} name="actionTaken">
+                        <template if:true={showActionTaken}>
+                            <lightning-combobox class="form-input" label="Action Taken" placeholder="Please select"
+                            value={values.actionTaken} options={actionTakenOptions} required onchange={handleActionTakenChange}>
+                            </lightning-combobox>
+                        </template>
+                   </c-lwc-form-element>  
+               </lightning-layout-item>
+               <lightning-layout-item size="6" padding="horizontal-small">
+                <c-lwc-form-element visibility-state={visibilities}
+                render-config={containsWineRenderConfig} name="additionalInformation">
+                    <template if:true={showActionTaken}>
+                        <lightning-textarea class="form-input" name="additionalInformationDetails" value={values.additionalInformation} required={additionalCommentsMandatory} label="Additional Information"
+                        max-length="500" onchange={handleAdditionalInformationDetails}>
+                    </lightning-textarea>
+                    <span>{additionalInfolength} characters remaining</span> 
+                    </template>
+                </c-lwc-form-element>  
+           </lightning-layout-item>
+            </div>
+            <template if:true={displayErrorMsg}>
+                <lightning-layout-item size="12" padding="around-small">
+                    <div class="slds-box slds-align_absolute-center slds-m-around_large slds-text-color_error">Please complete highlighted fields above</div>
+                </lightning-layout-item>
+            </template>
+            <div class="slds-p-around_small slds-align_absolute-center">
+                <lightning-button label="Submit" variant="brand" onclick={handleSubmit}></lightning-button>
+            </div>
+        </template>
+    </div>
+</template>

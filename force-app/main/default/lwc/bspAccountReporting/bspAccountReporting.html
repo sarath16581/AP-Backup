@@ -1,0 +1,258 @@
+<!--
+* @author       : Jansi Rani. jansi.rani@auspost.com.au
+* @date         : 05/10/2020
+* @description  : Component for Account Reporting.
+--------------------------------------- History --------------------------------------------------
+05.10.2020    Jansi Rani   Created
+-->
+<template>
+    <div class="section-container slds-p-around_large slds-m-bottom_x-large">
+
+        <!-- Navigation links-->
+        <c-bsp-breadcrumb bread-crumb-text="Account Reporting"></c-bsp-breadcrumb>
+
+        <!-- error message-->
+        <template if:true={errorMessage}>
+            <c-bsp-error data-id="error" error-message={errorMessage}></c-bsp-error>
+        </template>
+        <div class="slds-grid slds-grid_align-center">
+            <div
+                class="slds-col slds-size_1-of-1 slds-p-around_large slds-m-bottom_x-large outer-box section-container  slds-is-relative">
+                <!-- Header Section Title-->
+                <h2> Download report</h2> <br>
+
+                <div class="slds-grid slds-wrap">
+                    <!--<div
+                        class="slds-col slds-size_1-of-1  slds-large-size_3-of-12 slds-p-right_medium mobile-no-padding">
+                        <lightning-combobox data-id="billingAccount" label="Accounts"
+                            value={selectedBillingAccount} options={billingAccPicklistOptions} onchange={handleChange}>
+                        </lightning-combobox>
+                    </div>-->
+                    <!-- Report Type combobox-->
+                    <div
+                        class="slds-col slds-size_1-of-1 slds-large-size_3-of-12 slds-p-right_medium mobile-no-padding">
+                        <lightning-combobox data-id="repotType" label="Report type" value={selectedReportType}
+                            options={reportTypeOptions} onchange={handleChange}></lightning-combobox>
+                    </div>
+                    <!-- Document type-->
+                    <div
+                        class="slds-col slds-size_1-of-1  slds-large-size_3-of-12 slds-p-right_medium mobile-no-padding">
+                        <lightning-combobox data-id="documentType" label="Document type" value={selectedDocumentType}
+                            options={documentTypeOptions} onchange={handleChange}> </lightning-combobox>
+                    </div>
+                    <!-- Document Interval-->
+                    <div
+                        class="slds-col slds-size_1-of-1  slds-large-size_3-of-12 slds-p-right_medium mobile-no-padding">
+
+                        <lightning-combobox data-id="documentInterval" label="Document interval"
+                            options={documentIntervalOptions} value={selectedDocumentInterval} onchange={handleChange}>
+                        </lightning-combobox>
+                    </div>
+                </div>
+                <br>
+                <div class="slds-grid slds-wrap">
+                    <!-- from date combobox-->
+                    <div
+                        class="slds-col slds-size_1-of-1 slds-large-size_3-of-12 slds-p-right_medium mobile-no-padding">
+                        <lightning-input type="date" data-id="fromDate" placeholder="From date" label="From date"
+                            onchange={handleChange}>
+                        </lightning-input>
+                    </div>
+                    <!-- To Date-->
+                    <div
+                        class="slds-col slds-size_1-of-1  slds-large-size_3-of-12 slds-p-right_medium mobile-no-padding">
+                        <lightning-input type="date" data-id="toDate" placeholder="To date" label="To date"
+                            onchange={handleChange}>
+                        </lightning-input>
+                    </div>
+                    <!-- page selection combobox-->
+                    <div
+                        class="slds-col slds-size_1-of-1  slds-large-size_3-of-12 slds-p-right_medium mobile-no-padding">
+                        <lightning-combobox data-id="pageSelection" label="Page size" value={defaultPageSize}
+                            options={pageSizeOptions} onchange={handleChange}>
+                        </lightning-combobox>
+                    </div>
+                </div>
+
+                <!-- Search button-->
+                <!-- <br>
+                <lightning-button label="Search" title="Search" class="brand-primary-button" variant="destructive"
+                    onclick={searchFiles}>
+                </lightning-button> -->
+            </div>
+            <br> <br>
+
+        </div>
+
+        <!--File List-->
+        <template if:true={isShowResults}>
+            <div class="slds-is-relative">
+                <!-- spinner-->
+                <div if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+                </div>
+                <div>
+                    <table
+                        class="slds-is-relative slds-table_cell-buffer slds-no-row-hover slds-table_bordered slds-table--header-fixed brand-table brand-table-scroll">
+                        <thead class="brand-table">
+                            <tr class="slds-line-height_reset">
+                                <th data-id="Title" onclick={sortTitle}>
+                                    <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                        <span class="slds-assistive-text">Sort</span>
+                                        <span class="slds-truncate" title="Title">Title</span>
+                                        <div if:true={isTitleSort}>
+                                            <div if:true={isAsc}>
+                                                &nbsp; &#8593;
+                                            </div>
+                                            <div if:true={isDsc}>
+                                                &nbsp; &#8595;
+                                            </div>
+                                        </div>
+                                    </a>
+                                </th>
+                                <!--<th data-id="LinkedEntityId" >
+                                    Account
+                                </th>
+                                <th data-id="ContentVersion.ContentDocument.ParentId">
+                                    <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                        <span class="slds-assistive-text">Sort</span>
+                                        <span class="slds-truncate" title="Account">Account</span>
+                                        <div if:true={isLinkedEntitySort}>
+                                            <div if:true={isAsc}>
+                                                &nbsp; &#8593;
+                                            </div>
+                                            <div if:true={isDsc}>
+                                                &nbsp; &#8595;
+                                            </div>
+                                        </div>
+                                    </a>
+                                </th>-->
+
+                                <th data-id="Document_Type__c" onclick={sortDocumentType}>
+                                    <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                        <span class="slds-assistive-text">Sort</span>
+                                        <span class="slds-truncate" title="Document Type">Document Type</span>
+                                        <div if:true={isDocTypeSort}>
+                                            <div if:true={isAsc}>
+                                                &nbsp; &#8593;
+                                            </div>
+                                            <div if:true={isDsc}>
+                                                &nbsp; &#8595;
+                                            </div>
+                                        </div>
+                                    </a>
+                                </th>
+                                <th data-id="Document_Date__c" onclick={sortDocDate}>
+                                    <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                        <span class="slds-assistive-text">Sort</span>
+                                        <span class="slds-truncate" title="Document Date">Document Date</span>
+                                        <div if:true={isDocDateSort}>
+                                            <div if:true={isAsc}>
+                                                &nbsp; &#8593;
+                                            </div>
+                                            <div if:true={isDsc}>
+                                                &nbsp; &#8595;
+                                            </div>
+                                        </div>
+                                    </a>
+                                </th>
+                                <th data-id="Document_Interval__c" onclick={sortDocInterval}>
+                                    <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                        <span class="slds-assistive-text">Sort</span>
+                                        <span class="slds-truncate" title="Document Interval">Document
+                                            Interval</span>
+                                        <div if:true={isDocIntervalSort}>
+                                            <div if:true={isAsc}>
+                                                &nbsp; &#8593;
+                                            </div>
+                                            <div if:true={isDsc}>
+                                                &nbsp; &#8595;
+                                            </div>
+                                        </div>
+                                    </a>
+                                </th>
+                                <th data-id="VersionNumber" onclick={sortVersionNumber}>
+                                    <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                        <span class="slds-assistive-text">Sort</span>
+                                        <span class="slds-truncate" title="Document Version">Document
+                                            Version</span>
+                                        <div if:true={isDocVersionSort}>
+                                            <div if:true={isAsc}>
+                                                &nbsp; &#8593;
+                                            </div>
+                                            <div if:true={isDsc}>
+                                                &nbsp; &#8595;
+                                            </div>
+                                        </div>
+                                    </a>
+                                </th>
+                                <th data-id="ContentModifiedDate" onclick={sortDocModifiedDate}>
+                                    <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset">
+                                        <span class="slds-assistive-text">Sort</span>
+                                        <span class="slds-truncate" title="Document Modified Date">Document
+                                            Modified
+                                            Date</span>
+                                        <div if:true={isDocModifiedDateSort}>
+                                            <div if:true={isAsc}>
+                                                &nbsp; &#8593;
+                                            </div>
+                                            <div if:true={isDsc}>
+                                                &nbsp; &#8595;
+                                            </div>
+                                        </div>
+                                    </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="brand-table">
+                            <template if:true={searchReultsWrapper}>
+                                <template for:each={searchReultsWrapper} for:item="cv">
+                                    <c-bsp-content-document-row key={cv} content-version={cv} content-doc-id-n-linked-entity-name-map={contentDocIdNLinkedEntityNameMap}>
+                                    </c-bsp-content-document-row>
+                                </template>
+                            </template>
+
+                            <!-- No serch results found message-->
+                            <template if:true={isShowNoResultsFoundMsg}>
+                                <tr>
+                                    <td colspan="6">
+                                        <center>Your search did not find any results. Please try another search.</center>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--Next, Pevious Buttons -->
+                <template if:false={isShowNoResultsFoundMsg}>
+                    <div class="slds-grid slds-p-around_small slds-grid_align-center">
+                        <div class="slds-col brand-tertiary-button prev-spacer-button">
+                            <template if:true={showPrevButton}>
+                                <lightning-button onclick={previousHandler} value="" label="Previous">
+                                </lightning-button>
+                            </template>
+                        </div>
+                        <div class="slds-col slds-p-top_x-small slds-p-horizontal_small">
+                            Showing {recordStart} - {recordEnd} of {resultsSize}
+                        </div>
+                        <div class="slds-col brand-tertiary-button prev-spacer-button">
+                            <template if:true={showNextButton}>
+                                <lightning-button onclick={nextHandler} value="" label="Next">
+                                </lightning-button>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <!--<div class="slds-grid slds-grid_align-center">
+                <div
+                    class="slds-col slds-size_1-of-1 slds-p-around_large slds-m-bottom_x-large outer-box section-container  slds-is-relative">
+                    <p class="slds-p-horizontal_small"></p>
+                    
+                </div>
+            </div>-->
+        </template>
+    </div>
+
+</template>

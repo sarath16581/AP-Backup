@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Network_Facility__c</fullName>
+    <description>PartnerInfo - The LPO related to this record.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Facility or the LPO</inlineHelpText>
+    <label>Network Facility</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Network__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Retail</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Network__c</referenceTo>
+    <relationshipLabel>Network Equipments</relationshipLabel>
+    <relationshipName>Network_Equipments</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Approved_SCCR_s</fullName>
+    <columns>NAME</columns>
+    <columns>Approval_Status__c</columns>
+    <columns>Account_Manager_Current__c</columns>
+    <columns>CurrentSalesTeam__c</columns>
+    <columns>Date_Request_Sent__c</columns>
+    <columns>Proposed_Account_Manager__c</columns>
+    <columns>Proposed_Sales_Team__c</columns>
+    <columns>Reason_for_Change__c</columns>
+    <columns>Reasonforchange__c</columns>
+    <columns>Sub_Reason_for_Change__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Approval_Status__c</field>
+        <operation>equals</operation>
+        <value>Approved</value>
+    </filters>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>greaterThan</operation>
+        <value>7/1/2016 12:00 AM</value>
+    </filters>
+    <label>All Approved SCCR&apos;s</label>
+    <language>en_US</language>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

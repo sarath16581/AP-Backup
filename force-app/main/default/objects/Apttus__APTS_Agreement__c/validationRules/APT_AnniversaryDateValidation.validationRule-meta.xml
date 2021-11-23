@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_AnniversaryDateValidation</fullName>
+    <active>true</active>
+    <description>Validation Rule blocks users from entering Anniversary Date for Fixed-Term Contracts.</description>
+    <errorConditionFormula>(APT_Anniversary_Date__c  =  NULL) &amp;&amp; ( Apttus__Perpetual__c  = False) &amp;&amp;( RecordType.Name = &apos;MSA&apos;|| RecordType.Name = &apos;Service Schedule&apos;)</errorConditionFormula>
+    <errorMessage>Cannot enter anniversary date for non-perpetual contracts</errorMessage>
+</ValidationRule>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Contract Management Enquiry (CME) Case Created</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>CME Case Created v2</name>
+    <style>freeForm</style>
+    <subject>Case {!Case.CaseNumber} - {!Case.Subject} - New Case Created</subject>
+    <textOnly>Dear Colleague,
+
+Your Contract Management case has been created.
+
+Case Number: {!Case.CaseNumber}
+
+Subject: {!Case.Subject}
+
+Case Description: {!Case.Description}
+
+Please do not respond to this notification via reply e-mail.
+
+You can track the progress of your case, make further comments and add relevant attachments online by following the link below.
+
+{!Case.Link} or entering your case number into the search engine on the front page of SalesForce.com.
+
+Alternatively, you can call the Sales Contract Consulting team on 1300 795 759 during business hours.
+
+Regards
+
+Contract Management Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

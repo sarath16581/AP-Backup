@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Contact_Mandatory_Fields</fullName>
+    <active>true</active>
+    <errorConditionFormula>CONTAINS($Profile.Name,&quot;SSSW - Service Agent&quot;)
+&amp;&amp;
+(
+ISBLANK( FirstName )
+||
+ISBLANK( LastName )
+||
+(
+ISBLANK( Phone )
+&amp;&amp;
+ISBLANK( HomePhone )
+&amp;&amp;
+ISBLANK( MobilePhone )
+&amp;&amp;
+ISBLANK( OtherPhone )
+)
+)</errorConditionFormula>
+    <errorMessage>You have not met the minimum data for a Contact. Must have a First, Last Name, Phone/Mobile. Remember to ask for an Email address</errorMessage>
+</ValidationRule>

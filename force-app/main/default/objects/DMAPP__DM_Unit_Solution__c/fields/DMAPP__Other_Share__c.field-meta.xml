@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Other_Share__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF(ISNULL(DMAPP__Wallet_Size__c ), 
+        NULL,  
+        IF(DMAPP__Wallet_Size__c == 0, 0, DMAPP__Other_Wallet_Size__c /  DMAPP__Wallet_Size__c))</formula>
+    <label>Other Share</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

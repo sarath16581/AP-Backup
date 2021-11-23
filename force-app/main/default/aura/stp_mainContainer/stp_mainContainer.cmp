@@ -1,0 +1,56 @@
+<!--
+2018-06-01      clint.dsilva@auspost.com.au         created
+2020-01-24      lija.jawahar@auspost.com.au         modified        Portal Users can create a Case
+-->
+<aura:component description="Startrack Partner Portal Main SPA"  access="global"
+                implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" >
+    <aura:attribute name="showResult" type="Boolean" default="false" />
+    <aura:attribute name="isFinishedTask" type="boolean"  default="false" />
+    <aura:attribute name="searchClickedFirstTime" type="Boolean" default="false" />
+    <c:waitingQueueComponent aura:id="loader" />
+    <c:AsynchApexContinuationBroker aura:id="broker"/>
+    <aura:handler name="init" value="{!this }" action="{!c.onInit}"/>
+    <aura:attribute name="mainLoadingSpinner" type="Aura.Component[]" access="public"/>
+    <aura:handler name="notifyCompEvent" event="c:eNotificationComp" action="{!c.onNotifyCompEvent}"/>
+
+    <div class="slds-grid slds-gutters  ">
+        <div class="paper-card slds-col slds-size_3-of-4" >
+            <c:stp_taskSearch aura:id="searchCmp" loadingSpinner="{!v.mainLoadingSpinner}"/>
+        </div>
+        <div class="paper-card slds-col slds-size_1-of-4 ">
+            <c:stp_createCase aura:id="caseCreateCmp" loadingSpinner="{!v.mainLoadingSpinner}"/>
+        </div>
+    </div>
+
+    <lightning:accordion aura:id="accordianSearchDetail" activeSectionName="searchResult">
+        <div aura:id="accordianSearchDetailVisibility" class="hideIfSearchNotClicked">
+            <lightning:accordionSection name="searchResult" label="Search Result">
+                <c:stp_taskSearchResult aura:id="searchDetailCmp" loadingSpinner="{!v.mainLoadingSpinner}" isCompletedTask="{!v.isFinishedTask}"/>
+            </lightning:accordionSection>
+        </div>
+    </lightning:accordion>
+    <div id="ltngSpinner"></div>
+    <lightning:accordion aura:id="accordianSelectedResult" activeSectionName="selectedResult">
+        <div aura:id="accordianSelectedResultVisibility" class="hideIfViewDetailsNotClicked">
+            <lightning:accordionSection name="selectedResult" label="Task Detail">
+                <aura:if isTrue="{!v.showResult}">
+                    <div class="task-section-outer" >
+                        <lightning:layout multipleRows="true">
+                            <lightning:layoutItem padding="around-small" size="12">
+                                <div>
+                                    <c:stp_taskDetail aura:id="taskDetail" loadingSpinner="{!v.mainLoadingSpinner}"/>
+                                </div>
+                            </lightning:layoutItem>
+
+                            <lightning:layoutItem padding="around-small" size="12" >
+                                <div>
+                                    <c:stp_scanEvents aura:id="scanEvents" loadingSpinner="{!v.mainLoadingSpinner}"/>
+                                </div>
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                    </div>
+                </aura:if>
+            </lightning:accordionSection>
+        </div>
+    </lightning:accordion>
+</aura:component>

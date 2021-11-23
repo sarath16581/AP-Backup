@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Current_provider__c</fullName>
+    <description>StarTrack: Capture current provider information</description>
+    <externalId>false</externalId>
+    <label>Current provider</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>TNT</fullName>
+                <default>false</default>
+                <label>TNT</label>
+            </value>
+            <value>
+                <fullName>DHL Express</fullName>
+                <default>false</default>
+                <label>DHL Express</label>
+            </value>
+            <value>
+                <fullName>Toll Ipec</fullName>
+                <default>false</default>
+                <label>Toll Ipec</label>
+            </value>
+            <value>
+                <fullName>Qantas Courier</fullName>
+                <default>false</default>
+                <label>Qantas Courier</label>
+            </value>
+            <value>
+                <fullName>Allied Express</fullName>
+                <default>false</default>
+                <label>Allied Express</label>
+            </value>
+            <value>
+                <fullName>AFS</fullName>
+                <default>false</default>
+                <label>AFS</label>
+            </value>
+            <value>
+                <fullName>Fastway</fullName>
+                <default>false</default>
+                <label>Fastway</label>
+            </value>
+            <value>
+                <fullName>AusPost</fullName>
+                <default>false</default>
+                <label>AusPost</label>
+            </value>
+            <value>
+                <fullName>Main freight</fullName>
+                <default>false</default>
+                <label>Main freight</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>New Business</fullName>
+                <default>false</default>
+                <label>New Business</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

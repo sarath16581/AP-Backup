@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Validate_Status_Change</fullName>
+    <active>true</active>
+    <description>Prevent StarTrack PUD Case Status from returning to New</description>
+    <errorConditionFormula>AND(
+    RecordType.Name = &apos;Delivery Enquiry&apos;,
+    ISCHANGED(Status),
+    ISPICKVAL(Status, &apos;New&apos;),Or( Not(ISPICKVAL(Origin, &apos;Snap It&apos;)), And(ISPICKVAL(Origin, &apos;Snap It&apos;),Not(ISPICKVAL(priorvalue(Status),&apos;Waiting for Reference ID&apos;))))
+)</errorConditionFormula>
+    <errorMessage>Cannot change Status back to &apos;New&apos;</errorMessage>
+</ValidationRule>

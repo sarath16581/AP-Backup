@@ -1,0 +1,29 @@
+/*
+* Change Log : Hara Sahoo :07/06/2020
+*              Modified container height as part of the UI changes for safedrop missing item project
+*              Added a box shadow as per the new designs
+*/
+
+/* Added a box shadow*/
+.THIS {
+    margin-top: -13px;
+    background: #31313D;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    height: 60px;
+    color: #ffffff;
+    padding: 0 15px;
+    letter-spacing: 0.8px;
+}
+/* Changed the height to 60px*/
+@media screen and (max-width: 680px) {
+    .THIS {
+        height: 44px;
+    }
+}
+
+.THIS .heading-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

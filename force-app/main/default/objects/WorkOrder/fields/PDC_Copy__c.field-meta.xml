@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PDC_Copy__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Field is set at the end of flow TDF_Pre_Departure_Check to indicates that a PDC vehicle inspection has just been performed with a Failed outcome. Setting the field triggers creation of Vehicle Inspection records in TDF_WorkOrderTriggerUtility.workOrderUpdateMethod. Field is reset at the start of flow TDF_Pre_Departure_Check.</description>
+    <externalId>false</externalId>
+    <label>PDC Copy</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

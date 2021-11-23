@@ -1,0 +1,80 @@
+<!--
+    2020-04-01 nathan.franklin@auspost.com.au Created
+    2020-09-18 - Ranjeewa Silva - Improved responsiveness on smaller screen sizes.
+-->
+<template>
+
+	<div class="slds-grid slds-wrap slds-grid_vertical-stretch slds-gutters_direct-x-small slds-grid_align-spread">
+		<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-m-bottom_medium">
+			<c-happy-parcel-card title="Looping" icon-name="utility:loop" loading={loading} variant="stretch" help-text={loopingHelpText}>
+				<template if:true={hasLooping}>
+					<div class="slds-grid content-grid slds-grow animated pulse" style={animationCss}>
+						<div class="slds-m-right_large">
+							<c-happy-parcel-custom-icon icon="warning" size="medium"></c-happy-parcel-custom-icon>
+						</div>
+						<div class="slds-grow">
+							<template for:each={looping} for:item="item">
+								<div class="slds-grid data-grid" key={item.id}>
+									<template if:true={item.hasLoopingTime}>
+										<div class="badge slds-m-bottom_small">
+											<span class={item.badgeCss}>{item.looping_time} {item.looping_time_unit}</span>
+										</div>
+									</template>
+									<div class="slds-grow content">
+										<p class="slds-m-bottom_x-small">
+											{item.wcc}<br/>
+											<span class="slds-text-heading_medium">{item.wcc_name}</span>
+										</p>
+									</div>
+								</div>
+							</template>
+						</div>
+					</div>
+				</template>
+				<template if:false={hasLooping}>
+					<div class="slds-grid content-grid slds-grow animated pulse" style={animationCss}>
+						<div class="slds-align_absolute-center">
+							<!--<c-happy-parcel-custom-icon icon="tick"></c-happy-parcel-custom-icon>&nbsp;&nbsp;&nbsp;-->
+							<lightning-icon icon-name="utility:dash" size="medium"></lightning-icon>
+						</div>
+					</div>
+				</template>
+			</c-happy-parcel-card>
+		</div>
+		<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-m-bottom_medium">
+			<c-happy-parcel-card title="Missorts / Unusual Location" icon-name="utility:sort" loading={loading} variant="stretch" help-text={missortsHelpText}>
+				<template if:true={hasMissorts}>
+					<div class="slds-grid content-grid slds-grow animated pulse" style={animationCss}>
+						<div class="slds-m-right_large">
+							<c-happy-parcel-custom-icon icon="warning" size="medium"></c-happy-parcel-custom-icon>
+						</div>
+						<div class="slds-grow">
+							<template for:each={missorts} for:item="item">
+								<div class="slds-grid data-grid" key={item.id}>
+									<div class="badge slds-m-bottom_small">
+										<span class={item.badgeCss}>{item.type}</span>
+									</div>
+									<div class="slds-grow content">
+										<p class="slds-m-bottom_x-small">
+											{item.wcc}<br/>
+											<span class="slds-text-heading_medium">{item.wcc_name}</span>
+										</p>
+									</div>
+								</div>
+							</template>
+						</div>
+					</div>
+				</template>
+				<template if:false={hasMissorts}>
+					<div class="slds-grid content-grid slds-grow animated pulse" style={animationCss}>
+						<div class="slds-align_absolute-center">
+							<!--<c-happy-parcel-custom-icon icon="tick"></c-happy-parcel-custom-icon>&nbsp;&nbsp;&nbsp;-->
+							<lightning-icon icon-name="utility:dash" size="medium"></lightning-icon>
+						</div>
+					</div>
+				</template>
+			</c-happy-parcel-card>
+		</div>
+	</div>
+
+</template>

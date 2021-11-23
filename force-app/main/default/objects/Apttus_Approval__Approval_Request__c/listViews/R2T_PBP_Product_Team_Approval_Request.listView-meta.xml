@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>R2T_PBP_Product_Team_Approval_Request</fullName>
+    <filterScope>Queue</filterScope>
+    <label>R2T PBP Product Team</label>
+    <queue>R2T_PBP_Product_Team</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

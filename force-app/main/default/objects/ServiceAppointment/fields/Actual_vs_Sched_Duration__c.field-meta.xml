@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Actual_vs_Sched_Duration__c</fullName>
+    <description>Difference between Actual Duration and Scheduled Duration in minutes</description>
+    <externalId>false</externalId>
+    <formula>IF(OR(ISNULL(Actual_Duration__c),ISNULL(DurationInMinutes)),NULL,Actual_Duration__c - DurationInMinutes)</formula>
+    <label>Actual vs Sched Duration</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Size_Print_Post__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Size__c, &quot;Small Postcode direct&quot; ), &quot;Small Postcode direct; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Size__c, &quot;Large Postcode direct&quot; ), &quot;Large Postcode direct; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Size__c, &quot;Residue&quot; ), &quot;Residue; &quot;,null )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Size Print Post</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

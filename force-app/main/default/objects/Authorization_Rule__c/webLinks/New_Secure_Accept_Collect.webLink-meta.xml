@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Secure_Accept_Collect</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>New Secure Accept &amp; Collect</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>window.open(&apos;/aDQ/e?CF00N9000000F0KVH={!URLENCODE(Contact.Name)}&amp;CF00N9000000F0KVH_lkid={!URLENCODE(Contact.Id)}&amp;retURL={!URLENCODE(Contact.Id)}&amp;RecordType=01290000000ic87&amp;CF00N9000000F0KVE={!URLENCODE(Account.Name)}&amp;CF00N9000000F0KVE_lkid={!URLENCODE(Account.Id)}&apos;,&apos;_parent&apos;);</url>
+</WebLink>

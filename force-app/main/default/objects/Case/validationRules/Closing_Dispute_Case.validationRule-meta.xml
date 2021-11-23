@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closing_Dispute_Case</fullName>
+    <active>true</active>
+    <description>When the status for a dispute case is changed to Closed, certain conditions need to be met.</description>
+    <errorConditionFormula>AND(RecordType.Name = &quot;Enterprise Credit Dispute Claim&quot;, 
+ISCHANGED(Status),ISPICKVAL(Status, &quot;Closed&quot;), 
+PreviousMilestoneTier__c &gt; 0	
+)</errorConditionFormula>
+    <errorMessage>You can not close a case that has credit approvals or disputed items pending approval.</errorMessage>
+</ValidationRule>

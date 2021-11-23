@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrganisationType__c</fullName>
+    <description>Drop down box to select company type e.g. Sole Trader, Company</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select your business type</inlineHelpText>
+    <label>Business Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sole trader</fullName>
+                <default>false</default>
+                <label>Sole trader</label>
+            </value>
+            <value>
+                <fullName>Partnership</fullName>
+                <default>false</default>
+                <label>Partnership</label>
+            </value>
+            <value>
+                <fullName>Company (Public)</fullName>
+                <default>false</default>
+                <label>Company (Public)</label>
+            </value>
+            <value>
+                <fullName>Company (Proprietary Limited)</fullName>
+                <default>false</default>
+                <label>Company (Proprietary Limited)</label>
+            </value>
+            <value>
+                <fullName>Government body (Local)</fullName>
+                <default>false</default>
+                <label>Government body (Local)</label>
+            </value>
+            <value>
+                <fullName>Government body (Authority)</fullName>
+                <default>false</default>
+                <label>Government body (Authority)</label>
+            </value>
+            <value>
+                <fullName>Trading trust</fullName>
+                <default>false</default>
+                <label>Trading trust</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

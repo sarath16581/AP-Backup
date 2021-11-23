@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DataDictionaryField__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The field link in the data dictionary</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The field link in the data dictionary</inlineHelpText>
+    <label>Data Dictionary Field</label>
+    <referenceTo>Data_Dictionary_Field__c</referenceTo>
+    <relationshipName>IntegrationFieldUsage</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

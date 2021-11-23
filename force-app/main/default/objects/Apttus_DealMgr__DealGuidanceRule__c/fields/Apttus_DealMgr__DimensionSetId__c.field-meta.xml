@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealMgr__DimensionSetId__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>ID of the dimension set associated with the rule.</description>
+    <externalId>false</externalId>
+    <label>Dimension Set</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Apttus_DealMgr__DealGuidanceDimensionSet__c.Apttus_DealMgr__GuidanceType__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Apttus_DealMgr__GuidanceType__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Apttus_DealMgr__DealGuidanceDimensionSet__c</referenceTo>
+    <relationshipLabel>Deal Guidance Rules</relationshipLabel>
+    <relationshipName>DealGuidanceRules</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

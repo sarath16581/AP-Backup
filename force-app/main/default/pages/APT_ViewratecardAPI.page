@@ -1,0 +1,40 @@
+<apex:page controller="APT_ViewRatecardControllerAPI" >
+    
+    
+	<script type="text/javascript">
+		window.onload = function(){
+	        if('{!LastPageURL}' != null && '{!LastPageURL}' != '')
+	        {
+	            var lastPageURLName = 'lastPageURL' + '{!lineItemID}';
+	        	localStorage.setItem(lastPageURLName, JSON.stringify('{!LastPageURL}'));        
+	        }
+	        initJS();
+	    } 
+	    
+	    
+	    
+	 	function ReturnToCart(){     
+	        var lastPageURLName = 'lastPageURL' + '{!lineItemID}';
+	        var lastPageURLObj = localStorage.getItem(lastPageURLName);
+	        window.location.href =  JSON.parse(lastPageURLObj);
+	    } 
+	</script>
+
+
+<apex:form id="viewRatecardForm">
+    <c:APT_WaitComponent />
+    <apex:actionStatus id="ajaxStatus" onstart="wait(true)" onstop="wait(false)" />
+    
+    <apex:actionFunction status="ajaxStatus" name="prestoApiJS" action="{!prestoAPI}" reRender="viewRatecardForm"></apex:actionFunction>
+    <apex:actionFunction name="initJS" action="{!init}" oncomplete="prestoApiJS();" ></apex:actionFunction>
+        
+        <apex:pageBlock mode="edit">
+            <apex:pageMessages />
+            <apex:pageBlockButtons location="bottom" >
+                <apex:commandButton action="{!doCancel}" value="{!$Label.Apttus_XApps__Cancel}" immediate="true" oncomplete="ReturnToCart();"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        
+    </apex:form>
+
+</apex:page>

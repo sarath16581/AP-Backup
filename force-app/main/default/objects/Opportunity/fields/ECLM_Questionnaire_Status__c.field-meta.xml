@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ECLM_Questionnaire_Status__c</fullName>
+    <description>ECLM field</description>
+    <externalId>false</externalId>
+    <label>Questionnaire Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Contract Required</fullName>
+                <default>false</default>
+                <label>Contract Required</label>
+            </value>
+            <value>
+                <fullName>Contract Not Required</fullName>
+                <default>false</default>
+                <label>Contract Not Required</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

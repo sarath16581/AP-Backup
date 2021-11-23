@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Payment Support Signature</name>
+    <relatedEntityType>Case</relatedEntityType>
+    <style>none</style>
+    <subject>RE: REMITTANCE REQUEST    [ ref:_00D301GGce._500902760oB:ref ]</subject>
+    <type>custom</type>
+    <uiType>SFX</uiType>
+</EmailTemplate>

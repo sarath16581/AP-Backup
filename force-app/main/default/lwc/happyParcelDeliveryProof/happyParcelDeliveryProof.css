@@ -1,0 +1,71 @@
+/*
+    2020-04-01 nathan.franklin@auspost.com.au Created
+*/
+
+img.proof-image {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+    max-width: 300px;
+}
+img.proof-image.safedrop {
+    width: 100%;
+    max-width: 600px;
+}
+
+.title {
+    background-color: rgb(250, 250, 249); /*var(--lwc-tableColorBackgroundHeader,rgb(250, 250, 249));*/
+    border: var(--lwc-borderWidthThin,1px) solid var(--lwc-colorBorder,rgb(221, 219, 218));
+}
+
+.key-info {
+    min-height: 4rem;
+}
+.key-info .slds-col:first-child {
+    border-left: 0px none;
+}
+.key-info .slds-col:last-child {
+    border-right: 0px none;
+}
+.key-info .slds-col {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex: 1;
+}
+
+.slds-col.text {
+    border-bottom: var(--lwc-borderWidthThin,1px) solid var(--lwc-colorBorder,rgb(221, 219, 218));
+    border-top: var(--lwc-borderWidthThin,1px) solid var(--lwc-colorBorder,rgb(221, 219, 218));
+}
+
+.full-height-container {
+    flex: 1;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+.slds-notify.slds-notify_alert {
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 1rem); /* minus 1rem is because the grid uses slds-gutters_direct-x-small (0.5rem each side) */
+    z-index: 10;
+}
+
+.attach-delivery-proof-wrapper {
+    position: absolute;
+    right: 3rem;
+    top: 1.1rem;
+    z-index: 1;
+}
+.attach-delivery-proof-input {
+    direction: rtl;
+}
+
+.absolute-bottom-left {
+    position: absolute;
+    left: 1rem;
+    bottom: 0.5rem;
+}

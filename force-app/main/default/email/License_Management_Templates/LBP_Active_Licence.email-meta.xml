@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Template for when Licence record is changed to Active - For LBP Programme</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>SSSW_Email_Letterhead</letterhead>
+    <name>LBP Active Licence</name>
+    <style>freeForm</style>
+    <subject>New active licence record - Please update LBP fields on associated Network record</subject>
+    <textOnly>Hi LBP Admin team,
+
+There is now a new active Licence record associated to a Network record that has either a Tier 1 or Tier 2 LBP association.
+
+Can you please review the following Licence record and navigate to the associated Network record and update the LBP fields:
+
+Licence Name: {!Account.Name}
+Facility Name: {!Account.Facility__c}
+Network Facility: {!Account.Network_Facility__c}
+
+Kind Regards,
+
+Salesforce Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

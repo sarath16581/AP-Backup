@@ -1,0 +1,71 @@
+/* Below code is added and changed on 16-08-2018 as part of Communities changes. */
+.THIS.featured-category-header{
+    /*background: #e2dfda;*/
+    background: #ffffff;
+    /*border-top: 15px solid #f3f1ee;
+    border-bottom: 15px solid #f3f1ee;*/
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-left: 5px solid #6eebd2;
+    padding-left: 25px;
+    }
+    
+.THIS h2{
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 60px;
+    padding-bottom: 20px;
+}
+
+.THIS.featured-category-header.hidden{
+    display: none;
+    }
+
+.THIS.featured-category-header .network-postie{
+    float: right;
+    /*max-width: 211px;
+    max-height: 229px;*/
+    }
+
+.THIS .mobile-filters-block {
+        display: none;
+    }
+
+.THIS p{
+    max-width: 100%;
+}
+
+/* Below code is added and changed on 16-08-2018 as part of Communities changes. */
+/* Ideas Featured Category component styling for mobile view */
+@media screen and (max-width: 768px) {
+.THIS .filters-block {
+        display: none;
+}
+    
+.THIS .mobile-filters-block {
+        display: block;
+}
+.THIS.featured-category-header{
+   border-top: 5px solid #6eebd2;
+   border-left: none;
+   text-align: center;
+   padding-left: 10px;
+   padding-right: 10px;
+}
+    
+.THIS h2{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+    
+.THIS p{
+    padding-bottom: 10px;
+}
+    
+.THIS.featured-category-header .network-postie{
+    float: none;
+    padding-bottom: 10px; 
+    transform: rotate(-360deg);
+}
+    
+}

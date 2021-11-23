@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phase_2_Check_Total_Claimed_Revenue_OPC</fullName>
+    <active>true</active>
+    <errorConditionFormula>ABS(Total_Claimed_Revenue__c -Product_Total_Scheduled_Rev__c)&gt;1</errorConditionFormula>
+    <errorMessage>The adjusted claimed revenue amounts do not add up to the product total claimed revenue(difference&gt;$1). Please re-adjust values to equal total claimed revenue.</errorMessage>
+</ValidationRule>

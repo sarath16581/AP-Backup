@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Melbourne_North_Routes</fullName>
+    <columns>NAME</columns>
+    <columns>Depot__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>Mel</value>
+    </filters>
+    <label>Melbourne North Routes</label>
+    <sharedTo>
+        <group>MELB_NORTH_VAN_OPERATIONS</group>
+    </sharedTo>
+</ListView>

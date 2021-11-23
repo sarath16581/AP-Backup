@@ -1,0 +1,142 @@
+{
+    "articles": [
+        {
+            "href": "/consignment/v2/articles/33LPL000061903000605008",
+            "id": "33LPL000061903000605008",
+            "code": "33LPL000061903000605008",
+            "consignmentId": "nUBOMo5rQ1sAJcInZMXwGvwIuFjP6Rz1_fjVr3iXla3ET2cCcf0=",
+            "consignmentCode": "33LPL0000619",
+            "fullBarcode": "01993126509999989133LPL000061903000605008|4203000|9234409249|8008200123120054",
+            "shortBarcode": "01993126509999989133LPL000061903000605008",
+            "isRegisteredByAP": true,
+            "isReceivedByAP": false,
+            "lastModifiedOn": "2020-08-31T06:16:07+00:00",
+            "dispatchedOn": "2020-01-23T01:01:38+00:00",
+            "etag": "39b668070f392dd39ed1f8dbbf993f0f",
+            "expectedDelivery": {
+                "on": null,
+                "onChanged": false,
+                "between": null
+            },
+            "service": {
+                "productId": "94",
+                "productType": "eParcel",
+                "subProductId": "60",
+                "subProductType": "eParcel Standard"
+            },
+            "milestone": {
+                "on": "2020-01-23T12:01:04+00:00",
+                "name": "It's being prepared",
+                "description": "We'll let you know when it's on its way – usually within 3 business days – and when to expect delivery.",
+                "progressPercentage": 10
+            },
+            "destinationAddress": {
+                "line1": "Shop 11  111 Bourke St",
+                "line2": null,
+                "line3": null,
+                "suburb": "Melbourne",
+                "state": "VIC",
+                "postcode": "3000",
+                "countryCode": "AU",
+                "deliveryPoint": {
+                    "href": "/locations/v2/points/deliverypoints/34409249",
+                    "id": "34409249"
+                }
+            },
+            "deliveryInstructions": {
+                "signatureOnDelivery": {
+                    "required": true,
+                    "instruction": {
+                        "code": "SIG_REQUEST_ATL"
+                    }
+                },
+                "redirect": {
+                    "status": "RD_STATUS_REQUEST_ENABLED",
+                    "redirectChange": {
+                        "allowed": true,
+                        "reasonCode": null
+                    }
+                },
+                "safeDrop": {
+                    "status": "SD_STATUS_REQUEST",
+                    "location": {
+                        "code": null,
+                        "description": "on the front porch"
+                    },
+                    "locationChange": {
+                        "allowed": true,
+                        "reasonCode": null
+                    }
+                }
+            },
+            "deliverySummary": null,
+            "returnInstructions": {
+                "returnToSender": false
+            },
+            "consignmentCount": 1,
+            "consignments": {
+                "items": [
+                    {
+                        "href": "/consignment/v2/consignments/@nUBOMo5rQ1sAJcInZMXwGvwIuFjP6Rz1_fjVr3iXla3ET2cCcf0=",
+                        "id": "nUBOMo5rQ1sAJcInZMXwGvwIuFjP6Rz1_fjVr3iXla3ET2cCcf0=",
+                        "code": "33LPL0000619",
+                        "primary": true
+                    }
+                ]
+            },
+            "foundByTrackingReferences": [
+                {
+                    "id": "33LPL000061903000605008",
+                    "type": "IDTYPE_ARTICLE_CODE"
+                }
+            ],
+            "eventCount": 5,
+            "trackingEvents": {
+                "href": "/consignment/v2/articles/33LPL000061903000605008?expand=articles,events",
+                "items": [
+                    {
+                        "id": "33LPL000061903000605008",
+                        "code": "ADMIN-ER44",
+                        "on": "2020-08-11T08:20:54+00:00",
+                        "message": "Customer enquiry lodged",
+                        "location": "MELBOURNE VIC, 3000",
+                        "workCentreId": "111894"
+                    },
+                    {
+                        "id": "33LPL000061903000605008",
+                        "code": "CE-SR03",
+                        "on": "2020-01-23T12:20:37+00:00",
+                        "message": "Leave in a safe place requested by Receiver",
+                        "location": null,
+                        "workCentreId": null
+                    },
+                    {
+                        "id": "33LPL000061903000605008",
+                        "code": "CE-SR03",
+                        "on": "2020-01-23T12:04:59+00:00",
+                        "message": "Leave in a safe place request cancelled by receiver",
+                        "location": null,
+                        "workCentreId": null
+                    },
+                    {
+                        "id": "33LPL000061903000605008",
+                        "code": "ADMIN-ER39",
+                        "on": "2020-01-23T12:01:04+00:00",
+                        "message": "Shipping information received by Australia Post",
+                        "location": null,
+                        "workCentreId": "352524"
+                    },
+                    {
+                        "id": "33LPL000061903000605008",
+                        "code": "CE-SR05",
+                        "on": "2020-01-23T12:01:04+00:00",
+                        "message": "Leave in a safe place requested",
+                        "location": null,
+                        "workCentreId": null
+                    }
+                ]
+            }
+        }
+    ],
+    "errors": []
+}

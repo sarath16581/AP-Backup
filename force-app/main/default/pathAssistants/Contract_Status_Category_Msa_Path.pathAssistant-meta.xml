@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Apttus__APTS_Agreement__c</entityName>
+    <fieldName>Apttus__Status_Category__c</fieldName>
+    <masterLabel>Contract - Status Category MSA Path</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Creates a new dot version of the Agreement (nnnn.1, nnnn.2, and so on) after doing a deep copy of the agreement fields and related objects. This stage is primarily for system purposes and not used by our Sales team.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Amended</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Voids an Agreement Request. This stage is primarily for system purposes and not used by our Sales team.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Cancelled</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Sets the Agreement to an Expired or Lapsed Status. This stage is primarily for system purposes and not used by our Sales team.&lt;/p&gt;</info>
+        <picklistValueName>Expired</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;ul&gt;&lt;li&gt;Check the Agreement (found in the &amp;#39;notes &amp;amp; attachments&amp;#39; section) to make sure: &lt;ul&gt;&lt;li&gt;Cover page has correct customer details&lt;/li&gt;&lt;li&gt;If the agreement is for amendment, Deed of Variation has the correct information&lt;/li&gt;&lt;li&gt;Details Schedule has the correct information&lt;/li&gt;&lt;li&gt;Rates are what the customer accepted&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;Add in DocuSign recipients (refer to user guides via the link below)&lt;/li&gt;&lt;li&gt;Click on &amp;#39;eSignature&amp;#39; button to submit the contract for signing&lt;/li&gt;&lt;li&gt;For more help with Proposals and Contracts, you can view more &lt;a href=&quot;https://auspost.sharepoint.com/:f:/r/sites/SPBG/Sales-support-site/Shared%20Documents/Apttus%20Documents%20(Lightning)&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;documentation&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>In Authoring</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;For more help with Proposals and Contracts, you can view more &lt;/span&gt;&lt;a href=&quot;https://auspost.sharepoint.com/sites/SPBG/SitePages/Customer-Simplification-Program.aspx&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;documentation&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>In Effect</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;	&lt;/span&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;If the customer has signed the agreement manually, raise a DSR to the DEC to get your contract uploaded&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;For contracts signed via DocuSign, these will be automatically sent to processing  for activation (there is no need to inform the processing team manually or raise a separate DSR, as the automated process will have already created one on your behalf). The DSR will be visible in the related quick links on the  Apttus Contract and the related Opportunity record.&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;For more help with Proposals and Contracts, you can view more &lt;/span&gt;&lt;a href=&quot;https://auspost.sharepoint.com/sites/SPBG/SitePages/Customer-Simplification-Program.aspx&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;documentation&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>In Signatures</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Creates a new dot version of the Agreement (nnnn.1, nnnn.2, and so on) after doing a deep copy of the agreement fields and related objects. This stage is primarily for system purposes and not used by our Sales team.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Renewed</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Has the account lodgement point been provided? If not, click on the red &amp;#39;create&amp;#39; button.&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;If you need to add in more account numbers or sub accounts for the same lodgement  point you&amp;#39;ll need to edit the Detailed Operational Schedule (DOS)&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Are you amending an existing contract? (DoV). If So, create &amp;#39;DoV Language&amp;#39; by clicking &amp;quot;New &amp;quot; button on DoV Language related list quick links&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Once the ‘create&amp;#39; button is green, you can now create the contract document by referring to user guide &amp;#39;Sales - Working with Apttus Contract Records - Step Guide’ (You can view the &lt;/span&gt;&lt;a href=&quot;https://auspost.sharepoint.com/:f:/r/sites/SPBG/Sales-support-site/Shared%20Documents/Apttus%20Documents%20(Lightning)&quot; target=&quot;_blank&quot;&gt;documentation&lt;/a&gt; &lt;span style=&quot;font-size: 13px;&quot;&gt;here)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Request</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Sets the Agreement to a Terminated state. This stage is primarily for system purposes and not used by our Sales team.&lt;/p&gt;</info>
+        <picklistValueName>Terminated</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>APT_MSA_Service_Schedule</recordTypeName>
+</PathAssistant>

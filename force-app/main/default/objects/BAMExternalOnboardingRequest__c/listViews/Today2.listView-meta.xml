@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Today2</fullName>
+    <columns>OBJECT_ID</columns>
+    <columns>NAME</columns>
+    <columns>Contact__c</columns>
+    <columns>Application_Name__c</columns>
+    <columns>Contact_Application__c</columns>
+    <columns>Type__c</columns>
+    <columns>Status__c</columns>
+    <columns>Request_Date__c</columns>
+    <columns>Response_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>Today2</label>
+    <language>en_US</language>
+</ListView>

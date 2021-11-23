@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email template used to send Business Sales Implementation Surveys to requesters (Typically Account Managers)</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Business Sales Implementation Internal Survey</name>
+    <style>none</style>
+    <subject>Your feedback is important to us ({!Case.CaseNumber})</subject>
+    <textOnly>Ref No.: {!Case.CaseNumber}
+
+Hi {!Case.Requestor__c}
+
+Your feedback is important to us.
+
+We recently completed an implementation project and would appreciate your feedback to help us improve our service.
+
+Customer: {!Case.Account}
+Implementation Owner: {!Case.OwnerFullName}
+
+Please click below to provide your feedback with 4 simple questions.
+https://www.getfeedback.com/r/Nr68Z69v?ContactId={!Contact.Id}&amp;Casenumber={!Case.CaseNumber}&amp;Accountid={!Case.AccountId}&amp;Caseid={!Case.Id}&amp;Requestorid={!Case.Requestor__c}
+
+
+Thank you,
+Implementation Team
+
+
+{!Case.Thread_Id}
+
+This email is sent by Star Track Express Pty Limited or one of its related entities (collectively referred to as “STARTRACK”). The information contained in this email is confidential and may contain legally privileged information. Confidentiality and legal privilege are not waived or lost by reason of mistaken delivery. The content of this email is the view or opinion of the stated author and does not necessarily reflect the view or opinion of STARTRACK. If you are not the intended recipient or the person responsible for the delivery of the message to the intended recipient, any dissemination of the information is strictly prohibited. If you have received this email in error, please contact the sender by return email and delete the email and any attachments from your computer. Although STARTRACK has taken care to ensure the attachments (if any) to this email are virus free, STARTRACK does not warrant that any such attachments are free of errors, viruses or other malicious codes and does not accept liability for any consequences to the recipient upon opening or using this email.
+Help &amp; Support  |  Terms &amp; Conditions  |  Privacy Policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

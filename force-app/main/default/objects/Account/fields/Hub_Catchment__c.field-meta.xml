@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hub_Catchment__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>This will be derived from the Hub Catchment Reference table after a Post Code is added in the Physical Address.</inlineHelpText>
+    <label>Local Area Market</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>ADELAIDE</fullName>
+                <default>false</default>
+                <label>ADELAIDE</label>
+            </value>
+            <value>
+                <fullName>ALBURY</fullName>
+                <default>false</default>
+                <label>ALBURY</label>
+            </value>
+            <value>
+                <fullName>ALEXANDRIA</fullName>
+                <default>false</default>
+                <label>ALEXANDRIA</label>
+            </value>
+            <value>
+                <fullName>ARCHERFIELD</fullName>
+                <default>false</default>
+                <label>ARCHERFIELD</label>
+            </value>
+            <value>
+                <fullName>BALLARAT</fullName>
+                <default>false</default>
+                <label>BALLARAT</label>
+            </value>
+            <value>
+                <fullName>BALLINA</fullName>
+                <default>false</default>
+                <label>BALLINA</label>
+            </value>
+            <value>
+                <fullName>BATHURST</fullName>
+                <default>false</default>
+                <label>BATHURST</label>
+            </value>
+            <value>
+                <fullName>BAYSWATER</fullName>
+                <default>false</default>
+                <label>BAYSWATER</label>
+            </value>
+            <value>
+                <fullName>BENDIGO</fullName>
+                <default>false</default>
+                <label>BENDIGO</label>
+            </value>
+            <value>
+                <fullName>BIBRA LAKE</fullName>
+                <default>false</default>
+                <label>BIBRA LAKE</label>
+            </value>
+            <value>
+                <fullName>BRISBANE CENTRAL</fullName>
+                <default>false</default>
+                <label>BRISBANE CENTRAL</label>
+            </value>
+            <value>
+                <fullName>BUNDALL</fullName>
+                <default>false</default>
+                <label>BUNDALL</label>
+            </value>
+            <value>
+                <fullName>CAIRNS</fullName>
+                <default>false</default>
+                <label>CAIRNS</label>
+            </value>
+            <value>
+                <fullName>CANBERRA</fullName>
+                <default>false</default>
+                <label>CANBERRA</label>
+            </value>
+            <value>
+                <fullName>CARINGBAH</fullName>
+                <default>false</default>
+                <label>CARINGBAH</label>
+            </value>
+            <value>
+                <fullName>COFFS HARBOUR</fullName>
+                <default>false</default>
+                <label>COFFS HARBOUR</label>
+            </value>
+            <value>
+                <fullName>DANDENONG</fullName>
+                <default>false</default>
+                <label>DANDENONG</label>
+            </value>
+            <value>
+                <fullName>FRENCHS FOREST</fullName>
+                <default>false</default>
+                <label>FRENCHS FOREST</label>
+            </value>
+            <value>
+                <fullName>GEELONG</fullName>
+                <default>false</default>
+                <label>GEELONG</label>
+            </value>
+            <value>
+                <fullName>HOBART</fullName>
+                <default>false</default>
+                <label>HOBART</label>
+            </value>
+            <value>
+                <fullName>HOPPERS CROSSING</fullName>
+                <default>false</default>
+                <label>HOPPERS CROSSING</label>
+            </value>
+            <value>
+                <fullName>HUNTER</fullName>
+                <default>false</default>
+                <label>HUNTER</label>
+            </value>
+            <value>
+                <fullName>KINGSGROVE</fullName>
+                <default>false</default>
+                <label>KINGSGROVE</label>
+            </value>
+            <value>
+                <fullName>LAUNCESTON</fullName>
+                <default>false</default>
+                <label>LAUNCESTON</label>
+            </value>
+            <value>
+                <fullName>LONSDALE</fullName>
+                <default>false</default>
+                <label>LONSDALE</label>
+            </value>
+            <value>
+                <fullName>MACKAY</fullName>
+                <default>false</default>
+                <label>MACKAY</label>
+            </value>
+            <value>
+                <fullName>MACQUARIE PARK</fullName>
+                <default>false</default>
+                <label>MACQUARIE PARK</label>
+            </value>
+            <value>
+                <fullName>MANSFIELD</fullName>
+                <default>false</default>
+                <label>MANSFIELD</label>
+            </value>
+            <value>
+                <fullName>MOORABBIN</fullName>
+                <default>false</default>
+                <label>MOORABBIN</label>
+            </value>
+            <value>
+                <fullName>MORETON BAY</fullName>
+                <default>false</default>
+                <label>MORETON BAY</label>
+            </value>
+            <value>
+                <fullName>MOUNT WAVERLEY</fullName>
+                <default>false</default>
+                <label>MOUNT WAVERLEY</label>
+            </value>
+            <value>
+                <fullName>NAMBOUR</fullName>
+                <default>false</default>
+                <label>NAMBOUR</label>
+            </value>
+            <value>
+                <fullName>NEPEAN</fullName>
+                <default>false</default>
+                <label>NEPEAN</label>
+            </value>
+            <value>
+                <fullName>OSBORNE PARK</fullName>
+                <default>false</default>
+                <label>OSBORNE PARK</label>
+            </value>
+            <value>
+                <fullName>PERTH</fullName>
+                <default>false</default>
+                <label>PERTH</label>
+            </value>
+            <value>
+                <fullName>PORT MELBOURNE</fullName>
+                <default>false</default>
+                <label>PORT MELBOURNE</label>
+            </value>
+            <value>
+                <fullName>ROCKHAMPTON</fullName>
+                <default>false</default>
+                <label>ROCKHAMPTON</label>
+            </value>
+            <value>
+                <fullName>SALISBURY SOUTH</fullName>
+                <default>false</default>
+                <label>SALISBURY SOUTH</label>
+            </value>
+            <value>
+                <fullName>SA Rural and Remote</fullName>
+                <default>false</default>
+                <label>SA Rural and Remote</label>
+            </value>
+            <value>
+                <fullName>SEAFORD</fullName>
+                <default>false</default>
+                <label>SEAFORD</label>
+            </value>
+            <value>
+                <fullName>SEVEN HILLS</fullName>
+                <default>false</default>
+                <label>SEVEN HILLS</label>
+            </value>
+            <value>
+                <fullName>SHEPPARTON</fullName>
+                <default>false</default>
+                <label>SHEPPARTON</label>
+            </value>
+            <value>
+                <fullName>SILVERWATER</fullName>
+                <default>false</default>
+                <label>SILVERWATER</label>
+            </value>
+            <value>
+                <fullName>SMEATON GRANGE</fullName>
+                <default>false</default>
+                <label>SMEATON GRANGE</label>
+            </value>
+            <value>
+                <fullName>SOMERTON</fullName>
+                <default>false</default>
+                <label>SOMERTON</label>
+            </value>
+            <value>
+                <fullName>ST LEONARDS</fullName>
+                <default>false</default>
+                <label>ST LEONARDS</label>
+            </value>
+            <value>
+                <fullName>TAMWORTH</fullName>
+                <default>false</default>
+                <label>TAMWORTH</label>
+            </value>
+            <value>
+                <fullName>TOOWOOMBA</fullName>
+                <default>false</default>
+                <label>TOOWOOMBA</label>
+            </value>
+            <value>
+                <fullName>TOWNSVILLE</fullName>
+                <default>false</default>
+                <label>TOWNSVILLE</label>
+            </value>
+            <value>
+                <fullName>TUGGERAH</fullName>
+                <default>false</default>
+                <label>TUGGERAH</label>
+            </value>
+            <value>
+                <fullName>VIRGINIA</fullName>
+                <default>false</default>
+                <label>VIRGINIA</label>
+            </value>
+            <value>
+                <fullName>WANGARA</fullName>
+                <default>false</default>
+                <label>WANGARA</label>
+            </value>
+            <value>
+                <fullName>Warrnambool</fullName>
+                <default>false</default>
+                <label>Warrnambool</label>
+            </value>
+            <value>
+                <fullName>WA Rural and Remote</fullName>
+                <default>true</default>
+                <label>WA Rural and Remote</label>
+            </value>
+            <value>
+                <fullName>WELSHPOOL</fullName>
+                <default>false</default>
+                <label>WELSHPOOL</label>
+            </value>
+            <value>
+                <fullName>WETHERILL PARK</fullName>
+                <default>false</default>
+                <label>WETHERILL PARK</label>
+            </value>
+            <value>
+                <fullName>WINNELLIE</fullName>
+                <default>false</default>
+                <label>WINNELLIE</label>
+            </value>
+            <value>
+                <fullName>WOLLONGONG</fullName>
+                <default>false</default>
+                <label>WOLLONGONG</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

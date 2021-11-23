@@ -1,0 +1,74 @@
+/*
+    2020-04-01 nathan.franklin@auspost.com.au Created
+    2020-09-18 - Ranjeewa Silva - Improved responsiveness on smaller screen sizes.
+*/
+.article-document {
+    overflow: hidden;
+}
+
+.article-document.collapsed {
+    height: 0;
+}
+.article-document.expanded {
+    height: auto;
+}
+
+.accordion-header {
+    background-color: rgb(243, 242, 242);
+}
+
+.consignment-article {
+    margin: 20px;
+    /*border-left: 20px solid #EFEFEF;*/
+    /*border-right: 20px solid #EFEFEF;*/
+}
+
+.article-badge {
+    max-width: 150px;
+    height: 75px;
+    font-size: 1rem;
+    color: #fff;
+    padding: 1.5rem;
+    font-weight: bold;
+}
+
+/*@media var(--lwc-mqSmall) {*/
+@media screen and (max-width: 48em) {
+    .accordion-header {
+        flex-wrap: wrap;
+        justify-content: stretch;
+    }
+    .accordion-header > .slds-col:first-child {
+        width: 90%;
+    }
+    .accordion-header > .slds-col:last-child {
+        width: 10%;
+        order: 2;
+    }
+    .accordion-header .accordion-traffic-lights {
+        width: 100%;
+        order: 3;
+    }
+}
+
+/*@media --lwc-mqMedium {*/
+@media screen and (min-width: 48em) {
+    .accordion-header {
+        flex-wrap: nowrap;
+    }
+
+    .accordion-header > .slds-col:first-child,
+    .accordion-header > .slds-col:last-child,
+    .accordion-header .accordion-traffic-lights {
+        width: auto;
+        order: unset;
+    }
+}
+
+@media screen and (min-width: 30em) and (max-width: 48em) {
+    .article-badge {
+        padding: 0.3rem;
+        font-size: 0.8125rem;
+        min-width : 90%;
+    }
+}

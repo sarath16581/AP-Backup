@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Delete</fullName>
+    <availability>online</availability>
+    <description>Custom delete allow, moving of all existing solutions from one being deleted to one</description>
+    <displayType>button</displayType>
+    <height>600</height>
+    <linkType>page</linkType>
+    <masterLabel>Delete</masterLabel>
+    <openType>sidebar</openType>
+    <page>DMAPP__CustomPlanSolutionDelete</page>
+    <protected>false</protected>
+</WebLink>

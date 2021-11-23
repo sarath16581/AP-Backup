@@ -1,0 +1,764 @@
+<apex:page showHeader="false" controller="AP_ConnectorController" sidebar="false">
+  <div class="login-card">
+    <div id="version"></div>
+  </div>    
+  <link rel="stylesheet" href="{!URLFOR($Resource.login_css)}"/>
+  <script type="text/javascript" src="{!URLFOR($Resource.AP_CTIConnector, 'lib/require.min.js')}"></script>
+  <apex:includeScript value="/soap/ajax/31.0/connection.js" />
+        <apex:includeScript value="/support/console/31.0/integration.js" />
+        <apex:includeScript value="/support/api/31.0/interaction.js" />
+        <apex:includeScript value="{!$Resource.jquery191}" />
+
+        <apex:includeScript value="{!$Resource.bootstrapJS}" />
+        <apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+        <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+
+        <apex:includeScript value="{!$Resource.jQueryCookie}" />
+        <apex:includeScript value="{!$Resource.jQueryJSON}" />
+
+        <apex:includeScript value="{!$Resource.SSSWJS}" />
+  <script type="text/javascript">
+  Visualforce.remoting.timeout = 120000; // Set timeout at page level
+require.config({
+    baseUrl : '{!URLFOR($Resource.AP_CTIConnector)}',
+    paths: {
+        util: 'lib/util',
+        jquery: 'lib/jquery-2.1.4.min',
+        moment: 'lib/moment.min',
+        connector: 'SFDC/connector',
+        integration: '/support/console/36.0/integration',
+        interaction: '/support/api/36.0/interaction',
+        i18next: 'lib/i18next.min',
+        jqueryI18next: 'lib/jquery-i18next.min',
+        i18nextXHRBackend: 'lib/i18next-xhr-backend.min'
+    },
+    shim: {
+        'jquery': {
+            exports: '$'
+        },
+        'integration': {
+            exports: 'sforce'
+        },
+        'interaction': {
+            exports: 'sforce'
+        }
+    }
+});
+
+require(['SFDC/sfdc', 'SFDC/package', 'interaction'], 
+        function(sfdc, packageInfo, sforce, user) { 
+    var log_prefix = "CRMConnector: ";
+    
+    console.info(log_prefix + "VERSION: " + packageInfo.VERSION);
+    $('#version').text(packageInfo.NAME + ' v' + packageInfo.VERSION);
+    
+    sforce.interaction.cti.getCallCenterSettings(function(response) {
+        console.log(log_prefix + 'getCallCenterSettings: ' + response.result);
+        var settings = $.parseJSON(response.result);
+        
+        var height = settings['/reqGeneralInfo/reqSoftphoneHeight'];
+        sforce.interaction.cti.setSoftphoneHeight(height, function() {
+        });
+                        
+        sfdc.initialize('{!URLFOR($Resource.AP_CTIConnector)}' +'/').done();
+    });
+
+});
+
+function getConnectorOption(settings, optionName, defValue) {
+    var value = settings['/ConnectorSettings/' + optionName];
+    if (value) {
+        console.log("getConnectorOption: " + optionName + ": " + value);
+        return value;
+    } else {
+        console.log("getConnectorOption: " + optionName + " (default): " + defValue);
+        return defValue;
+    }
+    
+    return setting;
+}
+</script>
+
+<apex:form >
+
+      <input type="hidden" id="wrapTime" />
+        <div style="overflow-y: auto;">
+            <c:LoadingSpinnerComponent showFunctionName="miniCaseShowProgressTop" hideFunctionName="miniCaseHideProgressTop" />
+            <input type="hidden" id="clickToDialNum" />
+            <input type="hidden" id="hfContactID" />
+            <input type="hidden" id="hfClickToDialContactID" />
+            <input type="hidden" id="hfCaseID" />
+            <input type="hidden" id="hfServiceType" />
+            <input type="hidden" id="hfSegment" />
+            <input type="hidden" id="hfQueue" />
+            <input type="hidden" id="hfInboundJSON" />
+            <input type="hidden" id="hfIWSCaseID" />
+
+            <!-- these divs will store paths to images that will be manipulated by jquery-->
+            <div id="logo" class="hidden">{!URLFOR($Resource.wsc_icons,
+                    'wsc_icons/wsc_logo.png')}</div>
+            <div id="minus_green" class="hidden">{!URLFOR($Resource.wsc_icons,
+                    'wsc_icons/wsc_green_minus.png')}</div>
+            <div id="minus_red" class="hidden">{!URLFOR($Resource.wsc_icons,
+                    'wsc_icons/wsc_red_minus.png')}</div>
+            <div id="plus_green" class="hidden">{!URLFOR($Resource.wsc_icons,
+                    'wsc_icons/wsc_green_plus.png')}</div>
+            <div id="plus_red" class="hidden">{!URLFOR($Resource.wsc_icons,
+                    'wsc_icons/wsc_red_plus.png')}</div>
+            
+            
+            <div class="MiniCase">
+                <div class="cti">
+                    <apex:pageBlock title="Incoming Call" mode="edit" id="pbMiniCase" >
+                        <apex:pageBlockSection columns="1">
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Phone No." for="txtPhoneNumber" />
+                                <apex:inputtext value="{!txtPhoneNumber}" id="txtPhoneNumber"
+                                                disabled="true"
+                                                styleClass="form-control input-sm string maxWidth" />
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Reference ID" for="txtRefID" />
+                                <apex:inputtext value="{!txtRefID}" id="txtRefID"
+                                                disabled="true"
+                                                styleClass="form-control input-sm string maxWidth" />
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="URL" />
+                                <input type="button" value="Share" onclick="shareURL();"
+                                       class="btn" style="float: left;" />&nbsp;&nbsp;&nbsp;
+                                <span id="shareURLMessage"
+                                      class="hidden" style="position: relative; top: .5em;" />
+                            </apex:pageBlockSectionItem>
+
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Contact" />
+                                <a href="#" id="btnContactID" onclick="showContact();"
+                                   style="float: left;" />
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Case" />
+                                <a href="#" id="btnCaseID" onclick="showCase();"
+                                   style="float: left;" />
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                    </apex:pageBlock>
+                </div>
+                <apex:pageBlock title="Enquiry" mode="edit" id="pbEnquiry">
+                    <apex:actionfunction name="dummyRefresh" immediate="true"
+                                         rerender="pbEnquiry" oncomplete="miniCaseHideProgressTop();" />
+                    <apex:actionfunction name="jrReloadPicklists" immediate="true"
+                                         rerender="pbEnquiry"
+                                         oncomplete="miniCaseShowProgressTop();dummyRefresh();">
+                        <apex:param name="recordTypeId"
+                                    assignTo="{!proxyCase.recordTypeId}" value="" />
+                    </apex:actionfunction>
+
+                    <!--apex:pageBlockSection >
+                        <apex:repeat value="{!$ObjectType.Case.FieldSets.CTIFieldSet}"
+                                     var="f">
+
+                            <apex:inputField value="{!proxyCase[f.fieldPath]}"
+                                             styleClass="MiniCaseFieldSet_{!f.fieldPath} form-control input-sm {!f.type} maxWidth"
+                                             required="{!OR(f.required, f.dbRequired)}"
+                                             onchange="synchData_MiniCaseFieldSet_{!f.fieldPath}(this);" />
+                            <script type="text/javascript">
+
+                                function synchData_MiniCaseFieldSet_{!f.fieldPath}(element) {
+                                    var currentField = j$(element);
+                                    sforce.console.fireEvent('MiniCaseFieldSet_{!f.fieldPath}', currentField.val(), function(result){});
+                                }
+
+                                sforce.console.addEventListener('MiniCaseFieldSet_{!f.fieldPath}', function(result) {
+                                    var currentField = j$('[class*="MiniCaseFieldSet_{!f.fieldPath}"]')[0];
+                                    j$(currentField).val(result.message);
+                                    window.console && console.log('CTI: Updating ' + currentField);
+
+                                    if('{!f.type}'=='picklist') {
+                                        cti_setDependentPicklist(j$(currentField).attr('id'), false);
+                                    }
+                                });
+                            </script>
+                            <input type="hidden" id="MiniCaseFieldSet_{!f.fieldPath}"
+                                   value="synchData_MiniCaseFieldSet_{!f.fieldPath}(this);" />
+                        </apex:repeat>
+                    </apex:pageblocksection-->
+                </apex:pageblock>
+                
+                <table>
+                    <tr>
+                        <td id="logoTd" vertical-align="top">
+                            <!-- these cells witll be filled by jquery -->
+                        </td>
+                        <td id="statusTd" vertical-align="top">
+                            <!-- these cells witll be filled by jquery -->
+                        </td>
+                    </tr>
+                </table>
+                </div>
+                <div id="debug" style="display: none; width: 100%;">
+
+
+                <div>
+                    <style>
+                        .expandable {
+                            cursor: pointer;
+                        }
+                    </style>
+                    nvcCustomerId: <span id="nvcCustomerId" /><br /> ENG_Outcome_1: <span
+                        id="ENG_Outcome_1" /><br /> ENG_Outcome_2: <span
+                        id="ENG_Outcome_2" /><br /> ENG_Outcome_3: <span
+                        id="ENG_Outcome_3" /><br /> ENG_Outcome_4: <span
+                        id="ENG_Outcome_4" /><br /> IWS Values:
+                    <ul id="logger"></ul>
+                    <script>
+                        function showLogTree(obj) {
+                            if (obj != null) {
+                                var logTree = j$('#logger');
+                                logTree.empty();
+                                for (var k in obj) {
+                                    if (typeof obj[k] == 'object' && obj[k] != null) {
+                                        var innerLI = j$('<li></li>');
+                                        innerLI.append(k + ' ----------------------');
+                                        var innerLogTree = j$('<ul></ul>');
+                                        for (var o in obj[k]) {
+                                            innerLogTree.append('<li>' + o + ' = ' + obj[k][o] + '</li>');
+                                        }
+                                        innerLI.append(innerLogTree);
+                                        logTree.append(innerLI);
+                                    } else {
+                                        logTree.append('<li>' + k + ' = ' + obj[k] + '</li>');
+                                    }
+                                }
+                                logTree.find('ul').hide();
+                                logTree.find('li').each(function () {
+                                    if (j$(this).has("ul").size() > 0) {
+                                        j$(this).addClass('expandable');
+                                        j$(this).click(function () {
+                                            j$(this).find("ul").toggle();
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    </script>
+                </div>
+
+
+                <div id="portStatus" style="margin: 5px"></div>
+                <table width="97%" id="commStatus" cellspacing="0" cellpadding="0"
+                       style="margin: 5px" border="0">
+                    <tr align="left">
+                        <td>Diagnostic Log:</td>
+                        <td align="right"><div align="right">
+                            <button onClick="clearLog();">Clear</button>
+                        </div></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table width="100%" height="98%"
+                                   style="border: 1px solid dimgray; background-color: white;">
+                                <tr>
+                                    <td><div height="100%" id="log" style="overflow: auto;"></div></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                
+             </div>   
+             </div>   
+                </apex:form>
+                <style>
+            html, body {
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                /*              background-color: #DCF3FA;  */
+                background-color: #CCE2ED;
+                color: #333;
+                line-height: 1;
+                width: 100%;
+            }
+
+            td img {
+                vertical-align: top;
+            }
+
+            .maxWidth, .dataCol span select {
+                max-width: 100%;
+            }
+
+            .MiniCase .bPageBlock .detailList .labelCol {
+                width: 25%;
+            }
+
+            .MiniCase .bPageBlock .detailList .dataCol {
+                width: 75%;
+            }
+
+            .MiniCase .bPageBlock .detailList .data2Col {
+                width: 75%;
+            }
+
+            .MiniCase .bPageBlock .detailList th, .bPageBlock .detailList td {
+                vertical-align: middle;
+            }
+
+            .existingCasesOrActivities .pbBody .pbSubsection .dataCol {
+                width: 100%;
+            }
+
+            body .bPageBlock {
+                border: none;
+                margin: 20px;
+                padding: 10px;
+            }
+
+            textarea.input-sm {
+                height: 150px;
+            }
+
+            body .bPageBlock .pbHeader, body .bPageBlock .pbHeader table {
+                border: none;
+            }
+
+            body .bPageBlock .pbTitle, .bEditBlock .pbHeader>table>tbody>tr>td,
+            .bPageBlock .pbHeader>table>tbody>tr>td {
+                padding: 12px;
+                width: 100%;
+            }
+
+            .editPage .pbSubsection {
+                padding-bottom: 12px;
+            }
+
+            body .bPageBlock .pbTitle h2 {
+                font-family: "letter_one", "Helvetica Neue", Helvetica, Arial,
+                sans-serif;
+                font-size: 14px;
+                font-weight: bold;
+                color: #dc1928;
+                margin-bottom: 10px;
+            }
+
+            .bPageBlock .labelCol {
+                padding-right: 0;
+                text-align: left;
+            }
+
+            body .bPageBlock.bEditBlock .pbBody .data2Col {
+                padding-top: 0px;
+                padding-bottom: 0px;
+            }
+
+            .input-sm {
+                margin: 5px 5px 5px 0;
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            .red {
+                display: block;
+                color: red;
+            }
+
+            .green {
+                display: block;
+                color: green;
+            }
+        </style>
+        <script>
+            var inServiceCloudConsole = false;
+        
+             j$ = jQuery.noConflict();
+
+            j$(function() {
+                //j$("select:disabled").addClass("form-control input-sm");
+
+                //show();
+
+                //console.log("Version = " + version);
+                sforce.interaction.isInConsole(function(isCon) {
+                            if (isCon.result) {
+                                inServiceCloudConsole = true;
+                                console.log('In Console'); 
+                                sforce.interaction.cti.setSoftphoneHeight(605);
+                                sforce.interaction.cti.setSoftphoneWidth(415);  
+                            } else {
+                                console.log('Not in console');
+                                //return;
+                                
+                                sforce.interaction.cti.setSoftphoneHeight(220);
+                                sforce.interaction.cti.setSoftphoneWidth(415); 
+                            }
+                            var serviceCloudConsoleOnly = getURLParam(
+                                    "servicecloudconsoleonly",
+                                    "notPresent");
+                            console.log("serviceCloudConsoleOnly from url = "
+                                    + serviceCloudConsoleOnly);
+                            if (serviceCloudConsoleOnly == "notPresent") {
+                                serviceCloudConsoleOnly = readCookie("wsc_serviceCloudConsoleOnly");
+                                console.log("serviceCloudConsoleOnly from cookie = "
+                                        + serviceCloudConsoleOnly);
+                                //TODO need to make default behavior part of call center definition
+                                if (serviceCloudConsoleOnly == 0)
+                                    serviceCloudConsoleOnly = "false";
+                            } else {
+                                console.log('*** SFDC Debug: createCookie()');
+                                createCookie(
+                                        "wsc_serviceCloudConsoleOnly",
+                                        serviceCloudConsoleOnly, 1);
+                            }
+                            console.log('serviceCloudConsoleOnly = '
+                                    + serviceCloudConsoleOnly);
+                            
+                            if ((serviceCloudConsoleOnly == "false") || (serviceCloudConsoleOnly && inServiceCloudConsole)) {
+                                console.log('*** SFDC Debug: Mainline - serviceCloudConsoleOnly:'+serviceCloudConsoleOnly+' inServiceCloudConsole:'+inServiceCloudConsole);
+
+                                initLogo();
+                            } else {
+                                sforce.interaction.cti
+                                        .setSoftphoneHeight(0);
+                                sforce.interaction.cti
+                                        .setSoftphoneWidth(0);
+                            }
+                        });
+            });
+            function initLogo() {
+
+                console.log('*** SFDC Debug: initLogo - Start - inServiceCloudConsole='+inServiceCloudConsole);
+
+                var imgUrl = j$('#logo').html();
+                j$('#logoTd').html('<img src="' + imgUrl  + '">');
+
+                //NM 27/05/16 - Required for Sales Cloud functionality, hide the MiniCase, pbEnquiry pageBlocks, and set the height of the softphone to 22.
+                if (!inServiceCloudConsole) {
+                    // hide the MiniCase Apex pageblock if not in Service Console.
+                    j$('[id$=pbMiniCase]').hide();
+                    j$('[id$=pbEnquiry]').hide();
+
+                    sforce.interaction.cti.setSoftphoneHeight(22);
+                    sforce.interaction.cti.setSoftphoneWidth(415);
+                    console.log('*** SFDC Debug: initCallCenter - setSoftphoneHeight(22)');
+                }
+                else {
+                    sforce.interaction.cti.setSoftphoneHeight(605);
+                    sforce.interaction.cti.setSoftphoneWidth(415);
+                }
+
+            }
+            
+            function getURLParam(strParamName, strDefault) {
+                console.log('getURLParam');
+                var strReturn = strDefault;
+                var strHref = document.referrer;
+                if (strHref.indexOf("?") > -1) {
+                    var strQueryString = strHref.substr(strHref.indexOf("?"))
+                            .toLowerCase();
+                    var aQueryString = strQueryString.split("&");
+                    for (var iParam = 0; iParam < aQueryString.length; iParam++) {
+                        if (aQueryString[iParam].indexOf(strParamName + "=") > -1) {
+                            var aParam = aQueryString[iParam].split("=");
+                            strReturn = aParam[1];
+                            break;
+                        }
+                    }
+                }
+                return strReturn;
+            }
+            </script>  
+            
+            <script>
+            sforce.console.addEventListener('MiniCaseFieldSet_ProductCategory__c',  function(result) {
+                console.log('--'+result.message);
+                j$('#hfProductCategory__c').val(result.message);
+                j$('#ENG_Outcome_2').html(result.message);
+                setnvcCustomerId();
+                //fireAttachDataEvent();
+            });
+            sforce.console.addEventListener('MiniCaseFieldSet_ProductSubCategory__c',  function(result) {
+                console.log('--'+result.message);
+                j$('#hfProductSubCategory__c').val(result.message);
+                j$('#ENG_Outcome_3').html(result.message);
+                //fireAttachDataEvent();
+            });
+            sforce.console.addEventListener('MiniCaseFieldSet_Type',  function(result) {
+                j$('#hfType').val(result.message);
+                console.log('--'+result.message);
+                j$('#ENG_Outcome_4').html(result.message);
+                //fireAttachDataEvent();
+            });
+            sforce.console.addEventListener('MiniCaseFieldSet_Type_and_Product__c',  function(result) {
+                console.log('--'+result.message);
+                j$('#hfType_and_Product__c').val(result.message);
+            });
+            sforce.console.addEventListener('MiniCaseFieldSet_EnquirySubType__c',  function(result) {
+                console.log('--'+result.message);
+                j$('#hfEnquirySubType__c').val(result.message);
+                j$('#ENG_Outcome_1').html(result.message);
+
+                setnvcCustomerId();
+                //fireAttachDataEvent();
+            });
+            
+            function setnvcCustomerId() {
+                var phoneValue = j$('[id$="txtPhoneNumber"]').val();
+                var articleValue = j$('[id$="txtRefID"]').val();
+                var hfEnquirySubType__c = j$('#hfEnquirySubType__c').val();
+                var hfProductCategory__c = j$('#hfProductCategory__c').val();
+                var hfType = j$('#hfType').val();
+                var hfProductSubCategory__c = j$('#hfProductSubCategory__c').val();
+                phoneValue = phoneValue.replace(/[\W_]+/g,"").substring(0, 12);
+
+                var caseId = j$('#hfCaseID').val();
+
+                if(caseId != null && caseId.trim() != ''){
+                    j$('#nvcCustomerId').html(caseId.trim());
+                } else if( (phoneValue.trim() != '' && phoneValue.trim() != null) && (articleValue.trim() != '' && articleValue.trim() != null) ){
+                    j$('#nvcCustomerId').html(phoneValue.trim() + articleValue.trim());
+                } else if(articleValue.trim() != '' && articleValue.trim() != null){
+                    j$('#nvcCustomerId').html(articleValue.trim());
+                } else if(phoneValue.trim() != '' && phoneValue.trim() != null){
+                    j$('#nvcCustomerId').html(phoneValue.trim() + concatenateString(hfEnquirySubType__c, hfProductCategory__c));
+                } else {
+                    j$('#nvcCustomerId').html(concatenateString(hfEnquirySubType__c, hfProductCategory__c));
+                }
+            }
+    
+            function concatenateString(hfEnquirySubType__c, hfProductCategory__c){
+                return hfEnquirySubType__c.substring(0, 15) + hfEnquirySubType__c.substring(hfEnquirySubType__c.length - 3, hfEnquirySubType__c.length)
+                        + hfProductCategory__c.substring(hfProductCategory__c.length - 10, hfProductCategory__c.length);
+            }
+            
+            function fireAttachDataEvent() {
+                var transactionID = j$.cookie('transactionID');
+                var ctiMessageAsJSON = {};
+
+                ctiMessageAsJSON.action = "AttachData";
+                ctiMessageAsJSON.actionData = {};
+                ctiMessageAsJSON.actionData.SF_UserId = "{!$User.ID}";
+                ctiMessageAsJSON.actionData.id = transactionID;
+
+                var hfEnquirySubType__c = j$('#hfEnquirySubType__c').val();
+                var hfProductCategory__c = j$('#hfProductCategory__c').val();
+                var hfType = j$('#hfType').val();
+                var hfProductSubCategory__c = j$('#hfProductSubCategory__c').val();
+
+                var nvcCustomerId = j$('#nvcCustomerId').html();
+
+                ctiMessageAsJSON.actionData.ENG_Outcome_4 = hfType;
+                ctiMessageAsJSON.actionData.ENG_Outcome_2 = hfProductCategory__c;
+                ctiMessageAsJSON.actionData.ENG_Outcome_3 = hfProductSubCategory__c;
+                ctiMessageAsJSON.actionData.ENG_Outcome_1 = hfEnquirySubType__c;
+                ctiMessageAsJSON.actionData.BusinessResultDisplay = hfType + ' > ' + hfProductCategory__c + ' > ' + hfProductSubCategory__c + ' > ' + hfEnquirySubType__c;
+                ctiMessageAsJSON.actionData.nvcCustomerId = nvcCustomerId;
+
+                var ctiJson = j$.toJSON(ctiMessageAsJSON);
+                console.log(ctiJson);
+                sforce.console.fireEvent('CTIEvent', ctiJson, function (ctiresult) {
+                    for(var key in ctiresult){
+                        window.console && console.log(key + '### >>' + ctiresult[key]);
+                    }
+                });
+            }
+            
+            //added by Kalpita
+            
+            sforce.console.addEventListener('ContactID', function(result){
+                var pageInfo = j$.evalJSON(result.message);
+                setContactId(pageInfo.objectId, pageInfo.objectName);
+            });
+
+            sforce.console.addEventListener('CaseID', function(result){
+                console.log(result.message);
+                var pageInfo = j$.evalJSON(result.message);
+                setCaseId(pageInfo.objectId, pageInfo.objectName);
+            });
+
+            var onFocusedTabFunction = function(pageInfo){
+
+                if(pageInfo.objectId.indexOf('{!$ObjectType.Case.keyPrefix}') == 0) {
+                    j$('#hfCaseID').val(pageInfo.objectId);
+                    sforce.console.fireEvent('CaseID', j$.toJSON(pageInfo), function(){});
+                } else {
+                    var contactId = pageInfo.contactId;
+                    if(pageInfo.objectId.indexOf('{!$ObjectType.Contact.keyPrefix}') == 0) {
+                        contactId = pageInfo.objectId;
+                    }
+
+                    if(contactId){
+                        j$('#hfContactID').val(contactId);
+                        pageInfo.objectId = contactId;
+                        sforce.console.fireEvent('ContactID', j$.toJSON(pageInfo), function(){});
+                    }
+                }
+            }
+
+            var caseManualCutoff = 0;
+            var contactManualCutoff = 0;
+            sforce.connection.sessionId = "{!$Api.Session_ID}";
+            
+            function processFocusedTab(result, isPrimaryTab){
+                console.log('--in processFocusedTab');
+                if(result.objectId){
+                    if(result.objectId.indexOf('{!$ObjectType.Case.keyPrefix}') == 0) {
+                        caseManualCutoff++;
+                        getPageInfo(result.id, onFocusedTabFunction, 0, 'Case', caseManualCutoff, isPrimaryTab);
+                    } else if(result.objectId.indexOf('{!$ObjectType.Contact.keyPrefix}') == 0 || result.objectId.indexOf('{!$ObjectType.Account.keyPrefix}') == 0) {
+                        contactManualCutoff++;
+                        getPageInfo(result.id, onFocusedTabFunction, 0, 'Contact', contactManualCutoff, isPrimaryTab);
+                    }
+                }
+            }
+    
+            function getPageInfo(tabId, callbackFunction, autoCutoff, objectType, currentManualCutoff, isPrimaryTab){
+                sforce.console.getPageInfo(tabId, function(result){
+                    var pageInfo = j$.evalJSON(result.pageInfo);
+                    
+                    var manualCutoff = 0;
+                    if(objectType == 'Case'){
+                        manualCutoff = caseManualCutoff;
+                    } else if(objectType = 'Contact') {
+                        manualCutoff = contactManualCutoff;
+                    }
+                    
+                    var autoCutoffLimit = isPrimaryTab ? 20 : 10;
+                    //console.log('%%%%%%%%%%%%% autoCutoff:' + autoCutoff + ' out of ' + autoCutoffLimit);
+                    if(currentManualCutoff == manualCutoff) {
+                        if(pageInfo.objectName || autoCutoff >= autoCutoffLimit){
+                            //console.log('%%%%%%%%%%%%% ===> got it: ' + pageInfo.objectName);
+                        } else {
+                            autoCutoff++;
+                            //setTimeout(function(){getPageInfo(tabId, callbackFunction, autoCutoff, objectType, currentManualCutoff, isPrimaryTab);}, 500);
+                        }
+                        callbackFunction(pageInfo);
+                    }
+                });
+            }    
+    
+
+            sforce.console.onFocusedSubtab(function(result){
+                processFocusedTab(result, false);
+                console.log('--in onFocusedSubtab');
+            });
+
+            sforce.console.onFocusedPrimaryTab(function(result){
+                processFocusedTab(result, true);
+                console.log('--in onFocusedPrimaryTab');
+            });
+            
+            function setContactId(contactId, contactName){
+                var btnContactID = j$('#btnContactID');
+                console.log('--in btnContactID'+ btnContactID);
+                btnContactID.attr("alt", contactId);
+                if(contactName && contactName.trim() != ''){
+                    btnContactID.html(contactName);
+                } else {
+                    btnContactID.html('View');
+                }
+                if(contactId && contactId != '') {
+                    console.log('--in btnContactID'+ btnContactID);
+                    j$('#hfContactID').val(contactId);
+                    console.log('-- here=='+j$('#hfContactID').val());
+                    btnContactID.parent().parent().show();
+
+                    AP_ConnectorController.getFullID(contactId, function(result, event){
+                        var transactionID = j$.cookie('transactionID');
+                        //var ctiMessageAsJSON = '{"action":"ContactSelected","actionData":{"sfdcObjectId":"'+ result +'","SF_UserId":"{!$User.ID}","id":"' + transactionID + '"}}';
+                        var ctiMessageAsJSON = '{"action":"AttachData","actionData":{"sfdcObjectId":"'+ result +'","SF_UserId":"{!$User.ID}","id":"' + transactionID + '"}}';
+                        console.log(ctiMessageAsJSON);
+                        sforce.console.fireEvent('CTIEvent', ctiMessageAsJSON, function (ctiresult) {
+                            for(var key in ctiresult){
+                                window.console && console.log(key + '### >>' + ctiresult[key]);
+                            }
+                        });
+                    });
+                } else {
+                    btnContactID.parent().parent().hide();
+                    j$('#hfContactID').val('');
+                }
+            }
+
+            function setCaseId(caseId, caseNumber){
+                var btnCaseID = j$('#btnCaseID');
+                console.log('--in btnCaseID'+ btnCaseID);
+                btnCaseID.attr("alt", caseId);
+                if(caseNumber && caseNumber.trim() != ''){
+                    btnCaseID.html(caseNumber);
+                } else {
+                    btnCaseID.html('View');
+                }
+                if(caseId && caseId != '') {
+                    console.log('--in btnCaseID'+ btnCaseID);
+                    j$('#hfCaseID').val(caseId);
+                    btnCaseID.parent().parent().show();
+                    var transactionID = j$.cookie('transactionID');
+
+                    var ctiMessageAsJSON = {};
+
+                    ctiMessageAsJSON.action = "AttachData";
+                    ctiMessageAsJSON.actionData = {};
+                    ctiMessageAsJSON.actionData.SF_UserId = "{!$User.ID}";
+                    ctiMessageAsJSON.actionData.id = transactionID;
+
+                    var query = "Select c.id, c.Type, c.ProductSubCategory__c, c.ProductCategory__c, c.EnquirySubType__c, c.ContactId From Case c where Id = '" + caseId + "' limit 1";
+                    console.log(query);
+                    var qresult = sforce.connection.query(query);
+                    console.log(qresult);
+                    if(qresult) {
+                        
+                        var tempCase = qresult.records;
+                        console.log('---case--'+tempCase );
+                        if(j$('#hfContactID').val() == ''){
+                            j$('#hfContactID').val(tempCase.ContactId); //added by Kalpita for multi customer and unknown to captre contact id frm case
+                            console.log('add contact id'+j$('#hfContactID').val());
+                        }
+                        ctiMessageAsJSON.actionData.CaseID = tempCase.Id;
+                        ctiMessageAsJSON.actionData.nvcCustomerId = tempCase.Id;
+                        j$('#nvcCustomerId').html(ctiMessageAsJSON.actionData.nvcCustomerId);
+
+                        ctiMessageAsJSON.actionData.ENG_Outcome_4 = tempCase.Type;
+                        ctiMessageAsJSON.actionData.ENG_Outcome_2 = tempCase.ProductCategory__c;
+                        ctiMessageAsJSON.actionData.ENG_Outcome_3 = tempCase.ProductSubCategory__c;
+                        ctiMessageAsJSON.actionData.ENG_Outcome_1 = tempCase.EnquirySubType__c;
+                        ctiMessageAsJSON.actionData.BusinessResultDisplay = tempCase.Type + ' > ' + tempCase.ProductCategory__c + ' > ' + tempCase.ProductSubCategory__c + ' > ' + tempCase.EnquirySubType__c;
+
+                        j$('#ENG_Outcome_1').html(tempCase.EnquirySubType__c);
+                        j$('#ENG_Outcome_2').html(tempCase.ProductCategory__c);
+                        j$('#ENG_Outcome_3').html(tempCase.ProductSubCategory__c);
+                        j$('#ENG_Outcome_4').html(tempCase.Type);
+
+                        j$('#hfEnquirySubType__c').val(tempCase.EnquirySubType__c);
+                        j$('#hfProductCategory__c').val(tempCase.ProductCategory__c);
+                        j$('#hfType').val(tempCase.Type);
+                        j$('#hfProductSubCategory__c').val(tempCase.ProductSubCategory__c);
+                    }
+                    console.log(j$.toJSON(ctiMessageAsJSON));
+                    sforce.console.fireEvent('CTIEvent', j$.toJSON(ctiMessageAsJSON), function (ctiresult) {
+                        for(var key in ctiresult){
+                            window.console && console.log(key + '### >>' + ctiresult[key]);
+                        }
+                    });
+
+                    // NOTE: This is a workaround until Genesys fixes the limit on the request={JSON}
+                    //sendToIWSSingular(ctiMessageAsJSON);
+                } else {
+                    btnCaseID.parent().parent().hide();
+                    j$('#hfCaseID').val('');
+                    j$('#hfEnquirySubType__c').val('');
+                    j$('#hfProductCategory__c').val('');
+                    j$('#hfType').val('');
+                    j$('#hfProductSubCategory__c').val('');
+                }
+            }
+
+            
+        </script>
+        <input type="hidden" id="hfProductCategory__c" />
+        <input type="hidden" id="hfProductSubCategory__c" />
+        <input type="hidden" id="hfType" />
+        <input type="hidden" id="hfType_and_Product__c" />
+        <input type="hidden" id="hfEnquirySubType__c" />
+        
+</apex:page>

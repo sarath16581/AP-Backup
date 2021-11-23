@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email notification when work type is Off the Shelf, Intermediate and High Complexity case duration over x days</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Sales Implementation - Exceed Duration</name>
+    <style>none</style>
+    <subject>{!Case.CaseNumber}  - {!Case.Work_Type__c}</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

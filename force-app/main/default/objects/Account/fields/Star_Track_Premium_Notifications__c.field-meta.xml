@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Star_Track_Premium_Notifications__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>StarTrack has introduced SMS and email notifications to provide customers and receivers with complete visibility of their consignments in real time. 
+The solution is flexible. Customers can now choose the notifications they want and who to send them to</description>
+    <externalId>false</externalId>
+    <inlineHelpText>StarTrack has introduced SMS and email notifications to provide customers and receivers with complete visibility of their consignments in real time. 
+The solution is flexible. Customers can now choose the notifications they want and who to send them to</inlineHelpText>
+    <label>Star Track Premium Notifications</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

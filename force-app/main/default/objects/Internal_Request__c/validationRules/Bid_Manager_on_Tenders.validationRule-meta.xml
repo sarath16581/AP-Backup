@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bid_Manager_on_Tenders</fullName>
+    <active>true</active>
+    <description>Where the Tender check box is TRUE, the Bid Manager field must be completed</description>
+    <errorConditionFormula>(BEGINS(RecordType.DeveloperName, &apos;Pricing_Request_International&apos;) || 
+BEGINS(RecordType.DeveloperName, &apos;Pricing_Request_StarTrack&apos;)) &amp;&amp; 
+ Tender__c = TRUE &amp;&amp; ISBLANK( Bid_Manager__c )</errorConditionFormula>
+    <errorDisplayField>Bid_Manager__c</errorDisplayField>
+    <errorMessage>Where the request is part of a Tender, the Bid Manager field must be completed</errorMessage>
+</ValidationRule>

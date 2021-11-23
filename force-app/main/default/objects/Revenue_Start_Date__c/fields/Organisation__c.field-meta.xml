@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Organisation__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Organisation to which the revenue start date belongs to mapped with Legacy ID</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Organisation to which the revenue start date belongs to mapped with Legacy ID</inlineHelpText>
+    <label>Organisation</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Revenue Start Dates</relationshipLabel>
+    <relationshipName>Revenue_Start_Dates</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Encourage customers with delayed cases to close case if no longer required</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Delayed Response with Close Case Option - with Reference ID</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference number {!Case.CaseNumber}
+
+
+Hi {!Contact.FirstName},
+
+
+Thanks for your patience regarding {!Case.CaseNumber} in relation to {!Case.ReferenceID__c}. We understand it may have been some time since you have heard from us and we apologise sincerely for the delay.
+
+Sometimes enquiries can be resolved before we&apos;ve completed our investigation. If this happens, please let us know by clicking here:
+
+CLOSE MY CASE
+
+However, if you are still in need of assistance, please know we haven’t forgotten about you, it&apos;s taking us a little longer to get to your enquiry as we are continuing to manage higher than normal enquiry volumes.
+
+We are people just like you, doing our best to assist through these difficult times. We will treat you with kindness and respect and ask that you do the same. All Australia Post employees have the right not to be subjected to any behaviour or abuse that includes threats of physical harm or violence, religious, cultural or racial insults, homophobic, sexist or other derogatory remarks.
+
+We thank you for your cooperation. We&apos;ll be in touch as soon as we can.
+
+
+Kind regards,
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

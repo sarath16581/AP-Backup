@@ -1,0 +1,35 @@
+<!--
+    STP:20/02/2020: 
+    This is the main component to display the qualification details in read only mode.
+    The input parameter for this component is the Qualification record Id.(qualId)
+-->
+<aura:component >
+    <aura:attribute name="qualId" type="String" /> 
+    <aura:attribute name="qualificationRecordId" type="String" /> 
+    <aura:attribute name="editFlow" type="Boolean" default='false' />
+    <aura:attribute name="navigateFromViewButton" type="Boolean" default='false' />
+    <aura:attribute name="hasBgSalesPermissionSet" type="Boolean" />
+    <aura:attribute name="isManualOpp" type="Boolean" />
+    <aura:registerEvent name="genCmpEvent" type="c:BG_GenericComponentEvent"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <div>  
+        <aura:if isTrue="{! and(!v.navigateFromViewButton, v.editFlow)}">            
+                <div class='slds-text-align_center'>
+                    <ui:message title="Confirmation" severity="confirm" closable="true">
+                        Customer Needs is updated successfully.
+                    </ui:message>
+                </div>  
+        </aura:if>      
+        <aura:if isTrue="{! and(!v.navigateFromViewButton, !v.editFlow)}"> 
+            <div class='slds-text-align_center'>
+                <ui:message title="Confirmation" severity="confirm" closable="true">
+                    Customer Needs is created successfully.
+                </ui:message>
+            </div>                
+        </aura:if>
+        <!--<div class="slds-text-color_success slds-align_absolute-center">Qualification created successfully.</div> --> 
+        <c:BG_QualificationDetailsView recordId='{!v.qualId}' qualificationRecordId='{!v.qualificationRecordId}' editFlow='{!v.editFlow}' hasBgSalesPermissionSet='{!v.hasBgSalesPermissionSet}' isManualOpp='{!v.isManualOpp}'/>
+    </div>
+    
+</aura:component>

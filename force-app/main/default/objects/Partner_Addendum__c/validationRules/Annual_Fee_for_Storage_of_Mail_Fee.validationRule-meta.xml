@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Annual_Fee_for_Storage_of_Mail_Fee</fullName>
+    <active>true</active>
+    <description>Maximum is $20000</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName = &apos;Negotiated_Payment_Type_L1&apos;, ISPICKVAL( Sub_Type__c , &apos;Storage of Mail Fee&apos;),  Annual_Amount__c  &gt; 20000)</errorConditionFormula>
+    <errorMessage>Maximum value allowed for Annual Fee is $20000</errorMessage>
+</ValidationRule>

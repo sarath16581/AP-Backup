@@ -1,0 +1,11 @@
+<apex:page standardController="Case">    
+     <apex:pageMessage summary="Please ensure to provide appropriate evidence as per Sales Policy and QRG in order for your case to be assessed and approved" 
+                       rendered="{!IF(AND(Case.RecordType.DeveloperName == 'Sales_Manager_Review_Exception',OR(
+                               Case.Reason_Code__c=='TE1.2 – Liquidation/Receivership',
+                               Case.Reason_Code__c=='TE1.3 – Credit Block',
+                               Case.Reason_Code__c=='ENT1.4 – Channel Shift',
+                               Case.Reason_Code__c=='XBU1.1 - Adverse Transfers between Business Units')),true, false)}" 
+                       severity="info" strength="3" />
+	 <apex:pageMessages />
+
+</apex:page>

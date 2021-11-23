@@ -1,0 +1,264 @@
+.accordion-resizer {
+	padding: 10px;
+	width: 100%;
+	height: 500px;
+}
+
+.waitingHolder {
+	background-color: white;
+	/*border-width: 2px;
+			border-style: solid;*/
+	z-index: 9999;
+	left: 43.7%;
+	padding: 19px 0px 19px 24px;
+	position: absolute;
+	border-radius: 6px;
+	width: 119px;
+	top: 39%;
+	-moz-box-shadow: 3px 3px 5px #888888;
+	-webkit-box-shadow: 3px 3px 5px #888888;
+	box-shadow: 3px 3px 5px #888888;
+}
+
+.waitingBackground {
+	background-color: black;
+	opacity: 0.20;
+	filter: alpha(opacity = 20);
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 9998;
+}
+
+.waitingDescription {
+	float: left;
+	height: 24px;
+	line-height: 24px;
+	margin-left: 8px;
+}
+
+.waitingImage {
+	float: left;
+	margin-left: 20px;
+}
+
+#tabs,.result-container,.ui-accordion-content {
+	border: none !important;
+	background: none !important;
+}
+
+.ui-tabs-nav {
+	background: none !important;
+	border: none !important;
+	border-bottom: 1px solid #cccccc !important;
+	border-bottom-left-radius: 0px !important;
+	border-bottom-right-radius: 0px !important;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active,.ui-widget-content .ui-state-active
+	{
+	font-weight: bold;
+}
+
+#facilitysearch-toppanel,#facilitysearch-bottompanel {
+	width: 100%;
+	height: auto;
+	display: inline-block;
+}
+
+#facilitysearch-searchpanel {
+	width: 50%;
+	float: left;
+}
+
+#facilitysearch-searchpanel h3 {
+	font-size: 14px;
+	font-weight: bold;
+	color: #dc1928;
+}
+
+#facilitysearch-searchpanel textarea {
+	resize: vertical;
+}
+
+#facilitysearch-searchpanel input.btn {
+	width: 65px;
+	height: 30px;
+}
+
+#facilitysearch-searchpanel table {
+	width: 100%;
+	margin-top: 10px;
+}
+
+#facilitysearch-searchpanel tr {
+	height: 30px;
+}
+
+#facilitysearch-searchpanel td.fs-label {
+	width: 20%;
+	font-weight: bold;
+}
+
+#facilitysearch-searchpanel td.fs-input {
+	width: 65%;
+}
+
+#facilitysearch-searchpanel td.fs-button {
+	width: 15%;
+	text-align: right;
+}
+
+#facilitysearch-facilitytype img {
+	padding-right: 5px;
+}
+
+.fieldset {
+	border: 1px solid #e2dfda;
+	padding: 15px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	margin: 10px;
+}
+
+#map {
+    position: relative;
+	height: 480px;
+	width: 50%;
+	float: right;
+
+	background-position: center center;
+	background-size: cover;
+}
+
+#map > button {
+    position: relative;
+    top: 50%;
+    margin-top: -7px;
+    left: 50%;
+    margin-left: -15px;
+}
+
+#fs-facility-leftpanel,#fs-facility-rightpanel {
+	display: inline-block;
+}
+
+#fs-facility-leftpanel {
+	width: 40%;
+	float: left;
+	padding-right: 10px;
+}
+
+#fs-facility-rightpanel {
+	width: 60%;
+	float: right;
+}
+
+#fs-facility-leftpanel textarea {
+	resize: vertical;
+}
+
+#fs-comment table,#fs-emailfax table {
+	width: 100%;
+}
+
+#fs-emailfax input.btn {
+	margin: 5px 8px 0 0;
+	height: 30px;
+}
+
+#fs-messages,#fs-comment,#fs-emailfax {
+	width: 100%;
+	padding-bottom: 5px;
+}
+
+.infoM6,.infoM4,.infoM3,.infoM2,.infoS1 {
+	border-color: #39f;
+	background-color: #c2d9ff;
+}
+
+.warningM6,.warningM4,.warningM3,.warningM2,.warningS1 {
+	border-color: #f90;
+	background-color: #ffe7c7;
+}
+
+.confirmM6,.confirmM4,.confirmM3,.confirmM2,.confirmS1 {
+	border-color: #390;
+	background-color: #edfff1;
+}
+
+.message {
+	margin: 0 0 5px 0;
+}
+
+.message tr {
+	display: inline-block;
+	padding-right: 5px;
+}
+
+.message td.messageCell {
+	display: none;
+}
+
+#fs-facilitydetail {
+	width: 100%;
+	/*border: 1px solid #e2dfda;
+			-webkit-border-radius: 3px;
+			border-radius: 3px;
+			padding: 10px;*/
+}
+
+.fs-header3 {
+	padding: 2.5px;
+	color: white;
+	background-color: black;
+	margin: 0 2.5px 2.5px 2.5px;
+	height: 25px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#fs-facilitydetail h3 {
+	font-size: 14px;
+	font-weight: bold;
+	/*color: #dc1928;*/
+	display: block;
+	margin-top: 0;
+}
+
+.facility-detail-field-outer {
+	padding: 2.5px;
+	width: 50%;
+	float: left;
+}
+
+.facility-detail-field {
+	width: 100%;
+	min-height: 40px;
+	font-size: 12px;
+	background-color: #eee;
+	vertical-align: middle;
+	padding: 2.5px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.facility-detail-field label {
+	width: 75%;
+	display: inline-block;
+}
+
+.facility-detail-field .fs-label,.facility-detail-field .form-control {
+	vertical-align: middle;
+}
+
+#fs-businesshours {
+	position: relative;
+	top: 2.5px;
+}
+
+#htmlFields .facility-detail-field-outer:nth-child(2n+1) {
+	clear: both;
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Tell_me_about_your_business__c</fullName>
+    <externalId>false</externalId>
+    <label>Tell me about your business</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>B2B</fullName>
+                <default>false</default>
+                <label>B2B</label>
+            </value>
+            <value>
+                <fullName>B2C</fullName>
+                <default>false</default>
+                <label>B2C</label>
+            </value>
+            <value>
+                <fullName>- - Select Option - -</fullName>
+                <default>false</default>
+                <label>- - Select Option - -</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

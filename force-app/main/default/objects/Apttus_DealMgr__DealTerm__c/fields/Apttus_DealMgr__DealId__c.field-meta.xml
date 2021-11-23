@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealMgr__DealId__c</fullName>
+    <deprecated>false</deprecated>
+    <description>ID of the associated deal</description>
+    <externalId>false</externalId>
+    <inlineHelpText>ID of the associated deal</inlineHelpText>
+    <label>Deal</label>
+    <referenceTo>Apttus_DealMgr__Deal__c</referenceTo>
+    <relationshipLabel>Deal Terms</relationshipLabel>
+    <relationshipName>DealTerms</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

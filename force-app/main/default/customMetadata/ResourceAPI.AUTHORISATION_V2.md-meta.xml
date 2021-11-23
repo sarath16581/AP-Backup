@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>AUTHORISATION_V2</label>
+    <protected>false</protected>
+    <values>
+        <field>APIVersion__c</field>
+        <value xsi:type="xsd:double">2.0</value>
+    </values>
+    <values>
+        <field>ApexClassHandler__c</field>
+        <value xsi:type="xsd:string">ResourceV2AuthorisationRules</value>
+    </values>
+    <values>
+        <field>CacheQueryResponse__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>CacheTTLOverride__c</field>
+        <value xsi:type="xsd:double">300.0</value>
+    </values>
+    <values>
+        <field>HTTPMethod__c</field>
+        <value xsi:type="xsd:string">GET</value>
+    </values>
+    <values>
+        <field>LogBody__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>LogRequests__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>OrderPriority__c</field>
+        <value xsi:type="xsd:double">20.0</value>
+    </values>
+    <values>
+        <field>URI__c</field>
+        <value xsi:type="xsd:string">authorisation/%param%/%param%</value>
+    </values>
+</CustomMetadata>

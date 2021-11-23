@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_of_In_Conjunction_Business__c</fullName>
+    <description>Secondary business types operated by the Partner</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Secondary business types operated by the Partner</inlineHelpText>
+    <label>Type of In Conjunction Business</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Standalone</fullName>
+                <default>false</default>
+                <label>Standalone</label>
+            </value>
+            <value>
+                <fullName>Bottle Shop</fullName>
+                <default>false</default>
+                <label>Bottle Shop</label>
+            </value>
+            <value>
+                <fullName>Café</fullName>
+                <default>false</default>
+                <label>Café</label>
+            </value>
+            <value>
+                <fullName>Chemist</fullName>
+                <default>false</default>
+                <label>Chemist</label>
+            </value>
+            <value>
+                <fullName>Council Services</fullName>
+                <default>false</default>
+                <label>Council Services</label>
+            </value>
+            <value>
+                <fullName>Drycleaner</fullName>
+                <default>false</default>
+                <label>Drycleaner</label>
+            </value>
+            <value>
+                <fullName>Florist</fullName>
+                <default>false</default>
+                <label>Florist</label>
+            </value>
+            <value>
+                <fullName>General Store</fullName>
+                <default>false</default>
+                <label>General Store</label>
+            </value>
+            <value>
+                <fullName>Gift Shop</fullName>
+                <default>false</default>
+                <label>Gift Shop</label>
+            </value>
+            <value>
+                <fullName>Hardware</fullName>
+                <default>false</default>
+                <label>Hardware</label>
+            </value>
+            <value>
+                <fullName>Hotel</fullName>
+                <default>false</default>
+                <label>Hotel</label>
+            </value>
+            <value>
+                <fullName>Library</fullName>
+                <default>false</default>
+                <label>Library</label>
+            </value>
+            <value>
+                <fullName>Lotto</fullName>
+                <default>false</default>
+                <label>Lotto</label>
+            </value>
+            <value>
+                <fullName>Milk Bar</fullName>
+                <default>false</default>
+                <label>Milk Bar</label>
+            </value>
+            <value>
+                <fullName>Newsagent</fullName>
+                <default>false</default>
+                <label>Newsagent</label>
+            </value>
+            <value>
+                <fullName>Petrol Station</fullName>
+                <default>false</default>
+                <label>Petrol Station</label>
+            </value>
+            <value>
+                <fullName>Real Estate</fullName>
+                <default>false</default>
+                <label>Real Estate</label>
+            </value>
+            <value>
+                <fullName>Roadhouse</fullName>
+                <default>false</default>
+                <label>Roadhouse</label>
+            </value>
+            <value>
+                <fullName>Pharmacy</fullName>
+                <default>false</default>
+                <label>Pharmacy</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

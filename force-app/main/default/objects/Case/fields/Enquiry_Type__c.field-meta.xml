@@ -1,0 +1,1263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Enquiry_Type__c</fullName>
+    <description>StarTrack - Enquiry Type</description>
+    <externalId>false</externalId>
+    <label>Case Type</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Call_Purpose__c</controllingField>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>2nd Follow up</fullName>
+                <default>false</default>
+                <label>2nd Follow up</label>
+            </value>
+            <value>
+                <fullName>3rd Follow up</fullName>
+                <default>false</default>
+                <label>3rd Follow up</label>
+            </value>
+            <value>
+                <fullName>Aus Post</fullName>
+                <default>false</default>
+                <label>Aus Post</label>
+            </value>
+            <value>
+                <fullName>Billing Dispute</fullName>
+                <default>false</default>
+                <label>Billing Dispute</label>
+            </value>
+            <value>
+                <fullName>Billing - Verification/Explanation</fullName>
+                <default>false</default>
+                <label>Billing - Verification/Explanation</label>
+            </value>
+            <value>
+                <fullName>Book in</fullName>
+                <default>false</default>
+                <label>Book in</label>
+            </value>
+            <value>
+                <fullName>Business Feedback</fullName>
+                <default>false</default>
+                <label>Business Feedback</label>
+            </value>
+            <value>
+                <fullName>Call back request</fullName>
+                <default>false</default>
+                <label>Call back request</label>
+            </value>
+            <value>
+                <fullName>Casual</fullName>
+                <default>false</default>
+                <label>Casual</label>
+            </value>
+            <value>
+                <fullName>Casual 2nd Missed</fullName>
+                <default>false</default>
+                <label>Casual 2nd Missed</label>
+            </value>
+            <value>
+                <fullName>Casual 3rd Missed</fullName>
+                <default>false</default>
+                <label>Casual 3rd Missed</label>
+            </value>
+            <value>
+                <fullName>Casual 4th+ Missed</fullName>
+                <default>false</default>
+                <label>Casual 4th+ Missed</label>
+            </value>
+            <value>
+                <fullName>CCM Exgratia (Cust Claim Met)</fullName>
+                <default>false</default>
+                <label>CCM Exgratia (Cust Claim Met)</label>
+            </value>
+            <value>
+                <fullName>Check Address</fullName>
+                <default>false</default>
+                <label>Check Address</label>
+            </value>
+            <value>
+                <fullName>COD</fullName>
+                <default>false</default>
+                <label>COD</label>
+            </value>
+            <value>
+                <fullName>Confirm Rates</fullName>
+                <default>false</default>
+                <label>Confirm Rates</label>
+            </value>
+            <value>
+                <fullName>Controlled Returns</fullName>
+                <default>false</default>
+                <label>Controlled Returns</label>
+            </value>
+            <value>
+                <fullName>Copy of Connote</fullName>
+                <default>false</default>
+                <label>Copy of Connote</label>
+            </value>
+            <value>
+                <fullName>Copy of Document</fullName>
+                <default>false</default>
+                <label>Copy of Document</label>
+            </value>
+            <value>
+                <fullName>Copy of Invoice</fullName>
+                <default>false</default>
+                <label>Copy of Invoice</label>
+            </value>
+            <value>
+                <fullName>Copy of POD</fullName>
+                <default>false</default>
+                <label>Copy of POD</label>
+            </value>
+            <value>
+                <fullName>Customer Urgency Requested</fullName>
+                <default>false</default>
+                <label>Customer Urgency Requested</label>
+            </value>
+            <value>
+                <fullName>Customs Held</fullName>
+                <default>false</default>
+                <label>Customs Held</label>
+            </value>
+            <value>
+                <fullName>Damaged</fullName>
+                <default>false</default>
+                <label>Damaged</label>
+            </value>
+            <value>
+                <fullName>Delivery Dispute</fullName>
+                <default>false</default>
+                <label>Delivery Dispute</label>
+            </value>
+            <value>
+                <fullName>Delivery On Track</fullName>
+                <default>false</default>
+                <label>Delivery On Track</label>
+            </value>
+            <value>
+                <fullName>Delivery Update</fullName>
+                <default>false</default>
+                <label>Delivery Update</label>
+            </value>
+            <value>
+                <fullName>Delivery Update (data dip only)</fullName>
+                <default>false</default>
+                <label>Delivery Update (data dip only)</label>
+            </value>
+            <value>
+                <fullName>Depot Collection</fullName>
+                <default>false</default>
+                <label>Depot Collection</label>
+            </value>
+            <value>
+                <fullName>Depot Held</fullName>
+                <default>false</default>
+                <label>Depot Held</label>
+            </value>
+            <value>
+                <fullName>Dispute Claim</fullName>
+                <default>false</default>
+                <label>Dispute Claim</label>
+            </value>
+            <value>
+                <fullName>Driver ETA - Onboard for Delivery</fullName>
+                <default>false</default>
+                <label>Driver ETA - Onboard for Delivery</label>
+            </value>
+            <value>
+                <fullName>Driver ETA - Pickup</fullName>
+                <default>false</default>
+                <label>Driver ETA - Pickup</label>
+            </value>
+            <value>
+                <fullName>EDD</fullName>
+                <default>false</default>
+                <label>EDD</label>
+            </value>
+            <value>
+                <fullName>ETA</fullName>
+                <default>false</default>
+                <label>ETA</label>
+            </value>
+            <value>
+                <fullName>ETA - Within EDD</fullName>
+                <default>false</default>
+                <label>ETA - Within EDD</label>
+            </value>
+            <value>
+                <fullName>Fees</fullName>
+                <default>false</default>
+                <label>Fees</label>
+            </value>
+            <value>
+                <fullName>Final Shortage</fullName>
+                <default>false</default>
+                <label>Final Shortage</label>
+            </value>
+            <value>
+                <fullName>Follow up</fullName>
+                <default>false</default>
+                <label>Follow up</label>
+            </value>
+            <value>
+                <fullName>Follow Up Existing Order</fullName>
+                <default>false</default>
+                <label>Follow Up Existing Order</label>
+            </value>
+            <value>
+                <fullName>Fraud</fullName>
+                <default>false</default>
+                <label>Fraud</label>
+            </value>
+            <value>
+                <fullName>FS15</fullName>
+                <default>false</default>
+                <label>FS15</label>
+            </value>
+            <value>
+                <fullName>FS25</fullName>
+                <default>false</default>
+                <label>FS25</label>
+            </value>
+            <value>
+                <fullName>Futile</fullName>
+                <default>false</default>
+                <label>Futile</label>
+            </value>
+            <value>
+                <fullName>General</fullName>
+                <default>false</default>
+                <label>General</label>
+            </value>
+            <value>
+                <fullName>HDX Swap Out</fullName>
+                <default>false</default>
+                <label>HDX Swap Out</label>
+            </value>
+            <value>
+                <fullName>Held - Premises Closed</fullName>
+                <default>false</default>
+                <label>Held - Premises Closed</label>
+            </value>
+            <value>
+                <fullName>Incorrect Delivery</fullName>
+                <default>false</default>
+                <label>Incorrect Delivery</label>
+            </value>
+            <value>
+                <fullName>Information</fullName>
+                <default>false</default>
+                <label>Information</label>
+            </value>
+            <value>
+                <fullName>Internal Credit Request</fullName>
+                <default>false</default>
+                <label>Internal Credit Request</label>
+            </value>
+            <value>
+                <fullName>International</fullName>
+                <default>false</default>
+                <label>International</label>
+            </value>
+            <value>
+                <fullName>Label Reprint</fullName>
+                <default>false</default>
+                <label>Label Reprint</label>
+            </value>
+            <value>
+                <fullName>Lack of customer contact</fullName>
+                <default>false</default>
+                <label>Lack of Customer Contact</label>
+            </value>
+            <value>
+                <fullName>Late Delivery</fullName>
+                <default>false</default>
+                <label>Late Delivery</label>
+            </value>
+            <value>
+                <fullName>Late Payment</fullName>
+                <default>false</default>
+                <label>Late Payment</label>
+            </value>
+            <value>
+                <fullName>LDC</fullName>
+                <default>false</default>
+                <label>LDC</label>
+            </value>
+            <value>
+                <fullName>Lost</fullName>
+                <default>false</default>
+                <label>Lost</label>
+            </value>
+            <value>
+                <fullName>Lost - AP Outlet</fullName>
+                <default>false</default>
+                <label>Lost - AP Outlet</label>
+            </value>
+            <value>
+                <fullName>Manifest</fullName>
+                <default>false</default>
+                <label>Manifest</label>
+            </value>
+            <value>
+                <fullName>Misdelivery</fullName>
+                <default>false</default>
+                <label>Misdelivery</label>
+            </value>
+            <value>
+                <fullName>Misdirect</fullName>
+                <default>false</default>
+                <label>Misdirect</label>
+            </value>
+            <value>
+                <fullName>Missed Pickup</fullName>
+                <default>false</default>
+                <label>Missed Pickup</label>
+            </value>
+            <value>
+                <fullName>Missed POD</fullName>
+                <default>false</default>
+                <label>Missed POD</label>
+            </value>
+            <value>
+                <fullName>Missed Swap Out</fullName>
+                <default>false</default>
+                <label>Missed Swap Out</label>
+            </value>
+            <value>
+                <fullName>Missing Paperwork</fullName>
+                <default>false</default>
+                <label>Missing Paperwork</label>
+            </value>
+            <value>
+                <fullName>Multiple Missed Pick Ups</fullName>
+                <default>false</default>
+                <label>Multiple Missed Pick Ups</label>
+            </value>
+            <value>
+                <fullName>Network Delay</fullName>
+                <default>false</default>
+                <label>Network Delay</label>
+            </value>
+            <value>
+                <fullName>New Order</fullName>
+                <default>false</default>
+                <label>New Order</label>
+            </value>
+            <value>
+                <fullName>Next Flight</fullName>
+                <default>false</default>
+                <label>Next Flight</label>
+            </value>
+            <value>
+                <fullName>Next Flight Upgrade</fullName>
+                <default>false</default>
+                <label>Next Flight Upgrade</label>
+            </value>
+            <value>
+                <fullName>NHCL</fullName>
+                <default>false</default>
+                <label>NHCL</label>
+            </value>
+            <value>
+                <fullName>No existing case</fullName>
+                <default>false</default>
+                <label>No Existing Case</label>
+            </value>
+            <value>
+                <fullName>Non-account holder</fullName>
+                <default>false</default>
+                <label>Non-account holder</label>
+            </value>
+            <value>
+                <fullName>No Paperwork</fullName>
+                <default>false</default>
+                <label>No Paperwork</label>
+            </value>
+            <value>
+                <fullName>No POD</fullName>
+                <default>false</default>
+                <label>No POD</label>
+            </value>
+            <value>
+                <fullName>One-Off</fullName>
+                <default>false</default>
+                <label>One-Off</label>
+            </value>
+            <value>
+                <fullName>One Off Quote</fullName>
+                <default>false</default>
+                <label>One Off Quote</label>
+            </value>
+            <value>
+                <fullName>Ongoing Delivery Issues</fullName>
+                <default>false</default>
+                <label>Ongoing Delivery Issues</label>
+            </value>
+            <value>
+                <fullName>Order Consumables</fullName>
+                <default>false</default>
+                <label>Order Consumables</label>
+            </value>
+            <value>
+                <fullName>Ordering information</fullName>
+                <default>false</default>
+                <label>Ordering information</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Pending FS</fullName>
+                <default>false</default>
+                <label>Pending FS</label>
+            </value>
+            <value>
+                <fullName>Permanent</fullName>
+                <default>false</default>
+                <label>Permanent</label>
+            </value>
+            <value>
+                <fullName>Permanent 2nd Missed</fullName>
+                <default>false</default>
+                <label>Permanent 2nd Missed</label>
+            </value>
+            <value>
+                <fullName>Permanent 3rd Missed</fullName>
+                <default>false</default>
+                <label>Permanent 3rd Missed</label>
+            </value>
+            <value>
+                <fullName>Permanent 4th+ Missed</fullName>
+                <default>false</default>
+                <label>Permanent 4th+ Missed</label>
+            </value>
+            <value>
+                <fullName>Phone ATL</fullName>
+                <default>false</default>
+                <label>Phone ATL</label>
+            </value>
+            <value>
+                <fullName>Pickup</fullName>
+                <default>false</default>
+                <label>Pickup</label>
+            </value>
+            <value>
+                <fullName>POD</fullName>
+                <default>false</default>
+                <label>POD</label>
+            </value>
+            <value>
+                <fullName>POD - Available</fullName>
+                <default>false</default>
+                <label>POD - Available</label>
+            </value>
+            <value>
+                <fullName>POD - Not Available</fullName>
+                <default>false</default>
+                <label>POD - Not Available</label>
+            </value>
+            <value>
+                <fullName>Post Office</fullName>
+                <default>false</default>
+                <label>Post Office</label>
+            </value>
+            <value>
+                <fullName>Premium</fullName>
+                <default>false</default>
+                <label>Premium</label>
+            </value>
+            <value>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+                <label>Pricing</label>
+            </value>
+            <value>
+                <fullName>Process Enquiry</fullName>
+                <default>false</default>
+                <label>Process Enquiry</label>
+            </value>
+            <value>
+                <fullName>Quote</fullName>
+                <default>false</default>
+                <label>Quote</label>
+            </value>
+            <value>
+                <fullName>Quote Based On Rates</fullName>
+                <default>false</default>
+                <label>Quote Based On Rates</label>
+            </value>
+            <value>
+                <fullName>Rebates</fullName>
+                <default>false</default>
+                <label>Rebates</label>
+            </value>
+            <value>
+                <fullName>Redelivery</fullName>
+                <default>false</default>
+                <label>Redelivery</label>
+            </value>
+            <value>
+                <fullName>Redirection</fullName>
+                <default>false</default>
+                <label>Redirection</label>
+            </value>
+            <value>
+                <fullName>Refused</fullName>
+                <default>false</default>
+                <label>Refused</label>
+            </value>
+            <value>
+                <fullName>Refused Delivery</fullName>
+                <default>false</default>
+                <label>Refused Delivery</label>
+            </value>
+            <value>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+                <label>Rejected</label>
+            </value>
+            <value>
+                <fullName>Reports</fullName>
+                <default>false</default>
+                <label>Reports</label>
+            </value>
+            <value>
+                <fullName>Resign</fullName>
+                <default>false</default>
+                <label>Resign</label>
+            </value>
+            <value>
+                <fullName>Returns</fullName>
+                <default>false</default>
+                <label>Returns</label>
+            </value>
+            <value>
+                <fullName>RTS</fullName>
+                <default>false</default>
+                <label>RTS</label>
+            </value>
+            <value>
+                <fullName>Security Incident</fullName>
+                <default>false</default>
+                <label>Security Incident</label>
+            </value>
+            <value>
+                <fullName>Service Performance</fullName>
+                <default>false</default>
+                <label>Service Performance</label>
+            </value>
+            <value>
+                <fullName>Short - No Scan</fullName>
+                <default>false</default>
+                <label>Short - No Scan</label>
+            </value>
+            <value>
+                <fullName>Short - Scanned</fullName>
+                <default>false</default>
+                <label>Short - Scanned</label>
+            </value>
+            <value>
+                <fullName>Spam</fullName>
+                <default>false</default>
+                <label>Spam</label>
+            </value>
+            <value>
+                <fullName>STC</fullName>
+                <default>false</default>
+                <label>STC</label>
+            </value>
+            <value>
+                <fullName>Stop Delivery</fullName>
+                <default>false</default>
+                <label>Stop Delivery</label>
+            </value>
+            <value>
+                <fullName>Stop Delivery - Onboard</fullName>
+                <default>false</default>
+                <label>Stop Delivery - Onboard</label>
+            </value>
+            <value>
+                <fullName>Theft</fullName>
+                <default>false</default>
+                <label>Theft</label>
+            </value>
+            <value>
+                <fullName>Theft - Depot</fullName>
+                <default>false</default>
+                <label>Theft - Depot</label>
+            </value>
+            <value>
+                <fullName>Theft - Van</fullName>
+                <default>false</default>
+                <label>Theft - Van</label>
+            </value>
+            <value>
+                <fullName>Transit Time</fullName>
+                <default>false</default>
+                <label>Transit Time</label>
+            </value>
+            <value>
+                <fullName>Trusted Services</fullName>
+                <default>false</default>
+                <label>Trusted Services</label>
+            </value>
+            <value>
+                <fullName>Unaddressed</fullName>
+                <default>false</default>
+                <label>Unaddressed</label>
+            </value>
+            <value>
+                <fullName>Unidentified</fullName>
+                <default>false</default>
+                <label>Unidentified</label>
+            </value>
+            <value>
+                <fullName>Unidentified/Damaged Freight</fullName>
+                <default>false</default>
+                <label>Unidentified/Damaged Freight</label>
+            </value>
+            <value>
+                <fullName>Wet</fullName>
+                <default>false</default>
+                <label>Wet</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Account Manager</controllingFieldValue>
+            <controllingFieldValue>Credit</controllingFieldValue>
+            <valueName>Call back request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account Manager</controllingFieldValue>
+            <valueName>Information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Warranty Enquiry</controllingFieldValue>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <controllingFieldValue>Track &amp; Trace</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Delivered</controllingFieldValue>
+            <controllingFieldValue>Depot Created</controllingFieldValue>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>Damaged</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Warranty Enquiry</controllingFieldValue>
+            <valueName>Lost</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Warranty Enquiry</controllingFieldValue>
+            <valueName>Lost - AP Outlet</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Warranty Enquiry</controllingFieldValue>
+            <valueName>Misdelivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Warranty Enquiry</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Warranty Enquiry</controllingFieldValue>
+            <controllingFieldValue>Delivered</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>POD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Warranty Enquiry</controllingFieldValue>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>Short - No Scan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Warranty Enquiry</controllingFieldValue>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>Short - Scanned</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Warranty Enquiry</controllingFieldValue>
+            <valueName>Theft</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Warranty Enquiry</controllingFieldValue>
+            <valueName>Theft - Depot</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Warranty Enquiry</controllingFieldValue>
+            <valueName>Theft - Van</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transit Warranty Enquiry</controllingFieldValue>
+            <valueName>Wet</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales Lead</controllingFieldValue>
+            <valueName>2nd Follow up</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales Lead</controllingFieldValue>
+            <valueName>3rd Follow up</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales Lead</controllingFieldValue>
+            <valueName>Follow up</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales Lead</controllingFieldValue>
+            <valueName>Rejected</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Quoting/Pricing</controllingFieldValue>
+            <valueName>Confirm Rates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Quoting/Pricing</controllingFieldValue>
+            <valueName>Non-account holder</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Quoting/Pricing</controllingFieldValue>
+            <valueName>One Off Quote</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Quoting/Pricing</controllingFieldValue>
+            <valueName>Quote</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Quoting/Pricing</controllingFieldValue>
+            <valueName>Quote Based On Rates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <controllingFieldValue>Track &amp; Trace</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>Depot Created</controllingFieldValue>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>Check Address</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>Customs Held</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <controllingFieldValue>Track &amp; Trace</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>Delivery Update</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <controllingFieldValue>Track &amp; Trace</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>Driver ETA - Onboard for Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <valueName>ETA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <valueName>ETA - Within EDD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <valueName>Fraud</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <valueName>FS15</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <valueName>FS25</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <controllingFieldValue>Track &amp; Trace</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>HDX Swap Out</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>Misdirect</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Depot Created</controllingFieldValue>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>Missing Paperwork</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <valueName>Network Delay</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <valueName>Pending FS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <controllingFieldValue>Track &amp; Trace</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>Refused Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <controllingFieldValue>Track &amp; Trace</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>Stop Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Transit</controllingFieldValue>
+            <valueName>Stop Delivery - Onboard</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Claim</controllingFieldValue>
+            <valueName>Billing Dispute</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Claim</controllingFieldValue>
+            <valueName>Billing - Verification/Explanation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Claim</controllingFieldValue>
+            <valueName>CCM Exgratia (Cust Claim Met)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Claim</controllingFieldValue>
+            <valueName>Copy of Connote</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Claim</controllingFieldValue>
+            <valueName>Copy of Document</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Claim</controllingFieldValue>
+            <valueName>Copy of Invoice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Claim</controllingFieldValue>
+            <valueName>Copy of POD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Claim</controllingFieldValue>
+            <valueName>Dispute Claim</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Claim</controllingFieldValue>
+            <valueName>Internal Credit Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Claim</controllingFieldValue>
+            <valueName>Rebates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Claim</controllingFieldValue>
+            <valueName>Service Performance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Claim</controllingFieldValue>
+            <valueName>Trusted Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card left - No Attempt Made</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Card Left</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <valueName>Depot Collection</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card left - No Attempt Made</controllingFieldValue>
+            <controllingFieldValue>Card Left</controllingFieldValue>
+            <valueName>Post Office</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card left - No Attempt Made</controllingFieldValue>
+            <controllingFieldValue>Card Left</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <valueName>Redelivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card left - No Attempt Made</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Card Left</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>Redirection</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Track &amp; Trace</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>Depot Created</controllingFieldValue>
+            <valueName>Book in</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Track &amp; Trace</controllingFieldValue>
+            <controllingFieldValue>Delivered</controllingFieldValue>
+            <valueName>Delivery Dispute</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Track &amp; Trace</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Delivered</controllingFieldValue>
+            <valueName>Incorrect Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Track &amp; Trace</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>No Paperwork</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Track &amp; Trace</controllingFieldValue>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <valueName>RTS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Track &amp; Trace</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Transit Time</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Track &amp; Trace</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Unaddressed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pick up</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Controlled Returns</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pick up</controllingFieldValue>
+            <valueName>Driver ETA - Pickup</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pick up</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Missed Pickup</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pick up</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Missed Swap Out</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <valueName>Depot Held</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Final Shortage</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <valueName>Held - Premises Closed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <valueName>International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>LDC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Late Delivery</controllingFieldValue>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <valueName>Next Flight Upgrade</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Westpac bookings</controllingFieldValue>
+            <valueName>Next Flight</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Westpac bookings</controllingFieldValue>
+            <valueName>Premium</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Westpac bookings</controllingFieldValue>
+            <valueName>STC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>POD</controllingFieldValue>
+            <controllingFieldValue>Delivered</controllingFieldValue>
+            <valueName>COD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>POD</controllingFieldValue>
+            <valueName>POD - Available</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>POD</controllingFieldValue>
+            <valueName>POD - Not Available</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <valueName>Delivery On Track</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery in Progress</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Resign</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumable Orders</controllingFieldValue>
+            <valueName>Follow Up Existing Order</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumable Orders</controllingFieldValue>
+            <valueName>New Order</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumable Orders</controllingFieldValue>
+            <valueName>Order Consumables</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Controlled Returns</controllingFieldValue>
+            <valueName>Label Reprint</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pickup ETA</controllingFieldValue>
+            <controllingFieldValue>Driver ETA</controllingFieldValue>
+            <controllingFieldValue>Futile</controllingFieldValue>
+            <valueName>Casual</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pickup ETA</controllingFieldValue>
+            <controllingFieldValue>Driver ETA</controllingFieldValue>
+            <controllingFieldValue>Futile</controllingFieldValue>
+            <valueName>Permanent</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Missed Pickup</controllingFieldValue>
+            <valueName>Casual 2nd Missed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Missed Pickup</controllingFieldValue>
+            <valueName>Casual 3rd Missed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Missed Pickup</controllingFieldValue>
+            <valueName>Casual 4th+ Missed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Missed Pickup</controllingFieldValue>
+            <valueName>Permanent 2nd Missed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Missed Pickup</controllingFieldValue>
+            <valueName>Permanent 3rd Missed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Missed Pickup</controllingFieldValue>
+            <valueName>Permanent 4th+ Missed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account Manager Support</controllingFieldValue>
+            <valueName>Business Feedback</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account Manager Support</controllingFieldValue>
+            <valueName>Customer Urgency Requested</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account Manager Support</controllingFieldValue>
+            <valueName>Lack of customer contact</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account Manager Support</controllingFieldValue>
+            <valueName>Multiple Missed Pick Ups</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account Manager Support</controllingFieldValue>
+            <valueName>No existing case</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account Manager Support</controllingFieldValue>
+            <valueName>Ongoing Delivery Issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account Manager Support</controllingFieldValue>
+            <valueName>Process Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Case Related</controllingFieldValue>
+            <valueName>Reports</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Case Related</controllingFieldValue>
+            <valueName>Spam</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>Late Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Manifest</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <valueName>Missed POD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <valueName>Security Incident</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Request update</controllingFieldValue>
+            <controllingFieldValue>System</controllingFieldValue>
+            <valueName>Unidentified/Damaged Freight</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>General</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>NHCL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>No POD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Phone ATL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Pickup</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Pricing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Depot Created</controllingFieldValue>
+            <valueName>Refused</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Depot Created</controllingFieldValue>
+            <valueName>Unidentified</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>Delivery Update (data dip only)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In-Flight</controllingFieldValue>
+            <valueName>EDD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumables</controllingFieldValue>
+            <valueName>Ordering information</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

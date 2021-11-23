@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact_Another_Network</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Contact Another Network</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/support/console/31.0/integration.js&quot;)} 
+if(sforce.console.isInConsole())
+{
+   sforce.console.fireEvent(&apos;ChildCaseForAnotherNetwork_{!Case.CaseNumber}&apos;, &apos;ChildCaseMessage&apos;);
+}</url>
+</WebLink>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Transit Warranty warning notification</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>StarTrack - Transit Warranty Warning Notification</name>
+    <style>none</style>
+    <subject>Transit Warranty - Approaching Violation</subject>
+    <textOnly>Please note, the following case is approaching violation: {!Case.CaseNumber}
+
+Kindly action asap</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

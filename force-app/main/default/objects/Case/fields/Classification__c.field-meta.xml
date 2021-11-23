@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Classification__c</fullName>
+    <externalId>false</externalId>
+    <label>Classification</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Complaint</fullName>
+                <default>false</default>
+                <label>Complaint</label>
+            </value>
+            <value>
+                <fullName>Suggestion</fullName>
+                <default>false</default>
+                <label>Suggestion</label>
+            </value>
+            <value>
+                <fullName>Compliment</fullName>
+                <default>false</default>
+                <label>Compliment</label>
+            </value>
+            <value>
+                <fullName>Adhoc Request</fullName>
+                <default>false</default>
+                <label>Adhoc Request</label>
+            </value>
+            <value>
+                <fullName>Ongoing Scheduled</fullName>
+                <default>false</default>
+                <label>Ongoing Scheduled</label>
+            </value>
+            <value>
+                <fullName>Develop New Solution</fullName>
+                <default>false</default>
+                <label>Develop New Solution</label>
+            </value>
+            <value>
+                <fullName>Enquiry</fullName>
+                <default>false</default>
+                <label>Enquiry</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Used in APT_ManageContractLPController to pre populate the lookup fields on New Site inspection</description>
+    <enableFeeds>false</enableFeeds>
+    <label>Site Inspection Lookup Field Ids</label>
+    <visibility>Public</visibility>
+</CustomObject>

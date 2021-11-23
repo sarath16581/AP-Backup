@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPageWebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <availability>online</availability>
+    <description>This is to raise a case for the user support case queue</description>
+    <displayType>link</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>User Support Request</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>window.open(&quot;https://auspostprod.service-now.com/cmsmyit/cmsmyit_order.do?sysparm_document_key=sc_cat_item_producer,8b83870a5c911100e271187d98a6b7d1&quot;)</url>
+</CustomPageWebLink>

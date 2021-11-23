@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ifnofornotificationsreasonfordeci__c</fullName>
+    <externalId>false</externalId>
+    <label>No Notifications, reason for decision?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Would like to own customer experience</fullName>
+                <default>false</default>
+                <label>Would like to own customer experience</label>
+            </value>
+            <value>
+                <fullName>Does not trust AP with data</fullName>
+                <default>false</default>
+                <label>Does not trust AP with data</label>
+            </value>
+            <value>
+                <fullName>Does not see the value in notifications</fullName>
+                <default>false</default>
+                <label>Does not see the value in notifications</label>
+            </value>
+            <value>
+                <fullName>Thinks AP sends too many notifications</fullName>
+                <default>false</default>
+                <label>Thinks AP sends too many notifications</label>
+            </value>
+            <value>
+                <fullName>Customer does not want AP branded notifications</fullName>
+                <default>false</default>
+                <label>Customer does not want AP branded notifications</label>
+            </value>
+            <value>
+                <fullName>Customer has said Yes to notifications</fullName>
+                <default>false</default>
+                <label>Customer has said Yes to notifications</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

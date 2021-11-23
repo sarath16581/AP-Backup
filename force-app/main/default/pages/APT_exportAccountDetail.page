@@ -1,0 +1,165 @@
+<apex:page controller="APT_exportAccountDetailCtrl" contentType="txt/xml#AccountDetail.xls" cache="true">
+<apex:outputText value="{!xlsHeader}"/>
+    <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+        xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:x="urn:schemas-microsoft-com:office:excel"
+        xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+        xmlns:html="http://www.w3.org/TR/REC-html40">
+      <Styles>
+       <Style ss:ID="s1">
+       <Alignment/>
+       <Borders/>
+       <Font ss:Bold="1"/>
+       <Interior/>
+        <NumberFormat/>
+        <Protection/>
+         </Style>
+       </Styles>
+
+
+
+    <Worksheet ss:Name="{!$Label.APT_Charge_Accounts}">
+      <Table x:FullColumns="1" x:FullRows="1">
+      <apex:repeat value="{!chargeAccFieldList}" var="ChargeAccHeader">
+      <Column/>
+      </apex:repeat>
+      <apex:repeat value="{!chargeAccLPFieldList}" >
+      <Column/>
+      </apex:repeat>      
+      <Row>
+       
+      <apex:repeat value="{!chargeAccFieldList}" var="ChargeAccHeader">
+          <Cell ss:StyleID="s1"><Data ss:Type="String" >{!ChargeAccHeader.Label}</Data></Cell>
+       </apex:repeat>
+       <Cell ss:StyleID="s1"><Data ss:Type="String" >No.</Data></Cell>
+     <apex:repeat value="{!chargeAccLPFieldList}" var="ChargeAccHeader">
+          <Cell ss:StyleID="s1"><Data ss:Type="String" >{!ChargeAccHeader.Label}</Data></Cell>
+       </apex:repeat>
+      </Row>
+      
+      <apex:repeat value="{!chargeAccIdSet}" var="chargeAccId">
+          
+          <apex:repeat value="{!chargeAccountMap[chargeAccId]}" var="chargeAcc"  >
+          <Row>
+          <apex:repeat value="{!chargeAccFieldList}" var="fields" >
+          <Cell><Data ss:Type="String" >{!chargeAcc[fields.fieldPath]}</Data></Cell>
+          </apex:repeat>
+           </Row>
+           <apex:variable value="{!0}" var="index" />
+           <apex:repeat value="{!agreementLodgmentPointMap[Left(chargeAcc.Id,15)]}" rendered="{!agreementLodgmentPointMap[Left(chargeAcc.Id,15)] != null}" var="agmtLp">
+           <Row>
+          
+          <apex:variable value="{!index + 1}" var="index" />
+                            
+          <apex:repeat value="{!chargeAccFieldList}" var="fields" >
+          <Cell><Data ss:Type="String" ></Data></Cell>
+          </apex:repeat>
+          <Cell><Data ss:Type="String" >{!index}</Data></Cell>
+              <apex:repeat value="{!chargeAccLPFieldList}" var="fieldsForLp" >
+                  <Cell><Data ss:Type="String" >{!agmtLp[fieldsForLp.fieldPath]}</Data></Cell>
+              </apex:repeat>
+          
+           </Row>
+           </apex:repeat> 
+          </apex:repeat>
+      </apex:repeat>
+      
+    </Table>
+     </Worksheet> 
+         
+     <Worksheet ss:Name="{!$Label.APT_Sub_Accounts}">
+   <Table x:FullColumns="1" x:FullRows="1">
+      <apex:repeat value="{!subAccFieldList}" var="SubAccHeader">
+      <Column/>
+      </apex:repeat>
+      <apex:repeat value="{!subAccLPFieldList}" >
+      <Column/>
+      </apex:repeat>      
+      <Row>
+       
+      <apex:repeat value="{!subAccFieldList}" var="SubAccHeader">
+          <Cell ss:StyleID="s1"><Data ss:Type="String" >{!SubAccHeader.Label}</Data></Cell>
+       </apex:repeat>
+       <Cell ss:StyleID="s1"><Data ss:Type="String" >No.</Data></Cell>
+     <apex:repeat value="{!subAccLPFieldList}" var="SubAccHeader">
+          <Cell ss:StyleID="s1"><Data ss:Type="String" >{!SubAccHeader.Label}</Data></Cell>
+       </apex:repeat>
+      </Row>
+      
+      <apex:repeat value="{!subAccIdSet}" var="subAccId">
+          
+          <apex:repeat value="{!subAccountMap[subAccId]}" var="subAcc"  >
+          <Row>
+          <apex:repeat value="{!subAccFieldList}" var="fields" >
+          <Cell><Data ss:Type="String" >{!subAcc[fields.fieldPath]}</Data></Cell>
+          </apex:repeat>
+           </Row>
+           <apex:variable value="{!0}" var="index" />
+           <apex:repeat value="{!agreementLodgmentPointMap[Left(subAcc.Id,15)]}" rendered="{!agreementLodgmentPointMap[Left(subAcc.Id,15)] != null}" var="agmtLp">
+           <Row>
+          <apex:variable value="{!index + 1}" var="index" />
+          <apex:repeat value="{!subAccFieldList}" var="fields" >
+          <Cell><Data ss:Type="String" ></Data></Cell>
+          </apex:repeat>
+          <Cell><Data ss:Type="String" >{!index}</Data></Cell>
+              <apex:repeat value="{!subAccLPFieldList}" var="fieldsForLp" >
+                  <Cell><Data ss:Type="String" >{!agmtLp[fieldsForLp.fieldPath]}</Data></Cell>
+              </apex:repeat>
+          
+           </Row>
+           </apex:repeat> 
+          </apex:repeat>
+      </apex:repeat>
+      
+    </Table>
+     </Worksheet> 
+    
+
+     <Worksheet ss:Name="{!$Label.APT_Cash_Accounts}">
+   <Table x:FullColumns="1" x:FullRows="1">
+      <apex:repeat value="{!cashAccFieldList}" var="CashAccHeader">
+      <Column/>
+      </apex:repeat>
+      <apex:repeat value="{!cashAccLPFieldList}" >
+      <Column/>
+      </apex:repeat>      
+      <Row>
+       
+      <apex:repeat value="{!cashAccFieldList}" var="CashAccHeader">
+          <Cell ss:StyleID="s1"><Data ss:Type="String" >{!CashAccHeader.Label}</Data></Cell>
+       </apex:repeat>
+       <Cell ss:StyleID="s1"><Data ss:Type="String" >No.</Data></Cell>
+     <apex:repeat value="{!cashAccLPFieldList}" var="CashAccHeader">
+          <Cell ss:StyleID="s1"><Data ss:Type="String" >{!CashAccHeader.Label}</Data></Cell>
+       </apex:repeat>
+      </Row>
+      
+      <apex:repeat value="{!cashAccIdSet}" var="cashAccId">
+          
+          <apex:repeat value="{!cashAccountMap[cashAccId]}" var="cashAcc"  >
+          <Row>
+          <apex:repeat value="{!cashAccFieldList}" var="fields" >
+          <Cell><Data ss:Type="String" >{!cashAcc[fields.fieldPath]}</Data></Cell>
+          </apex:repeat>
+           </Row>
+           <apex:variable value="{!0}" var="index" />
+           <apex:repeat value="{!agreementLodgmentPointMap[Left(cashAcc.Id,15)]}" rendered="{!agreementLodgmentPointMap[Left(cashAcc.Id,15)] != null}" var="agmtLp">
+           <Row>
+          <apex:variable value="{!index + 1}" var="index" />
+          <apex:repeat value="{!cashAccFieldList}" var="fields" >
+          <Cell><Data ss:Type="String" ></Data></Cell>
+          </apex:repeat>
+          <Cell><Data ss:Type="String" >{!index}</Data></Cell>
+              <apex:repeat value="{!cashAccLPFieldList}" var="fieldsForLp" >
+                  <Cell><Data ss:Type="String" >{!agmtLp[fieldsForLp.fieldPath]}</Data></Cell>
+              </apex:repeat>
+          
+           </Row>
+           </apex:repeat> 
+          </apex:repeat>
+      </apex:repeat>
+      
+    </Table>
+     </Worksheet>    
+</Workbook>
+</apex:page>

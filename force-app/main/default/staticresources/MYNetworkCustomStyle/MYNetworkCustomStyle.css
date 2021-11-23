@@ -1,0 +1,41 @@
+.tallTextArea textarea{
+        height:300px ;		
+    }
+.Red {
+	color:red;
+	font-weight:bold;
+}
+.orange{
+	color:orange;
+	font-weight:bold;
+}
+.green{
+	color:green;
+	font-weight:bold;
+}
+.blue{
+	color:blue;
+	font-weight:bold;
+}
+.blue a{
+	color:blue;
+	text-decoration:underline;
+}
+.redcolor svg{
+    fill: red !important;
+}
+.yellowcolor svg{
+    fill: yellow !important;
+}
+.greencolor svg{
+    fill: green !important;
+}
+.border_bottom{
+	border-radius: 0 !important;;
+}
+.slds-form-element__label{
+	font-weight:bold;
+}
+.AddressPostCodeClass{
+	width:80px;
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Both_Transit_Depots_Required</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+				TEXT(NumberofTransshipments__c)= &apos;2&apos;,
+				OR(
+								ISBLANK( First_Transit_Depot__c),
+								ISBLANK( Second_Transit_Depot__c)
+				)
+				)</errorConditionFormula>
+    <errorMessage>Please populate both transit depots before saving.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>StarTrack General Enquiry Security Incident Notification</name>
+    <style>none</style>
+    <subject>Notification of StarTrack Security Incident (Tier 1) - Case Number: {!Case.CaseNumber}</subject>
+    <textOnly>A new Security Incident (Tier 1) case has been created.
+Case number: {!Case.CaseNumber}
+Subject: {!Case.Subject}
+Caller Name: {!Case.Recent_Caller_First_Name__c} {!Case.Recent_Caller_Last_Name__c}
+Caller Email: {!Case.Recent_Caller_Email__c}
+Caller Phone Number: {!Case.Recent_Caller_Phone_Number__c}
+Description: {!Case.Description}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

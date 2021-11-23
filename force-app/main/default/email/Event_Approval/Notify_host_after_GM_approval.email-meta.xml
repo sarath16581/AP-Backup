@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Event hosts would like to be notified as soon as their GM approves the guest list for an event, so they can start inviting people, or reworking it. Email is their main and preferred form of communication</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>SFDC_Blank</letterhead>
+    <name>Notify host after GM approval</name>
+    <style>freeForm</style>
+    <subject>GUEST LIST APPROVED: {!SFL1_Entertainment_Event__c.Name} - {!SFL1_Entertainment_Event__c.Event_Date_Time__c}</subject>
+    <textOnly>GUEST LIST APPROVED: {!upper(SFL1_Entertainment_Event__c.Name)} {!SFL1_Entertainment_Event__c.Event_Date_Time__c}.
+
+The potential guest list for the {!SFL1_Entertainment_Event__c.Name} on {!SFL1_Entertainment_Event__c.Event_Date_Time__c} has been APPROVED by your General Manager. If it is a joint-hosted event, approval must be received from both General Managers.
+
+You can now proceed to invite the guests nominated to attend.
+
+Please make sure you indicate that they have been invited at https://auspost.my.salesforce.com/{!SFL1_Entertainment_Event__c.Id}.
+
+Once all your guests are confirmed, please advise Corporate Hospitality &amp; Events so that tickets can be issued.
+
+Details Of The {!SFL1_Entertainment_Event__c.RecordType} Event
+
+Event: {!SFL1_Entertainment_Event__c.Name}
+Venue: {!SFL1_Entertainment_Event__c.Entertainment_Venue__c}
+Date/Time: {!SFL1_Entertainment_Event__c.Event_Date_Time__c}
+Event Type: {!SFL1_Entertainment_Event__c.Event_Type__c}
+Owner: {!SFL1_Entertainment_Event__c.OwnerFullName}
+Co-Host: {!SFL1_Entertainment_Event__c.Owner_2__c}
+
+If you have any questions, please contact the Event Owner or Corporate Hospitality and Events.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

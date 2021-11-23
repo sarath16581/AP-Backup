@@ -1,0 +1,509 @@
+<apex:component id="SideBarPostListCss">
+<style type="text/css">
+
+
+    body {
+        margin:0;
+        background: #fff;
+        font-family: Arial,Helvetica,sans-serif;
+        color: #222;
+        font-size:71%;
+    }
+
+    a {
+        color:#015ba7;
+        text-decoration: none;
+    }
+
+    body .container {
+        padding: 0;
+        /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+        /*font-size: 71%;*/
+    }
+
+body .container table {
+    width: 100%;
+  min-width:320px;
+
+}
+
+table.content{
+    font-size: 12px !important; /*font-size: 71%;*/
+}
+
+table a.fixContent {
+color:#354452;
+  display: inline-block;
+margin: 5px 0 2px 0;
+}
+
+td.col00 {
+ width:20px;
+}
+
+td.col00 input {
+ margin-top:8px;
+}
+
+tr.row2 td.col21 {
+ width: 0;
+}
+
+img.provider {
+ margin-left:0 !important;
+  display:inline-block;
+}
+
+table td.col20 {
+ width: 27% !important;
+  text-transform: uppercase;
+  font-size:9px;
+  font-weight:normal;
+}
+
+table tr.row2 td.col21 {
+  width:0 !important;
+}
+
+table td.spacer {
+ width: 0 !important;
+}
+
+table td.col22 {
+ font-weight: normal;
+}
+
+tr.row2 td.col23 {
+ width: 0 !important;
+}
+
+table td.col24 {
+    background: url('{!URLFOR($Resource.SideBarPostList, 'imgs/cases16.png')}')  left center no-repeat;
+    padding-left:20px;
+}
+
+table td.col24 img {
+ display:none;
+}
+
+table td.col01 {
+ border-top:0 ;
+  border-bottom: 1px solid #ddd;
+}
+
+input[type="button"]:hover {
+  background: #dddfe1;
+}
+
+input.disabledBtn {
+    /*background: #ccc !important; */
+    opacity: .5;
+    cursor: inherit!important;
+}
+
+input.disabledBtn:hover {
+    /*background: #ccc !important; */
+    opacity: .5;
+    cursor: inherit!important;
+}
+
+.containerPersona tr.header td:first-child {
+  text-align:right;
+    }
+
+.containerPersona tr.header td {
+  text-align:left;
+  padding:12px;
+}
+
+.containerPersona tr.header td h3 a {
+   text-decoration: none;
+  }
+
+
+            img.iconFix{
+                margin-bottom: -2px;
+            }
+            .container{
+                padding: 10px;
+            }
+
+            table.header{
+                background-color: #F5F5F5;
+                width: 100%;
+                padding: 5px;
+            }
+
+            table , td{
+
+            }
+            td.col00{
+                vertical-align: top;
+            }
+
+            td.col20{
+                color: #7C7C7C;
+                font-weight: bold;
+                font-size: 11px;
+                width: 40px !important;
+            }
+
+            td.col22{
+                font-weight: 600;
+                font-size: 11px;
+            }
+
+            td.col01{
+                border-top: 1px solid #CCC;
+            }
+
+            td.col01 table, td.col10{
+                width: 100%;
+            }
+
+            tr.row2 td{
+                width: 25px;
+                position: relative;
+            }
+
+            tr.row2 td.col21{
+                width: 16px !important;
+            }
+
+            div.content{
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+
+            td.spacer{
+                width: 2px !important;
+            }
+
+            td.spacer span{
+                color: #CCC;
+            }
+
+
+        input[type="button"] {
+
+            color: #333;
+            margin: 1px;
+            padding: 4px 3px;
+            border: 1px solid #B5B5B5;
+            border-bottom-color: #7F7F7F;
+            background: #E8E8E9 url('/img/alohaSkin/btn_sprite.png') repeat-x right top;
+            font-weight: bold;
+            font-size: .9em;
+            font-family: Arial,Helvetica,sans-serif;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            cursor: pointer;
+            height: 21px;
+        }
+
+
+
+        
+
+        a:hover {}
+
+
+        .clickStyle{
+            cursor: pointer;
+        }
+
+        input.refresh, input.refresh:hover {
+            background: url('/img/alohaSkin/sync.png') top left no-repeat;
+            width: 20px;
+            height: 22px;
+            background-position: 2px 3px;
+            vertical-align: bottom;
+            background-size: 18px;
+        }
+
+        div.lookUp{
+                background-image: url('/img/func_icons/util/lookup20.gif');
+                height: 22px;
+                width: 24px;
+                padding: 0px !important;
+        }
+        .smaller{
+            font-size: smaller;
+        }
+        img.provider{
+            margin-left: 5px;
+            width: 15px;
+        }
+
+
+         div.attachmentIcon{
+             width:10%;
+         }
+        .caseIcon{
+             width: 16px;height: 16px;
+             float: left;
+             margin-right: 5px;
+             background: transparent url({!URLFOR($Resource.SideBarPostList, 'imgs/cases16.png')}) 0 0 no-repeat;
+         }
+        .caseIconDel{
+             width: 16px;height: 16px;
+             background: transparent url({!URLFOR($Resource.SideBarPostList, 'imgs/cases16_cross.png')}) 0 0 no-repeat;
+         }
+
+        .customPopup{
+            background-color: white;
+            border-style: solid;
+            border-width: 2px;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            z-index: 9999;
+            width: 500px;
+            margin-left: -250px;
+            top:100px;
+        }
+        .postContent{
+            padding-left: 0px;
+        }
+
+        a.fixContent{
+            text-decoration: none;
+            color: #222;
+        }
+
+             .containerPersona body {
+                margin: 0;
+                background: #fff;
+                font-family: Arial,Helvetica,sans-serif;
+                color: #222;
+                font-size: .8em;
+            }
+
+            .containerPersona a {
+                color: #015ba7;
+            }
+
+            .containerPersona a:hover {
+            }
+
+            .containerPersona body .containerPersona {
+                width: auto;
+                padding: 0;
+                margin: 10px;
+            }
+
+
+            .containerPersona table{
+                border-spacing: 0px;
+                width: 100%;
+                border: 1px solid #CCC;
+                border-radius: 3px;
+            }
+
+            .containerPersona tr.header{
+                background-color: #F5F5F5;
+                border-bottom: 1px solid #DDD;
+                border-radius: 2px;
+                margin-bottom: 10px;
+            }
+
+            .containerPersona tr.header td {
+                
+                padding: 20px;
+            }
+
+            .containerPersona td{
+                padding: 5px;
+            }
+
+            .containerPersona tr td:first{
+                width: 40px;
+            }
+
+            .containerPersona td label{
+                float: right;
+                font-weight: bold;
+            }
+
+            .containerPersona .text-center {
+                text-align: left;
+            }
+
+            .containerPersona .media-object {
+                border-radius: 50%;
+                text-align: center;
+                margin: auto;
+                border-radius: 50%;
+            }
+
+            td.isOutBound{
+                position: relative;
+            }
+
+            div.isOutBound{
+                 background: url('{!URLFOR($Resource.SideBarPostList, 'imgs/outbound-icon.png')}');
+                 height: 15px;
+                 width: 15px;
+                 background-repeat: no-repeat;
+                 background-size: 15px;
+                 position: absolute;
+                 right: 0px; top: 0px;
+            }
+            
+            div.post-separator{
+                margin: 5px;
+            }
+            
+            
+             /* social post triage sidebar */
+            
+            .TableSidebar
+            {
+                display: table;
+                width:100%;
+            }
+            
+            .Row
+            {
+                display: table-row;
+            }
+
+            .CellSidebar
+            {
+                display: table-cell;
+                padding: 5px;
+                vertical-align: middle;
+                border-bottom: 1px solid #eaeaea;
+            }
+            
+            .Cell1
+            {
+                display: table-cell;
+                padding: 5px;
+                width:25px;
+                border-bottom: 1px solid #eaeaea;
+            }
+            
+            .outbounds {
+                background: url('{!URLFOR($Resource.SideBarPostList, 'imgs/outbound-icon.png')}');
+                background-repeat: no-repeat;
+                background-size: 15px;
+                float: right;
+                width: 15px;
+                height: 15px;
+            }
+            
+            
+            
+            /* social persona */
+            
+                       label {
+                margin-bottom: 0px !important;
+            }
+            
+            div.socialPersona{
+                position: relative;
+                float:left;
+            }
+            
+
+             .secondPersonaTable{
+                 margin-top:10px;
+                 width:100% !important;
+                 
+             }
+             
+           
+            
+            .personaContainer:before, .personaContainer:after {
+                display:table;
+                content:"";
+                zoom:1 /* ie fix */;
+            }
+            
+            .personaContainer:after {
+                clear:both;
+            }
+            
+            .personaContainer {
+
+                margin:0 auto;
+                border:1px solid #e3e3e3;
+                border-radius:3px;
+                -moz-border-radius:3px;
+                -webkit-border-radius:3px;
+                background-color:#ffffff;
+                min-width: 350px;
+            }
+            
+            .personaMainbody {
+                font-size:12px;
+               
+            }
+            
+            
+            .personaHeader, .personaFooter {
+                height: 50px;
+                padding: 5px 5px 5px 15px;
+                
+                
+            }
+
+            .personaTable{
+                border: 0px !important;
+            }
+            
+
+
+            
+            .firstPersonaTable{
+            
+                background-color: #f7f7f7;
+            }
+            
+            .Table
+            {
+                display: table;
+            }
+            
+            .Row
+            {
+                display: table-row;
+            }
+            
+            .Row2
+            {
+                margin: 10px;
+            }
+            
+            .Cell
+            {
+                display: table-cell;
+                padding: 15px 5px 15px 15px;
+                vertical-align: middle;
+            }
+            
+            .Cell2
+            {
+                display: table-cell;
+                padding-left: 15px;
+                padding-right: 5px;
+                vertical-align: middle;
+            }
+            
+            .outboundPost{
+                background-color: #f7ffff;
+                border: 1px solid #eaeaea;
+                
+            }
+                
+            .inboundPost{
+                background-color: #fffff7;
+                border: 1px solid #eaeaea;
+                
+            }            
+            
+            
+</style>
+</apex:component>

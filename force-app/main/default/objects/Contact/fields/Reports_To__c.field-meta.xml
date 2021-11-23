@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reports_To__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>SSSW - Custom field for Person Account hierarchy</description>
+    <externalId>false</externalId>
+    <label>Reports To</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Account.IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Contacts (Reports To)</relationshipLabel>
+    <relationshipName>Individuals</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

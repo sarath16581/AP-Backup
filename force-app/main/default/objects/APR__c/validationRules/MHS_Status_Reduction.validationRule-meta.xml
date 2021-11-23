@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MHS_Status_Reduction</fullName>
+    <active>false</active>
+    <errorConditionFormula>( MHS_Confirmed_Rate__c &gt;= MHS_Published_Rate__c || ISBLANK( MHS_Confirmed_Rate__c ) || MHS_Confirmed_Rate__c = 0 ) 
+ &amp;&amp; 
+ISPICKVAL( MHS_Status__c , &apos;Reduction&apos; )</errorConditionFormula>
+    <errorMessage>When the MHS Status is Reduction the value in the MHS Confirmed Rate must be less than the value in the MHS Published Rate but greater than zero.</errorMessage>
+</ValidationRule>

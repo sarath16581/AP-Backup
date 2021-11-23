@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Registered_Post__c</fullName>
+    <externalId>false</externalId>
+    <label>Registered Post</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Prime</fullName>
+                <default>false</default>
+                <label>Prime</label>
+            </value>
+            <value>
+                <fullName>CN08 - email</fullName>
+                <default>false</default>
+                <label>CN08 - email</label>
+            </value>
+            <value>
+                <fullName>CN08 - post</fullName>
+                <default>false</default>
+                <label>CN08 - post</label>
+            </value>
+            <value>
+                <fullName>Product not available</fullName>
+                <default>false</default>
+                <label>Product not available</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

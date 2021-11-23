@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_DoV_Item__c</fullName>
+    <externalId>false</externalId>
+    <label>DoV Item</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>APT_DoV_Action__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pricing Schedule</fullName>
+                <default>false</default>
+                <label>Pricing Schedule</label>
+            </value>
+            <value>
+                <fullName>Pricing Schedule with new service(s)</fullName>
+                <default>false</default>
+                <label>Pricing Schedule with new service(s)</label>
+            </value>
+            <value>
+                <fullName>Pricing Schedule and Sub Account</fullName>
+                <default>false</default>
+                <label>Pricing Schedule and Sub Account</label>
+            </value>
+            <value>
+                <fullName>Pricing Schedule and Sub Account with new service(s)</fullName>
+                <default>false</default>
+                <label>Pricing Schedule and Sub Account with new service(s)</label>
+            </value>
+            <value>
+                <fullName>Terms and conditions or other information</fullName>
+                <default>false</default>
+                <label>Terms and conditions or other information</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Add</controllingFieldValue>
+            <controllingFieldValue>Replace</controllingFieldValue>
+            <controllingFieldValue>Delete</controllingFieldValue>
+            <valueName>Pricing Schedule</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Add</controllingFieldValue>
+            <controllingFieldValue>Replace</controllingFieldValue>
+            <controllingFieldValue>Delete</controllingFieldValue>
+            <valueName>Pricing Schedule with new service(s)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Add</controllingFieldValue>
+            <controllingFieldValue>Replace</controllingFieldValue>
+            <controllingFieldValue>Delete</controllingFieldValue>
+            <valueName>Pricing Schedule and Sub Account</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Add</controllingFieldValue>
+            <controllingFieldValue>Replace</controllingFieldValue>
+            <controllingFieldValue>Delete</controllingFieldValue>
+            <valueName>Pricing Schedule and Sub Account with new service(s)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Add</controllingFieldValue>
+            <controllingFieldValue>Replace</controllingFieldValue>
+            <controllingFieldValue>Delete</controllingFieldValue>
+            <valueName>Terms and conditions or other information</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

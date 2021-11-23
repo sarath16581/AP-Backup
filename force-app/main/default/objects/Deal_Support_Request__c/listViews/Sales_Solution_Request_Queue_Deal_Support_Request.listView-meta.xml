@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales_Solution_Request_Queue_Deal_Support_Request</fullName>
+    <booleanFilter>1 AND 2 AND (3 OR 4)</booleanFilter>
+    <columns>NAME</columns>
+    <columns>Stage__c</columns>
+    <columns>Status__c</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Solution_Representative__c</columns>
+    <columns>Request_Support_Type__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Deal_Support_Request__c.Sales_Solution_Request</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Submitted,Received Information,In Progress,Pending Information,Completed</value>
+    </filters>
+    <filters>
+        <field>Request_Support_Type__c</field>
+        <operation>equals</operation>
+        <value>Solution Consultant</value>
+    </filters>
+    <filters>
+        <field>Request_Support_Type__c</field>
+        <operation>notEqual</operation>
+        <value>Product Specialist Support,Solution Consultant</value>
+    </filters>
+    <label>Solution Consultant</label>
+    <sharedTo>
+        <group>Sales_Solution_Request_Team</group>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Stage__c</fullName>
+    <externalId>false</externalId>
+    <label>Stage</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>true</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Define</fullName>
+                <default>true</default>
+                <label>Define</label>
+            </value>
+            <value>
+                <fullName>Analyse</fullName>
+                <default>false</default>
+                <label>Analyse</label>
+            </value>
+            <value>
+                <fullName>Design</fullName>
+                <default>false</default>
+                <label>Design</label>
+            </value>
+            <value>
+                <fullName>Develop</fullName>
+                <default>false</default>
+                <label>Develop</label>
+            </value>
+            <value>
+                <fullName>Test</fullName>
+                <default>false</default>
+                <label>Test</label>
+            </value>
+            <value>
+                <fullName>Plan</fullName>
+                <default>false</default>
+                <label>Plan</label>
+            </value>
+            <value>
+                <fullName>Implement</fullName>
+                <default>false</default>
+                <label>Implement</label>
+            </value>
+            <value>
+                <fullName>Stabalise</fullName>
+                <default>false</default>
+                <label>Stabalise</label>
+            </value>
+            <value>
+                <fullName>Closed - Disengaged</fullName>
+                <default>false</default>
+                <label>Closed - Disengaged</label>
+            </value>
+            <value>
+                <fullName>Closed - Maintained</fullName>
+                <default>false</default>
+                <label>Closed - Maintained</label>
+            </value>
+            <value>
+                <fullName>Closed - Rejected</fullName>
+                <default>false</default>
+                <label>Closed - Rejected</label>
+            </value>
+            <value>
+                <fullName>Deploy</fullName>
+                <default>false</default>
+                <label>Deploy</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

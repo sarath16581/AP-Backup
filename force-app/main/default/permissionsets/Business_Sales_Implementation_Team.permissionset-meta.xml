@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission Set created specifically for any unique permissions required by the Business Sales Implementation Team without impacting the coverage Sales Profile</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Business Sales Implementation Team</label>
+    <license>Salesforce</license>
+</PermissionSet>

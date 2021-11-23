@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apexPluginCalls>
+        <name>Recall_and_resubmit_approval</name>
+        <label>Recall and resubmit approval</label>
+        <locationX>297</locationX>
+        <locationY>171</locationY>
+        <apexClass>FlowRecallResubmitApprovalProcess</apexClass>
+        <inputParameters>
+            <name>RecordId</name>
+            <value>
+                <elementReference>TargetObjectId</elementReference>
+            </value>
+        </inputParameters>
+    </apexPluginCalls>
+    <apiVersion>49.0</apiVersion>
+    <description>Generic flow to reassign an approval record to a new approver.  Pass in Id of record approval associated to (TargetObjectId) and the Id of the approver to reassign to (NewActorId)</description>
+    <interviewLabel>Escalate Approval {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Escalate Approval</label>
+    <processType>AutoLaunchedFlow</processType>
+    <startElementReference>Recall_and_resubmit_approval</startElementReference>
+    <status>Active</status>
+    <variables>
+        <description>Id of user to reassign approval to</description>
+        <name>NewActorId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>ProcessInstanceId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Id of Work Item updated. Null value indicates that no change occurred.</description>
+        <name>ProcessInstanceWorkItemId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>Id of record that approval is associated to</description>
+        <name>TargetObjectId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Street__c</fullName>
+    <description>Common address field on Booking. Required for Search. Set via:
+-trigger on Booking (update of Booking Location)
+-trigger on Booking Location (update of address)
+-via API for bookings without location</description>
+    <externalId>false</externalId>
+    <label>Street</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_DSR_Completion_to_Support_Team</fullName>
+    <active>true</active>
+    <description>To restrict Sales user to mark request to Completed</description>
+    <errorConditionFormula>AND
+(
+NOT($Permission.BG_Deal_Support),
+ISPICKVAL(Status__c, &quot;Completed&quot;)
+)</errorConditionFormula>
+    <errorMessage>Request can be mark as Completed only by Deal Support Team</errorMessage>
+</ValidationRule>

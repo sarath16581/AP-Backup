@@ -1,0 +1,32 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,force:hasRecordId" description="Displays the Case reference number, Case creation date and Case status.">
+    <aura:attribute name="case" type="Case" />
+    <aura:attribute name="statusColour" type="String" />
+    <aura:attribute name="colourMap" type="Map"
+    	default="{
+	    	'Closed' : 'black',
+	    	'Resolved' : 'green',
+	    	'Action required' : 'red',
+	    	'In progress' : 'blue'
+    	}" />
+
+    <aura:handler name="change" value="{! v.case }" action=" {! c.handleCase }" />
+    <aura:handler name="updateCaseStatus" event="c:ChasCaseStatusEvent" action="{!c.reloadCase}"/>
+
+	<force:recordData aura:id="forceRecordCmp"
+        recordId="{!v.recordId}"
+        fields="['CaseNumber', 'Enquiry_Status__c', 'CreatedDate']"
+        mode="VIEW"
+        targetFields="{!v.case}" />
+
+    <div>
+    	<div class="ref-status">
+			<h2 class="chas-heading_large">Reference no. {! v.case.CaseNumber }</h2>
+
+	    	<div class="{! 'status ' + v.statusColour }">
+	    		{! v.case.Enquiry_Status__c }
+	    	</div>
+	    </div>
+
+		<p class="chas-body_small date">Created <lightning:formattedDateTime value="{! v.case.CreatedDate }" year="numeric" month="long" day="numeric" hour="numeric" minute="numeric" hour12="true"/></p>
+    </div>
+</aura:component>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Future_Assignments_Gantt</fullName>
+    <columns>NAME</columns>
+    <columns>Duty__c</columns>
+    <columns>Driver__c</columns>
+    <columns>Start_Date__c</columns>
+    <columns>End_Date__c</columns>
+    <columns>Start_Time_Offset__c</columns>
+    <columns>Roster_Reference__c</columns>
+    <columns>Service_Territory__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>End_Date__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>TODAY</value>
+    </filters>
+    <filters>
+        <field>Gantt_Assignment__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Future Assignments - Gantt</label>
+</ListView>

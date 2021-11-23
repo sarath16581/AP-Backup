@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Campaign_Type__c</fullName>
+    <description>Broad campaign classification [ source: Business Marketing Campaign Project Mar2012 ... Paul Landgren ]</description>
+    <externalId>false</externalId>
+    <label>Campaign Type</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Brand Awareness</fullName>
+                <default>false</default>
+                <label>Brand Awareness</label>
+            </value>
+            <value>
+                <fullName>Cross sell/Up sell</fullName>
+                <default>false</default>
+                <label>Cross sell/Up sell</label>
+            </value>
+            <value>
+                <fullName>Acquisition</fullName>
+                <default>false</default>
+                <label>Acquisition</label>
+            </value>
+            <value>
+                <fullName>Retention/Churn</fullName>
+                <default>false</default>
+                <label>Retention/Churn</label>
+            </value>
+            <value>
+                <fullName>Win Back</fullName>
+                <default>false</default>
+                <label>Win Back</label>
+            </value>
+            <value>
+                <fullName>Service Communications</fullName>
+                <default>false</default>
+                <label>Service Communications</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

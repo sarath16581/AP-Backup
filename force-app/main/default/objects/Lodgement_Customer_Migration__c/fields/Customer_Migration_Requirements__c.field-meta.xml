@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Migration_Requirements__c</fullName>
+    <externalId>false</externalId>
+    <label>Customer Migration Requirements</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>STEXP to ST100 Product Migration</fullName>
+                <default>false</default>
+                <label>STEXP to ST100 Product Migration</label>
+            </value>
+            <value>
+                <fullName>AAE to ST100 Product Migration</fullName>
+                <default>false</default>
+                <label>AAE to ST100 Product Migration</label>
+            </value>
+            <value>
+                <fullName>TEAM Account Creation</fullName>
+                <default>false</default>
+                <label>TEAM Account Creation</label>
+            </value>
+            <value>
+                <fullName>Despatch ID Creation</fullName>
+                <default>false</default>
+                <label>Despatch ID Creation</label>
+            </value>
+            <value>
+                <fullName>API standard integration testing support</fullName>
+                <default>false</default>
+                <label>API standard integration testing support</label>
+            </value>
+            <value>
+                <fullName>Reporting (Bespoke or Standard)</fullName>
+                <default>false</default>
+                <label>Reporting (Bespoke or Standard)</label>
+            </value>
+            <value>
+                <fullName>Custom Development</fullName>
+                <default>false</default>
+                <label>Custom Development</label>
+            </value>
+            <value>
+                <fullName>End to end testing support</fullName>
+                <default>false</default>
+                <label>End to end testing support</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>6</visibleLines>
+</CustomField>

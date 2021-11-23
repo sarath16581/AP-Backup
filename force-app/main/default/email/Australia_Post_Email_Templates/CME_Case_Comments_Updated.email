@@ -1,0 +1,28 @@
+Dear Colleague,
+
+Awaiting Information
+
+In order to action your request can you please provide further information as detailed in the Case Comments Field. 
+
+Case Number: {!Case.CaseNumber}
+
+Subject: {!Case.Subject}
+
+Case Comments: {!Case.Last_Case_Comment}
+
+Please don’t respond to this request via reply e-mail. Add information/comments and relevant attachments to your case online by following the link below.
+
+{!Case.Link} or entering your case number into the search engine on the front page of SalesForce.com.
+
+Please Note:
+
+•	If no response is received within 7 days of this request a reminder notification will be sent.
+
+•	The case will be closed after 7 days if no response is received to the reminder notification.
+
+
+Alternatively, you can call the Sales Contract Consulting team on 1300 795759 during business hours.
+
+Regards
+
+Contract Management Team

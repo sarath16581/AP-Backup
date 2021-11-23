@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Contract_Management_Enquiry_CME_Case_Comments_Updated</fullName>
+        <description>Contract Management Enquiry (CME) Case Comments Updated</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Case Viewer</recipient>
+            <type>caseTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Co-Work</recipient>
+            <type>caseTeam</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Email_Templates/CME_Case_Comments_Updated_v2</template>
+    </alerts>
+    <alerts>
+        <fullName>Contract_Management_Enquiry_CME_Case_Comments_Updated_Case_Origin_Email</fullName>
+        <description>Contract Management Enquiry (CME) Case Comments Updated - Case Origin Email</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Case Viewer</recipient>
+            <type>caseTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Co-Work</recipient>
+            <type>caseTeam</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Email_Templates/CME_Case_Comments_Updated_v2</template>
+    </alerts>
+    <alerts>
+        <fullName>Customer_Data_Case_Comments_Updated</fullName>
+        <description>Customer Data Case Comments Updated</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Case Viewer</recipient>
+            <type>caseTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Co-Work</recipient>
+            <type>caseTeam</type>
+        </recipients>
+        <senderAddress>data.quality@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Email_Templates/Customer_Data_Case_Comment_Updated</template>
+    </alerts>
+    <alerts>
+        <fullName>Sales_Coordinator_Case_Comment_Update_Email_Alert</fullName>
+        <description>Sales Coordinator Case Comment Update Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Case Viewer</recipient>
+            <type>caseTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Co-Work</recipient>
+            <type>caseTeam</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Email_Templates/Sales_Coordinator_Case_Comment_Updated</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>SSSWCase_Status_Customer_Responded</fullName>
+        <field>Status</field>
+        <literalValue>Customer Responded</literalValue>
+        <name>SSSW - Case Status - Customer Responded</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSWSet_Status_Awaiting_Customer</fullName>
+        <field>Status</field>
+        <literalValue>Awaiting Customer Response</literalValue>
+        <name>SSSW - Set Status - Awaiting Customer</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSWSet_to_Customer_Queue</fullName>
+        <field>OwnerId</field>
+        <lookupValue>SSSWAwaitingCustomer</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>SSSW - Set to Customer Queue</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSWStart_Queue_Allocation</fullName>
+        <field>AllocateToQueue__c</field>
+        <literalValue>1</literalValue>
+        <name>SSSW - Start Queue Allocation</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_CC_Reset_Prevent_Status_Change</fullName>
+        <field>PreventStatusChange__c</field>
+        <literalValue>0</literalValue>
+        <name>SSSW - Reset Prevent Status Change</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Case_Comment_Bypass_Validation</fullName>
+        <field>Email_Bypass_Data_enforcement__c</field>
+        <literalValue>1</literalValue>
+        <name>SSSW - Case Comment Bypass Validation</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Set_Escalation_Email_to_Contact</fullName>
+        <field>Customer_Email_Notification__c</field>
+        <formula>Parent.Contact.Email</formula>
+        <name>SSSW Set Escalation Email to Contact</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_System_Status_Customer_Comment</fullName>
+        <field>SystemUpdate__c</field>
+        <literalValue>Customer Comment</literalValue>
+        <name>SSSW - System Status - Customer Comment</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Case_Comment_Published</fullName>
+        <description>Set Published flag to false when set true by user.</description>
+        <field>IsPublished</field>
+        <literalValue>0</literalValue>
+        <name>Set Case Comment : Published</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>StarTrack_Change_Case_Update_Field_Value</fullName>
+        <description>Set Case Update field value to &quot;New Comment&quot;</description>
+        <field>Case_Update__c</field>
+        <literalValue>New Comment</literalValue>
+        <name>StarTrack Change Case Update Field Value</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>StarTrack_Change_Case_Update_Time_Field</fullName>
+        <description>Change Case Update Time field value to current time.</description>
+        <field>Case_Update_Time__c</field>
+        <formula>NOW()</formula>
+        <name>StarTrack Change Case Update Time Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Case_Comments_On_Case</fullName>
+        <field>Updated_Case_Comments__c</field>
+        <formula>CommentBody</formula>
+        <name>Update Case Comments On Case</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Case_Description</fullName>
+        <field>Description</field>
+        <formula>CommentBody</formula>
+        <name>Update Case Description</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Case_Public_Field</fullName>
+        <field>Is_Published__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Case Public Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Send_Case_Comments</fullName>
+        <field>Send_Case_Comments__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Send Case Comments</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>ParentId</targetObject>
+    </fieldUpdates>
+    <outboundMessages>
+        <fullName>Create_Case_Comment_Outbound_Msg</fullName>
+        <apiVersion>31.0</apiVersion>
+        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/Services/CustomerEnquiryManagement/addCaseComment</endpointUrl>
+        <fields>CommentBody</fields>
+        <fields>CreatedById</fields>
+        <fields>CreatedDate</fields>
+        <fields>Id</fields>
+        <fields>IsDeleted</fields>
+        <fields>IsPublished</fields>
+        <fields>LastModifiedById</fields>
+        <fields>LastModifiedDate</fields>
+        <fields>ParentId</fields>
+        <fields>SystemModstamp</fields>
+        <includeSessionId>true</includeSessionId>
+        <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
+        <name>Create Case Comment Outbound Msg</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>true</useDeadLetterQueue>
+    </outboundMessages>
+    <rules>
+        <fullName>Case Comment Non Public update Case Comments</fullName>
+        <actions>
+            <name>Update_Case_Comments_On_Case</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>CaseComment.IsPublished</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <description>This workflow updates the Case Comments text box and updates the last modified by and date field for Case management</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Case Comment Updated - Sales Coordinator</fullName>
+        <actions>
+            <name>Sales_Coordinator_Case_Comment_Update_Email_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Sales Coordinator</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CaseComment.IsPublished</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>Case Comment Updated - Sales Coordinator</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Case Comment Updated Added</fullName>
+        <actions>
+            <name>Update_Case_Comments_On_Case</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Send_Case_Comments</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
+        <criteriaItems>
+            <field>CaseComment.IsPublished</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>notContain</operation>
+            <value>SSSW</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>notContain</operation>
+            <value>Deal Enablement Centre</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>notContain</operation>
+            <value>Data Quality Management</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.StarTrack_RecordType__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>notContain</operation>
+            <value>Sales Coordinator</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Clear Published Case Comment</fullName>
+        <actions>
+            <name>Set_Case_Comment_Published</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>CaseComment.IsPublished</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>User.ProfileId</field>
+            <operation>equals</operation>
+            <value>SSSW - MyNetwork</value>
+        </criteriaItems>
+        <description>Set the Published flag of Case comment to false.</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Comment created by non Case owner</fullName>
+        <actions>
+            <name>StarTrack_Change_Case_Update_Field_Value</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>StarTrack_Change_Case_Update_Time_Field</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>StarTrack Case Comment workflow to notify investigators of new comments on their cases</description>
+        <formula>AND(     CreatedById &lt;&gt; Parent.OwnerId,     Parent.StarTrack_RecordType__c,     NOT(CONTAINS(CommentBody, &apos;Operations Outcome: &apos;)),     NOT(ISPICKVAL(Parent.Status, &apos;Closed&apos;)))</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Contract Management Enquiry %28CME%29 Case Comment Updated</fullName>
+        <actions>
+            <name>Contract_Management_Enquiry_CME_Case_Comments_Updated</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Deal Enablement Centre</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Origin</field>
+            <operation>notEqual</operation>
+            <value>Email</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CaseComment.IsPublished</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>Contract Management Enquiry (CME) Case Comment Updated</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Contract Management Enquiry %28CME%29 Case Comment Updated - Case Origin Email</fullName>
+        <actions>
+            <name>Contract_Management_Enquiry_CME_Case_Comments_Updated_Case_Origin_Email</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Deal Enablement Centre</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Origin</field>
+            <operation>equals</operation>
+            <value>Email</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CaseComment.IsPublished</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>Contract Management Enquiry (CME) Case Comment Updated</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Customer Data Case Comment Updated</fullName>
+        <actions>
+            <name>Customer_Data_Case_Comments_Updated</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Data Quality Management</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Origin</field>
+            <operation>notEqual</operation>
+            <value>Email</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CaseComment.IsPublished</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>Customer Data Case Comment Updated</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Outbound Customer Comment %5BNo status change%5D</fullName>
+        <actions>
+            <name>SSSW_CC_Reset_Prevent_Status_Change</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SSSW_Case_Comment_Bypass_Validation</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Case_Comments_On_Case</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Send_Case_Comments</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>SSSW - Comment from agent - doesn&apos;t change status if preventstatuschange__c = true. Dont change status if case resolved in Service Now.</description>
+        <formula>IsPublished  &amp;&amp; (   Parent.PreventStatusChange__c    ||    (     CONTAINS($User.Username,&apos;apintegrationuser@auspost.com.au&apos;)       &amp;&amp;      TEXT(Parent.Status)== &apos;Closed&apos;   )     ||    (         TEXT(Parent.Network__r.Contact_Facility__c) == &apos;ServiceNow&apos;      &amp;&amp;      TEXT(Parent.Status)== $Setup.QM__c.Network_Status__c      &amp;&amp;        CONTAINS($User.Username,&apos;apintegrationuser@auspost.com.au&apos;)   ) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Q - Expected Incoming Customer Comment</fullName>
+        <actions>
+            <name>SSSWCase_Status_Customer_Responded</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SSSW_Case_Comment_Bypass_Validation</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>SSSW - Used to update the Case Status when the case receives a comment from a community user.</description>
+        <formula>($Profile.Name == &apos;DDC Consumer Community User&apos;  || $Permission.BSP_Community_Access || $Profile.Name ==&apos;Mypost Business Help &amp; Support Community User&apos;) &amp;&amp; Parent.Subject &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp; NOT(Parent.Permanent_Close__c)  &amp;&amp;  (TEXT(Parent.Status) = $Setup.QM__c.Customer_Status__c || Parent.IsClosed)  &amp;&amp;  CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;) &amp;&amp; NOT(BEGINS(CommentBody, &apos;---Enquiry Details---&apos;))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Q - Expected Incoming Customer Comment %28Allocate To Queue%29</fullName>
+        <actions>
+            <name>SSSWStart_Queue_Allocation</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>SSSW - Used to update the Case Status when the case receives a comment from a community user.</description>
+        <formula>($Profile.Name == &apos;DDC Consumer Community User&apos;  || $Profile.Name == &apos;Mypost Business Help &amp; Support Community User&apos; || $Permission.BSP_Community_Access) &amp;&amp;  Parent.Subject &lt;&gt; &apos;Bulk Upload&apos; &amp;&amp;  NOT(Parent.Permanent_Close__c)  &amp;&amp;   (TEXT(Parent.Status) = $Setup.QM__c.Customer_Status__c || Parent.IsClosed)  &amp;&amp;   CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;) &amp;&amp; TEXT(Parent.ProductCategory__c) != &apos;&apos; &amp;&amp; TEXT(Parent.ProductSubCategory__c) != &apos;&apos; &amp;&amp; TEXT(Parent.EnquirySubType__c) != &apos;&apos; &amp;&amp; TEXT(Parent.Type) != &apos;&apos; &amp;&amp; NOT(BEGINS(CommentBody, &apos;---Enquiry Details---&apos;))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Q - Outbound Customer Comment</fullName>
+        <actions>
+            <name>SSSWSet_Status_Awaiting_Customer</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SSSWSet_to_Customer_Queue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SSSW_Case_Comment_Bypass_Validation</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SSSW_Set_Escalation_Email_to_Contact</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Case_Comments_On_Case</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Send_Case_Comments</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>SSSW - Comment from agent - Sets Status to &quot;Awaiting Customer Response&quot;, if not awaiting the Network.</description>
+        <formula>AND(NOT(Parent.IsHLC__c),NOT(Parent.IsCR__c), (CONTAINS($Profile.Name,&apos;SSSW&apos;) ||  (CONTAINS($User.Username,&apos;apintegrationuser@auspost.com.au&apos;)  &amp;&amp; TEXT(Parent.Status)&lt;&gt; &apos;Closed&apos;) )   &amp;&amp; IsPublished   &amp;&amp; CONTAINS(Parent.RecordType.DeveloperName, &apos;SSSW&apos;)  &amp;&amp; TEXT(Parent.Status)&lt;&gt; $Setup.QM__c.Network_Status__c  &amp;&amp; NOT(Parent.PreventStatusChange__c))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Q - Outbound Customer Comment - Status Change</fullName>
+        <actions>
+            <name>SSSWSet_Status_Awaiting_Customer</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>SSSW - Comment from agent - Sets Status to &quot;Awaiting Customer Response&quot;, if not awaiting the Network.</description>
+        <formula>(CONTAINS($Profile.Name,&apos;SSSW&apos;) ||  (CONTAINS($User.Username,&apos;apintegrationuser@auspost.com.au&apos;)  &amp;&amp; TEXT(Parent.Status)&lt;&gt; &apos;Closed&apos;) )   &amp;&amp; IsPublished   &amp;&amp; CONTAINS(Parent.RecordType.DeveloperName, &apos;SSSW&apos;)  &amp;&amp; TEXT(Parent.Status)&lt;&gt; $Setup.QM__c.Network_Status__c  &amp;&amp; NOT(Parent.PreventStatusChange__c)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Q - Unexpected Incoming Customer Comment</fullName>
+        <actions>
+            <name>SSSW_Case_Comment_Bypass_Validation</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SSSW_System_Status_Customer_Comment</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>SSSW - Used to update the Case Status when the case receives a comment from a community user.</description>
+        <formula>($Profile.Name == &apos;DDC Consumer Community User&apos;  ||  $Permission.BSP_Community_Access || $Profile.Name ==&apos;Mypost Business Help &amp; Support Community User&apos;)   &amp;&amp; NOT(Parent.Permanent_Close__c)  &amp;&amp;  TEXT(Parent.Status)&lt;&gt; $Setup.QM__c.Customer_Status__c  &amp;&amp;  TEXT(Parent.Status)&lt;&gt; $Setup.QM__c.New_Status__c  &amp;&amp;  CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;) &amp;&amp; NOT(BEGINS(CommentBody, &apos;---Enquiry Details---&apos;))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Q - Unexpected Incoming Customer Comment %28Allocate To Queue%29</fullName>
+        <actions>
+            <name>SSSWStart_Queue_Allocation</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>SSSW - Used to update the Case Status when the case receives a comment from a community user.</description>
+        <formula>($Profile.Name == &apos;DDC Consumer Community User&apos; || $Profile.Name == &apos;Mypost Business Help &amp; Support Community User&apos; || $Permission.BSP_Community_Access)  &amp;&amp;  NOT(Parent.Permanent_Close__c)  &amp;&amp;   TEXT(Parent.Status)&lt;&gt; $Setup.QM__c.Customer_Status__c  &amp;&amp;   TEXT(Parent.Status)&lt;&gt; $Setup.QM__c.New_Status__c  &amp;&amp;   CONTAINS(Parent.RecordType.DeveloperName,&apos;SSSW&apos;) &amp;&amp; TEXT(Parent.ProductCategory__c) != &apos;&apos; &amp;&amp; TEXT(Parent.ProductSubCategory__c) != &apos;&apos; &amp;&amp; TEXT(Parent.EnquirySubType__c) != &apos;&apos; &amp;&amp; TEXT(Parent.Type) != &apos;&apos; &amp;&amp; NOT(BEGINS(CommentBody, &apos;---Enquiry Details---&apos;))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW ServiceNow New Case Comment</fullName>
+        <actions>
+            <name>Create_Case_Comment_Outbound_Msg</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <formula>NOT(ISBLANK( Parent.Service_Now_Ticket_Number__c )) &amp;&amp; $Profile.Name != &quot;AusPost Integration&quot;</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>StarTrack Case Description is Null</fullName>
+        <actions>
+            <name>Update_Case_Description</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>StarTrack workflow rule to populate the case description if its null with the 1st comment made on the case</description>
+        <formula>AND(     Parent.StarTrack_RecordType__c,     ISBLANK(Parent.Description),     NOT(ISPICKVAL(Parent.Status, &apos;Closed&apos;)))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>StarTrack New Public Case Comment</fullName>
+        <actions>
+            <name>Update_Case_Public_Field</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Case.StarTrack_RecordType__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>CaseComment.IsPublished</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Is_Published__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

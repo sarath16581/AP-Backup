@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SSSW - Used to notify SMB/Enterprise when the Case hasn&apos;t been actioned for 2 days</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW SMB/Enterprise Notification No Contact</name>
+    <style>none</style>
+    <subject>Case: {!Case.CaseNumber} is still being worked on</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference number {!Case.CaseNumber}
+
+Hi {!Contact.FirstName},
+
+We&apos;re still working on your enquiry.
+
+We want to keep in contact and reassure you that we&apos;re still working on your enquiry.
+
+Please accept our apologies for the delay. 									We will be in contact with you with an outcome as soon as possible, and appreciate your patience while we work to resolve your enquiry.
+
+Thank you,
+
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

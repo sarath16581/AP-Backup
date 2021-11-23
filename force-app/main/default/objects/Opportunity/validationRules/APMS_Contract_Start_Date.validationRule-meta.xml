@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APMS_Contract_Start_Date</fullName>
+    <active>true</active>
+    <description>For APMS Applications (SecurePay) the contract start date is mandatory prior to changing the Opportunity status to 80% (Negotiate)</description>
+    <errorConditionFormula>AND(
+  IsAPMSApplication__c = TRUE,
+   ISBLANK(Contract_Start_Date__c),
+   ISPICKVAL(StageName , &quot;Negotiate&quot;) 
+)</errorConditionFormula>
+    <errorDisplayField>Contract_Start_Date__c</errorDisplayField>
+    <errorMessage>Please enter a contract start date</errorMessage>
+</ValidationRule>

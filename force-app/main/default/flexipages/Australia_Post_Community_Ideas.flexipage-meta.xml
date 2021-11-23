@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <flexiPageRegions>
+        <appendable>enabled</appendable>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;h2&gt;About ideas&lt;/h2&gt;
+&lt;p&gt;Ideas is a special group where people can submit ideas and help co-create solutions that meet the needs of our customers.&lt;/p&gt;
+    &lt;p&gt;These could be ideas for new ways of doing things, or improvements to existing products and services.&lt;/p&gt;
+    &lt;p&gt;Ideas are submitted under nominated themes which will change regularly.  All ideas must meet key criteria to progress to assessment stage. Ideas are assessed by Australia Post specialists and move through a series of review stages to determine the viability of the idea.  
+&lt;/p&gt;
+&lt;h2&gt;How to get involved&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.getfeedback.com/r/XMgX5AtD&quot;&gt;&lt;b&gt;&lt;em&gt;Apply to join the Ideas group&lt;/em&gt;&lt;/b&gt;&lt;/a&gt; to submit your ideas. Tell us why you’re interested in co-creating with us, and a bit more about you. 
+We’re looking for passionate, creative people, who want to help Australia Post find better ways to serve Australian communities and businesses.&lt;/p&gt; 
+&lt;p&gt;If you’re already a member of this online community you can comment and vote on any ideas in the current category.
+&lt;/p&gt;</value>
+                </componentInstanceProperties>
+                <componentName>forceCommunity:htmlBlock</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>DescriptionBlock</name>
+        <prependable>enabled</prependable>
+        <replaceable>enabled</replaceable>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <appendable>enabled</appendable>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>ideasNumber</name>
+                    <value>6</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>pageName</name>
+                    <value>Featured</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Featured Ideas</value>
+                </componentInstanceProperties>
+                <componentName>brideas_FeaturedIdeas</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>FeaturedBlock</name>
+        <prependable>enabled</prependable>
+        <replaceable>enabled</replaceable>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <appendable>enabled</appendable>
+        <name>ArticlesBlock</name>
+        <prependable>enabled</prependable>
+        <replaceable>enabled</replaceable>
+        <type>Region</type>
+    </flexiPageRegions>
+    <masterLabel>Ideas</masterLabel>
+    <template>
+        <name>brideas_HomeLayout</name>
+    </template>
+    <type>CommAppPage</type>
+</FlexiPage>

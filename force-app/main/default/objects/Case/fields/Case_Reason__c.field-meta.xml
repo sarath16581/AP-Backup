@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Reason__c</fullName>
+    <externalId>false</externalId>
+    <label>Case Reason</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Lead</fullName>
+                <default>false</default>
+                <label>Lead</label>
+            </value>
+            <value>
+                <fullName>Campaign</fullName>
+                <default>false</default>
+                <label>Campaign</label>
+            </value>
+            <value>
+                <fullName>Opportunity</fullName>
+                <default>false</default>
+                <label>Opportunity</label>
+            </value>
+            <value>
+                <fullName>Organisations and Individuals</fullName>
+                <default>false</default>
+                <label>Organisations and Individuals</label>
+            </value>
+            <value>
+                <fullName>Credit</fullName>
+                <default>false</default>
+                <label>Credit</label>
+            </value>
+            <value>
+                <fullName>Customer IT</fullName>
+                <default>false</default>
+                <label>Customer IT</label>
+            </value>
+            <value>
+                <fullName>Customer</fullName>
+                <default>false</default>
+                <label>Customer</label>
+            </value>
+            <value>
+                <fullName>Customer/Pricing</fullName>
+                <default>false</default>
+                <label>Customer/Pricing</label>
+            </value>
+            <value>
+                <fullName>Operations</fullName>
+                <default>false</default>
+                <label>Operations</label>
+            </value>
+            <value>
+                <fullName>Sales Team</fullName>
+                <default>false</default>
+                <label>Sales Team</label>
+            </value>
+            <value>
+                <fullName>TEAM/Quotes</fullName>
+                <default>false</default>
+                <label>TEAM/Quotes</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfo_TImings_Only</fullName>
+    <active>true</active>
+    <description>Allow only timings to be specified in the fields</description>
+    <errorConditionFormula>OR(
+AND(NOT( ISBLANK(Monday__c)), NOT(REGEX(Monday__c,&quot;((0?[0-9])|(1[0-2])):[0-5][0-9] [A|P]M&quot;))),
+AND(NOT( ISBLANK(Tuesday__c)), NOT(REGEX(Tuesday__c,&quot;((0?[0-9])|(1[0-2])):[0-5][0-9] [A|P]M&quot;))),
+AND(NOT( ISBLANK(Wednesday__c)), NOT(REGEX(Wednesday__c,&quot;((0?[0-9])|(1[0-2])):[0-5][0-9] [A|P]M&quot;))),
+AND(NOT( ISBLANK(Thursday__c)), NOT(REGEX(Thursday__c,&quot;((0?[0-9])|(1[0-2])):[0-5][0-9] [A|P]M&quot;))),
+AND(NOT( ISBLANK(Friday__c)), NOT(REGEX(Friday__c,&quot;((0?[0-9])|(1[0-2])):[0-5][0-9] [A|P]M&quot;))),
+AND(NOT( ISBLANK(Saturday__c)), NOT(REGEX(Saturday__c,&quot;((0?[0-9])|(1[0-2])):[0-5][0-9] [A|P]M&quot;))),
+AND(NOT( ISBLANK(Sunday__c)), NOT(REGEX(Sunday__c,&quot;((0?[0-9])|(1[0-2])):[0-5][0-9] [A|P]M&quot;)))
+)</errorConditionFormula>
+    <errorMessage>Please enter time in the format HH:MM AM or PM e.g. 06:30 PM</errorMessage>
+</ValidationRule>

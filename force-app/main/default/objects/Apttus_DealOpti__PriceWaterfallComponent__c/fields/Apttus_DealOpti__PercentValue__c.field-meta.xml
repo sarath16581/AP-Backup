@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealOpti__PercentValue__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The price component percent value</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The price component percent value</inlineHelpText>
+    <label>Percent Value</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

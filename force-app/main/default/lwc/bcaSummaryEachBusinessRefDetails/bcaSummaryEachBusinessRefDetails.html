@@ -1,0 +1,29 @@
+<!--
+/* @author avula.jansirani@auspost.com.au
+* @date 2020-11-12
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Business reference summary details . Used for showing a single  Business reference details entered in the input step
+                for review before submitting a credit form submissionts.
+* @changelog
+* 2020-01-20 avula.jansirani@auspost.com.au  Created
+*
+-->
+
+<template>
+    <div data-id='businessReference'>
+        <template if:true={businessRef}>
+
+            <!--Header-->
+            <!--<c-bca-summary-step-header header-label='{header}'></c-bca-summary-step-header> -->
+
+            <!--Body-->
+            <c-bca-summary-row label={label} value={value} type='multiSelect'></c-bca-summary-row>
+            <!--<c-bca-summary-row label='Business name' value={businessRef.businessName}></c-bca-summary-row>
+        <c-bca-summary-row label="Contact person's full name" value={businessRef.fullName}></c-bca-summary-row>
+        <c-bca-summary-row label='Position title' value={businessRef.positionTitle}></c-bca-summary-row>
+        <c-bca-summary-row label='Phone number' value={businessRef.phone}></c-bca-summary-row> -->
+
+        </template>
+    </div>
+</template>

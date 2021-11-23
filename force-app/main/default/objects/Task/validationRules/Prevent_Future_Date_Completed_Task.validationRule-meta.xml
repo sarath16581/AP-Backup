@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Future_Date_Completed_Task</fullName>
+    <active>true</active>
+    <description>Prevent_Future_Date_Completed_Task</description>
+    <errorConditionFormula>CONTAINS(RecordType.DeveloperName, &quot;Sales_Task&quot;) &amp;&amp; 
+ISPICKVAL( Status,&quot;Completed&quot;) &amp;&amp;
+ActivityDate &gt; TODAY()</errorConditionFormula>
+    <errorDisplayField>ActivityDate</errorDisplayField>
+    <errorMessage>Completed date cannot be in the future.</errorMessage>
+</ValidationRule>

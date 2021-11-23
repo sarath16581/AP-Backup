@@ -1,0 +1,94 @@
+<apex:page controller="ApmsSetting">
+    <apex:pageMessages />
+    <style>
+        .pbSubheader {background-color: #27C3F5 !important;}
+    </style>
+
+    <apex:form rendered="{!settingExistsFlag}">
+        <apex:pageBlock title="APMS Setting" >
+            <apex:pageBlockSection columns="1" title="Landing Page">
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.APMSSetting__c.Fields.PlanAPlanNameText__c.inlineHelpText}" >
+                    <apex:outputLabel value="{!$ObjectType.APMSSetting__c.Fields.PlanAPlanNameText__c.label}"/>
+                    <apex:inputText value="{!setting.PlanAPlanNameText}" size="50" maxlength="50"/>  
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.APMSSetting__c.Fields.PlanAMonthlyFeeText__c.inlineHelpText}" >
+                    <apex:outputLabel value="{!$ObjectType.APMSSetting__c.Fields.PlanAMonthlyFeeText__c.label}"/>
+                    <apex:inputText value="{!setting.PlanAMonthlyFeeText}" size="50" maxlength="50"/>  
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.APMSSetting__c.Fields.PlanACommissionText__c.inlineHelpText}" >
+                    <apex:outputLabel value="{!$ObjectType.APMSSetting__c.Fields.PlanACommissionText__c.label}"/>
+                    <apex:inputText value="{!setting.PlanACommissionText}" size="50" maxlength="50"/>  
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.APMSSetting__c.Fields.PlanATransactionFeeText__c.inlineHelpText}" >
+                    <apex:outputLabel value="{!$ObjectType.APMSSetting__c.Fields.PlanATransactionFeeText__c.label}"/>
+                    <apex:inputText value="{!setting.PlanATransactionFeeText}" size="50" maxlength="50"/>  
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.APMSSetting__c.Fields.LinkedPlanName__c.inlineHelpText}" >
+                    <apex:outputLabel value="{!$ObjectType.APMSSetting__c.Fields.LinkedPlanName__c.label}"/>
+                    <apex:inputText value="{!setting.LinkedPlanName}" size="50" maxlength="50"/>  
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="1" title="Acknowledgement Page">
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.APMSSetting__c.Fields.AusPostSupportEmail__c.inlineHelpText}" >
+                    <apex:outputLabel value="{!$ObjectType.APMSSetting__c.Fields.AusPostSupportEmail__c.label}"/>
+                    <apex:inputText value="{!setting.AusPostSupportEmail}" size="50" maxlength="50"/>  
+                </apex:pageBlockSectionItem>            
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.APMSSetting__c.Fields.SopPhone__c.inlineHelpText}" >
+                    <apex:outputLabel value="{!$ObjectType.APMSSetting__c.Fields.SopPhone__c.label}"/>
+                    <apex:inputText value="{!setting.SopPhone}" size="50" maxlength="20"/>  
+                </apex:pageBlockSectionItem>                    
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="1" title="Email Template">       
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.APMSSetting__c.Fields.SecurePayWebsite__c.inlineHelpText}" >
+                    <apex:outputLabel value="{!$ObjectType.APMSSetting__c.Fields.SecurePayWebsite__c.label}"/>
+                    <apex:inputText value="{!setting.SecurePayWebsite}" size="50" maxlength="50"/>  
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.APMSSetting__c.Fields.SopEmailTemplateEmail__c.inlineHelpText}" >
+                    <apex:outputLabel value="{!$ObjectType.APMSSetting__c.Fields.SopEmailTemplateEmail__c.label}"/>
+                    <apex:inputText value="{!setting.SopEmailTemplateEmail}" size="50" maxlength="50"/>  
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.APMSSetting__c.Fields.SopEmailTemplateWebsite__c.inlineHelpText}" >
+                    <apex:outputLabel value="{!$ObjectType.APMSSetting__c.Fields.SopEmailTemplateWebsite__c.label}"/>
+                    <apex:inputText value="{!setting.SopEmailTemplateWebsite}" size="50" maxlength="50"/>  
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.APMSSetting__c.Fields.AusPostSupportPhone__c.inlineHelpText}" >
+                    <apex:outputLabel value="{!$ObjectType.APMSSetting__c.Fields.AusPostSupportPhone__c.label}"/>
+                    <apex:inputText value="{!setting.AusPostSupportPhone}" size="50" maxlength="20"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.APMSSetting__c.Fields.SopIntegrationGuideLink__c.inlineHelpText}" >
+                    <apex:outputLabel value="{!$ObjectType.APMSSetting__c.Fields.SopIntegrationGuideLink__c.label}"/>
+                    <apex:inputText value="{!setting.SopIntegrationGuideLink}" size="50" maxlength="100"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.APMSSetting__c.Fields.SopTestPaymentsLink__c.inlineHelpText}" >
+                    <apex:outputLabel value="{!$ObjectType.APMSSetting__c.Fields.SopTestPaymentsLink__c.label}"/>
+                    <apex:inputText value="{!setting.SopTestPaymentsLink}" size="50" maxlength="50"/>  
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem helpText="{!$ObjectType.APMSSetting__c.Fields.SopLivePaymentsLink__c.inlineHelpText}" >
+                    <apex:outputLabel value="{!$ObjectType.APMSSetting__c.Fields.SopLivePaymentsLink__c.label}"/>
+                    <apex:inputText value="{!setting.SopLivePaymentsLink}" size="50" maxlength="50"/>  
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!refresh}" value="Reset" immediate="true"  />
+                <apex:commandButton action="{!save}" value="Save" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        
+    </apex:form>
+
+    <apex:outputPanel rendered="{!Not(settingExistsFlag)}" title="APMS Setting" />
+</apex:page>

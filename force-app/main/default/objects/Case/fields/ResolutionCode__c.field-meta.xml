@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ResolutionCode__c</fullName>
+    <description>SSSW.</description>
+    <externalId>false</externalId>
+    <label>Resolution Code</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Acknowledge Feedback</fullName>
+                <default>false</default>
+                <label>Acknowledge Feedback</label>
+            </value>
+            <value>
+                <fullName>API Issue</fullName>
+                <default>false</default>
+                <label>API Issue</label>
+            </value>
+            <value>
+                <fullName>Apology</fullName>
+                <default>false</default>
+                <label>Apology</label>
+            </value>
+            <value>
+                <fullName>Assistance provided</fullName>
+                <default>true</default>
+                <label>Assistance provided</label>
+            </value>
+            <value>
+                <fullName>Assistance Provided - Other Team</fullName>
+                <default>false</default>
+                <label>Assistance Provided - Other Team</label>
+            </value>
+            <value>
+                <fullName>Basket Size Under $25</fullName>
+                <default>false</default>
+                <label>Basket Size Under $25</label>
+            </value>
+            <value>
+                <fullName>BesC</fullName>
+                <default>false</default>
+                <label>BesC</label>
+            </value>
+            <value>
+                <fullName>BesS</fullName>
+                <default>false</default>
+                <label>BesS</label>
+            </value>
+            <value>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+                <label>Cancelled</label>
+            </value>
+            <value>
+                <fullName>Cancelled by Customer</fullName>
+                <default>false</default>
+                <label>Cancelled by Customer</label>
+            </value>
+            <value>
+                <fullName>Cancelled - Duplicate</fullName>
+                <default>false</default>
+                <label>Cancelled - Duplicate</label>
+            </value>
+            <value>
+                <fullName>Cancelled - No Longer Required</fullName>
+                <default>false</default>
+                <label>Cancelled - No Longer Required</label>
+            </value>
+            <value>
+                <fullName>Close Account</fullName>
+                <default>false</default>
+                <label>Close Account</label>
+            </value>
+            <value>
+                <fullName>Closed - Duplicate</fullName>
+                <default>false</default>
+                <label>Closed - Duplicate</label>
+            </value>
+            <value>
+                <fullName>Closed - Invalid</fullName>
+                <default>false</default>
+                <label>Closed - Invalid</label>
+            </value>
+            <value>
+                <fullName>Closed - Resolved by Advocate</fullName>
+                <default>false</default>
+                <label>Closed - Resolved by Advocate</label>
+            </value>
+            <value>
+                <fullName>Closed - Resolved by VOC</fullName>
+                <default>false</default>
+                <label>Closed - Resolved by VOC</label>
+            </value>
+            <value>
+                <fullName>Closed - Spam</fullName>
+                <default>false</default>
+                <label>Closed - Spam</label>
+            </value>
+            <value>
+                <fullName>COD</fullName>
+                <default>false</default>
+                <label>COD</label>
+            </value>
+            <value>
+                <fullName>Credit</fullName>
+                <default>false</default>
+                <label>Credit</label>
+            </value>
+            <value>
+                <fullName>Customer Education</fullName>
+                <default>false</default>
+                <label>Customer Education</label>
+            </value>
+            <value>
+                <fullName>Customer – no response</fullName>
+                <default>false</default>
+                <label>Customer – no response</label>
+            </value>
+            <value>
+                <fullName>Customer – response, no further action</fullName>
+                <default>false</default>
+                <label>Customer – response, no further action</label>
+            </value>
+            <value>
+                <fullName>Customer – Self service</fullName>
+                <default>false</default>
+                <label>Customer – Self service</label>
+            </value>
+            <value>
+                <fullName>Damage</fullName>
+                <default>false</default>
+                <label>Damage</label>
+            </value>
+            <value>
+                <fullName>Delay In Receiving</fullName>
+                <default>false</default>
+                <label>Delay In Receiving</label>
+            </value>
+            <value>
+                <fullName>Duplicate</fullName>
+                <default>false</default>
+                <label>Duplicate</label>
+            </value>
+            <value>
+                <fullName>Duplicate Case</fullName>
+                <default>false</default>
+                <label>Duplicate Case</label>
+            </value>
+            <value>
+                <fullName>Exgratia</fullName>
+                <default>false</default>
+                <label>Exgratia</label>
+            </value>
+            <value>
+                <fullName>FCR</fullName>
+                <default>false</default>
+                <label>FCR</label>
+            </value>
+            <value>
+                <fullName>Feedback (Issue captured and logged)</fullName>
+                <default>false</default>
+                <label>Feedback (Issue captured and logged)</label>
+            </value>
+            <value>
+                <fullName>Free Shipping Not Applied As Expected</fullName>
+                <default>false</default>
+                <label>Free Shipping Not Applied As Expected</label>
+            </value>
+            <value>
+                <fullName>Gift or Token of Good Will</fullName>
+                <default>false</default>
+                <label>Gift or Token of Good Will</label>
+            </value>
+            <value>
+                <fullName>How does Shipster work?</fullName>
+                <default>false</default>
+                <label>How does Shipster work?</label>
+            </value>
+            <value>
+                <fullName>Incorrect Email Used</fullName>
+                <default>false</default>
+                <label>Incorrect Email Used</label>
+            </value>
+            <value>
+                <fullName>Ineligible postcode</fullName>
+                <default>false</default>
+                <label>Ineligible postcode</label>
+            </value>
+            <value>
+                <fullName>Invalid</fullName>
+                <default>false</default>
+                <label>Invalid</label>
+            </value>
+            <value>
+                <fullName>Invalid Claim</fullName>
+                <default>false</default>
+                <label>Invalid Claim</label>
+            </value>
+            <value>
+                <fullName>Merchant enquiry</fullName>
+                <default>false</default>
+                <label>Merchant enquiry</label>
+            </value>
+            <value>
+                <fullName>Mod</fullName>
+                <default>false</default>
+                <label>Mod</label>
+            </value>
+            <value>
+                <fullName>Multiple Charges/Incorrect Charges</fullName>
+                <default>false</default>
+                <label>Multiple Charges/Incorrect Charges</label>
+            </value>
+            <value>
+                <fullName>MW</fullName>
+                <default>false</default>
+                <label>MW</label>
+            </value>
+            <value>
+                <fullName>MyNetwork Resolution</fullName>
+                <default>false</default>
+                <label>MyNetwork Resolution</label>
+            </value>
+            <value>
+                <fullName>Network resolution</fullName>
+                <default>false</default>
+                <label>Network resolution</label>
+            </value>
+            <value>
+                <fullName>No Advocate action required</fullName>
+                <default>false</default>
+                <label>No Advocate action required</label>
+            </value>
+            <value>
+                <fullName>No Response Received</fullName>
+                <default>false</default>
+                <label>No Response Received</label>
+            </value>
+            <value>
+                <fullName>One Off</fullName>
+                <default>false</default>
+                <label>One Off</label>
+            </value>
+            <value>
+                <fullName>Order Submitted</fullName>
+                <default>false</default>
+                <label>Order Submitted</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Paid</fullName>
+                <default>false</default>
+                <label>Paid</label>
+            </value>
+            <value>
+                <fullName>Paid - Salvage</fullName>
+                <default>false</default>
+                <label>Paid - Salvage</label>
+            </value>
+            <value>
+                <fullName>Payment Processes</fullName>
+                <default>false</default>
+                <label>Payment Processes</label>
+            </value>
+            <value>
+                <fullName>POD On file</fullName>
+                <default>false</default>
+                <label>POD On file</label>
+            </value>
+            <value>
+                <fullName>Pre-Authorisation Query</fullName>
+                <default>false</default>
+                <label>Pre-Authorisation Query</label>
+            </value>
+            <value>
+                <fullName>Quote Provided</fullName>
+                <default>false</default>
+                <label>Quote Provided</label>
+            </value>
+            <value>
+                <fullName>Refund</fullName>
+                <default>false</default>
+                <label>Refund</label>
+            </value>
+            <value>
+                <fullName>Registration Issue</fullName>
+                <default>false</default>
+                <label>Registration Issue</label>
+            </value>
+            <value>
+                <fullName>Reimbursment</fullName>
+                <default>false</default>
+                <label>Reimbursment</label>
+            </value>
+            <value>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+                <label>Rejected</label>
+            </value>
+            <value>
+                <fullName>Request Actioned</fullName>
+                <default>false</default>
+                <label>Request Actioned</label>
+            </value>
+            <value>
+                <fullName>Resign</fullName>
+                <default>false</default>
+                <label>Resign</label>
+            </value>
+            <value>
+                <fullName>Resolved by Investigation</fullName>
+                <default>false</default>
+                <label>Resolved by Investigation</label>
+            </value>
+            <value>
+                <fullName>Resolved by Operations</fullName>
+                <default>false</default>
+                <label>Resolved by Operations</label>
+            </value>
+            <value>
+                <fullName>Resolved by Scanning</fullName>
+                <default>false</default>
+                <label>Resolved by Scanning</label>
+            </value>
+            <value>
+                <fullName>Resolved - Cancelled</fullName>
+                <default>false</default>
+                <label>Resolved - Cancelled</label>
+            </value>
+            <value>
+                <fullName>Resolved - COD Manually Entered</fullName>
+                <default>false</default>
+                <label>Resolved - COD Manually Entered</label>
+            </value>
+            <value>
+                <fullName>Resolved - Delivery Complete</fullName>
+                <default>false</default>
+                <label>Resolved - Delivery Complete</label>
+            </value>
+            <value>
+                <fullName>Resolved - Delivery on Track</fullName>
+                <default>false</default>
+                <label>Resolved - Delivery on Track</label>
+            </value>
+            <value>
+                <fullName>Resolved - Depot Collection</fullName>
+                <default>false</default>
+                <label>Resolved - Depot Collection</label>
+            </value>
+            <value>
+                <fullName>Resolved - Despatch Error</fullName>
+                <default>false</default>
+                <label>Resolved - Despatch Error</label>
+            </value>
+            <value>
+                <fullName>Resolved - ETA Provided</fullName>
+                <default>false</default>
+                <label>Resolved - ETA Provided</label>
+            </value>
+            <value>
+                <fullName>Resolved - Final Shortage</fullName>
+                <default>false</default>
+                <label>Resolved - Final Shortage</label>
+            </value>
+            <value>
+                <fullName>Resolved - Fraud</fullName>
+                <default>false</default>
+                <label>Resolved - Fraud</label>
+            </value>
+            <value>
+                <fullName>Resolved - Investigation Completed</fullName>
+                <default>false</default>
+                <label>Resolved - Investigation Completed</label>
+            </value>
+            <value>
+                <fullName>Resolved - LDC</fullName>
+                <default>false</default>
+                <label>Resolved - LDC</label>
+            </value>
+            <value>
+                <fullName>Resolved – Non VoC</fullName>
+                <default>false</default>
+                <label>Resolved – Non VoC</label>
+            </value>
+            <value>
+                <fullName>Resolved - NXF Upgrade</fullName>
+                <default>false</default>
+                <label>Resolved - NXF Upgrade</label>
+            </value>
+            <value>
+                <fullName>Resolved - POD Sent</fullName>
+                <default>false</default>
+                <label>Resolved - POD Sent</label>
+            </value>
+            <value>
+                <fullName>Resolved  - Rebooked</fullName>
+                <default>false</default>
+                <label>Resolved  - Rebooked</label>
+            </value>
+            <value>
+                <fullName>Resolved - Redirected</fullName>
+                <default>false</default>
+                <label>Resolved - Redirected</label>
+            </value>
+            <value>
+                <fullName>Resolved - Referred to Account Holder</fullName>
+                <default>false</default>
+                <label>Resolved - Referred to Account Holder</label>
+            </value>
+            <value>
+                <fullName>Resolved - Resign</fullName>
+                <default>false</default>
+                <label>Resolved - Resign</label>
+            </value>
+            <value>
+                <fullName>Resolved - RTS</fullName>
+                <default>false</default>
+                <label>Resolved - RTS</label>
+            </value>
+            <value>
+                <fullName>Resolved - Scanning Available</fullName>
+                <default>false</default>
+                <label>Resolved - Scanning Available</label>
+            </value>
+            <value>
+                <fullName>Resulting in Claim</fullName>
+                <default>false</default>
+                <label>Resulting in Claim</label>
+            </value>
+            <value>
+                <fullName>Service Upgrade</fullName>
+                <default>false</default>
+                <label>Service Upgrade</label>
+            </value>
+            <value>
+                <fullName>Shipping Cost Over $19.99</fullName>
+                <default>false</default>
+                <label>Shipping Cost Over $19.99</label>
+            </value>
+            <value>
+                <fullName>Shipping Outside Of Australia</fullName>
+                <default>false</default>
+                <label>Shipping Outside Of Australia</label>
+            </value>
+            <value>
+                <fullName>Stand</fullName>
+                <default>false</default>
+                <label>Stand</label>
+            </value>
+            <value>
+                <fullName>System Closed</fullName>
+                <default>false</default>
+                <label>System Closed</label>
+            </value>
+            <value>
+                <fullName>System Rejected</fullName>
+                <default>false</default>
+                <label>System Rejected</label>
+            </value>
+            <value>
+                <fullName>Technical Assistance</fullName>
+                <default>false</default>
+                <label>Technical Assistance</label>
+            </value>
+            <value>
+                <fullName>Unresolved</fullName>
+                <default>false</default>
+                <label>Unresolved</label>
+            </value>
+            <value>
+                <fullName>Unresolved - Final Shortage</fullName>
+                <default>false</default>
+                <label>Unresolved - Final Shortage</label>
+            </value>
+            <value>
+                <fullName>Unresolved - No POD</fullName>
+                <default>false</default>
+                <label>Unresolved - No POD</label>
+            </value>
+            <value>
+                <fullName>Unresolved - RTS</fullName>
+                <default>false</default>
+                <label>Unresolved - RTS</label>
+            </value>
+            <value>
+                <fullName>Unresolved - Uncontrollable Circumstances</fullName>
+                <default>false</default>
+                <label>Unresolved - Uncontrollable Circumstances</label>
+            </value>
+            <value>
+                <fullName>Update Email Address</fullName>
+                <default>false</default>
+                <label>Update Email Address</label>
+            </value>
+            <value>
+                <fullName>Update Payment Details</fullName>
+                <default>false</default>
+                <label>Update Payment Details</label>
+            </value>
+            <value>
+                <fullName>Using The Wrong Voucher</fullName>
+                <default>false</default>
+                <label>Using The Wrong Voucher</label>
+            </value>
+            <value>
+                <fullName>Voucher Already Used</fullName>
+                <default>false</default>
+                <label>Voucher Already Used</label>
+            </value>
+            <value>
+                <fullName>Voucher Incorrect</fullName>
+                <default>false</default>
+                <label>Voucher Incorrect</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

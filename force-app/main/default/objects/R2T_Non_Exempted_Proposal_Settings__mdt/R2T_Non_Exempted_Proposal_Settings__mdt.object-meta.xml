@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This setting is to select the default proposal template while generating the proposal document on the proposal record for non exempted products</description>
+    <label>R2T Non Exempted Proposal Settings</label>
+    <pluralLabel>R2T Non Exempted Proposal Settings</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

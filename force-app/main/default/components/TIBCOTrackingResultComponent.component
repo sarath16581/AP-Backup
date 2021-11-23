@@ -1,0 +1,447 @@
+<!--
+
+17.09.2017  nathan.franklin@auspost.com.au    	Added ScriptLoader component to manage frontend scripts
+15.05.2018	Hasantha.Liyanage@auspost.com.au 	updated: make accessible from lightning component(cpVisualforceWrapper) , show/hide elements based on teh isReadOnly parameter passed
+-->
+<apex:component controller="TIBCOTrackingResultComponentCont">
+
+	<apex:attribute name="trackingResult" description="TrackingResult data to be shown in this component"
+		type="TIBCOTrackingResultWrapper" required="true" assignto="{!boundTracking}" />
+	<!-- isReadOnly will determine which components to be hidden/shown based on the url parameter passed to the component
+    if the page is opened via the iFrame and need to be read only considered
+    when the related VF page is opened via cpVisulforceWrapper lightning component trough an iFrame,
+    isReadOnly should be passed to hide some functionality that are not required to display for the lightning user
+    eg: if the isReadOnly is null or true, this could make the decision to make the section read only OR hidden
+	-->
+    <apex:attribute name="isReadOnly"
+                    description="If any items on the component to be make read only or hidden" type="boolean"
+                    required="false" />
+	<c:ScriptLoader jsLibraries="jquery,interaction,integration,bootstrap"
+					cssLibraries="bootstrap,ssswconsole" />
+	
+	<apex:outputPanel rendered="{!NOT(ISBLANK(trackingResult.resultDescription)) && NOT(trackingResult.Success)}">
+        <apex:pageMessage summary="{!trackingResult.returnCode} - {!trackingResult.resultDescription}" severity="warning" strength="3" />
+	</apex:outputPanel>
+
+	<apex:outputPanel rendered="{!NOT(ISBLANK(trackingResult.articleDetails))}">
+		<apex:pageBlock title="Article Details" mode="view">
+			<c:TIBCOArticleComponent article="{!trackingResult.articleDetails}" showSenderReceiver="true" isReadOnly="{!isReadOnly}" />
+		</apex:pageBlock>
+	</apex:outputPanel>
+
+	<style>
+.boxedConsignmentDetails {
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	border-top-color: rgb(204, 204, 204);
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-right-color: rgb(204, 204, 204);
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-bottom-color: rgb(204, 204, 204);
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-left-color: rgb(204, 204, 204);
+	border-left-style: solid;
+	border-left-width: 1px;
+	overflow: hidden;
+	padding: 10px;
+	background-color: #fff;
+}
+
+.leftColumnConsignment {
+	width: 49%;
+	float: left;
+}
+
+.rightColumnConsignment {
+	width: 49%;
+	float: right;
+}
+
+.rowwrapperConsignment {
+/* 	margin: 10px 5px 5px 5px; */
+	margin-top: 10px;
+}
+
+.rowwrapperConsignment label {
+	display: inline-block;
+	text-align: right;
+	width: 125px;
+/* 	margin-right: 10px; */
+}
+
+.rowwrapperConsignment span {
+	width: 350px;
+	text-align: left;
+}
+.odd:hover {
+	background: #e8f2fc;
+}
+div.tab-content .boxedConsignmentDetails .table>tbody>tr.dataRow>td,
+div.tab-content .boxed .table>tbody>tr.dataRow>td {
+	padding: 10px;
+	background-color: #F8F8F8;
+}
+.rowwrapperDetails label, .rowwrapperConsignment label {
+	font-weight: bold;
+	margin-right: 5px;
+}
+.table-bordered>thead>tr>th {
+	background-color: #333;
+	color: #fff;
+}
+.table-bordered>thead>tr>th:hover {
+	background-color: #333;
+}
+div.tab-content table>tbody>tr.headerRow>td {
+	background-color: #E6E6E6;
+}
+div.tab-content table>tbody>tr.headerRow>td:hover {
+	cursor:pointer;
+}
+</style>
+	<script>
+	var j$ = jQuery.noConflict();
+			
+	j$(function(){
+		j$("#report tr.dataRow").hide();
+    	j$("#report td.headerCell").click(function(){
+	        j$(this).parent().next("tr").toggle();
+	    });
+	    
+	    var articleChecks = j$("#report td.articleTicks input.ckbArticleID");
+	    if(articleChecks.length == 1) {
+	    	articleChecks[0].checked = true;
+	    	j$("#report td.headerCell").parent().next('tr').toggle();
+	    }
+        
+	});
+   
+   	function TIBCOTrackingResult_getAllTheArticles(){
+   		var result = [];
+    	j$("#report td.articleTicks").each(function(){
+   			var hfArticleID = j$(this).find(".hfArticleID")[0];
+   			result.push(j$(hfArticleID).val());
+    	});
+    	return result;
+   	}
+    
+    function TIBCOTrackingResult_getAllSelectedArticles(){
+    	var result = [];
+    	j$("#report td.articleTicks").each(function(){
+    		var ckb = j$(this).find(".ckbArticleID")[0];
+    		if(ckb.checked){
+    			var hfArticleID = j$(this).find(".hfArticleID")[0];
+    			result.push(j$(hfArticleID).val());
+    		}
+    	});
+    	return result;
+    }
+    
+    j$(".selectableBox").click(function() {
+    	if(j$(this).hasClass('highlighted')){
+    		j$(this).toggleClass('highlighted');
+	        j$(this).find(".checkbox").each(function() {
+	            this.checked = false;
+	        });
+    	} else {
+	        j$(".selectableBox").removeClass('highlighted');
+	        j$(".checkbox").each(function() {
+	            this.checked = false;
+	        });
+	        j$(this).toggleClass('highlighted');
+	        j$(this).find(".checkbox").each(function() {
+	            this.checked = true;
+	        });
+        }
+    });
+  
+</script>
+	<div id="TIBCOArticleComponent">
+		<apex:outputPanel rendered="{!NOT(ISBLANK(trackingResult.consignmentDetails))}">
+			<apex:pageblock title="Consignment">
+			<script>
+
+			 function TIBCOTrackingResultComponent_getCaseOriginator() {
+				  var result = new Object();
+				  result.Case__c = 'Customer';
+				  var ckbConsignmentSender = j$("#ckbConsignmentSender")[0];
+				  var ckbConsignmentReceiver = j$("#ckbConsignmentReceiver")[0];
+
+				  if ('{!lodgementDateString}' != '') {
+					  //result.DatePosted__c = new Date('{!lodgementDateString}');
+					  result.DatePosted__c = '{!lodgementDateString}';
+				  }
+
+				  if (ckbConsignmentSender != null && ckbConsignmentReceiver != null) {
+					  if (ckbConsignmentSender.checked) {
+						  result.CaseOriginator__c = 'Sender';
+
+						  /*
+						  var hfConsignmentReceiverContactID = j$('#hfConsignmentReceiverContactID');
+						  if(hfConsignmentReceiverContactID != null){
+							  result.SecondaryContact__c = hfConsignmentReceiverContactID.val();
+						  }
+
+						  var hfConsignmentSenderContactID = j$('#hfConsignmentSenderContactID');
+						  if(hfConsignmentSenderContactID != null){
+							  result.PrimaryContact__c = hfConsignmentSenderContactID.val();
+						  }
+						  */
+
+					  } else if (ckbConsignmentReceiver.checked) {
+						  result.CaseOriginator__c = 'Addressee';
+						  /*result.Address1__c = j$('[id$="consignmentreceiverAddress"]')[0].innerHTML;
+						  result.PrimaryContactName__c    = j$('[id$="consignmentreceiverName"]')[0].innerHTML;
+						  result.PrimaryEmail__c = j$('[id$="consignmentreceiverEmail"]')[0].innerHTML;
+						  result.Address1Postcode__c = j$('#consignmentreceiverPostcode').val();
+
+						  result.Address2__c = j$('[id$="consignmentsenderAddress"]')[0].innerHTML;
+						  result.SecondaryContactName__c    = j$('[id$="consignmentsenderName"]')[0].innerHTML;
+						  result.SecondaryEmail__c = j$('[id$="consignmentsenderEmail"]')[0].innerHTML;
+						  result.Address2Postcode__c = j$('#consignmentsenderPostcode').val();
+
+						  var hfConsignmentSenderContactID = j$('#hfConsignmentSenderContactID');
+						  if(hfConsignmentSenderContactID != null){
+							  result.SecondaryContact__c = hfConsignmentSenderContactID.val();
+						  }
+
+						  var hfConsignmentReceiverContactID = j$('#hfConsignmentReceiverContactID');
+						  if(hfConsignmentReceiverContactID != null){
+							  result.PrimaryContact__c = hfConsignmentReceiverContactID.val();
+						  }*/
+					  } else {
+						  result.CaseOriginator__c = 'Customer';
+						  /*result.Address1__c = j$('[id$="consignmentsenderAddress"]')[0].innerHTML;
+						  result.PrimaryContactName__c    = j$('[id$="consignmentsenderName"]')[0].innerHTML;
+						  result.PrimaryEmail__c = j$('[id$="consignmentsenderEmail"]')[0].innerHTML;
+						  result.Address1Postcode__c = j$('#consignmentsenderPostcode').val();
+
+						  result.Address2__c = j$('[id$="consignmentreceiverAddress"]')[0].innerHTML;
+						  result.SecondaryContactName__c    = j$('[id$="consignmentreceiverName"]')[0].innerHTML;
+						  result.SecondaryEmail__c = j$('[id$="consignmentreceiverEmail"]')[0].innerHTML;
+						  result.Address2Postcode__c = j$('#consignmentreceiverPostcode').val();
+
+						  var hfConsignmentReceiverContactID = j$('#hfConsignmentReceiverContactID');
+						  if(hfConsignmentReceiverContactID != null){
+							  result.SecondaryContact__c = hfConsignmentReceiverContactID.val();
+						  }
+
+						  var hfConsignmentSenderContactID = j$('#hfConsignmentSenderContactID');
+						  if(hfConsignmentSenderContactID != null){
+							  result.PrimaryContact__c = hfConsignmentSenderContactID.val();
+						  }
+						  */
+					  }
+							result.Address1__c = j$('[id$="consignmentsenderAddress"]')[0].innerHTML;
+						  result.PrimaryContactName__c    = j$('[id$="consignmentsenderName"]')[0].innerHTML;
+						  result.Primary_Company__c    = j$('[id$="consignmentsenderCompany"]')[0].innerHTML;
+						  result.PrimaryEmail__c = j$('[id$="consignmentsenderEmail"]')[0].innerHTML;
+						  result.Address1Postcode__c = j$('#consignmentsenderPostcode').val();
+
+						  result.Address2__c = j$('[id$="consignmentreceiverAddress"]')[0].innerHTML;
+						  result.SecondaryContactName__c    = j$('[id$="consignmentreceiverName"]')[0].innerHTML;
+						  result.Secondary_Companry__c    = j$('[id$="consignmentreceiverCompany"]')[0].innerHTML;
+						  if (isValidEmail(j$('[id$="consignmentreceiverEmail"]')[0].innerHTML)) {
+							result.SecondaryEmail__c = j$('[id$="consignmentreceiverEmail"]')[0].innerHTML;
+						  }
+						  result.Address2Postcode__c = j$('#consignmentreceiverPostcode').val();
+
+				  }
+
+				  return result;
+			  }
+
+			  function isValidEmail(email) {
+				  var patt = /.+@.+\..+/i;
+				  return patt.test(email);
+			  }
+
+			</script>
+			<input type="hidden" id="hfIsConsignment" value="true" />
+			 <div class="leftColumn">
+				<div class="boxed selectableBox">
+					<div class="rowwrapper">
+						<h4 class="selectableHeading">Sender</h4>
+						<apex:variable value="" var="dummy"
+							rendered="{!(consignmentSender != null)}">
+							<i> - linked to <a href="#" class="linked"
+								onclick="openPrimaryTab('{!consignmentSender.id}');">{!consignmentSender.Name}</a></i>
+							<input type="hidden" id="hfConsignmentSenderContactID" value="{!consignmentSender.id}" />
+						</apex:variable>
+						<apex:inputCheckbox id="ckbConsignmentSender" styleclass="checkbox" rendered="{!isReadOnly}">&nbsp;&nbsp;</apex:inputCheckbox>
+						<div class="clear">&nbsp;</div>
+					</div>
+					<div class="rowwrapper">
+						<apex:outputLabel value="Name" for="consignmentsenderName" />
+						<apex:outputText value="{!boundTracking.consignmentDetails.proxyConsignment.SenderName__c}" id="consignmentsenderName" />
+					</div>
+					<div class="rowwrapper">
+						<apex:outputLabel value="Company" for="consignmentsenderCompany" />
+						<apex:outputText value="{!boundTracking.consignmentDetails.proxyConsignment.SenderCompany__c}"
+							id="consignmentsenderCompany" />
+					</div>
+					<div class="rowwrapper">
+						<apex:outputLabel value="Address" for="consignmentsenderAddress" />
+						<apex:outputText value="{!boundTracking.consignmentDetails.proxyConsignment.SenderAddress__c}"
+							id="consignmentsenderAddress" />
+						<!--apex:outputText value="{!LEFT(boundTracking.consignmentDetails.proxyConsignment.SenderAddress__c, LEN(boundTracking.consignmentDetails.proxyConsignment.SenderAddress__c) - LEN(boundTracking.consignmentDetails.proxyConsignment.SenderCountry__c)) & boundTracking.consignmentDetails.proxyConsignment.SenderCountryName__c}"
+							id="consignmentsenderAddress" /-->
+					</div>
+					<div class="rowwrapper">
+						<apex:outputLabel value="Email" for="consignmentsenderEmail" />
+						<apex:outputText value="{!boundTracking.consignmentDetails.proxyConsignment.SenderEmail__c}" id="consignmentsenderEmail" />
+					</div>
+					<input type="hidden" id="consignmentsenderAddressLine1" value="{!boundTracking.consignmentDetails.proxyConsignment.SenderAddressLine1__c}" />
+					<input type="hidden" id="consignmentsenderAddressLine2" value="{!boundTracking.consignmentDetails.proxyConsignment.SenderAddressLine2__c}" />
+					<input type="hidden" id="consignmentsenderCity" value="{!boundTracking.consignmentDetails.proxyConsignment.SenderCity__c}" />
+					<input type="hidden" id="consignmentsenderState" value="{!boundTracking.consignmentDetails.proxyConsignment.SenderState__c}" />
+					<input type="hidden" id="consignmentsenderPostcode" value="{!boundTracking.consignmentDetails.proxyConsignment.SenderPostcode__c}" />
+				</div>
+			</div>
+			<div class="rightColumn">
+				<div
+					class="boxed selectableBox">
+					<div class="rowwrapper">
+						<h4 class="selectableHeading">Addressee</h4>
+						<apex:variable value="" var="dummy"
+							rendered="{!(consignmentReceiver != null)}">
+							<i> - linked to <a href="#" class="linked"
+								onclick="openPrimaryTab('{!consignmentReceiver.id}');">{!consignmentReceiver.Name}</a></i>
+							<input type="hidden" id="hfConsignmentReceiverContactID"
+								value="{!consignmentReceiver.id}" />
+						</apex:variable>
+						<apex:inputCheckbox id="ckbConsignmentReceiver" styleclass="checkbox" rendered="{!isReadOnly}">&nbsp;&nbsp;</apex:inputCheckbox>
+						<div class="clear">&nbsp;</div>
+					</div>
+					<div class="rowwrapper">
+						<apex:outputLabel value="Name" for="consignmentreceiverName" />
+						<apex:outputText value="{!boundTracking.consignmentDetails.proxyConsignment.ReceiverName__c}" id="consignmentreceiverName" />
+					</div>
+					<div class="rowwrapper">
+						<apex:outputLabel value="Company" for="consignmentreceiverCompany" />
+						<apex:outputText value="{!boundTracking.consignmentDetails.proxyConsignment.ReceiverCompany__c}"
+							id="consignmentreceiverCompany" />
+					</div>
+					<div class="rowwrapper">
+						<apex:outputLabel value="Address" for="consignmentreceiverAddress" />
+						<apex:outputText value="{!boundTracking.consignmentDetails.proxyConsignment.ReceiverAddress__c}"
+							id="consignmentreceiverAddress" />
+						<!--apex:outputText value="{!LEFT(boundTracking.consignmentDetails.proxyConsignment.ReceiverAddress__c, LEN(boundTracking.consignmentDetails.proxyConsignment.ReceiverAddress__c) - LEN(boundTracking.consignmentDetails.proxyConsignment.ReceiverCountry__c)) & boundTracking.consignmentDetails.proxyConsignment.ReceiverCountryName__c}"
+							id="consignmentreceiverAddress" /-->
+					</div>
+					<div class="rowwrapper">
+						<apex:outputLabel value="Email" for="consignmentreceiverEmail" />
+						<apex:outputText value="{!boundTracking.consignmentDetails.proxyConsignment.ReceiverEmail__c}"
+							id="consignmentreceiverEmail" />
+					</div>
+					<input type="hidden" id="consignmentreceiverAddressLine1" value="{!boundTracking.consignmentDetails.proxyConsignment.ReceiverAddressLine1__c}" />
+					<input type="hidden" id="consignmentreceiverAddressLine2" value="{!boundTracking.consignmentDetails.proxyConsignment.ReceiverAddressLine2__c}" />
+					<input type="hidden" id="consignmentreceiverCity" value="{!boundTracking.consignmentDetails.proxyConsignment.ReceiverCity__c}" />
+					<input type="hidden" id="consignmentreceiverState" value="{!boundTracking.consignmentDetails.proxyConsignment.ReceiverState__c}" />
+					<input type="hidden" id="consignmentreceiverPostcode" value="{!boundTracking.consignmentDetails.proxyConsignment.ReceiverPostcode__c}" />
+				</div>
+			</div>
+			<div class="clear">&nbsp;</div>
+
+
+
+				<div class="boxedConsignmentDetails">
+					<div class="rowwrapper">
+						<h4>Details</h4>
+						<br />
+					</div>
+					<div class="leftColumnConsignment">
+						<apex:repeat value="{!leftDetailsList}" var="o">
+							<div class="rowwrapperConsignment">
+								<apex:outputLabel value="{!o.fieldLabel}" for="leftField" />
+								<apex:outputText value="{!o.fieldValue}" id="leftField" />
+							</div>
+						</apex:repeat>
+					</div>
+					<div class="rightColumnConsignment">
+						<apex:repeat value="{!rightDetailsList}" var="o">
+							<div class="rowwrapperConsignment">
+								<apex:outputLabel value="{!o.fieldLabel}" for="rightField" />
+								<apex:outputText value="{!o.fieldValue}" id="rightField" />
+							</div>
+						</apex:repeat>
+					</div>
+				</div>
+
+				<apex:outputPanel rendered="{!trackingResult.consignmentDetails.eventMessages.size > 0}">
+					<div class="clear">&nbsp;</div>
+					<div class="boxed boxedDetails">
+						<div class="rowwrapper">
+							<h4>Messages</h4>
+							<br />
+						</div>
+						<div class="rowwrapper">
+							<div style="overflow:auto">
+								<c:TIBCOEventMessagesComponent eventMessages="{!trackingResult.consignmentDetails.eventMessages}" />
+							</div>
+						</div>
+					</div>
+				</apex:outputPanel>
+
+				<div class="clear">&nbsp;</div>
+				<div class="boxedConsignmentDetails">
+					<div class="rowwrapper">
+						<h4>Articles</h4>
+						<br />
+					</div>
+					<div style="overflow:auto">
+						<table id="report" class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th id="selectItem"></th>
+									<th>ID</th>
+									<th>Lodgement Date</th>
+									<th>Delivered</th>
+									<th>Product Category</th>
+									<th>Sub Product</th>
+									<th>Transit Amount</th>
+									<th>Weight</th>
+									<th>Receiver</th>
+									<th>Sender</th>
+								</tr>
+							</thead>
+							<tbody>
+								<apex:repeat value="{!trackingResult.consignmentDetails.articles}"
+									var="a">
+									<tr class="headerRow">
+										<td align="center" class="articleTicks">
+                                            <apex:inputCheckbox value="{!a.selected}" styleclass="ckbArticleID" />
+                                            <input type="hidden" class="hfArticleID" value="{!a.proxyArticle.ArticleID__c}" />
+										</td>
+										<td class="headerCell">{!a.proxyArticle.ArticleID__c}</td>
+										<td class="headerCell">
+											<apex:outputText value="{0,date,d/MM/yyyy}">
+												<apex:param value="{!a.proxyArticle.ArticleLodgementDate__c}" />
+											</apex:outputText>
+										</td>
+										<td class="headerCell">{!a.proxyArticle.Delivered__c}</td>
+										<td class="headerCell">{!a.proxyArticle.ProductCategory__c}</td>
+										<td class="headerCell">{!a.proxyArticle.SubProduct__c}</td>
+										<td class="headerCell">{!a.proxyArticle.ArticleTransitAmountValue__c}</td>
+										<td class="headerCell">{!a.proxyArticle.ActualWeight__c}</td>
+										<td class="headerCell">{!a.proxyArticle.ReceiverName__c}</td>
+										<td class="headerCell">{!a.proxyArticle.SenderName__c}</td>
+                                    </tr>
+                                    <tr class="dataRow">
+                                        <td></td>
+                                        <td colspan="8">
+                                            <c:TIBCOArticleComponent article="{!a}"	showSenderReceiver="false" isReadOnly="{!isReadOnly}"/>
+                                        </td>
+                                    </tr>
+								</apex:repeat>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</apex:pageblock>
+		</apex:outputPanel>
+	</div>
+</apex:component>

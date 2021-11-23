@@ -1,0 +1,72 @@
+.THIS .title{
+    font-size: 30px;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 40px;
+    }
+.THIS .featured-list{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    }
+.THIS .featured-idea{
+    width: 360px;
+    height: 210px;
+    background: #ffffff;
+    margin-bottom: 20px;
+    padding: 0 35px;
+    text-align: center;
+    border-radius: 4px;
+    border-bottom: solid 1px #c1e1de;
+    position: relative;
+    overflow: hidden;
+    }
+    .THIS .featured-idea > img{
+        padding: 20px 0;
+        }
+
+.THIS .ideas-1 .idea-1 {
+    width: 100%;
+    }
+.THIS .ideas-2 .featured-idea,
+.THIS .ideas-4 .featured-idea,
+.THIS .ideas-5 .idea-4,
+.THIS .ideas-5 .idea-5,
+.THIS .ideas-7 .idea-1,
+.THIS .ideas-7 .idea-2,
+.THIS .ideas-7 .idea-6,
+.THIS .ideas-7 .idea-7,
+.THIS .ideas-8 .idea-4,
+.THIS .ideas-8 .idea-5{
+    width: 555px;
+    }
+
+.THIS .featured-idea h3 a{
+    font-size: 18px;
+    font-family: 'letterbold' !important;
+    }
+.THIS .featured-vote{
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    text-align: center;
+    color: #ff641e;
+    font-weight: bold;
+    }
+.THIS .button-block{
+    width: 210px;
+    margin: 45px auto 0 auto;
+    padding: 15px 25px;
+    border: 2px solid #17305a;
+    border-radius: 3px;
+    text-align: center;
+    }
+.THIS .button-block a{
+    color: #17305a;
+    font-size: 18px;
+    font-family: 'letterbold' !important;
+    text-decoration: none;
+    }

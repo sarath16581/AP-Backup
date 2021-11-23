@@ -1,0 +1,35 @@
+Dear {!At_Risk_Business__c.Key_Sales_Owner_Manager__c},
+ 
+Please be advised that a Business Risk/Loss has been recorded against {!At_Risk_Business__c.Legal_Entity_Name__c} and has you listed as an important stakeholder.
+
+Risk ID: {!At_Risk_Business__c.Name}
+
+{!At_Risk_Business__c.Link}
+ 
+Customer:  {!At_Risk_Business__c.Legal_Entity_Name__c}
+ 
+Key Sales Owner: {!At_Risk_Business__c.Key_Sales_Owner__c}
+
+Key Product Owner: {!At_Risk_Business__c.Key_Product_Owner__c}
+
+Threat Status: {!At_Risk_Business__c.Threat_Risk__c}
+
+Annual Value of Business at Risk: {!At_Risk_Business__c.Value_of_Business_at_Risk__c}
+ 
+Identified Date: {!At_Risk_Business__c.Identified_Date__c}
+
+Impacted Areas: {!At_Risk_Business__c.Impacted_Areas__c}
+
+Scale: {!At_Risk_Business__c.Scale__c}
+
+Product 1: {!At_Risk_Business__c.Product_1__c}
+
+Risk Type: {!At_Risk_Business__c.Risk_Type__c}
+ 
+Reason: {!At_Risk_Business__c.Reason__c}
+
+Issues: {!At_Risk_Business__c.Issues__c}
+
+Risk Mitigation Plan: {!At_Risk_Business__c.Mitigation_Plan__c}
+  
+To acknowledge the Business Risk/Loss please log into Salesforce and review the record. Please contact the Key Sales Owner should you have any enquires.

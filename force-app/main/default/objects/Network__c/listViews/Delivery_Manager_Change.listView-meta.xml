@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Delivery_Manager_Change</fullName>
+    <columns>RECORDTYPE</columns>
+    <columns>NAME</columns>
+    <columns>Email__c</columns>
+    <columns>Email_1__c</columns>
+    <columns>Email_2__c</columns>
+    <columns>Email_3__c</columns>
+    <columns>Email_4__c</columns>
+    <columns>Email_5__c</columns>
+    <columns>Region__c</columns>
+    <columns>OBJECT_ID</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Network__c.Retail_2</value>
+    </filters>
+    <filters>
+        <field>Email_1__c</field>
+        <operation>contains</operation>
+        <value>janet</value>
+    </filters>
+    <label>Delivery Manager Change</label>
+    <sharedTo>
+        <role>SSSW_Management</role>
+    </sharedTo>
+</ListView>

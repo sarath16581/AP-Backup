@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>QueueManagementController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <description>Bluewolf (23 September 2014)
+
+Permission set to grant access to the QueueManagement VF page (BKLG-00920)</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Queue Management Page</label>
+    <license>Salesforce</license>
+    <pageAccesses>
+        <apexPage>QueueManagement</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <tabSettings>
+        <tab>Queue_Management</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+</PermissionSet>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Request_Triage_Completed__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field signifies that Domestic Pricing Request Triaging has been completed</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Complete this field once you have triaged the pricing request</inlineHelpText>
+    <label>Triage of request completed?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,6 @@
+<p>New idea has been created which requires moderation</p>
+<hr />
+<p><a href="https://auspost--ptest.cs6.my.salesforce.com/ideas/viewIdea.apexp?id={!ideaId}">{!ideaTitle}</a></p>
+<p>{!ideaBody}</p>
+<hr />
+<p><a href="https://auspost--ptest--c.cs6.visual.force.com/apex/brideas_Moderation">Ideas Moderation</a></p>

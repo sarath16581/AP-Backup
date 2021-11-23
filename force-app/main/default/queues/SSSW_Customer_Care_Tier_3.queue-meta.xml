@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@auspost.com.au</email>
+    <name>SSSW Customer Care Specialist T3</name>
+    <queueMembers>
+        <users>
+            <user>abdul.halim@auspost.com.au</user>
+            <user>elizabeth.burke@auspost.com.au</user>
+            <user>georgina.reid@auspost.com.au</user>
+            <user>jodie.garson@auspost.com.au</user>
+            <user>natasha.sitkowski@auspost.com.au</user>
+            <user>rory.mackinnon@auspost.com.au</user>
+            <user>vishal.ravi@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

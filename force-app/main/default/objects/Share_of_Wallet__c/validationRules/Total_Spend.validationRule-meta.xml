@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Spend</fullName>
+    <active>true</active>
+    <description>Sum of AP Spend + Primary Competitor Spend + Secondary Spend</description>
+    <errorConditionFormula>Total_estimated_spend_on_this_Service__c &lt;  AP_Spend_FY__c  +   Primary_Competitor_Spend_FY__c +  Secondary_Competitor_Spend_FY__c</errorConditionFormula>
+    <errorDisplayField>Total_estimated_spend_on_this_Service__c</errorDisplayField>
+    <errorMessage>Sum of AP Spend + Primary Competitor Spend + Secondary Competitor spend cannot be more than Total Spend</errorMessage>
+</ValidationRule>

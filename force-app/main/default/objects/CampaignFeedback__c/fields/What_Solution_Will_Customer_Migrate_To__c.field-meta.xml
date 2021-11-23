@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>What_Solution_Will_Customer_Migrate_To__c</fullName>
+    <description>Which solution will the customer proceed with?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Which solution will the customer proceed with?</inlineHelpText>
+    <label>What Solution Will Customer Migrate To?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Full API Integration</fullName>
+                <default>false</default>
+                <label>Full API Integration</label>
+            </value>
+            <value>
+                <fullName>Simple API Integration with Parcel Send</fullName>
+                <default>false</default>
+                <label>Simple API Integration with Parcel Send</label>
+            </value>
+            <value>
+                <fullName>Parcel Send</fullName>
+                <default>false</default>
+                <label>Parcel Send</label>
+            </value>
+            <value>
+                <fullName>Third Party</fullName>
+                <default>false</default>
+                <label>Third Party</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

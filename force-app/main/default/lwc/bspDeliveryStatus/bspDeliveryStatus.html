@@ -1,0 +1,53 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 21/08/2020
+  * @description  : Component for display AP & ST delivery status(Latest Event of a consignment if exists).
+--------------------------------------- History ------------------------------------------------------------
+11.09.2020    Jansi Rani   Created
+-->
+<template>
+    <div class="slds-grid slds-grid_vertical-align-center slds-m-bottom_large" slot="title">
+        <div class="slds-col slds-size_1-of-12 slds-m-right_small ">
+            <c-bsp-custom-icons icon="map-pin" size="l-medium" fill="#DC1928" iconclass="icon-inline">
+            </c-bsp-custom-icons>
+        </div>
+        <div class="slds-col slds-size_11-of-12">
+            <template if:true={isSTConsignment}>
+                <template if:true={stEventMessage}>
+                    <lightning-formatted-rich-text  value={stEventMessage}></lightning-formatted-rich-text>
+                </template>
+                <template if:false={stEventMessage}>{noEventMessageFormatted}</template>
+            </template>
+
+            <template if:true={isAPConsignment}>
+                <template if:false={consignmentWithMultipleArticles}>
+                    <template if:true={apEventMessage}>
+                        <lightning-formatted-rich-text  value={apEventMessage}></lightning-formatted-rich-text>
+                        <b>
+                            <lightning-formatted-date-time value={latestEvent.ActualDateTime__c} year="numeric" month="numeric" day="numeric">
+                            </lightning-formatted-date-time>&nbsp;
+                            <lightning-formatted-date-time value={latestEvent.ActualDateTime__c} hour="2-digit" minute="2-digit">
+                            </lightning-formatted-date-time>
+                        </b>
+                        <template if:true={estimatedDeliveryDateMessage}>
+                            .&nbsp;
+                            <lightning-formatted-rich-text value={estimatedDeliveryDateMessage}></lightning-formatted-rich-text>
+                            <b>
+                                <lightning-formatted-date-time value={apExpectedDeliveryDate} year="numeric" month="numeric" day="numeric">
+                                </lightning-formatted-date-time>
+                            </b>
+                        </template>
+                    </template>
+                    <template if:false={apEventMessage}>{noEventMessageFormatted}</template>
+                </template>
+                <template if:true={consignmentWithMultipleArticles}>
+                    <lightning-formatted-rich-text  value={apMultipleArticlesMessage}></lightning-formatted-rich-text>
+                </template>
+            </template>
+            
+            <template if:true={viewLink}>
+                .&nbsp;<lightning-formatted-rich-text  value={viewLink}></lightning-formatted-rich-text>
+            </template>
+        </div>
+    </div>
+</template>

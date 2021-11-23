@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <allowRecall>true</allowRecall>
+    <allowedSubmitters>
+        <type>owner</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Customer_Name__c</field>
+        <field>Name</field>
+        <field>Owner</field>
+        <field>Pricing_Governance_Forum_Approval__c</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>false</allowDelegate>
+        <approvalActions>
+            <action>
+                <name>Set_Status_to_Approved</name>
+                <type>FieldUpdate</type>
+            </action>
+        </approvalActions>
+        <assignedApprover>
+            <approver>
+                <name>jason.tran2@auspost.com.au</name>
+                <type>user</type>
+            </approver>
+            <approver>
+                <name>scott.warbrick@auspost.com.au</name>
+                <type>user</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <description>STP: Update approval status to Approval</description>
+        <label>Update Pricing Approval Status</label>
+        <name>Update_Pricing_Approval_Status</name>
+    </approvalStep>
+    <description>STP: Approval process for major opportunity with annualised revenue &gt;= $10m</description>
+    <emailTemplate>unfiled$public/Pricing_Governance_Forum_Approval</emailTemplate>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <entryCriteria>
+        <criteriaItems>
+            <field>Opportunity.Pricing_Governance_Forum_Approval__c</field>
+            <operation>equals</operation>
+            <value>Pending Approval</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Propose</value>
+        </criteriaItems>
+    </entryCriteria>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <initialSubmissionActions>
+        <action>
+            <name>Pricing_Governance_Forum_Approval</name>
+            <type>FieldUpdate</type>
+        </action>
+    </initialSubmissionActions>
+    <label>Major Opportunity - Pricing Gov Approval</label>
+    <postTemplate>Major_Opportunity_Post</postTemplate>
+    <processOrder>4</processOrder>
+    <recallActions>
+        <action>
+            <name>Update_Pricing_Governance_Forum_Approval</name>
+            <type>FieldUpdate</type>
+        </action>
+    </recallActions>
+    <recordEditability>AdminOrCurrentApprover</recordEditability>
+    <showApprovalHistory>true</showApprovalHistory>
+</ApprovalProcess>

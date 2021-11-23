@@ -1,0 +1,116 @@
+<!--
+  @description       : 
+  @author            : ankur.gandhi@auspost.com.au
+  @group             : 
+  @last modified on  : 04-27-2021
+  @last modified by  : ankur.gandhi@auspost.com.au
+  Modifications Log 
+  Ver   Date         Author                        Modification
+  1.0   03-30-2021   ankur.gandhi@auspost.com.au   Initial Version
+-->
+<aura:component implements="forceCommunity:themeLayout" access="global" description="Business Apps Portal - Theme Layout" controller="BAMUserController">
+
+    <!-- design attributes -->
+    <aura:attribute name="pageTitle" type="String" default="Australia Post Business Apps Portal" required="true" />
+    <aura:attribute name="layoutWidth" type="String" default="contained" required="true" />
+    <aura:attribute name="cssClass" type="String" />
+    <aura:attribute name="showProfileMenu" type="Boolean" required="false" default="true" />
+    <aura:attribute name="linkToHome" type="Boolean" required="false" default="true" />
+
+    <!-- other attributes -->
+    <aura:attribute name="profileMenu" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="navBar" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="newHeader" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="body" type="Aura.Component[]" />
+    <aura:attribute name="homeURL" type="String" default="/s/" />
+
+    <ltng:require
+        scripts="{!$Resource.GlobalAssets + '/js/svg4everybody/svg4everybody.js'}"
+        afterScriptsLoaded="{!c.afterScriptsLoaded}"
+    />
+    <!-- <ltng:require styles="{!$Resource.BCA_Theme_MerchantPortal}" /> -->
+
+    <!-- init handler -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div id="content-wrapper" class="{!v.cssClass}">
+
+        <header id="header">
+
+            <div class="content cf slds-p-horizontal--medium slds-p-vertical--large">
+                <div class="slds-grid slds-grid--align-spread slds-grid--vertical-align-center header-max-container">
+                    <div class="left">                   
+                        <aura:if isTrue="{!v.linkToHome}"> 
+                            <a href="{!v.homeURL}"><c:bspCustomIcons icon="ap-logo" size="logo"></c:bspCustomIcons></a>
+                            <!--<h1 class="slds-m-left_small"><a href="{!v.homeURL}">{!v.pageTitle}</a></h1>-->
+                        </aura:if>
+                        <aura:if isTrue="{!not(v.linkToHome)}">
+                            <!--Rendered using img tag because IE11 can't render SVGs from an external location -->
+                            <c:bspCustomIcons icon="ap-logo" size="logo"></c:bspCustomIcons>
+                            <!--<h1 class="slds-m-left_small">{!v.pageTitle}</h1>-->
+                        </aura:if>
+                    </div>
+                    <aura:if isTrue="{!v.showProfileMenu}">
+                        <div class="right">
+                            
+                            <!--<c:bamPersonaSelector></c:bamPersonaSelector>
+                            <c:bamProfileMenu></c:bamProfileMenu>-->
+                            <a href="https://auspost.com.au/help-and-support" class="header-right-link" target="_blank">
+                            <!--Rendered using img tag because IE11 can't render SVGs from an external location -->
+                            <c:bspCustomIcons icon="help-filled" size="x-small-help"></c:bspCustomIcons>&nbsp;&nbsp;Help &amp; Support</a>  
+                        </div>
+                    </aura:if>
+                    
+                </div>
+            </div>
+
+        </header>
+
+        <div id="mainBody" class="{!'layout-' + v.layoutWidth}">
+
+            {!v.body}
+
+        </div>
+
+        <footer id="footer">
+            <div class="{!'layout-' + v.layoutWidth}">
+    
+                <div class="slds-grid slds-grid--align-spread slds-grid--vertical-align-center footer-container">
+                    <div class="slds-col left" style="width: 100%;">
+                        <ul class="slds-list_horizontal slds-has-inline-block-links_space footer-left-links">
+                            <li>
+                                <a href="https://auspost.com.au/" target="_blank">auspost.com.au</a>
+                            </li>
+                            <li>
+                                <a href="https://auspost.com.au/about-us" target="_blank">About us</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://auspost.com.au/privacy" target="_blank">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="https://auspost.com.au/terms-conditions" target="_blank">Terms &amp; Conditions</a>
+                            </li>
+                            <li>
+                                <a href="https://auspost.com.au/about-us/about-our-site/accessibility" target="_blank">Accessibility</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="slds-col right-links" style="width: 100%;">
+                        <ul class="slds-list_horizontal slds-has-inline-block-links_space footer-right-links">
+                            <li>
+                                <a class="footer-hs-link" href="https://auspost.com.au/help-and-support" target="_blank" >
+                                <!--Rendered using img tag because IE11 can't render SVGs from an external location -->
+                                <c:bspCustomIcons icon="support" size="small"></c:bspCustomIcons>&nbsp;&nbsp;Help &amp; Support</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+    
+            </div>
+        </footer>
+    
+
+    </div>
+    
+</aura:component>

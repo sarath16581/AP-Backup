@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Enablement_Compact_Layout</fullName>
+    <fields>CaseNumber</fields>
+    <fields>Subject</fields>
+    <fields>Work_Type__c</fields>
+    <fields>Support_Work_Type__c</fields>
+    <fields>Requestor__c</fields>
+    <fields>Status</fields>
+    <fields>Origin__c</fields>
+    <fields>Priority</fields>
+    <fields>OwnerId</fields>
+    <label>Business Enablement Compact Layout</label>
+</CompactLayout>

@@ -1,0 +1,164 @@
+<!--
+* @author Victor.Cheng@auspost.com.au
+* @date 2020-12-11
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Step in Credit Application Form to input Business Director detail
+* @changelog
+* 2020-12-11 Victor.Cheng@auspost.com.au  Created
+*
+-->
+
+<!-- Bca Step Directors -->
+<template>
+    <div class="bca-inner-box-red">
+        <!-- Driver's License Modal -->
+        <template if:true={showLicensePopup}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={cancelLicenseWarning}>
+                            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Proof of Identity</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <p>If a drivers licence number is not available we will contact you to obtain an alternative proof of identity such as a birth certificate or passport.</p>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick={cancelLicenseWarning}>Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick={continueLicenseWarning}>Continue</button>
+                    </footer>
+                </div>
+            </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+        <!-- END Driver's License Modal -->
+
+
+
+        <template if:true={showEditing}>
+            <div class="form-outer-box">
+                <div class="form-inner-box">
+                    <h2 class="slds-p-bottom_medium">{directorLabel} {editingDirector.index} of {totalDirectors}</h2>
+                    <div class="slds-p-bottom_large">
+                        <lightning-input label="First Name" name="firstName" data-id="firstName" type="text"
+                            value={editingDirector.firstName} placeholder="First Name" required="true" onchange={onChangeField}>
+                        </lightning-input>
+                        <lightning-input label="Middle Name" name="middleName" data-id="middleName" type="text"
+                            value={editingDirector.middleName} placeholder="Middle Name" onchange={onChangeField} 
+                            class="optional-label slds-p-top_large"></lightning-input>
+                        <lightning-input label="Surname" name="lastName" data-id="lastName" type="text"
+                                         value={editingDirector.lastName} placeholder="Surname" required="true"
+                                         onchange={onChangeField} class="slds-p-top_large"></lightning-input>
+
+                        <lightning-radio-group label="Previously known by another name?" data-id="knownByOtherName"
+                            name="knownByOtherName" onchange={onChangeField} class="slds-p-top_large" options={yesNoOptions} type="radio"
+                            value={editingDirector.knownByOtherName}></lightning-radio-group>
+
+                        <template if:true={directorKnownByOtherName}>
+                            <lightning-input label="First Name" name="otherFirstName" data-id="otherFirstName" type="text"
+                                             value={editingDirector.otherFirstName} placeholder="First Name" required="true" onchange={onChangeField} class="slds-p-top_large">
+                            </lightning-input>
+                            <lightning-input label="Middle Name" name="otherMiddleName" data-id="otherMiddleName" type="text"
+                                             value={editingDirector.otherMiddleName} placeholder="Middle Name" onchange={onChangeField}
+                                             class="optional-label slds-p-top_large"></lightning-input>
+                            <lightning-input label="Surname" name="otherLastName" data-id="otherLastName" type="text"
+                                             value={editingDirector.otherLastName} placeholder="Surname" onchange={onChangeField} required="true"
+                                             class="slds-p-top_large"></lightning-input>
+                        </template>
+
+                        <lightning-input label="Date of birth" value={editingDirector.dob} type="date" data-id="dob" name="dob" required="true"
+                            onchange={onChangeField} class="slds-p-top_large slds-col slds-size_1-of-1 slds-medium-size_6-of-12"></lightning-input>
+                        
+                        <!--<c-bsp-address-search address={recallRedirectAddress} label='Current residential address'
+                            data-id="recallRedirectAddress" data-validate='doAddressValidate'
+                            onstreetchange={handleManualChange} address-on-load="true"
+                            field-level-help='If address not found, please expand and manually override the address'
+                            placeholder='Search for address' onsearchtermchange={handleAddressChange} required
+                            class="brand-form-input"></c-bsp-address-search>-->
+                    
+                        <div class="slds-p-top_large">
+                            <c-address-search-cmp data-id='currentResidentialAddress' address={editingDirector.currentResidentialAddress}
+                            label="Current residential address" data-validate="doAddressValidate" onstreetchange={handleManualChange}
+                            field-level-help="If address not found, please expand and manually override the address"
+                            placeholder="Search for address" onsearchtermchange={handleAddressChange}
+                            class="brand-form-input slds-p-bottom_x-large" required is-allow-international-address='no'>
+                            </c-address-search-cmp>
+                        </div>
+                        
+                        <lightning-radio-group label="Time at current address?" data-id="timeAtAddress" name="timeAtAddress"
+                            onchange={onChangeField} class="slds-p-top_large" options={timeAtAddressOptions} type="radio"
+                            value={editingDirector.timeAtAddress}></lightning-radio-group>
+
+                        <template if:true={showPreviousAddress}>
+                            <div class="slds-p-top_large">
+                                <c-address-search-cmp data-id='previousResidentialAddress' address={editingDirector.previousResidentialAddress}
+                                                    label="Previous residential address" data-validate="doAddressValidate" onstreetchange={handlePreviousManualChange}
+                                                    field-level-help="If address not found, please expand and manually override the address"
+                                                    placeholder="Search for address" onsearchtermchange={handlePreviousAddressChange}
+                                                    class="brand-form-input" required is-allow-international-address='no'>
+                                </c-address-search-cmp>
+                            </div>
+                        </template>
+
+                        <lightning-input label="Phone number" name="phone" data-id="phone" type="tel"
+                            value={editingDirector.phone} placeholder="e.g. 0400123456" onchange={onChangeField}
+                                         required="true"
+                                         class="slds-p-top_large slds-col slds-size_1-of-1 slds-medium-size_6-of-12">
+                        </lightning-input>
+                        <lightning-input label="Email address" name="email" data-id="email" type="email" required="true" max-length="30"
+                            value={editingDirector.email} placeholder="e.g. example@example.com" onchange={onChangeField} class="slds-p-top_large">
+                        </lightning-input>
+                        <lightning-input label="Drivers licence number (optional)" name="driversLicence" data-id="driversLicence"
+                            type="text" value={editingDirector.driversLicence} placeholder="e.g. 12345678 "
+                            onchange={onChangeField} class="slds-p-top_large slds-col slds-size_1-of-1 slds-medium-size_6-of-12"></lightning-input>
+                    </div>
+                    <lightning-button label="Save" onclick={closeEditing} variant="brand"></lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <template if:false={showEditing}>
+            <template for:each={directors} for:item="director">
+                <div key={director.index} class="form-summary-box slds-m-bottom_medium">
+                    <div class="slds-m-horizontal_large">
+                        <template if:true={director.firstName}>
+                            <h3>{director.firstName} {director.middleName} {director.lastName}</h3>
+                        </template>
+                        <template if:false={director.firstName}>
+                            <h3>Untitled</h3>
+                        </template>
+                        
+                        <span>
+                            <button class="slds-button slds-button_icon slds-button_icon-border no-border" data-id={director.index} onclick={editDirector}>
+                                <c-bsp-custom-icons icon="edit-pencil" size="small"></c-bsp-custom-icons>
+                            </button>
+                        </span>
+                        <!--<template if:false={onlyOneDirector}-->
+                        <span class="slds-p-left_x-small">
+                            <button class="slds-button slds-button_icon slds-button_icon-border no-border" data-id={director.index} onclick={deleteDirector}>
+                                <c-bsp-custom-icons icon="bin" size="small"></c-bsp-custom-icons>
+                                
+                            </button>  
+                        </span>    
+                        <!--/template-->
+                    </div>
+                </div>
+            </template>
+
+            <template if:true={showAddButton}>
+
+                <button name="Add reference" class="form-summary-box-button" onclick={clickAdd}>
+                    <h3>{addLabel}</h3>
+                    <c-bsp-custom-icons icon="plus" size="small"></c-bsp-custom-icons>
+                </button>
+
+            </template>
+        </template>
+
+    </div>
+</template>

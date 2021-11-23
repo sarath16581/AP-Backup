@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BillingAccount__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Billing account associated with this Role</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Billing account associated with this Role</inlineHelpText>
+    <label>Billing Account</label>
+    <referenceTo>Billing_Account__c</referenceTo>
+    <relationshipName>ContactApplicationRules</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

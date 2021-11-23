@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ULD_Allocation_Case</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CASES.RECORDTYPE</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.CLOSED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.ULD_Allocation</value>
+    </filters>
+    <filters>
+        <field>Program__c</field>
+        <operation>equals</operation>
+        <value>Xmas 2015</value>
+    </filters>
+    <label>ULD Allocation</label>
+    <sharedTo>
+        <group>ULD_Allocation</group>
+    </sharedTo>
+</ListView>

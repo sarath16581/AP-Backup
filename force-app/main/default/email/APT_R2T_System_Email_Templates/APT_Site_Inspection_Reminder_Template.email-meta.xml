@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email notification template to remind about Site Inspection request</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>APT_R2T_Contract_Letterhead</letterhead>
+    <name>Site Inspection Reminder Template</name>
+    <style>freeForm</style>
+    <subject>Site Inspection - Request Reminder</subject>
+    <textOnly>Hello,
+
+This is to notify that Site Inspection was requested by {!APT_Site_Inspection__c.CreatedBy} on created in the system on {!APT_Site_Inspection__c.CreatedDate}. Please review the request and take action as needed, if response was already provided please disregard this email.
+
+Site Inspection Form can be found under following address:
+
+https://pogo.corp.auspost.local/dafiles/intranet/pogo/Safety/Forms%20and%20checklists/Customer%20Profile%20Site%20Safety%20Inspection%20form%20final.docx
+
+
+System Information
+Customer Name: {!APT_Site_Inspection__c.APT_Customer_Name__c}
+Customer Trading Name: {!APT_Site_Inspection__c.APT_Customer_Trading_Name__c}
+
+Preferred Start Date: {!APT_Site_Inspection__c.APT_Preferred_Start_Date__c}
+Proposed Commencement Date: {!APT_Site_Inspection__c.APT_Proposed_Commencement_Date__c}
+
+
+Customer Contact Name: {!APT_Site_Inspection__c.APT_Customer_Contact_Name__c}
+Customer Contact Number: {!APT_Site_Inspection__c.APT_Customer_Contact_Number__c}
+
+Collection Street Address: {!APT_Site_Inspection__c.APT_Collection_Street_Address__c}
+State: {!APT_Site_Inspection__c.APT_State__c}
+Suburb: {!APT_Site_Inspection__c.APT_Suburb__c}
+P/Code: {!APT_Site_Inspection__c.00NO0000001zde6}
+
+Delivery Type: {!APT_Site_Inspection__c.APT_Delivery_Type__c}
+
+Operating Hours From: {!APT_Site_Inspection__c.APT_Opening_Hours_From__c}
+Operating Hours To: {!APT_Site_Inspection__c.APT_Opening_Hours_To__c}
+Product Type: {!APT_Site_Inspection__c.APT_Product_Type__c}
+Specify Product: {!APT_Site_Inspection__c.APT_Specify_Product__c}
+
+Presentation: {!APT_Site_Inspection__c.APT_Product_Containers__c}
+Volume ULD: {!APT_Site_Inspection__c.Volume__c}
+Volume Loose: {!APT_Site_Inspection__c.APT_Volume_Loose__c}
+Volume Pallet: {!APT_Site_Inspection__c.APT_Volume_Pallet__c}
+Volume Trays/Bags: {!APT_Site_Inspection__c.APT_Volume_Trays_Bags__c}
+Volumes per Day: {!APT_Site_Inspection__c.APT_Volume_Pallet__c}
+Days Required: {!APT_Site_Inspection__c.APT_Days_Required__c}
+Requested Collection Time: {!APT_Site_Inspection__c.APT_Requested_Collection_Time__c}
+Specify: {!APT_Site_Inspection__c.APT_Specify__c}
+On-site scales for Weighing: {!APT_Site_Inspection__c.APT_On_site_scales_for_Weighing__c}
+Dispersion/Destinations: {!APT_Site_Inspection__c.APT_Dispersion_Destinations__c}
+Routing barcode: {!APT_Site_Inspection__c.APT_Routing_barcode__c}
+Vehicle loaded by: {!APT_Site_Inspection__c.APT_Forklift_Available_on_Site__c}
+Notes: {!APT_Site_Inspection__c.Notes__c}
+
+Sales Rep: {!APT_Site_Inspection__c.APT_Sales_Rep__c}
+Sales Rep Contact Number: {!APT_Site_Inspection__c.APT_Sales_Rep_Contact_Number__c}
+
+
+
+
+
+Please do not reply to this email. This is a system generated email.
+
+Australia Post is committed to providing our customers with excellent service. If we can assist you in any way please telephone 13 13 18 or visit our website.
+
+The information contained in this email communication may be proprietary, confidential or legally professionally privileged. It is intended exclusively for the individual or entity to which it is addressed. You should only read, disclose, re-transmit, copy, distribute, act in reliance on or commercialise the information if you are authorised to do so. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, virus or interference.
+
+If you are not the addressee or intended recipient please notify us by replying direct to the sender and then destroy any electronic or paper copy of this message. Any views expressed in this email communication are taken to be those of the individual sender, except where the sender specifically attributes those views to Australia Post and is authorised to do so.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

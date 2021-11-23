@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CAR_Cases_Must_Have_Owner</fullName>
+    <active>true</active>
+    <description>Will not allow case to close without a user nominated as case owner</description>
+    <errorConditionFormula>AND(
+RecordType.Name = &apos;CAR Request&apos;, ISPICKVAL(Status,&apos;Closed&apos;),Owner:Queue.Id = &apos;00G900000034za1&apos;)</errorConditionFormula>
+    <errorMessage>This case must have an owner</errorMessage>
+</ValidationRule>

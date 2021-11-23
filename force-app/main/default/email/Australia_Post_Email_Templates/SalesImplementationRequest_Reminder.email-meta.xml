@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>A email to remind the Sales Implementation Manager to review a request</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SalesImplementationRequest - Reminder</name>
+    <style>none</style>
+    <subject>Sales Implementation Request - Case {!Case.CaseNumber} - Reminder</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

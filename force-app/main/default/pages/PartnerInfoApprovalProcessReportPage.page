@@ -1,0 +1,146 @@
+<!--**************************************************
+Name:       PartnerInfoApprovalProcessReportPage
+Purpose:    Displays list of pending approvals for logged in user
+            OR All Pending approvals of Partner Info App.
+Used By:    
+History:
+--------------------------------------------------
+14.09.2015	Ashutosh (Salesforce.com)		Created
+18.05.2016	Kenny Liew (Salesforce.com)		Updated, missing close bracket in window.open clause
+18.05.2016	Andrew Judd (Salesforce.com)	Updated field label WCIS Code to WCC
+**************************************************/
+-->
+
+<apex:page controller="PartnerInfoApprovalProcessReportCls" sidebar="false">
+<style>
+    .header20cls{
+        width:20%;
+    }
+    .header15cls{
+        width:15%;
+    }    
+    .header12cls{
+        width:12.5%;
+    }
+    .header10cls{
+        width:10%;
+    }    
+    .header5cls{
+        width:5%;
+    }    
+</style>    
+<apex:form style="margin:10px;">
+    <apex:pageBlock title="Approval Process" mode="edit" >&nbsp; 
+            <apex:outputLabel value="Approvals"></apex:outputLabel>
+            <apex:selectList value="{!approvalStatusStr}" multiselect="false" size="1" style="margin-left:10px;margin-top:0px; ">
+                <apex:selectOptions value="{!ApprovalStatus}" />
+            </apex:selectList>
+            &nbsp; &nbsp;
+            <apex:outputLabel value="Select state" style="margin-left:5px;margin-top:10px; font-size:14px;"></apex:outputLabel>
+            <apex:selectList value="{!selectedState}" multiselect="false" size="1" style="margin-left:10px;margin-top:0px; ">
+                <apex:selectOptions value="{!States}" />
+            </apex:selectList>
+            <apex:commandButton value="Search" action="{!setupApprovalStructure}" reRender="approvalSectionId" />
+            
+            <apex:outputPanel id="approvalSectionId">
+                
+                <div style="width:100%; margin-top:15px; background-color:#1797c0; height:25px;">
+                    <apex:outputLabel value="Licence:" style="margin-left:10px;margin-top:4px; color:white;font-weight:bold;position:absolute; font-size:16px;"/>
+                    &nbsp; &nbsp;
+                    <apex:outputLabel value="{!licenceWrapperList.size}" style="margin-left:75px;margin-top:4px; color:white;font-weight:bold;position:absolute; font-size:16px;"/>
+                </div>
+                <apex:pageBlockTable value="{!licenceWrapperList}" var="lwl">
+                  <apex:column headerValue="Approval Process Name" headerClass="header20cls">
+                        <apex:outputLabel value="{!lwl.pInstance.ProcessDefinition.Name}" />
+                    </apex:column>
+                    <apex:column headerValue="Licence" headerClass="header20cls">
+                        <apex:commandLink value="{!lwl.pInstance.TargetObject.Name}" onclick="window.open('/{!lwl.pInstance.TargetObjectId}','_blank');" rerender="null"/>
+                    </apex:column>
+                    <apex:column headerValue="Facility" headerClass="header15cls">
+                        <apex:outputLabel value="{!lwl.facility}" />
+                    </apex:column>
+                    <apex:column headerValue="WCC" headerClass="header5cls">
+                        <apex:outputLabel value="{!lwl.wcisCode}" />
+                    </apex:column>                     
+                    <apex:column headerValue="Assigned to" headerClass="header15cls">
+                        <apex:outputField value="{!lwl.pInstance.Workitems[0].ActorId}" />
+                    </apex:column>                    
+                    <apex:column headerValue="State" headerClass="header5cls">
+                        <apex:outputLabel value="{!lwl.state}" />
+                    </apex:column> 
+                    <apex:column headerValue="Submitted By" headerClass="header10cls">
+                        <apex:outputfield value="{!lwl.pInstance.createdById}" />
+                    </apex:column>                    
+                    <apex:column headerValue="Submitted date" headerClass="header10cls">
+                        <apex:outputfield value="{!lwl.pInstance.createddate}" />
+                    </apex:column>                                        
+                </apex:pageBlockTable>
+
+                <div style="width:100%; margin-top:15px; background-color:#1797c0; height:25px;">
+                    <apex:outputLabel value="Partner Addendum:" style="margin-left:10px;margin-top:4px; color:white;font-weight:bold;position:absolute; font-size:16px;"/>
+                    &nbsp; &nbsp;
+                    <apex:outputLabel value="{!pAddendumWrapperList.size}" style="margin-left:155px;margin-top:4px; color:white;font-weight:bold;position:absolute; font-size:16px;"/>
+                </div>
+                <apex:pageBlockTable value="{!pAddendumWrapperList}" var="lwl">
+                  <apex:column headerValue="Approval Process Name" headerClass="header20cls">
+                        <apex:outputLabel value="{!lwl.pInstance.ProcessDefinition.Name}" />
+                    </apex:column>
+                    <apex:column headerValue="Partner Addendum" headerClass="header20cls">
+                        <apex:commandLink value="{!lwl.pInstance.TargetObject.Name}" onclick="window.open('/{!lwl.pInstance.TargetObjectId}','_blank');" rerender="null"/>
+                    </apex:column>
+                    <apex:column headerValue="Facility" headerClass="header15cls">
+                        <apex:outputLabel value="{!lwl.facility}" />
+                    </apex:column>
+                    <apex:column headerValue="WCC" headerClass="header5cls">
+                        <apex:outputLabel value="{!lwl.wcisCode}" />
+                    </apex:column>                     
+                    <apex:column headerValue="Assigned to" headerClass="header15cls">
+                        <apex:outputField value="{!lwl.pInstance.Workitems[0].ActorId}" />
+                    </apex:column>                    
+                    <apex:column headerValue="State" headerClass="header5cls">
+                        <apex:outputLabel value="{!lwl.state}" />
+                    </apex:column> 
+                    <apex:column headerValue="Submitted By" headerClass="header10cls">
+                        <apex:outputfield value="{!lwl.pInstance.createdById}" />
+                    </apex:column>                    
+                    <apex:column headerValue="Submitted date" headerClass="header10cls">
+                        <apex:outputfield value="{!lwl.pInstance.createddate}" />
+                    </apex:column>                                 
+                </apex:pageBlockTable>
+                
+                <div style="width:100%; margin-top:15px; background-color:#1797c0; height:25px;">
+                    <apex:outputLabel value="Partner Info Change:" style="margin-left:10px;margin-top:4px; color:white;font-weight:bold;position:absolute; font-size:16px;"/>
+                    &nbsp; &nbsp;
+                    <apex:outputLabel value="{!pICWrapperList.size}" style="margin-left:165px;margin-top:4px; color:white;font-weight:bold;position:absolute; font-size:16px;"/>                
+                </div>                
+                <apex:pageBlockTable value="{!pICWrapperList}" var="lwl">
+                  <apex:column headerValue="Approval Process Name" headerClass="header20cls">
+                        <apex:outputLabel value="{!lwl.pInstance.ProcessDefinition.Name}" />
+                    </apex:column>
+                    <apex:column headerValue="Partner Info Change" headerClass="header20cls">
+                        <apex:commandLink value="{!lwl.pInstance.TargetObject.Name}" onclick="window.open('/{!lwl.pInstance.TargetObjectId}','_blank');" rerender="null"/>
+                    </apex:column>
+                    <apex:column headerValue="Facility" headerClass="header15cls">
+                        <apex:outputLabel value="{!lwl.facility}" />
+                    </apex:column>
+                    <apex:column headerValue="WCC" headerClass="header5cls">
+                        <apex:outputLabel value="{!lwl.wcisCode}" />
+                    </apex:column>                     
+                    <apex:column headerValue="Assigned to" headerClass="header15cls">
+                        <apex:outputField value="{!lwl.pInstance.Workitems[0].ActorId}" />
+                    </apex:column>                    
+                    <apex:column headerValue="State" headerClass="header5cls">
+                        <apex:outputLabel value="{!lwl.state}" />
+                    </apex:column> 
+                    <apex:column headerValue="Submitted By" headerClass="header10cls">
+                        <apex:outputfield value="{!lwl.pInstance.createdById}" />
+                    </apex:column>                    
+                    <apex:column headerValue="Submitted date" headerClass="header10cls">
+                        <apex:outputfield value="{!lwl.pInstance.createddate}" />
+                    </apex:column>                                         
+                </apex:pageBlockTable>                
+                
+            </apex:outputPanel>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

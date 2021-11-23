@@ -1,0 +1,17 @@
+<!------------------------------------------------------------------------------ 
+Page Name: APT_RedirectToFavorites
+
+Modification Log : 
+--------------------------------------------------------------------------------
+* Developer               Date             Description
+* -------------------  ------------      -----------------------
+* Mansi Shah           14-04-2021         Intreim page created to show cart in full page
+--------------------------------------------------------------------------------->
+<apex:page showHeader="false">
+<apex:form >
+<script>
+var v = '/apex/Apttus_Config2__Cart?businessObjectId=' + '{!$CurrentPage.parameters.businessObjectId}' + '&useAdvancedApproval=true&flow=' + '{!$CurrentPage.parameters.flow}' +'&launchState=catalog#!/favorites/'
+window.open(v,"_parent");
+</script>
+</apex:form>
+</apex:page>

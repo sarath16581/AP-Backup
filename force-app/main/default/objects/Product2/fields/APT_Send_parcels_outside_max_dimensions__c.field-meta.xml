@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Send_parcels_outside_max_dimensions__c</fullName>
+    <externalId>false</externalId>
+    <label>Send parcels outside max dimensions?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>- - Select Option - -</fullName>
+                <default>false</default>
+                <label>- - Select Option - -</label>
+            </value>
+            <value>
+                <fullName>Yes</fullName>
+                <default>false</default>
+                <label>Yes</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+            <value>
+                <fullName>&gt; 22Kg</fullName>
+                <default>false</default>
+                <label>&gt; 22Kg</label>
+            </value>
+            <value>
+                <fullName>&gt; 105 cm &gt; 62.5 cubic kg</fullName>
+                <default>false</default>
+                <label>&gt; 105 cm &gt; 62.5 cubic kg</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

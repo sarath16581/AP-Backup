@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Security_Express</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>Job_Assignment_Layout</compactLayoutAssignment>
+    <label>Security Express</label>
+    <picklistValues>
+        <picklist>Identification_Type__c</picklist>
+        <values>
+            <fullName>ASIC%2FMSIC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Defence ID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Drivers License</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Government ID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Photo Identity Document</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Passport</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Staff ID</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Open</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pick Up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trans-shipment 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trans-shipment 2</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

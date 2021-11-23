@@ -1,0 +1,82 @@
+<!-- Description:    VF component to generate POD document for Event messages which has a SAFEDROP GUID
+History:
+--------------------------------------------------
+12/05/2020 - Hara Sahoo Created
+--->
+<apex:component controller="MyNetworkPODSafedrop">
+    <apex:attribute name="messageIds" type="String"  description="all event messages related to the cases" />
+    <apex:attribute name="selectedIds" type="String"  description="all cases selected from UI" />
+    
+    <!-- load the JQ library and spinner -->
+    <c:ScriptLoader jsLibraries="jquery" csslibraries="bootstrap" />
+    <c:LoadingSpinnerComponent showFunctionName="showSafeDropLoading" hideFunctionName="hideSafeDropLoading"  />
+    
+    <!-- javascript for remoting into controller for grabbing safe drop image and sending through to PDF page -->
+    <script type="text/javascript">
+    showSafeDropLoading();
+    Visualforce.remoting.timeout = 120000;
+    var str = '{!JSENCODE(messageIds)}';
+    var myarray = str.split(',');
+    var apiNumber = 0;
+    var totalAPICallsToMake = myarray.length;
+    //Check for the message string passed, if valid call JS fucntion submit(), if not redirect to the VF page "myNetworkRedirectCasePDFGenerator"
+    if(str != '')
+    {
+        submitCalls(myarray[apiNumber]);
+    }
+    else
+    {
+        console.log('No parameters passed for POD fetch');
+        checkDomainandRedirect();
+    }
+    
+    //JS function to invoke controller side VF remote action
+    function submitCalls(messageId)
+    {
+        console.log('Processing..In submitcall ' + messageId);
+        //VF remote action
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.MyNetworkPODSafedrop.getArticleImageList}',messageId,handleResult);
+    }
+    
+    //JS function to handle call back
+    function handleResult(result, event)
+    {
+        if(result === 'OK') {
+        } else {
+            // an error occured when retrieving the image so do not redirect the user
+            console.log('ERROR: ' + event.statusCode + ': ' + JSON.stringify(event));
+            jQuery('#errorWrapper').append('<div class="alert alert-warning" role="alert">' + jQuery('<div/>').text(result).text()  + '</div>');
+        }
+        if(totalAPICallsToMake > 0 && apiNumber < totalAPICallsToMake-1){
+            apiNumber++;
+            submitCalls(myarray[apiNumber]);
+        }else{
+            
+            checkDomainandRedirect();
+            console.log('Processing complete');
+        }
+        
+    }
+    
+    //JS function to redirect to myNetworkRedirectCasePDFGenerator
+    function checkDomainandRedirect()
+    {
+        var hostname = window.location.hostname;
+        //Check for community login
+        if(hostname.includes("auspostbusiness"))
+        {var url = 'https://'+ hostname + '/myNetwork/apex/myNetworkRedirectCasePDFGenerator?selectedIds='+encodeURI('{!selectedIds}');}
+        else{var url = 'https://'+ hostname + '/apex/myNetworkRedirectCasePDFGenerator?selectedIds='+encodeURI('{!selectedIds}');}
+        location.href = encodeURI(url);
+    }
+    
+    //Error handling
+    </script>
+    <div id="errorWrapper" style="margin:20px;">
+        <apex:outputPanel rendered="{!not(isnull(pageError))}" layout="none">
+            <div class="alert alert-warning" role="alert">
+                {!pageError}
+            </div>
+        </apex:outputPanel>
+    </div>
+</apex:component>

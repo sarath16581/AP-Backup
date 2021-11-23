@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Guided Qualification Management App for Business Admin user to manage the Qualification Questionnaire</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>true</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>true</isNavPersonalizationDisabled>
+    <label>Guided Qualification Management</label>
+    <navType>Standard</navType>
+    <tabs>Qualification_Template_Questions__c</tabs>
+    <tabs>APT_Sub_Account__c</tabs>
+    <tabs>et4ae5__Configuration__c</tabs>
+    <tabs>Apttus_Config2__ConfigSettings__c</tabs>
+    <tabs>et4ae5__Business_Unit__c</tabs>
+    <tabs>SAM_Admin1</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Guided_Qualification_Management_UtilityBar</utilityBar>
+</CustomApplication>

@@ -1,0 +1,137 @@
+<!--
+    @Author      :  kalpita.talwadekar@auspost.com.au    
+    @Date        :  09/05/2016
+    @Description :  Visualforce page to display PM26 form receipt
+<!--------------------------- HISTORY -------------------------------------------
+02.07.2018      kaplita.talwadekar@auspost.com.au        updated code for additionl information char limit capacity 
+
+--------------------------------------------------------------------------------->
+<apex:page sidebar="false" showHeader="false" id="page" standardController="Case"  renderAs="pdf"
+        extensions="PM26_CustomerComplaintFormContrExt">
+    <html>
+        <!-- PAGE HEADER -->
+        <head>
+            <style>
+                @page {
+                    size: letter;
+                    height:100%;
+                    margin: 25mm;
+                    font-family: Arial Unicode MS;
+                    @top-center {
+                        content: "Sample";
+                    }
+                    @bottom-center {
+                        content: "Page " counter(page) " of " counter(pages);
+                    }
+                }
+                .page-break {
+                    display:block;
+                    page-break-after:always;
+                }
+                body {
+                    font-family: Arial Unicode MS;
+                }
+            </style>
+        </head>
+        <!-- END OF PAGE HEADER -->
+        
+        <body>
+            <apex:form style="font-family: Arial Unicode MS;">
+                <!-- MASTHEAD -->
+                <center>
+                    <apex:image url="{!$Resource.myNetworkLogo}" width="50" height="50" style="float:left;"/>
+                    <apex:image url="{!$Resource.myNetwork_APLogo}" width="90" height="35"  style="float:right;"/>
+                    
+                    <h2><b>
+                        <apex:outputText value="{!$Label.CL_PM26Header}" rendered="{!Case.EnquirySubType__c =='Damaged/Missing contents'}" />
+                        <apex:outputText value="General Customer Enquiry" rendered="{!Case.EnquirySubType__c !='Damaged/Missing contents'}" />
+                          
+                     </b></h2>  
+                </center> <br/>
+                    
+                <div style="border:2px solid ;width:100%;border-radius:8px;font-size: 0.9em;">
+                    <b>Case Number - {!pm26Case.CaseNumber} </b> 
+                    <!-- Date print -->
+                    <apex:outputText value="{0,date,dd/MM/yy}" style="margin-right:10%; font-size: 0.9em;float:right;">
+                        <apex:param value="{!today()}"/>
+                    </apex:outputText>
+                    <apex:outputText value="Date &nbsp;&nbsp;" escape="false" style="font-size: 0.9em;float:right;" />
+                    <br/><br/>
+                    <apex:outputText escape="false"  value="{!$Label.CL_CaseReceiptPM26Info}" rendered="{!Case.EnquirySubType__c =='Damaged/Missing contents'}" />
+                    <apex:outputText escape="false"  value="{!$Label.CL_CaseReceiptGeneralInfo}" rendered="{!NOT(Case.EnquirySubType__c =='Damaged/Missing contents')}" />
+                    <center> <apex:image url="{!$Resource.myNetwork_HelpLogo}"  width="100" height="50"/> </center>
+                </div> <br/>
+                
+                <center>
+                    <!-- network name -->
+                     <div style="margin-left:20%;border:2px solid black;width:60%;border-radius:8px;font-size: 0.9em;">
+                        <apex:panelGrid columns="1" width="100%" >
+                            <apex:outputText value="{!pm26Case.Network__r.Name}"/>                           
+                        </apex:panelGrid>
+                    </div>
+                </center> 
+                
+                <!-- tracking details on case -->
+                <apex:panelGrid columns="2" border="0" style="margin-left:20%;width:55%;font-size: 0.9em;text-align:left;position: static;"  >
+                     <table>
+                        <apex:repeat value="{!$ObjectType.Case.FieldSets.Form_RecieptHeadContent}" var="f">
+                            <tr>
+                                <td width="50%">
+                                    <apex:outputText value="{!fieldValueLabelMap[f.label]}: " rendered="{!NOT(Case.EnquirySubType__c =='Damaged/Missing contents') || (f.label == 'Reference ID' && Case.EnquirySubType__c =='Damaged/Missing contents')}" /> 
+                                </td>
+                                <td width="50%">
+                                    <apex:outputField id="inputTrackNo" value="{!Case[f]}" rendered="{!NOT(Case.EnquirySubType__c =='Damaged/Missing contents') || (f.label == 'Reference ID' && Case.EnquirySubType__c =='Damaged/Missing contents')}" />
+                                 </td>
+                            </tr>
+                        </apex:repeat>
+                    
+                    </table>
+                </apex:panelGrid>
+                
+                <!-- table for case address/contact details -->
+                <table  width="90%" style="margin-left:5%;font-size: 0.9em;border: 2px solid;">
+                    <tr> 
+                        <td>
+                            <u> Customer </u> <br/>
+                        </td>
+                    </tr>
+                    <apex:repeat value="{!$ObjectType.Case.FieldSets.Form_RecieptTable}" var="f">
+                        <tr>
+                            <td>
+                                <apex:outputText escape="false" value="{!fieldValueLabelMap[f.label]}:  &nbsp;&nbsp;&nbsp;" rendered="{!f.label == 'Addressee Email' || f.label == 'Phone' }" />
+                                <apex:outputText escape="false" value="{!Case[f]}" rendered="{!f.label != 'Addressee Address Suburb' 
+                                                                        && f.label != 'Addressee Address State' && f.label != 'Addressee Address Postcode'}"/>
+                                <apex:outputText rendered="{!f.label == 'Addressee Email'}" > <br/> <br/> </apex:outputText>                                                                    
+                                <apex:outputText escape="false" value="{!Case.Address2Suburb__c} {!Case.Address2State__c} {!Case.Address2Postcode__c}"
+                                        rendered="{!f.label == 'Addressee Address Suburb'}" />
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+                
+                <!-- table for case additional details -->
+                <table width="90%" style="margin-left:10%;font-size: 0.9em;">
+                    <apex:repeat value="{!$ObjectType.Case.FieldSets.Additional_Info}" var="f">
+                        <tr>
+                            <td width="35%">
+                                <!--label for="inputTrackNo" ></label --> 
+                                <apex:outputText escape="false" value="{!fieldValueLabelMap[f.label]} : " rendered="{!Case.EnquirySubType__c =='Damaged/Missing contents'}"/>
+                            </td>
+                            <td width="65%">
+                                <apex:outputText escape="false" value="{!Case[f]}" rendered="{!Case.EnquirySubType__c =='Damaged/Missing contents'}"/>
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                </table> 
+                
+                <!-- span for additional information to overcome the char limit -->
+                <span>
+                    <apex:outputPanel style="margin-left:10%;width:80%;font-size: 0.9em;display:inline-block;"  >
+                        <apex:outputField value="{!pm26Case.CaseDetails__c}"/>
+                    </apex:outputPanel>      
+                </span>
+                
+            </apex:form>
+        </body>
+   </html>
+</apex:page>

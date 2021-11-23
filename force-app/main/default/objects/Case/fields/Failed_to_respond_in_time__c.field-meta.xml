@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Failed_to_respond_in_time__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Flag set by First Customer Response milestone. Used for Out of Charter reporting</description>
+    <externalId>false</externalId>
+    <label>Failed to respond in time</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

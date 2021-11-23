@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Satchels_Fields</fullName>
+    <active>true</active>
+    <errorConditionFormula>and (   Satchels_Jiffy_Bags__c =true,   
+
+
+or( 
+ ISBLANK(   B2BSatchels__c  ),
+ ISBLANK(   B2CSatchels__c  )))</errorConditionFormula>
+    <errorMessage>Please make sure that B2B%,B2C% and Qty fields for Satchels are not blank</errorMessage>
+</ValidationRule>

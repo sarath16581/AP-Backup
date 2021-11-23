@@ -1,0 +1,58 @@
+<!--
+    2020-06-11 nathan.franklin@auspost.com.au Created
+    2020-09-09 - Ranjeewa Silva - Updated milestone hover dates to display date and time. Added the help text section at the bottom.
+-->
+<template>
+
+	<div class={pathContainerCssClass}>
+		<template if:true={loadingTrackingApi}>
+			<lightning-spinner variant="brand" size="small" alternative-text="Loading search results...">
+			</lightning-spinner>
+		</template>
+
+		<template if:false={loadingTrackingApi}>
+			<div class="slds-path slds-text-body_small">
+				<div class="slds-grid slds-path__track">
+					<div class="slds-grid slds-path__scroller-container">
+						<div class="slds-path__scroller" role="application">
+							<div class="slds-path__scroller_inner">
+								<ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+									<template for:each={computedPath} for:item="item">
+										<li class={item.cssClass} style={item.animationCss} role="presentation" key={item.label}>
+											<a aria-selected="false" class="slds-path__link" href="javascript:void(0);" role="option" tabindex="-1" title={item.label}>
+								                <span class="slds-path__stage">
+								                    <span>{item.label}</span>
+								                </span>
+												<template if:true={item.hoverIsDate}>
+													<div class="slds-path__title">
+														<lightning-formatted-date-time value={item.hoverLabel} year="numeric" month="2-digit" day="2-digit"></lightning-formatted-date-time><br/>
+														@&nbsp;<lightning-formatted-date-time value={item.hoverLabel} hour="2-digit" minute="2-digit"></lightning-formatted-date-time>
+													</div>
+												</template>
+												<template if:false={item.hoverIsDate}>
+													<span class="slds-path__title">{item.hoverLabel}</span>
+												</template>
+											</a>
+										</li>
+									</template>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<template if:true={helpText.message}>
+				<div class="slds-media slds-media_center slds-has-flexi-truncate slds-p-top_x-small">
+					<div class="slds-media__figure">
+						<lightning-icon icon-name={helpText.icon} title={helpText.message} size="xx-small"></lightning-icon>
+					</div>
+					<div class="slds-media__body">
+						<h2 class="slds-text-body_small slds-text-color_weak">
+							<span>{helpText.message}</span>
+						</h2>
+					</div>
+				</div>
+			</template>
+		</template>
+	</div>
+</template>

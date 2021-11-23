@@ -1,0 +1,249 @@
+<!--
+    Description: This page is used in scan events custm console components.
+    History:
+    Nov 25, 2015 David Catindoy(CloudSherpas) Created
+    Feb 18, 2016 Patrick James Franco - Added web callout indicator
+    -->
+<apex:page standardStylesheets="true" standardController="Case" extensions="StarTrackScanEventsSidePanel_ControllerX" showHeader="false" sidebar="false" docType="html-5.0" action="{!searchEventMessagesOnLoad}">
+    <apex:includeScript value="/support/console/34.0/integration.js"/>
+    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript">
+        var objectId;
+        var tabLabel;
+        var positionInYdir;
+        var positionInXdir;
+        function getPrimaryTabIdAndOpenSubtab(objId, label) {
+            if(sforce && sforce.console && sforce.console.isInConsole()){
+                objectId = objId;
+                tabLabel = label;
+                sforce.console.getEnclosingPrimaryTabId(openSubtab);
+             }
+        }
+
+        var openSubtab = function openSubtab(result) {
+            var primaryTabId = result.id;
+            sforce.console.openSubtab(primaryTabId , '/' + objectId, true,
+                tabLabel, null, 'Scan Events', 'Scan Events');
+            sforce.console.refreshPrimaryTabById(primaryTabId, true);
+
+        };
+
+        function validateArticleValue(articleId){
+            if(articleId!=''){
+                getPrimaryTabIdAndOpenSubtab('apex/StarTrackViewAllScanEvents?id='+articleId, 'Scan Events');                
+            }else{
+                alert('No Consignment associated to this case.');
+            }
+        }
+
+        function viewAllScanEvents(articleId){
+            if(articleId!=''){
+                if(sforce && sforce.console && sforce.console.isInConsole()){
+                    objectIdScEv = 'apex/StarTrackViewAllScanEvents?id='+articleId;
+                    tabLabelScEv = 'Scan Events';
+                    sforce.console.getEnclosingPrimaryTabId(openScanEvSubtab);
+                 }
+            }else{
+                alert('No Consignment associated to this case.');
+            }
+        }
+
+        var openScanEvSubtab = function openScanEvSubtab(result) {
+            var primaryTabId = result.id;
+            sforce.console.openSubtab(primaryTabId , '/' + objectIdScEv, true,
+                tabLabelScEv, null, 'Scan Events', 'Scan Events');
+        };
+
+        function displayLoad(theElement){
+            document.getElementById(theElement).style.display = 'inline';
+        }
+
+        function refreshScanEventsPage() {            
+            if(sforce && sforce.console && sforce.console.isInConsole()){
+                sforce.console.getEnclosingPrimaryTabId(refreshSubtab);
+            }            
+        }
+        var refreshSubtab = function refreshSubtab(result) {
+            if(sforce && sforce.console && sforce.console.isInConsole()){
+                var primaryTabId = result.id;
+                console.log('primaryTabId : ' + primaryTabId);
+                sforce.console.focusSubtabByNameAndPrimaryTabId('Scan Events', primaryTabId, refreshSuccess);
+            }     
+        };
+
+        var refreshSuccess = function refreshSuccess(result) {
+            if (result.success == true) {
+                sforce.console.getFocusedSubtabId(getFocusedId);  
+            }
+            console.log('succcess : ' + result.success);
+        }
+        var getFocusedId = function getFocusedId(result) {
+            console.log('id : ' + result.id);
+            var subTabId = result.id;
+            sforce.console.closeTab(subTabId);
+            validateArticleValue('{!caseRecord.ArticleTest__c}');
+            window.top.location='/console';
+        }
+
+    </script>
+    <style>
+
+    thead th {
+    font-size: 80%;
+    }
+
+    tbody td {
+    font-size: 80%;
+    }
+
+    </style>
+    <div class="slds">
+    <apex:pageMessages id="pageMsg"/>
+    <apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}"/>
+    <apex:form id="pageForm">
+        <apex:outputPanel id="searchIcon" style="float: right;">
+            <img id="searchIcon" src="/img/loading.gif" style="display: none;"/>
+            <button id="refreshButton" class="slds-button slds-button--brand slds-button--small">
+                <apex:commandLink value="Refresh" onclick="displayLoad('searchIcon');" action="{!searchEventMessages}" reRender="mainPanel, searchIcon, pageMsg" style="color:white; text-decoration: none;" oncomplete="refreshScanEventsPage();"/>
+            </button>
+            <button id="viewButton" class="slds-button slds-button--brand slds-button--small" onclick="viewAllScanEvents('{!caseRecord.ArticleTest__c}');">View All</button>
+        </apex:outputPanel>
+        <apex:actionFunction name="rerenderMainPanel" rerender="mainPanel, pageMsg"/>
+        <apex:actionFunction name="logTimeAction" action="{!logTime}" rerender="mainPanel, pageMsg"/>
+        <br/><br/>
+        <apex:outputPanel id="mainPanel">
+            <div class="slds-text-heading--small" style="font-weight:bold;">Consignment Events:</div>
+            <apex:outputText value="No records found." style="color:gray; font-style:italic; padding-left:2em;" rendered="{!consignmentEvents.size == 0}" escape="false"/>
+            <apex:outputPanel rendered="{!consignmentEvents.size > 0}" id="consignmentEventsPanel">
+                <div class="slds-scrollable--x slds-scrollable--y" style="overflow:auto; width:100%;" id="firstDiv">
+                    <table class="slds-table slds-table--bordered" id="consignmentEventsTable">
+                        <thead>
+                            <tr class="slds-text-heading--label">
+                                <apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.StarTrack_Consignment_Events}" var="ce">
+                                    <th scope="col">
+                                        <span class="slds-truncate">
+                                            <apex:outputText value="{!ce.label}"/>
+                                            <!--apex:commandLink action="{!searchEventMessages}" value="{!ce.label}" style="color:gray; text-decoration: none;" id="commandlink">
+                                                <apex:param value="{!ce}" assignTo="{!conSortBY}" name="{!ce}"/>
+                                                <apex:outputPanel rendered="{!(conOrder == 'DESC')}">
+                                                    <apex:param value="ASC" assignTo="{!conOrder}" name="asc"/>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!(conOrder == 'ASC')}">
+                                                    <apex:param value="DESC" assignTo="{!conOrder}" name="desc"/>
+                                                </apex:outputPanel>
+                                            </apex:commandLink-->
+                                        </span>
+                                    </th>
+                                </apex:repeat>
+                             </tr>
+                        </thead>
+                        <tbody>
+                            <apex:repeat value="{!consignmentEvents}" var="conEvent">
+                                <tr class="slds-hint-parent">
+                                    <apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.StarTrack_Consignment_Events}" var="ce">
+                                        <td data-label="{!ce.label}" role="row">
+                                            <span class="slds-truncate">
+                                                <apex:outputField value="{!conEvent[ce]}" rendered="{!NOT((CONTAINS(ce, 'Event_Location__c') && conEvent.Facility__c <> null) || (CONTAINS(ce, 'Article__c')) || (ce == 'Name') || CONTAINS(ce, 'EventDescription__c'))}"/>
+                                                <apex:outputLink id="complink"
+                                                   onblur="LookupHoverDetail.getHover(this.id).hide();"
+                                                   onmouseout="LookupHoverDetail.getHover(this.id).hide();"
+                                                   onfocus="LookupHoverDetail.getHover(this.id, '/{!conEvent.Id}/m?retURL=%2F{!conEvent.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                   onmouseover="LookupHoverDetail.getHover(this.id, '/{!conEvent.Id}/m?retURL=%2F{!conEvent.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                   value="{!conEvent.Id}"
+                                                   onclick="getPrimaryTabIdAndOpenSubtab('{!conEvent.Id}', '');" rendered="{!((ce == 'Name')||CONTAINS(ce, 'EventDescription__c'))}">
+                                                <apex:outputText value="{!LEFT(conEvent[ce], 40)}..." rendered="{!IF(LEN(conEvent[ce]) > 40, true, false)}"/>
+                                                <apex:outputText value="{!conEvent[ce]}" rendered="{!IF(LEN(conEvent[ce]) < 41, true, false)}"/>
+
+                                                <!--apex:outputText value="{!LEFT(conEvent.EventDescription__c, 40)}..."/-->
+
+                                                </apex:outputLink>
+                                                <apex:outputPanel rendered="{!(CONTAINS(ce, 'Event_Location__c') && conEvent.Facility__c <> null)}" onclick="getPrimaryTabIdAndOpenSubtab('{!conEvent.Facility__c}', '')">
+                                                    <apex:outputField value="{!conEvent[ce]}"/>
+                                                </apex:outputPanel>
+                                                <apex:outputLink id="article1" rendered="{!(CONTAINS(ce, 'Article__c'))}" onclick="getPrimaryTabIdAndOpenSubtab('{!conEvent.Article__c}', '')"
+                                                    onblur="LookupHoverDetail.getHover(this.id).hide();"
+                                                    onmouseout="LookupHoverDetail.getHover(this.id).hide();"
+                                                    onfocus="LookupHoverDetail.getHover(this.id, '/{!conEvent.Article__c}/m?retURL=%2F{!conEvent.Article__c}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                    onmouseover="LookupHoverDetail.getHover(this.id, '/{!conEvent.Article__c}/m?retURL=%2F{!conEvent.Article__c}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                    value="{!conEvent.Article__c}">
+                                                    <apex:outputText value="{!conEvent.Article__r.Name}"/>
+                                                </apex:outputLink>
+                                            </span>
+                                        </td>
+                                    </apex:repeat>
+                                </tr>
+                            </apex:repeat>
+                        </tbody>
+                    </table>
+                </div>
+            </apex:outputPanel>
+            <br/>
+            <div class="slds-text-heading--small" style="font-weight:bold;">Last Event per Label:</div>
+            <apex:outputText value="No records found." style="color:gray; font-style:italic; padding-left:2em;" rendered="{!labelEvents.size == 0}" escape="false"/>
+            <apex:outputPanel rendered="{!labelEvents.size > 0}" id="labelEventsPanel">
+                <div class="slds-scrollable--x slds-scrollable--y" style="overflow:auto; width:100%;">
+                    <table class="slds-table slds-table--bordered" id="labelEventsTable">
+                        <thead>
+                            <tr class="slds-text-heading--label">
+                                <apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.StarTrack_Event_per_Label}" var="le">
+                                    <th scope="col">
+                                        <span class="slds-truncate">
+                                            <apex:outputText value="{!le.label}" rendered="{!(NOT(CONTAINS(le, 'Article__c')))}"/>
+                                             <apex:outputText value="Label" rendered="{!(CONTAINS(le, 'Article__c'))}"/>
+                                            <!--apex:commandLink action="{!searchEventMessages}" value="{!le.label}" style="color:gray; text-decoration: none;" id="commandlink1">
+                                                <apex:param value="{!le}" assignTo="{!labelSortBy}" name="{!le}"/>
+                                            </apex:commandLink-->
+                                        </span>
+                                    </th>
+                                </apex:repeat>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <apex:repeat value="{!labelEvents}" var="labelEvent">
+                                <tr class="slds-hint-parent">
+                                    <apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.StarTrack_Event_per_Label}" var="le">
+                                        <td data-label="{!le.label}" role="row">
+                                            <span class="slds-truncate">
+                                                <apex:outputField value="{!labelEvent[le]}" rendered="{!NOT((CONTAINS(le, 'Event_Location__c') && labelEvent.Facility__c <> null) || (CONTAINS(le, 'Article__c'))|| (le == 'Name') || CONTAINS(le, 'EventDescription__c'))}"/>
+                                                <apex:outputLink id="complink1"
+                                                   onblur="LookupHoverDetail.getHover(this.id).hide();"
+                                                   onmouseout="LookupHoverDetail.getHover(this.id).hide();"
+                                                   onfocus="LookupHoverDetail.getHover(this.id, '/{!labelEvent.Id}/m?retURL=%2F{!labelEvent.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                   onmouseover="LookupHoverDetail.getHover(this.id, '/{!labelEvent.Id}/m?retURL=%2F{!labelEvent.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                   value="{!labelEvent.Id}"
+                                                   onclick="getPrimaryTabIdAndOpenSubtab('{!labelEvent.Id}', '');" rendered="{!((le == 'Name')||CONTAINS(le, 'EventDescription__c'))}">
+                                                <!--apex:outputText value="{!labelEvent[le]}"/-->
+                                                <apex:outputText value="{!LEFT(labelEvent[le], 40)}..." rendered="{!IF(LEN(labelEvent[le]) > 40, true, false)}"/>
+                                                <apex:outputText value="{!labelEvent[le]}" rendered="{!IF(LEN(labelEvent[le]) < 41, true, false)}"/>
+                                                </apex:outputLink>
+                                                <apex:outputPanel rendered="{!(CONTAINS(le, 'Event_Location__c') && labelEvent.Facility__c <> null)}" onclick="getPrimaryTabIdAndOpenSubtab('{!labelEvent.Facility__c}', '')">
+                                                    <apex:outputField value="{!labelEvent[le]}"/>
+                                                </apex:outputPanel>
+                                                <apex:outputLink id="article2" rendered="{!(CONTAINS(le, 'Article__c'))}" onclick="getPrimaryTabIdAndOpenSubtab('{!labelEvent.Article__c}', '')"
+                                                    onblur="LookupHoverDetail.getHover(this.id).hide();"
+                                                    onmouseout="LookupHoverDetail.getHover(this.id).hide();"
+                                                    onfocus="LookupHoverDetail.getHover(this.id, '/{!labelEvent.Article__c}/m?retURL=%2F{!labelEvent.Article__c}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                    onmouseover="LookupHoverDetail.getHover(this.id, '/{!labelEvent.Article__c}/m?retURL=%2F{!labelEvent.Article__c}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                    value="{!labelEvent.Article__c}">
+                                                    <apex:outputText value="{!labelEvent.Article__r.Name}"/>
+                                                </apex:outputLink>
+                                            </span>
+                                        </td>
+                                    </apex:repeat>
+                                </tr>
+                            </apex:repeat>
+                        </tbody>
+                    </table>
+                </div>
+            </apex:outputPanel>
+                                <apex:outputText id="consignmentLastUpdateDateId" value="{!consignmentLastUpdateDate}" />
+
+        </apex:outputPanel>
+    </apex:form>
+    </div>
+    <script type="text/javascript">
+        // Force rerender of main panel to reflect callout results if any
+        rerenderMainPanel();
+        window.onload = logTimeAction();
+    </script>
+</apex:page>

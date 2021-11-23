@@ -1,0 +1,7 @@
+<apex:component controller="ssswRecentCustomerEmailMessage" access="global">
+    
+    <apex:attribute type="string" name="EnquiryId"  assignTo="{!caseId}" description="Case Id"/>
+    <apex:attribute type="boolean" name="text" assignTo="{!IsText}" description="Identify if text or not"/>
+    <apex:outputText value="{!em.HTMLBody}" escape="false" rendered="{!NOT(IsText)}"/>
+    <apex:outputText value="{!em.TextBody}" escape="true" rendered="{!IsText}"/>
+</apex:component>

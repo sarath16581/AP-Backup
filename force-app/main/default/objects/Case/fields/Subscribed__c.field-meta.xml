@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Subscribed__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field is set in Case workflow &quot;SSSW - Article Subscription&quot; and will be subsequently unset in code after a job is enqueued to asynchronously set the Article__c.Subscribed__c field. This is only required since the article subscription call is from an outbound message.
+
+At the conclusion of a case update, this field should be set back to False.
+
+Do not use this field for reporting.</description>
+    <externalId>false</externalId>
+    <label>Subscribed</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

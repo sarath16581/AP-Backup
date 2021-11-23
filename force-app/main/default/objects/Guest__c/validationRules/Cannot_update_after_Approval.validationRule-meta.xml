@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_update_after_Approval</fullName>
+    <active>true</active>
+    <description>After approval, only Attended, Invited, Accepted and Has guest fields can still be edited.</description>
+    <errorConditionFormula>ISPICKVAL(Event__r.Approval_Status__c, &quot;Approved&quot;) &amp;&amp;  ( Not(Or(ISCHANGED( Attended__c ),ISCHANGED(Invited__c ),ISCHANGED( Has_Guest__c ),ISCHANGED( Accepted__c ))) || Or(ischanged(Comment__c),ischanged(Guest_Name__c ),ischanged(Guest_Name__c ),ischanged(Reason_for_Invitation__c)) || ISNEW() ) &amp;&amp; $Profile.Name &lt;&gt;&quot;Marketing Event Controller&quot;</errorConditionFormula>
+    <errorMessage>You can only edit &apos;Attended&apos;,&apos;Invited&apos;,&quot;Accepted&apos; and &apos;Has Guest&apos; fields for guests after the event is approved.</errorMessage>
+</ValidationRule>

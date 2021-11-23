@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Age_of_Request__c</fullName>
+    <externalId>false</externalId>
+    <formula>Case(Approval_Status__c,&quot; Pending&quot;, NOW()- Date_Special_Price_Request_Sent__c, &quot;Submitted&quot;, NOW()- Date_Special_Price_Request_Sent__c, &quot;Approved&quot;,  Date_Special_Price_Request_Approved__c -Date_Special_Price_Request_Sent__c, 0) -  Total_Time_on_Hold_F__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Age of Request</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

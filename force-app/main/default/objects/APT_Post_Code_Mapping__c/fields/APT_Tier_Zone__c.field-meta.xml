@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Tier_Zone__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( OR(APT_Direct_Zone__c  = &apos;SYD&apos;,APT_Direct_Zone__c  = &apos;MEL&apos;) , &apos;Sydney/Melbourne&apos;,  IF(APT_Direct_Zone__c  = &apos;BRS&apos;, &apos;Brisbane&apos; ,  IF(OR(APT_Direct_Zone__c  = &apos;ADL&apos;,APT_Direct_Zone__c  = &apos;PER&apos;), &apos;Adelaide/Perth&apos;, &apos;Outer Metro/Regional&apos;) ) )</formula>
+    <label>Tier Zone</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

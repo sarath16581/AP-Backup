@@ -1,0 +1,41 @@
+<aura:component implements="forceCommunity:layout" access="global" description="Ideas homepage content layout">
+    <aura:attribute name="DescriptionBlock" type="Aura.Component[]" required="false" />
+    <aura:attribute name="FeaturedBlock" type="Aura.Component[]" required="false" />
+    <aura:attribute name="ArticlesBlock" type="Aura.Component[]" required="false" /> 
+
+    <div class="ideas-home">
+        <div class="description-block">
+            <div class="inner-content">
+                <div class="html-content">{!v.DescriptionBlock}</div>
+                <div class="list-link" style="{!'background: url(' + $Resource.AusPostCommunity + '/images/landing-description-bg.png) no-repeat 0 0'}">
+                    <h2>Got an Idea?</h2>
+                    <a href="ideas-list">See all Ideas</a>
+                </div>
+            </div>
+        </div>
+        <div class="featured-block">
+            <div class="inner-content">{!v.FeaturedBlock}</div>
+        </div>
+        <div class="articles-block">
+            <div class="inner-content">
+                <h2>You posted, we listened</h2>
+                <p>Here are a few of the community's ideas we've implemented</p>
+                <div class="list">
+                    <div class="article">
+                        <a href="#" class="img"><img src="{!$Resource.DemoPics + '/implemented-idea-1.jpg'}" alt="img" /></a>
+                        <a href="#">Dron trials to continue in 2018</a>
+                    </div>
+                    <div class="article">
+                        <a href="#" class="img"><img src="{!$Resource.DemoPics + '/implemented-idea-2.jpg'}" alt="img" /></a>
+                        <a href="#">Posties to ride hybrid bikes in 2020</a>
+                    </div>
+                    <div class="article">
+                        <a href="#" class="img"><img src="{!$Resource.DemoPics + '/implemented-idea-3.jpg'}" alt="img" /></a>
+                        <a href="#">Make Parcel Lockers available in regional Victoria</a>
+                    </div>
+                </div>
+                {!v.ArticlesBlock}
+            </div>
+        </div>
+    </div>
+</aura:component>

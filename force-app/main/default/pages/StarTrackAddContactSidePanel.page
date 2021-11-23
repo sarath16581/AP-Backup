@@ -1,0 +1,274 @@
+<!--
+    Description: This page is used as a replacement of the standard Add Contact functionality.
+    History:
+    September 1, 2016 David Catindoy (Accenture) Created
+    February 1, 2018 Angelo Rivera - CCTR Project - Added JS method and action funtion to prepopulate New Contact Fields
+    2018-06-18 Kalpita.Talwadekar@auspost.com.au - CCTR Project - Added support for click to dial
+    2018-06-20 nathan.franklin@auspost.com.au - CCTR Project - Minor changes to harden CTI code
+    -->
+<apex:page standardStylesheets="true" standardController="Case" extensions="StarTrackAddContactSidePanel_ControllerX"
+		   showHeader="true" sidebar="false" docType="html-5.0">
+	<!-- NOTE: show header is TRUE to support support:clickToDial -->
+
+	<apex:includeScript value="/support/console/34.0/integration.js"/>
+	<apex:includeScript value="/support/api/34.0/interaction.js"/>
+	<apex:includeScript value="/canvas/sdk/js/publisher.js"/>
+	<apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}"/>
+	<apex:includeScript value="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"/>
+	<script type="text/javascript">
+
+        function passVariable(){
+            var checkbox = document.getElementById('callLog').checked;
+            callLogChange(checkbox);
+        }
+
+        function passNotificationVariable(){
+            var checkbox = document.getElementById('notifReq').checked;
+            notifReqChange(checkbox);
+        }
+    </script>
+
+	<script type='text/javascript'>
+
+    //START - CCTR - APRivera - 31012018 - Added function for the prepopulation of fields
+	var caseId = '{!caseId}'; // 18 chars long
+    var listener = function (result){
+        var payload = JSON.parse(result.message);
+        console.log('>> Received ParentDataResponse_AddContactDetails payload', payload, caseId);
+
+        // ensure the event being sent is specific to the case id loaded in this window.
+        // without this check, the event will be processed by every window with an open case
+        if(payload.caseId && payload.caseId == caseId) {
+         	populateNewContactDetails(payload.phoneNumber, payload.callerType, 'false');
+        }
+    };
+    sforce.console.addEventListener('ParentDataResponse_AddContactDetails', listener);
+
+    var listener2 = function (result){
+        var payload = JSON.parse(result.message);
+        console.log('>> Received ParentDataResponse_LoadContact payload', payload, caseId);
+
+        // ensure the event being sent is specific to the case id loaded in this window.
+        // without this check, the event will be processed by every window with an open case
+        if(payload.caseId && payload.caseId == caseId) {
+         	loadRelatedContactValues(payload.relatedContactId, 'true');
+        }
+    };
+    sforce.console.addEventListener('ParentDataResponse_LoadContact', listener2);
+
+    jQuery(function() {
+        sforce.console.fireEvent('RequestParentData_AddContactDetails');
+		sforce.console.fireEvent('RequestParentData_LoadContact');
+	});
+
+
+    //END - CCTR - APRivera - 31012018 - Added function for the prepopulation of fields
+    </script>
+
+	<div class="slds" style="padding-left: 7px; padding-right: 7px;">
+		<div class="slds-form-element">
+			<apex:pageMessages id="pageMsg"/>
+			<apex:actionstatus id="counterStatus">
+				<apex:facet name="start">
+					<div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb; height:100%; width:100%; opacity:0.65;">
+						<div class="waitingHolder" style="top: 50%; width: 50%;">
+							<img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+							<span class="waitingDescription">Loading...</span>
+						</div>
+					</div>
+				</apex:facet>
+			</apex:actionstatus>
+
+			<apex:form id="pageForm" ondblclick="makeEditable();">
+				<apex:actionFunction name="autoPopulateFields" action="{!autoPopulateFields}" rerender="pageMsg, pageForm" status="counterStatus"/>
+
+				<apex:actionFunction name="populateNewContactDetails" action="{!populateField}" rerender="pageMsg, pageForm">
+					<apex:param name="phoneNumber" value="" assignTo="{!phoneNumber}" />
+					<apex:param name="callerType" value="" assignTo="{!callerType}" />
+					<apex:param name="withRelatedContact" value="" assignTo="{!withRelatedContact}"/>
+				</apex:actionFunction>
+				<apex:actionFunction name="loadRelatedContactValues" action="{!populateField}" rerender="pageMsg, pageForm">
+					<apex:param name="loadRelatedContactValues" value="" assignTo="{!relatedContactId}"/>
+					<apex:param name="withRelatedContact" value="" assignTo="{!withRelatedContact}"/>
+				</apex:actionFunction>
+
+				<apex:actionFunction name="callLogChange" rerender="maindetail">
+					<apex:param name="setCallLogCx" value="" assignTo="{!caseRec.Callers_Data_Change__c}"/>
+				</apex:actionFunction>
+
+				<apex:actionFunction name="notifReqChange" rerender="maindetail">
+					<apex:param name="setNotifReq" value="" assignTo="{!caseRec.Notification_Required__c}"/>
+				</apex:actionFunction>
+
+				<apex:actionFunction name="makeEditable" action="{!changeEditFlag}" rerender="pageMsg, pageForm" status="counterStatus"/>
+
+				<apex:outputPanel id="searchIcon" style="float: right; padding-top: 7px;">
+					<apex:commandButton id="editButton" styleClass="slds-button slds-button--brand slds-button--small" action="{!changeEditFlag}" rendered="{!NOT(isEdit)}" disabled="{!caseId == null}" rerender="pageMsg, pageForm" status="counterStatus" value="Edit"/>
+					<apex:commandButton id="cancelButton" styleClass="slds-button slds-button--brand slds-button--small" action="{!cancelEdit}" rerender="pageMsg, pageForm" rendered="{!isEdit}" style="right: 7px;" status="counterStatus" value="Cancel"/>
+					<apex:commandButton id="saveButton" styleClass="slds-button slds-button--brand slds-button--small" rendered="{!isEdit}" action="{!saveContactDetails}" rerender="pageMsg, pageForm" value="Save" status="counterStatus" oncomplete="refreshCaseRecord();"/>
+				</apex:outputPanel>
+				<apex:pageBlock rendered="{!isEdit}" mode="maindetail">
+					<apex:outputLabel value="Contact List" style="font-weight: bold; color: #16325c;" />
+					<center>
+						<div class="slds-select_container" style="width: 75%;" id="pickListDiv">
+							<apex:selectList value="{!selectedConId}" size="1" styleClass="slds-select" onchange="autoPopulateFields();">
+								<apex:selectOptions value="{!contacts}"/>
+							</apex:selectList>
+						</div>
+					</center>
+				</apex:pageBlock>
+				<apex:pageBlock mode="maindetail">
+					<apex:outputLabel value="Contact Details" style="font-weight: bold; color: #16325c;"/>
+					<apex:outputPanel rendered="true">
+						<div class="slds-grid">
+							<div class="slds-col" style="padding-right: 7px; width:50%;">
+								<label class="slds-form-element__label" for="firstName">Contact First Name</label>
+								<apex:outputPanel rendered="{!isEdit}">
+									<!--<input id="firstName" class="slds-input" type="text" placeholder="First Name" value="{!caseRec.Recent_Caller_First_Name__c}"/>-->
+									<apex:inputField id="firstName" styleClass="slds-input" value="{!caseRec.Recent_Caller_First_Name__c}"/>
+								</apex:outputPanel>
+								<apex:outputPanel rendered="{!NOT(isEdit)}">
+									<div class="slds-text-body--regular" style="color: #16325c; height: 20;">{!caseRec.Recent_Caller_First_Name__c}</div>
+								</apex:outputPanel>
+							</div>
+							<div class="slds-col" style="width:50%;">
+								<label class="slds-form-element__label" for="lastName">Contact Last Name</label>
+								<apex:outputPanel rendered="{!isEdit}">
+									<apex:inputField id="lastName" styleClass="slds-input" value="{!caseRec.Recent_Caller_Last_Name__c}"/>
+								</apex:outputPanel>
+								<apex:outputPanel rendered="{!NOT(isEdit)}">
+									<div class="slds-text-body--regular" style="color: #16325c;">{!caseRec.Recent_Caller_Last_Name__c}</div>
+								</apex:outputPanel>
+							</div>
+						</div>
+						<div class="slds-grid">
+							<div class="slds-col" style="padding-right: 7px; width:50%;">
+								<label class="slds-form-element__label" for="mobileNumber">Contact Mobile Number</label>
+								<apex:outputPanel rendered="{!isEdit}">
+									<apex:inputField id="mobileNumber" styleClass="slds-input" value="{!caseRec.Recent_Contact_Mobile_Number__c}"/>
+								</apex:outputPanel>
+								<apex:outputPanel rendered="{!NOT(isEdit)}">
+									<!--div class="slds-text-body--regular" style="color: #16325c;">{!caseRec.Recent_Contact_Mobile_Number__c}</div -->
+
+									<support:clickToDial number="{!caseRec.Recent_Contact_Mobile_Number__c}" entityId="{!caseRec.id}"/>
+								</apex:outputPanel>
+							</div>
+							<div class="slds-col" style="width:50%;">
+								<label class="slds-form-element__label" for="phoneNumber">Contact Phone Number</label>
+								<apex:outputPanel rendered="{!isEdit}">
+									<apex:inputField id="phoneNumber" styleClass="slds-input" value="{!caseRec.Recent_Caller_Phone_Number__c}"/>
+								</apex:outputPanel>
+								<apex:outputPanel rendered="{!NOT(isEdit)}">
+									<!--div class="slds-text-body--regular" style="color: #16325c;">{!caseRec.Recent_Caller_Phone_Number__c}</div -->
+
+									<support:clickToDial number="{!caseRec.Recent_Caller_Phone_Number__c}" entityId="{!caseRec.id}"/>
+								</apex:outputPanel>
+							</div>
+						</div>
+						<div class="slds-grid">
+							<div class="slds-col" style="padding-right: 7px; width:50%;">
+								<label class="slds-form-element__label" for="contactEmail">Contact Email</label>
+								<apex:outputPanel rendered="{!isEdit}">
+									<apex:inputField id="contactEmail" styleClass="slds-input" value="{!caseRec.Recent_Caller_Email__c}"/>
+								</apex:outputPanel>
+								<apex:outputPanel rendered="{!NOT(isEdit)}">
+									<div class="slds-text-body--regular" style="color: #16325c;"><a href="mailto:{!caseRec.Recent_Caller_Email__c}">
+										<apex:outputText value="{!LEFT(caseRec.Recent_Caller_Email__c, 15)}..." rendered="{!IF(LEN(caseRec.Recent_Caller_Email__c) > 15, true, false)}"/>
+										<apex:outputText value="{!caseRec.Recent_Caller_Email__c}" rendered="{!IF(LEN(caseRec.Recent_Caller_Email__c) < 16, true, false)}"/></a></div>
+								</apex:outputPanel>
+							</div>
+							<div class="slds-col" style="width:50%;">
+								<label class="slds-form-element__label" for="prefMethod">Pref Method Of Contact</label>
+								<apex:inputField id="prefMethod" value="{!caseRec.Recent_Caller_Pref_Method_of_Contact__c}" styleClass="slds-select" rendered="{!isEdit}"/>
+								<apex:outputPanel rendered="{!NOT(isEdit)}">
+									<div class="slds-text-body--regular" style="color: #16325c;">{!caseRec.Recent_Caller_Pref_Method_of_Contact__c}</div>
+								</apex:outputPanel>
+							</div>
+						</div>
+						<div class="slds-grid">
+							<div class="slds-col" style="padding-right: 7px; width:50%;">
+								<label class="slds-form-element__label" for="contactType">Contact Type</label>
+								<apex:inputField id="contactType" value="{!caseRec.Recent_Caller_Type__c}" styleClass="slds-select" rendered="{!isEdit}"/>
+								<apex:outputPanel rendered="{!NOT(isEdit)}">
+									<div class="slds-text-body--regular" style="color: #16325c;">{!caseRec.Recent_Caller_Type__c}</div>
+								</apex:outputPanel>
+							</div>
+							<div class="slds-col" style="width:50%;">
+								<label class="slds-form-element__label" for="direction">Direction</label>
+								<apex:inputField id="direction" value="{!caseRec.Direction__c}" styleClass="slds-select" rendered="{!isEdit}"/>
+								<apex:outputPanel rendered="{!NOT(isEdit)}">
+									<div class="slds-text-body--regular" style="color: #16325c;">{!caseRec.Direction__c}</div>
+								</apex:outputPanel>
+							</div>
+						</div>
+						<div class="slds-grid">
+							<div class="slds-col" style="width:50%;">
+								<label class="slds-form-element__label" for="notifReq">Notification Required?</label>
+								<div class="slds-form-element__control">
+									<label class="slds-checkbox" for="notifReq">
+										<input id="notifReq" name="checkbox" type="checkbox" onchange="passNotificationVariable();"/>
+										<span class="slds-checkbox--faux"></span>
+										<span class="slds-form-element__label"></span>
+									</label>
+								</div>
+							</div>
+							<div class="slds-col" style="padding-right: 7px; width:50%;">
+								<label class="slds-form-element__label" for="callLog">Create Call Log</label>
+								<div class="slds-form-element__control">
+									<label class="slds-checkbox" for="callLog">
+										<input id="callLog" name="checkbox" type="checkbox" onchange="passVariable();"/>
+										<span class="slds-checkbox--faux"></span>
+										<span class="slds-form-element__label"></span>
+									</label>
+								</div>
+							</div>
+						</div>
+					</apex:outputPanel>
+					<apex:inputHidden id="inputHidden" value="{!saveSuccess}"/>
+				</apex:pageBlock>
+				<script type="text/javascript">
+                // Populate checkbox value
+                document.getElementById('notifReq').checked = {!caseRec.Notification_Required__c};
+                if({!isEdit}){
+                    document.getElementById('callLog').checked = {!caseRec.Callers_Data_Change__c};
+                } else{
+                     document.getElementById('callLog').disabled = true;
+                     document.getElementById('notifReq').disabled = true;
+                }
+                
+                function refreshCaseRecord(){
+                    if({!saveSuccess}){
+                        jQuery('[id$=inputHidden]').val(false);
+                        sforce.interaction.entityFeed.refreshObject('{!caseRec.Id}', true, true, true);
+                        Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload : {feed: true, objectFields: true, objectRelatedLists: {}}});
+                    }
+                }
+                
+                $(document).ready(function(){
+                    
+                    if({!noContactSelected}){
+                        $("input[id$=firstName]").prop("disabled", true);
+                        $("input[id$=lastName]").prop("disabled", true);
+                        $("input[id$=phoneNumber]").prop("disabled", true);
+                        $("input[id$=mobileNumber]").prop("disabled", true);
+                        $("input[id$=contactEmail]").prop("disabled", true);
+                        $("select[id$=prefMethod]").prop("disabled", true);
+                        $("select[id$=contactType]").prop("disabled", true);
+                        $("select[id$=direction]").prop("disabled", true);
+                        $("input[id$=callLog]").prop("disabled", true);
+                        $("input[id$=notifReq]").prop("disabled", true);
+                    }
+                    
+                    if({!legalEntityContact}){
+                        $("input[id$=firstName]").prop("disabled", true);
+                        $("input[id$=lastName]").prop("disabled", true);
+                        $("input[id$=phoneNumber]").prop("disabled", true);
+                        $("input[id$=mobileNumber]").prop("disabled", true);
+                        $("input[id$=contactEmail]").prop("disabled", true);
+                    }
+                });
+                </script>
+			</apex:form>
+		</div>
+	</div>
+</apex:page>

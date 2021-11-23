@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>2-Way SMS template for Addressee</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Addressee 2-Way SMS No Response</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference {!Case.CaseNumber}
+
+Update for {!Case.Type} - {!Case.CaseNumber}
+
+Hi {!Contact.FirstName},
+
+Thanks for letting us know that the parcel {!Case.ReferenceID__c} sent to you hasn’t turned up, we know how disappointing it is when something you’re eagerly waiting for isn’t delivered on time.
+
+A couple of days ago we sent you a text message requesting further information and we haven’t heard back from you yet.
+
+{!Contact.FirstName}, feel free to hit delete on this email if you have received the parcel since we last spoke. Occasionally, for one reason or another, parcels can be delivered without the correct tracking updates.
+
+If this isn’t the case and it remains outstanding, given the amount of time that’s past since the last update, we now have to declare your parcel lost in transit.
+
+The best next step at this point is to reach out to the sender and inform them of the outcome. As you have not physically received the parcel they are best placed to assist you moving forward, in fact, if they have further questions please provide them with this case number, {!Case.CaseNumber}, and tell them to get in touch with us.
+
+Sorry we weren’t able to get a positive result for you, and utmost apologies for any inconvenience this has caused.
+
+Regards,
+
+Australia Post
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

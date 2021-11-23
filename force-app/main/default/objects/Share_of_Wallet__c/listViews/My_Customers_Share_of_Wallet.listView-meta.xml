@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Customers_Share_of_Wallet</fullName>
+    <columns>NAME</columns>
+    <columns>Legal_Entity_Name__c</columns>
+    <columns>Service__c</columns>
+    <columns>Distribution_Type__c</columns>
+    <columns>Total_estimated_spend_on_this_Service__c</columns>
+    <columns>Accessible_Amount_FY__c</columns>
+    <columns>Inaccessible_Amount_FY__c</columns>
+    <columns>AP_Spend_FY__c</columns>
+    <columns>Spent_with_Competitor__c</columns>
+    <columns>Primary_Competitor_Spend_FY__c</columns>
+    <columns>Date_of_contract_renegotiation__c</columns>
+    <columns>Secondary_Competitor__c</columns>
+    <columns>Secondary_Competitor_Spend_FY__c</columns>
+    <columns>Account_Plan__c</columns>
+    <filterScope>Mine</filterScope>
+    <label>My Customers - Share of Wallet</label>
+    <language>en_US</language>
+</ListView>

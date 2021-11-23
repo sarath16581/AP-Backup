@@ -1,0 +1,33 @@
+<!-- Created by conrad.c.v.borbon on September 17, 2018
+----- Last modified date: September 17, 2018
+----- VF Page to mass update files in Apttus Contract
+-->
+<apex:page controller="FileEditController" showHeader="true" sidebar="true" >
+    <apex:form >
+        <apex:pageBlock title="Files">
+            <apex:pageBlockTable value="{!mainCvList}" var="cVersion">
+                <apex:column >
+                    <apex:facet name="header">Title</apex:facet>
+                    <apex:outputField value="{!cVersion.Title}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Document Type</apex:facet>
+                    <apex:inputField value="{!cVersion.Document_Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Is Signed ?</apex:facet>
+                    <apex:inputField value="{!cVersion.Is_Signed__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Signature Type</apex:facet>
+                    <apex:inputField value="{!cVersion.Signature_Type__c}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!saveRecords}" value="Save" id="btnSave"/>
+                <apex:commandButton action="{!setCon.cancel}" value="Cancel" id="btnCancel"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

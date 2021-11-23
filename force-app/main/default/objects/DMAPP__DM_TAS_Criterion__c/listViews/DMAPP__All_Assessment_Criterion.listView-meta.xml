@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__All_Assessment_Criterion</fullName>
+    <columns>DMAPP__Order_Number__c</columns>
+    <columns>DMAPP__TAS_Question__c</columns>
+    <columns>NAME</columns>
+    <columns>DMAPP__Criterion_Text__c</columns>
+    <columns>DMAPP__No_Score__c</columns>
+    <columns>DMAPP__Unknown_Score__c</columns>
+    <columns>DMAPP__Yes_Score__c</columns>
+    <columns>DMAPP__Recommended__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Assessment Criterion</label>
+</ListView>

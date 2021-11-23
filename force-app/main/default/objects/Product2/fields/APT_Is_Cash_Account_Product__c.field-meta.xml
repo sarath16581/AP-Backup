@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Is_Cash_Account_Product__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>To check if the Billing Account associated to the product is of Cash Type</description>
+    <externalId>false</externalId>
+    <label>Is Cash Account Product</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

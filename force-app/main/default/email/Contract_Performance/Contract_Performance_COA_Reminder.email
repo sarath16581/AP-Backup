@@ -1,0 +1,32 @@
+<messaging:emailTemplate subject="Customer Performance Reminder" recipientType="User" relatedToType="Contract_Performance_Result__c">
+<messaging:plainTextEmailBody >
+This is an automated email.
+The following Customer Performance COA Result is Due on <apex:outputText value="{0, date, dd-MM-yyyy}"><apex:Param value="{!relatedTo.Result_Due_Date__c}" /></apex:OutputText>
+ 
+Customer Performance Name : {!relatedTo.Contract_Performance_Agreement_Name__c}  
+COA Name: {!relatedTo.name}
+Measure: {!relatedTo.Measurement_Name__c} 
+Result Cycle: {!relatedTo.Cycle__c}
+
+Please email the Result to  {!relatedTo.owner.name} on {!relatedTo.owner.email}
+
+Record Link:  {!LEFT($Api.Partner_Server_URL_140, FIND('.com', $Api.Partner_Server_URL_140) + 4) + relatedTo.id}
+
+</messaging:plainTextEmailBody>
+<messaging:htmlEmailBody >
+This is an automated email.
+<br/>
+The following Customer Performance COA Result is Due on <apex:outputText value="{0, date, dd-MM-yyyy}"><apex:Param value="{!relatedTo.Result_Due_Date__c}" /></apex:OutputText> 
+<br/><br/>
+<Table>
+<tr><td>Customer Performance Name</td><td>:</td><td>{!relatedTo.Contract_Performance_Agreement_Name__c}</td></tr>
+<tr><td>COA Name</td><td>:</td><td>{!relatedTo.name}</td></tr>
+<tr><td>Measure</td><td>:</td><td>{!relatedTo.Measurement_Name__c}</td></tr>
+<tr><td>Result Cycle</td><td>:</td><td>{!relatedTo.Cycle__c}</td></tr>
+</Table>
+<br/><br/>
+Please email the Result to  {!relatedTo.owner.name} on {!relatedTo.owner.email}
+<br/>
+Record Link:  {!LEFT($Api.Partner_Server_URL_140, FIND('.com', $Api.Partner_Server_URL_140) + 4) + relatedTo.id}
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

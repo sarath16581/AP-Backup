@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phase_2_Changes_need_to_be_in_Request2</fullName>
+    <active>true</active>
+    <description>Proposed Account Manager can not be the same as current Account Manager</description>
+    <errorConditionFormula>AND( 
+Proposed_Account_Manager__r.Id = Organisation__r.OwnerId, 
+NOT(ISPICKVAL( Approval_Status__c , &quot;Approved&quot;)||ISPICKVAL( Approval_Status__c , &quot;Processed&quot;)||ISPICKVAL( Approval_Status__c , &quot;Failed&quot;)))</errorConditionFormula>
+    <errorDisplayField>Proposed_Account_Manager__c</errorDisplayField>
+    <errorMessage>Proposed Account Manager can not be the same as current Account Manager</errorMessage>
+</ValidationRule>

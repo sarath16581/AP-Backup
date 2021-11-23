@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notification to new Org Owner when Org Owner changed</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Phase 2 - New Addition to Portfolio</name>
+    <style>none</style>
+    <subject>New Addition to Your Portfolio</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

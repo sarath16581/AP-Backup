@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ColourCode__c</fullName>
+    <defaultValue>&quot;None&quot;</defaultValue>
+    <description>Colour code associated with this event.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Colour code associated with this event.</inlineHelpText>
+    <label>Colour Code</label>
+    <required>true</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Blue</fullName>
+                <default>false</default>
+                <label>Blue</label>
+            </value>
+            <value>
+                <fullName>Green</fullName>
+                <default>false</default>
+                <label>Green</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>true</default>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>Orange</fullName>
+                <default>false</default>
+                <label>Orange</label>
+            </value>
+            <value>
+                <fullName>Purple</fullName>
+                <default>false</default>
+                <label>Purple</label>
+            </value>
+            <value>
+                <fullName>Red</fullName>
+                <default>false</default>
+                <label>Red</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

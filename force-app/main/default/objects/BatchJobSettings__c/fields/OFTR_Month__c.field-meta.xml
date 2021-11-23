@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OFTR_Month__c</fullName>
+    <defaultValue>&quot;*&quot;</defaultValue>
+    <description>ECLM - Used by Apex Batch &quot;OpportunityFixedTermRenewal_Schedule&quot; - The month value for the schedule.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>ECLM - Used by Apex Batch &quot;OpportunityFixedTermRenewal_Schedule&quot; - The month value for the schedule.</inlineHelpText>
+    <label>OFTR - Month</label>
+    <length>10</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

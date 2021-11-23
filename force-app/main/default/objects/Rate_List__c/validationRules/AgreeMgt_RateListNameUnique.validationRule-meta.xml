@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AgreeMgt_RateListNameUnique</fullName>
+    <active>true</active>
+    <description>Validation rule to enforce uniqueness of Rate List Name field</description>
+    <errorConditionFormula>AND(
+    UPPER(Name) = 
+    UPPER(VLOOKUP($ObjectType.Rate_List__c.Fields.Name , $ObjectType.Rate_List__c.Fields.Name, Name )),
+    NOT(
+     Id=VLOOKUP($ObjectType.Rate_List__c.Fields.Id , $ObjectType.Rate_List__c.Fields.Name, Name )))</errorConditionFormula>
+    <errorMessage>The Rate List Name field must be unique.</errorMessage>
+</ValidationRule>

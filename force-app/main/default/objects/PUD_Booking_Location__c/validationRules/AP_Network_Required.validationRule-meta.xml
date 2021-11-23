@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AP_Network_Required</fullName>
+    <active>true</active>
+    <description>A network booking location must have a network associated.</description>
+    <errorConditionFormula>AND ( RecordType.DeveloperName = &apos;AP_Network&apos;,
+      ISBLANK(Network__c)
+)</errorConditionFormula>
+    <errorMessage>A network booking location must have a network associated.</errorMessage>
+</ValidationRule>

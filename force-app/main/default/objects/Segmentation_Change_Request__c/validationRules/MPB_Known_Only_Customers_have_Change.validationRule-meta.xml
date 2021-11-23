@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MPB_Known_Only_Customers_have_Change</fullName>
+    <active>true</active>
+    <description>MPB - Known Account Management - Not Allowed to raise a change request for a known customer</description>
+    <errorConditionFormula>Organisation__r.Role_Type_Roll_Up__c =&quot;Known&quot;</errorConditionFormula>
+    <errorDisplayField>Approval_Status__c</errorDisplayField>
+    <errorMessage>You can not raise a change request for a Known.</errorMessage>
+</ValidationRule>

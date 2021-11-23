@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Requestor_Name__c</fullName>
+    <defaultValue>$User.FirstName +&quot; &quot;+$User.LastName</defaultValue>
+    <description>Name of the person raising the request</description>
+    <externalId>false</externalId>
+    <label>Requestor Name</label>
+    <length>100</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

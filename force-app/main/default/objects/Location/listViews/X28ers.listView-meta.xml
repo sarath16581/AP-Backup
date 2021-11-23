@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X28ers</fullName>
+    <columns>Name</columns>
+    <columns>LocationType</columns>
+    <columns>Barcode_A__c</columns>
+    <columns>Description</columns>
+    <columns>FleetNumber__c</columns>
+    <columns>Hire_Vehicle__c</columns>
+    <columns>Service_Territory__c</columns>
+    <columns>Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Capacity__c</field>
+        <operation>equals</operation>
+        <value>28</value>
+    </filters>
+    <filters>
+        <field>Service_Territory__c</field>
+        <operation>equals</operation>
+        <value>Melbourne,Dandenong</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Decommissioned</value>
+    </filters>
+    <label>28ers</label>
+</ListView>

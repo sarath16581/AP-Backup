@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Reputation Points</label>
+    <protected>false</protected>
+    <values>
+        <field>Description__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Value__c</field>
+        <value xsi:type="xsd:string">{&quot;votePoints&quot;:&quot;2&quot;,&quot;postCommentPoints&quot;:&quot;3&quot;,&quot;postIdeaPoints&quot;:&quot;5&quot;}</value>
+    </values>
+</CustomMetadata>

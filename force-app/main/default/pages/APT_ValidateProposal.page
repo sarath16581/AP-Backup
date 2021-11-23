@@ -1,0 +1,18 @@
+<apex:page Controller="APT_ValidateProposalController" showHeader="true" sidebar="true">
+    <script type="text/javascript">
+        showConfirmation();
+        function showConfirmation() 
+        {
+            var validationRes = "{!checkAndRedirect}"; 
+            if(validationRes == 'success') 
+            {
+                window.location.href = '/apex/{!pageSource}?id={!propID}';
+            }
+            else
+            {
+                alert(validationRes);
+                window.location.href = '/{!propID}';
+            }
+        }
+    </script>
+</apex:page>

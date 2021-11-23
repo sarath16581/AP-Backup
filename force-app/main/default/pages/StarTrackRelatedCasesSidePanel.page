@@ -1,0 +1,103 @@
+<apex:page standardStylesheets="true" standardController="Case" extensions="StarTrackRelatedCasesSidePanelController" showHeader="false" sidebar="false" docType="html-5.0">
+    <apex:includeScript value="/support/console/34.0/integration.js"/>
+    <apex:includeScript value="/support/api/34.0/interaction.js"/>
+    <apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}"/>
+    <style>
+
+    thead th {
+    font-size: 80%;
+    }
+
+    tbody td {
+    font-size: 80%;
+    }
+
+    </style>
+    <script type="text/javascript">
+        var caseNum;
+        function openCaseRecord(caseId, caseNumber){
+            if(sforce && sforce.console && sforce.console.isInConsole()){
+                caseNum = caseNumber;
+                sforce.console.openPrimaryTab(null, '/' + caseId, true, '', openSuccess, caseNumber);
+            } 
+        }
+        
+        function openSubTabDetail(objId){
+            if(sforce && sforce.console && sforce.console.isInConsole()){
+                sforce.console.getFocusedPrimaryTabId(function(primaryTab){
+                    sforce.console.openSubtab(primaryTab.id, '/' + objId, true);
+                });
+            }
+        }
+        
+        var openSuccess = function openSuccess(result) {
+            if (result.success == false) {
+                 sforce.console.focusPrimaryTabByName(caseNum);
+            }
+        };
+    </script>
+    <div class="slds" style="padding-left: 7px; padding-right: 7px;">
+        <div class="slds-form-element">
+            <apex:pageMessages id="pageMsg"/>
+            <apex:form id="pageForm">
+                <apex:outputText value="No records found." style="color:gray; font-style:italic; padding-left:2em;" rendered="{!billingAccountRelatedCases.size == 0}" escape="false"/>
+                <apex:outputPanel id="billingAccountRelatedCasesPanel" rendered="{!billingAccountRelatedCases.size > 0}">
+                    <div class="slds-scrollable--x slds-scrollable--y" style="overflow:auto; width:100%; max-height: 590px;" id="firstDiv">
+                        <table class="slds-table slds-table--bordered" id="billingAccountRelatedCasesTable">
+                            <thead>
+                                <tr class="slds-text-heading--label">
+                                    <apex:repeat value="{!$ObjectType.Case.FieldSets.StarTrack_Billing_Account_Related_Cases}" var="caseField">
+                                        <th scope="col">
+                                            <span class="slds-truncate">
+                                                <apex:outputText value="{!caseField.label}" rendered="{!(caseField != 'OwnerId')}"/>
+                                                <apex:outputText value="Case Owner" rendered="{!(caseField == 'OwnerId')}"/>
+                                            </span>
+                                        </th>
+                                    </apex:repeat>
+                                 </tr>
+                            </thead>
+                            <tbody>
+                                <apex:repeat value="{!billingAccountRelatedCases}" var="relCase">
+                                    <tr class="slds-hint-parent">
+                                        <apex:repeat value="{!$ObjectType.Case.FieldSets.StarTrack_Billing_Account_Related_Cases}" var="caseField">
+                                            <td data-label="{!caseField.label}" role="row">
+                                                <span class="slds-truncate">
+                                                    <apex:outputField value="{!relCase[caseField]}" rendered="{!NOT(OR(caseField == 'CaseNumber', caseField == 'OwnerId', caseField == 'Owner.Alias', caseField == 'ArticleTest__c'))}"/>
+                                                    <apex:outputLink id="caseNumlink"
+                                                       onblur="LookupHoverDetail.getHover(this.id).hide();"
+                                                       onmouseout="LookupHoverDetail.getHover(this.id).hide();"
+                                                       onfocus="LookupHoverDetail.getHover(this.id, '/{!relCase.Id}/m?retURL=%2F{!relCase.Id}&isAjaxRequest=1').show();"
+                                                       onmouseover="LookupHoverDetail.getHover(this.id, '/{!relCase.Id}/m?retURL=%2F{!relCase.Id}&isAjaxRequest=1').show();"
+                                                       value="{!relCase.Id}"
+                                                       onclick="openCaseRecord('{!relCase.Id}', '{!relCase.CaseNumber}'); return false;" rendered="{!(caseField == 'CaseNumber')}">
+                                                    <apex:outputText value="{!relCase[caseField]}"/></apex:outputLink>
+                                                    <apex:outputLink id="ownerLink"
+                                                       onblur="LookupHoverDetail.getHover(this.id).hide();"
+                                                       onmouseout="LookupHoverDetail.getHover(this.id).hide();"
+                                                       onfocus="LookupHoverDetail.getHover(this.id, '/{!relCase.OwnerId}/m?retURL=%2F{!relCase.OwnerId}&isAjaxRequest=1').show();"
+                                                       onmouseover="LookupHoverDetail.getHover(this.id, '/{!relCase.OwnerId}/m?retURL=%2F{!relCase.OwnerId}&isAjaxRequest=1').show();"
+                                                       value="{!relCase.OwnerId}"
+                                                       onclick="openSubTabDetail('{!relCase.OwnerId}'); return false;" rendered="{!OR(caseField == 'Owner.Alias', caseField == 'OwnerId')}">
+                                                    <apex:outputText value="{!relCase.Owner.Alias}" rendered="{!(caseField == 'Owner.Alias')}"/>
+                                                    <apex:outputText value="{!relCase.Owner.Name}" rendered="{!(caseField == 'OwnerId')}"/></apex:outputLink>
+                                                    <apex:outputLink id="articleLink"
+                                                       onblur="LookupHoverDetail.getHover(this.id).hide();"
+                                                       onmouseout="LookupHoverDetail.getHover(this.id).hide();"
+                                                       onfocus="LookupHoverDetail.getHover(this.id, '/{!relCase.ArticleTest__c}/m?retURL=%2F{!relCase.ArticleTest__c}&isAjaxRequest=1').show();"
+                                                       onmouseover="LookupHoverDetail.getHover(this.id, '/{!relCase.ArticleTest__c}/m?retURL=%2F{!relCase.ArticleTest__c}&isAjaxRequest=1').show();"
+                                                       value="{!relCase.ArticleTest__c}"
+                                                       onclick="openSubTabDetail('{!relCase.ArticleTest__c}'); return false;" rendered="{!(caseField == 'ArticleTest__c')}">
+                                                    <apex:outputText value="{!relCase.ArticleTest__r.Name}"/></apex:outputLink>
+                                                </span>
+                                            </td>
+                                        </apex:repeat>
+                                    </tr>
+                                </apex:repeat>
+                            </tbody>
+                        </table>
+                    </div>
+                </apex:outputPanel>
+            </apex:form>
+        </div>
+    </div>
+</apex:page>

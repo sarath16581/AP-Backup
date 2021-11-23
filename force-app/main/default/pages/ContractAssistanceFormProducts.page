@@ -1,0 +1,7 @@
+<apex:page standardController="ContractAssistanceForm__c" extensions="ContractAssistanceFormController" readonly="true" title="Products">
+    <!-- <apex:outputText rendered="{!if(OppPrdCount == 0,true,false)}">No Records To Display</apex:outputText> -->
+    <apex:outputText >Main products/services covered by the Contract.</apex:outputText>
+    <apex:dataList var="v" value="{!OppPrd}" title="Products">
+        <apex:outputText value="{! v.Product2.name } "/> 
+    </apex:dataList>   
+</apex:page>

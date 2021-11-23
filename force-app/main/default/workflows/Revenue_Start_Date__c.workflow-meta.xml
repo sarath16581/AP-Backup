@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Set_KeyVal</fullName>
+        <field>KeyVal__c</field>
+        <formula>Organisation__r.LEGACY_ID__c + Product__r.Legacy_ID__c</formula>
+        <name>Set KeyVal</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Update Revenue Start Date KeyVal</fullName>
+        <actions>
+            <name>Set_KeyVal</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Set KeyVal Value with Organisation__r.LEGACY_ID__c+Product__r.LEGACY_ID__c</description>
+        <formula>AND( Organisation__c != &apos;&apos;,  Product__c != &apos;&apos; )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

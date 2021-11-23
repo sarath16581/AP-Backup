@@ -1,0 +1,134 @@
+<apex:component controller="SSSWFaxContentController" access="global">
+    
+<apex:attribute name="faxCaseId" type="id" description="the case ID" assignTo="{!caseId}"/>
+    
+<h1>
+{!IF(CONTAINS(myCase.Type, "Investigation"), "Investigation", "Feedback")} - {!myCase.CaseNumber}
+{!IF(CONTAINS(myCase.Type, "Investigation"), "", " - Do not reply. No response required.")}
+</h1>
+{!IF(CONTAINS(myCase.Type, "Investigation"), "Please reply within " & IF(myCase.Customer_Type__c == "Enterprise", "1 business day", "2 business days") & " from the date sent : " & timestamp, "")}
+<br/>
+<br/>
+<table style="width:100%;">
+    <tr>
+        <td style="width:50%;"><b>From:</b> Customer Sales and Service</td>
+        <td style="width:50%;"><b>Sent date:</b> {!timestamp}</td>
+    </tr>
+    <tr>
+        <td style="width:50%;"><b>Reply Fax Number:</b> <span style="font-size: 1.8em;">1300 658 703</span></td>
+        <td style="width:50%;"><b>Sent to:</b> {!myCase.Network__r.Name},<br/>{!myCase.Network__r.Fax_Number__c}</td>
+    </tr>   
+</table>
+<br/>
+ {!IF(CONTAINS(myCase.Type,"Investigation"),"Please review the following enquiry and respond via fax within the required response time.", "Please review the following information and address as appropriate. Please do not reply, as any response to CS&S will not be monitored. If this enquiry should not have been sent to you, or if you are unable to action this request, call NCCC on 1300 768 470 and quote Case Number: " + myCase.CaseNumber)}           
+    <hr />
+    <hr />              
+<h2>Case - {!myCase.Customer_Type__c} customer</h2>
+<div style="font-size: 1.3em;">
+    <apex:repeat value="{!IF(myCase.Type == 'Investigation',$ObjectType.Case.FieldSets.ContactNetworkInvestigation,IF(myCase.Type == 'Feedback',$ObjectType.Case.FieldSets.ContactNetworkFeedback,$ObjectType.Case.FieldSets.ContactNetworkGeneralEnquiry))}"
+        var="f">
+        <b><apex:outputText value="{!f.Label}: " /></b>
+        <apex:outputText styleClass="form-control input-sm {!f.type}"
+            value="{!myCase[f]}" />
+        <br />
+    </apex:repeat>
+    <table style="border-collapse: collapse; border: none; padding: 0;">
+        <tr style="border: none; padding: 0;">
+            <td
+                style="border: none; width: 85px; vertical-align: top; padding: 0;">
+                <b><apex:outputText value="Description: " /></b>
+
+            </td>
+            <td style="border: none; padding: 0;"><apex:outputField styleClass="form-control input-sm TextArea"
+                    value=" {!myCase.Description}" /></td>
+        </tr>
+    </table>
+</div>
+    <hr />
+    <hr />  
+<h2>Contact who raised the enquiry</h2>
+            <apex:repeat value="{!ItemSearchContactFields}" var="f"
+                rendered="{!IF(myContact.DoNotDisclose__c,'false','true')}">
+                <b><apex:outputText value="{!f.Label}: " /></b>
+                <apex:outputText styleClass="form-control input-sm {!f.type}"
+                    value="{!myContact[f]}" />
+                <br />
+            </apex:repeat>
+            <apex:repeat value="{!1}"
+                rendered="{!IF(myContact.DoNotDisclose__c,'true','false')}">
+                            Cannot disclose contact
+                    </apex:repeat>
+
+<div>
+            <apex:outputText rendered="{!NOT(ISBLANK(consignmentDetails))}">
+    <h2>SAP Event Message Details</h2>            
+    <hr />
+    <hr />          
+                
+                <c:DISEmailTemplateArticle article="{!consignmentDetails.proxyConsignment}"
+                    eventMessages="{!consignmentDetails.eventMessages}"
+                    IsConsignment="true" articleFields="{!ItemSearchArticleFields}"
+                    eventMessageFields="{!ItemSearchEventMessagesFields}" />
+                <apex:repeat value="{!consignmentDetails.articles}" var="a">
+                    <c:DISEmailTemplateArticle article="{!a.proxyArticle}"
+                        eventMessages="{!a.eventMessages}" IsConsignment="false"
+                        articleFields="{!ItemSearchArticleFields}"
+                        eventMessageFields="{!ItemSearchEventMessagesFields}" />
+                    <br />
+                    <hr />
+                    <hr /> 
+                </apex:repeat>
+            </apex:outputText>
+            <apex:outputText rendered="{!NOT(ISBLANK(articleDetails))}">
+                                
+                <c:DISEmailTemplateArticle article="{!articleDetails.proxyArticle}"
+                    eventMessages="{!articleDetails.eventMessages}"
+                    IsConsignment="false" articleFields="{!ItemSearchArticleFields}"
+                    eventMessageFields="{!ItemSearchEventMessagesFields}" />
+                <hr />
+                <hr />              
+            </apex:outputText>
+ 
+</div>      
+    
+<div class="section" id="comment-section">
+        <h3>Your Response</h3>
+        <br />
+        <hr />
+        <br />
+        <br />
+        <hr />  
+        <br />
+        <br />
+        <hr /> 
+        <br />
+        <br />
+        <hr /> 
+        <br />
+        <br />
+        <hr /> 
+        <br />
+        <br />
+        <hr /> 
+        <br />
+        <br />
+        <hr /> 
+    </div>
+    <br/>
+    <br/>
+        <apex:repeat value="{!1}" rendered="{!NOT(ISBLANK($User.Id))}">
+                <div style="font-weight: bold;">
+                    <apex:outputText value="Thank You," />
+                    <br />
+                    <apex:outputText value="Customer Sales & Service" />
+                </div>
+                <span>System Ref: {!myCase.EmailThreadID__c}</span>
+        </apex:repeat>  
+    <br/>
+    <br/>   
+<div class="section" id="disclaimer">
+    <h3>CAUTION</h3>
+        The information contained in this facsimile message may be legally privileged and confidential. If the reader of this message is not the intended recipient you are hereby notified that any use, dissemination, distribution or reproduction of this message is prohibited. If you have received this message in error, please notify us immediately by facsimile or telephone and return the original message to us.
+    </div>  
+
+</apex:component>

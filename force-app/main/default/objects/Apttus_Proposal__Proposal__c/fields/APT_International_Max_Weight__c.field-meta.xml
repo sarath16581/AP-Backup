@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_International_Max_Weight__c</fullName>
+    <externalId>false</externalId>
+    <label>International Max Weight</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>&lt; 2 Kg</fullName>
+                <default>false</default>
+                <label>&lt; 2 Kg</label>
+            </value>
+            <value>
+                <fullName>2 to 20 Kg</fullName>
+                <default>false</default>
+                <label>2 to 20 Kg</label>
+            </value>
+            <value>
+                <fullName>&gt; 20 Kg</fullName>
+                <default>false</default>
+                <label>&gt; 20 Kg</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

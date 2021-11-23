@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AttachmentType__c</fullName>
+    <description>Contains the type of event message attachment (e.g. NO_SIG_REQUIRED), when an attachment is present.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Type of event message attachment (e.g. NO_SIG_REQUIRED).</inlineHelpText>
+    <label>Attachment Type</label>
+    <length>100</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

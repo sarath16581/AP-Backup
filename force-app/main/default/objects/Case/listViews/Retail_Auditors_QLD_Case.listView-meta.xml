@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Retail_Auditors_QLD_Case</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.AMLCTF_Assurance_Audit,Case.AMLCTF_Please_Explain_Audit,Case.AMLCTF_Scheduled_Audit,Case.AMLCTF_Unannounced_Audit</value>
+    </filters>
+    <filters>
+        <field>OWNER_NAME</field>
+        <operation>equals</operation>
+        <value>Retail Auditors - QLD</value>
+    </filters>
+    <label>Retail Auditors - QLD</label>
+    <language>en_US</language>
+    <queue>Retail_Auditors_QLD</queue>
+    <sharedTo>
+        <group>AMLCTF_All_Retail_Audit_Users</group>
+    </sharedTo>
+</ListView>

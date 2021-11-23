@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_SSSW_agents</fullName>
+    <active>true</active>
+    <description>Restrict SSSW South and North Service as verified</description>
+    <errorConditionFormula>OR(AND(($Profile.Id =&apos;00e90000001eeTk&apos;), NOT(isnew()),NOT( $Permission.Can_change_lead_status)) , AND(($Profile.Id =&apos;00e90000001eeTk&apos;),isnew(),ISPICKVAL( Status,&apos;Verified&apos;), OR($UserRole.DeveloperName=&apos;SSSW_North_Service_Agent&apos;, $UserRole.DeveloperName=&apos;SSSW_South_Service_Agent&apos;)))</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>You do not have the permission to change lead status</errorMessage>
+</ValidationRule>

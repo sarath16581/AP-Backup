@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>To be in sync with Salesforce1</description>
+    <height>3000</height>
+    <icon>CaseDetailsPublisher</icon>
+    <label>Case Details</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <page>CaseDetails</page>
+    <type>VisualforcePage</type>
+    <width>-100</width>
+</QuickAction>

@@ -1,0 +1,320 @@
+<apex:page standardController="Opportunity" extensions="OpportunitySummaryController" cache="false" renderAs="pdf" standardStylesheets="false" contenttype="application/pdf" sidebar="false" showheader="false">
+    <style type="text/css">
+        @page { 
+            size: A4 landscape;
+            @bottom-right { /* page numbers */
+            content: "Page " counter(page);
+            }           
+        }
+        
+        body {
+            font: 9px Verdana,Geneva,sans-serif;
+            word-wrap: break-word;
+        }
+        
+        h1 {
+            color: #B20000;
+        }
+        
+        .summary_table {
+            border: 0.5px solid black;
+            border-collapse:collapse;
+            width: 100%;                
+            margin-top: 20px;                   
+            clear:both;
+        }
+        
+        .summary_table th, .summary_table td {
+            border: 1px solid #555;
+            padding: 5px;
+        }
+        
+        .summary_table_header1 {
+            background-color: #B20000; 
+            color: #FFF;
+        }
+        
+        .summary_table_header2 {
+            background-color: #E0FFFF;
+        }
+        
+        .page_title {
+            float:left;
+        }
+        
+        .logo {
+            float:right;
+        }
+        
+        .logo img {
+            width:100px;
+        }
+    </style>
+    
+    <div style="page-break-after:always;">
+    <div class="page_title">
+        <h1>Opportunity Assessment Plan</h1>
+    </div>
+    <div class="logo">
+    <img src="{!URLFOR($Resource.auspost_logo)}"/>
+    </div>
+    <table class="summary_table">
+        <tr>
+            <th colspan="5" class="summary_table_header1">1. Customer Identification</th>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">A. Name of customer</th>
+            <th class="summary_table_header2">B. Organisation number</th>
+            <th class="summary_table_header2">C. Opportunity driver</th>
+            <th class="summary_table_header2">D. Account Manager</th>
+            <th class="summary_table_header2">E. Relevant campaign</th>   
+        </tr>
+        <tr>
+            <td>{!opportunity.Account.Name}</td>
+            <td>{!opportunity.Account.Number__c}</td>
+            <td>{!opportunity.Owner.Name}</td>
+            <td>{!opportunity.Account.Owner.Name}</td>
+            <td>{!opportunity.Campaign.Name}</td>
+        </tr>
+    </table>
+    <table class="summary_table">
+        <tr>
+            <th colspan="5" class="summary_table_header1">2. Opportunity description</th>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">A. Description of the opportunity</th>
+            <th class="summary_table_header2">B. Is this off-the-shelf products?</th>
+            <th class="summary_table_header2">C. Why is the customer acting? i.e. key drivers, issues</th>
+            <th class="summary_table_header2">D. What are the expected benefits?</th>
+            <th class="summary_table_header2">E. Is this a competitive bid?</th>
+        </tr>
+        <tr>
+            <td>{!opportunity.Description}</td>
+            <td>{!IF(OffTheShelf,'Yes','No')}</td>
+            <td>{!opportunity.Key_Drivers__c}</td>
+            <td>{!opportunity.Expected_Benefits__c}</td>
+            <td>{!IF(opportunity.Competitive_Bid__c, 'Yes', 'No')}</td>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">F. Is this opportunity aligned to our market focus?</th>
+            <th class="summary_table_header2">G. What budget has the customer allocated to this opportunity?</th>
+            <th class="summary_table_header2">H. When will the opportunity start? What is the length of the project?</th>
+            <th colspan="2" class="summary_table_header2">I. What would be the effect if we did not pursue this opportunity?</th>
+        </tr>
+        <tr>
+            <td>{!opportunity.Marketing_Focus_Aligned__c}</td>
+            <td><apex:outputText value="${0,number,###,##0.00}"><apex:param value="{!opportunity.Customer_Budget__c}"/></apex:outputText></td>
+            <td><apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!opportunity.Expected_Start_Date__c}"/></apex:outputText></td>
+            <td colspan="2">{!opportunity.Opportunity_Impact__c}</td>
+        </tr>
+    </table>
+    
+    <table class="summary_table">
+        <tr>
+            <th colspan="2" class="summary_table_header1">3. Value proposition</th>            
+        </tr>
+        <tr>
+            <th class="summary_table_header2">A. What is our value proposition and product/ solution offering?</th>
+            <th class="summary_table_header2">B. What internal resources will be required to deliver this product/ solution?</th>
+        </tr>
+        <tr>
+            <td>{!opportunity.Value_Proposition__c}</td>
+            <td>{!opportunity.Internal_Resources__c }</td>
+        </tr>
+    </table>
+    <table class="summary_table">
+        <tr>
+            <th colspan="2" class="summary_table_header1">4. Sales Team</th>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">A. Name of Team Member</th>
+            <th class="summary_table_header2">B. Team Role</th>
+        </tr>
+            <apex:repeat value="{!opportunity.OpportunityTeamMembers}" var="oppTeamMember">
+            <tr>
+            <td>{!oppTeamMember.User.Name}</td>
+            <td>{!oppTeamMember.TeamMemberRole}</td>
+            </tr>
+            </apex:repeat>
+        
+    </table>
+    
+    </div>
+    <div style="page-break-after:always;">    
+    <div class="page_title">
+        <h1>Opportunity Assessment Plan</h1>
+    </div>
+    <div class="logo">
+    <img src="{!URLFOR($Resource.auspost_logo)}"/>
+    </div>
+    <table class="summary_table">
+        <tr>
+            <th colspan="3" class="summary_table_header1">5. Competitor and supplier preference analysis</th>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">A. Who are the incumbents?</th>
+            <th class="summary_table_header2">B. Why does the customer use this supplier?</th>
+            <th class="summary_table_header2">C. Is the customer satisfied with their incumbents? Would they change?</th>            
+        </tr>
+        <apex:repeat value="{!opportunity.Competitors__r}" var="Competitor">
+            <apex:outputText escape="false" rendered="{!IF(Competitor.Incumbents__c,'true','false')}">
+                <tr>
+                    <td>{!Competitor.AccountId__r.Name}</td>
+                    <td>{!Competitor.Incumbent_Reason__c}</td>
+                    <td>{!Competitor.Incumbent_Satisfaction__c}</td>
+                </tr>
+            </apex:outputText>
+        </apex:repeat>
+        <tr>
+            <th class="summary_table_header2">D. Who are the competitors for this opportunity?</th>
+            <th colspan="2" class="summary_table_header2">E. Do we have a distinctive capability compared to the competition?</th>                        
+        </tr>
+        <apex:repeat value="{!opportunity.Competitors__r}" var="Competitor">
+            <apex:outputText escape="false" rendered="{!IF(Competitor.Incumbents__c,'false','true')}">
+                <tr>
+                    <td>{!Competitor.AccountId__r.Name}</td>
+                    <td colspan="2">{!Competitor.Competitive_Advantage__c}</td>                    
+                </tr>
+            </apex:outputText>
+        </apex:repeat>
+    </table>
+    
+    <table class="summary_table">
+        <tr>
+            <th colspan="5" class="summary_table_header1">6. Financial information</th>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">A. What is the revenue associated with the opportunity?</th>
+            <th class="summary_table_header2">B. Estimated revenue per annum</th>
+            <th class="summary_table_header2">C. Is this opportunity likely to be profitable?</th>
+            <th class="summary_table_header2">D. What costs will we incur pursuing this opportunity?</th>
+            <th class="summary_table_header2">E. Would additional CAPEX investment be required if we won? If so, how much?</th>
+        </tr>
+        <tr>
+            <td><apex:outputText value="${0, number, ###,##0.00}"><apex:param value="{!opportunity.Amount}"/></apex:outputText></td>
+            <td>{!opportunity.Expected_Revenue_P_A__c}</td>
+            <td>{!IF(opportunity.Profitable__c,'Yes','No')}</td>
+            <td><apex:outputText value="${0, number, ###,##0.00}"><apex:param value="{!opportunity.Opportunity_Costs__c}"/></apex:outputText></td>
+            <td><apex:outputText value="${0, number, ###,##0.00}"><apex:param value="{!opportunity.CAPEX__c}"/></apex:outputText></td>
+        </tr>        
+    </table>
+    
+    <table class="summary_table">
+        <tr>
+            <th colspan="7" class="summary_table_header1">7. Relationship power map</th>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">A. Name of contact</th>
+            <th class="summary_table_header2">B. Position</th>
+            <th class="summary_table_header2">C. Phone number</th>
+            <th class="summary_table_header2">D. Are they a key decision maker/influencer?</th>
+            <th class="summary_table_header2">E. Are they a supporter of Australia Post?</th>
+            <th class="summary_table_header2">F. Do we need to engage this person?</th>
+            <th class="summary_table_header2">G. How will we engage them?</th>
+        </tr>
+        
+            <apex:repeat value="{!opportunity.Relationship_Power_Maps__r}" var="RelPowerMap">
+            <tr>
+            <td>{!RelPowerMap.KeyContact__r.Name}</td>
+            <td>{!RelPowerMap.Name}</td>
+            <td>{!RelPowerMap.Individual_Contact_Phone__c}</td>
+            <td>{!RelPowerMap.Decision_Maker_Influencer__c}</td>
+            <td>{!RelPowerMap.AusPost_Relationship__c}</td>
+            <td>{!IF(RelPowerMap.Engage_Contact__c,'Yes','No')}</td>
+            <td>{!RelPowerMap.Engagement_Next_Steps__c}</td>
+            </tr>
+            </apex:repeat>
+        
+    </table>
+    <table class="summary_table">
+        <tr>
+            <th colspan="3" class="summary_table_header1">8. Pain Chain</th>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">A. Key contact</th>
+            <th class="summary_table_header2">B. Issue</th>
+            <th class="summary_table_header2">C. Which other internal stakeholders does this affect?</th>
+        </tr>
+        
+            <apex:repeat value="{!opportunity.Pain_Chains__r}" var="PainChain">
+            <tr>
+            <td>{!PainChain.KeyContact__r.Name}</td>
+            <td>{!PainChain.Name}</td>
+            <td>{!PainChain.Internal_Stakeholder_Impact__c}</td>
+            </tr>
+            </apex:repeat>
+        
+    </table>
+    </div>
+    <div>
+    <div class="page_title">
+        <h1>Opportunity Assessment Plan</h1>
+    </div>
+    <div class="logo">
+        <img src="{!URLFOR($Resource.auspost_logo)}"/>
+    </div>
+    <table class="summary_table">
+        <tr>
+            <th colspan="3" class="summary_table_header1">9. Decision criterion</th>            
+        </tr>
+        <tr>
+            <th class="summary_table_header2">A. Criterion</th>
+            <th class="summary_table_header2">B. Importance to overall decision</th>
+            <th class="summary_table_header2">C. How competitive are we for this criterion?</th>
+        </tr>
+        
+            <apex:repeat value="{!opportunity.Decision_Criterion__r}" var="Criterion">
+            <tr>
+            <td>{!Criterion.Name}</td>
+            <td>{!Criterion.Importance__c}%</td>
+            <td>{!Criterion.Competive__c}</td>
+            </tr>
+            </apex:repeat>
+        
+    </table>
+    <table class="summary_table">
+        <tr>
+            <th colspan="5" class="summary_table_header1">10. Service delivery capabilities</th>            
+        </tr>
+        <tr>
+            <th class="summary_table_header2">A. Do we have a track record in delivering these types of products/solutions?</th>
+            <th class="summary_table_header2">B. Can we meet their needs with our current capabilities?</th>
+            <th class="summary_table_header2">C. Can we develop the required capabilities in the required timeframe?</th>
+            <th class="summary_table_header2">D. Have we confirmed that we have capacity in our network to provide these products/ solutions?</th>
+            <th class="summary_table_header2">E. Have we developed an execution plan?</th>
+        </tr>
+        <tr>
+            <td>{!opportunity.Previous_Delivery__c}</td>
+            <td>{!IF(opportunity.Meet_Capabilities__c,'Yes','No')}</td>
+            <td>{!IF(opportunity.Meet_Timeframe__c,'Yes','No')}</td>
+            <td>{!IF(opportunity.Confirmed_Capacity__c,'Yes','No')}</td>
+            <td>{!IF(opportunity.Executive_Plan_Developed__c,'Yes','No')}</td>
+        </tr>
+    </table>
+    <table class="summary_table">
+        <tr>
+            <th colspan="4" class="summary_table_header1">11. Next steps</th>            
+        </tr>
+        <tr>
+            <th class="summary_table_header2">A. What are the next activities we propose to undertake to pursue this opportunity?</th>
+            <th class="summary_table_header2">B. Who else in Australia Post needs to be engaged for this step?</th>
+            <th class="summary_table_header2">C. Has activity begun?</th>
+            <th class="summary_table_header2">D. When will this activity be completed?</th>            
+        </tr>
+        <tr>
+            <td>{!opportunity.Next_Steps__c}</td>
+            <td>{!opportunity.AusPost_Resourcing__c}</td>
+            <td>{!IF(opportunity.Has_Activity_Begun__c,'Yes','No')}</td>
+            <td><apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!opportunity.Expected_Activity_End_Date__c}"/></apex:outputText></td>           
+        </tr>
+        <tr>
+            <th colspan="2" class="summary_table_header2">E. Does Solutions/ Bids and tenders need to be involved?</th>
+            <th colspan="2" class="summary_table_header2">F. Who will drive this opportunity once it has been Validated?</th>
+        </tr>
+        <tr>
+            <td colspan="2">{!IF(opportunity.Bid_Tenders_Involvement__c='Yes','Yes','No')}</td>
+            <td colspan="2">{!opportunity.Opportunity_Validation_Driver__c}</td>                       
+        </tr>
+    </table>
+    </div>
+</apex:page>

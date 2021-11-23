@@ -1,0 +1,43 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<font style=""><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font face="Arial, sans-serif" style="" size="2">Dear&nbsp;<b style="">Customer</b>,<o:p></o:p></font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font face="Arial, sans-serif" size="2">Thank you for contacting the Australia
+Post Lodgement and API team. We’re looking into your query and will respond to
+you as soon as possible.<o:p></o:p></font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font face="Arial, sans-serif" size="2">Your case number is:
+{!Case.CaseNumber}&nbsp;<o:p></o:p></font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font face="Arial, sans-serif" size="2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Subject: {!Case.Subject}<o:p></o:p></font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font face="Arial, sans-serif" size="2"><b>Want a prompt response?</b><o:p></o:p></font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font face="Arial, sans-serif" size="2">To help us respond to your query as
+quickly and efficiently as possible, please follow these tips:</font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"></p><ul style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><li style=""><font size="2" face="Arial, sans-serif">Please avoid sending a follow-up email
+until we have responded.</font></li><li style=""><font size="2" face="Arial, sans-serif">Once we’ve replied, please reply to our
+response email for any future correspondence about that case.</font></li><li style=""><font size="2" face="Arial, sans-serif">Please include our email address in the
+‘To’ field of your email, not in the Cc or Bcc field.</font></li></ul><p style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"></p><p class="MsoListParagraphCxSpFirst" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; text-indent: -18pt;"><!--[if !supportLists]--></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font face="Arial, sans-serif" size="2">Following these tips will mean we get
+the right information back to you more promptly.<o:p></o:p></font></p><p class="MsoNormal" style=""><font face="Arial, sans-serif" size="2">If your matter is urgent, please call our national helpdesk at 1800 028 361 (Select Option 1) and quote the above Salesforce Case Number.</font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font face="Arial, sans-serif" size="2">Kind regards,<o:p></o:p></font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font face="Arial, sans-serif" size="2">The Australia Post Lodgement &amp; API
+team<o:p></o:p></font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><br></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font size="2" style="" face="Arial, sans-serif" color="#cccccc">{!Case.Thread_Id}</font></p><p style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"></p></font>]]></td>
+</tr>
+</table>

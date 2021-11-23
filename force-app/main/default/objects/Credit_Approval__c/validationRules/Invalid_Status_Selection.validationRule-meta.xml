@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invalid_Status_Selection</fullName>
+    <active>true</active>
+    <description>Invalid Status can only be selected if the credit amount is greater than zero.</description>
+    <errorConditionFormula>AND(CreditAmountExclusiveGST__c &gt; 0, ISPICKVAL(Status__c, &apos;Invalid&apos;))</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>Status cannot be made Invalid if the Credit Amount Exclusive GST is greater than zero.</errorMessage>
+</ValidationRule>

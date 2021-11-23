@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Industry_Vertical__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>The industry that is relevant for your Sales Process Playbook.</inlineHelpText>
+    <label>Industry Vertical</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>High Technology</fullName>
+                <default>false</default>
+                <label>High Technology</label>
+            </value>
+            <value>
+                <fullName>Professional Services</fullName>
+                <default>false</default>
+                <label>Professional Services</label>
+            </value>
+            <value>
+                <fullName>Energy &amp; Power</fullName>
+                <default>false</default>
+                <label>Energy &amp; Power</label>
+            </value>
+            <value>
+                <fullName>Financial Services</fullName>
+                <default>false</default>
+                <label>Financial Services</label>
+            </value>
+            <value>
+                <fullName>Healthcare</fullName>
+                <default>false</default>
+                <label>Healthcare</label>
+            </value>
+            <value>
+                <fullName>Industrials</fullName>
+                <default>false</default>
+                <label>Industrials</label>
+            </value>
+            <value>
+                <fullName>Materials</fullName>
+                <default>false</default>
+                <label>Materials</label>
+            </value>
+            <value>
+                <fullName>Telecommunications</fullName>
+                <default>false</default>
+                <label>Telecommunications</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Build My Own</fullName>
+                <default>false</default>
+                <label>Build My Own</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

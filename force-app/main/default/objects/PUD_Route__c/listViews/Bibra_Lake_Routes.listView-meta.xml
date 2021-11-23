@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bibra_Lake_Routes</fullName>
+    <columns>NAME</columns>
+    <columns>Depot__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>Bib</value>
+    </filters>
+    <label>Bibra Lake Routes</label>
+    <sharedTo>
+        <group>BIBRA_LAKE_VANS</group>
+    </sharedTo>
+</ListView>

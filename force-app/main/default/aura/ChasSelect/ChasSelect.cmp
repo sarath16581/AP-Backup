@@ -1,0 +1,90 @@
+<!--
+ @changelog : 
+ 2020-07-06 : Modified : Hara.sahoo@auspost.com.au Added default value for onload and reload functions
+-->
+<aura:component extends="c:ChasBaseInput" description="Select input">
+    <aura:attribute name="options"  type="List" description='The select input option labels and values' />
+    <aura:attribute name="hasGroups" type="Boolean" default="false"/>
+    
+    <div class="{! 'slds-form-element short-' + v.short }">
+        
+        <!-- Label -->
+        <c:ChasInputLabel for="{! v.name }" label="{! v.label }" subLabel="{! v.subLabel }" helptext="{! v.helptext }" />
+        
+        <!-- Errors -->
+        <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }" id="{! v.name }" />
+        
+        <div class="chas-input-field-container slds-form-element__control slds-grow">
+    		<div class="slds-select_container chas-select_container">
+    			<select
+                    id='{! v.name }'
+                    name='{! v.name }'
+                	required='{! v.required }'
+	                value='{! v.value }'
+	                onchange='{! c.updateValue }'
+	                onblur='{! c.onchange }'
+    				class="slds-select chas-select"
+                    aria-describedby="{! v.name + '-description ' + v.name + '-error' }"
+    				>
+                    <!--Added default value for onload and reload functions-->
+    				<option value="" disabled="disabled" selected="selected" hidden="hidden">{! (v.value == Null ? 'Please select' : v.value) }</option>
+    				<aura:if isTrue="{! v.hasGroups }">
+
+    					<aura:iteration items="{! v.options }" var="group" >
+	    					<optgroup label="{! group.label }">
+    							<aura:iteration items="{! group.options}" var="option" >
+
+    								<aura:if isTrue="{! option.value == v.value }">
+										<option selected="selected" value="{! option.value }">{! option.label }</option>
+
+										<aura:set attribute="else">
+                    						<option value="{! option.value }">{! option.label }</option>
+										</aura:set>
+
+    								</aura:if>
+	    						</aura:iteration>
+
+	    					</optgroup>
+	    				</aura:iteration>
+
+    					<aura:set attribute="else">
+							<aura:iteration items="{! v.options}" var="option" >
+
+								<aura:if isTrue="{! option.value == v.value }">
+									<option selected="selected" value="{! option.value }">{! option.label }</option>
+
+									<aura:set attribute="else">
+                						<option value="{! option.value }">{! option.label }</option>
+									</aura:set>
+
+								</aura:if>
+    						</aura:iteration>
+    						
+    					</aura:set>
+    				</aura:if>
+    			</select>
+    		</div>
+               
+            <!-- <lightning:select 
+            				  aura:id='chasInputField' 
+                              name='{! v.name }'
+                              value='{! v.value }'
+                              onchange='{! c.onchange }'
+                              onblur='{! c.onchange }'
+                              class="{! 'chas-select short-' + v.short }"
+                              variant='label-hidden'
+                              label='{! v.label }' >
+                <aura:iteration items="{!v.selectOptions}" var="option" >
+                    <option value="{!option.value}">{!option.label}</option>
+                </aura:iteration>
+            </lightning:select> -->
+
+            
+        </div>
+        
+        <div class="chas-below-input" id="{! v.name + '-description' }">
+        	{! v.body }
+        </div>
+        
+    </div>
+</aura:component>

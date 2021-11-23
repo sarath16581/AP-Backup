@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Weight_Range__c</fullName>
+    <externalId>false</externalId>
+    <label>Weight Range</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>up to 500g</fullName>
+                <default>false</default>
+                <label>up to 500g</label>
+            </value>
+            <value>
+                <fullName>over 500g up to 1kg</fullName>
+                <default>false</default>
+                <label>over 500g up to 1kg</label>
+            </value>
+            <value>
+                <fullName>over 1kg up to 2kg</fullName>
+                <default>false</default>
+                <label>over 1kg up to 2kg</label>
+            </value>
+            <value>
+                <fullName>up to 2kg</fullName>
+                <default>false</default>
+                <label>up to 2kg</label>
+            </value>
+            <value>
+                <fullName>over 2kg up to 20kg</fullName>
+                <default>false</default>
+                <label>over 2kg up to 20kg</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

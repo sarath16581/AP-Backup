@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>YesNotificationsreasonfordecision__c</fullName>
+    <externalId>false</externalId>
+    <label>Yes Notifications, reason for decision?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Did not know that they were currently not notifying</fullName>
+                <default>false</default>
+                <label>Did not know that they were currently not notifying</label>
+            </value>
+            <value>
+                <fullName>To provide better customer experience</fullName>
+                <default>false</default>
+                <label>To provide better customer experience</label>
+            </value>
+            <value>
+                <fullName>Likes SMS notifications</fullName>
+                <default>false</default>
+                <label>Likes SMS notifications</label>
+            </value>
+            <value>
+                <fullName>Wants to enable in-flight delivery choice</fullName>
+                <default>false</default>
+                <label>Wants to enable in-flight delivery choice</label>
+            </value>
+            <value>
+                <fullName>Provide best customer experience</fullName>
+                <default>false</default>
+                <label>Provide best customer experience</label>
+            </value>
+            <value>
+                <fullName>Reduce calls to own call centre</fullName>
+                <default>false</default>
+                <label>Reduce calls to own call centre</label>
+            </value>
+            <value>
+                <fullName>Customer has said No to notifications</fullName>
+                <default>false</default>
+                <label>Customer has said No to notifications</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

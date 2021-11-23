@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Org_to_Org_Relationship__c</fullName>
+    <description>This field is used to determine the relationship between the Parties.</description>
+    <externalId>false</externalId>
+    <label>Relationship</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Inter-company ownership</fullName>
+                <default>false</default>
+                <label>Inter-company ownership</label>
+            </value>
+            <value>
+                <fullName>Franchise or other inter-party business relationship</fullName>
+                <default>false</default>
+                <label>Franchise or other inter-party business relationship</label>
+            </value>
+            <value>
+                <fullName>Competitor</fullName>
+                <default>false</default>
+                <label>Competitor</label>
+            </value>
+            <value>
+                <fullName>Membership Relationships</fullName>
+                <default>false</default>
+                <label>Membership Relationships</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,18 @@
+<!--
+/**
+Description: This will create Amendment/Renewal Agreement with Line Items.
+Created By - Mausam Padhiyar
+Created Date - 9th Nov, 2015
+Last Modified By -
+Last Modified Date - 
+**/
+-->
+<apex:page controller="APT_AmendmentRenewalAgreementController" action="{!doAmendRenew}">
+<apex:form >
+    <apex:pageBlock >
+        <apex:pageBlockSection columns="1" id="errorMessageSection">
+            <apex:pagemessages rendered="{!haserrorMessages}"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

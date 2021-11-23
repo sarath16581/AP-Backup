@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pickup_Scheduling</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISPICKVAL( Pick_up_Scheduling__c , &quot;Adhoc&quot;) &amp;&amp;   or(
+ISBLANK( Distribution_Network_Interstate_metro__c ), 
+ISBLANK( Distribution_Network_Interstate_metro__c ) ,
+ ISBLANK( Distribution_Network_Interstate_region__c ), 
+ ISBLANK( Distribution_Network_Intrastate_metro__c ),
+  ISBLANK(Required_vehicle_arrival_time__c ),
+ ISBLANK( Freight_ready_time__c ),
+  ISBLANK(Closing_time__c ),
+  ISBLANK(Approx_loading_time__c ))</errorConditionFormula>
+    <errorMessage>Please make sure that all of the fields under the Logistics Requirements section are not blank</errorMessage>
+</ValidationRule>

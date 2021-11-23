@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Letterhead xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <backgroundColor>#CCCCCC</backgroundColor>
+    <bodyColor>#FFFFFF</bodyColor>
+    <bottomLine>
+        <color>#FFFFFF</color>
+        <height>1</height>
+    </bottomLine>
+    <description>Letterhead created for the purpose of notification emails for Unannounced Retail Audit approvals.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+    <footer>
+        <backgroundColor>#FFFFFF</backgroundColor>
+        <height>25</height>
+        <horizontalAlignment>Left</horizontalAlignment>
+        <verticalAlignment>Top</verticalAlignment>
+    </footer>
+    <header>
+        <backgroundColor>#FFFFFF</backgroundColor>
+        <height>100</height>
+        <horizontalAlignment>Right</horizontalAlignment>
+        <logo>Icons/Auspost_Logo.png</logo>
+        <verticalAlignment>Middle</verticalAlignment>
+    </header>
+    <middleLine>
+        <color>#FFFFFF</color>
+        <height>1</height>
+    </middleLine>
+    <name>Retail Audit Letterhead</name>
+    <topLine>
+        <color>#FFFFFF</color>
+        <height>1</height>
+    </topLine>
+</Letterhead>

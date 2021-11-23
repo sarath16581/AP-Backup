@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Change_Of_Status</fullName>
+    <active>true</active>
+    <description>The Status can only be changed to Invalid or New if the user role is StarTrack Credit Disputes Manager or StarTrack Credit Disputes Team Member. System Admin can change to any status.</description>
+    <errorConditionFormula>AND(ISCHANGED(Status__c), OR(AND($UserRole.Name &lt;&gt; &quot;StarTrack Credit Disputes Manager&quot;, 
+$UserRole.Name &lt;&gt; &quot;StarTrack Credit Disputes Team Member&quot;, 
+$Profile.Name &lt;&gt; &quot;System Administrator&quot;), 
+AND(NOT(ISPICKVAL(Status__c, &apos;Invalid&apos;)), NOT(ISPICKVAL(Status__c, &apos;New&apos;)), OR( 
+$UserRole.Name = &quot;StarTrack Credit Disputes Manager&quot;, 
+$UserRole.Name = &quot;StarTrack Credit Disputes Team Member&quot;))))</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>You do not have the permission to change the Status</errorMessage>
+</ValidationRule>

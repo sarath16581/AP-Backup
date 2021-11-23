@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Drop_10_Configuraiton_Updates</fullName>
+    <columns>Status__c</columns>
+    <columns>Requirement_ID__c</columns>
+    <columns>Drop__c</columns>
+    <columns>Configuraiton_Change__c</columns>
+    <columns>Change_Type__c</columns>
+    <columns>Field_Change_Name__c</columns>
+    <columns>Location__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Drop__c</field>
+        <operation>equals</operation>
+        <value>Drop 10</value>
+    </filters>
+    <label>Drop 10 Configuraiton Updates</label>
+</ListView>

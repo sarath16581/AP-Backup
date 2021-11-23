@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Manager_Current__c</fullName>
+    <description>Current Account Manager, lookup to the organisation record</description>
+    <externalId>false</externalId>
+    <formula>Organisation__r.Owner.FirstName &amp; &quot; &quot; &amp; Organisation__r.Owner.LastName</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Current Account Manager</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

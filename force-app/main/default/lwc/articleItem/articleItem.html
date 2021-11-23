@@ -1,0 +1,76 @@
+<template>
+    <template if:true={article}>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="6">
+                <lightning-card title="Sender">
+                    <c-field-data label="Name" value={article.SenderName__c}></c-field-data>
+                    <c-field-data label="APCN" value={article.Sender_APCN__c}></c-field-data>
+                    <c-field-data label="Company" value={article.SenderCompany__c}></c-field-data>
+                    <c-field-data label="Address" value={article.SenderAddress__c}></c-field-data>
+                    <c-field-data label="Email" value={article.SenderEmail__c}></c-field-data>
+                </lightning-card>
+            </lightning-layout-item>
+            <lightning-layout-item size="6">
+                <lightning-card title="Addressee">
+                    <c-field-data label="Name" value={article.ReceiverName__c}></c-field-data>
+                    <c-field-data label="APCN" value={article.Receiver_APCN__c}></c-field-data>
+                    <c-field-data label="Company" value={article.ReceiverCompany__c}></c-field-data>
+                    <c-field-data label="Address" value={article.ReceiverAddress__c}></c-field-data>
+                    <c-field-data label="Email" value={article.ReceiverEmail__c}></c-field-data>
+                </lightning-card>
+            </lightning-layout-item>
+            <lightning-layout-item size="12">
+                <lightning-card title="Details">
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="6">
+                            <c-field-data label="Article Id" value={article.ArticleID__c}></c-field-data>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6">
+                            <c-field-data label="Delivered" value={article.ReceiverName__c}></c-field-data>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6">
+                            <c-field-data label="Article Lodgement Date" value={article.ArticleLodgementDate__c}></c-field-data>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6">
+                            <c-field-data label="Product Category" value={article.ProductCategory__c}></c-field-data>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6">
+                            <c-field-data label="Article Transit Amount Value ($)" value={article.ArticleTransitAmountValue__c}></c-field-data>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6">
+                            <c-field-data label="Sub Product" value={article.SubProduct__c}></c-field-data>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6">
+                            <c-field-data label="Actual Weight (kg)" value={article.ActualWeight__c}></c-field-data>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6">
+                            <c-field-data label="Delivery Instructions" value={article.DeliveryInstructions__c}></c-field-data>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6">
+                            <c-field-data label="Article Count(Qty)" value={article.ArticleCount__c}></c-field-data>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6">
+                            <c-field-data label="Service Code" value={article.ServiceCode__c}></c-field-data>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6">
+                            <c-field-data label="Insurance Required" value={article.ReceiverName__c}></c-field-data>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6">
+                            <c-field-data label="Notification" value={article.Notification__c}></c-field-data>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </lightning-card>
+            </lightning-layout-item>
+            <lightning-layout-item size="12">
+                <lightning-card title="Messages">
+                    <lightning-datatable
+                        key-field="id"
+                        data={article.eventMessages}
+                        columns={columns}
+                        >
+                    </lightning-datatable>
+                </lightning-card>
+            </lightning-layout-item>
+        </lightning-layout>
+    </template>
+</template>

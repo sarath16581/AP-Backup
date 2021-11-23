@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Web Despatch Parcel send rego non CSSO with PN</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Web Despatch Parcel send rego non CSSO with PN</name>
+    <style>none</style>
+    <subject>We’re inviting you to use Parcel Send</subject>
+    <textOnly>We’re inviting you to use  Parcel Send
+
+A business of Australia Post
+
+We’re inviting you to use
+Parcel Send
+
+Hi {!Contact.FirstName},
+
+We previously contacted you about making the switch from Web Despatch to Parcel Send and the replacement of ‘pre-paid’ services with post-paid services.
+
+We’ve already set up your account, so tap Register now and follow the prompts to start sending.
+
+After you’ve logged in to Parcel Send, you’ll still have access to Web Despatch to view Proof of Deliveries (PODs) until this feature is available in Parcel Send.
+
+Register now
+
+Still have questions?
+If you’ve got any questions, please email our friendly support team at lodgementmigration@auspost.com.au or visit our website for more information on getting the most out of Parcel Send.
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+
+Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

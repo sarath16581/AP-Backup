@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AttachmentGUID__c</fullName>
+    <description>Contains the GUID (image file name) of event message attachment, when an attachment is present. The attachment GUID can be passed into Tibco API to retrieve the attachment.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Contains the GUID (image file name) of event message attachment that can be passed into Tibco API to retrieve the attachment.</inlineHelpText>
+    <label>Attachment GUID</label>
+    <length>100</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_with_ULD</fullName>
+    <columns>Duty_Day_Start_Time__c</columns>
+    <columns>Active_Route_Days__c</columns>
+    <columns>Site__c</columns>
+    <columns>Task__c</columns>
+    <columns>Product__c</columns>
+    <columns>Duty_Template_Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Product__c</field>
+        <operation>equals</operation>
+        <value>ULD</value>
+    </filters>
+    <filters>
+        <field>Duty_Template_Status__c</field>
+        <operation>equals</operation>
+        <value>Draft,Active</value>
+    </filters>
+    <label>All Draft or Active with ULD</label>
+</ListView>

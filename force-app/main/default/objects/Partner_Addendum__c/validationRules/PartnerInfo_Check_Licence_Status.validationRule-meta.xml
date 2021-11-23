@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfo_Check_Licence_Status</fullName>
+    <active>true</active>
+    <description>For PA - For Neg Pay L5 and L6 - Licence should be either Active or Suspended With Fees before creating this type of Partner Addendum</description>
+    <errorConditionFormula>AND(
+OR(
+ RecordType.DeveloperName = &apos;Negotiated_Payment_Type_L5&apos;,
+ RecordType.DeveloperName = &apos;Negotiated_Payment_Type_L6&apos;,
+ RecordType.DeveloperName = &apos;Negotiated_Payment_Type_L8&apos;
+),
+TEXT(Licence__r.Licence_Status__c) &lt;&gt;&apos;Active&apos;,
+TEXT(Licence__r.Licence_Status__c) &lt;&gt;&apos;Suspended With Fees&apos;,
+ISNEW()
+)</errorConditionFormula>
+    <errorMessage>Licence should be either Active or Suspended With Fees before creating this type of Partner Addendum.</errorMessage>
+</ValidationRule>

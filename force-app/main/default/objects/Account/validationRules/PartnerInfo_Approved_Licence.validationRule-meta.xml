@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfo_Approved_Licence</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( OR(RecordType.DeveloperName = &apos;Licence&apos;,RecordType.DeveloperName = &apos;Licence_CMA&apos;,RecordType.DeveloperName = &apos;Licence_CPA&apos;),
+NOT(OR(ISPICKVAL(Licence_Status__c, &apos;Draft&apos;), ISPICKVAL(Licence_Status__c, &apos;Rejected&apos;))),
+NOT(CONTAINS($UserRole.Name , &apos;RNP Manager&apos;)),
+OR(AND(Assignment_Effective_From_Date__c &lt; TODAY(),
+OR(ISCHANGED ( Assignment_Effective_From_Date__c ),
+AND(ISCHANGED ( Assignment_Effective_To_Date__c ),NOT(ISPICKVAL(Termination_Reason__c, &apos;New Assignment&apos;)),NOT(RecordType.DeveloperName = &apos;Licence_CMA&apos;),NOT(RecordType.DeveloperName = &apos;Licence_CPA&apos;)),
+ISCHANGED ( Accounts_Receivable_ID__c ),
+ISCHANGED ( ParentId ),
+ISCHANGED ( Facility__c ),
+ISCHANGED ( Interrupted_Start_Date__c ),
+ISCHANGED ( Interrupted_End_Date__c ),
+ISCHANGED ( SAP_Vendor_ID__c ),
+ISCHANGED ( Licence_Type__c ),
+ISCHANGED ( Payment_Summary_Delivery__c )
+)
+),
+AND(Assignment_Effective_From_Date__c &gt;= TODAY(),
+OR( ISCHANGED ( Assignment_Effective_To_Date__c ),
+ISCHANGED ( Accounts_Receivable_ID__c ),
+ISCHANGED ( ParentId ),
+ISCHANGED ( Facility__c ),
+ISCHANGED ( Interrupted_Start_Date__c ),
+ISCHANGED ( Interrupted_End_Date__c ),
+ISCHANGED ( SAP_Vendor_ID__c ),
+ISCHANGED ( Licence_Type__c ),
+ISCHANGED ( Payment_Summary_Delivery__c )
+)
+)
+)
+)</errorConditionFormula>
+    <errorMessage>This Licence record is already approved. Please open Change Record and submit for approval to make changes.</errorMessage>
+</ValidationRule>

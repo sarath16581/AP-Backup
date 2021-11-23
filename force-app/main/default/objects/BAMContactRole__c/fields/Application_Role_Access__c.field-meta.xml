@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Application_Role_Access__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( ApplicationRole__r.ShowOrganisation__c, &quot;&apos;Organisation&apos; &quot;,&quot;&quot;) +
+IF( ApplicationRole__r.ShowBillingAccount__c, &quot;&apos;Billing Account&apos; &quot;,&quot;&quot;) +
+IF( ApplicationRole__r.ShowGroup__c, &quot;&apos;Group&apos;&quot;,&quot;&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Application Role Access</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

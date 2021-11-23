@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Validate_Business_Unit</fullName>
+    <active>true</active>
+    <description>Validate the value of the business unit field against network field.</description>
+    <errorConditionFormula>AND(
+    RecordType.Name = &apos;Voice of Customer Incident&apos;,
+    ISPICKVAL(Business_Unit__c, &apos;Operations&apos;),
+    ISBLANK(Network__c))</errorConditionFormula>
+    <errorDisplayField>Network__c</errorDisplayField>
+    <errorMessage>Depot is required when Business Unit is set to &apos;Operations&apos;.</errorMessage>
+</ValidationRule>

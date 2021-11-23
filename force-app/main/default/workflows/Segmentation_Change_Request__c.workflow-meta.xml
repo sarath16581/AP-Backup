@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Email_Creator_of_SCCR</fullName>
+        <description>Email Creator of SCCR</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Phase_2_Email_Templates/SCCR_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Proposed_Account_Manager</fullName>
+        <description>Email Proposed Account Manager</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Proposed_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Phase_2_Email_Templates/Phase_2_Request_Approved_Proposed_AM</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Requestor_it_is_approved</fullName>
+        <description>Email Requestor it is approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Phase_2_Email_Templates/Phase_2_Request_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Requestor_of_Rejection</fullName>
+        <description>Email Requestor of Rejection</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Phase_2_Email_Templates/SCCR_Rejection</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_to_requestor_it_is_rejected</fullName>
+        <description>Email to requestor it is rejected</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Phase_2_Email_Templates/Phase_2_Request_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Email_to_Incoming_Approver</fullName>
+        <description>Send Email to Incoming Approver</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Hidden_Incoming_Aprrover__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Phase_2_Email_Templates/SCCR_on_submit</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Email_to_Outgoing_Approver</fullName>
+        <description>Send Email to Outgoing Approver</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Hidden_Outgoing_Approver__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Phase_2_Email_Templates/SCCR_on_submit</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Email_to_Proposed_Account_manager</fullName>
+        <description>Send Email to Proposed Account manager</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Proposed_Account_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Phase_2_Email_Templates/SCCR_Approved</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Acc_Manager_at_time_SCCR_Submitted</fullName>
+        <description>Snapshot of the field when the submitted button is pressed</description>
+        <field>Account_Manager_at_time_SCCR_Submitted__c</field>
+        <formula>Account_Manager_Current__c</formula>
+        <name>Acc Manager at time SCCR Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approval_Comment_Requested</fullName>
+        <description>Change the value of Approval Comment check to requested</description>
+        <field>Approval_Comment_Check__c</field>
+        <literalValue>Requested</literalValue>
+        <name>Approval Comment Requested</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approval_Comment_Required</fullName>
+        <description>Change the value of the Approval Comment Check to required</description>
+        <field>Approval_Comment_Check__c</field>
+        <literalValue>Required</literalValue>
+        <name>Approval Comment Required</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Fill_in_request_unique_id</fullName>
+        <field>Request_Unique_ID__c</field>
+        <formula>Organisation__r.Id&amp; RecordTypeId&amp;Case( Approval_Status__c , &quot;New&quot;, &quot;Y&quot;,
+&quot;Approved&quot;, &quot;Y&quot;, &quot;Submitted&quot;, &quot;Y&quot;, &quot;N&quot;)</formula>
+        <name>Fill in request unique id</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Holding_Role_at_time_SCCR_submitted</fullName>
+        <field>Holding_Role_at_time_SCCR_Submitted__c</field>
+        <formula>Current_Holding_Role__c</formula>
+        <name>Holding Role at time SCCR submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Sales_Team_at_time_SCCR_Submitted</fullName>
+        <field>Sales_Team_at_time_SCCR_Submitted__c</field>
+        <formula>CurrentSalesTeam__c</formula>
+        <name>Sales Team at time SCCR Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approval_Status</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Update Approval Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approval_Status_as_Rejected</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Approval Status as Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approval_Status_to_Approved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Approval Status to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approval_Status_to_Cancelled</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Cancelled</literalValue>
+        <name>Update Approval Status to Cancelled</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approval_Status_to_Recalled</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Recalled</literalValue>
+        <name>Update Approval Status to Recalled</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approval_Status_to_Rejected</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Approval Status to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approved_Date</fullName>
+        <field>Approved_Date__c</field>
+        <formula>Now()</formula>
+        <name>Update Approved Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Date_Approved</fullName>
+        <field>Date_Request_Approved_Rejected__c</field>
+        <formula>NOW()</formula>
+        <name>Update Date Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Date_Submitted_to_null</fullName>
+        <field>Date_Request_Sent__c</field>
+        <name>Update Date Submitted to null</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Date_rejected</fullName>
+        <field>Date_Request_Approved_Rejected__c</field>
+        <formula>NOW()</formula>
+        <name>Update Date rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Date_when_Sent</fullName>
+        <field>Date_Request_Sent__c</field>
+        <formula>NOW()</formula>
+        <name>Update Date when Sent</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Process_Date</fullName>
+        <field>Effective_Date_of_Change__c</field>
+        <formula>CASE(MONTH(TODAY()), 
+1, IF(DAY(TODAY())&gt;=23, Date( YEAR( TODAY()) , 04, 23), Date( YEAR( TODAY() ) , 01, 23)), 
+2, Date( YEAR( TODAY() ), 04, 23), 
+3, Date( YEAR(TODAY()), 04, 23), 
+4, IF(DAY(TODAY())&gt;=23, Date( YEAR(TODAY()) , 07, 23), Date( YEAR( TODAY()) , 04, 23)), 
+5, Date( YEAR( TODAY()),07, 23), 
+6, Date( YEAR( TODAY()) , 07, 23), 
+7, IF(DAY(TODAY())&gt;=23, Date( YEAR( TODAY()) , 10, 23), Date( YEAR(TODAY()) , 07, 23)), 
+8, Date( YEAR(TODAY()) , 10, 23), 
+9, Date( YEAR(TODAY()) , 10, 23), 
+10, IF(DAY(TODAY())&gt;=23, Date( YEAR(TODAY()) , 01, 23), Date( YEAR( TODAY()) , 10, 23)), 
+11, Date( YEAR( TODAY())+1 , 01, 23), 
+12, Date( YEAR( TODAY())+1, 01, 23), today())</formula>
+        <name>Update Process Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Process_Date_with_Lock_In_Date</fullName>
+        <field>Effective_Date_of_Change__c</field>
+        <formula>Lock_In_Date__c</formula>
+        <name>Update Process Date with Lock In Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Rejected_Date</fullName>
+        <field>Date_Request_Approved_Rejected__c</field>
+        <formula>NOW()</formula>
+        <name>Update Rejected Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Sent_Date</fullName>
+        <field>Date_Request_Sent__c</field>
+        <formula>NOW()</formula>
+        <name>Update Sent Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Approved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Status to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Pending</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Update Status to Pending</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Recalled</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Recalled</literalValue>
+        <name>Update Status to Recalled</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Rejected</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Status to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_submission_date</fullName>
+        <field>Date_Request_Sent__c</field>
+        <name>Update submission date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Approval Comment Flag</fullName>
+        <actions>
+            <name>Approval_Comment_Requested</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Segmentation_Change_Request__c.Approval_Comment_Check__c</field>
+            <operation>equals</operation>
+            <value>Required</value>
+        </criteriaItems>
+        <description>Change the Approval Comment check value from required to requested</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>At time SCCR Submitted</fullName>
+        <actions>
+            <name>Acc_Manager_at_time_SCCR_Submitted</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Holding_Role_at_time_SCCR_submitted</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Sales_Team_at_time_SCCR_Submitted</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Segmentation_Change_Request__c.Account_Manager_Current__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Update the Account Manager, sales team and holding role at the time SCCR is submitted</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 - Update Process Date when Approval delayed</fullName>
+        <actions>
+            <name>Update_Process_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Segmentation_Change_Request__c.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Segmentation_Change_Request__c.Lock_In_Date__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>TODAY</value>
+        </criteriaItems>
+        <description>For requests that are approved and passed lock in date, push it to next process date.</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 - Update Process Date with Lock In Date</fullName>
+        <actions>
+            <name>Update_Process_Date_with_Lock_In_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Segmentation_Change_Request__c.Lock_In_Date__c</field>
+            <operation>lessThan</operation>
+            <value>TODAY</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Segmentation_Change_Request__c.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <description>For requests that are approved and passed lock in date, push it to next quarter.</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 - fill request unique ID</fullName>
+        <actions>
+            <name>Fill_in_request_unique_id</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>TRUE</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

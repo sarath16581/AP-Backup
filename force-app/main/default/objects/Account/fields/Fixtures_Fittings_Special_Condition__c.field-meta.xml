@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fixtures_Fittings_Special_Condition__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Is Licensee required to install any fixtures or fittinds?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Is Licensee required to install any fixtures or fittinds?</inlineHelpText>
+    <label>Fixtures &amp; Fittings Special Condition</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

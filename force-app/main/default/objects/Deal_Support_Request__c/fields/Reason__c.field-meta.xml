@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason__c</fullName>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Competitive Win</fullName>
+                <default>false</default>
+                <label>Competitive Win</label>
+            </value>
+            <value>
+                <fullName>Credit</fullName>
+                <default>false</default>
+                <label>Credit</label>
+            </value>
+            <value>
+                <fullName>Customer</fullName>
+                <default>false</default>
+                <label>Customer</label>
+            </value>
+            <value>
+                <fullName>Customer/Pricing</fullName>
+                <default>false</default>
+                <label>Customer/Pricing</label>
+            </value>
+            <value>
+                <fullName>Customer Error</fullName>
+                <default>false</default>
+                <label>Customer Error</label>
+            </value>
+            <value>
+                <fullName>Customer IT</fullName>
+                <default>false</default>
+                <label>Customer IT</label>
+            </value>
+            <value>
+                <fullName>Deal Support rework</fullName>
+                <default>false</default>
+                <label>Deal Support rework</label>
+            </value>
+            <value>
+                <fullName>Duplicate</fullName>
+                <default>false</default>
+                <label>Duplicate</label>
+            </value>
+            <value>
+                <fullName>Incorrect Product Classification-No Revenue found LFY</fullName>
+                <default>false</default>
+                <label>Incorrect Product Classification-No Revenue found LFY</label>
+            </value>
+            <value>
+                <fullName>Incorrect Product Classification-Revenue found LFY</fullName>
+                <default>false</default>
+                <label>Incorrect Product Classification-Revenue found LFY</label>
+            </value>
+            <value>
+                <fullName>Lodgement on Business Partner Account</fullName>
+                <default>false</default>
+                <label>Lodgement on Business Partner Account</label>
+            </value>
+            <value>
+                <fullName>Missing page(s) in agreement</fullName>
+                <default>false</default>
+                <label>Missing page(s) in agreement</label>
+            </value>
+            <value>
+                <fullName>New instead of DoV/Renewal</fullName>
+                <default>false</default>
+                <label>New instead of DoV/Renewal</label>
+            </value>
+            <value>
+                <fullName>Not required</fullName>
+                <default>false</default>
+                <label>Not required</label>
+            </value>
+            <value>
+                <fullName>No valid account available</fullName>
+                <default>false</default>
+                <label>No valid account available</label>
+            </value>
+            <value>
+                <fullName>Operations</fullName>
+                <default>false</default>
+                <label>Operations</label>
+            </value>
+            <value>
+                <fullName>Pre-requisites not met</fullName>
+                <default>false</default>
+                <label>Pre-requisites not met</label>
+            </value>
+            <value>
+                <fullName>Pricing schedule issue</fullName>
+                <default>false</default>
+                <label>Pricing schedule issue</label>
+            </value>
+            <value>
+                <fullName>Product Decline</fullName>
+                <default>false</default>
+                <label>Product Decline</label>
+            </value>
+            <value>
+                <fullName>Product Error</fullName>
+                <default>false</default>
+                <label>Product Error</label>
+            </value>
+            <value>
+                <fullName>Renewal classification found for product but no Growth record exist</fullName>
+                <default>false</default>
+                <label>Renewal classification found for product but no Growth record exist</label>
+            </value>
+            <value>
+                <fullName>Sales Team</fullName>
+                <default>false</default>
+                <label>Sales Team</label>
+            </value>
+            <value>
+                <fullName>Subsidiaries and Joint Ventures</fullName>
+                <default>false</default>
+                <label>Subsidiaries and Joint Ventures</label>
+            </value>
+            <value>
+                <fullName>TEAM/Quotes</fullName>
+                <default>false</default>
+                <label>TEAM/Quotes</label>
+            </value>
+            <value>
+                <fullName>Wrong document sent for signing</fullName>
+                <default>false</default>
+                <label>Wrong document sent for signing</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

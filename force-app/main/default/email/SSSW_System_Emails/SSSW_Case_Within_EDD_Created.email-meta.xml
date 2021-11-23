@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email template for case within EDD and within EDD plus n days notification</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Case Within EDD Created</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber} {!Case.Thread_Id}</subject>
+    <textOnly>Australia Post
+
+Thanks, we&apos;ve received your enquiry
+
+Hi {!Contact.FirstName},
+
+
+Thanks for your enquiry{!IF(ISNULL(Case.ReferenceID__c), &apos;.&apos;, &apos; about item &apos;)}    {!IF(ISNULL(Case.ReferenceID__c), &apos;&apos;, Case.ReferenceID__c + &apos;.&apos;)}    Your reference number is {!Case.CaseNumber}.
+
+What happens next?
+
+Most late items arrive within 5 business days of the expected delivery date. If your parcel is delivered, we’ll let you know and close your enquiry.
+
+We’ll monitor this delivery until  {!CASE(WEEKDAY(DATEVALUE(Case.Case_Reopen_Date__c)), 1, &quot;Sun&quot;, 2, &quot;Mon&quot;, 3, &quot;Tue&quot;, 4, &quot;Wed&quot;, 5, &quot;Thu&quot;, 6, &quot;Fri&quot;, &quot;Sat&quot;)} 												{!DAY(DATEVALUE(Case.Case_Reopen_Date__c))} 												{!CASE(MONTH(DATEVALUE(Case.Case_Reopen_Date__c)), 1, &quot;Jan&quot;, 2, &quot;Feb&quot;, 3, &quot;Mar&quot;, 4, &quot;Apr&quot;, 5, &quot;May&quot;, 6, &quot;Jun&quot;, 7, &quot;Jul&quot;, 8, &quot;Aug&quot;, 9, &quot;Sep&quot;, 10, &quot;Oct&quot;, 11, &quot;Nov&quot;, &quot;Dec&quot;)}  . If it doesn’t arrive by then, we’ll begin investigating. No need to submit another enquiry.
+
+You&apos;ll hear back from us when we review your enquiry or if your item arrives.
+
+To allow for delayed delivery caused by COVID-19 disruptions, we’ll start our late item investigation 15 business days after the estimated delivery date.
+
+We&apos;re currently experiencing high volumes of enquiries and will be in touch as soon as we can.
+
+If you no longer need us to manage your enquiry, you can cancel it easily by closing your case.
+
+CLOSE MY CASE
+
+
+Australia Post will never send you an unsolicited email asking for your password, credit card details or account information</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>StarTrack action for consignment shortage.</description>
+    <height>100</height>
+    <icon>Consignment_Shortage</icon>
+    <label>Consignment Shortage</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <page>StarTrackConsignmentShortage</page>
+    <type>VisualforcePage</type>
+    <width>-100</width>
+</QuickAction>

@@ -1,0 +1,121 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 13/07/2020
+  * @description  : Component for BSP Self Registration.
+--------------------------------------- History --------------------------------------------------
+13.07.2020    Jansi Rani   Created
+-->
+<template>
+    <!-- 1.REGISTRATION - SECTION-->
+    <temple if:true={isRegSecVisible}>
+        <div class="slds-grid slds-grid_align-center">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_6-of-12 headline-box slds-m-vertical_x-large">
+                <h1>Create a Business Support Portal login</h1>
+                <p>Sign up to track your deliveries and manage all your enquirires and questions. <br>
+                    You'll need a <b><a target="_blank" class="underline-dec"
+                            href="https://auspost.com.au/business/business-admin/business-credit-accounts-postage-meters/business-credit-account">Business
+                            Credit Account</a></b> to get started.</p>
+
+            </div>
+        </div>
+
+        <div class="slds-grid slds-grid_align-center">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_6-of-12 slds-m-bottom_x-large outer-box slds-is-relative">
+
+                <lightning-card title="">
+
+                    <div class="slds-p-horizontal_x-large slds-p-bottom_large long-form-right-pad">
+
+                        <!-- Error messages-->
+                        <template if:true={errorMessage}>
+                            <c-bsp-error data-id="message" error-message={errorMessage}></c-bsp-error>
+                        </template>
+
+                        <!--First Name-->
+                        <lightning-input data-validate='doValidate' type="text" label="First Name" data-id='firstName'
+                            onchange={handleChange} onfocusout={handleFocusOut} required
+                            class="brand-form-input slds-p-bottom_x-large"></lightning-input>
+
+                        <!-- Last Name-->
+                        <lightning-input data-validate='doValidate' type="text" label="Last Name" data-id='lastName'
+                            onchange={handleChange} onfocusout={handleFocusOut} required
+                            class="brand-form-input slds-p-bottom_x-large"></lightning-input>
+
+                        <!-- Email-->
+                        <lightning-input data-validate='doValidate' type="email" label="Email Address" data-id='email'
+                            onchange={handleChange} onfocusout={handleFocusOut} required
+                            class="brand-form-input slds-p-bottom_x-large"></lightning-input>
+
+                        <!-- Phone-->
+                        <lightning-input data-validate='doValidate' type="tel" label="Phone Number" data-id='phone'
+                            onchange={handleChange} onfocusout={handleFocusOut} pattern='^[0-9]{10}$' max-length='10'
+                            required class="brand-form-input slds-p-bottom_x-large">
+                        </lightning-input>
+
+                        <!-- 'Business Details' section heading-->
+                        <div class="slds-p-vertical_x-large">
+                            <h3>Business Details</h3>
+                        </div>
+
+                        <!-- Business Name-->
+                        <lightning-input data-validate='doValidate' type="text" label="Business Name"
+                            field-level-help='The legal entity name that matches your ABN' data-id=businessName
+                            onchange={handleChange} onfocusout={handleFocusOut} required
+                            class="brand-form-input slds-p-bottom_x-large"></lightning-input>
+
+                        <!-- Australi Post Account Number-->
+                        <lightning-input data-validate='doValidate' type="text" label="Business Credit Account"
+                            field-level-help='Find your account number on your invoice' onchange={handleChange}
+                            data-id=businessNumber onfocusout={handleFocusOut} required
+                            class="brand-form-input slds-p-bottom_x-large"></lightning-input>
+
+                        <!-- Address Section -->
+                        <c-bsp-address-search address={mailingAddress} label='Business Address'
+                            data-validate='doAddressValidate' onstreetchange={handleManualChange}
+                            field-level-help='If address not found, please expand and manually override the address'
+                            placeholder='Search for address' onsearchtermchange={handleAddressChange} required
+                            class="brand-form-input">
+                        </c-bsp-address-search>
+
+                        <!-- 'Required information' text-->
+                        <div class="slds-p-top_x-large">
+                            <span class="slds-text-color_error">*</span>&nbsp;Required information
+                        </div>
+
+                        <!--Buttons Section - Start-->
+                        <div class="slds-p-top_x-large">
+                            <!-- Cancel-->
+                            <lightning-button label="Cancel" title="Cancel" onclick={handleCancel}
+                                class="brand-tertiary-button slds-p-right_medium"></lightning-button>
+                            <!-- Create Login -->
+                            <lightning-button variant="brand" label="Create login" title="Create login"
+                                onclick={handleSave} class="brand-primary-button"></lightning-button>
+                        </div>
+                        <!--Buttons Section - End -->
+                    </div>
+                </lightning-card>
+
+                <!-- spinner-->
+                <div if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+                </div>
+            </div>
+        </div>
+    </temple>
+
+    <!-- 2.REGISTRATION SUCCESS - SECTION-->
+    <temple if:false={isRegSecVisible}>
+        <div class="slds-grid slds-grid_align-center">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_6-of-12 headline-box slds-m-vertical_x-large">
+                <h2>Your account has been created.</h2>
+                <p>You will receive an email shortly to verify your email address</p>
+                <div class="slds-p-top_x-small">
+
+                    <!-- Cancel-->
+                    <lightning-button label="Back to Login" title="back" onclick={handleCancel}
+                        class="brand-secondary-button"></lightning-button>
+                </div>
+            </div>
+        </div>
+    </temple>
+</template>

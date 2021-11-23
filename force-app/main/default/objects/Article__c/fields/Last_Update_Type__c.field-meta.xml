@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Last_Update_Type__c</fullName>
+    <description>StarTrack - This field specifies the type of the update received for the Consignment i.e. FULL, EVENT, POD, ARTICLE, BOOKIN,SUBDOCKET</description>
+    <externalId>false</externalId>
+    <label>Last Update Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>FULL</fullName>
+                <default>false</default>
+                <label>FULL</label>
+            </value>
+            <value>
+                <fullName>ARTICLE</fullName>
+                <default>false</default>
+                <label>ARTICLE</label>
+            </value>
+            <value>
+                <fullName>EVENT</fullName>
+                <default>false</default>
+                <label>EVENT</label>
+            </value>
+            <value>
+                <fullName>POD</fullName>
+                <default>false</default>
+                <label>POD</label>
+            </value>
+            <value>
+                <fullName>BOOKINNOTE</fullName>
+                <default>false</default>
+                <label>BOOKINNOTE</label>
+            </value>
+            <value>
+                <fullName>SUBDOCKET</fullName>
+                <default>false</default>
+                <label>SUBDOCKET</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>BCA_Approved</fullName>
+        <description>BCA Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <field>APT_Correspondence_Email_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>BCA_Credit_Assessment/BCA_Credit_Account_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>BCA_Referred</fullName>
+        <description>BCA Referred</description>
+        <protected>false</protected>
+        <recipients>
+            <field>APT_Correspondence_Email_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>BCA_Credit_Assessment/BCA_Credit_Account_Referred</template>
+    </alerts>
+    <alerts>
+        <fullName>BCA_Rejected</fullName>
+        <description>BCA Rejected</description>
+        <protected>false</protected>
+        <recipients>
+            <field>APT_Correspondence_Email_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>BCA_Credit_Assessment/BCA_Credit_Account_Rejected</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>AusPost_Round_up_to_11</fullName>
+        <description>The Aus Post Proposed for New Account and StarTrack Proposed for New Account fields are rounded up to $11 when a value less than $11 is entered</description>
+        <field>Aus_Post_Proposed_for_New_Account__c</field>
+        <formula>11</formula>
+        <name>AusPost Round up to 11</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>StarTrack_Round_up_to_11</fullName>
+        <description>The StarTrack Proposed for New Account ​field is rounded up to $11 when a value less than $11 is entered</description>
+        <field>StarTrack_Proposed_for_New_Account__c</field>
+        <formula>11</formula>
+        <name>StarTrack Round up to 11</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Manual_Assessment_Date_and_Time</fullName>
+        <field>L2C_Manual_Assessment_Start_Time__c</field>
+        <formula>NOW()</formula>
+        <name>Update Manual Assessment Date and Time</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>AusPost Round up to 11</fullName>
+        <actions>
+            <name>AusPost_Round_up_to_11</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>APT_Credit_Assessment__c.Aus_Post_Proposed_for_New_Account__c</field>
+            <operation>lessThan</operation>
+            <value>11</value>
+        </criteriaItems>
+        <description>The Aus Post Proposed for New Account field is rounded up to $11 when a value less than $11 is entered - REQ2596623</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>BCA Approved</fullName>
+        <actions>
+            <name>BCA_Approved</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>When a Credit Assessment Status is Auto-Approved, or from Referred to Approved</description>
+        <formula>AND(     TEXT(L2C_Assessment_Type__c ) = &quot;Online&quot;,     Billing_Account__c != null,     PRIORVALUE(Billing_Account__c) = null,     OR(          TEXT( APT_Credit_Assessment_Status__c ) = &quot;Approved&quot;,         TEXT( APT_Credit_Assessment_Status__c ) = &quot;Auto-Approved&quot;     ) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>BCA Referred</fullName>
+        <actions>
+            <name>BCA_Referred</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>APT_Credit_Assessment__c.APT_Credit_Assessment_Status__c</field>
+            <operation>equals</operation>
+            <value>Referred</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>APT_Credit_Assessment__c.L2C_Assessment_Type__c</field>
+            <operation>equals</operation>
+            <value>Online</value>
+        </criteriaItems>
+        <description>When a Credit Assessment is received as Referred</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>BCA Rejected</fullName>
+        <actions>
+            <name>BCA_Rejected</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>APT_Credit_Assessment__c.APT_Credit_Assessment_Status__c</field>
+            <operation>equals</operation>
+            <value>Rejected</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>APT_Credit_Assessment__c.L2C_Assessment_Type__c</field>
+            <operation>equals</operation>
+            <value>Online</value>
+        </criteriaItems>
+        <description>When a Credit Assessment is Rejected</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Referred Credit Assessment</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>APT_Credit_Assessment__c.APT_Credit_Assessment_Status__c</field>
+            <operation>equals</operation>
+            <value>Referred</value>
+        </criteriaItems>
+        <description>Send email on credit assessment referred</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>StarTrack Round up to 11</fullName>
+        <actions>
+            <name>StarTrack_Round_up_to_11</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>APT_Credit_Assessment__c.StarTrack_Proposed_for_New_Account__c</field>
+            <operation>lessThan</operation>
+            <value>11</value>
+        </criteriaItems>
+        <description>The StarTrack Proposed for New Account ​field is rounded up to $11 when a value less than $11 is entered - REQ2596623</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Manual Assessment Date and Time</fullName>
+        <actions>
+            <name>Update_Manual_Assessment_Date_and_Time</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(ISBLANK( L2C_Manual_Assessment_Start_Time__c ) ,  ISPICKVAL( APT_Credit_Assessment_Status__c , &apos;Work-In-Progress&apos;))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

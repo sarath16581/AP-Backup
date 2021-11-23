@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Meet_Timeframe__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Phase 1 - Opportunity Assessment (PWC) 
+
+Identify if we can develop new capabilities to fulfil customer requirements in the required timeframe</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Can we develop the required capabilities in the required timeframe?</inlineHelpText>
+    <label>Meet Timeframe</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

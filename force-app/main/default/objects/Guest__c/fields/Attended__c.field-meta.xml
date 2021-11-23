@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Attended__c</fullName>
+    <description>Indicates whether the Invited Guest actually attended the event after accepting.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Has this guest actually attended this event?</inlineHelpText>
+    <label>Attended?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes</fullName>
+                <default>false</default>
+                <label>Yes</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+            <value>
+                <fullName>No Show</fullName>
+                <default>false</default>
+                <label>No Show</label>
+            </value>
+            <value>
+                <fullName>Late Cancellation</fullName>
+                <default>false</default>
+                <label>Late Cancellation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

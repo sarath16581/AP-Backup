@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Deal_Support_Request</fullName>
+    <booleanFilter>1 OR (2 AND 3)</booleanFilter>
+    <columns>CREATED_DATE</columns>
+    <columns>NAME</columns>
+    <columns>Stage__c</columns>
+    <columns>Status__c</columns>
+    <columns>Requestor_Name__c</columns>
+    <columns>Organisation__c</columns>
+    <columns>Opportunity_Name__c</columns>
+    <columns>RECORDTYPE</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Closed-Disqualified,Draft,Pending Information,Completed,Accepted,Cancelled,Completed - Closed,Completed - Business Lost,Completed - Business Retained,Completed - Product Migration,Completed - Channel Migration</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Pending Information</value>
+    </filters>
+    <filters>
+        <field>Pending_Information_Reason__c</field>
+        <operation>equals</operation>
+        <value>Remedy Logged With IT</value>
+    </filters>
+    <label>My Deal Support Request</label>
+    <sharedTo>
+        <group>Deal_Support_Request_Group</group>
+    </sharedTo>
+</ListView>

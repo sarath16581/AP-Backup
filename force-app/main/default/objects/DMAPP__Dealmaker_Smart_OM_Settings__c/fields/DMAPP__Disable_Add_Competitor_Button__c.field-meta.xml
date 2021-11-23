@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Disable_Add_Competitor_Button__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If checked, prevents users from adding a competitor to an opportunity (in the Competitive Strategy page).</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If checked, prevents users from adding a competitor to an opportunity (in the Competitive Strategy page).</inlineHelpText>
+    <label>Disable Add Competitor Button</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

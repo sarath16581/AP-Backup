@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Document_Type__c</fullName>
+    <description>Phase 1 - field to capture the type of document being uploaded.</description>
+    <externalId>false</externalId>
+    <label>Document Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Contract Decision Form (CDF)</fullName>
+                <default>false</default>
+                <label>Contract Decision Form (CDF)</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Opportunity Assessment Form</fullName>
+                <default>false</default>
+                <label>Opportunity Assessment Form</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

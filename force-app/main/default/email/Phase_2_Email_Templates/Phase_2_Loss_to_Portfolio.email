@@ -1,0 +1,12 @@
+The following organisation has been removed from your portfolio: 
+
+Organisation: {!Account.Name} 
+Number: {!Account.AccountNumber} 
+
+It has been transferred to: 
+
+New Owner: {!Account.OwnerFullName} 
+Sales Team: {!Account.Sales_Segment__c} 
+Sales Team Owner: {!Account.Sales_Director__c} 
+
+You can use this link to view the Organisation: {!Account.Link}

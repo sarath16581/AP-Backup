@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__AM_Custom_Tab_Two_Src__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The Visualforce page which your second AM Custom Tab will show</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The Visualforce page which your second AM Custom Tab will show</inlineHelpText>
+    <label>Tab Two Src</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

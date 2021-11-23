@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EmailNotAvailable__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Working together with validation rule, to enforce SSSW service agent to confirm the availability of customer email address if email was left empty (REQ2122521).</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Please check this box if the email is not available for this contact.</inlineHelpText>
+    <label>I requested an email address</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

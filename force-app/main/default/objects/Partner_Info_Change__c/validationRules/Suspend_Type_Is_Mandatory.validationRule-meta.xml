@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Suspend_Type_Is_Mandatory</fullName>
+    <active>true</active>
+    <description>If Suspend Start date is specified, then Status must be specified.</description>
+    <errorConditionFormula>AND(NOT(ISBLANK(Interrupted_Start_Date__c )),   ISPICKVAL(Licence_Status__c, &apos;&apos;))</errorConditionFormula>
+    <errorMessage>Please specify the Licence Status.</errorMessage>
+</ValidationRule>

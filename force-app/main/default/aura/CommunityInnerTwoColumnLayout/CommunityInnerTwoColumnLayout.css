@@ -1,0 +1,145 @@
+/* ***********************************************
+* 21-05-2020 rufus.solomon@auspost.com.au Updated background colors - #f3f1ee replaced with #f5f5f5
+*/
+
+/* Style Header section */
+.THIS.headerContainer{
+    background-color: #ffffff;
+}
+
+.THIS .header-content{
+    display: flex;
+    max-width: 1154px;
+    margin: 0 auto;
+    padding: 15px 15px;
+}
+
+.THIS .contentheader-block1 {
+    padding: 10px 10px;
+}
+
+.THIS .contentheader-block2 {
+    /*position: relative; */
+    padding: 10px 10px;
+}
+
+/* Stlye main Content section, including the Sidebar */
+.THIS .body-inner-content{
+    background: #f5f5f5; 
+    display: flex;
+    padding: 0 10px;
+    max-width: 1154px;
+    margin: 0 auto;
+    
+}
+
+.THIS .mainContent {
+    padding: 10px 10px;
+    background: #f5f5f5; 
+
+}
+
+.THIS .contentSidebar {
+    padding: 10px 10px;
+    background: #f5f5f5; 
+
+}
+
+/* Stlye Footer section */
+.THIS.contentfooter {
+    padding: 20px 20px;
+    max-width: 1154px;
+    margin: 0 auto;
+
+}
+
+/* Feed component styling */
+.THIS .slds-feed__item {
+    background-color: #f5f5f5;
+    padding-bottom: 0px;
+
+}
+
+.THIS .forceChatterStyle--default .slds-feed__item:first-child {
+    padding-top: 16px;
+}
+
+/* Feed component styling for mobile view */
+@media screen and (max-width: 768px) {
+.THIS .contentheader-block1 {
+      text-align: center;
+}
+.THIS .feedBodyInner p{
+      padding-left: 20px;
+}
+.THIS .slds-feed__item {
+      padding-top: 16px;
+}
+}
+
+/* Styling to control the single word in content header block in inner pages */
+.THIS [data-region-name="ContentHeaderBlock1"]{
+    max-width: 450px;
+}
+
+@media screen and (max-width: 768px) {
+/* Styling to control the single word in content header block in inner pages */
+.THIS [data-region-name="ContentHeaderBlock1"]{
+    max-width: 100%;
+}    
+}
+
+/* Styling for the border and border radius on the User Profile Page */
+.THIS .forceCommunityUserProfileBody .cProfileViewBody{
+    border: 0px;
+    border-radius: 3px;
+}
+
+.THIS .cBrideas_UserProfileIdeasStats{
+    border: 0px;
+    /*Will uncomment below once Winter'19 Badges section is released in PROD*/
+    /*border-bottom: 16px solid #f3f1ee;*/
+    border-radius: 3px; 
+}
+
+.THIS .forceCommunityUserProfileStats{
+    border-bottom: 16px solid #f5f5f5;
+    border-radius: 3px;
+}
+
+.THIS .forceRelatedListCardDesktop{
+    border-radius: 3px;
+}
+
+.THIS .forceDiscoveryUserProfileKnowledgeableAbout{
+    border-top: 16px solid #f5f5f5;
+}
+
+.THIS .forceCommunityHeadline .headlineIcon{
+    display: none;
+}
+
+.THIS .forceCommunityHeadline .headlineTitle{
+    font-size: 24px;
+    text-align: left;
+}
+
+.THIS .communitySetupThanksButton.buttonWidth {
+    width: 100%;
+}
+
+/* Styling for the search page search filters */
+.THIS .slds-navigation-list--vertical__action {
+    border-top: none;
+    border-bottom: none;
+}
+
+.THIS .slds-navigation-list--vertical .slds-is-active .slds-navigation-list--vertical__action{
+    border-left: 0.25rem solid #6eebd2 !important;
+    border-right: 0.75rem solid #f5f5f5 !important;
+    font-weight: bold !important;
+}
+/*YongLing Making sure text 'Discussion' is not wrapped to second line in Search Result Page*/
+.THIS .forceSearchScopesList .scopesItem {
+    padding-left: 0.5rem !important;
+}

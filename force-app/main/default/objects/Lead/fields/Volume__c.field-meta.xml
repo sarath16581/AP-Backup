@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Volume__c</fullName>
+    <externalId>false</externalId>
+    <label>Volume</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>0-9</fullName>
+                <default>false</default>
+                <label>0-9</label>
+            </value>
+            <value>
+                <fullName>10-19</fullName>
+                <default>false</default>
+                <label>10-19</label>
+            </value>
+            <value>
+                <fullName>&gt;20</fullName>
+                <default>false</default>
+                <label>&gt;20</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

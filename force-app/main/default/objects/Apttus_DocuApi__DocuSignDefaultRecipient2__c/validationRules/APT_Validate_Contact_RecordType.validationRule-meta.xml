@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Validate_Contact_RecordType</fullName>
+    <active>true</active>
+    <description>If ‘Count of Contact Records’ &gt; 1 then fire validation rule to restrict users from creating more than one Docusign Recipients records of record type ‘Contact’</description>
+    <errorConditionFormula>AND(APT_Count_of_Contact_Records__c &gt; 1, NOT( ISPICKVAL( Apttus_DocuApi__RecipientType__c , &apos;Carbon Copy&apos;)))</errorConditionFormula>
+    <errorMessage>Cannot add more than one Customer recipient.</errorMessage>
+</ValidationRule>

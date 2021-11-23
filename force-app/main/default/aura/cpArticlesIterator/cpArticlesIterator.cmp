@@ -1,0 +1,12 @@
+<!-- 2021-08-30 naveen.rajanna@auspost.com.au RELEASE UPDATES Enable Aura Component Access Fix -->
+<aura:component access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="Article" type="Featured_Content__kav" access="public"/>
+    <aura:attribute name="routeInput" type="map"/>
+        <td class="Border-style" scope="row" data-label="Article Title">
+            <div class="slds-truncate title-Font" title="articleTitle">
+                <forceCommunity:routeLink routeInput="{!v.routeInput}">{!v.Article.Title}</forceCommunity:routeLink>
+                <!--<a href="javascript:void(0);" onclick="{!c.redirectToDetailPage}">{!v.Article.Title}</a>-->
+            </div> 
+        </td>
+</aura:component>

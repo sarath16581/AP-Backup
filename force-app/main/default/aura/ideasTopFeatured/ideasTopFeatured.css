@@ -1,0 +1,241 @@
+/* Styling for the featured inner section */
+.THIS .ideas-featured-inner {
+   border-top: 16px solid #f3f1ee;
+   /*border-bottom: 16px solid #f3f1ee;*//*Added to fix spacing issue*/
+}
+
+/* Styling for the title section */
+.THIS .title {
+    font-size: 24px;
+    font-family: 'letterbold' !important;
+    width: 100%;
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #6eebd2;
+    }
+
+/* Styling for the subtitle section */
+.THIS .subTitle {
+    font-size: 14px;
+    font-family: 'Arial' !important;
+    font-weight: bold !important;
+    float:right;
+    padding-top: 10px;
+    text-decoration: none;
+    }
+
+/* Styling for the title content section */
+.THIS .featured-idea .titleContent a {
+    text-align: left;
+    font-family: 'letterbold' !important;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+    text-decoration: none;
+    }
+
+/* Styling for the body content section */
+.THIS .featured-idea .bodyContent {
+    background: #ffffff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    border-radius: 4px;
+    word-wrap: break-word;
+    }
+
+.THIS .featured-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    }
+
+.THIS .featured-idea {
+    padding: 16px 16px 10px 16px;
+    text-align: left;
+}
+
+.THIS .featured-idea > img {
+    padding: 20px 0;
+}
+
+.THIS .featured-idea h3 a {
+    font-size: 18px;
+    font-family: 'Arial' !important;
+    }
+
+/* Styling for the vote section */
+.THIS .featured-vote {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    text-align: center;
+    color: #ff641e;
+    font-weight: bold;
+    }
+
+/* Styling for the user image section */
+.THIS .featured-idea .idea-header .user-image {
+    max-width: 60px;
+}
+
+.THIS .featured-idea .idea-header .user-image img {
+    width: 45px;
+    border-radius: 50%;
+}
+
+.THIS .featured-idea .idea-header {
+    position: relative;
+    padding-top: 10px;
+}
+
+/* Styling for the username section */
+.THIS .featured-idea .idea-header .username, .THIS .featured-idea .idea-header .username a {
+    font-family: 'Arial' !important;
+    font-weight: bold;
+    text-decoration:none;
+}
+
+/* Styling for the date section */
+.THIS .featured-idea .idea-header .date {
+    font-family: 'Arial' !important;
+    font-size: .9em;
+}
+
+/* Styling for the category section */
+.THIS .featured-idea .category {
+    text-decoration:none;
+}
+
+.THIS .featured-idea .category span {
+    display: inline-block;
+    border: solid 1px;
+    border-radius: 15px;
+    color: #292f33;
+    font-size: 0.8em;
+    padding: 5px 10px 5px 10px;
+}
+
+/* Styling for the status section */
+.THIS .featured-idea .idea-header .status {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.THIS .featured-idea .idea-header .status span {
+    display: inline-block;
+    border: solid 1px;
+    border-radius: 15px;
+    font-family: 'Arial' !important;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+.THIS .featured-idea .idea-header .status span a{
+    text-decoration:none;
+}
+
+.THIS .featured-idea .idea-header .status .flag-3 {
+    height: 28px;
+    padding: 3px 12px 0 20px;
+}
+
+/* Styling for the see more section */
+.THIS .see-more {
+   color: #8a939d;
+   text-decoration:none;
+}
+
+/* Styling for the idea bottom section */
+.THIS .featured-idea .idea-bottom {
+   padding: 16px 0 0 0;
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: space-between;
+}
+
+/* Styling for the left info section */
+.THIS .featured-idea .idea-bottom .left-info {
+   padding-top: 4px;
+}
+
+.THIS .featured-idea .idea-bottom .left-info > div {
+   display: inline-block;
+   margin-right: 8px;
+}
+
+.THIS .featured-idea .idea-bottom .left-info img {
+   display: block;
+   float: left;
+   margin-right: 1px;
+}
+
+.THIS .featured-idea .idea-bottom .left-info a,
+.THIS .featured-idea .idea-bottom .left-info span {
+   display: block;
+   float: left;
+   font-size: 0.8em;
+   text-decoration:none;
+}
+
+/* Styling for the right info section */
+.THIS .featured-idea .idea-bottom .right-info {
+   padding-top: 5px;
+}
+
+.THIS .featured-idea .idea-bottom .right-info > span {
+   display: inline-block;
+   font-size: 0.8em;
+}
+
+.THIS .featured-idea .idea-bottom .right-info .comments-number:after {
+   content:"•";
+   display: inline-block;
+   margin: 0 10px;
+   font-size: 0.8em;
+}
+
+/* Styling for the caret image */
+.THIS .featured-header-caret {
+   width: 10px;
+   height: 6px;
+   color: #292f33;
+   padding-right: 4px;
+}
+
+/* Ideas Top Featured component styling for mobile view */
+@media screen and (max-width: 768px) {
+.THIS .featured-idea .idea-header .username {
+   margin-right: 0;
+}
+    
+.THIS .featured-idea .idea-header .status {
+   position: relative;
+   margin-top: 15px;
+   width: 100%;
+}
+    
+.THIS .featured-idea .idea-header .status .flag-3 {
+   height: auto;
+   border: none;
+   padding: 0;
+}
+    
+.THIS .slds-grid {
+  flex-wrap: wrap;
+}
+    
+.THIS .title {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+    
+}

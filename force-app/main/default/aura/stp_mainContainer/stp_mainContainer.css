@@ -1,0 +1,34 @@
+.THIS .hideIfSearchNotClicked {
+    display: none;
+}
+
+.THIS .hideIfViewDetailsNotClicked {
+    display: none;
+    border: none;
+}
+
+.THIS .startrack-shade_grey {
+    background:#CFD4D7;
+}
+
+.THIS .startrack-shade_blue {
+    background:#B8E4FA;
+}
+
+.THIS .paper-card {
+    /*  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    border-radius: 3px;
+}
+
+.THIS .task-section-outer {
+    border: 1px solid #d4d4d4;
+    border-radius: 3px;
+}
+
+.cStp_mainContainer .cWaitingQueueComponent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

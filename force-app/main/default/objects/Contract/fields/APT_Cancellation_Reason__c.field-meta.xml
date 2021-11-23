@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Cancellation_Reason__c</fullName>
+    <description>Maps to Closed Reason on Opportunity</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Reason for Cancellation</inlineHelpText>
+    <label>Cancellation Reason</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>APT_Cancellation_Type__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Capability</fullName>
+                <default>false</default>
+                <label>Capability</label>
+            </value>
+            <value>
+                <fullName>Commercial or Legal terms</fullName>
+                <default>false</default>
+                <label>Commercial or Legal terms</label>
+            </value>
+            <value>
+                <fullName>Credit Application unsuccessful</fullName>
+                <default>false</default>
+                <label>Credit Application unsuccessful</label>
+            </value>
+            <value>
+                <fullName>Functionality</fullName>
+                <default>false</default>
+                <label>Functionality</label>
+            </value>
+            <value>
+                <fullName>Implementation lead time</fullName>
+                <default>false</default>
+                <label>Implementation lead time</label>
+            </value>
+            <value>
+                <fullName>Network</fullName>
+                <default>false</default>
+                <label>Network</label>
+            </value>
+            <value>
+                <fullName>Non-conforming Bid/tender</fullName>
+                <default>false</default>
+                <label>Non-conforming Bid/tender</label>
+            </value>
+            <value>
+                <fullName>Price</fullName>
+                <default>false</default>
+                <label>Price</label>
+            </value>
+            <value>
+                <fullName>Strategic Decision</fullName>
+                <default>false</default>
+                <label>Strategic Decision</label>
+            </value>
+            <value>
+                <fullName>Unable to Contact</fullName>
+                <default>false</default>
+                <label>Unable to Contact</label>
+            </value>
+            <value>
+                <fullName>Channel Migration</fullName>
+                <default>false</default>
+                <label>Channel Migration</label>
+            </value>
+            <value>
+                <fullName>RFI / Tender withdrawn</fullName>
+                <default>false</default>
+                <label>RFI / Tender withdrawn</label>
+            </value>
+            <value>
+                <fullName>Incorrectly Qualified</fullName>
+                <default>false</default>
+                <label>Incorrectly Qualified</label>
+            </value>
+            <value>
+                <fullName>Product Migration</fullName>
+                <default>false</default>
+                <label>Product Migration</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Capability</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Commercial or Legal terms</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <valueName>Credit Application unsuccessful</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Functionality</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <valueName>Implementation lead time</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Network</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <valueName>Non-conforming Bid/tender</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <valueName>Price</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <valueName>Strategic Decision</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Unable to Contact</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <valueName>Channel Migration</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>RFI / Tender withdrawn</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Incorrectly Qualified</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Product Migration</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

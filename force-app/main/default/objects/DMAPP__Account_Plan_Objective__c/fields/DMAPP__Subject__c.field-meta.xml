@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Subject__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Objective Subject</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Specify the Objective by providing a description of what you want to accomplish as it relates to the Objective Type. For example, &quot;grow the pipeline&quot;, or &quot;improve relationship with key players (be specific and use the names of the Key Players)&quot;, or &quot;close</inlineHelpText>
+    <label>Subject</label>
+    <length>80</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

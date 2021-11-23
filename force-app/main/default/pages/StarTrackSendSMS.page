@@ -1,0 +1,159 @@
+<apex:page showHeader="false" standardController="Case"
+    extensions="StarTrackSendSMSControllerExtension">
+    <apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    <apex:form id="formId">
+        <apex:includeScript value="/support/console/28.0/integration.js" />
+        <apex:includeScript value="/support/api/34.0/interaction.js"/>
+        <apex:includeScript value="/canvas/sdk/js/publisher.js" />
+        <apex:includeScript value="{!$Resource.jquery191}" />
+        <apex:stylesheet value="{!$Resource.jQueryUI1_10_3_Css}" />
+        <apex:includeScript value="{!$Resource.jQueryUI1_10_3}" />
+        <apex:includeScript value="{!$Resource.bootstrapJS}" />
+        <apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+        <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+        <apex:includeScript value="{!$Resource.SSSWJS}" />
+        
+
+        <style>
+        .ui-dialog-titlebar {
+            background: #3399CC;
+            border-color: #3399CC;
+            color: white;
+        }
+        
+        .myDialogClass {
+            background: white;
+        }
+        
+        .maxWidth {
+            width: 100%;
+        }
+        
+        textarea.input-sm {
+            height: 160px;
+            resize: none;
+        }
+        
+        .ui-autocomplete {
+            max-height: 244px;
+            overflow-y: auto;
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
+        }
+        .overChar{
+            color: red;
+        }
+        .lessChar{
+            color: #8392aa;
+        }
+        </style>
+        <script>
+    var j$ = jQuery.noConflict();
+
+    function showMessage(msg, type) {
+        var pnlMessage = j$('#pnlMessage');
+        pnlMessage.show();
+        
+        var msgConfirm = j$('[id$="msgConfirm"]');
+        var msgError = j$('[id$="msgError"]');
+            
+        if(type == 'confirm') {
+            msgError.hide();
+            msgConfirm.show();
+            msgConfirm.find(".message").show();
+            msgConfirm.find(".messageText").html(msg);
+        } else {
+            msgConfirm.hide();
+            msgError.show();
+            msgError.find(".message").show();
+            msgError.find(".messageText").html(msg);
+            
+            resizePA();
+        }
+    }
+
+    function hideMessage() {
+        j$('#pnlMessage').hide();
+        j$(".message").hide();
+        
+        resizePA();
+    }
+    
+    function sendSMS() {
+        var message = j$('[id$="txtMessage"]').val();
+        var mobileNumber = j$('[id$="txtMobile"]').val();
+        if(message.trim() != ''){
+            showProgress();
+            StarTrackSendSMSControllerExtension.sendSMS('{!caseRecord.id}', '{!caseRecord.caseNumber}', mobileNumber, message.trim(), {!totalCount}, function(result, event){
+                if(event.status) {
+                    if(result.indexOf('Success')==0){
+                        showMessage('SMS submitted successfully', 'confirm');
+                        setValidationValue();
+                    }else{
+                        showMessage(result, 'error');
+                    }
+                }else {
+                    showMessage('Unable to submit SMS', 'error');
+                }
+                hideProgress();
+            });
+        }else{
+            showMessage('Please enter a message', 'error');
+        }
+    }
+    
+    function resizePA(){
+        Sfdc.canvas.publisher.resize();
+    }
+    
+    function passVariable(){
+        var comment = document.getElementById('j_id0:formId:txtMessage').value;
+        commentChange(comment.length);
+    }
+</script>
+        <c:LoadingSpinnerComponent showFunctionName="showProgress"
+            hideFunctionName="hideProgress" />
+        <apex:actionFunction name="setValidationValue" action="{!setValidationToTrue}" rerender="scriptPanel" oncomplete="publishandclose();"/>
+        <apex:actionFunction name="commentChange" rerender="charCountDisplay, btnSend">
+            <apex:param name="setCount" value="" assignTo="{!charCount}"/>
+        </apex:actionFunction>
+        <apex:outputPanel styleClass="blockPanel">
+            <apex:pagemessages />
+            <div style="display: none;" id="pnlMessage">
+                <apex:pagemessage severity="confirm" strength="3" id="msgConfirm"
+                    summary="There is an error" />
+                <apex:pagemessage severity="error" strength="3" id="msgError"
+                    summary="There is an error" />
+            </div>
+            <div id="case-summary">
+                <div class="case-field-float maxWidth">
+                    <apex:outputLabel value="Mobile" for="txtMobile" />
+                    <apex:inputText value="{!txtMobile}" id="txtMobile" tabindex="60"
+                        maxlength="10" onkeydown="hideMessage();"
+                        styleClass="form-control input-sm string" />
+                    <br />
+                    <apex:outputLabel value="Message" for="txtMessage" />
+                    <apex:inputTextArea value="{!txtMessage}" id="txtMessage"
+                        onkeydown="hideMessage();" tabindex="60"
+                        styleClass="form-control input-sm string" onkeyup="passVariable();"/>
+                    <!--<i>NOTE: Max 160 characters...</i>-->
+                    <apex:outputText value="Character Count: {!charCount}/{!totalCount}" style="float: left; font-size: 11px; font-weight: bold;" styleClass="{!IF(charCount > totalCount,'overChar', 'lessChar')}" id="charCountDisplay"/><br />
+                    <div class="slds">
+                        <apex:commandButton disabled="{!IF(charCount > totalCount,'true', 'false')}" styleClass="slds-button slds-button--brand slds-button--small" style="float:right; bottom:0px; right:0px;" onclick="sendSMS();" value="Send" id="btnSend" oncomplete="chatter.getPublisher().submit();"/>
+                    </div>
+                </div>
+            </div>
+        </apex:outputPanel>
+        <apex:outputPanel id="scriptPanel">
+            <script type="text/javascript">
+                function publishandclose(){
+                    if({!validation}){
+                        Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload :{feed: true, objectRelatedLists: {}}});
+                        sforce.interaction.entityFeed.reloadFrame();
+                        Sfdc.canvas.publisher.publish({name:"publisher.selectAction",payload:{actionName:"Case.Closed"}});
+                    }
+                }
+            </script>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

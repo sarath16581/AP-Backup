@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <flexiPageRegions>
+        <appendable>enabled</appendable>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;div class=&quot;forms&quot;&gt;
+&lt;h1&gt;Customer Enquiry Forms&lt;/h1&gt;
+	&lt;br&gt;&lt;p&gt;
+      &lt;br&gt;
+	&lt;/p&gt;
+&lt;/div&gt;</value>
+                </componentInstanceProperties>
+                <componentName>forceCommunity:htmlBlock</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>header</name>
+        <prependable>enabled</prependable>
+        <replaceable>enabled</replaceable>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <appendable>enabled</appendable>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
+&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/DamageArticle.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://ptest-auspostbusiness.cs72.force.com/myNetwork/s/damaged-articles&quot; title=&quot;Damaged article/missing contents&quot;&gt;&lt;h3&gt;Damaged/missing contents&lt;/h3&gt;&lt;/a&gt;
+&lt;/div&gt;</value>
+                </componentInstanceProperties>
+                <componentName>forceCommunity:htmlBlock</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
+&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/MailRedirect.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://ptest-auspostbusiness.cs72.force.com/myNetwork/s/mail-redirection&quot; title=&quot;Mail redirection/hold&quot;&gt;&lt;h3&gt;Mail redirection/hold&lt;/h3&gt;&lt;/a&gt;
+&lt;/div&gt;</value>
+                </componentInstanceProperties>
+                <componentName>forceCommunity:htmlBlock</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
+&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/DamageArticle.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://ptest-auspostbusiness.cs72.force.com/myNetwork/s/eparcel-damages&quot; title=&quot;eParcel damages&quot;&gt;&lt;h3&gt;eParcel damages&lt;/h3&gt;&lt;/a&gt;
+&lt;/div&gt;</value>
+                </componentInstanceProperties>
+                <componentName>forceCommunity:htmlBlock</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>content</name>
+        <prependable>enabled</prependable>
+        <replaceable>enabled</replaceable>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <appendable>enabled</appendable>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
+&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/LostArticle.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://ptest-auspostbusiness.cs72.force.com/myNetwork/s/lost-article&quot; title=&quot;Lost article&quot;&gt;&lt;h3&gt;Lost article&lt;/h3&gt;&lt;/a&gt;
+&lt;/div&gt;</value>
+                </componentInstanceProperties>
+                <componentName>forceCommunity:htmlBlock</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
+&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/StaffFeedback.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://ptest-auspostbusiness.cs72.force.com/myNetwork/s/staff-feedback&quot; title=&quot;Staff related feedback&quot;&gt;&lt;h3&gt;Staff related feedback&lt;/h3&gt;&lt;/a&gt;
+&lt;/div&gt;</value>
+                </componentInstanceProperties>
+                <componentName>forceCommunity:htmlBlock</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>sidebar</name>
+        <prependable>enabled</prependable>
+        <replaceable>enabled</replaceable>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <appendable>enabled</appendable>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
+&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/DeliveryConcern.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://ptest-auspostbusiness.cs72.force.com/myNetwork/s/delivery-concerns&quot; title=&quot;Delivery concerns/requests&quot;&gt;&lt;h3&gt;Delivery concerns/requests&lt;/h3&gt;&lt;/a&gt;
+&lt;/div&gt;</value>
+                </componentInstanceProperties>
+                <componentName>forceCommunity:htmlBlock</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;div style=&quot;border: solid; padding:15px&quot;&gt;
+&lt;img src=&quot;/sfsites/c/resource/MyNetworkFormImages/SomethingElse.png&quot; width=&quot;36&quot; height=&quot;36&quot;&gt;&lt;a href=&quot;https://ptest-auspostbusiness.cs72.force.com/myNetwork/s/others&quot; title=&quot;Something else&quot;&gt;&lt;h3&gt;Something else&lt;/h3&gt;&lt;/a&gt;
+&lt;/div&gt;</value>
+                </componentInstanceProperties>
+                <componentName>forceCommunity:htmlBlock</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>sidebarAlt</name>
+        <prependable>enabled</prependable>
+        <replaceable>enabled</replaceable>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <appendable>enabled</appendable>
+        <name>footer</name>
+        <prependable>enabled</prependable>
+        <replaceable>enabled</replaceable>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <appendable>enabled</appendable>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>description</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>metaTags</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Customer enquiry forms</value>
+                </componentInstanceProperties>
+                <componentName>forceCommunity:seoAssistant</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>sfdcHiddenRegion</name>
+        <prependable>enabled</prependable>
+        <replaceable>enabled</replaceable>
+        <type>Region</type>
+    </flexiPageRegions>
+    <masterLabel>myNetwork Customer Forms_Forms Home</masterLabel>
+    <template>
+        <name>siteforce:sldsThreeCol444Layout</name>
+    </template>
+    <type>CommAppPage</type>
+</FlexiPage>

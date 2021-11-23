@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Phase_2_Date_ABN_Changed</fullName>
+        <field>Date_ABN_Changed__c</field>
+        <formula>Today()</formula>
+        <name>Phase 2 Date ABN Changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Phase_2_Set_Date_ACN_Changed</fullName>
+        <field>Date_ACN_Changed__c</field>
+        <formula>Today()</formula>
+        <name>Phase 2 Set Date ACN Changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Phase_2_Set_Date_Additional_Information</fullName>
+        <field>Date_Additional_Information_Changed__c</field>
+        <formula>Today()</formula>
+        <name>Phase 2 Set Date Additional Information</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Phase_2_Set_Date_Country_Changed</fullName>
+        <field>Date_Country_Changed__c</field>
+        <formula>Today()</formula>
+        <name>Phase 2 Set Date Country Changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Phase_2_Set_Date_Email_Changed</fullName>
+        <field>Date_Email_Changed__c</field>
+        <formula>Today()</formula>
+        <name>Phase 2 Set Date Email Changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Phase_2_Set_Date_Payer_Account_ID</fullName>
+        <field>Date_Payer_Account_ID_Changed__c</field>
+        <formula>Today()</formula>
+        <name>Phase 2 Set Date Payer Account ID</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Phase_2_Set_Date_Postal_Code_Changed</fullName>
+        <field>Date_Postal_Code_Changed__c</field>
+        <formula>Today()</formula>
+        <name>Phase 2 Set Date Postal Code Changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Phase_2_Set_Date_SAP_Marked_for_Deletion</fullName>
+        <field>Date_SAP_Marked_for_Deletion_Changed__c</field>
+        <formula>Today()</formula>
+        <name>Phase 2 Set Date SAP Marked for Deletion</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Phase_2_Set_Date_State_Changed</fullName>
+        <field>Date_State_Changed__c</field>
+        <formula>Today()</formula>
+        <name>Phase 2 Set Date State Changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Phase_2_Set_Date_Type_Changed</fullName>
+        <field>Date_Type_Changed__c</field>
+        <formula>Today()</formula>
+        <name>Phase 2 Set Date Type Changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Phase_2_Set_Date_When_Suburb_Changed</fullName>
+        <field>Date_Suburb_Changed__c</field>
+        <formula>Today()</formula>
+        <name>Phase 2 Set Date When Suburb Changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Phase_2a_Set_Date_Parent_Changed</fullName>
+        <field>Date_Parent_Changed__c</field>
+        <formula>Now()</formula>
+        <name>Phase 2a - Set Date Parent Changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Record_date_when_fax_number_is_changed</fullName>
+        <field>Date_Fax_Changed__c</field>
+        <formula>TODAY()</formula>
+        <name>Record date when fax number is changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Date_When_BA_NAME_2_Changed</fullName>
+        <field>Date_Billing_Account_Name_2_Changed__c</field>
+        <formula>Today()</formula>
+        <name>Set Date When BA NAME 2 Changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_date_when_street_changed</fullName>
+        <field>Date_Street_Changed__c</field>
+        <formula>TODAY()</formula>
+        <name>Set date when street changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Date_Name_Changed</fullName>
+        <description>When the Billing Account detail changes this field is updated</description>
+        <field>Date_Account_Name_Changed__c</field>
+        <formula>Today()</formula>
+        <name>Update Date Name Changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Telephone_Changed_Date</fullName>
+        <description>When the telephone number is changed, update the date to todays</description>
+        <field>Date_Telephone_Changed__c</field>
+        <formula>TODAY()</formula>
+        <name>Update Telephone Changed Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Phase 2 Set Date ABN Changed</fullName>
+        <actions>
+            <name>Phase_2_Date_ABN_Changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED( ABN__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 Set Date ACN Chanegd</fullName>
+        <actions>
+            <name>Phase_2_Set_Date_ACN_Changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED(  ACN__c  )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 Set Date Additional Information</fullName>
+        <actions>
+            <name>Phase_2_Set_Date_Additional_Information</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED(  Additional_Info__c  )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 Set Date Country Changed</fullName>
+        <actions>
+            <name>Phase_2_Set_Date_Country_Changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED( Country__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 Set Date Email Changed</fullName>
+        <actions>
+            <name>Phase_2_Set_Date_Email_Changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED( Email__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 Set Date Payer Account ID Changed</fullName>
+        <actions>
+            <name>Phase_2_Set_Date_Payer_Account_ID</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED( PAYER_ACCOUNT_ID__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 Set Date Postal Code Changed</fullName>
+        <actions>
+            <name>Phase_2_Set_Date_Postal_Code_Changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED( Date_Postal_Code_Changed__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 Set Date State Changed</fullName>
+        <actions>
+            <name>Phase_2_Set_Date_State_Changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED( State__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 Set Date Suburb Changed</fullName>
+        <actions>
+            <name>Phase_2_Set_Date_When_Suburb_Changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED( Suburb__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 Set Type Changed</fullName>
+        <actions>
+            <name>Phase_2_Set_Date_Type_Changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED( Type__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 Set date SAP Marked for Deletion</fullName>
+        <actions>
+            <name>Phase_2_Set_Date_SAP_Marked_for_Deletion</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED( SAP_marked_for_deletion__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2%3A Set date when Fax number is changed</fullName>
+        <actions>
+            <name>Record_date_when_fax_number_is_changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED( Fax_Number__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2%3A Set date when Street is changed</fullName>
+        <actions>
+            <name>Set_date_when_street_changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Set the date when the street address is changed on the billing account</description>
+        <formula>ISCHANGED( Street__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2%3A Set date when telephone number is changed</fullName>
+        <actions>
+            <name>Update_Telephone_Changed_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED( Phone_Number__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2%3A Update Date Account Change field</fullName>
+        <actions>
+            <name>Update_Date_Name_Changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Update this field whenever billing account changes</description>
+        <formula>ISCHANGED( Name )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2a - Set Date Parent Changed</fullName>
+        <actions>
+            <name>Phase_2a_Set_Date_Parent_Changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Phase 2a change from code to workflow.</description>
+        <formula>ISCHANGED(Organisation__c)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase2 set date BA Name 2 change</fullName>
+        <actions>
+            <name>Set_Date_When_BA_NAME_2_Changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED(Customer_Name_2__c)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

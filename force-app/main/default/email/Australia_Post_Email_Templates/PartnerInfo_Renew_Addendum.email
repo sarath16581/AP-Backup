@@ -1,0 +1,18 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[Please approve the renewal of {!Partner_Addendum__c.Sub_Type__c} negotiated payment for Licence {!Partner_Addendum__c.Licence__c} for another year.<div><br></div><div>
+
+
+
+
+
+
+
+<p class="p1"><span class="s1">To approve or reject this item, click this link&nbsp;{!ApprovalRequest.External_URL}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">Or reply to this email with one of these words in the first line of the email message: APPROVE, APPROVED, YES, REJECT, REJECTED, NO</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p4"><span class="s1">regards,</span></p></div>]]></td>
+</tr>
+</table>

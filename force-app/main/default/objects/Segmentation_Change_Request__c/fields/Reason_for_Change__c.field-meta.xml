@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_for_Change__c</fullName>
+    <description>.</description>
+    <externalId>false</externalId>
+    <label>Reason for Change</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1H SIS Audit Trail</fullName>
+                <default>false</default>
+                <label>1H SIS Audit Trail</label>
+            </value>
+            <value>
+                <fullName>Acc Mgr – Director re-allocation of sales reps portfolio</fullName>
+                <default>false</default>
+                <label>Acc Mgr – Director re-allocation of sales reps portfolio</label>
+            </value>
+            <value>
+                <fullName>Annual Segmentation</fullName>
+                <default>false</default>
+                <label>Annual Segmentation</label>
+            </value>
+            <value>
+                <fullName>Annual Segmentation FY15-16</fullName>
+                <default>false</default>
+                <label>Annual Segmentation FY15-16</label>
+            </value>
+            <value>
+                <fullName>August FY15-16 Updates</fullName>
+                <default>true</default>
+                <label>August FY15-16 Updates</label>
+            </value>
+            <value>
+                <fullName>BMS to Business Sales</fullName>
+                <default>false</default>
+                <label>BMS to Business Sales</label>
+            </value>
+            <value>
+                <fullName>Company administration or liquidation</fullName>
+                <default>false</default>
+                <label>Company administration or liquidation</label>
+            </value>
+            <value>
+                <fullName>Company Mergers or Acquisitions</fullName>
+                <default>false</default>
+                <label>Company Mergers or Acquisitions</label>
+            </value>
+            <value>
+                <fullName>December Corrections</fullName>
+                <default>false</default>
+                <label>December Corrections</label>
+            </value>
+            <value>
+                <fullName>Final FY15-16 Updates</fullName>
+                <default>false</default>
+                <label>Final FY15-16 Updates</label>
+            </value>
+            <value>
+                <fullName>FY14/15 Annual segmentation</fullName>
+                <default>false</default>
+                <label>FY14/15 Annual segmentation</label>
+            </value>
+            <value>
+                <fullName>Geographic – Business relocation</fullName>
+                <default>false</default>
+                <label>Geographic – Business relocation</label>
+            </value>
+            <value>
+                <fullName>Jan 2016 Half Year</fullName>
+                <default>false</default>
+                <label>Jan 2016 Half Year</label>
+            </value>
+            <value>
+                <fullName>Lost Customer/Business</fullName>
+                <default>false</default>
+                <label>Lost Customer/Business</label>
+            </value>
+            <value>
+                <fullName>Market Segment change</fullName>
+                <default>false</default>
+                <label>Market Segment change</label>
+            </value>
+            <value>
+                <fullName>New Customer</fullName>
+                <default>false</default>
+                <label>New Customer</label>
+            </value>
+            <value>
+                <fullName>Opportunity level with customer decreased</fullName>
+                <default>false</default>
+                <label>Opportunity level with customer decreased</label>
+            </value>
+            <value>
+                <fullName>Other (Description must be added)</fullName>
+                <default>false</default>
+                <label>Other (Description must be added)</label>
+            </value>
+            <value>
+                <fullName>Profile – business reasons for change of Sales Team</fullName>
+                <default>false</default>
+                <label>Profile – business reasons for change of Sales Team</label>
+            </value>
+            <value>
+                <fullName>Spend – above threshold for Sales Team</fullName>
+                <default>false</default>
+                <label>Spend – above threshold for Sales Team</label>
+            </value>
+            <value>
+                <fullName>Spend – below threshold  for Sales Team</fullName>
+                <default>false</default>
+                <label>Spend – below threshold  for Sales Team</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

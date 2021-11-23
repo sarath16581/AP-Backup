@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dandenong_Roster_All_From_Today</fullName>
+    <columns>NAME</columns>
+    <columns>Duty_Board__c</columns>
+    <columns>Service_Resource__c</columns>
+    <columns>Active_Route_Days__c</columns>
+    <columns>Start_Week__c</columns>
+    <columns>Start_Date__c</columns>
+    <columns>End_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Duty_Service_Territory__c</field>
+        <operation>equals</operation>
+        <value>Dandenong</value>
+    </filters>
+    <filters>
+        <field>End_Date__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>Dandenong Roster - All From Today</label>
+    <language>en_US</language>
+</ListView>

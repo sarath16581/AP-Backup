@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>State_and_Product_are_required</fullName>
+    <active>true</active>
+    <description>When a DSR is&apos; Closed&apos; for Record Type &apos;Business Sales Implementation Request&apos; then &apos;Product&apos; and &apos;state&apos; cannot be null</description>
+    <errorConditionFormula>AND(
+      NOT($Profile.Name = &apos;System Administrator&apos;), 
+      RecordType.Name =&apos;Business Sales,Customer Implementation Request&apos;,
+      ISCHANGED(Stage__c),
+      ISPICKVAL(Stage__c, &apos;Closed&apos;), 
+      OR(
+          ISBLANK(TEXT(Delivery_Address_State__c )),
+          ISBLANK(Product__c)      
+      )
+)</errorConditionFormula>
+    <errorMessage>State and at least one Product must be selected before changing the stage to Closed.</errorMessage>
+</ValidationRule>

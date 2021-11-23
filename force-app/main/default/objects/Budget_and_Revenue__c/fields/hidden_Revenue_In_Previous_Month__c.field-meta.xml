@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>hidden_Revenue_In_Previous_Month__c</fullName>
+    <description>Hidden field used by &quot;Traded In Previous Month&quot; flag</description>
+    <externalId>false</externalId>
+    <formula>IF(Current_Year__c,CASE(MONTH(TODAY()),   /* Returns integer for current Month eg 1 = Jan */
+
+1, Dec_Revenue_Amount__c,   /* Assigns previous months Rev Amount eg 1 = Dec  2=Jan */
+2, Jan_Revenue_Amount__c,
+3, Feb_Revenue_Amount__c,
+4, Mar_Revenue_Amount__c,
+5, Apr_Revenue_Amount__c,
+6, May_Revenue_Amount__c,
+7, Jun_Revenue_Amount__c,
+8, Jul_Revenue_Amount__c,
+9, Aug_Revenue_Amount__c,
+10, Sep_Revenue_Amount__c,
+11, Oct_Revenue_Amount__c,
+12, Nov_Revenue_Amount__c,
+0),0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>This field should be hidden. If seen, please contact your Salesforce Admiistrator.</inlineHelpText>
+    <label>{hidden}Revenue In Previous Month</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

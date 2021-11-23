@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ShoppingCart__c</fullName>
+    <description>Drop down box to select 16 types of shopping carts with an additional option field for &quot;Other&quot; - user to type in Alphanumeric.</description>
+    <externalId>false</externalId>
+    <label>Shopping Cart Platform</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Bigcommerce</fullName>
+                <default>false</default>
+                <label>Bigcommerce</label>
+            </value>
+            <value>
+                <fullName>Shopify</fullName>
+                <default>false</default>
+                <label>Shopify</label>
+            </value>
+            <value>
+                <fullName>My Online Shop</fullName>
+                <default>false</default>
+                <label>My Online Shop</label>
+            </value>
+            <value>
+                <fullName>Magento Community</fullName>
+                <default>false</default>
+                <label>Magento Community</label>
+            </value>
+            <value>
+                <fullName>Magento Enterprise</fullName>
+                <default>false</default>
+                <label>Magento Enterprise</label>
+            </value>
+            <value>
+                <fullName>Volusion</fullName>
+                <default>false</default>
+                <label>Volusion</label>
+            </value>
+            <value>
+                <fullName>osCommerce</fullName>
+                <default>false</default>
+                <label>osCommerce</label>
+            </value>
+            <value>
+                <fullName>VirtueMart</fullName>
+                <default>false</default>
+                <label>VirtueMart</label>
+            </value>
+            <value>
+                <fullName>Zen Cart</fullName>
+                <default>false</default>
+                <label>Zen Cart</label>
+            </value>
+            <value>
+                <fullName>OpenCart</fullName>
+                <default>false</default>
+                <label>OpenCart</label>
+            </value>
+            <value>
+                <fullName>X-Cart</fullName>
+                <default>false</default>
+                <label>X-Cart</label>
+            </value>
+            <value>
+                <fullName>Business Catalyst</fullName>
+                <default>false</default>
+                <label>Business Catalyst</label>
+            </value>
+            <value>
+                <fullName>Ubercart</fullName>
+                <default>false</default>
+                <label>Ubercart</label>
+            </value>
+            <value>
+                <fullName>CS-Cart</fullName>
+                <default>false</default>
+                <label>CS-Cart</label>
+            </value>
+            <value>
+                <fullName>VPASP</fullName>
+                <default>false</default>
+                <label>VPASP</label>
+            </value>
+            <value>
+                <fullName>PrestaShop</fullName>
+                <default>false</default>
+                <label>PrestaShop</label>
+            </value>
+            <value>
+                <fullName>WooCommerce</fullName>
+                <default>false</default>
+                <label>WooCommerce</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

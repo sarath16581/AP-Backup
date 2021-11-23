@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pecentage_of_Total__c</fullName>
+    <description>Percentage of their total spend does the Customer spend with this competitor?</description>
+    <externalId>false</externalId>
+    <formula>AP_Spend_FY__c /Total_estimated_spend_on_this_Service__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Percentage of their total spend does the Customer spend with this competitor?</inlineHelpText>
+    <label>% of Total</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

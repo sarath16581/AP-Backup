@@ -1,0 +1,34 @@
+<!--
+/* @author avula.jansirani@auspost.com.au
+* @date 2020-11-12
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Business address summary details . Used for showing business address details entered in the input step
+                for review before submitting a credit form.
+* @changelog
+* 2020-01-20 avula.jansirani@auspost.com.au
+*
+-->
+<template>
+    <div data-id='bcasummarybd'>
+    <template if:true={businessAddressDetails}>
+        <div class="slds-section slds-is-open">
+            <div aria-hidden="false" class="slds-section__content">
+
+                <!--Header-->
+                <c-bca-summary-step-header header-label='Business address details' step-name={stepName}>
+                </c-bca-summary-step-header>
+
+                <!--Body-->
+                <template if:true={businessAddressDetails}>
+                    <!-- Street address-->
+                    <c-bca-summary-row label='Street Address' value={bdStreetAddress}></c-bca-summary-row>
+                    <!-- postal address-->
+                    <c-bca-summary-row label='Postal address' value={bdPostalAddress}></c-bca-summary-row>
+                </template>
+
+            </div>
+        </div>
+    </template>
+</div>
+</template>

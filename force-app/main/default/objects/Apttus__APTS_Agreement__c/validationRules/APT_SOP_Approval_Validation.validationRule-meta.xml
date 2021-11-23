@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_SOP_Approval_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(  CONTAINS( RecordType.Name , &quot;SecurePay Online Payments&quot;), 
+ISCHANGED( APT_Price_Plan__c ) ,
+OR(ISPICKVAL( Apttus_Approval__Approval_Status__c , &quot;Pending Approval&quot;),
+ ISPICKVAL( Apttus__Status_Category__c , &quot;In Signatures&quot;) ,
+ ISPICKVAL(Apttus__Status_Category__c , &quot;In Effect&quot;) 
+)
+)</errorConditionFormula>
+    <errorMessage>Price Plan cannot be changed when it is Pending Approval, or past Signatures stage.</errorMessage>
+</ValidationRule>

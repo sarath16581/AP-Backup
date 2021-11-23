@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_PrintPost_Size__c</fullName>
+    <externalId>false</externalId>
+    <label>Size</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Small Postcode direct</fullName>
+                <default>false</default>
+                <label>Small Postcode direct</label>
+            </value>
+            <value>
+                <fullName>Large Postcode direct</fullName>
+                <default>false</default>
+                <label>Large Postcode direct</label>
+            </value>
+            <value>
+                <fullName>Residue</fullName>
+                <default>false</default>
+                <label>Residue</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aird</fullName>
+    <columns>NAME</columns>
+    <columns>As_a__c</columns>
+    <columns>I_want_to__c</columns>
+    <columns>Proposed_Solution__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>Stage__c</columns>
+    <columns>Status__c</columns>
+    <columns>Related_Object__c</columns>
+    <columns>Requested_by__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Requested_by__c</field>
+        <operation>equals</operation>
+        <value>Michael Aird</value>
+    </filters>
+    <filters>
+        <field>Requirement_ID__c</field>
+        <operation>contains</operation>
+        <value>BAU</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Requirement__c.REQ_BAU_Requirement</value>
+    </filters>
+    <label>Aird</label>
+</ListView>

@@ -1,0 +1,5 @@
+<design:component label="Ideas Featured List">
+    <design:attribute name="ideasNumber" label="The number of ideas" description="the number of ideas" />
+    <design:attribute name="title" label="Title"/>
+    <design:attribute name="pageName" label="Page name" datasource="Home,Featured" default="Home" />
+</design:component>

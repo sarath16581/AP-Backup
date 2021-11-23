@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CloseStatusCantBeChangedtoNew</fullName>
+    <active>true</active>
+    <description>Callback reminder cannot be reopened</description>
+    <errorConditionFormula>AND(
+ISCHANGED(Status__c),
+TEXT(PRIORVALUE(Status__c )) == &apos;Closed&apos;,
+(RecordType.DeveloperName == &apos;SSSW_Callback_Reminder&apos;)
+)</errorConditionFormula>
+    <errorMessage>Closed reminders cannot be re-opened.</errorMessage>
+</ValidationRule>

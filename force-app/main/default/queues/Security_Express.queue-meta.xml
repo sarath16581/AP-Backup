@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Security Express</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>Security_Express</publicGroup>
+            <publicGroup>Special_Services_Security_Express</publicGroup>
+        </publicGroups>
+        <roles>
+            <role>SSSE_Application_Support</role>
+            <role>SSSE_Co_Ordinator</role>
+        </roles>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>FreightItem__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Job_Assignment__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Job__c</sobjectType>
+    </queueSobject>
+</Queue>

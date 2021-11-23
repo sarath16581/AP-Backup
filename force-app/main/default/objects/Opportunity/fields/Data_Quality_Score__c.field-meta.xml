@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Data_Quality_Score__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( ISBLANK(CloseDate),0,20)+
+IF( NOT(IsClosed) &amp;&amp; CloseDate&lt; TODAY(),-20,0)+
+
+IF(Hidden_Has_Primary_Competitor__c = FALSE ,0,15)+
+IF(ISBLANK( KeyContact__c ) ,0,15)+
+
+IF( No_of_Products__c &lt;1 ,0,15)+
+IF( Push_Counter__c &gt;4 ,0,10)+
+IF(ISBLANK( Monthly_Executive_Summary__c ),0,10)+
+
+IF(ISBLANK( TEXT(Closed_Reason__c) ) ,0,5)+
+IF(ISBLANK( Closed_Comments__c ) ,0,5)+
+IF( ISPICKVAL(LeadSource, &quot;&quot;) ,0,5)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>A score between 0-100 that is determined based on the completeness of the opportunity record and other hygiene metrics. Maximum 90 for open opportunities and 100 for closed.</inlineHelpText>
+    <label>Data Quality Score</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

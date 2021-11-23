@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>SSSW - Was a part of initial design and can be deleted now.</description>
+    <enableFeeds>false</enableFeeds>
+    <label>Case Trigger Switch</label>
+    <visibility>Protected</visibility>
+</CustomObject>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>APT_Contract_Fully_Signed_with_Integration_Platforms</fullName>
+        <description>APT Contract Fully Signed with Integration Platforms</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>duncan.edwards@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>APT_R2T_System_Email_Templates/Fully_Signed_Contract_Notification1</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>APT_Set_List_Price_Text</fullName>
+        <description>populates list price text</description>
+        <field>List_Price_Text__c</field>
+        <formula>&apos;$&apos; +  TEXT(Apttus__ListPrice__c)</formula>
+        <name>APT Set List Price Text</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_Update_Product_name_on_Contract</fullName>
+        <field>APT_Rollup_Product_Names__c</field>
+        <formula>IF(AND(OR(Apttus__ProductId__r.Name==&apos;eParcel&apos;,Apttus__ProductId__r.Name==&apos;eParcel Express&apos;),Apttus__AgreementId__r.APT_Rollup_Product_Names__c !=&apos;OtherProduct&apos;,Apttus__AgreementId__r.APT_Rollup_Product_Names__c !=&apos;PostalServices&apos;),&apos;eParcelProduct&apos;,IF(AND(TEXT(Apttus__ProductId__r.Family) = &apos;Postal Services&apos;,Apttus__AgreementId__r.APT_Rollup_Product_Names__c ==&apos;&apos;,Apttus__AgreementId__r.APT_Rollup_Product_Names__c !=&apos;eParcelProduct&apos;,Apttus__AgreementId__r.APT_Rollup_Product_Names__c !=&apos;OtherProduct&apos;),&apos;PostalServices&apos;,&apos;OtherProduct&apos;))</formula>
+        <name>APT Update Product name on Contract</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Apttus__AgreementId__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_WFV_Update_Police_and_Visa_Check</fullName>
+        <description>Used for the Workforce Verification product and checked when Feature Type equals Police and Visa Check</description>
+        <field>APT_WFV_Police_and_Visa_Check__c</field>
+        <literalValue>1</literalValue>
+        <name>APT WFV Update Police and Visa Check</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_WFV_Update_Working_With_Children</fullName>
+        <description>Used for the Workforce Verification product and checked when Feature Type equals Working With Children</description>
+        <field>APT_WFV_Working_with_Children_Check__c</field>
+        <literalValue>1</literalValue>
+        <name>APT WFV Update Working With Children</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>APT Integration Plaforms Email notification</fullName>
+        <actions>
+            <name>APT_Contract_Fully_Signed_with_Integration_Platforms</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>Notifies when contract is fully signed and contains integration items</description>
+        <formula>AND (  OR(  ISPICKVAL( Apttus_CMConfig__AttributeValueId__r.APT_Integration_Platforms__c , &quot;Magento&quot;),  ISPICKVAL( Apttus_CMConfig__AttributeValueId__r.APT_Integration_Platforms__c , &quot;NetSuite&quot;) )  ,  ISPICKVAL( Apttus__AgreementId__r.Apttus__Status__c , &quot;Fully Signed&quot;)  )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>APT Populate List Price Text</fullName>
+        <actions>
+            <name>APT_Set_List_Price_Text</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Apttus__AgreementLineItem__c.List_Price_Text__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <description>Populates list price text for OS</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>APT Rollup product name to Agreement</fullName>
+        <actions>
+            <name>APT_Update_Product_name_on_Contract</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Apttus__AgreementLineItem__c.Apttus_CMConfig__IsPrimaryLine__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Apttus__AgreementLineItem__c.Apttus_CMConfig__LineType__c</field>
+            <operation>notEqual</operation>
+            <value>Option</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>APT WFV Police and Visa Check</fullName>
+        <actions>
+            <name>APT_WFV_Update_Police_and_Visa_Check</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Apttus__AgreementLineItem__c.APT_WFV_Feature_Type__c</field>
+            <operation>equals</operation>
+            <value>Police &amp; Visa Check</value>
+        </criteriaItems>
+        <description>Used for the Workforce Verification product and checked when Feature Type equals Police and Visa Check</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>APT WFV Working With Children</fullName>
+        <actions>
+            <name>APT_WFV_Update_Working_With_Children</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Apttus__AgreementLineItem__c.APT_WFV_Feature_Type__c</field>
+            <operation>equals</operation>
+            <value>Working With Children</value>
+        </criteriaItems>
+        <description>Used for the Workforce Verification product and checked when Feature Type equals Working With Children</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

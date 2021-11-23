@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>eParcel Onboarding maximum credit limit $5,000</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>CME eParcel Onboarding - Maximum credit limit $5,000</name>
+    <style>freeForm</style>
+    <subject>Maximum credit limit $5,000 - {!Case.Account} - Case {!Case.CaseNumber}</subject>
+    <textOnly>Hi {!Case.Requestor__c}
+
+
+This customer has requested a credit limit of $xx,000. As the company was only created on DD-MM-YYYY according to the Australian Business Register and is therefore less than 12 months old, Australia Post credit policy specifies that the maximum credit limit we can offer is $5,000. Once the customer has been trading for close to 12 months, they can apply to have their credit limit increased by directly emailing CreditLimitIncreases@auspost.com.au.
+
+
+Alternatively, the customer can pay a security deposit for the requested credit limit, which will be retained by Australia Post. This amount cannot be used to pay ongoing account charges. After around 12 months of trading, the customer can apply to have their credit limit released, which will be at the discretion of the Credit department. If the customer selects this method, I will send the relevant information to the customer and cc you on the email.
+
+
+Please advise which option we should choose.
+
+
+
+Regards
+
+{!Case.OwnerFullName}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

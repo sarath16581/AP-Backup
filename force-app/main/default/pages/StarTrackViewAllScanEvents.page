@@ -1,0 +1,665 @@
+<!--
+    Description: This page is used in view all scan events button in scan events sidebar panel.
+    History:
+    Dec 10, 2015 David Catindoy(CloudSherpas) Created
+    -->
+<apex:page standardController="Article__c" extensions="StarTrackViewAllScanEvents_ControllerX" showHeader="false" sidebar="false" docType="html-5.0" standardStylesheets="true" title="Scan Events">
+    <div id="loading">
+        <img id="loading-image" src="/img/loading.gif" alt="Loading..." />
+    </div>
+
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    <style>
+    
+        #loading {
+           width: 100%;
+           height: 100%;
+           top: 0px;
+           left: 0px;
+           position: fixed;
+           display: block;
+           opacity: 0.7;
+           background-color: #fff;
+           z-index: 99;
+           text-align: center;
+        }
+
+        #loading-image {
+          position: absolute;
+          top: 35%;
+          left: 50%;
+          z-index: 100;
+        }
+
+        thead th {
+            font-size: 80%;
+        }
+    
+        tbody td {
+            font-size: 80%;
+        }
+        
+        .imageHover{
+            cursor: pointer; cursor: hand;
+        }
+        
+        .slds .slds-table--bordered:not(.slds-no-row-hover) tr:hover > td {
+            box-shadow: #d8dde6 0 0 0 inset; 
+        }
+        
+        .bPageBlock .detailList .dataCol{
+            width: 25%;
+        }
+        
+        .bPageBlock .detailList .labelCol{
+            width: 0px;
+        }
+    </style>
+    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+    <apex:outputPanel id="scriptPanel">
+    <script type="text/javascript">
+        var objectId;
+        var tabName;
+        var positionInYdir;
+        var positionInXdir;
+        var previousIndex = '';
+        var previousElement;
+
+        function getPrimaryTabIdAndOpenSubtab(objId, tname) {
+            var contains = window.location.toString().indexOf('inContextPane');
+            if(sforce && sforce.console && sforce.console.isInConsole() && contains > -1){
+                console.log('~ in console');
+                objectId = objId;
+                tabName = tname;
+                sforce.console.getEnclosingPrimaryTabId(openSubtab);
+             } else {
+                if (inIframe()) {
+                    window.open('/'+objId, '_parent');
+                } else {
+                    window.open('/'+objId, '_self');
+                }
+             }
+        }
+
+        var openSubtab = function openSubtab(result) {
+            var primaryTabId = result.id;
+            sforce.console.openSubtab(primaryTabId , '/' + objectId, true,
+                tabName, null, '', '');
+
+        };
+
+        function inIframe() {
+            try {
+                return window.self !== window.top;
+            } catch (e) {
+                return true;
+            }
+        }
+
+        function selectTab(elmnt) {
+            // slds-active
+            $(elmnt).parent("li").siblings(".slds-active").removeClass("slds-active");
+            $(elmnt).parent("li").addClass("slds-active");
+
+            // tabindex
+            $(elmnt).parent("li").siblings().children("a").attr("tabindex", -1);
+            $(elmnt).attr("tabindex", 0);
+
+            // aria-selected
+            $(elmnt).parent("li").siblings().children("a").attr("aria-selected", false);
+            $(elmnt).attr("aria-selected", true);
+
+            // hiding previouly selected tab (slds-show/slds-hide)
+            $(elmnt).closest(".slds-tabs--default").children("div[role='tabpanel'].slds-show").addClass("slds-hide");
+            $(elmnt).closest(".slds-tabs--default").children("div[role='tabpanel'].slds-show").removeClass("slds-show");
+            // displaying newly selected tab (slds-show/slds-hide)
+            $(elmnt).closest(".slds-tabs--default").children("div[aria-labelledby='"+elmnt.id+"']").addClass("slds-show");
+            $(elmnt).closest(".slds-tabs--default").children("div[aria-labelledby='"+elmnt.id+"']").removeClass("slds-hide");
+        }
+        
+        function verifyUserProfile(Id, Name){
+            if('{!$Profile.Name}' != 'StarTrack Operations'){
+                getPrimaryTabIdAndOpenSubtab('servlet/servlet.FileDownload?file='+Id, Name);
+            } else{
+                window.open('/servlet/servlet.FileDownload?file='+Id);
+            }
+            
+        }
+            
+        function toggleClassNode(element, conURL, index, section, id) {
+            if($(element).attr('src') == (conURL + '/add_60.png') && section == 'conSec'){
+                $('.conSummaryClass').slideUp();
+                $('[id$=conImage]').attr('src', conURL + '/add_60.png');
+            }
+            
+            if($(element).attr('src') == (conURL + '/add_60.png') && section == 'labelSec'){
+                $('.labelClass-' + id).slideUp();
+                $('#labelImageTd-' + id + ' img').attr('src', conURL + '/add_60.png');
+            }
+            
+            if($(element).attr('src') == (conURL + '/add_60.png') && section == 'addSec'){
+                $('.subDocketClass').slideUp();
+                $('[id$=subDocketImage]').attr('src', conURL + '/add_60.png');
+            }
+            
+            if($(element).attr('src') == (conURL + '/right_60.png') && section == 'artSec'){
+                $('.artEventClass').slideUp();
+                $('[id$=artImage]').attr('src', conURL + '/right_60.png');
+                showLoading();
+                document.getElementById('{!$Component.apxForm.articleId}').value = index;
+                CallSearchEventMessagesOnDemand();
+                console.log('~~ on demand');
+            }
+            
+            if(section == 'artSec'){
+                $('#class_children-' + index).slideToggle();
+                if ($(element).attr('src') == (conURL + '/right_60.png')) {
+                    $(element).attr('src', conURL + '/down_60.png');
+                } else {
+                    $(element).attr('src', conURL + '/right_60.png');
+                }
+            } else{
+                $('#class_children-' + index).slideToggle();
+                if ($(element).attr('src') == (conURL + '/add_60.png')) {
+                    $(element).attr('src', conURL + '/dash_60.png');
+                } else {
+                    $(element).attr('src', conURL + '/add_60.png');
+                }
+            }
+        }
+        
+        function toggleConSummary(element, conURL, index) {
+            
+            $('#div_children-' + index).slideToggle();
+            if ($(element).attr('src') == (conURL + '/right_60.png')) {
+                $(element).attr('src', conURL + '/down_60.png');
+            } else {
+                $(element).attr('src', conURL + '/right_60.png');
+            }
+            
+        }
+        
+        function expandAll(conURL, section, index){
+            if(section == 'conSec'){
+                $('.conSummaryClass').slideDown();
+                $('[id$=conImage]').attr('src', conURL + '/dash_60.png');
+            } else if(section == 'artSec'){
+                $('.artEventClass').slideDown();
+                $('[id$=artImage]').attr('src', conURL + '/down_60.png');            
+            } else {
+                $('.labelClass-' + index).slideDown();
+                $('#labelImageTd-' + index + ' img').attr('src', conURL + '/dash_60.png');
+            }
+            
+        }
+        
+        function collapseAll(conURL, section, index){
+            if(section == 'conSec'){
+                $('.conSummaryClass').slideUp();
+                $('[id$=conImage]').attr('src', conURL + '/add_60.png');
+            } else if(section == 'artSec'){
+                $('.labelSummaryClass').slideUp();
+                $('[id$=labelImage]').attr('src', conURL + '/add_60.png');
+                $('.artEventClass').slideUp();
+                $('[id$=artImage]').attr('src', conURL + '/right_60.png');
+            } else {
+                $('.labelClass-' + index).slideUp();
+                $('#labelImageTd-' + index + ' img').attr('src', conURL + '/add_60.png');
+            }
+        }
+
+        function fillContAttributesOnPageLod() {
+            consoleInd();
+            InitializePageAttr();
+        }
+        function consoleInd() {
+            document.getElementById('{!$Component.apxForm.isConsole}').value = sforce.console.isInConsole();
+        }
+
+    </script>
+    </apex:outputPanel>
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS080, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jquery214)}"/>
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <apex:form id="apxForm">
+        <apex:actionFunction name="CallSearchEventMessages" action="{!searchEventMessagesCont}" oncomplete="hideLoading();" reRender="scanEventsPanel"/>
+        <apex:actionFunction name="CallSearchEventMessagesOnDemand" action="{!searchEventMessagesOnDemand}" oncomplete="hideLoading();" reRender="labelEventsPanel"/> 
+        <apex:actionFunction name="InitializePageAttr" action="{!initializePageAttr}" reRender="refreshButtonPanel"/> 
+
+        <apex:inputHidden id="articleId" value="{!articleId}"/>
+        <apex:inputHidden id="isConsole" value="{!isConsole}"/>
+
+        <apex:outputPanel id="scanEventsPanel">
+        <div class="slds">
+            <apex:outputPanel id="refreshButtonPanel" >
+                <apex:outputPanel style="float: right;" rendered="{!NOT(isConsole)}">
+                    <button id="refreshButton" class="slds-button slds-button--brand slds-button--small">
+                        <apex:commandLink value="Refresh" action="{!searchConsignment}" onclick="showLoading();" oncomplete="hideLoading();" style="color:white; text-decoration: none;" reRender="scanEventsPanel, relatedPODsPanel1, relatedSubdocketsPanel1"/>
+                    </button>
+                </apex:outputPanel>
+                </apex:outputPanel>
+            <!--Consignment Summary Start-->
+            <div class="slds-text-heading--small" style="padding-left: 20px;font-weight:bold; padding-top: 10px;">
+                <apex:image styleClass="imageHover" url="{!URLFOR($Resource.StarTrackCaseIcons, '/right_60.png')}" width="20px;" height="20px;" onClick="toggleConSummary(this, '{!URLFOR($Resource.StarTrackCaseIcons)}', '{!consignment.Id}');"/>Consignment Summary</div>
+            <div style="padding-left: 10px; padding-right: 10px;background-color: #F7F9FB; display: none;" id="div_children-{!consignment.Id}" class="conSummaryDiv">
+                <div id="refreshButtonDiv">
+                
+                </div>
+                <apex:pageBlock mode="maindetail">
+                    <apex:pageBlockSection columns="4" >
+                        <apex:repeat value="{!$ObjectType.Article__c.FieldSets.StarTrack_Consignment_Summary}" var="nd" >
+                            <apex:outputPanel style="padding-left: 20px;">
+                                <b>
+                                    <apex:outputLabel value="{!nd.Label}" style="color:#54698d;"/>
+                                </b>
+                            </apex:outputPanel>
+                            <apex:outputPanel >
+                                <apex:outputText value="{!consignment[nd]}" rendered="{!NOT(OR(nd == 'Name', nd == 'Last_Update_Received__c'))}"/>
+                                <apex:outputField value="{!consignment[nd]}" rendered="{!(CONTAINS(nd, 'Last_Update_Received__c'))}"/>
+                                <apex:outputLink value="" onclick="getPrimaryTabIdAndOpenSubtab('{!consignment.Id}', '');" rendered="{!(nd == 'Name')}">{!consignment[nd]}</apex:outputLink>
+                            </apex:outputPanel>
+                        </apex:repeat>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </div>
+            <!--Consignment Summary Ends-->
+            
+            <!--Consignment Scan Event Start-->
+            <div class="slds-text-heading--small" style="padding-left: 20px; Font-weight:bold; padding-top: 10px;">Consignment Events
+                <apex:outputLink style="float: right; font-size: 9px; line-height: 1.5; margin-right: 12px; margin-bottom: 4px;" onclick="collapseAll('{!URLFOR($Resource.StarTrackCaseIcons)}', 'conSec', ''); return false;" value="{!consignment.Id}">Collapse All</apex:outputLink>
+                <apex:outputLink style="float: right; font-size: 9px; line-height: 1.5; margin-right: 12px; margin-bottom: 4px;" onclick="expandAll('{!URLFOR($Resource.StarTrackCaseIcons)}', 'conSec', ''); return false;" value="{!consignment.Id}">Expand All</apex:outputLink>
+            </div>
+            <div style="padding-left: 10px; padding-right: 10px;">
+                <apex:outputText value="No records found." style="color:gray; font-style:italic; padding-left:20px;" rendered="{!consignmentEvents.size == 0}"/>
+                <apex:outputPanel rendered="{!consignmentEvents.size > 0}" id="consignmentEventsPanel">
+                        <div class="slds-scrollable--x slds-scrollable--y" style="overflow:auto;  max-height: 400px; width:100%;" id="firstDiv">
+                            <table class="slds-table slds-table--bordered" id="consignmentEventsTable">
+                                <thead>
+                                    <tr class="slds-text-heading--label">
+                                        <th scope="col">
+                                            <span class="slds-truncate">&nbsp;&nbsp;</span>
+                                        </th>
+                                        <apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.StarTrack_View_All_Consignment_Events}" var="ce">
+                                            <th scope="col" >
+                                                <span class="slds-truncate">
+                                                    <apex:outputText value="{!ce.label}"/>
+                                                </span>
+                                            </th>
+                                        </apex:repeat>
+                                     </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!consignmentEvents}" var="conEvent">
+                                        <tr class="slds-hint-parent">
+                                            <td data-label="section1Action" role="row" class="conImageClass" >
+                                                <apex:image id="conImage" styleClass="imageHover" url="{!URLFOR($Resource.StarTrackCaseIcons, '/add_60.png')}" width="10px;" height="10px;" onClick="toggleClassNode(this, '{!URLFOR($Resource.StarTrackCaseIcons)}', '{!conEvent.Id}', 'conSec', '');"/>
+                                            </td>
+                                            <apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.StarTrack_View_All_Consignment_Events}" var="ce">
+                                                <td data-label="{!ce.label}" role="row" style="background-color: #f1f6fb;" class="slds-cell-wrap">
+                                                    <span class="slds-truncate">
+                                                        <apex:outputField value="{!conEvent[ce]}" rendered="{!NOT((CONTAINS(ce, 'Event_Location__c') && conEvent.Facility__c <> null) || (CONTAINS(ce, 'Article__c')) || (ce == 'Name') || CONTAINS(ce, 'EventDescription__c'))}"/>
+                                                        <apex:outputLink id="complink"
+                                                           onblur="LookupHoverDetail.getHover(this.id).hide();" 
+                                                           onmouseout="LookupHoverDetail.getHover(this.id).hide();" 
+                                                           onfocus="LookupHoverDetail.getHover(this.id, '/{!conEvent.Id}/m?retURL=%2F{!conEvent.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];" 
+                                                           onmouseover="LookupHoverDetail.getHover(this.id, '/{!conEvent.Id}/m?retURL=%2F{!conEvent.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                           value="#"
+                                                           onclick="getPrimaryTabIdAndOpenSubtab('{!conEvent.Id}', '');" 
+                                                           rendered="{!(ce == 'Name')}">
+                                                        <apex:outputText value="{!conEvent[ce]}"/>
+                                                        </apex:outputLink>
+                                                        <apex:outputLink id="complink2"
+                                                           onblur="LookupHoverDetail.getHover(this.id).hide();" 
+                                                           onmouseout="LookupHoverDetail.getHover(this.id).hide();" 
+                                                           onfocus="LookupHoverDetail.getHover(this.id, '/{!conEvent.Id}/m?retURL=%2F{!conEvent.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];" 
+                                                           onmouseover="LookupHoverDetail.getHover(this.id, '/{!conEvent.Id}/m?retURL=%2F{!conEvent.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                           value="#"
+                                                           onclick="getPrimaryTabIdAndOpenSubtab('{!conEvent.Id}', '');" 
+                                                           rendered="{!(ce == 'EventDescription__c')}">
+                                                        <apex:outputText value="{!LEFT(conEvent.EventDescription__c, 40)}..." rendered="{!IF(LEN(conEvent.EventDescription__c) > 40, true, false)}"/>
+                                                        <apex:outputText value="{!conEvent.EventDescription__c}" rendered="{!IF(LEN(conEvent.EventDescription__c) < 41, true, false)}"/>
+                                                        </apex:outputLink>
+                                                        <apex:outputPanel rendered="{!(CONTAINS(ce, 'Event_Location__c') && conEvent.Facility__c <> null)}" onclick="getPrimaryTabIdAndOpenSubtab('{!conEvent.Facility__c}', '')">
+                                                            <apex:outputField value="{!conEvent[ce]}"/>
+                                                        </apex:outputPanel>
+                                                        <apex:outputLink id="article1" rendered="{!(CONTAINS(ce, 'Article__c'))}" onclick="getPrimaryTabIdAndOpenSubtab('{!conEvent.Article__c}', '')"
+                                                            onblur="LookupHoverDetail.getHover(this.id).hide();" 
+                                                            onmouseout="LookupHoverDetail.getHover(this.id).hide();" 
+                                                            onfocus="LookupHoverDetail.getHover(this.id, '/{!conEvent.Article__c}/m?retURL=%2F{!conEvent.Article__c}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];" 
+                                                            onmouseover="LookupHoverDetail.getHover(this.id, '/{!conEvent.Article__c}/m?retURL=%2F{!conEvent.Article__c}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                            value="{!conEvent.Article__c}">
+                                                            <apex:outputText value="{!conEvent.Article__r.Name}"/>
+                                                        </apex:outputLink>
+                                                    </span>
+                                                    
+                                                </td>
+                                            </apex:repeat>
+                                        </tr>
+                                        <tr id="class_children-{!conEvent.Id}" style="display: none;" class="conSummaryClass">
+                                            <th style="font-weight:normal;" colspan="{!$ObjectType.EventMessage__c.FieldSets.StarTrack_View_All_Consignment_Events.size + 1}">
+                                                <div style="padding-left: 10px; background-color: #E0F8FF;-moz-border-radius: 10px;  -khtml-border-radius: 10px;-webkit-border-radius: 5px;box-shadow: 2px 2px grey; padding-right: 10px;" class="conEventDiv">
+                                                    <apex:pageBlock mode="maindetail">
+                                                        <apex:pageBlockSection columns="4">
+                                                            <apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.StarTrack_Consignment_Events_Summary}" var="conDetail">
+                                                                <apex:outputPanel >
+                                                                    <b>
+                                                                        <apex:outputLabel value="{!conDetail.Label}" style="color: #54698d;"/>
+                                                                    </b>
+                                                                </apex:outputPanel>
+                                                                <apex:outputPanel >
+                                                                    <apex:outputField value="{!conEvent[conDetail]}" rendered="{!NOT(CONTAINS(conDetail, 'Article__c'))}"/>
+                                                                    <apex:outputLink value="" onclick="getPrimaryTabIdAndOpenSubtab('{!conEvent[conDetail]}', '');" rendered="{!(CONTAINS(conDetail, 'Article__c'))}">{!conEvent.Article__r.Name}</apex:outputLink>
+                                                                </apex:outputPanel>
+                                                            </apex:repeat>
+                                                        </apex:pageBlockSection>
+                                                    </apex:pageBlock>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                        </div>
+                    </apex:outputPanel>
+            </div>
+            <!--Consignment Scan Event Ends-->
+            
+            <!--Consignment Label Event Start-->
+            <div class="slds-text-heading--small" style="padding-left: 20px; Font-weight:bold; padding-top: 10px;">Events by Article
+                <apex:outputLink style="float: right; font-size: 9px; line-height: 1.5; margin-right: 9px; margin-bottom: 4px;" onclick="collapseAll('{!URLFOR($Resource.StarTrackCaseIcons)}', 'artSec', ''); return false;" value="{!consignment.Id}">Collapse All</apex:outputLink>
+                <!--apex:outputLink style="float: right; font-size: 9px; line-height: 1.5; margin-right: 9px; margin-bottom: 4px;" onclick="expandAll('{!URLFOR($Resource.StarTrackCaseIcons)}', 'artSec', ''); return false;" value="{!consignment.Id}">Expand All</apex:outputLink-->
+            </div>
+            <div style="padding-left: 10px; padding-right: 10px;">
+                <apex:outputText value="No records found." style="color:gray; font-style:italic; padding-left:20px;" rendered="{!childConsignments.size == 0}"/>
+                <apex:outputPanel rendered="{!childConsignments.size > 0}">
+                    <div class="slds-scrollable--x slds-scrollable--y" style="overflow:auto; max-height: 400px; width:100%;">
+                        <table class="slds-table slds-table--bordered" id="consignmentTable">
+                            <thead>
+                                <tr class="slds-text-heading--label">
+                                    <th scope="col">
+                                        <span class="slds-truncate">&nbsp;&nbsp;</span>
+                                    </th>
+                                    <apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.StarTrack_Event_per_Label}" var="ev">
+                                        <th scope="col">
+                                            <span class="slds-truncate">
+                                                <apex:outputText value="{!ev.label}"/>
+                                            </span>
+                                        </th>
+                                    </apex:repeat>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!--apex:outputPanel id="artEventsPanel"-->
+                                <apex:repeat value="{!childConsignments}" var="artEvent">
+                                    <tr class="slds-hint-parent">
+                                        <td data-label="section4Action" role="row" style="background-color:#F0F1F2">
+                                            <span class="slds-truncate">
+                                            <apex:image id="artImage" styleClass="imageHover" url="{!URLFOR($Resource.StarTrackCaseIcons, '/right_60.png')}" width="10px;" height="10px;" onClick="toggleClassNode(this, '{!URLFOR($Resource.StarTrackCaseIcons)}', '{!artEvent.Id}', 'artSec', '');"/>
+                                            </span>
+                                        </td>
+                                        <apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.StarTrack_Event_per_Label}" var="ev" >
+                                            <td data-label="{!ev.label}" role="row" style="background-color:#F0F1F2">
+                                                <span class="slds-truncate">
+                                                    <apex:outputField value="{!lastScanEventByArticle[artEvent.Id][ev]}"/>
+                                                </span>
+                                            </td>
+                                        </apex:repeat>
+                                    </tr>
+                                    <tr id="class_children-{!artEvent.Id}" style="display: none;" class="artEventClass">
+                                        <th style="font-weight:normal;" colspan="{!$ObjectType.EventMessage__c.FieldSets.StarTrack_Event_per_Label.size + 1}">
+                                            <apex:outputPanel rendered="{!artEvent.Event_Messages__r.size > 0}">
+                                            <div class="slds-text-heading--small" style="font-weight:bold;">
+                                                <apex:outputLink style="float: right; font-size: 9px; line-height: 1.5; margin-right: 12px; margin-bottom: 4px;" onclick="collapseAll('{!URLFOR($Resource.StarTrackCaseIcons)}', 'labelSec', '{!artEvent.Id}'); return false;" value="{!consignment.Id}">Collapse All</apex:outputLink>
+                                                <apex:outputLink style="float: right; font-size: 9px; line-height: 1.5; margin-right: 12px; margin-bottom: 4px;" onclick="expandAll('{!URLFOR($Resource.StarTrackCaseIcons)}', 'labelSec', '{!artEvent.Id}'); return false;" value="{!consignment.Id}">Expand All</apex:outputLink>
+                                            </div>
+                                            </apex:outputPanel>
+                                            <div>
+                                                <apex:outputPanel rendered="{!artEvent.Event_Messages__r.size > 0}" id="labelEventsPanel">
+                                                    <div class="slds-scrollable--x slds-scrollable--y" style="overflow:auto; max-height: 400px; width:100%;" id="secondDiv">
+                                                        <table class="slds-table slds-table--bordered" id="labelEventsTable">
+                                                          <!--  <thead>
+                                                                <tr class="slds-text-heading--label">
+                                                                    <th scope="col">
+                                                                        <span class="slds-truncate"></span>
+                                                                    </th>
+                                                                    <apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.StarTrack_View_All_Label_Events}" var="le">
+                                                                        <th scope="col">
+                                                                            <span class="slds-truncate">
+                                                                                <apex:outputText value="{!le.label}"/>
+                                                                            </span>
+                                                                        </th>
+                                                                    </apex:repeat>
+                                                                </tr>
+                                                            </thead>
+                                                            -->
+                                                            <tbody>
+                                                                <apex:repeat value="{!artEvent.Event_Messages__r}" var="labelEvent">
+                                                                    <tr class="slds-hint-parent">
+                                                                        <td data-label="section2Action" role="row" id="labelImageTd-{!artEvent.Id}">
+                                                                            <apex:image id="labelImage" styleClass="imageHover" url="{!URLFOR($Resource.StarTrackCaseIcons, '/add_60.png')}" width="10px;" height="10px;" onClick="toggleClassNode(this, '{!URLFOR($Resource.StarTrackCaseIcons)}', '{!labelEvent.Id}', 'labelSec', '{!artEvent.Id}');"/>
+                                                                        </td>
+                                                                        <apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.StarTrack_View_All_Label_Events}" var="le">
+                                                                            <td data-label="{!le.label}" role="row" style="background-color:#f1f6fb">
+                                                                                <span class="slds-truncate">
+                                                                                    <apex:outputField value="{!labelEvent[le]}" rendered="{!NOT((CONTAINS(le, 'Event_Location__c') && labelEvent.Facility__c <> null) || (CONTAINS(le, 'Article__c'))|| (le == 'Name') || CONTAINS(le, 'EventDescription__c'))}"/>
+                                                                                    <apex:outputLink id="complink1" 
+                                                                                       onblur="LookupHoverDetail.getHover(this.id).hide();" 
+                                                                                       onmouseout="LookupHoverDetail.getHover(this.id).hide();" 
+                                                                                       onfocus="LookupHoverDetail.getHover(this.id, '/{!labelEvent.Id}/m?retURL=%2F{!labelEvent.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];" 
+                                                                                       onmouseover="LookupHoverDetail.getHover(this.id, '/{!labelEvent.Id}/m?retURL=%2F{!labelEvent.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                                                       value="{!labelEvent.Id}"
+                                                                                       onclick="getPrimaryTabIdAndOpenSubtab('{!labelEvent.Id}', '');" rendered="{!(le == 'Name')}">
+                                                                                    <apex:outputText value="{!labelEvent[le]}"/>
+                                                                                    </apex:outputLink>
+                                                                                    <apex:outputLink id="complink3" 
+                                                                                       onblur="LookupHoverDetail.getHover(this.id).hide();" 
+                                                                                       onmouseout="LookupHoverDetail.getHover(this.id).hide();" 
+                                                                                       onfocus="LookupHoverDetail.getHover(this.id, '/{!labelEvent.Id}/m?retURL=%2F{!labelEvent.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];" 
+                                                                                       onmouseover="LookupHoverDetail.getHover(this.id, '/{!labelEvent.Id}/m?retURL=%2F{!labelEvent.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                                                       value="{!labelEvent.Id}"
+                                                                                       onclick="getPrimaryTabIdAndOpenSubtab('{!labelEvent.Id}', '');" rendered="{!(le == 'EventDescription__c')}">
+                                                                                    <apex:outputText value="{!LEFT(labelEvent.EventDescription__c, 40)}..." rendered="{!IF(LEN(labelEvent.EventDescription__c) > 40, true, false)}"/>
+                                                                                    <apex:outputText value="{!labelEvent.EventDescription__c}" rendered="{!IF(LEN(labelEvent.EventDescription__c) < 41, true, false)}"/>
+                                                                                    </apex:outputLink>
+                                                                                    <apex:outputPanel rendered="{!(CONTAINS(le, 'Event_Location__c') && labelEvent.Facility__c <> null)}" onclick="getPrimaryTabIdAndOpenSubtab('{!labelEvent.Facility__c}', '')">
+                                                                                        <apex:outputField value="{!labelEvent[le]}"/>
+                                                                                    </apex:outputPanel>
+                                                                                    <apex:outputLink id="article2" rendered="{!(CONTAINS(le, 'Article__c'))}" onclick="getPrimaryTabIdAndOpenSubtab('{!labelEvent.Article__c}', '')"
+                                                                                        onblur="LookupHoverDetail.getHover(this.id).hide();" 
+                                                                                        onmouseout="LookupHoverDetail.getHover(this.id).hide();" 
+                                                                                        onfocus="LookupHoverDetail.getHover(this.id, '/{!labelEvent.Article__c}/m?retURL=%2F{!labelEvent.Article__c}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];" 
+                                                                                        onmouseover="LookupHoverDetail.getHover(this.id, '/{!labelEvent.Article__c}/m?retURL=%2F{!labelEvent.Article__c}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                                                        value="{!labelEvent.Article__c}">
+                                                                                        <apex:outputText value="{!labelEvent.Article__r.Name}"/>
+                                                                                    </apex:outputLink>
+                                                                                </span>
+                                                                            </td>
+                                                                        </apex:repeat>
+                                                                    </tr>
+                                                                    <tr id="class_children-{!labelEvent.Id}" style="display: none;" class="labelSummaryClass labelClass-{!artEvent.Id}">
+                                                                        <th style="font-weight:normal;" colspan="{!$ObjectType.EventMessage__c.FieldSets.StarTrack_View_All_Label_Events.size + 1}">
+                                                                            <div style="padding-left: 10px; background-color: #E0F8FF; padding-right: 10px;-moz-border-radius: 10px;  -khtml-border-radius: 10px;-webkit-border-radius: 5px;box-shadow: 2px 2px grey;" id="labelSummary" class="labelEventDiv">
+                                                                                <apex:pageBlock mode="maindetail">
+                                                                                    <apex:pageBlockSection columns="4">
+                                                                                        <apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.StarTrack_Labels_Events_Summary}" var="labelDetail">
+                                                                                            <apex:outputPanel >
+                                                                                                <b>
+                                                                                                    <apex:outputLabel value="{!labelDetail.Label}" style="color: #54698d;"/>
+                                                                                                </b>
+                                                                                            </apex:outputPanel>
+                                                                                            <apex:outputPanel >
+                                                                                                <apex:outputField value="{!labelEvent[labelDetail]}" rendered="{!NOT(CONTAINS(labelDetail, 'Article__c'))}"/>
+                                                                                                <apex:outputLink value="" onclick="getPrimaryTabIdAndOpenSubtab('{!labelEvent[labelDetail]}', '');" rendered="{!(CONTAINS(labelDetail, 'Article__c'))}">{!labelEvent.Article__r.Name}</apex:outputLink>
+                                                                                            </apex:outputPanel>
+                                                                                        </apex:repeat>
+                                                                                    </apex:pageBlockSection>
+                                                                                </apex:pageBlock>
+                                                                            </div>
+                                                                        </th>
+                                                                    </tr>
+                                                                </apex:repeat>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!artEvent.Event_Messages__r.size == 0}" style="padding-left: 50px;font-style: italic;font-size: 12px;">
+                                                    No Events
+                                                </apex:outputPanel>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </apex:repeat>
+                                <!--/apex:outputPanel-->
+                            </tbody>
+                        </table>
+                    </div>
+                </apex:outputPanel>
+            </div>
+            <!--Consignment Label Event Ends-->
+            
+            <!--Additional Information Start-->
+            <div class="slds-text-heading--small" style="padding-left: 20px; Font-weight:bold; padding-top: 10px;">Additional Information:</div>
+            <div style="padding-left: 10px; padding-right: 10px;">
+                <div class="slds-tabs--default" style="width:100%;">
+                    <!-- TABS -->
+                    <ul class="slds-tabs--default__nav" role="tablist">
+                        <li class="slds-tabs__item slds-text-heading--label slds-active" title="Proof Of Delivery" role="presentation"><a href="#" role="tab" id="Tab1" tabindex="0" aria-selected="true" aria-controls="tab-default-1" onclick="selectTab(this); return false;">POD</a></li>
+                        <li class="slds-tabs__item slds-text-heading--label" title="Sub-dockets" role="presentation"><a href="#" role="tab" id="Tab2" tabindex="-1" aria-selected="false" aria-controls="tab-default-2" onclick="selectTab(this); return false;">Sub-dockets</a></li>
+                    </ul>
+                    
+                    <!-- TAB 1 -->
+                    <div class="slds-tabs__content slds-show" role="tabpanel" aria-labelledby="Tab1">
+                        <apex:outputPanel id="relatedPODsPanel1">
+                        <apex:outputText value="No records found." style="color:gray; font-style:italic; padding-left:20px;" rendered="{!relatedPODs.size == 0}" escape="false"/>
+                        <apex:outputPanel rendered="{!relatedPODs.size > 0}" id="relatedPODsPanel">
+                            <div class="slds-scrollable--x slds-scrollable--y" style="overflow:auto; max-height: 300px; width:100%;" id="fourthDiv">
+                                <table class="slds-table slds-table--bordered" id="relatedPODsTable">
+                                    <thead>
+                                        <tr class="slds-text-heading--label">
+                                            <th scope="col">
+                                                <span class="slds-truncate">Image</span>
+                                            </th>
+                                            <apex:repeat value="{!$ObjectType.Proof_of_Delivery__c.FieldSets.StarTrack_View_All_POD}" var="pod">
+                                                <th scope="col">
+                                                    <span class="slds-truncate">
+                                                        {!pod.label}
+                                                    </span>
+                                                </th>
+                                            </apex:repeat>
+                                         </tr>
+                                    </thead>
+                                    <tbody>
+                                        <apex:repeat value="{!relatedPODs}" var="podRec">
+                                            <tr class="slds-hint-parent">
+                                                <td data-label="podThumbnail" role="row">
+                                                    <apex:image styleClass="imageHover" value="/servlet/servlet.FileDownload?file={!podRec.NotesAndAttachments[0].Id}" rendered="{!podRec.NotesAndAttachments.size > 0}" width="20px" height="20px" onclick="verifyUserProfile('{!podRec.NotesAndAttachments[0].Id}', '{!podRec.NotesAndAttachments[0].Title}');"/>
+                                                </td>
+                                                <apex:repeat value="{!$ObjectType.Proof_of_Delivery__c.FieldSets.StarTrack_View_All_POD}" var="pod">
+                                                    <td data-label="{!pod.label}" role="row">
+                                                        <span class="slds-truncate">
+                                                            <apex:outputField value="{!podRec[pod]}"/>
+                                                        </span>
+                                                    </td>
+                                                </apex:repeat>
+                                            </tr>
+                                        </apex:repeat>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </apex:outputPanel>
+                        </apex:outputPanel>
+                    </div>
+                    
+                    <!-- TAB 2 -->
+                    <div class="slds-tabs__content slds-hide" role="tabpanel" aria-labelledby="Tab2">
+                        <apex:outputPanel id="relatedSubdocketsPanel1">
+                        <apex:outputText value="No records found." style="color:gray; font-style:italic; padding-left:20px;" rendered="{!relatedSubdockets.size == 0}" escape="false"/>
+                        <apex:outputPanel rendered="{!relatedSubdockets.size > 0}" id="relatedSubdocketsPanel">
+                            <div class="slds-scrollable--x slds-scrollable--y" style="overflow:auto; max-height: 300px; width:100%;" id="thirdDiv">
+                                <table class="slds-table slds-table--bordered" id="relatedSubdocketsTable">
+                                    <thead>
+                                        <tr class="slds-text-heading--label">
+                                            <th scope="col">
+                                                <span class="slds-truncate"></span>
+                                            </th>
+                                            <apex:repeat value="{!$ObjectType.Sub_Docket__c.FieldSets.StarTrack_View_All_Subdockets}" var="sub">
+                                                <th scope="col">
+                                                    <span class="slds-truncate">
+                                                        {!sub.label}
+                                                    </span>
+                                                </th>
+                                            </apex:repeat>
+                                         </tr>
+                                    </thead>
+                                    <tbody>
+                                        <apex:repeat value="{!relatedSubdockets}" var="subDocket">
+                                            <tr class="slds-hint-parent">
+                                                <td data-label="section3Action" role="row">
+                                                    <apex:image id="subDocketImage" styleClass="imageHover" url="{!URLFOR($Resource.StarTrackCaseIcons, '/add_60.png')}" width="10px;" height="10px;" onClick="toggleClassNode(this, '{!URLFOR($Resource.StarTrackCaseIcons)}', '{!subDocket.Id}', 'addSec', '');"/>
+                                                </td>
+                                                <apex:repeat value="{!$ObjectType.Sub_Docket__c.FieldSets.StarTrack_View_All_Subdockets}" var="sub">
+                                                    <td data-label="{!sub.label}" role="row">
+                                                        <span class="slds-truncate">
+                                                            <apex:outputField value="{!subDocket[sub]}" rendered="{!NOT(sub == 'Name')}"/>
+                                                            <apex:outputLink id="subDocketName" onclick="getPrimaryTabIdAndOpenSubtab('{!subDocket.Id}', ''); return false;" rendered="{!(sub == 'Name')}"
+                                                                onblur="LookupHoverDetail.getHover(this.id).hide();" 
+                                                                onmouseout="LookupHoverDetail.getHover(this.id).hide();" 
+                                                                onfocus="LookupHoverDetail.getHover(this.id, '/{!subDocket.Id}/m?retURL=%2F{!subDocket.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];" 
+                                                                onmouseover="LookupHoverDetail.getHover(this.id, '/{!subDocket.Id}/m?retURL=%2F{!subDocket.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                                value="{!subDocket.Id}">
+                                                                <apex:outputText value="{!subDocket[sub]}"/>
+                                                            </apex:outputLink>
+                                                        </span>
+                                                    </td>
+                                                </apex:repeat>
+                                            </tr>
+                                            <tr id="class_children-{!subDocket.Id}" style="display: none;" class="subDocketClass">
+                                                <th style="font-weight:normal;" colspan="{!$ObjectType.Sub_Docket__c.FieldSets.StarTrack_View_All_Subdockets.size + 1}">
+                                                    <div style="padding-left: 10px; background-color: #f4f6f9; padding-right: 10px;" class="subDocketDiv">
+                                                        <apex:pageBlock mode="maindetail">
+                                                            <apex:pageBlockSection columns="4">
+                                                                <apex:repeat value="{!$ObjectType.Sub_Docket__c.FieldSets.StarTrack_Subdocket_Summary}" var="subDetail">
+                                                                    <apex:outputPanel >
+                                                                        <b>
+                                                                            <apex:outputLabel value="{!subDetail.Label}" style="color: #54698d;"/>
+                                                                        </b>
+                                                                    </apex:outputPanel>
+                                                                    <apex:outputPanel >
+                                                                        <apex:outputField value="{!subDocket[subDetail]}" rendered="{!NOT(CONTAINS(subDetail, 'Consignment__c'))}"/>
+                                                                        <apex:outputLink value="" onclick="getPrimaryTabIdAndOpenSubtab('{!subDocket[subDetail]}', '');" rendered="{!(CONTAINS(subDetail, 'Consignment__c'))}">{!subDocket.Consignment__r.Name}</apex:outputLink>
+                                                                    </apex:outputPanel>
+                                                                </apex:repeat>
+                                                            </apex:pageBlockSection>
+                                                        </apex:pageBlock>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </apex:repeat>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </apex:outputPanel>
+                        </apex:outputPanel>
+                    </div>
+                </div>
+            </div>
+            <!--Additional Information Ends-->
+                    <apex:outputText id="consignmentLastUpdateDateId" value="{!consignmentLastUpdateDate}" />
+        </div>
+    </apex:outputPanel>
+    </apex:form>
+    </html>
+    <script language="javascript" type="text/javascript">
+        $(window).load(function() {
+            fillContAttributesOnPageLod();
+            CallSearchEventMessages();
+        });
+
+        function hideLoading() {
+            $('#loading').hide();
+        }
+        function showLoading() {
+            $('#loading').show();
+        }
+    </script>
+</apex:page>

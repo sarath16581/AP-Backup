@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Request</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>New Request</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>/setup/ui/recordtypeselect.jsp?ent={!$Setup.ConfigSetting__c.SegmentChangeObjectID__c}&amp;retURL=%2F{!$Setup.ConfigSetting__c.SegmentChangeObjectID__c}&amp;save_new_url=/{!$Setup.ConfigSetting__c.SegmentationChangeOrgObjectID__c}/e?CF{!$Setup.ConfigSetting__c.SegmentationCustomerID__c}={!URLENCODE(Account.Name)}&amp;CF{!$Setup.ConfigSetting__c.SegmentationCustomerID__c}_lkid={!Account.Id}&amp;retURL=%2F{!Account.Id}&amp;ent={!$Setup.ConfigSetting__c.SegmentChangeObjectID__c}&amp;&amp;
+&amp;CF{!$Setup.ConfigSetting__c.HiddenCurrentOrgOwnerID__c}={!Account.OwnerFullName}&amp;CF{!$Setup.ConfigSetting__c.HiddenCurrentOrgOwnerID__c}_lkid={!Account.OwnerId}</url>
+</WebLink>

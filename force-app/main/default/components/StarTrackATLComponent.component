@@ -1,0 +1,26 @@
+<!--
+Description:
+History
+2018-05-18 - nathan.franklin@auspost.com.au - Added ID to ATL Checkbox for jQuery select in parent component
+-->
+<apex:component id="ATLComponent">
+    <apex:attribute type="string" name="legend" required="false" description="a legend for this address box" />
+    <apex:attribute type="Case" name="record" description="selected case record" required="false"/>
+    <apex:attribute type="Boolean" name="hasEnquiryTypeError" description="An error" required="false"/>
+    <apex:attribute type="Boolean" name="hasATLError" description="An error" required="false"/>
+    <fieldset class="boxed">
+        <legend class="legendClass">{!legend}</legend>
+        <div>
+            <apex:pageBlockSection >
+                <apex:inputField value="{!record.ATL__c}" onchange="validateEnquiryTypeAction();" id="chkATL" />
+                <apex:inputField value="{!record.Override_Allow_ATL__c}" onchange="validateEnquiryTypeAction();"/>
+            </apex:pageBlockSection>
+            
+             <apex:pageBlockSection id="ATLSection" rendered="{!((record.ATL__c || record.Override_Allow_ATL__c) && NOT(hasEnquiryTypeError || hasATLError) && NOT(record.Enquiry_Type__c == 'Depot Collection' || record.Enquiry_Type__c == ''))}">
+                <apex:inputField value="{!record.ATL_Instructions__c}" onchange="validateEnquiryTypeAction();" styleClass="form-control input-sm string"/>
+                <apex:inputField value="{!record.Authorization_Origin__c}" styleClass="form-control input-sm string"/>
+                <apex:inputField value="{!record.Other_ATL_Instructions__c}" rendered="{!(record.ATL_Instructions__c == 'Other')}" styleClass="form-control input-sm string"/>
+            </apex:pageBlockSection>
+        </div>
+    </fieldset>
+</apex:component>

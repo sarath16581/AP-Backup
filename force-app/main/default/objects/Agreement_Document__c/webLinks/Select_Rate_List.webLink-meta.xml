@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Select_Rate_List</fullName>
+    <availability>online</availability>
+    <description>Flow to allow super user to select a rate list for Template Admin</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Select Rate List</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/flow/Agree_Mgt_Edit_Rate_List?AgreementDocumentId={!Agreement_Document__c.Id}&amp;retURL=/{!Agreement_Document__c.Id}</url>
+</WebLink>

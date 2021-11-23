@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tier_Calculated_Date__c</fullName>
+    <description>Change date of the BW Transaction Tier</description>
+    <externalId>false</externalId>
+    <label>Tier Calculated Date</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <type>Date</type>
+</CustomField>

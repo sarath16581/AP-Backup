@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfo_PICR_Licence_Not_Activated</fullName>
+    <active>true</active>
+    <description>When setting the status to Not Activated, ensure that the Licence is in a pre-Active state and that the Not Activated Reason field is set</description>
+    <errorConditionFormula>AND(
+  ISPICKVAL(Licence_Status__c , &quot;Not Activated&quot;),
+  OR(
+    ISPICKVAL(Not_Activated_Reason__c,&apos;&apos;),
+    ISPICKVAL(Licence__r.Licence_Status__c , &quot;Active&quot;),
+    ISPICKVAL(Licence__r.Licence_Status__c , &quot;Ceased&quot;),
+    ISPICKVAL(Licence__r.Licence_Status__c , &quot;Suspended Without Fees&quot;),
+    ISPICKVAL(Licence__r.Licence_Status__c , &quot;Suspended With Fees&quot;)
+    )
+)</errorConditionFormula>
+    <errorMessage>When setting the status to Not Activated the Licence must be in a pre-Active state and the Not Activated Reason field must be populated.</errorMessage>
+</ValidationRule>

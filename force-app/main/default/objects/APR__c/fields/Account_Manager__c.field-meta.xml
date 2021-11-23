@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Manager__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 
+RecordType.DeveloperName = &apos;StarTrack&apos;,
+Billing_Account_Name__r.Account_manager__c,
+(Legal_Entity_Name_LookUp__r.Owner.FirstName &amp; &quot; &quot; &amp; Legal_Entity_Name_LookUp__r.Owner.LastName)
+)</formula>
+    <inlineHelpText>Auto populated based on the Legal Entity Name field. This field shows the Account manager aligned to the customer and the person responsible for managing the APR process.</inlineHelpText>
+    <label>Account Manager</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

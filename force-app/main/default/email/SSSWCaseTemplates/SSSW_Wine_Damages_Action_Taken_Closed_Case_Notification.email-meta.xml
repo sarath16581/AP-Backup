@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Wine Damages Action Taken Closed Case Notification</name>
+    <style>none</style>
+    <subject>Australia Post reference number: {!Case.CaseNumber} {!Case.Thread_Id}</subject>
+    <textOnly>Hi {!Contact.FirstName}
+
+We regret to advise that article {!Case.ReferenceID__c} has been damaged in transit..
+
+Details of the article:
+Addressee Name: {!Case.Secondary_Contact__c}
+Address: {!Case.Address2__c}
+
+Damages reported by the Delivery Network: 
+
+{!Case.eParcelDamages__c}
+
+• {!CASE(Case.Issue_Resolution__c, &quot;Return To Sender&quot;, &quot;This article is being returned to you&quot;, &quot;Deliver as Addressed&quot;,&quot;This article is being delivered as addressed&quot;,&quot;Discard&quot;,&quot;This article has been discarded&quot;,&quot; &quot;)}
+ 
+On behalf of Australia Post please accept our apologies for the inconvenience this matter has caused to you and to your customer. Should you have any queries in relation to the above, please contact us quoting above reference number.
+ 
+Regards,
+{!Case.Originating_Network__c}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

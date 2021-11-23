@@ -1,0 +1,55 @@
+.THIS {
+	padding: 8px;
+}
+
+.THIS p {
+	font-size: 0.875rem;
+}
+
+.THIS .slds-button {
+	font-weight: 500;
+	height: 44px;
+	padding: 0 30px;
+	color: #382f2d;
+	font-family: 'APTypeText', helvetica, arial, sans-serif;
+	font-size: 16px;
+	line-height: 20px;
+	text-decoration: none;
+	border-radius: 8px;
+	border: 0 none;
+}
+
+.THIS .slds-button_brand {
+	min-width: 180px;
+	background-color: #DC1928;
+	color: white;
+}
+.THIS .slds-button_brand:hover {
+	background-color: #BF1926;
+}
+
+
+.THIS .buttons {
+	display: flex;
+	flex-direction: column;
+}
+
+.THIS .buttons button {
+	width: 100%;
+	margin-top: 8px;
+}
+
+@media (min-width: 480px) {
+	.THIS {
+		padding: 24px;
+	}
+
+	.THIS .buttons {
+		justify-content: flex-start;
+		flex-direction: row-reverse;
+	}
+
+	.THIS .buttons button {
+		width: auto;
+	}
+}

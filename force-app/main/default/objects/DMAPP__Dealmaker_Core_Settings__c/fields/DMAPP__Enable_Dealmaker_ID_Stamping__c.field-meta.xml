@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Enable_Dealmaker_ID_Stamping__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This setting controls whether or not Dealmaker will stamp its model objects with an external DealmakerID which facilitates migration.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This setting controls whether or not Dealmaker will stamp its model objects with an external DealmakerID which facilitates migration.</inlineHelpText>
+    <label>Enable Dealmaker ID Stamping</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

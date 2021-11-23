@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hidden_Prior_Account_Manager_Email__c</fullName>
+    <description>this hidden field will record the email address of the prior owner, who will receive an email when the account is assigned to someone else.</description>
+    <externalId>false</externalId>
+    <label>{Hidden} Prior Account Manager Email</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Email</type>
+    <unique>false</unique>
+</CustomField>

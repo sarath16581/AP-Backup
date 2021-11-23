@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CaseType__c</fullName>
+    <description>Its the &quot;Type&quot; field value of Case. Need to make sure that all the values in Case.Type do exist here.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Case.Type. If you cannot find a Type, ask your System Administrator to add it for you.</inlineHelpText>
+    <label>Case Type</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Problem</fullName>
+                <default>false</default>
+                <label>Problem</label>
+            </value>
+            <value>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+                <label>Feature Request</label>
+            </value>
+            <value>
+                <fullName>Question</fullName>
+                <default>false</default>
+                <label>Question</label>
+            </value>
+            <value>
+                <fullName>Domestic Item Search</fullName>
+                <default>false</default>
+                <label>Domestic Item Search</label>
+            </value>
+            <value>
+                <fullName>Mail Redirection/Hold</fullName>
+                <default>false</default>
+                <label>Mail Redirection/Hold</label>
+            </value>
+            <value>
+                <fullName>General Enquiry</fullName>
+                <default>false</default>
+                <label>General Enquiry</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

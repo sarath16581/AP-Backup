@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ex_Gratia_Awaiting_Payment_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Ex Gratia - Awaiting Payment</label>
+    <queue>Ex_Gratia_Awaiting_Payment</queue>
+    <sharedTo>
+        <group>Ex_Gratia_Awaiting_Payment</group>
+    </sharedTo>
+</ListView>

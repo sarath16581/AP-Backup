@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IT_Software_Used__c</fullName>
+    <description>This field is used for Land Title Webform from https://auspost.com.au/forms/land-title.html</description>
+    <externalId>false</externalId>
+    <label>IT Software Used</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>SettsPlus (CSolutions)</fullName>
+                <default>true</default>
+                <label>SettsPlus (CSolutions)</label>
+            </value>
+            <value>
+                <fullName>Conveyancing &amp; Trust Acct System (CATS)</fullName>
+                <default>false</default>
+                <label>Conveyancing &amp; Trust Acct System (CATS)</label>
+            </value>
+            <value>
+                <fullName>SAI Global</fullName>
+                <default>false</default>
+                <label>SAI Global</label>
+            </value>
+            <value>
+                <fullName>LEAP Conveyancing</fullName>
+                <default>false</default>
+                <label>LEAP Conveyancing</label>
+            </value>
+            <value>
+                <fullName>The Information Management Group (TIMG)</fullName>
+                <default>false</default>
+                <label>The Information Management Group (TIMG)</label>
+            </value>
+            <value>
+                <fullName>InfoTrack</fullName>
+                <default>false</default>
+                <label>InfoTrack</label>
+            </value>
+            <value>
+                <fullName>GlobalX Legal Solutions</fullName>
+                <default>false</default>
+                <label>GlobalX Legal Solutions</label>
+            </value>
+            <value>
+                <fullName>Other (Please specify)</fullName>
+                <default>false</default>
+                <label>Other (Please specify)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Credit_Lock_down_Fields</fullName>
+    <active>true</active>
+    <description>Don&apos;t allow StarTrack users from changing the certain fields when the case status is &apos;Approved&apos;. (Note: Only System Admin is allowed to do so.)</description>
+    <errorConditionFormula>AND(
+    RecordType.Name = &apos;Credit Dispute Claim&apos;,
+    ISPICKVAL(Approval_Status__c, &apos;Approved&apos;), 
+    NOT($Profile.Name = &apos;System Administrator&apos;), 
+    OR(
+       ISCHANGED(AccountId),
+       ISCHANGED(Related_Billing_Account__c),
+       ISCHANGED(Amount_Claimed__c),
+       ISCHANGED(RecordTypeId),
+       ISCHANGED(Enquiry_Type__c),
+       ISCHANGED(Service_Type__c),
+       ISCHANGED(ArticleTest__c))
+)</errorConditionFormula>
+    <errorMessage>Field/s cannot be edited after Case is &quot;Approved&quot;.</errorMessage>
+</ValidationRule>

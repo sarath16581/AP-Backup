@@ -1,0 +1,125 @@
+<apex:component controller="APT_TermAndConditionController" access="global" >
+   <apex:attribute name="approvalReqSO" 
+                    description="This is the approval request SObject." 
+                    type="Apttus_Approval__Approval_Request__c" 
+                    assignTo="{!approvalRequestSO}" />
+    <apex:attribute name="approvalContractID" 
+                    description="This is the contract ID." 
+                    type="ID" 
+                    assignTo="{!contractId}" />
+    <apex:attribute name="recipientNameSO" 
+                    description="This is the recipient name." 
+                    type="String" />
+    
+    
+<style type="text/css">
+    .fontStyle{ 
+        font-family: Arial; 
+        size: 12pt;
+    }
+    
+    .fontSmallStyle{
+        font-family: arial;
+        font-size: x-small;
+    }
+</style>
+<!--
+<img src="{!headerURL}" />
+
+<br/><br/>
+<apex:outputPanel styleClass="fontStyle">
+<b>Dear {!recipientNameSO}</b>
+<br/><br/>
+<apex:outputPanel styleClass="fontStyle" rendered="{!if(approvalRequestSO.Apttus_Approval__Approval_Status__c='Cancelled',TRUE,FALSE)}"> Approval request for '{!approvalReqSO.Apttus_Approval__Object_Name__c}' has been cancelled</apex:outputPanel>
+<apex:outputPanel styleClass="fontStyle" rendered="{!if(approvalRequestSO.Apttus_Approval__Approval_Status__c='Cancelled',FALSE,TRUE)}">"{!approvalReqSO.Apttus_Approval__Object_Name__c}" has been submitted for your approval.</apex:outputPanel>
+<br/>
+</apex:outputPanel>
+-->
+<br/>
+<apex:outputPanel styleClass="fontStyle">
+<b>Customer Details: </b><br />
+Legal Entity Name: {!agreementSO.APT_Legal_Entity_Name__c}<br />
+Customer Number: {!agreementSO.APT_Customer_Number__c}<br />
+Opportunity Number: {!agreementSO.Apttus__Related_Opportunity__r.Opportunity_Number__c}<br />
+</apex:outputPanel>  
+
+<apex:outputPanel styleClass="fontStyle" rendered="{!IF(NOT(CONTAINS(agreementSO.RecordType.Name,'SecurePay Online Payments')),TRUE,FALSE)}">
+Contract Number: {!agreementSO.Apttus__FF_Agreement_Number__c}<br />
+</apex:outputPanel>
+<br />
+
+<apex:outputPanel styleClass="fontStyle">
+<b>Requested By:</b><br />
+Contract Owner Full Name: {!agreementSO.Owner.Name} <br /><br />
+</apex:outputPanel>
+
+<apex:outputPanel styleClass="fontStyle" rendered="{!IF(CONTAINS(agreementSO.RecordType.Name,'SecurePay Online Payments'),FALSE,TRUE)}">
+<b>Product Lines Requested: </b>{!agreementSO.Included_Product_Lines__c}<br />
+<br />
+</apex:outputPanel>
+
+<apex:outputPanel styleClass="fontStyle" rendered="{!IF(CONTAINS(agreementSO.RecordType.Name,'SecurePay Online Payments'),TRUE,FALSE)}">
+<b>Details of Pricing Request: </b><br />
+Pricing Plan Requested:{!agreementSO.APT_Price_Plan__c}<br />
+Comments: {!approvalRequestSO.Apttus_Approval__SubmissionComment1__c}
+<br />
+<br />
+</apex:outputPanel>
+
+<apex:outputPanel styleClass="fontStyle" rendered="{!if(approvalRequestSO.Apttus_Approval__Approval_Status__c='Cancelled',FALSE,TRUE)}">
+                <strong>Your Action:</strong><br/>
+                <strong>Approve or Reject this request</strong>.<br/>
+                
+                <p><b>To do this:</b><br/>
+                1. Click reply to this email <br/>
+                2. Copy the text between the dashes and paste into your reply email<br/>
+                3. Delete either APPROVED or REJECTED (this must be the first line of the email)<br/>
+                4. If either Approved or Rejected, you must put in your comments back to the requestor under the Approver Comments <br/>
+                5. Click send
+                </p>
+</apex:outputPanel>
+
+
+<apex:outputPanel styleClass="fontStyle" rendered="{!if(approvalRequestSO.Apttus_Approval__Approval_Status__c='Cancelled',FALSE,TRUE)}">
+    <apex:outputText >------------------------------------------------------------</apex:outputText>
+    <br/><br/>
+    <apex:outputText ><i>APPROVED or REJECTED</i></apex:outputText>
+    <br/>
+    <apex:outputText >Approver Comments:</apex:outputText> 
+    <br/><br/>
+    <apex:outputText >------------------------------------------------------------</apex:outputText><br/><br/>
+</apex:outputPanel>
+
+
+
+<apex:outputPanel styleClass="fontStyle">
+    Click on the link below:
+                  <br/>
+    <apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))  + approvalReqSO.Apttus_Approval__Object_Id__c}">
+    
+    {!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))  + approvalReqSO.Apttus_Approval__Object_Id__c}
+    
+    </apex:outputLink>
+</apex:outputPanel>
+<br/><br/>
+
+<img src="{!footerURL}" />
+<br/>
+
+<apex:outputpanel styleClass="fontSmallStyle">
+
+Please do not reply to this email. This is a system generated email.
+<br/><br/>
+
+Australia Post is committed to providing our customers with excellent service. If we can assist you in any way please telephone 13 13 18 or visit our website.
+
+<br/><br/>
+The information contained in this email communication may be proprietary, confidential or legally professionally privileged. It is intended exclusively for the individual or entity to which it is addressed. You should only read, disclose, re-transmit, copy, distribute, act in reliance on or commercialise the information if you are authorised to do so. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, virus or interference.
+
+<br/><br/>
+If you are not the addressee or intended recipient please notify us by replying direct to the sender and then destroy any electronic or paper copy of this message. Any views expressed in this email communication are taken to be those of the individual sender, except where the sender specifically attributes those views to Australia Post and is authorised to do so.
+
+</apex:outputpanel>
+
+
+</apex:component>

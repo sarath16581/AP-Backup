@@ -1,0 +1,12 @@
+/**
+ * Created by MandavilD on 01/10/2019.
+ */
+.search-container {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+}
+
+.lookup {
+    flex:1;
+}

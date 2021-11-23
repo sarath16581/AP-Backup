@@ -1,0 +1,17 @@
+<apex:component >
+    <div class="l-footer">
+        <div id="footer">
+            <footer>
+                <div class="sub-footer-links">
+                    <ul>
+                        <li><a href="http://auspost.com.au/sitemap.html">Sitemap</a></li>
+                        <li><a href="http://auspost.com.au/about-us/about-our-site.html">About our site</a></li>                        
+                        <li><a href="http://auspost.com.au/terms-conditions.html">Terms &amp; conditions</a></li>
+                        <li><a href="http://auspost.com.au/privacy.html">Privacy policy</a></li>
+                    </ul>
+                </div>
+                <!-- <div class="right"><span class="footer-secure-lock">Secure content</span></div> -->
+            </footer>
+        </div>
+    </div>    
+</apex:component>

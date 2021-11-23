@@ -1,0 +1,59 @@
+<aura:component extends="c:ChasBaseInput" description="Text input with search button">
+    <aura:attribute name="onclick" type="Aura.Action" />
+    <aura:attribute name="maxlength"  type="Integer" description='Max length for input' />
+    <aura:attribute name="isLoading"  type="Boolean" default="false" />
+    
+    <div class="slds-form-element">
+        <!-- Label -->
+        <c:ChasInputLabel for="{! v.name }" label="{! v.label }" subLabel="{! v.subLabel }" helptext="{! v.helptext }" />
+        
+        <!-- Errors -->
+        <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }" id="{! v.name }" />
+        
+        <div class="chas-input-field-container slds-form-element__control slds-grow">
+
+			<!-- Input -->
+			<input
+				type="text" 
+                id='{! v.name }'
+                name='{! v.name }'
+                required='{! v.required }'
+                value='{! v.value }'
+                oninput='{! c.updateValue }'
+                onblur='{! c.onchange }'
+                class="slds-input chas-input-field"
+				maxlength='{! v.maxlength }'
+                aria-describedby="{! v.name + '-description ' + v.name + '-error' }"/>
+
+            <!-- <lightning:input
+                             type='{! v.type }'
+                             aura:id='chasInputField'
+                             id='{! v.name }'
+                             name='{! v.name }'
+                  			 required='{! v.required }'
+                             value='{! v.value }'
+                             onchange='{! c.onchange }'
+                             onblur='{! c.onchange }'
+                             class="chas-input-field"
+                             variant='label-hidden'
+                             label='{! v.label }' 
+                             maxlength="{! v.maxlength }"
+                             /> -->
+    
+            <!-- Search Button -->
+            <lightning:buttonIcon
+            	type="submit"
+            	variant="brand"
+            	iconName="utility:search"
+            	alternativeText="Continue"
+            	class="{! 'chas-input-search-button loading-' + v.isLoading }"
+            	onclick='{! c.searchClicked }'
+            	/>
+        </div>
+        
+        <div class="chas-below-input" id="{! v.name + '-description' }">
+        	{! v.body }
+        </div>
+        
+    </div>
+</aura:component>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Phase_2_Store_Total_Claimed_Revenue</fullName>
+        <field>Product_Total_Scheduled_Rev__c</field>
+        <formula>Total_Claimed_Revenue__c</formula>
+        <name>Phase 2 Store Total Claimed Revenue</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Reclassified</fullName>
+        <field>Reclassified__c</field>
+        <literalValue>1</literalValue>
+        <name>Set Reclassified</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Reclassified_Date</fullName>
+        <field>Reclassified_Date__c</field>
+        <formula>Now()</formula>
+        <name>Set Reclassified Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Phase 2 - Update Revenue Schedule</fullName>
+        <actions>
+            <name>Set_Reclassified</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Set_Reclassified_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Sets field values due to a reclassification</description>
+        <formula>ISCHANGED(Classification_c__c)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 Store Total Claimed Revenue</fullName>
+        <actions>
+            <name>Phase_2_Store_Total_Claimed_Revenue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>Name  &lt;&gt; Null</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

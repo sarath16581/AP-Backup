@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SWMY - UPS Carded</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SWMY - UPS Carded</name>
+    <style>none</style>
+    <subject>SWMY - UPS Carded</subject>
+    <textOnly>Hi {!Case.Receiver_Contact_First_Name__c},
+
+Thank you for your enquiry regarding consignment:
+
+
+Article
+
+{!Case.ArticleTest__c}
+
+Receiver Name
+
+{!Case.Receiver_Name__c}
+
+Address
+
+{!Case.Address4__c}, {!Case.Address4Suburb__c},{!Case.Address4Postcode__c}
+
+I would like to advise you that your supplier is UPS.
+
+UPS have requested that all customer enquiries regarding Star Track consignments are directed to them.
+
+Please contact UPS on 131 877 and they will be able to assist you further.
+
+Kind regards,
+
+{!User.Name}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

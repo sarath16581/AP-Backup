@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>APT_ATE_Update_ITE</fullName>
+        <field>Included_Term_Exceptions__c</field>
+        <formula>Apttus__Exception__c + &apos;, &apos; + Apttus__Agreement__r.Included_Term_Exceptions__c</formula>
+        <name>ATE Update ITE</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Apttus__Agreement__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_Set_Term_Exception_Approval_Status</fullName>
+        <description>Updates Term Exception Approval Status to &apos;Not Submitted&apos;</description>
+        <field>Apttus_Approval__Term_Exception_Approval_Status__c</field>
+        <literalValue>Not Submitted</literalValue>
+        <name>Set Term Exception Approval Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Apttus__Agreement__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Exception_Type</fullName>
+        <field>APT_Exception_Type__c</field>
+        <formula>TEXT(Apttus__Exception_Name__r.Apttus__Exception_Type__c)+&apos;,&apos;+
+ Apttus__Agreement__r.APT_Exception_Type__c</formula>
+        <name>Update Exception Type</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Apttus__Agreement__c</targetObject>
+    </fieldUpdates>
+    <rules>
+        <fullName>APT_ATE_Created</fullName>
+        <actions>
+            <name>APT_ATE_Update_ITE</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>APT_Set_Term_Exception_Approval_Status</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Exception_Type</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Runs when term exception is created</description>
+        <formula>NOT(ISBLANK(CreatedDate ))</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

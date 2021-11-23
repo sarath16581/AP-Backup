@@ -1,0 +1,58 @@
+<!-- 2021-08-30 naveen.rajanna@auspost.com.au RELEASE UPDATES Enable Aura Component Access Fix -->
+<aura:component access="global">
+      <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+      <aura:attribute name="ChatterFeedElmnt" type="cpChatterFeedWrapper" access="public"/>
+      <aura:attribute name="ChatterLink" type="map"/>
+     <forceCommunity:routeLink routeInput="{!v.ChatterLink}">
+      <div class="cp-chatter-data-list">
+     <!-- <a href="javascript:void(0);" onclick="{!c.redirectToDetailPage}"> -->
+            <!-- <a> -->
+            <div class="cp-conversation-box">
+                <ul class="cp-conversation-ul-answer">
+
+                    <li class="cp-conversation-li cp-conversation-icon-one cp-conversation-text" title="Question">
+                        <!-- <a href="javascript:void(0);" onclick="{!c.redirectToDetailPage}">{!v.ChatterFeedElmnt.questionTitle}</a> -->
+                        <!-- <span class="cp-ios-1"><c:cpsvgIcon svgPath="{!$Resource.cpIcons + '#chat-small'}" class="cp-icon"/></span> -->
+                        <span class="cp-ios-1"><img class="cp-home-chatter-speech-icon-one" src="{!$Resource.cp_home_icons_png + '/icon-light-teal.png'}" alt="Speech icon"/></span>
+
+                        <span class="cp-ios-2">
+                            <p>{!v.ChatterFeedElmnt.questionTitle}</p>
+                        </span>
+                    </li>
+                    <li class="cp-conversation-li cp-conversation-best-answer" data-label="Comment Count">
+                        <aura:if isTrue="{! !empty(v.ChatterFeedElmnt.bestAnswerId)}">
+                            <span><lightning:icon iconName="utility:success"/></span>
+                            <span>Best<br/>
+                                Answer</span>
+                        </aura:if>
+                    </li>
+                </ul>
+                <ul class="cp-conversation-ul-details">
+
+                    <li class="cp-conversation-li cp-conversation-face cp-conversation-name">
+                        <span><img src="{!v.ChatterFeedElmnt.imageIconUrl}" alt="Profile Pic" height="30" width="30"/></span>
+                        <span data-label="Nickname" title="Nickname">{!v.ChatterFeedElmnt.actorNickName}</span>
+                    </li>
+                    <li class="cp-conversation-li cp-conversation-time" data-label="relativeCreatedDate">
+                        <div class="cp-timebox" title="Posted date">{!v.ChatterFeedElmnt.relativeCreatedDate}</div>
+                    </li>
+                    <!--<li class="cp-conversation-li" data-label="Total VLC Count">
+                <div title="toalViewCommentAndLikeCount">{!v.ChatterFeedElmnt.toalViewCommentAndLikeCount}</div>
+            </li>-->
+                    <!--<li>
+                <lightning:icon iconName="utility:comments"/>
+            </li>-->
+                    <li class="cp-conversation-li cp-conversation-count cp-conversation-icon-two" data-label="Comment Count">
+                        <!-- <span><c:cpsvgIcon svgPath="{!$Resource.cpIcons + '#chat-small'}" class="cp-icon"/></span> -->
+                        <span><img class="cp-home-chatter-speech-icon-two" src="{!$Resource.cp_home_icons_png + '/icon-grey@1x.png'}" alt="Speech icon"/></span>
+
+                        <span>
+                            <div title="Comments">{!v.ChatterFeedElmnt.commentCount}</div>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+      <!--  </a>  -->
+    </div>
+   </forceCommunity:routeLink>      
+</aura:component>

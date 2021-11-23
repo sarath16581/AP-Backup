@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>An email to advise the Implementation Request is Rejected</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SalesImplementationRequest - Rejected</name>
+    <style>none</style>
+    <subject>Sales Implementation Request - Case {!Case.CaseNumber}</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

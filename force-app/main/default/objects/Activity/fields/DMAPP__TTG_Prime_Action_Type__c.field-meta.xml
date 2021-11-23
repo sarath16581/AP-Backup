@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__TTG_Prime_Action_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>PRIME Action</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Prove your value</fullName>
+                <default>false</default>
+                <label>Prove your value</label>
+            </value>
+            <value>
+                <fullName>Retrieve missing information</fullName>
+                <default>false</default>
+                <label>Retrieve missing information</label>
+            </value>
+            <value>
+                <fullName>Insulate against competition</fullName>
+                <default>false</default>
+                <label>Insulate against competition</label>
+            </value>
+            <value>
+                <fullName>Minimize your weaknesses</fullName>
+                <default>false</default>
+                <label>Minimize your weaknesses</label>
+            </value>
+            <value>
+                <fullName>Emphasize your strengths</fullName>
+                <default>false</default>
+                <label>Emphasize your strengths</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

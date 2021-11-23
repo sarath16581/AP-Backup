@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RO_Agreement_Review_Date</fullName>
+    <active>true</active>
+    <description>Field is not editable when the Agreement Document is Approved, Ceased and Not Activated</description>
+    <errorConditionFormula>AND(ISCHANGED(Review_Date__c), OR( ISPICKVAL(Status__c, &apos;Approved&apos;),ISPICKVAL(Status__c, &apos;Ceased&apos;),ISPICKVAL(Status__c, &apos;Not Activated&apos;)) )</errorConditionFormula>
+    <errorMessage>The Agreement Review Date is not editable when the Agreement Document status is Approved, Ceased and Not Activated</errorMessage>
+</ValidationRule>

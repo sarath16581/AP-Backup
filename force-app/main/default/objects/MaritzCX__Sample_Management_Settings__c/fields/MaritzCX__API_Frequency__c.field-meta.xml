@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaritzCX__API_Frequency__c</fullName>
+    <defaultValue>60</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field stores the time interval between two successive MaritzCX real-time API call for a Survey in seconds.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field specifies the minimum time interval between two successive Invitation API calls for a Survey.</inlineHelpText>
+    <label>Min Interval Between API Calls (Seconds)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

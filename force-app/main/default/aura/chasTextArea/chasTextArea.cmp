@@ -1,0 +1,85 @@
+<aura:component extends="c:ChasBaseInput" description="Textarea input">
+    <aura:attribute name="placeholder" type="String"/>
+    <div class="slds-form-element">
+        
+        <!-- Label -->
+        <c:ChasInputLabel for="{! v.name }" label="{! v.label }" subLabel="{! v.subLabel }" helptext="{! v.helptext }" />
+        
+        <!-- Errors -->
+        <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }" id="{! v.name }" />
+        
+        <div class="chas-input-field-container slds-form-element__control slds-grow">
+
+            <textarea
+                id='{! v.name }'
+                name='{! v.name }'
+                required='{! v.required }'
+                value='{! v.value }'
+                oninput='{! c.updateValue }'
+                onblur='{! c.onchange }'
+                class="slds-textarea chas-textarea"
+                aria-describedby="{! v.name + '-description ' + v.name + '-error' }"
+                placeholder = '{! v.placeholder }'/>
+                
+            <!-- Text Area -->
+            <!-- <lightning:textarea
+                aura:id='chasInputField'
+                id='{! v.name }'
+                name='{! v.name }'
+                required='{! v.required }'
+                value='{! v.value }'
+                onchange='{! c.onchange }'
+                onblur='{! c.onchange }'
+                class='chas-textarea'
+                variant='label-hidden'
+                label='{! v.label }'
+                /> -->
+
+            
+        </div>
+        
+        <div class="chas-below-input" id="{! v.name + '-description' }">
+            {! v.body }
+        </div>
+        
+    </div>
+</aura:component>
+
+<!-- <aura:component>
+
+    <aura:attribute name="wizardData" type="Map"/>
+    <aura:attribute name="textAreaLabel" type="String" default='Please provide details'/>
+    <aura:attribute name="textAreaPlaceholderDisplay" type="Boolean" default='false'/>
+    <aura:attribute name="validateEmptyTxtArea" type="Boolean" default='true'/>
+    <aura:attribute name="belowTextAreaText" type="String"/>
+    <aura:attribute name="errors" type="Object[]" />
+
+    <aura:handler name="change" value="{!v.wizardData.validateComplaintDetails}" action=" {!c.itemsChange}"/>
+
+
+    <aura:registerEvent name="chasGenComponentEvent" type="c:chasGenComponentEvent"/>
+    <div class="component">
+        <div class="chas-textarea-container">
+            <div>
+                <div aura:id="{!'div'+v.wizardData.selectedRadio}">
+                    <label class="chas-label" for="{!'div'+v.wizardData.selectedRadio}">
+                        {!v.textAreaLabel}
+                    </label>
+                    <c:ChasErrorMessages errors="{! v.errors }" />
+                    <div class="slds-form-element__control">
+                        <aura:if isTrue='{!v.textAreaPlaceholderDisplay == true}'>
+                            <ui:inputTextArea required="" aura:id="details" placeholder="{!'Provide details for '+v.wizardData.selectedRadioName}" value="{!v.wizardData.complaintDetails}" change="{!c.onChangeFunction}" keyup='{!c.onChangeFunction}' updateOn='keyup' ></ui:inputTextArea>
+                            <aura:set attribute='else'>
+                                <ui:inputTextArea required="" aura:id="details" placeholder="" value="{!v.wizardData.complaintDetails}" change="{!c.onChangeFunction}" keyup='{!c.onChangeFunction}' updateOn='keyup' ></ui:inputTextArea>
+                            </aura:set>
+                        </aura:if>
+
+                    </div>
+                </div>
+            </div>
+            <aura:if isTrue="{!v.belowTextAreaText != null}">
+                <p class="chas-text-below-input chas-body_small">{!v.belowTextAreaText}</p>
+            </aura:if>
+        </div>
+    </div>
+</aura:component> -->

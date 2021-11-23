@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Quicklink_Complete_Rollup__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Quicklink Complete Rollup</label>
+    <summarizedField>DMAPP__DM_DVLS_Module_User__c.DMAPP__Quicklink_Complete_Rollup__c</summarizedField>
+    <summaryForeignKey>DMAPP__DM_DVLS_Module_User__c.DMAPP__DM_DVLS_Curriculum_User__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>eParcel Onboarding contract for review email template</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>CME eParcel Onboarding - Contract for review</name>
+    <style>freeForm</style>
+    <subject>Contract for review - {!Case.Account} - Case {!Case.CaseNumber}</subject>
+    <textOnly>Hi {!Case.Requestor__c}
+
+
+Please review the attached draft Short Form Operational Doc Attachment B and advise me of any issues. Once you have reviewed the details, please add a new case comment advising of this, tick “Public”, and save the comment. I will then proceed with sending the contract to the customer for signing.
+
+
+If I do not hear from you by approximately in an hour to advise otherwise, I will continue with sending the contract to the customer.
+
+
+
+You can access your case online by following the link below:
+
+
+
+
+{!Case.Link}
+
+
+Regards
+
+{!Case.OwnerFullName}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

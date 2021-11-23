@@ -1,0 +1,108 @@
+<apex:page id="brideas_Moderation" controller="brideas_ModerationCtrl">
+    <style>
+        .activeTab {background-color: #236FBD; color:white; background-image:none; padding: 5px}
+        .inactiveTab { background-color: lightgrey; color:black; background-image:none; padding: 5px}
+        .ideaSubject {color: #666; font-weight: bold; font-size: 115%;}
+        .ideaSubjectLink {color: #015ba7; text-decoration: none}
+        .itemTab table tr:first-child td {border-top: 0}
+        .itemTab table td {border-bottom: 0; border-top: 1px solid #e8e8e8; padding: 20px}
+        .pagination {padding: 10px 0 10px 20px}
+    </style>
+
+    <script type="text/javascript">
+        function loadItems(itemType, currentPage) {
+            if(currentPage < 1) return;
+
+            loadBannedItems(itemType, currentPage);
+        }
+        function unbanItem(itemId, itemType) {
+            if(confirm('Are you sure?')) {
+                unbanItemById(itemId, itemType);
+            }
+        }
+        function deleteItem(itemId, itemType) {
+            if(confirm('Are you sure?')) {
+                deleteItemById(itemId, itemType);
+            }
+        }
+    </script>
+    <apex:form >
+        <apex:tabPanel switchType="client" selectedTab="posts" tabClass="activeTab" inactiveTabClass="inactiveTab">
+            <apex:tab styleClass="itemTab" label="Banned Ideas" name="posts" onTabEnter="loadItems('Idea post', 1)">
+                <apex:outputPanel id="bannedIdeasPanel" layout="block">
+                    <apex:outputText value="No items" rendered="{!bannedIdeas.size=0}"/>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <colgroup span="2"></colgroup>
+                        <tbody>
+                        <apex:repeat value="{!bannedIdeas}" var="bi">
+                            <tr>
+                                <td colspan="1" width="10%">
+                                    <b><a href="javascript:void(0)" onclick="unbanItem('{!bi.Id}', 'Idea post')">Unban</a></b> |
+                                    <b><a href="javascript:void(0)" onclick="deleteItem('{!bi.Id}', 'Idea post')">Delete</a></b>
+                                </td>
+                                <td colspan="1" width="90%">
+                                    <h3 class="ideaSubject"><a class="ideaSubjectLink" href="{!instanceURL + '/ideas/viewIdea.apexp?id=' + bi.Id}">{!bi.Title}</a></h3><br/><br/>
+                                    <span>Posted by <a class="ideaSubjectLink" href="{!instanceURL + '/ideas/ideaProfile.apexp?u=' + bi.CreatedBy.Id}">{!bi.CreatedBy.Name}</a> on&nbsp;
+                                            <apex:outputField value="{!bi.CreatedDate}"/>
+                                    </span>
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                        </tbody>
+                    </table>
+                    <apex:outputPanel styleClass="pagination" layout="block" rendered="{!bannedIdeas.size>0}">
+                        <a href="javascript:void(0)" onclick="loadItems('Idea post', {!currentPage - 1})">Prev</a>
+                            {!currentPage} of {!pagesTotal}
+                        <a href="javascript:void(0)" onclick="loadItems('Idea post', {!currentPage + 1})">Next</a>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+            </apex:tab>
+            <apex:tab styleClass="itemTab" label="Banned Idea comments" name="comments" onTabEnter="loadItems('Idea comment', 1)">
+                <apex:outputPanel id="bannedIdeaCommentsPanel" layout="block">
+                    <apex:outputText value="No items" rendered="{!bannedIdeaComments.size<1}"/>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <colgroup span="3"></colgroup>
+                        <tbody>
+                        <apex:repeat value="{!bannedIdeaComments}" var="bic">
+                            <tr>
+                                <td colspan="1" width="10%">
+                                    <b><a href="javascript:void(0)" onclick="unbanItem('{!bic.Id}', 'Idea comment')">Unban</a></b> |
+                                    <b><a href="javascript:void(0)" onclick="deleteItem('{!bic.Id}', 'Idea comment')">Delete</a></b>
+                                </td>
+                                <td colspan="1" width="20%">
+
+                                    <span>Posted by <a class="ideaSubjectLink" href="{!instanceURL + '/ideas/ideaProfile.apexp?u=' + bic.CreatedBy.Id}">{!bic.CreatedBy.Name}</a><br/>
+                                            <apex:outputField value="{!bic.CreatedDate}"/>
+                                    </span>
+                                </td>
+                                <td colspan="1" width="70%">
+                                    Comment on <b><a class="ideaSubjectLink" href="{!instanceURL + '/ideas/viewIdea.apexp?id=' + bic.IdeaId}">{!bic.Idea.Title}</a></b><br/><br/>
+                                    <p><apex:outputText value="{!bic.CommentBody}" escape="false"/></p>
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                        </tbody>
+                    </table>
+                    <apex:outputPanel styleClass="pagination" layout="block" rendered="{!bannedIdeaComments.size>0}">
+                        <a href="javascript:void(0)" onclick="loadItems('Idea comment', {!currentPage - 1})">Prev</a>
+                            {!currentPage} of {!pagesTotal}
+                        <a href="javascript:void(0)" onclick="loadItems('Idea comment', {!currentPage + 1})">Next</a>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+            </apex:tab>
+        </apex:tabPanel>
+
+        <apex:actionFunction name="loadBannedItems" action="{!retrieveBannedItems}" rerender="bannedIdeasPanel,bannedIdeaCommentsPanel">
+            <apex:param name="type" assignTo="{!itemType}" value=""/>
+            <apex:param name="page" assignTo="{!currentPage}" value=""/>
+        </apex:actionFunction>
+        <apex:actionFunction name="unbanItemById" action="{!unbanItem}" rerender="bannedIdeasPanel,bannedIdeaCommentsPanel">
+            <apex:param name="id" assignTo="{!itemId}" value=""/>
+            <apex:param name="type" assignTo="{!itemType}" value=""/>
+        </apex:actionFunction>
+        <apex:actionFunction name="deleteItemById" action="{!deleteItem}" rerender="bannedIdeasPanel,bannedIdeaCommentsPanel">
+            <apex:param name="id" assignTo="{!itemId}" value=""/>
+            <apex:param name="type" assignTo="{!itemType}" value=""/>
+        </apex:actionFunction>
+    </apex:form>
+</apex:page>

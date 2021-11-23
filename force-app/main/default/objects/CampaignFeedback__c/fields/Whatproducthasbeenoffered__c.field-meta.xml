@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Whatproducthasbeenoffered__c</fullName>
+    <description>Advise which product of the Bank@Post suite that you have offered your customer</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Advise which product of the Bank@Post suite that you have offered your customer</inlineHelpText>
+    <label>What product has been offered?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Simple Referrals (business loans)</fullName>
+                <default>false</default>
+                <label>Simple Referrals (business loans)</label>
+            </value>
+            <value>
+                <fullName>Coin &amp; Cash Exchange</fullName>
+                <default>false</default>
+                <label>Coin &amp; Cash Exchange</label>
+            </value>
+            <value>
+                <fullName>Foreign Exchange distribution</fullName>
+                <default>false</default>
+                <label>Foreign Exchange distribution</label>
+            </value>
+            <value>
+                <fullName>Barcoded deposits</fullName>
+                <default>false</default>
+                <label>Barcoded deposits</label>
+            </value>
+            <value>
+                <fullName>BSB/Account deposits (Cardless deposits)</fullName>
+                <default>false</default>
+                <label>BSB/Account deposits (Cardless deposits)</label>
+            </value>
+            <value>
+                <fullName>Secure distribution of cards/sensitive documents (via Secure Collect)</fullName>
+                <default>false</default>
+                <label>Secure distribution of cards/sensitive documents (via Secure Collect)</label>
+            </value>
+            <value>
+                <fullName>Change of Address Notification</fullName>
+                <default>false</default>
+                <label>Change of Address Notification</label>
+            </value>
+            <value>
+                <fullName>National Change of Address</fullName>
+                <default>false</default>
+                <label>National Change of Address</label>
+            </value>
+            <value>
+                <fullName>Anti Money Laundering / Know your Customer</fullName>
+                <default>false</default>
+                <label>Anti Money Laundering / Know your Customer</label>
+            </value>
+            <value>
+                <fullName>Verification of Identification</fullName>
+                <default>false</default>
+                <label>Verification of Identification</label>
+            </value>
+            <value>
+                <fullName>Digital ID</fullName>
+                <default>false</default>
+                <label>Digital ID</label>
+            </value>
+            <value>
+                <fullName>Customer acquisition support via Promo Mail &amp; Campaign Targeter</fullName>
+                <default>false</default>
+                <label>Customer acquisition support via Promo Mail &amp; Campaign Targeter</label>
+            </value>
+            <value>
+                <fullName>Marketing Collateral Support</fullName>
+                <default>false</default>
+                <label>Marketing Collateral Support</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

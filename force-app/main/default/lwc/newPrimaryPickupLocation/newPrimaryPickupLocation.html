@@ -1,0 +1,65 @@
+<!--
+  * @author       : Dheeraj Mandavilli. dheeraj.mandavilli@auspost.com.au
+  * @date         : 26/05/2021
+  * @description  : This lWC component is used in Sub Account Request creation from CSQ Quick Action. It has following features
+  *                 1. It contains the pickup location creation input form.
+*********************************History*******************************************************************
+26.05.2021    Dheeraj Mandavilli   Created
+03.06.2021    Dheeraj Mandavilli   Modified Styling to reduce the padding on either side of the Modal content based upon UAT Feedback.
+08.06.2021    Dheeraj Mandavilli   Modified Styling of Error Message based upon UAT Feedback.
+-->
+
+<!-- New Primary Pickup Location -->
+<template>
+    <lightning-card title="New Pick-Up Location" icon-name="standard:record">
+                <lightning-record-edit-form object-api-name="Pick_Up_Location__c">
+
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="CSQ__c" name="CSQ" value={csqId} onchange={onchangehandler}></lightning-input-field>
+                            <lightning-input-field field-name="Pick_Up_location_Details__c" name="Location Details" value={locationDetails} onchange={onchangehandler}></lightning-input-field>
+                            <div>
+                                <c-ame-address-validation1
+                                        required
+                                        class="form-input customer-address"
+                                        label="Enter address"
+                                        onstreetchange={handleStreetValueChange}
+                                        onsearchtermchange={handleStreetValueChange}
+                                >
+                                </c-ame-address-validation1>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Pick_up_Location_Status__c" name="Location Status" value={locationStatus} onchange={onchangehandler}></lightning-input-field>
+                            <lightning-input-field field-name="Freight_Offering__c" name="Freight Offering" value={freightOffering} onchange={onchangehandler}></lightning-input-field>
+                            <lightning-input-field field-name="Location_Type__c" name="Location Type" value={locationType} onchange={onchangehandler}></lightning-input-field>
+                            </br>
+                            </br>
+                            </br>
+                            <lightning-input-field field-name="Required_Site_Inspection__c" name="Site Inspection" value={siteInspection} onchange={onchangehandler}></lightning-input-field>
+                            <lightning-input-field field-name="Site_Inspection_Status__c"  name="Inspection Status" value={inspectionStatus} onchange={onchangehandler}></lightning-input-field>
+                            <lightning-input-field field-name="Site_Inspection_Completed__c" name="Inspection Completed" value={inspectionCompleted} onchange={onchangehandler}></lightning-input-field>
+                            <lightning-input-field field-name="Inspector_Name__c" name="Inspector Name" value={inspectorName} onchange={onchangehandler}></lightning-input-field>
+                            <lightning-input-field field-name="Notes__c" name="Notes" value={notes} onchange={onchangehandler}></lightning-input-field>
+                            <lightning-input-field field-name="State__c" disabled name="State" value={state} onchange={onchangehandler}></lightning-input-field>
+                        </div>
+                    </div>
+                </lightning-record-edit-form>
+
+    </lightning-card>
+    <footer class="slds-modal__footer slds-align_absolute-center" >
+        <button class="slds-button slds-button_neutral" onclick={cancel} >Cancel</button>
+        <button class="slds-button slds-button_brand" onclick={onsubmitHandler} >Save</button>
+    </footer>
+    <template if:true={showValidationErr}>
+        <b><p class="slds-text-color_error" style="font-size: small;">Please fill required fields listed below:</p></b>
+        <ul class="slds-text-color_error">
+            <template for:each={fieldList} for:item="errKey">
+                <li key={errKey}>
+                    {errKey}
+                </li>
+            </template>
+        </ul>
+    </template>
+
+</template>

@@ -1,0 +1,29 @@
+<!--
+  * @author       : Dheeraj Mandavilli. dheeraj.mandavilli@auspost.com.au
+  * @date         : 26/05/2021
+  * @description  : Component used as wrapper for Pickup Location Quick Action Button from CSQ. It has following features
+  *                 1. It invokes newPrimaryPickupLocation LWC component.
+*********************************History*******************************************************************
+26.05.2021    Dheeraj Mandavilli   Created
+03.06.2021    Dheeraj Mandavilli   Add Styling to reduce the padding on either side of the Modal content based upon UAT Feedback.
+-->
+
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:actionOverride" >
+	
+    <c:newPrimaryPickupLocation recordId="{!v.recordId}" onclose="{!c.closePopUp}"/>
+
+    <aura:html tag="style">
+        .cuf-content {
+        padding: 0 0.25rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0.25rem !important;
+        }
+        .slds-modal__content{
+        overflow-y:hidden !important;
+        height:unset !important;
+        max-height:unset !important;
+        }
+    </aura:html>
+
+</aura:component>

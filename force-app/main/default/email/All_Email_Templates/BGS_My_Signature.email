@@ -1,0 +1,11 @@
+<br/>
+<br/>
+
+<p><span style="color:red;">{!User.FirstName} {!User.LastName}</span><br/>
+{!User.Title} <br/>
+{!User.Department}<br/>
+{!User.CompanyName}</p>
+
+<p><b>T</b> {!User.Phone} <br/>
+
+<p>----------------------</p>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BGS_Clearviewcodes_Mandatory_OnClosure</fullName>
+    <active>true</active>
+    <description>The Type, Product Category, Product Sub  Category and Enquiry Sub Type fields are required in order to close this case</description>
+    <errorConditionFormula>AND (
+   RecordType.DeveloperName = &apos;Sales_Ops_Delivery&apos;,
+   ISPICKVAL( Status, &apos;Closed&apos; ),
+   OR (
+      ISBLANK ( TEXT ( Type )),
+      ISBLANK ( TEXT ( ProductCategory__c )),
+      ISBLANK ( TEXT ( ProductSubCategory__c )),
+      ISBLANK ( TEXT ( EnquirySubType__c ))
+   ),
+   TEXT( ResolutionCode__c ) != &apos;Closed - Duplicate&apos;,
+   TEXT( ResolutionCode__c ) != &apos;Closed - Invalid&apos;
+)</errorConditionFormula>
+    <errorMessage>The Type, Product Category, Product Sub  Category and Enquiry Sub Type fields are required in order to close this case</errorMessage>
+</ValidationRule>

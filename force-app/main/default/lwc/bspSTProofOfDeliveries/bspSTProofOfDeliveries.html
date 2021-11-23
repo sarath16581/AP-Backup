@@ -1,0 +1,39 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 01/09/2020
+  * @description  : Component for StarTrack Consignment Proof of Delivery.
+--------------------------------------- History --------------------------------------------------
+01.09.2020    Jansi Rani   Created
+-->
+<template>
+    <template if:true={relatedPODs}>
+        <table
+            class="slds-table_cell-buffer slds-no-row-hover slds-table_bordered slds-table--header-fixed brand-table table-small-dense brand-table-scroll">
+            <thead class="brand-table">
+                <tr class="slds-line-height_reset">
+
+                    <th scope="col">
+                        <div class="slds-truncate">
+                            Date and time
+                        </div>
+                    </th>
+
+                    <th scope="col">
+                        <div class="slds-truncate">
+                            Proof of Delivery
+                        </div>
+                    </th>
+                       
+                </tr>
+            </thead>
+            <tbody class="brand-table">
+                <!-- Iterating events-->
+                <template for:each={relatedPODs} for:item="pod">
+                    <c-bsp-s-t-proof-of-delivery-row pod={pod} key={pod} single-con-article-id={singleConArticleId}>
+                    </c-bsp-s-t-proof-of-delivery-row>
+                </template>
+            </tbody>
+        </table>
+
+    </template>
+</template>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Exclude_from_Research__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Field Set up to allow account managers to exclude any customer from research</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Tick this box if you do not wish that the customer is contacted for research / interview</inlineHelpText>
+    <label>Exclude from Research</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

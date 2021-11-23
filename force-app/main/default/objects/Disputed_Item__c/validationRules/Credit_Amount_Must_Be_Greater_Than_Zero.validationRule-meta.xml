@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_Amount_Must_Be_Greater_Than_Zero</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (ispickval( Status__c , &apos;Verified Claim&apos;),
+						 Proposed_Credit__c  &lt;= 0)</errorConditionFormula>
+    <errorDisplayField>Proposed_Credit__c</errorDisplayField>
+    <errorMessage>Credit Amount must be greater than zero for verified claims</errorMessage>
+</ValidationRule>

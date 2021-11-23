@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>eParcel Onboarding trust ABN only</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>CME eParcel Onboarding - Trust ABN only</name>
+    <style>freeForm</style>
+    <subject>Trust ABN only - {!Case.Account} - Case {!Case.CaseNumber}</subject>
+    <textOnly>Hi {!Case.Requestor__c}
+
+
+This customer has given the name of a trust and the accompanying ABN for the trust.
+
+
+We need more information in order to be able to correctly set up the billing account.
+
+
+Please provide at least one of the following:
+
+The ACN of the trust – if there is one.
+The names of all the trustees. If there is no ACN for the trust, the billing account will be set up in the names of all of the trustees.
+The ABN of the Pty Ltd company – if there is one.
+
+
+Please note that I will not be able to proceed with setting up an account for this customer until we have this information.
+
+
+
+You can access your case online by following the link below:
+
+
+
+
+{!Case.Link}
+
+
+
+Regards
+
+{!Case.OwnerFullName}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

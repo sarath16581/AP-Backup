@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Align_Admin__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Enables deletion of any insight element in any namespace, both on the insight element list page and via Apex. Should only be enabled for a specific user. Do not enable this setting for the org.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enables deletion of any smart element in any namespace, both on the smart element list page and via Apex. Should only be enabled for a specific user. Do not enable this setting for the org.</inlineHelpText>
+    <label>Delete insight element in any namespace</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Notify_Child_Case_Owner__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>When checked an email notification is sent to child case owner upon adding a case comment on child case.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Notify Child Case Owner</label>
+    <type>Checkbox</type>
+</CustomField>

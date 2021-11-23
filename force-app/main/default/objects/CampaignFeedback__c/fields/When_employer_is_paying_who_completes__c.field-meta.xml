@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>When_employer_is_paying_who_completes__c</fullName>
+    <description>When the employer is paying for the background check, who is owning the background check process?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>When the employer is paying for the background check, who is owning the background check process?</inlineHelpText>
+    <label>When employer is paying, who completes?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Who_pays_for_the_background_checks__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Employer operated</fullName>
+                <default>false</default>
+                <label>Employer operated</label>
+            </value>
+            <value>
+                <fullName>Third party operated</fullName>
+                <default>false</default>
+                <label>Third party operated</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Employer initiated and employer pays</controllingFieldValue>
+            <valueName>Employer operated</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Employer initiated and employer pays</controllingFieldValue>
+            <valueName>Third party operated</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

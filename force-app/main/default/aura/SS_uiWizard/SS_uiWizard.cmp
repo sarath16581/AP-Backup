@@ -1,0 +1,26 @@
+<aura:component extends="c:SS_CCBaseLC" extensible="true" access="global" controller='ChasApexController' description="Parent compoent for all Wizard Managers">
+    
+   <!-- <ltng:require scripts="{!$Resource.aes_zip + '/rollups/aes.js'}" afterScriptsLoaded="{!c.controllerFunction}"/>-->
+    
+    <aura:attribute name="name" type="String" default="" description="Unique name for a the wizard. e.g CaseCreateWizard" />
+    <aura:attribute name="pageMap" type="Map" default="{}" description="Json based Metadata for pages." />
+    <aura:attribute name="wizardData" type="Map" default="{}" description="Internally used by wizard. Keeps the state information and shared across wizard components." />
+    <aura:attribute name="authUserData" type="Map" default="{}" description="Internally used by wizard. Keeps the state information and shared across wizard components." />
+    <aura:attribute name="startPage" type="String" description="key of the start page based on pages JSON Object" />
+    <aura:attribute name="currentPage" type="String" default="" description="Internally used to track current wizard Page." />
+    <aura:attribute name="enableWebAnalytics" type="Boolean" default="false" description="Flag if set to true, will send web analyt" />
+    <aura:attribute name="firstWordInProgressBar" type="String" default="Enquiry" description="Internally used to track current wizard Page." />
+    <aura:attribute name="pageTitle" type="String" default="Dynamic Title"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.startPage}" action="{!c.doInit}"/>
+    <div>
+        <div>
+            {!v.body}
+        </div>
+
+
+        <!-- Analytics -->
+        <!-- moving to the Chas_Progress-->
+        <!--<c:ChasAdobeAnalyticsPageView pageName="{! v.pageTitle }" step="enquiry details" stage="start"/>-->
+    </div>
+</aura:component>

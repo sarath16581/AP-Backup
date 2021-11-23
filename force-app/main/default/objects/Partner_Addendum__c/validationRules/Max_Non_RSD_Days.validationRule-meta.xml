@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Max_Non_RSD_Days</fullName>
+    <active>true</active>
+    <description>Maximum number of Non RSD days is 4</description>
+    <errorConditionFormula>AND( RecordType.DeveloperName = &apos;Negotiated_Payment_Type_F1&apos;, Non_RSD_Days__c &gt; 4)</errorConditionFormula>
+    <errorMessage>Maximum allowed value for Non RSD days is 4</errorMessage>
+</ValidationRule>

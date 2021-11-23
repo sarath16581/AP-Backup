@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Progress_Bar__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 
+ISPICKVAL(Apttus__Status_Category__c , &quot;In Authoring&quot;) ,IMAGE(&quot;/resource/Agreement_Chevron_InAuth&quot;, &quot;Agreement_Chevron_InAuth&quot;, 88, 600)
+,IF( ISPICKVAL(Apttus__Status_Category__c , &quot;Cancelled&quot;) ,IMAGE(&quot;/resource/APT_Cancelled&quot;, &quot;APT_Cancelled&quot;, 88, 600)
+,IF( ISPICKVAL(Apttus__Status_Category__c , &quot;Amended&quot;) ,IMAGE(&quot;/resource/APT_Amended&quot;, &quot;APT_Amended&quot;, 88, 600)
+,IF( ISPICKVAL(Apttus__Status_Category__c , &quot;Renewed&quot;) ,IMAGE(&quot;/resource/APT_Renewed&quot;, &quot;APT_Renewed&quot;, 88, 600)
+,IF( ISPICKVAL(Apttus__Status_Category__c , &quot;Expired&quot;) ,IMAGE(&quot;/resource/APT_Expired&quot;, &quot;APT_Expired&quot;, 88, 600)
+,IF( ISPICKVAL(Apttus__Status_Category__c , &quot;Terminated&quot;) ,IMAGE(&quot;/resource/APT_Terminated&quot;, &quot;APT_Terminated&quot;, 88, 600)
+,IF( ISPICKVAL(Apttus__Status_Category__c , &quot;In Signatures&quot;) ,IMAGE(&quot;/resource/Agreement_Chevron_InSig&quot;, &quot;Agreement_Chevron_InSig&quot;, 88, 600)
+,IF( ISPICKVAL(Apttus__Status_Category__c , &quot;In Effect&quot;) ,IMAGE(&quot;/resource/Agreement_Chevron_InEff&quot;, &quot;Agreement_Chevron_InEff&quot;, 88, 600)
+,IF( ISPICKVAL(Apttus__Status_Category__c , &quot;Request&quot;) &amp;&amp; ISPICKVAL(Apttus__Status__c, &quot;Approval Required&quot;), IMAGE(&quot;/resource/Agreement_Chevron_ReqApproval&quot;, &quot;Agreement_Chevron_ReqApproval&quot;, 88, 600)
+,IF( ISPICKVAL(Apttus__Status_Category__c , &quot;Request&quot;) &amp;&amp; ISPICKVAL(Apttus__Status__c, &quot;Approved Request&quot;), IMAGE(&quot;/resource/Agreement_Chevron_ReqApp&quot;, &quot;Agreement_Chevron_ReqApp&quot;, 88, 600), IMAGE(&quot;/resource/Agreement_Chevron_Request&quot;, &quot;Agreement_Chevron_Request&quot;, 88, 600)
+)) ) )))))))</formula>
+    <label>Progress Bar</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

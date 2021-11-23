@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Individual_Account</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>New Individual</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>/*
+  Written By  : Ji Zhang (CoreTec Solutions)
+  Date        : 20/10/2011
+  Email       : jzhang@coretec.com.au
+
+  Description : Redirect to create a new Individual account with copied value from an Organisation account
+  History     : Version 1.0 20/10/2011
+
+*/
+
+var prefix = &apos;{!Account.Id}&apos;;
+prefix = prefix.substring(0,3);
+var url = &apos;/&apos; + prefix + &apos;/e?retURL/&apos; + prefix + 
+            &apos;/&amp;RecordType=01290000000G1Qc&amp;ent=Account&amp;acc17street=&apos; + &apos;{!URLENCODE(Account.BillingStreet)}&apos;
+            + &apos;&amp;acc17zip=&apos; + &apos;{!Account.BillingPostalCode}&apos; + &apos;&amp;acc17city=&apos; + &apos;{!URLENCODE(Account.BillingCity)}&apos; 
+            + &apos;&amp;acc17state=&apos; + &apos;{!URLENCODE(Account.BillingState)}&apos; + &apos;&amp;acc17country=&apos; + &apos;{!URLENCODE(Account.BillingCountry)}&apos;
+            + &apos;&amp;acc18street=&apos; + &apos;{!URLENCODE(Account.ShippingStreet)}&apos; + &apos;&amp;acc18zip=&apos; + &apos;{!Account.ShippingPostalCode}&apos;
+            + &apos;&amp;acc18state=&apos; + &apos;{!URLENCODE(Account.ShippingState)}&apos; + &apos;&amp;acc18country=&apos; + &apos;{!URLENCODE(Account.ShippingCountry)}&apos;
+            + &apos;&amp;acc18city=&apos; + &apos;{!URLENCODE(Account.ShippingCity)}&apos;
+            + &apos;&amp;00N30000007sfRW=&apos; + &apos;{!Account.Billing_DPID__c}&apos; +  &apos;&amp;00N30000007sfUG=&apos; + &apos;{!Account.Shipping_DPID__c}&apos;  
+            + &apos;&amp;acc10=&apos; + &apos;{!Account.Phone_fix__c}&apos;  + &apos;&amp;00N30000007sfS0=&apos; + &apos;{!Account.Email__c}&apos; 
+            + &apos;&amp;acc11=&apos; + &apos;{!Account.Fax}&apos; + &apos;&amp;CF00N90000002cSkd=&apos; + &apos;{!URLENCODE(Account.Name)}&apos;;
+            
+window.location = url;</url>
+</WebLink>

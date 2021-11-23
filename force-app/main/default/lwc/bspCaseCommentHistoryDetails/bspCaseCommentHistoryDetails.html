@@ -1,0 +1,76 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 25/08/2020
+  * @description  : Component for Enquiry Communication history section on enquiry details.
+--------------------------------------- History --------------------------------------------------
+25.08.2020    Jansi Rani   Created
+15-10-2020    added bsp-attachment-row cmp 
+-->
+<template>
+    <template if:true={commHistoryList}>
+        <div>
+            <div class="slds-p-bottom_medium">
+                <h3> Communication history</h3>
+            </div>
+            <div class="comms-history-box slds-p-bottom_medium">
+                <template for:each={commHistoryList} for:item="caseHistoy">
+                    <div key={caseHistoy}>
+                        <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+                            <lightning-accordion-section name="All" label={caseHistoy.header}>
+                                <lightning-formatted-rich-text value={caseHistoy.body}></lightning-formatted-rich-text>
+                            </lightning-accordion-section>
+                        </lightning-accordion>
+                    </div>
+                </template>
+            </div>
+            <template if:false={isCaseIsClosed}>
+
+                <!--Error message-->
+                <template if:true={errorMessage}>
+                    <div class="slds-p-top_medium">
+                        <c-bsp-error error-message={errorMessage}></c-bsp-error>
+                    </div>
+                </template>
+        
+                <!--Add comment-->
+                <lightning-textarea label="Add comments" data-id="addComments" max-length='2000'
+                    message-when-value-missing={requiredValMissingErrorMsg} required
+                    class="brand-form-input slds-p-vertical_large">
+                </lightning-textarea>
+        
+                <!-- Upload Files-->
+                <c-bsp-upload-files onfileupload={onFileUploadHandler} existing-files={existingFiles} record-id={caseId} onsuccessfullattachmentinsert={onSuccessfullAttachmentInsert}> 
+                </c-bsp-upload-files>
+             <!--<c-bsp-attachment-upload parent-id={caseId} onsuccessfullattachmentinsert={onSuccessfullAttachmentInsert}></c-bsp-attachment-upload>-->
+            </template>
+            
+            <!--Existing Files -->
+            <template if:true={existingFiles}>
+                <!-- Files Attached-->
+                <template if:true={hasFiles}>
+                    <div class='slds-m-top_large slds-p-bottom_medium'>
+                        <b>Files Attached:</b>
+                    </div>
+                </template>
+                <template for:each={existingFiles} for:item="upFile">
+                    <div key={upFile.key} class="slds-grid slds-grid_vertical-align-center slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_8-of-12">
+                            <!--{upFile.value} -->
+                            <c-bsp-attachment-row key={upFile.key} attachment-id={upFile.key} attachment-name={upFile.value} community-u-r-l={communityURL}></c-bsp-attachment-row>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        
+            <template if:false={isCaseIsClosed}>
+                <!-- Submit Comment button-->
+                <div class="slds-p-vertical_x-large">
+                    <lightning-button label="Submit comment" title="Submit comment" class="brand-primary-button"
+                        variant="destructive" onclick={handleSubmitComment}>
+                    </lightning-button>
+                </div>
+            </template>
+        </div>
+    </template>
+
+</template>

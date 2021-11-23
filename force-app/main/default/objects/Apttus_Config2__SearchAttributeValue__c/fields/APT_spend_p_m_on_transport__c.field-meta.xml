@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_spend_p_m_on_transport__c</fullName>
+    <externalId>false</externalId>
+    <label>How much do you spend p/m on transport?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Under $1000 VIC/NSW &amp; $500 other states</fullName>
+                <default>false</default>
+                <label>Under $1000 VIC/NSW &amp; $500 other states</label>
+            </value>
+            <value>
+                <fullName>Over $1000 VIC/NSW &amp; $500 other states</fullName>
+                <default>false</default>
+                <label>Over $1000 VIC/NSW &amp; $500 other states</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,109 @@
+/*
+	2020-04-01 nathan.franklin@auspost.com.au Created
+	2020-09-18 - Ranjeewa Silva - Improved responsiveness on smaller screen sizes.
+	2020-09-23 - Ranjeewa Silva - Implemented colour coding for featured scan events.
+	2021-07-12 - Nathan Franklin - Added temporary Google Maps link (to be implemented correctly in future piece of work)
+*/
+
+
+.slds-badge {
+	background: #47cfca;
+	/*#474bcf;*/
+	color: #fff;
+	min-width: 7rem;
+	justify-content: center;
+}
+
+.slds-timeline {
+	width: 100%;
+}
+
+.map-icon {
+	padding: 0 !important;
+	--sds-c-icon-color-background: none;
+	--sds-c-icon-color-foreground: var(--lwc-colorTextIconDefault, rgb(112, 110, 107));
+}
+
+.latest-scan:last-child {
+	border-bottom: 0px none;
+}
+
+.icon-event-message {
+	position: absolute;
+}
+
+.timeline__item_event_message .slds-media__body {
+	padding-left: 3rem;
+}
+
+.color-code_default .icon-event-message  {
+	/* SLDS style hooks available only in Winter21
+	--sds-c-icon-color-background: #BCBCBF;
+	--sds-c-icon-color-foreground-default: #ffffff;*/
+	padding:4px;
+}
+
+.color-code_default .icon-event-message, .color-code_default .timeline__item_event_message::before, .color-code_default  .slds-badge {
+	 background-color: #BCBCBF;
+}
+
+.color-code_red .icon-event-message {
+	/* SLDS style hooks available only in Winter21
+	--sds-c-icon-color-background: #dc1928;
+	--sds-c-icon-color-foreground-default: #ffffff;*/
+	padding:4px;
+}
+
+.color-code_red .icon-event-message, .color-code_red .timeline__item_event_message::before, .color-code_red .slds-badge {
+	background-color: #dc1928;
+}
+
+
+.color-code_blue .icon-event-message {
+	/* SLDS style hooks available only in Winter21
+	--sds-c-icon-color-background: #0070d2;
+	--sds-c-icon-color-foreground-default: #ffffff;*/
+	padding:4px;
+}
+
+.color-code_blue .icon-event-message, .color-code_blue .timeline__item_event_message::before, .color-code_blue .slds-badge {
+	background-color: #0070d2;
+}
+
+.color-code_green .icon-event-message {
+	/* SLDS style hooks available only in Winter21
+	--sds-c-icon-color-background: #4bc076;
+	--sds-c-icon-color-foreground-default: #ffffff;*/
+	padding:4px;
+}
+
+.color-code_green .icon-event-message, .color-code_green .timeline__item_event_message::before, .color-code_green .slds-badge {
+	background-color: #4bc076;
+}
+
+.color-code_orange .icon-event-message {
+	/* SLDS style hooks available only in Winter21
+	--sds-c-icon-color-background: #f49756;
+	--sds-c-icon-color-foreground-default: #ffffff;*/
+	padding:4px;
+}
+
+.color-code_orange .icon-event-message, .color-code_orange .timeline__item_event_message::before, .color-code_orange .slds-badge {
+	background-color: #f49756;
+}
+
+
+.color-code_purple .icon-event-message {
+	/* SLDS style hooks available only in Winter21
+	--sds-c-icon-color-background: #a094ed;
+	--sds-c-icon-color-foreground-default: #ffffff;*/
+	padding:4px;
+}
+
+.color-code_purple .icon-event-message, .color-code_purple .timeline__item_event_message::before, .color-code_purple .slds-badge {
+	background-color: #a094ed;
+}
+
+/*@media var(--lwc-mqSmall) {*/
+
+/*}*/

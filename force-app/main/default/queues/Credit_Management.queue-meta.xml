@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <name>Credit Management</name>
+    <queueMembers>
+        <users>
+            <user>abhinav.sood@auspost.com.au</user>
+            <user>gaurav.makhija@auspost.com.au</user>
+            <user>michell.jeram@auspost.com.au</user>
+            <user>pulkit.datta@auspost.com.au</user>
+            <user>seema.bhatia@auspost.com.au</user>
+            <user>shane.naylor@auspost.com.au</user>
+            <user>shweta.arora@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Refer_to_Third_Party__c</fullName>
+    <description>Where case requires third party assistance to resolve case or product issue &lt;to be decommissioned&gt;</description>
+    <externalId>false</externalId>
+    <label>Refer to Third Party</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Salesforce</fullName>
+                <default>false</default>
+                <label>Salesforce</label>
+            </value>
+            <value>
+                <fullName>Telstra</fullName>
+                <default>false</default>
+                <label>Telstra</label>
+            </value>
+            <value>
+                <fullName>KLM Group</fullName>
+                <default>false</default>
+                <label>KLM Group</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Internal Developer</fullName>
+                <default>false</default>
+                <label>Internal Developer</label>
+            </value>
+            <value>
+                <fullName>Apttus</fullName>
+                <default>false</default>
+                <label>Apttus</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

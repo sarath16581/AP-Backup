@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Internal_Stakeholder_Impact__c</fullName>
+    <description>Phase 1 - Opportunity Assessment (PWC) 
+
+Identify wow this either drives/ exacerbates other issues being experienced by their colleagues</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Which other internal stakeholders does this affect?</inlineHelpText>
+    <label>Internal Stakeholder Impact</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

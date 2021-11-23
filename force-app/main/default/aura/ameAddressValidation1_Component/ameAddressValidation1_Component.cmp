@@ -1,0 +1,7 @@
+<!--
+ - Created by Dheeraj Mandavilli on 9/19/19 for PUD Project.
+ -->
+
+<aura:component implements="lightning:actionOverride,flexipage:availableForAllPageTypes,force:hasRecordId" description="ameAddressValidation1_Component">
+    <c:pudBookingLocationAddressLookup recordId="{!v.recordId}" />
+</aura:component>

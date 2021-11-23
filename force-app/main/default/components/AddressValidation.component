@@ -1,0 +1,157 @@
+<!--
+	2017-10-02 nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
+-->
+<apex:component controller="AddressValidationController">
+	<script src="/soap/ajax/30.0/connection.js" type="text/javascript"></script>
+	<script src="/soap/ajax/15.0/apex.js" type="text/javascript"></script>
+
+	<apex:includeScript value="{!URLFOR($Resource.Spinner, '/Spinner/Spinner.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.Spinner, '/Spinner/minSpinner.js')}" />
+
+	<c:ScriptLoader jsLibraries="jquery" />
+<style>
+
+
+</style>
+	<script type="text/javascript">
+		var j$ = jQuery.noConflict();
+
+		var {!id}_spinnerSettings = {
+			lines : 7, // The number of lines to draw
+			length : 1, // The length of each line
+			width : 3, // The line thickness
+			radius : 5, // The radius of the inner circle
+			corners : 0.7, // Corner roundness (0..1)
+			rotate : 13, // The rotation offset
+			direction : 1, // 1: clockwise, -1: counterclockwise
+			color : '#000', // #rgb or #rrggbb or array of colors
+			speed : 2.1, // Rounds per second
+			trail : 54, // Afterglow percentage
+			shadow : false, // Whether to render a shadow
+			hwaccel : false, // Whether to use hardware acceleration
+			className : 'spinner', // The CSS class to assign to the spinner
+			zIndex : 2e9, // The z-index (defaults to 2000000000)
+			top : '-25%', // Top position relative to parent in px
+			left : '190%' // Left position relative to parent in px
+		};
+
+		var {!id}_autocompleteSettings = {
+			    minLength: 2,
+			    source: function (request, response) {
+			        var token = j$("#{!id}_token").val();
+			        var target = j$(this.element).next()[0];
+			        var spinner = new Spinner({!id}_spinnerSettings).spin(target);
+			        j$(this.element).blur(function(){
+			        	spinner.stop();}
+			        );
+			        {!id}_preCallBackFunction({!IF(ISBLANK(onInit), 'null', onInit)});
+			        j$.ajax({
+			            beforeSend: function (req) {
+			                req.setRequestHeader("auspost-access-token", token);
+			            },
+			            url: '{!addressSearchURL}',
+			            crossDomain: true,
+			            dataType: "jsonp",
+			            data: {
+			                term: request.term,
+			                aat: token
+			            },
+			            jsonp: "jsonp",
+			            success: function (data) {
+			                spinner.stop();
+			                window.console&&console.log(data);
+			                if (data == null || typeof data == 'undefined') {
+			                    window.console&&console.log("Token is expired, fetching new one...");
+			                } else {
+			                    response(j$.map(
+			                    data,
+			                    function (item) {
+			                        if (item.message != null && item.message != '') {
+			                            window.console&&console.log("Got message from AusPost: " + item.message);
+			                            return false;
+			                        } else {
+			                            if (item.address == '' && item.moniker == '') {
+			                                return false;
+			                            }
+			                            return {
+			                                label: item.address,
+			                                value: item.address,
+			                                moniker: item.moniker
+			                            };
+			                        }
+			                    }));
+			                }
+			            }
+			        });
+			    },
+			    select: function (event, ui) {
+			    	var el = this;
+			        var token = j$("#{!id}_token").val();
+			        window.console&&console.log('Selected address: ' + ui.item.value);
+			        if (ui.item.label == 'Address not found') {
+			            // The end user has indicated that none of the options are correct - do something
+			            return false;
+			        } else if (ui.item.moniker == '') {
+			            // There were no items returned by QAS.
+			            return false;
+			        }
+			        j$.ajax({
+			            beforeSend: function (req) {
+			                req.setRequestHeader(
+			                    "auspost-access-token", token);
+			            },
+			            url: '{!addressDetailsURL}',
+			            crossDomain: true,
+			            dataType: "jsonp",
+			            data: {
+			                address: ui.item.value,
+			                aat: token
+			            },
+			            jsonp: "jsonp",
+			            success: function (data) {
+			                if (data == null || typeof data == 'undefined') {
+			                    window.console&&console.log('Token has expired, fetching another one...');
+			                } else {
+			                   {!id}_callBackFunction({!IF(ISBLANK(onselect), 'null', onselect)}, data, el, ui.item.value);
+			                }
+			            }
+			        });
+			    }
+			};
+
+
+
+		function {!id}_callBackFunction(callbackFunctionName, selected, el, fullAddress) {
+			if (callbackFunctionName != null) {
+				callbackFunctionName(selected, el, fullAddress);
+			}
+		}
+
+		function {!id}_preCallBackFunction(preCallBackFunction) {
+			if (preCallBackFunction != null) {
+				preCallBackFunction();
+			}
+		}
+
+		j$(function() {
+			if (sforce && sforce.console && sforce.console.isInConsole()) {
+				sforce.connection.sessionId = "{!$Api.Session_ID}";
+
+				sforce.console.addEventListener('synchData_AddressValidationToken',
+					function(result) {
+						window.console&&console.log('george says: Yep, I hear ya, updating token with '
+								+ result.message);
+						j$("#{!id}_token").val(result.message);
+					});
+			}
+
+			var {!id}_addressValidation = j$("{!IF(styleClass != '', '.' + styleClass, '.addressValidation')}");
+			{!id}_addressValidation.after('<div id="progress" class="progressSpin"></div><input id="postCode" type="hidden" value="100"/>');
+			{!id}_addressValidation.autocomplete({!id}_autocompleteSettings);
+		});
+	</script>
+	<input id="{!id}_token" type="hidden" value="{!token}" />
+	<apex:attribute name="styleClass" required="false" type="string" description="the class assigned to the element for autocomplete" />
+	<apex:attribute name="onselect"	description="the callback function name" type="string"	required="false" />
+	<apex:attribute name="onInit"	description="the pre callback function name" type="string"	required="false" />
+</apex:component>

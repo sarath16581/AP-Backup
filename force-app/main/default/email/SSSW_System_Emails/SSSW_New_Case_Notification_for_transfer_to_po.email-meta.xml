@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SSSW - Used to notify the Customer when the Case has been created for transfer to po on automatic network assignment</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW New Case Notification for transfer to po</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber} {!Case.Thread_Id}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference number {!Case.CaseNumber}
+
+
+Hi {!Contact.FirstName},
+
+
+Thanks for your transfer request, here&apos;s your reference number: {!Case.CaseNumber}.
+
+Your item will now be sent to your preferred Post Office.
+
+We&apos;ll let you know when your item is ready to collect. To stay updated on the transfer, simply [track your item](&lt;https://auspost.com.au/mypost/track/#/search&gt;). 
+
+
+
+Kind regards,
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

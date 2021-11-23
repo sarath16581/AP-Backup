@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Campaign_Feedback</fullName>
+    <columns>NAME</columns>
+    <columns>Legal_Entity_Name__c</columns>
+    <columns>CampaignName__c</columns>
+    <columns>Contact__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>DateofCommunication__c</columns>
+    <columns>MerchantadoptionofSODtoATL__c</columns>
+    <columns>Whatisthesplit__c</columns>
+    <columns>Reasonfordecision__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Campaign Feedback</label>
+    <language>en_US</language>
+</ListView>

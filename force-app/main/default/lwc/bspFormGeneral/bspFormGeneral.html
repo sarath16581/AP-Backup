@@ -1,0 +1,72 @@
+<!--
+ - Created by vcheng on 19/08/2020.
+  --------------------------------------- History --------------------------------------------------
+  25-11-2020    avula.jansirani@auspost.com.au       commented console.log lines in js file
+ -->
+
+<!-- BSP Form General -->
+<template>
+    <!-- Navigation links-->
+    <c-bsp-breadcrumb bread-crumb-text="Create a general enquiry"></c-bsp-breadcrumb>
+
+    <div class="slds-grid slds-grid_align-center">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_7-of-12 slds-m-bottom_x-large outer-box slds-is-relative">
+            <template if:false={successCreation}>
+                <lightning-card title="">
+                    <div class="slds-p-horizontal_x-large slds-p-bottom_large long-form-right-pad">
+                        <div class="slds-col slds-size_1-of-1 slds-p-bottom_x-large">
+                            <h2>Create a general enquiry</h2>
+                        </div>
+                        <!-- Error messages-->
+                        <template if:true={errorMessage}>
+                            <c-bsp-error error-message={errorMessage}></c-bsp-error>
+                        </template>
+                        
+                        <lightning-input label="Your reference"
+                            value={tempCase.CCUYourReference__c} data-id="yourReference"
+                            onchange={onChangeField} name="reference" type="text" max-length="40"
+                            placeholder="A name or number for your records"
+                            class="brand-form-input slds-p-bottom_x-large">
+                        </lightning-input>
+
+                        <lightning-textarea label="Tell us what your enquiry is about"
+                            data-id="description" type="text" value={tempCase.Description}
+                            onchange={onChangeField} onfocusout={handleFocusOut} 
+                            data-validate="doValidate" max-length="4000" required
+                            class="brand-form-input slds-p-bottom_x-large">
+                        </lightning-textarea>
+
+                        <div class="slds-p-top_x-large">
+                            <span class="slds-text-color_error">*</span>&nbsp;Required information
+                        </div>
+                        <!--  Buttons -->
+                        <div class="slds-p-top_x-large">
+                            <lightning-button label="Cancel" title="Cancel"
+                                            class="brand-tertiary-button slds-p-right_medium"
+                                            variant="Neutral" onclick={onClickCancel}>
+                            </lightning-button>
+                            <lightning-button label="Submit enquiry" title="Submit Enquiry"
+                                            class="brand-primary-button"
+                                            variant="destructive" disabled={disableSubmit}
+                                            onclick={onSubmitRequest}>
+                            </lightning-button>
+                        </div>
+                    </div>
+                </lightning-card>
+                <!-- spinner-->
+                <div if:true={showSpinner}>
+                    <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <!--Case creation Success-->
+            <temple if:true={successCreation}>
+                <c-bsp-enquiry-creation-success enquiy-type='Auspost' case-number={tempCase.CaseNumber}>
+                </c-bsp-enquiry-creation-success>
+            </temple>
+
+        </div>
+    </div>
+
+
+</template>

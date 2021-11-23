@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B_G_Forum_attendance__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (
+	Hidden_B_G_Forum_Attendance__c == &quot;CommitToAction&quot;, 
+	&quot;Please contact &quot;  &amp; HYPERLINK(&quot;mailto:&quot;&amp; &quot;BandGCommitToAction@auspost.com.au&quot;, &quot;B&amp;GCommitToAction&quot;, &quot;_self&quot;) &amp; &quot; mailbox&quot;,
+	IF (
+		Hidden_B_G_Forum_Attendance__c == &quot;DealDesk&quot;,
+		&quot;Please contact &quot;  &amp; HYPERLINK(&quot;mailto:&quot;&amp; &quot;BandGDealDesk@auspost.com.au&quot;, &quot;B&amp;GDealDesk&quot;, &quot;_self&quot;) &amp; &quot; mailbox&quot;,
+		&quot;Optional: Deal Desk or Commit to Action. Click &quot; &amp; HYPERLINK(&quot;https://auspost.my.salesforce.com/0D59000006wCTpm&quot;, &quot;here&quot;) &amp; &quot; for more information on the forums&quot;))</formula>
+    <inlineHelpText>This field will indicate if your deal is required to attend Commit To Action or Deal Desk forum (based on size, products and complexity)</inlineHelpText>
+    <label>B&amp;G Forum attendance</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

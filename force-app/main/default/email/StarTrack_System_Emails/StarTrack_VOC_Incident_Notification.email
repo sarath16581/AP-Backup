@@ -1,0 +1,37 @@
+<p style="font-family: Arial;">
+
+Hi Team,<br/>
+<br/>
+
+The below feedback has been received by the VOC team.
+<br/>
+Please investigate this matter and ensure that you provide the outcome details via reply email by <b>{!workflow_Email__c.Due_Date__c}.</b><br/>
+<br/>
+<b>Classification: {!workflow_Email__c.Classification__c}.</b><br/>
+<br/>
+<b>Name</b>: {!workflow_Email__c.Caller_Name__c}<br/>
+<b>Address</b>: {!workflow_Email__c.Address__c}<br/>
+<b>Depot</b>: {!workflow_Email__c.Network_Name__c}<br/>
+<b>Date of Incident</b>: {!workflow_Email__c.Date_of_Incident__c}<br/>
+<b>Contact No</b>: {!workflow_Email__c.Phone_Number__c}<br/>
+<b>Contact Required</b>: {!workflow_Email__c.Call_Back_Required__c}<br/>
+</br>
+
+<b>Feedback Description</b>: {!workflow_Email__c.Case_Description__c}<br/>
+</br>
+
+<b>Consignment No.</b>: {!workflow_Email__c.Case_Connote_Number__c}<br/>
+<b>Booking Ref</b>: {!workflow_Email__c.Booking_Reference__c}<br/>
+<b>Rego No</b>: {!workflow_Email__c.Reg_Number__c}<br/>
+<b>Journey</b>: {!workflow_Email__c.Journey__c}<br/>
+<b>Feedback Reason</b>: {!workflow_Email__c.Feedback_Reason__c}<br/>
+<br/>
+Regards, <br/>
+<br/>
+{!workflow_Email__c.Case_Owner__c}<br/>
+VOC Team<br/>
+StarTrack<br/>
+<br/>
+<td style=" font:2px/3px Arial; color:White;"> {!workflow_Email__c.Case_Thread_Id__c} <br>
+                                                              </td>
+</p>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Information_only_Reason__c</fullName>
+    <externalId>false</externalId>
+    <label>Information only Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Status</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Unaddressed Mail</fullName>
+                <default>false</default>
+                <label>Unaddressed Mail</label>
+            </value>
+            <value>
+                <fullName>Prepaid satchels</fullName>
+                <default>false</default>
+                <label>Prepaid satchels</label>
+            </value>
+            <value>
+                <fullName>Bulk Mail</fullName>
+                <default>false</default>
+                <label>Bulk Mail</label>
+            </value>
+            <value>
+                <fullName>Business Credit Account</fullName>
+                <default>false</default>
+                <label>Business Credit Account</label>
+            </value>
+            <value>
+                <fullName>StarTrack</fullName>
+                <default>false</default>
+                <label>StarTrack</label>
+            </value>
+            <value>
+                <fullName>API/ PAC</fullName>
+                <default>false</default>
+                <label>API/ PAC</label>
+            </value>
+            <value>
+                <fullName>Other product</fullName>
+                <default>false</default>
+                <label>Other product</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Information only</controllingFieldValue>
+            <valueName>Unaddressed Mail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Information only</controllingFieldValue>
+            <valueName>Prepaid satchels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Information only</controllingFieldValue>
+            <valueName>Bulk Mail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Information only</controllingFieldValue>
+            <valueName>Business Credit Account</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Information only</controllingFieldValue>
+            <valueName>StarTrack</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Information only</controllingFieldValue>
+            <valueName>API/ PAC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Information only</controllingFieldValue>
+            <valueName>Other product</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

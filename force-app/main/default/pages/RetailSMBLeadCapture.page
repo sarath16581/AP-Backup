@@ -1,0 +1,366 @@
+<!--
+    @Author      :  Snigdha.Sahu@auspost.com.au
+    @Name        :  RetailSMB
+    @Date        :  06/05/2016
+    @Description :  UI for display of Knowledge Articles for SMB
+-->
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" title="Retail SMB Lead Capture" docType="html-5.0" applyHtmlTag="false" applyBodyTag="false" 
+id="RetailSMBLeadCapture" controller="RetailSMBLeadController"  >
+  
+    <html lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+            <!-- <link rel="shortcut icon" href="{!URLFOR($Resource.RetailSMB,'RetailSMB/images/favicon.ico')}" /> -->
+            <link rel="stylesheet" href="{!URLFOR($Resource.RetailSMBcss,'consumer-styles.css')}"/>
+            <link rel="stylesheet" href="{!URLFOR($Resource.RetailSMBcss,'app.css')}"/>            
+            <title>>Retail Business Customers</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <script src="{!URLFOR($Resource.jQuery111)}"></script>
+            
+        </head>
+        
+        <style type="text/css">   
+
+                body {
+
+                }
+                .background  {                    
+                    color: #372E2C;
+                    font-family: Verdana, Helvetica, Arial, sans-serif;
+                    padding: 10px;
+                    position: relative;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1; 
+                    position: relative;                   
+                 }
+                 .background:before{
+                    color: #372E2C;
+                    font-family: Verdana, Helvetica, Arial, sans-serif;
+                    padding: 10px;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-image: url({!URLFOR($Resource.RetailSMBimg, 'Background.png')});
+                    background-repeat: round;
+                    background-attachment: fixed;
+                    background-size: 100%;                    
+                    position: absolute;
+                    content: "";
+                    z-index: -1;               
+                 }
+                 .h1 {
+                    color:#372E2C;
+                    font:bold 45px/45px 'letterbold', Arial, Helvetica, sans-serif; 
+                    margin:0 0 15px;
+                    
+                 }
+                 .dashboard.dashboard__link-list-section{                    
+                   
+                    margin-top : 5%;
+                }                    
+
+                .formLeadCreation {
+                    
+                    -moz-border-radius: 5px;
+                    -webkit-border-radius: 5px;
+                    border-radius: 5px;
+                    
+
+                }
+                .formLeadCreationfieldset {
+                    border: none;
+                    margin-bottom: 10px;
+                }
+                .formLeadCreationlegend {
+                    color: #050001;
+                    font-size: 16px;
+                    font-weight: bold;
+                    padding-bottom: 10px;
+                }
+                
+                .formLeadCreation-ol-li {
+                    background: #babd8b;
+                    border-color: #A3A0A0;
+                    border-style: solid;
+                    border-width: 2px;
+                    line-height: 30px;
+                    list-style: none;
+                    padding: 5px 10px;
+                  
+                }                
+                .formLeadCreationlabel {
+                    float: left;
+                    font-size: 13px;
+                    width: 20%;
+                    color: #242222;
+                }
+                .formLeadCreationinput {
+                    background: #ffffff;
+                    border: none;                    
+                    outline: none;
+                    padding:5px 10px;
+                    width: 80%;
+                }
+                .formLeadCreationbutton {
+                    background: #dc1928;
+                    border: none;
+                    color: #ffffff;
+                    display: block;                    
+                    letter-spacing: 1px;
+                    margin: auto; 
+                    margin-top: 2%;
+                    padding: 7px 25px;
+                    text-shadow: 0 1px 1px #000000;
+                    font-size: large;
+                    font-weight: bold;
+
+                }
+                .formMessagelegend {
+                    color: #CC0000;
+                    font-size: 16px;
+                    font-weight: bold;
+                    padding-bottom: 10px;
+                    text-shadow: 0 1px 1px #E0C3C3;
+                }
+                .hidden{display: none;}
+                .shown {display:block;}
+                
+                @media only screen 
+                and (min-device-width : 768px) 
+                and (max-device-width : 1024px) 
+                and (orientation : portrait){
+                
+                .background  {                    
+                    color: #050001;
+                    font-family: Verdana, Helvetica, Arial, sans-serif;
+                    padding: 10px;
+                    position: relative;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1; 
+                    position: relative;                  
+                    
+                 }
+                 .background:before{                    
+                    color: #050001;
+                    font-family: Verdana, Helvetica, Arial, sans-serif;
+                    padding: 10px;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-image: url({!URLFOR($Resource.RetailSMBimg, 'BackgroundPortrait.png')});
+                    background-repeat: round;
+                    background-attachment: fixed;
+                    background-size: 100%;                    
+                    position: absolute;
+                    content: "";
+                    z-index: -1;   
+                    
+                    } 
+                    .dashboard.dashboard__link-list-section{                    
+                   
+                    margin-top : 15%;
+                }                      
+                                  
+                }
+        </style>
+        
+        <script type="text/javascript">
+             function OnLoad()
+                 {
+                     document.getElementById('phoneerror').style.display = 'none';
+                     document.getElementById('wccerror').style.display = 'none';
+                     document.getElementById('emailerror').style.display = 'none';
+                     var pmEmail = localStorage.getItem('postMasterEmailAdd');
+                     var creator = localStorage.getItem('leadCreator');
+                     var workC = localStorage.getItem('workCenter');
+            
+                     if ( pmEmail != '' )                         
+                         document.getElementById('{!$Component.LeadCreation.postmasteremail}').value = pmEmail; 
+                     
+                     if ( creator != '' )                         
+                         document.getElementById('{!$Component.LeadCreation.leadcreator}').value = creator;
+                     
+                     if ( workC != '' )                     
+                         document.getElementById('{!$Component.LeadCreation.wcc}').value = workC ;                     
+         
+                 }        
+        
+        </script>
+                
+        <body class="background" onload="OnLoad()">
+           
+           <div class="h1">  
+               <div style="float:left; color:black;">
+                   <a href="{!$Site.Prefix}/apex/RetailSMB" style="color:#cc0000;">
+                            <img src="{!URLFOR($Resource.RetailSMBimg,'home_ap.png')}" height="60px" width="60px" ></img>
+                    </a>
+               </div>
+                &nbsp; Customer Enquiry               
+                <div style="float:right">                    
+                    <a href="{!$Site.Prefix}/apex/RetailSMB">
+                        <img src="{!URLFOR($Resource.RetailSMBimg,'AP_PrimaryLogo.png')}" height="60px" width="60px" ></img>
+                    </a>
+                </div>       
+
+           </div>
+           <div id="mainbody" class="dashboard dashboard__link-list-section" >
+           <div class="dashboardLinksSection dashboard container-fluid">       
+           
+           <div class="formLeadCreation" >
+           <apex:form id="LeadCreation">
+                <div class="formLeadCreationfieldset">
+                    <div class="formLeadCreationlegend">Customer Details</div>
+                    <div class="ol">                    
+                        <div class="formLeadCreation-ol-li">
+                            <div class="formLeadCreationlabel">Company Name </div>
+                            
+                            <apex:inputText value="{!Company}" id="company" required="true" styleClass="formLeadCreationinput" />                        
+                        </div>
+                                         
+                        <div class="formLeadCreation-ol-li">
+                            <div class="formLeadCreationlabel">First Name </div>
+                            <apex:inputText value="{!FirstName}" id="firstname" required="true" styleClass="formLeadCreationinput" html-placeholder="First name"/>
+                        </div>
+                        
+                        <div class="formLeadCreation-ol-li">
+                            <div class="formLeadCreationlabel">Last Name </div>
+                            <apex:inputText value="{!LastName}" id="lastname" required="true" styleClass="formLeadCreationinput" html-placeholder="Last name"/>
+                        </div>
+                        
+                        <div class="formLeadCreation-ol-li">
+                            <div class="formLeadCreationlabel">Contact Number </div>
+                            <apex:inputText value="{!Phone}" id="phone" required="true" styleClass="formLeadCreationinput" html-placeholder="Eg. 0393000000" onblur="return ValidatePhNumber();" />
+                            <div id="phoneerror" class="formMessagelegend ">Please enter a valid phone number</div>                     
+                        </div>
+                        
+                       <div class="formLeadCreation-ol-li">
+                            <div class="formLeadCreationlabel">Contact Email </div>
+                            <apex:inputText value="{!Email}" id="email" required="true" styleClass="formLeadCreationinput" html-placeholder="example@domain.com" onblur="return checkEmail();" />
+                             <div id="emailerror" class="formMessagelegend ">Please enter a valid email address</div>                        
+                        </div>
+                        <div class="formLeadCreation-ol-li">  
+                            <div class="formLeadCreationlabel">Nature of Lead</div>
+                            <apex:inputText value="{!Description}" id="natureoflead" styleClass="formLeadCreationinput" required="true" html-placeholder="What the lead relates to" />
+                        </div>  
+                                   
+                    </div>
+                </div>
+                
+                <div class="formLeadCreationfieldset">
+                    <div class="formLeadCreationlegend">Lead Creator Details</div>
+                     <div class="ol">                             
+                        <div class="formLeadCreation-ol-li">  
+                            <div class="formLeadCreationlabel">Lead Creator</div>
+                            <apex:inputText value="{!LeadCreator}" id="leadcreator" styleClass="formLeadCreationinput" required="true" html-placeholder="First and Last Name of Lead Creator"  />
+                        </div>
+                        <div class="formLeadCreation-ol-li">
+                            <div class="formLeadCreationlabel">WorkCenter Code</div>
+                            <apex:inputText value="{!CreatorWCC}" id="wcc" styleClass="formLeadCreationinput" required="true"  html-placeholder="Your 6-digit WorkCenterCode" onblur="return ValidateWCC();"  />                        
+                            <div id="wccerror" class="formMessagelegend">Please enter a valid work center code</div>
+                        </div>
+                        <div class="formLeadCreation-ol-li">  
+                            <div class="formLeadCreationlabel">Postal Manager Email </div>
+                            <apex:inputText value="{!PostalManagerEmail}" id="postmasteremail" styleClass="formLeadCreationinput" required="true" html-placeholder="Email Address of Postal Manager" />
+                        </div>
+                                                                        
+                     </div>                    
+                 </div>
+
+                <div>                    
+                    <apex:commandButton value="Submit Lead" action="{!submitLead}" reRender="LeadCreation" styleClass="formLeadCreationbutton" status="actStatusId"  oncomplete="setDefaultValue()"  />  
+                    <apex:actionStatus id="actStatusId"  style="align:center;">
+                         <apex:facet name="start" >
+                             <img src="/img/loading.gif"  height="40" width="40"/> 
+                         </apex:facet>
+                    </apex:actionStatus> 
+
+                </div> 
+                
+                <div class="formMessagelegend">                
+                    <apex:pageMessages id="showmsg"  ></apex:pageMessages>         
+                </div>         
+            </apex:form>
+                
+                <script type="text/javascript">
+                    
+                    function ValidatePhNumber() {
+                        var mob = /^\D*0(\D*\d){9}\D*$/
+                        var phone= document.getElementById('{!$Component.LeadCreation.phone}');
+                        if (mob.test(phone.value) == false) {
+                                document.getElementById('phoneerror').style.display = 'block';                                                    
+                            phone.focus();
+                            return false;
+                        }
+                        else{
+                            document.getElementById('phoneerror').style.display = 'none'; 
+                            return true;
+                        }
+                    }
+
+                    function ValidateWCC() {
+                        var wccCode= /(^|\D)\d{6}($|\D)/
+                        var wcc= document.getElementById('{!$Component.LeadCreation.wcc}');
+                        if (wccCode.test(wcc.value) == false) {
+                            document.getElementById('wccerror').style.display = 'block'; 
+                            wcc.focus();
+                            return false;
+                        }
+                        else{
+                            document.getElementById('wccerror').style.display = 'none'; 
+                            return true;
+                            }
+                    }
+                     function checkEmail() {
+                         var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+                         var emailEntered = document.getElementById('{!$Component.LeadCreation.email}');
+                            if (emailFormat.test(emailEntered.value) == false) {
+                                    document.getElementById('emailerror').style.display = 'block';                                                    
+                                emailEntered.focus();                                
+                                return false;                                
+                            }
+                            else
+                            {                             
+                                    document.getElementById('emailerror').style.display = 'none';  
+                                    return true;
+                            }                    
+                    }
+                                            
+                     
+                    function setDefaultValue(){
+                        /*document.getElementById('{!$Component.LeadCreation.company}').value = '';
+                        document.getElementById('{!$Component.LeadCreation.firstname}').value = '';
+                        document.getElementById('{!$Component.LeadCreation.lastname}').value = '';
+                        document.getElementById('{!$Component.LeadCreation.phone}').value = '';
+                        document.getElementById('{!$Component.LeadCreation.email}').value = '';
+                        document.getElementById('{!$Component.LeadCreation.natureoflead}').value = '';*/
+                        
+                        document.getElementById('wccerror').style.display = 'none'; 
+                        document.getElementById('phoneerror').style.display = 'none'; 
+                        document.getElementById('emailerror').style.display = 'none'; 
+                        
+                        var leadCreator = document.getElementById('{!$Component.LeadCreation.leadcreator}');
+                        var workCenter = document.getElementById('{!$Component.LeadCreation.wcc}'); 
+                        var postMasterEmailAdd = document.getElementById('{!$Component.LeadCreation.postmasteremail }');
+                        localStorage.setItem("postMasterEmailAdd", postMasterEmailAdd.value );
+                        localStorage.setItem("leadCreator", leadCreator.value ); 
+                        localStorage.setItem("workCenter", workCenter.value);
+                           
+                    }
+                </script>
+            </div>
+            </div>
+            </div>     
+        </body>           
+    </html>        
+</apex:page>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Section_Heading__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Section Heading</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Section One</fullName>
+                <default>false</default>
+                <label>Section One</label>
+            </value>
+            <value>
+                <fullName>Section 2</fullName>
+                <default>false</default>
+                <label>Section 2</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

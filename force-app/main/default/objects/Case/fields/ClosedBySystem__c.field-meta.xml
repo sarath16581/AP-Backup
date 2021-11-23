@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ClosedBySystem__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>SSSW - A Checkbox to determine if this Case was automatically closed by the system i.e if the Customer has not responded. This is to be used for reporting and not visible by the user.</description>
+    <externalId>false</externalId>
+    <label>Closed by System</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

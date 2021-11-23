@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Business_Callback_Request</fullName>
+    <filterScope>Queue</filterScope>
+    <label>SSSW Callback Reminder Business</label>
+    <queue>SSSW_Business</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,13 @@
+<aura:component extensible="true" description="Parent component for SS_uiWizard components">
+    <!--ltng:require styles="/resource/materialize_nm/css/materialize-nm.min.css?v=0.45"/-->
+
+    <aura:attribute name="message" type="Object" description="Success/Error Message"/>
+    <aura:attribute name="debugMode" type="Boolean" default="true" description="Flag if set to true, enables debug mode."/>
+    <aura:renderIf isTrue="{!v.message !=null}">
+        <ui:message title="{!v.message.title}" severity="{!v.message.severity}">
+            {!v.message.text}
+        </ui:message>
+    </aura:renderIf>
+    {!v.body}
+    
+</aura:component>

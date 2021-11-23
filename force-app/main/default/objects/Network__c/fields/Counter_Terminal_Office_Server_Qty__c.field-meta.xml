@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Counter_Terminal_Office_Server_Qty__c</fullName>
+    <description>Total of Equipment Type Code starting with EL, excluding ELSC</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Total of Equipment Type Code starting with EL, excluding ELSC</inlineHelpText>
+    <label>Counter Terminal + Office Server Qty</label>
+    <summarizedField>Network_Equipment__c.Equipment_Count_On_Premises__c</summarizedField>
+    <summaryFilterItems>
+        <field>Network_Equipment__c.Equipment_Type_Code__c</field>
+        <operation>startsWith</operation>
+        <value>EL</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Network_Equipment__c.Equipment_Type_Code__c</field>
+        <operation>notEqual</operation>
+        <value>ELSC</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Network_Equipment__c.Network_Facility__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

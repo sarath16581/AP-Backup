@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Total_Weight_Parcel1__c</fullName>
+    <externalId>false</externalId>
+    <label>Total Weight Parcel1</label>
+    <summarizedField>APT_Cubic_Factor__c.APT_Weight_of_Volume_Weight_Parcel__c</summarizedField>
+    <summaryForeignKey>APT_Cubic_Factor__c.APT_Proposal__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

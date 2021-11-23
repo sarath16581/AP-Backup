@@ -1,0 +1,33 @@
+<!--
+	2018-02-17 nathan.franklin@auspost.com.au created
+-->
+<aura:component description="This component can be referenced to gain access to specific utility wrapper functions for lightning components."
+				controller="LightningUtilityController">
+
+	<ltng:require scripts="{!join(',',$Resource.GlobalAssets + '/js/lightning/utils.js')}" afterScriptsLoaded="{!c.initialise}"/>
+
+	<aura:attribute name="isLoaded" type="boolean" default="false" />
+
+	<aura:method name="getSObjectFieldLabels" description="Returns a list of SObject field labels." access="global" action="{!c.getFieldLabels}">
+		<aura:attribute name="fieldNames" type="String[]" />
+		<aura:attribute name="completionCallback" type="Object" />
+		<aura:attribute name="errorCallback" type="Object" />
+		<aura:attribute name="waitingQueueComponent" type="Aura.Component" />
+	</aura:method>
+
+	<aura:method name="getSObjectFieldPicklistValues" description="Returns a list of SObject field picklist values." access="global" action="{!c.getFieldPicklistValues}">
+		<aura:attribute name="fieldNames" type="String[]" />
+		<aura:attribute name="completionCallback" type="Object" />
+		<aura:attribute name="errorCallback" type="Object" />
+		<aura:attribute name="waitingQueueComponent" type="Aura.Component" />
+	</aura:method>
+    
+    <aura:method name="getCustomSettingListByName" description="Returns SObject requested custom setting." access="global" action="{!c.getCustomSettingListByName}">
+	        <aura:attribute name="listName" type="String" />
+	        <aura:attribute name="recordName" type="String" />
+	        <aura:attribute name="completionCallback" type="Object" />
+	        <aura:attribute name="errorCallback" type="Object" />
+	        <aura:attribute name="waitingQueueComponent" type="Aura.Component" />
+    </aura:method>
+
+</aura:component>

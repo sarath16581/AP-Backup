@@ -1,0 +1,7 @@
+A new Security Incident (Tier 1) case has been created.<br/>
+Case number: {!Case.CaseNumber}<br/>
+Subject: {!Case.Subject}<br/>
+Caller Name: {!Case.Recent_Caller_First_Name__c} {!Case.Recent_Caller_Last_Name__c}<br/>
+Caller Email: {!Case.Recent_Caller_Email__c}<br/>
+Caller Phone Number: {!Case.Recent_Caller_Phone_Number__c}<br/>
+Description: {!Case.Description}

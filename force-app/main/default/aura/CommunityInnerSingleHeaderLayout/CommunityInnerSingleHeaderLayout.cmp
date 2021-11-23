@@ -1,0 +1,31 @@
+<aura:component implements="forceCommunity:layout" access="global" description="Community Innerpage content layout">
+    <aura:attribute name="ContentHeaderBlock1" type="Aura.Component[]" required="false" />
+    <aura:attribute name="Content" type="Aura.Component[]" required="false" />
+    <aura:attribute name="Sidebar" type="Aura.Component[]" required="false" />
+    <aura:attribute name="ContentFooter" type="Aura.Component[]" required="false" />
+
+    <div class="headerContainer">
+        <div class="header-content slds-grid slds-wrap">
+            <div class="contentheader-block1 slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-3">
+                {!v.ContentHeaderBlock1}
+            </div>    
+        </div>  
+    </div>
+
+    <div class="contentContainer">
+            <div class="body-inner-content slds-grid slds-wrap">
+                <div class="mainContent slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_8-of-12">
+                    {!v.Content}
+                </div>
+    
+                <div class="contentSidebar slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_4-of-12">
+                    {!v.Sidebar}
+                </div>
+            </div>
+    </div>
+
+    <div class="contentfooter">
+        {!v.ContentFooter}
+    </div>
+
+</aura:component>

@@ -1,0 +1,5 @@
+<apex:component >
+	<h3>MRS Panel</h3>
+	<br />
+	<apex:image url="{!URLFOR($Resource.DummyMRSPanel)}" />
+</apex:component>

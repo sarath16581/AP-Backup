@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EPOSCashDeposit3k__c</fullName>
+    <description>EPOS Deposits Cash Value – Greater than $3,000</description>
+    <externalId>false</externalId>
+    <inlineHelpText>EPOS Deposits Cash Value – Greater than $3,000</inlineHelpText>
+    <label>EPOS Cash Deposit &gt;$3k</label>
+    <length>10</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

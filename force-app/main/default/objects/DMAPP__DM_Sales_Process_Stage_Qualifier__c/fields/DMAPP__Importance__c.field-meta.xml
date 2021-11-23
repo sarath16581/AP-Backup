@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Importance__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>Relative importance of this qualifier in the sales process.
+
+Note that the importance level provided will impact:
+- Closure Probability 
+- Close Date
+- Stage (highest importance qualifiers must be completed to move the opp. to the next stage)</inlineHelpText>
+    <label>Importance</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Nice to have</fullName>
+                <default>true</default>
+                <label>Nice to have</label>
+            </value>
+            <value>
+                <fullName>Important</fullName>
+                <default>false</default>
+                <label>Important</label>
+            </value>
+            <value>
+                <fullName>Very important</fullName>
+                <default>false</default>
+                <label>Very important</label>
+            </value>
+            <value>
+                <fullName>Essential</fullName>
+                <default>false</default>
+                <label>Essential</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

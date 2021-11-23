@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_ABN_Contracting_Entity__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAl(APT_Contracting_Entity__c, &quot;Australian Postal Corporation&quot;), &quot;28 864 970 579&quot;,IF(ISPICKVAl(APT_Contracting_Entity__c, &quot;Star Track Express Pty Ltd&quot;), &quot;44 001 227 890&quot;, IF(ISPICKVAl(APT_Contracting_Entity__c, &quot;Australia Post Services Pty Ltd&quot;), &quot;67 002 599 340&quot;,IF(ISPICKVAl(APT_Contracting_Entity__c, &quot;Decipha Pty Ltd&quot;), &quot;31 100 126 396&quot;, IF(ISPICKVAl(APT_Contracting_Entity__c, &quot;SecurePay Pty Ltd&quot;), &quot;92 008 101 875&quot;,IF(ISPICKVAl(APT_Contracting_Entity__c, &quot;POLi Payments Pty Ltd&quot;), &quot;73 105 393 664&quot;,IF(ISPICKVAl(APT_Contracting_Entity__c, &quot;Post Logistics (Hong Kong) Pty Ltd&quot;), &quot;Not Applicable&quot;, &quot;&quot;)))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>ABN - Contracting Entity</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,6 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<font face="arial"><span style="font-size: 12pt;">Hi,</span></font><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">The Change Record number {!Partner_Info_Change__c.Name} to &nbsp;is rejected.</div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><br></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">Details of the Change Record:</div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">Licence -&nbsp;{!Partner_Info_Change__c.Licence__c}</div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">Facility -&nbsp;{!Partner_Info_Change__c.Facility__c}</div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><br></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">Reason for Rejection:</div><div><font face="arial">{!ApprovalRequest.Comments}</font></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">regards,</div>]]></td>
+</tr>
+</table>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaritzCX__Insert_Unmapped_Cases_in_Salesforce__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If Checked, the Cases will be inserted into Salesforce even if the matching record (Contact/Person Account/Lead) is not found.
+If Unchecked, the Cases with no mapped record will not be inserted into Salesforce.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If Checked, the Cases will be inserted into Salesforce even if the matching record (Contact/Person Account/Lead) is not found.
+If Unchecked, the Cases with no mapped record will not be inserted into Salesforce.</inlineHelpText>
+    <label>Insert Unmapped Cases in Salesforce</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

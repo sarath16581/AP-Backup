@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Port_Melbourne_Routes_Midshift_TOs</fullName>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>port M</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>startsWith</operation>
+        <value>MC2,MC3,MC4,MCT,MCA</value>
+    </filters>
+    <label>Port Melbourne Routes - Midshift/TOs</label>
+</ListView>

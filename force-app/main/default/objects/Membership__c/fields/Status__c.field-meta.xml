@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <defaultValue>&quot;Pending&quot;</defaultValue>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>true</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Active</fullName>
+                <default>false</default>
+                <label>Active</label>
+            </value>
+            <value>
+                <fullName>Pending</fullName>
+                <default>false</default>
+                <label>Pending</label>
+            </value>
+            <value>
+                <fullName>Expired</fullName>
+                <default>false</default>
+                <label>Expired</label>
+            </value>
+            <value>
+                <fullName>New</fullName>
+                <default>false</default>
+                <label>New</label>
+            </value>
+            <value>
+                <fullName>Pack Sent to LPO</fullName>
+                <default>false</default>
+                <label>Pack Sent to LPO</label>
+            </value>
+            <value>
+                <fullName>Received from LPO</fullName>
+                <default>false</default>
+                <label>Received from LPO</label>
+            </value>
+            <value>
+                <fullName>Awaiting Workforce Verification</fullName>
+                <default>false</default>
+                <label>Awaiting Workforce Verification</label>
+            </value>
+            <value>
+                <fullName>Missing Information</fullName>
+                <default>false</default>
+                <label>Missing Information</label>
+            </value>
+            <value>
+                <fullName>Received Missing Info Back</fullName>
+                <default>false</default>
+                <label>Received Missing Info Back</label>
+            </value>
+            <value>
+                <fullName>Submitted to WU</fullName>
+                <default>false</default>
+                <label>Submitted to WU</label>
+            </value>
+            <value>
+                <fullName>Review WU Return</fullName>
+                <default>false</default>
+                <label>Review WU Return</label>
+            </value>
+            <value>
+                <fullName>Return from WU</fullName>
+                <default>false</default>
+                <label>Return from WU</label>
+            </value>
+            <value>
+                <fullName>Resubmitted to WU</fullName>
+                <default>false</default>
+                <label>Resubmitted to WU</label>
+            </value>
+            <value>
+                <fullName>AUSTRAC Registered</fullName>
+                <default>false</default>
+                <label>AUSTRAC Registered</label>
+            </value>
+            <value>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+                <label>Cancelled</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

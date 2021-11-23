@@ -1,0 +1,40 @@
+<!--
+/* @author avula.jansirani@auspost.com.au
+* @date 2020-11-12
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Single director summary details . Used for showing a single director details entered in the input step
+                for review before submitting a credit form.
+* @changelog
+* 2020-01-20 avula.jansirani@auspost.com.au
+*
+-->
+<template>
+    <div data-id='director'>
+        <template if:true={director}>
+    
+            <!--Header-->
+            <template if:true={showHeader}>
+                <c-bca-summary-step-header header-label='{directorSubHeaderLabel}'></c-bca-summary-step-header>
+            </template>
+            
+    
+            <!--Body-->
+            <c-bca-summary-row label='Name' value={name}></c-bca-summary-row>
+            <template if:true={showPreviousName}>
+                <c-bca-summary-row label='Previous name' value={director.previousName}></c-bca-summary-row>
+            </template>
+            <c-bca-summary-row label='Date of birth' value={director.dob} type='date'></c-bca-summary-row>
+            <c-bca-summary-row label='Current address' value={currentResidentialAddress}></c-bca-summary-row>
+            <c-bca-summary-row label='Time at address' value={director.timeAtAddress}></c-bca-summary-row>
+            <template if:true={showPreviousAddress}>
+                <c-bca-summary-row label='Previous address' value={prevResidentialAddress}></c-bca-summary-row>
+            </template>
+            <c-bca-summary-row label='Phone number' value={formattedPhone}></c-bca-summary-row>
+            <c-bca-summary-row label='Email address' value={director.email}></c-bca-summary-row>
+            <!--<c-bca-summary-row label='Drivers licence' value={director.driversLicense}></c-bca-summary-row>-->
+    
+        </template>
+    </div>
+    
+    </template>

@@ -1,0 +1,157 @@
+<!--
+    @Author      :  kalpita.talwadekar@auspost.com.au
+    @Date        :  15/09/2015
+    @Description :  Visualforce Component used to display the new fax template
+    
+    2019-10-04   :  snigdha.sahu@auspost.com.au  REQ1938597: Added SenderCompany and AddresseeCompany 
+-->
+<apex:component controller="RetailFaxTemplateCompCont" access="global" >
+<apex:attribute name="compId" type="Id" description="the case ID" assignTo="{!caseId}"/>
+
+    <!-- Header -->
+        <h1>{!temptitle} - case {!mycase.CaseNumber} </h1>
+        
+        <apex:panelGrid columns="4" border="0" width="100%">
+            <apex:outputText value="{!$Label.CL_SentTo}" />
+            <apex:outputText value="{!myCase.Network__r.Name}" />
+            <apex:outputText value="{!$Label.CL_SentToFax}" />
+            <apex:outputText value="{!myCase.Network__r.Fax_Number__c}" />
+            <apex:outputText value="{!$Label.CL_SentFrom}" />
+            <apex:outputText value="{!$Label.CL_ConsumerCC}" />
+            <apex:outputText value="{!$Label.CL_SentTime}" />
+            <apex:outputText value="{!timaestamp}"/>
+        </apex:panelGrid>
+        <apex:outputPanel rendered="{!IF(CONTAINS(myCase.Type, 'Investigation') &&
+                                          mycase.account.serviceSLA__c == 'Enterprise',true,false)}">
+            <apex:outputText value="{!$Label.CL_SLAMessage}" />
+            <br/>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!IF(CONTAINS(myCase.Type, 'Investigation') &&
+                                          mycase.account.serviceSLA__c != 'Enterprise',true,false)}">
+            <apex:outputText value="{!$Label.CL_SLAMessage2}" />
+            <br/>
+        </apex:outputPanel>
+        <br/>
+        
+    <!-- Action Required -->
+        <h3 style="font-size:1.15em;display: inline;"> {!$Label.CL_ActionRequiredHeader} </h3>
+        <br/>
+        <apex:outputField value="{!mycase.description}" />
+        <br/><br/>
+        
+    <!-- Article Details -->
+        <h3 style="font-size:1.15em;display: inline;">  {!$Label.CL_ArticleDetailsHeader} </h3>
+        <br/>
+        <apex:outputPanel >
+            <apex:outputLabel value="{!$Label.CL_ArticleID}" /> &nbsp; 
+            <apex:outputText value=" {!mycase.ReferenceID__c}" /><br/>
+            <apex:outputLabel value="{!mycase.ProductCategory__c}" /> &nbsp; 
+            <apex:outputText value=" {!mycase.ProductSubCategory__c}" /><br/>
+            <!-- Snigdha : Added Sender Company and Addressee Company --> 
+            <apex:outputLabel value="{!$Label.CL_AddCompany}" /> &nbsp; 
+            <apex:outputText value=" {!mycase.Secondary_Companry__c}" /><br/>
+            <apex:outputLabel value="{!$Label.CL_AddName}" /> &nbsp; 
+            <apex:outputText value=" {!mycase.Secondary_Contact__c}" /><br/>
+            <apex:outputLabel value="{!$Label.CL_AddAddress}" /> &nbsp; 
+            <apex:outputText value=" {!mycase.Address2__c}" /><br/>
+            <apex:outputLabel value="{!$Label.CL_SendCompany}" /> &nbsp;
+            <apex:outputText value=" {!mycase.Primary_Company__c}" /><br/>
+            <apex:outputLabel value="{!$Label.CL_SendName}" /> &nbsp; 
+            <apex:outputText value=" {!mycase.Primary_Name__c}" /><br/>
+            <apex:outputLabel value="{!$Label.CL_SendAddress}" /> &nbsp; 
+            <apex:outputText value=" {!mycase.Address1__c}" /><br/>
+            <apex:outputLabel value="{!$Label.CL_DatePostedLabel}" /> &nbsp; 
+            <apex:outputText value=" {!mycase.DatePosted__c}" /><br/>
+        </apex:outputPanel>
+        <br/>
+        <apex:outputText rendered="{!IF(CONTAINS(myCase.Type, 'Feedback') ,  true, false)}">
+            <div style="font-weight: bold;"  >
+                {!$Label.CL_UnableToReqAction} {!mycase.caseNumber}
+            </div>
+            <br/>
+        </apex:outputText>
+        
+
+    <!-- response section -->
+        <apex:outputPanel id="responses" rendered="{!IF(CONTAINS(myCase.Type, 'Investigation') && 
+                ( myCase.EnquirySubType__c == 'Disputed delivery' ),  true, false)}">
+            <br/>
+            <h3 style="font-size:1.15em;display: inline;"> {!$Label.CL_ResponseHeader} </h3>
+            <apex:panelGrid columns="2" width="90%" >
+            <apex:outputPanel > <input type="checkbox" > {!$LABEL.CL_RespStat6} </input></apex:outputPanel>
+            <apex:outputPanel >  <input type="checkbox" >{!$LABEL.CL_RespStat2}</input></apex:outputPanel>
+            <apex:outputPanel >  <input type="checkbox" >{!$LABEL.CL_RespStat3}</input></apex:outputPanel>
+            <apex:outputPanel >
+            <input type="checkbox" >{!$LABEL.CL_RespStat4}</input>
+            <input type="checkbox" >{!$LABEL.CL_RespStat5}</input>
+            </apex:outputPanel>
+            </apex:panelGrid><br/>
+        </apex:outputPanel>
+        
+        <apex:outputPanel id="responses1" rendered="{!IF(CONTAINS(myCase.Type, 'Investigation') && 
+                ( mycase.EnquirySubType__c == 'RTS request' ),  true, false)}">
+            <br/>
+            <h3 style="font-size:1.15em;display: inline;"> {!$Label.CL_ResponseHeader} </h3>
+            <apex:panelGrid columns="2" width="90%" >
+            <apex:outputPanel > <input type="checkbox" > {!$LABEL.CL_RespStat7} </input></apex:outputPanel>
+            <apex:outputPanel >  <input type="checkbox" >{!$LABEL.CL_RespStat2}</input></apex:outputPanel>
+            <apex:outputPanel >  <input type="checkbox" >{!$LABEL.CL_RespStat3}</input></apex:outputPanel>
+            <apex:outputPanel >
+            <input type="checkbox" >{!$LABEL.CL_RespStat4}</input>
+            <input type="checkbox" >{!$LABEL.CL_RespStat5}</input>
+            </apex:outputPanel>
+            </apex:panelGrid><br/>
+
+        </apex:outputPanel>
+        
+        <apex:outputPanel id="responses11" rendered="{!IF(CONTAINS(myCase.Type, 'Investigation') && 
+                (myCase.EnquirySubType__c == 'Missing Item' ),  true, false)}">
+            <br/>
+            <h3 style="font-size:1.15em;display: inline;"> {!$Label.CL_ResponseHeader} </h3>
+            <apex:panelGrid columns="2" width="90%" >
+            <apex:outputPanel > <input type="checkbox" > {!$LABEL.CL_RespStat8} </input></apex:outputPanel>
+            <apex:outputPanel >  <input type="checkbox" >{!$LABEL.CL_RespStat9}</input></apex:outputPanel>
+            <apex:outputPanel >  <input type="checkbox" >{!$LABEL.CL_RespStat3}</input></apex:outputPanel>
+            <apex:outputPanel >  <input type="checkbox" >{!$LABEL.CL_RespStat10}</input></apex:outputPanel>
+            <apex:outputPanel >  <input type="checkbox" > </input></apex:outputPanel>
+            <apex:outputPanel >
+            <input type="checkbox" >{!$LABEL.CL_RespStat4}</input>
+            <input type="checkbox" >{!$LABEL.CL_RespStat5}</input>
+            </apex:outputPanel>
+            </apex:panelGrid><br/>
+        </apex:outputPanel>
+
+    <!-- response section for general investigation-->
+        <apex:outputPanel id="responses2" rendered="{!IF(CONTAINS(myCase.Type, 'Investigation') && 
+                (myCase.EnquirySubType__c != 'Missing Item' && mycase.EnquirySubType__c != 'RTS request' &&
+                 myCase.EnquirySubType__c != 'Disputed delivery' ),  true, false)}">
+            <br/>
+            <h3 style="font-size:1.15em;display: inline;"> {!$Label.CL_ResponseHeader} </h3> <br/>
+            <b> {!$Label.CL_RespDetail} </b> <br/>
+        </apex:outputPanel> 
+        
+    <!-- line break section -->
+        <apex:outputPanel id="hrLine" rendered="{!IF(CONTAINS(myCase.Type, 'Investigation'), true, false)}"> 
+            <br/>
+            <hr/>
+            <br/>
+            <hr/>
+            <br/>
+            <hr/>
+        </apex:outputPanel>  
+        <br/>
+        
+    <!-- last 5 EM scans -->
+        <h3 style="font-size:1.15em;display: inline;"> {!$LABEL.CL_Last5EMScansHeader}</h3>
+        <apex:outputText rendered="{!NOT(ISBLANK(articleDetails))}">
+                <c:RetailFaxEventaMgmtTable article="{!articleDetails.proxyArticle}" 
+                eventMessages="{!articleDetails.eventMessages}" 
+                IsConsignment="false" 
+                articleFields="{!ItemSearchArticleFields}" 
+                eventMessageFields="{!ItemSearchEventMessagesFields}" />
+            </apex:outputText>
+            <apex:outputText rendered="{!articleDetails.eventMessages.size == 0 || articleDetails.eventMessages == null}">
+             <br/> Not available
+         </apex:outputText>
+        
+</apex:component>

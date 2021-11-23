@@ -1,0 +1,4 @@
+{
+    "PercentageComplete": 100,
+    "DisplayMessage": "All Consignment Information Collected"
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Amend__c</fullName>
+    <externalId>false</externalId>
+    <formula>/*IF (OR(AND( NOT(ISPICKVAL( Initiation_Type__c , &quot;Migrated Contract&quot;)),  (ISPICKVAL(Status_Category__c,&quot;In Effect&quot;)),NOT(ISPICKVAL(Status__c,&quot;Being Renewed&quot;)),NOT(ISPICKVAL(Status__c,&quot;Being Amended&quot;))), AND(ISPICKVAL(Initiation_Type__c , &quot;Migrated Contract&quot;),  $Profile.Name  &lt;&gt; &quot;Coverage Sales&quot;, (ISPICKVAL(Status_Category__c,&quot;In Effect&quot;)),NOT(ISPICKVAL(Status__c,&quot;Being Renewed&quot;)),NOT(ISPICKVAL(Status__c,&quot;Being Amended&quot;)))), HYPERLINK(&quot;/apex/APT_AmendRenew?agreementId=&quot; &amp; Id &amp; &quot;&amp;actionName=DoV&quot;, IMAGE(&quot;/resource/Apttus__Button_Amend&quot;, &quot;Amend&quot;),&quot;_self&quot;), NULL)
+*/
+
+IF (OR(AND( NOT(ISPICKVAL( Initiation_Type__c , &quot;Migrated Contract&quot;)), (ISPICKVAL(Status_Category__c,&quot;In Effect&quot;)),NOT(ISPICKVAL(Status__c,&quot;Being Renewed&quot;)),NOT(ISPICKVAL(Status__c,&quot;Being Amended&quot;))), AND(ISPICKVAL(Initiation_Type__c , &quot;Migrated Contract&quot;), (ISPICKVAL(Status_Category__c,&quot;In Effect&quot;)),NOT(ISPICKVAL(Status__c,&quot;Being Renewed&quot;)),NOT(ISPICKVAL(Status__c,&quot;Being Amended&quot;)))), HYPERLINK(&quot;/apex/APT_AmendRenew?agreementId=&quot; &amp; Id &amp; &quot;&amp;actionName=DoV&quot;, IMAGE(&quot;/resource/Apttus__Button_Amend&quot;, &quot;Amend&quot;),&quot;_self&quot;), NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Amend</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

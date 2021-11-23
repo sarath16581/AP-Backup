@@ -1,0 +1,30 @@
+<!--
+    @Author      :  kalpita.talwadekar@auspost.com.au
+    @Date        :  16/10/2015
+    @Description :  Visualforce page to display list of product holdings
+
+2017-10-01 nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
+-->
+<apex:page standardController="Case" standardStylesheets="false"
+        showHeader="false" sidebar="false">
+
+	<c:ScriptLoader jsLibraries="jquery,bootstrap,ssswconsole"
+					csslibraries="bootstrap,ssswconsole" />
+   
+ <style>
+        td.pbTitle h3 {
+            display : none;/*to hide the section title if the hide buttons is false in the CaseContactSidePanelTabSettings__c custom setting */
+        }
+        
+        td.pbButton input[type='button'] {
+            margin-bottom : 5px;/*to add some margin after the button if the hide buttons is false in the CaseContactSidePanelTabSettings__c custom setting */
+        }
+    </style>
+    <c:ContactProductHoldingTableComp contactId="{!Case.contactId}" />
+    <!--div class="tab-pane fade" id="AuthorisedContacts">
+            <apex:relatedList list="Product_holdings__r" subject="{!Case.Contactid}" >
+                
+            </apex:relatedList>
+        </div-->
+    <hr/>
+    </apex:page>

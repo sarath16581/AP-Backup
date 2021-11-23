@@ -1,0 +1,231 @@
+/*
+ * @date : 20-07-2020 hara.sahoo@auspost.com.au UI changes as per the new designs for help and support form uplift
+ *                                              Added border styling to the slds-textarea,slds-input and slds-select elements
+ * @date : 17-08-2020 hara.sahoo@auspost.com.au changed the error state color to #BD152E as per new designs
+*/
+.THIS .chas-helptext {
+	top: -2px;
+	margin: 0 8px;
+}
+
+.THIS .chas-helptext svg {
+	border: 2px solid;
+	border-radius: 50%;
+	padding: 2px;
+	width: 20px;
+	height: 20px;
+}
+
+.THIS .chas-below-input {
+	margin-top: 8px;
+}
+
+.THIS .uiInput--input .input,
+.THIS .uiInput--input.input,
+.THIS .slds-input,
+.THIS .chas-select.slds-select {
+	height: 45px;
+}
+
+.THIS .uiInput--textarea .textarea,
+.THIS .uiInput--textarea.textarea,
+.THIS .slds-textarea {
+	height: 142px;
+}
+
+.THIS .uiInput--textarea .textarea:hover,
+.THIS .uiInput--textarea.textarea:hover,
+.THIS .uiInput--input .input:hover,
+.THIS .uiInput--input.input:hover,
+.THIS .slds-input:hover,
+.THIS .slds-textarea:hover,
+.THIS .chas-select.slds-select:hover {
+	box-shadow: none;
+	border: solid 2px #382F2D;
+}
+
+.THIS .uiInput--textarea .textarea:focus,
+.THIS .uiInput--textarea.textarea:focus,
+.THIS .uiInput--textarea .textarea:active,
+.THIS .uiInput--textarea.textarea:active,
+.THIS .uiInput--input .input:focus,
+.THIS .uiInput--input.input:focus,
+.THIS .uiInput--input .input:active,
+.THIS .uiInput--input.input:active,
+.THIS .slds-input:focus,
+.THIS .slds-input:active,
+.THIS .slds-textarea:focus,
+.THIS .slds-textarea:active,
+.THIS .chas-select.slds-select:focus,
+.THIS .chas-select.slds-select:active {
+	box-shadow: none;
+	border: solid 2px #382F2D;
+}
+/* UI changes as per the new designs for help and support form uplift*/
+.THIS .slds-textarea {
+    border: 2px solid #919194;
+    border-radius: 6px;
+}
+.THIS .chas-select.slds-select {
+    border: 2px solid #919194;
+    border-radius: 6px;
+}
+.THIS .slds-input{
+    border: 2px solid #919194;
+    border-radius: 6px;
+}
+@media (min-width: 480px){
+    .THIS .chas-input .short-true {
+        max-width: 190px;
+    } 
+}
+
+.THIS .uiInput--textarea.has-error .textarea,
+.THIS .uiInput--textarea.has-error.textarea,
+.THIS .uiInput--input.has-error .input,
+.THIS .uiInput--input.has-error.input,
+.THIS.has-error .slds-input,
+.THIS.has-error .slds-textarea,
+.THIS.has-error .chas-select.slds-select {
+	box-shadow: none;
+	border: solid 1px #BD152E;
+}
+
+.THIS .uiInput--textarea.has-error .textarea:hover,
+.THIS .uiInput--textarea.has-error.textarea:hover,
+.THIS .uiInput--input.has-error .input:hover,
+.THIS .uiInput--input.has-error.input:hover,
+.THIS.has-error .slds-input:hover,
+.THIS.has-error .slds-textarea:hover,
+.THIS.has-error .chas-select.slds-select:hover {
+	box-shadow: none;
+	border: solid 1px #BD152E;
+}
+
+.THIS .uiInput--textarea.has-error .textarea:focus,
+.THIS .uiInput--textarea.has-error.textarea:focus,
+.THIS .uiInput--textarea.has-error .textarea:active,
+.THIS .uiInput--textarea.has-error.textarea:active,
+.THIS .uiInput--input.has-error .input:focus,
+.THIS .uiInput--input.has-error.input:focus,
+.THIS .uiInput--input.has-error .input:active,
+.THIS .uiInput--input.has-error.input:active,
+.THIS.has-error .slds-input:focus,
+.THIS.has-error .slds-input:active,
+.THIS.has-error .slds-textarea:focus,
+.THIS.has-error .slds-textarea:active,
+.THIS.has-error .chas-select.slds-select:focus,
+.THIS.has-error .chas-select.slds-select:active {
+	box-shadow: none;
+	border: solid 2px #BD152E;
+}
+
+/* Checkbox + Radio styling */
+
+.THIS .chas-checkbox_outer,
+.THIS .chas-radio_outer {
+	height: 20px;
+	margin-right: 0.75rem;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.THIS .chas-checkbox_outer {
+	position: relative;
+}
+
+.THIS .chas-radio-label {
+	position: relative;
+}
+
+.THIS .slds-checkbox .slds-checkbox_faux,
+.THIS .slds-radio .slds-radio_faux {
+	margin: 0 !important;
+	vertical-align: top;
+	padding: 8px;
+	border-width: 2px;
+	border-color: #81939D !important;
+}
+
+.THIS .slds-checkbox .slds-checkbox_faux {
+	border-radius: 0.25rem;
+}
+
+.THIS .slds-checkbox [type="checkbox"]:focus + .slds-checkbox__label .slds-checkbox_faux,
+.THIS .slds-radio [type="radio"]:focus + .slds-radio__label .slds-radio_faux {
+	box-shadow: none;
+	outline: none;
+}
+
+.THIS .slds-checkbox [type="checkbox"]:focus + .slds-checkbox__label .chas-checkbox_outer:after,
+.THIS .slds-radio [type="radio"]:focus + .slds-radio__label .chas-radio_outer:after {
+	border: 1px dotted;
+	border-radius: 3px;
+	content: "";
+	display: block;
+	pointer-events: none;
+	position: absolute;
+	height: calc(100% + 12px);
+	width: calc(100% + 12px);
+	left: -6px;
+	top: -6px;
+}
+
+.THIS .slds-checkbox [type="checkbox"]:focus + .slds-checkbox__label .chas-checkbox_outer:after {
+	height: calc(100% + 8px);
+	width: calc(100% + 8px);
+	left: -4px;
+	top: -4px;
+}
+
+@media(min-width: 680px) {
+	.THIS .slds-radio.image-false [type="radio"]:focus + .slds-radio__label .chas-radio_outer:after {
+		height: calc(100% + 6px);
+		top: -3px;
+	}
+}
+
+.THIS .slds-checkbox [type="checkbox"]:checked + .slds-checkbox__label .slds-checkbox_faux {
+	background-color: #382F2D;
+	border-color: #382F2D !important;
+}
+
+.THIS .slds-checkbox [type="checkbox"]:checked + .slds-checkbox__label .slds-checkbox_faux:after {
+	border-color: white;
+	width: 0.6rem;
+	height: 0.35rem;
+	top: 45%;
+}
+
+.THIS.has-error .slds-checkbox_faux,
+.THIS.has-error .slds-radio_faux {
+	border-color: #BD152E !important;
+}
+.THIS.has-error .slds-radio.image-true {
+	border-color: #BD152E;	
+}
+
+
+/* Arrows on the Select Input */
+.THIS .chas-select_container.slds-select_container::before {
+	content: none;
+}
+/* 20-07-2020 Changed the chevron border attribute*/
+.THIS .chas-select_container.slds-select_container::after {
+	top: calc(50% - 6px);
+	transform: rotate(45deg);
+	right: 20px;
+	width: 7px;
+	height: 7px;
+    border: solid #212129;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    pointer-events: none;
+	/*border-radius: 3px;
+	border-right: 4px solid #212129;
+	border-bottom: 3px solid #212129;
+	border-left: 4px solid transparent;
+	border-top: 2px solid transparent;*/
+	
+}

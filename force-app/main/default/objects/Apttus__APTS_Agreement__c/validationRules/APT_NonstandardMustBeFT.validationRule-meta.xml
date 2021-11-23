@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_NonstandardMustBeFT</fullName>
+    <active>true</active>
+    <description>Validates Contract Category and Term. If Contract Category is Nonstandard - Term must be &apos;Fixed Term&apos;</description>
+    <errorConditionFormula>AND(
+ ISPICKVAL( Apttus__Agreement_Category__c  , &apos;Nonstandard&apos;) ,
+ ISPICKVAL(Term__c , &apos;Open Ended&apos;))</errorConditionFormula>
+    <errorMessage>Nonstandard Contracts cannot be Open Ended</errorMessage>
+</ValidationRule>

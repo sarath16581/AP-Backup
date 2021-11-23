@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAM</fullName>
+    <active>true</active>
+    <description>All onboarding requests related to Business Access Management capability.</description>
+    <label>BAM</label>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Success</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>Deprovision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Provision</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

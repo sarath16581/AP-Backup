@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SnappId__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>External Id field to capture snapp cases &amp; use it for creating case &amp; casecomment in same transaction</description>
+    <externalId>true</externalId>
+    <label>SnappId</label>
+    <length>10</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

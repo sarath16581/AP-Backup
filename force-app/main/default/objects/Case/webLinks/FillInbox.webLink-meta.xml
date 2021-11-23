@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FillInbox</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Fill Inbox</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/28.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/28.0/apex.js&quot;)}
+
+var s = document.getElementsByName(&apos;fcf&apos;)[0];
+var selectId = s.id.split(&apos;_&apos;)[0];
+
+
+
+try{
+//PF 28 sept 2015 added check to error if a StarTrack profile
+var profile = &apos;{!$Profile.Name}&apos;.substring(0,9);
+if(profile != &apos;StarTrack&apos;){
+
+var result = sforce.apex.execute(&quot;SSSW_FillInbox&quot;,&quot;wsFillInbox&quot;,{});
+//result = sforce.apex.execute(&quot;SSSW_FillInbox&quot;,&quot;wsFillInbox&quot;,{});
+s.value = result;
+//Eric Shen 21-Mar-16 update to partially sovle the race condition issue INC0617498
+if( result==&apos;{!$Label.SSSW_Filling_Inbox_Alert}&apos;)
+{ alert(&apos;{!$Label.SSSW_Filling_Inbox_Alert}&apos;);
+}
+else if( result==&apos;{!$Label.SSSW_Filling_Inbox_Alert2}&apos;)
+{ alert(&apos;{!$Label.SSSW_Filling_Inbox_Alert2}&apos;);
+}
+
+else{
+ListViewport.instances[selectId].showFeedOrListView(result);
+}
+}
+else{
+throw err;
+}
+}
+catch(err) {
+console.error(err)
+alert(&apos;You do not have sufficient privileges to use this button. Please contact your admin for more details&apos;);
+}</url>
+</WebLink>

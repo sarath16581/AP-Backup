@@ -1,0 +1,10 @@
+.text-center {
+    text-align:right;
+}
+.float-right {
+    float:right;
+}
+.main{
+    display:flex;
+    justify-content: flex-end;
+    }

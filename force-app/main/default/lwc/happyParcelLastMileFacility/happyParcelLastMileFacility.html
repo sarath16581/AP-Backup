@@ -1,0 +1,85 @@
+<!--
+	Display details of last mile delivery facility for the article based on event messages and enable direct to
+	network case creation.
+
+    Changelog:
+    2020-10-12 - Ranjeewa Silva - Created.
+    2021-10-01 - Nathan Franklin - Changed safe drop to delivery proof + uplift to v52
+ -->
+<template>
+    <template if:true={canRaiseEnquiryDirectToNetwork}>
+        <article class="slds-card slds-card_boundary slds-m-bottom_medium">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name="utility:company" title="Contact Network" size="medium"></lightning-icon>
+                    </div>
+                    <div class="slds-media__body card__header-title">
+                        <h2 class="slds-card__header-title slds-truncate_container_75">
+                            <div class="slds-truncate" title="Contact Network">Contact Network</div>
+                        </h2>
+                        <div class="slds-text-heading_small slds-text-title_bold slds-truncate_container_75">
+                            <div class="slds-truncate" title={computedLastMileDeliveryFacility.Name}>{computedLastMileDeliveryFacility.Name}
+                                <lightning-button-icon icon-name="utility:preview"
+                                                       alternative-text="Network Info"
+                                                       size="medium"
+                                                       variant="bare"
+                                                       class="btn-x-large slds-m-horizontal_x-small"
+                                                       onclick={handleShowNetworkInfo}>
+                                </lightning-button-icon>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-no-flex">
+                        <template if:true={canFacilityAccessMyNetwork}>
+                            <lightning-button label="New Enquiry"
+                                              icon-name="utility:new"
+                                              variant="bare"
+                                              class="slds-m-right_x-small card__header-button"
+                                              onclick={handleShowDtnCaseWizard}>
+                            </lightning-button>
+                        </template>
+                        <template if:false={canFacilityAccessMyNetwork}>
+                            <lightning-badge label="No Access to MyNetwork" icon-name="utility:error"></lightning-badge>
+                        </template>
+                    </div>
+                </header>
+            </div>
+            <div class="slds-card__body">
+                <template if:true={loading}>
+                    <div class="slds-text-align_center slds-grow">
+                        <lightning-spinner variant="brand" size="small" alternative-text="Loading search results...">
+                        </lightning-spinner>
+                    </div>
+                </template>
+                <template if:false={loading}>
+                    <!-- Network Info popup -->
+                    <template if:true={showNetworkPopover}>
+                        <div class="slds-m-around_medium">
+                            <c-happy-parcel-network-popup onclosepopup={handleCloseNetworkInfo}
+                                                          wcc={computedLastMileDeliveryFacility.Org_ID__c}
+                                                          variant="width-card">
+                            </c-happy-parcel-network-popup>
+                        </div>
+                    </template>
+
+                    <!-- Direct to Network Case Wizard -->
+                    <template if:true={showDtnCaseWizard}>
+                        <div class="slds-card__body_inner slds-p-left_none slds-p-right_none">
+                            <c-dtn-case-wizard case-record-type-name={dtnCaseRecordTypeName}
+                                               case-default-values={dtnCaseDefaultValues}
+                                               article={articleDetailsFromTrackingApiResult}
+                                               network={computedLastMileDeliveryFacility}
+                                               attach-delivery-proof={attachDeliveryProof}
+                                               title="Quick Case Creation"
+                                               case-restricted-picklist-values={dtnCaseRestrictedPicklistValues}
+                                               onclose={handleCloseDtnCaseWizard}
+                                               oncomplete={handleCompleteDtnCaseWizard}>
+                            </c-dtn-case-wizard>
+                        </div>
+                    </template>
+                </template>
+            </div>
+        </article>
+    </template>
+</template>

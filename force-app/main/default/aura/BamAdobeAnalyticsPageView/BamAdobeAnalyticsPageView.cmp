@@ -1,0 +1,19 @@
+<!--
+    track adobe analytics in the Merchant Portal
+    NOTE: version 39.0 to bypass locker service to get access to global 'analytics' variable
+
+    2019-05-27 nathan.franklin@auspost.com.au Created
+-->
+<aura:component description="BamAdobeAnalyticsPageView" controller="BAMAdobeAnalyticsPageViewController" implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute access="global" name="sitePrefix" type="string" default="business access"></aura:attribute>
+    <aura:attribute access="global" name="pageCategory" type="string"></aura:attribute>
+    <aura:attribute access="global" name="pageDescription" type="string"></aura:attribute>
+    <aura:attribute access="global" name="trackingType" type="string" default="page-navigate"></aura:attribute>
+    <aura:attribute access="global" name="isLoaded" type="Boolean" default="false"></aura:attribute>
+
+    <!-- attributes for logged in users -->
+    <aura:attribute access="global" name="apcn" type="string"></aura:attribute>
+    <aura:attribute access="global" name="isLoggedIn" type="Boolean" default="false"></aura:attribute>
+
+    <ltng:require scripts="{!join(',',$Resource.GlobalAssets + '/js/lightning/utils.js')}" afterScriptsLoaded="{!c.initialise}"/>
+</aura:component>

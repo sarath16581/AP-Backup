@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>User_Impact_Rating__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>What is required for the implementation of this solution from an end user perspective?</inlineHelpText>
+    <label>User Communication Strategy</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>No impact to end users</fullName>
+                <default>false</default>
+                <label>No impact to end users</label>
+            </value>
+            <value>
+                <fullName>Comms required</fullName>
+                <default>false</default>
+                <label>Comms required</label>
+            </value>
+            <value>
+                <fullName>Comms &amp; QRG</fullName>
+                <default>false</default>
+                <label>Comms &amp; QRG</label>
+            </value>
+            <value>
+                <fullName>Comms, QRG &amp; Briefing pack</fullName>
+                <default>false</default>
+                <label>Comms, QRG &amp; Briefing pack</label>
+            </value>
+            <value>
+                <fullName>Formal Training &amp; support materials</fullName>
+                <default>false</default>
+                <label>Formal Training &amp; support materials</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

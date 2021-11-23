@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Lodgement_points_HVS</masterLabel>
+    <promptVersions>
+        <actionButtonLabel>Click here for more info!</actionButtonLabel>
+        <actionButtonLink>https://google.com</actionButtonLink>
+        <body>&lt;p&gt;&lt;span style=&quot;font-family: &amp;quot;AP Type Text&amp;quot;, sans-serif;&quot;&gt;New functionality has just been introduced that provides you with ability to add one or more Lodgement Points to a Credit&amp;nbsp;Management Request (Work Type = Add Lodgement Point).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: Arial, sans-serif;&quot;&gt;​&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: &amp;quot;AP Type Text&amp;quot;, sans-serif;&quot;&gt;Where four or more lodgement points have been raised to a Credit&amp;nbsp;Management Request, they will be automatically routed to a new queue&amp;nbsp;managed by the Credit Risk team.&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: &amp;quot;AP Type Text&amp;quot;, sans-serif;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;font-family: &amp;quot;AP Type Text&amp;quot;, sans-serif;&quot;&gt;What does this mean for me?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: &amp;quot;AP Type Text&amp;quot;, sans-serif;&quot;&gt;Deal Support Request (DSR) Users/Sales Account Managers - You can add multiple lodgement points utilising new&amp;nbsp;functionality built into the ‘Add lodgement point’&amp;nbsp;credit work type request,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: &amp;quot;AP Type Text&amp;quot;, sans-serif; color: rgb(8, 7, 7);&quot;&gt;rather than creating a new request for each lodgement point you want to add to a related billing account.&lt;/span&gt;&lt;/p&gt;</body>
+        <customApplication>standard__HVSConsole</customApplication>
+        <delayDays>1</delayDays>
+        <displayType>DockedComposer</displayType>
+        <endDate>2021-04-24</endDate>
+        <header>Credit Management Request Upgrade</header>
+        <isPublished>true</isPublished>
+        <masterLabel>Lodgement_points_HVS</masterLabel>
+        <publishedDate>2021-03-22</publishedDate>
+        <shouldDisplayActionButton>true</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
+        <startDate>2021-03-26</startDate>
+        <targetPageKey1>Billing_Account__c</targetPageKey1>
+        <targetPageKey2>view</targetPageKey2>
+        <targetPageType>standard__recordPage</targetPageType>
+        <timesToDisplay>3</timesToDisplay>
+        <title>Adding Multiple Lodgement Points</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

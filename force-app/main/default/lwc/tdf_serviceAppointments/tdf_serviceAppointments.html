@@ -1,0 +1,63 @@
+<!--
+- Created by Alvin on 10/15/21.
+-->
+
+<!-- Tdf Service Appointments -->
+<template>
+	<div class="backgroundInverse" if:true={loading}>
+		<lightning-spinner alternative-text="Loading" variant="inverse"></lightning-spinner>
+	</div>
+
+	<div class="slds-grid slds-wrap">
+		<div class="slds-col slds-size_1-of-2 slds-form-element">
+			<label class="slds-form-element__label">Duty Board</label>
+			<div class="slds-form-element__control">{duty.Name}</div>
+		</div>
+		<div class="slds-col slds-size_1-of-2 slds-form-element">
+			<label class="slds-form-element__label">Date</label>
+			<div class="slds-form-element__control">{dutyDay}</div>
+		</div>
+		<div class="slds-col slds-size_1-of-2 slds-form-element">
+			<label class="slds-form-element__label">Job Detail</label>
+			<div class="slds-form-element_controle">{record.Subject}</div>
+		</div>
+		<div class="slds-col slds-size_1-of-2 slds-form-element">
+			<label class="slds-form-element__label">Address</label>
+			<div class="slds-form-element__control">
+				<lightning-formatted-address
+					street={record.Street}
+					city={record.City}
+					province={record.State}
+					disabled
+				></lightning-formatted-address>
+			</div>
+		</div>
+		<div class="slds-col slds-size_1-of-2 slds-form-element">
+			<div class="slds-form-element__label">Assignd Service Crew or Driver</div>
+			<div class="slds-form-element__control">
+				<lightning-record-edit-form
+					object-api-name="ServiceAppointment"
+					record-id={record.Id}
+				>
+					<lightning-input-field
+						variant="label-hidden"
+						field-name="Primary_SR__c"
+					></lightning-input-field>
+				</lightning-record-edit-form>
+			</div>
+		</div>
+	</div>
+
+	<div if:true={isShowDetail} class="slds-p-top_small">
+		<h1>Related Jobs</h1>
+		<c-tdf_related-duties
+			other-appointments={otherAppointments}
+			record-id={recordId}
+		></c-tdf_related-duties>
+	</div>
+
+	<div class="slds-p-top_small">
+		<lightning-button label="Confirm" onclick={reassign} variant="brand"></lightning-button>
+	</div>
+	<div class="success-msg" if:true={showSuccess}>The Jobs have been resassigned to {driver}!</div>
+</template>

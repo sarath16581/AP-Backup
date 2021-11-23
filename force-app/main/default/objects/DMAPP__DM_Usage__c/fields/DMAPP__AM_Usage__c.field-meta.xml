@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__AM_Usage__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>DMAPP__AM_Details__c + DMAPP__AM_Objectives__c + DMAPP__AM_PPT__c + DMAPP__AM_Settings__c + DMAPP__Opportunity_Map__c + DMAPP__Segmentation_Map__c + DMAPP__Value_Map__c + DMAPP__AM_ScoreCard__c + DMAPP__Plan_Completeness__c + DMAPP__Plan_Clone__c + DMAPP__Coach_Mobile__c + DMAPP__AM_Plan_Setup__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>AM Usage</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

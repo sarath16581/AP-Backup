@@ -1,0 +1,1446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>CMA_CPA_Renew_1st_reminder</fullName>
+        <description>CMA CPA Renew 1st reminder</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Partner_Info_Templates/Partner_Info_CMA_CPA_Renewal_Reminders_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>CMA_CPA_Renew_2nd_reminder</fullName>
+        <description>CMA CPA Renew 2nd reminder</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Partner_Info_Templates/Partner_Info_CMA_CPA_Renewal_Reminders_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>CMA_CPA_Renew_3rd_reminder</fullName>
+        <description>CMA CPA Renew 3rd reminder</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Partner_Info_Templates/Partner_Info_CMA_CPA_Renewal_Reminders_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>CMA_CPA_Renew_final_reminder</fullName>
+        <description>CMA CPA Renew final reminder</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Network_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Partner_Info_Templates/Partner_Info_CMA_CPA_Renewal_Reminders_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Alert_Partner_Info_Effective_From_Date</fullName>
+        <description>Email Alert - Partner Info Effective From Date</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Network_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Partner_Info_Templates/Partner_Info_Licence_Reminders</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_alert_on_Ceased_Facilities</fullName>
+        <ccEmails>andrew.marcato@gmail.com</ccEmails>
+        <description>Email alert on Ceased Facilities</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>andrew.marcato@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/CommunityChgEmailVerOldTemplate</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_for_Active_Licence_Record</fullName>
+        <ccEmails>andrew.marcato@auspost.com.au, surender.miryala2@auspost.com.au</ccEmails>
+        <description>Email for Active Licence Record</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>andrew.marcato@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>DefaultWorkflowUser</senderType>
+        <template>License_Management_Templates/LBP_Active_Licence</template>
+    </alerts>
+    <alerts>
+        <fullName>Partner_Info_Final_Reminder_Alert</fullName>
+        <description>Partner Info Final Reminder Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Email_Templates/Partner_Info_Final_Reminder_Alert</template>
+    </alerts>
+    <alerts>
+        <fullName>Partner_Info_First_Reminder_Alert</fullName>
+        <description>Partner Info First Reminder Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Email_Templates/Partner_Info_First_Reminder_Alert</template>
+    </alerts>
+    <alerts>
+        <fullName>Partner_Info_Licence_Start_Date_is_not_approved_yet</fullName>
+        <description>Partner Info Licence Start Date is not approved yet</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <field>Network_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Australia_Post_Email_Templates/PartnerInfo_Licence_is_Not_Approved_Yet</template>
+    </alerts>
+    <alerts>
+        <fullName>Partner_Info_Notify_Status_Update_of_Licence_assignment</fullName>
+        <description>Partner Info - Notify Status Update of Licence assignment</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Australia_Post_Email_Templates/PartnerInfo_New_Licence_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Partner_Info_Second_Reminder_Alert</fullName>
+        <description>Partner Info Second Reminder Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Email_Templates/Partner_Info_Second_Reminder_Alert</template>
+    </alerts>
+    <alerts>
+        <fullName>Partner_Info_test_email</fullName>
+        <description>Partner Info - test email</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>paul.stamer@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Partner_Info_Templates/Partner_Info_Cease_Licence_Email_For_LBP_related_Networks</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>AgreeMgt_Licence_SetLT_CMA</fullName>
+        <description>When the Record Type is set to Licence CMA, set the Licence Type to CMA</description>
+        <field>Licence_Type__c</field>
+        <literalValue>CMA</literalValue>
+        <name>AgreeMgt-Licence-SetLT-CMA</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_Licence_SetLT_CPA</fullName>
+        <description>When the Record Type is set to Licence CPA, set the Licence Type to CPA</description>
+        <field>Licence_Type__c</field>
+        <literalValue>CPA</literalValue>
+        <name>AgreeMgt-Licence-SetLT-CPA</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_Licence_SetLT_LPO_FLD</fullName>
+        <description>When the Record Type is set to Licence, set the Licence Type to LPO</description>
+        <field>Licence_Type__c</field>
+        <literalValue>LPO</literalValue>
+        <name>AgreeMgt-Licence-SetLT-LPO</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_Licence_SetLT_PP</fullName>
+        <description>When the Record Type is set to Licence PP, set the Licence Type to PP</description>
+        <field>Licence_Type__c</field>
+        <literalValue>PP</literalValue>
+        <name>AgreeMgt-Licence-SetLT-PP</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>CMA_CPA_Ceased</fullName>
+        <description>Updated Licence Status to ceased 6PM on Assignment Effective To Date</description>
+        <field>Licence_Status__c</field>
+        <literalValue>Ceased</literalValue>
+        <name>CMA CPA Ceased</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Email_Electronic_Op_In_NO</fullName>
+        <field>Email_Electronic_Opt_In__pc</field>
+        <literalValue>NO</literalValue>
+        <name>Update Email/Electronic Op In: NO</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Holding_User</fullName>
+        <field>OwnerId</field>
+        <lookupValue>holding.user@auspost.com.au</lookupValue>
+        <lookupValueType>User</lookupValueType>
+        <name>Holding User</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Activate_Licence_Status</fullName>
+        <field>Licence_Status__c</field>
+        <literalValue>Active</literalValue>
+        <name>Partner Info Activate Licence Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Approved_Licence_Status</fullName>
+        <field>Licence_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Partner Info Approved Licence Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Ceased_Licence_Status</fullName>
+        <field>Licence_Status__c</field>
+        <literalValue>Ceased</literalValue>
+        <name>Partner Info Ceased Licence Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Draft_Licence_Status</fullName>
+        <field>Licence_Status__c</field>
+        <literalValue>Draft</literalValue>
+        <name>Partner Info Draft Licence Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Field_update_Is_a_Facility</fullName>
+        <description>Update Is a Facility flag from False to True</description>
+        <field>Is_a_facility__c</field>
+        <literalValue>1</literalValue>
+        <name>Partner Info Field update Is a Facility</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Pending_Licence_Status</fullName>
+        <field>Licence_Status__c</field>
+        <literalValue>Pending</literalValue>
+        <name>Partner Info Pending Licence Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Rejected_Licence_Status</fullName>
+        <field>Licence_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Partner Info Rejected Licence Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Set_App_Status_NA_Approved</fullName>
+        <description>Set the Approval Status to Not Activated Approved</description>
+        <field>Approval_Status__c</field>
+        <literalValue>Not Activated Approved</literalValue>
+        <name>Partner Info Set App Status NA Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Set_App_Status_Pend_Cease_A</fullName>
+        <description>Set Approval Status to Pending Cease Approval</description>
+        <field>Approval_Status__c</field>
+        <literalValue>Pending Cease Approval</literalValue>
+        <name>Partner Info Set App Status Pend Cease A</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Set_App_Status_Pend_NA</fullName>
+        <description>Set Approval Status to Pending Not Activated Approval</description>
+        <field>Approval_Status__c</field>
+        <literalValue>Pending Not Activated Approval</literalValue>
+        <name>Partner Info Set App Status Pend NA</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Set_Appr_Status_to_Approved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Partner Info Set Appr Status to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Set_Appr_Status_to_Cease_Ap</fullName>
+        <description>Set the Approval Status to Cease Approved</description>
+        <field>Approval_Status__c</field>
+        <literalValue>Cease Approved</literalValue>
+        <name>Partner Info Set Appr Status to Cease Ap</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Set_Appr_Status_to_Pending</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Pending</literalValue>
+        <name>Partner Info Set Appr Status to Pending</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Set_Appr_Status_to_Rejected</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Partner Info Set Appr Status to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Set_Appr_Status_to_null</fullName>
+        <description>Set the Approval Status to null</description>
+        <field>Approval_Status__c</field>
+        <name>Partner Info Set Appr Status to null</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Set_Licence_Status_to_Not_A</fullName>
+        <description>Set Licence Status to Not Activated</description>
+        <field>Licence_Status__c</field>
+        <literalValue>Not Activated</literalValue>
+        <name>Partner Info Set Licence Status to Not A</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Set_Not_Act_Reason_to_null</fullName>
+        <description>Set Not Activated Reason field to null</description>
+        <field>Not_Activated_Reason__c</field>
+        <name>Partner Info Set Not Act Reason to null</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Set_Term_Reason_to_null</fullName>
+        <description>Reset the Termination reason</description>
+        <field>Termination_Reason__c</field>
+        <name>Partner Info Set Term Reason to null</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Suspended_No_Fees_Licence</fullName>
+        <field>Licence_Status__c</field>
+        <literalValue>Suspended Without Fees</literalValue>
+        <name>Partner Info Suspended No Fees Licence</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Suspended_With_Fees_Licence</fullName>
+        <field>Licence_Status__c</field>
+        <literalValue>Suspended With Fees</literalValue>
+        <name>Partner Info Suspended With Fees Licence</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Phase_2_Update_Integration_Mod_Date</fullName>
+        <field>Integration_Mod_Date__c</field>
+        <formula>LastModifiedDate</formula>
+        <name>Phase 2 - Update Integration Mod Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_Description</fullName>
+        <field>Hidden_Description__pc</field>
+        <formula>LEFT( Description,1)</formula>
+        <name>Poplulate Description</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Privacy_Marketing_Opt_Out_No</fullName>
+        <field>Privacy_Marketing_Opt_Out__pc</field>
+        <literalValue>NO</literalValue>
+        <name>Update Privacy Marketing Opt Out: No</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Prospect_Holding_Role</fullName>
+        <field>Holding_Role__c</field>
+        <literalValue>Prospect</literalValue>
+        <name>Prospect Holding Role</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>RFCC_Update_WCIS_Code_WF</fullName>
+        <field>WCIS_Code_Searchable__c</field>
+        <formula>Network_Facility__r.Org_ID__c</formula>
+        <name>RFCC - Update WCIS Code WF</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Reporting_Email_Provided_PA</fullName>
+        <field>EmailProvided__pc</field>
+        <literalValue>1</literalValue>
+        <name>SSSW - Reporting - Email Provided PA</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Set_Service_SLA_to_SMB</fullName>
+        <field>ServiceSLA__c</field>
+        <literalValue>SMB</literalValue>
+        <name>SSSW - Set Service SLA to SMB</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Update_Isduplicate_Date</fullName>
+        <field>IsDuplicateDate__pc</field>
+        <formula>NOW()</formula>
+        <name>SSSW - Update Isduplicate Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Assignment_Effective_To_Date</fullName>
+        <description>Set Assignment Effective To Date to 3 years from Assignment Effective From Date on CMA CPA Licence when not Active or Rejected or Cease Approved</description>
+        <field>Assignment_Effective_To_Date__c</field>
+        <formula>ADDMONTHS( Assignment_Effective_From_Date__c ,36)</formula>
+        <name>Set Assignment Effective To Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Service_SLA_to_MyPost_Business</fullName>
+        <description>Sets Service SLA field to MyPost Business Accounts, trigger by Workflow</description>
+        <field>ServiceSLA__c</field>
+        <literalValue>MyPost Business</literalValue>
+        <name>Set Service SLA to MyPost Business</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateCreatorProfile</fullName>
+        <description>Used by workflow - sets to profile of user creating record.</description>
+        <field>CreatorProfile__c</field>
+        <formula>$Profile.Name</formula>
+        <name>Update Creator Profile</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Customer_Number</fullName>
+        <field>AccountNumber</field>
+        <formula>(CASE( Role_Type_Roll_Up__c , 
+&quot;Customer&quot;, &quot;Cus&quot;,
+&quot;Partner&quot;, &quot;Par&quot;, 
+&quot;Prospect&quot;, &quot;Pro&quot;,
+&quot;Known&quot;, &quot;Kno&quot;,
+&quot;Non Account Customer&quot;, &quot;NAC&quot;,
+&quot;&quot;)) &amp; &quot; &quot; &amp; (SUBSTITUTE(TEXT(Customer_Number__c), &quot; , &quot;,  &quot; &quot;))</formula>
+        <name>Update Org Number to Aus Post format</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Do_Not_Call_True</fullName>
+        <field>PersonDoNotCall</field>
+        <literalValue>1</literalValue>
+        <name>Update Do Not Call: True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Do_Not_Call_True1</fullName>
+        <field>PersonDoNotCall</field>
+        <literalValue>1</literalValue>
+        <name>Update Do Not Call: True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Do_Not_Mail_True</fullName>
+        <field>Do_Not_Mail__pc</field>
+        <literalValue>1</literalValue>
+        <name>Update Do Not Mail: True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Email_Elect_Opt_In</fullName>
+        <field>Email_Electronic_Opt_In__pc</field>
+        <literalValue>NO</literalValue>
+        <name>Update Email/ Elect Opt In</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Email_Opt_Out_False</fullName>
+        <field>PersonHasOptedOutOfEmail</field>
+        <literalValue>0</literalValue>
+        <name>Update Email Opt Out: False</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Email_Opt_Out_True</fullName>
+        <field>PersonHasOptedOutOfEmail</field>
+        <literalValue>1</literalValue>
+        <name>Update Email Opt Out: True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Fax_Opt_Out_True</fullName>
+        <field>PersonHasOptedOutOfFax</field>
+        <literalValue>1</literalValue>
+        <name>Update Fax Opt Out: True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Frequency</fullName>
+        <field>FrequencyTest__c</field>
+        <formula>(CASE(Account_Owner_Role_Group__c , &quot;Key Accounts Partner&quot;, 
+IF(Total_Budget__c &gt;= 1, 4, 12), 
+
+CASE(Account_Owner_Role_Group__c , &quot;Medium&quot;, 
+IF(Total_Budget__c &gt;= 1000000, 4, 
+IF(AND(Total_Budget__c &gt;= 500000, Total_Budget__c &lt; 1000000), 4, 
+IF(AND(Total_Budget__c &gt;= 250000, Total_Budget__c &lt; 500000), 6, 
+IF(AND(Total_Budget__c &gt;= 72000, Total_Budget__c &lt; 250000), 8, 
+IF(AND(Total_Budget__c &gt;= 1, Total_Budget__c &lt; 72000), 10, 12))))), 
+
+CASE(Account_Owner_Role_Group__c , &quot;Small&quot;, 
+IF(Total_Budget__c &gt;= 60000, 4, 
+IF(AND(Total_Budget__c &gt;= 40000, Total_Budget__c &lt; 59999), 8, 
+IF(AND(Total_Budget__c &gt;= 30000, Total_Budget__c &lt; 39999), 10, 
+IF(AND(Total_Budget__c &gt;= 10000, Total_Budget__c &lt; 29999), 12, 26)))), 0))))*7</formula>
+        <name>Update Frequency</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_the_Date_of_Change</fullName>
+        <field>Date_Account_Manager_Sales_Team_Changed__c</field>
+        <formula>TODAY()</formula>
+        <name>Update the Date of Change</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <flowActions>
+        <fullName>ANZSIC_Update_Account_Industry_Business_Sub_Category</fullName>
+        <description>Flow Trigger calls Autolaunched flow to update the Account fields such as &apos;Industry&apos;, &apos;Business Category&apos;, &apos;Business Sub Category&apos; based on the corresponding ANZSIC fields in the Flow Trigger parameter.</description>
+        <flow>ANZSIC_Updates_Account_Industry_Business_Sub_Category</flow>
+        <flowInputs>
+            <name>ANZSIC_Default_Business_Category</name>
+            <value>{!ANZSIC_Code__r.Default_Business_Category__c}</value>
+        </flowInputs>
+        <flowInputs>
+            <name>ANZSIC_Default_Business_Sub_Category</name>
+            <value>{!ANZSIC_Code__r.Default_Business_Sub_Category__c}</value>
+        </flowInputs>
+        <flowInputs>
+            <name>ANZSIC_Default_Industry</name>
+            <value>{!ANZSIC_Code__r.Default_Industry__c}</value>
+        </flowInputs>
+        <flowInputs>
+            <name>recordId</name>
+            <value>{!Id}</value>
+        </flowInputs>
+        <label>ANZSIC - Update Account Industry/Business/Sub-Category</label>
+        <language>en_US</language>
+        <protected>false</protected>
+    </flowActions>
+    <outboundMessages>
+        <fullName>SAP_Sync_Customer</fullName>
+        <apiVersion>30.0</apiVersion>
+        <description>SSSW</description>
+        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/Services/CustomerManagement/SyncCustomer</endpointUrl>
+        <fields>APCN__pc</fields>
+        <fields>CRMCSSOID__pc</fields>
+        <fields>ClickAndSendID__pc</fields>
+        <fields>Fax</fields>
+        <fields>FirstName</fields>
+        <fields>Id</fields>
+        <fields>LastModifiedDate</fields>
+        <fields>LastName</fields>
+        <fields>LegalFirstName__pc</fields>
+        <fields>LegalLastName__pc</fields>
+        <fields>Legal_Marketing_Opt_In__pc</fields>
+        <fields>MRSID__pc</fields>
+        <fields>MailingStreet2__pc</fields>
+        <fields>PersonEmail</fields>
+        <fields>PersonHomePhone</fields>
+        <fields>PersonMailingCity</fields>
+        <fields>PersonMailingCountry</fields>
+        <fields>PersonMailingPostalCode</fields>
+        <fields>PersonMailingState</fields>
+        <fields>PersonMailingStreet</fields>
+        <fields>PersonMobilePhone</fields>
+        <fields>PersonOtherCity</fields>
+        <fields>PersonOtherCountry</fields>
+        <fields>PersonOtherPostalCode</fields>
+        <fields>PersonOtherState</fields>
+        <fields>PersonOtherStreet</fields>
+        <fields>PersonOtherStreet2__c</fields>
+        <fields>Preferred_Name__pc</fields>
+        <fields>RightNowID__pc</fields>
+        <fields>UMCSID__pc</fields>
+        <fields>VerifiedMobile__pc</fields>
+        <includeSessionId>true</includeSessionId>
+        <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
+        <name>SSSW - SAP Sync Customer</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>true</useDeadLetterQueue>
+    </outboundMessages>
+    <rules>
+        <fullName>AgreeMgt-Licence-SetLT-CMA</fullName>
+        <actions>
+            <name>AgreeMgt_Licence_SetLT_CMA</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Licence CMA</value>
+        </criteriaItems>
+        <description>When the Record Type is set to Licence CMA, set the Licence Type to CMA</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>AgreeMgt-Licence-SetLT-CPA</fullName>
+        <actions>
+            <name>AgreeMgt_Licence_SetLT_CPA</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Licence CPA</value>
+        </criteriaItems>
+        <description>When the Record Type is set to Licence CPA, set the Licence Type to CPA</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>AgreeMgt-Licence-SetLT-LPO</fullName>
+        <actions>
+            <name>AgreeMgt_Licence_SetLT_LPO_FLD</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Licence</value>
+        </criteriaItems>
+        <description>When the Record Type is set to Licence, set the Licence Type to LPO</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>AgreeMgt-Licence-SetLT-PP</fullName>
+        <actions>
+            <name>AgreeMgt_Licence_SetLT_PP</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Licence PP</value>
+        </criteriaItems>
+        <description>When the Record Type is set to Licence PP, set the Licence Type to PP</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Coverage Freq Calculated Freq</fullName>
+        <actions>
+            <name>Update_Frequency</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>NOT(ISBLANK(Total_Budget__c))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Date of Acct Manager%2FSales Team Change</fullName>
+        <actions>
+            <name>Update_the_Date_of_Change</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This workflow will push the date that the Change was made for the Account Manager or Sales Team as per the Sales Coverage Change Request.</description>
+        <formula>OR(ISCHANGED( OwnerId ), ISCHANGED( Sales_Segment__c ))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Email Electronic Opt - YES</fullName>
+        <actions>
+            <name>Privacy_Marketing_Opt_Out_No</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Email_Opt_Out_False</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.Email_Electronic_Opt_In__pc</field>
+            <operation>equals</operation>
+            <value>YES</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Email Opt Out%3A True</fullName>
+        <actions>
+            <name>Update_Email_Elect_Opt_In</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.PersonHasOptedOutOfEmail</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>LBP Active Licence Assignment</fullName>
+        <actions>
+            <name>Email_for_Active_Licence_Record</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>Designed to alert the LBP admin team where a Facility record is marked as Active AND the related Network record (via the facility record) is currently set to Tier 1OR2 in the LBP fields.</description>
+        <formula>RecordType.Name = &quot;Licence&quot; &amp;&amp;    ISPICKVAL( Licence_Type__c , &quot;LPO&quot;) &amp;&amp;   ISPICKVAL( Licence_Status__c , &quot;Active&quot;) &amp;&amp;    OR(  ISPICKVAL( Facility__r.Network_Facility__r.LBP_Retail_relationship_type_network__c  , &quot;Tier 1&quot;),  ISPICKVAL( Facility__r.Network_Facility__r.LBP_Retail_relationship_type_network__c  , &quot;Tier 2&quot;))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>LBP Ceased Assignment</fullName>
+        <actions>
+            <name>Email_alert_on_Ceased_Facilities</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <description>Designed to alert the LBP admin team where a Facility is Ceased</description>
+        <formula>RecordType.Name = &quot;Licence&quot; &amp;&amp;    ISPICKVAL( Licence_Type__c , &quot;LPO&quot;) &amp;&amp;   ISPICKVAL( Licence_Status__c , &quot;Ceased&quot;) &amp;&amp;    OR(  ISPICKVAL( Facility__r.Network_Facility__r.LBP_Retail_relationship_type_network__c  , &quot;Tier 1&quot;),  ISPICKVAL( Facility__r.Network_Facility__r.LBP_Retail_relationship_type_network__c  , &quot;Tier 2&quot;))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>MpbHsp Set Account Service SLA</fullName>
+        <actions>
+            <name>Set_Service_SLA_to_MyPost_Business</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.Known_Party_Role_Count__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </criteriaItems>
+        <description>This sets the Service SLA field for Accounts based on count of Role records with Role Type = &quot;Known&quot;</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Partner CMA CPA Cease Licence Automatic</fullName>
+        <active>true</active>
+        <description>Update Licence Status to Ceased when Assignment Effective To Date has passed for CMA CPA</description>
+        <formula>AND(OR(RecordType.DeveloperName = &apos;Licence_CMA&apos;,RecordType.DeveloperName = &apos;Licence_CPA&apos;),  NOT(ISPICKVAL(Approval_Status__c, &apos;Cease Approved&apos;)),  ISPICKVAL( Licence_Status__c , &apos;Active&apos;),  NOT(ISNULL( Assignment_Effective_To_Date__c )))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>CMA_CPA_Ceased</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Account.Assignment_Effective_To_Date__c</offsetFromField>
+            <timeLength>18</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Partner CMA CPA End Date</fullName>
+        <actions>
+            <name>Set_Assignment_Effective_To_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Set the Assignment Effective To Date on CMA CPA when Start Date is changed.</description>
+        <formula>OR( AND(ISNEW(), OR(RecordType.Name = &apos;Licence CPA&apos;, RecordType.Name = &apos;Licence CMA&apos;), NOT(ISNULL( Assignment_Effective_From_Date__c ) )) , AND(ISCHANGED( Assignment_Effective_From_Date__c ), OR(ISPICKVAL(Approval_Status__c , &apos;Approved&apos;), ISPICKVAL( Licence_Status__c , &apos;Draft&apos;)),OR(RecordType.Name = &apos;Licence CPA&apos;, RecordType.Name = &apos;Licence CMA&apos;), NOT(ISPICKVAL( Licence_Status__c ,&apos;Active&apos;)), NOT(ISNULL(Assignment_Effective_From_Date__c))))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Partner CMA CPA Renew reminder</fullName>
+        <active>true</active>
+        <description>Reminders to State admin 6, 3, 1 months and 7 days before Assignment effective to Date.</description>
+        <formula>AND(OR(RecordType.Name = &apos;Licence CPA&apos;, RecordType.Name = &apos;Licence CMA&apos;) ,  NOT(ISNULL(Assignment_Effective_To_Date__c)) , ISPICKVAL( Licence_Status__c , &apos;Active&apos;))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>CMA_CPA_Renew_1st_reminder</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Account.Assignment_Effective_To_Date__c</offsetFromField>
+            <timeLength>-180</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+        <workflowTimeTriggers>
+            <actions>
+                <name>CMA_CPA_Renew_3rd_reminder</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Account.Assignment_Effective_To_Date__c</offsetFromField>
+            <timeLength>-30</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+        <workflowTimeTriggers>
+            <actions>
+                <name>CMA_CPA_Renew_final_reminder</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Account.Assignment_Effective_To_Date__c</offsetFromField>
+            <timeLength>-7</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+        <workflowTimeTriggers>
+            <actions>
+                <name>CMA_CPA_Renew_2nd_reminder</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Account.Assignment_Effective_To_Date__c</offsetFromField>
+            <timeLength>-90</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Partner Info Activate Licence</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Licence,Licence CMA,Licence CPA,Licence PP</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <description>If the Licence is approved, then schedule its activation to be triggered after 18 hours on its start date.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Partner_Info_Activate_Licence_Status</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Account.Assignment_Effective_From_Date__c</offsetFromField>
+            <timeLength>18</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Partner Info Cease Licence</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Licence,Licence PP,Licence CMA,Licence CPA</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Cease Approved</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Assignment_Effective_To_Date__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Workflow to capture licence cease and set up the time trigger for status change</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Partner_Info_Ceased_Licence_Status</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Account.Assignment_Effective_To_Date__c</offsetFromField>
+            <timeLength>18</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Partner Info Cease Licence Email</fullName>
+        <actions>
+            <name>Partner_Info_test_email</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.Related_Networks_LBP_Relationship_Type__c</field>
+            <operation>equals</operation>
+            <value>Tier 1,Tier 2</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Licence_Status__c</field>
+            <operation>equals</operation>
+            <value>Ceased</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Partner Info Is a Facility Update</fullName>
+        <actions>
+            <name>Partner_Info_Field_update_Is_a_Facility</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Facility,Facility CPA,Facility CMA</value>
+        </criteriaItems>
+        <description>Upon conversion update Is a facility flag = True</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Partner Info Licence Approval Pending</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Licence,Licence PP,Licence CMA,Licence CPA</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Licence_Status__c</field>
+            <operation>equals</operation>
+            <value>Pending</value>
+        </criteriaItems>
+        <description>If Licence start date is due in 7 days and it is still in Pending status, then send an email to State Admin and the Network Manager.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Partner_Info_Licence_Start_Date_is_not_approved_yet</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Account.Assignment_Effective_From_Date__c</offsetFromField>
+            <timeLength>-7</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Partner Info Licence Final Reminder</fullName>
+        <actions>
+            <name>Partner_Info_Final_Reminder_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Licence</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Final Reminder Sent</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Email__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Send Final Reminder to Licence</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Partner Info Licence First Reminder</fullName>
+        <actions>
+            <name>Partner_Info_First_Reminder_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Licence</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>First Reminder Sent</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Email__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Send First Reminder to Licence</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Partner Info Licence Reminders</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Licence</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <description>Notification on Assignment Effective From Date on Licence</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Email_Alert_Partner_Info_Effective_From_Date</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Account.Assignment_Effective_From_Date__c</offsetFromField>
+            <timeLength>-6</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Partner Info Licence Second Reminder</fullName>
+        <actions>
+            <name>Partner_Info_Second_Reminder_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Licence</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Second Reminder Sent</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Email__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Send Second Reminder to Licence</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Partner Info Resume Licence</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Licence</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Suspend End Approved</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Interrupted_End_Date__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Workflow to capture licence resume and set up the time trigger for status change</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Partner_Info_Activate_Licence_Status</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Account.Interrupted_End_Date__c</offsetFromField>
+            <timeLength>18</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Partner Info Suspend With Fees Licence</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Licence</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Suspend With Fees Start Approved</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Interrupted_Start_Date__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Workflow to capture licence Suspension With Fees</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Partner_Info_Suspended_With_Fees_Licence</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Account.Interrupted_Start_Date__c</offsetFromField>
+            <timeLength>18</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Partner Info Suspend Without Fees Licence</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Licence</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Suspend Without Fees Start Approved</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Interrupted_Start_Date__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Workflow to capture licence Suspension Without Fees</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Partner_Info_Suspended_No_Fees_Licence</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Account.Interrupted_Start_Date__c</offsetFromField>
+            <timeLength>18</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Phase 2 - Integration Modified Date</fullName>
+        <actions>
+            <name>Phase_2_Update_Integration_Mod_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>NOT(OR(ISCHANGED(Total_Actual_Revenue__c),ISCHANGED(Total_Budget__c),ISCHANGED(Total_OPC_Revenue__c),ISCHANGED(Roll_up_Billing_Accounts__c),ISCHANGED(Total_Credit_Amount__c),ISCHANGED(Total_Rebate_Amount__c),ISCHANGED(MTD_Revenue_Last_Year__c),ISCHANGED(MTD_Target__c),ISCHANGED(MTD_Actual__c)))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 - date stamp for ABN Change</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.CreatedById</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 - date stamp for ACN Change</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.CreatedById</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 - populate hidden description on Person Account</fullName>
+        <actions>
+            <name>Populate_Description</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.CreatedById</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>so they can used in the scoring formulas</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Privacy %2F Marketing Opt - Out</fullName>
+        <actions>
+            <name>Email_Electronic_Op_In_NO</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Do_Not_Call_True1</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Do_Not_Mail_True</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Email_Opt_Out_True</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Fax_Opt_Out_True</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.Privacy_Marketing_Opt_Out__pc</field>
+            <operation>equals</operation>
+            <value>YES</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>RFCC - Update WCIS Code</fullName>
+        <actions>
+            <name>RFCC_Update_WCIS_Code_WF</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This workflow rule is triggered when facility record in Account object (organisation) to update the &quot;WCIS Code - Searchable&quot; field from the WCIS Code field.</description>
+        <formula>NOT( ISBLANK(Network_Facility__c ) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Customer Sync</fullName>
+        <actions>
+            <name>SAP_Sync_Customer</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <description>This outbound message propagates Person Account data back to SAP-CRM.</description>
+        <formula>AND( 	OR( 		AND( 			$Profile.Name != &quot;AusPost Integration&quot;, 			ISBLANK(CRMCSSOID__pc) 		), 		AND( 			$Profile.Name = &quot;AusPost Integration&quot;, 			CONTAINS($User.Username, &quot;jithandler@auspost.com.au&quot;) 		) 	), 	RecordType.Name = &quot;Consumer&quot;, 	NOT(CONTAINS(FirstName, &quot;*&quot;)), 	NOT(CONTAINS(LastName, &quot;*&quot;)), 	OR( 		ISNEW(),  		ISCHANGED(LegalFirstName__pc),  		ISCHANGED(LegalLastName__pc), 		ISCHANGED(Preferred_Name__pc), 		ISCHANGED(PersonHomePhone), 		ISCHANGED(PersonMobilePhone), 		ISCHANGED(Fax), 		ISCHANGED(PersonMailingStreet), 		ISCHANGED(MailingStreet2__pc), 		ISCHANGED(PersonMailingCity), 		ISCHANGED(PersonMailingState), 		ISCHANGED(PersonMailingPostalCode), 		ISCHANGED(PersonMailingCountry), 		ISCHANGED(PersonOtherStreet), 		ISCHANGED(PersonOtherStreet2__c), 		ISCHANGED(PersonOtherCity), 		ISCHANGED(PersonOtherState), 		ISCHANGED(PersonOtherPostalCode), 		ISCHANGED(PersonOtherCountry), 		ISCHANGED(Legal_Marketing_Opt_In__pc), 		AND( 			ISCHANGED(PersonEmail), 			PersonEmail != &apos;unknown@email.com&apos; 		) 	) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Default SLA for Business Customer</fullName>
+        <actions>
+            <name>SSSW_Set_Service_SLA_to_SMB</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <field>Account.ServiceSLA__c</field>
+            <operation>notEqual</operation>
+            <value>Gold,Enterprise,SMB</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Role_Type_Roll_Up__c</field>
+            <operation>equals</operation>
+            <value>Customer</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - IsDuplicate PA</fullName>
+        <actions>
+            <name>SSSW_Update_Isduplicate_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.IsDuplicate__pc</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Reporting - Email Provided PA</fullName>
+        <actions>
+            <name>SSSW_Reporting_Email_Provided_PA</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.PersonEmail</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Set Creator Profile Field - Account</fullName>
+        <actions>
+            <name>UpdateCreatorProfile</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Used by workflow - sets to profile of user creating record.</description>
+        <formula>True</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Account ANZSIC Code Mapping</fullName>
+        <actions>
+            <name>ANZSIC_Update_Account_Industry_Business_Sub_Category</name>
+            <type>FlowAction</type>
+        </actions>
+        <active>true</active>
+        <description>Rule to check if changes have been made to ANZSIC Code lookup field on the Account and if &apos;Industry ANZSIC Override&apos; flag is not ticked. If Criteria is met, trigger a Flow to update the Industry, Business Category, Business Sub-Category on Account.</description>
+        <formula>AND (ISCHANGED(ANZSIC_Code__c), NOT(Industry_ANZSIC_Override__c),  Role_Type_Roll_Up__c == &apos;Customer&apos; )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Customer Number</fullName>
+        <actions>
+            <name>Update_Customer_Number</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.Customer_Number__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Update the Customer Number to Auspost Format</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

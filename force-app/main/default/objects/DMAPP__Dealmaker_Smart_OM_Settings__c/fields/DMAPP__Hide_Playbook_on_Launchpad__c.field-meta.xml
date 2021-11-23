@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Hide_Playbook_on_Launchpad__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field controls whether to hide the Sales Process icon on the Dealmaker Launchpad in the Opportunity Detail screen (only relevant where users have a license to Sales Process). You may choose to hide this if you opt to add the Sales Process Launchpad Visualforce page.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field controls whether to hide the Playbook icon on the Dealmaker Launchpad in the Opportunity Detail screen (only relevant where users have a license to Playbook). You may choose to hide this if you opt to add the Playbook Launchpad Visualforce page</inlineHelpText>
+    <label>Hide Sales Process on Launchpad</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

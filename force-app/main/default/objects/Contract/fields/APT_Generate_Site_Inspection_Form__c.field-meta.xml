@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Generate_Site_Inspection_Form__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (NOT( ISBLANK(APT_Site_Inspection__c )), HYPERLINK(&quot;apex/APT_GenerateOperationalSchedule?parentId=&quot; &amp;Id &amp;&quot;&amp;templateID=&quot;+ $Label.APT_SiteInspectionTemplateId +&quot;&amp;docFormat=DOC&quot;, IMAGE(&quot;/resource/APT_GenerateSiteInspectionForm&quot;, &quot;Generate&quot;),&quot;_self&quot;), NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Create Site Inspection Form</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deal_Enablement_Centre</fullName>
+    <active>false</active>
+    <businessProcess>Deal Enablement Centre</businessProcess>
+    <description>To be used to raise cases for Sales Contract Management related enquires</description>
+    <label>Deal Enablement Centre</label>
+    <picklistValues>
+        <picklist>APT_Payment_Terms__c</picklist>
+        <values>
+            <fullName>14 days</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>21 days</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Affected_System__c</picklist>
+        <values>
+            <fullName>Integration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salesforce</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sharepoint</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Business_Benefit__c</picklist>
+        <values>
+            <fullName>Improved Useability</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CHASEnquiryType__c</picklist>
+        <values>
+            <fullName>Complaints %26 feedback</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivery issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail redirection %26 hold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Missing or lost item</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Products %26 services</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Case_Reason__c</picklist>
+        <values>
+            <fullName>Campaign</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lead</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Organisations and Individuals</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Change_Control_Board_Approval_Required__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Complaint__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Initiating_Area__c</picklist>
+        <values>
+            <fullName>Business Hub</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Legal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Processing Team</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Revenue Protection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Issue_Resolution__c</picklist>
+        <values>
+            <fullName>Add as Project Team Member</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cannot Upload Document</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Close Workspace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Configuration Issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Correct Customer Email in DocuSign</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Data Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dataload request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Data</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Login Issue %2F Reset Password request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Minor Configuration update</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Misunderstanding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OPC Exception Resolved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OPC Sales Exception Resolved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PDF Generation issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reports and Dashboards</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAMS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SCCR Related</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salesforce for Outlook</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>System Error Message</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Upgrade equipment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Upload QRG %2F SOPs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Verify Signature Task Status</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web-To-Lead</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Origin</picklist>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Person</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salesforce</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Product_Type__c</picklist>
+        <values>
+            <fullName>Community Update</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Courier</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct Access</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fulfilio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail Collection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>On Demand</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PrintPost</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SecurePost</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UMS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workforce Verification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason</picklist>
+        <values>
+            <fullName>Compliance Check Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Missing page%28s%29 in Contract Document</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New instead of DOV%2FRenewal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No valid account available</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing Schedule Issue</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_Code__c</picklist>
+        <values>
+            <fullName>Competitive Win</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Product Classification %E2%80%93 No Revenue found LFY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Product Classification %E2%80%93 Revenue found LFY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lodgement on Business Partner Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Decline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renewal classification found for product but no Growth record exist</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Subsidiaries and Joint Ventures</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Refer_to_Third_Party__c</picklist>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Resolution_Result__c</picklist>
+        <values>
+            <fullName>Damaged %26 Missing Contents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delayed%2FLate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disputed delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Futile Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost in transit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>POD Provided</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Redirected%2FIntercept</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Resolution_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Resolution__c</picklist>
+        <values>
+            <fullName>System Error Message</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Role__c</picklist>
+        <values>
+            <fullName>Initiated By</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SMEs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sponsor</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Service_Type__c</picklist>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tailgate</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Solution_Complexity__c</picklist>
+        <values>
+            <fullName>Advanced Admin Task</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Basic Admin Function</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Code Update</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Integration Update</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Code</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Integration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>User%2FSystem Maintenance</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Stage__c</picklist>
+        <values>
+            <fullName>Analyse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Define</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Design</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Develop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Implement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Test</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Support_Work_Type__c</picklist>
+        <values>
+            <fullName>Deal Enablement Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deal Processing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renewals Management</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>System__c</picklist>
+        <values>
+            <fullName>Ariba</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salesforce for Outlook</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salesforce%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SharePoint</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Sales Contract Consulting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Contract Processing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel Onboarding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_and_Product__c</picklist>
+        <values>
+            <fullName>General Enquiry%7CDomestic Parcels</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>User_Impact_Rating__c</picklist>
+        <values>
+            <fullName>Comms %26 QRG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comms required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comms%2C QRG %26 Briefing pack</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Formal Training %26 support materials</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No impact to end users</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Work_Type__c</picklist>
+        <values>
+            <fullName>Addendum%2FDOV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agreement Renewal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Billing Account%2FSub Account Entry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Compliance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Copy of Contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extensions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lodgement Points</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Agreement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Proposal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Open Ended Contract Exclusion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pre Entry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Termination of Contract</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

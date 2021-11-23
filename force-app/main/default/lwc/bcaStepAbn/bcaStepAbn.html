@@ -1,0 +1,170 @@
+<!--
+/* @author
+* @date 2020-12-10
+* @channel Credit Application
+* @tag Credit Application
+* @description: Step in Credit Application Form to input ABN/ACN
+* @changelog
+* 2020-12-10 vcheng@salesforce.com Created
+* 2020-03-01 vcheng@salesforce.com Created
+*/
+-->
+
+<!-- Bca Step Abn -->
+<template>
+    <div class="slds-is-relative">
+        <div class="form-outer-box">
+            <div class="form-inner-box-wide">
+                <div class="inner-form-padding flex-column">
+                    <label class="slds-form-element__label slds-no-flex abcn-search-label">Search for ABN</label>
+                    <!-- Field Level Error Message -->
+                    <template if:true={abnFieldError}>
+                        <div class="slds-form-element__help slds-text-color_error" role="alert">{abnFieldError}</div>
+                    </template>
+
+                    <!-- Input -->
+                    <div class="search-aligned-input">
+                        <lightning-input name="abn" data-id="abn" class={abnSearchInputClass}
+                                value={formattedABN} max-length="14" onkeydown={enforceFormat} onchange={onChangeField}>
+                        </lightning-input>
+            
+                        <button class={abnSearchBtnClass} onclick={onClickSearchAbn} title="search" aria-label="search">
+                            <template if:false={abnShowLoader}>
+                                <c-bsp-custom-icons icon="search" size="x-small"></c-bsp-custom-icons>
+                            </template>
+                        </button>
+                    </div>    
+                </div>
+                <p class="input-hint-text inner-form-padding">Enter the 11-digit ABN then click search</p>
+                <template if:true={_abnDetails.ABN}>
+                    <div class="shaded-box slds-p-top_large inner-form-padding">
+                        <div class="slds-grid slds-p-bottom_small">
+                            <div class="slds-col slds-size_1-of-3">
+                                <p>Entity name:</p>
+                            </div>
+                            <div class="slds-col slds-size_2-of-3">
+                                <p class="abn-detail">{_abnDetails.LegalEntityName}</p>
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-p-bottom_small">
+                            <div class="slds-col slds-size_1-of-3">
+                                <p>ABN status:</p>
+                            </div>
+                            <div class="slds-col slds-size_2-of-3">
+                                <p class="abn-detail">{_abnDetails.statusString} from <lightning-formatted-date-time value={_abnDetails.ABNStatusFromDate} year="numeric" month="numeric" day="numeric"> </lightning-formatted-date-time>
+                            </p>
+                            </div>
+                        </div>
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_1-of-3">
+                            <p>Entity type:</p>
+                            </div>
+                            <div class="slds-col slds-size_2-of-3">
+                            <p class="abn-detail">{_abnDetails.EntityTypeText}</p>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <template if:true={hasTradingNames}>
+                        <lightning-combobox label="Trading name" name="tradingName" data-id="tradingName" 
+                            value={_abnDetails.tradingName} options={tradingNames} onchange={onChangeField} 
+                            class="slds-p-top_large inner-form-padding" onkeydown={preventDeletion}>
+                        </lightning-combobox>
+                    </template>
+        
+                    <template if:true={otherTradingName}>
+                        <lightning-input label={tradingNameLabel} name="otherTradingName" data-id="otherTradingName" 
+                            value={_abnDetails.otherTradingName} onchange={onChangeField} onfocusout={handleFocusOut} 
+                            class="slds-p-top_large inner-form-padding" max-length="40" required>
+                        </lightning-input>
+                    </template>
+        
+                    <template if:true={isTrust}>
+                        <lightning-radio-group label="Is the trustee a person or a company?" data-id="trustType" 
+                            name="trustType" onchange={onChangeField} value={_abnDetails.trustType} 
+                            options={trustTypes} type="radio" class="slds-p-top_large inner-form-padding">
+                        </lightning-radio-group>
+                    </template>
+        
+                </template>
+                <template if:true={errorMessage}>
+                    <div class="error-box" role="alert">
+                        <c-bsp-custom-icons icon="warning-alert" size="small" fill="#d61834"></c-bsp-custom-icons><span>{errorMessage}</span>
+                    </div>
+                </template>
+            </div>
+        </div>
+    
+        <template if:true={isTrusteeCompany}>
+            <div class="form-outer-box slds-m-top_medium ">
+                <div class="form-inner-box-wide">
+                    <div class="inner-form-padding flex-column">
+                        <label class="slds-form-element__label slds-no-flex abcn-search-label">Search for Trustee ACN</label>
+                        <!-- Field Level Error Message -->
+                        <template if:true={acnFieldError}>
+                            <div class="slds-form-element__help slds-text-color_error" role="alert">{acnFieldError}</div>
+                        </template>
+                        
+                        <!-- Input -->
+                        <div class="search-aligned-input">
+                            <lightning-input name="acn" data-id="acn" class={acnSearchInputClass}
+                                    value={formattedACN} max-length="11" onkeydown={enforceFormat} onchange={onChangeField}>
+                            </lightning-input>
+                
+                            <button class={acnSearchBtnClass} onclick={onClickSearchAcn} title="search" aria-label="search">
+                                <template if:false={acnShowLoader}>
+                                    <c-bsp-custom-icons icon="search" size="x-small"></c-bsp-custom-icons>
+                                </template>
+                            </button>
+                        </div>   
+                    </div>
+                    <p class="input-hint-text inner-form-padding">Enter a 9-digit Australian Company Number then click search</p>
+        
+                    <template if:true={_abnDetails.acnDetails}>
+                        <div class="shaded-box slds-p-top_large inner-form-padding">
+                            <div class="slds-grid slds-p-bottom_small">
+                                <div class="slds-col slds-size_1-of-3">
+                                    <p>Entity name:</p>
+                                </div>
+                                <div class="slds-col slds-size_2-of-3">
+                                    <p class="abn-detail">{_abnDetails.acnDetails.LegalEntityName}</p>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-p-bottom_small">
+                                <div class="slds-col slds-size_1-of-3">
+                                    <p>ACN status:</p>
+                                </div>
+                                <div class="slds-col slds-size_2-of-3">
+                                    <p class="abn-detail">{_abnDetails.acnDetails.statusString} from <lightning-formatted-date-time value={_abnDetails.acnDetails.ABNStatusFromDate} year="numeric" month="numeric" day="numeric"> </lightning-formatted-date-time>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_1-of-3">
+                                    <p>Entity type:</p>
+                                </div>
+                                <div class="slds-col slds-size_2-of-3">
+                                    <p class="abn-detail">{_abnDetails.acnDetails.EntityTypeText}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <template if:true={hasACNTradingNames}>
+                            <lightning-combobox label="Trading name" name="acnTradingName" data-id="acnTradingName" value={_abnDetails.acnDetails.tradingName} options={acnTradingNames} onchange={onChangeField} class="slds-p-top_large inner-form-padding"
+                            onkeydown={preventDeletion}></lightning-combobox>
+                        </template>
+            
+                        <template if:true={otherACNTradingName}>
+                            <lightning-input label={tradingNameLabel} name="acnOtherTradingName" data-id="acnOtherTradingName" value={_abnDetails.acnDetails.otherTradingName} onchange={onChangeField} onfocusout={handleFocusOut}
+                            class="slds-p-top_large inner-form-padding" max-length="40" required></lightning-input>
+                        </template>
+                    </template>
+                    <template if:true={acnErrorMessage}>
+                        <div class="error-box" role="alert">
+                            <c-bsp-custom-icons icon="warning-alert" size="small" fill="#d61834"></c-bsp-custom-icons><span>{acnErrorMessage}</span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

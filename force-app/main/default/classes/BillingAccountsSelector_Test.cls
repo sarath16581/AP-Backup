@@ -1,0 +1,172 @@
+/**
+ * @author Nathan Franklin
+ * @date 2020-07-10
+ * @group Tests
+ * @description A very simple selector class that sits in the base domain
+ * @changelog
+ * 2020-10-18 - Nathan Franklin - Added tests for selectByAccountNumber.
+ * 2021-08-09 - Seth Heang - Added selectByLikedNameOrderByName test coverage
+ * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
+ */
+@IsTest
+private class BillingAccountsSelector_Test {
+
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectString() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		BillingAccountsSelector selector = BillingAccountsSelector.newInstance();
+		QueryBuilder qb = selector.newQueryBuilder();
+		String soql = qb.toSoqlString();
+
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom billing_account__c\\b').matcher(soql).find(), 'Resulting query does not select from Billing Account');
+
+		Test.stopTest();
+
+	}
+
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		BillingAccountsSelector selector = BillingAccountsSelector.newInstance();
+		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{BillingAccountsSelector.Options.WITH_ORGANISATION});
+		String soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)Organisation__r\\..*?\\bfrom billing_account__c\\b').matcher(soql).find(), 'Resulting query does not select Organisation fields');
+
+		Test.stopTest();
+
+	}
+
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectStringWithFieldOverrides() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		BillingAccountsSelector selector = BillingAccountsSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
+				Billing_Account__c.SObjectType => new Set<SObjectField>{Billing_Account__c.Name, Billing_Account__c.Source_System__c},
+				Account.SObjectType => new Set<SObjectField>{Account.NumberOfEmployees}
+		});
+		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{BillingAccountsSelector.Options.WITH_ORGANISATION, AccountsSelector.Options.WITH_RECORDTYPE});
+		String soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)Organisation__r\\.RecordType\\..*?\\bfrom Billing_Account__c\\b').matcher(soql).find(), 'Resulting query does not select Organisation__r.RecordType fields: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)Organisation__r\\.NumberOfEmployees.*?\\bfrom Billing_Account__c\\b').matcher(soql).find(), 'Resulting query does not select Organisation__r fields: ' + soql);
+		System.assertEquals(false, Pattern.compile('(?ism)Organisation__r\\.Name.*?\\bfrom Billing_Account__c\\b').matcher(soql).find(), 'Resulting selects Organisation__r.Name but it shouldn\'t: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)Source_System__c.*?\\bfrom Billing_Account__c\\b').matcher(soql).find(), 'Resulting query does not select Source_System__c field: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)Name.*?\\bfrom Billing_Account__c\\b').matcher(soql).find(), 'Resulting query does not select Name field: ' + soql);
+
+		Test.stopTest();
+
+	}
+
+	/**
+	 * Executes a query to ensure it returns expected results with actual inserted data
+	 */
+	@IsTest
+	public static void testSelectorIntegration() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
+
+		Account accountRecord = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		accountRecord.LEGACY_ID__c = '60000000';
+		insert accountRecord;
+
+		List<Billing_Account__c> billingAccounts = ApplicationTestDataFactory.getBillingAccounts(2, accountRecord.Id, 'SAP ERP', false);
+		billingAccounts[0].Name = 'MYER Account';
+        insert billingAccounts;
+
+		Set<String> parentLegacyIdSet = new Set<String>();
+		for(Billing_Account__c bill : billingAccounts){
+			parentLegacyIdSet.add(bill.LEGACY_ID__c);
+		}
+
+		Map<Id, Billing_Account__c> mappedBillingAccounts = new Map<Id, Billing_Account__c>(billingAccounts);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		BillingAccountsSelector selector = BillingAccountsSelector.newInstance(1, new Set<SObjectField>());
+		Map<Id, Billing_Account__c> results = selector.selectById(mappedBillingAccounts.keySet());
+		System.assertEquals(1, results.size(), 'Result count was wrong');
+
+		results = selector.selectById(mappedBillingAccounts.keySet(), new Set<Object>{BillingAccountsSelector.Options.WITH_ORGANISATION});
+		System.assertEquals(1, results.size(), 'Result count was wrong');
+		System.assertNotEquals(null, results.values()[0].Organisation__r, 'Expected Organisation__r object');
+
+		selector = BillingAccountsSelector.newInstance(2, new Set<SObjectField>());
+		results = selector.selectByAccountNumber(new Set<String>{billingAccounts[0].LEGACY_ID__c});
+		System.assertEquals(1, results.size(), 'Result count was wrong');
+		System.assertEquals(billingAccounts[0].Id, results.values()[0].Id, 'Result count was wrong');
+
+        results = selector.selectByLikedNameOrderByName(billingAccounts[0].Name);
+        System.assertEquals(1, results.size(), 'Result count was wrong');
+        
+        Map<Id, Billing_Account__c> resultsforBillingAccountwithNumbers = selector.selectByIdorAccountNumber(billingAccounts,parentLegacyIdSet);
+		System.assertEquals(2, resultsforBillingAccountwithNumbers.size(), 'Result count was wrong');
+		Test.stopTest();
+
+	}
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Index xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEPARC__ArchivaNoteIndex</fullName>
+    <fields>
+        <name>CEPARC__Object_Name_Prefix__c</name>
+        <sortDirection>ASC</sortDirection>
+    </fields>
+    <fields>
+        <name>CEPARC__ParentId__c</name>
+        <sortDirection>ASC</sortDirection>
+    </fields>
+    <fields>
+        <name>CEPARC__Id__c</name>
+        <sortDirection>ASC</sortDirection>
+    </fields>
+    <label>Archiva Note Index</label>
+</Index>

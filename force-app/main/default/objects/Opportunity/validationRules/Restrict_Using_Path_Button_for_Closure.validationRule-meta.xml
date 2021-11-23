@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Using_Path_Button_for_Closure</fullName>
+    <active>true</active>
+    <description>Restrict Users to use the Path Button to Close the Opportunity. Redirect them to the Opportunity Closure</description>
+    <errorConditionFormula>AND ( 
+OR( 
+ISPICKVAL( StageName, &apos;Closed Won&apos;),
+ISPICKVAL( StageName, &apos;Closed Lost&apos;),
+ISPICKVAL( StageName, &apos;Closed Disqualified&apos;),
+ISPICKVAL( StageName, &apos;Closed Duplicate&apos;)
+),
+(Hidden_Restrict_Path_Closure__c  = false),
+ISCHANGED(StageName),
+NOT($Permission.BG_Sales_Operations) ,
+NOT($Profile.Name = &quot;SecurePay SuperUser&quot; )
+)</errorConditionFormula>
+    <errorMessage>Please use the &apos;Close Opportunity&apos; button to Close the Opportunity</errorMessage>
+</ValidationRule>

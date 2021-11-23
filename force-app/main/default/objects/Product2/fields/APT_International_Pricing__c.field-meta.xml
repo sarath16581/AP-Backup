@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_International_Pricing__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Calculate International Pricing using Batch</description>
+    <externalId>false</externalId>
+    <inlineHelpText>if true then product pricing will be handled using international pricing batch</inlineHelpText>
+    <label>International Pricing</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

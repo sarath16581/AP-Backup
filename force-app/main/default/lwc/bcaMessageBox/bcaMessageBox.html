@@ -1,0 +1,36 @@
+<!--
+  @description       : This component is to display alert messages for success, failure.
+  @author            : ankur.gandhi@auspost.com.au
+  @group             : BCA
+  @last modified on  : 04-01-2021
+  @last modified by  : ankur.gandhi@auspost.com.au
+  Modifications Log 
+  Ver   Date         Author                        Modification
+  1.0   04-01-2021   ankur.gandhi@auspost.com.au   Initial Version
+-->
+<template>
+
+    <div class="slds-col form-page">
+        <div class="form-outer-box">
+            <div class="form-inner-box-wide">
+
+                <div class="slds-p-around_medium">
+                    <!-- Display if Icon is passed to this cmp-->
+                    <template if:true={isDisplayIcon}>
+                        <!--icon image-->
+                        <div class="slds-grid slds-grid_align-center slds-p-bottom_medium">
+                            <c-bsp-custom-icons icon={iconName} size="l-medium-48"></c-bsp-custom-icons>
+                        </div>
+                    </template>
+                    <!-- header-->
+                    <h1 class="form-body-header">
+                        <lightning-formatted-rich-text value={header}></lightning-formatted-rich-text>
+                     </h1>
+                    <!-- body-->
+                    <lightning-formatted-rich-text value={richTextMsg}></lightning-formatted-rich-text>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

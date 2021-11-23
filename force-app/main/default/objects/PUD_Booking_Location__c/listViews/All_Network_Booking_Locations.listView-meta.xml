@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Network_Booking_Locations</fullName>
+    <columns>NAME</columns>
+    <columns>Network__c</columns>
+    <columns>Street__c</columns>
+    <columns>City__c</columns>
+    <columns>Post_Code__c</columns>
+    <columns>State__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>PUD_Booking_Location__c.AP_Network</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>startsWith</operation>
+        <value>cant</value>
+    </filters>
+    <label>All Network Booking Locations</label>
+</ListView>

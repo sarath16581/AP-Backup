@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Create_Postbill_PayContract</fullName>
+    <availability>online</availability>
+    <description>Postbill Pay Contract</description>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <height>600</height>
+    <linkType>url</linkType>
+    <masterLabel>Create Post Billpay Contract</masterLabel>
+    <openType>sidebar</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>/apex/Apttus__ChildAgreement?id={!Apttus__APTS_Agreement__c.Id}&amp;recordTypeId={!$Setup.APT_R2T_System_Properties__c.APT_PostbillpayRecordTypeID__c}&amp;copyLineItems=true</url>
+</WebLink>

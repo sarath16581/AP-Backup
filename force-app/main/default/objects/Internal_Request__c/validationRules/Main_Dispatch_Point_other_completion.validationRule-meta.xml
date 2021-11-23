@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Main_Dispatch_Point_other_completion</fullName>
+    <active>true</active>
+    <description>Main Dispatch/Lodgement Point (other) must be completed if &apos;Other&apos; selected on Main Dispatch/Lodgement Point field</description>
+    <errorConditionFormula>BEGINS( RecordType.DeveloperName , &apos;Pricing_Request&apos;) &amp;&amp;
+ISPICKVAL(  Main_dispatch_lodgement_point__c , &apos;Other&apos;) &amp;&amp;
+ ISBLANK(  Main_dispatch_lodgement_point_Other__c  )</errorConditionFormula>
+    <errorDisplayField>Main_dispatch_lodgement_point_Other__c</errorDisplayField>
+    <errorMessage>Main Dispatch/Lodgement Point (Other) must be completed when Main Dispatch point is &apos;Other&apos;</errorMessage>
+</ValidationRule>

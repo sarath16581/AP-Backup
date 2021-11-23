@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RelatedCase__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>SSSW</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Another Case related to this enquiry that may provide supporting info.</inlineHelpText>
+    <label>Related Case</label>
+    <referenceTo>Case</referenceTo>
+    <relationshipLabel>Cases</relationshipLabel>
+    <relationshipName>RelatedCases</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

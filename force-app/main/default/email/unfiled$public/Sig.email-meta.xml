@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Regards,  Brendan Cunningham Accounting Services Helpdesk Level 24  180 Lonsdale St Melbourne 3000 Melbourne VIC 3001   T  1300 656 772 E acc@Auspost.com.au</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Sig</name>
+    <relatedEntityType>Case</relatedEntityType>
+    <style>none</style>
+    <subject>Accounting Service Helpdesk - Acc Non-urgent</subject>
+    <type>custom</type>
+    <uiType>SFX</uiType>
+</EmailTemplate>

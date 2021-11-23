@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BG_Validation_before_move_to_Qualify</fullName>
+    <active>true</active>
+    <description>Checking whether Lead is qualified before moving to Qualified Stage</description>
+    <errorConditionFormula>AND(
+    NOT($Permission.BG_Sales),
+    $Permission.BG_Core, 
+    NOT(ISPICKVAL(CNA_Status__c,&apos;Completed&apos;)),
+    ISPICKVAL(Status, &apos;Qualified&apos;),
+    RecordType.DeveloperName = &apos;BG_Standard&apos;
+)</errorConditionFormula>
+    <errorMessage>Lead cannot be Qualified – Please complete Customer Needs section</errorMessage>
+</ValidationRule>

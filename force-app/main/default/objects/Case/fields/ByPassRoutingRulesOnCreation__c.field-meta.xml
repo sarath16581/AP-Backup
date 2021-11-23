@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ByPassRoutingRulesOnCreation__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field serves as a universal routing bypass flag for case creation only. Routing on case updates should not take this flag into consideration.</description>
+    <externalId>false</externalId>
+    <label>Bypass Routing Rules On Creation</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

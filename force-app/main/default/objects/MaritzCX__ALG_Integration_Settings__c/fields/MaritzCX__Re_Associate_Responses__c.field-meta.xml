@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaritzCX__Re_Associate_Responses__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This setting is used during ODRP(On Demand Response Push):
+If Checked, already associated Responses will also be considered for association along with the Orphan Responses.
+If Unchecked, only the Orphan Responses will be considered for the association.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This setting is used during ODRP(On Demand Response Push):
+If Checked, already associated Responses will also be considered for association along with the Orphan Responses.
+If Unchecked, only the Orphan Responses will be considered for the association.</inlineHelpText>
+    <label>Re-Associate Responses</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

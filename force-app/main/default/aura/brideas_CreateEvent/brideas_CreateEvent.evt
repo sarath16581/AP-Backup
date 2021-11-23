@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="new Idea created" >
+    <aura:attribute name="newIdea" type="brideas_IdeaWrapper" />
+</aura:event>

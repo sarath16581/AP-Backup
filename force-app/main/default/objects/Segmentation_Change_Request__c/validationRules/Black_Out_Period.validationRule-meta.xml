@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Black_Out_Period</fullName>
+    <active>true</active>
+    <description>REQ2473574 - update rule, to be updated from Custom Settings.
+This rule is activated during End of Financial Year or during any Change Freeze period to prevent new SCCR records being created.</description>
+    <errorConditionFormula>AND(
+NOT($Profile.Name==&apos;System Administrator&apos; || $Profile.Name==&apos;Sales Admin&apos;),
+$Setup.SCCR_Setting__c.Stop_New_SCCR_Records_Being_Created__c
+)</errorConditionFormula>
+    <errorMessage>The Sales Coverage Change Request period is currently closed due to Annual Segmentation. You will be notified once it re-opens.</errorMessage>
+</ValidationRule>

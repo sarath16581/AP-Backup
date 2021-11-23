@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>For when additional approval is required on Pricing Support Request</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Approve Pricing Support Request</name>
+    <style>none</style>
+    <subject>Pricing Support Request for approval</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

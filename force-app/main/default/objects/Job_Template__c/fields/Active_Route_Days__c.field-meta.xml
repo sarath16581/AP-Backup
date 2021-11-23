@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_Route_Days__c</fullName>
+    <description>Days of the week the duty applies</description>
+    <externalId>false</externalId>
+    <formula>IF(Route_Template__r.Monday__c,&quot;Mon &quot;,&quot;&quot;)+
+IF(Route_Template__r.Tuesday__c,&quot;Tue &quot;,&quot;&quot;) + 
+IF(Route_Template__r.Wednesday__c,&quot;Wed &quot;,&quot;&quot;) + 
+IF(Route_Template__r.Thursday__c,&quot;Thu &quot;,&quot;&quot;) + 
+IF(Route_Template__r.Friday__c,&quot;Fri &quot;,&quot;&quot;) + 
+IF(Route_Template__r.Saturday__c,&quot;Sat &quot;,&quot;&quot;) +
+IF(Route_Template__r.Sunday__c,&quot;Sun &quot;,&quot;&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Active Duty Days</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,88 @@
+<!--
+   * @author       : arjun.singh@auspost.com.au
+   * @date         : 19/06/2020
+   * @description  : Component used for PO tansfer request. It has following features
+   *                 1. Display the po locations in a table format
+                     2. Display the distance between user and PO location
+                     3. Display the business hour details
+   --------------------------------------- History --------------------------------------------------
+   19.06.2020    Arjun Singh    Created : Change made for roll out of Transfer to another PO
+   -->
+   <template>
+    <template if:true={locationDetails}>
+       <div class="slds-scrollable_y">
+            <template for:each={locationDetails} for:item="office" for:index="itemIndex">
+               <hr key={office.location.title} class="hr-class">
+               <div class="slds-grid bottom-padding" key={office.location.title}>
+                   <div class="slds-col img-col-width">
+                      <img src={locationPinImgage} class="img-style">
+                   </div>
+                   <div class="slds-col col-width">
+                      <p class="text-class" style="font-weight:500;">{office.location.title}</p>
+                      <p class="address-class" style="width:80%">{office.location.address}</p>
+                      <div class="slds-grid">
+                         <div style="padding-right:8px">
+                            <p class="status-class">{office.postOfficeStatus}</p>
+                         </div>
+                         <template if:true={office.postOfficeStatus}>
+                            <div style="padding-right:4px">
+                               <p class="text-class">{office.currentBusinessHours}</p>
+                            </div>
+                            <div style="padding-right:4px">
+                               <lightning-button-icon icon-name={iconName} variant="bare" onclick={toggleHander} value={itemIndex} class="iconClass"></lightning-button-icon>
+                            </div>
+                         </template>
+                      </div>
+                   </div>
+                   <div class="slds-col btn-width">
+                     <template if:true={showkilometres}>
+                      <p class="text-class slds-m-bottom_x-small">{office.location.distanceBetweenLocation} km away</p>
+                      </template>
+                      <lightning-button variant="neutral" label="Select" onclick={SelectHandler}
+                         title="Select" class="slds-button chas-input-select-button" value={office}></lightning-button>
+                  </div>
+               </div>
+                <!-- Display the business hours associated to that location-->
+                <template if:true={office.showBusinessHoursForWeek}>
+                   <div class="slds-grid" key={office.location.title}>
+                      <div class="slds-col img-col-width">
+                      </div>
+                      <div class="slds-col col-width">
+                         <template for:each={office.businessHours} for:item="businessHrs" for:index="innerItemIndex">
+                            <div class="slds-grid" key={businessHrs.title}>
+                               <div class="slds-col slds-size_5-of-12">
+                                  <p class="text-class">{businessHrs.weekday}</p>
+                               </div>
+                               <div class="slds-col slds-size_4-of-12">
+                                  <p class="text-class">{businessHrs.startTime}</p>
+                               </div>
+                               <div class="slds-col slds-size_3-of-12">
+                                  <p class="text-class">{businessHrs.endTime}</p>
+                               </div>
+                            </div>
+                         </template>
+                      </div>
+                      <div class="slds-col btn-width">
+                      </div>
+                   </div>
+                </template>
+                <!-- Mobile view-->
+                <div class="mobile-view" key={office.location.distanceBetweenLocation}>
+                  <div class="slds-grid top-margin bottom-padding-mobile" >
+                     <div class="slds-col img-col-width">
+                     </div>
+                     <div class="slds-col col-width">
+                        <p class="text-class slds-m-bottom_x-small">{office.location.distanceBetweenLocation} kms away</p>
+                        <lightning-button variant="neutral" label="Select" onclick={SelectHandler}
+                           title="Select" class="slds-button chas-input-select-button bottom-padding-mobile" value={office}></lightning-button>
+                     </div>
+                     <div class="slds-col btn-width">
+                     </div>
+                  </div>
+              </div>
+                <!-- Mobile view-->
+            </template>
+       </div>
+      
+    </template>
+ </template>

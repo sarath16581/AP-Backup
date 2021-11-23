@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>34.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>StarTrack empty page to redirect to after custom publisher action completion so it mimics a publisher auto-collapse as closely as possible.</description>
+    <label>StarTrackNullPAPage</label>
+</ApexPage>

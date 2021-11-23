@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Startrack</label>
+    <protected>false</protected>
+    <values>
+        <field>National_Rate_Products__c</field>
+        <value xsi:type="xsd:string">NXF, SE3</value>
+    </values>
+    <values>
+        <field>Order_By_Fields__c</field>
+        <value xsi:type="xsd:string">APT_Pricing_Value_1__c</value>
+    </values>
+    <values>
+        <field>Pricing_Key_Constituents__c</field>
+        <value xsi:type="xsd:string">Pickup Zone Code</value>
+    </values>
+    <values>
+        <field>Product_Type__c</field>
+        <value xsi:type="xsd:string">Startrack</value>
+    </values>
+    <values>
+        <field>Use_Default_PLI_Config__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+</CustomMetadata>

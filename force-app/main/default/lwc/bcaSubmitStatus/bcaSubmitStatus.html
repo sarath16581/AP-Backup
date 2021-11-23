@@ -1,0 +1,19 @@
+<!--
+  @description       : This component is the success or failure screen after application submitted.
+  @author            : ankur.gandhi@auspost.com.au
+  @group             : BCA
+  @last modified on  : 04-13-2021
+  @last modified by  : ankur.gandhi@auspost.com.au
+  Modifications Log 
+  Ver   Date         Author                        Modification
+  1.0   04-01-2021   ankur.gandhi@auspost.com.au   Initial Version
+-->
+<template>
+    <template if:true={caSubmitResults}>
+        <!-- Message-->
+        <c-bca-message-box icon-name={getIcon} 
+                           header={caSubmitResults.appCurrentStatus}
+                           rich-text-msg={caSubmitResults.message}>
+        </c-bca-message-box>
+    </template>
+</template>

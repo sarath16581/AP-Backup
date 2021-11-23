@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Disable_Click_to_Dial_On_Contact_Detail__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This setting allows an admin to disable the ability to click to dial from the Mobile Relationship Map and Mobile Smart Call Planner contact detail pages</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This setting allows an admin to disable the ability to click to dial from the Mobile Political Map and Mobile Smart Call Planner contact detail pages</inlineHelpText>
+    <label>Disable Click to Dial On Contact Detail</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

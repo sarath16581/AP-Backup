@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>31.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>StarTrack - Used in Console for Case Customer and Account Summary side panel</description>
+    <label>StarTrackCaseCustomerAccountSummary</label>
+</ApexPage>

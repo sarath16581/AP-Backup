@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Do_you_sell_Wholesale_or_Retail__c</fullName>
+    <externalId>false</externalId>
+    <label>Do you sell Wholesale or Retail?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>- - Select Option - -</fullName>
+                <default>false</default>
+                <label>- - Select Option - -</label>
+            </value>
+            <value>
+                <fullName>Wholesale-B2B</fullName>
+                <default>false</default>
+                <label>Wholesale-B2B</label>
+            </value>
+            <value>
+                <fullName>Retail-B2C</fullName>
+                <default>false</default>
+                <label>Retail-B2C</label>
+            </value>
+            <value>
+                <fullName>Both</fullName>
+                <default>false</default>
+                <label>Both</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,181 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<font style=""><p class="MsoNormal" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0);"></p><p class="MsoNormal" style="font-size: 12pt; font-family: arial; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" style="" size="2">Thank you for your
+recent enquiry regarding Australia Post business services.&nbsp;</font></p><p class="MsoNormal" style="font-size: 12pt; font-family: arial; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" size="2">To help you integrate
+with our Digital Shipping and Tracking API please access the supporting
+information in our&nbsp;<span class="MsoHyperlink"><span style="color:blue"><a href="https://developers.auspost.com.au/apis" target="_blank"><span style="color:blue">Developer Centre</span></a></span></span>.&nbsp;</font></p><p class="MsoNormal" style="font-size: 12pt; font-family: arial; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" size="2">In our Developer Centre
+you can access:&nbsp;</font></p><p class="MsoNormal" style="font-size: 12pt; font-family: arial; margin: 0cm 0cm 0.0001pt 18pt; text-indent: -18pt; line-height: normal; vertical-align: baseline;"><!--[if !supportLists]--><font face="Arial, sans-serif" size="2">1.<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><!--[endif]--><span class="MsoHyperlink"><span style="mso-ascii-font-family:Calibri;mso-fareast-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:Calibri;mso-bidi-font-family:Calibri;
+color:blue;mso-fareast-language:EN-AU"><a href="https://developers.auspost.com.au/apis/shipping-and-tracking/reference" target="_blank"><span style="color:blue">Technical Specifications for Shipping
+and Tracking Services</span></a></span></span>&nbsp;<o:p></o:p></font></p><p class="MsoNormal" style="font-size: 12pt; font-family: arial; margin: 0cm 0cm 0.0001pt 18pt; text-indent: -18pt; line-height: normal; vertical-align: baseline;"><!--[if !supportLists]--><font face="Arial, sans-serif" size="2">2.<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><!--[endif]--><span class="MsoHyperlink"><span style="mso-ascii-font-family:Calibri;mso-fareast-font-family:
+&quot;Times New Roman&quot;;mso-hansi-font-family:Calibri;mso-bidi-font-family:Calibri;
+color:blue;mso-fareast-language:EN-AU"><a href="https://developers.auspost.com.au/apis/shipping-and-tracking/tutorial/working-code" target="_blank"><span style="color:blue">Sample code for API calls</span></a></span></span>&nbsp;</font></p><p class="MsoNormal" style="font-size: 12pt; font-family: arial; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" size="2">We have also attached
+to this email, the supplementary guide&nbsp;<i>“Integrating with the Australia
+Post Shipping and Tracking APIs</i>.”&nbsp;</font></p><p class="MsoNormal" style="font-size: 12pt; font-family: arial; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" size="2">When you’re ready to
+conduct testing please use your unique account number and API credentials
+(provided below) in our testbed environment via the following URL(s).&nbsp;</font></p><p class="MsoNormal" style="font-size: 12pt; font-family: arial; margin: 0cm 0cm 0.0001pt 36pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" size="2"><span class="MsoHyperlink"><a href="https://digitalapi.auspost.com.au/test/shipping/v1/">https://digitalapi.auspost.com.au/test/shipping/v1/</a></span>&nbsp;(plus the name of your chosen API)&nbsp;</font></p><p class="MsoNormal" style="font-size: 12pt; font-family: arial; margin: 0cm 0cm 0.0001pt 36pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" size="2" style="">e.g.&nbsp;<span class="MsoHyperlink" style=""><a href="https://digitalapi.auspost.com.au/test/shipping/v1/shipments">https://digitalapi.auspost.com.au/test/shipping/v1/shipments</a></span>&nbsp;</font></p><p class="MsoNormal" style="font-size: 12pt; font-family: arial; margin: 0cm 0cm 0.0001pt 36pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" size="2"><br></font></p><div align="center" style="font-size: 12pt; font-family: arial;">
+
+<table class="MsoTableGridLight" border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:none;mso-border-alt:solid #BFBFBF .5pt;
+ mso-border-themecolor:background1;mso-border-themeshade:191;mso-yfti-tbllook:
+ 1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt">
+ <tbody><tr>
+  <td width="378" valign="top" style="width:450.8pt;border:solid #BFBFBF 1.0pt;
+  mso-border-themecolor:background1;mso-border-themeshade:191;mso-border-alt:
+  solid #BFBFBF .5pt;mso-border-themecolor:background1;mso-border-themeshade:
+  191;padding:0cm 5.4pt 0cm 5.4pt">
+  <p class="MsoNormal" align="center" style="margin-bottom:0cm;margin-bottom:.0001pt;
+  text-align:center;line-height:normal"><b><span style="color:red"><font face="Arial, sans-serif" size="2">API Testbed Credentials <o:p></o:p></font></span></b></p>
+  <p class="MsoNormal" style="margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="378" valign="top" style="width:450.8pt;border:solid #BFBFBF 1.0pt;
+  mso-border-themecolor:background1;mso-border-themeshade:191;border-top:none;
+  mso-border-top-alt:solid #BFBFBF .5pt;mso-border-top-themecolor:background1;
+  mso-border-top-themeshade:191;mso-border-alt:solid #BFBFBF .5pt;mso-border-themecolor:
+  background1;mso-border-themeshade:191;padding:0cm 5.4pt 0cm 5.4pt">
+  <p class="MsoNormal" style="margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p><b style="text-align: center; font-size: 12pt;"><span style="color:red"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></span></b></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><font face="Arial, sans-serif" size="2"><b>Email-address:
+  *********@***********. ***</b><o:p></o:p></font></span></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><b><font face="Arial, sans-serif" size="2">Name: ***** ********<o:p></o:p></font></b></span></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><b><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></b></span></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><b><font face="Arial, sans-serif" size="2">Key(username):
+  ************-************-************-**********<o:p></o:p></font></b></span></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><b><font face="Arial, sans-serif" size="2">Password(secret):
+  **********************<o:p></o:p></font></b></span></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><b><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></b></span></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><b><font face="Arial, sans-serif" size="2">Testbed URL:
+  https://digitalapi.auspost.com.au/test/shipping/v1<o:p></o:p></font></b></span></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><b><font face="Arial, sans-serif" size="2">Testbed URL (for use with
+  PostMan collection): https://digitalapi.auspost.com.au/test<o:p></o:p></font></b></span></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><b><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></b></span></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><b><font face="Arial, sans-serif" size="2">Products: eParcel and
+  International<o:p></o:p></font></b></span></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><b><font face="Arial, sans-serif" size="2">Account-Number:
+  ***********<o:p></o:p></font></b></span></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><b><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></b></span></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><b><font face="Arial, sans-serif" size="2">Products: Same Day
+  Services<o:p></o:p></font></b></span></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><b><font face="Arial, sans-serif" size="2">Account-Number:
+  ***********<o:p></o:p></font></b></span></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><b><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></b></span></p>
+  <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+  margin-left:36.0pt;margin-bottom:.0001pt;line-height:normal"><span class="prompt"><b><font face="Arial, sans-serif" size="2">Products: ST Premium and
+  ST Express<o:p></o:p></font></b></span></p>
+  <p class="MsoNormal" style="margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal"><font face="Arial, sans-serif" size="2"><span class="prompt"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Account-Number: ***********</b></span></font><span style="font-family: Arial, sans-serif; font-size: small;">&nbsp;</span></p>
+  <p class="MsoNormal" style="margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+  </td>
+ </tr>
+</tbody></table>
+
+</div><p class="MsoNormal" style="margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" style="" size="2">Please provide to a
+copy of the below two files generated by your integration to validate manifest
+and label compatibility.&nbsp; You may send
+these directly to <span class="MsoHyperlink" style=""><span style="mso-ascii-font-family:
+Calibri;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:Calibri;
+mso-bidi-font-family:Calibri;color:blue;mso-fareast-language:EN-AU"><a href="mailto:customer_connectivity@auspost.com.au" target="_blank"><span style="color:blue">customer_connectivity@auspost.com.au</span></a></span></span><span style="color: blue;">.</span></font></p><p class="MsoNormal" style="margin: 0cm 0cm 0.0001pt 144pt; line-height: normal; vertical-align: baseline;"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p><p class="MsoListParagraphCxSpFirst" style="margin: 0cm 0cm 0.0001pt 72pt; text-indent: -18pt; line-height: normal; vertical-align: baseline;"><!--[if !supportLists]--><font face="Arial, sans-serif" size="2">·<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><!--[endif]-->A PDF Label that you
+have generated via the testbed API&nbsp;<o:p></o:p></font></p><p class="MsoListParagraphCxSpLast" style="margin: 0cm 0cm 0.0001pt 72pt; text-indent: -18pt; line-height: normal; vertical-align: baseline;"><!--[if !supportLists]--><font face="Arial, sans-serif" size="2">·<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><!--[endif]-->A PDF Order Summary
+Report that you have generated via the testbed API.&nbsp;</font></p><p class="MsoNormal" style=""><font face="Arial, sans-serif" size="2">Following
+validation you will then be granted access to a ‘live’ Shipping and Tracking
+API Production Key. This will be connected the eligible eParcel or Star Track
+account which was provided on your initial registration for a “Shipping &amp;
+Tracking” API key in the Developers Centre.</font></p><p class="MsoNormal" style="margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" size="2">If you have any
+queries regarding this information, please don’t hesitate to contact us
+at&nbsp;<span class="MsoHyperlink"><span style="color:blue"><a href="mailto:customer_connectivity@auspost.com.au" target="_blank"><span style="color:blue">customer_connectivity@auspost.com.au</span></a></span></span>&nbsp;</font></p><p class="MsoNormal" style="margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" size="2">Regards&nbsp;<o:p></o:p></font></p><p class="MsoNormal" style="margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" size="2" style="">Lodgement &amp; APIs
+Team&nbsp; <font face="arial" style="font-size: 12pt;"><o:p></o:p></font></font></p><p class="MsoNormal" style="font-size: 12pt; font-family: arial;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p class="MsoNormal" style="font-family: arial;"><font face="Arial, sans-serif" style="" size="2">Parcels, eCommerce and Digital&nbsp;</font><font face="arial" style="font-size: 12pt;"><o:p></o:p></font></p><p style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0);"></p></font>]]></td>
+</tr>
+</table>

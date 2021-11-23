@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UseContinuationforAPConsignSearch__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Determine if AP Consignment Search should use asynchronous callout or synchronous callout.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Determine if AP Consignment Search should use asynchronous callout or synchronous callout.</inlineHelpText>
+    <label>Use Continuation for AP Consign Search</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

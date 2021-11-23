@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Conveyancer_Is_a__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check to generate the unique Conveyancer Number for this Organisation. Only do this once.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check to generate the unique Conveyancer Number for this Organisation. Only do this once.</inlineHelpText>
+    <label>Is a Conveyancer?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

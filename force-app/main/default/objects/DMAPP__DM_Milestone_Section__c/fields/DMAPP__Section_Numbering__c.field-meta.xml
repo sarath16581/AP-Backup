@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Section_Numbering__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This determines how the numbering for the questions in this section should be applied.  The options are continue numbering from previous section, restart numbering in this section or don&apos;t show any numbers for this section.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This determines how the numbering for the questions in this section should be applied.  The options are continue numbering from previous section, restart numbering in this section or don&apos;t show any numbers for this section.</inlineHelpText>
+    <label>Section Numbering</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Continue Numbering</fullName>
+                <default>true</default>
+                <label>Continue Numbering</label>
+            </value>
+            <value>
+                <fullName>Restart Numbering</fullName>
+                <default>false</default>
+                <label>Restart Numbering</label>
+            </value>
+            <value>
+                <fullName>No Numbering</fullName>
+                <default>false</default>
+                <label>No Numbering</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

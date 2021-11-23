@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>used to allow for manual report aggregate deletion and re-creation. These records then used in Sales Leadership reporting pack.</description>
+    <label>buildAggregates</label>
+</ApexPage>

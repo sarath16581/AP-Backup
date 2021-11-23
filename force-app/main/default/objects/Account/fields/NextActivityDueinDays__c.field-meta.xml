@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NextActivityDueinDays__c</fullName>
+    <description>.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(Call_Cycle_Frequency__c), FrequencyTest__c - DaysSinceLastActivity__c, Call_Cycle_Frequency__c - DaysSinceLastActivity__c)</formula>
+    <inlineHelpText>Based on the coverage frequency or override frequency, the number of days the next activity is due in</inlineHelpText>
+    <label>Next Activity Due in Days</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

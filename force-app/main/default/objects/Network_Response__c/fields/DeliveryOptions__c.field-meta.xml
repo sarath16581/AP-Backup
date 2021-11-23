@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DeliveryOptions__c</fullName>
+    <externalId>false</externalId>
+    <label>DeliveryOptions</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ResidentialRecalls - safe dropped</fullName>
+                <default>false</default>
+                <label>ResidentialRecalls - safe dropped</label>
+            </value>
+            <value>
+                <fullName>ResidentialRecalls - delivered</fullName>
+                <default>false</default>
+                <label>ResidentialRecalls - delivered</label>
+            </value>
+            <value>
+                <fullName>ResidentialCannot recall</fullName>
+                <default>false</default>
+                <label>ResidentialCannot recall</label>
+            </value>
+            <value>
+                <fullName>BusinessRecalls - delivered</fullName>
+                <default>false</default>
+                <label>BusinessRecalls - delivered</label>
+            </value>
+            <value>
+                <fullName>BusinessCannot recall</fullName>
+                <default>false</default>
+                <label>BusinessCannot recall</label>
+            </value>
+            <value>
+                <fullName>ResidentialRecalls - safe drop</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>ResidentialRecalls - safe drop</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This is to refer SSSW_Social_Media_Permissions Permission set in validation rule</description>
+    <isLicensed>false</isLicensed>
+    <label>SSSW Social Media Permissions</label>
+</CustomPermission>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email_Electronic_Opt_In__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>For Portfolio Knowledge &amp; Lead Nurture
+
+Select YES, if Contact is:
+
+1. Is in a business that&apos;s a customer of ours
+2. AND is known to us
+3. AND have had their details validated by us
+4. AND have had interaction with their AM in the last 12 months.</inlineHelpText>
+    <label>Email/Electronic Opt-In</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>YES</fullName>
+                <default>false</default>
+                <label>YES</label>
+            </value>
+            <value>
+                <fullName>NO</fullName>
+                <default>false</default>
+                <label>NO</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

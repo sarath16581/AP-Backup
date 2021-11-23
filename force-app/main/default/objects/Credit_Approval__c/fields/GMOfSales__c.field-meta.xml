@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GMOfSales__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>DEPRECATED. DO NOT USE. Used the in the Approval Process. Set by the approval matrix rules</description>
+    <externalId>false</externalId>
+    <label>GM Of Sales (DEPRECATED)</label>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>GM Of Sales</relationshipLabel>
+    <relationshipName>GMOfSales</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_OEContract</fullName>
+    <active>true</active>
+    <description>This will block user from creating records for Open Ended Contracts not marked for Review</description>
+    <errorConditionFormula>AND(
+ ISPICKVAL(APT_Contract__r.Term__c, &apos;Open Ended&apos;),
+NOT( APT_Contract__r.APT_Mark_for_Review__c )
+)</errorConditionFormula>
+    <errorMessage>Contract Extension cannot be requested for Open Ended Contracts</errorMessage>
+</ValidationRule>

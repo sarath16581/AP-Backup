@@ -1,0 +1,30 @@
+<!--
+    @changelog
+    22 June 2021: Init by phap.mai@auspost.com.au
+-->
+<aura:component implements="forceCommunity:availableForAllPageTypes" extends="c:SS_uiWizard" access="global" description="Wizard navigation unique to Missing or Lost Items">
+    
+    <aura:attribute name="name" type="String" default="Missing Item" />
+    
+    <aura:attribute name="pageMap" type="Map"
+                    default=
+                            "{
+                                'chasCompensationWPage01': {
+                                    'key': 'chasCompensationWPage01',
+                                    'name': 'c:chasCompensationWPage01',
+                                    'step': '1',
+                                    'currentStepName': 'step 1:confirm your details',
+                                    'stage': 'start',
+                                    'attributes': {
+                                        'authenticatedURL': '/compensation-authenticated'
+                                    }
+                                }
+                            }"
+                            />
+    
+    <aura:attribute name="startPage" type="String" default="chasCompensationWPage01" />
+    <aura:attribute name="currentPage" type="String" default="chasCompensationWPage01" />
+    <aura:attribute name="firstWordInProgressBar" type="String" default="Confirm your details" />
+    <aura:attribute name="pageTitle" type="String" default="Compensation claim"/>
+    
+</aura:component>

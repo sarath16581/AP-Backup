@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaritzCX__Number_Of_Recipients__c</fullName>
+    <defaultValue>500</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This stored the maximum number of recipients that can be sent over to MaritzCX Sample Management API in a single API call.</description>
+    <externalId>false</externalId>
+    <label>Number Of Recipients</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

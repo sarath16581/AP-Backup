@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>At_Risk_Business_Approved</fullName>
+        <description>At Risk Business Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <field>Key_Sales_Owner__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Australia_Post_Email_Templates/At_Risk_Business_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>At_Risk_Business_Escalated</fullName>
+        <description>At Risk Business Escalated</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Escalated_To__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Email_Templates/At_Risk_Business_Escalated</template>
+    </alerts>
+    <alerts>
+        <fullName>At_Risk_Business_Notification</fullName>
+        <description>At Risk Business Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Key_Product_Owner__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Australia_Post_Email_Templates/Busines_at_Risk_Notification_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>At_Risk_Business_Rejected</fullName>
+        <description>At Risk Business Rejected</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <field>Key_Sales_Owner__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Australia_Post_Email_Templates/At_Risk_Business_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Business_At_Risk_Fuel_Surcharge_Approved</fullName>
+        <description>Business At Risk Fuel Surcharge Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <field>Key_Sales_Owner__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Australia_Post_Email_Templates/Business_At_Risk_Fuel_Surcharge_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Business_At_Risk_Fuel_Surcharge_Rejected</fullName>
+        <description>Business At Risk Fuel Surcharge Rejected</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <field>Key_Sales_Owner__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Australia_Post_Email_Templates/Business_At_Risk_Fuel_Surcharge_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Product_owner_for_At_Risk_Business</fullName>
+        <description>Email Product owner for At Risk Business</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Escalated_To__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Key_Product_Owner__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Key_Sales_Owner_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Email_Templates/Busines_at_Risk_Notification_Template</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Update_Stage_to_New</fullName>
+        <description>Update Stage to New</description>
+        <field>Stage__c</field>
+        <literalValue>New</literalValue>
+        <name>Update Stage to New</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Stage_to_Rejected</fullName>
+        <description>Update Stage to Rejected</description>
+        <field>Stage__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Stage to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Stage_to_Submitted</fullName>
+        <description>Update Stage to Submitted</description>
+        <field>Stage__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Update Stage to Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Stage_to_Work_In_Progress</fullName>
+        <description>Update Stage to Work In Progress</description>
+        <field>Stage__c</field>
+        <literalValue>Work In Progress</literalValue>
+        <name>Update Stage to Work In Progress</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Approved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Status to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Approved_by_SM</fullName>
+        <description>Update Status to Approved by SM</description>
+        <field>Status__c</field>
+        <literalValue>Approved by SM</literalValue>
+        <name>Update Status to Approved by SM</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Draft</fullName>
+        <description>Update Status to Draft</description>
+        <field>Status__c</field>
+        <literalValue>Draft</literalValue>
+        <name>Update Status to Draft</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Rejected</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Status to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Rejected_by_SM</fullName>
+        <description>Update Status to Rejected by SM</description>
+        <field>Status__c</field>
+        <literalValue>Rejected by SM</literalValue>
+        <name>Update Status to Rejected by SM</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Submitted</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Update Status to Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Submitted_for_Approval</fullName>
+        <field>Status__c</field>
+        <literalValue>Submitted for Approval</literalValue>
+        <name>Update Status to Submitted for Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>At Risk Business Product Notification Email</fullName>
+        <actions>
+            <name>Email_Product_owner_for_At_Risk_Business</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>At_Risk_Business__c.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Submitted</value>
+        </criteriaItems>
+        <description>Send an email to the Product Owner when an At Risk Business instance is created and submitted.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

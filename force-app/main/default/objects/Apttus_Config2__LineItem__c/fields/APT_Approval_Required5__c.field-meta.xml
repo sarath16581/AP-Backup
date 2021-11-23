@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Approval_Required5__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF((APT_Product_Name__c == &quot;Post Billpay&quot; &amp;&amp; 
+((APT_PostBillPay_Gross_Settlement_fee__c == &quot;No&quot; &amp;&amp; APT_PostBillPay_Customer_Type__c == &quot;Regular&quot;) || 
+(APT_PostBillPay_Customer_Type__c == &quot;Charity&quot; &amp;&amp; (CONTAINS(APT_PostBillPay_Channel__c,&quot;Internet&quot;) || CONTAINS(APT_PostBillPay_Channel__c,&quot;Phone&quot;) 
+|| CONTAINS(APT_PostBillPay_Channel__c,&quot;Scan and Pay&quot;) 
+)) 
+)&amp;&amp; APT_Product_Name__c &lt;&gt; &quot;Local Pickup and Delivery Services&quot; &amp;&amp; APT_New__c 
+),TRUE, FALSE)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Approval Required5?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

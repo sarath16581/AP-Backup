@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RoleKey__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Role Key for external API Linking. This should be prefixed with the App Key and then the a unique name for this Role</description>
+    <externalId>true</externalId>
+    <inlineHelpText>Role Key for external API Linking. This should be prefixed with the App Key and then the a unique name for this Role</inlineHelpText>
+    <label>Role Key</label>
+    <length>25</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

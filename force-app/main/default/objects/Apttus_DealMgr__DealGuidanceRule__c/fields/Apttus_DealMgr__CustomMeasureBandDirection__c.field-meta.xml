@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealMgr__CustomMeasureBandDirection__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Defines the direction of the custom measure band entries.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Defines the direction of the custom measure band entries.</inlineHelpText>
+    <label>Custom Measure Band Direction</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>HighLow</fullName>
+                <default>false</default>
+                <label>HighLow</label>
+            </value>
+            <value>
+                <fullName>LowHigh</fullName>
+                <default>false</default>
+                <label>LowHigh</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

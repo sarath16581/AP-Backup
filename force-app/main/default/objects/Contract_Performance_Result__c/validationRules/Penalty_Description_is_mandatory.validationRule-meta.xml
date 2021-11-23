@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Penalty_Description_is_mandatory</fullName>
+    <active>true</active>
+    <errorConditionFormula>(ISPICKVAL(Result__c,&quot;Not Met&quot; ) || ISPICKVAL(Result__c,&quot;Partially Met&quot; )) &amp;&amp; isBlank( Penalty_Description__c )</errorConditionFormula>
+    <errorDisplayField>Penalty_Description__c</errorDisplayField>
+    <errorMessage>Description is mandatory if Result is &quot;Partiall Met&quot;or &quot;Not Met&quot;</errorMessage>
+</ValidationRule>

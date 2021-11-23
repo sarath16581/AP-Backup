@@ -1,0 +1,31 @@
+<apex:page controller="APT_PricingAdjustmentController" >
+    <apex:includeLightning />
+     
+    <div id="LightningAppDivId">
+        <!-- Lightning Web Component will be included here. -->
+    </div>
+    <script>
+        $Lightning.use(
+            "c:APT_PricingAdjustmentApp", // Name of Aura Dependency app where c is namespace.
+            function() { // Callback function
+                $Lightning.createComponent(
+                    "c:apt_PricingAdjustmentLWC", // Name of Lightning Component where c is namespace.
+                    {
+                        proposalId: '{!$CurrentPage.parameters.businessObjectId}',
+                        configId: '{!$CurrentPage.parameters.id}',
+                        flow : '{!$CurrentPage.parameters.flow}',
+                        currentUrl : '{!$CurrentPage.URL}',
+                        configRequestId : '{!$CurrentPage.parameters.configRequestId}'
+                    }, // attribute parameters
+                    "LightningAppDivId" // Id of the element where Lightning Component will be rendered.
+                );
+            }
+        );
+    </script>
+
+ <!-- <apex:form>
+     
+    <apex:commandButton styleClass="slds-button slds-button_destructive" 
+        style="margin-left:45%;" action="{!navigateCart}" value="RETURN TO CART" id="navigation"/>
+</apex:form>    -->
+</apex:page>

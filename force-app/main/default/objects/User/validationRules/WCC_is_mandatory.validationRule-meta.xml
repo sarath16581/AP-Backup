@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>WCC_is_mandatory</fullName>
+    <active>true</active>
+    <description>WCC is mandatory for User License equals to Salesforce</description>
+    <errorConditionFormula>AND( ISBLANK(Work_Center_Code__c), 
+Licence_Type_Description__c = &apos;Salesforce&apos;, 
+NOT($Profile.Name = &apos;System Administrator&apos;))</errorConditionFormula>
+    <errorDisplayField>Work_Center_Code__c</errorDisplayField>
+    <errorMessage>Please provide Work Centre Code</errorMessage>
+</ValidationRule>

@@ -1,0 +1,30 @@
+.nw_LiveAgentHeader {
+    border-radius: 0 !important;
+}
+.chatLogWindow { top: 110px !important; }
+
+.chat-notify-box {
+    background-color: #d7e7f7;
+    border-radius: 3px;
+    padding: 0 20px;
+    font-size: 14px;
+    line-height: 16px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.nw_Info {
+    margin-right: 8px;                 
+}
+.bw-info {
+    background : url("favicons/info.svg");
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+}
+
+#liveAgentChatLogText .name {
+    display: contents !important;
+}

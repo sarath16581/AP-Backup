@@ -1,0 +1,1546 @@
+<!--
+    @Author      :  
+    @Date        :  
+    @Description :  Visualforce page for BSP portal
+    history ---
+    5-11-2018   disha.kariya@aupost.com.au - updated code to display different text for AusPost
+	2018-11-21  hasantha.liyanage@auspost.com.au   -   adding download all link to case list.
+	2019-06-05  nathan.franklin@auspost.com.au  updated to support new BAM access rules
+    2019-12-06  gunith.devasurendra@auspost.com.au Fix CSV export to export the correct status (INC1511690)
+    2020-07-13  saiswetha.pingali@auspost.com.au - REQ2138663 - Remove 'Depot Created' and 'Not Case Related' case purpose for Startrack 
+-->
+<apex:page controller="bspEnquiry"
+           cache="false"
+           contentType="text/html"
+           showHeader="false"
+           sidebar="false"
+           standardStylesheets="true"
+           title="Business Support Portal"
+           docType="html-5.0"
+            action="{!preValidateBamBspAccess}">
+
+    <html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="DC.Creator" scheme="AglsAgent" content="Australia Post" />
+        <meta name="DC.Title" content="Australia Post - Home" />
+        <title>Business Support Portal</title>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="apple-touch-icon" sizes="144x144" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-144x144.png')}" />
+        <link rel="apple-touch-icon" sizes="114x114" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-114x114.png')}" />
+        <link rel="apple-touch-icon" sizes="72x72" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-72x72.png')}" />
+        <link rel="apple-touch-icon" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon.png')}" />
+        <link rel="shortcut icon" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/favicon.ico')}" />
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/style.css')}" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/head.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/libs/jquery-1.8.2.min.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/csso-widget.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/libs/dropzone.min.js')}"></script>
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/cssolight.css')}" />
+
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/style-icams-addons.css')}" />
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/dropzone.css')}" />
+        <!-- MRSO assets -->
+        <link href="{!URLFOR($Resource.BSP_Asset,'css/mrso/mrso-v2.css')}" rel="stylesheet" />
+        <link href="{!URLFOR($Resource.BSP_Asset,'css/mrso/lightbox.css')}" rel="stylesheet" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/mrso/application.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/mrso/lightbox.js')}"></script>
+
+        <link href="{!URLFOR($Resource.BSP_Asset,'jquery-ui.css')}" rel="stylesheet" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'jquery-ui.js')}"></script>
+
+        <script src="{!URLFOR($Resource.BSP_Asset,'GsForm_Script.js')}"></script>
+        
+        <!-- START QAS scripts -->
+        <script src="{!URLFOR($Resource.jQuery111)}" />
+        <script src="{!URLFOR($Resource.jQueryUI1_10_3)}" />
+        <!-- END QAS scripts -->
+
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_CSS)}"/>
+        <script src="{!URLFOR($Resource.BSP_JS)}"/>
+
+        <style>
+            .landing-create-a-new-enquiry
+            {
+                background-image: url("{!URLFOR($Resource.BSP_Custom,'images/rocket.png')}");
+                background-repeat: no-repeat;
+                background-position: 250px 95px;
+            }
+            .landing-looking-for-the-right-answer
+            {
+                background-color: #e2dfda !important;
+                background-image: url("{!URLFOR($Resource.BSP_Custom,'images/faq.png')}");
+                background-repeat: no-repeat;
+                background-position: 270px 90px;
+            }
+            .bw-input-field.date {
+                padding: 7px 10px 7px 10px;
+                background: #edeae6;
+                border: 1px solid #edeae6;
+                line-height: 13px;
+            }
+            .cta-link-previous::before
+            {
+                background-image: url("{!URLFOR($Resource.BSP_Custom,'images/less-link.png')}");
+            }
+            ul
+            {
+                padding-left: 0px !important;
+            }
+            #bw-component-address-from input[type=radio]+label
+            {
+                color: #807370;
+            }
+            #bw-item-type input[type=radio]+label
+            {
+                color: #807370;
+            }
+            #descrip
+            {
+
+                height: 34px;
+            }
+            .datePicker select
+            {
+                width: 105px;
+            }
+            .bw-search-image
+            {
+                padding: 7px 3px!important;
+                background: transparent !important;
+                border: none !important;
+            }
+            .bw-liveagent-btn-on
+            {
+                color: #fff !important;
+            }
+            dt
+            {
+                font-weight: normal !important;
+            }
+            .datePicker .calDays
+            {
+                width: 100% !important;
+            }
+            .form-errors li
+            {
+                margin-left: 20px;
+            }
+            .bw-detail-margin-top
+            {
+                margin-top: 10px;
+            }
+            #loading {
+                width: 100%;
+                height: 100%;
+                top: 0px;
+                left: 0px;
+                position: fixed;
+                display: block;
+                opacity: 0.7;
+                background-color: #fff;
+                z-index: 99;
+                text-align: center;
+            }
+
+            #loading-image {
+                position: absolute;
+                top: 35%;
+                left: 50%;
+                z-index: 100;
+            }
+
+            .st-table-header {
+                background: #f3f1ee;
+                color: #382f2d;
+                font-family: Arial, sans-serif;
+                font-size: 13px;
+                font-style: normal;
+                font-weight: bold;
+                padding: 4px 10px 4px 6px;
+                text-align: left;
+            }
+
+            .st-table {
+                width: 100% !important;
+                border: 1px solid;
+                border-right-color: #E2E2E0;
+                border-left-color: #E2E2E0;
+                border-radius: 3px;
+                table-layout: fixed;
+            }
+
+            .st-row {
+                border-bottom: 1px solid #E2E2E0;
+                border-radius: 3px;
+                font-family: Arial,sans-serif;
+                color: #7f736f;
+            }
+
+            .st-row > td {
+                padding: 6px;
+                border-radius: 3px;
+                word-wrap: break-word;
+            }
+            <!-- Alert Message -->
+            .tempAlert {
+                background-image: url("{!URLFOR($Resource.BSP_Alert)}");
+                background-size: 40px 40px;
+                background-color: #FFBE33 !important;
+                background-repeat: no-repeat;
+                border-radius: 10px;
+                border: 1px solid #000000;
+                line-height: 13px;
+            }
+            .opacityElement {
+                filter:alpha(opacity=50);  // IE
+            -moz-opacity:0.5;          // Firefox
+            -khtml-opacity: 0.5;
+                opacity: 0.5;
+            }
+
+        </style>
+
+        <script>
+            $(function() {
+                $( document ).tooltip();
+            });
+        </script>
+
+    </head>
+
+    <!--[if lt IE 7]> <body class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]>    <body class="lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]>    <body class="lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]><!--> <body> <!--<![endif]-->
+
+    <div id="loading" style="display: none;">
+        <img id="loading-image" src="/img/loading.gif" alt="Loading..." />
+    </div>
+
+    <!-- START Accessibility links -->
+
+    <div class="accessibility-links"> <a href="#main" class="visuallyhidden focusable">Skip to content</a> <a href="#primary-nav" class="visuallyhidden focusable">Skip to primary navigation</a> </div>
+    <!-- END Accessibility links -->
+    <!-- START GE01 Header -->
+    <c:bspHeader />
+    <!-- END GE01 Header -->
+
+    <script type="text/javascript">
+        function hideLoading(elemName) {
+            document.getElementById(elemName).style.display = 'none';
+        }
+        function showLoading(elemName) {
+            document.getElementById(elemName).style.display = '';
+        }
+        function disableCloseButton() {
+            document.getElementById('{!$Component.Enquiry_Form.active_close_btn}').style.display = 'none';
+            document.getElementById('{!$Component.Enquiry_Form.disabled_close_btn}').style.display = '';
+        }
+        function enableCloseButton() {
+            document.getElementById('{!$Component.Enquiry_Form.active_close_btn}').style.display = '';
+            document.getElementById('{!$Component.Enquiry_Form.disabled_close_btn}').style.display = 'none';
+        }
+        function disableAddCommentButton() {
+            document.getElementById('{!$Component.Enquiry_Form.bulk_addComment_btn}').style.display = 'none';
+            document.getElementById('{!$Component.Enquiry_Form.disabled_addComment_btn}').style.display = '';
+        }
+        function enableAddCommentButton() {
+            document.getElementById('{!$Component.Enquiry_Form.bulk_addComment_btn}').style.display = '';
+            document.getElementById('{!$Component.Enquiry_Form.disabled_addComment_btn}').style.display = 'none';
+        }
+    </script>
+
+    <div class="l-container">
+        <div class="l-main l-without-left-panel clearfix" role="main" id="main">
+
+            <!-- MAIN PANEL -->
+            <div class="content-panel">
+                <apex:outputPanel id="main_output_panel">
+                    <div class='workarea'>
+
+                        <apex:outputPanel rendered="{!LOWER(section)='landing'}">
+                            <div id="breadcrumbs" >
+                                <a class="clearfix left bw-breadcrumbs-link-color" href="{!$Site.CurrentSiteUrl}bspEnquiry">Corporate Home</a>
+                                <div class="left bw-breadcrumbs-text-color">
+                                    &nbsp;&nbsp;>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!LOWER(section)='enquiry'}">
+                            <div id="breadcrumbs" >
+                                <a class="clearfix left bw-breadcrumbs-link-color" href="{!$Site.CurrentSiteUrl}bspEnquiry">Corporate Home</a>
+                                <div class="left bw-breadcrumbs-text-color">
+                                    &nbsp;&nbsp;>&nbsp;&nbsp;Create a new enquiry
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!LOWER(section)='thankyou'}">
+                            <div id="breadcrumbs" >
+                                <a class="clearfix left bw-breadcrumbs-link-color" href="{!$Site.CurrentSiteUrl}bspEnquiry">Corporate Home</a>
+                                <div class="left bw-breadcrumbs-text-color">
+                                    &nbsp;&nbsp;>&nbsp;&nbsp;Thank you
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!LOWER(section)='bulk update'}">
+                            <div id="breadcrumbs" >
+                                <a class="clearfix left bw-breadcrumbs-link-color" href="{!$Site.CurrentSiteUrl}bspEnquiry">Corporate Home</a>
+                                <div class="left bw-breadcrumbs-text-color">
+                                    &nbsp;&nbsp;>&nbsp;&nbsp;Case Bulk Update
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+
+                        <div class="clearfix" />
+
+                        <apex:outputPanel rendered="{!IF(section='enquiry',true,false)}">
+                            <br/>
+                            <h1>Create new enquiry</h1>
+                        </apex:outputPanel>
+
+                        <!-- Landing section -->
+                        <apex:outputPanel rendered="{!IF(section='landing',true,false)}" >
+
+                            <br/>
+                            <h1>Hi {!$User.FirstName}</h1>
+                            <br/><br/>
+                            <apex:outputPanel rendered="{!configSetting.DisplayAlert__c}">
+                                <div class="tempAlert">
+                                    <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        You’re now able to track your items in the BSP and raise cases with only a
+                                        couple &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        of clicks.
+                                        Find out more about the changes <a href="{!URLFOR($Resource.BSP_new_features)}"
+                                                                           target="_blank">here.</a>
+                                    </h3>
+                                </div>
+                                <br/>
+                            </apex:outputPanel>
+                            <h1 class="landing-header-red">How can we help today?</h1>
+                            <br/>
+                            <br/>
+
+                            <apex:form >
+                                <!--<outputPanel rendered="{!AND(hideSSCR5, isAPUser)}">
+                                    <div class="landing-create-a-new-enquiry">
+                                        <h3>Create a new enquiry</h3>
+                                        <p>Initiate a new enquiry with our corporate support <br/>team by providing a new details to assist us.</p>
+
+                                        <commandButton styleClass="primary-cta button-submit left" value="Create new enquiry" id="create-enquiry-button" action="{!createCase}" style="background:#dc1928; padding:5px 20px;"/>
+                                    </div>
+
+                                    <div style="float:left;width:10px">&nbsp;</div>
+
+                                    <div class="landing-looking-for-the-right-answer">
+                                        <h3>Looking for the right answer?</h3>
+                                        <p>Search our knowledge base of support and <br/>FAQs.</p>
+                                        <br/>
+
+                                        <div class="actions">
+                                            <a href="{!configSetting.ViewFAQURL__c}" target="_blank" class="cta-link">View FAQs</a>
+                                        </div>
+                                    </div>
+                                </outputPanel>-->
+
+                                <!-- Below block for ST Users -->
+                                <apex:outputPanel rendered="{!isSTUser}">
+                                    <div class="landing-looking-for-the-right-answer">
+                                        <h3>Track your item</h3>
+                                        <p>Track your item, view proof of deliveries &amp; initiate a new delivery enquiry with our business support team.</p>
+
+                                        <a href="{!URLFOR($Page.BSPConsignmentSearch)}" type="button" class="primary-cta button-submit left" style="background:#dc1928; padding:5px 20px; margin-top: 10px; margin-bottom: 10px;">Track &amp; Trace</a>
+                                    </div>
+
+                                    <div style="float:left;width:10px">&nbsp;</div>
+
+                                    <div class="landing-create-a-new-enquiry">
+                                        <h3>Create a new enquiry</h3>
+                                        <p>Initiate a new enquiry with our corporate support <br/>team by providing a new details to assist us.</p>
+
+                                        <apex:commandButton styleClass="primary-cta button-submit left" value="Create new enquiry" id="create-enquiry-button-st" action="{!createCase}" style="background:#dc1928; padding:5px 20px; margin-bottom: 11px;"/>
+                                    </div>
+                                </apex:outputPanel>
+
+                                <!-- Below block for AP Users -->
+                                <apex:outputPanel rendered="{!isAPUser}"> <!-- AND(NOT(hideSSCR5), isAPUser) -->
+                                    <div class="landing-looking-for-the-right-answer">
+                                        <h3>Track your item</h3>
+                                        <p>Track your item,
+                                            Recall/Redirect parcels &amp; download Proof of Delivery.
+                                        </p>
+                                        <a href="{!URLFOR($Page.BSPConsignmentSearch)}" type="button" class="primary-cta button-submit left" style="background:#dc1928; padding:5px 20px; margin-top: 10px; margin-bottom: 10px;">Track &amp; Trace</a>
+                                    </div>
+
+                                    <div style="float:left;width:10px">&nbsp;</div>
+
+                                    <div class="landing-create-a-new-enquiry">
+                                        <h3>Create a new enquiry</h3>
+                                        <p>Initiate a new enquiry with our corporate support <br/>team by providing a new details to assist us.</p>
+
+                                        <apex:commandButton styleClass="primary-cta button-submit left" value="Create new enquiry" id="create-enquiry-button-ap" action="{!createCase}" style="background:#dc1928; padding:5px 20px; margin-bottom: 11px;"/>
+                                    </div>
+                                </apex:outputPanel>
+
+                            </apex:form>
+
+
+                        </apex:outputPanel>
+
+
+                        <!-- START CM51 Value prop  -->
+                        <p class="value-proposition"></p>
+
+
+                        <div style="clear:both"/>
+
+
+                        <!-- fn-validation -->
+                        <apex:form styleClass="form"  id="Enquiry_Form" rendered="{!IF(section='enquiry' || section='landing' || section='bulk update',true,false)}" enctype="multipart/form-data">
+
+                            <apex:Messages styleclass="form-errors" id="form_err" />
+                            
+                            <apex:outputPanel rendered="{!(LOWER(enq.CCUEnquiryType__c))=='rts request'}">                                
+                                <div class="tempAlert">             
+                                    <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                  
+                                        Did you know you can log an RTS request instantly using the Recall function?                                 
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Visit <a href="{!URLFOR($Page.BSPConsignmentSearch, null, null)}">here</a>                    
+                                    </h3>                                
+                                </div>
+                                <br/>
+                            </apex:outputPanel>
+                            <!-- START Error list
+                                    If there are serverside errors, include them as <li> elements
+                                    If there are no serverside errors, still include this DIV, but without any <li> elements. It will be used by JavaScript.
+                            -->
+                            <div class="form-errors hidden">
+                                <h3>Please enter the required information.</h3>
+                            </div>
+                            <!-- END Error list -->
+
+                            <apex:outputPanel id="landing-your-enquiry" rendered="{!IF(section='landing',true,false)}">
+                                <h2>Your enquiries</h2>
+                                <br/>
+                                <br/>
+
+                                <apex:outputText rendered="{!maxResultsFound}" styleClass="bw-landing-info-msg" value="{!maxResultsFoundMessage}" escape="false"/>
+
+
+                                <div class="clearfix"/>
+                                <!-- First line, Search by keyword, enquiry or item number -->
+                                <div class="bw-search-kit left">
+                                    <apex:actionRegion >
+                                        <apex:inputText id="search-text" html-placeholder="Search by keyword, enquiry or item number" styleclass="bw-search-bar" style="height:25px;" value="{!searchText}"/>
+                                        <apex:commandButton id="btnSearch" action="{!displayCaseList}" styleClass="bw-search-image" image="{!URLFOR($Resource.BSP_Custom,'images/searchLens.png')}" style="height:25px;" reRender="landing-your-enquiry" status="search-case-list"/>
+                                    </apex:actionRegion>
+                                </div>
+                                <div class="left">
+                                    <apex:actionStatus id="search-case-list">
+                                        <apex:facet name="start">
+                                            <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                        </apex:facet>
+                                    </apex:actionStatus>
+                                </div>
+                                <div class="clearfix"/>
+                                <br/>
+
+                                <!-- Second line, All org to 15 Enquiries -->
+                                <div class="left">
+                                    <apex:actionRegion >
+                                        <apex:selectList size="1" value="{!indOrgEnquiryFlag}" styleclass="bw-indorg-field" style="width:225px;height:25px; padding: 1px 17px 2px 10px !important;">
+                                            <apex:selectOptions value="{!IndOrgPicklist}"/>
+                                            <apex:actionSupport event="onchange" action="{!displayCaseList}" status="loading-case-list" rerender="landing-your-enquiry"/>
+                                        </apex:selectList>
+                                    </apex:actionRegion>
+                                    <apex:actionStatus id="loading-case-list">
+                                        <apex:facet name="start">
+                                            <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                        </apex:facet>
+                                    </apex:actionStatus>
+                                </div>
+                                <div class="left" style="width:5px;">&nbsp;</div>
+
+                                <div class="left">
+                                    <apex:actionRegion >
+                                        <apex:selectList size="1" value="{!selectedBillingAccount}" styleclass="bw-indorg-field" style="width:225px;height:25px;padding: 1px 17px 2px 10px !important;">
+                                            <apex:selectOptions value="{!BillingAccounts}"/>
+                                            <apex:actionSupport event="onchange" action="{!displayCaseList}" status="loading-case-list-bill-account" rerender="landing-your-enquiry"/>
+                                        </apex:selectList>
+                                    </apex:actionRegion>
+                                    <apex:actionStatus id="loading-case-list-bill-account">
+                                        <apex:facet name="start">
+                                            <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                        </apex:facet>
+                                    </apex:actionStatus>
+                                </div>
+                                <div class="left" style="width:5px;">&nbsp;</div>
+                                <div>
+                                    <apex:actionRegion >
+                                        <apex:selectList style="width:185px; height:25px; padding: 1px 17px 2px 10px !important;" size="1" value="{!dynamicPageSize}">
+                                            <apex:selectOptions value="{!dynamicPageSizePicklist}"/>
+                                            <apex:actionSupport event="onchange" action="{!displayCaseList}" status="change-page-size" rerender="landing-your-enquiry"/>
+                                        </apex:selectList>
+                                    </apex:actionRegion>
+                                    <apex:actionStatus id="change-page-size">
+                                        <apex:facet name="start">
+                                            <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                        </apex:facet>
+                                    </apex:actionStatus>
+                                </div>
+                                <apex:outputPanel rendered="{!userBillingAccountScope == 'ALL'}">
+                                    <div class="left">
+                                        <p>Related To</p>
+                                        <apex:actionRegion >
+                                            <apex:selectList style="width:135px; height:25px; padding: 1px 17px 2px 10px !important;" size="1" value="{!relatedTo}">
+                                                <apex:selectOptions value="{!relatedToList}"/>
+                                                <apex:actionSupport event="onchange" action="{!displayCaseList}" status="relatedto-loading" rerender="landing-your-enquiry"/>
+                                            </apex:selectList>
+                                        </apex:actionRegion>
+                                        <apex:actionStatus id="relatedto-loading">
+                                            <apex:facet name="start">
+                                                <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                            </apex:facet>
+                                        </apex:actionStatus>
+                                    </div>
+                                    <div class="left" style="width:5px;">&nbsp;</div>
+                                </apex:outputPanel>
+                                <div class="input-normal left">
+                                    <p>Date Created From</p>
+                                    <apex:inputField value="{!dummyEnq1.Start_Date__c}" style="width:180px;" html-placeholder="From Date" rendered="{!userBillingAccountScope == 'ALL'}" onchange="startDateChange()"/>
+                                    <apex:inputField value="{!dummyEnq1.Start_Date__c}" style="width:220px;" html-placeholder="From Date" rendered="{!userBillingAccountScope != 'ALL'}" onchange="startDateChange()"/>
+                                    <apex:actionFunction name="startDateChange" action="{!displayCaseList}" status="start-date-loading" rerender="landing-your-enquiry"/>
+                                    <apex:actionStatus id="start-date-loading">
+                                        <apex:facet name="start">
+                                            <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                        </apex:facet>
+                                    </apex:actionStatus>
+                                </div>
+                                <div class="left" style="width:5px;">&nbsp;</div>
+                                <div class="input-normal left">
+                                    <p>Date Created To</p>
+                                    <apex:inputField value="{!dummyEnq1.End_Date__c}" style="width:180px;" html-placeholder="To Date" rendered="{!userBillingAccountScope == 'ALL'}" onchange="endDateChange()"/>
+                                    <apex:inputField value="{!dummyEnq1.End_Date__c}" style="width:220px;" html-placeholder="To Date" rendered="{!userBillingAccountScope != 'ALL'}" onchange="endDateChange()"/>
+                                    <apex:actionFunction name="endDateChange" action="{!displayCaseList}" status="end-date-loading" rerender="landing-your-enquiry"/>
+                                    <apex:actionStatus id="end-date-loading">
+                                        <apex:facet name="start">
+                                            <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                        </apex:facet>
+                                    </apex:actionStatus>
+                                </div>
+                                <div class="left" style="width:5px;">&nbsp;</div>
+                                <div class="left">
+                                    <p>Status</p>
+                                    <apex:actionRegion >
+                                        <apex:selectList style="width:135px" size="1" value="{!caseRecStatus}" rendered="{!userBillingAccountScope == 'ALL'}">
+                                            <apex:selectOptions value="{!statusList}"/>
+                                            <apex:actionSupport event="onchange" action="{!displayCaseList}" status="status-loading" rerender="landing-your-enquiry"/>
+                                        </apex:selectList>
+                                        <apex:selectList style="width:195px" size="1" value="{!caseRecStatus}" rendered="{!userBillingAccountScope != 'ALL'}">
+                                            <apex:selectOptions value="{!statusList}"/>
+                                            <apex:actionSupport event="onchange" action="{!displayCaseList}" status="status-loading" rerender="landing-your-enquiry"/>
+                                        </apex:selectList>
+                                    </apex:actionRegion>
+                                    <apex:actionStatus id="status-loading">
+                                        <apex:facet name="start">
+                                            <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                        </apex:facet>
+                                    </apex:actionStatus>
+                                </div>
+                                <div class="clearfix"/>
+                                <br/>
+                                <apex:outputPanel > <!-- rendered="{!OR(isSTUser, AND(NOT(hideSSCR5), isAPUser))}" -->
+                                    <apex:dataTable value="{!myCaseListContainer_Paginated}" var="c" id="my-cases-st" headerClass="st-table-header" styleclass="st-table" rowclasses="st-row" columnsWidth="33px, 32px, 100px">
+                                        <apex:column >
+                                            <apex:facet name="header"></apex:facet>
+                                            <apex:inputCheckbox value="{!c.isSelected}" rendered="{!c.caseObj.Status != 'Closed'}"/>
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:image value="{!URLFOR($Resource.BSP_Asset, 'css/images/auspost.png')}" width="20px" height="20px" rendered="{!NOT(c.isST)}"/>
+                                            <apex:image value="{!URLFOR($Resource.StarTrack_BSP_Logo)}" width="20px" height="20px" rendered="{!c.isST}"/>
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">
+                                                <apex:commandLink style="text-decoration: none; color: #382f2d;" action="{!sortRecords}" rerender="landing-your-enquiry">Enquiry #
+                                                    <apex:image style="vertical-align: top; padding-top: 4.5px;" url="{!IF(sortBy == 'Enquiry',CASE(columnDir, 'ASC', 'data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7', 'DESC', 'data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7', 'data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw=='),'data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==')}"/>
+                                                    <apex:param name="sortBy" assignTo="{!sortBy}" value="Enquiry"/>
+                                                    <apex:param name="sortColumnDir" assignTo="{!sortColumnDir}" value="{!IF(sortBy =='Enquiry',IF(sortColumnDir == 'ASC', 'DESC', 'ASC'),'ASC')}"/>
+                                                </apex:commandLink>
+
+                                            </apex:facet>
+                                            <apex:outputLink style="display: inline-block;" value="{!URLFOR($Page.bspEnquiryDetail, null, [id=c.caseObj.id])}">{!c.caseObj.CaseNumber}</apex:outputLink>
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">
+                                                <apex:commandLink style="text-decoration: none; color: #382f2d;" action="{!sortRecords}" rerender="landing-your-enquiry">Date created
+                                                    <apex:image style="vertical-align: top; padding-top: 4.5px;" url="{!IF(sortBy == 'CreatedDate',CASE(columnDir, 'ASC', 'data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7', 'DESC', 'data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7', 'data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw=='),'data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==')}"/>
+                                                    <apex:param name="sortBy" assignTo="{!sortBy}" value="CreatedDate"/>
+                                                    <apex:param name="sortColumnDir" assignTo="{!sortColumnDir}" value="{!IF(sortBy =='CreatedDate',IF(sortColumnDir == 'ASC', 'DESC', 'ASC'),'ASC')}"/>
+                                                </apex:commandLink>
+                                            </apex:facet>
+                                            <apex:outputField value="{!c.caseObj.CreatedDate}"/>
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">
+                                                <apex:commandLink style="text-decoration: none; color: #382f2d;" action="{!sortRecords}" rerender="landing-your-enquiry">Tracking No.
+                                                    <apex:image style="vertical-align: top; padding-top: 4.5px;" url="{!IF(sortBy == 'ArticleName',CASE(columnDir, 'ASC', 'data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7', 'DESC', 'data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7', 'data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw=='),'data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==')}"/>
+                                                    <apex:param name="sortBy" assignTo="{!sortBy}" value="ArticleName"/>
+                                                    <apex:param name="sortColumnDir" assignTo="{!sortColumnDir}" value="{!IF(sortBy =='ArticleName',IF(sortColumnDir == 'ASC', 'DESC', 'ASC'),'ASC')}"/>
+                                                </apex:commandLink>
+                                            </apex:facet>
+                                            <apex:outputField value="{!c.caseObj.ArticleTest__r.Name}"/>
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">Details</apex:facet>
+                                            <apex:outputText value="{!c.caseObj.Subject}"/>
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">
+                                                <apex:commandLink style="text-decoration: none; color: #382f2d;" action="{!sortRecords}" rerender="landing-your-enquiry">Sending to
+                                                    <apex:image style="vertical-align: top; padding-top: 4.5px;" url="{!IF(sortBy == 'SendingTo',CASE(columnDir, 'ASC', 'data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7', 'DESC', 'data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7', 'data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw=='),'data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==')}"/>
+                                                    <apex:param name="sortBy" assignTo="{!sortBy}" value="SendingTo"/>
+                                                    <apex:param name="sortColumnDir" assignTo="{!sortColumnDir}" value="{!IF(sortBy =='SendingTo',IF(sortColumnDir == 'ASC', 'DESC', 'ASC'),'ASC')}"/>
+                                                </apex:commandLink>
+                                            </apex:facet>
+                                            <apex:outputText value="{!c.sendingTo}" />
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">
+                                                <apex:commandLink style="text-decoration: none; color: #382f2d;" action="{!sortRecords}" rerender="landing-your-enquiry">Status
+                                                    <apex:image style="vertical-align: top; padding-top: 4.5px;" url="{!IF(sortBy == 'Status',CASE(columnDir, 'ASC', 'data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7', 'DESC', 'data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7', 'data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw=='),'data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==')}"/>
+                                                    <apex:param name="sortBy" assignTo="{!sortBy}" value="Status"/>
+                                                    <apex:param name="sortColumnDir" assignTo="{!sortColumnDir}" value="{!IF(sortBy =='Status',IF(sortColumnDir == 'ASC', 'DESC', 'ASC'),'ASC')}"/>
+                                                </apex:commandLink>
+                                            </apex:facet>
+                                            <apex:outputText value="{!IF(LOWER(c.caseObj.Status)=='awaiting customer response','Action Required',IF((LOWER(c.caseObj.status)=='closed'&&c.caseObj.Permanent_Close__c)||c.caseObj.subject=='Bulk Upload',c.caseObj.status,IF(LOWER(c.caseObj.status)=='closed'&&!c.caseObj.Permanent_Close__c,'Resolved',IF(LOWER(c.caseObj.Status)=='waiting on customer','Action Required','In Progress'))))}" />
+                                        </apex:column>
+                                    </apex:dataTable>
+                                    <apex:outputPanel rendered="{!myCaseListContainer_Paginated.size > 0}">
+                                        <apex:outputLink value="javascript:void(0);" target="_blank" onClick="downloadAllCasesCSV('{!caseDetais}'); return true;" id="theLink">Download All</apex:outputLink>
+                                        <apex:commandButton id="bulk_update_btn" styleClass="primary-cta button-submit center" value="Update" style="background:#dc1928; padding:5px 20px; float: right;" action="{!validateCasesToUpdate}" rerender="main_output_panel"/>
+
+                                        <apex:commandButton id="active_close_btn" styleClass="primary-cta button-submit center" value="Resolve enquiry" style="background:#dc1928; padding:5px 20px; float: right; margin-right: 5px;" action="{!bulkCloseCase}" rerender="Enquiry_Form" onclick="showLoading('close_loading_btn');disableCloseButton();" oncomplete="hideLoading('close_loading_btn');enableCloseButton();"/>
+                                        <apex:commandButton id="disabled_close_btn" value="Resolve enquiry" disabled="true" style="color: #b7b7b7; border: solid 2px #e4e4e4; background-color: #e4e4e4; padding:5px 20px; float: right; margin-right: 5px; display: none;"/>
+                                        <div id="close_loading_btn" style="display: none; float: right; padding-top: 17px; padding-right: 10px;">
+                                            <img id="loading-image-close" src="/img/loading.gif" alt="Loading..." />
+                                        </div>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+
+                                <!--<outputPanel rendered="{!AND(hideSSCR5, isAPUser)}">
+                                    <dataTable value="{!myCaseList_Paginated}" var="c" id="my-cases" headerClass="bw-table-header" styleclass="bw-table" rowclasses="bw-row">
+                                        <column >
+                                            <facet name="header">Enquiry #</facet>
+                                            <outputLink value="{!URLFOR($Page.bspEnquiryDetail, null, [id=c.id])}">{!c.CaseNumber}</outputLink>
+                                        </column>
+                                        <column >
+                                            <facet name="header">Date created</facet>
+                                            <outputField value="{!c.CreatedDate}" />
+                                        </column>
+                                        <column >
+                                            <facet name="header">Details</facet>
+                                            <outputText value="{!c.Subject}" />
+                                        </column>
+                                        <column >
+                                            <facet name="header">Sending to</facet>
+                                            <outputText value="{!IF(NOT(ISBLANK(c.BSP_Addressee_Name__c)),c.BSP_Addressee_Name__c,c.Secondary_Contact__c)}" />
+                                        </column>
+                                        <column >
+                                            <facet name="header">Status</facet>
+                                            <outputText value="{!IF(LOWER(c.Status)=='awaiting customer response','Action Required',IF((LOWER(c.status)=='closed'&&c.Permanent_Close__c)||c.subject == 'Bulk Upload',c.status,IF(LOWER(c.status)=='closed'&&!c.Permanent_Close__c,'Resolved','In Progress')))}" />
+                                        </column>
+                                    </dataTable>
+                                </outputPanel>-->
+
+                                <hr/>
+                                <apex:outputText escape="false" value="{!searchResultMessage}" />
+
+                                <apex:commandLink styleclass="right cta-link" value="Next" action="{!next}" rendered="{!hasNext}" rerender="landing-your-enquiry" status="loading-case-pages"/>
+                                <div style="width:20px;float:right;">&nbsp;</div>
+                                <apex:commandLink styleclass="right cta-link-previous" value="Previous" action="{!previous}" rendered="{!hasPrevious}" rerender="landing-your-enquiry" status="loading-case-pages"/>
+
+                                <apex:actionStatus id="loading-case-pages">
+                                    <apex:facet name="start">
+                                        <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                    </apex:facet>
+                                </apex:actionStatus>
+
+                                <hr/>
+
+                            </apex:outputPanel>
+
+                            <!-- Enquiry section -->
+                            <apex:outputPanel rendered="{!confirmCreation}" id="errorMessagePanel">
+                                <div class="form-errors">
+                                    <h3>
+                                        Do you still want to create an enquiry?&nbsp;
+                                        <apex:commandLink value="Yes" action="{!createEnquiryWithoutArticle}" rerender="main_output_panel, Enquiry_Form, Enquiry_Delivery_Enquiry, multipleCaseErrorMessage, errorMessagePanel, successMessage, Enquiry_Section" onclick="showLoading('loading');" oncomplete="hideLoading('loading');"/> /&nbsp;
+                                        <apex:commandLink value="No" action="{!refreshCreateEnquiryPage}" rerender="main_output_panel, Enquiry_Form, Enquiry_Delivery_Enquiry, multipleCaseErrorMessage, errorMessagePanel, successMessage, Enquiry_Section"/>
+                                    </h3>
+                                </div>
+
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(currentConsignment == null)}" id="multipleCaseErrorMessage">
+                                <div class="form-errors">
+                                    <h3>
+                                        <apex:outputText value="{!multipleCaseError} "/>
+                                        <apex:repeat value="{!caseNumbers}" var="mapKey">
+                                            <a href="{!URLFOR($Page.bspEnquiryDetail, null, [id=caseNumbers[mapKey]])}">{!mapKey}</a>
+                                            <apex:outputText value="{!IF(OR(lastKey == mapKey), '', ',')}"/>
+                                        </apex:repeat>
+                                        <br/><br/>Do you still want to create an enquiry?&nbsp;
+                                        <apex:commandLink value="Yes" action="{!createCaseUnderConsign}" rerender="main_output_panel, Enquiry_Form, Enquiry_Delivery_Enquiry, multipleCaseErrorMessage, errorMessagePanel, successMessage, Enquiry_Section" onclick="showLoading('loading');" oncomplete="hideLoading('loading');"/> /
+                                        <a href="{!$Site.CurrentSiteUrl}bspEnquiry">No</a>
+                                    </h3>
+                                </div>
+
+                            </apex:outputPanel>
+                            <apex:outputPanel id="Enquiry_Section" rendered="{!IF(AND(section='enquiry', NOT(showSuccessMessage)),true,false)}">
+
+                                <p class="required-legend"><span class="symbol-req"> *</span> Required information</p>
+
+                                <h2>Enquiry details</h2>
+                                <br/>
+                                <br/>
+
+                                <apex:outputPanel rendered="{!userBillingAccountScope == 'ALL'}">
+                                    <div class="input-group">
+                                        <div class="input required">
+                                            <p>Enquiry is related to<span class="symbol-req"> *</span></p>
+                                            <apex:actionRegion >
+                                                <apex:selectList size="1" value="{!selectedEnquiryType}" styleclass="input-medium" disabled="{!creationFromConsignSearch}">
+                                                    <apex:selectOptions value="{!EnquiryType}"/>
+                                                    <apex:actionSupport event="onchange" action="{!enquiryTypeOnChange}" rerender="main_output_panel"/>
+                                                </apex:selectList>
+                                            </apex:actionRegion>
+                                        </div>
+
+                                        <apex:actionStatus id="loading-enquiry-type_1">
+                                            <apex:facet name="start">
+                                                <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                            </apex:facet>
+                                        </apex:actionStatus>
+                                    </div>
+                                </apex:outputPanel>
+
+
+                                <apex:outputPanel rendered="{!OR(selectedEnquiryType != '', userBillingAccountScope != 'ALL')}">
+                                    <div class="input-group">
+                                        <div class="input required">
+                                            <p>What is your enquiry about?<span class="symbol-req"> *</span></p>
+                                            <apex:actionRegion >
+                                                <apex:selectList size="1" value="{!enq.CCUEnquiryType__c}" styleclass="input-medium" rendered="{!selectedEnquiryType == 'startrack'}" disabled="{!creationFromConsignSearch}">
+                                                    <apex:selectOptions value="{!CaseType}"/>
+                                                    <apex:actionSupport event="onchange" action="{!refreshPage}" rerender="Enquiry_Form, Enquiry_Section, multipleCaseErrorMessage, errorMessagePanel"/>
+                                                </apex:selectList>
+                                                <apex:selectList size="1" value="{!enq.CCUEnquiryType__c}" styleclass="input-medium" rendered="{!selectedEnquiryType == 'auspost'}" >
+                                                    <apex:selectOptions value="{!CaseType}"/>
+                                                    <apex:actionSupport event="onchange" action="{!refreshPage}"/>
+                                                </apex:selectList>
+                                            </apex:actionRegion>
+                                        </div>
+
+                                        <apex:actionStatus id="loading-enquiry-type">
+                                            <apex:facet name="start">
+                                                <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                            </apex:facet>
+                                        </apex:actionStatus>
+                                    </div>
+                                </apex:outputPanel>
+
+                                <br/>
+                                <!-- Delivery Enquiry -->
+                                <apex:outputPanel id="Enquiry_Delivery_Enquiry" rendered="{!(LOWER(enq.CCUEnquiryType__c))=='startrack delivery enquiry'}" >
+                                    <!--                                <apex:pageMessages id="pageMessages"/> -->
+                                    <div style="height:5px;"/>
+                                    <div class="input input-large">
+                                        <p>Subject<span class="symbol-req"> *</span></p>
+                                        <apex:inputField value="{!enq.Subject}" />
+                                    </div>
+                                    <div style="heigh:5px" />
+                                    <div class="input input-large">
+                                        <p>Consignment Number<span class="symbol-req"> *</span></p>
+                                        <apex:inputText id="consignmentNumber_id_inp" value="{!consignmentNumber}" rendered="{!NOT(creationFromConsignSearch)}"/>
+                                        <apex:outputText id="consignmentNumber_id_outp" value="{!consignmentNumber}" rendered="{!creationFromConsignSearch}"/>
+                                    </div>
+                                    <div style="heigh:5px" />
+                                    <div class="input input-large">
+                                        <p>Description<span class="symbol-req"> *</span></p>
+                                        <apex:inputField value="{!enq.Description}" />
+                                    </div>
+                                    <div style="heigh:5px" />
+                                    <div class="input input-large">
+                                        <p>Purpose<span class="symbol-req"> *</span></p>
+                                        <apex:inputField value="{!enq.Call_Purpose__c}" id="delInq_purpose"/>
+                                        <script type="text/javascript">
+                                            (function(){
+                                                var e = document.querySelectorAll('[id$="delInq_purpose"]')[0];
+                                                //spingali - REQ2138663 - Remove 'Depot Created' and 'Not Case Related' case purpose for Startrack 
+                                                for (i = e.length-1 ; i >=0; i--) {
+                                                    if (e[i].value == 'Late Delivery' || e[i].value == 'Depot Created' || e[i].value == 'Not Case Related') {e.remove(i);}
+                                                }
+                                            })();
+                                        </script>
+                                    </div>
+                                    <div style="heigh:5px" />
+
+                                </apex:outputPanel>
+                                <!-- Delivery Enquiry -->
+                                <apex:outputPanel id="Enquiry_Pickup_Booking_Enquiry" rendered="{!(LOWER(enq.CCUEnquiryType__c))=='startrack pickup booking enquiry'}" >
+                                    <!--                                <apex:pageMessages id="pageMessages"/> -->
+                                    <div style="height:5px;"/>
+                                    <div class="input input-large">
+                                        <p>Subject<span class="symbol-req"> *</span></p>
+                                        <apex:inputField value="{!enq.Subject}" />
+                                    </div>
+                                    <div style="heigh:5px" />
+                                    <div class="input input-large">
+                                        <p>Description<span class="symbol-req"> *</span></p>
+                                        <apex:inputField value="{!enq.Description}" />
+                                    </div>
+                                    <div style="heigh:5px" />
+                                    <div class="input input-large">
+                                        <p>Purpose<span class="symbol-req"> *</span></p>
+                                        <apex:inputField value="{!enq.Call_Purpose__c}" />
+                                    </div>
+                                    <!--div style="heigh:5px" />
+                                <div class="input input-large">
+                                    <p>Billing Account<span class="symbol-req"> *</span></p>
+                                    <apex:inputField value="{!enq.Related_Billing_Account__c}" />
+                                </div-->
+                                    <div style="heigh:5px" />
+                                    <div class="input input-large">
+                                        <p>Billing Account<span class="symbol-req"> *</span></p>
+                                        <apex:inputText value="{!billingAccountNumber}" />
+                                    </div>
+                                    <div style="heigh:5px" />
+                                    <div class="input input-large">
+                                        <p>Pickup Booking Reference Number<span class="symbol-req"> *</span></p>
+                                        <apex:inputField value="{!enq.Pickup_Booking_Reference__c}" />
+                                    </div>
+                                    <div style="heigh:5px" />
+
+                                </apex:outputPanel>
+
+                                <!-- hans added: 02/05/2019 -->
+                                <apex:outputPanel id="StarTrack_Attachment_Panel" rendered="{!IF((LOWER(enq.CCUEnquiryType__c))=='startrack pickup booking enquiry' || (LOWER(enq.CCUEnquiryType__c))=='startrack delivery enquiry',true,false)}" >
+                                    <div class="bw-add-attachment">
+                                        <apex:actionRegion >
+                                            <apex:image url="{!URLFOR($Resource.BSP_Custom, 'images/plus-icon.png')}" alt="Add" styleclass="left cursor-pointer" onclick="JS_DisplayAttachmentButtonED();"/>
+                                            <apex:actionFunction name="SF_DisplayAttachmentButtonED" rerender="attachment-button-StarTrack" action="{!SF_DisplayAttachmentButton}" status="loading-att-StarTrack" onComplete="makedz();preventDefaultEventsOnDiv()"/>
+
+                                        </apex:actionRegion>
+                                    </div>
+                                    <div id="attachment-block" >
+                                        <h4 >Attach a document or image</h4>
+                                        <p>PDF, JPEG and DOC files up to {!fileSizeLimitInteger}MB accepted</p>
+                                    </div>
+                                    <apex:actionStatus id="loading-att-StarTrack">
+                                        <apex:facet name="start">
+                                            <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                        </apex:facet>
+                                    </apex:actionStatus>
+                                    <div id="attachment-block-StarTrack">
+                                        <apex:outputPanel id="attachment-button-StarTrack">
+                                            <div id="attachment-" style="width: 100%">
+                                                <apex:outputPanel id="attachment-zone-StarTrack" >
+                                                    <apex:outputPanel id="attachment-component-StarTrack" rendered="{!showAttachmentButtonFlag}">
+
+
+                                                        <div id="upload-widget"  class="dropzone" style="border: 2px dashed #d5d2ca; border-radius: 5px; background: white; min-height: 116px">
+                                                            <apex:actionStatus id="upload-att-startrack">
+                                                                <apex:facet name="start">
+                                                                    <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator" style=" position: relative; margin: auto;left: 50%;"/>
+                                                                </apex:facet>
+                                                            </apex:actionStatus>
+                                                        </div>
+
+                                                    </apex:outputPanel>
+                                                </apex:outputPanel>
+                                            </div>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel id="existing-attachments-StarTrack" >
+                                            <br/>
+                                            <table>
+                                                <tr>
+                                                    <td width="200px">
+                                                        <h4>Existing Files</h4>
+                                                    </td>
+                                                    <td>
+                                                        <apex:repeat value="{!contentDocVersionNames}" var="at" >
+                                                            {!at} <br/>
+                                                        </apex:repeat>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </apex:outputPanel>
+
+                                    </div>
+                                </apex:outputPanel>
+
+                                <!-- General Enquiry -->
+                                <apex:outputPanel id="Enquiry_General_Enquiry" rendered="{!IF(LOWER(enq.CCUEnquiryType__c)='general enquiry' || LOWER(enq.CCUEnquiryType__c)='mail redirection/hold',true,false)}" >
+
+                                    <div style="height:5px;"/>
+                                    <div class="input input-large">
+                                        <p>Your reference <apex:outputText value="(You can use a name or number for your records)" styleClass="bw-req-note"/></p>
+                                        <apex:inputField value="{!enq.CCUYourReference__c}" />
+                                    </div>
+                                    <div style="heigh:5px" />
+
+                                    <hr/>
+
+                                    <h3>Your enquiry</h3>
+
+                                    <div class="input required {!IF(AND(formSubmitted,ISBLANK(enq.Description)), 'has-error', '')}">
+                                        <p>Tell us what your enquiry is about <span class="symbol-req"> *</span></p>
+                                        <apex:inputField value="{!enq.Description}" styleclass="bw-input-field" />
+                                    </div>
+
+                                </apex:outputPanel>
+                                <!-- Bulk Upload -->
+                                <apex:outputPanel id="Enquiry_Bulk_Upload" rendered="{!IF(LOWER(enq.CCUEnquiryType__c)='bulk upload',true,false)}" >
+
+                                    <div style="heigh:10px">&nbsp;</div>
+                                    <div>
+                                        <br/><b><u>Instructions</u></b><br/><br/>
+                                        1.Download the bulk load template from the quick links on the right-hand side of this page<br/>
+                                        2.Fill in all of the columns of the template, with one enquiry per row<br/>
+                                        3.Save the file somewhere you can access it<br/>
+                                        4.Click on the ?Choose file? button and locate the file you just saved<br/>
+                                        5.Once the file has finished loading, click on ?Submit Enquiry?<br/>
+                                        6.If the file cannot be loaded due to any issues then an error message will be displayed and you will need to fix the errors in the csv file before trying to load it again<br/>
+                                        7.Once the file is loaded, you will need to go to the Home screen to check the status of your bulk upload enquiry. There will be a summary of the errors - you will be required to correct the file and upload the new file<br/>
+                                        <br/></div>
+                                    <div class="bw-add-attachment">
+                                        <apex:actionRegion >
+                                            <apex:image url="{!URLFOR($Resource.BSP_Custom, 'images/fileUploadWhite.png')}" alt="Add" styleclass="left cursor-pointer" />
+
+                                        </apex:actionRegion>
+                                    </div>
+                                    <apex:outputPanel id="AttachmentBlock1" rendered="{!IF(LOWER(enq.CCUEnquiryType__c)='bulk upload',true,false)}">
+
+
+                                        <div id="attachment-block">
+                                            <h4 >Attach csv file</h4>
+                                            <p>Upto {!TEXT(configSetting.BulkUploadLimit__c)} records accepted</p>
+
+                                            <apex:inputFile value="{!csvBlob}"/>
+                                        </div>
+
+                                    </apex:outputPanel>
+
+                                </apex:outputPanel>
+                                <!-- Item Search -->
+                                <apex:outputPanel id="Enquiry_Item_Search" rendered="{!IF((enq.CCUEnquiryType__c!=null) && (LOWER(enq.CCUEnquiryType__c)!='general enquiry') && (LOWER(enq.CCUEnquiryType__c)!='mail redirection/hold') && (LOWER(enq.CCUEnquiryType__c)!='bulk upload') && (LOWER(enq.CCUEnquiryType__c)!='startrack delivery enquiry') && (LOWER(enq.CCUEnquiryType__c)!='startrack general enquiry') && (LOWER(enq.CCUEnquiryType__c)!='startrack pickup booking enquiry'),true,false)}" >
+
+                                    <div style="height:5px;"/>
+                                    <div class="input input-large">
+                                        <p>Your reference <apex:outputText value="(You can use a name or number for your records)" styleClass="bw-req-note"/></p>
+                                        <apex:inputField value="{!enq.CCUYourReference__c}" />
+                                    </div>
+                                    <div style="heigh:5px" />
+
+                                    <hr/>
+
+                                    <h3>Item details</h3>
+
+                                    <apex:outputPanel rendered="{!(conSearch != 'AP')}">
+                                        <div class="input required input-large {!IF(AND(formSubmitted,ISBLANK(enq.ReferenceID__c)), 'has-error', '')}">
+                                            <p>Tracking Number <span class="symbol-req"> *</span></p>
+                                            <apex:inputField value="{!enq.ReferenceID__c}" />
+                                        </div>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!(conSearch == 'AP')}">
+                                        <div>
+                                            <p>Tracking Number <span class="symbol-req"> *</span></p>
+                                            <apex:outputText value="{!enq.ReferenceID__c}"/>
+                                        </div>
+                                    </apex:outputPanel>
+
+                                    <div class="input required input-normal {!IF(AND(formSubmitted,ISBLANK(enq.BSPLodgementDate__c)), 'has-error', '')}">
+                                        <p>Lodgement Date <span class="symbol-req"> *</span><apex:outputText value="(dd/mm/yyyy)" styleClass="bw-req-note"/></p>
+                                        <apex:inputField value="{!enq.BSPLodgementDate__c}" style="width:175px;"/>
+                                    </div>
+
+                                    <!--<div class="input-group">-->
+                                        <div class="input required  {!IF(AND(formSubmitted,ISBLANK(enq.ArticleType__c)), 'has-error', '')}" id="bw-item-type">
+                                            <p>Item type<span class="symbol-req"> *</span></p>
+                                            <apex:selectRadio value="{!enq.ArticleType__c}" id="ddlArticleType">
+                                                <apex:selectoptions value="{!articleTypes}"/>
+                                            </apex:selectRadio>
+                                            <p class="error-message">Please enter a value.</p>
+                                        </div>
+                                        <div class="input required {!IF(AND(formSubmitted,ISBLANK(enq.CCUServiceUsed__c)), 'has-error', '')}">
+                                            <p>Service used<span class="symbol-req"> *</span></p>
+                                            <apex:selectList size="1" value="{!enq.CCUServiceUsed__c}" style="width:230px;" >
+                                                <apex:selectOptions value="{!ServiceUsed}"/>
+                                            </apex:selectList>
+                                        </div>
+                                    <!--</div>-->
+
+                                    <!--------------------
+                                    <div class="input required {!IF(AND(formSubmitted,ISBLANK(enq.CCUItemContents__c)), 'has-error', '')}">
+                                        <p>Item contents<span class="symbol-req"> *</span></p>
+                                        <apex:selectList size="1" value="{!enq.CCUItemContents__c}" style="width:230px;">
+                                            <apex:selectOptions value="{!ItemContents}"/>
+                                        </apex:selectList>
+                                    </div>
+                                    ------------>
+
+                                    <!----Adding Description of Content as per REQ1799669  ------>
+                                    <div class="input required {!IF(AND(formSubmitted,OR(ISBLANK(descofcontents), AND(!ISBLANK(descofcontents), LEN(descofcontents)=0))), 'has-error', '')}">
+
+                                        <p>Description of Contents<apex:outputText value="(Please include specific detail – e.g. brand, colour, size, quantity, value.)" styleClass="bw-req-note"/><span class="symbol-req"> *</span></p>
+                                        <apex:inputTextarea value="{!descofcontents}" styleclass="bw-input-field" style="height: 34px"/>
+                                    </div>
+
+                                    <div class="input required {!IF(AND(formSubmitted,OR(ISBLANK(descript), AND(!ISBLANK(descript), LEN(descript)=0))), 'has-error', '')}">
+                                        <p>Tell us what your enquiry is about <span class="symbol-req">*</span></p>
+                                        <apex:inputTextarea value="{!descript}" styleclass="bw-input-field"/>
+                                    </div>
+
+                                    <!-- Hans to remove-->
+                                    <!--
+                                    <div class="bw-add-attachment">
+                                        <apex:actionRegion >
+                                            <apex:image url="{!URLFOR($Resource.BSP_Custom, 'images/plus-icon.png')}" alt="Add" styleclass="left cursor-pointer" onclick="JS_DisplayAttachmentButtonED();" />
+                                            <apex:actionFunction name="SF_DisplayAttachmentButtonED" rerender="attachment-button" action="{!SF_DisplayAttachmentButton}" status="loading-att"/>
+
+                                            <apex:actionStatus id="loading-att">
+                                                <apex:facet name="start">
+                                                    <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                                </apex:facet>
+                                            </apex:actionStatus>
+                                        </apex:actionRegion>
+                                    </div>
+
+                                    div id="attachment-block">
+                                        <h4 >Attach a document or image</h4>
+                                        <p>PDF, JPEG and DOC files up to {!fileSizeLimitInteger}MB accepted</p>
+                                        <apex:outputPanel id="attachment-button">
+                                            <apex:inputFile value="{!fileBody}" fileName="{!fileName}" filesize="{!fileBodyLength}" contentType="{!fileContentType}" id="file" rendered="{!showAttachmentButtonFlag}" />
+                                        </apex:outputPanel>
+                                    </div-->
+                                    <!-- hans added: 02/05/2019 -->
+                                    <div class="bw-add-attachment">
+                                        <apex:actionRegion >
+                                            <apex:image url="{!URLFOR($Resource.BSP_Custom, 'images/plus-icon.png')}" alt="Add" styleclass="left cursor-pointer" onclick="JS_DisplayAttachmentButtonED();"/>
+                                            <apex:actionFunction name="SF_DisplayAttachmentButtonED" rerender="attachment-button" action="{!SF_DisplayAttachmentButton}" status="loading-att" onComplete="makedz();preventDefaultEventsOnDiv();"/>
+                                        </apex:actionRegion>
+                                    </div>
+                                    <div id="attachment-block" >
+                                        <h4 >Attach a document or image</h4>
+                                        <p>PDF, JPEG and DOC files up to {!fileSizeLimitInteger}MB accepted</p>
+                                    </div>
+                                    <apex:actionStatus id="loading-att">
+                                        <apex:facet name="start">
+                                            <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                        </apex:facet>
+                                    </apex:actionStatus>
+                                    <div id="attachment-block-auspost">
+                                        <apex:outputPanel id="attachment-button">
+                                            <!-- <apex:inputFile value="{!fileBody}" fileName="{!fileName}" filesize="{!fileBodyLength}" contentType="{!fileContentType}" id="file" rendered="{!showAttachmentButtonFlag}" /> -->
+                                            <div id="attachment-" style="width: 100%">
+                                                <apex:outputPanel id="attachment-zone" >
+                                                    <apex:outputPanel id="attachment-component" rendered="{!showAttachmentButtonFlag}">
+
+
+                                                        <div id="upload-widget"  class="dropzone" style="border: 2px dashed #d5d2ca; border-radius: 5px; background: white; min-height: 116px">
+                                                            <apex:actionStatus id="upload-att-auspost" style="width:100%; height: 100%">
+                                                                <apex:facet name="start">
+                                                                    <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator" style=" position: relative; margin: auto;left: 50%;" />
+                                                                </apex:facet>
+                                                            </apex:actionStatus>
+                                                        </div>
+
+                                                    </apex:outputPanel>
+                                                </apex:outputPanel>
+                                            </div>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel id="existing-attachments-auspost">
+                                            <br/>
+                                            <table>
+                                                <tr>
+                                                    <td width="200px">
+                                                        <h4>Existing Files</h4>
+                                                    </td>
+                                                    <td>
+                                                        <apex:repeat value="{!contentDocVersionNames}" var="at" >
+                                                            {!at} <br/>
+                                                        </apex:repeat>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </apex:outputPanel>
+                                    </div>
+
+                                    <hr/>
+
+                                    <div>
+                                        <div id="bw-component-address-from">
+                                            <h3>From</h3>
+
+                                            <apex:actionRegion >
+                                                <apex:selectRadio value="{!fromWhoRadio}" styleclass="CursorPointer">
+                                                    <apex:selectOptions value="{!FromRadio}" />
+                                                    <apex:actionSupport event="onclick" action="{!setFirstNameLastName}" status="loading-enquiry-from-section" rerender="enquiry-from-section"  />
+                                                </apex:selectRadio>
+                                            </apex:actionRegion>
+
+                                            <apex:actionStatus id="loading-enquiry-from-section">
+                                                <apex:facet name="start">
+                                                    <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                                </apex:facet>
+                                            </apex:actionStatus>
+
+                                            <apex:outputPanel id="enquiry-from-section">
+                                                <apex:outputPanel rendered="{!IF(fromWhoRadio='you',true,false)}">
+                                                    <br/>
+                                                    <div class="OutputReadOnly">
+                                                        <apex:outputText value="{!defaultFromString}" escape="false"/>
+                                                    </div>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!IF(fromWhoRadio='you',false,true)}">
+
+                                                    <div class="input-group">
+                                                        <div class="input">
+                                                            <p>First name</p>
+                                                            <apex:inputField value="{!enq.PrimaryContactFirstName__c}" style="width:152px;"/>
+                                                        </div>
+                                                        <div class="input">
+                                                            <p>Last name</p>
+                                                            <apex:inputField value="{!enq.PrimaryContactLastName__c}" style="width:162px;" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="input" style="margin-bottom:0px;">
+                                                        <p>Business name</p>
+                                                        <apex:inputField value="{!enq.PrimaryAccount__c}" style="width:324px;"/>
+                                                    </div>
+
+                                                    <c:bspQasComponent address="{!fromAddress}" submitted="{!formSubmitted}" legend="User Address" qastype="enquiry"/>
+
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+
+                                        </div>
+                                        <div id="bw-component-address-to">
+                                            <h3>To</h3>
+
+                                            <div class="input-group">
+                                                <div class="input required {!IF(AND(formSubmitted,ISBLANK(enq.SecondaryContactFirstName__c)), 'has-error', '')}">
+                                                    <p>First name<span class="symbol-req"> *</span></p>
+                                                    <apex:inputField value="{!enq.SecondaryContactFirstName__c}" style="width:152px;" />
+                                                </div>
+                                                <div class="input required {!IF(AND(formSubmitted,ISBLANK(enq.SecondaryContactLastName__c)), 'has-error', '')}">
+                                                    <p>Last name<span class="symbol-req"> *</span></p>
+                                                    <apex:inputField value="{!enq.SecondaryContactLastName__c}" style="width:162px;"/>
+                                                </div>
+                                            </div>
+                                            <div class="input" style="margin-bottom:0px;">
+                                                <p>Business name</p>
+                                                <apex:inputField value="{!enq.SecondaryAccount__c}" style="width:324px;"/>
+                                            </div>
+
+                                            <c:bspQasComponent address="{!toAddress}" submitted="{!formSubmitted}" legend="User Address" qastype="enquiry"/>
+
+                                        </div>
+                                    </div>
+
+                                </apex:outputPanel>
+
+                                <apex:outputPanel id="EnquiryButtons" rendered="{!IF(LOWER(enq.CCUEnquiryType__c)!=null, true, false)}">
+                                    <div style="display:{!IF(LOWER(enq.CCUEnquiryType__c)=='bulk upload', 'none', 'block')}"><hr/></div>
+                                    <!--Buttons-->
+                                    <div class="form-buttons clearfix">
+                                        <div class="right">
+                                            <script>
+                                                var j$ = jQuery.noConflict();
+
+                                                j$('form').submit(function(event){
+                                                    var hasErrors = false;
+                                                    var i = 1;
+                                                    j$('.required').find('input, select, textarea').each(function() {
+                                                        console.log(i + ' = value: ' + j$(this).val());
+                                                        if(j$(this).val() == undefined || j$(this).val().trim() == '') {
+                                                            hasErrors = true;
+                                                        }
+                                                        i++;
+                                                    });
+                                                    hasErrors = hasErrors || (j$('input:radio[name$=ddlArticleType]').filter(":checked").val() == undefined);
+                                                    console.log('radio: ' + j$('input:radio[name$=ddlArticleType]').filter(":checked").val());
+                                                    console.log('>>>>>>>>>>>>>>>> hasErrors: ' + hasErrors);
+                                                    if(!hasErrors) {
+                                                        // j$(document.getElementById('{!$Component.submitButton}')).toggle();
+                                                        // j$(document.getElementById('{!$Component.cancelButton}')).toggle();
+                                                        j$('#loading').show();
+                                                    }
+                                                });
+
+                                            </script>
+                                            <a class="cancel-link left" href="{!$Site.CurrentSiteUrl}bspEnquiry">Cancel</a>
+                                            <!--<apex:commandLink styleClass="cancel-link left" value="Cancel" id="cancelButton" immediate="true" action="{!cancelCase}" />-->
+                                            <apex:commandButton styleClass="primary-cta button-submit" value="Submit enquiry" id="submitButtonST" action="{!createEnquiryStarTrack}" rendered="{!selectedEnquiryType == 'startrack'}"
+                                                                style="background:#dc1928; padding:5px 20px;display:block"
+                                                                rerender="main_output_panel, Enquiry_Form, Enquiry_Delivery_Enquiry, multipleCaseErrorMessage, errorMessagePanel, successMessage, Enquiry_Section"
+                                                                onclick="showLoading('loading');" oncomplete="hideLoading('loading');"/>
+                                            <apex:commandButton styleClass="primary-cta button-submit" rendered="{!selectedEnquiryType == 'auspost'}" value="Submit enquiry" id="submitButton" action="{!createEnquiryAusPost}" style="background:#dc1928; padding:5px 20px;display:block"
+                                                                rerender="main_output_panel, Enquiry_Form, Enquiry_Delivery_Enquiry, errorMessagePanel,Thankyou_Section,Enquiry_Section"
+                                                                onclick="showLoading('loading');" oncomplete="hideLoading('loading');"/>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+
+                            <apex:outputPanel id="BulkUpdate_Section" rendered="{!IF(section='bulk update',true,false)}">
+                                <h2>Add Comment to Cases</h2>
+                                <div style="height:5px;"/>
+                                <div class="input input-large">
+                                    <p>Comment<span class="symbol-req"> *</span></p>
+                                    <apex:inputTextarea styleClass="bw-comments bw-input-field" html-placeholder="Add a comment or update" value="{!caseCommentBulk}" />
+                                </div>
+                                <apex:commandButton id="bulk_addComment_btn" styleClass="primary-cta button-submit center" value="Add Comment" style="background:#dc1928; padding:5px 20px; float: right; margin-top: 20px;" action="{!bulkUpdateCases}" onclick="showLoading('addComment_loading_btn');disableAddCommentButton();" oncomplete="hideLoading('addComment_loading_btn');enableAddCommentButton();" rerender="main_output_panel"/>
+                                <apex:commandButton id="disabled_addComment_btn" value="Add Comment" disabled="true" style="color: #b7b7b7; border: solid 2px #e4e4e4; background-color: #e4e4e4; padding:5px 20px; float: right; margin-top: 20px; display: none;"/>
+                                <div id="addComment_loading_btn" style="display: none; float: right; padding-top: 27px; padding-right: 10px;">
+                                    <img id="loading-image-close" src="/img/loading.gif" alt="Loading..." />
+                                </div>
+                            </apex:outputPanel>
+
+                            <!-- action function calling apex method to create array of attachments -->
+                            <apex:actionFunction name="submitEnquiryFileUpload"  action="{!submitEnquiryFileUpload}" oncomplete="proceedUploadingAttachments();" reRender="existing-attachments-StarTrack,existing-attachments-auspost" >
+                                <apex:param name="firstParam" assignTo="{!fileBodydz}" value="" />
+                                <apex:param name="secondParam" assignTo="{!fileNamedz}" value="" />
+                                <apex:param name="thirdParam" assignTo="{!fileContentTypedz}" value="" />
+                                <apex:param name="fourthParam" assignTo="{!fileBodyLengthdz}" value="" />
+                            </apex:actionFunction>
+
+                        </apex:form>
+
+                        <apex:outputPanel id="successMessage" rendered="{!IF(section='thankyou' && selectedEnquiryType = 'startrack', true, false)}">
+                            <h1 class="success">Thank you, your enquiry has been created.</h1>
+                            <br/>
+                            <br/>
+
+                            <h2 class="NormalWeight">{!successMessage}</h2>
+                            <br/>
+                            <br/>
+
+                            <h4 class="NormalWeight">You can check your enquiry here: <a href="{!URLFOR($Page.bspEnquiryDetail, null, [id=newCase.id])}">{!newCase.CaseNumber}</a></h4>
+                            <br/>
+
+                            <br/>
+                            <br/>
+                            <br/>
+
+                            <div class="clearfix">
+                                <center>
+                                    <img src="{!URLFOR($Resource.BSP_Asset, 'media/images/thank-you-img.png')}" alt="Thank you." />
+                                </center>
+                            </div>
+
+
+
+                            <div style="height:50px">&nbsp;</div>
+
+
+
+                            <a class="clearfix secondary right" href="{!$Site.CurrentSiteUrl}bspEnquiry">Back to Home</a>
+
+                            <div style="height:50px">&nbsp;</div>
+                        </apex:outputPanel>
+
+                        <!-- Thank You section -->
+                        <apex:outputPanel id="Thankyou_Section" rendered="{!IF(section='thankyou' && selectedEnquiryType = 'auspost',true,false)}">
+
+                            <h1 class="success">Thank you, your enquiry has been sent.</h1>
+                            <br/>
+                            <br/>
+
+                            <h2 class="NormalWeight">Your reference number is {!CaseNo} and we’ve emailed you a copy for your records. {!IF(LOWER(enq.CCUEnquiryType__c)!='bulk upload', 'A Business Customer Representative will be in touch shortly, usually within one to two business days.', 'Your bulk upload request is processed. Please Go Home for details of processed records')}</h2>
+                            <br/>
+                            <br/>
+
+                            <h4 class="NormalWeight">{!IF(LOWER(enq.CCUEnquiryType__c)!='bulk upload','Please note: This excludes weekends and national public holidays.','')}</h4>
+                            <br/>
+
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+
+
+                            <div class="clearfix">
+                                <center>
+                                    <img src="{!URLFOR($Resource.BSP_Asset, 'media/images/thank-you-img.png')}" alt="Thank you." />
+                                </center>
+                            </div>
+
+
+
+                            <div style="height:50px">&nbsp;</div>
+
+
+
+                            <a class="clearfix secondary right" href="{!$Site.CurrentSiteUrl}bspEnquiry">Back to Home</a>
+
+                            <div style="height:50px">&nbsp;</div>
+                        </apex:outputPanel>
+                    </div>
+                </apex:outputPanel>
+            </div>
+            <!-- END MAIN PANEL -->
+
+
+            <div class="centered">...</div>
+            <!-- START Your details -->
+            <c:bspYourDetails />
+            <!-- END Your details -->
+
+            <!-- START Quicklinks -->
+            <c:bspQuickLinks />
+            <!-- END Quicklinks -->
+
+
+        </div>
+
+    </div>
+
+
+    <!-- START GE02 Footer -->
+    <c:bspFooter />
+    <!-- END GE02 Footer -->
+
+
+
+    <script type="text/javascript" id="downloadScript">
+        var $j = jQuery.noConflict();
+
+        /**
+         * This is to prepare call cases to be downloaded as a CSV file when the user click on the Download All link
+         * caseDetais json is prepared in displayCaseList() method in the related controller class
+         * data will be prepared in one go with the searched performed by the user with selected filter criteria
+         */
+        function downloadAllCasesCSV(data) {
+            var reportData =  JSON.parse(data);
+
+            console.log(reportData.length);
+            // CSV coulumn headers
+            var csvString = '';
+            csvString += " Enquiry,";
+            csvString += " Date created,";
+            csvString += " Tracking No.,";
+            if({!isAPUser}){
+                csvString += "Article ID,";
+            }
+            csvString += " Details,";
+            csvString += " Sending to,";
+            csvString += " Status ,\n";
+
+            // prepare row data for columns
+            for (var i = 0; i < reportData.length; i++) {
+                csvString += cleanseText(reportData[i].EnquiryNo) + ",";
+                csvString += cleanseText(reportData[i].DateCreated) + ",";
+                csvString += cleanseText(reportData[i].TrackingNo) + ",";
+                if({!isAPUser}){
+                    csvString += cleanseText(reportData[i].ArticleID) + ",";
+                }
+                csvString += cleanseText(reportData[i].Details) + ",";
+                csvString += cleanseText(reportData[i].SendingTo ) + ",";
+                csvString += cleanseText(reportData[i].Status) + ",\n";
+            }
+
+            // prepare to download as a CSV file
+            var downloadElement = document.createElement('a');
+            downloadElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvString);
+            downloadElement.target = '_self'; //
+            var currTime = new Date();
+            var tStamp = ((currTime.toString()).replace(/[\s:]/g, '')).substr(3, 13);
+            downloadElement.download = 'Customer_Case_Summary_Report_' + tStamp + '.csv';
+            document.body.appendChild(downloadElement);
+            downloadElement.click();
+        }
+
+        /**
+         * Adds escape quotes for strings that have comma and double quote
+         * @param inStr
+         * @returns {string}
+         */
+        function cleanseText(inStr) {
+
+            if(typeof inStr === 'undefined' || inStr === null ) {
+                inStr = '-';
+            }
+
+            var txt = '' + inStr;
+
+            // Drop the special characters which mess with encodeURI() method, such as #
+            if (txt.search(/[#]/) != -1) {
+                txt = txt.replace('#', '');
+            }
+
+            if (txt.search(/[,"]/) != -1) {
+                return "\"" + txt + "\"";
+            } else {
+                return txt;
+            }
+        }
+    </script>
+    <script>
+        // Disabling autoDiscover, otherwise Dropzone will try to attach twice.
+        Dropzone.autoDiscover = false;
+        // or disable for specific dropzone:
+
+        var processed = false;
+        var progress = 0;
+        var bytesSent = 0;
+        var files = new Array();
+        var errorFiles = new Array();
+        function makedz() {
+            var options = {
+
+                url: "/bsp/bspEnquiry",
+                paramName: "fileUploaded",
+                maxFiles: 5,
+                maxFilesize: {!fileSizeLimitInteger},
+                acceptedFiles: "application/pdf, image/jpeg, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document ",
+                addRemoveLinks: false,
+                dictFallbackMessage : "Your browser seems not supported for file upload, please use Chrome 7+, Firefox 4+, IE 10+, Safari 6+",
+                dictFileTooBig: "This file is too big and upload terminated",
+                dictDefaultMessage: "Drop your files here or click and attach, and once upload successful uploaded files will be listed below;",
+                uploadMultiple: true,
+                autoProcessQueue : true,
+                success: function(file){
+                    //files.add(file);
+
+                },
+                accept: function(file, done) {
+                    // remove the error files occured in earlier upload
+                    var thisDropzone = Dropzone.forElement("#upload-widget");
+                    for(i=0; i< errorFiles.length; i++) {
+                        thisDropzone.removeFile(errorFiles[i]);
+                    }
+
+                    // overlay on the dropzone and remove the clickable funcitonlity
+                    $("div[id='upload-widget']").css("pointer-events","none");
+                    $("div[id='upload-widget']").addClass("opacityElement");
+                    done();
+                },
+                uploadprogress: function(file, progress, bytesSent) {
+                    //iterate through the progress bar DOM and make display none
+                    //whenever upload progress event is triggered
+                    var progressElement = document.getElementsByClassName('dz-progress');
+
+                    // display spinner inside the dropzone
+                    $("span[id*=':upload-att-auspost.start']").css('display', '');
+                    $("span[id*=':upload-att-startrack.start']").css('display', '');
+                    var max = progressElement.length;
+                    for (var i=0; i < max; i++) {
+                        progressElement[i].style.display = 'none';
+                    }
+                },
+                queuecomplete: function(){
+                    proceedUploadingAttachments();
+                },
+                parallelUploads : 5,
+                dictMaxFilesExceeded : "You cannot upload more than {{maxFiles}} files at once.",
+            }
+
+            var uploader = new Dropzone("#upload-widget", options);
+        }
+
+
+        function processFile(file){
+
+            // on successfull upload, let upload the file to server
+            var reader = new FileReader();
+            reader.addEventListener("loadend", function (event) {
+                //Converting Binary Data to base 64
+                var binary = "";
+                var bytes = new Uint8Array(event.target.result);
+                var length = bytes.byteLength;
+                for (var i = 0; i < length; i++) {
+                    binary += String.fromCharCode(bytes[i]);
+                }
+                var base64String = window.btoa(binary);
+                //use action function to call an apex method which will create an array of attachments
+                submitEnquiryFileUpload(base64String, file.name, file.type, file.size);
+                //store file for success tracking
+                files.push(file.upload.uuid);
+
+            });
+            reader.readAsArrayBuffer(file);
+
+        }
+
+
+        var uploadCompletedFileCount = 0;
+        /**
+         * stop the spinner when the upload is completed for all the files and remove them from ui
+         **/
+        function proceedUploadingAttachments(){
+            var thisDropzone = Dropzone.forElement("#upload-widget");
+            var gfiles = thisDropzone.files;
+            var successFiles = new Array(); // store the success files from the dropzone itself
+
+            // get the successfiles from the dropzone
+            for(i=0; i< gfiles.length; i++){
+                if(gfiles[i].status == "success") {
+                    successFiles.push(gfiles[i]);
+                } else {
+                    // error files will be used to action on later
+                    errorFiles.push(gfiles[i]);
+                }
+            }
+
+            // process the files
+            for(i=0; i< gfiles.length; i++){
+                //var n = files.includes(gfiles[i].upload.uuid);
+                var n = files.indexOf(gfiles[i].upload.uuid);
+                // if the file is not already processed
+                if(n < 0 && gfiles[i].status == "success") {
+                    uploadCompletedFileCount +=1;
+                    processFile(gfiles[i]);
+                    return;
+                }
+            }
+
+            // success(on client dropzone success) file count is equielent to uploaded file count
+            if(successFiles.length == uploadCompletedFileCount) {
+                $("div[id='upload-widget']").removeClass('opacityElement');
+                $("div[id='upload-widget']").css("pointer-events","");
+
+                //re-init countvariables
+                uploadCompletedFileCount = 0;
+
+                // hide spinner
+                $("span[id*=':upload-att-auspost.start']").css('display', 'none');
+                $("span[id*=':upload-att-startrack.start']").css('display', 'none');
+
+                // remove the file from the dropzone once upload completed
+                for(i=0; i< successFiles.length; i++){
+                    thisDropzone.removeFile(successFiles[i]);
+                }
+            }
+
+        }
+
+        function preventDefaultEventsOnDiv(){
+            //method to prevent defaults on dragover, this method is to support
+            //drop event
+            document.addEventListener("dragover", function(event) {
+                // prevent default to allow drop
+                event.preventDefault();
+            }, false);
+            //method used to prevent defaults such as downloading a file
+            //or navigating to it when a file is dropped when dropzone is disabled
+            document.addEventListener("drop", function(event) {
+                // prevent default action (open as link for some elements)
+                event.preventDefault();
+            }, false);
+        }
+    </script>
+    </body>
+    </html>
+
+</apex:page>

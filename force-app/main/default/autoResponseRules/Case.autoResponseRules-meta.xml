@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AutoResponseRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <autoResponseRule>
+        <fullName>Email Response</fullName>
+        <active>true</active>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Card Transaction Monitoring</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <senderEmail>noreply@auspost.com.au</senderEmail>
+            <senderName>CTM auto response</senderName>
+            <template>Card_Transaction_Monitoring/Acknowledgement_Email</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Sales Business System Requests</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <senderEmail>dlsalesforcecrmsupport@auspost.com.au</senderEmail>
+            <senderName>DL Salesforce CRM Support</senderName>
+            <template>Sales_Business_System/Autoresponder</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>NCCC Direct Email</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Prevent_Email__c</field>
+                <operation>equals</operation>
+                <value>False</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Priority</field>
+                <operation>equals</operation>
+                <value>High</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <senderEmail>noreply@auspost.com.au</senderEmail>
+            <senderName>Australia Post</senderName>
+            <template>SSSW_System_Emails/SSSW_Network_Direct_Email</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>NCCC Direct Email</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Prevent_Email__c</field>
+                <operation>equals</operation>
+                <value>False</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Priority</field>
+                <operation>equals</operation>
+                <value>Low</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <senderEmail>noreply@auspost.com.au</senderEmail>
+            <senderName>Australia Post - No Reply</senderName>
+            <template>SSSW_System_Emails/SSSW_Direct_Email</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Service Delivery</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Status</field>
+                <operation>equals</operation>
+                <value>New</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <senderEmail>noreply@auspost.com.au</senderEmail>
+            <senderName>Australia Post Customer Support</senderName>
+            <template>All_Email_Templates/BGS_Case_Submission</template>
+        </ruleEntry>
+    </autoResponseRule>
+</AutoResponseRules>

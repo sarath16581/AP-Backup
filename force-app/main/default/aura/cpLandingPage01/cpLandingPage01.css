@@ -1,0 +1,1483 @@
+/*  **********************************************
+   @import 'variables';
+   Sass Variables
+   Are
+   Here
+   ***********************************************
+*/
+
+
+/*  **********************************************
+   @import 'fonts';
+   Fonts
+   Are
+   Here
+   ***********************************************
+*/
+
+@font-face {
+    font-family: 'letterbold';
+    src: url("/resource/cpApFonts/letter-bold-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-bold-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'letterbold_italic';
+    src: url("/resource/cpApFonts/letter-bolditalic-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-bolditalic-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'letterlight';
+    src: url("/resource/cpApFonts/letter-light-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-light-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'letterlight_italic';
+    src: url("/resource/cpApFonts/letter-lightitalic-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-lightitalic-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'lettermedium';
+    src: url("/resource/cpApFonts/letter-medium-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-medium-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'lettermedium_italic';
+    src: url("/resource/cpApFonts/letter-mediumitalic-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-mediumitalic-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'letterregular';
+    src: url("/resource/cpApFonts/letter-regular-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-regular-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'letteritalic';
+    src: url("/resource/cpApFonts/letter-regularitalic-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-regularitalic-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+.THIS p.titleContainer.forceChatterCompactFeedItemBody {
+    font-family: 'letterregular';
+}
+
+.THIS .feedBodyInner .uiOutputText, .THIS a, .THIS li, .THIS li span.uiOutputText, .THIS p, .THIS p.uiOutputText {
+    font-family: 'arial' !important;
+}
+
+.THIS div.topicLabel, .THIS h1, .THIS h2, .THIS h3, .THIS h4, .THIS h5, .THIS span.title, .THIS span.uiOutputText {
+    font-family: 'letterbold' !important;
+}
+
+
+/*  **********************************************
+   @import 'variables';
+   Sass Variables
+   Are
+   Here
+   ***********************************************
+*/
+
+
+/*  **********************************************
+   SVG Icon Fill
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS button.slds-button.slds-button--neutral.search-button.uiButton {
+    background-color: #dc1928;
+}
+
+.THIS button.slds-button.slds-button--neutral.search-button.uiButton:active, .THIS button.slds-button.slds-button--neutral.search-button.uiButton:focus, .THIS button.slds-button.slds-button--neutral.search-button.uiButton:hover {
+    background-color: #bb1522;
+}
+
+.THIS a:hover {
+    opacity: 0.8;
+}
+
+.THIS a:active, .THIS a:focus, .THIS a:visited {
+    text-decoration: none;
+}
+
+.THIS svg.slds-icon.slds-icon-text-default.slds-icon {
+    fill: #8177E7;
+}
+
+.THIS svg.cuf-likeIcon.slds-icon.slds-icon-text-default.slds-icon--x-small.slds-align-middle, .THIS svg.slds-icon--small.slds-icon {
+    fill: #8177E7;
+}
+
+.THIS svg.slds-icon.slds-icon-text-default.slds-icon--x-small.slds-align-middle {
+    fill: #8177E7;
+}
+
+.THIS .forceEntityIcon {
+    background: #8177E7 !important;
+}
+
+.THIS .cuf-roundBorder {
+    background: #8177E7 !important;
+}
+
+.THIS svg.slds-icon.slds-icon-text-default.slds-icon--small.slds-icon {
+    fill: #8177E7;
+}
+
+.THIS .slds-icon_container slds-icon-utility-success .bestAnswerIcon .slds-button__icon .forceIcon .cuf-bestAnswerContainer.uiBlock svg.slds-icon--small.slds-icon {
+    fill: green !important;
+}
+
+.THIS * {
+    text-transform: none;
+}
+
+.THIS .forceCommunityOmniBox .no-assigned-image .default-bg-overlay {
+    background: transparent none repeat scroll 0 0 !important;
+}
+
+.THIS .big-search-container.selfServiceSearchWrapper.forceCommunityOmniBox {
+    height: inherit;
+}
+
+.THIS button.slds-button.slds-button--neutral.communityBtn.uiButton.selfServiceContactSupport {
+    color: white;
+}
+
+.THIS .cp-nowrap {
+    white-space: nowrap;
+}
+
+
+/*  **********************************************
+   @import 'cp-ap-nav';
+   Australia Post Navbar
+   Is
+   Here
+   ***********************************************
+*/
+
+.THIS section.ap-nav {
+    height: 25px;
+    background-color: #3E474D;
+}
+
+.THIS section.ap-nav div {
+    height: inherit;
+    max-width: 1140px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+.THIS section.ap-nav div ul {
+    height: inherit;
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.THIS section.ap-nav div ul li {
+    margin: 0 12px;
+}
+
+.THIS section.ap-nav div ul a {
+    color: white;
+    font-size: 12px;
+    font-family: 'helvetica' !important;
+}
+
+
+/*  **********************************************
+   @import 'cp-new-navbar';
+   New custom navbar
+   Is
+   Here
+   ***********************************************
+*/
+
+.THIS a {
+    color: #382f2d;
+}
+
+.THIS img.cp-ap-p-logo {
+    min-width: 55px;
+    min-height: 55px;
+    width: 55px;
+    height: 55px;
+    max-width: 55px;
+    max-height: 55px;
+}
+
+.THIS .profileName {
+    color: #382f2d;
+}
+
+.THIS .cp-nav-full-width {
+    background: white;
+}
+
+.THIS .cp-nav-container {
+    display: flex;
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+@media (min-width: 769px) {
+    .THIS .cp-navbar {
+        min-width: 610px;
+    }
+}
+
+.THIS .cp-burger-and-logo {
+    display: flex;
+    align-items: center;
+}
+
+.THIS button.cp-burger {
+    color: #382f2d !important;
+    border: none;
+    background: none;
+}
+
+@media (min-width: 769px) {
+    .THIS button.cp-burger {
+        display: none;
+    }
+}
+
+.THIS button.cp-burger:active, .THIS button.cp-burger:focus, .THIS button.cp-burger:hover, .THIS button.cp-burger:selection, .THIS button.cp-burger:visited {
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.THIS nav.cp-nav {
+    display: flex;
+    margin: 0 auto;
+    padding: 8px;
+    width: 1140px;
+    max-width: 1140px;
+}
+
+.THIS nav.cp-nav .cp-navbar {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .THIS nav.cp-nav ul li:not(:nth-child(-n+2)) {
+        display: none !important;
+    }
+    .THIS nav.cp-nav ul.cp-mobile-show-menu li:not(:nth-child(-n+2)) {
+        display: flex !important;
+    }
+    .THIS nav.cp-nav ul li:nth-child(2) {
+        margin-top: -63px;
+    }
+    .THIS nav.cp-nav ul li:nth-child(n+2) {
+        margin-left: 125px;
+    }
+    .THIS nav.cp-nav ul li span {
+        padding: 0 8px;
+    }
+}
+
+.THIS nav.cp-nav ul.cp-nav-ul {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 768px) {
+    .THIS nav.cp-nav ul.cp-nav-ul {
+        flex-direction: column;
+    }
+}
+
+.THIS nav.cp-nav ul.cp-nav-ul li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.THIS nav.cp-nav ul.cp-nav-ul li a {
+    font-family: 'lettermedium' !important;
+    padding: 0 15px;
+}
+
+@media (max-width: 768px) {
+    .THIS nav.cp-nav ul.cp-nav-ul li a {
+        padding: 0 5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .THIS nav.cp-nav ul.cp-nav-ul li {
+        padding: 12px 0;
+        transform: translateY(-8px);
+    }
+}
+
+.THIS nav.cp-profile-nav {
+    width: 1140px;
+    max-width: 1140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 6px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .THIS nav.cp-profile-nav {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+    .THIS .login {
+        position: absolute;
+        right: 0;
+        top: -38px;
+    }
+}
+
+.THIS .menuList.popupTargetContainer.uiPopupTarget.uiMenuList.uiMenuList--default.visible {
+    margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+    .THIS .menuList.popupTargetContainer.uiPopupTarget.uiMenuList.uiMenuList--default.visible {
+        width: 275px;
+        margin-top: 16px;
+    }
+    .THIS .selfServiceProfileMenu .login .profileIcon {
+        background: #736d6c;
+    }
+}
+
+@media (min-width: 769px) {
+    .THIS .menuList.popupTargetContainer.uiPopupTarget.uiMenuList.uiMenuList--default.visible {
+        right: 8px;
+    }
+    .THIS .cp-profile {
+        justify-content: flex-end;
+        display: flex;
+    }
+    .THIS .cp-profile-box {
+        width: 209px;
+    }
+    .THIS .cp-profile-box span.slds-icon_container.slds-icon-utility-user.profileIcon.slds-button__icon.forceIcon {
+        background: #736d6c;
+    }
+}
+
+.THIS span.triggerDownArrow.down-arrow {
+    color: #382f2d;
+}
+
+
+/*  **********************************************
+   @import 'cp-inner-search';
+   The inner page header seach
+   Is
+   Here
+   ***********************************************
+*/
+
+.THIS .forceCommunityOmniBox.focused .empty-state-panel-label, .THIS .forceCommunityOmniBox.focused .zero-state-panel, .THIS .forceCommunityOmniBox.focused .zero-state-panel-label, .THIS .forceCommunityOmniBox.focused.show-result .zero-state-panel {
+    display: none !important;
+}
+
+.THIS .selfServiceSearchWrapper .post-container, .THIS .selfServiceSearchWrapper .search-wrapper {
+    padding: 0 !important;
+}
+
+.THIS .cp-search-is-here {
+    position: relative;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    height: 60px;
+    width: 88%;
+}
+
+.THIS .search-container {
+    border: 1px solid lightgray;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+.THIS .search-container button {
+    border-radius: 3px;
+}
+
+.THIS .search-container button:focus:after {
+    content: "";
+    position: absolute;
+    display: block;
+    border: 1px dotted currentColor;
+    border-radius: 3px;
+    top: -5px;
+    left: -5px;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+.THIS button.slds-button.slds-button--neutral.search-button.uiButton {
+    border-radius: 3px;
+}
+
+.THIS .forceCommunityOmniBox.selfServiceSearchWrapper .has-input .search-field, .THIS .forceCommunityOmniBox.selfServiceSearchWrapper .search-field, .THIS .forceCommunityOmniBox.selfServiceSearchWrapper .search-field:focus {
+    border: none;
+}
+
+.THIS .forceCommunityOmniBox.selfServiceSearchWrapper .search-container {
+    border-radius: 5px;
+    height: 68px;
+}
+
+.THIS .cp-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.THIS .cp-inner-speech-bubble {
+    margin-top: 48px;
+    margin-bottom: 65px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 615px;
+    background: white;
+    border-radius: 8px;
+    text-align: center;
+    justify-content: center;
+}
+
+@media (max-width: 767px) {
+    .THIS .cp-inner-speech-bubble {
+        margin-top: 32px;
+    }
+}
+
+.THIS .cp-inner-speech-bubble .cp-inner-speech-bubble-middle, .THIS .cp-inner-speech-bubble .cp-inner-speech-bubble-top, .THIS .cp-inner-speech-bubble .cp-search-is-here {
+    margin-bottom: 37px;
+}
+
+.THIS .cp-inner-speech-bubble h1 {
+    font-family: 'letterbold' !important;
+    font-size: 28px;
+}
+
+@media (max-width: 656px) {
+    .THIS .cp-inner-speech-bubble {
+        width: 94vw;
+    }
+}
+
+.THIS .cp-three-circles {
+    text-align: left;
+    margin-left: 22px;
+    margin-top: 12px;
+    margin-bottom: 6px;
+}
+
+.THIS .cp-three-circles span {
+    display: inline-block;
+}
+
+.THIS .cp-circle {
+    width: 12px;
+    height: 12px;
+    background: #CDC9F5;
+    border-radius: 50%;
+    margin: 0 4px;
+}
+
+.THIS .cp-inner-speech-bubble-bottom {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: white;
+    top: 60%;
+    right: 12%;
+    border-radius: 11px;
+    transform: rotate(45deg);
+}
+
+
+/*  **********************************************
+   @import 'cp-headings';
+   Heading styles for the community
+   Are
+   Here
+   ***********************************************
+*/
+
+
+/*  **********************************************
+   @import 'variables';
+   Sass Variables
+   Are
+   Here
+   ***********************************************
+*/
+
+.THIS .cp-home-page-heading-outer {
+    margin-bottom: -37px;
+}
+
+.THIS .cp-home-page-heading-box {
+    text-align: center;
+    padding: 0 20px;
+    max-width: 600px;
+    min-height: 150px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.THIS .cp-home-page-heading-box h2 {
+    max-width: 600px;
+    padding: 60px 0 12px;
+    font-size: 36px;
+    line-height: 125%;
+}
+
+.THIS .cp-home-page-heading-box p {
+    max-width: 600px;
+    padding: 0 0 32px;
+    font-size: 16px;
+}
+
+.THIS .cp-not-first {
+    margin-top: -73px;
+}
+
+.THIS .cp-home-discussions-heading-outer {
+    background: #CBEEEA;
+}
+
+.THIS .cp-home-groups-heading-outer {
+    background: #feeee9;
+}
+
+.THIS .cp-home-articles-heading-outer {
+    background: #ECEBFF;
+}
+
+.THIS .cp-inner-page-heading-outer {
+    background: #F9F8F7;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-top: -35px;
+}
+
+.THIS .cp-inner-page-heading-box {
+    background: #F9F8F7;
+    max-width: 600px;
+    padding: 0 20px;
+    min-height: 110px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.THIS .cp-inner-page-heading-box h1 {
+    padding: 12px;
+    font-size: 36px;
+    line-height: 125%;
+}
+
+.THIS .cp-inner-page-heading-box p {
+    padding: 0 12px 12px;
+    font-size: 16px;
+}
+
+.THIS .cp-heading-box-with-p {
+    min-height: 150px;
+}
+
+.THIS .cp-heading-box-with-p h1 {
+    padding-top: 32px;
+    margin-bottom: 12px;
+    padding-bottom: 0;
+}
+
+.THIS .cp-heading-box-with-p p {
+    padding-bottom: 32px;
+}
+
+
+/*  **********************************************
+   @import 'cp-banner';
+   Banner styles for the community
+   Are
+   Here
+   ***********************************************
+*/
+
+
+/*  **********************************************
+   @import 'variables';
+   Sass Variables
+   Are
+   Here
+   ***********************************************
+*/
+
+.THIS .cp-banner-outer {
+    padding: 20px 0;
+}
+
+.THIS .cp-banner-box {
+    padding: 0 20px;
+    max-width: 600px;
+    min-height: 150px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.THIS .cp-banner-box h2 {
+    max-width: 600px;
+    margin-bottom: 12px;
+    font-size: 36px;
+    line-height: 125%;
+}
+
+.THIS .cp-banner-box p {
+    max-width: 600px;
+    font-size: 16px;
+}
+
+.THIS .cp-banner-box a {
+    color: #dc1928;
+    text-decoration: underline;
+}
+
+
+/*  **********************************************
+   phase1fixs
+   are
+   Here
+   ***********************************************
+*/
+
+.THIS [data-item-id="dee09b1c-b7e5-4556-9070-db12f5218ea7"] .sectionHeader.nonCollapsible, .THIS [data-item-id="dee09b1c-b7e5-4556-9070-db12f5218ea7"] span.article-type, .THIS [data-item-id="dee09b1c-b7e5-4556-9070-db12f5218ea7"] span.dot, .THIS [data-item-id="dee09b1c-b7e5-4556-9070-db12f5218ea7"] span.itemLabel.truncate {
+    display: none;
+}
+
+.THIS [data-item-id="dee09b1c-b7e5-4556-9070-db12f5218ea7"] .test-id__field-label-container {
+    display: none;
+}
+
+.THIS [data-item-id="53cc5794-1a99-4b3d-90bc-3a1a76d71bb6"] .sectionHeader.nonCollapsible, .THIS [data-item-id="53cc5794-1a99-4b3d-90bc-3a1a76d71bb6"] span.article-type, .THIS [data-item-id="53cc5794-1a99-4b3d-90bc-3a1a76d71bb6"] span.dot, .THIS [data-item-id="53cc5794-1a99-4b3d-90bc-3a1a76d71bb6"] span.itemLabel.truncate {
+    display: none;
+}
+
+.THIS [data-item-id="53cc5794-1a99-4b3d-90bc-3a1a76d71bb6"] .test-id__field-label-container {
+    display: none;
+}
+
+
+/*  **********************************************
+   Adding the track parcel component
+   Here
+   ***********************************************
+*/
+
+
+/** CSS **/
+
+.THIS div [data-item-id="6757b3e0-8d0b-48ff-ab65-1ee9c556e882"] {
+    transform: translateY(84px);
+}
+
+
+/*  **********************************************
+   Footer
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS section.footer {
+    background-color: #3E474D;
+}
+
+.THIS section.footer div.footer-inner {
+    text-align: center;
+    padding: 6px 0;
+    max-width: 1140px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .THIS section.footer div.footer-inner {
+        text-align: left;
+        flex-flow: row;
+        justify-content: space-between;
+    }
+}
+
+.THIS section.footer div.footer-inner ul.cp-footer-links {
+    max-width: 492px;
+}
+
+.THIS section.footer div.footer-inner ul.cp-footer-social {
+    max-width: 268px;
+}
+
+.THIS section.footer div.footer-inner ul {
+    height: 60px;
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+@media (max-width: 767px) {
+    .THIS section.footer div.footer-inner ul {
+        justify-content: center;
+    }
+}
+
+.THIS section.footer div.footer-inner ul li {
+    margin: 0 12px;
+}
+
+.THIS section.footer div.footer-inner ul a {
+    color: white;
+    font-size: 14px;
+}
+
+
+/*  **********************************************
+   General page-wide adjustments
+   Are
+   Here
+   ***********************************************
+*/
+
+.THIS.cp-background {
+    background-color: #f3f1ee;
+}
+
+
+/*  **********************************************
+   Header
+   Is
+   Here
+   ***********************************************
+*/
+
+.THIS header.cp-inner-header {
+    background-color: #CDC9F5;
+}
+
+
+/*  **********************************************
+   Main area below header
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS div.outer {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+
+/*  **********************************************
+   Question Landing Page - The Grid Display
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS .forceTopicFeaturedTopicItem .topicImage {
+    z-index: auto;
+}
+
+.THIS .forceCommunityHomeTabs .forceTopicFeaturedTopics .topicContent:hover, .THIS .forceCommunityHomeTabs .forceTopicFeaturedTopics .topicLink:focus .topicContent {
+    background-color: rgba(129, 119, 231, 0.1);
+}
+
+.THIS .forceCommunityHomeTabs .forceTopicFeaturedTopics .topicContent {
+    background-color: transparent;
+}
+
+.THIS li.topicItem.forceTopicFeaturedTopicItem {
+    padding: 20px;
+}
+
+.THIS .forceCommunityHomeTabs .forceTopicFeaturedTopics .topicLabel {
+    color: #382f2d;
+}
+
+.THIS .forceTopicFeaturedTopics .topicLabel {
+    color: #382f2d;
+    transform: translateY(32%);
+}
+
+.THIS .forceTopicFeaturedTopicItem .topicLink {
+    border-radius: 3px;
+}
+
+.THIS div [data-item-id="67f8f830-b547-47f5-ac42-23b34530cc6f"] .uiTabBar {
+    margin-left: 20px;
+    margin-right: 20px;
+    background: #F9F8F7;
+}
+
+.THIS div [data-item-id="67f8f830-b547-47f5-ac42-23b34530cc6f"] a.topicLink:focus {
+    border: 1px solid #8177E7;
+}
+
+@media (min-width: 768px) {
+    .THIS div [data-item-id="94f68eb2-2ed5-492f-8a09-c1ad753de0c9"] .homeTab.uiTabset--base.uiTabset--default.uiTabset.forceCommunityHomeTabs {
+        margin-left: -20px;
+    }
+}
+
+.THIS .forceChatterScroller {
+    margin: 0 20px;
+}
+
+.THIS .uiTabBar {
+    margin: 0 20px;
+}
+
+
+/*  **********************************************
+   Questions Inner List Display
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS .forceCommunityHeadline .headlineTitle {
+    font-size: 36px;
+}
+
+.THIS ul.tabs__nav {
+    background: #F9F8F7;
+}
+
+@media (min-width: 767px) {
+    .THIS div [data-item-id="3a8194e5-08c7-4270-a884-33b1a2800cb6"] {
+        margin-left: -20px;
+    }
+    .THIS div [data-item-id="42b5e175-b6d8-4009-b6c8-0f514e376ee2"] {
+        margin-left: -20px;
+    }
+}
+
+.THIS .siteforceSldsTwoCol84Layout {
+    padding: 0 6px;
+}
+
+.THIS .forceChatterCompactFeed .page-header-filters {
+    background: white;
+    margin-bottom: 28px;
+}
+
+.THIS .cuf-feedItemHeader.cuf-media.l-first {
+    padding: 12px;
+}
+
+.THIS .cuf-body.cuf-questionTitle.forceChatterFeedBodyQuestionWithoutAnswer {
+    padding-left: 20px;
+}
+
+.THIS .feedBodyInner.Desktop {
+    padding-left: 20px;
+}
+
+.THIS .topic-topicContainer.forceTopicSimpleTopicAssignments {
+    padding-left: 12px;
+}
+
+.THIS footer.slds-post__footer {
+    padding-left: 20px;
+}
+
+.THIS div [data-item-id="fbea86ad-5964-410e-9521-8a3e08086b33"] .forceChatterFeedAuxBody .cuf-auxBody {
+    border: 2px solid green;
+}
+
+.THIS div [data-item-id="fbea86ad-5964-410e-9521-8a3e08086b33"] .forceChatterFeedAuxBody .cuf-auxBody svg.slds-icon--small.slds-icon {
+    fill: green !important;
+}
+
+.THIS div [data-item-id="ad97a62d-1336-4796-a4ad-b53642e8d2c5"] .forceChatterFeedAuxBody .cuf-auxBody {
+    border: 2px solid green;
+}
+
+.THIS div [data-item-id="ad97a62d-1336-4796-a4ad-b53642e8d2c5"] .forceChatterFeedAuxBody .cuf-auxBody svg.slds-icon--small.slds-icon {
+    fill: green !important;
+}
+
+.THIS [data-type="QuestionPost"] .forceChatterFeedInner .forceChatterFeedAuxBody .cuf-auxBody {
+    border: 2px solid green;
+}
+
+.THIS [data-type="QuestionPost"] .forceChatterFeedInner .forceChatterFeedAuxBody .cuf-auxBody svg.slds-icon--small.slds-icon {
+    fill: green !important;
+}
+
+.THIS .cuf-bestAnswerContainer svg.slds-icon--small.slds-icon, .THIS div.bestAnswer svg.slds-icon--small.slds-icon {
+    fill: green !important;
+}
+
+.THIS .qe-sortMenu.left-menu.chatter-menu.uiMenu.forceChatterSortMenu.forceChatterFeedSorter {
+    padding-left: 40px;
+}
+
+.THIS p.titleContainer.forceChatterCompactFeedItemBody {
+    margin-bottom: 8px;
+}
+
+.THIS a.title.drillInTarget {
+    line-height: 130%;
+}
+
+.THIS a.tabHeader {
+    font-size: large;
+}
+
+.THIS .topicStats.forceCommunityTopicMetrics {
+    padding: 24px 0;
+}
+
+.THIS .forceCommunityTopicMetrics .table_wrapper {
+    margin-bottom: 24px;
+}
+
+.THIS .forceCommunityTopicMetricsItem {
+    padding-bottom: 10px;
+}
+
+.THIS .cCpInnerThemeLayout01 .slds-col.slds-text-align--center.slds-size--1-of-3.slds-border--right.forceCommunityTopicMetricsItem {
+    /* background: white; */
+    /* position: relative; */
+    /* top: 28px; */
+}
+
+
+/*  **********************************************
+   FAQ Inner
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS .selfServiceBaseArticleList .article-list {
+    padding: 12px 20px;
+}
+
+
+/*  **********************************************
+   Question Inner Inner - one question
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS [data-item-id="033e0067-adcb-44fd-b968-feb5bfc4996c"] .uiAbstractList {
+    background: white;
+    padding: 20px;
+}
+
+.THIS [data-item-id="ad97a62d-1336-4796-a4ad-b53642e8d2c5"] span.uiOutputText {
+    word-break: break-word;
+}
+
+.THIS [data-item-id="337ffbd1-1a96-47d1-b8ae-b8a14ca8dcb6"] {
+    background: #F9F8F7;
+    width: calc(100vw);
+    margin-top: -36px;
+    padding-bottom: 1px;
+    margin-left: calc(-50vw + 50%);
+}
+
+.THIS .cuf-element.drillIn.notDrillInTarget.desktop.published.forceChatterFeedItem--default.forceChatterAbstractFeedItem.forceChatterFeedItem {
+    padding: 20px;
+}
+
+.THIS [data-item-id="42b5e175-b6d8-4009-b6c8-0f514e376ee2"] {
+    margin-top: -36px;
+}
+
+.THIS .forceCommunityTopicMetrics .showTalkingAbout {
+    margin-left: 8px;
+}
+
+.THIS .siteforceNapiliFooter .cta-btn {
+    width: 100%;
+    margin: 14px 0;
+}
+
+.THIS .siteforceNapiliFooter .cta-btn button {
+    height: 60px;
+}
+
+.THIS .siteforceNapiliFooter.ctaPanel {
+    margin-top: 81px;
+}
+
+@media (min-width: 1024px) {
+    .THIS .siteforceNapiliFooter.ctaPanel {
+        margin-top: 71px;
+    }
+}
+
+.THIS [data-item-id="20471e58-83b9-4e6a-8973-8ba99a4bc7fe"] {
+    transform: translateY(-120px);
+}
+
+.THIS [data-item-id="5afc839d-8e3a-4b94-9753-19b34bec2fec"] {
+    transform: translateY(-84px);
+}
+
+.THIS [data-item-id="90ce26fc-b936-43ab-8818-0a8f540098e6"] .cp-tracking-container.cCpTracking {
+    transform: translateY(84px);
+}
+ 
+.THIS [data-item-id="3308edd3-98e3-44ee-be30-78340a7bed94"] .cp-tracking-container.cCpTracking {
+    transform: translateY(84px);
+}
+
+.THIS [data-item-id="c0c00ff9-36fa-4d1c-8f12-915ffe5794a9"] .cp-tracking-container.cCpTracking {
+    transform: translateY(84px);
+}
+
+/*  **********************************************
+   Data - posts and articles in sidebar
+   Is
+   Here
+   ***********************************************
+*/
+
+
+/*  **********************************************
+   Custom component in sidebar
+   Is
+   Here
+   ***********************************************
+*/
+
+.THIS .cp-custom-comp-heading {
+    background: white;
+    height: 60px;
+    padding: 16px;
+    border-top: 2px solid #CDC9F5;
+    white-space: nowrap;
+}
+
+.THIS .cp-custom-comp-heading h2 {
+    font-size: 16px;
+}
+
+.THIS .cp-question-title {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.THIS .cp-question-title p {
+    font-size: 14px !important;
+}
+
+.THIS ul.cp-custom-ul {
+    display: flex;
+    padding: 12px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.THIS ul.cp-custom-ul li {
+    display: flex;
+}
+
+.THIS ul.cp-custom-ul li.cp-custom-title {
+    display: flex;
+    justify-content: flex-start;
+    width: 65%;
+}
+
+.THIS ul.cp-custom-ul li.cp-custom-icon-count {
+    display: flex;
+    justify-content: space-between;
+}
+
+.THIS ul.cp-custom-ul li.cp-custom-icon-count span {
+    display: flex;
+    align-items: center;
+}
+
+.THIS ul.cp-custom-ul li.cp-custom-icon-count span.cp-custom-count {
+    width: 20px;
+    margin-left: 8px;
+}
+
+.THIS ul.cp-custom-ul li.cp-custom-icon-count .slds-icon-text-default {
+    width: 24px;
+}
+
+.THIS .cp-custom-comp-inner:nth-child(odd) {
+    background-color: #F9F8F7;
+}
+
+.THIS .cp-custom-comp-inner:nth-child(even) {
+    background-color: white;
+}
+
+
+/*  **********************************************
+   Standard component in sidebar
+   Is
+   Here
+   ***********************************************
+*/
+
+.THIS h2.base-items-header {
+    font-size: 16px;
+}
+
+.THIS .base-items-header, .THIS .topicListHeader {
+    background: white;
+    height: 60px;
+    padding: 16px;
+    border-top: 2px solid #CDC9F5;
+}
+
+.THIS .base-items-header span.uiOutputText, .THIS .topicListHeader span.uiOutputText {
+    font-family: 'letterbold' !important;
+}
+
+.THIS .forceCommunityTrendingTopics .forceTopicTopicList .topicListHeader {
+    margin-bottom: 0;
+    font-size: 16px;
+}
+
+.THIS [data-item-id="7dc2bbd2-6c25-4dfe-a7a4-280c601c1507"] .selfServiceBaseSimpleItems .base-simple-item .item-title-link {
+    padding: 14px 12px;
+}
+
+.THIS [data-item-id="7dc2bbd2-6c25-4dfe-a7a4-280c601c1507"] .viewCount .views {
+    transform: translateX(-12px);
+}
+
+.THIS [data-item-id="7dc2bbd2-6c25-4dfe-a7a4-280c601c1507"] .selfServiceSimilarItemWithViewCount.base-simple-item>* {
+    border-bottom: none;
+}
+
+.THIS [data-item-id="7dc2bbd2-6c25-4dfe-a7a4-280c601c1507"] span.slds-icon_container.slds-icon-utility-preview.metricIcon.slds-button__icon.forceIcon {
+    transform: translateX(-4px);
+}
+
+.THIS [data-item-id="253bfe12-b578-4f17-b42b-5b8adc57bf5d"] .selfServiceBaseSimpleItems .base-simple-item .item-title-link {
+    padding: 14px 12px;
+}
+
+.THIS [data-item-id="253bfe12-b578-4f17-b42b-5b8adc57bf5d"] .viewCount .views {
+    transform: translateX(-12px);
+}
+
+.THIS [data-item-id="253bfe12-b578-4f17-b42b-5b8adc57bf5d"] .selfServiceSimilarItemWithViewCount.base-simple-item>* {
+    border-bottom: none;
+}
+
+.THIS li.selfServiceSimpleArticleItem, .THIS li.topicItem {
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.THIS li.selfServiceSimpleArticleItem a, .THIS li.topicItem a {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.THIS li.selfServiceSimpleArticleItem .selfServiceBaseSimpleItems .base-simple-item .item-title-link, .THIS li.topicItem .selfServiceBaseSimpleItems .base-simple-item .item-title-link {
+    padding-left: 12px;
+}
+
+.THIS li.selfServiceSimpleArticleItem span.item-title, .THIS li.selfServiceSimpleArticleItem span.uiOutputText, .THIS li.topicItem span.item-title, .THIS li.topicItem span.uiOutputText {
+    padding: 0 12px;
+    font-size: 14px;
+}
+
+.THIS .listContent li.base-simple-item:nth-child(odd), .THIS .listContent li.topicItem:nth-child(odd) {
+    background-color: #F9F8F7;
+}
+
+.THIS .listContent li.base-simple-item:nth-child(even), .THIS .listContent li.topicItem:nth-child(even) {
+    background-color: white;
+}
+
+
+/*  **********************************************
+   Question button padding fix
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS button.slds-button.slds-button--brand.uiButton.forceCommunityAskCommunity {
+    padding: 12px;
+    font-size: 16px;
+}
+
+
+/*  **********************************************
+   Stories landing page
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS [data-item-id="aaa8137c-0b7a-46b6-b9a7-ca0711d5973b"] {
+    margin-top: -36px;
+}
+
+.THIS h1.article-head.selfServiceArticleHeaderDetail {
+    font-size: 36px !important;
+}
+
+.THIS .topicListHeader span {
+    font-size: 16px;
+}
+
+
+/*  **********************************************
+   Groups/Conversations landing page GRID style
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS [data-item-id="ee7ee685-bfd5-4e43-85f9-6505cbc04bf1"] .body {
+    margin-bottom: 12px;
+}
+
+.THIS [data-item-id="ee7ee685-bfd5-4e43-85f9-6505cbc04bf1"] th.slds-cell-edit.cellContainer {
+    border-bottom: none;
+}
+
+.THIS .THIS [data-item-id="da2256aa-6243-4374-9331-39379f7520b4"] span.triggerLinkText.selectedListView.uiOutputText {
+    color: #382f2d;
+}
+
+.THIS .content.forceChatterCompoundFieldsGroupName {
+    padding: 12px;
+}
+
+
+/*  **********************************************
+   Groups/Conversations landing page iPad style
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS button.slds-button.slds-button--neutral.slds-line-height--reset.slds-p-around--none.slds-m-around--none.slds-m-left--none.slds-size--1-of-3.buttonOutsideOverflow.uiButton.forceCommunityActionButtonMobile {
+    background: transparent;
+}
+
+.THIS .slds-box {
+    background: white;
+}
+
+.THIS .slds-box .slds-media.slds-p-around--x-small {
+    padding: 20px;
+}
+
+.THIS .slds-box .slds-grid.slds-wrap.slds-p-around--x-small.slds-p-top--none {
+    padding: 20px;
+}
+
+.THIS [data-item-id="da2256aa-6243-4374-9331-39379f7520b4"] span.slds-truncate.uiOutputText {
+    font-family: arial !important;
+}
+
+
+/*  **********************************************
+   Groups/Conversations Conversation details page
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS .forceCommunityGroupHighlightStencilNapili .role .uiButton:focus, .THIS .forceCommunityGroupHighlightStencilNapili .role .uiButton:hover {
+    border-color: #8177E7 !important;
+    background-color: #8177E7 !important;
+}
+
+.THIS .forceCommunityGroupHighlightStencilNapili.forceRecordLayout {
+    background: white;
+}
+
+.THIS [data-item-id="d0d01bdd-7bd4-43cc-bf8f-65fcd1aaaf55"] header.forceHighlightsPanel.forceCommunityRecordHeadline {
+    margin: 0 20px;
+}
+
+.THIS [data-item-id="3aaf48fa-0940-40d5-b39d-71a7501bab9f"] .uiTabBar {
+    display: none;
+}
+
+.THIS [data-item-id="3aaf48fa-0940-40d5-b39d-71a7501bab9f"] .tabs__content {
+    margin: 0 20px;
+}
+
+.THIS [data-item-id="3aaf48fa-0940-40d5-b39d-71a7501bab9f"] img {
+    border-radius: 50%;
+}
+
+
+/*  **********************************************
+   Case landing page
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS .mdp-container {
+    background: white;
+    padding: 20px;
+    border-right: 10px solid #f3f1ee;
+}
+
+.THIS .deflection-container {
+    background: white;
+    padding: 20px;
+    border-left: 10px solid #f3f1ee;
+}
+
+.THIS .recordHomePrimaryContent.uiTabset--base.uiTabset--default.uiTabset {
+    background: white;
+    padding: 20px;
+}
+
+.THIS .sectionDetails.selfServiceMyCaseList {
+    background: white;
+}
+
+.THIS .sectionContainer {
+    background: white;
+}
+
+.THIS [data-aura-rendered-by="9:293;a"] {
+    display: none;
+}
+
+.THIS [data-item-id="d1eb5c47-0894-48c1-a7f6-2903c22ab79a"] .forceCommunityUserSettings .row:nth-child(2) div:nth-child(n+3), .THIS [data-item-id="d1eb5c47-0894-48c1-a7f6-2903c22ab79a"] a.changepassword, .THIS [data-item-id="d1eb5c47-0894-48c1-a7f6-2903c22ab79a"] input.settingsEmail {
+    display: none;
+}
+
+.THIS [data-item-id="57870b49-afc8-4970-9314-f4d957e512e9"] .panel.forceCommunityUserProfileHeader {
+    padding: 12px;
+}
+
+.THIS [data-item-id="57870b49-afc8-4970-9314-f4d957e512e9"] .h2, .THIS [data-item-id="57870b49-afc8-4970-9314-f4d957e512e9"] .h4 {
+    word-break: break-word;
+}
+
+.THIS a.cuf-entityLink.cuf-entityLink {
+    word-break: break-word;
+}
+
+.THIS span.cuf-entityLinkId.forceChatterEntityLink.entityLinkHover {
+    word-break: break-word;
+}
+
+.THIS [data-item-id="5251d432-79b5-4999-98d5-a868e71fbf50"] .THIS .forceSearchScopesRibbon {
+    z-index: auto;
+}
+
+.THIS .forceDiscoveryKnowledgeablePeople .knowledgeablePeopleHeader {
+    font-size: 16px;
+}
+
+.THIS [data-item-id="6c964d6d-50f0-4e82-8e12-1ab5af305919"] button.slds-button.slds-button--neutral.slds-button.slds-button--neutral.slds-is-selected.following.cuf-following.button.uiButton {
+    background: #8177E7;
+    color: white;
+}
+
+.THIS span.leftLabelNoHeader {
+    max-width: 150px;
+}
+
+.THIS [data-item-id="6e3b6710-d63d-42b8-8003-d4735fa61eb6"] .emptyListContent {
+    margin: 0 20px;
+}
+
+.THIS [data-item-id="6e3b6710-d63d-42b8-8003-d4735fa61eb6"] span.empty.uiOutputText {
+    padding-left: 18px;
+}
+
+.THIS [data-item-id="27c6b40b-ad55-498d-b1d2-7fcb378b47c0"] button.slds-button.testid__change-record-type-link.slds-button_icon.slds-button_icon-small.slds-shrink-none.changeRecordTypeLink.slds-button--icon-container {
+    display: none;
+}
+
+.THIS [data-item-id="27c6b40b-ad55-498d-b1d2-7fcb378b47c0"] a.uiOutputURL.changeRecordTypeLink {
+    display: none !important;
+}
+
+.THIS [data-item-id="5251d432-79b5-4999-98d5-a868e71fbf50"] ul.slds-list--horizontal.slds-wrap.slds-has-dividers--right {
+    display: none;
+}
+
+.THIS [data-item-id="5251d432-79b5-4999-98d5-a868e71fbf50"] span.timestamp {
+    display: block;
+}
+
+.THIS [data-item-id="5251d432-79b5-4999-98d5-a868e71fbf50"] span.dotSymbol {
+    display: none;
+}
+
+.THIS [data-item-id="5251d432-79b5-4999-98d5-a868e71fbf50"] span.uiOutputText {
+    font-family: 'arial' !important;
+}
+
+.THIS .slds-col--padded.slds-size--12-of-12.slds-medium-size--8-of-12.slds-large-size--8-of-12 {
+    overflow: hidden;
+}

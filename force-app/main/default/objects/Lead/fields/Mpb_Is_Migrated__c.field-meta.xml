@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mpb_Is_Migrated__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates if this Lead is retrospectively migrated from Accounts and Contacts, per MyPost Business&apos; requirements / solution design.  This flag is used to prevent Marketing Cloud to send customers on Journeys they have already started on.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Indicates if this Lead is migrated from an Account + Contact pair.  Used for suppressing Marketing Cloud Journeys.</inlineHelpText>
+    <label>Is Migrated?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

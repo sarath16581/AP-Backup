@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_View_Ratecard_HJ__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(&quot;/apex/Apttus_XApps__EditInExcelLaunch?selectedRecordID=&quot;&amp;Id&amp;&quot;&amp;appName=Domestic Base per Kg 1016&amp;mode=touchless&amp;outputType=PDF&quot;,IMAGE(&quot;/resource/APT_View_Rate_Card&quot;, &quot;APT_View_Rate_Card&quot;),&quot;_blank&quot;)</formula>
+    <label>View Ratecard HJ</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

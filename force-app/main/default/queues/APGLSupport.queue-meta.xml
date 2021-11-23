@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>apglsupport@auspost.com.au</email>
+    <name>APGL Support Requests</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>APGLSupport_NZ</publicGroup>
+            <publicGroup>SystemAdmin</publicGroup>
+        </publicGroups>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

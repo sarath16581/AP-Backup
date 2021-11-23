@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Last_Rev_Realized__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Jun_Revenue_Amount__c &gt; 0, ADDMONTHS(DATE(VALUE(Financial_Year__c),06,01),1),
+IF(May_Revenue_Amount__c &gt; 0, ADDMONTHS(DATE(VALUE(Financial_Year__c),05,01),1),
+IF(Apr_Revenue_Amount__c &gt; 0, ADDMONTHS(DATE(VALUE(Financial_Year__c),04,01),1),
+IF(Mar_Revenue_Amount__c &gt; 0, ADDMONTHS(DATE(VALUE(Financial_Year__c),03,01),1),
+IF(Feb_Revenue_Amount__c &gt; 0, ADDMONTHS(DATE(VALUE(Financial_Year__c),02,01),1),
+IF(Jan_Revenue_Amount__c &gt; 0, ADDMONTHS(DATE(VALUE(Financial_Year__c),01,01),1),
+IF(Dec_Revenue_Amount__c &gt; 0, ADDMONTHS(DATE(VALUE(Financial_Year__c)-1,12,01),1),
+IF(Nov_Revenue_Amount__c &gt; 0, ADDMONTHS(DATE(VALUE(Financial_Year__c)-1,11,01),1),
+IF(Oct_Revenue_Amount__c &gt; 0, ADDMONTHS(DATE(VALUE(Financial_Year__c)-1,10,01),1),
+IF(Sep_Revenue_Amount__c &gt; 0, ADDMONTHS(DATE(VALUE(Financial_Year__c)-1,09,01),1),
+IF(Aug_Revenue_Amount__c &gt; 0, ADDMONTHS(DATE(VALUE(Financial_Year__c)-1,08,01),1),
+IF(Jul_Revenue_Amount__c &gt; 0, ADDMONTHS(DATE(VALUE(Financial_Year__c)-1,07,01),1),
+NULL))))))))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Last Revenue Realized</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

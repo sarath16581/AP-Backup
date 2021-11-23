@@ -1,0 +1,17 @@
+<aura:component controller="MyNetworkProfileHeaderController" implements="forceCommunity:profileMenuInterface" access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="objClassController" type="MyNetworkProfileHeaderController"/> 
+    <!-- RSolomon 20-04-2020 Added class to menu below, to render positioning --> 
+    <ui:menu class="positionHeader">
+        <ui:menuTriggerLink aura:id="profileName" label="{!v.objClassController.name}" >
+            <span class="slds-avatar slds-avatar--medium" >
+        		<img  src="{!v.objClassController.photo}" alt="" title="{!v.objClassController.name}"/>
+            </span> &nbsp;&nbsp;{!v.objClassController.name}
+        </ui:menuTriggerLink>
+        <ui:menuList class="actionMenu" aura:id="actionMenu">
+        	<ui:actionMenuItem label="Home" click="{!c.homeClick}"/>
+            <ui:actionMenuItem label="My Profile" click="{!c.profileClick}"/>
+            <ui:actionMenuItem label="Logout" click="{!c.logoutClick}"/>
+        </ui:menuList>
+    </ui:menu>
+</aura:component>

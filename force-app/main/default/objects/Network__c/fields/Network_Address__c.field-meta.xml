@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Network_Address__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(ORG_UNIT_ADDR_1__c),&apos;&apos;,IF(ISBLANK(ORG_UNIT_ADDR_2__c),ORG_UNIT_ADDR_1__c &amp; &apos;, &apos;, ORG_UNIT_ADDR_1__c)) &amp;
+IF(ISBLANK(ORG_UNIT_ADDR_2__c),&apos;&apos;,IF(ISBLANK(ORG_UNIT_ADDR_1__c),ORG_UNIT_ADDR_2__c &amp; &apos;, &apos;, &apos; &apos; &amp; ORG_UNIT_ADDR_2__c &amp; &apos;, &apos;)) &amp;
+IF(ISBLANK(ORG_UNIT_ADDR_3__c),&apos;&apos;,ORG_UNIT_ADDR_3__c &amp; &apos; &apos;) &amp;
+IF(ISBLANK(TEXT(State__c)),&apos;&apos;,TEXT(State__c) &amp; &apos; &apos;) &amp;
+IF(ISBLANK(Post_Code__c),&apos;&apos;,Post_Code__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Network Address</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

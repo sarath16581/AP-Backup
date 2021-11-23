@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KeyVal__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>External ID combination of Organisation__r.LEGACY_ID__c+Product__r.LEGACY_ID__c(updated through workflow rule)</description>
+    <externalId>true</externalId>
+    <label>KeyVal</label>
+    <length>150</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

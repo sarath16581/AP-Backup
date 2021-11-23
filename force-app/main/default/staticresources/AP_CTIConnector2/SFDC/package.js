@@ -1,0 +1,1 @@
+define({NAME: "Genesys", VERSION: "3.0.0"})

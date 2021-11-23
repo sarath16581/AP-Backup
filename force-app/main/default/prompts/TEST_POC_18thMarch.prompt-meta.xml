@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>TEST_POC_18thMarch</masterLabel>
+    <promptVersions>
+        <body>Fill in the key fields in the section below the path.</body>
+        <customApplication>BG_Sales</customApplication>
+        <delayDays>1</delayDays>
+        <description>For POC purpose</description>
+        <dismissButtonLabel>Dismiss</dismissButtonLabel>
+        <displayPosition>TopCenter</displayPosition>
+        <displayType>FloatingPanel</displayType>
+        <endDate>2021-03-20</endDate>
+        <isPublished>true</isPublished>
+        <masterLabel>TEST_POC_18thMarch Step 1</masterLabel>
+        <publishedDate>2021-03-18</publishedDate>
+        <shouldDisplayActionButton>false</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
+        <startDate>2021-03-17</startDate>
+        <stepNumber>1</stepNumber>
+        <targetPageKey1>Apttus_Proposal__Proposal__c</targetPageKey1>
+        <targetPageKey2>view</targetPageKey2>
+        <targetPageType>standard__recordPage</targetPageType>
+        <timesToDisplay>1</timesToDisplay>
+        <title>Steps to create Proposal</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+    <promptVersions>
+        <body>&lt;ol&gt;&lt;li&gt;Navigate to Details section.&lt;/li&gt;&lt;li&gt;Edit the Primary field and check the flag.&lt;/li&gt;&lt;li&gt;Save the record.&lt;/li&gt;&lt;/ol&gt;</body>
+        <customApplication>BG_Sales</customApplication>
+        <displayType>DockedComposer</displayType>
+        <header>Primary Proposal</header>
+        <isPublished>false</isPublished>
+        <masterLabel>TEST_POC_18thMarch Step 2</masterLabel>
+        <shouldDisplayActionButton>false</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>false</shouldIgnoreGlobalDelay>
+        <stepNumber>2</stepNumber>
+        <targetPageKey1>Apttus_Proposal__Proposal__c</targetPageKey1>
+        <targetPageKey2>view</targetPageKey2>
+        <targetPageType>standard__recordPage</targetPageType>
+        <title>Make sure the Proposal is Primary</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+    <promptVersions>
+        <body>Once Add button is enabled, click on it to add products and checkout the cart. You shall be navigated to this record for further steps.</body>
+        <customApplication>BG_Sales</customApplication>
+        <dismissButtonLabel>Dismiss</dismissButtonLabel>
+        <displayPosition>MiddleCenter</displayPosition>
+        <displayType>FloatingPanel</displayType>
+        <isPublished>false</isPublished>
+        <masterLabel>TEST_POC_18thMarch Step 3</masterLabel>
+        <shouldDisplayActionButton>false</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>false</shouldIgnoreGlobalDelay>
+        <stepNumber>3</stepNumber>
+        <targetPageKey1>Apttus_Proposal__Proposal__c</targetPageKey1>
+        <targetPageKey2>view</targetPageKey2>
+        <targetPageType>standard__recordPage</targetPageType>
+        <title>Add Products</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

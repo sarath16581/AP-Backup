@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_PBP_Gross_Settled__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates if PBP Contract is Gross Settled</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Indicates if PBP Contract is Gross Settled</inlineHelpText>
+    <label>PBP Gross Settled</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

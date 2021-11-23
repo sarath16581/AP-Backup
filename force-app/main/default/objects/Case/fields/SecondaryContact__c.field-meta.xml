@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SecondaryContact__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>SSSW - This field is used to allow for Cases to have a dual relationship to the Contacts in the System, and also for the Contact Us Form</description>
+    <externalId>false</externalId>
+    <label>Secondary Contact</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Secondary Cases</relationshipLabel>
+    <relationshipName>SecondaryCases</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

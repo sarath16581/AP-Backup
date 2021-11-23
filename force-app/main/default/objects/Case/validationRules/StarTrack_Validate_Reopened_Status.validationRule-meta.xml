@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Validate_Reopened_Status</fullName>
+    <active>true</active>
+    <description>Stops the user from changing the case status to &apos;Reopened&apos; from any status other than &apos;Closed&apos;.</description>
+    <errorConditionFormula>AND(
+    StarTrack_RecordType__c,
+    ISPICKVAL(Status, &apos;Reopened&apos;),
+    OR(
+       ISCHANGED(Status),
+       ISNEW()),
+    NOT(ISPICKVAL(PRIORVALUE(Status), &apos;Closed&apos;)))</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>You cannot change Status to &apos;Reopened&apos; from any value other than &apos;Closed&apos;.</errorMessage>
+</ValidationRule>

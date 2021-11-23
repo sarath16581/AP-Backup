@@ -1,0 +1,42 @@
+<!--
+ * Date            Version          Owner               Desription
+ * 05-11-2020        1.0            Swati Mogadala            Initial Version - Australia Post Community Maintenance Error Page
+-->
+
+   <apex:page sidebar="false" showHeader="false">
+    <html lang="en">
+        <head>
+            <meta charset="utf-8"/>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+            <title>Australia Post Community Maintenance Error Page</title>
+                       
+            <apex:stylesheet value="{!$Resource.cp_AusPost_Logo}"/>
+            <apex:stylesheet value="{!$Resource.bootstrapCSS}"/>
+            <apex:stylesheet value="{!$Resource.bootstrapmin}"/>
+            <style>
+                .main-logo{width:480px;height:50px}
+                .ap-navbar{padding:10px}
+                .error{text-align: left; font-weight: bold;font-size: 24px;background: #F5F5F5;padding-bottom: 25px;padding-top: 25px; padding-left: 20px;}
+            </style>
+        </head>
+        <body>
+    	     <div class="cp-background l-header">
+
+            <div class="ap-navbar">
+                <div class="">
+                    <a href="https://auspost.com.au/" target="blank" data-event="site interaction" data-category="CTA" data-description="header-ap-logo">
+                        <img class="main-logo" src="{!$Resource.cp_AusPost_Logo}" alt="Australia Post logo link to Australia Post website home"/>   
+                    </a>
+                </div>
+            </div>
+            </div>
+            <section>
+            <div class="error">This website is unavailable.
+                <br/><br/>  <a href="https://auspost.com.au/help-and-support">Click here</a> <b>  to find answers to common questions</b> or
+              <b> to reach the Australia Post help and support team.</b>
+                <br/><br/>Thank you.<br/>
+             </div>
+                </section>
+        </body>
+    </html>
+</apex:page>

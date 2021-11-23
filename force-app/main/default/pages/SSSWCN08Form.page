@@ -1,0 +1,735 @@
+<apex:page standardController="CN08__c" extensions="SSSWCN08FormContExt" showHeader="false" standardStylesheets="false" renderAs="pdf" sidebar="false" applyBodyTag="false">
+<head>
+    <style type="text/css">
+        @page:first {
+            @top-center {
+                content: element(header-pg1);
+            }
+        }
+        @page {
+            @top-center {
+                content: element(header-pg2);
+            }
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+        div.header {
+            font-size: 7pt;
+            padding: 0 10px 0 10px;
+        }
+        div.header-pg1 {
+            position: running(header-pg1);
+        }
+        div.header-pg2 {
+            position: running(header-pg2);
+        }
+        span.header-pt1 {
+            display: inline-block;
+        }
+        span.header-pt2 {
+            position: absolute;
+            left: 60%;            
+        }
+        span.header-pt3 {
+            float: right;
+        }
+        div.header-pg1 span.header-pt3 {
+            font-weight: bold;
+        }
+        .large-font {
+            font-size: 11pt;
+        }
+        body { 
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 8pt;
+        }
+        h5 {
+            font-size: 11pt;
+            font-weight: bold;
+            margin: 0; 
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 0 none transparent;
+        }
+        td.blank, td.text-value {
+            vertical-align: middle;
+            padding: 0 3px;
+            font-size: 10pt;
+        }
+        td {
+            min-height: 13px; 
+            vertical-align: bottom;
+        }
+        td.tickbox {
+            height: 13px;
+            width: 13px;
+        }
+        div.tickbox {
+            height: 13px;
+            width: 13px;
+            border: 1px solid black;
+            padding: 0;
+            margin: -2px;
+            text-align: center;
+        }
+        div.less-bottom-margin {
+            
+        }
+        td.tickbox-label {
+            font-size: 8pt;
+            padding: 0 3px 1px 3px;
+        }
+        td.text-label {
+            font-size: 7pt;
+            padding: 1px 3px;
+            vertical-align: top;
+        }
+        td.text-msg {
+            font-size: 8pt;
+            padding: 1px 3px;
+            vertical-align: middle;
+        }
+        .border-none {
+            border: 0 none transparent;
+        }
+        .border-full {
+            border: 1px solid black;
+        }
+        .border-top {
+            border-top: 1px solid black;
+        }
+        .border-right {
+            border-right: 1px solid black;
+        }
+        .border-bottom {
+            border-bottom: 1px solid black;
+        }
+        .border-left {
+            border-left: 1px solid black;
+        }
+        div.smudge {
+            margin-top: -1px;
+            margin-left: -3px;
+            width: 13px; 
+            height: 1px; 
+            background: black;
+        }
+        #cn08-box2 th, #cn08-box3 th, #cn08-box4 th, #cn08-box5 th {
+            font-size: 10pt;
+            font-weight: normal;
+            width: 13%;
+            padding-left: 3px;
+        }
+        .textbox {
+            white-space: pre-line;
+            overflow: hidden;
+        }
+    </style>
+    
+    <apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-1.10.2.min.js')}"/>
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    
+    <script>
+        var $j = jQuery.noConflict();
+        
+        $j(document).ready(function() {
+            $j('.textarea').text($j('.textarea').text().replace(/'\n'/gi, '<br/>'));
+            tabTitle();
+        });
+            
+        function tabTitle() {
+            //Set the current tab's title
+            sforce.console.setTabTitle('CN 08');
+        }           
+            
+    </script>
+</head>
+<apex:form >
+
+<div class="header header-pg1">
+    <span class="header-pt1">Designated operator of origin</span>
+    <span class="header-pt2">(Serial No.)</span>
+    <span class="header-pt3 large-font">CN 08</span>
+</div>
+
+<div style="page-break-after:always;">
+    <table id="cn08-box1">
+        <tr><!-- row 1 -->
+            <th class="blank" style="width:50%"></th>
+            <th class="large-font" colspan="5">INQUIRY</th> 
+            
+        </tr>
+        <tr><!-- row 2 -->
+            <td></td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(cn08.InquiryType__c = 'Registered','true','false')}" value="x" /></div></td>
+            <td class="tickbox-label" style="width:15%">Registered</td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(cn08.InquiryType__c = 'Insured','true','false')}" value="x" /></div></td>
+            <td class="tickbox-label" style="width:15%">Insured</td>
+            
+        </tr>
+        <tr><!-- row 3 -->
+            <td class="text-label border-top border-right border-left">Office of origin (to which the form is to be returned). Fax no.</td>
+            <td class="text-label border-top" colspan="2">Date of inquiry</td>
+            <td class="text-label border-top border-left border-right" colspan="4">References</td>
+        </tr>
+        <tr><!-- row 4 -->
+            <td class="text-value border-right border-bottom border-left textarea" rowspan="5"><!-- Office of origin --><apex:outputText value="{!cn08.ReturnAddress__c}" styleClass="textbox"/></td>
+            <td class="text-value" colspan="2"><!-- Date of inquiry -->
+                <apex:outputText value="{0,date,d'/'MM'/'yyyy}">
+                    <apex:param value="{!cn08.DateOfInquiry__c}" /> 
+                </apex:outputText>
+            </td>
+            <td class="text-value border-right" colspan="4"><!-- References --><apex:outputText value="{!cn08.Reference__c}" /></td>
+        </tr>
+        <tr><!-- row 5 -->
+            <td class="text-label border-right" colspan="6">
+                <div class="smudge"></div>
+                Date of duplicate
+            </td>
+        </tr>
+        <tr><!-- row 6 -->
+            <td class="text-value border-right" colspan="6"><!-- Date of duplicate -->
+                <apex:outputText value="{0,date,d'/'MM'/'yyyy}">
+                    <apex:param value="{!cn08.DateOfDuplicate__c}" /> 
+                </apex:outputText>
+            </td>
+        </tr>
+        <tr><!-- row 7 -->
+            <td class="text-label border-top border-right border-left" colspan="6">Service of destination. Fax no.</td>
+        </tr>
+        <tr><!-- row 8 -->
+            <td class="text-value border-right border-left border-bottom" colspan="6" style="height:78px"><!-- Service of destination --><apex:outputText value="{!cn08.ServiceOfDestination__c}" /></td>
+        </tr>   
+    </table>
+    
+    <h5>Particulars to be supplied by the service of origin</h5>
+    <table id="cn08-box2">
+        <tr><!-- section 1 row 1 -->
+            <th class="border-full" rowspan="4">Reason <br/> for inquiry</th>
+            <td class="blank border-top" colspan="12"></td>
+            <td class="text-label border-top border-right border-left" colspan="2">Date of arrival</td>
+        </tr>
+        <tr><!-- section 1 row 2 -->
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(CONTAINS(cn08.ReasonForInquiry__c, 'Item not arrived'),'true','false')}" value="x" /></div></td>
+            <td class="tickbox-label" colspan="3">Item not arrived</td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(CONTAINS(cn08.ReasonForInquiry__c, 'Contents missing'),'true','false')}" value="x" /></div></td>
+            <td class="tickbox-label" colspan="3">Contents missing</td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(CONTAINS(cn08.ReasonForInquiry__c, 'Damage'),'true','false')}" value="x" /></div></td>
+            <td class="tickbox-label" style="width:8%">Damage</td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(CONTAINS(cn08.ReasonForInquiry__c, 'Delay'),'true','false')}" value="x" /></div></td>
+            <td class="tickbox-label">Delay</td>
+            <td class="text-value border-right border-bottom" colspan="2"><!-- Date of arrival -->
+                <apex:outputText value="{0,date,d'/'MM'/'yyyy}">
+                    <apex:param value="{!cn08.DateOfArrival__c}" /> 
+                </apex:outputText>
+            </td>     
+        </tr>
+        <tr><!-- section 1 row 3 -->
+            <td class="blank"></td>
+            <td class="tickbox-label" rowspan="2" colspan="3">Advice of receipt <br/> not completed</td>
+            <td></td>
+            <td class="tickbox-label" rowspan="2" colspan="3">Advice of receipt <br/> not returned</td>
+            <td></td>
+            <td class="tickbox-label" rowspan="2" colspan="3">Unexplained <br/> return of item</td>
+            <td></td>
+            <td class="tickbox-label border-right" rowspan="2" style="width:14%">COD amount <br/> not received</td>
+        </tr>
+        <tr><!-- section 1 row 4 -->
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(CONTAINS(cn08.ReasonForInquiry__c, 'Advice of receipt not completed'),'true','false')}" value="x" /></div></td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(CONTAINS(cn08.ReasonForInquiry__c, 'Advice of receipt not returned'),'true','false')}" value="x" /></div></td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(CONTAINS(cn08.ReasonForInquiry__c, 'Unexplained return of item'),'true','false')}" value="x" /></div></td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(CONTAINS(cn08.ReasonForInquiry__c, 'COD amount not received'),'true','false')}" value="x" /></div></td>
+        </tr>
+        
+        <tr><!-- section 2 row 1 -->
+            <th class="border-full" rowspan="6">Item under inquiry</th>
+            <td class="blank border-top" colspan="6"></td>
+            <td class="text-label border-top border-right border-left" colspan="8">No. of item</td>
+        </tr>
+        <tr><!-- section 2 row 2 -->
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!cn08.IsPriority__c}" value="x" /></div></td>
+            <td class="tickbox-label" style="width:10%">Priority</td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!NOT(cn08.IsPriority__c)}" value="x" /></div></td>
+            <td class="tickbox-label" style="width:10%">Non-priority</td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(cn08.ItemType__c = 'Parcel','true','false')}" value="x" /></div></td>
+            <td class="tickbox-label">Parcel</td>
+            <td class="text-value border-right border-bottom" colspan="8"><!-- No. of item -->
+                <apex:outputText value="{0, number, ###,##0}">
+                    <apex:param value="{!cn08.NumberOfItems__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        <tr><!-- section 2 row 3 -->
+            <td></td>
+            <td class="tickbox-label" rowspan="2">Letter</td>
+            <td></td>
+            <td class="tickbox-label" rowspan="2">Printed <br/> paper</td>
+            <td></td>
+            <td class="tickbox-label" rowspan="2">Small <br/> packet</td>
+            <td class="blank border-bottom border-right" rowspan="2" colspan="6"></td>
+            <td class="text-label border-right" colspan="2">Weight</td>
+        </tr>
+        <tr><!-- section 2 row 4 -->
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(cn08.ItemType__c = 'Letter','true','false')}" value="x" /></div></td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(cn08.ItemType__c = 'Printed paper','true','false')}" value="x" /></div></td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(cn08.ItemType__c = 'Small packet','true','false')}" value="x" /></div></td>
+            <td class="text-value border-right" colspan="2"><!-- Weight -->
+                <apex:outputText rendered="{!IF(NOT(ISBLANK(cn08.ItemWeight__c)),'true','false')}" value="{0, number, ###,##0.000} kg">
+                    <apex:param value="{!cn08.ItemWeight__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        <tr><!-- section 2 row 5 -->
+            <td class="text-label border-top" colspan="4">Amount of insured value</td>
+            <td class="text-label border-top border-left" colspan="4">COD amount and currency</td>
+            <td class="text-label border-top border-left border-right" colspan="6">Amount of indemnity, including charges (in SDR)</td>
+        </tr>
+        <tr><!-- section 2 row 6 -->
+            <td class="text-value border-bottom" colspan="4"><!-- Amount of insured value -->
+                <apex:outputText rendered="{!IF(NOT(ISBLANK(cn08.InsuredValue__c)),'true','false')}" value="${0, number, ###,##0.00}">
+                    <apex:param value="{!cn08.InsuredValue__c}" />
+                </apex:outputText>
+            </td>
+            <td class="text-value border-bottom" colspan="4"><!-- COD amount and currency -->
+                <apex:outputText rendered="{!IF(NOT(ISBLANK(cn08.CODAmount__c)),'true','false')}" value="${0, number, ###,##0.00} {1}">
+                    <apex:param value="{!cn08.CODAmount__c}" />
+                    <apex:param value="{!cn08.CODCurrency__c}" />
+                </apex:outputText>
+            </td>
+            <td class="text-value border-bottom border-right" colspan="6"><!-- Amount of indemnity, including charges (in SDR) --><apex:outputText rendered="{!IF(NOT(ISBLANK(cn08.AmountOfIndemnity__c)),'true','false')}" value="${!cn08.AmountOfIndemnity__c}" /></td>
+        </tr>
+        
+        <tr><!-- section 3 row 1 -->
+            <th class="border-full" rowspan="2" style="padding:0 1px;">Special indications</th>
+            <td class="blank border-right" colspan="14"></td>
+        </tr>
+        <tr><!-- section 3 row 2 -->
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(CONTAINS(cn08.SpecialIndications__c, 'By airmail'),'true','false')}" value="x" /></div></td>
+            <td class="tickbox-label" colspan="3">By airmail</td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(CONTAINS(cn08.SpecialIndications__c, 'S.A.L.'),'true','false')}" value="x" /></div></td>
+            <td class="tickbox-label">S.A.L.</td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(CONTAINS(cn08.SpecialIndications__c, 'Express'),'true','false')}" value="x" /></div></td>
+            <td class="tickbox-label" style="width:10%">Express</td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(CONTAINS(cn08.SpecialIndications__c, 'Advice of receipt'),'true','false')}" value="x" /></div></td>
+            <td class="tickbox-label" colspan="3">Advice of receipt</td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(CONTAINS(cn08.SpecialIndications__c, 'COD'),'true','false')}" value="x" /></div></td>
+            <td class="tickbox-label border-right">COD</td>
+        </tr>
+        
+        <tr><!-- section 4 row 1 -->
+            <th class="border-full" rowspan="4">Posted</th>
+            <td class="text-label border-top" colspan="4">Date</td>
+            <td class="text-label border-top border-left border-right" colspan="10">Office</td>
+        </tr>
+        <tr><!-- section 4 row 2 -->
+            <td class="text-value" colspan="4"><!-- Date -->
+                <apex:outputText value="{0,date,d'/'MM'/'yyyy}">
+                    <apex:param value="{!cn08.PostedDate__c}" /> 
+                </apex:outputText>
+            </td>
+            <td class="text-value" colspan="8"><!-- Office --><apex:outputText value="{!cn08.OfficePostedFrom__c}" /></td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!cn08.ReceiptSeen__c}" value="x" /></div></td>
+            <td class="tickbox-label border-right">Receipt seen</td>
+        </tr>
+        <tr><!-- section 4 row 3 -->
+            <td class="text-label border-top" colspan="6">Charges paid (national currency)</td>
+            <td class="text-label border-top border-left border-right" colspan="8">Other fees (national currency)</td>
+        </tr>
+        <tr><!-- section 4 row 4 -->
+            <td class="text-value border-bottom" colspan="6"><!-- Charges paid (national currency) --><apex:outputText rendered="{!IF(NOT(ISBLANK(cn08.ChargesPaid__c)),'true','false')}" value="${!cn08.ChargesPaid__c}" /></td>
+            <td class="text-value border-bottom border-right" colspan="8"><!-- Other fees (national currency) --><apex:outputText rendered="{!IF(NOT(ISBLANK(cn08.OtherFees__c)),'true','false')}" value="${!cn08.OtherFees__c}" /></td>
+        </tr>
+        
+        <tr><!-- section 5 row 1 -->
+            <th class="border-full" rowspan="3">Sender</th>
+            <td class="text-label border-right" colspan="10">Name and full address. Telephone No.</td>
+            <td class="blank border-left border-right" colspan="4"></td>
+        </tr>
+        <tr><!-- section 5 row 2 -->
+            <td class="text-value border-right" colspan="10" rowspan="2"><!-- Sender contact details -->
+                <apex:outputText value="{!cn08.SenderName__c}" /><br/>
+                <apex:outputText value="{!cn08.SenderAddress__c}" styleClass="textbox"/><br/>
+                <apex:outputText value="{!cn08.SenderPhone__c}" />
+            </td>
+            <td class="tickbox"><div class="tickbox" style="margin-left:2px"><apex:outputText rendered="{!cn08.AddresseeDeclarationRequested__c}" value="x" /></div></td>
+            <td class="tickbox-label border-right" colspan="3" rowspan="2" style="vertical-align:top">The sender requests the <br/> addressee's declaration <br/> on a CN 18 form</td>
+        </tr>
+        <tr><!-- section 5 row 3 -->
+            <td class="blank" style="border-right: 1px solid white;"></td>
+        </tr>
+    
+        <tr><!-- section 6 row 1 -->
+            <th class="border-full" rowspan="2">Addressee</th>
+            <td class="text-label border-top border-right" colspan="14">Name and full address. Telephone No.</td>
+        </tr>
+        <tr><!-- section 6 row 2 -->
+            <td class="text-value border-right" colspan="14"><!-- Addressee contact details -->
+                <apex:outputText value="{!cn08.AddresseeName__c}" /><br/>
+                <apex:outputText value="{!cn08.AddresseeAddress__c}" styleClass="textbox"/><br/>
+                <apex:outputText value="{!cn08.AddresseePhone__c}" />
+            </td>
+        </tr>
+        
+        <tr><!-- section 7 row 1 -->
+            <th class="border-full" style="height:107px">Contents (precise description)</th>
+            <td class="text-value border-full" colspan="14"><!-- contents description --><apex:outputText value="{!cn08.ContentsDescription__c}" styleClass="textbox"/></td>
+        </tr>
+        
+        <tr><!-- section 8 row 1 -->
+            <th class="border-full" rowspan="2">Item found</th>
+            <td class="text-label border-right" colspan="14">To be sent to</td>
+        </tr>
+        <tr><!-- section 8 row 2 -->
+            <td class="tickbox border-bottom"><div class="tickbox less-bottom-margin"><apex:outputText rendered="{!IF(CONTAINS(LOWER(cn08.ToBeSentTo__c), 'sender'),'true','false')}" value="x" /></div></td>
+            <td class="tickbox-label border-bottom" colspan="3">the sender</td>
+            <td class="tickbox border-bottom"><div class="tickbox less-bottom-margin"><apex:outputText rendered="{!IF(CONTAINS(LOWER(cn08.ToBeSentTo__c), 'addressee'),'true','false')}" value="x" /></div></td>
+            <td class="tickbox-label border-bottom border-right" colspan="10">the addressee</td>
+        </tr>
+    </table>
+    
+    <h5>Particulars to be supplied by the office of exchange</h5>
+    <table id="cn08-box3">
+        <tr><!-- row 1 -->
+            <th class="border-full" rowspan="14">Mail in <br/> which the <br/> item was <br/> sent abroad</th>
+            <td class="blank border-top border-right" colspan="6"></td>
+        </tr>
+        <tr><!-- row 2 -->
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(cn08.MailType__c = 'Priority/Air','true','false')}" value="x" /></div></td>
+            <td class="tickbox-label" style="width:22%">Priority/Air</td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(cn08.MailType__c = 'S.A.L.','true','false')}" value="x" /></div></td>
+            <td class="tickbox-label" style="width:22%">S.A.L.</td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(cn08.MailType__c = 'Non-priority/Surface','true','false')}" value="x" /></div></td>
+            <td class="tickbox-label border-right">Non-priority/Surface</td>
+        </tr>
+        <tr><!-- row 3 -->
+            <td class="text-label" colspan="2">No.</td>
+            <td class="text-label border-left border-right" colspan="4">Date</td>
+        </tr>
+        <tr><!-- row 4 -->
+            <td class="text-value" colspan="2"><!-- mail/parcel number -->
+                <apex:outputText value="{0,number,0}">
+                    <apex:param value="{!cn08.MailNumber__c}" /> 
+                </apex:outputText>
+            </td>
+            <td class="text-value border-right" colspan="4"><!-- Send date -->
+                <apex:outputText value="{0,date,d'/'MM'/'yyyy}">
+                    <apex:param value="{!cn08.DispatchDate__c}" /> 
+                </apex:outputText>
+            </td>
+        </tr>
+        <tr><!-- row 5 -->
+            <td class="text-label border-top border-right" colspan="6">Dispatching office of exchange</td>
+        </tr>
+        <tr><!-- row 6 -->
+            <td class="text-value border-right" colspan="6"><!-- Dispatching office of exchange --><apex:outputText value="{!cn08.DispatchingOffficeOfExchange__c}" /></td>
+        </tr>
+        <tr><!-- row 7 -->
+            <td class="text-label border-top border-right" colspan="6">Office of exchange of destination</td>
+        </tr>
+        <tr><!-- row 8 -->
+            <td class="text-value border-bottom border-right" colspan="6"><!-- Office of exchange of destination --><apex:outputText value="{!cn08.OfficeOfExchangeOfDestination__c}" /></td>
+        </tr>
+        <tr><!-- row 9 -->
+            <td class="text-label" colspan="2">No. of the bill/list</td>
+            <td class="blank border-right border-left" colspan="4"></td>
+        </tr>
+        <tr><!-- row 10 -->
+            <td class="text-value border-left border-right border-bottom" colspan="2"><!-- No. of the bill/list --><apex:outputText value="{!cn08.BillListNumber__c}" /></td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(cn08.ListType__c = 'Letter bill (CN 31 or CN 32)','true','false')}" value="x" /></div></td>
+            <td class="tickbox-label">Letter bill (CN 31 or CN 32)</td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(cn08.ListType__c = 'Special list (CN 33)','true','false')}" value="x" /></div></td>
+            <td class="tickbox-label border-right">Special list (CN 33)</td>
+        </tr>
+        <tr><!-- row 11 -->
+            <td class="text-label" colspan="2">Serial No.</td>
+            <td class="blank border-left"></td>
+            <td></td>
+            <td></td>
+            <td class="blank border-right"></td>
+        </tr>
+        <tr><!-- row 12 -->
+            <td class="text-value border-bottom" colspan="2"><!-- Serial No. -->
+                <apex:outputText value="{0,number,0}">
+                    <apex:param value="{!cn08.SerialNumber__c}" /> 
+                </apex:outputText>
+            </td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(cn08.ListType__c = 'Dispatch list (CN 16)','true','false')}" value="x" /></div></td>
+            <td class="tickbox-label">Dispatch list (CN 16)</td>
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!IF(cn08.ListType__c = 'Parcel bill (CP 87)','true','false')}" value="x" /></div></td>
+            <td class="tickbox-label border-right">Parcel bill (CP 87)</td>
+        </tr>
+        <tr><!-- row 13 -->
+            <td class="blank" colspan="2"></td>
+            <td class="text-label border-top border-left border-right" colspan="4">Date and signature</td>
+        </tr>
+        <tr><!-- row 14 -->
+            <td class="tickbox"><div class="tickbox"><apex:outputText rendered="{!cn08.BulkAdvice__c}" value="x" /></div></td>
+            <td class="tickbox-label border-bottom">Bulk advice</td>
+            <td class="text-value border-left border-right border-bottom" colspan="4"><!-- Date and signature--></td>
+        </tr>
+    </table>
+</div>
+
+<div class="header header-pg2">
+    <span class="header-pt2">(Serial No.)</span>
+    <span class="header-pt3">CN 08 (Back)</span>
+</div>
+
+    <h5>Particulars to be supplied by the intermediate services</h5>
+    <table id="cn08-box4">
+        <tr><!-- row 1 -->
+            <th class="border-full" rowspan="14">Mail in which the item was sent</th>
+            <td class="blank border-top border-right" colspan="6"></td>
+        </tr>
+        <tr><!-- row 2 -->
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label" style="width:22%">Priority/Air</td>
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label" style="width:22%">S.A.L.</td>
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label border-right">Non-priority/Surface</td>
+        </tr>
+        <tr><!-- row 3 -->
+            <td class="text-label" colspan="2">No</td>
+            <td class="text-label border-left border-right" colspan="4">Date</td>
+        </tr>
+        <tr><!-- row 4 -->
+            <td colspan="2"><!-- mail/parcel number --></td>
+            <td class="text-value border-right" colspan="4"><!-- Send date --></td>
+        </tr>
+        <tr><!-- row 5 -->
+            <td class="text-label border-top border-right" colspan="6">Dispatching office of exchange</td>
+        </tr>
+        <tr><!-- row 6 -->
+            <td class="text-value border-right" colspan="6"><!-- Dispatching office of exchange --></td>
+        </tr>
+        <tr><!-- row 7 -->
+            <td class="text-label border-top border-right" colspan="6">Office of exchange of destination</td>
+        </tr>
+        <tr><!-- row 8 -->
+            <td class="text-value border-bottom border-right" colspan="6"><!-- Office of exchange of destination --></td>
+        </tr>
+        <tr><!-- row 9 -->
+            <td class="text-label" colspan="2">No. of the bill/list</td>
+            <td class="blank border-right border-left" colspan="4"></td>
+        </tr>
+        <tr><!-- row 10 -->
+            <td class="text-value border-left border-right border-bottom" colspan="2"><!-- No. of the bill/list --></td>
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label">Letter bill (CN 31 or CN 32)</td>
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label border-right">Special list (CN 33)</td>
+        </tr>
+        <tr><!-- row 11 -->
+            <td class="text-label" colspan="2">Serial No.</td>
+            <td class="blank border-left"></td>
+            <td></td>
+            <td></td>
+            <td class="blank border-right"></td>
+        </tr>
+        <tr><!-- row 12 -->
+            <td class="text-value border-bottom" colspan="2"><!-- Serial No. --></td>
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label">Dispatch list (CN 16)</td>
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label border-right">Parcel bill (CP 87)</td>
+        </tr>
+        <tr><!-- row 13 -->
+            <td class="blank" colspan="2"></td>
+            <td class="text-label border-top border-left border-right" colspan="4">Date and signature</td>
+        </tr>
+        <tr><!-- row 14 -->
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label border-bottom">Bulk advice</td>
+            <td class="text-value border-left border-right border-bottom" colspan="4"><!-- Date and signature--></td>
+        </tr>
+    </table>
+    
+    <h5>Particulars to be supplied by the service of destination</h5>
+    <table id="cn08-box5">
+        <tr><!-- section 1 row 1 -->
+            <th class="border-full" rowspan="3">In case <br/> of delivery</th>
+            <td class="blank border-top" colspan="4"></td>
+            <td class="text-label border-top border-left border-right" style="width:37%">Date</td>  
+        </tr>
+        <tr><!-- section 1 row 2 -->
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label border-right" colspan="4">The item was duty delivered to the rightful owner</td>
+        </tr>
+        <tr><!-- section 1 row 3 -->
+            <td class="text-msg border-full" colspan="5" style="height:26px">In case of damage or delay, give the reason in the "Final reply" part under "Any other comments"</td>
+        </tr>
+        <tr><!-- section 2 row 1 -->
+            <th class="border-full" rowspan="14">In case <br/> of non- <br/> delivery</th>
+            <td class="text-label" colspan="2">The item</td>
+            <td class="text-label border-left border-right" colspan="3">Name of office</td>
+        </tr>
+        <tr><!-- section 2 row 2 -->
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label" style="width:22%">Is being held at</td>
+            <td class="text-value border-right" colspan="3"><!-- Office name (being held at) --></td>
+        </tr>
+        <tr><!-- section 2 row 3 -->
+            <td></td>
+            <td></td>
+            <td class="text-label border-left border-top border-right" colspan="3">Reason</td>
+        </tr>
+        <tr><!-- section 2 row 4 -->
+            <td class="blank" colspan="2"></td>
+            <td class="text-value border-right" colspan="3"><!-- Reason (being held at) --></td>
+        </tr>
+        <tr><!-- section 2 row 5 -->
+            <td></td>
+            <td class="tickbox-label" rowspan="2">was returned <br/> to the office of origin</td>
+            <td class="text-label border-left border-top border-right" colspan="3">Date</td>
+        </tr>
+        <tr><!-- section 2 row 6 -->
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="text-value border-right" style="border-left:1px solid white;" colspan="3"><!-- Date (returned to the office of origin) --></td>
+        </tr>   
+        <tr><!-- section 2 row 7 -->
+            <td></td>
+            <td></td>
+            <td class="text-label border-left border-top border-right" colspan="3">Reason</td>
+        </tr>
+        <tr><!-- section 2 row 8 -->
+            <td class="blank" colspan="2"></td>
+            <td class="text-value border-right" colspan="3"><!-- Reason (returned to the office of origin) --></td>
+        </tr>
+        <tr><!-- section 2 row 9 -->
+            <td></td>
+            <td></td>
+            <td class="text-label border-left border-top border-right" colspan="3">Date</td>
+        </tr>
+        <tr><!-- section 2 row 10 -->
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label">was redirected</td>
+            <td class="text-value border-right" colspan="3"><!-- Date (was redirected) --></td>
+        </tr>
+        <tr><!-- section 2 row 11 -->
+            <td></td>
+            <td></td>
+            <td class="text-label border-left border-top border-right" colspan="3">New address in full</td>
+        </tr>
+        <tr><!-- section 2 row 12 -->
+            <td class="blank" colspan="2"></td>
+            <td class="text-value border-right" colspan="3"><!-- New address (was redirected to) --></td>
+        </tr>
+        <tr><!-- section 2 row 13 -->
+            <td class="blank border-top border-right" colspan="5"></td>
+        </tr>
+        <tr><!-- section 2 row 14 -->
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label border-bottom border-right" colspan="4">The item has not been received at the office of destination. The addressee's CN 18 declaration is attached</td>
+        </tr>
+        
+        <tr><!-- section 3 row 1 -->
+            <th class="border-full" rowspan="11">COD</th>
+            <td class="blank" colspan="2"></td>
+            <td class="text-label border-left" colspan="2">Date</td>
+            <td class="text-label border-left border-right">No. of money order</td>
+        </tr>
+        <tr><!-- section 3 row 2 -->
+            <td class="text-msg border-bottom border-right" colspan="5">Dispatch of COD amount</td>
+        </tr>
+        <tr><!-- section 3 row 3 -->
+            <td class="text-label border-right" colspan="5">The amount was sent</td>
+        </tr>
+        <tr><!-- section 3 row 4 -->
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label border-right" colspan="4">to the sender of the item</td>
+        </tr>
+        <tr><!-- section 3 row 5 -->
+            <td></td>
+            <td></td>
+            <td class="text-label border-left border-top border-right" colspan="3">Name of giro office</td>
+        </tr>
+        <tr><!-- section 3 row 6 -->
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label border-bottom">to the giro office</td>
+            <td class="text-value border-right border-bottom" colspan="3"><!-- Name of giro office --></td>
+        </tr>
+        <tr><!-- section 3 row 7 -->
+            <td class="blank" colspan="3"></td>
+            <td class="text-label border-left border-right" colspan="2">No.</td>
+        </tr>
+        <tr><!-- section 3 row 8 -->
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label border-bottom" colspan="2">The amount was credited to the giro account</td>
+            <td class="text-value border-right border-bottom" colspan="3"><!-- credited giro account number --></td>
+        </tr>
+        <tr><!-- section 3 row 9 -->
+            <td class="blank" colspan="3"></td>
+            <td class="text-label border-left border-right" colspan="2" style="width:50%">Reason</td>
+        </tr>
+        <tr><!-- section 3 row 10 -->
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label" colspan="2">COD amount has not been collected</td>
+            <td class="text-value border-right border-bottom" colspan="3"><!-- Reason COD amount has not been collected --></td>
+        </tr>
+        <tr><!-- section 3 row 11 -->
+            <td></td>
+            <td class="blank border-right" colspan="4" style="height:26px"></td>
+        </tr>
+        
+        <tr><!-- section 4 row 1 -->
+            <th class="border-full" rowspan="2">Delivery <br/> office</th>
+            <td class="text-label border-top border-right" colspan="5">Name, date and signature.</td>
+        </tr>
+        <tr><!-- section 4 row 2 -->
+            <td class="text-value border-bottom border-right" colspan="5"><!-- delivery office NAME, DATE and SIGNATURE --></td>
+        </tr>
+    </table>
+    
+    <h5>Final reply</h5>
+    <table id="cn08-box6">
+        <tr><!-- row 1 -->
+            <td class="text-msg border-left border-top border-right" colspan="5" style="height:39px">
+                <p>The investigations made in our service have been unsuccessful. If the item under inquiry has not been received back by the sender, <br/>
+                we authorize you to compensate the inquirer within the prescribed limits and to debit us in a CP 75 or CN 48 account, <br/>
+                as appropriate</p>
+            </td>
+        </tr>
+        <tr><!-- row 2 -->
+            <td class="border-left"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="text-label border-left border-right">
+                <div class="smudge"></div>
+                Reference
+            </td>
+        </tr>
+        <tr><!-- row 3 -->
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label" style="width:27%">The full amount paid</td>
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="tickbox-label" style="width:32%">Half of the amount paid (bulk advice)</td>
+            <td class="text-value border-right"><!-- Reference --></td>
+        </tr>
+        <tr><!-- row 4 -->
+            <td class="blank border-top border-left"></td>
+            <td class="blank border-right border-top" colspan="4"></td>
+        </tr>
+        <tr><!-- row 5 -->
+            <td class="tickbox"><div class="tickbox"></div></td>
+            <td class="border-bottom border-right" colspan="4">According to the agreement between our two countries, you have to compensate the inquirer</td>
+        </tr>
+        <tr><!-- row 6 -->
+            <td class="text-label border-top border-left border-right" colspan="5" style="height:39px">Any other comments</td>
+        </tr>
+        <tr><!-- row 7 -->
+            <td class="text-value border-bottom border-left border-right" colspan="5"><!-- any other comments --></td>
+        </tr>
+        <tr><!-- row 8 -->
+            <td class="text-label border-left border-right" colspan="5">Designated operator of destination. Date and signature</td>
+        </tr>
+        <tr><!-- row 9 -->
+            <td class="text-value border-bottom border-left border-right" colspan="5"><!-- Designated operator of destination. Date and signature --></td>
+        </tr>
+    </table>
+    
+    </apex:form>
+</apex:page>

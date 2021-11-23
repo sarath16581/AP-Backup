@@ -1,0 +1,286 @@
+.THIS {
+    max-width: 1180px;
+    margin: 0 auto;
+    }
+    .THIS a:focus {
+        outline: none;
+        }
+    .THIS .spinner {
+        background: none;
+        }
+/* Styling to align the idea feed with header */
+    .THIS .header {
+        padding: 25px 0 0 0;
+        height: 60px;
+        }
+        .THIS .header .uiMenuList{
+            left: 70px;
+            }
+        .THIS .header .search-input {
+            position: relative;
+            }
+            .THIS .header .search-input label{
+                display: none;
+                }
+            .THIS .header .search-input input{
+                border: none;
+                background: #ffffff;
+                border-radius: 4px;
+                padding: 0 0 0 35px;
+                font-size: 14px;
+                min-height: 30px;
+                }
+            .THIS .header .search-input .btn {
+                position: absolute;
+                top: 3px;
+                left: 10px;
+                }
+/* Styling to align the idea feed with search box */
+    .THIS .ideas-list {
+        padding-top: 20px;
+        }
+        .THIS .ideas-list .idea-item {
+            background: #ffffff;
+            padding: 24px 24px 15px 24px;
+            margin-bottom: 28px;
+            border-radius: 4px;
+            border-bottom: solid 1px #e6e4e1;
+            position: relative;
+            overflow: hidden;
+            }
+            .THIS .ideas-list .idea-item .idea-header {
+                position: relative;
+                }
+                .THIS .ideas-list .idea-item .idea-header .user-image {
+                    max-width: 60px;
+                    }
+                    .THIS .ideas-list .idea-item .idea-header .user-image img{
+                        width: 45px;
+                        border-radius: 50%;
+                        }
+                .THIS .ideas-list .idea-item .idea-header .username {
+                    margin-right: 200px;
+                    }
+                .THIS .ideas-list .idea-item .idea-header .username,
+                .THIS .ideas-list .idea-item .idea-header .username a{
+                    font-family: 'letterbold' !important;
+                    font-weight: bold;
+                    }
+                .THIS .ideas-list .idea-item .idea-header .date{
+                    font-size: 0.9em;
+                    color: #000000;
+                    }
+                .THIS .ideas-list .idea-item .idea-header .status{
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    }
+.THIS .ideas-list .idea-item .idea-header .status span {
+    display: inline-block;
+    border: solid 1px;
+    border-radius: 15px;
+    font-family: 'Arial' !important;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+                    .THIS .ideas-list .idea-item .idea-header .status .flag-1,
+                    .THIS .ideas-list .idea-item .idea-header .status .flag-2{
+                        position: absolute;
+                        border-top: solid 1px #555555;
+                        }
+                    .THIS .ideas-list .idea-item .idea-header .status .flag-1{
+                        width: 16px;
+                        height: 16px;
+                        top: 3px;
+                        left: -9px;
+                        transform: rotate(56deg);
+                        }
+                    .THIS .ideas-list .idea-item .idea-header .status .flag-2{
+                        width: 17px;
+                        height: 17px;
+                        top: 7px;
+                        left: -10px;
+                        transform: rotate(125deg);
+                        }
+                    .THIS .ideas-list .idea-item .idea-header .status .flag-3{
+                        height: 28px;
+                        padding: 3px 12px 0 20px;
+                        /*font-size: 15px;
+                        font-weight: bold;
+                        border-top: solid 1px #555555;
+                        border-right: solid 1px #555555;
+                        border-bottom: solid 1px #555555;*/
+                        }
+
+            .THIS .ideas-list .idea-item .idea-details{
+                padding: 25px 0 0 0;
+                }
+                .THIS .ideas-list .idea-item .idea-details .title{
+                    font-family: 'letterbold' !important;
+                    font-weight: bold;
+                    font-size: 1.3em;
+                    margin-bottom: 15px;
+                    word-wrap: break-word;
+                    }
+                    .THIS .ideas-list .idea-item .idea-details .title a {
+                        font-family: 'letterbold' !important;
+                        }
+                    .THIS .ideas-list .idea-item .idea-details .read-more{
+
+                        text-decoration: underline;
+                    }
+                .THIS .ideas-list .idea-item .idea-details .category {
+                    padding: 15px 0 0 0;
+                    }
+                    .THIS .ideas-list .idea-item .idea-details .category span{
+                        display: inline-block;
+                        border: solid 1px #efefef;
+                        border-radius: 15px;
+                        color: #382f2d;
+                        font-size: 0.8em;
+                        padding: 5px 10px;
+                        }
+                .THIS .ideas-list .idea-item .idea-details .body{
+                    word-wrap: break-word;
+                    }
+
+            .THIS .ideas-list .idea-item .idea-bottom {
+                padding: 25px 0 0 0;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                }
+                .THIS .ideas-list .idea-item .left-info{
+                    padding-top: 4px;
+                    }
+                    .THIS .ideas-list .idea-item .left-info > div{
+                        display: inline-block;
+                        margin-right: 15px;
+                        }
+                    .THIS .ideas-list .idea-item .left-info img {
+                        display: block;
+                        float: left;
+                     /*Below code is commented on 14-08-2018 for Communities Ideas List Page for adjusting 
+                       the Vote, Comment and Flag button image on the idea.*/
+                        /*margin-right: 5px;*/
+                        margin-right: 1px;
+                        }
+                    .THIS .ideas-list .idea-item .left-info a,
+                    .THIS .ideas-list .idea-item .left-info span {
+                        display: block;
+                        float: left;
+                        font-size: 0.8em;
+                        }
+                .THIS .ideas-list .idea-item.archived .left-info{
+                    display: none;
+                    }
+                .THIS .ideas-list .idea-item .right-info{
+                    padding-top: 5px;
+                    }
+                    .THIS .ideas-list .idea-item .right-info > span{
+                        display: inline-block;
+                        font-size: 0.8em;
+                        }
+                    .THIS .ideas-list .idea-item .right-info .comments-number:after {
+                        content:"•";
+                        display: inline-block;
+                        margin: 0 10px;
+                        font-size: 0.8em;
+                        }
+                .THIS .ideas-list .idea-item .archived-label{
+                    display: none;
+                    float: left;
+                    font-weight: bold;
+                    color: #999999;
+                    }
+                .THIS .ideas-list .idea-item.archived .archived-label{
+                    display: block;
+                    }
+
+        .THIS .ideas-list .idea-item.new {
+            border-bottom: solid 2px #cc4400;
+            }
+            .THIS .ideas-list .idea-item.new .tag-new {
+                color: #aa4400;
+                float: right;
+                text-transform: uppercase;
+                margin: 5px 15px 0 0;
+                }
+        .THIS .post-idea-button{
+        /*Below code is commented on 08-08-2018 for Communities Ideas List Page for moving the 
+          Post idea or Join group button to a new component in the header.*/
+            margin-bottom: 25px;
+            /*margin-bottom: 89px;*/
+            }
+            .THIS .post-idea-button .big-button{
+                display: block;
+                width: 100%;
+                height: 60px;
+                background-color: #8177e7;
+                border-radius: 4px;
+                text-align: center;
+                font-family: 'letterbold' !important;
+                font-size: 1em;
+                color: #ffffff;
+                }
+            .THIS .post-idea-button .big-button.join{
+                background-color: #17305a;
+                background-position: 50px 10px;
+                }
+
+    .THIS .slds-active .slds-tabs--default__link {
+        border-color: token(colorBorderBrand);
+        }
+    .THIS .slds-tabs--default__link:focus {
+        border-color: token(colorBorderBrand);
+        }
+
+@media screen and (max-width: 48em) {
+    .THIS .header {
+        background: none;
+        border-bottom: none;
+        padding: 0;
+        }
+    .THIS .ideas-list .idea-item {
+        margin-top: 10px;
+        }
+        .THIS .ideas-list .idea-item .idea-header .username {
+            margin-right: 0;
+            }
+        .THIS .ideas-list .idea-item .idea-header .status{
+            position: relative;
+            margin-top: 15px;
+            width: 100%;
+            }
+            .THIS .ideas-list .idea-item .idea-header .status .flag-1,
+            .THIS .ideas-list .idea-item .idea-header .status .flag-2{
+                display: none;
+                }
+            .THIS .ideas-list .idea-item .idea-header .status .flag-3{
+                height: auto;
+                border: none;
+                padding: 0;
+                }
+        .THIS .ideas-list .idea-item .idea-details{
+            padding: 10px 0 0 0;
+            }
+        .THIS .ideas-list .idea-item > div.slds-grid {
+            flex-wrap: wrap;
+            }
+}
+
+/* Styling to align the idea feed with header content */
+.THIS .slds-p-left--medium{
+    padding-left: 0px;
+}
+
+@media screen and (max-width: 768px) {
+.THIS .slds-p-right--medium{
+   padding-right: 0px; 
+}
+.THIS .ideas-list {
+   padding-top: 0px;
+}
+}

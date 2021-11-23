@@ -1,0 +1,18 @@
+/*
+2020-04-01 nathan.franklin@auspost.com.au Created
+*/
+article.is-article .article-selector {
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.article-status-slot {
+
+}
+
+/*@media --lwc-mqMedium {*/
+@media screen and (min-width: 48em) {
+    .article-status-slot {
+
+    }
+}

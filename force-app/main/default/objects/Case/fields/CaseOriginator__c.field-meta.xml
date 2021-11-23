@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CaseOriginator__c</fullName>
+    <description>SSSW</description>
+    <externalId>false</externalId>
+    <label>Case Originator</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Internal</fullName>
+                <default>false</default>
+                <label>Internal</label>
+            </value>
+            <value>
+                <fullName>Customer</fullName>
+                <default>true</default>
+                <label>Customer</label>
+            </value>
+            <value>
+                <fullName>Sender</fullName>
+                <default>false</default>
+                <label>Sender</label>
+            </value>
+            <value>
+                <fullName>Network</fullName>
+                <default>false</default>
+                <label>Network</label>
+            </value>
+            <value>
+                <fullName>Addressee</fullName>
+                <default>false</default>
+                <label>Addressee</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

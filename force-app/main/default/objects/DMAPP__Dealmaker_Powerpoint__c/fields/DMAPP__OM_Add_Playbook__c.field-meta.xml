@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__OM_Add_Playbook__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Check this box to include Sales Process data from Smart Opportunity Manager in the PowerPoint file.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check this box to include playbook data from Smart Opportunity Manager in the PowerPoint file.</inlineHelpText>
+    <label>OM Add Sales Process</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

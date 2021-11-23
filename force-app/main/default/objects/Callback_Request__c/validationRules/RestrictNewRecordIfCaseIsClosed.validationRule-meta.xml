@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RestrictNewRecordIfCaseIsClosed</fullName>
+    <active>true</active>
+    <description>Restrict new record creation if case is closed.</description>
+    <errorConditionFormula>AND(
+ISNEW(),
+ISPICKVAL(CaseId__r.Status, &apos;Closed&apos;),
+(RecordType.DeveloperName == &apos;SSSW_Callback_Reminder&apos;)
+)</errorConditionFormula>
+    <errorMessage>Callback reminder cannot be created for closed case.</errorMessage>
+</ValidationRule>

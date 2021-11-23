@@ -1,0 +1,110 @@
+<!-- Created on 22/11/2018 for providing the functionality to create child case from a case detail page -->
+<aura:component controller="CreateChildCaseController" implements="flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:hasRecordId"
+                access="global">
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="recordError" type="String" />
+    <aura:attribute name="sourceRecordTypeId" type="Id" />
+    <aura:attribute name="sourceRecordType" type="String" />
+    <aura:attribute name="targetRecordType" type="String" />
+    <aura:attribute name="recordData" type="String" />
+    <aura:attribute name="caseNum" type="String" />
+    <aura:attribute name="fieldSetList" type="CreateChildCaseController.FieldSetMember[]" />
+    <aura:attribute name="recordTypePicklist" type="CreateChildCaseController.PickListValue[]" />
+    <aura:attribute name="selectedRecordType" type="String" />
+    <aura:attribute name="displayEditForm" type="boolean" default="false" />
+    <aura:attribute name="parentCase" type="Case" />
+    <aura:attribute name="attachmentList" type="Attachment[]" />
+    <aura:attribute name="documentList" type="ContentDocument[]" />
+    <aura:attribute name="selectedDocsAndAttachments" type="string[]" />
+    <aura:attribute name="shareFileAndAttachment" type="boolean" default="false" />
+    <aura:attribute name="showLoading" type="boolean" default="false" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.onComponentLoad}"/>
+
+    <!-- required style to allign lightning component when used in lightning page as a quick action -->
+    <aura:html tag="style">
+        .cuf-content {
+        padding: 0px 0px !important;
+        background-color: white !important;
+        }
+        .cuf-scroller-outside{
+        padding: 0px 0px !important;
+        background-color: white !important;
+        }
+    </aura:html>
+    
+
+    <!-- Invoke controller util and waiting spinner -->
+    <ltng:require scripts="{!join(',',$Resource.GlobalAssets + '/js/lightning/utils.js')}"/>
+    <c:waitingQueueComponent aura:id="loader" />
+    <aura:if isTrue="{!v.showLoading}">
+    	<lightning:spinner alternativeText="Loading" size="small" />
+    </aura:if>
+    <br></br>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-2" style="padding-right:4px">
+            <div class="slds-form-element">
+
+                <label class="slds-form-element__label"><b>
+                        <h5>Record Type</h5>
+                    </b></label>
+                <div class="slds-form-element__control">
+                    <lightning:combobox options="{!v.recordTypePicklist}" value="{!v.selectedRecordType}" onchange="{!c.onRecordTypeChange}" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <br></br>
+    <aura:if isTrue="{!v.displayEditForm}">
+        <lightning:recordEditForm onsubmit="{!c.handleOnSubmit}" recordId="" recordTypeId="{!v.selectedRecordType}" objectApiName="Case">
+            <lightning:accordion allowMultipleSectionsOpen="true" activeSectionName="childCaseDetails">
+                <lightning:accordionSection name="childCaseDetails" label="Child Case Details">                      
+                    <div class="slds-grid slds-wrap">
+                        <aura:iteration items="{!v.fieldSetList}" var="fld">
+                            <div class="slds-col slds-size_1-of-2" style="padding:4px">
+                                    <span>
+                                        <lightning:inputField class="{!fld.required ? 'required-field' : ''}" value="{!fld.defaultValue}" fieldName="{!fld.fieldPath}"  />
+                                        <div class="slds-text-color_error">{!fld.message}</div>
+                                    </span>
+                            </div>
+                        </aura:iteration>
+                    </div>
+                </lightning:accordionSection>
+                <aura:if isTrue="{!v.shareFileAndAttachment}">
+                    <lightning:accordionSection name="attachmentSection" label="Select Attachments to share">
+                        <div class="slds-grid slds-wrap">
+                            <aura:iteration items="{!v.attachmentList}" var="attachment">
+                                <div class="slds-col slds-size_1-of-2" style="padding:4px">
+                                        <div style="display:inline-block;">
+                                            <ui:inputCheckbox text="{!attachment.Id}" label="" change="{!c.onCheckofAttachmentsAndDocs}"/>      
+                                        </div>
+                                        <div style="display:inline-block;margin-left:3%">
+                                            <a id="{!attachment.Id}" onclick="{!c.navigate}">{!attachment.Name}</a>
+                                        </div>
+                                </div>
+                            </aura:iteration>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <aura:iteration items="{!v.documentList}" var="document">
+                                <div class="slds-col slds-size_1-of-2" style="padding:4px">
+                                        <span>
+                                        <div style="display:inline-block;">
+                                            <ui:inputCheckbox text="{!document.Id}" change="{!c.onCheckofAttachmentsAndDocs}"/>
+                                        </div>
+                                        <div style="display:inline-block;margin-left:3%;max-width:75%" class="slds-truncate">
+                                                <a id="{!document.Id}" onclick="{!c.navigate}">{!document.Title}</a>
+                                        </div>
+                                        </span>
+                                </div>
+                            </aura:iteration>
+                        </div>
+                    </lightning:accordionSection>
+                </aura:if>
+                <div class="slds-m-top_medium">
+                    <lightning:button variant="brand" label="Save" type="submit" />
+                </div>
+            </lightning:accordion>
+        </lightning:recordEditForm>
+    </aura:if>
+    <br></br>
+</aura:component>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AP_Network</fullName>
+    <fields>Name</fields>
+    <fields>Network__c</fields>
+    <fields>Street_Fx__c</fields>
+    <fields>City__c</fields>
+    <fields>Post_Code__c</fields>
+    <fields>State__c</fields>
+    <label>AP Network</label>
+</CompactLayout>

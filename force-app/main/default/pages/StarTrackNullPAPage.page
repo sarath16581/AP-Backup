@@ -1,0 +1,2 @@
+<apex:page id="page" standardController="Case" docType="html-5.0" showHeader="false" sidebar="false">
+</apex:page>

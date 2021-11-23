@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BGS_Telstra_Team</fullName>
+    <booleanFilter>1 AND 2 AND (3 OR 4 OR 5)</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Sales_Ops_Delivery</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>OWNER_NAME</field>
+        <operation>equals</operation>
+        <value>Rodney Jackson,Uma Govindan,Nadia Skinner,Dean Purves,Frank Fallace</value>
+    </filters>
+    <filters>
+        <field>OWNER_NAME</field>
+        <operation>equals</operation>
+        <value>Katrina Vincze,Steve Khatib,Shereen McPhie</value>
+    </filters>
+    <filters>
+        <field>OWNER_NAME</field>
+        <operation>equals</operation>
+        <value>Roger Pio,Nancy Patsiouris,Abdul Rehman</value>
+    </filters>
+    <label>BGS Telstra Team</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>SalesOpsSupport</group>
+        <group>Sales_Ops_Delivery</group>
+    </sharedTo>
+</ListView>

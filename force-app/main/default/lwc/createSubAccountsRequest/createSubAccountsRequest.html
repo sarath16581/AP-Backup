@@ -1,0 +1,19 @@
+<!--
+  * @author       : Dheeraj Mandavilli. dheeraj.mandavilli@auspost.com.au
+  * @date         : 24/04/2021
+  * @description  : This lWC component is used in Sub Account Request creation from Billing Account Quick Action. It has following features
+  *                 1. It contains logic whether to populate summary page or form based upon sub account requests.
+*********************************History*******************************************************************
+24.04.2021    Dheeraj Mandavilli   Created
+-->
+<template>
+        <template if:true={initialLoad}>
+            <template if:true={showSubAccountNewForm}>
+                <c-new-sub-account-request-edit-form record-id={recordId} sub-account-record={subAccountRecord} onnewsubaccountrecord={newsubaccountrecordhandler} oneditsubaccount={editsubaccounthandler} ></c-new-sub-account-request-edit-form>
+            </template>
+        </template>
+
+        <template if:true={showSubAccountListForm}>
+            <c-new-sub-account-request-summary record-id={recordId} sub-account-list={subAccountList} onshowformevent={showformeventhandler} oneditsubaccount={editsubaccounthandler}></c-new-sub-account-request-summary >
+        </template>
+</template>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Identification_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Identification Type</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Drivers License</fullName>
+                <default>false</default>
+                <label>Drivers License</label>
+            </value>
+            <value>
+                <fullName>Passport</fullName>
+                <default>false</default>
+                <label>Passport</label>
+            </value>
+            <value>
+                <fullName>Staff ID</fullName>
+                <default>false</default>
+                <label>Staff ID</label>
+            </value>
+            <value>
+                <fullName>Defence ID</fullName>
+                <default>false</default>
+                <label>Defence ID</label>
+            </value>
+            <value>
+                <fullName>Government ID</fullName>
+                <default>false</default>
+                <label>Government ID</label>
+            </value>
+            <value>
+                <fullName>ASIC/MSIC</fullName>
+                <default>false</default>
+                <label>ASIC/MSIC</label>
+            </value>
+            <value>
+                <fullName>Other Photo Identity Document</fullName>
+                <default>false</default>
+                <label>Other Photo Identity Document</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approver4Role_Required_If_Approver4_Set</fullName>
+    <active>true</active>
+    <description>Ensure Approver 4 Role is populated when Approver 4 is specified.</description>
+    <errorConditionFormula>AND( NOT(AutoApprove__c), NOT( ISBLANK(Approver_4__c) ) ,
+ ISBLANK(TEXT( Approver4Role__c )) )</errorConditionFormula>
+    <errorDisplayField>Approver4Role__c</errorDisplayField>
+    <errorMessage>The Approver 4 Role cannot be left empty if the Approver 4 user has been specified.</errorMessage>
+</ValidationRule>

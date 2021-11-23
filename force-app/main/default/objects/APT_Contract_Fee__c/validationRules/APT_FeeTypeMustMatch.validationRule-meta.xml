@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_FeeTypeMustMatch</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ NOT( ISPICKVAL( APT_Fee_Type__c , &apos;Other Specify:&apos;) ), 
+ ISCHANGED( APT_Fee_Type_Text__c ) 
+)</errorConditionFormula>
+    <errorMessage>You can only update &apos;Fee Type&apos; for &apos;Other Specify:&apos; values.</errorMessage>
+</ValidationRule>

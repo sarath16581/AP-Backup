@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Lead Scoring prioritizes your leads so you focus on the most promising, saving time and money.  This app lets you define the rules to value demographic information as well as the behavior of your leads.</description>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>Lead Scoring Lightning</label>
+    <navType>Standard</navType>
+    <tabs>standard-home</tabs>
+    <tabs>LeadScoringRule__c</tabs>
+    <tabs>Score_All_Leads</tabs>
+    <tabs>standard-Lead</tabs>
+    <tabs>standard-Campaign</tabs>
+    <tabs>standard-Opportunity</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>standard-Dashboard</tabs>
+    <tabs>APT_Sub_Account__c</tabs>
+    <tabs>et4ae5__Configuration__c</tabs>
+    <tabs>Apttus_Config2__ConfigSettings__c</tabs>
+    <tabs>et4ae5__Business_Unit__c</tabs>
+    <tabs>SAM_Admin1</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>

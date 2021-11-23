@@ -1,0 +1,63 @@
+<!--
+2017-10-01 nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
+-->
+<apex:page standardController="Case" extensions="CaseContactSidepanelContExt" standardStylesheets="false" showHeader="false" sidebar="false">
+
+	<c:ScriptLoader jsLibraries="jquery,ssswconsole,interaction,integration,bootstrap"
+					cssLibraries="bootstrap,jquery.layout,ssswconsole" />
+    
+    <script type="text/javascript">
+        var j$ = jQuery.noConflict();
+        
+        j$(document).ready(function() {
+            initRecordLinks();
+            initTables();
+        });
+        
+        //opens the primary tab and the sub tab in that primary tab. 
+        //if the primaryTabUrl is null, opens the sub tab in the enclosing primary tab
+        function openSubTabInPrimaryTab(subtabUrl, primaryTabUrl) {
+        	if (typeof primaryTabUrl === 'undefined') {
+        		sforce.console.getEnclosingPrimaryTabId(function(result) {  
+            		sforce.console.openSubtab(result.id, subtabUrl, true, '', null);
+        		});
+            } else {
+        		sforce.console.openPrimaryTab(null, primaryTabUrl, true, '', function(result) {
+        			sforce.console.openSubtab(result.id, subtabUrl, true, '', null);
+        		});
+            }
+        }
+        
+        function openPrimaryTab(primaryTabUrl) {
+        	sforce.console.openPrimaryTab(null, primaryTabUrl, true, '');
+        }
+        
+        function initRecordLinks() {
+            j$(".linkedField")
+                .attr("data-title", function(i, val) {//copying title to data-title to use in  the click event later
+                    return j$(this).attr("title");
+                })
+                .click(function() {
+                    var itemId = j$(this).attr("data-title");
+                    if (itemId.match('^500.*')) {//checking if case id. need to find a more elegant way of checking
+                        sforce.console.openPrimaryTab(null, '/' + itemId, true);
+                    } else {
+                        openSubTabInPrimaryTab('/' + itemId, '/{!caseContact.Id}');
+                    }
+                    return false;
+                })
+                .removeAttr("title");//to stop showing the id on hover over the link
+        }
+
+        function initTables() {
+            j$("table.list")
+                .addClass("table table-bordered table-hover");
+        }
+    </script>
+    
+    <apex:pageBlock >
+        <div class="tabs">
+            <apex:dynamicComponent componentValue="{!tabs}"/>
+        </div>
+    </apex:pageBlock>
+</apex:page>

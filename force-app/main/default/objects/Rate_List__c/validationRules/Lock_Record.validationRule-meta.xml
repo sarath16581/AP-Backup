@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_Record</fullName>
+    <active>true</active>
+    <description>Ensure the when the field Lock Record is set to true, that the record can not be updated.  ISNEW condition has been added to allow clone to proceed.  The flag is set to true on Approval, and unset when cloned.</description>
+    <errorConditionFormula>Lock_Record__c = true
+&amp;&amp;NOT((PRIORVALUE( Lock_Record__c ))=false) &amp;&amp;  NOT(ISNEW())</errorConditionFormula>
+    <errorMessage>The Rate List record can not be updated when in status Approved, Active, and Superseded.</errorMessage>
+</ValidationRule>

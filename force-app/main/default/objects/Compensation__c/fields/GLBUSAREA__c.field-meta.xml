@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GLBUSAREA__c</fullName>
+    <description>Used for &quot;Business account credits&quot; extract to be upload into SAP by National Credit. 
+Changes the sender address of the case to state, then cnage state to number, eg vic to 03</description>
+    <externalId>false</externalId>
+    <formula>CASE(Case__r.Address2State__c , 
+&quot;act&quot;, &quot;02&quot;, &quot;ACT&quot;, &quot;02&quot;, &quot;Act&quot;, &quot;02&quot;,
+&quot;nsw&quot;, &quot;02&quot;, &quot;NSW&quot;, &quot;02&quot;, &quot;Nsw&quot;, &quot;02&quot;,
+&quot;vic&quot;, &quot;03&quot;, &quot;VIC&quot;, &quot;03&quot;, &quot;Vic&quot;, &quot;03&quot;,
+&quot;qld&quot;, &quot;04&quot;, &quot;QLD&quot;, &quot;04&quot;, &quot;Qld&quot;, &quot;04&quot;,
+&quot;sa&quot;, &quot;05&quot;, &quot;SA&quot;, &quot;05&quot;, &quot;Sa&quot;, &quot;05&quot;,
+&quot;wa&quot;, &quot;06&quot;, &quot;WA&quot;, &quot;06&quot;, &quot;Wa&quot;, &quot;06&quot;,
+&quot;01&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>GLBUSAREA</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

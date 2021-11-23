@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_Parent_Changed__c</fullName>
+    <description>Date to be filled in via code when the Customer is changed.</description>
+    <externalId>false</externalId>
+    <label>Date Customer Changed</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>true</trackTrending>
+    <type>DateTime</type>
+</CustomField>

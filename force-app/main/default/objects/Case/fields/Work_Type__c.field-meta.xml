@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Work_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Work Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ABN/ACN</fullName>
+                <default>false</default>
+                <label>ABN/ACN</label>
+            </value>
+            <value>
+                <fullName>Account Info</fullName>
+                <default>false</default>
+                <label>Account Info</label>
+            </value>
+            <value>
+                <fullName>Addendum/DOV</fullName>
+                <default>false</default>
+                <label>Addendum/DOV</label>
+            </value>
+            <value>
+                <fullName>Add lodgement point</fullName>
+                <default>false</default>
+                <label>Add lodgement point</label>
+            </value>
+            <value>
+                <fullName>Administration</fullName>
+                <default>false</default>
+                <label>Administration</label>
+            </value>
+            <value>
+                <fullName>Agreement Renewal</fullName>
+                <default>false</default>
+                <label>Agreement Renewal</label>
+            </value>
+            <value>
+                <fullName>Analysis</fullName>
+                <default>false</default>
+                <label>Analysis</label>
+            </value>
+            <value>
+                <fullName>AP Sales Support</fullName>
+                <default>false</default>
+                <label>AP Sales Support</label>
+            </value>
+            <value>
+                <fullName>Ariba Change Ownership</fullName>
+                <default>false</default>
+                <label>Ariba Change Ownership</label>
+            </value>
+            <value>
+                <fullName>Billing</fullName>
+                <default>false</default>
+                <label>Billing</label>
+            </value>
+            <value>
+                <fullName>Billing Account/Sub Account Entry</fullName>
+                <default>false</default>
+                <label>Billing Account/Sub Account Entry</label>
+            </value>
+            <value>
+                <fullName>Billing Account Link</fullName>
+                <default>false</default>
+                <label>Billing Account Link</label>
+            </value>
+            <value>
+                <fullName>Bulk Order</fullName>
+                <default>false</default>
+                <label>Bulk Order</label>
+            </value>
+            <value>
+                <fullName>Bulk Process</fullName>
+                <default>false</default>
+                <label>Bulk Process</label>
+            </value>
+            <value>
+                <fullName>Business Initiatives</fullName>
+                <default>false</default>
+                <label>Business Initiatives</label>
+            </value>
+            <value>
+                <fullName>CDMT Only</fullName>
+                <default>false</default>
+                <label>CDMT Only</label>
+            </value>
+            <value>
+                <fullName>CDMT Only - API</fullName>
+                <default>false</default>
+                <label>CDMT Only - API</label>
+            </value>
+            <value>
+                <fullName>Change billing account details</fullName>
+                <default>false</default>
+                <label>Change billing account details</label>
+            </value>
+            <value>
+                <fullName>Change Default Charge Code</fullName>
+                <default>false</default>
+                <label>Change Default Charge Code</label>
+            </value>
+            <value>
+                <fullName>Change of Organisation Details</fullName>
+                <default>false</default>
+                <label>Change of Organisation Details</label>
+            </value>
+            <value>
+                <fullName>Close billing account</fullName>
+                <default>false</default>
+                <label>Close billing account</label>
+            </value>
+            <value>
+                <fullName>Compliance</fullName>
+                <default>false</default>
+                <label>Compliance</label>
+            </value>
+            <value>
+                <fullName>Contract</fullName>
+                <default>false</default>
+                <label>Contract</label>
+            </value>
+            <value>
+                <fullName>Contract Creation</fullName>
+                <default>false</default>
+                <label>Contract Creation</label>
+            </value>
+            <value>
+                <fullName>Contract Entry</fullName>
+                <default>false</default>
+                <label>Contract Entry</label>
+            </value>
+            <value>
+                <fullName>Contract Renewal</fullName>
+                <default>false</default>
+                <label>Contract Renewal</label>
+            </value>
+            <value>
+                <fullName>Copy of Contract</fullName>
+                <default>false</default>
+                <label>Copy of Contract</label>
+            </value>
+            <value>
+                <fullName>Copy of Rates</fullName>
+                <default>false</default>
+                <label>Copy of Rates</label>
+            </value>
+            <value>
+                <fullName>Credit Accounts/Sub Accounts</fullName>
+                <default>false</default>
+                <label>Credit Accounts/Sub Accounts</label>
+            </value>
+            <value>
+                <fullName>Credit assessment query</fullName>
+                <default>false</default>
+                <label>Credit assessment query</label>
+            </value>
+            <value>
+                <fullName>Credit limit increase</fullName>
+                <default>false</default>
+                <label>Credit limit increase</label>
+            </value>
+            <value>
+                <fullName>Credits</fullName>
+                <default>false</default>
+                <label>Credits</label>
+            </value>
+            <value>
+                <fullName>Cubic Factor</fullName>
+                <default>false</default>
+                <label>Cubic Factor</label>
+            </value>
+            <value>
+                <fullName>Customer Centric Report</fullName>
+                <default>false</default>
+                <label>Customer Centric Report</label>
+            </value>
+            <value>
+                <fullName>Customer Enquiry</fullName>
+                <default>false</default>
+                <label>Customer Enquiry</label>
+            </value>
+            <value>
+                <fullName>Customer Feedback Call-back</fullName>
+                <default>false</default>
+                <label>Customer Feedback Call-back</label>
+            </value>
+            <value>
+                <fullName>Customer Initiatives</fullName>
+                <default>false</default>
+                <label>Customer Initiatives</label>
+            </value>
+            <value>
+                <fullName>Customer Meeting</fullName>
+                <default>false</default>
+                <label>Customer Meeting</label>
+            </value>
+            <value>
+                <fullName>Customer QBR</fullName>
+                <default>false</default>
+                <label>Customer QBR</label>
+            </value>
+            <value>
+                <fullName>Customer Review</fullName>
+                <default>false</default>
+                <label>Customer Review</label>
+            </value>
+            <value>
+                <fullName>Customer Service Plan</fullName>
+                <default>false</default>
+                <label>Customer Service Plan</label>
+            </value>
+            <value>
+                <fullName>Dashboard</fullName>
+                <default>false</default>
+                <label>Dashboard</label>
+            </value>
+            <value>
+                <fullName>Data Analytics</fullName>
+                <default>false</default>
+                <label>Data Analytics</label>
+            </value>
+            <value>
+                <fullName>Data Maintenance</fullName>
+                <default>false</default>
+                <label>Data Maintenance</label>
+            </value>
+            <value>
+                <fullName>Data or System Maintenance</fullName>
+                <default>false</default>
+                <label>Data or System Maintenance</label>
+            </value>
+            <value>
+                <fullName>Delivery</fullName>
+                <default>false</default>
+                <label>Delivery</label>
+            </value>
+            <value>
+                <fullName>Development</fullName>
+                <default>false</default>
+                <label>Development</label>
+            </value>
+            <value>
+                <fullName>DOV Contract</fullName>
+                <default>false</default>
+                <label>DOV Contract</label>
+            </value>
+            <value>
+                <fullName>Equipment</fullName>
+                <default>false</default>
+                <label>Equipment</label>
+            </value>
+            <value>
+                <fullName>Error Rectification</fullName>
+                <default>false</default>
+                <label>Error Rectification</label>
+            </value>
+            <value>
+                <fullName>Escalations</fullName>
+                <default>false</default>
+                <label>Escalations</label>
+            </value>
+            <value>
+                <fullName>Executive Assistance</fullName>
+                <default>false</default>
+                <label>Executive Assistance</label>
+            </value>
+            <value>
+                <fullName>Extensions</fullName>
+                <default>false</default>
+                <label>Extensions</label>
+            </value>
+            <value>
+                <fullName>H0 Initiative</fullName>
+                <default>false</default>
+                <label>H0 Initiative</label>
+            </value>
+            <value>
+                <fullName>H1 Initiative</fullName>
+                <default>false</default>
+                <label>H1 Initiative</label>
+            </value>
+            <value>
+                <fullName>High Complexity</fullName>
+                <default>false</default>
+                <label>High Complexity</label>
+            </value>
+            <value>
+                <fullName>Implementation</fullName>
+                <default>false</default>
+                <label>Implementation</label>
+            </value>
+            <value>
+                <fullName>Initiatives</fullName>
+                <default>false</default>
+                <label>Initiatives</label>
+            </value>
+            <value>
+                <fullName>Integration Issue</fullName>
+                <default>false</default>
+                <label>Integration Issue</label>
+            </value>
+            <value>
+                <fullName>Intermediate</fullName>
+                <default>false</default>
+                <label>Intermediate</label>
+            </value>
+            <value>
+                <fullName>IT/Systems</fullName>
+                <default>false</default>
+                <label>IT/Systems</label>
+            </value>
+            <value>
+                <fullName>Knowledge</fullName>
+                <default>false</default>
+                <label>Knowledge</label>
+            </value>
+            <value>
+                <fullName>Legacy System Report</fullName>
+                <default>false</default>
+                <label>Legacy System Report</label>
+            </value>
+            <value>
+                <fullName>Link billing account</fullName>
+                <default>false</default>
+                <label>Link billing account</label>
+            </value>
+            <value>
+                <fullName>Lodgement Points</fullName>
+                <default>false</default>
+                <label>Lodgement Points</label>
+            </value>
+            <value>
+                <fullName>Maintenance</fullName>
+                <default>false</default>
+                <label>Maintenance</label>
+            </value>
+            <value>
+                <fullName>Manage Issues / Complaints</fullName>
+                <default>false</default>
+                <label>Manage Issues / Complaints</label>
+            </value>
+            <value>
+                <fullName>Manifest Report</fullName>
+                <default>false</default>
+                <label>Manifest Report</label>
+            </value>
+            <value>
+                <fullName>Manual Signed Agreement</fullName>
+                <default>false</default>
+                <label>Manual Signed Agreement</label>
+            </value>
+            <value>
+                <fullName>Master Contract</fullName>
+                <default>false</default>
+                <label>Master Contract</label>
+            </value>
+            <value>
+                <fullName>Meetings</fullName>
+                <default>false</default>
+                <label>Meetings</label>
+            </value>
+            <value>
+                <fullName>MyPost Business Enquiry</fullName>
+                <default>false</default>
+                <label>MyPost Business Enquiry</label>
+            </value>
+            <value>
+                <fullName>Nespresso</fullName>
+                <default>false</default>
+                <label>Nespresso</label>
+            </value>
+            <value>
+                <fullName>Network</fullName>
+                <default>false</default>
+                <label>Network</label>
+            </value>
+            <value>
+                <fullName>New Account</fullName>
+                <default>false</default>
+                <label>New Account</label>
+            </value>
+            <value>
+                <fullName>New Agreement</fullName>
+                <default>false</default>
+                <label>New Agreement</label>
+            </value>
+            <value>
+                <fullName>New Charge Account</fullName>
+                <default>false</default>
+                <label>New Charge Account</label>
+            </value>
+            <value>
+                <fullName>New Contract</fullName>
+                <default>false</default>
+                <label>New Contract</label>
+            </value>
+            <value>
+                <fullName>New eParcel Contract</fullName>
+                <default>false</default>
+                <label>New eParcel Contract</label>
+            </value>
+            <value>
+                <fullName>New eParcel Customer</fullName>
+                <default>false</default>
+                <label>New eParcel Customer</label>
+            </value>
+            <value>
+                <fullName>New Functionality</fullName>
+                <default>false</default>
+                <label>New Functionality</label>
+            </value>
+            <value>
+                <fullName>New Proposal</fullName>
+                <default>false</default>
+                <label>New Proposal</label>
+            </value>
+            <value>
+                <fullName>New Sub-Account</fullName>
+                <default>false</default>
+                <label>New Sub-Account</label>
+            </value>
+            <value>
+                <fullName>Non-Compliance</fullName>
+                <default>false</default>
+                <label>Non-Compliance</label>
+            </value>
+            <value>
+                <fullName>Notification</fullName>
+                <default>false</default>
+                <label>Notification</label>
+            </value>
+            <value>
+                <fullName>Not yet classified</fullName>
+                <default>false</default>
+                <label>Not yet classified</label>
+            </value>
+            <value>
+                <fullName>OE Renewal</fullName>
+                <default>false</default>
+                <label>OE Renewal</label>
+            </value>
+            <value>
+                <fullName>Off the Shelf</fullName>
+                <default>false</default>
+                <label>Off the Shelf</label>
+            </value>
+            <value>
+                <fullName>Open Ended Contract Exclusion</fullName>
+                <default>false</default>
+                <label>Open Ended Contract Exclusion</label>
+            </value>
+            <value>
+                <fullName>Operational Issues</fullName>
+                <default>false</default>
+                <label>Operational Issues</label>
+            </value>
+            <value>
+                <fullName>Opportunities</fullName>
+                <default>false</default>
+                <label>Opportunities</label>
+            </value>
+            <value>
+                <fullName>Opportunity Hygiene Issues (OPC, Red Flags)</fullName>
+                <default>false</default>
+                <label>Opportunity Hygiene Issues (OPC, Red Flags)</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Dashboard Enquiry</fullName>
+                <default>false</default>
+                <label>Parcel Post Dashboard Enquiry</label>
+            </value>
+            <value>
+                <fullName>Peak Plan</fullName>
+                <default>false</default>
+                <label>Peak Plan</label>
+            </value>
+            <value>
+                <fullName>Pre Entry</fullName>
+                <default>false</default>
+                <label>Pre Entry</label>
+            </value>
+            <value>
+                <fullName>Product/Services</fullName>
+                <default>false</default>
+                <label>Product/Services</label>
+            </value>
+            <value>
+                <fullName>Products</fullName>
+                <default>false</default>
+                <label>Products</label>
+            </value>
+            <value>
+                <fullName>Project Related</fullName>
+                <default>false</default>
+                <label>Project Related</label>
+            </value>
+            <value>
+                <fullName>Proposal</fullName>
+                <default>false</default>
+                <label>Proposal</label>
+            </value>
+            <value>
+                <fullName>Question Re Existing Report</fullName>
+                <default>false</default>
+                <label>Question Re Existing Report</label>
+            </value>
+            <value>
+                <fullName>Quotes</fullName>
+                <default>false</default>
+                <label>Quotes</label>
+            </value>
+            <value>
+                <fullName>Rates Activation</fullName>
+                <default>false</default>
+                <label>Rates Activation</label>
+            </value>
+            <value>
+                <fullName>Reauthorise Contract</fullName>
+                <default>false</default>
+                <label>Reauthorise Contract</label>
+            </value>
+            <value>
+                <fullName>Rebates</fullName>
+                <default>false</default>
+                <label>Rebates</label>
+            </value>
+            <value>
+                <fullName>Reconciliation</fullName>
+                <default>false</default>
+                <label>Reconciliation</label>
+            </value>
+            <value>
+                <fullName>Registration Request</fullName>
+                <default>false</default>
+                <label>Registration Request</label>
+            </value>
+            <value>
+                <fullName>Renew Contract</fullName>
+                <default>false</default>
+                <label>Renew Contract</label>
+            </value>
+            <value>
+                <fullName>Report Adjustment</fullName>
+                <default>false</default>
+                <label>Report Adjustment</label>
+            </value>
+            <value>
+                <fullName>Reports</fullName>
+                <default>false</default>
+                <label>Reports</label>
+            </value>
+            <value>
+                <fullName>Request One Off Report</fullName>
+                <default>false</default>
+                <label>Request One Off Report</label>
+            </value>
+            <value>
+                <fullName>Request Re Occurring Report</fullName>
+                <default>false</default>
+                <label>Request Re Occurring Report</label>
+            </value>
+            <value>
+                <fullName>Restructures/Mergers</fullName>
+                <default>false</default>
+                <label>Restructures/Mergers</label>
+            </value>
+            <value>
+                <fullName>Revenue Flow</fullName>
+                <default>false</default>
+                <label>Revenue Flow</label>
+            </value>
+            <value>
+                <fullName>Revenue Flow and Integration Issue</fullName>
+                <default>false</default>
+                <label>Revenue Flow and Integration Issue</label>
+            </value>
+            <value>
+                <fullName>Review of Existing Functionality</fullName>
+                <default>false</default>
+                <label>Review of Existing Functionality</label>
+            </value>
+            <value>
+                <fullName>RIC - Approved</fullName>
+                <default>false</default>
+                <label>RIC - Approved</label>
+            </value>
+            <value>
+                <fullName>RIC - Awaiting Approval</fullName>
+                <default>false</default>
+                <label>RIC - Awaiting Approval</label>
+            </value>
+            <value>
+                <fullName>RTS</fullName>
+                <default>false</default>
+                <label>RTS</label>
+            </value>
+            <value>
+                <fullName>Sales Administration</fullName>
+                <default>false</default>
+                <label>Sales Administration</label>
+            </value>
+            <value>
+                <fullName>Sales Reporting</fullName>
+                <default>false</default>
+                <label>Sales Reporting</label>
+            </value>
+            <value>
+                <fullName>SAP Contract Verification</fullName>
+                <default>false</default>
+                <label>SAP Contract Verification</label>
+            </value>
+            <value>
+                <fullName>SAP Entry</fullName>
+                <default>false</default>
+                <label>SAP Entry</label>
+            </value>
+            <value>
+                <fullName>SAP Major Contract Upload</fullName>
+                <default>false</default>
+                <label>SAP Major Contract Upload</label>
+            </value>
+            <value>
+                <fullName>SAP Pricing Schedules</fullName>
+                <default>false</default>
+                <label>SAP Pricing Schedules</label>
+            </value>
+            <value>
+                <fullName>Seller Enquiry</fullName>
+                <default>false</default>
+                <label>Seller Enquiry</label>
+            </value>
+            <value>
+                <fullName>Service Partner Request</fullName>
+                <default>false</default>
+                <label>Service Partner Request</label>
+            </value>
+            <value>
+                <fullName>Service Partner Triage</fullName>
+                <default>false</default>
+                <label>Service Partner Triage</label>
+            </value>
+            <value>
+                <fullName>Signed Agreement Not In Ariba</fullName>
+                <default>false</default>
+                <label>Signed Agreement Not In Ariba</label>
+            </value>
+            <value>
+                <fullName>StarTrack</fullName>
+                <default>false</default>
+                <label>StarTrack</label>
+            </value>
+            <value>
+                <fullName>StarTrack Other</fullName>
+                <default>false</default>
+                <label>StarTrack Other</label>
+            </value>
+            <value>
+                <fullName>StarTrack Prospect Conversion</fullName>
+                <default>false</default>
+                <label>StarTrack Prospect Conversion</label>
+            </value>
+            <value>
+                <fullName>ST Dashboard Enquiry</fullName>
+                <default>false</default>
+                <label>ST Dashboard Enquiry</label>
+            </value>
+            <value>
+                <fullName>ST Support Sales Activities</fullName>
+                <default>false</default>
+                <label>ST Support Sales Activities</label>
+            </value>
+            <value>
+                <fullName>Sub Account</fullName>
+                <default>false</default>
+                <label>Sub Account</label>
+            </value>
+            <value>
+                <fullName>Support Sales Activities</fullName>
+                <default>false</default>
+                <label>Support Sales Activities</label>
+            </value>
+            <value>
+                <fullName>System Maintenance</fullName>
+                <default>false</default>
+                <label>System Maintenance</label>
+            </value>
+            <value>
+                <fullName>Termination of Contract</fullName>
+                <default>false</default>
+                <label>Termination of Contract</label>
+            </value>
+            <value>
+                <fullName>Training</fullName>
+                <default>false</default>
+                <label>Training</label>
+            </value>
+            <value>
+                <fullName>Transit Cover Offer</fullName>
+                <default>false</default>
+                <label>Transit Cover Offer</label>
+            </value>
+            <value>
+                <fullName>Transport/Pick Up/Collections</fullName>
+                <default>false</default>
+                <label>Transport/Pick Up/Collections</label>
+            </value>
+            <value>
+                <fullName>Upgrade/Release</fullName>
+                <default>false</default>
+                <label>Upgrade/Release</label>
+            </value>
+            <value>
+                <fullName>Uprate Notification</fullName>
+                <default>false</default>
+                <label>Uprate Notification</label>
+            </value>
+            <value>
+                <fullName>User Support</fullName>
+                <default>false</default>
+                <label>User Support</label>
+            </value>
+            <value>
+                <fullName>Voice of Customer</fullName>
+                <default>false</default>
+                <label>Voice of Customer</label>
+            </value>
+            <value>
+                <fullName>Salesforce Reporting</fullName>
+                <default>false</default>
+                <label>Salesforce Reporting</label>
+            </value>
+            <value>
+                <fullName>Opportunity Assistance</fullName>
+                <default>false</default>
+                <label>Opportunity Assistance</label>
+            </value>
+            <value>
+                <fullName>Salesforce Administration</fullName>
+                <default>false</default>
+                <label>Salesforce Administration</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>SFDC_Blank</letterhead>
+    <name>License Renewal Due</name>
+    <style>freeForm</style>
+    <subject>Salesforce Request Renewal Due</subject>
+    <textOnly>Hi {!Internal_Request__c.Requestor_Name__c},
+
+Your Salesforce Request will be set to renew in 30 days, please view the invoice in the License Management tool.
+
+Request # {!Internal_Request__c.Name}
+
+If you have any questions please send an email to licenserequests@auspost.com.au
+
+Regards,
+Customer Systems Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

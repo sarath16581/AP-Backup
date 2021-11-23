@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ECLM_Original_Opportunity_No__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>ECLM field</description>
+    <externalId>false</externalId>
+    <label>Original Opportunity</label>
+    <referenceTo>Opportunity</referenceTo>
+    <relationshipLabel>Related Opportunity Details</relationshipLabel>
+    <relationshipName>Opportunities</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

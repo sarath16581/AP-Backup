@@ -1,0 +1,12 @@
+<!-- 2021-08-30 naveen.rajanna@auspost.com.au RELEASE UPDATES Enable Aura Component Access Fix -->
+<aura:component access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="TrendingTopic" type="cpTrendingTopicWrapper" access="public"/>
+    <aura:attribute name="routeInput" type="map"/>
+    <div title="questionTitle">
+        <!--<a href="javascript:void(0);" onclick="{!c.redirectToDetailPage}">{!v.TrendingTopic.topicName}</a>-->
+        <forceCommunity:routeLink routeInput="{!v.routeInput}">
+            {!v.TrendingTopic.topicName}
+        </forceCommunity:routeLink>
+    </div>
+</aura:component>

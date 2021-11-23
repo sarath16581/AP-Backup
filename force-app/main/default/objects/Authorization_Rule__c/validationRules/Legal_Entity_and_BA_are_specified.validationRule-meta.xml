@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Legal_Entity_and_BA_are_specified</fullName>
+    <active>true</active>
+    <description>Either Legal Entity or BA can be specified, not both.</description>
+    <errorConditionFormula>!(ISBLANK(Account__c)) &amp;&amp; !(ISBLANK(Billing_Account__c))</errorConditionFormula>
+    <errorMessage>Specify either Billing Account or Legal Entity only</errorMessage>
+</ValidationRule>

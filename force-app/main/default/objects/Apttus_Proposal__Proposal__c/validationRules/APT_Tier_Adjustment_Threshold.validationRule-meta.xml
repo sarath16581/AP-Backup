@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Tier_Adjustment_Threshold</fullName>
+    <active>true</active>
+    <description>Validation to cap Tier Adjustment Type</description>
+    <errorConditionFormula>AND(
+  NOT(CONTAINS(TEXT(Apttus_Proposal__Opportunity__r.Account.Sales_Segment__c), &apos;Government&apos;))  , 
+(
+VALUE(RIGHT( APT_STE_Pricing_Tier__c ,1))+
+VALUE(LEFT(TEXT( APT_Tier_Adjustment_Type__c ), 1))) &gt; 6
+)</errorConditionFormula>
+    <errorDisplayField>APT_Tier_Adjustment_Type__c</errorDisplayField>
+    <errorMessage>Tier 6 is the maximum available tier for self-serve. For higher tier, please contact pricing support team via Deal Support Request (DSR)</errorMessage>
+</ValidationRule>

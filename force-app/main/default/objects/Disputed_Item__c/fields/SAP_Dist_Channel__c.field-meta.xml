@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SAP_Dist_Channel__c</fullName>
+    <description>Required field for &quot;SAP Daily Extract&quot; report. Linked to Profit Centre Code. 
+Select first digit of Profit Centre Code, then prefix with a zero.</description>
+    <externalId>false</externalId>
+    <formula>IF( ISBLANK(AP_Profit_Centre_Code__c) , &quot;ERROR&quot;, &quot;0&quot; &amp; LEFT( AP_Profit_Centre_Code__c , 1))</formula>
+    <label>SAP Dist Channel</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

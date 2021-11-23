@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lost_Codes__c</fullName>
+    <externalId>false</externalId>
+    <label>Lost Codes</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Damaged Insured Parcel</fullName>
+                <default>false</default>
+                <label>Damaged Insured Parcel</label>
+            </value>
+            <value>
+                <fullName>Damaged Ordinary Parcel</fullName>
+                <default>false</default>
+                <label>Damaged Ordinary Parcel</label>
+            </value>
+            <value>
+                <fullName>Lost Insured Parcel</fullName>
+                <default>false</default>
+                <label>Lost Insured Parcel</label>
+            </value>
+            <value>
+                <fullName>Lost Ordinary Parcel</fullName>
+                <default>false</default>
+                <label>Lost Ordinary Parcel</label>
+            </value>
+            <value>
+                <fullName>Lost Registered Letter/Packet</fullName>
+                <default>false</default>
+                <label>Lost Registered Letter/Packet</label>
+            </value>
+            <value>
+                <fullName>KPG Lost EMS</fullName>
+                <default>false</default>
+                <label>KPG Lost EMS</label>
+            </value>
+            <value>
+                <fullName>KPG Damaged EMS</fullName>
+                <default>false</default>
+                <label>KPG Damaged EMS</label>
+            </value>
+            <value>
+                <fullName>KPG Delayed EMS</fullName>
+                <default>false</default>
+                <label>KPG Delayed EMS</label>
+            </value>
+            <value>
+                <fullName>Lost EMS</fullName>
+                <default>false</default>
+                <label>Lost EMS</label>
+            </value>
+            <value>
+                <fullName>Damaged EMS</fullName>
+                <default>false</default>
+                <label>Damaged EMS</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

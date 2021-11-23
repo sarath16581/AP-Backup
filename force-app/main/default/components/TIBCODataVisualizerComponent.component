@@ -1,0 +1,47 @@
+<!-- 15th May 2018: Hasantha.Liyanage@auspost.com.au updated: make accessible from lightning component(cpVisualforceWrapper) -->
+<apex:component controller="TIBCODataVisualizerComponentCont"
+	allowDML="true">
+	<apex:attribute name="searchResult"
+		description="SearchResult to be shown in this component"
+		type="TIBCOSearchResult" required="true"
+		assignTo="{!searchResultVar}" />
+	<apex:attribute name="enableCreateCase"
+		description="show or hide the create case button" type="boolean"
+		required="false" assignTo="{!enableCreateCaseVar}" />
+	<!-- isReadOnly will determine which components to be hidden/shown based on the url parameter passed to the component-->
+    <apex:attribute name="isReadOnly"
+		description="If any items on the component to be make read only or hidden" type="boolean"
+		required="false" />
+
+	<!--apex:pageMessages id="pgMsg" /-->
+
+	<apex:outputPanel rendered="{!NOT(searchResult.success)}">
+		<apex:repeat value="{!searchResult.errors}" var="e">
+			<apex:pageMessage summary="{!e}" severity="error" strength="3" />
+		</apex:repeat>
+	</apex:outputPanel>
+
+	<apex:outputPanel rendered="{!searchResult.success}" id="artList">
+		<apex:outputPanel rendered="{!enableCreateCaseVar}">
+			<apex:pageBlock >
+				<apex:actionStatus id="sts" stopText="">
+					<apex:facet name="start">
+						<apex:image value="/img/loading.gif" />
+					</apex:facet>
+				</apex:actionStatus>
+
+				<apex:repeat value="{!searchResultVar.trackResults}"
+					var="trackResult">
+					<c:TIBCOTrackingResultComponent trackingResult="{!trackResult}" isReadOnly="{!isReadOnly}" />
+				</apex:repeat>
+			</apex:pageBlock>
+		</apex:outputPanel>
+
+		<apex:outputPanel rendered="{!NOT(enableCreateCaseVar)}">
+			<apex:repeat value="{!searchResultVar.trackResults}"
+				var="trackResult">
+				<c:TIBCOTrackingResultComponent trackingResult="{!trackResult}" isReadOnly="{!isReadOnly}" />
+			</apex:repeat>
+		</apex:outputPanel>
+	</apex:outputPanel>
+</apex:component>

@@ -1,0 +1,25 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,force:hasRecordId" description="Shows the case header and an optional back button. Shows the case type if available">
+
+    <aura:attribute name="label" type="String"/>
+    <aura:attribute name="backButtonLabel" type="String"/>
+    <aura:attribute name="backButtonUrl" type="String"/>
+    <aura:attribute name="case" type="Case" />
+
+	<force:recordData aura:id="forceRecordCmp"
+        recordId="{!v.recordId}"
+        fields="['CHASEnquiryType__c']"
+        mode="VIEW"
+        targetFields="{!v.case}" />        
+
+    <div>
+    	<div class="back-button">
+	    	<aura:if isTrue="{! v.backButtonLabel }">
+	    		<a onclick="{! c.backClicked }" class="chas-body_small">
+	    			<lightning:icon iconName="utility:back" variant="inverse" size="xx-small" class="slds-m-right_x-small"/>{! v.backButtonLabel }
+	    		</a>
+	    	</aura:if>
+	    	&nbsp; <!-- required -->
+	    </div>
+    	<h1>{!v.case.CHASEnquiryType__c} {! v.label }</h1>
+    </div>
+</aura:component>

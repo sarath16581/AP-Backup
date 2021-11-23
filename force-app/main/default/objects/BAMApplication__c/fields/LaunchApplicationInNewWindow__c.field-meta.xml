@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LaunchApplicationInNewWindow__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Instruct Merchant Portal whether to launch the application in a new window or keep the user in the same window.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Instruct Merchant Portal whether to launch the application in a new window or keep the user in the same window.</inlineHelpText>
+    <label>Launch Application In New Window</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

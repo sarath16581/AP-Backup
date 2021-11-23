@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contractors_Perform_Primary_Sort__c</fullName>
+    <description>Whether the contractors at the LPO perform a primary sort</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Whether the contractors at the LPO perform a primary sort</inlineHelpText>
+    <label>Contractors Perform Primary Sort</label>
+    <length>1</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaritzCX__Key_Metric_9_Bar__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>/* Note: Open in edit mode, copy formula on Notepad++ and remove word-wrap for better visibility */ 
+
+/* if key metric values is within range then show charts */ 
+IF( (MaritzCX__Key_Metric_9__c &lt;= MaritzCX__Survey_Id__r.MaritzCX__KM9_Max__c) &amp;&amp; (MaritzCX__Key_Metric_9__c &gt;= MaritzCX__Survey_Id__r.MaritzCX__KM9_Min__c), 
+
+/* If 100 &gt;= percentage &gt; range-2 then show configured color-3 */ 
+IF((MaritzCX__Key_Metric_9__c - MaritzCX__Survey_Id__r.MaritzCX__KM9_Min__c) / (MaritzCX__Survey_Id__r.MaritzCX__KM9_Max__c - MaritzCX__Survey_Id__r.MaritzCX__KM9_Min__c) * 100 &gt; $Setup.MaritzCX__ALG_Metric__c.MaritzCX__Range2__c, 
+IMAGE( 
+&quot;/resource/&quot; + IF(ISBLANK($Setup.MaritzCX__AlPublic__c.MaritzCX__NamespacePrefix__c), &quot;&quot;, $Setup.MaritzCX__AlPublic__c.MaritzCX__NamespacePrefix__c + &quot;__&quot;) + &quot;colors/&quot; + $Setup.MaritzCX__ALG_Metric__c.MaritzCX__Color3__c + &quot;.png&quot;, 
+SUBSTITUTE($Setup.MaritzCX__ALG_Metric__c.MaritzCX__Color3__c, &quot;_img&quot;, &quot;&quot;), 
+15, 
+(MaritzCX__Key_Metric_9__c - MaritzCX__Survey_Id__r.MaritzCX__KM9_Min__c) / (MaritzCX__Survey_Id__r.MaritzCX__KM9_Max__c - MaritzCX__Survey_Id__r.MaritzCX__KM9_Min__c) * 80 
+) &amp; &quot;&quot;, 
+
+/* if range2 &gt;= percentage &gt; range-1 then show configured color-2 */ 
+IF((MaritzCX__Key_Metric_9__c - MaritzCX__Survey_Id__r.MaritzCX__KM9_Min__c) / (MaritzCX__Survey_Id__r.MaritzCX__KM9_Max__c - MaritzCX__Survey_Id__r.MaritzCX__KM9_Min__c) * 100 &gt; $Setup.MaritzCX__ALG_Metric__c.MaritzCX__Range1__c, 
+IMAGE( 
+&quot;/resource/&quot; + IF(ISBLANK($Setup.MaritzCX__AlPublic__c.MaritzCX__NamespacePrefix__c), &quot;&quot;, $Setup.MaritzCX__AlPublic__c.MaritzCX__NamespacePrefix__c + &quot;__&quot;) + &quot;colors/&quot; + $Setup.MaritzCX__ALG_Metric__c.MaritzCX__Color2__c + &quot;.png&quot;, 
+SUBSTITUTE($Setup.MaritzCX__ALG_Metric__c.MaritzCX__Color2__c, &quot;_img&quot;, &quot;&quot;), 
+15, 
+(MaritzCX__Key_Metric_9__c - MaritzCX__Survey_Id__r.MaritzCX__KM9_Min__c) / (MaritzCX__Survey_Id__r.MaritzCX__KM9_Max__c - MaritzCX__Survey_Id__r.MaritzCX__KM9_Min__c) * 80 
+), 
+/* else range2 &gt;= percentage &gt; 0 show configured color-1 */ 
+IMAGE( 
+&quot;/resource/&quot; + IF(ISBLANK($Setup.MaritzCX__AlPublic__c.MaritzCX__NamespacePrefix__c), &quot;&quot;, $Setup.MaritzCX__AlPublic__c.MaritzCX__NamespacePrefix__c + &quot;__&quot;) + &quot;colors/&quot; + $Setup.MaritzCX__ALG_Metric__c.MaritzCX__Color1__c + &quot;.png&quot;, 
+SUBSTITUTE($Setup.MaritzCX__ALG_Metric__c.MaritzCX__Color1__c, &quot;_img&quot;, &quot;&quot;), 
+15, 
+(MaritzCX__Key_Metric_9__c - MaritzCX__Survey_Id__r.MaritzCX__KM9_Min__c) / (MaritzCX__Survey_Id__r.MaritzCX__KM9_Max__c - MaritzCX__Survey_Id__r.MaritzCX__KM9_Min__c) * 80 
+) 
+) &amp; &quot;&quot; 
+), 
+/* else - key metric value is outside the min-max range then return blank */ 
+&quot;&quot; 
+) &amp; IF( (MaritzCX__Key_Metric_9__c &lt;= MaritzCX__Survey_Id__r.MaritzCX__KM9_Max__c) &amp;&amp; (MaritzCX__Key_Metric_9__c &gt;= MaritzCX__Survey_Id__r.MaritzCX__KM9_Min__c),IMAGE( 
+&quot;/resource/&quot; + IF(ISBLANK($Setup.MaritzCX__AlPublic__c.MaritzCX__NamespacePrefix__c), &quot;&quot;, $Setup.MaritzCX__AlPublic__c.MaritzCX__NamespacePrefix__c + &quot;__&quot;) + &quot;colors/&quot; + &quot;grey_img.png&quot;, 
+&quot;grey&quot;, 
+15, 
+80-((MaritzCX__Key_Metric_9__c - MaritzCX__Survey_Id__r.MaritzCX__KM9_Min__c) / (MaritzCX__Survey_Id__r.MaritzCX__KM9_Max__c - MaritzCX__Survey_Id__r.MaritzCX__KM9_Min__c) * 80) 
+) 
+&amp; &quot; &quot; &amp; TEXT(MaritzCX__Key_Metric_9__c) + &quot;/&quot; + TEXT(MaritzCX__Survey_Id__r.MaritzCX__KM9_Max__c), 
+IF(ISBLANK( MaritzCX__Key_Metric_9__c ),&quot;&quot;,TEXT(MaritzCX__Key_Metric_9__c) + &quot; &quot; + $Label.maritzcx__out_of_range ))</formula>
+    <label>Key Metric 9</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

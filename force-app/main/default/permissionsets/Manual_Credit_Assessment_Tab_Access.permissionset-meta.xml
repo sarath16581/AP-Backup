@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>APT_Credit_Assessment__c.Credit_Team_Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Manual Credit Assessment Tab Access</label>
+    <tabSettings>
+        <tab>Manual_Credit_Assessment</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+</PermissionSet>

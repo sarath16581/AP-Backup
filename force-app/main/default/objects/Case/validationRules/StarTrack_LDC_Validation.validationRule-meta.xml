@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_LDC_Validation</fullName>
+    <active>true</active>
+    <description>If the Record Type = delivery and the Case Type = LDC and origin is phone, then 
+Name, Email , Consignment and Phone number is mandatory</description>
+    <errorConditionFormula>AND(
+Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;,
+ISPICKVAL(Enquiry_Type__c , &apos;LDC&apos;),
+ISPICKVAL(Origin, &apos;Phone&apos;), 
+OR(
+   ISNEW(),
+   ISCHANGED(ArticleTest__c),
+   ISCHANGED(Enquiry_Type__c)),
+OR(
+(AND(ISBLANK(ArticleTest__c), $Profile.Name &lt;&gt; &apos;AusPost Integration&apos; )),
+ISBLANK(Recent_Caller_First_Name__c),  ISBLANK(Recent_Caller_Last_Name__c),  ISBLANK(Recent_Caller_Email__c),  
+ISBLANK(Recent_Caller_Phone_Number__c))
+)</errorConditionFormula>
+    <errorMessage>Consignment, Initial Contact First Name, Initial Contact Last Name, Initial Contact Phone Number, Initial Contact Email Address are mandatory for LDC Case Type.</errorMessage>
+</ValidationRule>

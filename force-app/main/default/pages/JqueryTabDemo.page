@@ -1,0 +1,45 @@
+<!--
+ @author :Avidev9@gmail.com
+ @Blog : Blogforce9.blogspot.com
+ @created date : 9-May-2013
+ @updated : 2-Feb-2014
+-->
+<apex:page sidebar="false">
+    
+    <c:AllDemoLink />
+    <c:sectionHeader title="Easy jQuery Tabs" subtitle="Jquery Tabs for Visualforce Pages" iconsrc="/img/icon/box32.png"/>
+    <apex:form >
+    
+    <apex:pageBlock id="pb">
+        <apex:pageBlockButtons >
+            <apex:actionStatus id="stat">
+                <apex:facet name="start">
+                    <apex:commandButton value="Rerendering...." disabled="true" reRender="pb"/>
+                </apex:facet>
+                <apex:facet name="stop">
+                    <apex:commandButton value="Rerender" reRender="pb" status="stat"/>
+                </apex:facet>
+            </apex:actionStatus>
+            
+        </apex:pageBlockButtons>
+        <!--Tab Panel -->
+        <c:Tabpanel theme="start">
+            <!--First Tab-->
+            <c:Tab title="Tab 1">
+                This is a tab 1. You can add standard component inside also.
+                <apex:pageBlock title="Standard page block">
+                    This is a pageblock component.
+                    <br/>
+                    <apex:pageBlockSection title="This is a section" collapsible="false">
+                    
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </c:Tab>
+            <!--Second Tab -->
+            <c:Tab title="Tab 2">
+                This is a tab 2
+            </c:Tab>
+        </c:Tabpanel>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

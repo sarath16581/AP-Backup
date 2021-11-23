@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Modify_all_PSR_access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Modify all PSR access</description>
+        <label>Modify all PSR access</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>FBU_Pricing</roleAndSubordinatesInternal>
+        </sharedTo>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Domestic Parcels Pricing Request,Domestic Parcels pricing BAR request</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Domestic Parcels pricing general enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>International Pricing Request,International pricing BAR request</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>International pricing general enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>StarTrack pricing BAR request,StarTrack Pricing Request</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>StarTrack pricing general enquiry</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Sharing_Rule_System_Training_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Sharing Rule - System Training Team</label>
+        <sharedTo>
+            <group>System_Training_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>System Training</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

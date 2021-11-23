@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Calc_General_Information__c</fullName>
+    <description>StarTrack formula to evaluate General Information on restrictions</description>
+    <externalId>false</externalId>
+    <formula>IF(NOT(ISBLANK(General_information__c)), General_information__c,  Organisation__r.General_Information__c)</formula>
+    <label>General Information</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

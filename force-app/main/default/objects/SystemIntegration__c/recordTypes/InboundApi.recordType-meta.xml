@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InboundApi</fullName>
+    <active>true</active>
+    <description>Contains details specific to inbound API integrations coming into Salesforce (either queries or dml)</description>
+    <label>Inbound Api</label>
+</RecordType>

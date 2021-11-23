@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Quantity_Readonly__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>To capture the field Apttus_Config2__IsQuantityReadOnly__c on the PLI based on product type</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Is Quantity Readonly?</label>
+    <type>Checkbox</type>
+</CustomField>

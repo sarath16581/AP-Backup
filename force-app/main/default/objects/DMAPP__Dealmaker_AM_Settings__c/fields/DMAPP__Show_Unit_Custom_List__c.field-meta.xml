@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Show_Unit_Custom_List__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Uncheck this box and the custom row list will not be shown.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field controls whether or not the Plan Unit List Dropdown is shown on the Opp Map page.</inlineHelpText>
+    <label>Show Row Custom List</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

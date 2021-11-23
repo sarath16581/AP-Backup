@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Impact__c</fullName>
+    <externalId>false</externalId>
+    <label>Impact</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>On Track</fullName>
+                <default>false</default>
+                <label>On Track</label>
+            </value>
+            <value>
+                <fullName>Some Delays</fullName>
+                <default>false</default>
+                <label>Some Delays</label>
+            </value>
+            <value>
+                <fullName>At Risks</fullName>
+                <default>false</default>
+                <label>At Risks</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

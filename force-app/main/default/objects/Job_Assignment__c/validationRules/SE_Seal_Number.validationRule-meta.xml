@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SE_Seal_Number</fullName>
+    <active>true</active>
+    <description>Seal Number needs to be filled in for changing the status for Security Express</description>
+    <errorConditionFormula>AND(ISPICKVAL(Type__c,&apos;Pick Up&apos;),ISPICKVAL(Status__c,&apos;Closed&apos;), 
+RecordType.DeveloperName = &apos;Security_Express&apos;, 
+ISBLANK(Job__r.Seal_Number__c))</errorConditionFormula>
+    <errorMessage>Please provide a Seal Number on the Job for closing a pick up assignment.</errorMessage>
+</ValidationRule>

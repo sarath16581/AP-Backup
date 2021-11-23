@@ -1,0 +1,299 @@
+<aura:component extends="c:SS_uiWizardPage" implements="forceCommunity:searchInterface" controller='CHAS_CompensationFormController' description="Compensation Form">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!-- flag for spinner -->
+    <aura:attribute name="spin" type="Boolean" default="false"/>
+
+    <!-- compensation token -->
+    <aura:attribute name="token" type="String"/>
+
+    <!-- flag for invalid in general, include no token, wrong token or out of attemp compensation, etc -->
+    <aura:attribute name="summonGuardian" type="Boolean" default="false"/>
+
+    <!-- detail on invalid token, only set this when invalidToken is TRUE -->
+    <aura:attribute name="errorFromGuardian" type="String" default=""/>
+
+    <!-- error attribute, sets the error type -->
+    <aura:attribute name="errorType" type="String" default=""/>
+
+    <!-- current page -->
+    <aura:attribute name="currentPage" type="Integer" default="1"/>
+    <aura:handler name="change" value="{!v.currentPage}" action="{!c.pageFlip}"/>
+
+    <!-- flag for 1st screen -->
+    <aura:attribute name="screen1" type="Boolean" default="true"/>
+
+    <!-- flag for 2nd screen -->
+    <aura:attribute name="screen2" type="Boolean" default="false"/>
+
+    <!-- flag for 3rd screen -->
+    <aura:attribute name="screen3" type="Boolean" default="false"/>
+
+    <!-- flag for 4th screen -->
+    <aura:attribute name="screen4" type="Boolean" default="false"/>
+    <aura:handler name="change" value="{!v.screen4}" action="{!c.onScreen4}"/>
+
+    <!-- next step configurations -->
+    <aura:attribute name="nextStepsConfiguration" type="List"/>
+
+    <!--boolean to disable page 1 next button-->
+    <!-- DDS-6632: make button disable default -->
+    <aura:attribute name="disablePage1NextButton" type="Boolean" default="true"/>
+
+    <!-- store max attemps from setting -->
+    <aura:attribute name="__maxAttemps__" type="Integer" default="0"/>
+
+    <!-- DDS-6632 -->
+    <aura:attribute name="__timestamp__" type="String"/>
+
+    <!-- DDS-6632 -->
+    <aura:attribute name="__interact__" type="Boolean" default="false"/>
+
+    <aura:attribute name="nextStepsReady" type="Boolean" default="false"/>
+
+    <!-- DDS-7455 -->
+    <!-- store the detail of internal/serve error that lead to landing page -->
+    <aura:attribute name="internalErrorDetail" type="String" default="internal_error"/>
+
+    <!-- store the invalid compensation error that lead to landing page -->
+    <aura:attribute name="invalidCompensationDetail" type="String" default="invalid_compensation"/>
+
+    <!-- Adobe messages queue -->
+    <aura:attribute name="pendingMessages" type="List"/>
+
+    <!-- DDS-8344: receiver address concatenated from address components -->
+    <aura:attribute name="receiverAddress" type="String" default=""/>
+    
+    <!-- DDS-6624 -->
+    <!-- a map of shorten and full text for long string -->
+    <aura:attribute name="compacts" type="Map" default="{}"/>
+
+    <aura:if isTrue="{!v.spin}">
+        <lightning:spinner size="large" alternativeText="Loading" variant="brand"/>
+        <aura:set attribute="else">
+            <aura:if isTrue="{!v.summonGuardian}">
+                <c:chasCompensationErrorMsg errorType="{!v.errorType}"/>
+                
+                <!-- Compensation details come here -->
+                <aura:set attribute="else">
+                    <!-- login option -->
+                    <!-- <aura:if isTrue="{!v.authUserData.isUserAuthenticated == true}">
+                        <aura:set attribute="else">
+                            <div class="slds-grid-address-login login-block">
+                                <div class="slds-col state-col-width">
+                                    <c:ChasLoginOptions label="Continue with MyPost" myPostLogin="true" subLabel="to pre-fill some details. You'll also be able track your enquiry online."/>
+                                </div>
+                                <div class="slds-col separator-vertical separator-horizontal">
+                                    <hr/>
+                                </div>
+                                <div class="slds-col state-col-width">
+                                    <c:ChasLoginOptions label="Continue as a guest" subLabel="Enter all your details, then get updates on your enquiry via email or phone."/>
+                                </div>
+                            </div>  
+                        </aura:set>
+                    </aura:if> -->
+                    <aura:if isTrue="{!v.showErrorSummary}">
+                        <c:ChasErrorSummary aura:id="chasErrorSummary" errors="{!v.errors}"/>
+                    </aura:if>
+                    <div class="form-input-container">
+                        <!-- 1st screen -->
+                        <aura:if isTrue="{!v.screen1}">
+                            
+                            <c:ChasForm showAllFieldRequiredMsg="false">
+                                <c:ChasFieldset label="Confirm your details" customStyle="top-padding">
+                                    <aside class="chas-body_small">All fields are required unless marked as (optional)</aside>
+                                </c:ChasFieldset>
+                            </c:ChasForm>
+                            <div class="card-layout">
+                                <!-- to override the container padding -->
+                                <div class="p1-sub-header">
+                                    <p>
+                                        To make sure you're the person who raised the case, we need a few bits of information before processing your compensation.
+                                    </p>
+                                </div>
+                                <c:ChasFieldset>
+                                    <c:ChasInput aura:id="chasInput" type='text' name='Case number' required="true" label='Case number' subLabel='' value='{!v.wizardData.compensation.transaction.caseNumber}'/>
+                                    <c:ChasInput aura:id="chasInput" type='text' name='Email address' required="true" label='Email address' subLabel='' value='{!v.wizardData.compensation.transaction.cEmail}' hint='Hint: Must be the email address you provided when raising the case'/>
+                                </c:ChasFieldset>
+                                <c:ChasNavButtons nextLabel="Continue" disabled="{!v.disablePage1NextButton}" nextAction="{!c.checkBeforeNext}"/>
+                            </div>
+                        </aura:if>
+
+                        <!-- 2nd screen -->
+                        <aura:if isTrue="{!v.screen2}">
+
+                            <div class="left-padding">
+                                <img src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/back_arrow.png" alt="Go back"/><label>&nbsp;</label>
+                                <button class="slds-button goBack" onclick="{!c.prev}" data-analytic-event-name="page2_button_back">BACK</button>
+                            </div>
+                            
+                            <c:ChasForm showAllFieldRequiredMsg="false">
+                                <c:ChasFieldset label="Compensation case details" customStyle="top-padding">
+                                    <aside class="chas-body_small">All fields are required unless marked as (optional)</aside>
+                                </c:ChasFieldset>
+                            </c:ChasForm>
+                            <div class="card-layout">
+                                <h4 class="sub-header">Case details</h4>
+
+                                <div class="review-container" style="margin-right: -3em !important;">
+                                    <dl>
+                                        <div>
+                                            <dt>Case number</dt>
+                                            <dd>{!v.wizardData.compensation.master.Case__r.CaseNumber}</dd>
+                                        </div>
+
+                                        <div>
+                                            <dt>Issue type</dt>
+                                            <dd>{!v.wizardData.compensation.master.Case__r.EnquirySubType__c}</dd>
+                                        </div>
+
+                                        <div>
+                                            <dt>Description</dt>
+                                            <dd>
+                                                <ui:outputText value="{!v.compacts.CaseDescription.display}"></ui:outputText>
+                                                <aura:if isTrue="{!v.compacts.CaseDescription.mode == 'compact'}">
+                                                    <aura:if isTrue="{!!v.compacts.CaseDescription.expanded}">
+                                                        <button name="CaseDescription" style="text-decoration: underline; font-style: italic; border: none; background-color: transparent;" onclick="{!c.handleCompactSwitch}">See more...</button>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!v.compacts.CaseDescription.expanded}">
+                                                        <button name="CaseDescription" style="text-decoration: underline; font-style: italic; border: none; background-color: transparent;" onclick="{!c.handleCompactSwitch}">See less</button>
+                                                    </aura:if>
+                                                </aura:if>
+                                            </dd>
+                                        </div>
+
+                                        <div>
+                                            <dt>Address</dt>
+                                            <dd>
+                                                <lightning:formattedRichText value="{!v.receiverAddress}"></lightning:formattedRichText>
+                                            </dd>
+                                        </div>
+
+                                        <div>
+                                            <dt>
+                                                <table style="width: 100%;" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td style="white-space: nowrap;">
+                                                            Compensation amount
+                                                        </td>
+                                                        <td style="white-space: nowrap; vertical-align: middle; text-align: left;">
+                                                            <div style="margin: 0">
+                                                                <lightning:helptext content="If the compensation was for a lost or missing item, this includes the postage cost." iconName="utility:help" class="chas-helptext"/>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 99%;">
+                                                            &nbsp;
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </dt>
+                                            <dd>${!v.wizardData.compensation.master.Total_Compensation_Amount__c}</dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                            </div>
+                            
+                            <div style="background-color: transparent !important; padding-top: 1rem;">&nbsp;</div>
+                            <div class="card-layout">
+                                <h4 class="sub-header">Payment details</h4>
+                                <c:ChasInput aura:id="chasInput" type='text' name='Account name' required="true" label='Account name' subLabel='' value='{!v.wizardData.compensation.transaction.bAccountName}' pattern="^[^\u003c\u003e#*\/]+$"/>
+                                <c:ChasInput aura:id="chasInput" type='text' name='BSB number' required="true" label='BSB number' subLabel='' helpText='BSB Number' hint="Hint: Must be 6 numbers without spaces or dashes" value='{!v.wizardData.compensation.transaction.bBSBNumber}' maxlength="6" pattern="[0-9]{6}"/>
+                                <c:ChasInput aura:id="chasInput" type='text' name='Account number' required="true" label='Account number' subLabel='' hint="Hint: Must be between 4-12 numbers, entered without spaces or dashes" value='{!v.wizardData.compensation.transaction.bAccountNumber}' maxlength="12" pattern="[0-9]{4,12}"/>
+                                <c:ChasNavButtons nextLabel="Continue" disabled="false" nextAction="{!c.checkBeforeNext}"/>
+                            </div>
+
+                            <div style="margin-top: 2em; font-size: 14px; color: #4d4d54">
+                                Australia Post is collecting your personal information to process your compensation claim. Your
+                                account information will be shared with the financial institution processing the payment. As part of this
+                                service, some of your information may be held outside of Australia, including on systems located in
+                                Japan. Your information is handled in accordance with the Australia Post Group Privacy Statement,
+                                which outlines how to access and/or correct your information, or make a privacy related complaint.
+                            </div>
+                            <div>
+                                <a class="disclaimer-button" style="color: #4d4d54" href="https://auspost.com.au/privacy" target="_blank">Learn more</a>
+                            </div>
+                            
+                        </aura:if>
+                        
+                        <!-- 3rd screen -->
+                        <aura:if isTrue="{!v.screen3}">
+                            <div class="left-padding">
+                                <img src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/back_arrow.png" alt="Go back"/><label>&nbsp;</label>
+                                <button class="slds-button goBack" onclick="{!c.prev}">BACK</button>
+                            </div>
+                            <!-- form header -->
+                            <div style="margin-bottom: 32px;">
+                                <c:ChasForm showAllFieldRequiredMsg="false">
+                                    <c:ChasFieldset label="Review and submit" customStyle="top-padding"></c:ChasFieldset>
+                                </c:ChasForm>
+                            </div>
+                            
+                            <div class="card-layout-small-padding">
+                                <div class="slds-grid">
+                                    <div class="slds-col">
+                                        <h4 class="sub-header" style="padding-bottom: 0px !important;">Account details</h4>
+                                    </div>
+                                    <div class="slds-col" style="text-align: right;" onclick="{!c.prev}" data-analytic-event-name="page3_button_edit">
+                                        <strong class="edit-button">Edit</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-layout" style="border-radius: 0px 0px 3px 3px !important;">
+                                <div class="review-container">
+                                    <dl>
+                                        <div>
+                                            <dt>Account name</dt>
+                                            <dd>{!v.wizardData.compensation.transaction.bAccountName}</dd>
+                                        </div>
+                                        <div>
+                                            <dt>BSB number</dt>
+                                            <dd>{!v.wizardData.compensation.transaction.bBSBNumber}</dd>
+                                        </div>
+                                        <div>
+                                            <dt>Account number</dt>
+                                            <dd>{!v.wizardData.compensation.transaction.bAccountNumber}</dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col">
+                                        <c:ChasNavButtons nextLabel="Confirm" disabled="false" nextAction="{!c.commitAndNext}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </aura:if>
+
+                        <!-- 4th screen -->
+                        <aura:if isTrue="{!v.screen4}">
+                            <!-- thank you page header -->
+                            <div class="slds-text-align_center">
+
+                                <img src="sfsites/c/resource/ChasIcons/chas-icons/svgs/UI/icons/chas-thankyou.svg" alt="thank you" style="padding-bottom: 16px;"/>
+                                
+                                <h1>Payment details received</h1>
+                                
+                                <div style="margin-bottom: 2em; margin-top: 1em">
+                                    <p class="thankyou-sub-header">We've sent you a confirmation email for this transaction, including your case number: <b>{!v.wizardData.compensation.master.Case__r.CaseNumber}</b></p>
+                                </div>
+
+                            </div>
+                            
+                            <!-- next steps -->
+                            <div class="next-step-container">
+
+                                <h3 style="text-align: center; margin-bottom: 0.5em; font-size: 20px;">What to expect next</h3>
+
+                                <aura:if isTrue="{!v.nextStepsReady}">
+                                    <c:chasNextSteps header="" options="{!v.nextStepsConfiguration}"/>
+                                </aura:if>
+                            </div>
+
+                        </aura:if>
+                    </div>
+                </aura:set>
+            </aura:if>
+        </aura:set>
+    </aura:if>
+    <div id="customerIdentity" aura:id="customerIdentity"></div>
+</aura:component>

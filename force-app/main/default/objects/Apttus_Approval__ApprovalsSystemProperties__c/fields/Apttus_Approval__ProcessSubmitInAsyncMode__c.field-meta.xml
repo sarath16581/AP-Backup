@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_Approval__ProcessSubmitInAsyncMode__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Process submit for Approvals in async/batch mode</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Process submit for Approvals in async/batch mode</inlineHelpText>
+    <label>Process Submit In Async Mode</label>
+    <securityClassification>Public</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

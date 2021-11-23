@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AMLCTF_Audit_Program__c</fullName>
+    <description>Audit Program document completed during site audit</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Audit Program document completed during site audit</inlineHelpText>
+    <label>Audit Program</label>
+    <referenceTo>AMLCTF_Audit_Program__c</referenceTo>
+    <relationshipLabel>Audit Tasks</relationshipLabel>
+    <relationshipName>Audit_Tasks</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

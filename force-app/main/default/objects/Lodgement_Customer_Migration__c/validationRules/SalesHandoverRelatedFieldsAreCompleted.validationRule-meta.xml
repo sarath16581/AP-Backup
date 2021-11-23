@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SalesHandoverRelatedFieldsAreCompleted</fullName>
+    <active>true</active>
+    <description>When Handover Completed is selected, 
+Please complete
+- High Level Overview
+- How To Migrate
+- Customer Requirements</description>
+    <errorConditionFormula>AND 
+ ( Handover_Completed__c = TRUE,
+   $Profile.Name &lt;&gt; &quot;System Administrator&quot;, 
+   $Permission.LCM_Admin = FALSE, 
+$Permission.LCM_Support = FALSE,
+$Permission.Lodgement_Migration_Data_Permission = FALSE,
+  OR
+  (
+    ISBLANK(High_Level_Overview__c),
+    ISBLANK(How_To_Migrate__c),
+    ISBLANK(Customer_Requirements__c)
+  )
+ )</errorConditionFormula>
+    <errorMessage>When Handover Completed is selected, 
+Please complete
+- High Level Overview
+- How To Migrate
+- Customer Requirements</errorMessage>
+</ValidationRule>

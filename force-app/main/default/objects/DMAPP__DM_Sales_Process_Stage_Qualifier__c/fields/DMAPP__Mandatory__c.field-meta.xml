@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Mandatory__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>Mandatory qualifiers must be completed before the opportunity can move to a future stage in the sales process, regardless of whether or not the overall qualification threshold of the stage has been reached.</inlineHelpText>
+    <label>Mandatory</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closed_Reason__c</fullName>
+    <description>This field will allow the user to determine why the requirement has been closed.</description>
+    <externalId>false</externalId>
+    <label>Closed Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Status__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Deployed successfully</fullName>
+                <default>false</default>
+                <label>Deployed successfully</label>
+            </value>
+            <value>
+                <fullName>Duplicate</fullName>
+                <default>false</default>
+                <label>Duplicate</label>
+            </value>
+            <value>
+                <fullName>No system capability</fullName>
+                <default>false</default>
+                <label>No system capability</label>
+            </value>
+            <value>
+                <fullName>No business need</fullName>
+                <default>false</default>
+                <label>No business need</label>
+            </value>
+            <value>
+                <fullName>No business rules</fullName>
+                <default>false</default>
+                <label>No business rules</label>
+            </value>
+            <value>
+                <fullName>Upstream impacts</fullName>
+                <default>false</default>
+                <label>Upstream impacts</label>
+            </value>
+            <value>
+                <fullName>Downstream impacts</fullName>
+                <default>false</default>
+                <label>Downstream impacts</label>
+            </value>
+            <value>
+                <fullName>Moved to project</fullName>
+                <default>false</default>
+                <label>Moved to project</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>Deployed successfully</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>Duplicate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>No system capability</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>No business need</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>No business rules</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>Upstream impacts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>Downstream impacts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>Moved to project</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

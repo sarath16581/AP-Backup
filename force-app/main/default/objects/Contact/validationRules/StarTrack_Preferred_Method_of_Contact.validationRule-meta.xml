@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Preferred_Method_of_Contact</fullName>
+    <active>true</active>
+    <description>This will validate if all necessary field/s was populated appropriately prior to saving contact record.</description>
+    <errorConditionFormula>AND(
+    ISPICKVAL(Contact_Type__c, &apos;StarTrack Service&apos;),
+    CASE(
+         TEXT(Pref_Method_of_Contact__c),
+         &apos;Email&apos;, IF(ISBLANK(Email), 1, 0),
+         &apos;Mobile&apos;, IF(ISBLANK(MobilePhone), 1, 0),
+         &apos;Phone&apos;, IF(ISBLANK(Phone), 1, 0), 0) == 1)</errorConditionFormula>
+    <errorMessage>Email, Mobile or Phone value is required when either &quot;Email&quot;, &quot;Mobile&quot; or &quot;Phone&quot; is selected as Preferred Method of Contact.</errorMessage>
+</ValidationRule>

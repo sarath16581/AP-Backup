@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BatchSize_ContractOwnUpdBatch__c</fullName>
+    <description>This field is used to store the batch size for batch ContractOwnerUpdateBatch and is referenced in scheduler - ContractOwnerUpdateBatch_Schedule</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Batch Size for ContractOwnerUpdateBatch</inlineHelpText>
+    <label>BatchSize_ContractOwnerUpdateBatch</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

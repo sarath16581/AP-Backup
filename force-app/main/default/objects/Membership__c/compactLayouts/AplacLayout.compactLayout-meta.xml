@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AplacLayout</fullName>
+    <fields>Member_Type__c</fields>
+    <fields>WCC__c</fields>
+    <fields>Licensee_Type__c</fields>
+    <fields>ABN__c</fields>
+    <fields>Contact__c</fields>
+    <fields>Date_Signed__c</fields>
+    <label>AplacLayout</label>
+</CompactLayout>

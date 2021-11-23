@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Preferred_Method_of_Tasking</fullName>
+    <active>true</active>
+    <description>StarTrack: &quot;Preferred Method of Tasking&quot;  corresponding check box is also required.</description>
+    <errorConditionFormula>/*Check if picklist value and checkbox selected matches. */
+OR(
+   IF(ISPICKVAL(Preferred_Method_of_Tasking__c,&quot;System&quot;),NOT(System__c),FALSE), 
+   IF(ISPICKVAL(Preferred_Method_of_Tasking__c,&quot;Email&quot;),NOT(ST_Email__c), FALSE),
+   IF(ISPICKVAL(Preferred_Method_of_Tasking__c,&quot;Phone&quot;),NOT(Phone__c),FALSE),
+   IF(ISPICKVAL(Preferred_Method_of_Tasking__c,&quot;Parent Depot&quot;),NOT(Parent_Depot__c),FALSE)
+   )</errorConditionFormula>
+    <errorDisplayField>Preferred_Method_of_Tasking__c</errorDisplayField>
+    <errorMessage>Preferred Method of Tasking and corresponding check box is required.</errorMessage>
+</ValidationRule>

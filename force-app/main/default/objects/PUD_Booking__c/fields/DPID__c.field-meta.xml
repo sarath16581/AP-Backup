@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DPID__c</fullName>
+    <description>Delivery point id of the booking location.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Delivery point id of the booking location.</inlineHelpText>
+    <label>DPID</label>
+    <length>12</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

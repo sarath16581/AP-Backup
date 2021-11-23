@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Hub_Catchment_Reference__c</baseObject>
+    <category>admin</category>
+    <deployed>true</deployed>
+    <description>Displays data from the hub catchment reference object</description>
+    <label>Hub Catchment Reference</label>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedBy</field>
+            <table>Hub_Catchment_Reference__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>Hub_Catchment_Reference__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Hub_Catchment__c</field>
+            <table>Hub_Catchment_Reference__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Name</field>
+            <table>Hub_Catchment_Reference__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Id</field>
+            <table>Hub_Catchment_Reference__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedBy</field>
+            <table>Hub_Catchment_Reference__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedDate</field>
+            <table>Hub_Catchment_Reference__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner</field>
+            <table>Hub_Catchment_Reference__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Post_Code__c</field>
+            <table>Hub_Catchment_Reference__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Local_Area_Market__c</field>
+            <table>Hub_Catchment_Reference__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Active__c</field>
+            <table>Hub_Catchment_Reference__c</table>
+        </columns>
+        <masterLabel>Hub Catchment Reference</masterLabel>
+    </sections>
+</ReportType>

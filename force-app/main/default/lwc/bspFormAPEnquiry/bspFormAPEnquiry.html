@@ -1,0 +1,159 @@
+<!--
+ - Created by vcheng on 10/08/2020.
+ --------------------------------------- History --------------------------------------------------
+19-11-2020    Jansi Rani   [JIRA :BGICS-400] Made 'Description of Parcel contents' form field as required
+19-11-2020    Jansi Rani   [JIRA :BGICS-405] Made  'Item Lodgement date' as non required
+25-11-2020    avula.jansirani@auspost.com.au       commented console.log lines in js file
+03-12-2020    avula.jansirani@auspost.com.au       BGICS-391 userstory implementation
+ -->
+
+<!-- Bsp Form AP Enquiry -->
+<template>
+
+    <!-- Navigation links-->
+    <c-bsp-breadcrumb bread-crumb-text={formTitle}></c-bsp-breadcrumb>
+
+    <div>
+        <!-- Case Creation Form -->
+        <div class="slds-grid slds-grid_align-center">
+            <div
+                class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_7-of-12 slds-m-bottom_x-large outer-box slds-is-relative">
+                <template if:false={successCreation}>
+
+                    <!-- spinner -->
+                    <template if:true={showSpinner}>
+                        <lightning-spinner variant="brand" size="medium" alternative-text="loading...">
+                        </lightning-spinner>
+                    </template>
+
+                    <lightning-card title="">
+                        <div class="slds-p-horizontal_x-large slds-p-bottom_large long-form-right-pad">
+
+                            <!-- Form Title-->
+                            <div class="slds-col slds-size_1-of-1 slds-p-bottom_x-large">
+                                <h2>{formTitle}</h2>
+                            </div>
+                            <!-- error display -->
+                            <template if:true={errorMessage}>
+                                <c-bsp-error data-id="error" error-message={errorMessage}></c-bsp-error>
+                            </template>
+
+                            <!-- Tracking Number Search -->
+                            <div class="slds-grid slds-grid_vertical-align-start slds-is-relative">
+                                <div class="slds-col slds-size_1-of-1">
+                                    <span onkeyup={checkSearchEnter}>
+                                        <lightning-input label="Tracking Number" name="trackingNumber"
+                                            data-id="trackingNumber" class="brand-form-input slds-p-bottom_x-large"
+                                            type="text" value={trackingId} placeholder="Enter tracking number here"
+                                            onchange={onChangeField} onfocusout={handleFocusOut} 
+                                            max-length="40" required>
+                                        </lightning-input>
+                                    </span>
+                                </div>
+                                <div class="slds-is-absolute form-search-button">
+
+                                    <lightning-button icon-name="utility:search" onclick={onClickSearchTracking}
+                                        alternative-text="Track Article" class="brand-primary-button icon-button"
+                                        title="Track">
+                                    </lightning-button>
+                                </div>
+                            </div>
+                            <!-- information messages-->
+                            <template if:true={displayDeliveryStatus}>
+                                <!--Consignment number Delivery Status-->
+                                <c-bsp-delivery-status consignment-type="AP"
+                                    ap-expected-delivery-date={searchResult.APConsignmentExpDeliveryDate}
+                                    latest-event={latestEvent} article-record-type={articleRecordType}
+                                    consignment-with-multiple-articles={consignmentWithMultipleArticles}
+                                    consignment-number={trackingIdForDeliveryStatusCmp}>
+                                </c-bsp-delivery-status>
+                            </template>
+
+                            <template if:true={showNoEvents}>
+                                <div class="slds-grid slds-m-bottom_large">
+                                    There are currently no events for this delivery.
+                                </div>
+                            </template>
+                            <!-- Item Details HEADING -->
+                            <div>
+                                <h3 class="slds-p-vertical_large">Item Details</h3>
+                            </div>
+
+                            <!-- parcel lodgement date -->
+                            <lightning-input label="Item Lodgement date" type="Date" data-id="lodgementDate"
+                                value={lodgementDate} onchange={onChangeField} 
+                                class="brand-form-input slds-p-bottom_x-large">
+                            </lightning-input>
+
+                            <!-- reference -->
+                            <lightning-input label="Your reference" value={reference} data-id="yourReference"
+                                onchange={onChangeField} name="reference" type="text"
+                                placeholder="A name or number for your records"
+                                class="brand-form-input slds-p-bottom_x-large" max-length="40">
+                            </lightning-input>
+
+                            <!-- item type -->
+                            <lightning-combobox label="Item type" data-id="itemType" value={articleType}
+                                placeholder="Please select" options={articleTypes} onchange={onChangeField}
+                                onfocusout={handleFocusOut} required class="brand-form-input slds-p-bottom_x-large">
+                            </lightning-combobox>
+
+                            <!-- service used -->
+                            <lightning-combobox label="Service used" data-id="serviceUsed" value={serviceUsed}
+                                options={serviceTypes} placeholder="Please select" onchange={onChangeField}
+                                onfocusout={handleFocusOut} required class="brand-form-input slds-p-bottom_x-large">
+                            </lightning-combobox>
+
+                            <!-- enquiry about -->
+                            <lightning-textarea label="Tell us what your enquiry is about" data-id="description"
+                                type="text" value={description} onchange={onChangeField} onfocusout={handleFocusOut}
+                                required class="brand-form-input slds-p-bottom_x-large" max-length="4000">
+                            </lightning-textarea>
+
+
+                            <!-- description -->
+                            <lightning-textarea label="Description of parcel contents" data-id="descriptionOfContents"
+                                type="text" value={descriptionOfContents} onchange={onChangeField}
+                                field-level-help="e.g. 1 pair of size 7 brown shoes, worth $100"
+                                placeholder="(e.g. 1 pair of size 7 brown shoes, worth $100)"
+                                class="brand-form-input slds-p-bottom_x-large" max-length="255" onfocusout={handleFocusOut} required>
+                            </lightning-textarea>
+
+                            <!--  Files upload -->
+                            <c-bsp-upload-files onfileupload={onUploadFinished}></c-bsp-upload-files>
+
+                            <!-- Addresses -->
+                            <c-bsp-address-input data-id="senderAddress" data-validate='doAddressValidate'
+                                title-text="Sender Details" address-title="Sender Address"></c-bsp-address-input>
+                            <c-bsp-address-input data-id="receiverAddress" data-validate='doAddressValidate'
+                                title-text="Receiver Details" address-title="Receiver Address"></c-bsp-address-input>
+
+                            <!-- Buttons -->
+                            <div class="slds-p-top_x-large">
+                                <span class="slds-text-color_error">*</span>&nbsp;Required information
+                            </div>
+
+                            <div class="slds-p-top_x-large">
+
+                                <lightning-button label="Cancel" title="Cancel"
+                                    class="brand-tertiary-button slds-p-right_medium" variant="Neutral"
+                                    onclick={navigateHome}>
+                                </lightning-button>
+                                <lightning-button label="Submit enquiry" title="Submit Request"
+                                    class="brand-primary-button" variant="destructive" onclick={onSubmitRequest}>
+                                </lightning-button>
+                            </div>
+                        </div>
+                    </lightning-card>
+
+                </template>
+
+                <!--Case creation Success-->
+                <template if:true={successCreation}>
+                    <c-bsp-enquiry-creation-success enquiy-type='Auspost' case-number={tempCase.CaseNumber}>
+                    </c-bsp-enquiry-creation-success>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

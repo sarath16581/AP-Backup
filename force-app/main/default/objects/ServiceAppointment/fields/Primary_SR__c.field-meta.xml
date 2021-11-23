@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_SR__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Primary Service Resource. Added to provide report type path of SR &gt; SA. Set on create or update of Assigned Resource via apex trigger AssignedResourceTrigger</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The primary Service Resource. The Duty Service Resource if the resource by duty model is in use, else the Driver Service Resource.</inlineHelpText>
+    <label>Primary SR</label>
+    <referenceTo>ServiceResource</referenceTo>
+    <relationshipLabel>Service Appointments (Primary SR)</relationshipLabel>
+    <relationshipName>Service_Appointments_By_Primary</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

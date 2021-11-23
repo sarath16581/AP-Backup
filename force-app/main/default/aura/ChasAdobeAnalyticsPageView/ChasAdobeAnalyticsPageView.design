@@ -1,0 +1,5 @@
+<design:component >
+    <design:attribute name="pageName" label="Page Name" description="Page Name"/>
+    <design:attribute name="step" label="Step" description="Step"/>
+    <design:attribute name="stage" label="Stage" description="Stage"/>
+</design:component>

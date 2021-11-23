@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfo_ABN_is_mandatory_for_GST</fullName>
+    <active>true</active>
+    <description>If a Licensed Partner is subject to GST, then ABN must have been captured for that Legal Entity.</description>
+    <errorConditionFormula>AND( Is_a_facility__c = true, Subjected_To_GST__c = true,  ISBLANK(Parent.Parent.ABN__c),
+NOT(ISBLANK(ParentId)) )</errorConditionFormula>
+    <errorMessage>The ABN for the Legal Entity related to this Facility is not captured. Please fill the ABN for the Legal Entity first.</errorMessage>
+</ValidationRule>

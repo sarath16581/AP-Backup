@@ -1,0 +1,67 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 24/08/2020
+  * @description  : Component for enquiry details header section.
+--------------------------------------- History --------------------------------------------------
+24.08.2020    Jansi Rani   Created
+-->
+<template>
+    <template if:true={enq}>
+        <div class="slds-grid slds-wrap slds-p-around_medium enquiry-header-box slds-grid_vertical-stretch">
+            <!-- Status -->
+            <div class="slds-col slds-size_12-of-12 slds-large-size_3-of-12 enquiry-header-cell">
+                <div class="slds-grid slds-grid_vertical-align-center slds-p-vertical_x-small">
+                    <div class="slds-col">
+                        <!-- @Don, to display diff icons based on Case Status pls add icon name in JS file. Contact Jansi if needs help here-->
+                        <c-bsp-custom-icons icon={iconName} fill={iconColor} size="l-medium" iconclass="icon-inline"></c-bsp-custom-icons>
+                    </div>
+                    <div class="slds-col">
+                        <div class="slds-m-left_small enq-border-left">
+                            <h2>{enq.Enquiry_Status__c}</h2></div>
+                    </div>
+                    
+                </div>
+
+            </div>
+            <!--Enquiy Number-->
+            <div class="slds-col slds-size_12-of-12 slds-large-size_2-of-12 enquiry-header-cell">
+                <div class="slds-p-left_small mobile-no-padding">
+                    <div class="slds-p-bottom_x-small enquiry-header-cell-title">Enquiry number</div>  {enq.CaseNumber}
+                </div>
+            </div>
+            <!--Enquiy Type-->
+            <div class="slds-col slds-size_12-of-12 slds-large-size_3-of-12 enquiry-header-cell">
+                <div class="slds-p-left_small mobile-no-padding">
+                    <div class="slds-p-bottom_x-small enquiry-header-cell-title">Enquiry type</div>
+                    {enquiryType}
+                </div>
+            </div>
+            <!--Enquiy Created-->
+            <div class="slds-col slds-size_12-of-12 slds-large-size_2-of-12 enquiry-header-cell">
+                <div class="slds-p-left_small mobile-no-padding">
+                    <div class="slds-p-bottom_x-small enquiry-header-cell-title">Created</div> 
+                    <lightning-formatted-date-time value={enq.CreatedDate} year="numeric" month="numeric" day="numeric">
+                    </lightning-formatted-date-time>&nbsp;
+                    <lightning-formatted-date-time value={enq.CreatedDate} hour="2-digit" minute="2-digit"
+                        hour12="true">
+                    </lightning-formatted-date-time>
+                </div>
+            </div>
+            <!--Enquiy Updated-->
+            <div class="slds-col slds-size_12-of-12 slds-large-size_2-of-12">
+                <div class="slds-p-left_small mobile-no-padding">
+                    <div class="slds-p-bottom_x-small enquiry-header-cell-title">Updated</div>
+
+                    <lightning-formatted-date-time value={enq.LastModifiedDate} year="numeric" month="numeric"
+                        day="numeric">
+                    </lightning-formatted-date-time>&nbsp;
+                    <lightning-formatted-date-time value={enq.LastModifiedDate} hour="2-digit" minute="2-digit"
+                        hour12="true">
+                    </lightning-formatted-date-time>
+
+                </div>
+            </div>
+        </div>
+    </template>
+
+</template>

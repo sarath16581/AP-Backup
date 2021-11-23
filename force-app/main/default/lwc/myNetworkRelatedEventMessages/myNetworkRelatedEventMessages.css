@@ -1,0 +1,7 @@
+.THIS .blue a{
+	color:blue;
+	text-decoration:underline;
+}
+.THIS .wrapText{
+    word-wrap:break-word;
+}

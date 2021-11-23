@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Green Shoots  - eParcel for an existing customer  - Action Needed</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>Green Shoots - Internal -  eParcel for an existing customer</name>
+    <style>freeForm</style>
+    <subject>Green Shoots eParcel Application Submitted and Confirmed - Action Needed</subject>
+    <textOnly>Hi All
+ 
+Please see attached application form for customer &lt;company name&gt;.
+ 
+Note: This is an existing customer: {!Lead.Account_No__c}
+ 
+Steps:
+ 
+Contract management = create contract for customer and notify eParcel Team in the relevant state
+eParcel team= Setup customer to use eParcel system. Email customer with their login details/reference materials and notify Account Manager and CCeParcelcustomercreation@auspost.com.au once completed.
+ 
+Note: Please CC eParcelcustomercreation@auspost.com.au in all emails as setup time for each customer needs to be tracked.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Intelligent Discovery Settings page for admin</description>
+    <label>Intelligent Discovery Settings</label>
+    <motif>Custom16: Bank</motif>
+    <page>Apttus__IDESettingList</page>
+</CustomTab>

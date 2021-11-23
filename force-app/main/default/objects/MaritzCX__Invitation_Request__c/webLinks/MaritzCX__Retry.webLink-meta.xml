@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaritzCX__Retry</fullName>
+    <availability>online</availability>
+    <description>The link for sending the invitation again</description>
+    <displayType>button</displayType>
+    <height>600</height>
+    <linkType>page</linkType>
+    <masterLabel>Retry</masterLabel>
+    <openType>sidebar</openType>
+    <page>MaritzCX__RetrySendingInvitation</page>
+    <protected>false</protected>
+</WebLink>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MPB_Segment_Fields_blank_on_Known</fullName>
+    <active>false</active>
+    <description>MPB - Known Account Management - Tier, Sector, Sub Sector can&apos;t be updated on Known.</description>
+    <errorConditionFormula>ISCHANGED(Industry)&amp;&amp; Role_Type_Roll_Up__c =&quot;Known&quot;||
+ISCHANGED(Industry_Sub_Sector__c)&amp;&amp; Role_Type_Roll_Up__c =&quot;Known&quot;||
+ISCHANGED( Type) &amp;&amp;Role_Type_Roll_Up__c =&quot;Known&quot;</errorConditionFormula>
+    <errorMessage>Tier, Sector and Sub Sector cannot be updated if Organisation is Known.</errorMessage>
+</ValidationRule>

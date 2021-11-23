@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Retail_Ops_Leads</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Retail Ops Leads - Queue</label>
+    <queue>Retail_Ops_Leads</queue>
+    <sharedTo>
+        <group>Retail_Operations</group>
+    </sharedTo>
+</ListView>

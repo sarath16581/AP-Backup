@@ -1,0 +1,18 @@
+.THIS .wizard-body-with-nav-outer {
+  margin-top: 20px;
+  margin-bottom: 970px;  /* To take in to account the Thank You Tiles position absolute */
+}
+
+@media (min-width: 680px) {
+	.THIS .wizard-body-with-nav-outer {
+		margin-top: 60px;
+		margin-bottom: 580px;  /* To take in to account the Thank You Tiles position absolute */
+	}
+}
+
+@media (max-width: 1140px) {
+	.THIS .wizard-body-with-nav-outer {
+		width: auto; 
+		margin-left: 0; 
+	}
+}

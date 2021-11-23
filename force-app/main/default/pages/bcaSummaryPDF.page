@@ -1,0 +1,187 @@
+<!--
+@description       : The VF to render as PDF for BCA summary screen content
+@author            : avula.jansirani@auspost.com.au
+@group             : 
+@last modified on  : 21-04-2020
+@last modified by  : avula.jansirani@auspost.com.au
+Modifications Log 
+Ver   Date         Author                               Modification
+-----------------------------------------------------------------------
+1.0   21-04-2020   avula.jansirani@auspost.com.au   Initial Version
+-->
+<apex:page controller="BCASummaryPDF" renderAs="Pdf" applyHtmlTag="false" showHeader="false" cache="true" readOnly="true" lightningStyleSheets="true">
+    
+    <html>
+        
+        <head>
+            <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" /> 
+            
+            <style>
+                @page {
+                    size: a4 portrait;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                
+                    @bottom-left {
+                        content: element(footer);
+                    }
+                }
+                
+                div.footer {
+                    display: block;
+                    padding: 10px;
+                    position: running(footer);
+                }
+                
+                
+                header {
+                    height: 45px;
+                    border-bottom: 1px solid #ccc;
+                    margin: 0 0 20px 0;
+                    padding: 10px 0 0 0;
+                }
+                
+                body {
+                    font-family: Arial, sans-serif;
+                    padding-bottom: 20px;
+                }
+                
+                table {
+                    width: 100%;
+                    max-width: 600px;
+                }
+                
+                .slds-section,
+                .form-outer-box {
+                    margin: 0 auto;
+                    max-width: 600px;
+                    padding-bottom: 20px;
+                }
+                
+                h3 {
+                    font-size: 23px;
+                    margin: 10px 0;
+                    border-bottom: 1px solid #001;
+                }
+                
+                h4 {
+                    font-size: 16px;
+                    margin: 0 0 5px 0;
+                }
+                
+                button {
+                    display: none;
+                }
+                
+                .slds-grid {
+                    display: flex;
+                    justify-content: center;
+                }
+                
+                .slds-colx {
+                    border: 1px solid red;
+                }
+                
+                .slds-m-bottom_large {
+                    margin-bottom: 6px;
+                }
+                
+                .slds-p-bottom_medium {
+                    padding-bottom: 12px;
+                }
+                
+                .slds-size_1-of-3 {
+                    width: 33%;
+                }
+                
+                .slds-size_2-of-3 {
+                    width: 66%;
+                }
+                
+                .slds-section__content {
+                    border: 1px solid #ccc;
+                    border-radius: 6px;
+                    padding: 10px 20px;
+                }
+                
+                .icon-text-button {
+                    display: none;
+                }
+                
+                [type~="checkbox"] {
+                    width: 30px;
+                }
+                
+                .form-inner-box-wide>input::after {
+                    content: "[X]";
+                }
+                
+                .logo svg {
+                    height: 30px;
+                }
+                
+                .form-outer-box {
+                    border: 1px solid #ccc;
+                    border-radius: 6px;
+                    max-width: 600px;
+                }
+                
+                .form-inner-box-wide {
+                    padding: 10px 20px;
+                    max-width: 560px;
+                }
+                
+                .summary-row-detail {
+                    font-weight: 500
+                }
+                .checkbox-custom {
+                padding: 10px 0;    	
+                }
+                .checkbox-custom [type~="checkbox"] {
+                width: 30px;
+                }
+                .checkbox-custom>input::after {
+                content: "[X]";
+                }
+                
+            </style>
+        </head>
+        
+        <body>
+          
+            <!-- Header Logo -->
+            <header>
+                <div class="logo">
+                    <table>
+                        <tr>
+                            <td><apex:image url="{!$Resource.ap_new_logo}" width="200" height="100" alt="Australia Post" title="Australia Post"/></td>
+                             <td  align="right">Customer reference number: {!caRefNumber}</td>
+                        </tr>
+                         <tr>
+                            <td>BCA Application Copy</td>
+                        </tr>
+                    </table>
+                    
+                    <!--<img src="https://helpandsupport.auspost.com.au/resource/1572997745000/cp_AusPost_Logo" alt="Australia Post" title="Australia Post"/>-->
+                    <!-- <apex:image id="theImage" value="https://helpandsupport.auspost.com.au/resource/1572997745000/cp_AusPost_Logo" alt="Australia Post" title="Australia Post"></apex:image>-->
+                </div>
+            </header>
+            
+            
+            
+            <!-- Body -->
+            <apex:outputText value="{!displayText}" escape="false" /> <br/><br/>
+            
+            <!-- footer -->
+            <div class="footer">.
+                <div>
+                    <apex:outputText value="{!currentDateTime}"/>
+                   <!-- <apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!currentDateTime}" /> </apex:outputText>-->  <!-- Page <span class="pagenumber"/> of <span class="pagecount"/>-->
+                </div>
+            </div>  
+            
+        </body>
+        
+        
+    </html>
+</apex:page>

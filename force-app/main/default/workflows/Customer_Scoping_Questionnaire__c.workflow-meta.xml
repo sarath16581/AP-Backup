@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>CSQ_Fully_Approved</fullName>
+        <description>CSQ - Fully Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>no-reply-sop@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>CSQ/CSQ_Fully_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Rejected_CSQ</fullName>
+        <description>Rejected CSQ</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>CSQ/Rejected_CSQ</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>CSQ_Status_Fully_Approved</fullName>
+        <field>CSQ_Status__c</field>
+        <literalValue>Fully_Approved</literalValue>
+        <name>CSQ Status Fully Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Draft_CSQ_Status</fullName>
+        <field>CSQ_Status__c</field>
+        <literalValue>Draft</literalValue>
+        <name>Draft CSQ Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Pick_Up_Locations_Approved</fullName>
+        <field>CSQ_Status__c</field>
+        <literalValue>Fully_Approved</literalValue>
+        <name>Pick-Up Locations Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Rejected_by_SM</fullName>
+        <field>CSQ_Status__c</field>
+        <literalValue>Rejected by SM</literalValue>
+        <name>Rejected by SM</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status</fullName>
+        <field>CSQ_Status__c</field>
+        <literalValue>Submitted for approval</literalValue>
+        <name>Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Approved1</fullName>
+        <field>CSQ_Status__c</field>
+        <literalValue>Approved_by_SM</literalValue>
+        <name>Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Draft</fullName>
+        <field>CSQ_Status__c</field>
+        <literalValue>Draft</literalValue>
+        <name>Status Draft</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Recall_draft</fullName>
+        <field>CSQ_Status__c</field>
+        <literalValue>Draft</literalValue>
+        <name>Status Recall - Draft</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Rejected</fullName>
+        <field>CSQ_Status__c</field>
+        <literalValue>Draft</literalValue>
+        <name>Status Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>CSQ Status Update</fullName>
+        <actions>
+            <name>Draft_CSQ_Status</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>!ISCHANGED(CSQ_Status__c) &amp;&amp;!ISCHANGED( Pick_up_Location_Record_Count__c ) &amp;&amp;  or( ISPICKVAL(CSQ_Status__c, &quot;Approved_by_SM&quot;) ,  ISPICKVAL(CSQ_Status__c, &quot;Fully_Approved&quot;), (ISPICKVAL(CSQ_Status__c, &quot;Pending National Operations Manager Approval&quot; ))) &amp;&amp;    $Profile.Id &lt;&gt;&quot;00e30000001jG0I&quot;</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Fully Approved</fullName>
+        <actions>
+            <name>CSQ_Fully_Approved</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Customer_Scoping_Questionnaire__c.CSQ_Status__c</field>
+            <operation>equals</operation>
+            <value>Fully_Approved</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>New Record Status</fullName>
+        <actions>
+            <name>Status_Draft</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Customer_Scoping_Questionnaire__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>CSQ</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

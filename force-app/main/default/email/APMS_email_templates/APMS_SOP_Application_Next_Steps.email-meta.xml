@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Next step for your SecurePay Online Payments Application</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>APMS SOP Application Next Steps</name>
+    <style>none</style>
+    <subject>Next step for your SecurePay Online Payments Application - {!Application__c.Name}</subject>
+    <textOnly>Hi {!Application__c.ContactFirstName__c},
+
+Thank you for applying for a SecurePay Online Payments account (powered by Australia Post).
+
+To proceed with your application we ask that you provide 100 Points of Documentation from the list below.
+
+100 Points - Bank statement (Must display account name and number and that it is a Business bank Account)
+100 Points - Signed and Stamped Letter for Bank Manager
+60 Points - Transaction Listing
+50 Points - Welcome Letter/Confirmation of Account
+50 Points - Screenshot of Internet Banking
+40 Points - Cheque
+
+Please scan and email your documentation to onlinepayments@securepay.com.au and quote your application number - {!Application__c.Name}.
+
+
+If you need help with this task, our team is on hand to help guide you. Please call us on 1300 656 372 (option 1), we’re here to help.
+
+
+If you require any technical support including integrating with your eCommerce software, please contact our support team on 1300 656 372 (option 2) or email support@securepay.com.au, don’t forget to quote your application number - {!Application__c.Name}.
+
+
+Regards,
+
+The SecurePay Team
+SecurePay Pty Ltd – A business of Australia Post
+Level 8, 222 Exhibition St, Melbourne, VIC 3000
+P 1300 656 372 (option 1)
+E onlinepayments@securepay.com.au
+W securepay.com.au</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

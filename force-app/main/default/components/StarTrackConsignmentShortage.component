@@ -1,0 +1,160 @@
+<!--
+Author:        Patrick James Franco
+Company:       Cloud Sherpas
+Description:   Consignment Shortage component for StarTrack Cases
+History
+November 23, 2015 - Patrick James Franco - Created
+December 1, 2015 - Patrick James Franco - Added toggle relationship between checkbox and button
+
+2019-12-06 Shashwat.Nath@auspost.com.au - added getsessionid() in relation to MW0003688 to allow session id to be passed during API calls
+2021-04-13 Naveen.Rajanna@auspost.com.au - remove case age validation for 'Incorrect Delivery' enquiry and allow it to be submitted for shortage approval
+-->
+
+<apex:component controller="StarTrackConsignmentShortage_ControllerX">
+<apex:attribute name="caseRec" description="Case record from other page." type="Case" required="true" assignTo="{!caseRecord}"/>
+
+<script src="/soap/ajax/35.0/connection.js" type="text/javascript"/>
+<apex:includeScript value="/support/console/34.0/integration.js"/>
+<apex:includeScript value="/canvas/sdk/js/publisher.js"/>
+
+<script type="text/javascript">
+    var objectId;
+    function getPrimaryTabIdAndOpenSubtab(objId) {
+        if(sforce && sforce.console && sforce.console.isInConsole()){
+            objectId = objId;
+            sforce.console.getEnclosingPrimaryTabId(openSubtab);
+         }
+    }
+
+    var openSubtab = function openSubtab(result) {
+        var primaryTabId = result.id;
+        sforce.console.openSubtab(primaryTabId , '/' + objectId, true,
+            '', null, '', '');
+        sforce.console.refreshPrimaryTabById(primaryTabId, true);
+
+    };
+
+    function updateCase(){
+        sforce.connection.sessionId='{!GETSESSIONID()}'; 
+        StarTrackConsignmentShortage_ControllerX.refreshCase('{!caseRecord.Id}', function(caseRec, event) {
+            if (event.status) {
+                if(caseRec.Enquiry_Type__c == 'Short - No Scan' || caseRec.Enquiry_Type__c == 'Short - Scanned' || caseRec.Enquiry_Type__c == 'Incorrect Delivery'){
+                    if(caseRec.Value_of_Goods__c == null){
+                        var errorMessage = "{!$Setup.StarTrack_Settings__c.Value_of_Goods_is_null__c}";
+                        alert(errorMessage);     
+                    } else{
+                        var caseObj = new sforce.SObject("Case");
+                        caseObj.Id = '{!caseRecord.Id}';
+                        caseObj.Consignment_Shortage__c = document.getElementById('conShortage').checked;
+                
+                        var result = sforce.connection.update([caseObj]);
+                        if (result[0].getBoolean("success")){
+                            renderComponent();
+                            Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload : {feed: true}});
+                            Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload : {feed: true, objectRelatedLists: {}}});
+                            Sfdc.canvas.publisher.publish({name:"publisher.selectAction",payload:{actionName:"Case.Closed"}});
+                        }
+                        else{
+                            console.log("Error! " + result[0]);
+                        }
+                    }
+                } else{
+                    var errorMessage = "{!$Setup.StarTrack_Settings__c.Enquiry_Type_Error__c}";
+                    alert(errorMessage);
+                }
+            } else if (event.type === 'exception') {
+                console.error(event.message, event.where);
+            }
+        });
+    }
+    
+    function resizePA(){
+        Sfdc.canvas.publisher.resize();
+    }
+    
+    function toggleCbx(){
+        var cbxVal = document.getElementById('conShortage').checked;
+
+        if(cbxVal){
+            document.getElementById('finalButton').disabled = false;
+        }
+        else{
+            document.getElementById('finalButton').disabled = true;
+        }
+    }
+</script>
+
+<apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <apex:form >
+    <apex:actionFunction name="renderComponent" action="{!searchUpdatedCase}" rerender="mainPanel" oncomplete="resizePA();"/> 
+    <apex:outputPanel id="mainPanel">
+        <div class="slds">
+            <apex:outputText value="- {!$Setup.StarTrack_Settings__c.Consignment_Shortage_Error__c} <br/>" style="color:red; font-style:italic;" rendered="{!caseRecord.OwnerId != $User.Id}" escape="false"/>
+            <apex:outputText value="- {!$Setup.StarTrack_Settings__c.Case_Number_of_Days_Error__c} <br/>" style="color:red; font-style:italic;" rendered="{!AND(caseRecord.Enquiry_Type__c != 'Incorrect Delivery', caseRecord.Case_Age_Total_Hours__c < ($Setup.StarTrack_Settings__c.Case_Age_In_Days__c * 24))}" escape="false"/>
+            <apex:outputText value="- {!$Setup.StarTrack_Settings__c.Final_Shortage_is_Approved_Submitted__c}" style="color:red; font-style:italic;" rendered="{!caseRecord.Approval_Status__c == 'Shortage Request Submitted' || caseRecord.Approval_Status__c == 'Shortage Request Approved'}"/>
+            <div class="slds-grid">
+                <div class="slds-col">
+                    <div class="slds-form-element">
+                       <label class="slds-form-element__label" for="conShortage">Consignment Shortage</label>
+                       <div class="slds-form-element__control">
+                          <label class="slds-checkbox" for="conShortage">
+                          <input name="checkbox" type="checkbox" id="conShortage" onchange="toggleCbx();"/>
+                          <span class="slds-form-element__label"></span>
+                          <span class="slds-checkbox--faux"></span>
+                          </label>
+                      </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Security Tier</label>
+                        <div class="slds-form-element__control">
+                            {!caseRecord.Tier__c}
+                       </div>
+                   </div>
+               </div>
+               <div class="slds-col">
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">{!$Setup.StarTrack_Settings__c.Shortage_Checklist_Message__c}</label>
+                    <div class="slds-form-element__control">
+                        <a href="#" onclick="getPrimaryTabIdAndOpenSubtab('{!$Setup.StarTrack_Settings__c.Knowledge_Article_Id__c}');">{!$Setup.StarTrack_Settings__c.Shortage_Checklist_Label__c}</a>
+                    </div>
+               </div>
+               </div>
+            </div>
+            <button id="finalButton" class="slds-button slds-button--brand slds-button--small" style="position:fixed; bottom:0px; right:0px;" onclick="updateCase(); return false;">
+                Submit for Final Shortage Approval
+            </button>
+            
+            <script type="text/javascript">
+            // Populate checkbox value
+            if('{!caseRecord.Consignment_Shortage__c}' == 'true'){
+                document.getElementById('conShortage').checked = true;
+            }
+            
+            // Get initial button state
+            toggleCbx();
+        
+            // Disable submit if current user is not the owner of the case.
+            // Disable submit if Case is not 10 days old excluding 'Incorrect delivery' Enquiry type
+            // Disable submit if Enquiry type is not Shortage
+            // || (('{!caseRecord.Enquiry_Type__c}' != 'Shortage') && '{!buttonHit}'=='true')
+            if('{!caseRecord.OwnerId}' != '{!$user.Id}' || ('{!caseRecord.Enquiry_Type__c}' != 'Incorrect Delivery' && '{!caseRecord.Case_Age_Total_Hours__c}' < ('{!$Setup.StarTrack_Settings__c.Case_Age_In_Days__c}' * 24))){
+                document.getElementById('finalButton').disabled = true;
+                document.getElementById('conShortage').disabled = true;
+            }
+        
+            // Disable submit if already sent for approval
+            if('{!caseRecord.Approval_Status__c}' == 'Shortage Request Submitted' || '{!caseRecord.Approval_Status__c}' == 'Shortage Request Approved'){
+                document.getElementById('conShortage').disabled = true;
+                document.getElementById('conShortage').checked = 'checked';
+                document.getElementById('finalButton').disabled = true;
+            }
+            </script>
+        </div>
+    </apex:outputPanel>
+    </apex:form>
+    <script type="text/javascript">
+        Sfdc.canvas.publisher.resize();
+    </script>
+</html>
+</apex:component>

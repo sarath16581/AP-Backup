@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Route_Start_Time__c</fullName>
+    <description>Concatenation of Route and Start Time of parent booking.</description>
+    <externalId>false</externalId>
+    <formula>Booking__r.Route_Start_Time__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Concatenation of Route and Start Time of parent booking.</inlineHelpText>
+    <label>Route Start Time</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

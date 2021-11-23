@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Exemption_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Exemption Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Fuel Surcharge (FSC)</fullName>
+                <default>false</default>
+                <label>Fuel Surcharge (FSC)</label>
+            </value>
+            <value>
+                <fullName>Manual Handling Surcharge (MHS)</fullName>
+                <default>false</default>
+                <label>Manual Handling Surcharge (MHS)</label>
+            </value>
+            <value>
+                <fullName>Security Management Charge (SMC)</fullName>
+                <default>false</default>
+                <label>Security Management Charge (SMC)</label>
+            </value>
+            <value>
+                <fullName>Unmanifested Fee (UF)</fullName>
+                <default>false</default>
+                <label>Unmanifested Fee (UF)</label>
+            </value>
+            <value>
+                <fullName>Oversize Charge (OSC)</fullName>
+                <default>false</default>
+                <label>Oversize Charge (OSC)</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,13 @@
+{
+    "result": [
+        {
+            "sys_id": "40256f7ddb51a704b3a8da857a96196f",
+            "sys_created_on": "2018-10-23 01:05:04",
+            "element_id": "5f666b4bdbfc2380c7a2147a3a96198a",
+            "value": "salesforce comments",
+            "sys_created_by": "svc_salesforce_dev",
+			"u_third_party_reference": "aEH",
+			"account.u_account_number": "T123456" 
+        }
+    ]
+}

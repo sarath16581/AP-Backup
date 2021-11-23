@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Not_Competitor_or_Incumbent</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISPICKVAL(Competitor_Type__c, &quot;No Competitor Identified&quot;) &amp;&amp; Not( ISPICKVAL( Competitor_Name__c , &quot;&quot;) )</errorConditionFormula>
+    <errorDisplayField>AccountId__c</errorDisplayField>
+    <errorMessage>Leave the Competitor field blank</errorMessage>
+</ValidationRule>

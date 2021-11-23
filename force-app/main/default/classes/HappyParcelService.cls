@@ -1,0 +1,333 @@
+/**
+ * @description Service layer for interacting with Happy Parcel Integration layer
+ *
+ * API Spec:
+ * https://australiapost.jira.com/wiki/spaces/ISS/pages/1003586982/API+Specification+-+parcel+v1+events+id
+ *
+ * @author Nathan Franklin
+ * @date 2020-06-18
+ * @group Happy
+ * @domain Core
+ * @changelog
+ **/
+public with sharing class HappyParcelService {
+
+	/**
+	 * Creates a new instance of the service. This allows use to use dependency injection for mocking
+	 */
+	public static HappyParcelService getInstance() {
+		return (HappyParcelService) Application.Utilities.getInstance(HappyParcelService.class);
+	}
+
+	public Result querySynchronousResponse(String trackingId) {
+		HttpRequest request = getRequest(trackingId);
+
+		Http http = new Http();
+		HttpResponse httpResp = http.send(request);
+
+		Result result = parseResponse(httpResp);
+		return result;
+	}
+
+	/**
+	 * Returns a HttpRequest to be used with either a synchronous or Continuation query
+	 */
+	public HttpRequest getRequest(String trackingId) {
+		AusPostSettings__c setting = AusPostSettings__c.getValues('HAPPYPARCEL_GCP');
+
+		String endPoint = setting.URL__c.removeEnd('/') + '/' + EncodingUtil.urlEncode(trackingId, 'UTF-8');
+		HttpRequest request = new HttpRequest();
+		request.setHeader('source_system_id', setting.AppKey__c);
+		request.setHeader('business_reference_id', trackingId);
+		request.setMethod('GET');
+		request.setTimeout(getApiTimeout() * 1000);
+		request.setEndpoint(endPoint);
+
+		return request;
+	}
+
+	public Continuation getContinuation(String trackingId) {
+		Continuation con = new Continuation(getApiTimeout());
+		con.addHttpRequest(getRequest(trackingId));
+		return con;
+	}
+
+	public Integer getApiTimeout() {
+		AusPostSettings__c setting = AusPostSettings__c.getValues('HAPPYPARCEL_GCP');
+		System.debug(setting);
+		return Integer.valueOf(setting.LockDuration__c);
+	}
+
+	public Result parseResponse(HttpResponse response) {
+		Integer statusCode = response.getStatusCode();
+		String statusText = response.getStatus();
+		String responseBody = response.getBody();
+		System.debug('statusCode: ' + statusCode);
+		System.debug('statusText: ' + statusText);
+		System.debug('Response: ' + responseBody);
+
+		Result result = new Result();
+		result.articles = new List<Article>();
+		result.errors = new List<String>();
+		result.responseCode = statusCode;
+		result.doRetry = false;
+
+		if (statusCode == 200) {
+			// a successful response was received and parsed
+			try {
+				result.articles = parseSuccessfulResponse(responseBody);
+				result.isSuccess = true;
+			} catch(Exception ex) {
+				// JSON parse error most likely meaning the data can not be surfaced
+				System.debug(ex);
+				result.isSuccess = false;
+				result.errors.add(ex.getMessage());
+			}
+		} else if (statusCode >= 2000) { // && String.isEmpty(error)) {
+			// continuation error
+			Error continuationError = new Error();
+			continuationError.detail = statusText;
+			continuationError.code = String.valueOf(statusCode);
+
+			result.isSuccess = false;
+			result.errors = new List<String>{
+					continuationError.toString()
+			};
+		} else if (statusCode == 503) {
+			// service unavailable
+			// the structure of HP in GCP requires reclustering and rebuilding of the tables
+			// during this process (which normally take a couple of seconds), the service is unavailable
+			// this is a dodgy solution but have been asked to build a 'Try again' option into the solution
+			result.isSuccess = false;
+			result.doRetry = true;
+		} else if (statusCode != 404) {
+			// a 404 will occur if HP does not have any data available for a particular tracking id
+			// this feedback does not need to be displayed to the user so we only add errors for unexpected responses
+			try {
+				result.isSuccess = false;
+				for(Error err : parseErrorResponse(responseBody)) {
+					result.errors.add(err.toString());
+				}
+			} catch(Exception ex) {
+				// JSON parse error most likely meaning the data can not be surfaced
+				System.debug(ex);
+			}
+
+			// show the entire response if the JSON parser couldn't pass the response
+			if(result.errors.isEmpty()) {
+				result.errors.add(responseBody);
+			}
+		} else {
+			// is 404, we don't attach any errors to the response since to prevent feedback at the UI layer
+			result.isSuccess = false;
+		}
+
+		return result;
+	}
+
+	private List<Article> parseSuccessfulResponse(String jsonResponse) {
+		List<Article> articles = new List<Article>();
+
+		JSONParser parser = JSON.createParser(jsonResponse);
+		while (parser.nextToken() != null) {
+			if (parser.getCurrentName() == 'parcels' && parser.getCurrentToken() == JSONToken.START_ARRAY) {
+				while (parser.nextToken() != null) {
+					// Advance to the start object marker to
+					//  find next article object.
+					if (parser.getCurrentToken() == JSONToken.START_OBJECT) {
+						// Read entire invoice object, including its array of line items.
+						articles.add((Article) parser.readValueAs(Article.class));
+
+						// Skip the child start array and start object markers.
+						parser.skipChildren();
+					}
+				}
+			}
+		}
+
+		System.debug('parsed articles: ' + articles);
+		return articles;
+	}
+
+	private List<Error> parseErrorResponse(String jsonResponse) {
+		List<Error> errors = new List<Error>();
+
+		JSONParser parser = JSON.createParser(jsonResponse);
+		while (parser.nextToken() != null) {
+			if (parser.getCurrentName() == 'errors' && parser.getCurrentToken() == JSONToken.START_ARRAY) {
+				while (parser.nextToken() != null) {
+					// Advance to the start object marker to
+					//  find next article object.
+					if (parser.getCurrentToken() == JSONToken.START_OBJECT) {
+						// Read entire invoice object, including its array of line items.
+						errors.add((Error)parser.readValueAs(Error.class));
+
+						// Skip the child start array and start object markers.
+						parser.skipChildren();
+					}
+				}
+			}
+		}
+
+		System.debug('parsed errors: ' + errors);
+		return errors;
+	}
+
+	public class Article {
+		@AuraEnabled public String article_id;
+		@AuraEnabled public String consignment_id;
+
+		// concatenated address string from manifest
+		@AuraEnabled public String manifest_address;
+
+		// dpid of the manifested address
+		@AuraEnabled public String dpid;
+
+		// latitude of the delivery/attempt delivery scans
+		@AuraEnabled public Decimal latitude_scan;
+
+		// longitude of the delivery/attempt delivery scans
+		@AuraEnabled public Decimal longitude_scan;
+
+		// latitude of the manifested address dpid
+		@AuraEnabled public Decimal latitude_dpid;
+
+		// longitude of the manifested address dpid
+		@AuraEnabled public Decimal longitude_dpid;
+
+		// the threshold limit which determines which emoticon to show if the flag_distance attribute is above or below
+		@AuraEnabled public String distance_threshold;
+
+		//km for example
+		@AuraEnabled public String distance_threshold_unit;
+
+		//	the indicator of distance assessment
+		@AuraEnabled public String flag_distance;
+
+		//the euclidean distance between scan and manifested address (unit: km)
+		@AuraEnabled public String distance_calculated;
+
+		//the scan events of the geo-coordinate
+		@AuraEnabled public String gps_event;
+
+		//	sap edd lower range	YYYY-MM-DD
+		@AuraEnabled public String dedd_low;
+
+		// sap edd higher range YYYY-MM-DD
+		@AuraEnabled public String dedd_high;
+
+		// hp edd lower range YYYY-MM-DD
+		@AuraEnabled public String hp_dedd_low;
+
+		// hp edd higher range YYYY-MM-DD
+		@AuraEnabled public String hp_dedd_high;
+
+		// the indicator of smiling face  (1: smile, 0:mad, null:n.a)
+		// stopped, overdue, on-track, unknown
+		@AuraEnabled public String flag_smiling {
+			get {
+				return (String.isEmpty(flag_smiling) ? '' : flag_smiling.toLowerCase());
+			}
+			set {
+				flag_smiling = value;
+			}
+		}
+
+		// actual time difference between manifest scan and first physical scans
+		@AuraEnabled public Decimal manifest_gap;
+
+		// historical average time difference between manifest scan and first physical scans
+		@AuraEnabled public Decimal average_handling_time;
+
+		// assessment on manifesting quality
+		@AuraEnabled public String flag_manifest_quality {
+			get {
+				return (String.isEmpty(flag_manifest_quality) ? '' : flag_manifest_quality.toLowerCase());
+			}
+			set {
+				flag_manifest_quality = value;
+			}
+		}
+
+		// sample_size in manifest gap assessment
+		@AuraEnabled public Decimal sample_volume;
+
+		// previous concatenated address string
+		@AuraEnabled public String previous_address;
+
+		// previous address line 1
+		@AuraEnabled public String previous_address_1;
+
+		// previous address line 2
+		@AuraEnabled public String previous_address_2;
+
+		// previous suburb string
+		@AuraEnabled public String previous_suburb;
+
+		// previous destination postcode string
+		@AuraEnabled public String previous_to_postcode;
+
+		// current concatenated address string
+		@AuraEnabled public String current_address;
+
+		// current address line 1
+		@AuraEnabled public String current_address_1;
+
+		//current address line 2
+		@AuraEnabled public String current_address_2;
+
+		// current suburb string
+		@AuraEnabled public String current_suburb;
+
+		//current destination postcode string
+		@AuraEnabled public String current_to_postcode;
+
+		@AuraEnabled public List<Issue> issues;
+	}
+
+	public class Issue {
+		// the work centre where the issue occurred
+		@AuraEnabled public String wcc;
+
+		// the work centre name where the issue occurred
+		@AuraEnabled public String wcc_name;
+
+		// type of issues: missort, looping, unusual location
+		@AuraEnabled public String type;
+
+		// time spend in looping (will be null for other issues)
+		@AuraEnabled public Decimal looping_time;
+
+		//hour, day/days
+		@AuraEnabled public String looping_time_unit;
+	}
+
+	public class Error {
+
+		//{business_reference_id} sent in request - returned only if its a valid request
+		@AuraEnabled public String id;
+
+		//The code associated to the error Eg. AS-9005
+		@AuraEnabled public String code;
+
+		//The name category for the error - End system error
+		@AuraEnabled public String title;
+
+		//The human readable error message
+		@AuraEnabled public String detail;
+
+		public override String toString() {
+			return (!String.isEmpty(code) ? code : '') + (!String.isEmpty(code) ? ': ' : '') + detail;
+		}
+
+	}
+
+	public class Result {
+		@AuraEnabled public Boolean isSuccess { get; protected set; }
+		@AuraEnabled public Boolean doRetry { get; protected set; }
+		@AuraEnabled public Integer responseCode { get; protected set; }
+		@AuraEnabled public List<Article> articles { get; protected set; }
+		@AuraEnabled public List<String> errors { get; protected set; }
+	}
+
+}

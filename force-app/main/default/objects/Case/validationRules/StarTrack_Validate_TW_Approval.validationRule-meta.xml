@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Validate_TW_Approval</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( 
+Submit_for_Approval__c, 
+RecordType.Name = &apos;Transit Warranty Claim&apos;, 
+OR( 
+ISBLANK(Connote_number__c), 
+ISBLANK(AccountId), 
+ISBLANK(Related_Billing_Account__c), 
+ISBLANK(At_Fault_Depot__c), 
+Amount_Claimed__c &lt;= 0, 
+ISBLANK(Amount_Claimed__c),
+ISPICKVAL(Status, &apos;Closed&apos;)))</errorConditionFormula>
+    <errorMessage>Cannot submit for approval unless all required fields are entered (Connote #, Legal Entity, Related Billing Account, At Fault Depot, Claim Amount), the case status is not closed and the case is not already pending an approval.</errorMessage>
+</ValidationRule>

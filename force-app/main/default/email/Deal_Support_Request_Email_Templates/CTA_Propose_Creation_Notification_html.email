@@ -1,0 +1,7 @@
+<p>Hi {!Deal_Support_Request__c.Requestor__c},</p>
+
+<p>You have a fantastic opportunity that has been flagged as Major or Complex in the Propose Stage and as such, Salesforce has automatically created a Deal Support Request &ndash; Commit to Propose: <a href="{!Deal_Support_Request__c.Link}">{!Deal_Support_Request__c.Name}</a>.<br>
+A Commit to Propose is a function within BG&amp;I to ensure that our commercial proposal to your customer is understood and agreed to by all key stakeholders in Australia Post. You can click on the link above and add any comments about the commercials of your deal, and someone from the Deal Desk will be contact with you shortly.</p>
+
+<p>Kind Regards,<br>
+Deal Support Team</p>

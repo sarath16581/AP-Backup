@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BusinessSegment__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (  
+					Target_ERP__c = &apos;Peoplesoft&apos; ,
+					
+CASE (
+
+  Reason__c  ,
+&apos;Cash Transfer&apos;,&apos;FINANCE&apos;,
+&apos;Data Entry Error&apos;,&apos;FINANCE&apos;,
+&apos;Duplicate Billing&apos;,&apos;FINANCE&apos;,
+&apos;CWC Recovery&apos;,&apos;FINANCE&apos;,
+&apos;Unable to supply consignment note copy&apos;,&apos;FINANCE&apos;,
+&apos;Consignment note Transfer&apos;,&apos;CUSTOMER&apos;,
+&apos;Prepaids Additional Prepaid Weight&apos;,&apos;SALES&apos;,
+&apos;Invalid Original Billing Details&apos;,&apos;FINANCE&apos;,
+&apos;Manual Connote Surcharge&apos;,&apos;SALES&apos;,
+&apos;Incorrect Pricing&apos;,&apos;SALES&apos;,
+&apos;Incorrect Handrate / Missed Quote&apos;,&apos;SALES&apos;,
+&apos;Miscellaneous Charge&apos;,&apos;FINANCE&apos;,
+&apos;Incorrect cubic data&apos;,&apos;CUSTOMER&apos;,
+&apos;Cubic Negotiated Settlement&apos;,&apos;CUSTOMER&apos;,
+&apos;Incorrect Weight&apos;,&apos;CUSTOMER&apos;,
+&apos;Incorrect service&apos;,&apos;CUSTOMER&apos;,
+&apos;Incorrect Origin/Destination&apos;,&apos;CUSTOMER&apos;,
+&apos;Second Delivery Charge&apos;,&apos;OPERATIONS&apos;,
+&apos;Returns Charge&apos;,&apos;OPERATIONS&apos;,
+&apos;Late Delivery Claim&apos;,&apos;OPERATIONS&apos;,
+&apos;Performance Failure (Fleet)&apos;,&apos;OPERATIONS&apos;,
+&apos;Consignment Raised not Sent&apos;,&apos;CUSTOMER&apos;,
+&apos;CCM ExGratia &apos;,&apos;SALES&apos;,
+&apos;CCM Late Delivery Claim&apos;,&apos;SALES&apos;,
+&apos;CCM Damages&apos;,&apos;SALES&apos;,
+&apos;Cubic Leopard scan&apos;,&apos;OPERATIONS&apos;,
+&apos;Incorrect Cube Data&apos;,&apos;OPERATIONS&apos;,
+&apos;Product Return (Commercial)&apos;,&apos;CUSTOMER&apos;,
+&apos;Product Return (Customer)&apos;,&apos;CUSTOMER&apos;,
+&apos;Write Off&apos;,&apos;FINANCE&apos;,
+&apos;Small Debt Write Off&apos;,&apos;FINANCE&apos;,
+&apos;Bad Debt Write Off&apos;,&apos;FINANCE&apos;,
+&apos;Additional Charges&apos;,&apos;FINANCE&apos;, &apos;&apos;),
+				&apos;&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Business Segment</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

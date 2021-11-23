@@ -1,0 +1,16 @@
+.THIS .dotted-line {
+    margin: 8px 0 8px 8px;
+}
+.THIS .labelStyle{
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: 0.8px;
+    color: #000000;
+    margin-bottom:40px;
+}
+.THIS .icon-class {
+    min-width:16px;
+}
+.THIS .textAlign{
+    text-align: left;
+}

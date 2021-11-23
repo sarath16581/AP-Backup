@@ -1,0 +1,12 @@
+{!Today}
+
+Dear Approver,
+
+A Pricing Governance Forum approval request has been submitted. Please review and approve the Opportunity at your earliest convenience.
+
+Opportunity link: {!Opportunity.Link} 
+
+Thanks,
+
+{!User.FirstName} {!User.LastName}
+{!User.Email}

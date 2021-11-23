@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Platform_Integration_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Platform Integration Sharing Rule</label>
+        <sharedTo>
+            <group>Platform_Partner_User</group>
+        </sharedTo>
+        <booleanFilter>1</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Same Day Partner,StarTrack Partner,Australia Post International Partner,MyPost Business Partner,Australia Post Domestic Partner,Global Logistics Partner</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

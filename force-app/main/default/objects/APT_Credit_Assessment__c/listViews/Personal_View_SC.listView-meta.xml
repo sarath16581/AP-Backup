@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Personal_View_SC</fullName>
+    <columns>NAME</columns>
+    <columns>APT_Charge_Account__c</columns>
+    <columns>APT_ACN__c</columns>
+    <columns>APT_Legal_Entity_Name__c</columns>
+    <columns>APT_Proposal__c</columns>
+    <columns>APT_Credit_Assessment_Status__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>APT_Organisation_Name_Text__c</field>
+        <operation>contains</operation>
+        <value>Product Paradise Business</value>
+    </filters>
+    <label>Personal View SC</label>
+    <language>en_US</language>
+    <sharedTo>
+        <role>SO_Sales_Excellence</role>
+    </sharedTo>
+</ListView>

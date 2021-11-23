@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mandatory_Rule_for_EG_Sales_Impl</fullName>
+    <active>true</active>
+    <description>This rule is to ensure all mandatory fields are populated before E&amp;G Sales Implementation request is submitted</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName =&quot;E_G_Sales_Implementation_Request&quot;,
+ISPICKVAL(Status__c,&quot;Submitted&quot;),
+OR(ISBLANK(TEXT(Status__c)),ISBLANK( GoLive_Date__c),ISBLANK( Description__c), ISBLANK( Product_Solution_Specialist_EG__c)))</errorConditionFormula>
+    <errorDisplayField>Hidden_Automated_DSR__c</errorDisplayField>
+    <errorMessage>Request cannot be submitted to the support team as all the mandatory fields have not been updated. Please edit the request and complete all the mandatory fields and then submit request to Support Team</errorMessage>
+</ValidationRule>

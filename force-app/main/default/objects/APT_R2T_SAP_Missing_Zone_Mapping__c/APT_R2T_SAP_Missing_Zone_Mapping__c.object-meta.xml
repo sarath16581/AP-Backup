@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>SAP Missing Zone Mapping: Copy rates for &apos;From Zone&apos; from &apos;To Zone&apos;</description>
+    <enableFeeds>false</enableFeeds>
+    <label>R2T SAP Missing Zone Mapping</label>
+    <visibility>Public</visibility>
+</CustomObject>

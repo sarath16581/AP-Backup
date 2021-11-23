@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Actual_Network_Milestone_Violated__c</fullName>
+    <defaultValue>0</defaultValue>
+    <description>Field created for Out of Charter reporting requirements. This field will be 0 if the Network responded within time and 1 if it was escalated to the second person in the network hierarchy for real escalations only. It will not change for automated escalations. This field will not change from 0 for automatic escalations and this field will only change to 1 for the first real escalation and not change back to 0.</description>
+    <externalId>false</externalId>
+    <label>Actual Network Milestone Violated</label>
+    <precision>1</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

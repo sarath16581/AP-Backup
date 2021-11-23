@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_Required_If_Status_Not_Null</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( 
+				OR(
+								ISPICKVAL(Status__c,&apos;Verified Claim&apos;) ,	
+								ISPICKVAL(Status__c,&apos;Rejected&apos;)),
+				
+			ISBLANK(TEXT(Reason__c)))</errorConditionFormula>
+    <errorDisplayField>Reason__c</errorDisplayField>
+    <errorMessage>Please provide a reason when verifying or rejecting the claim.</errorMessage>
+</ValidationRule>

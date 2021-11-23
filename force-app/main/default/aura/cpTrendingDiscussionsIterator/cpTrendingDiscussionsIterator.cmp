@@ -1,0 +1,19 @@
+<!-- 2021-08-30 naveen.rajanna@auspost.com.au RELEASE UPDATES Enable Aura Component Access Fix -->
+<aura:component access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="TrendingDiscussion" type="cpTrendingDiscussionWrapper" access="public"/>
+    <aura:attribute name="discussion" type="map"/>
+    <forceCommunity:routeLink routeInput="{!v.discussion}">
+    <!--<a href="javascript:void(0);" onclick="{!c.redirectToDetailPage}">-->
+        <ul class="cp-custom-ul">
+            <li class="cp-custom-title" title="questionTitle">
+                <p>{!v.TrendingDiscussion.questionTitle}</p>
+            </li>
+            <li class="cp-custom-icon-count" title="viewLikeCommentCount">
+                <span class="cp-custom-icon"><lightning:icon iconName="utility:preview"/></span>
+                <span class="cp-custom-count">{!v.TrendingDiscussion.toalViewCommentAndLikeCount}</span>
+            </li>
+        </ul>
+    <!--</a>-->
+    </forceCommunity:routeLink>
+</aura:component>

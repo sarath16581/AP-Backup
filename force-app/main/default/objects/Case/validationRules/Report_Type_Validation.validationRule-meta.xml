@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Report_Type_Validation</fullName>
+    <active>true</active>
+    <description>Must enter a description when selecting the following report type for report request:
+Post Billpay
+Parcel Performance (DOT)
+Other</description>
+    <errorConditionFormula>And(RecordType.Name =&quot;Report Request&quot;,  Description =&quot;&quot;)  &amp;&amp;  OR(  ISPICKVAL( Type , &quot;Post Billpay&quot;),ISPICKVAL( Type , &quot;Parcel Performance - DOT&quot;),ISPICKVAL( Type , &quot;Other&quot;))</errorConditionFormula>
+    <errorMessage>Please enter a description for your report request on Post Billpay, Parcel Performance - DOT, and Other.</errorMessage>
+</ValidationRule>

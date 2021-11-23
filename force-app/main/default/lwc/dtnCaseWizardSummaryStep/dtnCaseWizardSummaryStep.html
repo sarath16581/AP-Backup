@@ -1,0 +1,45 @@
+<!--
+	Displays a summary of the data captured for case creation.
+
+    Changelog:
+    2020-10-05 - Ranjeewa Silva - Created.
+    2020-11-06 - Ranjeewa Silva - Ensure proper formatting of Currency and Date fields.
+ -->
+<template>
+    <div class="slds-grid slds-wrap slds-gutters">
+        <div class="slds-col slds-m-bottom_xx-small slds-size_1-of-1 slds-small-size_1-of-2">
+            <c-formatted-text-label label="Case Type" value={enquiryInput.caseType}>
+            </c-formatted-text-label>
+        </div>
+        <div class="slds-col slds-m-bottom_xx-small slds-size_1-of-1 slds-small-size_1-of-2">
+            <c-formatted-text-label label="Case Originator" value={enquiryInput.originator}>
+            </c-formatted-text-label>
+        </div>
+        <div class="slds-col slds-m-bottom_xx-small slds-size_1-of-1 slds-small-size_1-of-2">
+            <c-formatted-text-label label="Sender Address" value={senderAddress}>
+            </c-formatted-text-label>
+        </div>
+        <div class="slds-col slds-m-bottom_xx-small slds-size_1-of-1 slds-small-size_1-of-2">
+            <c-formatted-text-label label="Addressee Address" value={receiverAddress}>
+            </c-formatted-text-label>
+        </div>
+        <div class="slds-col slds-m-bottom_xx-small slds-size_1-of-1 slds-small-size_1-of-2">
+            <c-formatted-text-label label="Value of Contents" value={articleInput.valueOfContents} type="CURRENCY">
+            </c-formatted-text-label>
+        </div>
+        <div class="slds-col slds-m-bottom_xx-small slds-size_1-of-1 slds-small-size_1-of-2">
+            <c-formatted-text-label label="Date Posted" value={articleInput.datePosted} type="DATE">
+            </c-formatted-text-label>
+        </div>
+
+        <div class="slds-col slds-m-bottom_xx-small slds-size_1-of-1 slds-small-size_1-of-2">
+            <c-formatted-text-label label="Description of Contents" value={articleInput.descriptionOfContents}>
+            </c-formatted-text-label>
+        </div>
+        <div class="slds-col slds-m-bottom_xx-small slds-size_1-of-1 slds-small-size_1-of-2">
+            <c-formatted-text-label label="Message to Network" value={articleInput.messageToNetwork}>
+            </c-formatted-text-label>
+        </div>
+    </div>
+
+</template>

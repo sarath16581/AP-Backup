@@ -1,0 +1,4 @@
+<!-- 2018-06-01 clint.dsilva@auspost.com.au created -->
+<design:component>
+    <design:attribute label="Base64 Image String" name="imageBase64"  description="Image Str"/>
+</design:component>

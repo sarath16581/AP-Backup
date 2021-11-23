@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notify seller&apos;s line manager regarding event approval</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>SFDC_Blank</letterhead>
+    <name>Event Approval Needed-LM-New</name>
+    <style>freeForm</style>
+    <subject>Approval Required: Guest List for {!SFL1_Entertainment_Event__c.Name}</subject>
+    <textOnly>Potential Guest List: {!SFL1_Entertainment_Event__c.Name} - {!SFL1_Entertainment_Event__c.Event_Date_Time__c}.
+
+The potential guest list for the {!SFL1_Entertainment_Event__c.Name} on {!SFL1_Entertainment_Event__c.Event_Date_Time__c} has been submitted for your approval.
+
+You can review the guests nominated to attend by your direct report at https://auspost.my.salesforce.com/{!SFL1_Entertainment_Event__c.Id}.
+
+When you have completed your review, please Approve or Reject the submission.
+
+If it is a joint-hosted event, approval must be received from both line managers, before proceeding to General Managers for final approval.
+
+Details Of The {!SFL1_Entertainment_Event__c.RecordType} Event
+
+Event: {!SFL1_Entertainment_Event__c.Name}
+Venue: {!SFL1_Entertainment_Event__c.Entertainment_Venue__c}
+Date/Time:{!SFL1_Entertainment_Event__c.Event_Date_Time__c}
+Event Type: {!SFL1_Entertainment_Event__c.Event_Type__c}
+
+Owner: {!SFL1_Entertainment_Event__c.OwnerFullName}
+Co-Host: {!SFL1_Entertainment_Event__c.Owner_2__c}
+
+If you have any questions, please contact the Event Owner or Corporate Hospitality and Events.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

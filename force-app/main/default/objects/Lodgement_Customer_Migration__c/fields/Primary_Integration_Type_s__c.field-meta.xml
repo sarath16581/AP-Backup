@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Integration_Type_s__c</fullName>
+    <description>Primary method of integration with AP/ST</description>
+    <externalId>false</externalId>
+    <label>Integrated</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>BulkShipper</fullName>
+                <default>false</default>
+                <label>BulkShipper</label>
+            </value>
+            <value>
+                <fullName>eParcel (Integrated)</fullName>
+                <default>false</default>
+                <label>eParcel (Integrated)</label>
+            </value>
+            <value>
+                <fullName>MOS</fullName>
+                <default>false</default>
+                <label>MOS</label>
+            </value>
+            <value>
+                <fullName>Send a Parcel</fullName>
+                <default>false</default>
+                <label>Send a Parcel</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>6</visibleLines>
+</CustomField>

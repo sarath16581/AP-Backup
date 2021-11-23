@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <rules>
+        <fullName>Share of Wallet Primary Competitor</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Share_of_Wallet__c.Date_of_contract_renegotiation__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>TODAY</value>
+        </criteriaItems>
+        <description>The contract renewal fields relates to the primary competitor and should automatically create a tasks, assigened to the Account Manager, 3 months prior to the specified renewal date</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>SoW_competitor_renewal_contract</name>
+                <type>Task</type>
+            </actions>
+            <offsetFromField>Share_of_Wallet__c.Date_of_contract_renegotiation__c</offsetFromField>
+            <timeLength>-90</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <tasks>
+        <fullName>SoW_competitor_renewal_contract</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>A Share of Wallet competitor contract is due to expire in 90 days. Please call the customer and commence discussion to see if an opportunity exists to win this business.</description>
+        <dueDateOffset>-1</dueDateOffset>
+        <notifyAssignee>true</notifyAssignee>
+        <offsetFromField>Share_of_Wallet__c.Date_of_contract_renegotiation__c</offsetFromField>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Share of Wallet Competitor Contract Renewal Coming Up</subject>
+    </tasks>
+</Workflow>

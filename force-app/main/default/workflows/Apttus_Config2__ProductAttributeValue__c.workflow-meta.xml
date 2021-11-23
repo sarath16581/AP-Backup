@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>APT_Is_Band_Changed</fullName>
+        <field>APT_Is_Band_Changed__c</field>
+        <literalValue>1</literalValue>
+        <name>APT Is Band Changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Apttus_Config2__LineItemId__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_SetRevenueCommitmentTo20000_34999</fullName>
+        <description>Set Revenue Commitment to 20000-34999 if BAND selected is BAND 4</description>
+        <field>Revenue_Committment__c</field>
+        <literalValue>20,000 - 34,999</literalValue>
+        <name>Set Revenue Commitment to 20000-34999</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_SetRevenueCommitmentTo35000_50000</fullName>
+        <description>Set Revenue Commitment to 35000-50000 if BAND selected is BAND 5</description>
+        <field>Revenue_Committment__c</field>
+        <literalValue>35,000 - 50,000</literalValue>
+        <name>Set Revenue Commitment to 35000-50000</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_SetRevenueCommitmentToLessthan3000</fullName>
+        <description>Set Revenue Commitment to Less than 3000 if Band selected is BAND 1</description>
+        <field>Revenue_Committment__c</field>
+        <literalValue>Less than 3,000</literalValue>
+        <name>Set Revenue Commitment to Less than 3000</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_Set_Band_to_Band1</fullName>
+        <field>APT_Band__c</field>
+        <literalValue>BAND 1</literalValue>
+        <name>Set Band to Band1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_Set_Band_to_Band2</fullName>
+        <field>APT_Band__c</field>
+        <literalValue>BAND 2</literalValue>
+        <name>Set Band to Band2</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_Set_Band_to_Band3</fullName>
+        <field>APT_Band__c</field>
+        <literalValue>BAND 3</literalValue>
+        <name>Set Band to Band3</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_Set_Band_to_Band4</fullName>
+        <field>APT_Band__c</field>
+        <literalValue>BAND 4</literalValue>
+        <name>Set Band to Band4</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_Set_Band_to_Band5</fullName>
+        <field>APT_Band__c</field>
+        <literalValue>BAND 5</literalValue>
+        <name>Set Band to Band5</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_Set_Cubic_Factor</fullName>
+        <description>Copy cubic factor from quote/proposal to product attribute value</description>
+        <field>APT_Cubic_Factor__c</field>
+        <formula>Apttus_Config2__LineItemId__r.Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.APT_Cubic_Factor__c</formula>
+        <name>Set Cubic Factor</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_Set_Revenue_Commitment_to_3000_4999</fullName>
+        <description>Set Revenue Commitment to 3000-4999 if Band selected is BAND 2</description>
+        <field>Revenue_Committment__c</field>
+        <literalValue>3,000 - 4,999</literalValue>
+        <name>Set Revenue Commitment to 3000-4999</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_Set_Revenue_Commitment_to_5000_19999</fullName>
+        <description>Set Revenue Commitment to 5000-19999 if Band selected is BAND 3</description>
+        <field>Revenue_Committment__c</field>
+        <literalValue>5,000 - 19,999</literalValue>
+        <name>Set Revenue Commitment to 5000-19999</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_Update_Digital</fullName>
+        <field>APT_eParcel_Lodgment__c</field>
+        <literalValue>1</literalValue>
+        <name>APT Update Digital</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_Update_Non_Digital</fullName>
+        <field>APT_International_Letters__c</field>
+        <literalValue>0</literalValue>
+        <name>APT Update Non Digital</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Zone_1</fullName>
+        <field>APT_Zone_1_Dispersion__c</field>
+        <formula>0.1745</formula>
+        <name>Zone 1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Zone_2</fullName>
+        <field>APT_Zone_2_Dispersion__c</field>
+        <formula>0.1946</formula>
+        <name>Zone 2</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Zone_3</fullName>
+        <field>APT_Zone_3_Dispersion__c</field>
+        <formula>0.0580</formula>
+        <name>Zone 3</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Zone_4</fullName>
+        <field>APT_Zone_4_Dispersion__c</field>
+        <formula>0.0808</formula>
+        <name>Zone 4</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Zone_5</fullName>
+        <field>APT_Zone_5_Dispersion__c</field>
+        <formula>0.0501</formula>
+        <name>Zone 5</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Zone_6</fullName>
+        <field>APT_Zone_6_Dispersion__c</field>
+        <formula>0.3276</formula>
+        <name>Zone 6</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Zone_7</fullName>
+        <field>APT_Zone_7_Dispersion__c</field>
+        <formula>0.0195</formula>
+        <name>Zone 7</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Zone_8</fullName>
+        <field>APT_Zone_8_Dispersion__c</field>
+        <formula>0.0949</formula>
+        <name>Zone 8</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>APT Dispersion Zone Update</fullName>
+        <actions>
+            <name>Zone_1</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Zone_2</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Zone_3</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Zone_4</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Zone_5</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Zone_6</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Zone_7</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Zone_8</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>for International PCMS Inc Airmail letters</description>
+        <formula>(Apttus_Config2__LineItemId__r.Apttus_Config2__ProductId__r.ProductCode ==&apos;InternationalDigitalPCMSBundlewithAirmail&apos;)</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>APT Is Band Change</fullName>
+        <actions>
+            <name>APT_Is_Band_Changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>NOT(ISBLANK(PRIORVALUE(APT_Band__c) ))&amp;&amp; ISCHANGED(APT_Band__c) &amp;&amp; (Apttus_Config2__LineItemId__r.Apttus_Config2__ConfigurationId__r.APT_Created_On__c = &apos;Amendment Quote&apos;)&amp;&amp;Apttus_Config2__LineItemId__r.APT_New_Amend__c==false</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>APT New Int Bundle</fullName>
+        <actions>
+            <name>APT_Update_Digital</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>APT_Update_Non_Digital</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>To make Digital flag true for new bundles</description>
+        <formula>OR(Apttus_Config2__LineItemId__r.Apttus_Config2__ProductId__r.ProductCode ==&apos;InternationalDigitalPCMSBundle&apos;,Apttus_Config2__LineItemId__r.Apttus_Config2__ProductId__r.ProductCode ==&apos;InternationalDigitalPCMSBundlewithAirmail&apos;)&amp;&amp;(Apttus_Config2__IsTransient__c ==false)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>APT_Set Revenue Commitment 35000 - 50000 as per BAND</fullName>
+        <actions>
+            <name>APT_SetRevenueCommitmentTo35000_50000</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Apttus_Config2__ProductAttributeValue__c.APT_Volume_Data__c</field>
+            <operation>equals</operation>
+            <value>Yes</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Apttus_Config2__ProductAttributeValue__c.APT_Band__c</field>
+            <operation>equals</operation>
+            <value>BAND 5</value>
+        </criteriaItems>
+        <description>Set Revenue Commitment 35000 - 50000 if BAND selected is BAND 5</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

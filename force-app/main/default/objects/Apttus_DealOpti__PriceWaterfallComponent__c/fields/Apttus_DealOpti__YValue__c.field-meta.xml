@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealOpti__YValue__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The Y position of the value</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The Y position of the value</inlineHelpText>
+    <label>YValue</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>5</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

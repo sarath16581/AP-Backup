@@ -1,0 +1,2405 @@
+<!--
+    22/03/2016 - Nandan : updated page to change mapping for square & direct debit
+-->
+<apex:page standardController="Application__c" 
+    extensions="APMSApplication"
+    cache="false"
+    contentType="text/html"
+    showHeader="false"
+    sidebar="false"
+    standardStylesheets="false"
+    title="Online Payments Application"
+    docType="html-5.0"
+    action="{!securePage}">
+
+    <html class="no-js" lang="en">
+    <head>
+        
+        <!-- OMNITURE Script -->  
+        <script src="//assets.adobedtm.com/bfecad1ae7e5d7a2b8a9353b2d496d9b392db768/satelliteLib-9e2f02096aabd111a5ae9eaeea8f183b256162b6.js"></script>  
+    
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="DC.Creator" scheme="AglsAgent" content="Australia Post" />
+        <meta name="DC.Title" content="Australia Post - Home" />
+        <title>SecurePay Online Payments Application Form</title>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="apple-touch-icon" sizes="144x144" href="{!URLFOR($Resource.APMS_Asset,'css/images/favicons/apple-touch-icon-144x144.png')}" />
+        <link rel="apple-touch-icon" sizes="114x114" href="{!URLFOR($Resource.APMS_Asset,'css/images/favicons/apple-touch-icon-114x114.png')}" />
+        <link rel="apple-touch-icon" sizes="72x72" href="{!URLFOR($Resource.APMS_Asset,'css/images/favicons/apple-touch-icon-72x72.png')}" />
+        <link rel="apple-touch-icon" href="{!URLFOR($Resource.APMS_Asset,'css/images/favicons/apple-touch-icon.png')}" />
+        <link rel="shortcut icon" href="{!URLFOR($Resource.APMS_Asset,'css/images/favicons/favicon.ico')}" />
+        <link rel="stylesheet" href="{!URLFOR($Resource.APMS_Asset,'css/style.css')}" />
+        <script src="{!URLFOR($Resource.APMS_Asset,'js/head.js')}"></script>
+        <script src="{!URLFOR($Resource.APMS_Asset,'js/libs/jquery-1.8.2.min.js')}"></script>
+        <script src="{!URLFOR($Resource.APMS_Asset,'js/csso-widget.js')}"></script>
+        <link rel="stylesheet" href="{!URLFOR($Resource.APMS_Asset,'css/cssolight.css')}" />
+        
+        <link rel="stylesheet" href="{!URLFOR($Resource.APMS_Asset,'css/style-icams-addons.css')}" />
+    
+        <!-- MRSO assets -->
+        <link href="{!URLFOR($Resource.APMS_Asset,'css/mrso/mrso-v2.css')}" rel="stylesheet" />
+        <link href="{!URLFOR($Resource.APMS_Asset,'css/mrso/lightbox.css')}" rel="stylesheet" />
+        <script src="{!URLFOR($Resource.APMS_Asset,'js/mrso/application.js')}"></script>
+        <script src="{!URLFOR($Resource.APMS_Asset,'js/mrso/lightbox.js')}"></script>
+      
+        <link href="{!URLFOR($Resource.APMS_Asset,'jquery-ui.css')}" rel="stylesheet" />
+        <script src="{!URLFOR($Resource.APMS_Asset,'jquery-ui.js')}"></script>
+                                
+        <script src="{!URLFOR($Resource.APMS_Asset,'GsForm_Script.js')}"></script>
+        
+        <link rel="stylesheet" href="{!URLFOR($Resource.APMS_CSS)}"/>
+        <script src="{!URLFOR($Resource.APMS_JS)}"/> 
+
+    </head>
+
+    <script>
+        window.onload = function() {
+            // since radio buttons are not bind to server variables, so need to pre-select them onload based on server variable
+            if('{!section}' == 0)
+            {
+                if('{!app.SelectedPricePlan__c}' == '{!configSetting.PlanAPlanNameText__c}')
+                {
+                    document.getElementById('PlanA').checked = true;        
+                }
+            }
+        }      
+    </script>
+
+    <script>
+ /* Placeholders.js v3.0.2 */
+ (function(t){"use strict";function e(t,e,r){return t.addEventListener?t.addEventListener(e,r,!1):t.attachEvent?t.attachEvent("on"+e,r):void 0}function r(t,e){var r,n;for(r=0,n=t.length;n>r;r++)if(t[r]===e)return!0;return!1}function n(t,e){var r;t.createTextRange?(r=t.createTextRange(),r.move("character",e),r.select()):t.selectionStart&&(t.focus(),t.setSelectionRange(e,e))}function a(t,e){try{return t.type=e,!0}catch(r){return!1}}t.Placeholders={Utils:{addEventListener:e,inArray:r,moveCaret:n,changeType:a}}})(this),function(t){"use strict";function e(){}function r(){try{return document.activeElement}catch(t){}}function n(t,e){var r,n,a=!!e&&t.value!==e,u=t.value===t.getAttribute(V);return(a||u)&&"true"===t.getAttribute(D)?(t.removeAttribute(D),t.value=t.value.replace(t.getAttribute(V),""),t.className=t.className.replace(R,""),n=t.getAttribute(F),parseInt(n,10)>=0&&(t.setAttribute("maxLength",n),t.removeAttribute(F)),r=t.getAttribute(P),r&&(t.type=r),!0):!1}function a(t){var e,r,n=t.getAttribute(V);return""===t.value&&n?(t.setAttribute(D,"true"),t.value=n,t.className+=" "+I,r=t.getAttribute(F),r||(t.setAttribute(F,t.maxLength),t.removeAttribute("maxLength")),e=t.getAttribute(P),e?t.type="text":"password"===t.type&&M.changeType(t,"text")&&t.setAttribute(P,"password"),!0):!1}function u(t,e){var r,n,a,u,i,l,o;if(t&&t.getAttribute(V))e(t);else for(a=t?t.getElementsByTagName("input"):b,u=t?t.getElementsByTagName("textarea"):f,r=a?a.length:0,n=u?u.length:0,o=0,l=r+n;l>o;o++)i=r>o?a[o]:u[o-r],e(i)}function i(t){u(t,n)}function l(t){u(t,a)}function o(t){return function(){m&&t.value===t.getAttribute(V)&&"true"===t.getAttribute(D)?M.moveCaret(t,0):n(t)}}function c(t){return function(){a(t)}}function s(t){return function(e){return A=t.value,"true"===t.getAttribute(D)&&A===t.getAttribute(V)&&M.inArray(C,e.keyCode)?(e.preventDefault&&e.preventDefault(),!1):void 0}}function d(t){return function(){n(t,A),""===t.value&&(t.blur(),M.moveCaret(t,0))}}function g(t){return function(){t===r()&&t.value===t.getAttribute(V)&&"true"===t.getAttribute(D)&&M.moveCaret(t,0)}}function v(t){return function(){i(t)}}function p(t){t.form&&(T=t.form,"string"==typeof T&&(T=document.getElementById(T)),T.getAttribute(U)||(M.addEventListener(T,"submit",v(T)),T.setAttribute(U,"true"))),M.addEventListener(t,"focus",o(t)),M.addEventListener(t,"blur",c(t)),m&&(M.addEventListener(t,"keydown",s(t)),M.addEventListener(t,"keyup",d(t)),M.addEventListener(t,"click",g(t))),t.setAttribute(j,"true"),t.setAttribute(V,x),(m||t!==r())&&a(t)}var b,f,m,h,A,y,E,x,L,T,N,S,w,B=["text","search","url","tel","email","password","number","textarea"],C=[27,33,34,35,36,37,38,39,40,8,46],k="#ccc",I="placeholdersjs",R=RegExp("(?:^|\\s)"+I+"(?!\\S)"),V="data-placeholder-value",D="data-placeholder-active",P="data-placeholder-type",U="data-placeholder-submit",j="data-placeholder-bound",q="data-placeholder-focus",z="data-placeholder-live",F="data-placeholder-maxlength",G=document.createElement("input"),H=document.getElementsByTagName("head")[0],J=document.documentElement,K=t.Placeholders,M=K.Utils;if(K.nativeSupport=void 0!==G.placeholder,!K.nativeSupport){for(b=document.getElementsByTagName("input"),f=document.getElementsByTagName("textarea"),m="false"===J.getAttribute(q),h="false"!==J.getAttribute(z),y=document.createElement("style"),y.type="text/css",E=document.createTextNode("."+I+" { color:"+k+"; }"),y.styleSheet?y.styleSheet.cssText=E.nodeValue:y.appendChild(E),H.insertBefore(y,H.firstChild),w=0,S=b.length+f.length;S>w;w++)N=b.length>w?b[w]:f[w-b.length],x=N.attributes.placeholder,x&&(x=x.nodeValue,x&&M.inArray(B,N.type)&&p(N));L=setInterval(function(){for(w=0,S=b.length+f.length;S>w;w++)N=b.length>w?b[w]:f[w-b.length],x=N.attributes.placeholder,x?(x=x.nodeValue,x&&M.inArray(B,N.type)&&(N.getAttribute(j)||p(N),(x!==N.getAttribute(V)||"password"===N.type&&!N.getAttribute(P))&&("password"===N.type&&!N.getAttribute(P)&&M.changeType(N,"text")&&N.setAttribute(P,"password"),N.value===N.getAttribute(V)&&(N.value=x),N.setAttribute(V,x)))):N.getAttribute(D)&&(n(N),N.removeAttribute(V));h||clearInterval(L)},100)}M.addEventListener(t,"beforeunload",function(){K.disable()}),K.disable=K.nativeSupport?e:i,K.enable=K.nativeSupport?e:l}(this);
+    </script>
+    
+    <style>
+        .landingBackgroundImage {
+            background-image: url("{!URLFOR($Resource.APMS_Asset,'media/images/landing-buildings.png')}");    
+            background-repeat: no-repeat;
+            background-position: right top;
+            height: 400px;
+        } 
+    
+        .alert > div {
+            background: transparent url("{!URLFOR($Resource.APMS_Asset,'css/images/icons/alert.png')}") no-repeat 20px 15;
+        }
+                
+    </style>
+    
+    <!--[if lt IE 7]> <body class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]>    <body class="lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]>    <body class="lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]><!--> <body> <!--<![endif]-->
+
+    
+    <!-- START Accessibility links -->
+    
+    <div class="accessibility-links"> <a href="#main" class="visuallyhidden focusable">Skip to content</a> <a href="#primary-nav" class="visuallyhidden focusable">Skip to primary navigation</a> </div>
+    <!-- END Accessibility links --> 
+    <!-- START GE01 Header -->
+    <div class="l-header">
+      <div id="header">
+        <header> 
+          
+          <!-- START top nav -->
+          <div class="top-nav clearfix">
+              <!-- <nav> -->
+              <!-- CSSO global widget -->
+              <!-- Not used by the Merchant Service
+                  <dl class="csso-global">
+                    <dt class="active-session"><a href="#"><span class="csso-icon"></span>John Smith<span class="acc-options"></span></a></dt>
+                    <dd class="csso-menu" style="display:none;">
+                      <ul class="csso-options">
+                        <li class="acc-no">Your account number<span>1234567890</span></li>
+                        <li class="first"><a href="#">My account</a></li>
+                        <li><a href="#">Update details</a></li>
+                        <li><a href="#">Change password</a></li>
+                        <li><a href="#">Logout</a></li>
+                      </ul>
+                    </dd>
+                  </dl>
+              -->
+              <!-- END CSSO global widget --> 
+              <!-- </nav> -->
+          </div>
+          <!-- END top nav --> 
+          
+          <!-- START logo --> 
+          <a href="#" class="main-logo"> <img src="{!URLFOR($Resource.APMS_Asset, 'media/images/Securepay_logo_RGB.png')}" alt="Australia Post logo" /> </a>
+          <!-- END logo --> 
+          
+          <!-- START primary nav -->
+          <div id="primary-nav" class="primary-nav clearfix">
+            <h3> Online Payments</h3>
+          </div>
+          <!-- END primary nav --> 
+          
+        </header>
+      </div>
+    </div>
+    <!-- END GE01 Header -->
+ 
+
+   <div class="l-container l-wide">
+   
+        <div class="FullPageGrey">
+            <apex:outputPanel id="LandingGrey" rendered="{!IF(section=0,true,false)}">
+
+                <apex:form >                            
+                    <div class="landingGrey">
+
+                        <h1 class="TallLineH1">Online transactions made easy with</h1>
+                        <h1 class="redH1">SecurePay Online Payments</h1>
+                        
+                        <h3 class="LetterRegularH3">SecurePay Online Payments will help you transact online easily and securely.</h3>
+                        
+                        <h3>Complete our online application to start the setup process of your SecurePay Online Payments facility.</h3>
+                        <br/>
+
+                        <apex:outputPanel id="dummy" />
+                        <apex:inputHidden value="{!app.SelectedPricePlan__c}" id="RadioSelected_SelectedPricePlan" />
+                        <ul class='choose-duration clearfix horizontal'>
+                            <li class='durationSelect ModifierLi'>
+                                <label for='PlanA' class="ModifierLabel">
+                                    <input id='PlanA' name='SelectedPlan' type='radio' value="{!configSetting.PlanAPlanNameText__c}" onclick="changeValueSelectedPricePlan(this,'{!$Component.RadioSelected_SelectedPricePlan}');" />
+                                    <br/>
+                                    {!configSetting.PlanAPlanNameText__c}
+                                    <h1>{!configSetting.PlanAcommissionText__c}<span class="SelectPlanSpan"></span></h1>
+                                    <hr/>
+                                    <p class="SelectPlanDescP">{!configSetting.PlanATransactionFeeText__c}</p>
+                                    <p class="SelectPlanDescBoldP">{!configSetting.PlanAMonthlyFeeText__c}</p>
+                                </label>
+                            </li>
+                            <li class="DividerLi" />                          
+                        </ul>
+                        <apex:actionFunction name="reRenderDummy" rerender="dummy"/>
+                        <br/>
+                    </div>  
+                </apex:form>
+                
+                <!-- Insert OMNITURE on-page tracking for each section -->   
+                <!-- SiteCatalyst code version: H.21.1.
+                Copyright 1996-2010 Adobe, Inc. All Rights Reserved
+                More info available at http://www.omniture.com -->      
+                <script type="text/javascript">
+                    s.pageName="auspost:merchant services:choose your plan";
+                    /* customized section end */
+                    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+                    var s_code=s.t();if(s_code)document.write(s_code);
+                </script>
+                <script language="JavaScript" type="text/javascript">
+                if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-');
+                </script><noscript><img src="https://australiapost.122.2o7.net/b/ss/auspost-prd/1/H.22.1--NS/0?[AQB]&cdp=3&[AQE]"
+                height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
+                <!-- End SiteCatalyst code version: H.22.1. -->
+                <script type="text/javascript">_satellite.pageBottom();</script>
+                                
+            </apex:outputPanel>
+        </div>
+   
+        <div class="l-main clearfix" role="main" id="main">
+
+            <apex:outputPanel id="LandingWhite" rendered="{!IF(section=0,true,false)}">
+
+                <apex:form styleClass="fn-validation">       
+                                    
+
+                    <div class="landingWhite">
+                        <h2>{!$ObjectType.Application__c.Fields.isExistingAusPostBusinessAccount__c.inlineHelpText}</h2>
+
+                        <div class="landingBackgroundImage">
+
+                            <apex:inputHidden value="{!app.isExistingAusPostBusinessAccount__c}" id="RadioSelected_IsExistingAccount" />
+
+                            <div class="LandingWhiteLeft">      
+
+                                <div class="boxed"  onclick="selectTick('YesExistingCustomer');">
+                                    <input  id='YesExistingCustomer' name='IsExistingCustomer' type='radio' value="Yes" onclick="changeValueExistingAccount(this,'{!$Component.RadioSelected_IsExistingAccount}');"  />
+                                    Yes
+                                    <div class="RadioSelectText">I am an existing business customer</div>
+                                </div>
+
+                                <div style="height:25px">&nbsp;</div>
+                               
+                                <div class="boxed"  onclick="selectTick('NoExistingCustomer');">
+                                    <input  id='NoExistingCustomer' name='IsExistingCustomer' type='radio' value="No" onclick="changeValueExistingAccount(this,'{!$Component.RadioSelected_IsExistingAccount}');"  />
+                                    No
+                                    <div class="RadioSelectText">I am new to Australia Post</div>
+                                </div>
+                          
+                            </div>   
+                 
+                            <apex:actionFunction name="vfRefresh" rerender="extraLayer" status="loading2" action="{!resetForNewAndOld}"/>
+                            <apex:actionStatus startText="fetching" id="loading"/>                                                    
+
+                            <apex:actionStatus id="loading2">
+                                <apex:facet name="start">
+                                    <apex:image url="{!URLFOR($Resource.APMS_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                </apex:facet>                          
+                            </apex:actionStatus>
+                                    
+                                    
+                            <apex:outputPanel id="extraLayer">
+                                <apex:outputPanel id="LandingWhiteRight" rendered="{!IF(app.isExistingAusPostBusinessAccount__c!='',true,false)}">
+                                    <div class="LandingWhiteRight">
+                                   
+                                        <apex:outputPanel id="ExistingCustomerOutputPanel" rendered="{!IF(app.isExistingAusPostBusinessAccount__c='Yes',true,false)}">
+
+                                            <!-- START Error list
+                                                    If there are serverside errors, include them as <li> elements
+                                                    If there are no serverside errors, still include this DIV, but without any <li> elements. It will be used by JavaScript.
+                                            -->
+                                            <apex:Messages styleclass="form-errors"/>
+                                            <div class="form-errors hidden">
+                                                <h3>Please enter the required information.</h3>
+                                            </div>
+                                            <!-- END Error list -->
+
+                                            <p class="required-legend"><span class="symbol-req"> *</span> Required information</p>
+                                            <h3>Let's start with a few details</h3>
+
+                                            <div class="input-group">
+                                                <div class="input required input-normal">
+                                                    <p>{!$ObjectType.Application__c.Fields.APCustomerNumber__c.inlineHelpText}
+                                                        <span class="symbol-req"> * 
+                                                            <a href="#" class="tooltip">
+                                                                <img src="{!URLFOR($Resource.APMS_Asset, 'css/images/icons-32bit/info.png')}" alt="Info" />
+                                                                <span>
+                                                                    It is a numeric value between 2 and 7 digits on your tax invoice. You will find it just below the date of issue in the account number field.
+                                                                </span>
+                                                            </a>
+                                                        </span>
+                                                    </p>                                                    
+                                                    <apex:inputField value="{!app.APCustomerNumber__c}" styleclass="numeric" onkeypress="return isNumericKey(event)" style="{!landingPage_OldAcct_AcctNo_ErrorStyle}"  />
+                                                </div> 
+                                                <div class="input required input-normal">
+                                                    <p>ABN or ACN<span class="symbol-req"> *</span></p>
+                                                    <apex:inputText value="{!InputAbnOrAcn}" onkeypress="return isNumericKey(event)" style="{!landingPage_OldAcct_Abn_ErrorStyle}" maxlength="11"/>
+                                                </div>                                                    
+                                            </div>
+        
+                                            <p>{!$ObjectType.Application__c.Fields.PromotionCode__c.inlineHelpText}<span class="LabelNoteSpan"> (This would have been provided by your account manager)</span></p>
+                                            <div class="input input-normal">
+                                                <apex:inputField value="{!app.PromotionCode__c}"/>                                        
+                                            </div>
+                                            
+                                            <b><p>We will pre-fill some of your business details in the application.</p></b>
+
+                                            <div class="form-buttons clearfix">
+                                                <div class="left">
+                                                    <apex:commandButton styleClass="primary-cta button-next" value="Start" id="StartExistingButton" action="{!Start_ExistingAccount}"/>                                                    
+                                                </div>
+                                            </div>                                            
+                                        </apex:outputPanel>
+                                        
+                                          
+                                        <apex:outputpanel id="NewCustomerOutputPanel" rendered="{!IF(app.isExistingAusPostBusinessAccount__c='No',true,false)}">
+                       
+                                            <!-- START Error list
+                                                    If there are serverside errors, include them as <li> elements
+                                                    If there are no serverside errors, still include this DIV, but without any <li> elements. It will be used by JavaScript.
+                                            -->
+                                            <apex:Messages styleclass="form-errors"/>
+                                            <div class="form-errors hidden">
+                                                <h3>Please enter the required information.</h3>
+                                            </div>
+                                            <!-- END Error list -->
+
+                                      
+                                            <p class="required-legend"><span class="symbol-req"> *</span> Required information</p>
+                                            <h3>Business type</h3>     
+                                                                                                         
+                                            <div class="input required input-large">
+                                                <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.OrganisationType__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                                <apex:selectList size="1" value="{!app.OrganisationType__c}" >
+                                                    <apex:selectOptions value="{!OrganisationType}"/>  
+                                                </apex:selectList>   
+                                            </div>                                                                        
+
+                                            <p>{!$ObjectType.Application__c.Fields.PromotionCode__c.inlineHelpText}<span class="LabelNoteSpan"> (This would have been provided by your account manager)</span></p>
+                                            <div class="input input-normal">
+                                                <apex:inputField value="{!app.PromotionCode__c}"/>                                        
+                                            </div>
+                                            
+                                            <div class="form-buttons clearfix">
+                                                <div class="left">
+                                                    <apex:commandButton styleClass="primary-cta button-next" value="Start" id="StartNewButton" action="{!Start_NewAccount}"/>
+                                                </div>
+                                            </div>
+                                        </apex:outputpanel>
+                                     </div>
+                                </apex:outputPanel>   
+                            </apex:outputPanel>                            
+                        </div>                    
+                    </div>
+
+                </apex:form>
+
+                <div class="clearfix">
+
+                </div>   
+                <br/>     
+            </apex:outputPanel>
+            
+            <apex:outputpanel id="BigForm" rendered="{!IF(section!=0,true,false)}">                                
+    
+            <!-- MAIN PANEL -->
+            <div class="content-panel">
+                <div class='workarea'>
+
+                    <apex:Form >
+
+
+                    
+<!--PlanSelect-->
+
+                        <apex:outputPanel id="PlanSelect" rendered="{!IF(NOT(OR(section=0,section=5)),true,false)}">
+                            <table>
+                            <tr>
+                                <td width="700px">
+                                    <h1>New application</h1>                        
+                                </td>
+                                <td width="130px" class="PricePlanLabel">
+                                    <h3 class="RegularH3">{!$ObjectType.Application__c.Fields.SelectedPricePlan__c.inlineHelpText}</h3>
+                                </td>
+                                <td class="PricePlanValue">
+                                    <div class="input-SelectedPlan">
+                                        <apex:selectList size="1" value="{!app.SelectedPricePlan__c}" onchange="updateSelectedPlanToServer()">
+                                            <apex:selectOptions value="{!SelectedPricePlan}"/>  
+                                        </apex:selectList>
+                                    </div>
+                                </td>
+                            </tr>
+                            </table>
+                            <apex:outputPanel id="dummy2" />
+                            <apex:actionFunction name="reRenderDummy2" reRender="dummy2"/>
+                        </apex:outputPanel>
+                    </apex:Form>
+                        
+<!--BreadCrumb--> 
+                    <apex:outputPanel id="BreadCrumb" styleclass="page-tools" rendered="{!IF(NOT(OR(section=0,section=5)),true,false)}">
+                        <ul class='horizontal stepNav'>
+                            <li class="{!IF(section>1, 'completed', IF(section=1, 'selected', ''))}">
+                                <h3> 1 </h3>
+                                <a class='step'>Business details</a>
+                            </li>
+                            <li class="{!IF(section>2, 'completed', IF(section=2, 'selected', ''))}">
+                                <h3> 2 </h3>
+                                <a class='step'>Contact &amp; signatories</a> 
+                            </li>
+                            <li class="{!IF(section>3, 'completed', IF(section=3, 'selected', ''))}">
+                                <h3> 3 </h3>
+                                <a class='step'>Trading details</a> 
+                            </li>
+                            <li class="{!IF(section>4, 'completed', IF(section=4, 'selected', ''))}">
+                                <h3> 4 </h3>
+                                <a class='step'>Confirm your application</a> 
+                            </li>
+                        </ul>
+                    </apex:outputPanel>
+
+
+                    <apex:outputPanel id="InfoMsg" rendered="{!IF(AND(app.isExistingAusPostBusinessAccount__c='Yes',section=1),true,false)}">
+
+                        <div class="alert">
+                            <div>
+                                If you need to update any of the pre-filled details below, please call our business support team on 13 11 18 or contact your Australia Post account manager.
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+
+ 
+                    <!-- START CM51 Value prop  -->
+                    <p class="value-proposition"></p>   
+                    
+
+                           
+                    <apex:form styleClass="form fn-validation"  rendered="{!IF(section!=5,true,false)}">
+                    
+                        <apex:outputPanel id="Sections" rendered="{!IF(section!=5,true,false)}">                    
+
+                            <apex:Messages styleclass="form-errors"/>
+                                                                         
+                            <!-- START Error list
+                                    If there are serverside errors, include them as <li> elements
+                                    If there are no serverside errors, still include this DIV, but without any <li> elements. It will be used by JavaScript.
+                            -->
+                            <div class="form-errors hidden">
+                                <h3>Please enter the required information.</h3>
+                            </div>
+                            <!-- END Error list -->
+                            <p class="required-legend"><span class="symbol-req"> *</span> Required information</p>
+    
+<!--1-->
+                            <apex:outputPanel rendered="{!section=1}" id="Section1">
+                                <h2>Business details</h2>
+
+                                <apex:outputPanel rendered="{!IF(LEFT(app.OrganisationType__c,7)='Company',false,true)}">
+                                    <div class="input-group">
+                                        <div class="input required input-large">
+                                            <p>{!$ObjectType.Application__c.Fields.FullLegalCompanyName__c.inlineHelpText}<span class="symbol-req"> *</span><span class="LabelNoteSpan"> (as appears on official documents/papers)</span></p>
+                                            <apex:inputField value="{!app.FullLegalCompanyName__c}" rendered="{!IF(fetchedApp.FullLegalCompanyName__c=null,true,false)}"/>
+                                            <apex:inputhidden value="{!app.FullLegalCompanyName__c}" rendered="{!IF(fetchedApp.FullLegalCompanyName__c=null,false,true)}"/>
+                                            <apex:outputText value="{!fetchedApp.FullLegalCompanyName__c}" rendered="{!IF(fetchedApp.FullLegalCompanyName__c=null,false,true)}" styleclass="OutputReadOnly"/>
+                                                                                        
+                                        </div>                                
+                                        <div class="input input-normal">
+                                            <p>{!$ObjectType.Application__c.Fields.ACN__c.label}</p>
+                                            <apex:inputField value="{!app.ACN__c}" rendered="{!IF(fetchedApp.ACN__c=null,true,false)}" styleclass="numeric" onkeypress="return isNumericKey(event)" style="{!acn_ErrorStyle}" />
+                                            <apex:inputhidden value="{!app.ACN__c}"  rendered="{!IF(fetchedApp.ACN__c=null,false,true)}"/>
+                                            <apex:outputText value="{!fetchedApp.ACN__c}" rendered="{!IF(fetchedApp.ACN__c=null,false,true)}" styleclass="OutputReadOnly"/>
+                                        </div>                                 
+                                        <div class="input required input-normal">
+                                            <p>{!$ObjectType.Application__c.Fields.ABN__c.label}<span class="symbol-req"> *</span></p>                                            
+                                            <apex:inputField value="{!app.ABN__c}" rendered="{!IF(fetchedApp.ABN__c=null,true,false)}" styleclass="numeric" onkeypress="return isNumericKey(event)" style="{!abn_ErrorStyle}" />
+                                            <apex:inputhidden value="{!app.ABN__c}" rendered="{!IF(fetchedApp.ABN__c=null,false,true)}"/>
+                                            <apex:outputText value="{!fetchedApp.ABN__c}" rendered="{!IF(fetchedApp.ABN__c=null,false,true)}" styleclass="OutputReadOnly"/>
+                                                                                  
+                                        </div>                                 
+                                    </div>
+                                </apex:outputPanel>
+                                                                            
+                                
+                                <apex:outputPanel rendered="{!IF(LEFT(app.OrganisationType__c,7)='Company',true,false)}">
+                                    <div class="input-group">
+                                        <div class="input required input-large">
+                                            <p>{!$ObjectType.Application__c.Fields.FullLegalCompanyName__c.inlineHelpText}<span class="symbol-req"> *</span><span class="LabelNoteSpan"> (as appears on official documents/papers)</span></p>
+                                            <apex:inputField value="{!app.FullLegalCompanyName__c}" rendered="{!IF(fetchedApp.FullLegalCompanyName__c=null,true,false)}"/>
+                                            <apex:inputhidden value="{!app.FullLegalCompanyName__c}" rendered="{!IF(fetchedApp.FullLegalCompanyName__c=null,false,true)}"/>
+                                            <apex:outputText value="{!fetchedApp.FullLegalCompanyName__c}" rendered="{!IF(fetchedApp.FullLegalCompanyName__c=null,false,true)}" styleclass="OutputReadOnly"/>
+                                                                                        
+                                        </div>                                
+                                        <div class="input required input-normal">
+                                            <p>{!$ObjectType.Application__c.Fields.ACN__c.label}<span class="symbol-req"> *</span></p>
+                                            <apex:inputField value="{!app.ACN__c}" rendered="{!IF(fetchedApp.ACN__c=null,true,false)}" styleclass="numeric" onkeypress="return isNumericKey(event)" style="{!acn_ErrorStyle}" />
+                                            <apex:inputhidden value="{!app.ACN__c}"  rendered="{!IF(fetchedApp.ACN__c=null,false,true)}"/>
+                                            <apex:outputText value="{!fetchedApp.ACN__c}" rendered="{!IF(fetchedApp.ACN__c=null,false,true)}" styleclass="OutputReadOnly"/>
+                                                                                        
+                                        </div>                                 
+                                        <div class="input input-normal">
+                                            <p>{!$ObjectType.Application__c.Fields.ABN__c.label}</p>
+                                            <apex:inputField value="{!app.ABN__c}" rendered="{!IF(fetchedApp.ABN__c=null,true,false)}" styleclass="numeric" onkeypress="return isNumericKey(event)" style="{!abn_ErrorStyle}" />
+                                            <apex:inputhidden value="{!app.ABN__c}" rendered="{!IF(fetchedApp.ABN__c=null,false,true)}"/>
+                                            <apex:outputText value="{!fetchedApp.ABN__c}" rendered="{!IF(fetchedApp.ABN__c=null,false,true)}" styleclass="OutputReadOnly"/>                                       
+                                        </div>                                 
+                                    </div>
+                                </apex:outputPanel>
+                                                               
+                                <div style="height:15px"/>
+
+                                <apex:outputPanel rendered="{!IF(fetchedapp.IsTradeUnderDifferentName__c=false,true,false)}">
+                                    <table>
+                                    <tr>
+                                        <td class="checkboxTable">
+                                            <apex:actionRegion >
+                                                <apex:inputField value="{!app.IsTradeUnderDifferentName__c}" id="IsTradeUnderDifferentName" styleclass="CursorPointer">
+                                                    <apex:actionSupport event="onclick" reRender="extraLayer_TradingName" status="Loading_TradingName"/>
+                                                </apex:inputField>
+                                            </apex:actionRegion>
+                                        </td>
+                                        <td>
+                                            <p class="checkboxTable">
+                                                <apex:outputLabel for="IsTradeUnderDifferentName" styleClass="CursorPointer">
+                                                    {!$ObjectType.Application__c.Fields.IsTradeUnderDifferentName__c.label}
+                                                </apex:outputLabel>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    </table>
+                                </apex:outputPanel>
+                                
+                                <apex:actionStatus id="Loading_TradingName">
+                                    <apex:facet name="start">
+                                        <apex:image url="{!URLFOR($Resource.APMS_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                    </apex:facet>
+                                </apex:actionStatus>       
+                                <div class="clearfix" />                         
+    
+                                <apex:outputPanel id="extraLayer_TradingName">
+                                    <apex:outputPanel id="TradingName" rendered="{!IF(app.IsTradeUnderDifferentName__c=true,true,false)}">
+                                        <div class="input required input-large">
+                                            <p>{!$ObjectType.Application__c.Fields.RegisteredBusinessTradingAs__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                            <apex:inputField value="{!app.RegisteredBusinessTradingAs__c}" rendered="{!IF(fetchedApp.RegisteredBusinessTradingAs__c=null,true,false)}"/>
+                                            <apex:inputhidden value="{!app.RegisteredBusinessTradingAs__c}" rendered="{!IF(fetchedApp.RegisteredBusinessTradingAs__c=null,false,true)}"/>
+                                            <apex:outputText value="{!fetchedApp.RegisteredBusinessTradingAs__c}" rendered="{!IF(fetchedApp.RegisteredBusinessTradingAs__c=null,false,true)}" styleclass="OutputReadOnly"/>                                       
+                                        </div>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            
+                                <table>
+                                <tr>
+                                    <td width="390px">
+                                        <div Class="input required input-large">
+                                            <p>{!$ObjectType.Application__c.Fields.DescriptionOfBusinessOperation__c.inlineHelpText}<span class="symbol-req"> *</span><span class="LabelNoteSpan"> (Max of 250 characters)</span></p>
+                                            <apex:inputTextArea value="{!businessDesc}" style="{!businessDesc_ErrorStyle}" />                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <apex:outputPanel id="DescAndTrustee">    
+                                            <apex:outputPanel rendered="{!IF(LOWER(app.OrganisationType__c)='trading trust',true,false)}" styleclass="input required input-large" layout="block">
+                                                <p>{!$ObjectType.Application__c.Fields.Trustee1__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                                <apex:inputField value="{!app.Trustee1__c}" />                    
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                </table>                     
+
+                                <div class="input-group">
+                                    <div class="input required input-medium">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.IndustryType__c.label}<span class="symbol-req"> *</span></p>
+                                        <apex:selectList size="1" value="{!app.IndustryType__c}" style="width:248px">
+                                            <apex:selectOptions value="{!IndustryType}"/>  
+                                        </apex:selectList>  
+                                                                            
+                                    </div>
+                                    <div class="input">
+
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.DateBusinessCommenced__c.label}<span class="symbol-req"> *</span></p>     
+                                        <table>
+                                        <tr>
+                                            <td width="140px">
+                                                <div class="input required input-small">
+                                                    <apex:selectList size="1" value="{!app.DateBusinessCommencedMonth__c}" style="{!dateBusinessCommenced_ErrorStyle}" >
+                                                        <apex:selectOptions value="{!DateBusinessCommencedMonth}"/>  
+                                                    </apex:selectList>
+                                                    
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input required input-small" style="width:110px">                                                        
+                                                    <apex:inputField value="{!app.DateBusinessCommencedYear__c}" html-placeholder="Year" styleclass="numeric" onkeypress="return isNumericKey(event)" style="{!dateBusinessCommenced_ErrorStyle}"  />
+                                                    
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </table>                                    
+                                    </div>
+                                    
+
+                                    <div class="input required input-normal">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.NumberOfEmployees__c.label}<span class="symbol-req"> *</span></p>
+                                        <apex:inputField value="{!app.NumberOfEmployees__c}" styleclass="numeric" onkeypress="return isNumericKey(event)" />                    
+                                        
+                                    </div>                                    
+                                </div>
+
+                                <div style="height:15px">&nbsp;</div>
+
+                                <apex:outputPanel rendered="{!IF(app.isExistingAusPostBusinessAccount__c='Yes',true,false)}">
+                                    <div class="input required input-medium">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.OrganisationType__c.label}<span class="symbol-req"> *</span></p> 
+                                        <apex:actionRegion >
+                                            <apex:selectList size="1" value="{!app.OrganisationType__c}"  style="width:248px">
+                                                <apex:selectOptions value="{!OrganisationType}"/>  
+                                                <apex:actionSupport event="onchange" reRender="DescAndTrustee" status="Loading_OrganisationType" action="{!ShowHideTrustee}" /> 
+                                            </apex:selectList> 
+                                        </apex:actionRegion>                                                            
+                                    </div>
+                                   
+                                    <apex:actionStatus id="Loading_OrganisationType" style="display:block">
+                                        <apex:facet name="start">
+                                            <apex:image url="{!URLFOR($Resource.APMS_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                        </apex:facet>
+                                    </apex:actionStatus>
+                                </apex:outputPanel>
+                                
+                                <div style="height:5px">&nbsp;</div>
+                                                                
+                                <div class="input required input-normal">    
+                                    <p>{!$ObjectType.Application__c.Fields.IsGSTRegistered__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                    <apex:selectRadio value="{!app.IsGSTRegistered__c}" styleclass="CursorPointer">
+                                        <apex:selectoptions value="{!IsGSTRegistered}"  />
+                                    </apex:selectRadio>
+                                    <p class="error-message">Please enter a value.</p>
+                                </div>
+<!-- Address1 -->
+        
+                                <apex:outputPanel id="BusinessAddressBlock" >
+                                    <p>Registered office address<span class="symbol-req"> *</span><span class="LabelNoteSpan"> (This must match ASIC records)</span></p>
+                                    <c:ApmsQasComponent address="{!businessAddress}" legend="Business Address" rendered="{!LocationAddress=''}" qastype="required"/> 
+                                    <apex:outputText value="{!LocationAddress}" rendered="{!LocationAddress!=''}" styleclass="OutputReadOnly"/>
+                                </apex:outputPanel>
+ 
+                                <apex:outputPanel rendered="{!IF(fetchedApp.IsMailingDiffToLocation__c=true,false,true)}">
+                                    <table>
+                                        <tr>
+                                            <td class="checkboxTable">
+                                                <apex:actionRegion >    
+                                                    <apex:inputField value="{!app.IsMailingDiffToLocation__c}" id="IsMailingDiffToLocation" styleclass="CursorPointer">
+                                                        <apex:actionSupport event="onclick" reRender="extraLayer_MailingAddressBlock" status="Loading_DiffToLocation" action="{!diffToLocationReset}"/>
+                                                    </apex:inputField>
+                                                </apex:actionRegion>
+                                            </td>
+                                            <td>
+                                                <p class="checkboxTable">
+                                                    <apex:outputLabel for="IsMailingDiffToLocation" styleclass="CursorPointer">
+                                                        {!$ObjectType.Application__c.Fields.IsMailingDiffToLocation__c.inlineHelpText}
+                                                    </apex:outputLabel>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>   
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!IF(fetchedApp.IsMailingDiffToLocation__c=true,true,false)}">
+                                    <div style="height:10px;">&nbsp;</div>
+                                </apex:outputPanel>
+
+                                <apex:actionStatus id="Loading_DiffToLocation" style="display:block">
+                                    <apex:facet name="start">
+                                        <apex:image url="{!URLFOR($Resource.APMS_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                    </apex:facet>
+                                </apex:actionStatus>                                 
+
+                                <div class="clearfix" />
+<!-- Address2 -->
+                                <apex:outputPanel id="extraLayer_MailingAddressBlock" >                                
+                                    <apex:outputPanel id="MailingAddressBlock" rendered="{!app.IsMailingDiffToLocation__c}">
+                                        <p>Business mailing address<span class="symbol-req"> *</span></p>
+                                        <c:ApmsQasComponent address="{!mailingAddress}" legend="Mailing Address" rendered="{!PostalAddress=''}" qastype="required"/> 
+                                        <apex:outputText value="{!PostalAddress}" rendered="{!PostalAddress!=''}" styleclass="OutputReadOnly"/>
+                                    </apex:outputPanel>                                         
+                                </apex:outputPanel>        
+
+                                <apex:outputPanel rendered="{!fetchedApp.BusinessEmailAddress__c!=null}" layout="block" style="height:10px;" />
+
+                                <div class="input-group" style="display:block">
+                                    <div class="input required input-normal">        
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.BusinessEmailAddress__c.label}<span class="symbol-req"> *</span></p>
+                                        <apex:inputField value="{!app.BusinessEmailAddress__c}" rendered="{!IF(fetchedApp.BusinessEmailAddress__c=null,true,false)}"  styleclass="email-textbox"/>
+                                        <apex:inputhidden value="{!app.BusinessEmailAddress__c}" rendered="{!IF(fetchedApp.BusinessEmailAddress__c=null,false,true)}" />
+                                        <apex:outputText value="{!fetchedApp.BusinessEmailAddress__c}" rendered="{!IF(fetchedApp.BusinessEmailAddress__c=null,false,true)}" styleclass="OutputReadOnly"/>                                                                                                                   
+                                    </div>    
+                                    <div class="input">
+                                        <br/>
+                                        <p>Daily settlement advices will be sent to this address</p>
+                                    </div>
+                                </div>
+                                <div style="height:10px">&nbsp;</div>                                 
+                                        
+                                <div class="input required input-normal">    
+                                    <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.BusinessWebsite__c.label}<span class="symbol-req"> *</span></p>
+                                    <apex:inputField value="{!app.BusinessWebsite__c}" rendered="{!IF(fetchedApp.BusinessWebsite__c=null,true,false)}"/>
+                                    <apex:inputhidden value="{!app.BusinessWebsite__c}" rendered="{!IF(fetchedApp.BusinessWebsite__c=null,false,true)}" />
+                                    <apex:outputText value="{!fetchedApp.BusinessWebsite__c}" rendered="{!IF(fetchedApp.BusinessWebsite__c=null,false,true)}" styleclass="OutputReadOnly"/>                                       
+                                </div>    
+                                   
+                                <!-- Insert OMNITURE on-page tracking for each section -->   
+                                <!-- SiteCatalyst code version: H.21.1.
+                                Copyright 1996-2010 Adobe, Inc. All Rights Reserved
+                                More info available at http://www.omniture.com -->      
+                                <script type="text/javascript">
+                                    s.pageName="auspost:merchant services:business details";
+                                    s.eVar8="merchant services-{!app.SelectedPricePlan__c}–{!IF(app.isExistingAusPostBusinessAccount__c='Yes','Existing','New')}-selection"; 
+                                    /* customized section end */
+                                    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+                                    var s_code=s.t();if(s_code)document.write(s_code);
+                                </script>
+                                <script language="JavaScript" type="text/javascript">
+                                if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-');
+                                </script><noscript><img src="https://australiapost.122.2o7.net/b/ss/auspost-prd/1/H.22.1--NS/0?[AQB]&cdp=3&[AQE]"
+                                height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
+                                <!-- End SiteCatalyst code version: H.22.1. -->
+                                <script type="text/javascript">_satellite.pageBottom();</script>                                 
+                                        
+                            </apex:outputPanel>
+<!--2-->
+                            <apex:outputPanel rendered="{!section=2}" id="Section2">
+                                <apex:outputPanel rendered="{!LOWER(app.OrganisationType__c)='sole trader'}">
+                                    <h2>Sole trader details</h2>
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!LOWER(app.OrganisationType__c)!='sole trader'}">
+                                    <h2>Business contact details</h2>
+                                </apex:outputPanel>                                
+                                
+                                <p>As we will need to contact you during the application process, please provide the details of your <b>primary business contact</b> with whom we can liaise.</p>
+                                <div style="height:15px"/>
+
+                                <apex:outputPanel id="BusinessContactBlock"  style="display:block;">
+                                    <div class="input-group">
+                                        <div class="input required input-medium">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactFirstName__c.label}<span class="symbol-req"> *</span></p>
+                                            <apex:inputField value="{!app.ContactFirstName__c}" />  
+                                            
+                                        </div>                                                  
+                                       <div class="input required input-medium">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactLastName__c.label}<span class="symbol-req"> *</span></p>
+                                            <apex:inputField value="{!app.ContactLastName__c}" />
+                                            
+                                        </div>
+                                        <div class="input required input-medium">                                        
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactPositionTitle__c.label}<span class="symbol-req"> *</span></p>
+                                            <apex:actionRegion >
+                                                <apex:selectList size="1" value="{!app.ContactPositionTitle__c}">
+                                                    <apex:selectOptions value="{!ContactPositionTitle}"/>
+                                                    <apex:actionSupport event="onchange" reRender="ContactPositionTitleOther" status="Loading_BusinessContactBlock" action="{!ShowHideContactPositionOther}" />  
+                                                </apex:selectList>
+                                            </apex:actionRegion>
+                                            
+                                            <apex:outputPanel id="ContactPositionTitleOther">
+                                                <apex:outputpanel rendered="{!IF(showContactPositionOtherFlag=true,true,false)}" styleclass="input required input-medium">                                                
+                                                    <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactPositionTitleOther__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                                    <apex:inputField value="{!app.ContactPositionTitleOther__c}" />                                                                    
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>    
+                                            <apex:actionStatus id="Loading_BusinessContactBlock" style="display:block">
+                                                <apex:facet name="start">
+                                                    <apex:image url="{!URLFOR($Resource.APMS_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                                </apex:facet>
+                                            </apex:actionStatus>                                              
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+
+
+                                <div class="input-group">
+                                    <div class="input required input-medium">                
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactPhone__c.label}<span class="symbol-req"> *</span></p>
+                                        <apex:inputText value="{!contactPhone}" onkeypress="return isNumericKey(event)" style="{!contactPhone_ErrorStyle}" maxLength="10" />                   
+                                    </div>
+                                    <div class="input required input-medium">                
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactMobile__c.label}<span class="symbol-req"> *</span></p>
+                                        <apex:inputText value="{!contactMobile}" onkeypress="return isNumericKey(event)" style="{!contactMobile_ErrorStyle}" maxLength="10" />                                        
+                                    </div>                                    
+                                    <div class="input input-medium">                
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactFax__c.label}</p>
+                                        <apex:inputText value="{!contactFax}" onkeypress="return isNumericKey(event)" style="{!contactFax_ErrorStyle}" maxLength="10" />
+                                    </div>
+                                </div>
+
+
+                                <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactEmail__c.label}<span class="symbol-req"> *</span></p>
+                                <table>
+                                <tr>
+                                    <td width="200px">
+                                        <apex:outputPanel styleclass="input required input-medium" id="contact-email" layout="block">
+                                            <apex:inputField value="{!app.ContactEmail__c}" styleclass="email-textbox" id="ContactEmailField"/>
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td class="PricePlanValue">
+                                        <table>
+                                            <tr>
+                                                <td class="checkboxTable">
+                                                    <apex:inputField value="{!app.IsAuthorisedSignatory__c}" id="IsAuthorisedSignatory" styleclass="CursorPointer" rendered="{!LOWER(app.OrganisationType__c)!='sole trader'}"/>                                                    
+                                                    <apex:outputPanel rendered="{!LOWER(app.OrganisationType__c)='sole trader'}">
+                                                        <input type="checkbox" checked="true" disabled="true"/>
+                                                    </apex:outputPanel>    
+                                                </td>
+                                                <td>
+                                                    <p class="checkboxTable">
+                                                        <apex:outputLabel for="IsAuthorisedSignatory" styleClass="CursorPointer">
+                                                            {!$ObjectType.Application__c.Fields.IsAuthorisedSignatory__c.inlineHelpText}
+                                                            <a href="#" class="tooltip-checkbox">
+                                                                <img src="{!URLFOR($Resource.APMS_Asset, 'css/images/icons-32bit/info.png')}" alt="Info" />
+                                                                <span>The authorised signatory will sign the SecurePay Online Payments Agreement.</span>
+                                                            </a>
+                                                        </apex:outputLabel>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>   
+                                    </td>                                    
+                                </tr>
+                                </table>
+
+<!--Partners/Directors/Trustees-->
+                                <apex:outputPanel rendered="{!LOWER(app.OrganisationType__c)!='sole trader'}" id="Principal1Block" >    
+
+                                    <hr/>
+                                
+                                    <h3>Details of partners, directors or trustees</h3>
+                                    
+                                    <h4 class="TradingDetailH4">Person 1</h4>
+                                    
+                                    <div class="input-group">
+                                        <div class="input required input-medium">                                        
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal1FirstName__c.label}<span class="symbol-req"> *</span></p>
+                                            <apex:inputField value="{!app.Principal1FirstName__c}" />
+                                            
+                                        </div>    
+                                        <div class="input required input-medium">                                        
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal1LastName__c.label}<span class="symbol-req"> *</span></p>
+                                            <apex:inputField value="{!app.Principal1LastName__c}" />   
+                                                             
+                                        </div>   
+                                        <div class="input required input-medium">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal1PositionTitle__c.label}<span class="symbol-req"> *</span></p>
+                                            <apex:actionRegion > 
+                                                <apex:selectList size="1" value="{!app.Principal1PositionTitle__c}" >
+                                                    <apex:selectOptions value="{!Principal1PositionTitle}"/>  
+                                                    <apex:actionSupport event="onchange" reRender="Principal1PositionOther" status="Loading_Principal1Block" action="{!ShowHidePrincipal1PositionOther}" />                                                  
+                                                </apex:selectList>
+                                            </apex:actionRegion>
+                                            
+                                            <apex:outputPanel id="Principal1PositionOther">
+                                                <apex:outputpanel rendered="{!IF(showPrincipal1PositionOtherFlag=true,true,false)}" styleclass="input required input-medium">                                            
+                                                    <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal1PositionTitleOther__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                                    <apex:inputField value="{!app.Principal1PositionTitleOther__c}" />                    
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+
+                                            <apex:actionStatus id="Loading_Principal1Block" style="display:block">
+                                                <apex:facet name="start">
+                                                    <apex:image url="{!URLFOR($Resource.APMS_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                                </apex:facet>
+                                            </apex:actionStatus>                                               
+                                        </div>                                                                                                                                                             
+                                    </div>
+                                </apex:outputPanel>
+
+
+
+                                <apex:outputPanel id="Principal1LowerBlock">
+<!-- Address3 --> 
+                                    <apex:outputPanel layout="block" rendered="{!LOWER(app.OrganisationType__c)!='sole trader'}" style="height:10px"/>
+
+                                    <table>
+                                    <tr>
+                                        <td width="460px">
+                                            <apex:outputPanel id="Principal1AddressBlock" >
+                                                <p class="SentenceCaseP">Residential Address<span class="symbol-req"> *</span></p>
+                                                <c:ApmsQasComponent address="{!principal1Address}" legend="Principal1 Address"  qastype="required"/> 
+                                            </apex:outputPanel>
+                                        </td>
+                                        <td>
+                                            <div class="input required input-normal">
+                                                <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal1Premises__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                                <apex:selectRadio value="{!app.Principal1Premises__c}" styleclass="CursorPointer">
+                                                    <apex:selectoptions value="{!Principal1Premises}" />
+                                                </apex:selectRadio>
+                                                <p class="error-message">Please enter a value.</p>
+                                            </div>                                                
+                                        </td>
+                                    </tr>
+                                    </table>            
+ 
+                                                                                                       
+                                    <div style="display:block;height:10px;"/>
+                              
+                                    <div class="input-group">
+                                        <div class="input required input-normal">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal1DOB__c.label}<span class="symbol-req"> *</span><span class="LabelNoteSpan"> (dd/mm/yyyy)</span></p>
+                                            <apex:inputText value="{!Principal1DOB}" style="{!dob1_ErrorStyle}" maxLength="10"/>
+                                        </div>                                        
+                                        <div class="input required input-medium">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal1DriverLicenceNumber__c.label}<span class="symbol-req"> *</span></p>
+                                            <apex:inputField value="{!app.Principal1DriverLicenceNumber__c}"/>                                                                                                                    
+                                        </div>
+                                    </div> 
+
+                                    <apex:outputPanel rendered="{!LOWER(app.OrganisationType__c)!='sole trader'}">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactSignatoryEmail1__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                        <table>
+                                        <tr>
+                                            <td width="200px">
+                                                <apex:outputPanel styleclass="input required input-medium" id="principal1-email" layout="block">
+                                                    <apex:inputField value="{!app.ContactSignatoryEmail1__c}" styleclass="email-textbox"  id="Principal1EmailField"/>
+                                                </apex:outputPanel>
+                                            </td>
+                                            <td class="PricePlanValue">
+                                                <table>
+                                                    <tr>
+                                                        <td class="checkboxTable">
+                                                            <input type="checkbox" checked="true" disabled="true"/>
+                                                        </td>
+                                                        <td>
+                                                            <p class="checkboxTable">
+                                                                <apex:outputLabel for="IsPrincipal1AuthorisedSignatory" styleClass="CursorPointer">
+                                                                    {!$ObjectType.Application__c.Fields.IsPrincipal1AuthorisedSignatory__c.inlineHelpText}
+                                                                    <a href="#" class="tooltip-checkbox">
+                                                                        <img src="{!URLFOR($Resource.APMS_Asset, 'css/images/icons-32bit/info.png')}" alt="Info" />
+                                                                        <span>The authorised signatory will sign the SecurePay Online Payments Agreement.</span>
+                                                                    </a>
+                                                                </apex:outputLabel>
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                </table>   
+                                            </td>                                    
+                                        </tr>
+                                        </table>
+                                    </apex:outputPanel>                                    
+                                </apex:outputPanel>                          
+
+                                <apex:outputPanel rendered="{!LOWER(app.OrganisationType__c)!='sole trader'}" id="Principal2Block" >
+                                    <h4 class="TradingDetailH4">Person 2</h4>
+                                    
+                                    <div class="input-group">
+                                        <div class="input input-medium">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal2FirstName__c.label}</p>
+                                            <apex:inputField value="{!app.Principal2FirstName__c}" />                                            
+                                        </div>
+                                        <div class="input input-medium">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal2LastName__c.label}</p>
+                                            <apex:inputField value="{!app.Principal2LastName__c}" />                                                                
+                                        </div>
+                                        <div class="input input-medium">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal2PositionTitle__c.label}</p>
+                                            <apex:actionRegion >
+                                                <apex:selectList size="1" value="{!app.Principal2PositionTitle__c}" >
+                                                    <apex:selectOptions value="{!Principal2PositionTitle}"/>  
+                                                    <apex:actionSupport event="onchange" reRender="Principal2PositionOther" status="Loading_Principal2Block" action="{!ShowHidePrincipal2PositionOther}" />  
+                                                </apex:selectList>
+                                            </apex:actionRegion>
+                                            
+                                            <apex:outputPanel id="Principal2PositionOther">
+                                                <apex:outputpanel rendered="{!IF(showPrincipal2PositionOtherFlag=true,true,false)}" styleclass="input required input-medium">
+                                                    <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal2PositionTitleOther__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                                    <apex:inputField value="{!app.Principal2PositionTitleOther__c}" />                                                                    
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                            
+                                            <apex:actionStatus id="Loading_Principal2Block" style="display:block">
+                                                <apex:facet name="start">
+                                                    <apex:image url="{!URLFOR($Resource.APMS_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                                </apex:facet>
+                                            </apex:actionStatus>                                                                 
+                                        </div>
+                                    </div>
+<!-- Address4 --> 
+                                    <div style="height:10px"/>
+                                    <table>
+                                    <tr>
+                                        <td width="460px">
+                                            <apex:outputPanel id="Principal2AddressBlock" >
+                                                <p class="SentenceCaseP">Residential Address</p>
+                                                <c:ApmsQasComponent address="{!principal2Address}" legend="Principal2 Address"  qastype=""/> 
+                                            </apex:outputPanel>
+                                        </td>
+                                        <td>
+                                            <div class="input input-normal">
+                                                <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal2Premises__c.inlineHelpText}</p>
+                                                <apex:selectRadio value="{!app.Principal2Premises__c}" styleclass="CursorPointer">
+                                                    <apex:selectoptions value="{!Principal2Premises}" />
+                                                </apex:selectRadio>
+                                                <p class="error-message">Please enter a value.</p>
+                                            </div>                                                
+                                        </td>
+                                    </tr>
+                                    </table>   
+
+                                    <div style="display:block;height:10px;"/>
+                              
+                                    <div class="input-group">
+                                        <div class="input input-normal">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal2DOB__c.label}<span class="LabelNoteSpan"> (dd/mm/yyyy)</span></p>
+                                            <apex:inputText value="{!Principal2DOB}" style="{!dob2_ErrorStyle}" maxlength="10" />                                            
+                                        </div>                                        
+                                        <div class="input input-medium">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal2DriverLicenceNumber__c.label}</p>
+                                            <apex:inputField value="{!app.Principal2DriverLicenceNumber__c}"/>                                             
+                                        </div>
+                                    </div>  
+                                    
+                                    <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactSignatoryEmail2__c.inlineHelpText}</p>
+                                    <table>
+                                    <tr>
+                                        <td width="200px">
+                                            <apex:outputPanel styleclass="input input-medium" id="principal2-email" layout="block">
+                                                <apex:inputField value="{!app.ContactSignatoryEmail2__c}" id="Principal2EmailField"  styleclass="{!principal2Signatory_ErrorStyleClass}" style="{!principal2Signatory_ErrorStyle}"/>
+                                            </apex:outputPanel>
+                                        </td>
+                                        <td class="PricePlanValue">
+                                            <table>
+                                                <tr>
+                                                    <td class="checkboxTable">
+                                                        <apex:inputField value="{!app.isPrincipal2AuthorisedSignatory__c}" id="IsPrincipal2AuthorisedSignatory" styleclass="CursorPointer" onclick="accessEmailField2('{!$Component.Principal2EmailField}');" />
+                                                        <script>
+                                                            var isFlagTicked = document.getElementById('{!$Component.IsPrincipal2AuthorisedSignatory}').checked;
+                                                            document.getElementById('{!$Component.Principal2EmailField}').disabled=!isFlagTicked;
+                                                        </script>                                               
+                                                    </td>
+                                                    <td>
+                                                        <p class="checkboxTable">
+                                                            <apex:outputLabel for="IsPrincipal2AuthorisedSignatory" styleClass="CursorPointer">
+                                                                {!$ObjectType.Application__c.Fields.IsPrincipal2AuthorisedSignatory__c.inlineHelpText}
+                                                                <a href="#" class="tooltip-checkbox">
+                                                                    <img src="{!URLFOR($Resource.APMS_Asset, 'css/images/icons-32bit/info.png')}" alt="Info" />
+                                                                    <span>The authorised signatory will sign the SecurePay Online Payments Agreement.</span>
+                                                                </a>
+                                                            </apex:outputLabel>
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </table>   
+                                        </td>                                    
+                                    </tr>
+                                    </table>                                   
+                                </apex:outputPanel>    
+
+
+                                <!-- Insert OMNITURE on-page tracking for each section -->   
+                                <!-- SiteCatalyst code version: H.21.1.
+                                Copyright 1996-2010 Adobe, Inc. All Rights Reserved
+                                More info available at http://www.omniture.com -->      
+                                <script type="text/javascript">
+                                    s.pageName="auspost:merchant services:contract signatories"; 
+                                    /* customized section end */
+                                    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+                                    var s_code=s.t();if(s_code)document.write(s_code);
+                                </script>
+                                <script language="JavaScript" type="text/javascript">
+                                if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-');
+                                </script><noscript><img src="https://australiapost.122.2o7.net/b/ss/auspost-prd/1/H.22.1--NS/0?[AQB]&cdp=3&[AQE]"
+                                height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
+                                <!-- End SiteCatalyst code version: H.22.1. -->  
+                                <script type="text/javascript">_satellite.pageBottom();</script>                              
+                                                
+                            </apex:outputPanel>
+    
+    
+    
+<!--3-->                
+                            <apex:outputPanel rendered="{!section=3}" id="Section3">
+                                <h2>Trading details</h2>
+                                <p>Please provide your business trading details so we can process your application.</p>
+
+
+
+
+
+
+
+                                
+                                <table>
+                                <tr>
+                                    <td width="400px">
+                                        <div class="input required input-normal">
+                                            <p>{!$ObjectType.Application__c.Fields.isExistingSecurePayMerchantID__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                            <apex:actionRegion >
+                                                <apex:selectRadio value="{!app.isExistingSecurePayMerchantID__c}" styleClass="CursorPointer">
+                                                    <apex:selectoptions value="{!isExistingSecurePayMerchantID}" />
+                                                    <apex:actionSupport event="onclick" reRender="Extralayer-SecurePay-MerchantId, Extralayer-ExistingAPMSMerchantId" status="Loading_Section3HiddenRow1" action="{!showHideSecurePayMerchant}"/>
+                                                </apex:selectRadio>        
+                                                <p class="error-message">Please enter a value.</p>
+                                            </apex:actionRegion>
+                                        </div>
+                                        <apex:actionStatus id="Loading_Section3HiddenRow1">
+                                            <apex:facet name="start">
+                                                <apex:image url="{!URLFOR($Resource.APMS_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                            </apex:facet>
+                                        </apex:actionStatus>  
+                                    </td>
+                                    <td width="400px">
+                                        <apex:outputPanel id="Extralayer-SecurePay-MerchantId">
+                                            <apex:outputPanel rendered="{!showSecurePayMerchantFlag}" >
+                                                <div class="input required input-medium">
+                                                    <p>{!$ObjectType.Application__c.Fields.SecurePayMerchantID__c.label}
+                                                        <span class="symbol-req"> * 
+                                                            <a href="#" class="tooltip">
+                                                                <img src="{!URLFOR($Resource.APMS_Asset, 'css/images/icons-32bit/info.png')}" alt="Info" />
+                                                                <span>
+                                                                    Please provide the 3 character SecurePay Merchant ID that you use to log into your SecurePay account. 
+                                                                </span>
+                                                            </a>
+                                                        </span>
+                                                    </p> 
+                                                    <apex:inputField value="{!app.SecurePayMerchantID__c}"/> 
+                                                </div>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                </table>  
+ 
+                                <table>
+                                <tr>
+                                    <td width="400px">
+                                        <apex:outputPanel id="Extralayer-ExistingAPMSMerchantId">
+                                            <apex:outputPanel rendered="{!showSecurePayMerchantFlag}" >
+                                                <div class="input input-normal">
+                                                    <p>{!$ObjectType.Application__c.Fields.isExistingAPMSMerchantId__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                                    <apex:selectRadio value="{!app.isExistingAPMSMerchantId__c}" styleClass="CursorPointer">
+                                                        <apex:selectoptions value="{!isExistingAPMSMerchantId}" />
+                                                    </apex:selectRadio>        
+                                                    <apex:outputText value="{!errormsg_ErrorStyle}" escape="false"/>
+                                                </div>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                </table>
+    
+                                <div class="input input-medium">
+                                    <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ShoppingCart__c.label}</p>
+                                    <apex:actionRegion >
+                                        <apex:selectList size="1" value="{!app.ShoppingCart__c}" >
+                                            <apex:selectOptions value="{!ShoppingCart}"/>  
+                                            <apex:actionSupport event="onchange" reRender="Section3HiddenRow2" status="Loading_Section3HiddenRow2" action="{!ShowHideShoppingCartOther}"/>
+                                        </apex:selectList>
+                                    </apex:actionRegion>                                               
+                                </div>
+                                
+                                <apex:actionStatus id="Loading_Section3HiddenRow2">
+                                    <apex:facet name="start">
+                                        <apex:image url="{!URLFOR($Resource.APMS_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                    </apex:facet>
+                                </apex:actionStatus>  
+                                
+                                <apex:outputPanel id="Section3HiddenRow2">
+                                    <apex:outputPanel rendered="{!IF(showShoppingCartOtherFlag=true,true,false)}">
+                                        <div class="input required input-medium">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ShoppingCartOther__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                            <apex:inputField value="{!app.ShoppingCartOther__c}"/>
+                                        </div>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+
+
+                                <div class="input required input-large">
+                                    <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.NameOnCCStatement__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                    <apex:inputField value="{!app.NameOnCCStatement__c}" style="{!nameOnCCStatement_ErrorStyle}" />
+                                    
+                                </div>
+
+                                <br/> 
+                
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <h4 class="TradingDetailH4">Sales and transactions</h4>
+                                    </td>
+                                    <td width="200px">
+                                        <p><b>Historic</b></p>
+                                    </td>
+                                    <td width="200px">
+                                        <p><b>Projected</b></p>
+                                    </td>
+                                </tr>
+                                </table>
+                                
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p class="questionP SentenceCaseP">{!$ObjectType.Application__c.Fields.AverageMonthlySalesVolumeHistoric__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="input required">
+                                            <apex:inputField value="{!app.AverageMonthlySalesVolumeHistoric__c}" onkeypress="return isNumericKey(event)" html-placeholder="Enter Number" />
+                                            
+                                        </div>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="input required">
+                                            <apex:inputField value="{!app.AverageMonthlySalesVolumeProjected__c}" onkeypress="return isNumericKey(event)" html-placeholder="Enter Number" />                    
+                                            
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p>{!$ObjectType.Application__c.Fields.AverageMonthlyCCTransHistoric__c.inlineHelpText}<span class="symbol-req"> *</span><span class="LabelNoteSpan"> (Excluding American express and Diners)</span></p>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="input required">
+                                            <apex:inputField value="{!app.AverageMonthlyCCTransHistoric__c}" onkeypress="return isNumericKey(event)" html-placeholder="Enter Number" />
+                                            
+                                        </div>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="input required">
+                                            <apex:inputField value="{!app.AverageMonthlyCCTransProjected__c}" onkeypress="return isNumericKey(event)" html-placeholder="Enter Number" />
+                                            
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+
+                                
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p class="questionP SentenceCaseP">{!$ObjectType.Application__c.Fields.AverageValueOfEachSalesHistoric__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="input required">
+                                            <apex:inputField value="{!app.AverageValueOfEachSalesHistoric__c}" onkeypress="return isNumericKey(event)" html-placeholder="$" />
+                                            
+                                        </div>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="input required">
+                                            <apex:inputField value="{!app.AverageValueOfEachSalesProjected__c}" onkeypress="return isNumericKey(event)" html-placeholder="$" />
+                                            
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>        
+                                        
+                        
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p class="questionP">{!$ObjectType.Application__c.Fields.TotalAnnualTurnoverHistoric__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="input required">
+                                            <apex:inputField value="{!app.TotalAnnualTurnoverHistoric__c}" onkeypress="return isNumericKey(event)" html-placeholder="$" />
+                                            
+                                        </div>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="input required">
+                                            <apex:inputField value="{!app.TotalAnnualTurnoverProjected__c}" onkeypress="return isNumericKey(event)" html-placeholder="$" />                
+                                            
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+    
+                                <div style="height:10px">&nbsp;</div> 
+                            <!---Start of New fields added as part of multi-currency feature for secure pay-->
+                                            <table>
+                                                <tr>
+                                                    <td width="400px">
+                                                        <div class="input required input-normal">
+                                                            <p>{!$ObjectType.Application__c.Fields.Opt_for_Multicurrency__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                                            <apex:actionRegion >
+                                                                <apex:selectRadio value="{!app.Opt_for_Multicurrency__c}" styleClass="CursorPointer">
+                                                                    <apex:selectoptions value="{!OptforMulticurrency}" />
+                                                                    <apex:actionSupport event="onclick" reRender="Extralayer-SecurePay-Multicurrency" status="Loading_Section3HiddenRow5" action="{!showHideMulticurrencyFields}"/>
+                                                                </apex:selectRadio>        
+                                                                <p class="error-message">Please enter a value.</p>
+                                                            </apex:actionRegion>
+                                                        </div>
+                                                        <apex:actionStatus id="Loading_Section3HiddenRow5">
+                                                            <apex:facet name="start">
+                                                                <apex:image url="{!URLFOR($Resource.APMS_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                                            </apex:facet>
+                                                        </apex:actionStatus>  
+                                                    </td>
+                                                </tr>
+                                            </table>  
+                                            
+                                            <table>
+                                                <tr>
+                                                    <td width="1000px">
+                                                        <apex:outputPanel id="Extralayer-SecurePay-Multicurrency">
+                                                            <apex:outputPanel rendered="{!showMulticurrencyFlag}" >                                
+                                            					<div class="input-group">
+                                                                    <div class="input required input-medium">
+                                                                    <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Avg_Foreign_Currency_Transaction_Value__c.label}<span class="symbol-req"> *</span></p>
+                                                                    <apex:inputField value="{!app.Avg_Foreign_Currency_Transaction_Value__c}" styleclass="currency" onkeypress="return isNumericKey(event)" />                     
+                                                                    </div>      
+                                                                    <div class="input required input-medium">
+                                                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Avg_Foreign_Currency_Transactions_Mthly__c.label}<span class="symbol-req"> *</span></p>
+                                                                        <apex:inputField value="{!app.Avg_Foreign_Currency_Transactions_Mthly__c}" styleclass="numeric" onkeypress="return isNumericKey(event)" />                     
+                                                                    </div>                                         
+                                                                
+                                                                    <div class="input required input-medium">
+                                                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Annual_Foreign_Currency_Turnover__c.label}<span class="symbol-req"> *</span></p>
+                                                                        <apex:inputField value="{!app.Annual_Foreign_Currency_Turnover__c}" styleclass="currency" onkeypress="return isNumericKey(event)" />                     
+                                                                    </div>   
+                                                            </div>
+                                                            </apex:outputPanel>
+                                                        </apex:outputPanel>
+                                                    </td>
+                                                </tr>
+                                            </table>
+								<!---End of New fields added as part of multi-currency feature for secure pay-->
+                                <div style="height:10px">&nbsp;</div>                                          
+                                <h4 class="TradingDetailH4">Business operations</h4>
+                                
+                                <table>
+                                <tr>
+                                    <td width="450px">
+                                        <div class="input required">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.isMerchantFacilityTerminatedPreviously__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                            <apex:selectRadio value="{!app.isMerchantFacilityTerminatedPreviously__c}" styleClass="CursorPointer">
+                                                <apex:selectoptions value="{!isMerchantFacilityTerminatedPreviously}" />
+                                            </apex:selectRadio>
+                                            <p class="error-message">Please enter a value.</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input required">
+                                            <p>{!$ObjectType.Application__c.Fields.isMerchantFacilityWithAnotherProvider__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                            <apex:selectRadio value="{!app.isMerchantFacilityWithAnotherProvider__c}" styleClass="CursorPointer">
+                                                <apex:selectoptions value="{!isMerchantFacilityWithAnotherProvider}" />
+                                            </apex:selectRadio>
+                                            <p class="error-message">Please enter a value.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+                    
+                                <table>
+                                <tr>
+                                    <td width="450px">
+                                        <div class="input required">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.isMerchantFacilityToBeUsedByOthers__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                            <apex:selectRadio value="{!app.isMerchantFacilityToBeUsedByOthers__c}" styleClass="CursorPointer">
+                                                <apex:selectoptions value="{!isMerchantFacilityToBeUsedByOthers}" />
+                                            </apex:selectRadio>
+                                            <p class="error-message">Please enter a value.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+
+                                <table>
+                                <tr>
+                                    <td width="450px">
+                                        <div class="input required">
+                                            <p >{!$ObjectType.Application__c.Fields.isYourSystemsMonitorCCTransactions__c.inlineHelpText}
+                                                <span class="symbol-req"> * 
+                                                    <a href="#" class="tooltip">
+                                                        <img src="{!URLFOR($Resource.APMS_Asset, 'css/images/icons-32bit/info.png')}" alt="Info" />
+                                                        <span>
+                                                           Refer to <u>https://www.pcicomplianceguide.org/pci-faqs-2/</u> for your information and obligations.
+                                                        </span>
+                                                    </a>
+                                                </span>
+                                            </p>                                                    
+                                            
+                                            <apex:selectRadio value="{!app.isYourSystemsMonitorCCTransactions__c}" styleClass="CursorPointer">
+                                                <apex:selectoptions value="{!isYourSystemsMonitorCCTransactions}" />
+                                            </apex:selectRadio>
+                                            <p class="error-message">Please enter a value.</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input required">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.isProcessPaymentsForAnotherBusiness__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                            <apex:selectRadio value="{!app.isProcessPaymentsForAnotherBusiness__c}" styleClass="CursorPointer">
+                                                <apex:selectoptions value="{!isProcessPaymentsForAnotherBusiness}" />
+                                            </apex:selectRadio>
+                                            <p class="error-message">Please enter a value.</p>                               
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+    
+                                <table>
+                                <tr>
+                                    <td width="450px">
+                                        <div class="input required">
+                                            <p>{!$ObjectType.Application__c.Fields.isMainBusinessOperatedInAustralia__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                            <apex:selectRadio value="{!app.isMainBusinessOperatedInAustralia__c}" styleClass="CursorPointer">
+                                                <apex:selectoptions value="{!isMainBusinessOperatedInAustralia}" />
+                                            </apex:selectRadio>
+                                            <p class="error-message">Please enter a value.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+    
+                                <hr/>
+                                                
+                                <h3>Receiving credit card payments</h3>
+                                
+                                <p>Please outline when you receive credit card payments in the transaction breakdown below. <b>The total of all 3 payment types must equal 100%.</b></p>                            
+                    
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p>&nbsp;</p>
+                                    </td>
+                                    <td width="200px">
+                                        <p><b>Percentage %</b></p>
+                                    </td>
+                                </tr>
+                                </table>
+                    
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.CCSameDayProcessingPercentage__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="input required">
+                                            <apex:inputField value="{!app.CCSameDayProcessingPercentage__c}" onkeypress="return isNumericKey(event)" style="{!totalPercentage_ErrorStyle}" />
+                                            
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+                                <br/>
+                    
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.CCChargedInAdvancePercentage__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="input required">
+                                            <apex:inputField value="{!app.CCChargedInAdvancePercentage__c}" onkeypress="return isNumericKey(event)" style="{!totalPercentage_ErrorStyle}" />
+                                            
+                                        </div>
+                                    </td>
+                                    <td >
+                                        <div class="input">
+                                            <apex:inputField value="{!app.CCChargedInAdvanceDaysInAdvance__c}" html-placeholder="# days paid in advance" onkeypress="return isNumericKey(event)" style="{!daysPaidInAdvance_ErrorStyle}"/>
+                                            
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+                                <br/>
+                    
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p class="questionP SentenceCaseP">{!$ObjectType.Application__c.Fields.CCChargedInArrearsPercentage__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="input required">
+                                            <apex:inputField value="{!app.CCChargedInArrearsPercentage__c}" onkeypress="return isNumericKey(event)" style="{!totalPercentage_ErrorStyle}" />
+                                            
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table> 
+                            
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        &nbsp;
+                                    </td>
+                                    <td width="200px">
+                                        <h3>Total 100%</h3>
+                                    </td>
+                                </tr>
+                                </table>
+                                
+                                <hr/>
+                                <h3>Business Bank Account for Settlement Deposits</h3>
+                                <p>Nominated accounts must be BUSINESS ACCOUNTS. Personal accounts cannot be used.</p>
+                                
+                                <div class="input-group">
+                                    <div class="input required input-small">
+                                        <p>{!$ObjectType.Application__c.Fields.MerchantBankKeyBSB__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                        <apex:inputField value="{!app.MerchantBankKeyBSB__c}" onkeypress="return isNumericKey(event)" />
+                                    </div>
+                                    <div class="input required input-medium">
+                                        <p>{!$ObjectType.Application__c.Fields.MerchantBankAccountNumber__c.inlineHelpText}<span class="symbol-req"> *</span></p>
+                                        <apex:inputField value="{!app.MerchantBankAccountNumber__c}" onkeypress="return isNumericKey(event)" />
+                                    </div>
+                                </div>
+                                <br/>
+                                
+                                
+                                <!-- Insert OMNITURE on-page tracking for each section -->   
+                                <!-- SiteCatalyst code version: H.21.1.
+                                Copyright 1996-2010 Adobe, Inc. All Rights Reserved
+                                More info available at http://www.omniture.com -->      
+                                <script type="text/javascript">
+                                    s.pageName="auspost:merchant services:trading details"; 
+                                    /* customized section end */
+                                    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+                                    var s_code=s.t();if(s_code)document.write(s_code);
+                                </script>
+                                <script language="JavaScript" type="text/javascript">
+                                if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-');
+                                </script><noscript><img src="https://australiapost.122.2o7.net/b/ss/auspost-prd/1/H.22.1--NS/0?[AQB]&cdp=3&[AQE]"
+                                height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
+                                <!-- End SiteCatalyst code version: H.22.1. -->
+                                <script type="text/javascript">_satellite.pageBottom();</script>
+                                                                
+                            </apex:outputPanel>    
+                            
+<!--4-->            
+                            <apex:outputPanel rendered="{!section=4}" id="Section4">
+                                <h2>Confirm your application details</h2>
+                                <h3>Please confirm all the details below are correct before submitting.</h3>
+
+                                <table>
+                                <tr>
+                                    <td width="420px">
+                                        <p>{!$ObjectType.Application__c.Fields.FullLegalCompanyName__c.inlineHelpText}<span class="LabelNoteSpan"> (as appears on official documents/papers)</span></p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputText value="{!app.FullLegalCompanyName__c}" />
+                                        </div>
+                                    </td>
+                                    <td width="200px">                  
+                                        <p>{!$ObjectType.Application__c.Fields.ACN__c.label}</p>
+                                        <div class="OutputReadOnly">    
+                                            <apex:outputText value="{!app.ACN__c}"/>
+                                        </div>
+                                    </td>
+                                    <td>                                    
+                                        <p>{!$ObjectType.Application__c.Fields.ABN__c.label}</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputText value="{!app.ABN__c}"/>
+                                        </div>    
+                                    </td>
+                                </tr>
+                                </table>
+                                <div style="height:10px">&nbsp;</div>
+    
+                                <p class="OutputP">{!$ObjectType.Application__c.Fields.IsTradeUnderDifferentName__c.label}</p>
+                                <apex:outputText value="{!IF(app.IsTradeUnderDifferentName__c=true,'Yes','No')}" rendered="{!IF(app.IsTradeUnderDifferentName__c=true,false,true)}" styleclass="OutputReadOnly" /> 
+                                <apex:outputText value="{!app.RegisteredBusinessTradingAs__c}" rendered="{!IF(app.IsTradeUnderDifferentName__c=true,true,false)}" styleclass="OutputReadOnly"/>                                            
+                          
+                                <div style="height:10px">&nbsp;</div>    
+
+                                <div class="input-group">
+                                    <div class="input">                          
+                                       <p class="OutputP SentenceCaseP">{!$ObjectType.Application__c.Fields.DescriptionOfBusinessOperation__c.label}</p>
+                                       <div class="OutputReadOnly">
+                                           <apex:outputField value="{!app.DescriptionOfBusinessOperation__c}" />
+                                       </div>
+                                    </div>
+                                    <apex:outputPanel rendered="{!IF(LOWER(app.OrganisationType__c)='trading trust',true,false)}" layout="block" styleclass="input">
+                                        <p class="OutputP">{!$ObjectType.Application__c.Fields.Trustee1__c.inlineHelpText}</p>
+                                        <div class="OutputReadOnly">
+                                           <apex:outputField value="{!app.Trustee1__c}"/>
+                                        </div>                    
+                                    </apex:outputPanel>
+                                </div>    
+                                    
+                                <div style="height:10px">&nbsp;</div>
+    
+                                <table>
+                                <tr>
+                                    <td width="200px" style="vertical-align:middle !important;">
+                                        <apex:outputPanel styleClass="input input-large">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.IndustryType__c.label}</p>
+                                            <div class="OutputReadOnly">
+                                                <apex:outputField value="{!app.IndustryType__c}" />                    
+                                            </div>
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td width="200px" style="vertical-align:middle !important;">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.DateBusinessCommenced__c.label}</p>
+     
+                                        <table>
+                                        <tr>
+                                            <td width="70px">
+                                                <div class="OutputReadOnly">
+                                                    <apex:outputText value="{!app.DateBusinessCommencedMonth__c}" />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="OutputReadOnly">
+                                                    <apex:outputText value="{!app.DateBusinessCommencedYear__c}" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </table>
+                                    </td>
+
+                                    <td style="vertical-align:middle !important;">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.NumberOfEmployees__c.label}</p>
+                                        <div class="OutputReadOnly">                                    
+                                            <apex:outputField value="{!app.NumberOfEmployees__c}" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+                                <div style="height:10px">&nbsp;</div>
+    
+                                <p>{!$ObjectType.Application__c.Fields.IsGSTRegistered__c.inlineHelpText}</p>
+                                <div class="OutputReadOnly">
+                                    <apex:outputField value="{!app.IsGSTRegistered__c}" />
+                                </div>
+                                <div style="height:10px">&nbsp;</div>
+
+
+
+                                <p>Registered office address<span class="LabelNoteSpan"> (This must match ASIC records)</span></p>
+                                <apex:outputText value="{!ROLocationAddress}" styleclass="OutputReadOnly WideDiv"/>                                        
+                                <apex:outputPanel rendered="{!app.IsMailingDiffToLocation__c=false}">This is also your business mailing address</apex:outputPanel>
+                                <div style="height:10px">&nbsp;</div>
+                                    
+                                <apex:outputPanel rendered="{!IF(app.IsMailingDiffToLocation__c=true,true,false)}">
+                                    <p>Business mailing address</p>
+                                    <apex:outputText value="{!ROPostalAddress}" styleclass="OutputReadOnly"/>                                        
+                                    <div style="height:10px">&nbsp;</div>    
+                                </apex:outputPanel>
+
+                                <p class="OutputP SentenceCaseP">{!$ObjectType.Application__c.Fields.BusinessEmailAddress__c.label}</p>
+                                <apex:outputText value="{!app.BusinessEmailAddress__c}" styleclass="OutputReadOnly WideDiv"/>
+                                <apex:outputPanel >Daily settlement advices will be sent to this address</apex:outputPanel>
+                                <div style="height:10px">&nbsp;</div>
+                                
+                                <p class="OutputP SentenceCaseP">{!$ObjectType.Application__c.Fields.BusinessWebsite__c.label}</p>
+                                <div class="OutputReadOnly">
+                                    <apex:outputText value="{!app.BusinessWebsite__c}"/>
+                                </div>
+                                <div style="height:10px">&nbsp;</div>
+    
+                                <p class="OutputP SentenceCaseP">{!$ObjectType.Application__c.Fields.OrganisationType__c.label}</p>
+                                <div class="OutputReadOnly">
+                                    <apex:outputText value="{!app.OrganisationType__c}"/>
+                                </div>
+    
+    
+                                <hr/>
+    
+    
+                                <h3>Primary business contact details</h3>
+
+                                <table>
+                                <tr>
+                                    <td width="250px">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactFirstName__c.label}</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.ContactFirstName__c}" />                    
+                                        </div>
+                                    </td>
+                                    <td width="250px">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactLastName__c.label}</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.ContactLastName__c}" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <apex:outputPanel styleclass="input input-normal">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactPositionTitle__c.label}</p>
+                                            <apex:outputText value="{!app.ContactPositionTitle__c}" rendered="{!IF(app.ContactPositionTitle__c='Other',false,true)}" styleclass="OutputReadOnly" /> 
+                                            <apex:outputText value="{!app.ContactPositionTitleOther__c}" rendered="{!IF(app.ContactPositionTitle__c='Other',true,false)}" styleclass="OutputReadOnly"/>                                            
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                </table>
+                                <div style="height:10px">&nbsp;</div>
+                                
+
+                                <table>
+                                <tr>
+                                    <td width="250px">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactPhone__c.label}</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.ContactPhone__c}" />                    
+                                        </div>
+                                    </td>
+                                    <td width="250px">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactMobile__c.label}</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputText value="{!app.ContactMobile__c}" />                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactFax__c.label}</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputText value="{!app.ContactFax__c}"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+                                <div style="height:10px">&nbsp;</div>
+
+                                <table>
+                                <tr>
+                                    <td width="250px">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactEmail__c.label}</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputText value="{!app.ContactEmail__c}" />                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.IsAuthorisedSignatory__c.inlineHelpText}</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputText value="{!IF(app.IsAuthorisedSignatory__c=true,'Yes','No')}"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+                                <div style="height:10px">&nbsp;</div>
+
+                                <apex:outputPanel rendered="{!LOWER(app.OrganisationType__c)!='sole trader'}" id="Section4Principal1Block" >
+                                    <hr/>
+                                
+                                    <h3>Details of partners, directors or trustees</h3>
+                                    
+                                    <h4 class="TradingDetailH4">Person 1</h4>
+                                    <table>
+                                    <tr>
+                                        <td width="250px">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal1FirstName__c.label}</p>
+                                            <div class="OutputReadOnly">
+                                                <apex:outputText value="{!app.Principal1FirstName__c}" />
+                                            </div>
+                                        </td>
+                                        <td width="250px">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal1LastName__c.label}</p>
+                                            <div class="OutputReadOnly">                                            
+                                                <apex:outputText value="{!app.Principal1LastName__c}" />                    
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input input-normal">
+                                                <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal1PositionTitle__c.label}</p>
+                                                <apex:outputText value="{!app.Principal1PositionTitle__c}" rendered="{!IF(app.Principal1PositionTitle__c='Other',false,true)}" styleclass="OutputReadOnly" /> 
+                                                <apex:outputText value="{!app.Principal1PositionTitleOther__c}" rendered="{!IF(app.Principal1PositionTitle__c='Other',true,false)}" styleclass="OutputReadOnly"/> 
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </table>
+                                </apex:outputPanel>
+
+                                <apex:outputPanel >
+                                    <table>
+                                    <tr>
+                                        <td width="500px">
+                                            <div class="input input-large">
+                                                <p class="SentenceCaseP">Residential Address</p>
+                                                <apex:outputText value="{!ROPrincipal1Address}" styleclass="OutputReadOnly" />
+                                            </div>    
+                                        </td>
+                                        <td >
+                                            <div class="input input-normal">
+                                                <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal1Premises__c.inlineHelpText}</p>
+                                                <div class="OutputReadOnly">
+                                                    <apex:outputText value="{!app.Principal1Premises__c}" />
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </table>
+   
+                                        
+                                    <table>
+                                    <tr>
+                                        <td width="250px">
+                                            <div class="input input-normal dates">
+                                                <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal1DOB__c.label}<span class="LabelNoteSpan"> (dd/mm/yyyy)</span></p>
+                                                <div class="OutputReadOnly">
+                                                    <apex:outputText value="{!principal1DOB}"/>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td >
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal1DriverLicenceNumber__c.label}</p>
+                                            <div class="OutputReadOnly">     
+                                                <apex:outputField value="{!app.Principal1DriverLicenceNumber__c}"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </table>
+                                   
+                                    <apex:outputPanel rendered="{!LOWER(app.OrganisationType__c)!='sole trader'}">                                   
+                                        <table>
+                                        <tr>
+                                            <td width="250px">
+                                                <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactSignatoryEmail1__c.inlineHelpText}</p>
+                                                <div class="OutputReadOnly">
+                                                    <apex:outputText value="{!app.ContactSignatoryEmail1__c}" />                    
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.isPrincipal1AuthorisedSignatory__c.inlineHelpText}</p>
+                                                <div class="OutputReadOnly">
+                                                    <apex:outputText value="{!IF(app.isPrincipal1AuthorisedSignatory__c=true,'Yes','No')}"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </table>
+                                        <div style="height:10px">&nbsp;</div>
+                                    </apex:outputPanel>
+                                    <div style="height:10px">&nbsp;</div>                                   
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel rendered="{!LOWER(app.OrganisationType__c)!='sole trader'}" id="Section4Principal2Block" >
+                                    <h4 class="TradingDetailH4">Person 2</h4>
+                                    <table>
+                                    <tr>
+                                        <td width="250px">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal2FirstName__c.label}</p>
+                                            <div class="OutputReadOnly">
+                                                <apex:outputText value="{!app.Principal2FirstName__c}" />
+                                            </div>
+                                        </td>
+                                        <td width="250px">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal2LastName__c.label}</p>
+                                            <div class="OutputReadOnly">                                            
+                                                <apex:outputText value="{!app.Principal2LastName__c}" />                    
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input input-normal">
+                                                <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal2PositionTitle__c.label}</p>
+                                                <apex:outputText value="{!app.Principal2PositionTitle__c}" rendered="{!IF(app.Principal2PositionTitle__c='Other',false,true)}" styleclass="OutputReadOnly" /> 
+                                                <apex:outputText value="{!app.Principal2PositionTitleOther__c}" rendered="{!IF(app.Principal2PositionTitle__c='Other',true,false)}" styleclass="OutputReadOnly"/>                                            
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </table>
+                                    <div style="height:10px">&nbsp;</div>
+
+                                    <table>
+                                    <tr>
+                                        <td width="500px">
+                                            <div class="input input-large">
+                                                <p class="SentenceCaseP">Residential Address</p>
+                                                <apex:outputText value="{!ROPrincipal2Address}" styleclass="OutputReadOnly" />
+                                            </div>    
+                                        </td>
+                                        <td>
+                                            <div class="input input-normal">
+                                                <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal2Premises__c.inlineHelpText}</p>
+                                                <div class="OutputReadOnly">
+                                                    <apex:outputText value="{!app.Principal2Premises__c}" />
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </table>
+                                        
+                                    <table>
+                                    <tr>
+                                        <td width="250px">
+                                            <div class="input input-normal dates">
+                                                <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal2DOB__c.label}<span class="LabelNoteSpan"> (dd/mm/yyyy)</span></p>
+                                                <div class="OutputReadOnly">
+                                                    <apex:outputText value="{!principal2DOB}"/>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td >
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.Principal2DriverLicenceNumber__c.label}</p>
+                                            <div class="OutputReadOnly">     
+                                                <apex:outputField value="{!app.Principal2DriverLicenceNumber__c}"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </table>
+
+                                    <table>
+                                    <tr>
+                                        <td width="250px">
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.ContactSignatoryEmail2__c.inlineHelpText}</p>
+                                            <div class="OutputReadOnly">
+                                                <apex:outputText value="{!app.ContactSignatoryEmail2__c}" />                    
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.isPrincipal2AuthorisedSignatory__c.inlineHelpText}</p>
+                                            <div class="OutputReadOnly">
+                                                <apex:outputText value="{!IF(app.isPrincipal2AuthorisedSignatory__c=true,'Yes','No')}"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </table>
+                                    <div style="height:10px">&nbsp;</div>
+
+                                </apex:outputPanel>    
+
+                                                
+                                <hr/>
+    
+                                <h2>Trading details</h2>
+
+                                <table>
+                                <tr>
+                                    <td width="400px">
+                                        <p >{!$ObjectType.Application__c.Fields.isExistingSecurePayMerchantID__c.inlineHelpText}</p>
+                                        <apex:outputText value="{!app.isExistingSecurePayMerchantID__c}" rendered="{!IF(app.isExistingSecurePayMerchantID__c='Yes',false,true)}" styleclass="OutputReadOnly" /> 
+                                        <apex:outputText value="{!app.SecurePayMerchantID__c}" rendered="{!IF(app.isExistingSecurePayMerchantID__c='Yes',true,false)}" styleclass="OutputReadOnly"/>
+                                    </td>
+                                    <td width="400px">
+                                        <p >{!$ObjectType.Application__c.Fields.isExistingAPMSMerchantId__c.inlineHelpText}</p>
+                                        <apex:outputText value="{!app.isExistingAPMSMerchantId__c}" styleclass="OutputReadOnly" /> 
+                                    </td>
+                                </tr>
+                                </table> 
+                                <div style="height:10px">&nbsp;</div> 
+
+                                <p>{!$ObjectType.Application__c.Fields.ShoppingCart__c.label}</p>
+                                <apex:outputText value="{!app.ShoppingCart__c}" rendered="{!IF(app.ShoppingCart__c='Other',false,true)}" styleclass="OutputReadOnly" /> 
+                                <apex:outputText value="{!app.ShoppingCartOther__c}" rendered="{!IF(app.ShoppingCart__c='Other',true,false)}" styleclass="OutputReadOnly"/>                                            
+
+                                <div style="height:10px">&nbsp;</div>
+
+                                <p>{!$ObjectType.Application__c.Fields.NameOnCCStatement__c.inlineHelpText}</p>
+                                <apex:outputText value="{!app.NameOnCCStatement__c}" styleclass="OutputReadOnly" /> 
+                                
+                                <br/>
+                                <br/>                                                        
+    
+    
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <h4 class="TradingDetailH4">Sales and transactions</h4>
+                                    </td>
+                                    <td width="200px">
+                                        <p><b>Historic</b></p>
+                                    </td>
+                                    <td width="200px">
+                                        <p><b>Projected</b></p>
+                                    </td>
+                                </tr>
+                                </table>
+                                
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p class="questionP SentenceCaseP">{!$ObjectType.Application__c.Fields.AverageMonthlySalesVolumeHistoric__c.inlineHelpText}</p>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.AverageMonthlySalesVolumeHistoric__c}" />
+                                        </div>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.AverageMonthlySalesVolumeProjected__c}" />                    
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+                                
+                                       
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p>{!$ObjectType.Application__c.Fields.AverageMonthlyCCTransHistoric__c.inlineHelpText}<span class="LabelNoteSpan"> (Excluding American express and Diners)</span></p>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.AverageMonthlyCCTransHistoric__c}" />
+                                        </div>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.AverageMonthlyCCTransProjected__c}" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p class="questionP SentenceCaseP">{!$ObjectType.Application__c.Fields.AverageValueOfEachSalesHistoric__c.inlineHelpText}</p>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.AverageValueOfEachSalesHistoric__c}" />
+                                        </div>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="OutputReadOnly">
+                                        <apex:outputField value="{!app.AverageValueOfEachSalesProjected__c}" />            
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>        
+
+                        
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p class="questionP">{!$ObjectType.Application__c.Fields.TotalAnnualTurnoverHistoric__c.inlineHelpText}</p>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.TotalAnnualTurnoverHistoric__c}" />
+                                        </div>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.TotalAnnualTurnoverProjected__c}" />                
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+                                <!--New fields output logic here-->
+                                <table>
+                                <tr>
+                                    <td width="400px">
+                                        <p >{!$ObjectType.Application__c.Fields.Opt_for_Multicurrency__c.inlineHelpText}</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.Opt_for_Multicurrency__c}"/>
+                                        </div>
+                                    </td>
+                                    <td width="400px">
+                                        <p >Avg Foreign Currency Transaction Value</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.Avg_Foreign_Currency_Transaction_Value__c}" rendered="{!IF(app.Opt_for_Multicurrency__c='Yes',true,false)}" /> 
+                                        </div>
+                                    </td>
+                                    <td width="400px">
+										<p >Avg Foreign Currency Transactions Mthly</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.Avg_Foreign_Currency_Transactions_Mthly__c}" rendered="{!IF(app.Opt_for_Multicurrency__c='Yes',true,false)}" /> 
+                                        </div>
+                                    </td>                                               
+                                    <td width="400px">
+                                        <p >Annual Foreign Currency Turnover</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.Annual_Foreign_Currency_Turnover__c}" rendered="{!IF(app.Opt_for_Multicurrency__c='Yes',true,false)}"/> 
+                                        </div>
+                                    </td>                                                       
+                                </tr>
+                                </table> 
+                                <br/>    
+                                <h4 class="TradingDetailH4">Business operations</h4>
+                                
+                                <table>
+                                <tr>
+                                    <td width="450px">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.isMerchantFacilityTerminatedPreviously__c.inlineHelpText}</p>
+                                        <div class="OutputReadOnly">                                    
+                                            <apex:outputText value="{!app.isMerchantFacilityTerminatedPreviously__c}" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.isMerchantFacilityWithAnotherProvider__c.inlineHelpText}</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputText value="{!app.isMerchantFacilityWithAnotherProvider__c}" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+                                <div style="height:10px">&nbsp;</div>
+                    
+                                <table>
+                                <tr>
+                                    <td width="450px">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.isMerchantFacilityToBeUsedByOthers__c.inlineHelpText}</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputText value="{!app.isMerchantFacilityToBeUsedByOthers__c}" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+                                <div style="height:10px">&nbsp;</div>
+                    
+                                <table>
+                                <tr>
+                                    <td width="450px">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.isYourSystemsMonitorCCTransactions__c.inlineHelpText}</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputText value="{!app.isYourSystemsMonitorCCTransactions__c}" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.isProcessPaymentsForAnotherBusiness__c.inlineHelpText}</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputText value="{!app.isProcessPaymentsForAnotherBusiness__c}" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+                                <div style="height:10px">&nbsp;</div>
+    
+                                <table>
+                                <tr>
+                                    <td width="450px">
+                                        <p>{!$ObjectType.Application__c.Fields.isMainBusinessOperatedInAustralia__c.inlineHelpText}</p>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputText value="{!app.isMainBusinessOperatedInAustralia__c}" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+    
+                                <hr/>
+                                                
+                                <h3>Receiving credit card payments</h3>
+    
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p>&nbsp;</p>
+                                    </td>
+                                    <td width="200px">
+                                        <p>Percentage %</p>
+                                    </td>
+                                </tr>
+                                </table>
+                    
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.CCSameDayProcessingPercentage__c.inlineHelpText}</p>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.CCSameDayProcessingPercentage__c}" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+                                <br/>
+                    
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p class="SentenceCaseP">{!$ObjectType.Application__c.Fields.CCChargedInAdvancePercentage__c.inlineHelpText}</p>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.CCChargedInAdvancePercentage__c}" />
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.CCChargedInAdvanceDaysInAdvance__c}" /> days in advance
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                </table>
+                                <br/>
+                    
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        <p class="questionP SentenceCaseP">{!$ObjectType.Application__c.Fields.CCChargedInArrearsPercentage__c.inlineHelpText}</p>
+                                    </td>
+                                    <td width="200px">
+                                        <div class="OutputReadOnly">
+                                            <apex:outputField value="{!app.CCChargedInArrearsPercentage__c}" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+                            
+                                <table>
+                                <tr>
+                                    <td width="520px">
+                                        &nbsp;
+                                    </td>
+                                    <td width="200px">
+                                        <h3>Total 100%</h3>
+                                    </td>
+                                </tr>
+                                </table>
+
+                                <hr/>
+                                <h3>Business Bank Account for Settlement Deposits</h3>
+    
+                                <div class="input-group">
+                                    <div class="input">                          
+                                       <p class="OutputP">{!$ObjectType.Application__c.Fields.MerchantBankKeyBSB__c.inlineHelpText}</p>
+                                       <div class="OutputReadOnly">
+                                           <apex:outputField value="{!app.MerchantBankKeyBSB__c}" />
+                                       </div>
+                                    </div>
+                                    <div class="input">                          
+                                       <p class="OutputP">{!$ObjectType.Application__c.Fields.MerchantBankAccountNumber__c.inlineHelpText}</p>
+                                       <div class="OutputReadOnly">
+                                           <apex:outputField value="{!app.MerchantBankAccountNumber__c}" />
+                                       </div>
+                                    </div>
+                                </div>  
+    
+                                <hr/>
+                                <h3>Promotions &amp; offers</h3>
+  
+                                <!-- <p>
+                                    <img src="{!URLFOR($Resource.APMS_Asset, 'media/images/paypal-logo.gif')}" alt="PayPal logo" style="float:left;margin-top:10px;margin-right:15px;"/>
+                                    <span>In order to accept PayPal payments through your SecurePay facility you will need a PayPal business account.</span>
+                                    <br/>
+                                    <span>If you are interested in establishing a new PayPal business account please select the option below.</span>
+                                    <br style="clear:both;"/>
+                                </p> -->
+
+                                <div class="input-group">
+                                    <div class="input TermsCheckboxDiv">
+                                        <apex:inputField value="{!app.IsLikeToReceiveAPInfo__c}" id="IsLikeToReceiveAPInfo"  styleClass="CursorPointer"/>
+                                    </div>
+                                    <img src="{!URLFOR($Resource.APMS_Asset, 'media/images/square_logotype_black.png')}" alt="Square logo" style="float:left;margin-top:10px;margin-right:15px;"/>
+                                    <div class="bw-promo-div">
+                                        <apex:outputLabel for="IsLikeToReceiveAPInfo" styleclass="CursorPointer">
+                                            {!$ObjectType.Application__c.Fields.IsLikeToReceiveAPInfo__c.inlineHelpText} 
+                                        </apex:outputLabel>
+                                    </div>
+                                </div>            
+                                  
+                                <div style="height:10px"/>
+
+                                <div class="input-group">
+                                    <div class="input TermsCheckboxDiv">
+                                        <apex:inputField value="{!app.isLikeToConsentPayPal__c}" id="isLikeToConsentPayPal"  styleClass="CursorPointer"/>
+                                    </div>
+                                    <img src="{!URLFOR($Resource.APMS_Asset, 'media/images/paypal-logo.gif')}" alt="PayPal logo" style="float:left;margin-top:10px;margin-right:15px;"/>
+                                    <div class="bw-promo-div">
+                                        <apex:outputLabel for="isLikeToConsentPayPal" styleclass="CursorPointer">
+                                            {!$ObjectType.Application__c.Fields.isLikeToConsentPayPal__c.inlineHelpText} 
+                                        </apex:outputLabel>
+                                    </div>
+                                </div>            
+
+                                <div style="height:10px"/>
+
+                                <div class="input-group">
+                                    <div class="input TermsCheckboxDiv">
+                                        <apex:inputField value="{!app.isLikeToConsentAmEx__c}" id="isLikeToConsentAmEx"  styleClass="CursorPointer"/>
+                                    </div>
+                                    <!-- <img src="{!URLFOR($Resource.APMS_Asset, 'media/images/direct-debit-logo.png')}" alt="Direct Debit logo" style="float:left;margin-top:10px;margin-right:15px;"/> -->
+                                    <h4 style="float:left;margin-top:10px;margin-right:25px;"><b>DIRECT DEBIT</b></h4>
+                                    <div class="bw-promo-div">
+                                        <apex:outputLabel for="isLikeToConsentAmEx" styleclass="CursorPointer">
+                                            {!$ObjectType.Application__c.Fields.isLikeToConsentAmEx__c.inlineHelpText} 
+                                        </apex:outputLabel>
+                                    </div>
+                                </div>            
+
+                                <div style="height:10px"/>
+
+                                <div class="TermsCond">
+                                    <h3>Terms and conditions</h3> 
+
+                                    <div class="input-group">
+                                        <div class="input TermsCheckboxDiv">
+                                            <apex:inputField value="{!app.isConsentReadAndAccept__c}" id="isConsentReadAndAccept"  styleClass="CursorPointer"/>
+                                            <apex:outputText value="{!tc_ErrorStyle}" escape="false" />
+                                        </div>
+                                        <div class="TermsWordingDiv">
+                                            <p class="TermsCondP">
+                                                <apex:outputLabel for="isConsentReadAndAccept" styleclass="CursorPointer">
+                                                    {!$ObjectType.Application__c.Fields.isConsentReadAndAccept__c.inlineHelpText} <a href="http://auspost.com.au/terms-conditions.html" target="_blank">terms and conditions</a><span class="symbol-req"> *</span>
+                                                </apex:outputLabel>
+                                               <br/> <b> Privacy notice: </b><br/>
+                                                {!$Label.CL_Privacy_Statement} <br/>
+                                                {!$Label.CL_Privacy_Statement_1} <br/>
+                                                {!$Label.CL_Privacy_Statement_2} <br/>
+                                                {!$Label.CL_Privacy_Statement_3}  <a href="https://www.auspost.com.au/privacy" target="_blank"> www.auspost.com.au/privacy.</a>
+                                                
+                                            </p> 
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                                <!-- Insert OMNITURE on-page tracking for each section -->   
+                                <!-- SiteCatalyst code version: H.21.1.
+                                Copyright 1996-2010 Adobe, Inc. All Rights Reserved
+                                More info available at http://www.omniture.com -->      
+                                <script type="text/javascript">
+                                    s.pageName="auspost:merchant services:confirm your application"; 
+                                    /* customized section end */
+                                    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+                                    var s_code=s.t();if(s_code)document.write(s_code);
+                                </script>
+                                <script language="JavaScript" type="text/javascript">
+                                if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-');
+                                </script><noscript><img src="https://australiapost.122.2o7.net/b/ss/auspost-prd/1/H.22.1--NS/0?[AQB]&cdp=3&[AQE]"
+                                height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
+                                <!-- End SiteCatalyst code version: H.22.1. -->    
+                                <script type="text/javascript">_satellite.pageBottom();</script>                                
+
+                            </apex:outputPanel>    
+                        
+                            <hr/>
+                            <br/>
+                            
+<!--Buttons-->
+                            <apex:outputPanel id="ButtonSection" >        
+                                <div class="form-buttons clearfix">
+                                    <div class="right">
+                                        <apex:outputPanel rendered="{!hasPrevButton}">
+                                            <input type="button" class="secondary button-previous" value="Previous" id="prevButton" onclick="CallJSPrevious()" />
+                                            <apex:actionFunction name="callSFPrevious" action="{!prevSection}" immediate="true" />
+                                        </apex:outputPanel>
+                                       
+                                        <apex:commandButton styleClass="primary-cta button-next" value="Continue" id="nextButton" action="{!nextSection}" rendered="{!hasNextButton}"/>
+
+                                        <apex:commandButton styleClass="primary-cta button-submit" value="Submit" id="submitButton" rendered="{!hasSubmitButton}" onClick="SubmitOnClick(this); return false;" />
+                                        <apex:actionFunction name="Submit" action="{!saveApp}" />
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+
+                        </apex:outputPanel>
+
+                    </apex:form>     
+
+
+<!--5-->
+                <apex:outputPanel rendered="{!section=5}" id="Section5" layout="block">
+                    <apex:form >
+                        <h1 class="success">Your SecurePay Online Payments application has been received.</h1>
+                        <h2 class="NormalWeight">We have sent a confirmation email to <span style="font-weight:700"><apex:outputText value="{!app.ContactEmail__c}"/></span>. Within the next 3 business days, you should receive an email advising the status of your application.</h2>
+                        <br/>
+                        <h4 class="NormalWeight">Please note: Your application reference number is <b><apex:outputText value="{!app.Name}" /></b>. 
+                                                 If you have any questions about your application please call us on <b>{!configSetting.SopPhone__c}</b> (Select Option "1"), or email us at <span style="color:#dc1928;"><b><u>{!configSetting.AusPostSupportEmail__c}</u></b></span>.</h4>
+                        <br/>
+
+                        <apex:outputPanel id="Feedback">
+                            <apex:outputPanel styleClass="input input-large" rendered="{!IF(app.HowDoYouFindUs__c='',true,false)}">
+                                <p>{!$ObjectType.Application__c.Fields.HowDoYouFindUs__c.inlineHelpText}</p>
+                                <apex:actionRegion >
+                                    <apex:selectList size="1" value="{!app.HowDoYouFindUs__c}" >
+                                        <apex:selectOptions value="{!HowDoYouFindUs}"/>  
+                                        <apex:actionSupport event="onchange" rerender="Feedback" status="Loading_Feedback" action="{!SaveAppFeedback}"/>
+                                    </apex:selectList>
+                                </apex:actionRegion>
+                            </apex:outputPanel>                                
+        
+                            <apex:outputPanel rendered="{!IF(app.HowDoYouFindUs__c='',false,true)}">
+                                <h4>Thanks for your feedback!</h4>
+                            </apex:outputPanel>
+        
+                            <apex:actionStatus id="Loading_Feedback">
+                                <apex:facet name="start">
+                                    <apex:image url="{!URLFOR($Resource.APMS_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                </apex:facet>                          
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                        <br/>
+                        <br/>
+             
+                        <div class="clearfix">
+                            <center>
+                                <img src="{!URLFOR($Resource.APMS_Asset, 'media/images/thank-you-img.png')}" alt="Thank you." />
+                            </center>
+                        </div>
+        
+                        <div style="height:50px">&nbsp;</div>
+
+                    </apex:form>   
+
+                    <!-- Insert OMNITURE on-page tracking for each section -->   
+                    <!-- SiteCatalyst code version: H.21.1.
+                    Copyright 1996-2010 Adobe, Inc. All Rights Reserved
+                    More info available at http://www.omniture.com -->      
+                    <script type="text/javascript">
+                        s.pageName="auspost:merchant services:completed";
+                        s.eVar14="merchant services-{!app.SelectedPricePlan__c}–{!IF(app.isExistingAusPostBusinessAccount__c='Yes','Existing','New')}-confirm";
+                        s.events="event5"; //Lead Type Event
+                        /* customized section end */
+                        /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+                        var s_code=s.t();if(s_code)document.write(s_code);
+                    </script>
+                    <script language="JavaScript" type="text/javascript">
+                    if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-');
+                    </script><noscript><img src="https://australiapost.122.2o7.net/b/ss/auspost-prd/1/H.22.1--NS/0?[AQB]&cdp=3&[AQE]"
+                    height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
+                    <!-- End SiteCatalyst code version: H.22.1. -->
+                    <script type="text/javascript">_satellite.pageBottom();</script>
+                                              
+                </apex:outputPanel>        
+
+
+
+                               
+
+
+                </div> 
+            </div>
+            <!-- END MAIN PANEL --> 
+            </apex:outputpanel>
+        </div>
+        
+    </div>
+
+    <!-- START GE02 Footer -->
+    <div class="l-footer">
+        <div id="footer">
+            <footer>
+                <div class="sub-footer-links">
+                    <ul>
+                        <li><a href="http://auspost.com.au/about-us/about-our-site.html">About our site</a></li>
+                        <li><a href="http://auspost.com.au/terms-conditions.html">Terms &amp; conditions</a></li>
+                        <li><a href="http://auspost.com.au/privacy.html">Privacy policy</a></li>
+                        <li><a href="https://contactus.auspost.com.au">Support</a></li>
+                    </ul>
+                </div>
+                <!-- <div class="right"><span class="footer-secure-lock">Secure content</span></div> -->
+            </footer>
+        </div>
+    </div>
+    <!-- END GE02 Footer -->
+
+
+    </body>
+    </html>
+</apex:page>

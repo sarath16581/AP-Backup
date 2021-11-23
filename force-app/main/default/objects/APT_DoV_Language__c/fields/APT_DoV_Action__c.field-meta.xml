@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_DoV_Action__c</fullName>
+    <externalId>false</externalId>
+    <label>DoV Action</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>APT_DOV_Reason__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Add</fullName>
+                <default>false</default>
+                <label>Add</label>
+            </value>
+            <value>
+                <fullName>Replace</fullName>
+                <default>false</default>
+                <label>Replace</label>
+            </value>
+            <value>
+                <fullName>Delete</fullName>
+                <default>false</default>
+                <label>Delete</label>
+            </value>
+            <value>
+                <fullName>Add New Product</fullName>
+                <default>false</default>
+                <label>Add New Product</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Update products/rates</controllingFieldValue>
+            <controllingFieldValue>Update Collection Point (Local Pud)</controllingFieldValue>
+            <controllingFieldValue>Update lanes to existing zones</controllingFieldValue>
+            <valueName>Add</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Update products/rates</controllingFieldValue>
+            <controllingFieldValue>Update Collection Point (Local Pud)</controllingFieldValue>
+            <controllingFieldValue>Migration request (ie. PPS to TEAM)</controllingFieldValue>
+            <controllingFieldValue>Update lanes to existing zones</controllingFieldValue>
+            <controllingFieldValue>Replace lanes</controllingFieldValue>
+            <controllingFieldValue>Multi-year Contract Review/Price Change</controllingFieldValue>
+            <controllingFieldValue>APR Contract Review/Price Change</controllingFieldValue>
+            <valueName>Replace</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Add new products</controllingFieldValue>
+            <valueName>Add New Product</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Remove Product</controllingFieldValue>
+            <controllingFieldValue>Multi-year Contract Review/Price Change</controllingFieldValue>
+            <controllingFieldValue>APR Contract Review/Price Change</controllingFieldValue>
+            <valueName>Delete</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

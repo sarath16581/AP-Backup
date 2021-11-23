@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Validate_Case_Originator</fullName>
+    <active>true</active>
+    <description>For all SSSW record types and Social media record types, when enquiry sub type equals = Missing item or Disputed Delivery Scan, the case originator must be only = Sender or Receiver.</description>
+    <errorConditionFormula>AND( 
+OR( 
+CONTAINS(Case_RecordType_Name__c ,&apos;SSSW Delivery&apos;), 
+CONTAINS(Case_RecordType_Name__c,&apos;SSSW Fax&apos;), 
+CONTAINS(Case_RecordType_Name__c,&apos;SSSW General Enquiry&apos;), 
+CONTAINS(Case_RecordType_Name__c,&apos;SSSW Service&apos;),	
+CONTAINS(Case_RecordType_Name__c,&apos;Social Record Type&apos;)	
+), 
+OR( 
+ISPICKVAL(Type,&apos;General Enquiry&apos;), 
+ISPICKVAL(Type,&apos;Feedback&apos;), 
+ISPICKVAL(Type,&apos;Investigation&apos;) 
+), 
+OR( 
+ISPICKVAL(EnquirySubType__c,&apos;Missing Item&apos;), 
+ISPICKVAL(EnquirySubType__c,&apos;Disputed delivery scan&apos;) 
+), 
+NOT(ISPICKVAL(CaseOriginator__c,&apos;Sender&apos;)), 
+NOT(ISPICKVAL(CaseOriginator__c,&apos;Addressee&apos;)), 
+CONTAINS( $Setup.SSSW_Case_Validation_Settings__c.Case_Origin__c,TEXT(Origin)),  
+Bypass_Data_enforcement__c = FALSE 
+)</errorConditionFormula>
+    <errorMessage>Case originator must be either Sender or Addressee</errorMessage>
+</ValidationRule>

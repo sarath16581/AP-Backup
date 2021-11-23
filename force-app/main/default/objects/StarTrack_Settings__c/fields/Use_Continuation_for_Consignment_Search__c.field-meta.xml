@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Use_Continuation_for_Consignment_Search__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>To use Continuation server for Consignment Search, set this to true.</description>
+    <externalId>false</externalId>
+    <label>Use Continuation for Consignment Search</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

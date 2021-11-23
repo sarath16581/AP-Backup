@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Count_of_Email_Opted_In__c</fullName>
+    <description>Counts all Contact Maintained By = Account Manager contacts on Org that have no value in Email/Electronic Opt-In.
+Trigger: ContactSumTrigger on Contact object</description>
+    <externalId>false</externalId>
+    <inlineHelpText>AM Maintained Contacts with no option selected for Email/Electronic Opt-In</inlineHelpText>
+    <label>Blank Email/Electronic Opt-In</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Update_Default_Setting</fullName>
+        <field>IsDefault__c</field>
+        <formula>if( DefaultSetting__c = true, &quot;1&quot;,&quot;0&quot;)</formula>
+        <name>Update Default Setting</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Update IsDefault</fullName>
+        <actions>
+            <name>Update_Default_Setting</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>ischanged( DefaultSetting__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

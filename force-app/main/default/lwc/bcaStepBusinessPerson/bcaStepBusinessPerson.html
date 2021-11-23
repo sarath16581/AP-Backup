@@ -1,0 +1,152 @@
+<!--
+* @author Victor.Cheng@auspost.com.au
+* @date 2021-02-05
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Step in Credit Application Form to input Business Person details(Directors/Partners)
+* @changelog
+* 2021-02-05 Victor.Cheng@auspost.com.au  Created
+*
+-->
+
+<!-- Bca Step Business Person -->
+<template>
+    <div class="bca-inner-box-red">
+        <div class="form-outer-box">
+            <div class="form-inner-box">
+                <!-- 2020/02/22 removing title -->
+                <template if:true={showTitle}>
+                    <h2 class="slds-p-bottom_medium">{directorLabel} {personIndex} of 2</h2>
+                </template>
+
+                <div>
+                    <lightning-input label="First name" name="firstName" data-id="firstName" type="text" onfocusout={handleFocusOut}
+                                     max-length={firstNameMaxLength} disabled={isVerified}
+                                     value={_director.firstName} required="true" onchange={onChangeField}>
+                    </lightning-input>
+                    <!-- Verified by Digital iD -->
+                    <template if:true={isVerified}>
+                        <div class="slds-grid slds-grid_vertical-align-center">
+                            <c-bsp-custom-icons icon="lock" size="x-small"></c-bsp-custom-icons><p class="input-hint-text inner-form-padding slds-p-left_x-small">Verified by Digital iD&#8482;</p>
+                        </div>
+                    </template>
+                    
+                    <lightning-input label="Middle name" name="middleName" data-id="middleName" type="text"
+                                     max-length={middleNameMaxLength}
+                                     value={_director.middleName} onchange={onChangeField} disabled={isMiddleNameVerified}
+                                     class="optional-label slds-p-top_large"></lightning-input>
+                    <!-- Verified by Digital iD -->
+                    <template if:true={isMiddleNameVerified}>
+                        <div class="slds-grid slds-grid_vertical-align-center">
+                            <c-bsp-custom-icons icon="lock" size="x-small"></c-bsp-custom-icons><p class="input-hint-text inner-form-padding slds-p-left_x-small">Verified by Digital iD&#8482;</p>
+                        </div>
+                    </template>
+
+                    <lightning-input label="Surname" name="lastName" data-id="lastName" type="text" onfocusout={handleFocusOut}
+                                     max-length={lastNameMaxLength} disabled={isVerified}
+                                     value={_director.lastName} required="true"
+                                     onchange={onChangeField} class="slds-p-top_large"></lightning-input>
+                    <template if:true={isVerified}>
+                        <div class="slds-grid slds-grid_vertical-align-center">
+                            <c-bsp-custom-icons icon="lock" size="x-small"></c-bsp-custom-icons><p class="input-hint-text inner-form-padding slds-p-left_x-small">Verified by Digital iD&#8482;</p>
+                        </div>
+                    </template>
+
+                    <lightning-radio-group label="Previously known by any other name?" data-id="knownByOtherName"
+                                           name={knownByOtherNameId} onchange={onChangeField} class="slds-p-top_large" options={yesNoOptions} type="radio"
+                                           value={_director.knownByOtherName}></lightning-radio-group>
+
+                    <template if:true={showOtherNameFields}>
+                        <lightning-input label="Previous name" 
+                                         name="previousName" 
+                                         data-id="previousName" 
+                                         type="text" 
+                                         onfocusout={handleFocusOut}
+                                         max-length={fullNameMaxLength}
+                                         value={_director.previousName} 
+                                         required="true" 
+                                         onchange={onChangeField} 
+                                         class="slds-p-top_large">
+                        </lightning-input>
+         
+                    </template>
+                    <p class="slds-form-element__label slds-p-top_large">Date of birth</p>
+                    <lightning-input label="Date of birth" type="date" data-id={DOB_FIELD} name={DOB_FIELD} required="true" variant="label-hidden"
+                                     message-when-value-missing="Enter a date of birth" placeholder="dd/mm/yyyy" value={_director.dob} disabled={isVerified}
+                                     onchange={onChangeField} class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 short-form-field"></lightning-input>
+                    <!-- Verified by Digital iD -->
+                    <template if:true={isVerified}>
+                        <div class="slds-grid slds-grid_vertical-align-center">
+                            <c-bsp-custom-icons icon="lock" size="x-small"></c-bsp-custom-icons><p class="input-hint-text inner-form-padding slds-p-left_x-small">Verified by Digital iD&#8482;</p>
+                        </div>
+                    </template>
+                    <div class="slds-p-top_large">
+                        <c-address-search-cmp data-id='currentResidentialAddress' 
+                                              address={_director.currentResidentialAddress}
+                                              label="Current residential address" 
+                                              data-validate="doAddressValidate" 
+                                              onfocusout={handleFocusOut}
+                                              onaddresschange={handleAddressChange}
+                                              class="brand-form-input slds-p-bottom_x-large" 
+                                              required 
+                                              is-allow-international-address='no'
+                                              show-country-in-manual-enrtry-for-local-address='no'>
+                        </c-address-search-cmp>
+                    </div>
+
+                    <lightning-radio-group label="Time at current address?" data-id="timeAtAddress" name={timeAtAddressId}
+                                           onchange={onChangeField} class="slds-p-top_large" options={timeAtAddressOptions} type="radio"
+                                           value={_director.timeAtAddress}></lightning-radio-group>
+
+                    <template if:true={showPreviousAddressFields}>
+                        <div class="slds-p-top_large">
+                            <c-address-search-cmp data-id='previousResidentialAddress' 
+                                                  address={_director.previousResidentialAddress}
+                                                  label="Previous residential address" 
+                                                  data-validate="doAddressValidate" 
+                                                  onfocusout={handleFocusOut}
+                                                  onaddresschange={handleAddressChange}
+                                                  class="brand-form-input" 
+                                                  required 
+                                                  is-allow-international-address='no'
+                                                  show-country-in-manual-enrtry-for-local-address='no'>
+                            </c-address-search-cmp>
+                        </div>
+                    </template>
+
+                    <lightning-input label="Phone number" name={PHONE_FIELD} data-id={PHONE_FIELD} type="tel" onfocusout={handleFocusOut}
+                                     onchange={onChangeField} max-length={phoneMaxLength}
+                                     required="true" message-when-value-missing="Enter a phone number"
+                                     class="slds-p-top_large slds-col slds-size_1-of-1 slds-medium-size_6-of-12 short-form-field">
+                    </lightning-input>
+                    <lightning-input label="Email address"
+                                     name="email"  
+                                     max-length={emailFieldMaxLength} 
+                                     data-id="email" 
+                                     type="email" 
+                                     required="true" 
+                                     onfocusout={handleFocusOut}
+                                     pattern="[a-zA-Z\-0-9._%+-]+@[a-zA-Z\-0-9.-]+\.[a-zA-Z]{2,}$"
+                                     message-when-value-missing={emailAddressValueMissingMsg}
+                                     message-when-type-mismatch={emailAddressPatternMismatchMsg}
+                                     message-when-pattern-mismatch={emailAddressPatternMismatchMsg}
+                                     value={_director.email} 
+                                     onchange={onChangeField} 
+                                     class="slds-p-top_large">
+                    </lightning-input>
+                    <!--template if:true={isVerified}-->
+                    <!--<lightning-input label="Drivers licence number" name={DRIVERS_LICENSE_FIELD} data-id={DRIVERS_LICENSE_FIELD}
+                                     type="text" value={_director.driversLicence} placeholder="e.g. 12345678 " required="true"
+                                     pattern="[A-Za-z0-9]*" max-length="9" min-length="4"
+                                     message-when-too-short={driverLicensePatternMismatchMsg}
+                                     message-when-too-long={driverLicensePatternMismatchMsg}
+                                     message-when-pattern-mismatch={driverLicensePatternMismatchMsg}
+                                     message-when-value-missing={driverLicenseMissingMsg}
+                                     onfocusout={handleFocusOut}
+                                     onchange={onChangeField} class="slds-p-top_large slds-col slds-size_1-of-1 slds-medium-size_6-of-12 short-input"></lightning-input>-->
+                    <!--/template-->
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,15 @@
+Hi,
+
+This is an email notification to inform you case number {!Case.CaseNumber} remains open after 5 business days. For case details see below:
+
+Case Number: {!Case.CaseNumber} 
+Case Owner: {!Case.OwnerFullName}
+Case Date Opened: {!Case.CreatedDate}
+
+Legal Entity Name: {!Account.Name}
+Subject: {!Case.Subject} 
+Description: {!Case.Description}
+
+Regards,
+
+Salesforce Support Team

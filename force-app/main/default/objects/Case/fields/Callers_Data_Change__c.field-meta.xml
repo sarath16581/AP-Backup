@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Callers_Data_Change__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>StarTrack Caller values changed (triggers the process builder to record a task asynchronously using the Caller Data Capture datetime field)</description>
+    <externalId>false</externalId>
+    <label>Create Call Log</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

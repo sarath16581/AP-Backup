@@ -1,0 +1,7 @@
+<!-- Promise Spinner -->
+<template>
+    <!-- note lack of position:relative div.... relies on parent -->
+    <template if:true={shouldShow}>
+        <lightning-spinner alternative-text="Loading" variant="brand" size="small"></lightning-spinner>
+    </template>
+</template>

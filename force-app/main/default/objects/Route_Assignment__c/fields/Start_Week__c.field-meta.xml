@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Start_Week__c</fullName>
+    <description>The year and calendar week the roster starts</description>
+    <externalId>false</externalId>
+    <formula>TEXT(YEAR(Start_Date__c)) &amp; &quot;-&quot; &amp; TEXT((MOD(FLOOR((Start_Date__c-7-DATEVALUE(&quot;2007-01-01&quot;))/7),52))+1)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Start Week</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

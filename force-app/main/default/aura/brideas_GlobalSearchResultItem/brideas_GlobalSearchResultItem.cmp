@@ -1,0 +1,27 @@
+<aura:component controller="brideas_IdeasCtrl">
+    <aura:attribute name="item" type="brideas_IdeaWrapper" required="true" />
+    <aura:attribute name="mergedIdeas" type="Idea[]" />
+    <aura:attribute name="shortBody" type="String" default="" />
+    <aura:attribute name="pageUrl" type="String" default="" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="slds-grid slds-grid--vertical-stretch">
+        <div class="slds-col slds-size--1-of-1 slds-medium-size--10-of-12 details">
+            <h2 class="slds-text-heading--medium slds-m-bottom--xx-small">
+                <a href="{!v.pageUrl + '#' + v.item.item.Id}"><ui:outputText value="{!v.item.item.Title}" /></a>
+            </h2>
+
+            <div class="slds-clearfix">
+                <div class="slds-text-body--small bottom-info">
+                    <span><ui:outputDateTime value="{!v.item.item.CreatedDate}" format="MMMM d, y" /></span>
+                </div>
+            </div>
+
+            <div class="slds-m-vertical--small short-body">
+                <aura:unescapedHtml value="{!v.shortBody}" />
+            </div>
+        </div>
+    </div>
+
+</aura:component>

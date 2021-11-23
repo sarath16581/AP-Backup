@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Wa_transport_All2</fullName>
+    <columns>NAME</columns>
+    <columns>Active_Route_Days__c</columns>
+    <columns>Status__c</columns>
+    <columns>Effective_Date__c</columns>
+    <columns>Expiry_Date__c</columns>
+    <columns>Service_Territory__c</columns>
+    <columns>Verification_Complete__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Service_Territory__c</field>
+        <operation>equals</operation>
+        <value>wa transport</value>
+    </filters>
+    <label>Wa Transport All</label>
+</ListView>

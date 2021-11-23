@@ -1,0 +1,28 @@
+<!--
+/* @author 
+ * @date 2020-11-12
+ * @group Billing Accounts
+ * @tag Billing Account
+ * @description: Billing Account Creation modal popup Container . It is used at DSR quick action and opens up   
+ *               createBillingAccount lwc component   
+ * @changelog
+ * 2020.11.12 arjun.singh@auspost.com.au 		Created
+ * 2021.03.10 Dheeraj.Mandavilli@auspost.com.au Updated the LWC component to createBillingAccountBase from createBillingAccount
+ --> 
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+    <aura:html tag="style">
+        .THIS .cuf-content {
+        padding: 0 0rem !important;
+        }
+       .slds-p-around--medium {
+        padding: 0rem !important;
+        }
+       .slds-modal__content{
+        overflow-y:hidden !important;
+        height:unset !important;
+        max-height:unset !important;
+        }
+    </aura:html> 
+    <!--c:createAPBillingAccount recordId="{!v.recordId}" onclose="{!c.closePopUp}"/-->    
+    <c:createBillingAccountBase1 recordId="{!v.recordId}" onclose="{!c.closePopUp}"/>    
+</aura:component>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Days_to_Close__c</fullName>
+    <description>Calculates the number of Business Days left between Today and the Close Date. If the Opportunity is Closed, the number is set to zero, otherwise the number will be negative</description>
+    <externalId>false</externalId>
+    <formula>IF(
+IsClosed = true,
+0,
+(5 * ( FLOOR( ( CloseDate - DATE( 1900, 1, 8) ) / 7 ) ) + MIN( 5, MOD( CloseDate - DATE( 1900, 1, 8), 7 ) ) )
+-
+(5 * ( FLOOR( ( TODAY() - DATE( 1900, 1, 8) ) / 7 ) ) + MIN( 5, MOD( TODAY() - DATE( 1900, 1, 8), 7 ) ) )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Calculates the number of Business Days left between Today and the Close Date. If the Opportunity is Closed, the number is set to zero, otherwise the number will be negative</inlineHelpText>
+    <label>Days to Close</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

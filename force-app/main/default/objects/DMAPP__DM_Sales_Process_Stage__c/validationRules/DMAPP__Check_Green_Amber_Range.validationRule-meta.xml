@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Check_Green_Amber_Range</fullName>
+    <active>true</active>
+    <errorConditionFormula>DMAPP__Green__c &lt; DMAPP__Amber__c</errorConditionFormula>
+    <errorMessage>Green % must be greater than Amber %</errorMessage>
+</ValidationRule>

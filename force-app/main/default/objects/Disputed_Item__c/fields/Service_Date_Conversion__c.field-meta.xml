@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Date_Conversion__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(Service_Date__c)==false,
+			
+			Case (
+TEXT(DAY(Service_Date__c)) ,
+				&apos;1&apos;,&apos;01&apos;,
+				&apos;2&apos;,&apos;02&apos;,
+				&apos;3&apos;,&apos;03&apos;,
+				&apos;4&apos;,&apos;04&apos;,
+				&apos;5&apos;,&apos;05&apos;,
+				&apos;6&apos;,&apos;06&apos;,
+				&apos;7&apos;,&apos;07&apos;,
+				&apos;8&apos;,&apos;08&apos;,
+				&apos;9&apos;,&apos;09&apos;,TEXT(DAY(Service_Date__c)))
+			
+			+ &quot;.&quot; + 
+			
+			Case (
+TEXT(MONTH(Service_Date__c)) ,
+				&apos;1&apos;,&apos;01&apos;,
+				&apos;2&apos;,&apos;02&apos;,
+				&apos;3&apos;,&apos;03&apos;,
+				&apos;4&apos;,&apos;04&apos;,
+				&apos;5&apos;,&apos;05&apos;,
+				&apos;6&apos;,&apos;06&apos;,
+				&apos;7&apos;,&apos;07&apos;,
+				&apos;8&apos;,&apos;08&apos;,
+				&apos;9&apos;,&apos;09&apos;,
+				&apos;10&apos;,&apos;10&apos;,
+				&apos;11&apos;,&apos;11&apos;,
+				&apos;12&apos;,&apos;12&apos;,TEXT(MONTH(Service_Date__c)))
+			
+			+ &quot;.&quot; + 
+			
+			TEXT(YEAR(Service_Date__c)),&quot;&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Service Date Conversion</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

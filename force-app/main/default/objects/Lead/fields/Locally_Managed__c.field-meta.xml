@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Locally_Managed__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field will assist with the Hub program of entering Lead Legends.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check this box if you are raising a lead as a Hub User.</inlineHelpText>
+    <label>Locally Managed?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

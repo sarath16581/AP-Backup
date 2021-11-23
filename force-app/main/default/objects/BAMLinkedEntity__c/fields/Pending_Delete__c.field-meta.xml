@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pending_Delete__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Flag for soft delete of the record while the provisioning flow is Pending.  When the provisioning flow completes the record will be deleted.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Flag for soft delete of the record while the provisioning flow is Pending.  When the provisioning flow completes the record will be deleted.</inlineHelpText>
+    <label>Pending Delete</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

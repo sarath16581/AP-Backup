@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission set for Enterprise Key Accounts / Inside Sales to provide permission for them to be able to update the override frequency in Organisations</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Call_Cycle_Frequency__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Enterprise Key Accounts / Inside Sales</label>
+</PermissionSet>

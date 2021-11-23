@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_Name_And_Code</fullName>
+    <active>true</active>
+    <description>Project Name and Project Code are mandatory if the request is project related</description>
+    <errorConditionFormula>AND(ISPICKVAL(Project_Related_Request__c,&apos;Yes&apos;), OR(ISBLANK(Project_Name__c),ISBLANK(Project_Code__c)), OR(  RecordType.DeveloperName == &apos;Other_Salesforce_Product&apos;, RecordType.DeveloperName == &apos;Salesforce_License&apos;,RecordType.DeveloperName == &apos;Salesforce_Sandbox&apos;))</errorConditionFormula>
+    <errorMessage>Please enter the project name and project code for project related request.</errorMessage>
+</ValidationRule>

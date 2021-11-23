@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dandenong_Active_with_Op_Duty</fullName>
+    <columns>NAME</columns>
+    <columns>Duty_SR__c</columns>
+    <columns>Active_Route_Days__c</columns>
+    <columns>Status__c</columns>
+    <columns>Effective_Date__c</columns>
+    <columns>Expiry_Date__c</columns>
+    <columns>Service_Territory__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Service_Territory__c</field>
+        <operation>equals</operation>
+        <value>Dandenong</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </filters>
+    <filters>
+        <field>Duty_SR__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>Dandenong - Active with Op Duty</label>
+</ListView>

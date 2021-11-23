@@ -1,0 +1,7 @@
+<aura:event type="COMPONENT" description="Event fired to navigate between wizard pages">
+    <aura:attribute name="type" type="String"/>
+    <aura:attribute name="nextPage" type="String"/>
+    <aura:attribute name="prevPage" type="String"/>
+    <aura:attribute name="gotoPage" type="String"/>
+    
+</aura:event>

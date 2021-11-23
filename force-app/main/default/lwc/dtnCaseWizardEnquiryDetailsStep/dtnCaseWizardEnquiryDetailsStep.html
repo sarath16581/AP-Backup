@@ -1,0 +1,93 @@
+<!--
+	Step capturing enquiry details in Direct to Network Case creation flow.
+
+    Changelog:
+    2020-10-05 - Ranjeewa Silva - Created.
+    2020-11-06 - Ranjeewa Silva - Updated 'Case Originator' to be required field.
+    2020-11-08 - Ranjeewa Silva - Added 'Priority' field to this step.
+ -->
+
+<!-- Dtn Case Wizard Enquiry Details Step -->
+<template>
+    <div class="slds-grid slds-wrap slds-gutters">
+        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2">
+            <lightning-combobox
+                    name="caseTypeCombo"
+                    class="enquiry-input"
+                    label="Case Type"
+                    value={caseType}
+                    placeholder="Please Select"
+                    onchange={handleCaseTypeChange}
+                    options={caseTypeOptions}
+                    required></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2">
+            <lightning-combobox
+                    name="productCategoryCombo"
+                    class="enquiry-input"
+                    label="Product Category"
+                    value={productCategory}
+                    placeholder="Please Select"
+                    onchange={handleProductCategoryChange}
+                    options={productCategoryOptions}
+                    required></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2">
+            <lightning-combobox
+                    name="originatorCombo"
+                    class="enquiry-input"
+                    label="Case Originator"
+                    value={originator}
+                    placeholder="Please Select"
+                    onchange={handleOriginatorChange}
+                    options={originatorOptions}
+                    required></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2">
+            <lightning-combobox
+                    name="productSubCategoryCombo"
+                    class="enquiry-input"
+                    label="Product Sub Category"
+                    placeholder="Please Select"
+                    value={productSubCategory}
+                    onchange={handleProductSubCategoryChange}
+                    options={productSubCategoryDependantOptions}
+                    disabled={isProductSubCategoryDisabled}
+                    required></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-4">
+            <lightning-combobox
+                    name="complaintCombo"
+                    class="enquiry-input"
+                    label="Complaint"
+                    value={complaint}
+                    placeholder="Please Select"
+                    onchange={handleComplaintChange}
+                    options={complaintOptions}
+                    required></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-4">
+            <lightning-combobox
+                    name="priorityCombo"
+                    class="enquiry-input"
+                    label="Priority"
+                    value={defaultPriority}
+                    placeholder="Please Select"
+                    onchange={handlePriorityChange}
+                    options={priorityOptions}
+                    required></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-small-size_2-of-4">
+            <lightning-combobox
+                    name="enquirySubTypeCombo"
+                    class="enquiry-input enquiry-sub-type"
+                    label="Enquiry Sub Type"
+                    value={enquirySubType}
+                    placeholder="Please Select"
+                    onchange={handleEnquirySubTypeChange}
+                    options={enquirySubTypeDependantOptions}
+                    disabled={isEnquirySubTypeDisabled}
+                    required></lightning-combobox>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,116 @@
+<!--
+ @description
+ @date 2020-07-06
+ @changelog : 
+ 2020-07-06 : Modifed : Change made for roll out of Safe Drop feature on Missing Items form
+                        1. chasMissingItemAddressValidation
+                        2. chasMissingItemForm 
+                        3. chasMissingItemAddressMismatchForm
+2021-03-22 : Replaced chasThankYouWizard with chasContextualThankYouHeader
+-->
+
+<aura:component implements="forceCommunity:availableForAllPageTypes" extends="c:SS_uiWizard" access="global" description="Wizard navigation unique to Missing or Lost Items">
+    
+    <aura:attribute name="name" type="String" default="Missing Item" />
+    
+    <aura:attribute name="pageMap" type="Map"
+                    default="
+                             {
+                                'chasMissingItemWPage01': {
+                                    'key': 'chasMissingItemWPage01',
+                                    'name': 'c:chasMissingItemWPage01',
+                                    'next': 'chasMissingItemWPage02',
+                                    'step': '1',
+                                    'currentStepName': 'Item details',
+                                    'stage': 'start',
+                                    'attributes': {
+                                        'authenticatedURL': '/missing-or-lost-item-authenticated'
+                                        }
+                                },
+								'chasMissingItemAddressValidation': {
+                                    'key': 'chasMissingItemAddressValidation',
+                                    'name': 'c:chasMissingItemAddressValidation',
+                                    'prev': 'chasMissingItemWPage01',
+                                    'next': 'chasMissingItemForm',
+                                    'step': '1',
+                                    'currentStepName': 'item details:address',
+                                    'stage': ''
+                                },
+                             'chasMissingItemAddressMismatchForm': {
+                                    'key': 'chasMissingItemAddressMismatchForm',
+                                    'name': 'c:chasMissingItemAddressMismatchForm',
+                                    'prev': 'chasMissingItemAddressValidation',
+                                    'next': 'chasMissingItemForm',
+                                    'step': '1',
+                                    'currentStepName': 'Item details',
+                                    'analyticsPageViewAutoTracking': false,
+                                    'stage': ''
+                                },
+								'chasMissingItemForm': {
+                                    'key': 'chasMissingItemForm',
+                                    'name': 'c:chasMissingItemForm',
+                                    'prev': 'chasMissingItemAddressMismatchForm',
+                                    'next': 'ChasContactDetailsPage',
+                                    'step': '1',
+                                    'currentStepName': 'Item details',
+                                    'analyticsPageViewAutoTracking': false,
+                                    'stage': ''
+                                },
+                                'chasMissingItemWPage02': {
+                                    'key': 'chasMissingItemWPage02',
+                                    'name': 'c:chasMissingItemWPage02',
+                                    'prev': 'chasMissingItemWPage01',
+                                    'next': 'ChasContactDetailsPage',
+                                    'step': '1',
+                                    'currentStepName': 'Item details:tracking',
+                                    'stage': ''
+                                },
+                                'ChasContactDetailsPage': {
+                                    'key': 'ChasContactDetailsPage',
+                                    'name': 'c:ChasContactDetailsPage',
+                                    'prev': 'chasMissingItemWPage02',
+                                    'next': 'chasMissingItemWPage04',
+                                    'step': '2',
+                                    'currentStepName': 'Contact details',
+                                    'stage': '',
+                                    'attributes': {
+                                        'authenticatedURL': '/missing-or-lost-item-authenticated'
+                                    }
+                                },
+                                'chasMissingItemWPage04': {
+                                    'key': 'chasMissingItemWPage04',
+                                    'name': 'c:chasMissingItemWPage04',
+                                    'prev': 'ChasContactDetailsPage',
+                                    'next': 'chasContextualThankYouPage',
+                                    'step': '3',
+                                    'currentStepName': 'Review and submit',
+                                    'stage': '',
+                                    'attributes': {
+                                        'apexCaseCreationFunction': 'c.createCaseFromMissingWizard'
+                                    }
+                                },
+                                'chasContextualThankYouPage': {
+                                    'key': 'chasContextualThankYouPage',
+                                    'name': 'c:chasContextualThankYouPage',
+                                    'step': '3',
+                                    'currentStepName': 'thankyou',
+                                    'stage': 'submit',
+                                    'attributes': {
+                                        'tiles': [
+                                            'my-post',
+                                            'safe-drop',
+                                            'extra-cover'
+                                        ],
+                                    'header': 'Thanks for your enquiry',
+                                    'isUrgent': 'false'
+                                    }
+                                    }
+                                    }
+                                    " />
+    
+    <aura:attribute name="startPage" type="String" default="chasMissingItemWPage01" />
+    <aura:attribute name="currentPage" type="String" default="chasMissingItemWPage01" />
+    <aura:attribute name="firstWordInProgressBar" type="String" default="Item" />
+    <aura:attribute name="pageTitle" type="String" default="Late or missing item"/>
+    
+</aura:component>

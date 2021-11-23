@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GM_StarTrack_Express_Products_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>GM StarTrack &amp; Express Products</label>
+    <queue>GM_StarTrack_Express_Products</queue>
+    <sharedTo>
+        <group>SystemAdmin</group>
+    </sharedTo>
+</ListView>

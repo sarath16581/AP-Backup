@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Job_Information__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (ISBLANK(Booking_Type_Fx__c),&quot;&quot;,&quot;Booking Type: &quot; + Booking_Type_Fx__c+ BR()) +
+IF (ISBLANK(Site_Instructions__c),&quot;&quot;,&quot;Site Instructions: &quot; + Site_Instructions__c + BR()) +
+IF (ISBLANK(Hazards__c),&quot;&quot;,&quot;Hazards: &quot; + Hazards__c + BR()) +
+IF (ISBLANK(Comments__c),&quot;&quot;,&quot;Comments: &quot; +  Comments__c  + BR()) +
+IF (ISBLANK(Job_Instructions__c),&quot;&quot;,&quot;Job Instructions: &quot; + Job_Instructions__c + BR()) +
+IF (ISBLANK(Key_Number__c),&quot;&quot;,&quot;Key Number: &quot; + Key_Number__c + BR()) +
+IF (ISBLANK(Article_Count__c),&quot;&quot;,&quot;Article Count: &quot; + Article_Count__c + BR()) +
+IF (Booking_Record_Type__c  = &apos;MPB Pickup&apos;,&quot;Contact Name: &quot; + Contact_Name__c + BR() + &quot;Contact Number: &quot; + Contact_Phone_Number__c ,&quot;&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Job Information</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,31 @@
+<!-- BAM Persona Selector -->
+<template>
+
+    <template if:true={personas}>
+        <div style="position:relative;">
+            <c-custom-drop-down-menu align="right" label={displayName} size="large" class="slds-m-right_x-large">
+                <template for:each={personas} for:item="persona">
+                    <template if:true={persona.isCurrent}>
+                        <li class="slds-dropdown__item slds-is-selected" role="presentation" key={persona.userId}>
+                            <a aria-checked="true" href="javascript:void(0);" role="menuitem" tabindex="0" data-user-id={persona.userId} onclick={doPersonaSwitch}>
+                                <span class="slds-truncate" title={persona.accountDisplay}>
+                                    <lightning-icon icon-name='utility:check' size='x-small' class="slds-m-right_x-small" aria-hidden="true"></lightning-icon>
+                                    {persona.accountDisplay}
+                                </span>
+                            </a>
+                        </li>
+                    </template>
+                    <template if:false={persona.isCurrent}>
+                        <li class="slds-dropdown__item" role="presentation" key={persona.userId}>
+                            <a href="javascript:void(0);" role="menuitem" tabindex="0" data-user-id={persona.userId} onclick={doPersonaSwitch}>
+                                <span class="slds-truncate" title={persona.accountDisplay}>{persona.accountDisplay}</span>
+                            </a>
+                        </li>
+                    </template>
+                </template>
+            </c-custom-drop-down-menu>
+            <c-promise-spinner></c-promise-spinner>
+        </div>
+    </template>
+
+</template>

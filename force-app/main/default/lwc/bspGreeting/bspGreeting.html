@@ -1,0 +1,56 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 30/07/2020
+  * @description  : Component for Home page greeting.
+--------------------------------------- History --------------------------------------------------
+30.07.2020    Jansi Rani        Created
+14-10-2020    Jansi             Added 'Account reporting' link
+04.03.2021    Abhilash Kuntar   Updated 
+                          - Changed "New to the site?" label to "Need help?"
+                          - Changed text of "Download the user's guide" to "Download the user guide"
+                          - Added "How to use the BSP (video)" link below "Download the user guide"
+-->
+<template>
+  <!-- Welcome Greeting-->
+  <div class="slds-grid slds-grid_vertical-stretch slds-wrap slds-p-vertical_medium">
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12 brand-backbone">
+      <h1 class="slds-p-bottom_small">Hi {userFirstName}&nbsp;{userLastName}, how can we help today?</h1>
+      <h3>{businessName}</h3>
+      <template if:true={isDIFOTFilesExists}>
+        <a href='#' class="underline-dec" onclick={navigateToAccountReport}>Account reports</a>
+      </template>
+    </div>
+
+    <!-- Business Deails-->
+    
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-show_medium">        
+        <div class="slds-p-horizontal_large slds-p-vertical_small users-guide-panel">
+          <h3>Need help?</h3>
+          
+          <c-bsp-custom-icons icon="chevron-right" size="x-small" iconclass="icon-inline"></c-bsp-custom-icons>&nbsp;<a target="_blank" href="https://auspost.com.au/content/dam/auspost_corp/media/documents/business-support-portal-guide.pdf">Download the user guide</a> <br/>
+          <c-bsp-custom-icons icon="chevron-right" size="x-small" iconclass="icon-inline"></c-bsp-custom-icons>&nbsp;<a href="#" label="Watch video" title="Watch video" onclick={openModal}>How to use the BSP (video)</a>
+          <!--Use template if:true to display/hide popup based on isModalOpen value--> 
+          <template if:true={isModalOpen}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-ytVideo" aria-modal="true" aria-describedby="modal-content-id-ytVideo" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header slds-modal__header_empty">
+                      <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close"
+                                alternative-text="close"
+                                variant="inverse"
+                                size="small" ></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium video-container" id="modal-content-id-ytVideo">
+                      <iframe class="video" src={videoLink} frameborder="0" allowfullscreen> </iframe>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+          </template>
+        </div>
+    </div>
+  </div>
+
+</template>

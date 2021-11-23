@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Multicurrency_EBT_Name__c</fullName>
+    <description>Multi Currency EBT_Name (ReD GardShield Ruleset/Channel Identifier)</description>
+    <externalId>false</externalId>
+    <label>Multicurrency ReD Fraud Segmentatn Code</label>
+    <length>12</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

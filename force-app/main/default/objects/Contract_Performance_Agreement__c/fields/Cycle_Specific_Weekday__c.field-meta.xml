@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cycle_Specific_Weekday__c</fullName>
+    <externalId>false</externalId>
+    <label>Cycle Specific Weekday</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Cycle__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetName>Weekday</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>Weekly</controllingFieldValue>
+            <valueName>Monday</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Weekly</controllingFieldValue>
+            <valueName>Tuesday</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Weekly</controllingFieldValue>
+            <valueName>Wednesday</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Weekly</controllingFieldValue>
+            <valueName>Thursday</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Weekly</controllingFieldValue>
+            <valueName>Friday</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

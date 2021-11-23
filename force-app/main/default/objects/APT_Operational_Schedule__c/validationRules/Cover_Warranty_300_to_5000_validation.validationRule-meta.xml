@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cover_Warranty_300_to_5000_validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF(AND(ISPICKVAL( APT_Transit_Warranty_Cover__c, &apos;Automatic Transit Warranty (Maximum of $5,000)&apos;),OR(ISNULL(APT_Transit_Warranty_Cover_Amount__c), APT_Transit_Warranty_Cover_Amount__c &lt;= 300, APT_Transit_Warranty_Cover_Amount__c &gt; 5000)),true,false)</errorConditionFormula>
+    <errorDisplayField>APT_Transit_Warranty_Cover_Amount__c</errorDisplayField>
+    <errorMessage>Transit Warranty Cover Amount should be between 300 to 5000.</errorMessage>
+</ValidationRule>

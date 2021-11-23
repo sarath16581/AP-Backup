@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Amber__c</fullName>
+    <defaultValue>0.4</defaultValue>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>Percentage completion (calculated as percent of achieved score on the stage) of the stage before the UI will display as amber/yellow for that stage.
+
+Enter a value from 0 - 100. The recommended default is 50 (%).</inlineHelpText>
+    <label>Amber</label>
+    <precision>3</precision>
+    <required>true</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

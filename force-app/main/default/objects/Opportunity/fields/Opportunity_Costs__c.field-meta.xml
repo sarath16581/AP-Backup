@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Costs__c</fullName>
+    <description>Phase 1 - Opportunity Assessment (PWC) 
+
+Identify major costs likely to be incurred during stages 4 and 5 of the Sales Process to pursue this opportunity</description>
+    <externalId>false</externalId>
+    <inlineHelpText>What costs will we incur pursuing this opportunity?</inlineHelpText>
+    <label>Opportunity Costs</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Currency</type>
+</CustomField>

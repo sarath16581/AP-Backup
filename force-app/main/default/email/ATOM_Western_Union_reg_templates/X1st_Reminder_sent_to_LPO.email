@@ -1,0 +1,42 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoListParagraphCxSpFirst" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"></p><p class="MsoListParagraphCxSpFirst" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><font face="Arial, sans-serif" size="2" style="background-color: rgb(255, 255, 255);"><span class="normaltextrun"><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">Organisation Name:&nbsp;</span></span></font><span style="font-size: 12pt; background-color: rgb(255, 255, 255);"><font face="Arial, sans-serif" size="2">{!Membership__c.Account__c}&nbsp;</font></span><font face="Arial, sans-serif" size="2" style="background-color: rgb(255, 255, 255);">{!Membership__c.Name}</font><span style="font-family: Arial, sans-serif; font-size: small; background-color: rgb(255, 255, 255);">&nbsp;</span></p><p class="MsoListParagraphCxSpFirst" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><span style="background-color: rgb(255, 255, 255);"><font face="Arial, sans-serif" size="2"><br></font></span></p>
+
+<p class="MsoListParagraphCxSpFirst" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><font face="Arial, sans-serif" size="2">Dear Licensee,<o:p></o:p></font></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><font face="Arial, sans-serif" size="2">&nbsp;</font></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><font face="Arial, sans-serif" size="2">On the&nbsp;</font><font face="Arial, sans-serif" size="2">{!Membership__c.Sent_to_LPO_date2__c}</font><font face="Arial, sans-serif" size="2">&nbsp;we sent you
+a Western Union <span style="background-color: rgb(255, 255, 255);"><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">AML registration</span>
+</span>pack.<o:p></o:p></font></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><font face="Arial, sans-serif" size="2">&nbsp;<o:p></o:p></font></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><font face="Arial, sans-serif" size="2">Please ensure you return your Western Union AML
+pack within 30 days, either via email to&nbsp;<b><u><a href="mailto:aml.dataentry@auspost.com.au">aml.dataentry@auspost.com.au</a></u>&nbsp;</b>or
+alternatively by mail to:&nbsp;<o:p></o:p></font></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><font face="Arial, sans-serif" size="2">&nbsp;</font></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="font-size: 12pt; color: rgb(0, 0, 0); margin-left: 0cm;"><span style="background-color: rgb(255, 255, 255);"><font face="Arial, sans-serif" style="" size="2">Workforce Due Diligence</font></span><font face="Arial, sans-serif" size="2" style="">&nbsp;<font face="arial" style="font-size: 12pt;"><o:p></o:p></font></font></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><font face="Arial, sans-serif" size="2">GPO Box 5091&nbsp;<o:p></o:p></font></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><font face="Arial, sans-serif" size="2">MELBOURNE VIC 3001&nbsp;<o:p></o:p></font></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><font face="Arial, sans-serif" size="2">&nbsp;</font></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="font-size: 12pt; margin-left: 0cm;"><font face="Arial, sans-serif" style="" size="2">If you have returned your pack but are still
+receiving reminders or you require assistance, please contact&nbsp;<span style="background-color: rgb(255, 255, 255);">Workforce Due Diligence</span></font><font face="Arial, sans-serif" size="2" style="">&nbsp;at aml.dataentry@auspost.com.au&nbsp;or 03 9322 0621<font face="arial" style="font-size: 12pt;"><o:p></o:p></font></font></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><font face="Arial, sans-serif" size="2">&nbsp;</font></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><font face="Arial, sans-serif" size="2">Kind regards,&nbsp;<o:p></o:p></font></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><font face="Arial, sans-serif" size="2">&nbsp;</font></p>
+
+<p class="MsoListParagraphCxSpFirst" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><font face="Arial, sans-serif" style="background-color: rgb(255, 255, 255);" size="2">Workforce
+Due Diligence</font></p><p class="MsoListParagraphCxSpFirst" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><br></p><p class="MsoListParagraphCxSpLast" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><font face="Arial, sans-serif" style=""><br></font></p><p class="MsoNormal" style="font-family: arial; color: rgb(0, 0, 0);"><font face="Arial, sans-serif" style="" size="1">Australia Post will never send you an email asking for your password, credit card details or account information.<o:p></o:p></font></p><p class="MsoNormal" style="font-family: arial; color: rgb(0, 0, 0);"><font face="Arial, sans-serif" size="1">This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don't think you should have received this email, please email&nbsp;<i><span style="color: red;"><a href="mailto:aml.dataentry@auspost.com.au">aml.dataentry@auspost.com.au</a></span></i>. Visit&nbsp;<a href="https://ourpost.com.au/">ourpost.com.au</a>&nbsp;for further information on our online&nbsp;<a href="https://auspost.com.au/about-us/about-our-site/online-security-scams-fraud">security</a>.</font></p><p class="MsoNormal" style="font-family: arial; color: rgb(0, 0, 0);"><span style="font-family: Arial, sans-serif; text-align: center;"><font size="1">&nbsp;</font></span></p><p class="MsoListParagraphCxSpLast" style="font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"></p><p class="MsoNormal" align="center" style="font-family: arial; color: rgb(0, 0, 0); text-align: center;"><font face="Arial, sans-serif" size="1"><a href="https://ourpost.com.au/people-resources/help-and-support.html">Help &amp; Support</a>&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;<a href="https://auspost.com.au/terms-conditions?ilink=global-footer-terms-link">Terms &amp; Conditions</a>&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://auspost.com.au/privacy">Privacy Policy</a></font></p><br><p style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0);"></p>]]></td>
+</tr>
+</table>

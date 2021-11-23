@@ -1,0 +1,17 @@
+/**
+ * 2021-05-07 - Ranjeewa Silva - Created.
+ */
+img.em-attachment-image {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+}
+
+.em-attachment-card__body {
+    background-color:rgb(250, 250, 249);
+}
+
+.em-attachment-card__container {
+    max-width:90vw;
+}

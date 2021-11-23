@@ -1,0 +1,17 @@
+<!--
+27.10.16 Eric Shen Change Subjectvisibility to editable as requested via INC0835667
+2021-09-08  seth.heang@auspost.com.au   Uplift SF API version to 52
+-->
+<apex:page standardController="Case" showHeader="false" sidebar="false" >
+  <apex:emailPublisher id="myEmailPublisher"  enableQuickText="true" 
+                    entityId="{!case.id}" 
+                     verticalResize="true"
+                    expandableHeader="false"
+                    autoCollapseBody="false"  showAttachments="true" 
+                    showAdditionalFields="true" emailBodyFormat="textAndHTML"
+                    toVisibility="editable"
+                    bccVisibility="hidden" 
+                    ccVisibility="hidden" subjectVisibility="editable"
+                    toAddresses="{!case.contact.Email}"
+                    fromAddresses="customerservice@auspost.com.au" />  
+</apex:page>

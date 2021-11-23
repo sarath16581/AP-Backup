@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ContactOwnerUsername__c</fullName>
+    <description>This is the username of the user that will own any contacts created in Merchant Portal Access Management. The username must be a user with a role and must be visible to the current logged in user (ie. a part of the community)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is the username of the user that will own any contacts created in Merchant Portal Access Management. The username must be a user with a role and must be visible to the current logged in user (ie. a part of the community)</inlineHelpText>
+    <label>Contact Owner Username</label>
+    <length>100</length>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

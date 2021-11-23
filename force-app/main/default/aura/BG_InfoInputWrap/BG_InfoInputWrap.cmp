@@ -1,0 +1,281 @@
+<!--
+    STP:20/02/2020: 
+    This is the base component to display all types of base lightning components based on input sent
+    The 'type' parameter specifies what type of 'input' component.
+    The 'required' attribute specifies whether the input cmp is required or not.
+    The 'readonly attribute specifies whether the input cmp is readonly or not.
+    The 'maxlength attribute specifies the maximum input length to be accpeted for this input cmp.
+-->
+<aura:component >
+    
+    <aura:attribute name="name" type="String" />
+    <aura:attribute name="type" type="String" default="text"/>
+    <aura:attribute name="required" type="Boolean" default="false" />
+    <aura:attribute name="label" type="String" />
+    <aura:attribute name="value" type="Object" />
+    <aura:attribute name="uniqueKey" type="String" />
+    <aura:attribute name="default" type="Object" />
+    <aura:attribute name="valueList" type="List"/> <!-- empty array of values for checkboxGroup RV -->
+    <aura:attribute name='options' type='List' />
+    <aura:attribute name="radioType" type="String" default="radio"/>
+    <aura:attribute name="helptext"  type="String" />
+    <aura:attribute name="max" type="String"/>
+    <aura:attribute name="min" type="String"/>
+    <aura:attribute name="pattern" type="String"/>
+    <aura:attribute name="variant" type="String" default="standard"/>
+    <aura:attribute name="maxlength" type="Integer"/>
+    <aura:attribute name="placeholder" type="String"/>
+    <aura:attribute name="disabled" type="Boolean" default="false"/>
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+    <aura:attribute name="messageWhenPatternMismatch" type="String"/>
+    <aura:attribute name='messageWhenBadInput' type='String' />
+    <aura:attribute name='messageWhenTooShort' type='String' />
+    <aura:attribute name="formatter" type="String"/>
+    <aura:attribute name="cssClass" type="String" default='inputCustom'/>
+    <aura:attribute name='onchange' type='Aura.Action' default="{! c.doNothing }" />
+    <aura:attribute name='onchangeRelatedQuestionCheck' type='Aura.Action' default="{! c.checkRelatedQuestion }" />
+    <aura:attribute name='onclick' type='Aura.Action' default="{! c.doNothing }" />
+    <aura:attribute name='onPaste' type='Aura.Action' default="{! c.stopPasteEvent }" />
+    <aura:attribute name='onfocus' type='Aura.Action' default="{! c.doNothing }" />
+    <aura:attribute name='onblur' type='Aura.Action' default="{! c.doNothing }" />
+    <aura:attribute name='sourceLabel' type='String' default="Available" />
+    <aura:attribute name='selectedLabel' type='String' default="Selected" />
+    <aura:attribute name='messageWhenValueMissing' type='String' />
+    <aura:attribute name="street" type="String"/>
+    <aura:attribute name="city" type="String"/>
+    <aura:attribute name="state" type="String"/>
+    <aura:attribute name="postalCode" type="String"/>
+    <aura:attribute name="country" type="String"/>
+    <aura:attribute name="readonly" type="Boolean" default="false"/>
+    <aura:attribute name="fauxLabelEnabled" type="Boolean" default="true"/>
+    
+    <aura:method name="reportValidity" action="{! c.reportValidity }" />
+    <aura:method name="checkValidity" action="{! c.checkValidity }" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:registerEvent name="relatedQuestionEvent" type="c:BG_RelatedQuestionEvent"/>
+    <div class="{! v.variant == 'label-inline' ? 'label-inline' : '' }" style='padding-top:12px;'>
+        <div class="input">
+            <aura:if isTrue="{! v.type == 'combobox' ||v.type == 'Picklist'||v.type == 'Picklist Field'}">
+                <span><aura:if isTrue="{!v.required == True}">
+                    <ui:outputText value="*" class="slds-required"/>
+                </aura:if>
+                <label class="labelClss">{! v.label }</label></span>
+                <lightning:combobox aura:id='field' 
+                                    name="{! v.name }" 
+                                    value="{! v.value }" 
+                                    options="{! v.options }"  
+                                    onchange="{! c.onchangeCheckRelatedQuestion }"
+                                    placeholder="{! v.placeholder }" 
+                                    />
+                
+            </aura:if>
+            
+            <aura:if isTrue="{! v.type == 'radiogroup' }">
+                <span><aura:if isTrue="{!v.required == True}">
+                    <ui:outputText value="*" class="slds-required"/>
+                </aura:if>
+                <label class="labelClss">{! v.label }</label></span>
+                <lightning:radioGroup aura:id='field'
+                                      type="radio"
+                                      name="{! v.name }"
+                                      value="{! v.value }"
+                                      options="{! v.options }"
+                                      disabled="{!v.disabled}"
+                                      onchange="{!c.onchangeRadioGroup}"
+                                      messageWhenValueMissing="{!v.messageWhenValueMissing}"
+                                     />
+            </aura:if>
+            
+            <aura:if isTrue="{! v.type == 'textarea'|| v.type == 'Multiline Text'}">
+                <span><aura:if isTrue="{!v.required == True}">
+                    <ui:outputText value="*" class="slds-required"/>
+                </aura:if>
+                <label class="labelClss">{! v.label }</label></span>
+                <lightning:textarea aura:id='field'
+                                    variant="label-hidden"
+                                    name="{! v.name }" 
+                                    value="{! v.value }" 
+                                    placeholder="{! v.placeholder }"
+                                    onchange="{!v.onchange}"
+                                    maxlength="{! v.maxlength }" 
+                                    messageWhenTooLong= "{!'A maximum of ' + v.maxlength+' characters are allowed.'}" 
+                                    messageWhenBadInput='{!v.messageWhenBadInput}' 
+                                    disabled="{!v.disabled}"
+                                    class="{!v.cssClass}"
+                                   />
+            </aura:if>
+            
+           <!-- <aura:if isTrue="{! v.type == 'propertyitem' }">
+                <c:VicPolInputProperty aura:id='field'
+                                       label="{! v.label }"
+                                       name="{! v.name }"
+                                       value="{! v.value }"
+                                       options="{! v.options }"
+                                       required="{! v.required }"
+                                       disabled="{!v.disabled}"
+                                       onchange="{!v.onchange}"
+                                      />
+            </aura:if> -->
+            
+           <!-- <aura:if isTrue="{! and(v.type == 'multiselect', not(empty(v.options))) }">
+                <c:VicPolStrikeMultiSelectPicklist aura:id='field'
+                                                   label="{! v.label }"
+                                                   value="{! v.value }"
+                                                   required="{! v.required }"
+                                                   placeholder="{! v.placeholder }" 
+                                                   disabled="{! v.disabled }"
+                                                   onchange="{! v.onchange }"
+                                                   >
+                    <aura:iteration items="{! v.options }" var="option">
+                        <c:VicPolStrikeOption label="{!option.label}" value="{!option.value}" />
+                    </aura:iteration>
+                </c:VicPolStrikeMultiSelectPicklist>
+            </aura:if>-->
+            
+            <!-- [TS] There doesn't seem to be an easy way to do aura:elseif statements -->
+            <aura:if isTrue="{!  v.type == 'datetime-local'|| v.type == 'Text'|| v.type == 'Text Field' 
+                             || v.type == 'text' || v.type == 'date' || v.type == 'datetime' 
+                             || v.type == 'tel' || v.type == 'email' || v.type == 'number' || v.type == 'checkbox' || v.type == 'search'  }">
+                <span><aura:if isTrue="{!v.required == True}">
+                <ui:outputText value="*" class="slds-required"/>
+                </aura:if>
+                <label class="labelClss">{! v.label }</label></span>             
+               	<lightning:input aura:id='field' 
+                                 type="{! v.type }" 
+                                 name="{! v.name }" 
+                                 value="{! v.value }" 
+                                 placeholder="{! v.placeholder }" 
+                                 maxlength="{! v.maxlength }" 
+                                 pattern="{! v.pattern }" 
+                                 min="{! v.min }" 
+                                 max="{! v.max }"
+                                 messageWhenPatternMismatch="{! v.messageWhenPatternMismatch }" 
+                                 disabled="{!v.disabled}"
+                                 isLoading="{! v.isLoading }"
+                                 onchange="{!v.onchange}"
+                                 onclick="{!v.onclick}"
+                                 onfocus="{!v.onfocus}"
+                                 formatter="{!v.formatter}"
+                                 class="{!v.cssClass}"
+                                 messageWhenTooShort='{!v.messageWhenTooShort}'
+                                 onblur='{!v.onblur}'
+                                 checked='{! v.value }'
+                                 readonly='{!v.readonly}'
+
+                                 />
+            </aura:if>
+            
+            <aura:if isTrue="{! v.type == 'dualListBox' ||  v.type == 'Multiselect Field' }">
+                <span><aura:if isTrue="{!v.required == True}">
+                    <ui:outputText value="*" class="slds-required"/>
+                    </aura:if>
+                    <label class="labelClss">{! v.label }</label></span>             
+               <lightning:dualListbox aura:id="field"
+                                       name="{! v.name }" 
+                                       sourceLabel="{! v.sourceLabel }" 
+                                       selectedLabel="{! v.selectedLabel }" 
+                                       fieldLevelHelp="" 
+                                       options="{! v.options }"
+                                       value='{!v.value}'
+                                       placeholder="{! v.placeholder }" 
+                                       class="{!v.cssClass}"
+                                       onchange="{! c.onchangeDualList }"
+                                       /> 
+                
+                <!-- dualListBox replaced with checkbox group RV, 9:28am 22/10/2018 -->
+               	<!--<lightning:checkboxGroup aura:id="field"  
+                                         class="VicPolInputCheckboxGroup"
+                                       	 label= "{! v.label }"
+                                       	 name="{! v.name }"
+                                         required="{! v.required }"
+                                       	 options="{! v.options }"
+                                       	 value='{!v.value ? v.value : v.valueList}'
+                                         onchange="{! c.onchangeDualList }"
+                                       	 /> -->
+                
+            </aura:if>
+             <aura:if isTrue="{! v.type == 'checkoxGroup' }">
+                <span><aura:if isTrue="{!v.required == True}">
+                    <ui:outputText value="*" class="slds-required"/>
+                    </aura:if>
+                    <label class="labelClss">{! v.label }</label></span>             
+            <lightning:checkboxGroup aura:id="field"
+                                       	 name="{! v.name }"
+                                       	 options="{! v.options }"
+                                       	 value='{!v.value ? v.value : v.valueList}'
+                                         onchange="{! c.onchangeCheckBox }"
+                                       	 />
+            </aura:if>
+            <aura:if isTrue="{! v.type == 'address' }">
+                <span><aura:if isTrue="{!v.required == True}">
+                    <ui:outputText value="*" class="slds-required"/>
+                    </aura:if>
+                    <label class="labelClss">{! v.label }</label></span>             
+                <lightning:inputAddress
+                                        addressLabel="{!v.label}"
+                                        streetLabel="Street"
+                                        cityLabel="City"
+                                        countryLabel="Country"
+                                        provinceLabel="State"
+                                        postalCodeLabel="PostalCode"
+                                        street="{!v.street}"
+                                        city="{!v.city}"
+                                        country="{!v.country}"
+                                        province="{!v.state}"
+                                        postalCode="{!v.postalCode}"
+                                        fieldLevelHelp="Help Text for inputAddress field"
+                                        readonly='{!v.readonly}'
+                                        disabled="true"
+                                        />
+            </aura:if>
+            <aura:if isTrue="{! v.type == 'Percent' }">
+                <span><aura:if isTrue="{!v.required == True}">
+                    <ui:outputText value="*" class="slds-required"/>
+                    </aura:if>
+                    <label class="labelClss">{! v.label }</label></span>             
+                <lightning:input aura:id='field' 
+                                 type="number" 
+                                 name="{! v.name }" 
+                                 value="{! v.value }" 
+                                 placeholder="{! v.placeholder }" 
+                                 maxlength="{! v.maxlength }" 
+                                 pattern="{! v.pattern }"
+                                 formatter='Percent-fixed'
+                                 maximumFractionDigits="3"
+                                 min="{! v.min }" 
+                                 max="{! v.max }"
+                                 messageWhenPatternMismatch="{! v.messageWhenPatternMismatch }" 
+                                 disabled="{!v.disabled}"
+                                 isLoading="{! v.isLoading }"
+                                 onchange="{!v.onchange}"
+                                 onclick="{!v.onclick}"
+                                 onfocus="{!v.onfocus}"
+                                 class="{!v.cssClass}"
+                                 messageWhenTooShort='{!v.messageWhenTooShort}'
+                                 onblur='{!v.onblur}'
+                                 checked='{! v.value }'
+                                 readonly='{!v.readonly}'
+                                 step="0.01"
+                                 />
+
+            </aura:if>
+            <!-- <aura:if isTrue="{! (v.type == 'tel') }">
+                   <lightning:input aura:id='field' type="{! v.type }" 
+                                    label="{! v.label }"
+                                    name="{! v.name }" value="{! v.value }" 
+                                    pattern="{!v. pattern}"
+                                    placeholder="{! v.placeholder }"/>
+        
+                <lightning:input aura:id='field' type="{! v.type }" label="{! v.label }" name="{! v.name }" value="{! v.value }" placeholder="{! v.placeholder }" maxlength="{! v.maxlength }" pattern="{! v.pattern }" required="{! v.required }" min="{! v.min }" max="{! v.max }" messageWhenPatternMismatch="{! v.messageWhenPatternMismatch }"/>
+            </aura:if> -->
+            
+            <!-- <aura:if isTrue='{! v.helptext != null}'>
+                <div>
+                    <lightning:helptext content="{! v.helptext }" class="vPolHelptext"/>
+                </div>
+            </aura:if> -->
+        </div>
+        
+    </div>
+</aura:component>

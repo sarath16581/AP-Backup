@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cohort_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Cohort Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>From_Billing_Account_Integration_Type__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>3rd Party</fullName>
+                <default>false</default>
+                <label>3rd Party</label>
+            </value>
+            <value>
+                <fullName>Integrated</fullName>
+                <default>false</default>
+                <label>Integrated</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Thick Client</fullName>
+                <default>false</default>
+                <label>Thick Client</label>
+            </value>
+            <value>
+                <fullName>Web</fullName>
+                <default>false</default>
+                <label>Web</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>3rd Party Integrator (TEAM)</controllingFieldValue>
+            <controllingFieldValue>3rd Party Integrator (PeopleSoft)</controllingFieldValue>
+            <controllingFieldValue>3rd Party Integrator (SAP)</controllingFieldValue>
+            <valueName>3rd Party</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Unknown (TEAM)</controllingFieldValue>
+            <controllingFieldValue>eParcel (Unmanifested)</controllingFieldValue>
+            <controllingFieldValue>Manual</controllingFieldValue>
+            <controllingFieldValue>Send a Parcel</controllingFieldValue>
+            <controllingFieldValue>Unknown (Peoplesoft)</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel (Integrated)</controllingFieldValue>
+            <controllingFieldValue>MOS</controllingFieldValue>
+            <controllingFieldValue>BulkShipper</controllingFieldValue>
+            <valueName>Integrated</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web Despatch</controllingFieldValue>
+            <controllingFieldValue>FMU (Online)</controllingFieldValue>
+            <controllingFieldValue>eParcel Web</controllingFieldValue>
+            <controllingFieldValue>MyStarTrack Online</controllingFieldValue>
+            <valueName>Web</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Freight Master</controllingFieldValue>
+            <controllingFieldValue>MyStarTrack</controllingFieldValue>
+            <controllingFieldValue>Despatcher</controllingFieldValue>
+            <valueName>Thick Client</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

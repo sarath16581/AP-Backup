@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_minimum_monthly_spend</fullName>
+    <active>true</active>
+    <description>This is to ensure that the minimum monthly spend/revenue value entered by the user is greater than 1000</description>
+    <errorConditionFormula>AND( ISPICKVAL(Is_Startrack_Proposal__c, &apos;Yes&apos;) ,APT_Minimum_Monthly_Spend__c  &lt; 1000)</errorConditionFormula>
+    <errorDisplayField>APT_Minimum_Monthly_Spend__c</errorDisplayField>
+    <errorMessage>The minimum monthly spend for Startrack customers cannot be below $1,000</errorMessage>
+</ValidationRule>

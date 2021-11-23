@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEPARC__Subscribed_To_Archive_Summary_Email__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If checked, you&apos;ll receive archive summary email whenever archive job completes successfully.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If checked, you&apos;ll receive archive summary email whenever archive job completes successfully.</inlineHelpText>
+    <label>Subscribed To Archive Summary Email?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

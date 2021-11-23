@@ -1,0 +1,177 @@
+<!--
+Author:        Patrick James Franco
+Company:       Cloud Sherpas
+Description:   Card Left component for StarTrack Cases
+History
+November 23, 2015 - Patrick James Franco - Created
+2018-05-18 - nathan.franklin@auspost.com.au - Added the ability to push ATL commands into the Workspace CTI Adapter for StarTrack
+-->
+
+<apex:component controller="StarTrackCardLeft_ControllerX" allowDML="true">
+	<apex:attribute name="case" description="" type="Case" required="true"/>
+
+	<apex:pageMessage summary="{!$Setup.StarTrack_Settings__c.StarTrack_Card_Left_Phone__c}" severity="info"
+					  rendered="{!caseRecord.Network__r.Preferred_Method_of_Tasking__c == 'Phone' ||
+							  (caseRecord.Network__r.Preferred_Method_of_Tasking__c == 'Parent Depot' && caseRecord.Network__r.Parent_Network__r.Preferred_Method_of_Tasking__c == 'Phone')}"/>
+	<apex:pageMessages id="pageMessages"/>
+	<apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}"/>
+
+	<c:ScriptLoader jslibraries="jquery,interaction,integration,canvaspublisher" csslibraries="bootstrap,jqueryui"/>
+
+	<style type="text/css">
+		.boxed {
+			border-radius : 5px;
+			border: 1px solid #ccc;
+			border-top-color: rgb(204, 204, 204);
+			border-top-style: solid;
+			border-top-width: 1px;
+			border-right-color: rgb(204, 204, 204);
+			border-right-style: solid;
+			border-right-width: 1px;
+			border-bottom-color: rgb(204, 204, 204);
+			border-bottom-style: solid;
+			border-bottom-width: 1px;
+			border-left-color: rgb(204, 204, 204);
+			border-left-style: solid;
+			border-left-width: 1px;
+			padding: 10px;
+			background-color: #fff;
+			border-radius: 5px;
+		}
+
+		.legendClass {
+			display: block;
+			width:initial;
+			padding: 0;
+			margin-bottom: 0px;
+			font-size: 14px;
+			font-weight:bold;
+			/* line-height: inherit; */
+			/* color: #333; */
+			/* border: 0; */
+			border-bottom: 0px solid #e5e5e5;
+		}
+
+		.bPageBlock .detailList tr td.dataCol,
+		.bPageBlock .detailList tr th.labelCol {
+			border-bottom:2px solid #FFFFFF;
+		}
+
+	</style>
+
+	<div class="slds">
+		<apex:actionstatus id="counterStatus">
+			<apex:facet name="start">
+				<div class="waitingSearchDiv" id="el_loading"
+					 style="background-color: #fbfbfb; height:100%; width:100%; opacity:0.65;">
+					<div class="waitingHolder" style="top: 50%; width: 50%;">
+						<img class="waitingImage" src="/img/loading.gif" title="Please Wait.."/>
+						<span class="waitingDescription">Loading...</span>
+					</div>
+				</div>
+			</apex:facet>
+		</apex:actionstatus>
+		<apex:form id="theForm">
+			<apex:pageBlock tabStyle="Case" mode="maindetail" id="thePageBlock">
+				<apex:outputPanel id="thePanel" rendered="{!cardLeftAllowed}">
+					<apex:actionFunction name="validateEnquiryTypeAction" action="{!validateEnquiryType}" rerender="pageMessages, thePanel, cpbutton" oncomplete="resizePA();"/>
+					<apex:actionFunction name="validateDeliveryDateAction" action="{!validateDeliveryDate}" rerender="pageMessages, thePanel, cpbutton" oncomplete="resizePA();"/>
+					<apex:actionFunction name="changeEnquiryTypeAction" action="{!changeEnquiryType}" rerender="pageMessages, thePanel, cpbutton" oncomplete="resizePA();"/>
+					<apex:pageBlockSection id="theMainBlockSection">
+						<apex:inputField value="{!caseRecord.Call_Purpose__c}" styleClass="form-control input-sm string"/>
+						<apex:selectList value="{!caseRecord.Enquiry_Type__c}" size="0" id="enquiryType" onchange="changeEnquiryTypeAction()" styleClass="form-control input-sm string">
+							<apex:selectOptions value="{!EnquiryTypeValues}"/>
+						</apex:selectList>
+						<apex:inputField value="{!caseRecord.Override_Customer_Restriction__c}" onchange="validateDeliveryDateAction()" rendered="{!((hasEnquiryTypeError) || (isOverride) && NOT(caseRecord.Enquiry_Type__c == '' || caseRecord.Enquiry_Type__c == 'Check Address'))}"/>
+						<apex:inputField value="{!caseRecord.Override_Customer_Restriction_Reason__c}" styleClass="form-control input-sm string" rendered="{!(caseRecord.Override_Customer_Restriction__c)}"/>
+					</apex:pageBlockSection>
+					<apex:pageBlockSection id="depotCollectionAndRedeliverySection" rendered="{!(((caseRecord.Enquiry_Type__c == 'Depot Collection') || (caseRecord.Enquiry_Type__c == 'Redelivery')) && NOT(hasEnquiryTypeError))}">
+						<apex:inputField value="{!caseRecord.Delivery_Collection_Date__c}" onchange="validateDeliveryDateAction();" styleClass="form-control input-sm string" style="width: 100px"/>
+						<apex:inputField value="{!caseRecord.DeliveryInstructions__c}" styleClass="form-control input-sm string"/>
+						<apex:inputField value="{!caseRecord.Phone__c}" styleClass="form-control input-sm string"/>
+						<apex:inputField value="{!caseRecord.StarTrack_Receiver_Name__c}" styleClass="form-control input-sm string"/>
+					</apex:pageBlockSection>
+					<apex:pageBlockSection columns="1" collapsible="false" id="pgSecAddress" rendered="{!(((caseRecord.Enquiry_Type__c == 'Check Address') || (caseRecord.Enquiry_Type__c == 'Redirection')) && NOT(hasEnquiryTypeError))}">
+						<c:StarTrackAddressComponent legend="Delivery Details" address="{!deliveryAddress}" id="adc" record="{!caseRecord}"/>
+					</apex:pageBlockSection>
+					<apex:pageBlockSection columns="1" rendered="{!(NOT((caseRecord.Enquiry_Type__c == 'Depot Collection') || (caseRecord.Enquiry_Type__c == '')) && NOT(hasEnquiryTypeError))}">
+						<c:StarTrackATLComponent legend="ATL Details" id="atl" record="{!caseRecord}" hasEnquiryTypeError="{!hasEnquiryTypeError}" hasATLError="{!hasATLError}"/>
+					</apex:pageBlockSection>
+					<apex:outputText escape="false" value="<br/>" rendered="{!(caseRecord.Enquiry_Type__c == 'Depot Collection')}"/>
+					<apex:commandButton styleClass="slds-button slds-button--brand slds-button--small" id="cpbutton" onclick="submitForm();" value="Save" style="float:right; bottom:0px; right:0px;" oncomplete="chatter.getPublisher().submit();" disabled="{!(hasEnquiryTypeError || hasATLError || (caseRecord.Enquiry_Type__c == '' || hasDeliveryDateMessage))}" rendered="{!cardLeftAllowed}"/>
+					<apex:pageBlockSection rendered="{!((caseRecord.Enquiry_Type__c == 'Depot Collection') && NOT(hasEnquiryTypeError))}">
+						<apex:pageBlockSectionItem />
+						<apex:pageBlockSectionItem />
+						<apex:pageBlockSectionItem />
+						<apex:pageBlockSectionItem />
+					</apex:pageBlockSection>
+					<apex:pageBlockSection rendered="{!((caseRecord.Enquiry_Type__c == 'Redelivery') && NOT(hasEnquiryTypeError))}">
+						<apex:pageBlockSectionItem />
+						<apex:pageBlockSectionItem />
+					</apex:pageBlockSection>
+				</apex:outputPanel>
+				<apex:actionFunction name="save" action="{!updateCase}" rerender="scriptPanel, pageMessages, thePanel" oncomplete="publishandclose(); resizePA();" status="counterStatus"/>
+			</apex:pageBlock>
+		</apex:form>
+	</div>
+
+	<apex:outputPanel id="scriptPanel">
+		<script type="text/javascript">
+        function publishandclose(){
+            console.log('>> publishandclose');
+
+            if(!{!hasSaveError}) { // if(!false) <-- is true (double negative)!
+                // the record was updated successfully
+                // check the status of the ATL checkbox
+                // window.currentATLStatus is set in submitForm just before the form is submitted to the server.
+                var atlChecked = window.currentATLStatus || false;
+                console.log('>> atlChecked', atlChecked);
+				if(atlChecked && sforce.console.isInConsole()) {
+				    console.log('>> pushing ATL to workspace');
+				    var attachment = { action: 'AttachData', ActionData: { userData: { r_ATL: atlChecked }}};
+					sforce.console.fireEvent('CTIEvent', JSON.stringify(attachment));
+    			}
+            }
+
+            if({!validation}){
+                sforce.interaction.entityFeed.refreshObject('{!case.id}', true, true, true);
+                sforce.interaction.entityFeed.reloadFrame();
+                Sfdc.canvas.publisher.publish({ name: 'publisher.refresh', payload: { feed: true, objectRelatedLists: { }}});
+                Sfdc.canvas.publisher.publish({ name:"publisher.selectAction", payload:{ actionName: 'Case.Closed' }});
+            }
+        }
+		</script>
+	</apex:outputPanel>
+
+	<script type="text/javascript">
+		var j$ = jQuery.noConflict();
+
+		window.onload=function(){
+			Sfdc.canvas.publisher.resize();
+		};
+
+		function resizePA(){
+			Sfdc.canvas.publisher.resize();
+		}
+
+		/**
+		 * When the form is saved we check the status of ATL that was submitted
+		 * After the save response come back, if there wern't any save errors an event is fired if ATL was checked
+		 * This event will be picked up by the StarTrack CTI adapter and will send a command to genesys.
+		 * This is done in StarTrack_CRMConnector.page
+		 **/
+		function setATLSelectedStatus() {
+		    if(j$('input[type=checkbox][id$="chkATL"]').length > 0) {
+		     	window.currentATLStatus = j$('input[type=checkbox][id$="chkATL"]').prop('checked');
+		     	console.log('Storing ATL locally >> ', window.currentATLStatus);
+      		}
+		}
+
+		function submitForm() {
+		    console.log('>> submitting manage delivery');
+			setATLSelectedStatus();
+			save();
+		}
+
+	</script>
+</apex:component>

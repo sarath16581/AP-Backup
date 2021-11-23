@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ABN_Status__c</fullName>
+    <description>Used to Identify the status of the organisation 
+Requested and owned by Christopher Doyle 
+Customer &amp; Market Analyst .
+Customer Data &amp; Insights</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Used to Identify the status of the organisation</inlineHelpText>
+    <label>ABN Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Registered</fullName>
+                <default>false</default>
+                <label>Registered</label>
+            </value>
+            <value>
+                <fullName>Deregistered</fullName>
+                <default>false</default>
+                <label>Deregistered</label>
+            </value>
+            <value>
+                <fullName>No ABN</fullName>
+                <default>false</default>
+                <label>No ABN</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

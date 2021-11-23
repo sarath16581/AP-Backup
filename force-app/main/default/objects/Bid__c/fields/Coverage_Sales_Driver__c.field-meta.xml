@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Coverage_Sales_Driver__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Who is the Coverage Sales Representative on this Opp?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Who is the Coverage Sales Representative on this Opp?</inlineHelpText>
+    <label>Coverage Sales Driver</label>
+    <lookupFilter>
+        <active>false</active>
+        <filterItems>
+            <field>User.Profile.Name</field>
+            <operation>contains</operation>
+            <value>Coverage Sales</value>
+        </filterItems>
+        <isOptional>true</isOptional>
+    </lookupFilter>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Bids_or_Tenders3</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

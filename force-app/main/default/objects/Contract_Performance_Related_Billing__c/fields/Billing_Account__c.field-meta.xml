@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Billing_Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Billing Account</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+        <filterItems>
+            <field>$Source.Related_Account__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </filterItems>
+        <filterItems>
+            <field>$Source.Related_Account__c</field>
+            <operation>equals</operation>
+            <valueField>Billing_Account__c.Organisation__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>$Source.Related_Account__c</field>
+            <operation>equals</operation>
+            <value/>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Billing_Account__c</referenceTo>
+    <relationshipName>Customer_Performance_Related_Billings</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

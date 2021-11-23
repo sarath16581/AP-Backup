@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>PartnerInfo_Notify_Rejection_of_New_Partner_Addendum</fullName>
+        <description>PartnerInfo - Notify Rejection of New Partner Addendum</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Australia_Post_Email_Templates/PartnerInfo_New_Addendum_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Partner_Addendum_Final_Reminder_Alert</fullName>
+        <description>Partner Addendum Final Reminder Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>State_Admin__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Partner_Info_Templates/Partner_Addendum_Annual_Review_Final_Reminder</template>
+    </alerts>
+    <alerts>
+        <fullName>Partner_Addendum_First_Reminder_Alert</fullName>
+        <description>Partner Addendum First Reminder Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>State_Admin__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Partner_Info_Templates/Partner_Addendum_Annual_Review</template>
+    </alerts>
+    <alerts>
+        <fullName>Partner_Addendum_Second_Reminder_Alert</fullName>
+        <description>Partner Addendum Second Reminder Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>State_Admin__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Partner_Info_Templates/Partner_Addendum_Annual_Review_2nd_Reminder</template>
+    </alerts>
+    <alerts>
+        <fullName>Partner_Info_Notify_Rejection_of_Partner_Addendum_Early_Cease</fullName>
+        <description>Partner Info - Notify Rejection of Partner Addendum Early Cease</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Australia_Post_Email_Templates/PartnerInfo_Cease_Addendum_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Partner_Info_Notify_Rejection_of_Partner_Addendum_Renewal</fullName>
+        <description>Partner Info - Notify Rejection of Partner Addendum Renewal</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Australia_Post_Email_Templates/PartnerInfo_Renew_Addendum_Rejected</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>PartnerInfo_Activate_Renewal_Status</fullName>
+        <field>Renewal_Status__c</field>
+        <literalValue>Active</literalValue>
+        <name>PartnerInfo Activate Renewal Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_Active_Addendum_Status</fullName>
+        <field>Status__c</field>
+        <literalValue>Active</literalValue>
+        <name>PartnerInfo Active Addendum Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_Addendum_Reject_RenewStatus</fullName>
+        <field>Renewal_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>PartnerInfo Addendum Reject RenewStatus</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_AllowSubmitToFalse</fullName>
+        <description>Reset the flag Allow Submit Approval to false.  This field is used to prevent the use of the native Submit Approval button.</description>
+        <field>Allow_Submit_For_Approval__c</field>
+        <literalValue>0</literalValue>
+        <name>PartnerInfo-AllowSubmitToFalse</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_Cease_Renewal_Status</fullName>
+        <field>Renewal_Status__c</field>
+        <literalValue>Ceased</literalValue>
+        <name>PartnerInfo Cease Renewal Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_Delete_Request_Change</fullName>
+        <field>Request_Change__c</field>
+        <name>PartnerInfo Delete Request Change</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_Draft_Addendum_Status</fullName>
+        <field>Status__c</field>
+        <literalValue>Draft</literalValue>
+        <name>PartnerInfo Draft Addendum Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_Draft_Renewal_Status</fullName>
+        <field>Renewal_Status__c</field>
+        <literalValue>Final Reminder Sent</literalValue>
+        <name>PartnerInfo Draft Renewal Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_PA_Approved_Appr_Status</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>PartnerInfo PA Approved Appr Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_PA_Draft_Appr_Status</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Draft</literalValue>
+        <name>PartnerInfo PA Draft Appr Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_PA_Pending_Appr_Status</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Pending</literalValue>
+        <name>PartnerInfo PA Pending Appr Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_PA_Rejected_Appr_Status</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>PartnerInfo PA Rejected Appr Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_Pending_Addendum_Status</fullName>
+        <field>Status__c</field>
+        <literalValue>Pending</literalValue>
+        <name>PartnerInfo Pending Addendum Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_Pending_Renewal_Status</fullName>
+        <field>Renewal_Status__c</field>
+        <literalValue>Pending</literalValue>
+        <name>PartnerInfo Pending Renewal Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_Rejected_Addendum_Status</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>PartnerInfo Rejected Addendum Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_Renew_Addendum_End_Date</fullName>
+        <field>End_Date__c</field>
+        <formula>IF( MONTH(End_Date__c) = 2, 
+	IF(OR(MOD(YEAR(End_Date__c) + 1, 400 ) = 0, 
+			AND(MOD(YEAR(End_Date__c) + 1, 4) = 0, MOD(YEAR(End_Date__c) + 1, 100 ) != 0 )
+		 ), DATE( YEAR(End_Date__c) + 1, 2,29), 
+		DATE( YEAR(End_Date__c) + 1, 2,28)
+	), DATE( YEAR(End_Date__c) + 1, MONTH( End_Date__c ) ,DAY (End_Date__c)) 
+)</formula>
+        <name>PartnerInfo Renew Addendum End Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_Set_End_Date</fullName>
+        <description>Set end date for loans and repayments</description>
+        <field>End_Date__c</field>
+        <formula>IF(MOD( MONTH( Start_Date__c ) + Term__c-1 , 12 )=0,
+	DATE( YEAR( Start_Date__c ) + FLOOR( ( MONTH( Start_Date__c ) + Term__c-1 ) / 12 )-1, 12, 31),
+	IF(MOD( MONTH( Start_Date__c ) + Term__c-1 , 12 )=2, 
+		IF( OR( MOD( YEAR( Start_Date__c) + FLOOR((MONTH( Start_Date__c ) + Term__c-1 )/12), 400 ) = 0, 
+				AND(MOD( YEAR( Start_Date__c) + FLOOR((MONTH( Start_Date__c ) + Term__c-1 )/12), 4 ) = 0, 
+			MOD( YEAR( Start_Date__c) + FLOOR((MONTH( Start_Date__c ) + Term__c-1 )/12), 100 ) != 0 ) ), DATE( YEAR( Start_Date__c ) + FLOOR( ( MONTH( Start_Date__c ) + Term__c-1 ) / 12 ), 2,29), 
+			DATE( YEAR( Start_Date__c ) + FLOOR( ( MONTH( Start_Date__c ) + Term__c-1 ) / 12 ), 2,28) ), 
+		IF(OR(MOD( MONTH( Start_Date__c ) + Term__c-1 , 12 )=1, MOD( MONTH( Start_Date__c ) + Term__c-1 , 12 )=3,MOD( MONTH( Start_Date__c ) + Term__c-1 , 12 )=5,MOD( MONTH( Start_Date__c ) + Term__c-1 , 12 )=7,MOD( MONTH( Start_Date__c ) + Term__c-1 , 12 )=8,MOD( MONTH( Start_Date__c ) + Term__c-1 , 12 )=10),
+			DATE( YEAR( Start_Date__c ) + FLOOR( ( MONTH( Start_Date__c ) + Term__c-1 ) / 12 ), MOD( MONTH( Start_Date__c ) + Term__c-1 , 12 ),31), 
+			DATE( YEAR( Start_Date__c ) + FLOOR( ( MONTH( Start_Date__c ) + Term__c-1 ) / 12 ), MOD( MONTH( Start_Date__c ) + Term__c-1 , 12 ),30) )))</formula>
+        <name>PartnerInfo Set End Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>PartnerInfo_Update_Addendum_End_Date</fullName>
+        <field>End_Date__c</field>
+        <formula>Date_for_Earlier_Cease__c</formula>
+        <name>PartnerInfo Update Addendum End Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Addendum_Final_Reminder</fullName>
+        <description>This is to set Renewal Status on Partner Addendum to Final Reminder Sent after an email is sent</description>
+        <field>Renewal_Status__c</field>
+        <literalValue>Final Reminder Sent</literalValue>
+        <name>Partner Addendum Final Reminder</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Addendum_First_Reminder</fullName>
+        <description>This is to set Renewal Status to First Reminder Sent when Reminder is sent</description>
+        <field>Renewal_Status__c</field>
+        <literalValue>First Reminder Sent</literalValue>
+        <name>Partner Addendum First Reminder</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Addendum_Second_Reminder</fullName>
+        <description>This is to set Renewal Status on Partner Addendum to Second Reminder Sent after an email is sent</description>
+        <field>Renewal_Status__c</field>
+        <literalValue>Second Reminder Sent</literalValue>
+        <name>Partner Addendum Second Reminder</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Renewal_Status_to_Active</fullName>
+        <description>Partner Info Renewal Status to Active</description>
+        <field>Renewal_Status__c</field>
+        <literalValue>Active</literalValue>
+        <name>Partner Info Renewal Status to Active</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Partner_Info_Revised_End_Date_to_Null</fullName>
+        <description>Partner Info Revised End Date to Null</description>
+        <field>Date_for_Earlier_Cease__c</field>
+        <name>Partner Info Revised End Date to Null</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Partner Addendum End Date Notification</fullName>
+        <active>true</active>
+        <description>60, 30 &amp; 7 days reminder for Partner Addendum End Date to State Admin.</description>
+        <formula>AND(OR(ISPICKVAL(Licence__r.Licence_Status__c, &apos;Active&apos;),ISPICKVAL(Licence__r.Licence_Status__c, &apos;Suspended With Fees&apos;),ISPICKVAL(Licence__r.Licence_Status__c, &apos;Suspended Without Fees&apos;), ISPICKVAL( Renewal_Status__c , &apos;Active&apos;)), NOT(ISPICKVAL(Renewal_Status__c, &apos;Ceased&apos;)), OR(RecordType.DeveloperName = &apos;Negotiated_Payment_Type_L1&apos;, RecordType.DeveloperName = &apos;Negotiated_Payment_Type_L3&apos;, RecordType.DeveloperName = &apos;Negotiated_Payment_Type_L4&apos;, RecordType.DeveloperName = &apos;Negotiated_Payment_Type_L7&apos;))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Partner_Addendum_First_Reminder_Alert</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Partner_Addendum_First_Reminder</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Partner_Addendum__c.End_Date__c</offsetFromField>
+            <timeLength>-60</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Partner_Addendum_Final_Reminder_Alert</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Partner_Addendum_Final_Reminder</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Partner_Addendum__c.End_Date__c</offsetFromField>
+            <timeLength>-7</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Partner_Addendum_Second_Reminder_Alert</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Partner_Addendum_Second_Reminder</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Partner_Addendum__c.End_Date__c</offsetFromField>
+            <timeLength>-30</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>PartnerInfo Set End Date</fullName>
+        <actions>
+            <name>PartnerInfo_Set_End_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Set end date for Loans, Repayment arrangements and Representation Allowance</description>
+        <formula>AND(OR(RecordType.DeveloperName = &apos;Loan&apos;, RecordType.DeveloperName=&apos;Repayment_Arrangement&apos;,  RecordType.DeveloperName=&apos;Negotiated_Payment_Type_F2&apos;),  OR(ISCHANGED(Start_Date__c),ISCHANGED(Term__c),ISNEW()))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

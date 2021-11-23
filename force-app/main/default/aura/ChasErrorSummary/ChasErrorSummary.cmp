@@ -1,0 +1,22 @@
+<!--
+  * @changeLog :
+  * @date         : 19/06/2020
+  * Modified by   : Hara Sahoo
+  * @description  : 1. Changed the static resource image
+-->
+<aura:component description="Displays summary of errors at the top of the Wizard">
+    <aura:attribute name="errors" type="Object[]"/>
+
+    <aura:if isTrue="{! not(empty(v.errors)) }">
+	    <div class="info-box" id="ChasErrorSummary">
+	    	<img src="{! $Resource.ChasIcons + '/chas-icons/pngs/UI/icons/icon-error.png' }" alt="Error" class="warn-icon"/>
+	    	<span>Please fix these fields to continue:</span>
+	    	<ul class="slds-m-top_small">
+		    	<aura:iteration items="{! v.errors }" var="item">
+		    		<li><a onclick="{! c.onclick }" data-inputid="{! item.name }">{! item.label }</a></li>
+		    	</aura:iteration>
+		    </ul>
+	    </div>
+	</aura:if>
+	
+</aura:component>

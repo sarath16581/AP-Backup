@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invite_Contact_to_BSP_User__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Checking this flag allows the user to invite a contact to the Business Support Portal using the &apos;Invite Contact to BSP&apos; button</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Checking this flag allows the user to invite a contact to the Business Support Portal using the &apos;Invite Contact to BSP&apos; button</inlineHelpText>
+    <label>Invite Contact to BSP User</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MPB_Rules</fullName>
+    <active>true</active>
+    <label>MPB Rules</label>
+    <picklistValues>
+        <picklist>AccessRole__c</picklist>
+        <values>
+            <fullName>BYO User</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Secure RF User</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SecurePay User</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Send a Parcel UI User</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WFV_ADMIN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WFV_FULL_ACCESS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WFV_RESTRICTED</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inactive</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

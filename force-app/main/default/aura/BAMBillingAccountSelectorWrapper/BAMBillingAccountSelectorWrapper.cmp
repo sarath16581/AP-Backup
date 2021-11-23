@@ -1,0 +1,18 @@
+<!--
+2020-05-27 - Nathan Franklin - Added a wrapper to help support binding changes back to the parent account without the need to fully re-render the parent
+-->
+<aura:component description="BAMBillingAccountSelectorWrapper">
+	<aura:attribute name="applicationId" type="Id" description="" />
+	<aura:attribute name="isDisabled" type="Boolean" description="" />
+	<aura:attribute name="billingAccounts" type="List" description="" />
+	<aura:attribute name="selected" type="List" default="[]"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.onInitLoad}" />
+
+	<c:bamBillingAccountSelector billingAccounts="{!v.billingAccounts}"
+	                             selected="{!v.selected}"
+	                             isDisabled="{!v.isDisabled}"
+	                             applicationId="{!v.applicationId}"
+	                             onbillingaccountchange="{!c.onChangeBillingAccounts}">
+	</c:bamBillingAccountSelector>
+</aura:component>

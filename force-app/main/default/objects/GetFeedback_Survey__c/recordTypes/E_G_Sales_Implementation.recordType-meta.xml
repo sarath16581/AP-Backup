@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>E_G_Sales_Implementation</fullName>
+    <active>true</active>
+    <description>Record type for the E&amp;G Sales Implementation Team</description>
+    <label>E&amp;G Sales Implementation</label>
+    <picklistValues>
+        <picklist>CFF_Q2_Was_it_resolved__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Too early to tell</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Survey_Sub__c</picklist>
+        <values>
+            <fullName>Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Survey_Type__c</picklist>
+        <values>
+            <fullName>Plan Implementation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Implementation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>StarTrack VOC Incident System User Overdue</name>
+    <style>none</style>
+    <subject>Unresolved VOC Incident is due</subject>
+    <textOnly>Hi {!Case.OwnerFirstName},
+
+This is a courtesy email to advise you that the resolution of VOC Incident {!Case.CaseNumber} is due by COB today.
+Please ensure you respond to this email attaching the completed VOC resolution form as soon as possible.
+
+Kind Regards,
+The Voice of Customer Team
+
+{!Case.Thread_Id}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

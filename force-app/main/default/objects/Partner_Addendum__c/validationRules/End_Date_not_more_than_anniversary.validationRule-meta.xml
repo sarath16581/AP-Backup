@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>End_Date_not_more_than_anniversary</fullName>
+    <active>true</active>
+    <description>End Date should be after Start Date and cannot be after the Licence Anniversary date.</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName!=&apos;Loan&apos;, RecordType.DeveloperName!=&apos;Repayment_Arrangement&apos;,
+NOT(ISBLANK(End_Date__c)), 
+OR(ISCHANGED(End_Date__c), ISNEW()),
+NOT(ISBLANK( Licence__c )),  
+OR(End_Date__c &gt; Licence__r.Licence_Anniversary__c, 
+End_Date__c &lt; Start_Date__c))</errorConditionFormula>
+    <errorMessage>End Date should be after Start Date and cannot be after the Licence Anniversary date.</errorMessage>
+</ValidationRule>

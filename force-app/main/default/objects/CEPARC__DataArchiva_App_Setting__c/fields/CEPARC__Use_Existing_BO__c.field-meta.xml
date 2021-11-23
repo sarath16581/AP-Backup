@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEPARC__Use_Existing_BO__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Check, if you would like to use existing corresponding Big Object.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check, if you would like to use existing corresponding Big Object.</inlineHelpText>
+    <label>Use Existing BO?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

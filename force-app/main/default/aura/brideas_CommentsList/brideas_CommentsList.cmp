@@ -1,0 +1,74 @@
+<aura:component controller="brideas_IdeasCtrl">
+    <aura:attribute name="commonVars" type="Object" description="Used to share common variables for child components" />
+    <aura:attribute name="ideaId" type="String" />
+    <aura:attribute name="userType" type="String" />
+    <aura:attribute name="commentsList" type="brideas_IdeaCommentWrapper[]" />
+    <aura:attribute name="orderDir" type="String" default="desc" />
+    <aura:attribute name="nextComment" type="brideas_IdeaCommentWrapper" />
+    <aura:attribute name="allowPostComment" type="Boolean" default="true" />
+    <aura:attribute name="showCommentForm" type="Boolean" default="false" />
+    <aura:attribute name="loading" type="Boolean" default="false" />
+    <aura:attribute name="isSaving" type="Boolean" default="false" />
+    <aura:attribute name="errorMessage" type="String" default="" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:registerEvent name="ideasErrorEvent" type="c:brideas_Error" />
+    <aura:registerevent name="updateCommentsNumber" type="c:brideas_UpdateEvent" />
+
+    <aura:if isTrue="{!and(v.showCommentForm, v.allowPostComment)}">
+        <div class="slds-m-bottom--medium" id="commentadd">
+            <div class="slds-form-element">
+                <lightning:textarea aura:id="commentText" name="commentText" label="{!$Label.c.CommentInputLabel}"
+                                    maxlength="32000" required="true" value="" />
+            </div>
+            <div class="slds-x-small-buttons--horizontal slds-p-vertical--small">
+                <aura:if isTrue="{!not(empty(v.errorMessage))}">
+                    <div class="slds-box slds-box_xx-small">
+                        <p class="slds-text-body_small slds-text-color_error">Error: {!v.errorMessage}</p>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{!not(v.isSaving)}">
+                    <lightning:button label="{!$Label.c.OpenPostComment}" onclick="{!c.postComment}" variant="brand" />
+                    <lightning:button label="{!$Label.c.Cancel}" onclick="{!c.cancelPostComment}" variant="neutral" />
+                </aura:if>
+                <aura:if isTrue="{!v.isSaving}">
+                    <div class="loading-spinner">{!$Label.c.Saving}...</div>
+                </aura:if>
+            </div>
+        </div>
+    </aura:if>
+
+    <div class="slds-clearfix slds-m-bottom--small">
+        <aura:if isTrue="{!and(not(v.loading), v.commentsList.length > 0)}">
+            <div class="slds-float--right sort-link">
+                <aura:if isTrue="{!v.orderDir == 'asc'}">
+                    <a href="javascript:void(0)" onclick="{!c.changeOrderToNewest}">&darr; {!$Label.c.OldestFirst}</a>
+                    <aura:set attribute="else">
+                        <a href="javascript:void(0)" onclick="{!c.changeOrderToOldest}">&uarr; {!$Label.c.NewestFirst}</a>
+                    </aura:set>
+                </aura:if>
+            </div>
+        </aura:if>
+    </div>
+    
+    <div id="comments">
+        <aura:iteration items="{!v.commentsList}" var="comm">
+            <c:brideas_CommentsListItem comment="{#comm}" commonVars="{!v.commonVars}" />
+        </aura:iteration>
+        <aura:if isTrue="{!and(not(v.loading), v.commentsList.length == 0)}">
+            <div class="slds-box">{!$Label.c.NoCommentsMsg}</div>
+        </aura:if>
+        <aura:if isTrue="{!v.loading}">
+            <div class="slds-grid slds-grid--align-center">
+                <div class="loading-spinner"></div>
+            </div>
+        </aura:if>
+    </div>
+    <div aura:id="commentsListShowMore" class="slds-hide">
+        <div class="slds-p-vertical--x-small slds-text-align--center">
+            <a href="javascript:void(0)" class="slds-button slds-button--neutral show-more-comment-btn"
+               onclick="{!c.showMoreIdeaComments}">{!$Label.c.MoreComments}</a>
+        </div>
+    </div>
+</aura:component>

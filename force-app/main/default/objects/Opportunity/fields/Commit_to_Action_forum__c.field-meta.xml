@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Commit_to_Action_forum__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Account.Is_Strategic_Account__c, &apos;Attendance required to proceed to next Stage&apos;, IF(Amount &gt; 10000000, &apos;Attendance required to proceed to next Stage&apos;, IF((TCV_Complexity_Rating__c + Product_Complexity_Rating__c +   Standard_Australia_Post_Contract_Rating__c +  Standard_Product_Features_Rating__c +  Standard_Rate_Cards_Rating__c +  Standard_Operational_Req_Rating__c + Implementation_Onboard_Complexity_Rating__c) &gt; 7 , &apos;Attendance required to proceed to next Stage&apos;, &apos;Attendance not required&apos;)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>This field will indicate if your deal is required to attend Commit to Action or Deal Desk forum (based on size, products and complexity)</inlineHelpText>
+    <label>B&amp;G Forum attendance</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

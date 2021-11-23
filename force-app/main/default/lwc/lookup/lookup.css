@@ -1,0 +1,17 @@
+.search-box {
+  display:flex;
+  flex-direction: row;
+}
+
+.search-input-box {
+  border: none;
+  background-color: none;
+  outline: 0;
+  margin: auto;
+  flex-grow: 100;
+}
+
+.search-icon {
+  margin: auto;
+  flex:1;
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Daily</fullName>
+        <default>false</default>
+        <label>Daily</label>
+    </customValue>
+    <customValue>
+        <fullName>Weekly</fullName>
+        <default>false</default>
+        <label>Weekly</label>
+    </customValue>
+    <customValue>
+        <fullName>Monthly</fullName>
+        <default>true</default>
+        <label>Monthly</label>
+    </customValue>
+    <customValue>
+        <fullName>Quaterly</fullName>
+        <default>false</default>
+        <label>Quaterly</label>
+    </customValue>
+    <customValue>
+        <fullName>Annual</fullName>
+        <default>false</default>
+        <label>Annual</label>
+    </customValue>
+    <masterLabel>Contract Performance Cycle</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

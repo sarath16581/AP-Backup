@@ -1,0 +1,26 @@
+<aura:component implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global">
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:attribute name="URL" type="String"/>
+
+	<div class="cp-social-heading">
+		<small>Share this</small>
+	</div>
+	<div class="slds-grid cp-top-div">
+		<div class="cp-inner-div">
+			<a href="{!'https://www.facebook.com/sharer/sharer.php?u='+v.URL}" target="_blank" onclick="{!c.social}"><img src="{!$Resource.Social_Media_Icon + '/Icons' + '/facebook.png'}"/></a>
+		</div>
+		<!-- <div class="inner-div">
+            <a target="_blank" onclick="{!c.social}"><img src="/resource/Social_Media_Icon/Icons/facebook.png"/></a>
+        </div> -->
+		<div class="cp-inner-div">
+			<a href="{!'https://twitter.com/home?status='+v.URL}" target="_blank"><img src="{!$Resource.Social_Media_Icon + '/Icons' + '/twitter.png'}"/></a>
+		</div>
+		<!--<div class="inner-div">
+            <a href="{!'mailto:'+v.URL}" target="_blank"><img src="/resource/Social_Media_Icon/Icons/email_envelope.png"/></a>
+        </div>-->
+		<div class="cp-inner-div">
+			<a href="{!'https://www.linkedin.com/shareArticle?mini=true&amp;url=' + v.URL+'&amp;title=Australia,%20let%27s%20keep%20talking.;summary=&amp;source='}" target="_blank"><img src="{!$Resource.Social_Media_Icon + '/Icons' + '/linkedin.png'}"/></a>
+		</div>
+	</div>
+	<hr class="cp-hr-Line"/>
+</aura:component>

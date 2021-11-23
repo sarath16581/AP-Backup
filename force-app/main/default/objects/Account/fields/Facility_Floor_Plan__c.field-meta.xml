@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Facility_Floor_Plan__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Is Floor Plan included in the contract?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Is Floor Plan included in the contract?</inlineHelpText>
+    <label>Facility Floor Plan</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

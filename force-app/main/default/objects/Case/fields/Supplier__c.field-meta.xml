@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Supplier__c</fullName>
+    <description>Please add/remove picklist values as needed by finding the supplier and adding it to the list. Anything not in the list is &quot;AP&quot;</description>
+    <externalId>false</externalId>
+    <formula>IF(FIND(TEXT(ProductSubCategory__c),&quot;Cash on Delivery,Courier Post,eParcel- Express,eParcel- Regular,Express,Express Platinum,Mail hold,Mail redirection,Messenger Post,Parcel Post,Airmail over 2kg,Airmail under 2kg,ECI,ECI Platinum,Express Post International,Other international Parcels,Pack &amp; Track International,Registered Post International,Sea Mail,Business Letters,Express Post,Item Transfer,Other international letters&quot;,1) &gt; 0, ArticleTest__r.SenderName__c, 
+IF(FIND(TEXT(ProductSubCategory__c),&quot;Other Insurance,KeyPass,ID check - Working with children&quot;,1) &gt; 0, &quot;DFAT&quot;, 
+IF(FIND(TEXT(ProductSubCategory__c),&quot;Western Union,ID check - other&quot;,1) &gt; 0, &quot;Western Union&quot;, 
+IF(FIND(TEXT(ProductSubCategory__c),&quot;Other Domestic Parcel Products,Star Track Express&quot;,1) &gt; 0, &quot;Star Track Express&quot;, 
+&quot;AP&quot; 
+))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Supplier</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

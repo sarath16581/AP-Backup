@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAMGroupBillingAccountValid</fullName>
+    <active>true</active>
+    <description>Ensure only Billing Accounts with an Organisation that matches the Organisation on the Group can be saved.</description>
+    <errorConditionFormula>!ISBLANK(BillingAccount__c) &amp;&amp;  BillingAccount__r.Organisation__c !=  Group__r.Organisation__c</errorConditionFormula>
+    <errorMessage>The billing account must belong to the organisation of the group</errorMessage>
+</ValidationRule>

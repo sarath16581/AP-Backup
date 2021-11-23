@@ -1,0 +1,45 @@
+<aura:component controller="brideas_IdeasCtrl">
+    <aura:attribute name="commonVars" type="Object" description="Used to share common variables for child components" />
+    <aura:attribute name="comment" type="brideas_IdeaCommentWrapper" />
+
+    <div>
+        <div class="slds-media slds-tile comment-item" style="background-color: #f7f9fb;">
+            <div class="slds-media__figure">
+                <span class="slds-avatar slds-avatar_circle slds-avatar_medium">
+                    <a href="{!$SfdcSite.pathPrefix + '/s/profile/' + v.comment.ideaComment.CreatedById}">
+                        <img alt="User photo" src="{!v.comment.ideaComment.CreatorSmallPhotoUrl}" title="{!v.comment.ideaComment.CreatorName}" />
+                    </a>
+                </span>
+            </div>
+            <div class="slds-media__body">
+                <h3 class="slds-tile__title slds-truncate">
+                    <a href="{!$SfdcSite.pathPrefix + '/s/profile/' + v.comment.ideaComment.CreatedById}"><c:brideas_UserDisplayName userId="{!v.comment.ideaComment.CreatedById}" /></a>
+                </h3>
+                <div class="slds-tile__detail">
+                    <ui:outputRichText value="{!v.comment.ideaComment.CommentBody}" class="comment-body slds-text-longform" />
+                    <ul class="slds-list_horizontal slds-has-dividers_right slds-m-top_xx-small comment-bottom">
+                        <li class="slds-item">
+                            <ui:outputDateTime value="{!v.comment.ideaComment.CreatedDate}" format="MMMM d, y HH:mm" />
+                        </li>
+                        <li class="slds-item">
+                            <div>
+                                <aura:if isTrue="{!not(v.comment.Flagged)}">
+                                    <!--Below code is commented and changed on 14-08-2018 for Communities Ideas Detail Page for having 
+                                        new Flag images in the idea detail comments section.-->
+                                    <!--<img src="{!$Resource.BrIdeas + '/images/flag-ico.png'}" alt="" />-->
+                                    <img src="{!$Resource.BrIdeas + '/images/flag-black.png'}" alt="" />
+                                    <a href="javascript:void(0)" onclick="{!c.flag}">{!$Label.c.FlagLabel}</a>
+                                </aura:if>
+                                <aura:if isTrue="{!v.comment.Flagged}">
+                                    <!--<img src="{!$Resource.BrIdeas + '/images/flag-red-ico.png'}" alt="" />-->
+                                    <img src="{!$Resource.BrIdeas + '/images/flag-red.png'}" alt="" />
+                                    <span>{!$Label.c.FlaggedLabel}</span>
+                                </aura:if>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

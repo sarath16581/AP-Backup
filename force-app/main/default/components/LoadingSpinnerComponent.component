@@ -1,0 +1,40 @@
+<!--
+	2017-10-02 nathan.franklin@auspost.com.au reduce css loading to a single instance and moved it to ScriptLoader component
+-->
+<apex:component >
+
+	<c:ScriptLoader csslibraries="ssswloadingspinner" />
+
+	<style type="text/css">
+		#{!id}_WaitingDiv .WaitingHolder {
+			left: {!IF(leftMargin != null, leftMargin, '40%')};
+			top: {!IF(topMargin != null, topMargin, '30%')};
+		}
+	</style>
+
+	<script>
+	var j$ = jQuery.noConflict();
+	
+	function {!showFunctionName}() {
+		j$('#{!id}_WaitingDiv').show();
+	}
+	      
+	function {!hideFunctionName}() {
+		j$('#{!id}_WaitingDiv').hide();
+	} 
+	</script>
+	<apex:attribute name="showFunctionName" type="string" required="true" description="the javascript name of the function used to show the progress" />
+	<apex:attribute name="hideFunctionName" type="string" required="true" description="the javascript name of the function used to hide the progress" />
+	<apex:attribute name="loadingMessage" type="string" required="false" description="the text on the loading panel" />
+	<apex:attribute name="topMargin" type="string" required="false" description="the top margin of the spinner" />
+	<apex:attribute name="leftMargin" type="string" required="false" description="the left margin of the spinner" />
+	<!-- Loading -->
+	<div id="{!id}_WaitingDiv" style="display: none;">
+		<div class="WaitingBackground" />
+		<div class="WaitingHolder">
+			<img src="{!$Resource.loading32}" class="WaitingImage"
+				title="Please Wait..." />
+			<div class="WaitingDescription">{!IF(loadingMessage != null, loadingMessage, 'Please Wait...')}</div>
+		</div>
+	</div>
+</apex:component>

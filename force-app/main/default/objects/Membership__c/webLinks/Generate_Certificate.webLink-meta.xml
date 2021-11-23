@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Generate_Certificate</fullName>
+    <availability>online</availability>
+    <description>Resend APLAC Member Certificate</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Generate Certificate</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/_ui/core/email/author/EmailAuthor?retURL={!Membership__c.Id}&amp;p2_lkid={!Membership__c.ContactId__c}&amp;p3_lkid={!Membership__c.Id}&amp;p24={!Membership__c.OwnerEmail}&amp;rtype=003&amp;p26=customerservice@auspost.com.au&amp;template_id={!$Setup.Membership_Settings__c.Template_Id__c}&amp;new_template=1</url>
+</WebLink>

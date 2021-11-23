@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Performs_Mail_Conveyance__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Does this site perform conveyance of mail?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Does this site perform conveyance of mail?</inlineHelpText>
+    <label>Performs Mail Conveyance</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>standard-home</defaultLandingTab>
+    <description>Managing the request for licenses and their renewals</description>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>License Management</label>
+    <tabs>Internal_Request__c</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>APT_Sub_Account__c</tabs>
+    <tabs>et4ae5__Configuration__c</tabs>
+    <tabs>Apttus_Config2__ConfigSettings__c</tabs>
+    <tabs>et4ae5__Business_Unit__c</tabs>
+    <tabs>SAM_Admin1</tabs>
+</CustomApplication>

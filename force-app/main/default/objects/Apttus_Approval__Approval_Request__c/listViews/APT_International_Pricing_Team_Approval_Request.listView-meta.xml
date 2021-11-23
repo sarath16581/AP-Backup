@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_International_Pricing_Team_Approval_Request</fullName>
+    <columns>NAME</columns>
+    <columns>Apttus_Approval__Action__c</columns>
+    <columns>Apttus_Approval__Approval_Status__c</columns>
+    <columns>Apttus_Approval__Date__c</columns>
+    <columns>Apttus_Approval__Assigned_To_Name__c</columns>
+    <columns>Apttus_Approval__Object_Type__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <filterScope>Queue</filterScope>
+    <label>International Pricing Team</label>
+    <language>en_US</language>
+    <queue>APT_International_Sales_Specialist</queue>
+    <sharedTo>
+        <group>All_Users_Ex_SSSW</group>
+    </sharedTo>
+</ListView>

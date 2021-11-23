@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Annual_Spend_Revenue__c</fullName>
+    <externalId>false</externalId>
+    <label>Annual Spend on international products?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>$3000 or More</fullName>
+                <default>false</default>
+                <label>$3000 or More</label>
+            </value>
+            <value>
+                <fullName>Less than $3000</fullName>
+                <default>false</default>
+                <label>Less than $3000</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

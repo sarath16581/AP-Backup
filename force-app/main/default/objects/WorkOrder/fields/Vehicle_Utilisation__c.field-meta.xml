@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vehicle_Utilisation__c</fullName>
+    <description>The utilisation of the vehicle based on load and capacity at the time.</description>
+    <externalId>false</externalId>
+    <formula>IF ((Vehicle__r.Capacity__c +  Trailer_1__r.Capacity__c + Trailer_2__r.Capacity__c) &gt; 0,
+   Vehicle_Load__c / ( Vehicle__r.Capacity__c +  Trailer_1__r.Capacity__c + Trailer_2__r.Capacity__c ),
+   0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>The utilisation of the vehicle based on load and capacity at the time</inlineHelpText>
+    <label>Vehicle Utilisation</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Percent</type>
+</CustomField>

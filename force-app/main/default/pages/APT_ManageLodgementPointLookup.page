@@ -1,0 +1,115 @@
+<!--
+Description: This visula force page is used to handle the custom lookup functionality and can be invoked from Billing Account lookup field on the APT_ManageLodgementPoint Page.
+Created By - Raviteja Epuri
+Created Date - 19th Nov, 2015
+Modified:
+    Adrian Recio - 28/11/2017 - Escaped special characters in account name when passing to JS
+    Vera Octavia - 26/09/2019 - REQ1287372 - Display and Hide columns for Billing Acc search
+-->
+
+<apex:page controller="APT_ManageLodgementPointLookupController" tabStyle="Product2" sidebar="false" showHeader="false">
+      <!-- JavaScript FUnction to pass values from lookup page to Actual page-->
+      <script>
+        function fillIn(name, id)
+           {
+              var winMain=window.opener;
+              if (null==winMain){
+                 winMain=window.parent.opener;
+              }      
+              var ele=winMain.document.getElementById('{!$CurrentPage.parameters.namefield}');
+              ele.value=name;      
+              ele=winMain.document.getElementById('{!$CurrentPage.parameters.idfield}');
+              ele.value=id;      
+              CloseWindow();
+            }         
+           function CloseWindow(){
+              var winMain=window.opener;
+              if (null==winMain){
+                 winMain=window.parent.opener;
+              }
+              winMain.closeLookupPopup(); 
+           }        
+        </script>
+
+    <apex:form >
+        <apex:pageBlock title="{!strGetValTitle}" >        
+        <b>Name </b> &nbsp; <apex:inputText value="{!inputAccName}" id="inputfield"  title="{!strGetValTitleBillingAcc}"/> &nbsp;
+        <apex:outputPanel id="resultSection">
+        <apex:commandButton value="{!strGetValSearch}" Action="{!searchbillingAcc}" reRender="resultSection" status="pageStatus" rendered="{!IF(source==$Label.APT_billingAccCPQ || source==$Label.APT_billingAccountCLM,true,false)}" />
+        <apex:commandButton value="{!strGetValSearch}" Action="{!searchAccouts}" reRender="resultSection" status="pageStatus" rendered="{!IF(source==$Label.APT_cashAccountCLM || source==$Label.APT_subAccountCLM || source==$Label.APT_chargeAccountCLM,true,false)}" /> &nbsp;
+        <apex:commandButton value="{!strGetValShowBillingAcc}" Action="{!showAllbillingAccs}" reRender="resultSection,inputfield" status="pageStatus" rendered="{!IF(source==$Label.APT_billingAccCPQ || source==$Label.APT_billingAccountCLM,true,false)}"/>
+        <apex:commandButton value="{!strGetValShowAll}" Action="{!showAllAccs}" reRender="resultSection,inputfield" status="pageStatus" rendered="{!IF(source==$Label.APT_cashAccountCLM || source==$Label.APT_subAccountCLM || source==$Label.APT_chargeAccountCLM,true,false)}"/> <br/> <br/> <br/>
+           <apex:actionStatus id="pageStatus" >
+                <apex:facet name="start"> 
+                <apex:outputPanel >           
+                <img src="{!$Resource.Apttus_DocuApi__Image_LoadingPage}" width="20" height="20" />
+                <b><apex:outputLabel value="{!strGetValWait}"/></b>
+                </apex:outputPanel>                        
+                </apex:facet>
+            </apex:actionStatus> 
+           <apex:pagemessages rendered="{!haserrorMessages}" id="pgMsgs"/>
+        <apex:pageBlockSection columns="1" title="{!strGetValTitleAcc}"  rendered="{!IF(source==$Label.APT_billingAccCPQ || source==$Label.APT_billingAccountCLM,true,false)}">
+        <apex:outputPanel rendered="{!billingAccAvailable.size > 0}" >
+        <!--Table to show resulted billing Account records -->
+        <apex:pageBlockTable title="{!strGetValTitleAcc}" value="{!billingAccAvailable}" var="acc">
+            <apex:column headerValue="{!$Label.APT_Name}">
+              <!-- /*JSENCODE(String) Added by Apttus for case 209201 to resolve aphostrophe issue-->
+              <apex:outputLink value="#" onclick="fillIn('{!JSENCODE(acc.Name)}', '{!acc.id}')">{!acc.Name}</apex:outputLink>       
+            </apex:column>
+            <apex:column value="{!acc.LEGACY_ID__c}"/>
+            <apex:column value="{!acc.SAP_marked_for_deletion__c}"/>
+            <apex:column value="{!acc.Customer_Name__c}"/>
+            <apex:column value="{!acc.Customer_Number__c}"/>
+            <!--apex:column value="{!acc.Suburb__c}"/>
+            <apex:column value="{!acc.State__c}"/-->
+        </apex:pageBlockTable>
+        </apex:outputPanel>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="1" title="{!strGetValTitleCashAcc}" rendered="{!IF(source==$Label.APT_cashAccountCLM,true,false)}" >
+        <apex:outputPanel rendered="{!cashAccAvailable.size > 0}" >
+        <!--Table to show resulted cash Account records -->
+        <apex:pageBlockTable value="{!cashAccAvailable}" var="acc">
+            <apex:column headerValue="{!$Label.APT_Name}">
+              <!-- JSENCODE(String) Added by Adrian Recio to resolve aphostrophe issue -->
+              <apex:outputLink value="#" onclick="fillIn('{!JSENCODE(acc.Name)}', '{!acc.id}')">{!acc.Name}</apex:outputLink>       
+            </apex:column>
+            <apex:column value="{!acc.APT_Cust_Name__c}"/>            
+            <apex:column value="{!acc.APT_ABN__c}"/>
+            <apex:column value="{!acc.APT_ACN__c}"/>
+        </apex:pageBlockTable>
+        </apex:outputPanel>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection columns="1" title="{!strGetValTitleChargeAcc}" rendered="{!IF(source==$Label.APT_chargeAccountCLM,true,false)}">
+        <apex:outputPanel rendered="{!chargeAccAvailable.size > 0}" >
+        <!--Table to show resulted charge Account records -->
+        <apex:pageBlockTable value="{!chargeAccAvailable}" var="acc">
+            <apex:column headerValue="{!$Label.APT_Name}">
+              <!-- JSENCODE(String) Added by Adrian Recio to resolve aphostrophe issue -->
+              <apex:outputLink value="#" onclick="fillIn('{!JSENCODE(acc.Name)}', '{!acc.id}')">{!acc.Name}</apex:outputLink>       
+            </apex:column>                        
+            <apex:column value="{!acc.APT_Company_Name__c}"/>
+            <apex:column value="{!acc.APT_ABN__c}"/>
+            <apex:column value="{!acc.APT_ACN__c}"/>
+            <apex:column value="{!acc.APT_Credit_Limit_Required__c}"/>
+        </apex:pageBlockTable>
+        </apex:outputPanel>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="1" title="{!strGetValTitleSubAcc}" rendered="{!IF(source==$Label.APT_subAccountCLM,true,false)}">
+        <apex:outputPanel rendered="{!subAccAvailable.size > 0}" >
+        <!--Table to show resulted sub Account records -->
+        <apex:pageBlockTable value="{!subAccAvailable}" var="acc">
+            <apex:column headerValue="{!$Label.APT_Name}">
+              <!-- JSENCODE(String) Added by Adrian Recio to resolve aphostrophe issue -->
+              <apex:outputLink value="#" onclick="fillIn('{!JSENCODE(acc.Name)}', '{!acc.id}')">{!acc.Name}</apex:outputLink>       
+            </apex:column>
+            <apex:column value="{!acc.APT_Sub_Account_Contact_Name__c}"/>            
+            <apex:column value="{!acc.APT_Sub_Account_Contact_Email_Address__c}"/>
+            <apex:column value="{!acc.APT_Charge_Account__c}"/>
+        </apex:pageBlockTable>
+        </apex:outputPanel>
+        </apex:pageBlockSection>
+        </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form> 
+</apex:page>

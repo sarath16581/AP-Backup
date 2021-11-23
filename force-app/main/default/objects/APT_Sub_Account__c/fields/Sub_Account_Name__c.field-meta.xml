@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Account_Name__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <externalId>false</externalId>
+    <inlineHelpText>This should be relevant to the customer, and will appear on the invoice and any auto generated parcel labels. Do not use the name of the lodgement point.</inlineHelpText>
+    <label>Sub Account Name</label>
+    <length>37</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

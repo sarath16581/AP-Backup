@@ -1,0 +1,27 @@
+<font face="Calibri" size="3">
+The following APR requires your approval (or rejection):
+<br/><br/>
+APR No: {!APR__c.Name}
+<br/>
+Billing Account No: {!APR__c.Billing_Account_No__c} 
+<br/>
+Billing Account:  {!APR__c.Billing_Account_Name__c} 
+<br/>
+APR Owner: {!APR__c.Account_Manager__c} 
+<br/>
+Published Rate: {!APR__c.Published_Rate__c} 
+<br/>
+Confirmed Rate: {!APR__c.Confirmed_Rate__c} 
+<br/>
+Published Date: {!APR__c.Published_Date__c} 
+<br/>
+Confirmed Date: {!APR__c.Confirmed_Date__c} 
+<br/>
+Conclusion Date: {!APR__c.Conclusion_Date__c}
+<br/>
+Status: {!APR__c.Status__c}
+<br/>
+Sub-Status: {!APR__c.Sub_Status__c}
+<br/>
+Comments: {!APR__c.Comments__c}
+<br/><br/></font>

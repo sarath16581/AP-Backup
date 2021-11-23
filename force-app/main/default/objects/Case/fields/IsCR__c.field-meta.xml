@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsCR__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>REQ0490484 - HLC CR
+
+Field to identify if case is customer recovery</description>
+    <externalId>false</externalId>
+    <label>Customer Recovery case</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <description>Display a guided flow with multiple steps, only one is visible at a time. The progress is shown on the
+        header along with a current step indicator.
+    </description>
+    <isExposed>false</isExposed>
+    <masterLabel>Wizard</masterLabel>
+</LightningComponentBundle>

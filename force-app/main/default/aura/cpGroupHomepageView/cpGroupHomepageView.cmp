@@ -1,0 +1,31 @@
+<aura:component controller="cpGetGroups" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global">
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:attribute name="cpChatterGroups" type="cpChatterGroupWrapper[]" access="public"/>
+	<aura:attribute name="cpConversationPageId" type="String" access="public"/>
+
+	<aura:attribute name="cppageSize" type="String" default="5" access="public"/>
+	<aura:attribute name="cpGroupVisibility" type="String" default="Public groups" access="public"/>
+
+	<!-- Display chatter feed elements -->
+	<div class="cp-chatter-group-block" aura:id="ChatterGroupsHeader">
+
+		<div class="cp-chatter-group-block-inner">
+			<ul class="cp-chatter-group-iterations">
+				<aura:iteration items="{!v.cpChatterGroups}" var="chatterGroup">
+					<li class="cp-chatter-group-feed-items">
+						<c:cpGroupIterator ChatterGroup="{!chatterGroup}"/>
+					</li>
+				</aura:iteration>
+			</ul>
+
+			<div class="cp-group-button-box">
+				<div class="cp-a-button">
+					<a onclick="{!c.viewMore}" class="cp-button">
+						<span dir="ltr">View more conversations</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</aura:component>

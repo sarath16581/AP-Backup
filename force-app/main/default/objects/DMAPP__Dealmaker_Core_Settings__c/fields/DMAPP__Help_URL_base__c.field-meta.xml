@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Help_URL_base__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Specify the base URL for the help links</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Specify the base URL for the help links</inlineHelpText>
+    <label>Help URL base</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

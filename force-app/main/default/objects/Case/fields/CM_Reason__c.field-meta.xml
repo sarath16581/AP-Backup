@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CM_Reason__c</fullName>
+    <description>used by sales implementation case</description>
+    <externalId>false</externalId>
+    <label>CM Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>CM_Status__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Awaiting account approval</fullName>
+                <default>false</default>
+                <label>Awaiting account approval</label>
+            </value>
+            <value>
+                <fullName>Awaiting completed credit application</fullName>
+                <default>false</default>
+                <label>Awaiting completed credit application</label>
+            </value>
+            <value>
+                <fullName>Insufficient supporting documents</fullName>
+                <default>false</default>
+                <label>Insufficient supporting documents</label>
+            </value>
+            <value>
+                <fullName>Requested credit limit not approved</fullName>
+                <default>false</default>
+                <label>Requested credit limit not approved</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>On Hold</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Customer</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Internal</controllingFieldValue>
+            <valueName>Awaiting account approval</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>On Hold</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Customer</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Internal</controllingFieldValue>
+            <valueName>Awaiting completed credit application</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>On Hold</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Customer</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Internal</controllingFieldValue>
+            <valueName>Insufficient supporting documents</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>On Hold</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Customer</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Internal</controllingFieldValue>
+            <valueName>Requested credit limit not approved</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,30 @@
+<!--
+Type: Vf component used in the visualforce email template "Special Services Case Creation Email Template"
+Purpose:    To query all the freight items related to the job created for the case from TIBCO           
+History:
+--------------------------------------------------
+15.02.2019      Anshul Goyal      Created
+-->
+<apex:component controller="DisplayFreightItemsFromJobController" access="global">
+  <apex:attribute name="jobSfId" description="Attribute which stores Job Id" type="String" required="required" assignTo="{!jobId}" />
+  
+    <!--displaying all the freightitems related to the Job-->
+    <table style="margin-top:10px;border-collapse: collapse; width: 100%;font-family:'AP Letter Light';" border="1">
+      <tr style="background-color:#C6BDBB;height:30px;">
+      	<th>Qty</th> <th>Description of Goods</th>  <th>Weight(Kg)</th>  <th>Length(mm)</th> <th>Width(mm)</th> <th>Height(mm)</th>
+      </tr>  
+      <apex:repeat var="freghtItem" value="{!FreightItemList}">
+      	<tr>
+            <td>
+                <apex:outputText value="{0, number, integer}">
+    				<apex:param value="{!freghtItem.Quantity__c}" />
+				</apex:outputText>
+            </td>
+            <td>{!freghtItem.Description_Of_Goods__c}</td>
+            <td>{!freghtItem.Weight_Kgs__c}</td>
+            
+            <td>{!freghtItem.Lenght_mm__c}</td><td>{!freghtItem.Width_mm__c}</td><td> {!freghtItem.Height_mm__c}</td>
+     </tr>	
+    </apex:repeat>  
+   </table>
+</apex:component>

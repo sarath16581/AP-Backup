@@ -1,0 +1,27 @@
+/*
+2021-03-09 Steve W Created
+*/
+.test:active{
+    box-shadow: none;
+    outline: none;
+}
+
+.test:focus{
+    outline: none;
+    box-shadow: none;
+}
+
+.test{
+    outline: none;
+    box-shadow: none;
+}
+
+.scrollHeight{
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+.mainSection{
+    font-weight: 700;
+    font-size: small;
+}

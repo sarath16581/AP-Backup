@@ -1,0 +1,62 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" controller='addMultipleLodgementPointController'>
+	<!-- declare attribute 'selectedRecords' to store the network records for displaying in the data table -->
+    <aura:attribute name="selectedRecords" type="addMultipleLodgementPointController.SObjectResult[]" description="text" ></aura:attribute>
+    <aura:attribute name="recordId" type="String" />
+
+    <lightning:card title="">
+        <div class="slds-p-horizontal_medium">
+            <!-- display LWC component which contain the lodgement point search functionality -->
+            <c:addLodgementPoint objectName="Network__c" fieldName="Name" fieldWCC="Org_ID__c" 
+                            iconName = "standard:account" onselected="{!c.selectedRecords}" recordId="{!v.recordId}" />
+        
+            <!-- Lodgement Point Data table, sourced the data from 'selectedRecords'
+                 These data are coming from LWC component(addLodgementPoint) above when the user selected the search result -->
+            <div class="slds-page-header">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-opportunity" title="Lodgement Point Record">
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Account Record">Lodgement Points</h1>
+                        <p class="slds-text-body_small slds-line-height_reset"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-grid slds-wrap">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_fixed-layout slds-table_resizable-cols">    
+                    <thead class="slds-p-vertical_medium">
+                        <tr class="slds-text-body_medium slds-text-color_inverse-weak">
+                            <th scope="col">
+                                <div class="slds-truncate" title="Lodgment Point Name">Lodgement Point Name</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Work Centre Code">Work Centre Code</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <!-- loop and display the list of lodgement point data coming from the LWC compnent -->
+                    <tbody>
+                        <aura:iteration var="selectRec" items="{!v.selectedRecords}">
+                            <tr>
+                                <th scope="row" data-label="Lodgement Point Name">
+                                    <div class="slds-truncate" title="{!selectRec.recName}">{!selectRec.recName}</div>
+                                </th>
+                                <td data-label="Work Centre Code">
+                                    <div class="slds-truncate" title="{!selectRec.recWCC}">{!selectRec.recWCC}</div>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+
+            </div>
+            <br/>
+            <!-- display 'Save' button which call apex controller to perform DML update of lodgement point selected back to the parent DSR record -->
+            <div class="slds-align_absolute-center">
+                <lightning:button aura:Id='save' onclick="{!c.addMultiLodgementPoints}" label="Save" variant="brand" />
+            </div>
+        </div>
+        </lightning:card>
+    
+</aura:component>

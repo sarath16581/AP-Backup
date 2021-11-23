@@ -1,0 +1,9 @@
+ACIC Request for the Case Number, {!Case.CaseNumber} has been {!Case.Status} 
+
+Subject: {!Case.Subject}
+
+Case Description:
+{!Case.Description}
+
+To view this Case in full or add a new Comment follow this link
+{!Case.Link}

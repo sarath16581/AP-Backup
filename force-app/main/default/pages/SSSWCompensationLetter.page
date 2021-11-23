@@ -1,0 +1,19 @@
+<apex:page standardController="Compensation__c" extensions="SSSWCompensationLetterContExt" showHeader="false" standardStylesheets="false" renderAs="pdf" sidebar="false" applyBodyTag="false" action="{!getBody}">
+  
+<head>  
+    <apex:stylesheet value="{!$Resource.SSSWEmailTemplatesCSS}" />
+    
+    <style>
+        div {
+            border: none;
+            margin: 60px 60px;
+        }
+        div.footer {
+            border: none;
+        }
+    </style>
+</head>
+
+<apex:outputText value="{!htmlBody}" escape="false"/>
+
+</apex:page>

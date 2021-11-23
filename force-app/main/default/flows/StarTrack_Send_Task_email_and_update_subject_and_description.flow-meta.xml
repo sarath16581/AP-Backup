@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <processMetadataValues>
+            <name>emailAlertSelection</name>
+            <value>
+                <stringValue>StarTrack_Send_task_completed_email_alert</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_13_A1</name>
+        <label>Task completed alert</label>
+        <locationX>1300</locationX>
+        <locationY>200</locationY>
+        <actionName>workflow_Email__c.StarTrack_Send_task_completed_email_alert</actionName>
+        <actionType>emailAlert</actionType>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>emailAlertSelection</name>
+            <value>
+                <stringValue>StarTrack_LDC_Reject_Email</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_15_A1</name>
+        <label>Send System Reject Email</label>
+        <locationX>1500</locationX>
+        <locationY>200</locationY>
+        <actionName>workflow_Email__c.StarTrack_LDC_Reject_Email</actionName>
+        <actionType>emailAlert</actionType>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>emailAlertSelection</name>
+            <value>
+                <stringValue>StarTrack_LDC_Manual_Reject_Email</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_17_A1</name>
+        <label>Send Manual Reject Email</label>
+        <locationX>1700</locationX>
+        <locationY>200</locationY>
+        <actionName>workflow_Email__c.StarTrack_LDC_Manual_Reject_Email</actionName>
+        <actionType>emailAlert</actionType>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>emailAlertSelection</name>
+            <value>
+                <stringValue>StarTrack_LDC_Approved_Email</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_19_A1</name>
+        <label>Send Approve Email</label>
+        <locationX>1900</locationX>
+        <locationY>200</locationY>
+        <actionName>workflow_Email__c.StarTrack_LDC_Approved_Email</actionName>
+        <actionType>emailAlert</actionType>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>emailAlertSelection</name>
+            <value>
+                <stringValue>StarTrack_Send_task_email_alert_from_workflow_email_alert_object</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_1_A2</name>
+        <label>Send email task alert</label>
+        <locationX>100</locationX>
+        <locationY>300</locationY>
+        <actionName>workflow_Email__c.StarTrack_Send_task_email_alert_from_workflow_email_alert_object</actionName>
+        <actionType>emailAlert</actionType>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>emailAlertSelection</name>
+            <value>
+                <stringValue>StarTrack_LDC_Rejected_Email</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_21_A1</name>
+        <label>Send Reject Email</label>
+        <locationX>2100</locationX>
+        <locationY>200</locationY>
+        <actionName>workflow_Email__c.StarTrack_LDC_Rejected_Email</actionName>
+        <actionType>emailAlert</actionType>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>emailAlertSelection</name>
+            <value>
+                <stringValue>StarTrack_VOC_Notification</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_23_A1</name>
+        <label>Notify VOC Incident Advocate</label>
+        <locationX>2300</locationX>
+        <locationY>200</locationY>
+        <actionName>workflow_Email__c.StarTrack_VOC_Notification</actionName>
+        <actionType>emailAlert</actionType>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>49.0</apiVersion>
+    <assignments>
+        <name>myVariable_waitStartTimeAssignment</name>
+        <label>myVariable_waitStartTimeAssignment</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>myVariable_waitStartTimeVariable</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>myDecision</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision</name>
+        <label>myDecision</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision12</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_1</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_1_pmetdec</targetReference>
+            </connector>
+            <label>Operations New Task via Email</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision12</name>
+        <label>myDecision12</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision14</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_13</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_13</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_13_pmetdec</targetReference>
+            </connector>
+            <label>Operations Close Task via Email</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>2.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision14</name>
+        <label>myDecision14</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision16</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_15</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_15</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_15_A1</targetReference>
+            </connector>
+            <label>LDC - System Reject</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>3.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision16</name>
+        <label>myDecision16</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision18</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_17</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_17</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_17_A1</targetReference>
+            </connector>
+            <label>LDC - Manual Reject</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>4.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision18</name>
+        <label>myDecision18</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision20</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_19</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_19</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_19_A1</targetReference>
+            </connector>
+            <label>LDC - Approval Process - Approved</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>5.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision20</name>
+        <label>myDecision20</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision22</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_21</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_21</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_21_A1</targetReference>
+            </connector>
+            <label>LDC - Approval Process - Rejected</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>6.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision22</name>
+        <label>myDecision22</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_23</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_23</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_23_A1</targetReference>
+            </connector>
+            <label>New Customer Advocate Notification</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_13_pmetdec</name>
+        <label>Previously Met Decision</label>
+        <locationX>1300</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>myRule_13_A1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
+        <rules>
+            <name>myRule_13_pmetnullrule</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_13_A1</targetReference>
+            </connector>
+            <label>Previously Met - Null</label>
+        </rules>
+        <rules>
+            <name>myRule_13_pmetrule</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_13_pmetrule</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Previously Met - Prev</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_1_pmetdec</name>
+        <label>Previously Met Decision</label>
+        <locationX>100</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>myRule_1_A1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
+        <rules>
+            <name>myRule_1_pmetnullrule</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_1_A1</targetReference>
+            </connector>
+            <label>Previously Met - Null</label>
+        </rules>
+        <rules>
+            <name>myRule_1_pmetrule</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_myRule_1_pmetrule</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Previously Met - Prev</label>
+        </rules>
+    </decisions>
+    <description>StarTrack custom child object to case used to perform 1 or many actions i.e. Email alerts</description>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>IF(NOT(ISBLANK([workflow_Email__c].Case__c.ArticleTest__c)), [workflow_Email__c].Case__c.ArticleTest__c.Name &amp; &apos; - &apos; &amp; [workflow_Email__c].Task_Subject__c, [workflow_Email__c].Task_Subject__c)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_10_myRule_1_A1_Name</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK({!myVariable_current.Case__c.ArticleTest__c})), {!myVariable_current.Case__c.ArticleTest__c.Name} &amp; &apos; - &apos; &amp; {!myVariable_current.Task_Subject__c}, {!myVariable_current.Task_Subject__c})</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>IF(NOT(ISBLANK([workflow_Email__c].Case__c.ArticleTest__c)), TEXT([workflow_Email__c].Case__c.ArticleTest__c.Number_of_Items__c ), &apos;0&apos;)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_11_myRule_1_A1_Number_of_Items_c</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK({!myVariable_current.Case__c.ArticleTest__c})), TEXT({!myVariable_current.Case__c.ArticleTest__c.Number_of_Items__c} ), &apos;0&apos;)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>LEFT([workflow_Email__c].Task_Description__c ,255)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_2_myRule_1_A1_Body_Summary_c</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!myVariable_current.Task_Description__c} ,255)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>&apos;To: &apos;   &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Task Summary: &apos; &amp; [workflow_Email__c].Task_Subject__c &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Priority: &apos; &amp; TEXT([workflow_Email__c].Case__c.Priority) &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp;
+IF(NOT(ISBLANK([workflow_Email__c].Case__c.ArticleTest__c)), &apos;Con #: &apos; + [workflow_Email__c].Case__c.ArticleTest__c.Name + SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;), &apos;&apos;) &amp;
+&apos;Description: &apos; &amp; [workflow_Email__c].Task_Description__c &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) </stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_3_myRule_1_A1_Body_c</name>
+        <dataType>String</dataType>
+        <expression>&apos;To: &apos;   &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Task Summary: &apos; &amp; {!myVariable_current.Task_Subject__c} &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Priority: &apos; &amp; TEXT({!myVariable_current.Case__c.Priority}) &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp;
+IF(NOT(ISBLANK({!myVariable_current.Case__c.ArticleTest__c})), &apos;Con #: &apos; + {!myVariable_current.Case__c.ArticleTest__c.Name} + SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;), &apos;&apos;) &amp;
+&apos;Description: &apos; &amp; {!myVariable_current.Task_Description__c} &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>&apos;Business Name: &apos; &amp; [workflow_Email__c].Case__c.Business_Name__c &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Phone: &apos; &amp; [workflow_Email__c].Case__c.Phone__c &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Delivery/Collection Date: &apos; &amp; IF(ISNULL([workflow_Email__c].Case__c.Delivery_Collection_Date__c) , &apos;&apos;, TEXT(Day([workflow_Email__c].Case__c.Delivery_Collection_Date__c)) &amp; &apos;/&apos; &amp; TEXT(MONTH([workflow_Email__c].Case__c.Delivery_Collection_Date__c)) &amp; &apos;/&apos; &amp; TEXT(YEAR([workflow_Email__c].Case__c.Delivery_Collection_Date__c))) &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Additional Information: &apos; &amp; [workflow_Email__c].Case__c.DeliveryInstructions__c &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;ATL Instructions: &apos; &amp; TEXT([workflow_Email__c].Case__c.ATL_Instructions__c) &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Other ATL Instructions: &apos; &amp; [workflow_Email__c].Case__c.Other_ATL_Instructions__c &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Authorization Origin: &apos; &amp; TEXT([workflow_Email__c].Case__c.Authorization_Origin__c) &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Address: &apos; &amp; [workflow_Email__c].Case__c.Delivery_Address_Line_1__c &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp;
+[workflow_Email__c].Case__c.Delivery_Address_Line_2__c &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+[workflow_Email__c].Case__c.Delivery_Address_Suburb__c &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+[workflow_Email__c].Case__c.Delivery_Address_State__c &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+[workflow_Email__c].Case__c.Delivery_Address_Post_Code__c &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+[workflow_Email__c].Case__c.Delivery_Address_DPID__c</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_4_myRule_1_A1_Card_Left_c</name>
+        <dataType>String</dataType>
+        <expression>&apos;Business Name: &apos; &amp; {!myVariable_current.Case__c.Business_Name__c} &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Phone: &apos; &amp; {!myVariable_current.Case__c.Phone__c} &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Delivery/Collection Date: &apos; &amp; IF(ISNULL({!myVariable_current.Case__c.Delivery_Collection_Date__c}) , &apos;&apos;, TEXT(Day({!myVariable_current.Case__c.Delivery_Collection_Date__c})) &amp; &apos;/&apos; &amp; TEXT(MONTH({!myVariable_current.Case__c.Delivery_Collection_Date__c})) &amp; &apos;/&apos; &amp; TEXT(YEAR({!myVariable_current.Case__c.Delivery_Collection_Date__c}))) &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Additional Information: &apos; &amp; {!myVariable_current.Case__c.DeliveryInstructions__c} &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;ATL Instructions: &apos; &amp; TEXT({!myVariable_current.Case__c.ATL_Instructions__c}) &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Other ATL Instructions: &apos; &amp; {!myVariable_current.Case__c.Other_ATL_Instructions__c} &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Authorization Origin: &apos; &amp; TEXT({!myVariable_current.Case__c.Authorization_Origin__c}) &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+&apos;Address: &apos; &amp; {!myVariable_current.Case__c.Delivery_Address_Line_1__c} &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp;
+{!myVariable_current.Case__c.Delivery_Address_Line_2__c} &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+{!myVariable_current.Case__c.Delivery_Address_Suburb__c} &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+{!myVariable_current.Case__c.Delivery_Address_State__c} &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+{!myVariable_current.Case__c.Delivery_Address_Post_Code__c} &amp; SUBSTITUTE($Label.NewLine, &apos;-&apos;, &apos;&apos;) &amp; 
+{!myVariable_current.Case__c.Delivery_Address_DPID__c}</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>[workflow_Email__c].Calc_Case_Number__c</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_5_myRule_1_A1_Case_Number_c</name>
+        <dataType>String</dataType>
+        <expression>{!myVariable_current.Calc_Case_Number__c}</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>IF(NOT(ISBLANK([workflow_Email__c].Case__c.ArticleTest__c)), [workflow_Email__c].Case__c.ArticleTest__c.Name, &apos;&apos;)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_6_myRule_1_A1_Consignment_Number_c</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK({!myVariable_current.Case__c.ArticleTest__c})), {!myVariable_current.Case__c.ArticleTest__c.Name}, &apos;&apos;)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>[workflow_Email__c].Case__c.Description_Of_Contents__c </stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_7_myRule_1_A1_Description_Of_Contents_c</name>
+        <dataType>String</dataType>
+        <expression>{!myVariable_current.Case__c.Description_Of_Contents__c}</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>[workflow_Email__c].Case__c.Description_of_packaging__c </stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_8_myRule_1_A1_Description_Of_Packaging_c</name>
+        <dataType>String</dataType>
+        <expression>{!myVariable_current.Case__c.Description_of_packaging__c}</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>TEXT([workflow_Email__c].Case__c.Enquiry_Type__c)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_9_myRule_1_A1_Enquiry_Type_c</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!myVariable_current.Case__c.Enquiry_Type__c})</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+    ISNEW(),
+    [workflow_Email__c].Workflow_Email_Alert__c = &apos;StarTrack_Send_task_email_alert_from_workflow_email_alert_object&apos;,
+    NOT(ISBLANK([workflow_Email__c].To_Address__c))
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_1</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+    ISNEW(),
+    {!myVariable_current.Workflow_Email_Alert__c} = &apos;StarTrack_Send_task_email_alert_from_workflow_email_alert_object&apos;,
+    NOT(ISBLANK({!myVariable_current.To_Address__c}))
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+[workflow_Email__c].Workflow_Email_Alert__c = &apos;StarTrack_Send_task_completed_email_alert&apos;, NOT(ISBLANK([workflow_Email__c].To_Address__c))
+)
+</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_13</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+{!myVariable_current.Workflow_Email_Alert__c} = &apos;StarTrack_Send_task_completed_email_alert&apos;, NOT(ISBLANK({!myVariable_current.To_Address__c}))
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+[workflow_Email__c].Workflow_Email_Alert__c = &apos;StarTrack_Send_task_completed_email_alert&apos;, NOT(ISBLANK([workflow_Email__c].To_Address__c))
+)
+</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_13_pmetrule</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+{!myVariable_old.Workflow_Email_Alert__c} = &apos;StarTrack_Send_task_completed_email_alert&apos;, NOT(ISBLANK({!myVariable_old.To_Address__c}))
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+    ISNEW(),
+    [workflow_Email__c].Workflow_Email_Alert__c = &apos;StarTrack_LDC_Reject&apos;
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_15</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+    ISNEW(),
+    {!myVariable_current.Workflow_Email_Alert__c} = &apos;StarTrack_LDC_Reject&apos;
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+    ISNEW(),
+    [workflow_Email__c].Workflow_Email_Alert__c = &apos;StarTrack_LDC_Manual_Reject&apos;
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_17</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+    ISNEW(),
+    {!myVariable_current.Workflow_Email_Alert__c} = &apos;StarTrack_LDC_Manual_Reject&apos;
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+    ISNEW(),
+    [workflow_Email__c].Workflow_Email_Alert__c = &apos;StarTrack_LDC_Approved&apos;   
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_19</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+    ISNEW(),
+    {!myVariable_current.Workflow_Email_Alert__c} = &apos;StarTrack_LDC_Approved&apos;   
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+    ISNEW(),
+    [workflow_Email__c].Workflow_Email_Alert__c = &apos;StarTrack_Send_task_email_alert_from_workflow_email_alert_object&apos;,
+    NOT(ISBLANK([workflow_Email__c].To_Address__c))
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_1_pmetrule</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+    ISNEW(),
+    {!myVariable_old.Workflow_Email_Alert__c} = &apos;StarTrack_Send_task_email_alert_from_workflow_email_alert_object&apos;,
+    NOT(ISBLANK({!myVariable_old.To_Address__c}))
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+    ISNEW(),
+    [workflow_Email__c].Workflow_Email_Alert__c = &apos;StarTrack_LDC_Rejected&apos;   
+)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_21</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+    ISNEW(),
+    {!myVariable_current.Workflow_Email_Alert__c} = &apos;StarTrack_LDC_Rejected&apos;   
+)</expression>
+    </formulas>
+    <formulas>
+        <processMetadataValues>
+            <name>originalFormula</name>
+            <value>
+                <stringValue>AND(
+    ISNEW(),
+    [workflow_Email__c].Workflow_Email_Alert__c = &apos;Customer Advocate Email&apos;)</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>formula_myRule_23</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+    ISNEW(),
+    {!myVariable_current.Workflow_Email_Alert__c} = &apos;Customer Advocate Email&apos;)</expression>
+    </formulas>
+    <interviewLabel>StarTrack_Send_Task_email_and_update_subject_and_description-36_workflow_Email__c</interviewLabel>
+    <label>StarTrack Workflow Email Object Automation</label>
+    <processMetadataValues>
+        <name>ObjectType</name>
+        <value>
+            <stringValue>workflow_Email__c</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>ObjectVariable</name>
+        <value>
+            <elementReference>myVariable_current</elementReference>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OldObjectVariable</name>
+        <value>
+            <elementReference>myVariable_old</elementReference>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>TriggerType</name>
+        <value>
+            <stringValue>onAllChanges</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Workflow</processType>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[workflow_Email__c]</stringValue>
+            </value>
+        </processMetadataValues>
+        <name>myRule_1_A1</name>
+        <label>Update Subject and Description</label>
+        <locationX>100</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>myRule_1_A2</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Body</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Body_Summary__c</field>
+            <value>
+                <elementReference>formula_2_myRule_1_A1_Body_Summary_c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Body</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Body__c</field>
+            <value>
+                <elementReference>formula_3_myRule_1_A1_Body_c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Card Left</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Card_Left__c</field>
+            <value>
+                <elementReference>formula_4_myRule_1_A1_Card_Left_c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Case Number</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Case_Number__c</field>
+            <value>
+                <elementReference>formula_5_myRule_1_A1_Case_Number_c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Consignment Number</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Consignment_Number__c</field>
+            <value>
+                <elementReference>formula_6_myRule_1_A1_Consignment_Number_c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Description Of Contents</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Description_Of_Contents__c</field>
+            <value>
+                <elementReference>formula_7_myRule_1_A1_Description_Of_Contents_c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Description Of Packaging</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Description_Of_Packaging__c</field>
+            <value>
+                <elementReference>formula_8_myRule_1_A1_Description_Of_Packaging_c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Enquiry Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Enquiry_Type__c</field>
+            <value>
+                <elementReference>formula_9_myRule_1_A1_Enquiry_Type_c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Subject</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Name</field>
+            <value>
+                <elementReference>formula_10_myRule_1_A1_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Number of Items</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Number_of_Items__c</field>
+            <value>
+                <elementReference>formula_11_myRule_1_A1_Number_of_Items_c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>workflow_Email__c</object>
+    </recordUpdates>
+    <startElementReference>myVariable_waitStartTimeAssignment</startElementReference>
+    <status>Active</status>
+    <variables>
+        <name>myVariable_current</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>workflow_Email__c</objectType>
+    </variables>
+    <variables>
+        <name>myVariable_old</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>workflow_Email__c</objectType>
+    </variables>
+    <variables>
+        <name>myVariable_waitStartTimeVariable</name>
+        <dataType>DateTime</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <elementReference>$Flow.CurrentDateTime</elementReference>
+        </value>
+    </variables>
+</Flow>

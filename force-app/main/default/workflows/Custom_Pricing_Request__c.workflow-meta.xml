@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Approval_Email_to_Owner</fullName>
+        <description>Approval Email to Owner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Phase_2_Email_Templates/Phase_2_Special_Custom_Request_Approved_Confirmation_text</template>
+    </alerts>
+    <alerts>
+        <fullName>Custom_Pricing_Request_Rejected_at_Pricing_Approval</fullName>
+        <description>Custom Pricing Request Rejected at Pricing Approval</description>
+        <protected>false</protected>
+        <recipients>
+            <field>LastModifiedById</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Phase_2_Email_Templates/Phase_2_Custom_Pricing_Request_Rejected_at_Pricing_Approval_Text</template>
+    </alerts>
+    <alerts>
+        <fullName>Recalled_Custom_Pricing_Request</fullName>
+        <description>Recalled Custom Pricing Request</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Pricing_Specialist__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Product_Approver__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Solution_Specialist__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Phase_2_Email_Templates/Phase_2_Special_Custom_Request_Recalled</template>
+    </alerts>
+    <alerts>
+        <fullName>Rejected_Custom_Pricing_Request_Email</fullName>
+        <description>Rejected Custom Pricing Request Email</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Phase_2_Email_Templates/Phase_2_Special_Custom_Request_Rejected_Confirmation_text</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Fill_Date_Sent</fullName>
+        <field>Date_Special_Price_Request_Sent__c</field>
+        <formula>NOW()</formula>
+        <name>Fill Date Sent</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Fill_in_Date_Approved</fullName>
+        <field>Date_Special_Price_Request_Approved__c</field>
+        <formula>NOW()</formula>
+        <name>Fill in Date Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Pricing_Approval</fullName>
+        <field>Pricing_Specialist_Approval_Date__c</field>
+        <formula>NOW ()</formula>
+        <name>Pricing Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Custom_Pricing_Hold_End</fullName>
+        <description>Phase 2 - to calculate the end time for Custom Pricing Requests put On Hold.</description>
+        <field>Hold_End__c</field>
+        <formula>NOW ()</formula>
+        <name>Update Custom Pricing Hold End</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Hold_Start</fullName>
+        <field>Hold_Start__c</field>
+        <formula>NOW ()</formula>
+        <name>Update Hold Start</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Product_Approval_Date</fullName>
+        <field>Product_Approval_Date__c</field>
+        <formula>NOW ()</formula>
+        <name>Update Product Approval Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Solution_Approval_Date</fullName>
+        <field>Solution_Specialist_Approval_Date__c</field>
+        <formula>NOW ()</formula>
+        <name>Update Solution Approval Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Approved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Status to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Pending</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Pending</literalValue>
+        <name>Update Status to Pending</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Rejected</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Status to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Time_on_Hold</fullName>
+        <description>Phase 2 - Calculate</description>
+        <field>Time_on_Hold__c</field>
+        <formula>Hold_End__c - Hold_Start__c</formula>
+        <name>Update Time on Hold</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Total_Time_on_Hold</fullName>
+        <field>Total_Time_On_Hold__c</field>
+        <formula>PRIORVALUE( Time_on_Hold__c ) + Time_on_Hold__c</formula>
+        <name>Update Total Time on Hold</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_to_Product_Approval</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>3. Pricing Approval Pending</literalValue>
+        <name>Update to Product Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Phase 2 - On Hold Custom Pricing Request_Start</fullName>
+        <actions>
+            <name>Update_Hold_Start</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Custom_Pricing_Request__c.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>On Hold</value>
+        </criteriaItems>
+        <description>Phase 2 - if a Custom Pricing Request is put on hold, this workflow will calculate the time on hold.</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 - Update Total Time on Hold</fullName>
+        <actions>
+            <name>Update_Total_Time_on_Hold</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Phase 2</description>
+        <formula>ISPICKVAL(PRIORVALUE( Approval_Status__c ), &quot;On Hold&quot;)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2- On Hold Custom Pricing Request</fullName>
+        <actions>
+            <name>Update_Custom_Pricing_Hold_End</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Time_on_Hold</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Phase 2 - if a Custom Pricing Request is put on hold, this workflow will calculate the time on hold.</description>
+        <formula>ISCHANGED( Approval_Status__c ) &amp;&amp; ISPICKVAL(PRIORVALUE ( Approval_Status__c ),  &quot;On Hold&quot;)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

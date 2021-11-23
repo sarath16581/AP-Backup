@@ -1,0 +1,23 @@
+<!------------------------------------------------------------------------------ 
+Page Name: APT_RedirectToAllProductPage
+
+Modification Log : 
+--------------------------------------------------------------------------------
+* Developer               Date             Description
+* -------------------  ------------      -----------------------
+* Mansi Shah           14-04-2021         Redirect to all Product page from Cart
+--------------------------------------------------------------------------------
+-->
+<apex:page controller="APT_SaveConfigController" action="{!saveCart}" showHeader="false" standardStylesheets="false" sidebar="false">
+<apex:form >
+<!--<script>
+//console.log({!finalURL});
+var finalURL = "{!finalURL}";
+console.log('finalURL '+finalURL);
+window.location.href = finalURL;
+/*<!--var v = '/apex/Apttus_QPConfig__ProposalConfiguration?id=' + '{!$CurrentPage.parameters.Id}' + '&flow=' + '{!$CurrentPage.parameters.flow}' +'&cntrNbr_1='+'{!$CurrentPage.parameters.cntrNbr_1}'-->
+<!--var v = '/apex/Apttus_Config2__Cart?businessObjectId=' + '{!$CurrentPage.parameters.businessObjectId}' + '&useAdvancedApproval=true&flow=' + '{!$CurrentPage.parameters.flow}&productOrderByClause=APT_Most_Popular__c NULLS LAST' +'&launchState=catalog#!/search/'-->
+<!--window.open(v,"_parent");
+</script>-->
+</apex:form>
+</apex:page>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReferenceID__c</fullName>
+    <description>SSSW Reference ID, and used for Contact Us Form</description>
+    <externalId>true</externalId>
+    <inlineHelpText>The Reference ID for this Case. i.e Article ID or MRS CRN.</inlineHelpText>
+    <label>Reference ID</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

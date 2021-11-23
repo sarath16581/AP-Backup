@@ -1,0 +1,20 @@
+A Sales Coverage Change Request has been approved
+
+Organisation: {!Account.Name}
+
+Reason for change:{!Segmentation_Change_Request__c.Reasonforchange__c}
+
+Name of Requestor: {!Segmentation_Change_Request__c.CreatedBy}
+
+Transferring from Account Manager: {!Segmentation_Change_Request__c.Account_Manager_Current__c}
+
+Transferring to Account Manager: {!Segmentation_Change_Request__c.Proposed_Account_Manager__c}
+
+Transferring to Sales Team: {!Segmentation_Change_Request__c.Proposed_Sales_Team__c}
+
+Transferring from Sales Team: {!Segmentation_Change_Request__c.CurrentSalesTeam__c}
+
+Link to Request: {!Segmentation_Change_Request__c.Link}
+
+
+Please note that the specific changes will take place on the next agreed date as set out by the Sales Governance & Change Council. These Dates will appear on the top of the SCCR form or are available from your manager

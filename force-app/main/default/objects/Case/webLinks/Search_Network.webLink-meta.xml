@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Search_Network</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Network Search</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/support/console/32.0/integration.js&quot;)} 
+
+if(&apos;{!Case.RecordType}&apos; === &apos;SSSW General Enquiry&apos;) 
+{ 
+sforce.console.getEnclosingPrimaryTabId(function(result) { 
+sforce.console.openSubtab(result.id, &apos;/apex/FacilitySearch?postcode={!Case.Address2Postcode__c}&amp;isdtp=vw&apos;, true); 
+}); 
+} 
+else 
+{ 
+sforce.console.getEnclosingPrimaryTabId(function(result) { 
+sforce.console.openSubtab(result.id, &apos;/apex/FacilitySearch?id={!Case.Id}&amp;postcode={!Case.Address2Postcode__c}&amp;isdtp=vw&apos;, true); 
+}); 
+}</url>
+</WebLink>

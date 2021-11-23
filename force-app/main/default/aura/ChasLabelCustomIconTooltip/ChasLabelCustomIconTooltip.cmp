@@ -1,0 +1,23 @@
+<aura:component extends="c:ChasBaseInput" description="Label with custom icon for tooltip instead of using lightning helptext (which only support icon from SLDS library)">
+    <aura:attribute name="label" type="String"/>
+    <aura:attribute name="icon" type="String" default="sfsites/c/resource/CHAS_QuestionMarkWithCircle"/>
+    <aura:attribute name="tooltext" type="String"/>
+
+    <!-- use table to make sure the icon and the label remain in same row on mobile -->
+    <table style="width: 100%;" cellspacing="0" cellpadding="0">
+        <tr>
+            <td style="white-space: nowrap;">
+                <strong>{!v.label}</strong>
+            </td>
+            <td style="white-space: nowrap;">
+                <span style="display: inline-block; height: 1em; width: 1em; margin-left: 0.5em;" class="tooltip">
+                    <img src="{!v.icon}"/>
+                    <span class="tooltext slds-var-p-around_small">
+                        {!v.tooltext}
+                    </span>
+                </span>
+            </td>
+            <td width="99%">&nbsp;</td>
+        </tr>
+    </table>
+</aura:component>

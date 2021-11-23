@@ -1,0 +1,261 @@
+<!-- 2018-06-01 clint.dsilva@auspost.com.au created -->
+<aura:component description="starTrackPortalTaskDetailAndChatter" controller="stp_TaskSearch"
+                implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:hasRecordId,force:appHostable,force:lightningQuickAction"
+                access="global">
+    <aura:attribute name="data" type="Object[]"/>
+    <aura:attribute name="taskId" type="Id"/>
+    <aura:attribute name="columns" type="Object[]"/>
+    <aura:attribute name="feedItemComp" type="Object"/>
+    <aura:attribute name="disableSaveBttn" type="Boolean" default="true"/>
+    <aura:attribute name="taskObj" type="Task"/>
+    <aura:attribute name="statusPicklist" type="stp_TaskSearch.PickListValue[]"/>
+    <aura:attribute name="taskUpdatePicklist" type="stp_TaskSearch.PickListValue[]"/>
+    <aura:attribute name="depotAreaPicklist" type="stp_TaskSearch.PickListValue[]"/>
+    <aura:attribute name="isReassign" type="Boolean" default="false"/>
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    <aura:attribute name="isInitialized" type="boolean" default="false"/>
+    <aura:attribute name="chatterComment" type="String" default=""/>
+    <aura:attribute name="loadingSpinner" type="Object" />
+    <aura:attribute name="isTaskReadOnly" type="boolean" default="false"/>
+    <aura:attribute name="isPostDisabled" type="boolean" default="true"/>
+    <aura:registerEvent name="notifyCompEvent" type="c:eNotificationComp" />
+    <aura:attribute name="attachmentComp" type="Object"/>
+
+    <ltng:require scripts="{!join(',',$Resource.GlobalAssets + '/js/lightning/utils.js')}" afterScriptsLoaded="{!c.onInit}"/>
+    <aura:method access="public" action="{!c.onPopulateData}" description="Populate detail component" name="populateData">
+        <aura:attribute name="payload" description="payload to populate data into component" type="Object[]" access="public"/>
+    </aura:method>
+
+    <lightning:layout verticalAlign="stretch" multipleRows="true" >
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6"  >
+            <div >
+                <aura:if isTrue="{!v.isInitialized}">
+                <!-- Task Detail rendering -->
+                <lightning:card class="paper-card" >
+                    <aura:set attribute="title" >
+                        <lightning:icon iconName="utility:connected_apps" size="small"/>
+                        Task
+                    </aura:set>
+                    <aura:set attribute="actions">
+                        <lightning:buttonGroup >
+                            <lightning:button class="startrack-btton-separator" aura:id="btnAcknowledge" onclick="{!c.handleOnAcknowledge}" label="Acknowledge" variant="brand" disabled="{!v.isTaskReadOnly}"/>
+                            <lightning:button aura:id="btnSave" onclick="{!c.handleOnSave}" label="Save" variant="brand" disabled="{!v.isTaskReadOnly}"/>
+                        </lightning:buttonGroup>
+                    </aura:set>
+                    <!--Fields to display -->
+                    <div class="slds-p-around_small slds-text-body_small ">
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small" >Consignment Number</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.CaseObject__r.Calc_Case_Consignment__c}" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small"  >Expected Delivery Date</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.Article_ExpectedDeliveryDate__c}"  />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small"  >Status</label>
+                            <div class ="slds-form-element__control">
+                                <ui:inputSelect options="{!v.statusPicklist}" disabled="{!v.isTaskReadOnly}" value="{!v.taskObj.Status}"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small"  >Task Update</label>
+                            <div class ="slds-form-element__control">
+                                <ui:inputSelect aura:id="taskUpdatepkl"  options="{!v.taskUpdatePicklist}" disabled="{!v.isTaskReadOnly}" value="{!v.taskObj.TaskUpdate__c}" change="{!c.handleTaskUpdate}" />
+                            </div>
+                        </div>
+                        <aura:if isTrue="{!v.isReassign}">
+                            <div>
+                                <label class="slds-form-element__label slds-p-top_small"  >Parent Network's Depot Area</label>
+                                <div class ="slds-form-element__control">
+                                <ui:inputSelect aura:id="depotAreaPkl"  options="{!v.depotAreaPicklist}"  disabled="{!v.isTaskReadOnly}" value="{!v.taskObj.Depot_Role__c}" />
+                                </div>
+                            </div>
+                        </aura:if>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small"  >Task Description</label>
+                            <div class ="slds-form-element__control">
+                                <ui:inputTextArea aura:id="taskDescription"  readonly="true" rows="3" value="{!v.taskObj.Description}" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small"  >Subject</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.Subject}" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small">Priority</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.Priority}" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small">Case Number</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.CaseObject__r.CaseNumber}"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small">Case Type</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.CaseObject__r.Enquiry_Type__c}"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small" >Receiver Name</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText  value="{!v.taskObj.CaseObject__r.Article_Receiver_Name__c}" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small">Receiver Address</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.CaseObject__r.Article_Receiver_Address__c}"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small" >Receiver Phone Number</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.CaseObject__r.Article_ReceiverPhoneNumber__c}"/>
+                            </div>
+                        </div>
+
+                        <label class="slds-form-element__label" for="ReceiverDetails" >Receiver Details</label>
+                        <ui:inputTextArea  aura:id="ReceiverDetails" readonly="true" value="{!v.taskObj.Primary_Capture_Details__c}" />
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small" >Delivery Instructions</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.CaseObject__r.DeliveryInstructions__c}"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small">Delivery/Collection Date</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.CaseObject__r.Delivery_Collection_Date__c}"  />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small" for="alt-checkbox" >ATL</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputCheckbox aura:id="alt-checkbox" value="{!v.taskObj.CaseObject__r.ATL__c}" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small">ATL Instructions</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.CaseObject__r.ATL_Instructions__c}"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small">Other ATL Instructions</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.CaseObject__r.Other_ATL_Instructions__c}"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small">Network</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.Network__r.Name}"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small"  >Number of Items</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.CaseObject__r.CalculatedNumberofItems__c}" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small" >Unit Type</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.CaseObject__r.Article_Unit_Type__c}"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small" >Weight</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.CaseObject__r.Article_ActualWeight__c}"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small">Cube</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.CaseObject__r.ArticleCubing__c}"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label" for="DescriptionPackaging" >Description of Packaging</label>
+                            <div class ="slds-form-element__control">
+                                <ui:inputTextArea  aura:id="DescriptionPackaging" readonly="true" value="{!v.taskObj.CaseObject__r.Description_of_packaging__c}"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small" for="DescriptionContent" >Description of contents</label>
+                            <div class ="slds-form-element__control">
+                                <ui:inputTextArea aura:id="DescriptionContent"   readonly="true" rows="3" value="{!v.taskObj.CaseObject__r.Description_of_contents__c}" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small">Assigned To</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.Owner.Name}" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small">Related Billing Account</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.CaseObject__r.Related_Billing_Account__r.Name}" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small"  >Task Created Date</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputDateTime value="{!v.taskObj.CreatedDate}" />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="slds-form-element__label slds-p-top_small"  >Sub Type</label>
+                            <div class ="slds-form-element__control">
+                                <ui:outputText value="{!v.taskObj.TaskSubtype}"/>
+                            </div>
+                        </div>
+                        <!--End of Fields to display -->
+                    </div>
+                </lightning:card>
+                </aura:if>
+            </div>
+        </lightning:layoutItem>
+
+        <!-- Task Chatter and Attachments rendering -->
+        <lightning:layoutItem flexibility="auto" padding="around-small" size="6" >
+            <div  style="border: 1px solid #d4d4d4; border-radius: 3px;">
+                <lightning:tabset onselect="{!c.tabSelected}" variant="default" selectedTabId="taskFeed" >
+                    <lightning:tab tabindex="1" id="taskFeed" title="Task Feed" label="Task Feed">
+                        <lightning:card class="paper-card" >
+                            <aura:set attribute="title" >
+                                <lightning:icon iconName="utility:feed" size="small"/>
+                                Task Feed
+                            </aura:set>
+                            <aura:if isTrue="{!v.taskId}">
+                                <div class="slds-p-around_small">
+                                    <lightning:textArea name="feed"  value="{!v.chatterComment}" label="Operation Comments"  maxlength="255" onchange="{!c.onChangeChatFeed}" disabled="{!v.isTaskReadOnly}" />
+                                    <lightning:buttonGroup >
+                                        <lightning:button aura:id="btnPost" onclick="{!c.handleOnPost}" label="Post" variant="brand" disabled="{!v.isPostDisabled}" class="custom-post-button"/>
+                                    </lightning:buttonGroup>
+                                </div>
+                                {!v.feedItemComp}
+                            </aura:if>
+                        </lightning:card>
+                    </lightning:tab>
+                    <lightning:tab tabindex="2" id="Attachments" title="Attachments" label="Attachments">
+                        {!v.attachmentComp}
+                    </lightning:tab>
+                </lightning:tabset>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout> 
+</aura:component>

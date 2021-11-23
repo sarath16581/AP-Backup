@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Warehouse_Returns_Altona_0350_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Warehouse Returns – Altona (0350)</label>
+    <queue>Warehouse_Returns_Altona_0350</queue>
+    <sharedTo>
+        <group>Retail_Product_Support</group>
+        <group>SystemAdmin</group>
+        <group>WH_System_Support</group>
+        <group>Warehouse_Processing_Altona_0350</group>
+    </sharedTo>
+</ListView>

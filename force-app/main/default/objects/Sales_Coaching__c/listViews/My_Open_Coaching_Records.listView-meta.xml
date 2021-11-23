@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Open_Coaching_Records</fullName>
+    <columns>NAME</columns>
+    <columns>ActivityType__c</columns>
+    <columns>Coaching_Provider__c</columns>
+    <columns>CoachingReceiver__c</columns>
+    <columns>Status__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Open</value>
+    </filters>
+    <label>My Open Coaching Records</label>
+    <language>en_US</language>
+    <sharedTo/>
+</ListView>

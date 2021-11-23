@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealOpti__RelatedDealPercentileRange__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Related Deal Percentile Range</label>
+    <referenceTo>Apttus_DealMgr__DealPercentileRange__c</referenceTo>
+    <relationshipLabel>Comparable Deals</relationshipLabel>
+    <relationshipName>ComparableDeals</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

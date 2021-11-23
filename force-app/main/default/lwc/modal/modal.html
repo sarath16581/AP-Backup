@@ -1,0 +1,28 @@
+<template>
+    <div class={modalVisibilityClass}>
+        <div class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Header -->
+                <div class={headerSyleClass}>
+                    <lightning-button-icon onclick={closeModal} icon-name="utility:close"
+                        alternative-text="Close" class="slds-modal__close" variant="bare-inverse" size="large">
+                    </lightning-button-icon>
+                    <template if:false={dontShowHeader}>
+                        <h2 class="slds-text-heading_medium">{title}</h2>
+                    </template>
+                </div>
+                <!-- Body -->
+                <div class="slds-modal__content slds-p-around_medium">
+                    <slot></slot>
+                </div>
+                <!-- Footer -->
+                <template if:false={dontShowFooter}>
+                    <div class="slds-modal__footer">
+                        <slot name="footer"></slot>
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</template>

@@ -1,0 +1,26 @@
+<apex:component >
+
+<div class="loginCreateAccDiv">
+<h2>
+   Don't have an account?
+</h2>
+<h2 style="color: rgb(228, 19, 0); ">
+   Create one now
+</h2>
+<p style="font-family:Arial,sans-serif;">With the <b>Australia Post Business Support Portal</b> you can:</p>
+<h3 style="font-family:Arial,sans-serif;color:#807370;">
+<ul style="background-image: none;" >
+<!--li style="background-image: url(/euf/assets/themes/standard/images/LoginTick.png);font-size: 1em;padding:4px 0px 4px 4px; height:8px;line-height:10px;"> Receive priority responses and resolutions to your enquieries</li-->
+<li style="background-image: url(/euf/assets/themes/standardReskin/images/LoginTick.png);padding-left:22px; height:8px;line-height:10px;"> Receive priority responses and resolutions to your enquiries</li>
+<li style="background-image: url(/euf/assets/themes/standardReskin/images/LoginTick.png);padding-left:22px;height:8px;line-height:10px;"> Streamline your enquiries with us</li>
+<li style="background-image: url(/euf/assets/themes/standardReskin/images/LoginTick.png);padding-left:22px;height:8px;line-height:10px;"> Manage all your enquiries and questions in one place 24/7</li>
+<li style="background-image: url(/euf/assets/themes/standardReskin/images/LoginTick.png);padding-left:22px;height:8px;line-height:10px;"> Let us help you and your customers as quickly as possible</li>
+</ul>
+</h3>
+<!--p>#rn:msg:NOT_REGISTERED_YET_MSG#</p-->
+<br/>
+<a class="createAccountButton" style="font-family:'letter_one',Arial,sans-serif; font-weight:bold;" href="/app/corporate/create_account#rn:session#">Create a new account</a>
+<br/>
+<br/>
+</div>
+</apex:component>

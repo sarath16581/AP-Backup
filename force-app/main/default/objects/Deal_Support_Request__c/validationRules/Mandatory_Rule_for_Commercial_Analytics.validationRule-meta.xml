@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mandatory_Rule_for_Commercial_Analytics</fullName>
+    <active>true</active>
+    <description>This rule is to ensure all mandatory fields are populated before Commercial Analytics &amp; Modelling request is submitted</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName =&quot;Commercial_Analytics_Modelling&quot;,
+ISPICKVAL(Status__c,&quot;Submitted&quot;),
+OR(
+ISBLANK(TEXT(Analytics_Type__c)),
+ISBLANK(Specific_analytics_work_required__c),
+ISBLANK(TEXT( What_customer_data_can_you_provide__c )),
+ISBLANK(TEXT( Approved_Rate_Card_for_Simulation__c )),
+ISBLANK(TEXT( Time_frame_of_data_provided__c )),
+ISBLANK( Analytics_Required_By_Date__c )
+))</errorConditionFormula>
+    <errorMessage>Request cannot be submitted to the support team as all the mandatory fields have not been updated. Please edit the request and complete all the mandatory fields and then submit request to Support Team</errorMessage>
+</ValidationRule>

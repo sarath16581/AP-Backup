@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TrackingNotification__c</fullName>
+    <description>.</description>
+    <externalId>false</externalId>
+    <label>Tracking Notification</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Already subscribing</fullName>
+                <default>false</default>
+                <label>Already subscribing</label>
+            </value>
+            <value>
+                <fullName>Merchant agreed to provide email / mobile details</fullName>
+                <default>false</default>
+                <label>Merchant agreed to provide email / mobile details</label>
+            </value>
+            <value>
+                <fullName>Merchant agreed to subscribe to notifications</fullName>
+                <default>false</default>
+                <label>Merchant agreed to subscribe to notifications</label>
+            </value>
+            <value>
+                <fullName>Merchant chooses not to provide customer details</fullName>
+                <default>false</default>
+                <label>Merchant chooses not to provide customer details</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

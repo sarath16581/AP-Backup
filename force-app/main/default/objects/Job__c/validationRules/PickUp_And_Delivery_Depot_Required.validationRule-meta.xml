@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PickUp_And_Delivery_Depot_Required</fullName>
+    <active>true</active>
+    <description>PickUp and Delivery Depots need to be filled in before allocating a job</description>
+    <errorConditionFormula>AND(Verified_Data__c = TRUE, OR(ISBLANK(Pick_Up_Depot__c), ISBLANK(Delivery_Depot__c)))</errorConditionFormula>
+    <errorMessage>Please enter the PickUp and Delivery Depot.</errorMessage>
+</ValidationRule>

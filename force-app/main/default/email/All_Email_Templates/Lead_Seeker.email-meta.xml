@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email template when a lead is changed to verified status - Lead Seeker program</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Lead Seeker - Lead Status Verified</name>
+    <style>none</style>
+    <subject>Seeker Rewards Program – Lead verified {!Lead.Lead_Number__c} for {!Lead.Company}</subject>
+    <textOnly>Dear {!Lead.First_Name_Formula__c},
+
+Congratulations, your lead has been confirmed as a new business opportunity and you’ve been awarded 100 points!
+
+Our sales team appreciate your fantastic support, and is working hard to progress this opportunity. We’ll keep you posted with any important updates. Of course, if it turns into a ‘win’, you’ll receive more points.
+
+In the meantime, why not check out the amazing range of rewards on offer? And keep those fantastic leads coming so you can build up your points balance and redeem your favourite rewards.
+
+Regards,
+The Seeker Team
+
+
+
+Terms &amp; conditions | Privacy policy | Security
+
+
+
+
+
+Contact us: If this email has been incorrectly sent to you or the information contained within isn’t correct, please let us know at seekerrewards@auspost.com.au
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

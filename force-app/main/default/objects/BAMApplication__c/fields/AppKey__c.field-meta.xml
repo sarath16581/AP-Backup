@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AppKey__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>External Application Key for API Linking</description>
+    <externalId>true</externalId>
+    <inlineHelpText>External Application Key for API Linking</inlineHelpText>
+    <label>App Key</label>
+    <length>10</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

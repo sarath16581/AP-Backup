@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Create_Shadow_Opp_for_Open_Only__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field affects the behavior of the batch job which is run after install to create Dealmaker shadow opportunities. If this flag is checked the batch job will only create shadow opportunities for open opportunities as opposed to for open opportunities and closed opportunities</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field affects the behavior of the batch job which is run after install to create Dealmaker shadow opportunities. If this flag is checked the batch job will only create shadow opportunities for open opportunities as opposed to for open opportunities a</inlineHelpText>
+    <label>Bulk enable Dealmaker for open Opps only</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

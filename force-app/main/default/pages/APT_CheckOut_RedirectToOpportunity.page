@@ -1,0 +1,68 @@
+<!--
+  @description       : This page will be called from the Cart - Button name  - Checkout & Redirect to Opportunity
+  @author            : Mansi Shah
+  @group             : 
+  @last modified on  : 05-25-2021
+  @last modified by  : Mansi Shah
+  Modifications Log 
+  Ver   Date         Author       Modification
+  1.0   05-21-2021   Mansi Shah   Initial Version
+-->
+<apex:page controller="APT_CheckOutProposalController" action="{!checkOpportunity}" showHeader="false" standardStylesheets="false" sidebar="false">
+   <apex:slds /> 
+      <div class="slds-scope">
+        <!--Block Start - if Opportunity is not Present on Proposal-->   
+        <apex:outputPanel id="popup" rendered="{!isOpportunityNotPresent}">
+                <apex:outputPanel styleClass="customPopup" layout="block" id="firstpopup">
+                    <!--header-->
+                    <div class="slds-page-header slds-page-header_record-home">
+                      
+                          
+                                  <h1>
+                                  <span class="slds-page-header__title slds-truncate" style="font-size:1.5em;">
+                                       Proposal : {!proposalName}
+                                  </span>
+                                    &nbsp;&nbsp;&nbsp;
+                                  </h1>
+                                  <span style="font-size:1.4em;">
+                                    <b> 
+                                        Name:
+                                    </b>
+                                        {!proposalFullName}
+                                    &nbsp;&nbsp;&nbsp;
+                                    <b>
+                                        Approval Stage: 
+                                    </b>
+                                        {!approvalStage}
+                                  </span>
+                                
+                       </div>
+                      
+                      <!--header Complete-->
+                      <hr style="background-color:#99030f;height:8px;margin:-0.05%"/>
+                      <center>
+                      <br/>
+                      <div class="slds-modal__body">
+                         <h2 class="slds-text-body_regular" style="font-size:1.3em;">
+                             Related Opportunity is not present on Proposal.
+                         </h2>
+                      </div>
+                      <br/>
+                      <div class="slds-modal__content slds-p-around_medium">
+                          <button type="button" class="slds-button slds-button_destructive" style="background-color:#99030f;" onclick="redirect()">
+                                <b>Go To Cart</b>
+                          </button>
+                      </div> 
+                      </center>
+                  </apex:outputPanel>
+            </apex:outputPanel>
+            <!--Block End - if Opportunity is not Present on Proposal-->   
+        </div>
+                       
+    <script type = "text/javascript">
+        function redirect()
+        {
+            window.history.back();
+        }
+    </script>
+</apex:page>

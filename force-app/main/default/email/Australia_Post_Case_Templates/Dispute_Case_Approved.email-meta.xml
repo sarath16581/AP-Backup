@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Dispute Case Approved</name>
+    <style>none</style>
+    <subject>Case Approved {!Case.CaseNumber}</subject>
+    <textOnly>StartTrack
+
+Your credit claim has been approved
+
+Dear {!Case.Name__c},
+
+We are pleased to advise you that we have completed our investigation and your request for reimbursement has been approved. We will credit your account with {!Case.Credit_Amount__c} including GST. Please allow at least 48 hours for the credit amount to appear on your account.
+
+If you have any further questions, please email customer.resolutions@auspost.com.au including your &apos;Case Number&apos; in the subject line. We&apos;re here to assist you any way we can.
+
+Please do not reply to this email; this is an automated message.
+
+Kind regards,
+
+Customer Resolution Team
+Australia Post &amp; StarTrack
+customer.resolutions@auspost.com.au
+
+
+Australia Post will never send you an email asking for your password, credit card details or account information.
+
+
+This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don&apos;t think you should have received this email, please call us on 13 13 18. Visit auspost.com.au for further information on our online security.
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.
+
+Help &amp; Support | Terms &amp; Conditions | Privacy Policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

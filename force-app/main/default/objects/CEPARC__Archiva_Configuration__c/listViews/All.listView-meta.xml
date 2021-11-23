@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>CEPARC__Object_Name__c</columns>
+    <columns>CEPARC__Big_Object_Deployment_Status__c</columns>
+    <columns>CEPARC__Archive_Batch_Size__c</columns>
+    <columns>CEPARC__Is_Restore_Required__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+    <language>en_US</language>
+</ListView>

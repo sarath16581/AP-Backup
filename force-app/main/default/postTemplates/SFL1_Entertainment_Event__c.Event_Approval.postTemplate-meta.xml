@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PostTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <default>true</default>
+    <fields>Name</fields>
+    <fields>Event_Date_Time__c</fields>
+    <fields>Event_Type__c</fields>
+    <fields>No_of_Guests__c</fields>
+    <label>Event Approval</label>
+</PostTemplate>

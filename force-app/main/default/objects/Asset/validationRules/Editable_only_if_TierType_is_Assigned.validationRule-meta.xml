@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Editable_only_if_TierType_is_Assigned</fullName>
+    <active>true</active>
+    <description>Editable only of Tier Type is Assigned when Asset Record Type is BSO</description>
+    <errorConditionFormula>AND( 
+$RecordType.Name = &apos;PSR&apos;,  
+ISPICKVAL(Tier_Type__c , &apos;Transactional&apos;),  
+ISCHANGED( Product2Id),
+$Profile.Name &lt;&gt; &apos;AusPost Integration&apos;,
+$Profile.Name &lt;&gt; &apos;System Administrator&apos;
+)</errorConditionFormula>
+    <errorDisplayField>Product2Id</errorDisplayField>
+    <errorMessage>Product Can be edited only for Manual Override of Assigned Tier</errorMessage>
+</ValidationRule>

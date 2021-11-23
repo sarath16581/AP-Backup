@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Seeker__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Field to identify leads created using the Lead Seeker initiative</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Tick this checkbox if the lead was created as part of the Lead Seeker Initiative</inlineHelpText>
+    <label>Lead Seeker</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

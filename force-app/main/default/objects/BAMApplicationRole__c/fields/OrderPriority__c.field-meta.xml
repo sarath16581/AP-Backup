@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrderPriority__c</fullName>
+    <defaultValue>50</defaultValue>
+    <description>Sets the display priority of how the role is ordered in BAM UI</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Sets the display priority of how the role is ordered in BAM UI</inlineHelpText>
+    <label>Order Priority</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

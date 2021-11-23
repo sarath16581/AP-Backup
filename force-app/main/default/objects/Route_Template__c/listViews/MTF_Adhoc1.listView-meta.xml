@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MTF_Adhoc1</fullName>
+    <columns>NAME</columns>
+    <columns>Active_Route_Days__c</columns>
+    <columns>Status__c</columns>
+    <columns>Service_Territory__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Service_Territory__c</field>
+        <operation>equals</operation>
+        <value>Melbourne</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>Adhoc</value>
+    </filters>
+    <label>MTF Adhoc</label>
+</ListView>

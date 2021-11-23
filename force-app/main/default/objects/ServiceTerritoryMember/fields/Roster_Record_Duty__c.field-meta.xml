@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Roster_Record_Duty__c</fullName>
+    <description>TDF Enhance 2020: Added to show the operational duty of the source roster record</description>
+    <externalId>false</externalId>
+    <formula>Roster_Record__r.Duty__r.Name</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Roster Record Duty</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

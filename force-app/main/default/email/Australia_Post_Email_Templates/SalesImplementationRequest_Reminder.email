@@ -1,0 +1,11 @@
+Hello
+
+A request was created on {!Case.CreatedDate}  and the status doesn't appear to have been reviewed.
+
+Case {!Case.CaseNumber}
+
+Click {!Case.Link} to open the request
+
+Regards
+
+Salesforce CRM Support

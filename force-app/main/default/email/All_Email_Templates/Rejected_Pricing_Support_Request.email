@@ -1,0 +1,10 @@
+{!Today}
+
+Dear {!Internal_Request__c.Pricing_Analyst_Manager__c},
+
+Your Pricing Support Request {!Internal_Request__c.Link} has been rejected.
+
+Regards,
+
+{!User.FullName}
+{!User.Email}

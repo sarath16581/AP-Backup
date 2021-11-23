@@ -1,0 +1,47 @@
+<!--
+    Main component in Bulk Upload application.
+
+    Changelog:
+    2021-01-22 - Ranjeewa Silva - Created.
+-->
+
+<template>
+    <article class="slds-grid slds-grid_align-center slds-p-around_medium">
+
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-6">
+            <article class="slds-card slds-m-bottom_medium bulk-upload-header">
+                <div class="slds-page-header">
+                    <div class="slds-page-header__row">
+                        <div class="slds-page-header__col-title">
+                            <div class="slds-media">
+                                <div class="slds-media__figure">
+<!--                                    <lightning-icon icon-name="custom:custom40" title={title} size="medium"></lightning-icon>-->
+                                    <lightning-icon icon-name={iconName} title={title} size="medium"></lightning-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <div class="slds-page-header__name">
+                                        <div class="slds-page-header__name-title">
+                                            <h1>
+                                                <span class="slds-page-header__title slds-truncate" title="Bulk Upload">Bulk Upload</span>
+                                            </h1>
+                                        </div>
+                                    </div>
+                                    <p class="slds-page-header__name-meta">{title}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <c-bulk-upload-new-request title={title}
+                                       type={type}
+                                       chunk-size={chunkSize}
+                                       preview-rows={previewRows}
+                                       duplicate-check={duplicateCheck}
+                                       oncomplete={handleUploadComplete}></c-bulk-upload-new-request>
+
+            <c-bulk-upload-requests upload-history-date-range={uploadHistoryDateRange} type={type}></c-bulk-upload-requests>
+        </div>
+    </article>
+</template>

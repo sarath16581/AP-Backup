@@ -1,0 +1,31 @@
+.THIS {
+  margin-bottom: 35px;
+}
+
+.THIS legend {
+  width: 100%;
+}
+
+.THIS .chas-legend-title {
+  padding-bottom: 11px;
+  border-bottom: 1px solid #e2dfda;
+}
+
+.THIS .chas-legend-title.small-true {
+	font-size: 1.125rem;
+}
+
+.THIS aside {
+  padding-top: 0;
+  margin-bottom: 24px;
+  font-size: 0.75rem;
+}
+
+@media (min-width: 680px) {
+  .THIS .chas-legend-title {
+    padding-bottom: 14px;
+  }
+  .THIS aside {
+    margin-bottom: 35px;
+  }
+}

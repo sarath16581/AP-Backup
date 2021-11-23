@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>demo test</masterLabel>
+    <promptVersions>
+        <actionButtonLabel>Go to myTrailhead</actionButtonLabel>
+        <actionButtonLink>https://trailhead.salesforce.com/en/content/learn/modules/lex_migration_introduction</actionButtonLink>
+        <body>&lt;p&gt;Full paragraphs of text&lt;/p&gt;</body>
+        <customApplication>BG_Sales</customApplication>
+        <delayDays>1</delayDays>
+        <description>short description</description>
+        <displayType>DockedComposer</displayType>
+        <header>test</header>
+        <isPublished>true</isPublished>
+        <masterLabel>demo test</masterLabel>
+        <publishedDate>2021-02-24</publishedDate>
+        <shouldDisplayActionButton>true</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>false</shouldIgnoreGlobalDelay>
+        <startDate>2021-02-24</startDate>
+        <targetPageKey1>Apttus_Proposal__Proposal__c</targetPageKey1>
+        <targetPageKey2>view</targetPageKey2>
+        <targetPageType>standard__recordPage</targetPageType>
+        <themeColor>Theme1</themeColor>
+        <themeSaturation>Light</themeSaturation>
+        <timesToDisplay>30</timesToDisplay>
+        <title>Simplifying these requests</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+        <videoLink>https://web.microsoftstream.com/embed/video/c2a37305-4789-48c9-a195-0b5273694a72?autoplay=false&amp;amp;showinfo=true</videoLink>
+    </promptVersions>
+</Prompt>

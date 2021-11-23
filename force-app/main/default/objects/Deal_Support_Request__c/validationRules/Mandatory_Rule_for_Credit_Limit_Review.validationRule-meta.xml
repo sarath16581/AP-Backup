@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mandatory_Rule_for_Credit_Limit_Review</fullName>
+    <active>true</active>
+    <description>This rule is to ensure all mandatory fields are populated before credit management request DSR is submitted for &apos;Credit Limit Review&apos; work type</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName =&quot;Credit_Management_Request&quot;,
+ISPICKVAL(Status__c,&quot;Submitted&quot;),
+ISPICKVAL(Credit_Work_Type__c, &quot;Credit limit review&quot;),
+
+ OR(ISBLANK(Existing_Credit_Limit__c) , ISBLANK(ABN__c)) 
+)</errorConditionFormula>
+    <errorMessage>Credit Limit Review Request cannot be submitted to the support team as not all the mandatory fields have been updated such as ABN or Existing Credit Limit. Please edit and complete all the mandatory fields and then submit request to Support Team.</errorMessage>
+</ValidationRule>

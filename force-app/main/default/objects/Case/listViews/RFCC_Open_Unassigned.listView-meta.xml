@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RFCC_Open_Unassigned</fullName>
+    <columns>ChannelImage__c</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.TYPE</columns>
+    <columns>Problem_Type_Retail__c</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>CASES.LAST_UPDATE</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>Last_Assigned_Queue__c</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Retail_Fulfilment_Support</value>
+    </filters>
+    <filters>
+        <field>CASES.ORIGIN</field>
+        <operation>notEqual</operation>
+        <value>Email</value>
+    </filters>
+    <label>RFCC - Open &amp; Unassigned</label>
+    <language>en_US</language>
+    <queue>Retail_Fulfilment_Call_Centre</queue>
+    <sharedTo>
+        <group>Retail_Fulfilment_Call_Centre</group>
+    </sharedTo>
+</ListView>

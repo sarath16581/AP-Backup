@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Closure_Duration_Check</fullName>
+    <active>true</active>
+    <errorConditionFormula>DMAPP__Closure_Duration__c &lt; 0</errorConditionFormula>
+    <errorDisplayField>DMAPP__Closure_Duration__c</errorDisplayField>
+    <errorMessage>Closure duration must be positive</errorMessage>
+</ValidationRule>

@@ -1,0 +1,20 @@
+<!--
+	2020-09-22 - Nathan Franklin - Created
+-->
+<template>
+
+	<div class="timeline-wrapper">
+		<div class="timeline animated pulse" style="position:relative;">
+			<template for:each={intervals} for:item="interval">
+				<div key={interval.value} class={interval.cssClass} style={interval.cssStyle}><span>{interval.label}</span></div>
+			</template>
+
+			<template for:each={computedPlots} for:item="plot">
+				<div key={plot.id} class={plot.cssClass} style={plot.cssStyle} title={plot.label}>
+					<div class={plot.cssClassInner} style={plot.cssStyleInner}></div>
+				</div>
+			</template>
+		</div>
+	</div>
+
+</template>

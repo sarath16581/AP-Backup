@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Australia Post Credit Disputes Queue</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>APG_Customer_Resolutions</publicGroup>
+            <publicGroup>StarTrack_Customer_Resolution_Manager</publicGroup>
+            <publicGroup>StarTrack_Customer_Resolution_Officer</publicGroup>
+            <publicGroup>StarTrack_Credit_Disputes_Manager</publicGroup>
+            <publicGroup>Credit_Disputes</publicGroup>
+        </publicGroups>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Credit_Approval__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Disputed_Item__c</sobjectType>
+    </queueSobject>
+</Queue>

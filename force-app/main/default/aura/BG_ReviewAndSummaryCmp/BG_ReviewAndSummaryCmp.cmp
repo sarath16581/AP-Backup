@@ -1,0 +1,67 @@
+<!--
+ * @description This is the main component to display the review and summary of the qualification questions before submitting them
+ * @date 20/02/2020
+ * @group Lead Qualification
+ * @changelog
+ * 2020-08-14 - jansi - Created
+ * 2020-08-16 - arjun.singh@auspost.com.au - Modified to fetch primary product automatically based on specific business rules
+ -->
+<aura:component controller='BG_QualificationApex'>
+    
+    <aura:attribute name="discoveryCategoryQuestions" type="Object"/>
+    <aura:attribute name="summaryProducts" type="List" />
+    <aura:attribute name="totalEstimatedRevenue" type="Decimal"/>
+    <aura:attribute name="summaryNotes" type="String" default=''/>
+    <aura:attribute name="selectedProducts" type="List"/>
+    <aura:attribute name="selectedProductsQuestions" type="Map" />
+    <aura:attribute name="selectedPrimaryProduct" type="String"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="productEstimateMap" type="Map"  />
+    <aura:attribute name="productNotesMap" type="Map" />
+    <aura:attribute name="qualId" type="String" /> 
+    <aura:attribute name="currentProgressStep" type="Integer" default='4'/>
+    <aura:attribute name="hasErrorInCurrentStep" type="Boolean" default='false'/>
+    <aura:attribute name="qualificationRecordId" type="String" />
+    <aura:attribute name="editQualificationResponse" type="Boolean" default='false'/>
+    <aura:attribute name="existingQualification" type="Object"/>
+    <aura:attribute name="editFlow" type="Boolean" default='false' />
+    <aura:attribute name="hasBgSalesPermissionSet" type="Boolean" />
+    <aura:attribute name="isManualOpp" type="Boolean" />
+
+    <aura:attribute name="errorMessage" type="String" default='Please make sure the required questions are answered on all Customer Needs Category tabs before proceeding.'/>    
+    <aura:attribute name="showErrorMessage" type="Boolean" default='false'/>
+
+    <!--Event cmp -->
+    <aura:registerEvent name="genCmpEvent" type="c:BG_GenericComponentEvent"/>
+     <!-- Handler -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+         <!-- Progress BAR -->
+    <div>
+        <c:BG_QualificationProgressIndicator currentProgressStep='{!v.currentProgressStep}'
+                                             hasErrorInCurrentStep='{!v.hasErrorInCurrentStep}'/>
+        <br/>
+    </div>
+    
+    <div style='width:100%' >
+        <c:BG_QualifyReviewAndSubmitCmp aura:id='field' discoveryCategoryQuestions='{!v.discoveryCategoryQuestions}'
+                                        summaryProducts='{!v.summaryProducts}'
+                                        totalEstimatedRevenue='{!v.totalEstimatedRevenue}'
+                                        summaryNotes='{!v.summaryNotes}'
+                                        selectedProducts='{!v.selectedProducts}'
+                                        selectedProductsQuestions='{!v.selectedProductsQuestions}'
+                                        selectedPrimaryProduct='{!v.selectedPrimaryProduct}'
+                                        isManualOpp='{!v.isManualOpp}'
+                                        />
+        
+        <br/>
+    </div>
+    <!-- ERROR Message -->
+    <aura:if isTrue='{!v.showErrorMessage == true}'>
+        <p class='errorFont'>{!v.errorMessage}</p>
+    </aura:if>
+    <div class='slds-text-align_right'>
+        <lightning:button aura:Id='nextButton' onclick="{!c.showProductDetails}" label="Back" variant="brand-outline" />
+        <lightning:button aura:Id='save' onclick="{!c.FinishAndShowReadOnlySummary}" label="Finish" variant="brand" />
+    </div>
+</aura:component>

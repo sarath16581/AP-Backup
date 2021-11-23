@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rest_Break_End_Time_Grace__c</fullName>
+    <description>The Rest Break End Time minus a few minutes.  This is referenced in the flow TDF_Rest_Break to allow the rest break to complete a few minutes before the actual end.  20/06/18 Removed time.  Add this to formula if required  - 5/1440</description>
+    <externalId>false</externalId>
+    <formula>Rest_Break_End_Time__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Rest Break End Time Grace</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

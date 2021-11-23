@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BG_Capture_Disqualification_Reason</fullName>
+    <active>true</active>
+    <description>REQ2401548 - updated to exclude &apos;is integration user&apos;</description>
+    <errorConditionFormula>AND(
+
+    ISPICKVAL(Status,&quot;Disqualified&quot;),
+    ISPICKVAL(Disqualified_Lead_Reason__c, &apos;&apos;), 
+    NOT( $User.Is_Integration_User__c )
+)</errorConditionFormula>
+    <errorMessage>Disqualified Lead Reason Field Should not be blank</errorMessage>
+</ValidationRule>

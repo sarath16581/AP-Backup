@@ -1,0 +1,118 @@
+<!--
+  * @author       : arjun.singh@auspost.com.au
+  * @date         : 23/03/2020
+  * @description  : Component that display the case list view with filters
+--------------------------------------- History --------------------------------------------------
+23.03.2020    Arjun Singh    Created
+14.05.2020    Arjun Singh   Updated to include multi postCode Search feature
+17.03.2021    Hara Sahoo    Updated the case priority list
+-->
+<template>
+    <div class="slds-p-around_small">
+        <lightning-card title="Case Views">
+            <div class="slds-p-horizontal_xx-large">
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item size="2"></lightning-layout-item>
+                    <lightning-layout-item size="4">
+                        <lightning-combobox name="listViewsArray" label="Case View" value={selectedListView}
+                            options={listViewsArray} onchange={handleSelectedListViewChange} variant="label-inline">
+                        </lightning-combobox>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+        </lightning-card>
+    </div>
+    <lightning-accordion allow-multiple-sections-open onsectiontoggle={handleSectionToggle}
+        active-section-name={activeSections}>
+        <lightning-accordion-section name="B" label="Case Search Filters">
+            <lightning-card>
+                <div class="slds-p-horizontal_xx-large">
+                    <lightning-record-edit-form object-api-name="Case">
+                        <lightning-layout multiple-rows="true">
+                            <lightning-layout-item size="2"></lightning-layout-item>
+                            <lightning-layout-item size="4">
+                                <lightning-combobox name="isPrinted" label="Printed" value={casePrintedFlag}
+                                    options={listIsPrinted} onchange={handleFieldChange} variant="label-inline">
+                                </lightning-combobox>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="4">
+                                <div class="slds-m-left_medium">
+                                    <lightning-combobox name="productCategory" label="Product Category"
+                                        value={selectedProductCategoryValue} options={listProductCategory}
+                                        onchange={handleFieldChange} variant="label-inline">
+                                    </lightning-combobox>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="2"></lightning-layout-item>
+
+                            <lightning-layout-item size="2"></lightning-layout-item>
+                            <lightning-layout-item size="4">
+                                <template if:true={listPriorityValues}>
+                                    <lightning-combobox name="Priority" label="Priority" value={selectedPriorityValue}
+                                        options={listPriorityValues} onchange={handleFieldChange}
+                                        variant="label-inline">
+                                    </lightning-combobox>
+                                </template>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="4">
+                                <div class="slds-m-left_medium">
+                                    <lightning-combobox name="listEnquirySubType" label="Enquiry Subtype"
+                                        placeholder="--Select--" value={selectEnquirySubType}
+                                        options={listEnquirySubType} onchange={handleFieldChange}
+                                        variant="label-inline"></lightning-combobox>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="2"></lightning-layout-item>
+                            <lightning-layout-item size="2"></lightning-layout-item>
+                           <lightning-layout-item size="4">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label " for="horizontal-input-id-05">
+                                        Addressee Postcode(s)</label>    
+                                      <lightning-helptext class="customHelpTextClass" content="To search multiple postcodes please separate with a comma (e.g. 3000, 3020)."></lightning-helptext>
+                                    <div class="slds-form-element__control" >
+                                        <lightning-input-field id="horizontal-input-id-05"
+                                            field-name="Address2Postcode__c" variant="label-hidden"
+                                            value={AddressePostcodeVal} onchange={handleFieldChange}>
+                                        </lightning-input-field>
+                                    </div>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="4">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label slds-p-left_medium slds-m-left_xxx-small"
+                                        for="horizontal-input-id-06">Network Name</label>
+                                    <div class="slds-form-element__control slds-p-left_medium slds-m-left_small">
+                                        <lightning-input-field id="horizontal-input-id-06" field-name="Network__c"
+                                            variant="label-hidden" value={selectedNetworkRecrdId}
+                                            onchange={handleFieldChange}>
+                                        </lightning-input-field>
+                                    </div>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="2"></lightning-layout-item>
+
+                            <lightning-layout-item size="2"></lightning-layout-item>
+                            <lightning-layout-item size="4">
+                                <lightning-input type="Text" label="Case Number" name="caseNumber" value={caseNumberVal}
+                                    variant="label-inline" data-id="checkbox" onchange={handleFieldChange}>
+                                </lightning-input>
+                            </lightning-layout-item>
+
+
+                        </lightning-layout>
+                    </lightning-record-edit-form>
+                </div>
+                <div class="slds-align_absolute-center" style="height:5rem">
+                    <lightning-button class="slds-button" label="Clear" variant="Neutral" onclick={clearSearch}>
+                    </lightning-button>
+                    <lightning-button class="slds-button" label="Search" variant="Neutral"
+                        onclick={searchButtonhandler}>
+                    </lightning-button>
+                </div>
+                <template if:true={loadingFlag}>
+                    <lightning-spinner alternative-text="Loading..."></lightning-spinner>
+                </template>
+            </lightning-card>
+        </lightning-accordion-section>
+    </lightning-accordion>
+</template>

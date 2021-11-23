@@ -1,0 +1,77 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">Thank you for your recent enquiry in to Australia Post business
+services.<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">&nbsp;</span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">To help you integrate with our Shipping and Tracking APIs please access
+the supporting information in our Developer Centre.<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">In our Developer Centre you can access:<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">&nbsp;</span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Technical Specifications
+for Shipping and Tracking Services&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">and<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sample code for API
+calls&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">&nbsp;</span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">We’ve also attached the supplementary guide to Integrating with the
+Australia Post Shipping and Tracking APIs.<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">&nbsp;</span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">When you’re ready to conduct testing please use your unique account
+number and API credentials (provided in the attached document) in our testbed
+via the following links:<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">https://digitalapi.auspost.com.au/testbed/shipping/v1/ (plus the name of
+your chosen API)<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">e.g. https://digitalapi.auspost.com.au/testbed/shipping/v1/shipments<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">Once you’ve successfully completed your testing, you’ll just need to
+send us a copy of the following items by replying to this email:<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A PDF label that you have
+generated via the testbed API<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A PDF Order Summary
+Report that you have generated via the testbed API.<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">&nbsp;</span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">Once we’ve received these files, we can validate your integration and
+your customers will be able to access the production Shipping and Tracking API
+once they’ve registered their interest in the Shipping and Tracking APIs on the
+Developer Centre.<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">&nbsp;</span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">If you get stuck at any point, please get in touch with us at
+customer_connectivity@auspost.com.au. We’d be happy to help.<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">&nbsp;</span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">&nbsp;</span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><br></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">Regards<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">&nbsp;</span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">Lodgement &amp; APIs Team<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter Light';">Parcels, eCommerce and Digital<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span style="font-family:&quot;AP Letter Light&quot;">&nbsp;</span></p>]]></td>
+</tr>
+</table>

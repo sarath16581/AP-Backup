@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MerchantKeyDrivers__c</fullName>
+    <externalId>false</externalId>
+    <label>Merchant Key Drivers</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer Service</fullName>
+                <default>false</default>
+                <label>Customer Service</label>
+            </value>
+            <value>
+                <fullName>Value of goods</fullName>
+                <default>false</default>
+                <label>Value of goods</label>
+            </value>
+            <value>
+                <fullName>Type of goods</fullName>
+                <default>false</default>
+                <label>Type of goods</label>
+            </value>
+            <value>
+                <fullName>Technical cost / complexity</fullName>
+                <default>false</default>
+                <label>Technical cost / complexity</label>
+            </value>
+            <value>
+                <fullName>Fear of fraud</fullName>
+                <default>false</default>
+                <label>Fear of fraud</label>
+            </value>
+            <value>
+                <fullName>Simplified cage (ULD) sorting</fullName>
+                <default>false</default>
+                <label>Simplified cage (ULD) sorting</label>
+            </value>
+            <value>
+                <fullName>Reduction in warehousing space</fullName>
+                <default>false</default>
+                <label>Reduction in warehousing space</label>
+            </value>
+            <value>
+                <fullName>Enhancement to service performance</fullName>
+                <default>false</default>
+                <label>Enhancement to service performance</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

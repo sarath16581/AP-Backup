@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Insight_Smart_Node_Child__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>Select the child Smart Element</inlineHelpText>
+    <label>Smart Element (Child)</label>
+    <referenceTo>DMAPP__Insight_Smart_Node__c</referenceTo>
+    <relationshipLabel>Smart Element Children (Smart Element (Child))</relationshipLabel>
+    <relationshipName>Insight_Smart_Node_Parents</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

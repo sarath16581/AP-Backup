@@ -1,0 +1,184 @@
+<!-- The stylesheets and JavaScripts are required for Address Component.
+onkeydown is added for all input fields to avoid executing Cancel after hitting Enter key.
+ -->
+<apex:page id="managecontact" standardController="Contact"
+           extensions="ManageContactControllerExtension"
+           sidebar="false"  docType="html-5.0">
+
+    <apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+    <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+    <apex:stylesheet value="{!$Resource.jQueryLayoutCSS}" />
+    <apex:stylesheet value="{!$Resource.jQueryUI1_10_3_Css}" />
+    <script src="{!URLFOR($Resource.jQuery111)}" />
+    <script src="{!URLFOR($Resource.bootstrapJS)}" />
+    <script src="{!URLFOR($Resource.jQueryUI1_10_3)}" />
+    <script src="{!URLFOR($Resource.jQueryLayout)}" />
+    <script src="/support/console/28.0/integration.js" />
+    <script src="/support/api/28.0/interaction.js" />
+
+    <script>
+        var j$ = jQuery.noConflict();
+
+        sforce.connection.sessionId = "{!$Api.Session_ID}";
+        function setFocusOnLoad() {} //prevents focus to this component when inline on the standard page layout
+
+        function addMessage(textid) {
+            document.getElementById(textid).style.color="red";
+            document.getElementById(textid).innerHTML = "<h4>Please click Save to save changes...<h4>";
+         }
+
+   </script>
+
+    <apex:form id="formId">
+
+        <apex:stylesheet value="{!URLFOR($Resource.AddressValidation, '/AddressValidationScript/AddressValidationStylesheet.css')}" />
+        <!-- (MW0002103) Removed by Adrian Recio, Styling not part of custom contact edit page styling -->
+        <!--
+        <apex:stylesheet value="{!$Resource.SSSWCSS}" />
+		-->
+        <c:LoadingSpinnerComponent showFunctionName="showProgress" hideFunctionName="hideProgress" />
+        <apex:messages styleClass="alert alert-danger" />
+        <div id="saved-dialog" class="hide">
+            <img src="/img/msg_icons/confirm24.png" class="saved-img" />
+            <div class="saved-msg-content">
+                <div class="saved-msg-title">Success!</div>
+                <div class="saved-msg-text">Record has been successfully updated.</div>
+            </div>
+        </div>
+        <div id="actions" style="float: left; width: 90%; margin-left: 45%;">
+            <apex:commandButton value="Save" action="{!saveContact}" onclick="showProgress()"
+                                reRender="formId" >
+                <apex:param name="saveNew" value="false" assignTo="{!saveNew}"/>
+            </apex:commandButton>
+            <apex:commandButton value="Save & New" action="{!saveContact}" onclick="showProgress()" reRender="formId" >
+
+                <apex:param name="saveNew" value="true" assignTo="{!saveNew}"/>
+                <apex:param name="newUrl" value="{!URLFOR('/apex/' + $CurrentPage.Name)}" assignTo="{!newUrl}"/>
+            </apex:commandButton>
+            <apex:commandButton value="Cancel" action="{!cancelOp}" immediate="true"
+                                html-formnovalidate="formnovalidate"/>
+        </div>
+
+        <!-- (MW0002103) Updated by Adrian Recio to include additional field set to allow vertical field alignment -->
+        <div id="information-msg" style="float: left; width: 90%; margin-left: 5%;"></div>
+        <div id="information" style="float: left; width: 90%; margin-left: 5%;">
+            <apex:pageBlock id="pbInfo">
+                <apex:pageBlockSection columns="2" title="Contact Information" id="pbsInfo">
+
+                    <apex:repeat value="{!$ObjectType.Contact.FieldSets.ManageContact_Account_Information}" var="f">
+                        <apex:inputField value="{!currentContact[f]}"
+                                         onchange="addMessage('information-msg')" required="{!IF(f=='AccountId' ||
+                                                                                               		f=='OwnerId' ||
+                                                                                               		f=='LastName',true,false)}"
+                                         onkeydown="if(event.keyCode==13){this.blur();}"/>
+                    </apex:repeat>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection columns="1" title="Information" id="pbsInfo2" showHeader="false">
+                    <apex:repeat value="{!$ObjectType.Contact.FieldSets.ManageContact_Account_Information_2}" var="f">
+                        <!-- Updated by Adrian Recio field required for function group code -->
+                        <apex:inputField value="{!currentContact[f]}" onchange="addMessage('information-msg')" required="{!IF(f=='Function_Group_Code__c',true,false)}"
+                                         onkeydown="if(event.keyCode==13){this.blur();}"/>
+
+                    </apex:repeat>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            <apex:outputPanel id="addr-info-msg" layout="block" style="float: left; width: 90%; margin-left: 5%; color: red;" rendered="{!displaySave}">
+                <h4>Please click Save to save changes...</h4>
+            </apex:outputPanel>
+
+            <apex:pageBlock >
+                <apex:pageBlockSection title="Address Information" >
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+
+            <!-- (MW0002103) Updated by Adrian Recio relabel Address header and button-->
+            <div id="mailAddr" style="float: left; width: 40%; margin-left: 5%;">
+                <c:SalesAddressComponentV1 address="{!mailingAddress}" legend="Billing Address" />
+                <apex:commandButton value="Copy from Physical" action="{!copyAddress}" onclick="showProgress();"
+                                    reRender="formId">
+                    <apex:param name="copyFromMailing" value="false" assignTo="{!copyFromMailing}"/>
+                </apex:commandButton>
+
+            </div>
+
+            <!-- (MW0002103) Updated by Adrian Recio relabel Address header and button-->
+            <div id="otherAddr" style="float: right; width: 40%; margin-right: 5%;">
+                <c:SalesAddressComponentV1 address="{!otherAddress}" legend="Physical Address" />
+                <apex:commandButton value="Copy from Billing" action="{!copyAddress}" onclick="showProgress();"
+                                    reRender="formId">
+                    <apex:param name="copyFromMailing" value="true" assignTo="{!copyFromMailing}"/>
+                </apex:commandButton>
+            </div>
+
+            <!-- (MW0002103) Update by Adrian Recio to reorder field sets and individual fields -->
+            <div id="marketing-msg" style="float: left; width: 90%; margin-left: 5%;"></div>
+            <apex:pageBlock >
+                <apex:pageBlockSection title="Marketing Options" >
+                    <apex:inputField value="{!currentContact.Privacy_Marketing_Opt_Out__c}" onchange="addMessage('marketing-msg')"
+                                     onkeydown="if(event.keyCode==13){this.blur();}"/>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection >
+                    <apex:repeat value="{!$ObjectType.Contact.FieldSets.ManageContact_Marketing_Options}" var="f">
+                        <apex:inputField value="{!currentContact[f]}" onchange="addMessage('marketing-msg')"
+                                         onkeydown="if(event.keyCode==13){this.blur();}"/>
+                    </apex:repeat>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection >
+                    <apex:inputField value="{!currentContact.et4ae5__HasOptedOutOfMobile__c}" onchange="addMessage('marketing-msg')"
+                                     onkeydown="if(event.keyCode==13){this.blur();}"/>
+                </apex:pageBlockSection>
+
+            </apex:pageBlock>
+            <div id="sales-msg" style="float: left; width: 90%; margin-left: 5%;"></div>
+            <apex:pageBlock >
+                <apex:pageBlockSection title="Notify This Contact About">
+                    <apex:repeat value="{!$ObjectType.Contact.FieldSets.ManageContact_NotifyContactAbout}" var="f">
+                        <apex:inputField value="{!currentContact[f]}" onchange="addMessage('sales-msg')"
+                                         onkeydown="if(event.keyCode==13){this.blur();}"/>
+                    </apex:repeat>
+                    <!-- Section added by Adrian Recio to add Agency Contacts on the right side of the layout-->
+                    <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+         			<apex:inputField value="{!currentContact.Agency_Contracts__c}"></apex:inputField>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            <div id="additional-msg" style="float: left; width: 90%; margin-left: 5%;"></div>
+            <apex:pageBlock >
+                <apex:pageBlockSection title="Additional Information" >
+                    <apex:repeat value="{!$ObjectType.Contact.FieldSets.ManageContact_Additional_Information}" var="f">
+                        <apex:inputField value="{!currentContact[f]}" onchange="addMessage('additional-msg')"
+                                         onkeydown="if(event.keyCode==13){this.blur();}"/>
+                    </apex:repeat>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            <div id="description-msg" style="float: left; width: 90%; margin-left: 5%;"></div>
+            <!-- (MW0002103) Added new section and field for Description Information by Adrian Recio -->
+            <apex:pageBlock >
+                <apex:pageBlockSection columns="1" title="Description Information" >
+                    <apex:inputField style="width:500px !important;" value="{!currentContact.Description}"
+                                     onchange="addMessage('additional-msg')"
+                                     onkeydown="if(event.keyCode==13){this.blur();}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </div>
+
+
+
+
+        <div id="actions2" style="float: left; width: 90%; margin-left: 45%;">
+            <apex:commandButton value="Save" action="{!saveContact}" onclick="showProgress()"
+                                reRender="formId">
+                <apex:param name="saveNew" value="false" assignTo="{!saveNew}"/>
+            </apex:commandButton>
+            <apex:commandButton value="Save & New" action="{!saveContact}" onclick="showProgress()" reRender="formId" >
+                <apex:param name="saveNew" value="true" assignTo="{!saveNew}"/>
+                <apex:param name="newUrl" value="{!URLFOR('/apex/' + $CurrentPage.Name)}" assignTo="{!newUrl}"/>
+            </apex:commandButton>
+            <apex:commandButton value="Cancel" action="{!cancelOp}" immediate="true"
+                                html-formnovalidate="formnovalidate" />
+        </div>
+
+    </apex:form>
+</apex:page>

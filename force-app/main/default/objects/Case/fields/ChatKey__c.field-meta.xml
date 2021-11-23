@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ChatKey__c</fullName>
+    <description>For live chat engagements when cases are created, this field will store the Chat key of the engaged chat. This is needed since a transcript is not created until AFTER the chat ends, but a case will be created BEFORE the chat ends. The chat key stores a reference and then later links the case to the newly created Transcript record with code.</description>
+    <externalId>false</externalId>
+    <label>ChatKey</label>
+    <length>100</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

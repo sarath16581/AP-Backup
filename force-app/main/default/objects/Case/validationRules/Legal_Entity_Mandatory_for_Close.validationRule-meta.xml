@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Legal_Entity_Mandatory_for_Close</fullName>
+    <active>true</active>
+    <description>For RT Service Delivery, Legal Entity is mandatory for closing. - REQ1994434</description>
+    <errorConditionFormula>AND( RecordType.Name = &apos;Service Delivery&apos;,
+ISPICKVAL(Status, &apos;Closed&apos;),
+NOT(ISPICKVAL(ResolutionCode__c, &apos;Closed - Invalid&apos;)),
+ISBLANK(Calc_Link_Account__c)
+
+)</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>Case cannot be closed without a Legal Entity.</errorMessage>
+</ValidationRule>

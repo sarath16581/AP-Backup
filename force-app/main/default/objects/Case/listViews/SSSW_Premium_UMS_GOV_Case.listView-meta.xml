@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Premium_UMS_GOV_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>SSSW  Premium UMS GOV</label>
+    <queue>SSSW_Premium_UMS_GOV</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

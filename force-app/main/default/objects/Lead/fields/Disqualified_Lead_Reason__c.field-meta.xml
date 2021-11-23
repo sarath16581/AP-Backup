@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disqualified_Lead_Reason__c</fullName>
+    <description>BAU - This field is a Dependent filed of the Lead status field, this field captures reasons why a lead has been disqualified.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Please provide a lead disqualification reason, values provided not suitable please select &quot;Other&quot;.</inlineHelpText>
+    <label>Disqualified Lead Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Status</controllingField>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>API Request</fullName>
+                <default>false</default>
+                <label>API Request</label>
+            </value>
+            <value>
+                <fullName>Could not contact</fullName>
+                <default>false</default>
+                <label>Could not contact</label>
+            </value>
+            <value>
+                <fullName>Declined by customer</fullName>
+                <default>false</default>
+                <label>Declined by customer</label>
+            </value>
+            <value>
+                <fullName>Duplicate Lead</fullName>
+                <default>false</default>
+                <label>Duplicate Lead</label>
+            </value>
+            <value>
+                <fullName>Enquiry does not meet criteria</fullName>
+                <default>false</default>
+                <label>Enquiry does not meet criteria</label>
+            </value>
+            <value>
+                <fullName>Existing customer, no opportunity</fullName>
+                <default>false</default>
+                <label>Existing Customer</label>
+            </value>
+            <value>
+                <fullName>Enquiry only</fullName>
+                <default>false</default>
+                <label>General Enquiry / Information Only</label>
+            </value>
+            <value>
+                <fullName>Incorrect Contact Details</fullName>
+                <default>false</default>
+                <label>Incorrect Contact Details</label>
+            </value>
+            <value>
+                <fullName>Nurturing</fullName>
+                <default>false</default>
+                <label>Nurturing</label>
+            </value>
+            <value>
+                <fullName>Unsuccessful Contact Attempts</fullName>
+                <default>false</default>
+                <label>Unsuccessful Contact Attempts</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>API Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Could not contact</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Declined by customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Duplicate Lead</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Enquiry does not meet criteria</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Existing customer, no opportunity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Enquiry only</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Incorrect Contact Details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Nurturing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Unsuccessful Contact Attempts</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

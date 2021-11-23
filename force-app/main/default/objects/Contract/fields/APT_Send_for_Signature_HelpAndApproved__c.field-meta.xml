@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Send_for_Signature_HelpAndApproved__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 
+AND( 
+AND( 
+OR( ISPICKVAL( Approval_Status__c , &apos;None&apos;) , 
+ISPICKVAL( Approval_Status__c , &apos;Approved&apos;) 
+), 
+OR( ISPICKVAL( Term_Exception_Approval_Status__c , &apos;None&apos;) , 
+ISPICKVAL( Term_Exception_Approval_Status__c , &apos;Approved&apos;) 
+) 
+) 
+, 
+OR( 
+ISPICKVAL(Status_Category__c,&quot;In Authoring&quot;), 
+(AND(ISPICKVAL(Status_Category__c,&quot;In Signatures&quot;), 
+ISPICKVAL(Status__c,&quot;Ready for Signatures&quot;))), 
+(AND(ISPICKVAL(Status_Category__c,&quot;In Signatures&quot;), 
+ISPICKVAL(Status__c,&quot;Signature Declined&quot;))) 
+)
+), 
+HYPERLINK(&quot;/apex/APT_HelptotheSeller?id=&quot;&amp;Id &amp; &quot;&amp;action=Send_To_Other_Party_For_Signatures&quot;, IMAGE(&quot;/resource/Apttus__Button_SendForSignatures&quot;, &quot;Send For Signatures&quot;), &quot;_self&quot;), 
+NULL 
+)</formula>
+    <inlineHelpText>Send for Signatures via Email from Salesforce</inlineHelpText>
+    <label>Send For Signatures</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

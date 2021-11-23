@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Australia Post - Update on your Australia Post enquiry Case: {!Case.CaseNumber}</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>BCP - Email on Day 3 for delay (Digital Enquiries)</name>
+    <style>none</style>
+    <subject>Australia Post - Update on your Australia Post enquiry Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference number {!Case.CaseNumber}
+
+
+Dear {!Contact.FirstName},
+
+
+Thank you for your enquiry on {!Case.CreatedDate} and we apologise for the delay in getting back to you.
+
+We’re currently experiencing a high number of enquiries relating to delivery delays. These delays are due to limited flights, social distancing requirements and an increase in parcel volumes as more people shop online. Rest assured that we’re working hard to get your parcel to you as quickly as possible.
+
+You can continue checking the status of your delivery using our tracking tool, and keep up-to-date on any impacts and delays on our  important updates page. You can also track your parcels and manage your deliveries using our Australia Post mobile app.
+
+If you have already received your parcel, please disregard this message.
+
+Thank you again for your support and patience during this time.
+
+Your team at Australia Post.
+
+
+
+Kind regards,
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

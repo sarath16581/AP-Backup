@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PostTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <default>true</default>
+    <fields>Organisation__c</fields>
+    <fields>Approval_Status__c</fields>
+    <fields>Reasonforchange__c</fields>
+    <fields>Sub_Reason_for_Change__c</fields>
+    <label>SCCR Approval</label>
+</PostTemplate>

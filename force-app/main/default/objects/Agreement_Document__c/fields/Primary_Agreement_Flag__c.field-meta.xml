@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Agreement_Flag__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Standard field to reflect value of Primary Agreement formula field.  Set on selection of Document Type from button Select Document Type - via flow &apos;Agree Mgt - Edit Agreement Document&apos;.  Field has been created to allow Roll Up Summary filter on Account for all Licences with Active and Primary Agreements</description>
+    <externalId>false</externalId>
+    <label>Primary Agreement Flag</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

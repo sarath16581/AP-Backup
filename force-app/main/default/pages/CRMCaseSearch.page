@@ -1,0 +1,132 @@
+<apex:page controller="CaseSearchController">
+   <script type="text/javascript" src="{!URLFOR($Resource.CRMGlue)}/lib/require.min.js"></script>      
+   <script type="text/javascript">
+     function refreshPage(objectId, caseNumber, ixnId, caseId) { 
+        console.log("refreshPage: " + objectId + ", " + caseNumber + ", " + ixnId);
+        
+        sforce.console.getFocusedPrimaryTabId(
+            function (result) {                        
+          		console.log("getFocusedPrimaryTabId: " + result.id); 
+          		
+          		if (result.success) {
+	               	sforce.console.closeTab(result.id);
+				}
+				else {
+					console.warn("could not get getFocusedPrimaryTabId");
+				}
+				
+				var msg = {
+	               		action: "CaseSelected",
+	               		objectId: objectId, // contact id
+	               		id: ixnId,
+	               		caseId: caseId,
+	               		caseNumber: caseNumber
+	            };
+               	var str = JSON.stringify(msg);
+               	console.log("fire event " + str);
+               	sforce.console.fireEvent('CTIEvent', str);
+            } 
+        );
+	}
+   	</script>    
+ 	<apex:pageBlock title="Case Search">    
+  		<apex:form >
+		  	<apex:outputPanel >
+		  		<apex:actionRegion >  
+			        <apex:outputPanel id="top" layout="block" style="margin:5px;padding:10px;padding-top:2px;">
+			          <apex:outputLabel id="txtCaseNumber" value="Case Number" style="font-weight:Bold; margin-right:5px;" for="txtPhoneNumber"/>
+			          <apex:inputText value="{!caseNumber}" />
+			          <apex:outputLabel id="txtSubject" value="Subject" style="font-weight:Bold; margin-left:10px; margin-right:5px;" for="txtSubject"/>
+					  <apex:inputText value="{!subject}" />
+			          <span style="padding-left:5px">
+			          	<apex:commandButton id="btnGo" value="Search" action="{!performSearch}" reRender="searchResults"></apex:commandButton>
+			          </span>
+			        </apex:outputPanel>
+
+					<apex:outputPanel style="margin:5px; height:350px; overflow-Y:auto;" layout="block">
+	                    <apex:pageBlock id="searchResults">  
+							<apex:pageBlockTable value="{!case_results}" var="c">
+	                        	<apex:column >
+		     						<apex:facet name="header">
+		                            	<apex:outputPanel id="txtCaseNumber">Case Number</apex:outputPanel>
+		                          	</apex:facet>
+		                          	<apex:outputLink onclick="refreshPage('{!c.Contact.Id}', '{!c.CaseNumber}', '{!ixnId}', '{!c.Id}');">{!c.CaseNumber}</apex:outputLink>
+								</apex:column>
+								<apex:column >
+									<apex:facet name="header">
+										<apex:outputPanel id="txtColumnSubject">Subject</apex:outputPanel>
+									</apex:facet>
+									<apex:outputLink value="javascript:window.location.href='/{!c.Id}'" 
+										onclick="refreshPage('{!c.Contact.Id}', '{!c.CaseNumber}', '{!ixnId}', '{!c.Id}');">{!c.Subject}</apex:outputLink>
+								</apex:column>
+								<apex:column >
+									<apex:facet name="header">
+										<apex:outputPanel id="txtAccount">Account</apex:outputPanel>
+									</apex:facet>
+									<apex:outputLink value="javascript:window.location.href='/{!c.Id}'" 
+										onclick="refreshPage('{!c.Contact.Id}', '{!c.CaseNumber}', '{!ixnId}', '{!c.Id}');">{!c.Account.Name}</apex:outputLink>
+								</apex:column>
+								<apex:column >
+									<apex:facet name="header">
+										<apex:outputPanel id="txtName">Name</apex:outputPanel>
+									</apex:facet>
+									<apex:outputLink value="javascript:window.location.href='/{!c.Id}'" 
+										onclick="refreshPage('{!c.Contact.Id}', '{!c.CaseNumber}', '{!ixnId}', '{!c.Id}');">{!c.Contact.Name}</apex:outputLink>
+								</apex:column>
+								<apex:column >
+									<apex:facet name="header">
+										<apex:outputPanel id="txtDateCreated">Date Created</apex:outputPanel>
+									</apex:facet>
+									<apex:outputLink value="javascript:window.location.href='/{!c.Id}'" 
+										onclick="refreshPage('{!c.Contact.Id}', '{!c.CaseNumber}', '{!ixnId}', '{!c.Id}');">{!c.CreatedDate}</apex:outputLink>
+								</apex:column>
+			      			</apex:pageBlockTable>    
+			    		</apex:pageBlock>  
+					</apex:outputPanel>
+            	</apex:actionRegion>
+  			</apex:outputPanel>
+		</apex:form>
+	</apex:pageblock>
+	<script>
+		require.config({
+			baseUrl : '{!URLFOR($Resource.CRMGlue)}',
+		    paths: {
+		        util: 'lib/util',
+		        jquery: 'lib/jquery-2.1.4.min',
+		        'org/cometd': 'lib/cometd-jquery/org/cometd.min',
+		        'jquery.cometd': 'lib/cometd-jquery/jquery/jquery.cometd.min',
+		        moment: 'lib/moment.min',
+		        connector: 'SFDC/connector',
+		        integration: '/support/console/36.0/integration',
+		        interaction: '/support/api/36.0/interaction',
+		        i18next: 'lib/i18next.min',
+		        jqueryI18next: 'lib/jquery-i18next.min',
+		        i18nextXHRBackend: 'lib/i18next-xhr-backend.min'
+		    },
+		    shim: {
+		        'jquery': {
+		            exports: '$'
+		        },
+		        'integration': {
+		            exports: 'sforce'
+		        },
+		        'interaction': {
+		            exports: 'sforce'
+		        }
+		    }
+		});
+	            
+		require(['jquery', 'SFDC/lang', 'integration'], function($, lang, sforce) {
+			var lang_text = lang.getText('case'); 
+			$('.mainTitle').text(lang_text.caseSearch);
+			$('[id$=txtCaseNumber]').text(lang_text.caseNumber);
+			$('[id$=txtSubject]').text(lang_text.subject);
+			$('[id$=btnGo]').val(lang_text.search);
+			$('[id$=txtCaseNumber]').text(lang_text.caseNumber);
+			$('[id$=txtColumnSubject]').text(lang_text.subject);
+			$('[id$=txtAccount]').text(lang_text.account);
+			$('[id$=txtName]').text(lang_text.name);
+			$('[id$=txtDateCreated]').text(lang_text.dateCreated);
+		});
+	</script> 
+</apex:page>

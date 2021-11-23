@@ -1,0 +1,7 @@
+/**
+ * 2020-10-12 - Ranjeewa Silva - Created.
+ */
+
+.card__header-title .slds-text-heading_small .slds-truncate {
+    white-space: normal;
+}

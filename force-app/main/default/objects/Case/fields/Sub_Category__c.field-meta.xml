@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Category__c</fullName>
+    <externalId>false</externalId>
+    <label>Sub Category</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Non_Compliance_Issue__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Address &amp;/or Barcode visibility</fullName>
+                <default>false</default>
+                <label>Address &amp;/or Barcode visibility</label>
+            </value>
+            <value>
+                <fullName>Not eligible for Parcels</fullName>
+                <default>false</default>
+                <label>Not eligible for Parcels</label>
+            </value>
+            <value>
+                <fullName>Parcels not Cubed</fullName>
+                <default>false</default>
+                <label>Parcels not Cubed</label>
+            </value>
+            <value>
+                <fullName>Size/Weight/Thickness/Shape</fullName>
+                <default>false</default>
+                <label>Size/Weight/Thickness/Shape</label>
+            </value>
+            <value>
+                <fullName>Special services</fullName>
+                <default>false</default>
+                <label>Special services</label>
+            </value>
+            <value>
+                <fullName>Zone/State Categories</fullName>
+                <default>false</default>
+                <label>Zone/State Categories</label>
+            </value>
+            <value>
+                <fullName>Parcel Mailing Statement</fullName>
+                <default>false</default>
+                <label>Parcel Mailing Statement</label>
+            </value>
+            <value>
+                <fullName>Parcel Manifest</fullName>
+                <default>false</default>
+                <label>Parcel Manifest</label>
+            </value>
+            <value>
+                <fullName>ULD Label</fullName>
+                <default>false</default>
+                <label>ULD Label</label>
+            </value>
+            <value>
+                <fullName>Article characteristics</fullName>
+                <default>false</default>
+                <label>Article characteristics</label>
+            </value>
+            <value>
+                <fullName>Inscriptions</fullName>
+                <default>false</default>
+                <label>Inscriptions</label>
+            </value>
+            <value>
+                <fullName>Stamps</fullName>
+                <default>false</default>
+                <label>Stamps</label>
+            </value>
+            <value>
+                <fullName>Incorrect mail sortation</fullName>
+                <default>false</default>
+                <label>Incorrect mail sortation</label>
+            </value>
+            <value>
+                <fullName>ULD</fullName>
+                <default>false</default>
+                <label>ULD</label>
+            </value>
+            <value>
+                <fullName>Actual exceeds M/s</fullName>
+                <default>false</default>
+                <label>Actual exceeds M/s</label>
+            </value>
+            <value>
+                <fullName>Actual is less than M/s</fullName>
+                <default>false</default>
+                <label>Actual is less than M/s</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Addressing</controllingFieldValue>
+            <valueName>Address &amp;/or Barcode visibility</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Category</controllingFieldValue>
+            <valueName>Not eligible for Parcels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Category</controllingFieldValue>
+            <valueName>Parcels not Cubed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Category</controllingFieldValue>
+            <valueName>Size/Weight/Thickness/Shape</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Category</controllingFieldValue>
+            <valueName>Special services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Category</controllingFieldValue>
+            <valueName>Zone/State Categories</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Documentation</controllingFieldValue>
+            <valueName>Parcel Mailing Statement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Documentation</controllingFieldValue>
+            <valueName>Parcel Manifest</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Documentation</controllingFieldValue>
+            <valueName>ULD Label</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Presentation</controllingFieldValue>
+            <valueName>Article characteristics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Presentation</controllingFieldValue>
+            <valueName>Inscriptions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Presentation</controllingFieldValue>
+            <valueName>Stamps</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sorting</controllingFieldValue>
+            <valueName>Incorrect mail sortation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sorting</controllingFieldValue>
+            <valueName>ULD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Volumes</controllingFieldValue>
+            <valueName>Actual exceeds M/s</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Volumes</controllingFieldValue>
+            <valueName>Actual is less than M/s</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

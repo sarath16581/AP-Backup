@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rural_Transaction_Centre__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This code describes if the LPO is a Rural Transaction Centre.</description>
+    <externalId>false</externalId>
+    <label>Rural Transaction Centre</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

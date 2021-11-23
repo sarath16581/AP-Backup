@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Edit_Opportunity__c</fullName>
+    <description>Open Opportunity record in edit view from report</description>
+    <externalId>false</externalId>
+    <formula>HYPERLINK (&quot;/&quot;&amp;Id&amp;&quot;/e?retURL=%2f00O90000004u992&quot;,&quot;Edit&quot;,&apos;_self&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Edit</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

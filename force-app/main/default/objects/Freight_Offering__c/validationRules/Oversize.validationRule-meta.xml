@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Oversize</fullName>
+    <active>true</active>
+    <errorConditionFormula>And( Incompatible_Freight__c = true,  
+(or(
+and (   ISBLANK(   Oversize_Qty_Items__c  ),   
+
+not( ISBLANK(   Oversize_Qty_Connotes__c  ))),
+
+
+and (   ISBLANK( Oversize_Qty_Connotes__c ),   
+
+not( ISBLANK(   Oversize_Qty_Items__c  ))))))</errorConditionFormula>
+    <errorMessage>Please make sure that you have entered a value for Oversize Qty Items and Oversize Qty Connotes fields for Incompatible Freight</errorMessage>
+</ValidationRule>

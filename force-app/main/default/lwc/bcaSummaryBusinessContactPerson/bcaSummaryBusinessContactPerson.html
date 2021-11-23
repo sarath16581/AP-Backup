@@ -1,0 +1,36 @@
+<!--
+/* @author avula.jansirani@auspost.com.au
+* @date 2020-11-12
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Business contact person summary details . Used for showing Business contact person details entered in the input step
+                for review before submitting a credit form .
+* @changelog
+* 2020-01-20 avula.jansirani@auspost.com.au
+*
+-->
+<template>
+    <div data-id='bcaContact'>
+        <!--<template if:true={businessContact}> -->
+        <div class="slds-section slds-is-open">
+            <div aria-hidden="false" class="slds-section__content">
+
+                <!--Header-->
+                <c-bca-summary-step-header header-label='Business contact person' step-name={stepName}>
+                </c-bca-summary-step-header>
+
+                <!--Body-->
+                <template if:true={showDetail}>
+                    <c-bca-summary-row label='Name' value={name}></c-bca-summary-row>
+                    <template if:true={isContactPersonIsSomeOneElse}>
+                        <c-bca-summary-row label='Position title' value={businessContact.positionTitle}>
+                        </c-bca-summary-row>
+                        <c-bca-summary-row label='Phone number' value={formattedPhone}></c-bca-summary-row>
+                        <c-bca-summary-row label='Email address' value={businessContact.email}></c-bca-summary-row>
+                    </template>
+                </template>
+            </div>
+        </div>
+        <!-- </template>-->
+    </div>
+</template>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_and_B2C</fullName>
+    <active>true</active>
+    <description>B2B% and B2C% must add up to 100%</description>
+    <errorConditionFormula>(B2BCartons__c + B2CCartons__c &lt;&gt;1) || 
+
+ (B2BBBP__c + B2CBBP__c &lt;&gt;1) || 
+ (B2BSatchels__c + B2CSatchels__c &lt;&gt;1)</errorConditionFormula>
+    <errorMessage>B2B% and B2C% must add up to 100%</errorMessage>
+</ValidationRule>

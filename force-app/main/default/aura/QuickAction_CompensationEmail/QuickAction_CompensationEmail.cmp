@@ -1,0 +1,47 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" controller="CHAS_CompensationFormController">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="spin" type="Boolean" default="false"/>
+    
+    <aura:if isTrue="{!v.spin}">
+        <div class="spinner-text">
+            <div class="slds-is-relative" style="top: 8em">
+                <lightning:spinner size="large" alternativeText="Sending Compensation Email..." variant="brand" class="spinner-text"/>        
+            </div>
+        </div>
+        
+        <!-- <div class="spinner-text">Sending compensation email</div> -->
+        <aura:set attribute="else">
+            <article class="slds-card">
+                <!-- <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate slds-var-p-bottom_small">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container">
+                                <lightning:icon iconName="standard:contract" size="medium" variant="slds-icon-inverse"></lightning:icon>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <a href="javascript:void(0);" class="slds-card__header-link slds-truncate">
+                                    <span>Send Compensation Email</span>
+                                </a>
+                            </h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <div class="slds-var-p-bottom_medium">
+                        <p>
+                            This is where the compensation email will be launched to customer
+                        </p>
+                    </div>
+                    <div class="slds-align_absolute-center">
+                        <lightning:button variant="brand" label="Send Compensation Email" onclick="{!c.sendEmail}"></lightning:button>
+                        <lightning:button variant="destructive" label="Cancel" onclick="{!c.cancel}"></lightning:button>
+                    </div>
+                </div> -->
+            </article>
+        </aura:set>
+    </aura:if>
+</aura:component>

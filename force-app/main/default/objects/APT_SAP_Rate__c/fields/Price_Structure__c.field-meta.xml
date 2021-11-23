@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Price_Structure__c</fullName>
+    <description>This field is created to Capture the Price Structure to segregate the Banded Z6 price structure  from other legacy structures</description>
+    <externalId>false</externalId>
+    <label>Price Structure</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

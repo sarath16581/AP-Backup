@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Legal_Marketing_Opt_In__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>if this form checkbox field is checked, then we can set the Privacy/Marketing Opt Out field to NO</description>
+    <externalId>false</externalId>
+    <label>Legal Marketing Opt-In</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

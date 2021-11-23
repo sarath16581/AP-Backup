@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>standard-Idea</defaultLandingTab>
+    <description>AdvancedCommunities App for Ideas Lightning component</description>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>AC Ideas</label>
+    <tabs>standard-Idea</tabs>
+    <tabs>brideas_Settings</tabs>
+    <tabs>Ideas_Moderation</tabs>
+    <tabs>brideas_CategoryAssigneeTab</tabs>
+    <tabs>brideas_Flag__c</tabs>
+    <tabs>brideas_Categories</tabs>
+    <tabs>APT_Sub_Account__c</tabs>
+    <tabs>et4ae5__Configuration__c</tabs>
+    <tabs>Apttus_Config2__ConfigSettings__c</tabs>
+    <tabs>et4ae5__Business_Unit__c</tabs>
+    <tabs>SAM_Admin1</tabs>
+</CustomApplication>

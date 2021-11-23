@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Tesmplate used to send all Secure Post emails with the help of quick text.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SecurePost Template</name>
+    <style>none</style>
+    <subject>Secure Accept and Collect Registration Request {!Case.CaseNumber}</subject>
+    <textOnly>Reference {!Case.CaseNumber}
+
+
+
+Thank you,
+
+Secure Accept and Collect Team
+Australia Post
+{!Case.Thread_Id}
+
+Connect with Australia Post
+
+
+
+
+This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000.  If you have any concerns, or don&apos;t think you should have received this email, please call us on 13 13 18.  Visit auspost.com.au for further information on our online security.
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.
+Help &amp; Support  |  Terms &amp; Conditions  |  Privacy Policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

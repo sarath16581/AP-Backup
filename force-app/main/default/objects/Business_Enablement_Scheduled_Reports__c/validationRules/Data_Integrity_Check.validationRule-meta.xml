@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Data_Integrity_Check</fullName>
+    <active>true</active>
+    <description>This rules ensures that the report schedule parameters are populated with the minimum data requirements for the &quot;bulk case&quot; creation flow to execute gracefully.</description>
+    <errorConditionFormula>OR(
+ISBLANK(Name),
+ISBLANK(TEXT(Report_Schedule__c)), 
+ISBLANK(Case_Recordtype_Name__c),
+ISBLANK(Default_Case_Owner__c),
+Case_Recordtype_Name__c != &apos;CAR Request&apos;
+)</errorConditionFormula>
+    <errorMessage>One or more fields no not meet the minimum data integrity checks to save. Please ensure that the following fields are populated, Name, Report Schedule, Recordtype, Case Owner and the Recordtype must be &quot;CAR Request&quot;</errorMessage>
+</ValidationRule>

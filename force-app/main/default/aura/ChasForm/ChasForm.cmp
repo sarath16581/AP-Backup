@@ -1,0 +1,23 @@
+<!--
+@changeLog: Hara.sahoo@auspost.com.au  24-07-2020  - Modifed : Added custom styling
+-->
+<aura:component description="Houses a form element with some styling">
+    
+    <aura:attribute name="showAllFieldRequiredMsg" type="Boolean" default="true"/>
+    <aura:attribute name="showIssueDetailMsg" type="Boolean" default="false"/>
+    <aura:attribute name="customStyle" type="String" default="" description="pass custom styles to the button box"/>
+    
+    <form>
+        <div class="{!v.customStyle}">
+            
+            <aura:if isTrue="{! v.showAllFieldRequiredMsg }">
+                <aside class="chas-body_small">All fields are required unless marked as (optional).</aside>
+            </aura:if>
+            <aura:if isTrue="{! v.showIssueDetailMsg }">
+                <aside class="chas-body_small">Select the option that best describes the problem with your delivery.</aside>
+            </aura:if>
+        </div>
+        {! v.body }
+        
+    </form>
+</aura:component>

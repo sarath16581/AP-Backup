@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>All profile names listed on this object will be used by BatchDeleteWebFormTemporaryDocuments. 
+
+As a result, all orphaned documents created from Credit Claim web form by the users having the profiles listed on this object will deleted. 
+
+Batch class will run EOD (midnight) and delete docs older than the Day it is scheduled to run.</description>
+    <enableFeeds>false</enableFeeds>
+    <label>I2C Web Form Profiles</label>
+    <visibility>Public</visibility>
+</CustomObject>

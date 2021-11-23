@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Awaiting_Workforce_Verification_Date__c</fullName>
+    <description>The date the status was moved to the awaiting workforce verification.  The field is updated by the process builder on the membership object</description>
+    <externalId>false</externalId>
+    <label>Awaiting Workforce Verification Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

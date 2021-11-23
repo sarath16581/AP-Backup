@@ -1,0 +1,27 @@
+<!--
+    LWC action to trigger cancellation for the PUD Job. Prompts the user to confirm the cancellation.
+	Changelog:
+    2021-08-27 - Ranjeewa Silva - Created.
+ -->
+
+<!-- Pud Cancel Job -->
+<template>
+
+    <!--
+         Note that <lightning-quick-action-panel> is not used as it is still in Beta.
+    -->
+    <div>
+        <header class="slds-modal__header">
+            <h2 class="slds-modal__title">Confirm Cancellation</h2>
+        </header>
+
+        <div class="slds-modal__content slds-p-around_medium">
+            {confirmationPromptLabel}
+        </div>
+
+        <footer class="slds-modal__footer">
+            <lightning-button variant="neutral" label="Close" onclick={handleClose}></lightning-button>
+            <lightning-button variant="brand" label="Confirm" class="slds-m-left_x-small" onclick={handleConfirmCancellation}></lightning-button>
+        </footer>
+    </div>
+</template>

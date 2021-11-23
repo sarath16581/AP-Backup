@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Solution_Complexity__c</fullName>
+    <externalId>false</externalId>
+    <label>Solution Complexity</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>User/System Maintenance</fullName>
+                <default>false</default>
+                <label>User/System Maintenance</label>
+            </value>
+            <value>
+                <fullName>Basic Admin Function</fullName>
+                <default>true</default>
+                <label>Basic Admin Function</label>
+            </value>
+            <value>
+                <fullName>Advanced Admin Task</fullName>
+                <default>false</default>
+                <label>Advanced Admin Task</label>
+            </value>
+            <value>
+                <fullName>Code Update</fullName>
+                <default>false</default>
+                <label>Code Update</label>
+            </value>
+            <value>
+                <fullName>Integration Update</fullName>
+                <default>false</default>
+                <label>Integration Update</label>
+            </value>
+            <value>
+                <fullName>New Code</fullName>
+                <default>false</default>
+                <label>New Code</label>
+            </value>
+            <value>
+                <fullName>New Integration</fullName>
+                <default>false</default>
+                <label>New Integration</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

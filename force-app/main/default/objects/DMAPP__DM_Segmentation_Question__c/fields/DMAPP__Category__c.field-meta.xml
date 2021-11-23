@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Category__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Importance to Us</fullName>
+                <default>true</default>
+                <label>Importance to Us</label>
+            </value>
+            <value>
+                <fullName>Importance to Customer</fullName>
+                <default>false</default>
+                <label>Importance to Customer</label>
+            </value>
+            <value>
+                <fullName>Importance to Them</fullName>
+                <default>false</default>
+                <label>Importance to Them</label>
+            </value>
+            <value>
+                <fullName>Current Revenues</fullName>
+                <default>false</default>
+                <label>Current Revenues</label>
+            </value>
+            <value>
+                <fullName>Future Revenues</fullName>
+                <default>false</default>
+                <label>Future Revenues</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

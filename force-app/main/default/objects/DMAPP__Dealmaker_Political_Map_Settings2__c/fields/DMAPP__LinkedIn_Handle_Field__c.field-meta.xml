@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__LinkedIn_Handle_Field__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Use this field to specify a field for including a Linkedin profile for a contact.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Use this field to specify a field for including a Linkedin profile for a contact.</inlineHelpText>
+    <label>LinkedIn Handle Field</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

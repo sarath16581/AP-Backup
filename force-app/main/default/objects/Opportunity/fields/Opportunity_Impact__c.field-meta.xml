@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Impact__c</fullName>
+    <description>Phase 1 - Opportunity Assessment (PWC)
+
+Identifying the likely outcome if we didn’t pursue this opportunity beyond financial i.e. missed opportunity to work with strategic account</description>
+    <externalId>false</externalId>
+    <inlineHelpText>What would be the effect if we did not pursue this opportunity? (6%)</inlineHelpText>
+    <label>Opportunity Impact</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Loss of New Revenue</fullName>
+                <default>false</default>
+                <label>Loss of New Revenue</label>
+            </value>
+            <value>
+                <fullName>Loss of Existing Revenue</fullName>
+                <default>false</default>
+                <label>Loss of Existing Revenue</label>
+            </value>
+            <value>
+                <fullName>Damage to Existing Relationship</fullName>
+                <default>false</default>
+                <label>Damage to Existing Relationship</label>
+            </value>
+            <value>
+                <fullName>Loss of Customer</fullName>
+                <default>false</default>
+                <label>Loss of Customer</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>3</visibleLines>
+</CustomField>

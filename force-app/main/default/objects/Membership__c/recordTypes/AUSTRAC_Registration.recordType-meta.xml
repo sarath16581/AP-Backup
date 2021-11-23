@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AUSTRAC_Registration</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>AUSTRAC_Layout</compactLayoutAssignment>
+    <description>AUSTRAC Registration membership</description>
+    <label>AUSTRAC Registration</label>
+    <picklistValues>
+        <picklist>Cancellation_reason__c</picklist>
+        <values>
+            <fullName>Blacklisted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Change in entity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Did not assign</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No longer required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-Participation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Licensee_Type__c</picklist>
+        <values>
+            <fullName>New Membership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Update Membership</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Member_Type__c</picklist>
+        <values>
+            <fullName>Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sole Trader</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trust</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>AUSTRAC Registered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awaiting Workforce Verification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Missing Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Pack Sent to LPO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Received Missing Info Back</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Received from LPO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resubmitted to WU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Return from WU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Review WU Return</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Submitted to WU</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_of_Registration__c</picklist>
+        <values>
+            <fullName>Change in Entity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Change of reg details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Registration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No longer required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reregistration</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

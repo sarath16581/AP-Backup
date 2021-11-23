@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfo_Start_End_Date_Should_Match</fullName>
+    <active>true</active>
+    <description>For PA - For Neg Pay L5 and L6 - start date and end date should be same</description>
+    <errorConditionFormula>AND(
+OR(
+ RecordType.DeveloperName = &apos;Negotiated_Payment_Type_L5&apos;,
+ RecordType.DeveloperName = &apos;Negotiated_Payment_Type_L6&apos;,
+ RecordType.DeveloperName = &apos;Negotiated_Payment_Type_L8&apos;
+),
+Start_Date__c &lt;&gt; End_Date__c,
+OR( ISCHANGED(Start_Date__c), ISCHANGED(End_Date__c),ISNEW())
+)</errorConditionFormula>
+    <errorMessage>Start Date and End Date should be same</errorMessage>
+</ValidationRule>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fill_Postcode_Suburb_Startrack_Proposal</fullName>
+    <active>true</active>
+    <description>This is to ensure that the user enters the post code suburb and minimum monthly spend if it is a startrack proposal.</description>
+    <errorConditionFormula>AND(ISPICKVAL(Is_Startrack_Proposal__c,&apos;Yes&apos;), ISBLANK( APT_Postcode_Suburb__c ))</errorConditionFormula>
+    <errorDisplayField>APT_Postcode_Suburb__c</errorDisplayField>
+    <errorMessage>Complete this field for Startrack Proposals</errorMessage>
+</ValidationRule>

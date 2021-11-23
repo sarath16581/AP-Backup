@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MHI_Account_Relationship_Map</fullName>
+    <availability>online</availability>
+    <description>SAM V6 Integration - Account Relationship Map</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>MHI Account Relationship Map</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>https://www.saleswebserver.net/sfdc/MillerHeiman6/ShowAccOrgChart.asp?ID={!Account.Id}&amp;SessionID={!API.Session_ID}&amp;EndPoint={!API.Partner_Server_URL_240}&amp;ReturnURL={!Account.Link}</url>
+</WebLink>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>StarTrack Credit Dispute Approval Template</name>
+    <style>none</style>
+    <subject>Credit Claim Approval Request - {!Case.ReasonforCreditClaim__c}</subject>
+    <textOnly>Hi,
+
+{!User.Name} requested your approval for Case: {!Case.CaseNumber} with the following details:
+
+Billing Account Number: {!Case.Billing_Number__c}
+Billing Account Name: {!Case.Related_Billing_Account__c}
+Amount Claimed: {!Case.Amount_Claimed__c}
+
+Please click this link ({!ApprovalRequest.Internal_URL}) to approve or reject this record.
+
+Thanks,
+StarTrack Team</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Opportunity_Map</fullName>
+    <availability>online</availability>
+    <displayType>link</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Opportunity Map</masterLabel>
+    <openType>replace</openType>
+    <page>DMAPP__am_opp_map_app</page>
+    <protected>false</protected>
+</WebLink>

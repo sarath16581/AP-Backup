@@ -1,0 +1,47 @@
+.THIS .chas-input-field-container {
+	position: relative;
+}
+
+.THIS .chas-input-search-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 45px;
+    height: 45px;
+    z-index: 1;
+    display: inline-block;
+	border-radius: 3px !important;
+}
+
+.THIS .chas-input-search-button .slds-button__icon {
+	width: 20px;
+	height: 20px;
+}
+
+.THIS .chas-input-field.slds-input {
+	height: 55px;
+	padding-right: 50px;
+}
+
+
+@media (min-width: 480px) {	
+	.THIS .chas-input-search-button {
+	    width: 160px;
+	}
+
+	.THIS .chas-input-field.slds-input {
+		padding-right: 170px;
+	}
+
+	.THIS .chas-input-search-button svg {
+		display: none;
+	}
+
+	.THIS .chas-input-search-button lightning-primitive-icon::after {
+		content: "Continue";
+	}
+}
+
+.THIS .loading-true.chas-input-search-button svg {
+	display: none;
+}

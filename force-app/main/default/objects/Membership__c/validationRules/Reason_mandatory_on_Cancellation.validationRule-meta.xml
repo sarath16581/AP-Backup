@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_mandatory_on_Cancellation</fullName>
+    <active>true</active>
+    <description>Cancellation Reason mandatory on Cancellation status change</description>
+    <errorConditionFormula>RecordType.Name = &apos;AUSTRAC Registration&apos; &amp;&amp;
+(ISPICKVAL(Cancellation_reason__c, &apos;&apos;) &amp;&amp;
+ISPICKVAL(Status__c, &apos;Cancelled&apos;))</errorConditionFormula>
+    <errorDisplayField>Cancellation_reason__c</errorDisplayField>
+    <errorMessage>Cancellation reason must be selected when status is set to cancelled</errorMessage>
+</ValidationRule>

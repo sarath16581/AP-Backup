@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="Booking Confirmation" recipientType="User" relatedToType="PUD_Booking__c">
+<messaging:HtmlEmailBody >
+<c:BookingConfirmationComponent bookingid="{!relatedTo.Id}" />
+</messaging:HtmlEmailBody>
+</messaging:emailTemplate>

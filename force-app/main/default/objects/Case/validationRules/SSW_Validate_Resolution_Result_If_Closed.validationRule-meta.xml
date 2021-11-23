@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSW_Validate_Resolution_Result_If_Closed</fullName>
+    <active>true</active>
+    <description>REQ0998943 - Make Resolution Result Mandatory when a case is closed</description>
+    <errorConditionFormula>Bypass_Data_enforcement__c = FALSE 
+&amp;&amp; 
+ISPICKVAL(Status, &quot;Closed&quot;) 
+&amp;&amp; 
+NOT(ClosedBySystem__c) &amp;&amp; ( $User.ProfileId != &apos;00e90000001eeTh&apos; &amp;&amp; $User.ProfileId != &apos;00e90000001PfHp&apos; &amp;&amp; $User.ProfileId != &apos;00e90000001eeTi&apos; &amp;&amp; $User.ProfileId != &apos;00e2v000002Tyb5&apos; ) 
+&amp;&amp; 
+ISBLANK(TEXT(Resolution_Result__c)) 
+&amp;&amp; 
+CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;) 
+&amp;&amp; 
+NOT(ISNEW()) 
+&amp;&amp; 
+ISPICKVAL(Account.ServiceSLA__c, &quot;Enterprise&quot;)</errorConditionFormula>
+    <errorDisplayField>Resolution_Result__c</errorDisplayField>
+    <errorMessage>You must populate the Resolution Result before you can close the case</errorMessage>
+</ValidationRule>

@@ -1,0 +1,117 @@
+<apex:component controller="APT_ProposalApprovedRejectedController" access="global" >
+    <apex:attribute name="proposalSOatt" 
+                    description="This is the Proposal SObject." 
+                    type="Apttus_Proposal__Proposal__c" 
+                    assignTo="{!proposalSO}" />
+     <apex:attribute name="proposalIDatt" 
+                    description="This is the Proposal ID." 
+                    type="ID" 
+                    assignTo="{!proposalID}" />
+    
+   
+    Cart '{!productConfigSO.Name}' has been <b>{!proposalSO.Apttus_QPApprov__Approval_Status__c}</b> as per the information below<br/><br/> 
+    <b>Customer Details:</b>               
+    <br/>
+    <apex:outputText value="Legal Entity Name: "></apex:outputText>                
+   <apex:outputText value="{!productConfigSO.Apttus_Config2__AccountId__r.Name}"></apex:outputText>
+   <br/>
+   
+   <apex:outputText value="Customer number: "></apex:outputText>                
+   <apex:outputText value="{!productConfigSO.Apttus_Config2__AccountId__r.Customer_Number__c}"></apex:outputText>
+   <br/>
+   
+   <apex:outputText value="Opportunity Number: "></apex:outputText>                
+   <apex:outputText value="{!proposalSO.Apttus_Proposal__Opportunity__r.Opportunity_Number__c}"></apex:outputText>
+   <br/>
+
+   
+   <apex:outputText value="Quote/Proposal: "></apex:outputText>                
+   <apex:outputText value="{!proposalSO.Name}"></apex:outputText>
+   <br/><br/>
+      
+   <apex:repeat value="{!approvalRequestList}" var="approvalSO">
+       <b>Responded By: </b>
+       <br/>
+       <apex:outputText value="{!approvalSO.Apttus_Approval__Actual_Approver__r.Name}"></apex:outputText>
+       <br/><br/>
+       <b>Details of Pricing Request: </b>
+       <br/>
+       <apex:outputText value="Product Lines Requested: " />
+       <apex:outputText value="{!lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].Apttus_Config2__ProductId__r.Name}" />
+       
+       <apex:outputPanel rendered="{!IF(lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].APT_Product_Name__c = 'Post Billpay' || lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].APT_Product_Family__c = 'Postal Services' , false, true)}">
+           <br/>
+           <apex:outputText value="Category: " />
+           <apex:outputText value="{!lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].Apttus_Config2__AttributeValueId__r.Category__c}" />
+           <br/>
+           <apex:outputText value="Price Structure: " />
+           <apex:outputText value="{!lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].Apttus_Config2__AttributeValueId__r.APTS_Price_Structure__c}" />
+           <br/>
+           <apex:outputText value="Lodgement Zone: " />
+           <apex:outputText value="{!lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].Apttus_Config2__AttributeValueId__r.APT_Lodgement_Zone__r.Name}" />
+       </apex:outputPanel>
+       <br/>
+       <apex:outputText value="Pricing Reason: " />
+       <apex:outputText value="{!lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].APT_Pricing_Reason__c}" />
+       <apex:outputPanel rendered="{!IF(lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].APT_Display_Adjustment_Amount__c != null,TRUE,FALSE)}">
+       <br/>
+       <apex:outputText value="Seller Requested Discount: " />
+       <apex:outputText value="{!lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].APT_Display_Adjustment_Amount__c}" /> %
+       </apex:outputPanel>
+       <apex:outputPanel rendered="{!IF(lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].APT_Display_Adjustment_Amount__c = null,TRUE,FALSE)}">
+       <br/>
+       <apex:outputText value="Seller Requested Discount: " />
+       <apex:outputText value="0.00"/> %
+       </apex:outputPanel>
+       <br/>
+       <apex:outputText value="Comments: " />
+       <apex:outputText value="{!approvalSO.Apttus_Approval__SubmissionComment1__c}" />
+       <br/>
+       <br/>
+       <b>Details of Pricing Approval/Rejection: </b>
+       <br/>
+       <apex:outputText value="{!approvalSO.Apttus_Approval__Approval_Status__c}" />
+       <apex:outputPanel rendered="{!IF(lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].APT_Display_Adjustment_Amount__c != null,TRUE,FALSE)}">
+       <br/>
+       <apex:outputText value="Seller Applied Discount: " />
+       <apex:outputText value="{!lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].APT_Display_Adjustment_Amount__c }" /> %
+       </apex:outputPanel>
+       <apex:outputPanel rendered="{!IF(lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].APT_Display_Adjustment_Amount__c = null,TRUE,FALSE)}">
+       <br/>
+       <apex:outputText value="Seller Applied Discount: " />
+       <apex:outputText value="0.00" /> %
+       </apex:outputPanel>
+       <apex:outputPanel rendered="{!IF(lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].Apttus_Config2__AdjustmentAmount__c != null,TRUE,FALSE)}">
+       <br/>
+       <apex:outputText value="Approved Discount: " />
+       <apex:outputText value="{!lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].Apttus_Config2__AdjustmentAmount__c}" /> %
+       </apex:outputPanel>
+       <apex:outputPanel rendered="{!IF(lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].Apttus_Config2__AdjustmentAmount__c = null,TRUE,FALSE)}">
+       <br/>
+       <apex:outputText value="Approved Discount: " />
+       <apex:outputText value="0.00" /> %
+       </apex:outputPanel>
+       <br/>
+       <apex:outputText value="RK Code: " />
+       <apex:outputPanel rendered="{!IF(lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].APT_Rate_Card_Key__c == null,TRUE,FALSE)}">
+       <apex:outputText value="NA" />
+       <br/>
+       </apex:outputPanel>
+       <apex:outputPanel rendered="{!IF(lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].APT_Rate_Card_Key__c != null,TRUE,FALSE)}">
+       <apex:outputText value="{!lineItemMap[approvalSO.Apttus_Approval__ChildObjectId__c].APT_Rate_Card_Key__c}" />
+       <br/>
+       </apex:outputPanel>
+       <apex:outputText value="Approver Comments: " />
+       <apex:outputText value="{!approvalSO.Apttus_Approval__Approver_Comments__c}" />
+       <br/>
+       <br/>
+   </apex:repeat>
+   
+   Click on the link below: <br />
+   <!--<apex:outputLink value="{!ProposalURL}">
+   <apex:outputLink value="{!proposalURL}">{!proposalURL}</apex:outputLink>
+   {!proposalSO.Name}
+   </apex:outputLink>-->
+   <apex:outputLink value="{!proposalURL}">{!proposalURL}</apex:outputLink>
+
+</apex:component>

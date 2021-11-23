@@ -1,0 +1,1420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>APMS_Awaiting_Signature</fullName>
+        <description>APMS Awaiting Signature</description>
+        <protected>false</protected>
+        <recipients>
+            <field>KeyContact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>APMS_email_templates/APMS_SOP_Agreement_Awaiting_Signature</template>
+    </alerts>
+    <alerts>
+        <fullName>APMS_Finalise_SOP_Account</fullName>
+        <description>APMS Finalise SOP Account</description>
+        <protected>false</protected>
+        <recipients>
+            <field>KeyContact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>no-reply-sop@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>APMS_email_templates/APMS_Finalise_SOP_Account</template>
+    </alerts>
+    <alerts>
+        <fullName>APMS_Next_step_for_your_SecurePay_Online_Payments_Application</fullName>
+        <description>APMS Next step for your SecurePay Online Payments Application</description>
+        <protected>false</protected>
+        <recipients>
+            <field>KeyContact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>no-reply-sop@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>APMS_email_templates/APMS_SOP_Application_Next_Steps</template>
+    </alerts>
+    <alerts>
+        <fullName>Email_Opportunity_Owner_when_Reviewed</fullName>
+        <description>Email Opportunity Owner when Reviewed</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>ECLM_Email_Templates/ECLM_Review_Opportunity_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Seeker_Opportunity_Closed_Lost_or_Disqualified</fullName>
+        <description>Lead Seeker - Opportunity Closed Lost or Disqualified</description>
+        <protected>false</protected>
+        <recipients>
+            <field>hidden_Lead_Seeker_Lead_Owner__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_Oppty_Closed_Lost_or_Disqualified</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Seeker_Opportunity_Closed_Won</fullName>
+        <description>Lead Seeker - Opportunity Closed Won</description>
+        <protected>false</protected>
+        <recipients>
+            <field>hidden_Lead_Seeker_Lead_Owner__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_Oppty_Closed_Won</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Seeker_Opportunity_Duplicate</fullName>
+        <description>Lead Seeker - Opportunity Duplicate</description>
+        <protected>false</protected>
+        <recipients>
+            <field>hidden_Lead_Seeker_Lead_Owner__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_Oppty_Closed_Duplicate</template>
+    </alerts>
+    <alerts>
+        <fullName>New_Opportunity_Digital_ID</fullName>
+        <ccEmails>DLdigitalidsalesforceleads@auspost.com.au</ccEmails>
+        <description>New Opportunity - Digital ID</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>margo.stephen@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Email_Templates/New_Opportunity_Digital_ID</template>
+    </alerts>
+    <alerts>
+        <fullName>Rejected_Opportunity_Approval</fullName>
+        <description>Rejected Opportunity Approval</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>All_Email_Templates/Rejected_Approval</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_New_Opportunity_Owner_email_on_Lead_Conversion</fullName>
+        <description>Send New Opportunity Owner email on Lead Conversion</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>All_Email_Templates/New_Opportunity_Owner_from_Lead</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Approval_Status_Reset</fullName>
+        <description>Phase 1 - Reset the approval status to blank</description>
+        <field>Approval_Status__c</field>
+        <name>Approval Status Reset</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approved</fullName>
+        <field>Pricing_Governance_Forum_Approval__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Changes_to_Auspost_Terms</fullName>
+        <field>ECLM_ChangedTermsAndConditions__c</field>
+        <literalValue>0</literalValue>
+        <name>Clear Changes to Auspost Terms</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Close_Reason</fullName>
+        <field>Closed_Reason__c</field>
+        <name>Clear Close Reason</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Closed_Reason</fullName>
+        <field>Closed_Reason__c</field>
+        <name>Clear Closed Reason</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Contract_Status</fullName>
+        <field>ECLM_Contract_Status__c</field>
+        <name>Clear Contract Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Contract_Term_Type</fullName>
+        <field>ECLM_Contract_Type__c</field>
+        <name>Clear Contract Term Type</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Contract_Type</fullName>
+        <field>ECLM_STND_NSTND__c</field>
+        <name>Clear Contract Type</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Contract_URL</fullName>
+        <field>ECLM_Contract_URL__c</field>
+        <name>Clear Contract URL</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Custom_Lodgement_Collection</fullName>
+        <field>ECLM_CustomLodgeCollectSort__c</field>
+        <literalValue>0</literalValue>
+        <name>Clear Custom Lodgement Collection</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Custom_Products_or_Services</fullName>
+        <field>ECLM_CustomProdService__c</field>
+        <literalValue>0</literalValue>
+        <name>Clear Custom Products or Services</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Customised_Payment_Terms</fullName>
+        <field>ECLM_CustomPaymentTerms__c</field>
+        <literalValue>0</literalValue>
+        <name>Clear Customised Payment Terms</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Customised_Pricing</fullName>
+        <field>ECLM_CustomPricing__c</field>
+        <literalValue>0</literalValue>
+        <name>Clear Customised Pricing</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Dangerous_Goods</fullName>
+        <field>ECLM_DangerousGoods__c</field>
+        <literalValue>0</literalValue>
+        <name>Clear Dangerous Goods</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Enterprise_Solutions</fullName>
+        <field>ECLM_EnterpriseSolution__c</field>
+        <literalValue>0</literalValue>
+        <name>Clear Enterprise Solutions</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Government_or_Customer_Contract</fullName>
+        <field>ECLM_Government_or_Customer_Contract__c</field>
+        <literalValue>0</literalValue>
+        <name>Clear Government or Customer Contract</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Opportunity_Type</fullName>
+        <field>ECLM_Opportunity_Type__c</field>
+        <name>Clear Opportunity Type</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Questionnaire_Status</fullName>
+        <field>ECLM_Questionnaire_Status__c</field>
+        <name>Clear Questionnaire Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Request_to_Use_Customer_Terms</fullName>
+        <field>ECLM_CustomerTermsAndConditions__c</field>
+        <literalValue>0</literalValue>
+        <name>Clear Request to Use Customer Terms</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Revenue_Category</fullName>
+        <field>ECLM_Revenue_Category__c</field>
+        <name>Clear Revenue Category</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Review_Date_Changed</fullName>
+        <field>ECLM_Review_Date_Changed__c</field>
+        <literalValue>0</literalValue>
+        <name>Clear Review Date Changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Total_Contract_Value</fullName>
+        <field>Expected_Revenue_P_A__c</field>
+        <name>Clear Total Contract Value</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Workspace_ID</fullName>
+        <field>ECLM_Workspace_ID__c</field>
+        <name>Clear Workspace ID</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Commercial_Negoitation</fullName>
+        <description>Phase 1 - Update Approval Status to Commercial Negoitation</description>
+        <field>Approval_Status__c</field>
+        <literalValue>Commercial Negotiation</literalValue>
+        <name>Commercial Negoitation</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Commercial_Risk</fullName>
+        <description>Phase 1 - Update Approval Status to Commercial Risk</description>
+        <field>Approval_Status__c</field>
+        <literalValue>Commercial Risk</literalValue>
+        <name>Commercial Risk</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Data_Qualitiy_Score</fullName>
+        <field>Hidden_Data_Score__c</field>
+        <formula>Data_Quality_Score__c</formula>
+        <name>Data Qualitiy Score</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Data_Quality_Description</fullName>
+        <field>Data_Quality_Description__c</field>
+        <formula>IF( Data_Quality_Score__c =100,&quot;All Opportunity Details Captured&quot;, &quot;Missing: &quot; 
+
+&amp;IF(ISBLANK( CloseDate) ,&quot;Close Date-&quot;,&quot;&quot;)&amp;&quot; &quot;
+&amp;IF( NOT(IsClosed) &amp;&amp; CloseDate&lt; TODAY() ,&quot;Expired Close Date-&quot;,&quot;&quot;)&amp;&quot; &quot;
+&amp;IF(Hidden_Has_Primary_Competitor__c = FALSE ,&quot;Primary Competitor-&quot;,&quot;&quot;)&amp;&quot; &quot;
+&amp;IF(ISBLANK( KeyContact__c ),&quot;Key Contact-&quot;,&quot;&quot;)&amp;&quot; &quot;
+&amp;IF(No_of_Products__c &lt;1, &quot;Products-&quot;,&quot;&quot;)&amp;&quot; &quot;
+&amp;IF( Push_Counter__c &gt; 3 ,&quot;Push Count above 4 -&quot;,&quot;&quot;)&amp;&quot; &quot;
+&amp;IF(ISBLANK( Monthly_Executive_Summary__c ), &quot;Status Update-&quot;,&quot;&quot;)&amp;&quot; &quot;
+
+&amp;IF(ISBLANK( TEXT( Closed_Reason__c )) ,&quot;Closed Reason-&quot;,&quot;&quot;)&amp;&quot; &quot;
+&amp;IF(ISBLANK( Closed_Comments__c ) ,&quot;Closed Comments-&quot;,&quot;&quot;)&amp;&quot; &quot;
+&amp;IF(ISBLANK( TEXT(LeadSource) ),&quot;Lead Source-&quot;,&quot;&quot;))</formula>
+        <name>Data Quality Description</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Increment_Push_Counter_Field</fullName>
+        <description>Increment the Push Counter by 1</description>
+        <field>Push_Counter__c</field>
+        <formula>IF( 
+ISNULL( Push_Counter__c ), 
+1, 
+Push_Counter__c + 1 
+)</formula>
+        <name>Increment Push Counter Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Next_Stage</fullName>
+        <description>13/11 CV - updated from Stage 3 to Stage 4</description>
+        <field>StageName</field>
+        <literalValue>Qualified</literalValue>
+        <name>Next Stage</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Opportunity_Handover</fullName>
+        <description>Update Approval Status field to Opportunity Handover</description>
+        <field>Approval_Status__c</field>
+        <literalValue>Opportunity Handover</literalValue>
+        <name>Opportunity Handover</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Opportunity_Organisation_Sector</fullName>
+        <description>Phase 1 - Populate Organisation Sector</description>
+        <field>Organisation_Sector__c</field>
+        <formula>Text(Account.Type)</formula>
+        <name>Opportunity Organisation Sector</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Owner_Approval_Flag</fullName>
+        <description>Set the owner approval flag.</description>
+        <field>Owner_Change_Approved__c</field>
+        <literalValue>1</literalValue>
+        <name>Owner Approval Flag</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Pricing_Governance_Forum_Approval</fullName>
+        <field>Pricing_Governance_Forum_Approval__c</field>
+        <literalValue>Approval Requested</literalValue>
+        <name>Pricing Governance Forum Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Remove_Acknowledgment</fullName>
+        <description>If an Opportunity&apos;s Stage is changed from Closed-Won, uncheck Acknowledgment</description>
+        <field>Data_Integrity_Compliance__c</field>
+        <literalValue>0</literalValue>
+        <name>Remove Acknowledgment</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Date_to_Hidden_field</fullName>
+        <field>Hidden_Close_Date__c</field>
+        <formula>Today()</formula>
+        <name>Set date on Hidden Closed Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Status_to_Approved</fullName>
+        <field>Pricing_Governance_Forum_Approval__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Set Status to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approval_Flag</fullName>
+        <description>Clear the approval flag when the owner has changed.</description>
+        <field>Owner_Change_Approved__c</field>
+        <literalValue>0</literalValue>
+        <name>Update Approval Flag</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Modified_Start_Date</fullName>
+        <description>Update Modified Start Date field on the Opportunity.</description>
+        <field>Modified_Contract_Start_Date__c</field>
+        <formula>if(ISBLANK(Contract_Start_Date__c),
+date(
+	if(month(CloseDate) = 12, year(CloseDate)+1,year(CloseDate)),
+	if(month(CloseDate) = 12, 1, month(CloseDate) + 1),
+	if(day(CloseDate)+1 &gt; (VALUE(MID(&apos;032323323233&apos;, month(CloseDate),1)) + 28 + IF(AND(month(CloseDate)=2,MOD(year(CloseDate) - 2000,4) = 0), 1,0)) ,
+	(VALUE(MID(&apos;032323323233&apos;, month(CloseDate),1))+ 28 + IF(AND(month(CloseDate)=2,MOD(year(CloseDate) - 2000,4) = 0), 1,0)), day(CloseDate))
+)
+,Contract_Start_Date__c)</formula>
+        <name>update Modified Start Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Offering_Type</fullName>
+        <description>This will change to Solutions if the product count is greater than 1.</description>
+        <field>Offering_Type__c</field>
+        <literalValue>Solutions</literalValue>
+        <name>Update Offering Type</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Pricing_Governance_Forum_Approval</fullName>
+        <field>Pricing_Governance_Forum_Approval__c</field>
+        <name>Update Pricing Governance Forum Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Review_Date_Changed</fullName>
+        <description>ECLM</description>
+        <field>ECLM_Review_Date_Changed__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Review Date Changed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Approved</fullName>
+        <field>Pricing_Governance_Forum_Approval__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Status to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_hidden_Auspost_Resources</fullName>
+        <field>Hidden_Auspost_Resourcing__c</field>
+        <formula>left( AusPost_Resourcing__c ,10)</formula>
+        <name>Update hidden Auspost Resources</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_hidden_Next_Steps</fullName>
+        <field>Hidden_Next_Steps__c</field>
+        <formula>left(  Next_Steps__c , 10)</formula>
+        <name>Update hidden Next Steps</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_hidden_internal_resources</fullName>
+        <field>Hidden_Internal_Resources__c</field>
+        <formula>left( Internal_Resources__c ,10)</formula>
+        <name>Update hidden internal resources</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_to_Approved</fullName>
+        <field>Pricing_Governance_Forum_Approval__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>test_update</fullName>
+        <field>StageName</field>
+        <literalValue>Validated</literalValue>
+        <name>test update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <outboundMessages>
+        <fullName>APMS_Ariba_Contract</fullName>
+        <apiVersion>29.0</apiVersion>
+        <description>2014-09 APMS</description>
+        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/CustomerContractManagement/Notification</endpointUrl>
+        <fields>Id</fields>
+        <includeSessionId>true</includeSessionId>
+        <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
+        <name>APMS Ariba Contract</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>true</useDeadLetterQueue>
+    </outboundMessages>
+    <outboundMessages>
+        <fullName>APMS_Credit_Team</fullName>
+        <apiVersion>30.0</apiVersion>
+        <description>2014-07 APMS - Opportunity driven</description>
+        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/APMSCreditCheck/v1/Notification</endpointUrl>
+        <fields>Id</fields>
+        <includeSessionId>true</includeSessionId>
+        <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
+        <name>APMS Credit Team</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>true</useDeadLetterQueue>
+    </outboundMessages>
+    <outboundMessages>
+        <fullName>APMS_NAB_Merchant</fullName>
+        <apiVersion>29.0</apiVersion>
+        <description>2014-09 APMS</description>
+        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/Opportunity/v1/Notification</endpointUrl>
+        <fields>Id</fields>
+        <includeSessionId>true</includeSessionId>
+        <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
+        <name>APMS NAB Merchant</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>true</useDeadLetterQueue>
+    </outboundMessages>
+    <outboundMessages>
+        <fullName>APMS_SecurePay</fullName>
+        <apiVersion>29.0</apiVersion>
+        <description>2014-09 APMS</description>
+        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/APMSOrder/v1/Notification</endpointUrl>
+        <fields>Id</fields>
+        <includeSessionId>true</includeSessionId>
+        <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
+        <name>APMS SecurePay</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>true</useDeadLetterQueue>
+    </outboundMessages>
+    <outboundMessages>
+        <fullName>APMS_TEST_PRD_FIREWALL</fullName>
+        <apiVersion>31.0</apiVersion>
+        <description>2014-09 APMS - This Outbound Message is used to test Production Firewall, as part of Go-Live preparation.</description>
+        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au/</endpointUrl>
+        <fields>Id</fields>
+        <includeSessionId>true</includeSessionId>
+        <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
+        <name>APMS - TEST PRD FIREWALL</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>true</useDeadLetterQueue>
+    </outboundMessages>
+    <outboundMessages>
+        <fullName>Create_Contract_Notification</fullName>
+        <apiVersion>27.0</apiVersion>
+        <description>2014-09 APMS - Endpoint is updated to match APMS Contract</description>
+        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/CustomerContractManagement/Notification</endpointUrl>
+        <fields>Id</fields>
+        <includeSessionId>true</includeSessionId>
+        <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
+        <name>Create Contract Notification</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>true</useDeadLetterQueue>
+    </outboundMessages>
+    <rules>
+        <fullName>APMS - Negotiate - SecurePay Integration</fullName>
+        <actions>
+            <name>APMS_SecurePay</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Negotiate</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.IsAPMSApplication__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>2014-04 APMS - Send Outbound Message to Tibco</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>APMS - Propose - NAB Integration</fullName>
+        <actions>
+            <name>APMS_NAB_Merchant</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Propose</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.IsAPMSApplication__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>2014-04 APMS - Send Outbound Message to Tibco</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>APMS - Propose with Contract - Ariba Contract Integration</fullName>
+        <actions>
+            <name>APMS_Ariba_Contract</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.IsAPMSApplication__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.ECLM_Questionnaire_Status__c</field>
+            <operation>equals</operation>
+            <value>Contract Required</value>
+        </criteriaItems>
+        <description>2014-04 APMS - Send Outbound Message to Tibco</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>APMS - Qualify - CreditTeam Integration</fullName>
+        <actions>
+            <name>APMS_Credit_Team</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.IsAPMSApplication__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Qualify</value>
+        </criteriaItems>
+        <description>2014-07 APMS - Send Outbound Message to Tibco</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>APMS - TEST PRD FIREWALL</fullName>
+        <actions>
+            <name>APMS_TEST_PRD_FIREWALL</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.Description</field>
+            <operation>equals</operation>
+            <value>APMS FIREWALL TEST</value>
+        </criteriaItems>
+        <description>2014-09 APMS - This Outbound Message is used to test Production Firewall, as part of Go-Live preparation.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Data Quality Description</fullName>
+        <actions>
+            <name>Data_Qualitiy_Score</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Data_Quality_Description</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Update the Data Qualitiy hidden fields</description>
+        <formula>TRUE</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Digital ID - New Opportunity</fullName>
+        <actions>
+            <name>New_Opportunity_Digital_ID</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.Name</field>
+            <operation>contains</operation>
+            <value>Digital ID,DigitalID</value>
+        </criteriaItems>
+        <description>Send an email alert to the Digital ID team when a new Opportunity is created with Digital ID in the name or as a Product Interested</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>ECLM Blank Fields when recreating opportunities</fullName>
+        <actions>
+            <name>Clear_Changes_to_Auspost_Terms</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Contract_Term_Type</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Contract_Type</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Custom_Lodgement_Collection</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Custom_Products_or_Services</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Government_or_Customer_Contract</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Opportunity_Type</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Request_to_Use_Customer_Terms</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Revenue_Category</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Total_Contract_Value</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>ECLM Project. Clear contract related fields for new/cloned/renewed/reviewed opportunities</description>
+        <formula>True</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>ECLM Blank fields when recreating opportunities 2</fullName>
+        <actions>
+            <name>Clear_Contract_Status</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Contract_URL</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Customised_Payment_Terms</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Customised_Pricing</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Dangerous_Goods</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Enterprise_Solutions</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Questionnaire_Status</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Review_Date_Changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Workspace_ID</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>ECLM Project.  Clear contract related fields for new/cloned/renewed/reviewed opportunities.</description>
+        <formula>True</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>ECLM Create Contract Workflow</fullName>
+        <actions>
+            <name>Create_Contract_Notification</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <description>ECLM Project - Outbound notification to Tibco for Ariba contract creation.  Only fires when the Contract Questionnaire has been completed (Questionnaire status = &apos;Contract Required&apos; and &apos;Opportunity Id for Contract&apos; matches - to avoid firing on clones).</description>
+        <formula>AND ( ISPICKVAL(ECLM_Questionnaire_Status__c, &apos;Contract Required&apos;),  (ECLM_Opportunity_Id_for_Contract__c = CASESAFEID(Id)),  IsAPMSApplication__c = false )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>ECLM clear closed reason for renewal</fullName>
+        <actions>
+            <name>Clear_Closed_Reason</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.ECLM_IsRenewal__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>ECLM clear the closed reason</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>ECLM set review date changed to true</fullName>
+        <actions>
+            <name>Update_Review_Date_Changed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>ECLM: Set the Review Date Changed field to true when it is changed by integration.</description>
+        <formula>ISCHANGED( ECLM_Review_Date__c )&amp;&amp;  ISBLANK(ECLM_Original_Opportunity_No__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - Oppty Closed Duplicate</fullName>
+        <actions>
+            <name>Lead_Seeker_Opportunity_Duplicate</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.Lead_Seeker__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Duplicate</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - Oppty Closed Lost%2FDisqualified</fullName>
+        <actions>
+            <name>Lead_Seeker_Opportunity_Closed_Lost_or_Disqualified</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+        <criteriaItems>
+            <field>Opportunity.Lead_Seeker__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Lost</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Disqualified</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - Oppty Closed Won</fullName>
+        <actions>
+            <name>Lead_Seeker_Opportunity_Closed_Won</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.Lead_Seeker__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Won</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.LeadSource</field>
+            <operation>notContain</operation>
+            <value>DoV,Renew,Contract Renewal</value>
+        </criteriaItems>
+        <description>Send an email to the Lead submitter when the Opportunity is Closed Won - unless it is a DoV or Renewal</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>New Opportunity Owner from Lead Conversion</fullName>
+        <actions>
+            <name>Send_New_Opportunity_Owner_email_on_Lead_Conversion</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>This workflow will send an email to the new Opportunity Owner after a Lead has been converted.</description>
+        <formula>OR(AND(CreatedById &lt;&gt; OwnerId, Lead_ID__c &lt;&gt; &quot;&quot; , Locally_Managed__c = FALSE, DATEVALUE(LastModifiedDate) = DATEVALUE(CreatedDate)),   AND(CreatedById &lt;&gt; OwnerId, Lead_ID__c &lt;&gt; &quot;&quot; , AND(Locally_Managed__c = TRUE , OR( Opportunity_Initial_Estimate__c &gt; 5000, Account.OwnerId &lt;&gt; &quot;00590000000im7B&quot;)), DATEVALUE(LastModifiedDate) = DATEVALUE(CreatedDate)))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Opportunity%3A Add product</fullName>
+        <actions>
+            <name>Update_Offering_Type</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Check roll up summary field Product Count to see if Offering should be changed.</description>
+        <formula>Product_Count__c &gt; 1</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Opportunity%3A Owner Change</fullName>
+        <actions>
+            <name>Update_Approval_Flag</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Clear the approval flag on change of the owner.</description>
+        <formula>ISCHANGED(OwnerId)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Opportunity%3A Populate Organisation Sector</fullName>
+        <actions>
+            <name>Opportunity_Organisation_Sector</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>notEqual</operation>
+            <value>Closed Disqualified,Closed Lost,Closed Won</value>
+        </criteriaItems>
+        <description>Phase 1:  Populate Organisation Sector by workflow for sharing rules</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Opportunity%3A Reacknowledge</fullName>
+        <actions>
+            <name>Remove_Acknowledgment</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Un-check Acknowledgement on Opportunity, when an Opportunity is re-opened</description>
+        <formula>AND(ISCHANGED(StageName), NOT(ISPICKVAL(StageName, &quot;Closed Won&quot;)), ISPICKVAL( PRIORVALUE( StageName ) , &quot;Closed Won&quot;))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 - Copy Today to the hidden field</fullName>
+        <actions>
+            <name>Set_Date_to_Hidden_field</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>So that the field can be used in integration</description>
+        <formula>ISCHANGED( CloseDate)&amp;&amp;  IsClosed</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 - update hidden fields with long text field values and data score</fullName>
+        <actions>
+            <name>Update_hidden_Auspost_Resources</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_hidden_Next_Steps</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_hidden_internal_resources</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.CreatedById</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>These hidden fields will be used in the data scoring formulas as the long text fields cannot be used.</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Populate Report Formulas</fullName>
+        <actions>
+            <name>Update_Modified_Start_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.Amount</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>This workflow is used to populate the EoFY days &amp; Modified Contract Start Date fields which is used for reporting. This a workflow due to the size of the formula requirements</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Push Counter</fullName>
+        <actions>
+            <name>Increment_Push_Counter_Field</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Increment the Push Counter field by 1</description>
+        <formula>IF(  CloseDate &gt; PRIORVALUE( CloseDate ),  IF (MONTH(CloseDate) &lt;&gt; MONTH(PRIORVALUE( CloseDate )) ,  TRUE,  FALSE),  FALSE)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <tasks>
+        <fullName>Approval_from_Identified_to_Qualified</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>The opportunity stage has been authorised from Identified to Qualified.  Please change the Opportunity Owner to the user that approved the handover.</description>
+        <dueDateOffset>2</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Approval from Identified to Qualified</subject>
+    </tasks>
+    <tasks>
+        <fullName>Confirm_Issues</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Confirm issues, needs and desired outcome with key decision maker</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Confirm Issues</subject>
+    </tasks>
+    <tasks>
+        <fullName>Confirm_and_sign_agreed_contact</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Confirm and sign agreed contract</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Confirm and sign agreed contact</subject>
+    </tasks>
+    <tasks>
+        <fullName>Confirm_proposal_loss_outcome</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Confirm proposal loss outcome.</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Confirm proposal loss outcome</subject>
+    </tasks>
+    <tasks>
+        <fullName>Confirm_proposal_win</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Confirm proposal win</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Confirm proposal win</subject>
+    </tasks>
+    <tasks>
+        <fullName>Create_Opportunity_Assessment_Plan</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Create opportunity assessment plan and tag to account</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Create Opportunity Assessment Plan</subject>
+    </tasks>
+    <tasks>
+        <fullName>Deliver_proposal_and_contract</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Deliver agreed final proposal and contract</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Deliver proposal and contract</subject>
+    </tasks>
+    <tasks>
+        <fullName>Develop_Account_Plan</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Develop Account Plan based on campaign response</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Develop Account Plan</subject>
+    </tasks>
+    <tasks>
+        <fullName>Develop_Solution_Doc</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Develop solution document</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Develop Solution Doc</subject>
+    </tasks>
+    <tasks>
+        <fullName>Develop_detailed_proposal</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Develop detailed proposal</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Develop detailed proposal</subject>
+    </tasks>
+    <tasks>
+        <fullName>Engage_customer</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Engage customer to enable preliminary transition</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Engage customer</subject>
+    </tasks>
+    <tasks>
+        <fullName>Enhance_account_plan</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Enhance and leverage account plan.</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Enhance account plan</subject>
+    </tasks>
+    <tasks>
+        <fullName>Finalise_and_signoff_proposal</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Finalise and signoff on proposal with internal stakeholders</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Finalise and signoff proposal</subject>
+    </tasks>
+    <tasks>
+        <fullName>Identify_Specific_Opportunities</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Identify specific opportunities with customer, key contacts and decision makers</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Identify Specific Opportunities</subject>
+    </tasks>
+    <tasks>
+        <fullName>Mobilise_internal_stakeholders</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Mobilise internal stakeholders to assist with deal close</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Mobilise internal stakeholders</subject>
+    </tasks>
+    <tasks>
+        <fullName>Negotiate_Contract</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Negotiate contract conditions with customer</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Negotiate Contract</subject>
+    </tasks>
+    <tasks>
+        <fullName>Notice_Broader_Opportunities</fullName>
+        <assignedToType>owner</assignedToType>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Notice Broader Opportunities</subject>
+    </tasks>
+    <tasks>
+        <fullName>Obtain_conditional_outcome</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Obtain conditional outcome</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Obtain conditional outcome</subject>
+    </tasks>
+    <tasks>
+        <fullName>Operational_and_Commercial_Alignment</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Negotiate with the customer to achieve operational and commercial alignment</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Operational and Commercial Alignment</subject>
+    </tasks>
+    <tasks>
+        <fullName>Prepare_Response_Plan</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Prepare response plan</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Prepare Response Plan</subject>
+    </tasks>
+    <tasks>
+        <fullName>Present_proposal_to_customer</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Present proposal to customer</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Present proposal to customer</subject>
+    </tasks>
+    <tasks>
+        <fullName>Refine_Proposal</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Refine proposal with internal stakeholders</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Refine Proposal</subject>
+    </tasks>
+    <tasks>
+        <fullName>Refine_Solution_Delivery</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Refine solution delivery with internal stakeholders</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Refine Solution Delivery</subject>
+    </tasks>
+    <tasks>
+        <fullName>Refine_Solution_with_customer</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Refine solution and its delivery with customer</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Refine Solution with customer</subject>
+    </tasks>
+    <tasks>
+        <fullName>Review_and_Validate_Opportunities</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Review and validate opportunities with key stakeholders</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Review and Validate Opportunities</subject>
+    </tasks>
+    <tasks>
+        <fullName>Review_outcome</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Review outcome and agree customer feedback process</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Review outcome</subject>
+    </tasks>
+    <tasks>
+        <fullName>Seek_Contact</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Seek contact around internal capability</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Seek Contact</subject>
+    </tasks>
+</Workflow>

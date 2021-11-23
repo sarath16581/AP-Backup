@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mandatory_Rule_Add_Lodgement_Point</fullName>
+    <active>true</active>
+    <description>Mandatory validation for adding lodgement point prior to DSR submission where Credit work type = &apos;Add lodgment point&apos; for Credit Management Request</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName =&quot;Credit_Management_Request&quot;,
+ISPICKVAL(Status__c , &quot;Submitted&quot;), 
+ISPICKVAL(Credit_Work_Type__c, &quot;Add lodgement point&quot;),
+Lodgement_Point_Counter__c = 0
+)</errorConditionFormula>
+    <errorMessage>Request cannot be submitted to the support team as no lodgement point information has been added. Please add lodgement point and then submit request to Support Team.</errorMessage>
+</ValidationRule>

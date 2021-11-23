@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>R_Root_cause__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>What caused the issue?</inlineHelpText>
+    <label>Root cause</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Lodgement related issue</fullName>
+                <default>false</default>
+                <label>Lodgement related issue</label>
+            </value>
+            <value>
+                <fullName>Labelling issue</fullName>
+                <default>false</default>
+                <label>Labelling issue</label>
+            </value>
+            <value>
+                <fullName>Driver training/compliance issue</fullName>
+                <default>false</default>
+                <label>Driver training/compliance issue</label>
+            </value>
+            <value>
+                <fullName>Driver scanner error</fullName>
+                <default>false</default>
+                <label>Driver scanner error</label>
+            </value>
+            <value>
+                <fullName>Carry-over volume</fullName>
+                <default>false</default>
+                <label>Carry-over volume</label>
+            </value>
+            <value>
+                <fullName>Network delay</fullName>
+                <default>false</default>
+                <label>Network delay</label>
+            </value>
+            <value>
+                <fullName>PDO delivery, not parcel driver</fullName>
+                <default>false</default>
+                <label>PDO delivery, not parcel driver</label>
+            </value>
+            <value>
+                <fullName>Looping Parcel</fullName>
+                <default>false</default>
+                <label>Looping Parcel</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

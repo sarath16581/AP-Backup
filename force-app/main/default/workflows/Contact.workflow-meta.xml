@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Contact_Left_Organisation</fullName>
+        <description>Contact Left Organisation</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <senderType>DefaultWorkflowUser</senderType>
+        <template>All_Email_Templates/Contact_Left_Organisation_Html</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Birthdate_Update</fullName>
+        <field>Birthdate</field>
+        <formula>Hidden_DoB__c</formula>
+        <name>Birthdate Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Data_Quality_Update</fullName>
+        <field>Hidden_Data_Score_Individual__c</field>
+        <formula>Data_Quality_Score_Individual__c</formula>
+        <name>Data Quality Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>RemoveCNumber</fullName>
+        <description>Removes the CNumber field value</description>
+        <field>OID_ID__c</field>
+        <name>Remove CNumber</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Reporting_Email_Provided</fullName>
+        <field>EmailProvided__c</field>
+        <literalValue>1</literalValue>
+        <name>SSSW - Reporting - Email Provided</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Update_IsDuplicate_Date</fullName>
+        <field>IsDuplicateDate__c</field>
+        <formula>NOW()</formula>
+        <name>SSSW - Update IsDuplicate Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Seg_Contact_Check</fullName>
+        <description>Concatenates OrgID and a YES/BLANK flag from the Segmentation Contact checkbox on Contact to prevent multiple Segmentation Contacts being created.</description>
+        <field>Hidden_Segmentation_Contact_Check__c</field>
+        <formula>AccountId + &quot;Yes&quot;</formula>
+        <name>Seg Contact Check</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_contact_owner_to_holding_user</fullName>
+        <description>Contacts created by contact center agents should be assigned to holding user account</description>
+        <field>OwnerId</field>
+        <lookupValue>holding.user@auspost.com.au</lookupValue>
+        <lookupValueType>User</lookupValueType>
+        <name>Set contact owner to holding user</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateCreatorProfile</fullName>
+        <description>Sets to profile of user creating record.</description>
+        <field>CreatorProfile__c</field>
+        <formula>$Profile.Name</formula>
+        <name>Update Creator Profile</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Billing_DPID</fullName>
+        <description>2014-02 Consumer Enablement</description>
+        <field>Mailing_DPID__c</field>
+        <formula>Account.Billing_DPID__c</formula>
+        <name>Update Billing DPID</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Contact_Maintained_By</fullName>
+        <description>Update SSSW Contact Maintained By field to Transaction for SSSW profile users</description>
+        <field>Record_Maintainer__c</field>
+        <literalValue>Transaction</literalValue>
+        <name>Update Contact Maintained By</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Do_Not_Call_True</fullName>
+        <field>DoNotCall</field>
+        <literalValue>1</literalValue>
+        <name>Update Do Not Call: True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Do_Not_Mail_True</fullName>
+        <field>Do_Not_Mail__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Do Not Mail: True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Email_Elect_Opt_In</fullName>
+        <field>Email_Electronic_Opt_In__c</field>
+        <literalValue>NO</literalValue>
+        <name>Update Email/ Elect Opt In</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Email_Electronic_Op_In_NO</fullName>
+        <field>Email_Electronic_Opt_In__c</field>
+        <literalValue>NO</literalValue>
+        <name>Update Email/Electronic Op In: NO</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Email_Opt_Out_False</fullName>
+        <field>HasOptedOutOfEmail</field>
+        <literalValue>0</literalValue>
+        <name>Update Email Opt Out: False</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Email_Opt_Out_True</fullName>
+        <field>HasOptedOutOfEmail</field>
+        <literalValue>1</literalValue>
+        <name>Update Email Opt Out: True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Fax_Opt_Out_True</fullName>
+        <field>HasOptedOutOfFax</field>
+        <literalValue>1</literalValue>
+        <name>Update Fax Opt Out: True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Physical_DPID</fullName>
+        <description>2014-02 Consumer Enablement</description>
+        <field>Other_DPID__c</field>
+        <formula>Account.Billing_DPID__c</formula>
+        <name>Update Physical DPID</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Privacy_Marketing_Opt_Out_No</fullName>
+        <field>Privacy_Marketing_Opt_Out__c</field>
+        <literalValue>NO</literalValue>
+        <name>Update Privacy Marketing Opt Out: No</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>populate_hidden_data_score</fullName>
+        <field>Hidden_Data_Score_Individual__c</field>
+        <formula>Data_Quality_Score_Individual__c</formula>
+        <name>populate hidden data score</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>populate_hidden_description</fullName>
+        <field>Hidden_Description__c</field>
+        <formula>LEFT( Description,1)</formula>
+        <name>populate hidden description</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Birthdate Update</fullName>
+        <actions>
+            <name>Birthdate_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.Hidden_DoB__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Uses {Hidden} DoB field to update Contact Birthdate</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>ContactRemoveCNumberOnClone</fullName>
+        <actions>
+            <name>RemoveCNumber</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>When a contact record is cloned, the CNumber should be removed.</description>
+        <formula>ISNEW() &amp;&amp; ISCLONE() &amp;&amp; !ISBLANK(OID_ID__c)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Email Electronic Opt - YES</fullName>
+        <actions>
+            <name>Update_Email_Opt_Out_False</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Privacy_Marketing_Opt_Out_No</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.Email_Electronic_Opt_In__c</field>
+            <operation>equals</operation>
+            <value>YES</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Email Opt Out%3A True</fullName>
+        <actions>
+            <name>Update_Email_Elect_Opt_In</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.HasOptedOutOfEmail</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 - populate Hidden Indvidual data score</fullName>
+        <actions>
+            <name>populate_hidden_data_score</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>populate_hidden_description</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>TRUE</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Privacy %2F Marketing Opt - Out</fullName>
+        <actions>
+            <name>Update_Do_Not_Call_True</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Do_Not_Mail_True</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Email_Electronic_Op_In_NO</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Email_Opt_Out_True</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Fax_Opt_Out_True</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.Privacy_Marketing_Opt_Out__c</field>
+            <operation>equals</operation>
+            <value>YES</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - IsDuplicate</fullName>
+        <actions>
+            <name>SSSW_Update_IsDuplicate_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.IsDuplicate__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>Used to update IsDuplicate field with date/time of selection</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Reporting - Email Provided</fullName>
+        <actions>
+            <name>SSSW_Reporting_Email_Provided</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.Email</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Set holding user as contact owner</fullName>
+        <actions>
+            <name>Set_contact_owner_to_holding_user</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>contacts created by agents should be assigned to holding user as owners</description>
+        <formula>CONTAINS( Owner.Profile.Name  , &quot;SSSW&quot;)</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Segmentation Contact Check</fullName>
+        <actions>
+            <name>Seg_Contact_Check</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.Primary_Sales_Contact__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>Updates {Hidden} Segmentation Contact Check field when the Segmentation Contact checkbox is ticked</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Set Creator Profile Field - Contact</fullName>
+        <actions>
+            <name>UpdateCreatorProfile</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Used by workflow - sets to profile of user creating record.</description>
+        <formula>True</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Contact Billing DPID</fullName>
+        <actions>
+            <name>Update_Billing_DPID</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>2014-02 Consumer Enablement - Copy Billing DPID from Account when creating new Contact, if the Billing Address on Account is same as Billing Address on Contact.</description>
+        <formula>AND(   MailingStreet = Account.BillingStreet,   MailingCity = Account.BillingCity,   MailingState = Account.BillingState,   MailingPostalCode = Account.BillingPostalCode,   MailingCountry = Account.BillingCountry )</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Contact Maintained By</fullName>
+        <actions>
+            <name>Update_Contact_Maintained_By</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>User.Profile_Name_in_Text__c</field>
+            <operation>contains</operation>
+            <value>SSSW</value>
+        </criteriaItems>
+        <description>Update SSSW Contact Maintained By field to Transaction for SSSW profile users</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Contact Physical DPID</fullName>
+        <actions>
+            <name>Update_Physical_DPID</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>2014-02 Consumer Enablement - Copy Billing DPID from Account when creating new Contact, if the Billing Address on Account is same as Physical Address on Contact.</description>
+        <formula>AND(   OtherStreet = Account.BillingStreet,   OtherCity = Account.BillingCity,   OtherState = Account.BillingState,   OtherPostalCode = Account.BillingPostalCode,   OtherCountry = Account.BillingCountry )</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Data Quality Score</fullName>
+        <actions>
+            <name>Data_Quality_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Update Contact.Data_Quality_Score_Individual__c, if it is changed (before insert, before update)</description>
+        <formula>ISCHANGED(Data_Quality_Score_Individual__c)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

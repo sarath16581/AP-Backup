@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Validate_Digital_And_Non_Digital</fullName>
+    <active>true</active>
+    <errorConditionFormula>Apttus_Config2__LineItemId__r.Apttus_Config2__ProductId__r.ProductCode == &apos;InternationalBundle&apos;  &amp;&amp; 
+NOT(APT_eParcel_Lodgment__c)  &amp;&amp; NOT( APT_International_Letters__c )</errorConditionFormula>
+    <errorMessage>Either Digital or Non-Digital has to be selected. Both can not be false.</errorMessage>
+</ValidationRule>

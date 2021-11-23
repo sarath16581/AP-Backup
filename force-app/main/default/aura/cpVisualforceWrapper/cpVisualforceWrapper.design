@@ -1,0 +1,6 @@
+<!--
+    2018-05-15 Hasantha.Liyanage@auspost.com.au created
+-->
+<design:component label="Dynamic VF Resize Container" >
+	<design:attribute name="visualforcePage" label="Visualforce Page URL"  description="Enter the relative URL to your Visualforce page." />
+</design:component>

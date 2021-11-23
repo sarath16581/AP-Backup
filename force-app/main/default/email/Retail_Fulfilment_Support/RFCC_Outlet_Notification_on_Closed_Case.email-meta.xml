@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email notification template sent to an outlet on closure of their case by the Retail Fulfilment Call Centre (RFCC) or a Resolver Group</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>ExternalContactEmail</letterhead>
+    <name>RFCC Outlet Notification on Closed Case</name>
+    <style>freeForm</style>
+    <subject>Case {!Case.CaseNumber} has been closed</subject>
+    <textOnly>Hello {!Contact.FirstName},
+
+
+This email is to advise that case {!Case.CaseNumber} raised on the {!Case.CreatedDate} has now been closed.
+
+
+Type: {!Case.Type}
+
+Problem Type: {!Case.Problem_Type_Retail__c}
+
+Subject: {!Case.Subject}
+
+
+Thanks &amp; Regards,
+
+{!Case.OwnerFullName}
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFeedFilter xmlns="http://soap.sforce.com/2006/04/metadata">
+    <criteria>
+        <feedItemType>CaseCommentPost</feedItemType>
+        <relatedSObjectType>CaseComment</relatedSObjectType>
+    </criteria>
+    <description>StarTrack feed filter that displays all cases updates with comments.</description>
+    <label>Case Comments</label>
+</CustomFeedFilter>

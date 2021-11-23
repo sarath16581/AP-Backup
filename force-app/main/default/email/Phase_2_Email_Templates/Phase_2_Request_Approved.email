@@ -1,0 +1,14 @@
+Your Sales Coverage Change Request has been approved. Please find details below.
+
+Organisation: {!Account.Name}
+Link to Request: {!Segmentation_Change_Request__c.Link}
+
+Effective Date of Change: {!Segmentation_Change_Request__c.Lock_In_Date__c}
+
+Please note that the specified changes are set to take effect on the 23rd day of the next quarter.
+
+Quarters are defined as:
+Q1 July to September
+Q2 October - December
+Q3 January - March
+Q4 April – June

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Other__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Out of scope lodgement systems, and lodgements that have not been classified</inlineHelpText>
+    <label>Other</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Unknown (Peoplesoft)</fullName>
+                <default>false</default>
+                <label>Unknown (Peoplesoft)</label>
+            </value>
+            <value>
+                <fullName>3rd Party Integrator (PeopleSoft)</fullName>
+                <default>false</default>
+                <label>3rd Party Integrator (PeopleSoft)</label>
+            </value>
+            <value>
+                <fullName>eParcel (Unmanifested)</fullName>
+                <default>false</default>
+                <label>eParcel (Unmanifested)</label>
+            </value>
+            <value>
+                <fullName>3rd Party Integrator (SAP)</fullName>
+                <default>false</default>
+                <label>3rd Party Integrator (SAP)</label>
+            </value>
+            <value>
+                <fullName>3rd Party Integrator (TEAM)</fullName>
+                <default>false</default>
+                <label>3rd Party Integrator (TEAM)</label>
+            </value>
+            <value>
+                <fullName>Unknown (TEAM)</fullName>
+                <default>false</default>
+                <label>Unknown (TEAM)</label>
+            </value>
+            <value>
+                <fullName>Manual</fullName>
+                <default>false</default>
+                <label>Manual</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>6</visibleLines>
+</CustomField>

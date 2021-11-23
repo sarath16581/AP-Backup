@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEPARC__Is_Private__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Indicates that the attachment was private before archival</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Indicates that the attachment was private before archival</inlineHelpText>
+    <label>Is Private</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

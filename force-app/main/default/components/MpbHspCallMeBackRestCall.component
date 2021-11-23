@@ -1,0 +1,46 @@
+<apex:component controller="MpbHspCallMeBackRestController">
+    
+  <style>
+        .button-margin
+        {
+        width:160px;
+        text-align: center;
+        padding:5px;
+        }
+        
+    </style>
+
+    <div class="right-panel">
+        <div class="l-sb-module" style="height: 380px; ">
+            <apex:form >
+                    <h2>Phone support</h2>
+                    <p>Prefer to talk? Enter your phone number here and we'll call you shortly.</p>
+                    <p><h4 style="display:inline; ">Operating hours:</h4>
+                    <br/>8am to 6pm AEST
+                    <br/>Monday to Friday*</p>
+                    <p>Enter your phone number</p>
+                    <apex:inputText id="phoneNumber" value="{!phoneNumber}" size="15" />                      
+                    <div>
+                        <apex:commandButton styleClass="primary-cta button-submit left" value="Request Call" id="call-me-back-button" action="{!callout}" style="background:#dc1928; padding:5px 20px;width: 145.2px;"/>
+                    </div> 
+                    <br/>
+                    <div style="clear: both;">Live chat 24/7, excludes national public holidays.*</div>
+            </apex:form>
+       </div> 
+
+        <apex:form id="successForm" rendered="{!calloutResponse == 0}">
+            <div class="l-sb-module" style="margin-top: 30px;">
+                <h2>Help is on the way...</h2>
+                <p>One of our small business experts will call you shortly.</p>
+            </div>
+        </apex:form>
+        <apex:form id="failureForm" rendered="{!calloutResponse >= 1}">
+            <div class="l-sb-module" style="margin-top: 30px;">
+                <h2>We're sorry</h2>
+                <p>Phone support's available from <strong>8am to 6pm AEST, Monday to Friday, excluding public holidays.</strong></p>
+                <p>If you need help right now, try our 24/7 live chat support.</p>
+                <!-- *** Failure Message: {!responseBody} -->
+            </div> 
+        </apex:form>
+  </div>   
+</apex:component>

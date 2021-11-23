@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+	<title>Assignment Effective Today</title>
+</head>
+<body>
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Good Morning</span><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"></span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Licence Record {!Account.Name} is due to assign today</span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">If this assignment has been delayed please update the Assignment Effective date immediately in Salesforce. </span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Failure to do so will impact the current licensee payments. </span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Click <a href="{!Account.Link}">here</a> to go to Licence. </span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"><font color="Red">{!IF(ISBLANK(Account.SAP_Vendor_ID__c), 'The SAP vendor number has NOT been provided.<br/>Please update the details and ensure approval is finalised prior to COB<br/>This will ensure that licensee payments are not impacted.' , ' ')}
+ </font></span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Regards</span></p>
+
+
+</body>
+</html>

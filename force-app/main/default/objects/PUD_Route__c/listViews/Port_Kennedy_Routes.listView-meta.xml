@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Port_Kennedy_Routes</fullName>
+    <columns>NAME</columns>
+    <columns>Depot__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>Port K</value>
+    </filters>
+    <label>Port Kennedy Routes</label>
+    <sharedTo>
+        <group>PORT_KENNEDY_VAN_SERVICES</group>
+    </sharedTo>
+</ListView>

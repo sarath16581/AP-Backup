@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Auto reply when a customer emails into a closed case</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>BGS Closed Case Bounce</name>
+    <style>none</style>
+    <subject>Australia Post Case {!Case.CaseNumber} is already Closed</subject>
+    <textOnly>Thank you for your email.
+
+Case #{!Case.CaseNumber} has been closed.
+
+Please direct a new request or enquiry to your BGS Service Advisor team.
+
+Australia Post will never send you an unsolicited email asking for your password, credit card details or account information.
+
+
+This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. Visit auspost.com.au for further information on our online security.
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

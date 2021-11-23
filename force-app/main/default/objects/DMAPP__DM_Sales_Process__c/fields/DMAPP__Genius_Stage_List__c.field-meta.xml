@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Genius_Stage_List__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A list of the initial stages used to populate the Genius Wizard. These may subsequently change and are here for reference only. They are pipe delimited.</description>
+    <externalId>false</externalId>
+    <label>Genius Stage List</label>
+    <length>1000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>6</visibleLines>
+</CustomField>

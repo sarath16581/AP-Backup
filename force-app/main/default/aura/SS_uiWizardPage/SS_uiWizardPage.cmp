@@ -1,0 +1,454 @@
+<!--
+  * @changeLog :
+  * @date         : 19/06/2020
+  * Modified by   : Hara Sahoo
+  * @description  : Change made for roll out of Safe Drop feature on Missing Items form
+                    1. Added a mobile stepper
+                    2. Removed the error summary from the wizard to be included in the indiviual components
+                    3. Added form:detail paramater to analytics for all pages, except the start form
+  * Modified by   : 16/09/2020 : Hara Sahoo : Change made for roll out of transfer to po analytics
+  * Modified by   : 02/02/2021 : Hara Sahoo : AME address validation for address fields on all of the H&S forms
+  * Modified by   : 24/03/2021 : Hara Sahoo : Include header for Thank You page
+  * Modified by   : 23/06/2021 : Phap Mai : Include header for Compensation form
+  * Modified by   : 09/09/2021 : Phap Mai : Include adobeAnalyticsInterfaceComponent instance for Compensation form
+  * Modified by   : 2021-09-29 : Phap Mai : [DDS-7455] Added flag for page measurement event of error type, set this flag to true to fire an error event
+-->
+<aura:component extends="c:SS_CCBaseLC" implements="c:SS_IUIWizardPage" extensible="true" description="Parent compoent for all Wizard Pages">
+    <aura:attribute name="pageTitle" type="String" description="Wizard Page Title"/>
+    <aura:attribute name="analyticsAutoTracking" type="Boolean" description="Determines whether loading the the wizard page should trigger a pageview." default="true"/>
+    <!-- <aura:attribute name="nextButtonLabel" type="String" default="Next" description="Override label for next Button."/> -->
+    <!-- <aura:attribute name="nextButtonAction" type="Aura.Action" default="{!c.goForward}" description="Override Action for next Button."/> -->
+    <!-- <aura:attribute name="backButtonLabel" type="String" default="Back" description="Override label for Back Button."/> -->
+    <!-- <aura:attribute name="backButtonAction" type="Aura.Action" default="{!c.goBack}" description="Override Action for back Button."/> -->
+    <!-- <aura:attribute name="showNav" type="Boolean" default="true"/> -->
+    <aura:attribute name="nextPage" type="String"/>
+    <aura:attribute name="prevPage" type="String"/>
+    <aura:attribute name="wizardData" type="Map" description="Wizard Data"/>
+    <aura:attribute name="authUserData" type="Map" description="Wizard Data"/>
+    <aura:attribute name="currentStepNumber" type="Integer" description="current step number"/>
+    <aura:attribute name="firstWordInProgressBar" type="String" default="First Step"/>
+    <!-- <aura:attribute name="enableOrDisableNextBtnVal" type="String" default="Disable"/> -->
+    <!-- Deprecated: Use formValid instead -->
+    <aura:attribute name="formValid" type="Boolean" default="false"/>
+    <aura:attribute name="errors" type="Object[]" />
+    <aura:attribute name="showErrorSummary" type="Boolean" default="false"/>
+    <aura:attribute name="checkInputsOnRender" type="Boolean" default="false"/>
+    <!-- added below two attributes by Jansi for analytics on Aug 09 2018 -->
+    <aura:attribute name="currentStepName" type="String" />
+    <aura:attribute name="stage" type="String" />
+    <aura:attribute name="alertMessage" type="String" />
+    <aura:attribute name="duplicateCaseText" type="String" />
+    <aura:attribute name="isEligibleForNetwork" type="String" />
+    <aura:attribute name="transferToPoSelectedValue" type="String" />
+    <aura:attribute name="EDDVariationId" type="String" />
+    
+    <!-- determines whether the loaded page should trigger auto page view tracking -->
+    <aura:attribute name="analyticsPageViewAutoTracking" type="Boolean" default="true" />
+    
+    <!-- URL redirects are passed via go to pages attribute -->
+    <aura:attribute name="gotoPages" type="Object" />
+    
+    <aura:attribute
+                    name="countryOptions"
+                    type="List"
+                    default="[{'label':'Popular countries', 'options':[
+                             {'label':'China', value:'China'},
+                             {'label':'New Zealand', value:'New Zealand'},
+                             {'label':'United Kingdom', value:'United Kingdom'},
+                             {'label':'United States', value:'United States'}
+                             ]},
+                             {'label':'Other countries', 'options':[
+                             {'label':'Afghanistan', value:'Afghanistan'},
+                             {'label':'Åland Islands', value:'Åland Islands'},
+                             {'label':'Albania', value:'Albania'},
+                             {'label':'Algeria', value:'Algeria'},
+                             {'label':'American Samoa', value:'American Samoa'},
+                             {'label':'Andorra', value:'Andorra'},
+                             {'label':'Angola', value:'Angola'},
+                             {'label':'Anguilla', value:'Anguilla'},
+                             {'label':'Antarctica', value:'Antarctica'},
+                             {'label':'Antigua and Barbuda', value:'Antigua and Barbuda'},
+                             {'label':'Argentina', value:'Argentina'},
+                             {'label':'Armenia', value:'Armenia'},
+                             {'label':'Aruba', value:'Aruba'},
+                             {'label':'Australia', value:'Australia'},
+                             {'label':'Austria', value:'Austria'},
+                             {'label':'Azerbaijan', value:'Azerbaijan'},
+                             {'label':'Bahamas', value:'Bahamas'},
+                             {'label':'Bahrain', value:'Bahrain'},
+                             {'label':'Bangladesh', value:'Bangladesh'},
+                             {'label':'Barbados', value:'Barbados'},
+                             {'label':'Belarus', value:'Belarus'},
+                             {'label':'Belgium', value:'Belgium'},
+                             {'label':'Belize', value:'Belize'},
+                             {'label':'Benin', value:'Benin'},
+                             {'label':'Bermuda', value:'Bermuda'},
+                             {'label':'Bhutan', value:'Bhutan'},
+                             {'label':'Bolivia, Plurinational State of', value:'Bolivia, Plurinational State of'},
+                             {'label':'Bonaire, Sint Eustatius and Saba', value:'Bonaire, Sint Eustatius and Saba'},
+                             {'label':'Bosnia and Herzegovina', value:'Bosnia and Herzegovina'},
+                             {'label':'Botswana', value:'Botswana'},
+                             {'label':'Bouvet Island', value:'Bouvet Island'},
+                             {'label':'Brazil', value:'Brazil'},
+                             {'label':'British Indian Ocean Territory', value:'British Indian Ocean Territory'},
+                             {'label':'Brunei Darussalam', value:'Brunei Darussalam'},
+                             {'label':'Bulgaria', value:'Bulgaria'},
+                             {'label':'Burkina Faso', value:'Burkina Faso'},
+                             {'label':'Burundi', value:'Burundi'},
+                             {'label':'Cambodia', value:'Cambodia'},
+                             {'label':'Cameroon', value:'Cameroon'},
+                             {'label':'Canada', value:'Canada'},
+                             {'label':'Cape Verde', value:'Cape Verde'},
+                             {'label':'Cayman Islands', value:'Cayman Islands'},
+                             {'label':'Central African Republic', value:'Central African Republic'},
+                             {'label':'Chad', value:'Chad'},
+                             {'label':'Chile', value:'Chile'},
+                             {'label':'Christmas Island', value:'Christmas Island'},
+                             {'label':'Cocos (Keeling) Islands', value:'Cocos (Keeling) Islands'},
+                             {'label':'Colombia', value:'Colombia'},
+                             {'label':'Comoros', value:'Comoros'},
+                             {'label':'Congo', value:'Congo'},
+                             {'label':'Congo, the Democratic Republic of the', value:'Congo, the Democratic Republic of the'},
+                             {'label':'Cook Islands', value:'Cook Islands'},
+                             {'label':'Costa Rica', value:'Costa Rica'},
+                             {'label':'Côte d\'Ivoire', value:'Côte d\'Ivoire'},
+                             {'label':'Croatia', value:'Croatia'},
+                             {'label':'Cuba', value:'Cuba'},
+                             {'label':'Curaçao', value:'Curaçao'},
+                             {'label':'Cyprus', value:'Cyprus'},
+                             {'label':'Czech Republic', value:'Czech Republic'},
+                             {'label':'Denmark', value:'Denmark'},
+                             {'label':'Djibouti', value:'Djibouti'},
+                             {'label':'Dominica', value:'Dominica'},
+                             {'label':'Dominican Republic', value:'Dominican Republic'},
+                             {'label':'Ecuador', value:'Ecuador'},
+                             {'label':'Egypt', value:'Egypt'},
+                             {'label':'El Salvador', value:'El Salvador'},
+                             {'label':'Equatorial Guinea', value:'Equatorial Guinea'},
+                             {'label':'Eritrea', value:'Eritrea'},
+                             {'label':'Estonia', value:'Estonia'},
+                             {'label':'Ethiopia', value:'Ethiopia'},
+                             {'label':'Falkland Islands (Malvinas)', value:'Falkland Islands (Malvinas)'},
+                             {'label':'Faroe Islands', value:'Faroe Islands'},
+                             {'label':'Fiji', value:'Fiji'},
+                             {'label':'Finland', value:'Finland'},
+                             {'label':'France', value:'France'},
+                             {'label':'French Guiana', value:'French Guiana'},
+                             {'label':'French Polynesia', value:'French Polynesia'},
+                             {'label':'French Southern Territories', value:'French Southern Territories'},
+                             {'label':'Gabon', value:'Gabon'},
+                             {'label':'Gambia', value:'Gambia'},
+                             {'label':'Georgia', value:'Georgia'},
+                             {'label':'Germany', value:'Germany'},
+                             {'label':'Ghana', value:'Ghana'},
+                             {'label':'Gibraltar', value:'Gibraltar'},
+                             {'label':'Greece', value:'Greece'},
+                             {'label':'Greenland', value:'Greenland'},
+                             {'label':'Grenada', value:'Grenada'},
+                             {'label':'Guadeloupe', value:'Guadeloupe'},
+                             {'label':'Guam', value:'Guam'},
+                             {'label':'Guatemala', value:'Guatemala'},
+                             {'label':'Guernsey', value:'Guernsey'},
+                             {'label':'Guinea', value:'Guinea'},
+                             {'label':'Guinea-Bissau', value:'Guinea-Bissau'},
+                             {'label':'Guyana', value:'Guyana'},
+                             {'label':'Haiti', value:'Haiti'},
+                             {'label':'Heard Island and McDonald Islands', value:'Heard Island and McDonald Islands'},
+                             {'label':'Holy See (Vatican City State)', value:'Holy See (Vatican City State)'},
+                             {'label':'Honduras', value:'Honduras'},
+                             {'label':'Hong Kong', value:'Hong Kong'},
+                             {'label':'Hungary', value:'Hungary'},
+                             {'label':'Iceland', value:'Iceland'},
+                             {'label':'India', value:'India'},
+                             {'label':'Indonesia', value:'Indonesia'},
+                             {'label':'Iran, Islamic Republic of', value:'Iran, Islamic Republic of'},
+                             {'label':'Iraq', value:'Iraq'},
+                             {'label':'Ireland', value:'Ireland'},
+                             {'label':'Isle of Man', value:'Isle of Man'},
+                             {'label':'Israel', value:'Israel'},
+                             {'label':'Italy', value:'Italy'},
+                             {'label':'Jamaica', value:'Jamaica'},
+                             {'label':'Japan', value:'Japan'},
+                             {'label':'Jersey', value:'Jersey'},
+                             {'label':'Jordan', value:'Jordan'},
+                             {'label':'Kazakhstan', value:'Kazakhstan'},
+                             {'label':'Kenya', value:'Kenya'},
+                             {'label':'Kiribati', value:'Kiribati'},
+                             {'label':'Korea, Democratic People\'s Republic of', value:'Korea, Democratic People\'s Republic of'},
+                             {'label':'Korea, Republic of', value:'Korea, Republic of'},
+                             {'label':'Kuwait', value:'Kuwait'},
+                             {'label':'Kyrgyzstan', value:'Kyrgyzstan'},
+                             {'label':'Lao People\'s Democratic Republic', value:'Lao People\'s Democratic Republic'},
+                             {'label':'Latvia', value:'Latvia'},
+                             {'label':'Lebanon', value:'Lebanon'},
+                             {'label':'Lesotho', value:'Lesotho'},
+                             {'label':'Liberia', value:'Liberia'},
+                             {'label':'Libya', value:'Libya'},
+                             {'label':'Liechtenstein', value:'Liechtenstein'},
+                             {'label':'Lithuania', value:'Lithuania'},
+                             {'label':'Luxembourg', value:'Luxembourg'},
+                             {'label':'Macao', value:'Macao'},
+                             {'label':'Macedonia, the former Yugoslav Republic of', value:'Macedonia, the former Yugoslav Republic of'},
+                             {'label':'Madagascar', value:'Madagascar'},
+                             {'label':'Malawi', value:'Malawi'},
+                             {'label':'Malaysia', value:'Malaysia'},
+                             {'label':'Maldives', value:'Maldives'},
+                             {'label':'Mali', value:'Mali'},
+                             {'label':'Malta', value:'Malta'},
+                             {'label':'Marshall Islands', value:'Marshall Islands'},
+                             {'label':'Martinique', value:'Martinique'},
+                             {'label':'Mauritania', value:'Mauritania'},
+                             {'label':'Mauritius', value:'Mauritius'},
+                             {'label':'Mayotte', value:'Mayotte'},
+                             {'label':'Mexico', value:'Mexico'},
+                             {'label':'Micronesia, Federated States of', value:'Micronesia, Federated States of'},
+                             {'label':'Moldova, Republic of', value:'Moldova, Republic of'},
+                             {'label':'Monaco', value:'Monaco'},
+                             {'label':'Mongolia', value:'Mongolia'},
+                             {'label':'Montenegro', value:'Montenegro'},
+                             {'label':'Montserrat', value:'Montserrat'},
+                             {'label':'Morocco', value:'Morocco'},
+                             {'label':'Mozambique', value:'Mozambique'},
+                             {'label':'Myanmar', value:'Myanmar'},
+                             {'label':'Namibia', value:'Namibia'},
+                             {'label':'Nauru', value:'Nauru'},
+                             {'label':'Nepal', value:'Nepal'},
+                             {'label':'Netherlands', value:'Netherlands'},
+                             {'label':'New Caledonia', value:'New Caledonia'},
+                             {'label':'Nicaragua', value:'Nicaragua'},
+                             {'label':'Niger', value:'Niger'},
+                             {'label':'Nigeria', value:'Nigeria'},
+                             {'label':'Niue', value:'Niue'},
+                             {'label':'Norfolk Island', value:'Norfolk Island'},
+                             {'label':'Northern Mariana Islands', value:'Northern Mariana Islands'},
+                             {'label':'Norway', value:'Norway'},
+                             {'label':'Oman', value:'Oman'},
+                             {'label':'Pakistan', value:'Pakistan'},
+                             {'label':'Palau', value:'Palau'},
+                             {'label':'Palestinian Territory, Occupied', value:'Palestinian Territory, Occupied'},
+                             {'label':'Panama', value:'Panama'},
+                             {'label':'Papua New Guinea', value:'Papua New Guinea'},
+                             {'label':'Paraguay', value:'Paraguay'},
+                             {'label':'Peru', value:'Peru'},
+                             {'label':'Philippines', value:'Philippines'},
+                             {'label':'Pitcairn', value:'Pitcairn'},
+                             {'label':'Poland', value:'Poland'},
+                             {'label':'Portugal', value:'Portugal'},
+                             {'label':'Puerto Rico', value:'Puerto Rico'},
+                             {'label':'Qatar', value:'Qatar'},
+                             {'label':'Réunion', value:'Réunion'},
+                             {'label':'Romania', value:'Romania'},
+                             {'label':'Russian Federation', value:'Russian Federation'},
+                             {'label':'Rwanda', value:'Rwanda'},
+                             {'label':'Saint Barthélemy', value:'Saint Barthélemy'},
+                             {'label':'Saint Helena, Ascension and Tristan da Cunha', value:'Saint Helena, Ascension and Tristan da Cunha'},
+                             {'label':'Saint Kitts and Nevis', value:'Saint Kitts and Nevis'},
+                             {'label':'Saint Lucia', value:'Saint Lucia'},
+                             {'label':'Saint Martin (French part)', value:'Saint Martin (French part)'},
+                             {'label':'Saint Pierre and Miquelon', value:'Saint Pierre and Miquelon'},
+                             {'label':'Saint Vincent and the Grenadines', value:'Saint Vincent and the Grenadines'},
+                             {'label':'Samoa', value:'Samoa'},
+                             {'label':'San Marino', value:'San Marino'},
+                             {'label':'Sao Tome and Principe', value:'Sao Tome and Principe'},
+                             {'label':'Saudi Arabia', value:'Saudi Arabia'},
+                             {'label':'Senegal', value:'Senegal'},
+                             {'label':'Serbia', value:'Serbia'},
+                             {'label':'Seychelles', value:'Seychelles'},
+                             {'label':'Sierra Leone', value:'Sierra Leone'},
+                             {'label':'Singapore', value:'Singapore'},
+                             {'label':'Sint Maarten (Dutch part)', value:'Sint Maarten (Dutch part)'},
+                             {'label':'Slovakia', value:'Slovakia'},
+                             {'label':'Slovenia', value:'Slovenia'},
+                             {'label':'Solomon Islands', value:'Solomon Islands'},
+                             {'label':'Somalia', value:'Somalia'},
+                             {'label':'South Africa', value:'South Africa'},
+                             {'label':'South Georgia and the South Sandwich Islands', value:'South Georgia and the South Sandwich Islands'},
+                             {'label':'South Sudan', value:'South Sudan'},
+                             {'label':'Spain', value:'Spain'},
+                             {'label':'Sri Lanka', value:'Sri Lanka'},
+                             {'label':'Sudan', value:'Sudan'},
+                             {'label':'Suriname', value:'Suriname'},
+                             {'label':'Svalbard and Jan Mayen', value:'Svalbard and Jan Mayen'},
+                             {'label':'Swaziland', value:'Swaziland'},
+                             {'label':'Sweden', value:'Sweden'},
+                             {'label':'Switzerland', value:'Switzerland'},
+                             {'label':'Syrian Arab Republic', value:'Syrian Arab Republic'},
+                             {'label':'Taiwan, Province of China', value:'Taiwan, Province of China'},
+                             {'label':'Tajikistan', value:'Tajikistan'},
+                             {'label':'Tanzania, United Republic of', value:'Tanzania, United Republic of'},
+                             {'label':'Thailand', value:'Thailand'},
+                             {'label':'Timor-Leste', value:'Timor-Leste'},
+                             {'label':'Togo', value:'Togo'},
+                             {'label':'Tokelau', value:'Tokelau'},
+                             {'label':'Tonga', value:'Tonga'},
+                             {'label':'Trinidad and Tobago', value:'Trinidad and Tobago'},
+                             {'label':'Tunisia', value:'Tunisia'},
+                             {'label':'Turkey', value:'Turkey'},
+                             {'label':'Turkmenistan', value:'Turkmenistan'},
+                             {'label':'Turks and Caicos Islands', value:'Turks and Caicos Islands'},
+                             {'label':'Tuvalu', value:'Tuvalu'},
+                             {'label':'Uganda', value:'Uganda'},
+                             {'label':'Ukraine', value:'Ukraine'},
+                             {'label':'United Arab Emirates', value:'United Arab Emirates'},
+                             {'label':'United States Minor Outlying Islands', value:'United States Minor Outlying Islands'},
+                             {'label':'Uruguay', value:'Uruguay'},
+                             {'label':'Uzbekistan', value:'Uzbekistan'},
+                             {'label':'Vanuatu', value:'Vanuatu'},
+                             {'label':'Venezuela, Bolivarian Republic of', value:'Venezuela, Bolivarian Republic of'},
+                             {'label':'Vietnam', value:'Vietnam'},
+                             {'label':'Virgin Islands, British', value:'Virgin Islands, British'},
+                             {'label':'Virgin Islands, U.S.', value:'Virgin Islands, U.S.'},
+                             {'label':'Wallis and Futuna', value:'Wallis and Futuna'},
+                             {'label':'Western Sahara', value:'Western Sahara'},
+                             {'label':'Yemen', value:'Yemen'},
+                             {'label':'Zambia', value:'Zambia'},
+                             {'label':'Zimbabwe', value:'Zimbabwe'}
+                             ]}]"/>
+    <aura:attribute
+                    name="stateOptions"
+                    type="List"
+                    default="[
+                             {'label':'ACT', value:'ACT'},
+                             {'label':'NSW', value:'NSW'},
+                             {'label':'NT', value:'NT'},
+                             {'label':'QLD', value:'QLD'},
+                             {'label':'SA', value:'SA'},
+                             {'label':'TAS', value:'TAS'},
+                             {'label':'VIC', value:'VIC'},
+                             {'label':'WA', value:'WA'}
+                             ]"
+                    description='The State Select Options'/>
+    
+    <!-- Contact Preference, added by Edmarco on July 2019 -->
+    <aura:attribute
+                    name="contactPreferrenceOptions"
+                    type="List"
+                    default="[
+                             {'label':'Email', value:'Email'},
+                             {'label':'Phone', value:'Phone'}
+                             
+                             ]"
+                    description='The Contact Preferrence Select Options'/>
+    <!-- AME attributes-->
+    <aura:attribute name="showError" type="Boolean" />
+    <aura:attribute name="incorrectShowError" type="Boolean" default="false"/>
+    <aura:attribute name="recipientShowError" type="Boolean" default="false"/>
+    <aura:attribute name="error" type="String" default=''/>
+    <aura:attribute name="inputError" type="Boolean" default="false"/>
+    <aura:attribute name="inputFieldError" type="Boolean" default="false"/>    
+    <aura:attribute name="fieldError" type="String" default=''/>
+    <aura:attribute name="isOverriden" type="Boolean" default="false"/>
+    <aura:attribute name="addressTyped" type="String" default =''/>
+    <aura:attribute name="incorrectAddressTyped" type="String" default =''/>
+    <aura:attribute name="recipientAddressTyped" type="String" default =''/>
+    <aura:attribute name="selectedAddress" type="String" default =''/>
+    <aura:attribute name="inputErr" type="List"/>
+    <aura:attribute name="inputFieldCount" type="Integer" />
+    <aura:attribute name="overrideAddress" type="String" default =''/>
+    <aura:attribute name="incorrectAddress" type="String" default =''/>
+    <aura:attribute name="recipientAddress" type="String" default =''/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <!-- DDS-7455: flag for page measurement event of error type -->
+    <aura:attribute name="isPageMeasurementErrorEvent" type="Boolean" default="false"/>
+    
+    
+    <!-- Analytics, added by Jansi on Aug 09 2018 -->
+    <!--<c:ChasAdobeAnalyticsPageView pageName="{! v.pageTitle }" step="{! v.currentStepName }" stage="{! v.stage }"/>-->
+    
+    <!-- Adobe Analytics Tracking Helpers -->
+    <ltng:require scripts="{!$Resource.GlobalAssets + '/js/lightning/adobeAnalyticsHelper.js'}" afterScriptsLoaded="{!c.setAnalyticsListener}" />
+    <aura:registerEvent name="adobeAnalyticsInterfaceEvent" type="c:adobeAnalyticsInterfaceEvent"/>
+    <!--<c:adobeAnalyticsInterfaceComponent sitePrefix="auspost:help and support" pageViewTracking="{! v.analyticsPageViewAutoTracking }" pageViewTrackingType="helpsupport-form-navigate" pageViewFormName="{! 'form:' + v.pageTitle }" pageViewFormStep="{! v.currentStepName }" pageViewFormStage="{! v.stage }" pageViewFormProduct="{! v.wizardData.trackingId }" pageViewFormReferenceId="{! v.wizardData.caseNumber }" />-->
+    <!-- Conditionally render the adobeAnalyticsInterfaceComponent -->
+    <aura:if isTrue="{! v.stage == 'start'}">
+        <aura:if isTrue="{!v.pageTitle == 'Compensation claim'}">
+            <!-- start analytics for compensation form -->
+            <c:adobeAnalyticsInterfaceComponent 
+                                            isPageMeasurementErrorEvent="{!v.isPageMeasurementErrorEvent}"
+                                            sitePrefix="auspost:compensation claim" 
+                                            pageViewTracking="{!v.analyticsPageViewAutoTracking}" 
+                                            pageViewTrackingType="helpsupport-form-navigate" 
+                                            pageViewFormName="form:compensation claim" 
+                                            pageViewFormStep="{!v.currentStepName}" 
+                                            pageViewFormStage="{!v.stage}"  
+                                            pageViewFormReferenceId="{!v.wizardData.compensation.master.Id}"/>
+            <aura:set attribute="else">
+                <c:adobeAnalyticsInterfaceComponent sitePrefix="auspost:help and support" pageViewTracking="{! v.analyticsPageViewAutoTracking }" 
+                                            pageViewTrackingType="helpsupport-form-navigate" 
+                                            pageViewFormName="{! 'form:' + v.pageTitle }" 
+                                            pageViewFormStep="{! v.currentStepName }" 
+                                            pageViewFormStage="{! v.stage }" 
+                                            pageViewFormProduct="{! v.wizardData.trackingId }" 
+                                            pageViewFormReferenceId="{! v.wizardData.caseNumber }"/>
+            </aura:set>
+        </aura:if>
+        
+        <aura:set attribute="else">
+            <!-- For missing item form -->
+            <aura:if isTrue="{! v.pageTitle == 'Late or missing item'}">
+                <c:adobeAnalyticsInterfaceComponent sitePrefix="auspost:help and support" pageViewTracking="{! v.analyticsPageViewAutoTracking }" 
+                                                    pageViewTrackingType="helpsupport-form-navigate" 
+                                                    pageViewFormName="{! 'form:' + v.pageTitle }" 
+                                                    pageViewFormStep="{! v.currentStepName+ v.EDDVariationId }" 
+                                                    pageViewFormStage="{! v.stage }" 
+                                                    pageViewFormProduct="{! v.wizardData.trackingId }" 
+                                                    pageViewFormReferenceId="{! v.wizardData.caseNumber }"
+                                                    pageViewFormDetail="{!'article status='+v.alertMessage+'|case='+v.duplicateCaseText+'|network eligibility='+v.isEligibleForNetwork }"/>
+            </aura:if>
+            <!-- For products and services form -->
+            <aura:if isTrue="{! v.pageTitle == 'Products &amp; services'}">
+                <c:adobeAnalyticsInterfaceComponent sitePrefix="auspost:help and support" pageViewTracking="{! v.analyticsPageViewAutoTracking }" 
+                                                    pageViewTrackingType="helpsupport-form-navigate" 
+                                                    pageViewFormName="{! 'form:' + v.pageTitle }" 
+                                                    pageViewFormStep="{! v.currentStepName }" 
+                                                    pageViewFormStage="{! v.stage }" 
+                                                    pageViewFormProduct="{! v.wizardData.trackingId }" 
+                                                    pageViewFormReferenceId="{! v.wizardData.caseNumber }"
+                                                    pageViewFormDetail="{!'enquiry=mail products-' + v.transferToPoSelectedValue}"/>
+                
+            </aura:if>
+            <!-- For all other forms -->
+            <aura:if isTrue="{! and( v.pageTitle != 'Late or missing item', v.pageTitle != 'Products &amp; services')}">
+                <c:adobeAnalyticsInterfaceComponent sitePrefix="auspost:help and support" pageViewTracking="{! v.analyticsPageViewAutoTracking }" 
+                                                    pageViewTrackingType="helpsupport-form-navigate" 
+                                                    pageViewFormName="{! 'form:' + v.pageTitle }" 
+                                                    pageViewFormStep="{! v.currentStepName }" 
+                                                    pageViewFormStage="{! v.stage }" 
+                                                    pageViewFormProduct="{! v.wizardData.trackingId }" 
+                                                    pageViewFormReferenceId="{! v.wizardData.caseNumber }"/>
+            </aura:if>
+            
+        </aura:set>
+    </aura:if>
+    
+    <div>
+        <aura:if isTrue='{! v.wizardData.showHeaderForThankYouPage }'>
+            <c:ChasWizardHeader headingText="{!v.pageTitle}"/>
+        </aura:if>
+
+        <aura:if isTrue='{! v.wizardData.showHeaderForCompensationForm }'>
+            <c:ChasWizardHeader headingText="{!v.pageTitle}"/>
+        </aura:if>
+        
+        <aura:if isTrue='{! not(v.wizardData.isHideForm) }'>
+            <div>
+                <c:ChasWizardHeader headingText="{!v.pageTitle}"/>
+            </div>
+            <div class="mobile-progress">
+                <c:chasMobileStepper label="Current step" darkTheme="false" grouped="true" currentStepNumber="{!v.currentStepNumber}">
+                    <c:CHAS_progress headingText="{!v.pageTitle}" currentStepNumber="{!v.currentStepNumber}" progressFirstWord="{!v.firstWordInProgressBar}"/>
+                </c:chasMobileStepper>
+            </div>
+            <div class="desktop-progress">
+                <c:CHAS_progress headingText="{!v.pageTitle}" currentStepNumber="{!v.currentStepNumber}" progressFirstWord="{!v.firstWordInProgressBar}"/>
+            </div>
+        </aura:if>
+        
+        <div class="wizard-body-with-nav-outer">
+            <div class="wizard-body-with-nav-inner">
+                {!v.body}
+            </div>
+        </div>
+    </div>
+</aura:component>

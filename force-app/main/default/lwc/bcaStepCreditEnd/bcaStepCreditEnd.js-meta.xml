@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <description>when the credit request amount terminates the form</description>
+    <isExposed>false</isExposed>
+    <masterLabel>Bca Step Credit End</masterLabel>
+</LightningComponentBundle>

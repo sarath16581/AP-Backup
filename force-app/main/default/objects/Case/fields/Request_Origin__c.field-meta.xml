@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Request_Origin__c</fullName>
+    <description>Used by SCO Case</description>
+    <externalId>false</externalId>
+    <label>Request Origin</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>IT</fullName>
+                <default>false</default>
+                <label>IT</label>
+            </value>
+            <value>
+                <fullName>Product</fullName>
+                <default>false</default>
+                <label>Product</label>
+            </value>
+            <value>
+                <fullName>Operations</fullName>
+                <default>false</default>
+                <label>Operations</label>
+            </value>
+            <value>
+                <fullName>Transport</fullName>
+                <default>false</default>
+                <label>Transport</label>
+            </value>
+            <value>
+                <fullName>Compliance Team</fullName>
+                <default>false</default>
+                <label>Compliance Team</label>
+            </value>
+            <value>
+                <fullName>Revenue Protection</fullName>
+                <default>false</default>
+                <label>Revenue Protection</label>
+            </value>
+            <value>
+                <fullName>On Demand</fullName>
+                <default>false</default>
+                <label>On Demand</label>
+            </value>
+            <value>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+                <label>Scheduled</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hidden_Has_Primary_Competitor__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Updates via workflow if a Primary Competitor has been indicated on the Competitors &amp; Incumbents related list.
+Contributes to Data Quality score</description>
+    <externalId>false</externalId>
+    <label>{Hidden} Has Primary Competitor</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

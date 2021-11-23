@@ -1,0 +1,115 @@
+<!--
+  * @changeLog :
+  * @date         : 17/08/2020
+  * Modified by   : Hara Sahoo
+  * @description  : 1. Added screens for safedrop flow
+  * 2020-10-26 hara.sahoo@auspost.com.au Modified : added custom message for network eligible cases created from delivery issue form
+-->
+<aura:component description="Header including the unique Case Number">
+    <aura:attribute name='header' type='String' />
+    <aura:attribute name='caseNumber' type='String' default="XXXXXXXXX"/>
+    <aura:attribute name='caseCreationStatus' type='String' default="SUCCESS"/>
+    <aura:attribute name='isUrgent' type='Boolean' default="false"/>
+    <aura:attribute name='caseThankYouMessage' type='String' default="XXXXXXXXX"/>
+    <aura:attribute name='hasCustomerSeenSafedropImage' type='Boolean' default="false"/>
+    <aura:attribute name='transferToPo' type='Boolean' default="false"/>
+    <aura:attribute name='isEligibleForNetworkDeliveryIssue' type='Boolean' default="false"/>
+    
+    <!-- handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.onInitLoad}" />
+    
+    <aura:if isTrue="{!v.caseCreationStatus == 'SUCCESS'}">
+        <aura:if isTrue="{!v.hasCustomerSeenSafedropImage}">
+            <!-- Success message for safedrop  enquiries-->
+            <div class="component">
+                <div class="thanks-header-inner">
+                    <div class="thanks-content-box slds-text-align_center">
+                        <img class="info" src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/ic_complete.png" alt=""/>
+                        <h1>{! v.header }</h1>
+                        <p class="top-bit">
+                            We've sent you a confirmation email, including your reference number:
+                        </p>
+                        <p>
+                            <b>{! v.caseNumber }</b>
+                        </p>
+                        <p>
+                            <!-- Added and commented below code on 22/11/2018 for making SLA as configurable text in custom label for SLA change requirement. -->
+                            <!-- Urgent check is not used anymore i.e the text is going to be consistent across all forms as requested by business. -->
+                            {! v.caseThankYouMessage}
+                        </p>
+                        <p>
+                            <lightning:button label="Give feedback" variant="neutral" class="chas-button" onclick="{!c.requestSurvey}"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <aura:set attribute="else">
+                <!-- Transfer to PO-->
+                <aura:if isTrue="{!v.transferToPo}">
+                    <div class="component">
+                        <div class="thanks-header-inner">
+                            <div class="thanks-content-box slds-text-align_center">
+                                <img class="info" src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/ic_complete.png" alt=""/>
+                                <h1>{! v.header }</h1>
+                                <p class="top-bit">
+                                    You'll find a confirmation email in your inbox, including your reference number:
+                                </p>
+                                <p>
+                                    <b>{! v.caseNumber }</b>
+                                </p>
+                                <p>
+                                    To stay updated on the transfer, simply <a href="http://auspost.com.au/track" target="_blank" >track your item</a>.
+                                </p>
+                                <p>
+                                    {! v.caseThankYouMessage}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <aura:set attribute="else">
+                        <!-- Success message for all other enquiries-->
+                        <div class="component">
+                            <div class="thanks-header-inner">
+                                <div class="thanks-content-box slds-text-align_center">
+                                    <img class="info" src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/ic_complete.png" alt=""/>
+                                    <h1>{! v.header }</h1>
+                                    <p class="top-bit">
+                                        We've sent you a confirmation email, including your reference number: <b>{! v.caseNumber }</b>
+                                    </p>
+                                    <!--<p>
+                                        <b>{! v.caseNumber }</b>
+                                    </p>-->
+                                    <aura:if isTrue="{! v.isEligibleForNetworkDeliveryIssue }">
+                                        <p>
+                                            <lightning:formattedRichText aura:id="whatHappensNow" value="&lt;b&gt;What happens now?&lt;/b&gt;"/>
+                                            <lightning:formattedRichText aura:id="nextSteps"/><a href="https://helpandsupport.auspost.com.au/s" target="_blank" > MyPost enquiry dashboard</a>.
+                                        </p>
+                                        <aura:set attribute="else">
+                                            <p>
+                                                <!-- Added and commented below code on 22/11/2018 for making SLA as configurable text in custom label for SLA change requirement. -->
+                                                <!-- Urgent check is not used anymore i.e the text is going to be consistent across all forms as requested by business. -->
+                                                {! v.caseThankYouMessage} <a href="https://helpandsupport.auspost.com.au/s" target="_blank" > MyPost enquiry dashboard</a>.
+                                                <!--We'll usually be in touch within one business day.
+                            <aura:if isTrue="{! v.isUrgent }">If your issue is urgent please call us on 1800 817 538.</aura:if>-->
+                                            </p>
+                                        </aura:set>
+                                    </aura:if>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </aura:set>
+                </aura:if>
+                
+            </aura:set>
+        </aura:if>
+        
+        
+        <!-- Error message -->
+        <aura:set attribute='else'>
+            <c:ChasErrorMsg />
+        </aura:set>
+        
+    </aura:if>
+    
+</aura:component>

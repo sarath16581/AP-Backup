@@ -1,0 +1,107 @@
+<!-- @author avula.jansirani@auspost.com.au
+* @date 2020-01-20
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Component used to search for an address. It has following features
+  *                 1. Integrates with AME service, returns a valid address if found
+  *                 2. User can enter address manually, if address not found
+                  
+* @changelog
+* 2020-01-20 avula.jansirani@auspost.com.au  Updated 'ameAddressValidation1' cmp  
+*
+-->
+<template>
+    <div class="slds-form-element slds-lookup slds-is-open">
+        <template if:false={showAddressDetails}>
+            <lightning-layout-item size="12">
+                <lightning-input class={searchboxClass} label={label} name="enter-search" data-id="searchbox"
+                    onkeyup={search} required={required} value={searchAddressTerm}
+                    variant={variant} onfocusout={handleSearchBoxFocusOut} autocomplete="off"
+                    onblur={closeSearchResultsList} field-level-help={fieldLevelHelp}></lightning-input>
+            </lightning-layout-item>
+        </template>
+        <template if:true={isSearchingAddressDetails}>
+            <lightning-spinner size="small" alternative-text="Loading"></lightning-spinner>
+        </template>
+        <template if:true={shouldShowDropDown}>
+            <div class="slds-lookup__menu slds address-lookup-drop">
+                <template if:true={isLoading}>
+                    <div class="slds-p-horizontal_large slds-text-body_small">searching...</div>
+                </template>
+                <ul class="slds-lookup__list" role="listbox">
+                    <template for:each={searchResults} for:item="result">
+                        <c-search-result key={result.dpid} record={result} search-term={searchAddressTerm}
+                            onselected={handleSearchResultSelect}>
+                        </c-search-result>
+                    </template>
+                    <li onmousedown={selectManually}>
+                        <span class="slds-lookup__item-action slds-media slds-media_center slds-p-horizontal_large">
+                            <span class="body-text-single">Enter address manually instead</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+        </template>
+        <!-- Address Details -->
+        <!--<div class="desktop-view"> -->
+        <template if:true={showAddressDetails}>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-2 bold-text">{label}</div>
+                <div class="slds-col slds-size_1-of-2 slds-text-align_right">
+                    <!-- Base variant: Makes a button look like a link -->
+                    <lightning-button variant="base" 
+                        label="Automatic address lookup" 
+                        title="Automatic address lookup" 
+                        onclick={handleSwitchBack}
+                        class="link-button"
+                        ></lightning-button>
+                </div>
+            </div>    
+            <div class="slds-col slds-size_1-of-1 slds-p-top_large">
+                <lightning-input class={checkValidityClass} required disabled={enterAddressDetails} type="text"
+                    name="line1" label="Address line 1" data-id="line1" max-length='255'
+                    onchange={handleAddressChange} value={address.line1} onfocusout={handleFocusOut}>
+                </lightning-input>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-p-top_large">
+                <lightning-input class={optionalLabelClass} disabled={enterAddressDetails} type="text" name="line2"
+                    data-id="line2" max-length='255' label="Address line 2" onchange={handleAddressChange}
+                    value={address.line2}>
+                </lightning-input>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-p-top_large">
+                <lightning-input class={checkValidityClass} required disabled={enterAddressDetails} type="text"
+                    name="city" data-id="city" label="Suburb" max-length='40' onchange={handleAddressChange}
+                    value={address.city} onfocusout={handleFocusOut}>
+                </lightning-input>
+            </div>
+            <template if:true={showState}>
+                <div class="slds-col slds-size_1-of-1 slds-p-top_large short-form-field">
+                    <lightning-combobox data-id="state" name="state" required class={checkValidityClass}
+                        disabled={enterAddressDetails} label="State" value={stateVal} options={defaultStatesList} 
+                        onchange={handleAddressChange} onblur={handleFocusOut} onkeydown={preventDeletion}>
+                    </lightning-combobox>
+                </div>
+            </template>
+            <div class="slds-col slds-size_1-of-1 slds-p-top_large short-form-field">
+                <lightning-input required={required} class={checkValidityClass} disabled={enterAddressDetails}
+                    type="text" data-id="postcode" max-length='4' name="postcode" label="Postcode"
+                    value={address.postcode} pattern="[0-9]{4}"
+                    message-when-pattern-mismatch="Enter a valid postcode" onchange={handleAddressChange}
+                    onfocusout={handleFocusOut}>
+                </lightning-input>
+            </div>
+            <template if:true={showCountry}>
+                <div class="slds-col slds-size_1-of-1 slds-p-top_large">
+                    <lightning-combobox data-id="countryName" name='countryName' required={required}
+                        class={checkValidityClass} label="Country" value={countryName} options={countryValues}
+                        onchange={handleAddressChange} disabled={isDisableCountry} onkeydown={preventDeletion}>
+                    </lightning-combobox>
+                </div>
+            </template>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,15 @@
+<!--
+ - Created by hasantha on 6/9/19.
+ -->
+
+<aura:component description="ChasDuplicateCaseMessage : Display when a duplicate case is found">
+    <aura:attribute name="duplicateCase" type="String" default=""/>
+    <aura:if isTrue="{!v.duplicateCase != ''}">
+        <div class="seperator-gap" />
+        <c:ChasBspDeflection heading='We’re already on the case' hasClose="false">
+            <p>
+                We’ve already received an enquiry about this item. If you’ve already raised an enquiry, you can log in now to <a href="https://helpandsupport.auspost.com.au/s" target="_blank" >add an update</a>.
+            </p>
+        </c:ChasBspDeflection>
+    </aura:if>
+</aura:component>

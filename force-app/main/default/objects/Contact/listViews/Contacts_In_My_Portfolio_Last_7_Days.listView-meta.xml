@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contacts_In_My_Portfolio_Last_7_Days</fullName>
+    <columns>Record_Maintainer__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>FULL_NAME</columns>
+    <columns>CONTACT.TITLE</columns>
+    <columns>Function_Group__c</columns>
+    <columns>CONTACT.EMAIL</columns>
+    <columns>CONTACT.PHONE1</columns>
+    <columns>CONTACT.PHONE3</columns>
+    <columns>Status__c</columns>
+    <columns>Account_Manager_changes__c</columns>
+    <columns>Pricing__c</columns>
+    <columns>Contracts__c</columns>
+    <columns>Service_Compliance__c</columns>
+    <columns>CONTACT.CREATED_DATE</columns>
+    <columns>CreatorProfile__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CONTACT.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Contact.Sales_Contact</value>
+    </filters>
+    <filters>
+        <field>hidden_Tie_Contact_To_Account__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </filters>
+    <filters>
+        <field>CONTACT.CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>LAST_N_DAYS:14</value>
+    </filters>
+    <label>New Contacts My Portfolio – Last 14 Days</label>
+    <sharedTo>
+        <group>All_Users_Ex_SSSW</group>
+    </sharedTo>
+</ListView>

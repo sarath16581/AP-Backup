@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payment_Related_Query_Type__c</fullName>
+    <description>Various Type of Related Query for Payment</description>
+    <externalId>false</externalId>
+    <label>Payment Related Query Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Payment Plan</fullName>
+                <default>false</default>
+                <label>Payment Plan</label>
+            </value>
+            <value>
+                <fullName>Payment Stop</fullName>
+                <default>false</default>
+                <label>Payment Stop</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

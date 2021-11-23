@@ -1,0 +1,31 @@
+<!--
+* Author: 		Angelo Rivera
+* Name: 		CreditApprovalWorkflowBlueBar
+* Description: 	Visual force page for the Credit Approval Work flow reporting
+* Revision History
+* 07-13-2017 	1.0		AP.Rivera		Created
+* 12-05-2021 - Ranjeewa Silva - Refactored to use new fields on Credit_Approval__c in rendering approval workflow.
+-->
+
+<apex:page standardController="Credit_Approval__c" extensions="CreditApprovalWorkflowBlueBarController" showHeader="false" sidebar="false">
+	
+	<apex:stylesheet value="{!URLFOR($Resource.I2C_CreditApprovalWorkflowJourneyBarCSS)}"/>
+	<apex:stylesheet value="{!URLFOR($Resource.I2C_ToolTip_CSS,'hint.css-2.5.0/hint.base.css')}"/>
+
+	<div class="container">
+		<div class="wrapper">
+			<div class="arrow-steps clearfix">
+			    <apex:repeat value="{!approvalSteps}" var="approvalStep">
+			    	<div class="{!If(approvalStep.status=='PENDING','pending',If(approvalStep.status=='APPROVED','approved',If(approvalStep.status=='ESCALATED','escalated',If(approvalStep.status=='REJECTED','rejected',If(approvalStep.status=='NOT REQUIRED','notrequired','rejected')))))}">
+			        	<div class="position-grid__cell">
+							<a href="#" aria-label="{!(IF(approvalStep.approver != null, approvalStep.approver,'No Assigned Approver'))}" class="hint--right hint--rounded" style="text-decoration: none; color: #fff;">
+							{!approvalStep.stepName}<br/>
+							</a>
+						</div>
+			    	</div>
+			    </apex:repeat>
+		    </div>
+	    </div>
+    </div>
+    <br/> <br/>
+</apex:page>

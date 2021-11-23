@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Oakleigh_South_All_Expired</fullName>
+    <columns>NAME</columns>
+    <columns>RECORDTYPE</columns>
+    <columns>Booking_Location__c</columns>
+    <columns>Street__c</columns>
+    <columns>City__c</columns>
+    <columns>Post_Code__c</columns>
+    <columns>State__c</columns>
+    <columns>Status__c</columns>
+    <columns>Effective_Date__c</columns>
+    <columns>Expiry_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>equals</operation>
+        <value>OAKLEIGH STH VAN OPS</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Expired</value>
+    </filters>
+    <label>Oakleigh South - All Expired</label>
+    <sharedTo>
+        <group>OAKLEIGH_STH_VAN_OPS</group>
+    </sharedTo>
+</ListView>

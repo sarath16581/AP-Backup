@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_AirmailSmallParcelsGT2kgAnnualVolume__c</fullName>
+    <defaultValue>0</defaultValue>
+    <description>Airmail Small Parcels &gt;2kg Annual Volume for Estimated Revenue Calculation</description>
+    <externalId>false</externalId>
+    <label>Airmail Parcels &gt;2kg Volume</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

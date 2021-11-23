@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Salesteam__c</fullName>
+    <description>Sales team</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Sales team</inlineHelpText>
+    <label>Sales Team</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Business Hubs</fullName>
+                <default>false</default>
+                <label>Business Hubs</label>
+            </value>
+            <value>
+                <fullName>Business Sales NSW 1</fullName>
+                <default>false</default>
+                <label>Business Sales NSW 1</label>
+            </value>
+            <value>
+                <fullName>Business Sales NSW 2</fullName>
+                <default>false</default>
+                <label>Business Sales NSW 2</label>
+            </value>
+            <value>
+                <fullName>Business Sales NSW 3</fullName>
+                <default>false</default>
+                <label>Business Sales NSW 3</label>
+            </value>
+            <value>
+                <fullName>Business Sales NSW 4</fullName>
+                <default>false</default>
+                <label>Business Sales NSW 4</label>
+            </value>
+            <value>
+                <fullName>Business Sales QLD 1</fullName>
+                <default>false</default>
+                <label>Business Sales QLD 1</label>
+            </value>
+            <value>
+                <fullName>Business Sales QLD 2</fullName>
+                <default>false</default>
+                <label>Business Sales QLD 2</label>
+            </value>
+            <value>
+                <fullName>Business Sales SA/NT</fullName>
+                <default>false</default>
+                <label>Business Sales SA/NT</label>
+            </value>
+            <value>
+                <fullName>Business Sales VIC 1</fullName>
+                <default>false</default>
+                <label>Business Sales VIC 1</label>
+            </value>
+            <value>
+                <fullName>Business Sales VIC 2</fullName>
+                <default>false</default>
+                <label>Business Sales VIC 2</label>
+            </value>
+            <value>
+                <fullName>Business Sales VIC 3</fullName>
+                <default>false</default>
+                <label>Business Sales VIC 3</label>
+            </value>
+            <value>
+                <fullName>Business Sales VIC 4</fullName>
+                <default>false</default>
+                <label>Business Sales VIC 4</label>
+            </value>
+            <value>
+                <fullName>Business Sales WA</fullName>
+                <default>false</default>
+                <label>Business Sales WA</label>
+            </value>
+            <value>
+                <fullName>Federal Government</fullName>
+                <default>false</default>
+                <label>Federal Government</label>
+            </value>
+            <value>
+                <fullName>Holding Sales Team</fullName>
+                <default>false</default>
+                <label>Holding Sales Team</label>
+            </value>
+            <value>
+                <fullName>Inside Sales NSW 1</fullName>
+                <default>false</default>
+                <label>Inside Sales NSW 1</label>
+            </value>
+            <value>
+                <fullName>Inside Sales NSW 2</fullName>
+                <default>false</default>
+                <label>Inside Sales NSW 2</label>
+            </value>
+            <value>
+                <fullName>Inside Sales QLD 1</fullName>
+                <default>false</default>
+                <label>Inside Sales QLD 1</label>
+            </value>
+            <value>
+                <fullName>Inside Sales QLD 2</fullName>
+                <default>false</default>
+                <label>Inside Sales QLD 2</label>
+            </value>
+            <value>
+                <fullName>Inside Sales QLD 3</fullName>
+                <default>false</default>
+                <label>Inside Sales QLD 3</label>
+            </value>
+            <value>
+                <fullName>Inside Sales QLD 4</fullName>
+                <default>false</default>
+                <label>Inside Sales QLD 4</label>
+            </value>
+            <value>
+                <fullName>Inside Sales TSA</fullName>
+                <default>false</default>
+                <label>Inside Sales TSA</label>
+            </value>
+            <value>
+                <fullName>Inside Sales VIC 1</fullName>
+                <default>false</default>
+                <label>Inside Sales VIC 1</label>
+            </value>
+            <value>
+                <fullName>Inside Sales VIC 2</fullName>
+                <default>false</default>
+                <label>Inside Sales VIC 2</label>
+            </value>
+            <value>
+                <fullName>Intermediaries</fullName>
+                <default>false</default>
+                <label>Intermediaries</label>
+            </value>
+            <value>
+                <fullName>Key Financial NSW</fullName>
+                <default>false</default>
+                <label>Key Financial NSW</label>
+            </value>
+            <value>
+                <fullName>Key Financial VIC</fullName>
+                <default>false</default>
+                <label>Key Financial VIC</label>
+            </value>
+            <value>
+                <fullName>Key Retail &amp; Healthcare VIC</fullName>
+                <default>false</default>
+                <label>Key Retail &amp; Healthcare VIC</label>
+            </value>
+            <value>
+                <fullName>Key Retail NSW</fullName>
+                <default>false</default>
+                <label>Key Retail NSW</label>
+            </value>
+            <value>
+                <fullName>Market Development Business</fullName>
+                <default>false</default>
+                <label>Market Development Business</label>
+            </value>
+            <value>
+                <fullName>Market Development Enterprise</fullName>
+                <default>false</default>
+                <label>Market Development Enterprise</label>
+            </value>
+            <value>
+                <fullName>State &amp; Local Government WA/SA/NT</fullName>
+                <default>false</default>
+                <label>State &amp; Local Government WA/SA/NT</label>
+            </value>
+            <value>
+                <fullName>State &amp; Local Government WA/SA/NT Inside Sales</fullName>
+                <default>false</default>
+                <label>State &amp; Local Government WA/SA/NT Inside Sales</label>
+            </value>
+            <value>
+                <fullName>Strategic &amp; Key QLD</fullName>
+                <default>false</default>
+                <label>Strategic &amp; Key QLD</label>
+            </value>
+            <value>
+                <fullName>Strategic Financial &amp; Utilities VIC</fullName>
+                <default>false</default>
+                <label>Strategic Financial &amp; Utilities VIC</label>
+            </value>
+            <value>
+                <fullName>Strategic Retail &amp; Telco NSW</fullName>
+                <default>false</default>
+                <label>Strategic Retail &amp; Telco NSW</label>
+            </value>
+            <value>
+                <fullName>Strategic Retail &amp; Telco VIC</fullName>
+                <default>false</default>
+                <label>Strategic Retail &amp; Telco VIC</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

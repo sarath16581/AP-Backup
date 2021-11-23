@@ -1,0 +1,152 @@
+<!--
+ * @description This is the  component to display the review and summary
+ *   for each category and its questions. The user can go back to previous component if needs any correction in previous steps
+ *  using 'Back' button. Then 'Finish/Submit' the qualification.
+ * @date 20/02/2020
+ * @group Lead Qualification
+ * @changelog
+ * 2020-08-14 - jansi - Created
+ * 2020-08-16 - arjun.singh@auspost.com.au - Modified to disable manual selection of primary product
+ -->
+<aura:component controller='BG_QualificationApex' >
+    <aura:attribute name="discoveryCategoryQuestions" type="Object"/>
+    <aura:attribute name="summaryProducts" type="List" />
+    <aura:attribute name="totalEstimatedRevenue" type="String" default=''/>
+    <aura:attribute name="summaryNotes" type="String" default=''/>
+    <aura:attribute name="selectedProducts" type="List"/>
+    <aura:attribute name="selectedProductsQuestions" type="Map"/>
+    <aura:attribute name="selectedPrimaryProduct" type="String"/>
+    <aura:attribute name="options" type="List"/>
+    <aura:attribute name="isManualOpp" type="Boolean" />
+    <!--Handlers  -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!-- validation methods -->
+    <aura:method name="reportValidity" action="{! c.reportValidity }" />
+    <aura:method name="checkValidity" action="{! c.checkValidity }" />
+    
+    <!--<div class="slds-text-heading_large">    
+        <div class="slds-text-align_center">
+            <div class="slds-text-color_destructive">
+                <div class="slds-text-title_bold">
+                    <H1>Review and Submit</H1>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    
+    <div style='text-align: center;font-size: medium;font-weight: bold;'>
+        Review &amp; Finish
+    </div>
+    
+    <br></br>
+    
+    
+    
+    <div class="review-submit slds-p-horizontal_small">
+            <!--DISCOVERY SECTION -->
+            <div style='width:100%'>
+                <lightning:accordion allowMultipleSectionsOpen="true"
+                                    activeSectionName="discoverySummary" class='mainAccordianSection' >
+                    <lightning:accordionSection name="discoverySummary" label="Discovery">
+                        <table width='100%'>
+                            <tr>&nbsp;</tr>
+                            <aura:iteration items="{!v.discoveryCategoryQuestions}" var="catQuestion" indexVar="index">
+                                <dl>
+                                    <div class="slds-grid slds-wrap slds-p-vertical_x-small">
+                                        <div class="slds-size_1-of-2">
+                                            <dt>
+                                                <aura:if isTrue="{!catQuestion.isRequired == True}">
+                                                    <span>  {!index + 1}. {!catQuestion.questionName} 
+                                                   <ui:outputText value="*" class="slds-required"/>
+                                                   </span>
+                                                   <aura:set attribute='else'>
+                                                    {!index + 1}. {!catQuestion.questionName}
+                                                    &nbsp;
+                                                </aura:set>
+                                                </aura:if>
+                                                
+                                            </dt>
+                                        </div>
+                                        <div class="slds-size_1-of-2">
+                                            <dd>
+                                                <aura:if isTrue='{!catQuestion.selectedAnswerLabel != null}'>
+                                                {!catQuestion.selectedAnswerLabel}
+                                                <aura:set attribute='else'>
+                                                    {!catQuestion.selectedAnswer}
+                                                    &nbsp;
+                                                </aura:set>
+                                                </aura:if>
+                                            </dd>
+                                        </div>
+                                    </div>
+                                </dl> 
+                            </aura:iteration>
+                        </table>
+                    </lightning:accordionSection>
+                </lightning:accordion>
+            </div>
+        <div class="review-submit-product">
+            <!--PRODUCTS AND SERVICES SECTION -->
+            <div style='width:100%'>
+                <lightning:accordion allowMultipleSectionsOpen="true"
+                                     activeSectionName="productsSummary" class='mainAccordianSection'>
+                    <lightning:accordionSection name="productsSummary" label="Customer Needs Categories">
+                        
+                        <!--<Selected Products -->  
+                        <div style='padding-left:0px;padding-top:0px;padding-bottom:0px'>
+                            <aura:iteration items="{!v.selectedProducts}" var="prod" indexVar="i">
+                                <lightning:accordion allowMultipleSectionsOpen="true"
+                                                     activeSectionName="productsSummary" >
+                                    <lightning:accordionSection name="productsSummary" label="{!prod}" class='subAccordianSection'>
+                                        <c:BG_EachSummaryProduct 
+                                                                 selectedProductsQuestions='{!v.selectedProductsQuestions}'
+                                                                 key='{!prod}'
+                                                                 isManualOpp='{!v.isManualOpp}' />
+                                    </lightning:accordionSection>
+                                </lightning:accordion> 
+                            </aura:iteration>
+                        </div>
+                    </lightning:accordionSection>
+                </lightning:accordion>
+            </div>
+        </div>
+        <!--DISCOVERY SECTION -->
+       
+    </div>
+    <!--SUMMARY NOTES SECTION -->
+    <aura:if isTrue="{!!v.isManualOpp}">
+    <div style='width:100%' class="slds-p-horizontal_small">
+        <lightning:accordion allowMultipleSectionsOpen="true"
+                             activeSectionName="summaryNotes" class='mainAccordianSection' >
+            <lightning:accordionSection name="summaryNotes" label="Qualification Summary">
+                <c:BG_InfoInputWrap 
+                                    aura:id='field'
+                                    name="TotalRevenue"
+                                    label="Total Estimated Revenue"
+                                    value="{!v.totalEstimatedRevenue}"
+                                    type="number"
+                                    messageWhenValueMissing=" "
+                                    disabled='true'
+                                    formatter='Currency'
+                                    />
+                <aura:if isTrue="{!v.isManualOpp}">
+                    <!-- Do Not Display "Notes" Section for Manually Created Opportunity -->
+                    <aura:set attribute="else">
+                        <!-- Display "Notes" Section for Lead or Converted Opportunity -->
+                        <c:BG_InfoInputWrap 
+                                        aura:id='field'
+                                        name="Totalnotes"
+                                        label="Notes"
+                                        value="{!v.summaryNotes}"
+                                        type="textarea"
+                                        messageWhenValueMissing=" "
+                                        maxlength='250'
+                                        />
+                    </aura:set>
+                </aura:if>
+            </lightning:accordionSection>
+        </lightning:accordion>
+    </div>
+</aura:if>
+</aura:component>

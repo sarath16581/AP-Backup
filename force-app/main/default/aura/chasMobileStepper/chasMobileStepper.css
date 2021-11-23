@@ -1,0 +1,76 @@
+/*@changeLog: Hara.sahoo@auspost.com.au  24-07-2020 : - Created
+}*/
+
+.THIS {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+.THIS .CHAS_progress 
+{
+    margin-top: 0px;
+    box-shadow:0px;
+}
+
+.THIS.dark-theme-false {
+    background-color: #FFFFFF;
+}
+.THIS .open-true .chas-section-header {
+    border-bottom: none;
+}
+.THIS .open-true .chas-section-header:focus {
+    border-bottom: none;
+}
+
+/*.THIS .open-true .chas-section-body {
+    padding-bottom: 0px;
+}*/
+.THIS .chas-section-header,
+.THIS .chas-section-header label {
+    cursor: pointer;
+}
+.THIS a.chas-section-header:hover,
+.THIS a.chas-section-header:focus {	
+    text-decoration: none;
+}
+
+.THIS .chas-section-inner.open-false{
+  padding:24px;
+}
+.THIS .chas-section-inner.open-true{
+  padding:24px 24px 0 24px;;
+}
+
+.THIS .open-false .chas-section-body {
+    display: none;
+}
+.THIS.dark-theme-true .chas-section-header:focus,
+.THIS.dark-theme-true .chas-section-header:focus + .chas-section-body {
+    border-color: white;
+}
+.THIS.dark-theme-false label {
+    font-size: 14px;
+    line-height: 20px;
+    color: #DC1928;
+}
+.THIS.dark-theme-false span {
+    font-size: 12px;
+    line-height: 16px;
+    color: #212129;
+}
+.THIS .chas-section-icon {
+	font-size: 0.8rem;
+}
+.THIS .arrow {
+    border: solid #706e6b;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 4px;
+}
+.THIS .down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+.THIS .top {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}

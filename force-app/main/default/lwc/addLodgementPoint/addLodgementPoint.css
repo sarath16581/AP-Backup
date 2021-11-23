@@ -1,0 +1,5 @@
+/* css: horizontally align the search:utility icon to centre position in the search box */
+.slds-input-has-icon .slds-input__icon {
+    top: 55%;
+    margin-top: auto;
+}

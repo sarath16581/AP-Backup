@@ -1,0 +1,27 @@
+<!--
+	2017-09-17 nathan.franklin@auspost.com.au Removed scripts as they are not necessary
+-->
+<apex:component >
+
+    <c:ScriptLoader cssLibraries="bootstrap,ssswconsole" />
+
+    <apex:attribute name="eventMessages"
+                    description="list of event messages"
+                    type="TIBCOEventMessageWrapper[]" required="true" />
+
+    <table class="table table-bordered table-striped">
+        <tr>
+            <apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.SAP_EM_Panel_Event_View}" var="f">
+                <th><apex:outputText value="{!f.Label}" /></th>
+            </apex:repeat>
+        </tr>
+
+        <apex:repeat value="{!eventMessages}" var="em">
+            <tr>
+                <apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.SAP_EM_Panel_Event_View}" var="f">
+                    <td><apex:outputField value="{!em.proxyEM[f]}" /></td>
+                </apex:repeat>
+            </tr>
+        </apex:repeat>
+    </table>
+</apex:component>

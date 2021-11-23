@@ -1,0 +1,119 @@
+<aura:component controller="brideas_IdeasCtrl">
+    <aura:attribute name="commonVars" type="Object" description="Used to share common variables for child components" />
+    <aura:attribute name="isCreated" type="Boolean" default="false" />
+    <aura:attribute name="item" type="brideas_IdeaWrapper" required="true" />
+    <aura:attribute name="mergedIdeas" type="Idea[]" />
+    <aura:attribute name="shortBody" type="String" default="" />
+    <aura:attribute name="Categories" type="String" default="" />
+    <aura:attribute name="routeInput" type="Map"/>
+    <aura:attribute name="filters" type="Object" description="All filters options and status" />
+
+    <aura:registerEvent name="openIdeaEvent" type="c:brideas_OpenIdea" />
+    <aura:registerEvent name="ideasErrorEvent" type="c:brideas_Error" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="updateCommentsNumber" event="c:brideas_UpdateEvent" action="{!c.updateCommentsNumberHandler}" />
+
+    <div class="{!'idea-item' + (v.isCreated ? ' new' : '') + (v.item.item.Archive__c ? ' archived' : '')}">
+
+        <div class="idea-header slds-grid">
+            <div class="slds-col user-image">
+                <a href="{!'profile/' + v.item.item.CreatedById}">
+                    <img src="{!v.item.item.CreatorSmallPhotoUrl}" width="64" alt="User photo" />
+                </a>
+            </div>
+            <div class="slds-col">
+                <p class="username">
+                    <a href="{!'profile/' + v.item.item.CreatedById}"><c:brideas_UserDisplayName userId="{!v.item.item.CreatedById}" /></a>
+                    &nbsp;{!$Label.c.submittedAnIdeaLabel}
+                </p>
+                <p class="date"><ui:outputDateTime value="{!v.item.item.CreatedDate}" format="MMMM d, y" /></p>
+            </div>
+
+            <aura:if isTrue="{!not(empty(v.item.item.Status))}">
+                <!--Below code is commented and changed on 14-08-2018 for Communities Ideas List Page for having 
+                    new styles for Status in the idea detail.-->
+                <!--<div class="status">
+                    <div class="flag-1" style="{!v.item.statusColor ? 'border-color:' + v.item.statusColor : ''}"></div>
+                    <div class="flag-2" style="{!v.item.statusColor ? 'border-color:' + v.item.statusColor : ''}"></div>
+                    <div class="flag-3" style="{!v.item.statusColor ? 'border-color:' + v.item.statusColor + '; color:' + v.item.statusColor : ''}">
+                        {!v.item.item.Status}
+                    </div>
+                </div>-->
+                <div class="status" style="{!v.item.statusColor ? 'border-color:' + v.item.statusColor + '; color:' + v.item.statusColor : ''}"> 
+                     <div class="flag-3" style="{!v.item.statusColor ? 'border-color:' + v.item.statusColor + '; color:' + v.item.statusColor : ''}">
+                     <span>{!v.item.item.Status}</span>
+                     </div>
+                </div>
+            </aura:if>
+        </div>
+
+        <div class="idea-details">
+            <h2 class="title">
+                <forceCommunity:routeLink title="{!v.item.item.Title}" label="{!v.item.item.Title}" routeInput="{!v.routeInput}" onClick="{!c.openIdea}"/>
+                <aura:if isTrue="{!not(empty(v.item.item.ParentIdeaId))}"> ({!$Label.c.Merged})</aura:if>
+            </h2>
+            <div class="body">
+                <aura:if isTrue="{!not(empty(v.shortBody))}">
+                    <aura:unescapedHtml value="{!v.shortBody}" />
+                    <aura:if isTrue="{!notequals(v.item.item.Body, v.shortBody)}">
+                        ...&nbsp;<forceCommunity:routeLink class="read-more" title="(Read more)" label="(Read more)" routeInput="{!v.routeInput}" onClick="{!c.openIdea}"/>
+                    </aura:if>
+                </aura:if>
+            </div>
+
+            <aura:if isTrue="{!not(empty(v.Categories))}">
+                <div class="category">
+                    <span>{!v.Categories}</span>
+                </div>
+            </aura:if>
+        </div>
+
+        <div class="idea-bottom">
+            <div class="left-info">
+                <div>
+                    <aura:if isTrue="{!not(equals(v.item.voteStatus, 'voted'))}">
+                        <!--Below code is commented and changed on 14-08-2018 for Communities Ideas Detail Page for having 
+                            new Vote, Comment and Flag images in the idea detail.-->
+                        <!--<img src="{!$Resource.BrIdeas + '/images/vote-up-ico.png'}" alt="" />-->
+                        <img src="{!$Resource.BrIdeas + '/images/heart-black.png'}" alt="Vote" />
+                        <a href="javascript:void(0)" style="margin-top: 4px" onclick="{!c.vote}">{!$Label.c.VoteBtnLabel}</a>
+                    </aura:if>
+                    <aura:if isTrue="{!equals(v.item.voteStatus, 'voted')}">
+                        <!--<img src="{!$Resource.BrIdeas + '/images/voted-up-ico.png'}" alt="" />
+                        <span>{!$Label.c.VoteBtnLabel}</span>-->
+                        <img src="{!$Resource.BrIdeas + '/images/heart-red.png'}" alt="Voted" />
+                        <span style="margin-top: 4px">Voted</span>
+                    </aura:if>
+                </div>
+                <div>
+                    <!--<img src="{!$Resource.BrIdeas + '/images/comment-ico.png'}" alt="" />-->
+                    <img src="{!$Resource.BrIdeas + '/images/comment-black.png'}" alt="Comment"/>
+                    <forceCommunity:routeLink class ="comment-black" title="Add a comment" label="{!$Label.c.CommentBtnLabel}" routeInput="{!v.routeInput}" onClick="{!c.openIdeaAddComment}" />
+                </div>
+                <div>
+                    <aura:if isTrue="{!not(v.item.flagged)}">
+                        <!--<img src="{!$Resource.BrIdeas + '/images/flag-ico.png'}" alt="" />-->
+                        <img src="{!$Resource.BrIdeas + '/images/flag-black.png'}" alt="Flag" />
+                        <a style="margin-top: 4px" href="javascript:void(0)" onclick="{!c.flag}">{!$Label.c.FlagLabel}</a>
+                    </aura:if>
+                    <aura:if isTrue="{!v.item.flagged}">
+                        <!--<img src="{!$Resource.BrIdeas + '/images/flag-red-ico.png'}" alt="" />-->
+                        <img src="{!$Resource.BrIdeas + '/images/flag-red.png'}" alt="Flagged" />
+                        <span style="margin-top: 4px">{!$Label.c.FlaggedLabel}</span>
+                    </aura:if>
+                </div>
+            </div>
+
+            <div class="archived-label">{!$Label.c.Archived}</div>
+
+            <div class="right-info">
+                <span class="comments-number">
+                    {!v.item.NumComments}&nbsp;<forceCommunity:routeLink title="comments" label="{!equals(v.item.NumComments,1)?$Label.c.Comment:$Label.c.Comments}"
+                                                                    routeInput="{!v.routeInput}" onClick="{!c.openIdeaComments}" />
+                </span>
+                <span class="votes-number">{!v.item.votesNum}&nbsp;{!equals(v.item.votesNum,1)?$Label.c.VoteLabel:$Label.c.VotesLabel}</span>
+            </div>
+        </div>
+    </div>
+</aura:component>

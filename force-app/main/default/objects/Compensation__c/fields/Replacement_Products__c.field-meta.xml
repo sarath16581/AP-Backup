@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Replacement_Products__c</fullName>
+    <description>Replacement Products.</description>
+    <externalId>false</externalId>
+    <label>Replacement Products</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Booklet of 10 stamps ($1)</fullName>
+                <default>false</default>
+                <label>Booklet of 10 stamps ($1)</label>
+            </value>
+            <value>
+                <fullName>Business redirection - 1 Month</fullName>
+                <default>false</default>
+                <label>Business redirection - 1 Month</label>
+            </value>
+            <value>
+                <fullName>Concession redirection - 1 Month</fullName>
+                <default>false</default>
+                <label>Concession redirection - 1 Month</label>
+            </value>
+            <value>
+                <fullName>eBay Satchel 500g</fullName>
+                <default>false</default>
+                <label>eBay Satchel 500g</label>
+            </value>
+            <value>
+                <fullName>eBay Satchel 3kg</fullName>
+                <default>false</default>
+                <label>eBay Satchel 3kg</label>
+            </value>
+            <value>
+                <fullName>Booklet of 10 stamps ($11)</fullName>
+                <default>false</default>
+                <label>Booklet of 10 stamps ($11)</label>
+            </value>
+            <value>
+                <fullName>Express Post Satchel 500g Small</fullName>
+                <default>false</default>
+                <label>EP Small</label>
+            </value>
+            <value>
+                <fullName>Express Post Satchel 1kg Medium</fullName>
+                <default>false</default>
+                <label>EP Medium</label>
+            </value>
+            <value>
+                <fullName>Express Post Satchel 3kg Medium</fullName>
+                <default>false</default>
+                <label>EP Large</label>
+            </value>
+            <value>
+                <fullName>Express Post Satchel 5kg Large</fullName>
+                <default>false</default>
+                <label>EP Extra Large</label>
+            </value>
+            <value>
+                <fullName>Express Post Platinum 500g satchel</fullName>
+                <default>false</default>
+                <label>EP Platinum Small</label>
+            </value>
+            <value>
+                <fullName>Express Post Platinum 3kg satchel</fullName>
+                <default>false</default>
+                <label>EP Platinum Large</label>
+            </value>
+            <value>
+                <fullName>Express Post Small DL Envelope</fullName>
+                <default>false</default>
+                <label>Express Post Small DL Envelope</label>
+            </value>
+            <value>
+                <fullName>Express Post Medium C5 Envelope</fullName>
+                <default>false</default>
+                <label>Express Post Medium C5 Envelope</label>
+            </value>
+            <value>
+                <fullName>Express Post Large B4 Envelope</fullName>
+                <default>false</default>
+                <label>Express Post Large B4 Envelope</label>
+            </value>
+            <value>
+                <fullName>Flat Rate Satchel 500g Small</fullName>
+                <default>false</default>
+                <label>Flat Rate Satchel 500g Small</label>
+            </value>
+            <value>
+                <fullName>Flat Rate Satchel 3kg Medium</fullName>
+                <default>false</default>
+                <label>Flat Rate Satchel 3kg Medium</label>
+            </value>
+            <value>
+                <fullName>Flat Rate Satchel 5kg Large</fullName>
+                <default>false</default>
+                <label>Flat Rate Satchel 5kg Large</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Satchel 500g Small</fullName>
+                <default>false</default>
+                <label>Parcel Post Satchel 500g Small</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Satchel 3kg Medium</fullName>
+                <default>false</default>
+                <label>Parcel Post Satchel 3kg Medium</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Satchel 5kg Large</fullName>
+                <default>false</default>
+                <label>Parcel Post Satchel 5kg Large</label>
+            </value>
+            <value>
+                <fullName>Priority Label</fullName>
+                <default>false</default>
+                <label>Priority Label</label>
+            </value>
+            <value>
+                <fullName>Private redirection - 1 Month</fullName>
+                <default>false</default>
+                <label>Private redirection - 1 Month</label>
+            </value>
+            <value>
+                <fullName>Registered Post label</fullName>
+                <default>false</default>
+                <label>Registered Post label</label>
+            </value>
+            <value>
+                <fullName>Registered Post b4 prepaid envelope</fullName>
+                <default>false</default>
+                <label>Registered Post b4 prepaid envelope</label>
+            </value>
+            <value>
+                <fullName>Registered Post DL prepaid envelope</fullName>
+                <default>false</default>
+                <label>Registered Post DL prepaid envelope</label>
+            </value>
+            <value>
+                <fullName>Signature On Delivery Label</fullName>
+                <default>false</default>
+                <label>Signature On Delivery Label</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

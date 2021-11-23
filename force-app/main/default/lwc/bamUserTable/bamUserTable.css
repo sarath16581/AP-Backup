@@ -1,0 +1,33 @@
+.table-container {
+    display: flex;
+}
+
+.right-margin {
+    margin-right: 1in
+}
+
+.spinner-container {
+    top: 0 !important;
+    left: 0 !important;
+    height:100%;
+    width:100%;
+    z-index: 9000;
+}
+
+.empty-table-body {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    background-color: #fff;
+    border: 2px solid #D0D5D8;
+    box-sizing: border-box;
+    border-style: dashed;
+    max-width: 60%;
+}
+
+.empty-message-container {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

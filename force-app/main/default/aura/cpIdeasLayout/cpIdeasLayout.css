@@ -1,0 +1,10 @@
+.THIS header.cp-inner-header{
+    background: #99d9f0;
+    }
+    .THIS header.cp-inner-header .title{
+        text-align: center;
+        padding: 35px 0 35px 0;
+        }
+        .THIS header.cp-inner-header .title h1{
+            font-size: 46px;
+            }

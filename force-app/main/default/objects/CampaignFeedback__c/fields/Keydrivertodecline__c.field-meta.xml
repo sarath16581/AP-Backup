@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Keydrivertodecline__c</fullName>
+    <externalId>false</externalId>
+    <label>Key driver to decline</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Willcustomertakeupservice__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Price Uncompetitive</fullName>
+                <default>false</default>
+                <label>Price Uncompetitive</label>
+            </value>
+            <value>
+                <fullName>Unsatisfactory Service Levels</fullName>
+                <default>false</default>
+                <label>Unsatisfactory Service Levels</label>
+            </value>
+            <value>
+                <fullName>Timeframe to Implement</fullName>
+                <default>false</default>
+                <label>Timeframe to Implement</label>
+            </value>
+            <value>
+                <fullName>Merchant Cost to Implement</fullName>
+                <default>false</default>
+                <label>Merchant Cost to Implement</label>
+            </value>
+            <value>
+                <fullName>Operational Concerns/Limitations</fullName>
+                <default>false</default>
+                <label>Operational Concerns/Limitations</label>
+            </value>
+            <value>
+                <fullName>IT Complexity</fullName>
+                <default>false</default>
+                <label>IT Complexity</label>
+            </value>
+            <value>
+                <fullName>Using a Competitor Already</fullName>
+                <default>false</default>
+                <label>Using a Competitor Already</label>
+            </value>
+            <value>
+                <fullName>Don&apos;t See Value in Offer</fullName>
+                <default>false</default>
+                <label>Don&apos;t See Value in Offer</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>Price Uncompetitive</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>Unsatisfactory Service Levels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>Timeframe to Implement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>Merchant Cost to Implement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>Operational Concerns/Limitations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>IT Complexity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>Using a Competitor Already</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>Don&apos;t See Value in Offer</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

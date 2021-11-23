@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CTM_Mastercard</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>ProductSubCategory__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Card_Transaction_Monitoring</value>
+    </filters>
+    <filters>
+        <field>ProductSubCategory__c</field>
+        <operation>contains</operation>
+        <value>Mastercard Gift Card,Mastercard Everyday,Mastercard Travel</value>
+    </filters>
+    <label>CTM - Mastercard</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>SystemAdmin</group>
+        <role>Card_Transaction_Monitoring</role>
+    </sharedTo>
+</ListView>

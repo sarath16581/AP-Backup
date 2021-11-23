@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Territory_Assignment_Update</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Territory Assignment Update</label>
+        <sharedTo>
+            <group>Territory_Assignment_Edit_Sales_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>contains</operation>
+            <value>TM</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

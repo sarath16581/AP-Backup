@@ -1,0 +1,619 @@
+/**
+ * @author Nathan Franklin
+ * @date 2020-04-01
+ * @group HappyParcel
+ * @description Controller for Happy Parcel Lightning Application
+ * @changelog
+ * 2020-09-18 Disha Kariya Changes to display Network info based on WCC
+ * 2020-09-18 - Ranjeewa Silva  - Updated runtime config to include featured scan event types.
+ * 2020-09-23 - Disha Kariya  - Changes for error handling for network search
+ * 2020-09-28 - Disha Kariya  - Added Safe drop eligibility status, set and unset methods.
+ * 2020-10-19 - Ranjeewa Silva  - More fields returned in getNetwork() method.
+ * 2020-10-22 - Disha Kariya  - Added Delivery ETA fields coming from Cognition as transient attributes
+ * 2021-05-18 - Disha Kariya - Added notification preferences methods.
+ * 2021-05-20 - Ranjeewa Silva - Added event message attachment type definitions to runtime config
+ * 2021-06-15 - Ranjeewa Silva - Updated to return specific event message field set when embedded in My Network
+ * 2021-10-01 - Nathan Franklin - Updated logic for transient attributes. Now more structured and linked to each article/event
+ * 2021-08-02 - Mathew Jose - Added new methods to retrievethe overflow field sets associated with the event messages table.
+*/
+public with sharing class HappyParcelController {
+
+	/**
+	 * Apex property to access current network/ community
+	 * Using lazy loading as it prevents multiple SOQL.
+	 */	
+	public static Network networkDetail {
+		get { 
+			if (networkDetail == null)
+			{
+				networkDetail = [
+					Select Id, Name, Description From Network Where Id = :Network.getNetworkId()
+				];
+			}
+			return networkDetail;		
+		
+		}
+		set;
+	}
+	/**
+	 * Runtime config that is required for the HP lwc components
+	 */
+	@AuraEnabled(Cacheable=true)
+	public static Map<String, Object> loadConfig() {
+		return new Map<String, Object>{
+				'articleFields' => getArticleDetailFieldSetConfig(),
+				'consignmentFields' => getConsignmentDetailFieldSetConfig(),
+				'signatureEventTypes' => getSignatureEventTypes(),
+				'featuredScanEventTypes' => getFeaturedEventTypes(),
+				'articleTypes' => ArticleUtil.getArticleTypes(),
+				'eventMessageFields' => getEventMessageListFieldSetConfig(),
+				'eventMessageOverflowFields' => getEventMessageOverflowListFieldSetConfig(),
+				'eventMessageFeaturedOverflowFields' => getEventMessageFeaturedOverflowListFieldSetConfig(),
+				'eventMessageTypeDefinitions' => EventMessageUtil.getEventMessageTypesByCategory(),
+				'happyParcelStatusValues' => getHappyParcelStatusValues(),
+				'manifestAssessmentMappings' => getManifestAssessmentValues(),
+				'manifestAssessmentHappyThreshold' => 1000, // TODO, build into custom setting
+				'eventMessageAttachmentTypeDefinitions' => EventMessageUtil.getEventMessageAttachmentTypes()
+		};
+	}
+
+	/**
+	 * This will commence a callout to query tracking information from the standard interface
+	 * NOTE: This is a synchronous query (not using continuation) which allows to run 2 simultaneous requests at the same time
+	 */
+	@AuraEnabled(Cacheable=false)
+	public static TrackingResult queryTrackingApi(String trackingId) {
+		try {
+			TIBCOArticleService articleService = TIBCOArticleService.getInstance();
+
+			TIBCOSearchResult searchResult = articleService.search(new String[] {trackingId}, true, false, false, false, true);
+			System.debug('searchResult');
+			System.debug(searchResult);
+
+			//NOTE: TrackingResult class simply provides some structure around the returned object (including case consistency)
+			//Also retrieves EAT details from transient attributes
+			TrackingResult output = new TrackingResult(searchResult);
+
+			// go through all the process results that will be outputted and provide the correct case clearview code mappings (for when a new case needs to be created)
+			// this allows the clearview codes to be defaulted with the correct values in the mini case component (or any external caller to Happy Parcel) based on the article that was queried
+			mapCaseTypesToArticleProducts(output);
+
+			System.debug('queryTrackingAPI:');
+			System.debug(output);
+
+			return output;
+		} catch(Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	/**
+	 * This queries the happy parcel end point to retrieve certain advanced information relating to the state of the parcel
+	 */
+	//Cacheable=true
+	@AuraEnabled(Cacheable=false Continuation=true)
+	public static Object queryAnalyticsApi(String trackingId) {
+		HappyParcelService service = HappyParcelService.getInstance();
+		Continuation con = service.getContinuation(trackingId);
+		con.continuationMethod = 'processHappyParcelCallback';
+		return con;
+	}
+
+	@AuraEnabled(Cacheable=false)
+	public static HappyParcelService.Result processHappyParcelCallback(List<String> labels, Object state) {
+		HttpResponse response = Continuation.getResponse(labels[0]);
+		HappyParcelService service = HappyParcelService.getInstance();
+		HappyParcelService.Result result = service.parseResponse(response);
+		System.debug(result);
+		return result;
+	}
+
+	/**
+	 * This will allow the Delivery Proof pdf to be downloaded from Happy Parcels UI
+	 * This will return a base 64 string of the PDF content
+	 */
+	@AuraEnabled(Cacheable=true)
+	public static String getDeliveryProofPdfBlob(String trackingId) {
+		try {
+			return EncodingUtil.base64Encode(DeliveryProofService.getInstance().getDeliveryProofPdfContent(trackingId));
+		} catch(Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Retrieve the current Safe Drop Status and Information for a particular tracking article
+	 * This is a single article either standalone or a part of a consignment
+	 */
+	@AuraEnabled
+	public static SafeDropEligibilityService.EligibilityResponse getSafeDropStatus(String articleId) {
+		SafeDropEligibilityService service = SafeDropEligibilityService.getInstance();
+		SafeDropEligibilityService.EligibilityResponse result = service.getSafeDropStatus(articleId);
+		System.debug(result);
+		return result;
+	}
+
+	/**
+	 * Set the safe drop preference. This should always be a consignment when available
+	 */
+	@AuraEnabled
+	public static String setSafeDropToEligible(String articleId) {
+		SafeDropEligibilityService service = SafeDropEligibilityService.getInstance();
+		return service.submitSafeDrop(articleId, 'ADD');
+	}
+
+	/**
+	 * Unset the safe drop preference. This should always be a consignment when available
+	 */
+	@AuraEnabled
+	public static String unsetSafeDropEligibility(String articleId) {
+		SafeDropEligibilityService service = SafeDropEligibilityService.getInstance();
+		return service.submitSafeDrop(articleId, 'DELETE');
+	}
+
+	/**
+	 * Retrieve the current Notification Preference Status
+	 */
+	@AuraEnabled
+	public static NotificationPreferencesService.NotificationPreferencesResponse getNotificationPreferences(Map<String, List<String>> searchStrings) {
+		NotificationPreferencesService service = NotificationPreferencesService.getInstance();
+		NotificationPreferencesService.NotificationPreferencesResponse result = service.getNotificationPreferences(searchStrings);
+		System.debug(result);
+		return result;
+	}
+
+	/**
+	 * Set/Unset Notification Preference Status
+	 * This is a single value update as per the API
+	 */
+	@AuraEnabled
+	public static String setNotificationPreferences(String searchStrings, Boolean setValue) {
+		NotificationPreferencesService service = NotificationPreferencesService.getInstance();
+		String result = service.setNotificationPreferences(searchStrings, setValue);
+		System.debug(result);
+		return result;
+	}
+
+	/**
+	 * Use the API to pull back the filtered out image.
+	 * The API blacks out faces and text.
+	 */
+	@AuraEnabled(Continuation=true)
+	public static Object getArticleImage(String guidId) {
+
+		SafeDropUtility utility = SafeDropUtility.getInstance();
+		HttpRequest req = utility.getHttpRequest(guidId);
+		if(req == null) {
+			return new SafeDropUtility.SafeDropApiResponse(true, 'No Login Information Found.', '');
+		}
+
+		// Create a Continuation for the HTTPRequest
+		// This is used for async requests
+		Continuation con = new Continuation(60);
+		con.addHttpRequest(req);
+		con.continuationMethod = 'safeDropImageCallback';
+
+		// Return it to the system for processing
+		return con;
+	}
+
+	/**
+	 * This is the callback for the async callout for retrieving the safe drop image.
+	 */
+	@AuraEnabled
+	public static Object safeDropImageCallback(List<String> labels, Object state) {
+		HttpResponse resp = Continuation.getResponse(labels[0]);
+
+		String responseBody = resp.getBody();
+		System.debug('SAFE-DROP API RAW REPONSE: ' + responseBody);
+
+		// parse the json
+		SafeDropUtility.SafeDropApiResponse response = SafeDropUtility.parseResponse(responseBody, resp);
+
+		System.debug('SAFE-DROP API PARSED REPONSE: ' + response);
+
+		return response;
+	}
+
+	/**
+	 * Returns Network details
+	 */
+	@AuraEnabled
+	public static NetworkDetailsWrapper getNetwork(String wccString){
+		try {
+			List<Network__c> networks = NetworksSelector.newInstance(new Set<SObjectField>{Network__c.Id, Network__c.Name,
+					Network__c.Phone_Number__c, Network__c.Network_Address__c, Network__c.Mon__c, Network__c.Tue__c,
+					Network__c.Wed__c, Network__c.Thu__c, Network__c.Fri__c, Network__c.Sat__c, Network__c.Sun__c,
+					Network__c.CL_Mon__c, Network__c.CL_Tue__c, Network__c.CL_Wed__c, Network__c.CL_Thu__c,
+					Network__c.CL_Fri__c, Network__c.CL_Sat__c, Network__c.CL_Sun__c, Network__c.Hatch_Mon__c,
+					Network__c.Hatch_Tue__c, Network__c.Hatch_Wed__c, Network__c.Hatch_Thu__c,
+					Network__c.Hatch_Fri__c, Network__c.Hatch_Sat__c, Network__c.Sun__c, Network__c.Hatch_Desc__c,
+					Network__c.Org_ID__c, Network__c.Contact_Facility__c}).selectByOrgId(new Set<String>{wccString}, new Set<Object>{NetworksSelector.Options.WITH_RECORDTYPE}).values();
+			if(networks.size()>0) {
+				NetworkDetailsWrapper networkWrapper = new NetworkDetailsWrapper(networks[0], null);
+				return networkWrapper;
+			} else {
+				return new NetworkDetailsWrapper(null, 'No network found');
+			}
+		}catch(Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+
+	/**
+	 * Returns a list of fields to be rendered in teh article details section of the UI
+	 */
+	private static List<FieldConfigItem> getArticleDetailFieldSetConfig() {
+		List<FieldConfigItem> output = new List<FieldConfigItem>();
+		/*for (Schema.FieldSetMember fm : SObjectType.Article__c.fieldSets.SAP_EM_Panel_Article_View.getFields()) {
+			output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
+		}*/
+		//Leveraging the getFieldConfigs method to retrieve field specific metadata
+		output = getFieldConfigs(SObjectType.Article__c.fieldSets.SAP_EM_Panel_Article_View);
+		return output;
+	}
+
+	/**
+	 * Returns a list of fields to be rendered in teh article details section of the UI
+	 */
+	private static List<FieldConfigItem> getConsignmentDetailFieldSetConfig() {
+		List<FieldConfigItem> output = new List<FieldConfigItem>();
+
+		/*for (Schema.FieldSetMember fm : SObjectType.Article__c.fieldSets.SAP_EM_Panel_Consignment_View.getFields()) {
+			output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
+		}*/
+		//Leveraging the getFieldConfigs method to retrieve field specific metadata
+		output = getFieldConfigs(SObjectType.Article__c.fieldSets.SAP_EM_Panel_Consignment_View);
+		return output;
+	}
+
+	/**
+	 * Returns a list of fields to be rendered in teh article details section of the UI
+	 */
+	private static List<FieldConfigItem> getEventMessageListFieldSetConfig() {
+		List<FieldConfigItem> output = new List<FieldConfigItem>();
+
+		// grab the field set to use and return field details based on the configuration.
+		FieldSet eventMessageFieldSet = getEventMessageFieldSet();
+		//Leveraging the getFieldConfigs method to retrieve field specific metadata
+		if (eventMessageFieldSet != null) {
+			/*for (Schema.FieldSetMember fm : eventMessageFieldSet.getFields()) {
+				output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
+			}*/
+			output = getFieldConfigs(eventMessageFieldSet);
+		}
+
+		return output;
+	}
+	
+	/**
+	 * Returns a list of overflow fields to be rendered in event message table on the UI.
+	 */
+	private static List<FieldConfigItem> getEventMessageOverflowListFieldSetConfig() {
+		List<FieldConfigItem> output = new List<FieldConfigItem>();
+		// grab the field set to use and return field details based on the configuration.
+		FieldSet eventMessageFieldSet = getEventMessageOverflowFieldSet();
+		//Leveraging the getFieldConfigs method to retrieve field specific metadata
+		if (eventMessageFieldSet != null) {
+			/*for (Schema.FieldSetMember fm : eventMessageFieldSet.getFields()) {
+				output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
+			}*/
+			output = getFieldConfigs(eventMessageFieldSet);
+		}
+
+		return output;
+	}	
+
+	/**
+	 * Returns a list of overflow fields to be rendered in the latest scans component on the UI.
+	 */
+	private static List<FieldConfigItem> getEventMessageFeaturedOverflowListFieldSetConfig() {
+		List<FieldConfigItem> output = new List<FieldConfigItem>();
+		// grab the field set to use and return field details based on the configuration.
+		FieldSet eventMessageFieldSet = getEventMessageFeaturedOverflowFieldSet();
+		//Leveraging the getFieldConfigs method to retrieve field specific metadata
+		if (eventMessageFieldSet != null) {
+			output = getFieldConfigs(eventMessageFieldSet);
+		}
+		return output;
+	}
+	/**
+	 * Returns the field config attributes associated with each fields in the field set.	
+	 */	
+	public static List<FieldConfigItem> getFieldConfigs(FieldSet fs) {
+		//Describe the Sobject associated with the field set to retrieve the fields.
+		List<FieldConfigItem> fieldConfigList = new List<FieldConfigItem>();
+		Schema.DescribeSObjectResult DescribeSObjectResultObj = fs.getSObjectType().getDescribe();
+		//getting fields from the Sobject. This will help us fetch the help texts.
+		Map<String, Schema.SObjectField> fieldMap = DescribeSObjectResultObj.fields.getMap();
+		for (Schema.FieldSetMember fm : fs.getFields()) {
+			fieldConfigList.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()),fieldMap.get(fm.getFieldPath()).getDescribe().getInlineHelpText()));
+		}
+		return fieldConfigList;
+	}
+	/**
+	 * Returns a list of event message types that are used for signature on delivery
+	 */
+	private static Set<String> getSignatureEventTypes() {
+		Set<String> output = new Set<String>();
+		for(EventMessageTypeMapping__mdt mapping : EventMessageUtil.getEventMessageTypes().values()) {
+			if(mapping.IsSignatureOnDelivery__c) {
+				output.add(mapping.Label);
+			}
+		}
+		return output;
+	}
+
+	/**
+	 * Returns a list of event message types that are considered as featured scans.
+	 */
+	private static Set<String> getFeaturedEventTypes() {
+		Set<String> output = new Set<String>();
+		for(EventMessageTypeMapping__mdt mapping : EventMessageUtil.getEventMessageTypes().values()) {
+			if(mapping.IsFeatured__c) {
+				output.add(mapping.Label);
+			}
+		}
+		return output;
+	}
+
+	/**
+	 * Loop through all the search results that will be outputted and provide the correct case clearview code mappings (for when a new case needs to be created)
+	 * this allows the clearview codes to be defaulted with the correct values based on the article that was queried
+	 */
+	private static void mapCaseTypesToArticleProducts(TrackingResult result) {
+
+		Map<String, List<TrackingArticle>> articleMappingsMap = new Map<String, List<TrackingArticle>>();
+
+		if(result.consignment != null) {
+			String key = String.isEmpty(result.consignment.article.ProductCategory__c) ? '' : result.consignment.article.ProductCategory__c.trim();
+			key += String.isEmpty(result.consignment.article.SubProduct__c) ? '' : result.consignment.article.SubProduct__c.trim();
+
+			if(!String.isEmpty(key)) {
+				if (articleMappingsMap.get(key) == null) {
+					articleMappingsMap.put(key, new List<TrackingArticle>());
+				}
+
+				articleMappingsMap.get(key).add(result.consignment);
+			}
+		}
+
+		for(TrackingArticle article : result.articles) {
+			String key = String.isEmpty(article.article.ProductCategory__c) ? '' : article.article.ProductCategory__c.trim();
+			key += String.isEmpty(article.article.SubProduct__c) ? '' : article.article.SubProduct__c.trim();
+
+			if(!String.isEmpty(key)) {
+				if (articleMappingsMap.get(key) == null) {
+					articleMappingsMap.put(key, new List<TrackingArticle>());
+				}
+
+				articleMappingsMap.get(key).add(article);
+			}
+		}
+
+		// grab the clearview code mappings so we can default the clearview code fields in the mini case component
+		// this happens after the search result have been loaded into the Happy Parcel LWC components
+		List<MiniCaseFieldMapping__c> mappings = [Select SAPKey__c, ProductCategory__c, ProductSubcategory__c, Type__c
+													From MiniCaseFieldMapping__c
+													Where SAPKey__c In :articleMappingsMap.keySet()];
+		for(MiniCaseFieldMapping__c mapping : mappings) {
+			if(articleMappingsMap.containsKey(mapping.SAPKey__c)) {
+				for(TrackingArticle article : articleMappingsMap.get(mapping.SAPKey__c)) {
+					article.caseTypeMapping = mapping.Type__c;
+					article.caseProductCategory = mapping.ProductCategory__c;
+					article.caseProductSubCategory = mapping.ProductSubcategory__c;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Grab the status config values that will be received from the happy parcel interface
+	 */
+	private static Map<String, HappyParcelStatusMapping__mdt> getHappyParcelStatusValues() {
+		Map<String, HappyParcelStatusMapping__mdt> mappedStatuses = new Map<String, HappyParcelStatusMapping__mdt>();
+		for(HappyParcelStatusMapping__mdt statusMapping : [Select APIMappingName__c, CustomIconName__c, HelpText__c, IsDefault__c, StatusText__c From HappyParcelStatusMapping__mdt]) {
+			mappedStatuses.put(statusMapping.APIMappingName__c, statusMapping);
+		}
+		return mappedStatuses;
+	}
+	/**
+	 * Grab the manifest assessment config values that will be received from happy parcel interface
+	 */
+	private static Map<String, HappyParcelManifestAssessmentMapping__mdt> getManifestAssessmentValues() {
+		Map<String, HappyParcelManifestAssessmentMapping__mdt> mappedAssessmentTypeMappings = new Map<String, HappyParcelManifestAssessmentMapping__mdt>();
+		for(HappyParcelManifestAssessmentMapping__mdt assessmentTypeMapping : [Select APIMappingName__c, HelpText__c, StatusText__c, IconName__c From HappyParcelManifestAssessmentMapping__mdt]) {
+			mappedAssessmentTypeMappings.put(assessmentTypeMapping.APIMappingName__c, assessmentTypeMapping);
+		}
+		return mappedAssessmentTypeMappings;
+	}
+
+	/**
+	 * Return the relevant Event Message field set based on where Happy Parcels is embedded. Specific field set
+	 * is used when Happy Parcels is embedded with in My Network. Use default field set in all other cases.
+	 *
+	 * @return EventMessage__c field set to use
+	 */
+	private static FieldSet getEventMessageFieldSet() {
+
+		// TODO - introduce a new custom metadata type to configure filed set name mapping based on context.
+		// pass context (where happy parcels is embedded) as a parameter into loadConfig() method.
+		// currently field set names are hard coded here.
+
+		if (Network.getNetworkId() != null) {
+			// happy parcels embedded in an experience builder site (community). query additional details of the site via propery.
+			Network currentNetwork = networkDetail;
+			// check the site name is 'mynetwork' and return my network specific field set
+			if ('mynetwork'.equalsIgnoreCase(currentNetwork.Name)) {
+				return SObjectType.EventMessage__c.fieldSets.MyNetwork_Event_Messages;
+			}
+		}
+		// return default field set in all other cases
+		return SObjectType.EventMessage__c.fieldSets.SAP_EM_Panel_Event_View;
+	}
+
+	/**
+	 * Return the relevant Event Message overflow field set for event message table based on where Happy Parcels is embedded. Specific overflow fielset
+	 * is used when Happy Parcels is embedded with in My Network. Use default field set in all other cases.
+	 *
+	 * @return EventMessage__c field set to use
+	 */
+	private static FieldSet getEventMessageOverflowFieldSet() {
+
+		// TODO - introduce a new custom metadata type to configure filed set name mapping based on context.
+		// pass context (where happy parcels is embedded) as a parameter into loadConfig() method.
+		// currently field set names are hard coded here.
+
+		if (Network.getNetworkId() != null) {
+			// happy parcels embedded in an experience builder site (community). query additional details of the site leveraging apex propery.
+			Network currentNetwork = networkDetail;
+			// check the site name is 'mynetwork' and return my network specific overflow field set
+			if ('mynetwork'.equalsIgnoreCase(currentNetwork.Name)) {
+				// NOTE: Any additional fields add to this fieldset currently requires an update to TIBCOArticleService.searchArticlesInSFDC
+				return SObjectType.EventMessage__c.fieldSets.MyNetworkEventMessagesOverflow;
+			}
+		}
+		// return default overflow field set in all other cases
+		// NOTE: Any additional fields add to this fieldset currently requires an update to TIBCOArticleService.searchArticlesInSFDC
+		return SObjectType.EventMessage__c.fieldSets.HappyParcelEventOverflowView;
+	}
+
+	/**
+	 * Return the relevant Event Message overflow field set for latest scan section based on where Happy Parcels is embedded. Specific overflow fieldset
+	 * is used when Happy Parcels is embedded with in My Network. Use default field set in all other cases.
+	 *
+	 * @return EventMessage__c field set to use
+	 */
+	private static FieldSet getEventMessageFeaturedOverflowFieldSet() {
+
+		// TODO - introduce a new custom metadata type to configure filed set name mapping based on context.
+		// pass context (where happy parcels is embedded) as a parameter into loadConfig() method.
+		// currently field set names are hard coded here.
+
+		if (Network.getNetworkId() != null) {
+			// happy parcels embedded in an experience builder site (community). query additional details of the site leveraging apex propery.
+			Network currentNetwork = networkDetail;
+			// check the site name is 'mynetwork' and return my network specific overflow field set
+			if ('mynetwork'.equalsIgnoreCase(currentNetwork.Name)) {
+				// NOTE: Any additional fields add to this fieldset currently requires an update to TIBCOArticleService.searchArticlesInSFDC
+				return SObjectType.EventMessage__c.fieldSets.MyNetworkFeaturedOverflowView;
+			}
+		}
+		// return default overflow field set in all other cases
+		// NOTE: Any additional fields add to this fieldset currently requires an update to TIBCOArticleService.searchArticlesInSFDC
+		return SObjectType.EventMessage__c.fieldSets.HappyParcelFeaturedOverflowView;
+	}	
+	/**
+	 * An arua wrapper. NOTE, this only supports a single consignment. There isn't any known use case where multiple consignments need to be supported
+	 */
+	public class TrackingResult {
+		@AuraEnabled public List<String> errors = new List<String>();
+		@AuraEnabled public TrackingArticle consignment;
+		@AuraEnabled public List<TrackingArticle> articles = new List<TrackingArticle>();
+
+		public TrackingResult(TIBCOSearchResult result) {
+			errors.addAll(result.errors);
+
+			// check if this result set has a consignment
+			for(TIBCOTrackingResultWrapper resultWrapper : result.trackResults) {
+				if(!resultWrapper.Success) {
+					errors.add(resultWrapper.returnCode + ': ' + resultWrapper.resultDescription);
+				} else {
+					if (resultWrapper.consignmentDetails != null) {
+						consignment = new TrackingArticle(resultWrapper.consignmentDetails);
+
+						// also add all of the articles linked to the consignment
+						for(TIBCOArticleWrapper article : resultWrapper.consignmentDetails.articles) {
+							articles.add(new TrackingArticle(article));
+						}
+
+					} else {
+						articles.add(new TrackingArticle(resultWrapper.articleDetails));
+					}
+				}
+			}
+		}
+	}
+
+	public class TrackingArticle {
+		@AuraEnabled public String trackingId = '';
+		@AuraEnabled public List<TrackingEventMessage> events = new List<TrackingEventMessage>();
+		@AuraEnabled public Article__c article;
+		@AuraEnabled public Contact senderContact;
+		@AuraEnabled public Contact receiverContact;
+		@AuraEnabled public String eddImageIconName;
+		@AuraEnabled public String caseTypeMapping;
+		@AuraEnabled public String caseProductCategory;
+		@AuraEnabled public String caseProductSubCategory;
+
+		@AuraEnabled public TIBCOArticleWrapper.ArticleTransientAttributes transientAttributes;
+
+		public TrackingArticle(TIBCOConsignmentWrapper consignment) {
+			trackingId = consignment.proxyConsignment.ArticleID__c;
+			article = consignment.proxyConsignment;
+			senderContact = consignment.sender;
+			receiverContact = consignment.receiver;
+
+			for(TIBCOEventMessageWrapper eventMessageWrapper : consignment.eventMessages) {
+				events.add(new TrackingEventMessage(eventMessageWrapper));
+			}
+		}
+		public TrackingArticle(TIBCOArticleWrapper article) {
+			trackingId = article.proxyArticle.ArticleID__c;
+			this.article = article.proxyArticle;
+
+			//TODO: Move these to transient attributes eventually
+			senderContact = article.sender;
+			receiverContact = article.receiver;
+			eddImageIconName = article.eddImageIconName;
+
+			transientAttributes = article.transientAttributes;
+			
+			for(TIBCOEventMessageWrapper eventMessageWrapper : article.eventMessages) {
+				events.add(new TrackingEventMessage(eventMessageWrapper));
+			}
+
+			System.debug('events: ' + events);
+		}
+	}
+
+	public class TrackingEventMessage {
+		@AuraEnabled public EventMessage__c event;
+		@AuraEnabled public TIBCOEventMessageWrapper.EventTransientAttributes transientAttributes;
+
+		public TrackingEventMessage(TIBCOEventMessageWrapper eventMessageWrapper) {
+			event = eventMessageWrapper.proxyEM;
+			transientAttributes = eventMessageWrapper.transientAttributes;
+		}
+	}
+
+	public class FieldConfigItem {
+		@AuraEnabled public String fieldName;
+		@AuraEnabled public String fieldLabel;
+		@AuraEnabled public String fieldType;
+		@AuraEnabled public String fieldHelpText;
+
+		public FieldConfigItem(String fieldName, String fieldLabel, String fieldType, String fieldHelpText) {
+			this.fieldName = fieldName;
+			this.fieldLabel = fieldLabel;
+			this.fieldType = fieldType;
+			this.fieldHelpText = fieldHelpText;
+		}
+	}
+
+	public class NetworkDetailsWrapper {
+		@AuraEnabled public Network__c network;
+		@AuraEnabled public String error;
+
+		public NetworkDetailsWrapper(Network__c network, String error){
+			if(error != ''){
+				this.error = error;
+			}
+			if(network != null) {
+				this.network = network;
+			}
+		}
+	}
+
+}

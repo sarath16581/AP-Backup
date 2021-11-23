@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APConsignmentSearchSourceSystemID__c</fullName>
+    <description>Stores the Source System ID to be used for BSP AP Consignment Search.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Stores the Source System ID to be used for BSP AP Consignment Search.</inlineHelpText>
+    <label>AP Consignment Search Source System ID</label>
+    <length>50</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

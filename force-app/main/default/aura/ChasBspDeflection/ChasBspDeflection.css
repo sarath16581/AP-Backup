@@ -1,0 +1,119 @@
+/*
+ * @date : 20-07-2020 hara.sahoo@auspost.com.au UI changes as per the new designs for help and support form uplift
+*/
+.THIS {
+  max-height: 500px;
+    min-width:100px;
+  opacity: 1;
+}
+@media(min-width: 680px) {
+    .THIS {
+        width : 592px;
+    }
+}
+
+.THIS.animate-open-true {
+  animation: reveal-animation 1s forwards;
+}
+
+.THIS.animate-hide {
+  animation: hide-animation 1s forwards;
+}
+
+.THIS .info-box {
+  border: 1px solid #d0d5d8;
+  border-radius: 3px;
+  background: white;
+  padding: 16px 15px 19px;
+  position: relative;
+}
+/*20-07-2020 Increased margin-bottom*/
+.THIS .bottom-gap{
+  margin-bottom: 32px;
+}
+
+.THIS .bottom-gap-Large{
+  margin-bottom: 35px;
+}
+
+.THIS .outer-box-fonts {
+  font-size: 16px;
+}
+.THIS h3.outer-box-fonts {
+  font-weight: bold;
+}
+
+.THIS .info-box-left-bar {
+  border: 1px solid #d0d5d8;
+  border-left: 3px solid #009ed9;
+  border-radius: 3px;
+  background: white;
+  padding: 16px 15px 19px;
+  position: relative;
+}
+
+.THIS aside {
+  display: flex;
+}
+
+.THIS .info {
+  min-width: 20px;
+  width: 20px;
+}
+
+.THIS .close {
+  position: absolute;
+  top: 12px;
+  right: 5px;
+  height: 32px;
+}
+
+.THIS .close img {
+  width: 12px;
+  vertical-align: top; 
+}
+
+.THIS .text {
+  margin: 0 15px;
+}
+
+.THIS .bsp-heading,
+.THIS .bsp-body {
+  font-family: sans-serif;
+  font-size: 0.875rem;
+}
+
+.THIS .bsp-body a {
+  text-decoration: underline;
+}
+
+.THIS .bsp-body a .slds-icon {
+  fill: currentColor;
+  margin: 0 5px;
+  vertical-align: baseline;
+}
+
+@keyframes reveal-animation {
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  100% {
+    max-height: 500px;
+    opacity: 1;
+  }
+}
+
+@keyframes hide-animation {
+  0% {
+    max-height: 500px;
+    opacity: 1;
+  }
+
+  100% {
+    max-height: 0;
+    opacity: 0;
+    display: none;
+  }
+}

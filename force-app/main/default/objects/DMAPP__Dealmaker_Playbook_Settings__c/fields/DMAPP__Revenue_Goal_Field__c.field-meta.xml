@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Revenue_Goal_Field__c</fullName>
+    <deprecated>false</deprecated>
+    <description>If set to a value then it is understood that that field on the User object contains an annual quota for Bookings (may add billings later) that can be used by Team Views</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If set then Team View will display the appropriate &quot;pro rata&quot; value for the quota beside the user and may provide some visual feedback as to how user is performing against quota.</inlineHelpText>
+    <label>Revenue Goal Field</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

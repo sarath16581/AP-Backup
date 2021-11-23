@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Default_Events</fullName>
+    <active>true</active>
+    <label>Default Events</label>
+    <picklistValues>
+        <picklist>Call_Disposition__c</picklist>
+        <values>
+            <fullName>Call Back Later</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Left Voicemail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Meaningful Connect</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Interested</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unqualified</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Category__c</picklist>
+        <values>
+            <fullName>Internal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deferred</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Started</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Waiting on someone else</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Subject</picklist>
+        <values>
+            <fullName>Meeting</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Face to Face Meeting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Teleconference</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web Meeting</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_DSR_Routing__c</fullName>
+    <description>Routing Logic to determine if the SSSW entry should be routed based on the Credit Person Code or Work Type for Credit Support Request Submission.</description>
+    <externalId>false</externalId>
+    <label>Credit DSR Routing</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Credit Person Code</fullName>
+                <default>false</default>
+                <label>Credit Person Code</label>
+            </value>
+            <value>
+                <fullName>Credit Assessment Query</fullName>
+                <default>false</default>
+                <label>Credit Assessment Query</label>
+            </value>
+            <value>
+                <fullName>Credit Limit Review</fullName>
+                <default>false</default>
+                <label>Credit Limit Review</label>
+            </value>
+            <value>
+                <fullName>Change Billing Account Details</fullName>
+                <default>false</default>
+                <label>Change Billing Account Details</label>
+            </value>
+            <value>
+                <fullName>Unassigned Credit Management Requests</fullName>
+                <default>false</default>
+                <label>Unassigned Credit Management Requests</label>
+            </value>
+            <value>
+                <fullName>Credit Risk Team</fullName>
+                <default>false</default>
+                <label>Credit Risk Team</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AMLCTF_Task_Name__c</fullName>
+    <description>Task Name (per Audit Report) for the Tasks in an Audit Task Template, maps to Task object&apos;s Sub Type field.  Field added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Task Name (per Audit Report) for the Tasks in an Audit Task Template, maps to Task object&apos;s Sub Type field.  Field added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
+    <label>Task Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cash in Office</fullName>
+                <default>false</default>
+                <label>Cash in Office</label>
+            </value>
+            <value>
+                <fullName>Armaguard Preparation</fullName>
+                <default>false</default>
+                <label>Armaguard Preparation</label>
+            </value>
+            <value>
+                <fullName>Cash Threshold</fullName>
+                <default>false</default>
+                <label>Cash Threshold</label>
+            </value>
+            <value>
+                <fullName>Items of Balance</fullName>
+                <default>false</default>
+                <label>Items of Balance</label>
+            </value>
+            <value>
+                <fullName>Discrepancy Management</fullName>
+                <default>false</default>
+                <label>Discrepancy Management</label>
+            </value>
+            <value>
+                <fullName>Advance Management</fullName>
+                <default>false</default>
+                <label>Advance Management</label>
+            </value>
+            <value>
+                <fullName>Cash Adjustments</fullName>
+                <default>false</default>
+                <label>Cash Adjustments</label>
+            </value>
+            <value>
+                <fullName>Self Service Terminals</fullName>
+                <default>false</default>
+                <label>Self Service Terminals</label>
+            </value>
+            <value>
+                <fullName>Discounts</fullName>
+                <default>false</default>
+                <label>Discounts</label>
+            </value>
+            <value>
+                <fullName>AP Refunds</fullName>
+                <default>false</default>
+                <label>AP Refunds</label>
+            </value>
+            <value>
+                <fullName>Stock Returns and Refunds</fullName>
+                <default>false</default>
+                <label>Stock Returns and Refunds</label>
+            </value>
+            <value>
+                <fullName>Bill Pay Credit Card Errors</fullName>
+                <default>false</default>
+                <label>Bill Pay Credit Card Errors</label>
+            </value>
+            <value>
+                <fullName>Stocktake Program</fullName>
+                <default>false</default>
+                <label>Stocktake Program</label>
+            </value>
+            <value>
+                <fullName>COD Collections</fullName>
+                <default>false</default>
+                <label>COD Collections</label>
+            </value>
+            <value>
+                <fullName>Reply Paid / Print Post Accounts</fullName>
+                <default>false</default>
+                <label>Reply Paid / Print Post Accounts</label>
+            </value>
+            <value>
+                <fullName>Local Accounts</fullName>
+                <default>false</default>
+                <label>Local Accounts</label>
+            </value>
+            <value>
+                <fullName>Unmatched Reversals</fullName>
+                <default>false</default>
+                <label>Unmatched Reversals</label>
+            </value>
+            <value>
+                <fullName>All Reversals</fullName>
+                <default>false</default>
+                <label>All Reversals</label>
+            </value>
+            <value>
+                <fullName>Official Money Orders Issued</fullName>
+                <default>false</default>
+                <label>Official Money Orders Issued</label>
+            </value>
+            <value>
+                <fullName>Money Orders</fullName>
+                <default>false</default>
+                <label>Money Orders</label>
+            </value>
+            <value>
+                <fullName>Record of Accountable Forms</fullName>
+                <default>false</default>
+                <label>Record of Accountable Forms</label>
+            </value>
+            <value>
+                <fullName>Uncertified Expenditure</fullName>
+                <default>false</default>
+                <label>Uncertified Expenditure</label>
+            </value>
+            <value>
+                <fullName>Labour Costing</fullName>
+                <default>false</default>
+                <label>Labour Costing</label>
+            </value>
+            <value>
+                <fullName>Stock Control</fullName>
+                <default>false</default>
+                <label>Stock Control</label>
+            </value>
+            <value>
+                <fullName>Post Office Boxes</fullName>
+                <default>false</default>
+                <label>Post Office Boxes</label>
+            </value>
+            <value>
+                <fullName>Bulk Mail Lodgements</fullName>
+                <default>false</default>
+                <label>Bulk Mail Lodgements</label>
+            </value>
+            <value>
+                <fullName>FIC &amp; Management Checks</fullName>
+                <default>false</default>
+                <label>FIC &amp; Management Checks</label>
+            </value>
+            <value>
+                <fullName>Australia Post Signage</fullName>
+                <default>false</default>
+                <label>Australia Post Signage</label>
+            </value>
+            <value>
+                <fullName>Quality of Service</fullName>
+                <default>false</default>
+                <label>Quality of Service</label>
+            </value>
+            <value>
+                <fullName>WCIS / LIPOMS Facilities Report</fullName>
+                <default>false</default>
+                <label>WCIS / LIPOMS Facilities Report</label>
+            </value>
+            <value>
+                <fullName>Counter Delivery of Mail</fullName>
+                <default>false</default>
+                <label>Counter Delivery of Mail</label>
+            </value>
+            <value>
+                <fullName>Barcoded Mail Items</fullName>
+                <default>false</default>
+                <label>Barcoded Mail Items</label>
+            </value>
+            <value>
+                <fullName>Online Manuals</fullName>
+                <default>false</default>
+                <label>Online Manuals</label>
+            </value>
+            <value>
+                <fullName>AUSTRAC UAR</fullName>
+                <default>false</default>
+                <label>AUSTRAC UAR</label>
+            </value>
+            <value>
+                <fullName>Western Union</fullName>
+                <default>false</default>
+                <label>Western Union</label>
+            </value>
+            <value>
+                <fullName>Safety</fullName>
+                <default>false</default>
+                <label>Safety</label>
+            </value>
+            <value>
+                <fullName>Australian Passport Service (DFAT)</fullName>
+                <default>false</default>
+                <label>Australian Passport Service (DFAT)</label>
+            </value>
+            <value>
+                <fullName>Armaguard Collections</fullName>
+                <default>false</default>
+                <label>Armaguard Collections</label>
+            </value>
+            <value>
+                <fullName>FAP150 Cash Flow</fullName>
+                <default>false</default>
+                <label>FAP150 Cash Flow</label>
+            </value>
+            <value>
+                <fullName>FAP150 Items of Balance</fullName>
+                <default>false</default>
+                <label>FAP150 Items of Balance</label>
+            </value>
+            <value>
+                <fullName>FAP150 Processing</fullName>
+                <default>false</default>
+                <label>FAP150 Processing</label>
+            </value>
+            <value>
+                <fullName>Repeated Banking Transactions</fullName>
+                <default>false</default>
+                <label>Repeated Banking Transactions</label>
+            </value>
+            <value>
+                <fullName>Trans Code 990 sales</fullName>
+                <default>false</default>
+                <label>Trans Code 990 sales</label>
+            </value>
+            <value>
+                <fullName>Repeated Billpay Trans.</fullName>
+                <default>false</default>
+                <label>Repeated Billpay Trans.</label>
+            </value>
+            <value>
+                <fullName>Local Product Accounts</fullName>
+                <default>false</default>
+                <label>Local Product Accounts</label>
+            </value>
+            <value>
+                <fullName>Label Print Reversals</fullName>
+                <default>false</default>
+                <label>Label Print Reversals</label>
+            </value>
+            <value>
+                <fullName>H/O Remit Reversals</fullName>
+                <default>false</default>
+                <label>H/O Remit Reversals</label>
+            </value>
+            <value>
+                <fullName>BML Reversals</fullName>
+                <default>false</default>
+                <label>BML Reversals</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

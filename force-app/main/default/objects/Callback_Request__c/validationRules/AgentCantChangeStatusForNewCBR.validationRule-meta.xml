@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AgentCantChangeStatusForNewCBR</fullName>
+    <active>true</active>
+    <description>Agents are not allowed to change the status when CBR is new.</description>
+    <errorConditionFormula>AND(
+ISNEW(),
+(RecordType.DeveloperName == &apos;SSSW_Callback_Reminder&apos;),
+NOT((ISPICKVAL(Status__c, &apos;New&apos;)))
+)</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>Status cannot be changed.</errorMessage>
+</ValidationRule>

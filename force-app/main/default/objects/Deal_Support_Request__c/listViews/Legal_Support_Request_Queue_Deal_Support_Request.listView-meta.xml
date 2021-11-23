@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Legal_Support_Request_Queue_Deal_Support_Request</fullName>
+    <columns>NAME</columns>
+    <columns>Stage__c</columns>
+    <columns>Status__c</columns>
+    <columns>Assigned_Lawyer__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>Opportunity_Owner__c</columns>
+    <columns>Total_Opportunity_Value__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Deal_Support_Request__c.Legal_Support_Request</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Submitted,Received Information,In Progress</value>
+    </filters>
+    <label>Legal Support Request</label>
+    <sharedTo>
+        <group>Legal_Support_Request_Team</group>
+    </sharedTo>
+</ListView>

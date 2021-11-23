@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COA_Result_Owner_Not_for_SLA</fullName>
+    <active>true</active>
+    <errorConditionFormula>!isBlank( COA_Result_Owner_Email__c ) &amp;&amp;  Type__c != &quot;COA&quot;</errorConditionFormula>
+    <errorDisplayField>COA_Result_Owner_Email__c</errorDisplayField>
+    <errorMessage>COA Result Owner can only be set for Type &quot;COA&quot;</errorMessage>
+</ValidationRule>

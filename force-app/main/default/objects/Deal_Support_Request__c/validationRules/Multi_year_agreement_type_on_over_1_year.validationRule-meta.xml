@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Multi_year_agreement_type_on_over_1_year</fullName>
+    <active>true</active>
+    <description>This rule validates If Agreement Duration is longer than 1 year then Multi-Year Agreement Type should be populated</description>
+    <errorConditionFormula>BEGINS(RecordType.DeveloperName, &apos;Pricing_Support_Request&apos;) &amp;&amp;
+TEXT(Agreement_Duration__c)&lt;&gt; &quot;1 Year&quot; &amp;&amp; NOT(ISBLANK(TEXT(Agreement_Duration__c)))&amp;&amp;
+ISBLANK(TEXT(Multi_Year_Agreement_Type__c))</errorConditionFormula>
+    <errorDisplayField>Multi_Year_Agreement_Type__c</errorDisplayField>
+    <errorMessage>If Agreement Duration is longer than 1 year, Multi-Year Agreement Type must be completed</errorMessage>
+</ValidationRule>

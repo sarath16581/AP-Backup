@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email notification template sent to Resolver Groups assigned new cases by the Retail Fulfilment Call Centre (RFCC)</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>ExternalContactEmail</letterhead>
+    <name>RFCC Assign to Resolver Queue</name>
+    <style>freeForm</style>
+    <subject>Case {!Case.CaseNumber} has been assigned to your queue: {!Case.OwnerFullName}</subject>
+    <textOnly>Hello,
+
+The following case has been assigned to your queue:
+
+Case Number: {!Case.CaseNumber}
+Status: {!Case.Status}
+Outlet Name: {!Account.WCIS_Code__c} - {!Case.Account}
+Contact:  {!Case.Contact}
+Contact Email: {!Contact.Email}
+Contact Phone: {!Contact.Phone}
+
+Priority: {!Case.Priority}
+Origin: {!Case.Origin}
+Type: {!Case.Type}
+Problem Type: {!Case.Problem_Type_Retail__c}
+Warehouse: {!Case.Warehouse__c}
+
+Subject: {!Case.Subject}
+Description:
+{!Case.Description}
+
+Link to Case: {!Case.Link}
+
+Thanks &amp; Regards,
+Retail Fulfilment Call Centre</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

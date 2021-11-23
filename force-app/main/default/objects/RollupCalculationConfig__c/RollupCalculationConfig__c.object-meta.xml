@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Stores specific settings used when manual rollup calculation batch classes are used. Currently, StatusTrackingRollup_Batchable is the only class which is used for manual rollup calculations</description>
+    <enableFeeds>false</enableFeeds>
+    <label>Rollup Calculation Config</label>
+    <visibility>Public</visibility>
+</CustomObject>

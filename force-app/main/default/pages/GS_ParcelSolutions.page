@@ -1,0 +1,108 @@
+<apex:page standardStylesheets="false"
+	cache="false"
+    expires="0"
+    showheader="false"
+    sidebar="false"
+    title="Parcel Solutions"
+    docType="html-5.0"
+>
+
+<apex:stylesheet value="{!URLFOR($Resource.GsForm_Assets, 'css/style.css')}"/>
+
+<style>
+	body{margin:0pc; padding:0px; border:0px solid; text-align:center;background-color:#FFF;}
+	.edmBody {width:600px; margin:0px auto; text-align:left; font-size:1em;}	
+
+	.header, .footer {background-color:#D3DAE0; padding:20px;}
+
+	.onlineview {background-color:#F3F1EE; padding:2px 10px;}
+	.onlineview p, .footer p {padding:0px; margin:0px;}
+
+	.tc {padding:0px 20px; font-size:0.8em;}
+
+	.greybox, .whitebox {padding:10px; border:1px solid #F3F1EE; margin:10px; -moz-border-radius: 5px; border-radius: 5px;}
+	.greybox {background-color:#F3F1EE;}
+	
+	a {color:#dc1928; text-decoration:underline;}
+	a.findOutMore {font-weight:bold;font-size:1.2em;}
+
+	.footer, .footer a {color:#5e514d; font-size:0.9em;padding: 2px 20px; text-decoration:none;}
+	
+	
+	strong{font-weight:normal;}
+	
+	.whitebox, .whitebox strong {font-weight:bold;font-size:1.1em;}
+	.whitebox strong {color:#dc1928;}
+	
+
+	
+	h2 {color:#5e514d;font-size:1.4em;}
+	
+	h1 {clear:both; margin:0px;font-size:1.5em;}
+	
+	img.logo { margin:5px; float:right;}
+	
+	
+</style>
+
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="DC.Creator" scheme="AglsAgent" content="Australia Post" />
+<meta name="DC.Title" content="Australia Post - Home" />
+
+
+<div class="edmBody">	
+	<div class="header">
+		<apex:image styleClass="logo" url="{!URLFOR($Resource.GsForm_Assets, 'css/images/auspost.png')}" />
+		<h1>Parcel solutions to suit your business.</h1>
+	</div>
+	
+	<div class="whitebox">
+		<p>Whether you are just starting out, growing your business locally or expanding internationally - Australia Post has a parcel solution to help.</p> 
+		<strong>What's more you may be eligible for one month of free parcel pick-ups'.</strong>
+	</div>
+	
+	<div class="greybox">
+		<h2>Sending up to 10 parcels per week?</h2>
+		<p>Click and Send is ideal for smaller businesses (sending fewer than 500 parcels per annum) who want an online delivery solution. With Click and Send you can enjoy integration with delivery choices, tracking and signature features.</p>
+		<p><a class="findOutMore" href="http://auspost.com.au/parcels-mail/click-and-send.html?cmpid=edm-smb-green-clicksend-find-130408">find out more &gt;</a></p>
+		<strong>As a special bonus, you may be eligible for one month of free parcel pick-ups from your business.</strong>
+	</div>
+	
+	<div class="greybox">
+		<h2>Sending more than 10 parcels per week?</h2>
+		<p>eParcel is an online delivery solution for established eCommerce retailers that can help streamline product distribution. 
+		This solution is normally reserved for customers sending a minimum of 20 parcels per week (a minimum of 1000 parceis per annum), 
+		however as part of a special promotion, Australia Post is now offering this solution to new parcel customers sending 500+ parcels 
+		per annum. This is great news for businesses, as with eParcel you can integrate with delivery choices, 
+		customer returns and tracking.</p>
+		<p><a class="findOutMore" href="http://auspost.com.au/parcels-mail/eparcel.html?cmpid=edm-smb-green-eparcel-find-130408">find out more &gt;</a></p>
+		<strong>For the first six months, you will receive free signature on delivery for every Parcel sent. As an extra special bonus, you may be eligible for one month of free parcel pick-ups from your business.</strong>
+	</div>
+	
+	<div class="greybox">
+		<h2>Get started</h2>
+		<p>Simply complete the <a href="https://auspost.secure.force.com/promotions?cmpid=edm-smb-green-force-form-130408">online form</a> and we will be in touch with you shortly.</p>
+		<p>Or give us a call on 1300 660 971 or visit your local <a href="http://auspost.com.au/in-store-support.html?cmpid=edm-smb-green-hub-visit-130408">Business Hub</a> today.</p>
+	</div>
+	
+	<div class="greybox">
+		<h2>Growing your business internationally?</h2>
+		<p>For a limited time, take advantage of a 20% rebate on our premium Express Courier International product.</p>
+		<p>To find out more about this offer, give us a call on 1300 660 971 or visit your local <a href="http://auspost.com.au/in-store-support.html?cmpid=edm-smb-green-hub-visit-130408">Business Hub</a> today.</p>
+	</div>
+	
+	<div class="tc">
+		<p>#*Terms and conditions apply.This email was sent by Australia Post. 
+		If you do not wish to receive such information you can unsubscribe at any time. 
+		Australia Post does not represent, warrant or guarantee that the integrity of this email 
+		communication has been maintained nor that the communication is free of errors, viruses or interference.</p>
+	</div>
+	
+	<div class="footer">
+		<a href="http://auspost.com.au/pdfs/business-parcel-bonus-offer-terms-and-conditions.pdf">Terms &amp; conditions</a> | <a href="http://auspost.com.au/privacy.html">Privacy policy</a> | <a href="https://contactus.auspost.com.au/app/ask#email">Support</a> 
+	</div>
+	
+	
+</div>
+</apex:page>

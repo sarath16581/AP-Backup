@@ -1,0 +1,10 @@
+<apex:page >
+    <apex:includeScript value="/support/console/29.0/integration.js" />
+    <apex:includeScript value="/support/api/29.0/interaction.js" />
+    <apex:includeScript value="{!$Resource.jquery191}" />
+    <apex:form >
+    	<script src="{!URLFOR($Resource.jQuery111)}" />
+		<script src="{!URLFOR($Resource.jQueryUI1_10_3)}" />
+        <c:MiniCaseComponent recordId="{!$CurrentPage.parameters.id}" showError="true" />
+    </apex:form>
+</apex:page>

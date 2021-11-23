@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Override_Customer_Restriction_Reason__c</fullName>
+    <description>StarTrack Override Customer Restriction Reason field stores the override reason for Team Leaders.</description>
+    <externalId>false</externalId>
+    <label>Override Customer Restriction Reason</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

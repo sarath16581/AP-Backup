@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Cubic_Calculation2__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(APT_Average_Physical_Weight_Kg__c  &gt; 0, (APT_Average_Weight_Parcel__c / APT_Average_Physical_Weight_Kg__c), null)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Cubic Calculation2</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

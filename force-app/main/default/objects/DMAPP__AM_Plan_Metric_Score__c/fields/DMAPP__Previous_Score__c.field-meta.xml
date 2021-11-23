@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Previous_Score__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>This Lookup is populated with the ID of the AM Plan Metric Score record from the previous month (if any).</description>
+    <externalId>false</externalId>
+    <label>Previous Score</label>
+    <referenceTo>DMAPP__AM_Plan_Metric_Score__c</referenceTo>
+    <relationshipLabel>Previous Plan Metric Scores</relationshipLabel>
+    <relationshipName>AM_Previous_Plan_Metric_Scores</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

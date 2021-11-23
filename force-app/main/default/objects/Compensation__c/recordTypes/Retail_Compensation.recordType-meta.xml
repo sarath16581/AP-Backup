@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Retail_Compensation</fullName>
+    <active>true</active>
+    <description>This record type is for Retail Users that process compensation via MyNetwork</description>
+    <label>Retail Compensation</label>
+    <picklistValues>
+        <picklist>Article_Status__c</picklist>
+        <values>
+            <fullName>Accept full Liablility from overseas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Accept half Liablility from overseas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Claim full from overseas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Claim half from overseas</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Cover_Type__c</picklist>
+        <values>
+            <fullName>ACL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extra Cover</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>T%26C Cover</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transit Cover</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Lost_Codes__c</picklist>
+        <values>
+            <fullName>Damaged Insured Parcel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Damaged Ordinary Parcel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost Insured Parcel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost Ordinary Parcel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost Registered Letter%2FPacket</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Replacement_Products__c</picklist>
+        <values>
+            <fullName>Booklet of 10 stamps %28%241%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business redirection - 1 Month</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Concession redirection - 1 Month</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Large B4 Envelope</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Medium C5 Envelope</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Platinum 3kg satchel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Platinum 500g satchel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Satchel 1kg Medium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Satchel 3kg Medium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Satchel 500g Small</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Satchel 5kg Large</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Small DL Envelope</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flat Rate Satchel 3kg Medium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flat Rate Satchel 500g Small</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flat Rate Satchel 5kg Large</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Post Satchel 3kg Medium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Post Satchel 500g Small</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Post Satchel 5kg Large</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Priority Label</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private redirection - 1 Month</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Registered Post DL prepaid envelope</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Registered Post b4 prepaid envelope</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Registered Post label</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Signature On Delivery Label</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eBay Satchel 3kg</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eBay Satchel 500g</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awaiting Money Order Number</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contact Customer for Proof of Value</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

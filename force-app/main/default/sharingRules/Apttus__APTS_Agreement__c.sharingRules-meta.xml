@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>APT_Contract_Management_Access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Gives access to Contract Management Enquiry (CME) - R/W</description>
+        <label>APT Contract Management Access</label>
+        <sharedTo>
+            <group>Contract_Management_Enquiry_CME</group>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>APT_Share_with_FBU_Pricing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share with FBU Pricing</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>FBU_Pricing</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>APT_Share_with_Inside_Sales_TSA</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share with Inside Sales TSA</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Inside_Sales_BMS</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>APT_Share_with_Retail_Operations</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share with Retail Operations</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Retail_Operations</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>APT_Share_with_Sales</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share with Sales</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>APT_Share_with_Sales_Ops</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share with Sales Ops</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>SalesOperations</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

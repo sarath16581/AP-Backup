@@ -1,0 +1,13 @@
+<!-- 
+This visual force page will be called from Guide Me button on Opportunity detail page 
+to redirect on Guided Selling screen from Opportunity.  
+ -->
+<apex:page controller="APT_GuideMeController" action="{!doRedirect}">
+<apex:form >
+    <apex:pageBlock >
+        <apex:pageBlockSection columns="1" id="errorMessageSection">
+            <apex:pagemessages rendered="{!haserrorMessages}"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

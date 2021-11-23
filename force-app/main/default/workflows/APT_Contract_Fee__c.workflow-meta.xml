@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>APT_Set_In_Person_Text</fullName>
+        <field>In_Person_Text__c</field>
+        <formula>IF(
+AND( ISBLANK( In_Person_Dollar__c ) ,
+ ISBLANK( APT_In_Person__c ) )
+, &apos;N/A&apos;, 
+
+ IF( CONTAINS(RecordType.Name, &apos;Dollar&apos;) ,  &apos;$&apos;+TEXT(In_Person_Dollar__c) , 
+
+
+ IF(CONTAINS(RecordType.Name, &apos;Percent&apos;),  TEXT(APT_In_Person__c*100)+&apos;%&apos; , &apos;N/A&apos;) ) 
+
+)</formula>
+        <name>Set In Person Text</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_Set_Scan_and_Pay_Text</fullName>
+        <field>APT_Scan_Pay_Text__c</field>
+        <formula>IF( 
+AND( ISBLANK( APT_Scan_Pay_Dollar__c) , 
+ISBLANK( APT_Scan_Pay_Percent__c ) ) 
+, &apos;N/A&apos;, 
+
+IF( CONTAINS(RecordType.Name, &apos;Dollar&apos;) , &apos;$&apos;+TEXT( APT_Scan_Pay_Dollar__c ) , 
+
+
+IF(CONTAINS(RecordType.Name, &apos;Percent&apos;), TEXT( APT_Scan_Pay_Percent__c *100)+&apos;%&apos; , &apos;N/A&apos;) ) 
+
+)</formula>
+        <name>Set Scan and Pay Text</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_Set_by_Phone_and_On_The_Internet</fullName>
+        <field>APT_By_Phone_On_the_Internet_Text__c</field>
+        <formula>IF( 
+AND( ISBLANK( APT_By_Phone_On_the_Internet_Dollar__c ) , 
+ISBLANK( APT_By_Phone_On_the_Internet_Percent__c ) ) 
+, &apos;N/A&apos;, 
+
+IF( CONTAINS(RecordType.Name, &apos;Dollar&apos;) , &apos;$&apos;+TEXT( APT_By_Phone_On_the_Internet_Dollar__c ) , 
+
+
+IF(CONTAINS(RecordType.Name, &apos;Percent&apos;), TEXT( APT_By_Phone_On_the_Internet_Percent__c *100)+&apos;%&apos; , &apos;N/A&apos;) ) 
+
+)</formula>
+        <name>Set by Phone and On The Internet</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>APT Update By Phone and On the Internet for Template</fullName>
+        <actions>
+            <name>APT_Set_by_Phone_and_On_The_Internet</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Updates field with value for template generation</description>
+        <formula>OR(ISNEW(), ISCHANGED(  APT_By_Phone_On_the_Internet_Dollar__c ), ISCHANGED(   APT_By_Phone_On_the_Internet_Percent__c ) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>APT Update In Person for Template</fullName>
+        <actions>
+            <name>APT_Set_In_Person_Text</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Updates field with value for template generation</description>
+        <formula>OR(ISNEW(), ISCHANGED( In_Person_Dollar__c ), ISCHANGED(  APT_In_Person__c ) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>APT Update Scan and Pay for Template</fullName>
+        <actions>
+            <name>APT_Set_Scan_and_Pay_Text</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Updates field with value for template generation</description>
+        <formula>OR(ISNEW(), ISCHANGED(   APT_Scan_Pay_Dollar__c ), ISCHANGED(    APT_Scan_Pay_Percent__c ) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

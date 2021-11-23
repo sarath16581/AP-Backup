@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>eParcel Onboarding Case Comments Updated</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>eParcel Onboarding Case Comments</name>
+    <style>freeForm</style>
+    <subject>Case {!Case.CaseNumber} - {!Case.Subject} - Case Comments Updated</subject>
+    <textOnly>Case Number: {!Case.CaseNumber} has been updated by {!Case.LastModifiedBy}.
+
+
+Subject: {!Case.Subject}
+
+Case Comments:
+
+
+{!Case.Last_Case_Comment}
+
+
+{!Case.Link}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

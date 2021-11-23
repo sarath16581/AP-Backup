@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Submit_to_Pricing_Team</fullName>
+    <availability>online</availability>
+    <description>Submit Deal Support Request to Pricing Team</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Submit to Pricing Team</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/{!Internal_Request__c.Id}/e?&amp;
+00N9000000EsvWd={!CASE(Internal_Request__c.Status__c, &apos;New Request Initiated&apos;, &apos;Initial Review Required&apos;, &apos;Further Information Required&apos;, &apos;Further Information Provided by Sales&apos;,&apos;Pricing Response Provided&apos;,&apos;Review of Pricing Response Requested&apos;,&apos;&apos;)}&amp;
+retURL=%2F{!Internal_Request__c.Id}&amp;
+saveURL=%2F{!Internal_Request__c.Id}</url>
+</WebLink>

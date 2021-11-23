@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Duration_Check</fullName>
+    <active>true</active>
+    <errorConditionFormula>DMAPP__Duration__c &lt; 0</errorConditionFormula>
+    <errorDisplayField>DMAPP__Duration__c</errorDisplayField>
+    <errorMessage>Duration must be positive</errorMessage>
+</ValidationRule>

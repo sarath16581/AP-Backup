@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@startrack.com.au</email>
+    <name>ETA Queue</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>ETA_Group</publicGroup>
+        </publicGroups>
+        <users>
+            <user>kalif.ahhan@startrack.com.au</user>
+            <user>ravi.sharma@startrack.com.au</user>
+            <user>ron.kahlon@startrack.com.au</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>StarTrack_Delivery_Enquiry_Queue_Routing_Config</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

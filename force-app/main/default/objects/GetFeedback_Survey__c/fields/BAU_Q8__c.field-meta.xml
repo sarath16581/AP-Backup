@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAU_Q8__c</fullName>
+    <description>What additional comments would you like to share related
+to this specific issue or Business Systems Support Rep involved in its resolution?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>What additional comments would you like to share related
+to this specific issue or Business Systems Support Rep involved in its resolution?</inlineHelpText>
+    <label>BAU Q8 - Additional comments</label>
+    <length>2000</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>12</visibleLines>
+</CustomField>

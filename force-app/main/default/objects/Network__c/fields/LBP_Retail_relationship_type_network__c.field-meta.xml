@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LBP_Retail_relationship_type_network__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>This field is used to identify the Type/Tier of the Corp or LPO outlet as part of the Local Business Partner (LBP) Program. For changes to these fields please consult Sales Cloud Admin.</inlineHelpText>
+    <label>LBP Retail Relationship Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>LBP_Retail_relationship_network__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Tier 1</fullName>
+                <default>false</default>
+                <label>Tier 1</label>
+            </value>
+            <value>
+                <fullName>Tier 2</fullName>
+                <default>false</default>
+                <label>Tier 2</label>
+            </value>
+            <value>
+                <fullName>Tier 3</fullName>
+                <default>false</default>
+                <label>Tier 3</label>
+            </value>
+            <value>
+                <fullName>CPO MyPost Bus. Offer</fullName>
+                <default>false</default>
+                <label>CPO MyPost Bus. Offer</label>
+            </value>
+            <value>
+                <fullName>LPO MyPost Bus. Offer</fullName>
+                <default>false</default>
+                <label>LPO MyPost Bus. Offer</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>LBP Program</controllingFieldValue>
+            <valueName>Tier 1</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LBP Program</controllingFieldValue>
+            <valueName>Tier 2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LBP Program</controllingFieldValue>
+            <valueName>Tier 3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail</controllingFieldValue>
+            <valueName>CPO MyPost Bus. Offer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retail</controllingFieldValue>
+            <valueName>LPO MyPost Bus. Offer</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

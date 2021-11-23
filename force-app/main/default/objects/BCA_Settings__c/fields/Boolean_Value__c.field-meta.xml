@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Boolean_Value__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field will be used to store the boolean value of the setting.</description>
+    <externalId>false</externalId>
+    <label>Boolean Value</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

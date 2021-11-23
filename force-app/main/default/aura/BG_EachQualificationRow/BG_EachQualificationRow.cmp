@@ -1,0 +1,33 @@
+<!-- STP:20/02/2020: 
+    Display a Qualification custom related list single record
+[Jansi:10-06-2020]: STP-2011 Fix
+-->
+<aura:component >
+    
+    <aura:attribute name="selectedQualId" type="String" />
+    <aura:attribute name="selectedQualName" type="String" />
+    <aura:attribute name="qual" type="Qualification__c" />
+
+    <tr class="slds-hint-parent">
+       <!-- <td> <lightning:button aura:Id='save' onclick="{!c.showSummary}" label="View" variant="brand" /></td>-->
+        <th data-label="Qualification Name" scope="row">
+            <div class="slds-truncate" title="{!v.qual.Name}">
+                <a href="javascript:void(0);" onclick='{!c.showSummary}' tabindex="-1">{!v.qual.Name}</a>
+            </div>
+        </th>
+        <td data-label="CreatedBy.Name">
+            <div class="slds-truncate" title="{!v.qual.CreatedBy.Name}">{!v.qual.CreatedBy.Name}</div>
+        </td>
+          <td data-label="Created Date">
+              <div class="slds-truncate" title="{!v.qual.CreatedDate}"><ui:outputDateTime aura:id="oDateTime" value="{!v.qual.CreatedDate}"/></div>
+        </td>
+
+        <td data-label="Total Estimate">
+            <div class="slds-truncate" title="{!v.qual.Total_Estimate__c}"><ui:outputCurrency value="{!v.qual.Total_Estimate__c}"/></div>
+        </td>
+        <td data-label="Notes" style='width:100px; word-wrap:break-word;'>
+            <div class="slds-truncate" style='width:100px; word-wrap:break-word;' title="{!v.qual.Notes__c}">{!v.qual.Notes__c}</div>
+        </td>
+    </tr>
+    
+</aura:component>

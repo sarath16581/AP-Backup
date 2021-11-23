@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Index xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEPARC__ArchivaSetupAuditTrialIndex</fullName>
+    <fields>
+        <name>CEPARC__CreatedDate__c</name>
+        <sortDirection>ASC</sortDirection>
+    </fields>
+    <fields>
+        <name>CEPARC__Id__c</name>
+        <sortDirection>ASC</sortDirection>
+    </fields>
+    <label>Archiva Setup Audit Trial Index</label>
+</Index>

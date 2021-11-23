@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Display_Street_Address_Country_Code__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(APT_Entity_Type__c == &apos;Individual&apos;,TEXT(APT_Billing_Address_Country_Code__c),IF(APT_Entity_Type__c == &apos;Company&apos;,TEXT(APT_Street_Address_Country_Code__c),&apos;&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Country Code</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <description>Status of pipeline communication.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Current status of this migration record</inlineHelpText>
+    <label>Status</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cohort Analysis</fullName>
+                <default>false</default>
+                <label>Cohort Analysis</label>
+            </value>
+            <value>
+                <fullName>Migration Pipeline</fullName>
+                <default>true</default>
+                <label>Migration Pipeline</label>
+            </value>
+            <value>
+                <fullName>Confirm Customer Information</fullName>
+                <default>false</default>
+                <label>Confirm Customer Information</label>
+            </value>
+            <value>
+                <fullName>Customer Commitment</fullName>
+                <default>false</default>
+                <label>Customer Commitment</label>
+            </value>
+            <value>
+                <fullName>Migration Planning</fullName>
+                <default>false</default>
+                <label>Migration Planning</label>
+            </value>
+            <value>
+                <fullName>Migration In Progress</fullName>
+                <default>false</default>
+                <label>Migration In Progress</label>
+            </value>
+            <value>
+                <fullName>Complete</fullName>
+                <default>false</default>
+                <label>Complete</label>
+            </value>
+            <value>
+                <fullName>Legacy Accounts &amp; Products Discontinued</fullName>
+                <default>false</default>
+                <label>Legacy Accounts &amp; Products Discontinued</label>
+            </value>
+            <value>
+                <fullName>Deferred</fullName>
+                <default>false</default>
+                <label>Deferred</label>
+            </value>
+            <value>
+                <fullName>Lost Business</fullName>
+                <default>false</default>
+                <label>Lost Business</label>
+            </value>
+            <value>
+                <fullName>Moved to 3PL account</fullName>
+                <default>false</default>
+                <label>Moved to 3PL account</label>
+            </value>
+            <value>
+                <fullName>Customer Identification</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Customer Identification</label>
+            </value>
+            <value>
+                <fullName>Deleted</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Deleted</label>
+            </value>
+            <value>
+                <fullName>Flagged for Deletion</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Flagged for Deletion</label>
+            </value>
+            <value>
+                <fullName>Legacy System Discontinued</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Legacy System Discontinued</label>
+            </value>
+            <value>
+                <fullName>Migration Analysis</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Migration Analysis</label>
+            </value>
+            <value>
+                <fullName>Sales Introduction</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Sales Introduction</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Platform_Partner__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This checkbox indicates whether the customer is a Integration partner or not.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This checkbox indicates whether the customer is a Integration partner or not.</inlineHelpText>
+    <label>Is Platform Partner</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_Name__c</fullName>
+    <description>Stores the product names that needs to be appended with &apos;per article&apos; on template.This is used in formula field APT_Product_Name</description>
+    <externalId>false</externalId>
+    <label>Product Name</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

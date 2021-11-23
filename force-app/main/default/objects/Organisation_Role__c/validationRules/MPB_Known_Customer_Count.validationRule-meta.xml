@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MPB_Known_Customer_Count</fullName>
+    <active>true</active>
+    <description>MPB - Known Account Management - Stops a &apos;Customer&apos; record being created if one already exists</description>
+    <errorConditionFormula>IF(Organisation__r.Known_Party_Role_Count__c  &gt;= 1 &amp;&amp;  ISPICKVAL(Role_Type__c,&apos;Customer&apos;) &amp;&amp; NOT(ISPICKVAL(PRIORVALUE(Role_Type__c), &quot;Known&quot;)), true, false)</errorConditionFormula>
+    <errorMessage>You are unable to enter a customer if a known already exists.</errorMessage>
+</ValidationRule>

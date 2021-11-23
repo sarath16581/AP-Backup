@@ -1,0 +1,45 @@
+<!-- Decomissioned. Replaced by StarTrackCreateTaskPA page -->
+<apex:page standardController="Case" docType="html-5.0" showHeader="false" sidebar="false">
+
+<!-- <apex:includeScript value="/canvas/sdk/js/publisher.js" />
+<script type="text/javascript">
+function closePA(){
+    Sfdc.canvas.publisher.publish({ name: "publisher.close", payload:{ refresh:"true" }});
+}
+function refreshFeed(){
+    Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload : {feed: true}});
+}
+
+// function checkCaseType(input, currentUser, ownerId, dueDate, reminderDate){
+//         if(input.value == 'Reminder') {
+//             taskActionFunction();
+//             document.getElementById(ownerId).value = currentUser;
+//             console.log(dueDate.value);
+//             console.log(reminderDate.value);
+//         }
+//         else {
+//             document.getElementById(ownerId).value = currentUser;
+//             document.getElementById(dueDate).value = '';
+//             document.getElementById(reminderDate).value = '';
+//         }
+// }
+</script>
+<apex:form id="theForm">
+    <apex:actionRegion id="theActionRegion">
+        <apex:pageBlock tabStyle="Case" mode="maindetail" id="theBlock">
+            <apex:pageBlockSection columns="2" id="theSection">
+                <apex:inputField value="{!newTask.Type}" onchange="taskActionFunction();"/>
+                <apex:inputField value="{!newTask.Subject}"/>
+                <apex:inputField value="{!newTask.ActivityDate}" id="dueDate"/>
+                <apex:inputField value="{!newTask.ReminderDateTime}" id="reminderDate"/>
+                <apex:inputField value="{!newTask.OwnerId}" id="ownerId"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:actionRegion>
+    <center>
+        <apex:commandButton value="Submit" action="{!createTask}" onclick="closePA(); console.log('Onclick executed');" oncomplete="refreshFeed(); console.log('Oncomplete executed');"/>
+    </center>
+    <apex:actionFunction action="{!changeTaskField}" name="taskActionFunction" rerender="theBlock"/>
+</apex:form> -->
+
+</apex:page>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>APT_Mark_for_Review__c</columns>
+    <columns>Apttus__Contract_Start_Date__c</columns>
+    <columns>Apttus__Contract_End_Date__c</columns>
+    <columns>APT_of_times_extension_was_requested__c</columns>
+    <columns>Apttus__Account_Search_Field__c</columns>
+    <columns>Apttus__FF_Execute__c</columns>
+    <columns>RECORDTYPE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Apttus__Status_Category__c</field>
+        <operation>equals</operation>
+        <value>In Effect</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Apttus__APTS_Agreement__c.APT_MSA_Service_Schedule</value>
+    </filters>
+    <label>OE Due to Anniversary</label>
+</ListView>

@@ -1,0 +1,134 @@
+<!--
+2019-04-04 ronnie.yang@auspost.com.au changed the order of how the sections are displayed REQ1760994, made code more readable
+-->
+<apex:component controller="EmailTemplateDISCompCont" access="global" >
+    <apex:attribute name="compId" type="Id" description="the case ID" assignTo="{!caseId}"/>
+    <div style="background: #FFEDBA; padding:20px;">
+        <!-- Heading -->
+        <div style="background: #FFFFFF;margin: 20px;padding: 20px;">
+            <div style="display:table">
+                <div style="display:table-row">
+                    <div style="display:table-cell; vertical-align:top;">
+                        <apex:image url="{!logoUrl}" rendered="{!logoUrl!=null}" style="padding-top:20px;"/>
+                    </div>
+                    <div style="display:table-cell; vertical-align: top; padding-left: 20px;">
+                        <table style="border-collapse: collapse;border: none;padding: 0;">
+                            <tr style="border: none;padding: 0;">
+                                <td style="border: none;padding: 0;">
+                                    <!-- Modified by Maumita to implement REQ1229429 Starts-->
+                                    <h1 style="padding: 0px;">
+                                        {!IF(CONTAINS(myCase.Type, "Investigation"), "Investigation: " & myCase.Customer_Type__c & " Customer", "Feedback: " & myCase.Customer_Type__c & " Customer")}
+                                    </h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: none;padding: 0;vertical-align: bottom;">
+                                    <h1 style="padding: 0px; color: #DF1027">
+                                        {!IF(CONTAINS(myCase.Type, "Feedback"), "Do not reply. No response required.", "")}
+                                    </h1>
+                                </td>
+                            </tr>
+                        </table>                               
+                        <h1 style="padding: 0px; color: #DF1027">
+                            {!IF(CONTAINS(myCase.Type, "Investigation"), 
+                            "Please reply within " & IF(myCase.Customer_Type__c == "Enterprise", "24 hours", "48 hours") & " from " & timaestamp, 
+                            "")}
+                        </h1>
+                        <h2 style="padding: 0px;">
+                            Case {!myCase.CaseNumber}
+                        </h2> 
+                        <!-- Modified by Maumita to implement REQ1229429 Ends-->
+                    </div>              
+                </div>
+            </div>
+        </div>
+        <!-- Body -->
+        <div style="background: #FFFFFF;margin: 20px;padding: 20px;">
+            <h3 style="color: #DF1027;">Contact</h3>
+            <apex:repeat value="{!ItemSearchContactFields}" var="f" rendered="{!IF(myContact.DoNotDisclose__c,'false','true')}">
+                <b><apex:outputText value="{!f.Label}: "/></b>
+                <apex:outputText styleClass="form-control input-sm {!f.type}" value="{!myContact[f]}"/><br/>
+            </apex:repeat>
+            <!-- Do not display contact if DoNotDisclose__c is true -->
+            <apex:repeat value="{!1}" rendered="{!IF(myContact.DoNotDisclose__c,'true','false')}">
+                Cannot disclose contact
+            </apex:repeat>
+            <h3 style="color: #DF1027;">Case details</h3>
+            <!--
+			Commented by Maumita as a part of REQ1229429
+			<apex:outputText >
+				<div style="font-weight: bold;">
+					{!IF(CONTAINS(myCase.Type,"Investigation"),"Please review the following enquiry and respond via email with the required response time.", "Please review the following information and address as appropriate. Please do not reply, as any response to CS&S will not be monitored via email.")}
+				</div>
+			</apex:outputText>
+
+			<h3 style="color: #DF1027;">Case</h3>
+			-->
+            <apex:repeat value="{!IF(myCase.Type == 'Investigation',$ObjectType.Case.FieldSets.ContactNetworkInvestigation,IF(myCase.Type == 'Feedback',$ObjectType.Case.FieldSets.ContactNetworkFeedback,$ObjectType.Case.FieldSets.ContactNetworkGeneralEnquiry))}" var="f" >
+                <b><apex:outputText value="{!f.Label}: " /></b>
+                <apex:outputText styleClass="form-control input-sm {!f.type}" value="{!myCase[f]}"/><br/>
+            </apex:repeat>
+            <table style="border-collapse: collapse;border: none;padding: 0;">
+                <tr style="border: none;padding: 0;">
+                    <td style="border: none;width:85px;vertical-align: top;padding: 0;">
+                        <b><apex:outputText value="Description: " /></b>
+                        
+                    </td>
+                    <td style="border: none;padding: 0;">
+                        <apex:outputField styleClass="form-control input-sm TextArea" value=" {!myCase.Description}" />
+                    </td>
+                </tr>
+            </table>
+            
+            
+            
+            <!--            <div class="section additional-info-section"> -->
+            <apex:repeat value="{!1}" rendered="{!NOT(ISBLANK(myCase.NetworkComments__c))}">
+                <h3 style="color: #DF1027;">Additional Information</h3>
+                <table class="additional-info-section">              
+                    <tr>
+                        <td>
+                            <apex:outputText value="{!myCase.NetworkComments__c}" />
+                        </td>
+                    </tr>
+                </table>
+            </apex:repeat>           
+            <!--            </div> -->
+            
+            
+            <apex:outputText rendered="{!NOT(ISBLANK(consignmentDetails))}">
+                <c:DISEmailTemplateArticle article="{!consignmentDetails.proxyConsignment}" 
+                                           eventMessages="{!consignmentDetails.eventMessages}" 
+                                           IsConsignment="true" 
+                                           articleFields="{!ItemSearchArticleFields}" 
+                                           eventMessageFields="{!ItemSearchEventMessagesFields}" />
+                
+                <apex:repeat value="{!consignmentDetails.articles}" var="a">
+                    <c:DISEmailTemplateArticle article="{!a.proxyArticle}" 
+                                               eventMessages="{!a.eventMessages}" 
+                                               IsConsignment="false" 
+                                               articleFields="{!ItemSearchArticleFields}" 
+                                               eventMessageFields="{!ItemSearchEventMessagesFields}" />
+                    <br/>
+                </apex:repeat>
+            </apex:outputText>
+            <apex:outputText rendered="{!NOT(ISBLANK(articleDetails))}">
+                <c:DISEmailTemplateArticle article="{!articleDetails.proxyArticle}" 
+                                           eventMessages="{!articleDetails.eventMessages}" 
+                                           IsConsignment="false" 
+                                           articleFields="{!ItemSearchArticleFields}" 
+                                           eventMessageFields="{!ItemSearchEventMessagesFields}" />
+            </apex:outputText>
+        </div>
+        <!-- Sign off -->
+        <div style="margin: 20px;padding: 20px;">
+            <apex:repeat value="{!1}" rendered="{!NOT(ISBLANK($User.Id))}">
+                <div style="color: #DF1027;font-weight: bold;">
+                    <apex:outputText value="Thank You,"/><br/>
+                    <apex:outputText value="Customer Sales & Service"/>
+                </div>
+                <span style="color:white;">System Ref: {!myCase.EmailThreadID__c}</span>               
+            </apex:repeat>
+        </div>
+    </div>
+</apex:component>

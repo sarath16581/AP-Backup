@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Sub_Map__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Sub Map</label>
+    <referenceTo>DMAPP__Account_Political_Map__c</referenceTo>
+    <relationshipLabel>Account Pol Map Sub Maps (Sub Map)</relationshipLabel>
+    <relationshipName>Account_Pol_Map_Sub_Maps1</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

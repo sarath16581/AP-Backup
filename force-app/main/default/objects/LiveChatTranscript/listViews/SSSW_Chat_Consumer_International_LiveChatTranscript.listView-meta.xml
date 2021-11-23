@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Chat_Consumer_International_LiveChatTranscript</fullName>
+    <filterScope>Queue</filterScope>
+    <label>SSSW Chat - Consumer International</label>
+    <queue>SSSW_Chat_Consumer_International</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

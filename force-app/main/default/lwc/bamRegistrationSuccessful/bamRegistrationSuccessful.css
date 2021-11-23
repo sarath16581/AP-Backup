@@ -1,0 +1,13 @@
+c-custom-card {
+    max-width: 400px;
+    margin: 0 auto;
+    display: block;
+}
+
+lightning-icon {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95px !important;
+    height: 95px !important;
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B_G_Deal_Desk_Forum_Attendees__c</fullName>
+    <description>This field stores the details for the attendees for the Deal Desk Forum</description>
+    <externalId>false</externalId>
+    <label>B&amp;G Deal Desk Forum Attendees</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

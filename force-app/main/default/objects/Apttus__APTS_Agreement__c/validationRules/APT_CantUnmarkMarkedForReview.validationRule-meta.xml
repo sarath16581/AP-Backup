@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_CantUnmarkMarkedForReview</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ PRIORVALUE(APT_Mark_for_Review__c )  == True,
+ ISCHANGED(APT_Mark_for_Review__c) ,
+  APT_Mark_for_Review__c  == False
+)</errorConditionFormula>
+    <errorDisplayField>APT_Mark_for_Review__c</errorDisplayField>
+    <errorMessage>Once you marked contract for review, this change cannot be undone. Please contact Contract Consulting Team.</errorMessage>
+</ValidationRule>

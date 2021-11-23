@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ApttusReady__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Is the user trained for Apttus?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Is the user trained for Apttus?</inlineHelpText>
+    <label>ApttusReady</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

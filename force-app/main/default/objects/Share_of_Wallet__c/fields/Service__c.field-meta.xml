@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Identify the Service that the Share of Wallet entry relates to</inlineHelpText>
+    <label>Service Required</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Government, Agency &amp; Identity Services</fullName>
+                <default>false</default>
+                <label>Government, Agency &amp; Identity Services</label>
+            </value>
+            <value>
+                <fullName>Addressed Mail Services</fullName>
+                <default>false</default>
+                <label>Addressed Mail Services</label>
+            </value>
+            <value>
+                <fullName>Business &amp; Payment Services</fullName>
+                <default>false</default>
+                <label>Business &amp; Payment Services</label>
+            </value>
+            <value>
+                <fullName>Courier Services</fullName>
+                <default>false</default>
+                <label>Courier Services</label>
+            </value>
+            <value>
+                <fullName>Digital Services</fullName>
+                <default>false</default>
+                <label>Digital Services</label>
+            </value>
+            <value>
+                <fullName>Domestic Parcel Services</fullName>
+                <default>false</default>
+                <label>Domestic Parcel Services</label>
+            </value>
+            <value>
+                <fullName>Express Post Services</fullName>
+                <default>false</default>
+                <label>Express Post Services</label>
+            </value>
+            <value>
+                <fullName>International Parcel Services</fullName>
+                <default>false</default>
+                <label>International Parcel Services</label>
+            </value>
+            <value>
+                <fullName>Star Track Services</fullName>
+                <default>false</default>
+                <label>Star Track Services</label>
+            </value>
+            <value>
+                <fullName>Unaddressed Mail Services</fullName>
+                <default>false</default>
+                <label>Unaddressed Mail Services</label>
+            </value>
+            <value>
+                <fullName>Consumer &amp; Financial Services</fullName>
+                <default>false</default>
+                <label>Consumer &amp; Financial Services</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

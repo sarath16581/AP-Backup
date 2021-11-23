@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Approval_Type__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New</fullName>
+                <default>true</default>
+                <label>New</label>
+            </value>
+            <value>
+                <fullName>Not Located</fullName>
+                <default>false</default>
+                <label>Not Located</label>
+            </value>
+            <value>
+                <fullName>Pending Pre-Approval</fullName>
+                <default>false</default>
+                <label>Pending Pre-Approval</label>
+            </value>
+            <value>
+                <fullName>Draft</fullName>
+                <default>false</default>
+                <label>Draft</label>
+            </value>
+            <value>
+                <fullName>Pending Approval</fullName>
+                <default>false</default>
+                <label>Pending Approval</label>
+            </value>
+            <value>
+                <fullName>Approved</fullName>
+                <default>false</default>
+                <label>Approved</label>
+            </value>
+            <value>
+                <fullName>Awaiting Signature</fullName>
+                <default>false</default>
+                <label>Awaiting Signature</label>
+            </value>
+            <value>
+                <fullName>Active</fullName>
+                <default>false</default>
+                <label>Active</label>
+            </value>
+            <value>
+                <fullName>Ceased</fullName>
+                <default>false</default>
+                <label>Ceased</label>
+            </value>
+            <value>
+                <fullName>Not Activated</fullName>
+                <default>false</default>
+                <label>Not Activated</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Full</controllingFieldValue>
+            <controllingFieldValue>Single</controllingFieldValue>
+            <controllingFieldValue>No</controllingFieldValue>
+            <controllingFieldValue>Scanned Paper</controllingFieldValue>
+            <controllingFieldValue>-</controllingFieldValue>
+            <valueName>New</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Full</controllingFieldValue>
+            <valueName>Pending Pre-Approval</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Full</controllingFieldValue>
+            <controllingFieldValue>Single</controllingFieldValue>
+            <controllingFieldValue>No</controllingFieldValue>
+            <controllingFieldValue>Scanned Paper</controllingFieldValue>
+            <valueName>Draft</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Full</controllingFieldValue>
+            <controllingFieldValue>Single</controllingFieldValue>
+            <controllingFieldValue>Scanned Paper</controllingFieldValue>
+            <valueName>Pending Approval</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Full</controllingFieldValue>
+            <controllingFieldValue>Single</controllingFieldValue>
+            <controllingFieldValue>Scanned Paper</controllingFieldValue>
+            <valueName>Approved</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Full</controllingFieldValue>
+            <controllingFieldValue>Single</controllingFieldValue>
+            <valueName>Awaiting Signature</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Full</controllingFieldValue>
+            <controllingFieldValue>Single</controllingFieldValue>
+            <controllingFieldValue>No</controllingFieldValue>
+            <controllingFieldValue>Scanned Paper</controllingFieldValue>
+            <valueName>Active</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Full</controllingFieldValue>
+            <controllingFieldValue>Single</controllingFieldValue>
+            <controllingFieldValue>No</controllingFieldValue>
+            <controllingFieldValue>Scanned Paper</controllingFieldValue>
+            <valueName>Ceased</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Full</controllingFieldValue>
+            <controllingFieldValue>Single</controllingFieldValue>
+            <controllingFieldValue>No</controllingFieldValue>
+            <controllingFieldValue>Scanned Paper</controllingFieldValue>
+            <valueName>Not Activated</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Scanned Paper</controllingFieldValue>
+            <valueName>Not Located</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

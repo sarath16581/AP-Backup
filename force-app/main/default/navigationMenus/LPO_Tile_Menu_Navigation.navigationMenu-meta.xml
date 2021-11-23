@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NavigationMenu xmlns="http://soap.sforce.com/2006/04/metadata">
+    <container>Licensed Post Office</container>
+    <containerType>Network</containerType>
+    <label>LPO Tile Menu Navigation</label>
+    <navigationMenuItem>
+        <label>Create New Lead</label>
+        <menuItemBranding>
+            <tileImage>bh_new_lead_rednr</tileImage>
+        </menuItemBranding>
+        <position>1</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>/create-a-lead</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <defaultListViewId>LPO_My_Organisations</defaultListViewId>
+        <label>My Organisations</label>
+        <menuItemBranding>
+            <tileImage>bh_organisations_red_nr</tileImage>
+        </menuItemBranding>
+        <position>2</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>Account</target>
+        <type>SalesforceObject</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <defaultListViewId>LPO_My_Open_Leads</defaultListViewId>
+        <label>My Leads</label>
+        <menuItemBranding>
+            <tileImage>bh_leads_red_nr</tileImage>
+        </menuItemBranding>
+        <position>3</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>Lead</target>
+        <type>SalesforceObject</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <defaultListViewId>LPO_My_Open_Opportunities_1</defaultListViewId>
+        <label>My Opportunities</label>
+        <menuItemBranding>
+            <tileImage>bh_opportunities_red_nr</tileImage>
+        </menuItemBranding>
+        <position>4</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>Opportunity</target>
+        <type>SalesforceObject</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Happy Parcels</label>
+        <menuItemBranding>
+            <tileImage>bh_happy_parcels_red_nr</tileImage>
+        </menuItemBranding>
+        <position>5</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>/happy-parcels</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Seismic</label>
+        <menuItemBranding>
+            <tileImage>bh_seismic_red_nr</tileImage>
+        </menuItemBranding>
+        <position>6</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>/seismic</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+</NavigationMenu>

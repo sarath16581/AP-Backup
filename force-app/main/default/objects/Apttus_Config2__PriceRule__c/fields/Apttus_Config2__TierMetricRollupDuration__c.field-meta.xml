@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_Config2__TierMetricRollupDuration__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Indicates the frequency for auto created rollup of the tiered metric value</description>
+    <externalId>false</externalId>
+    <inlineHelpText>1.	NO ROLLUP:  Tier metric based on value from individual transaction only 
+2.	REBATE PAYOUT PERIOD:  Tier metric based on aggregated value over the entire rebate payout period as specified in rebate payout frequency</inlineHelpText>
+    <label>Tier Metric Rollup Duration</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>No Rollup</fullName>
+                <default>true</default>
+                <label>No Rollup</label>
+            </value>
+            <value>
+                <fullName>Rebate Payout Period</fullName>
+                <default>false</default>
+                <label>Rebate Payout Period</label>
+            </value>
+            <value>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+                <label>Monthly</label>
+            </value>
+            <value>
+                <fullName>Quarterly</fullName>
+                <default>false</default>
+                <label>Quarterly</label>
+            </value>
+            <value>
+                <fullName>Half Yearly</fullName>
+                <default>false</default>
+                <label>Half Yearly</label>
+            </value>
+            <value>
+                <fullName>Yearly</fullName>
+                <default>false</default>
+                <label>Yearly</label>
+            </value>
+            <value>
+                <fullName>Incentive Period</fullName>
+                <default>false</default>
+                <label>Incentive Period</label>
+            </value>
+            <value>
+                <fullName>Incentive Lifetime</fullName>
+                <default>false</default>
+                <label>Incentive Lifetime</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

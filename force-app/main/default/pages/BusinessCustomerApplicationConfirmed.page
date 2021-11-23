@@ -1,0 +1,164 @@
+<apex:page showHeader="false" 
+    title="Customer Application Confirmation" cache="false"
+    controller="GsFormConfirmationController" 
+    action="{!doCustomLeadCheck}" 
+>
+
+
+<html class="no-js" lang="en"> 
+<head> 
+<!-- DEV/TEST -->
+<!--  <script src='//test-static.npe.auspost.com.au/ap/js/tracking/s_code.js'></script> -->
+
+<!-- PROD -->
+<script src='https://static.auspost.com.au/ap/js/tracking/s_code.js'></script>
+<meta charset="utf-8" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
+<meta name="DC.Creator" scheme="AglsAgent" content="Australia Post" /> 
+<meta name="DC.Title" content="Australia Post - Home" /> 
+<meta name="viewport" content="width=device-width" /> 
+
+<title>Customer Application Confirmation</title> 
+
+<link rel="apple-touch-icon" sizes="144x144" href="{!URLFOR($Resource.GsForm_Assets,'css/images/favicons/apple-touch-icon-144x144.png')}" /> 
+<link rel="apple-touch-icon" sizes="114x114" href="{!URLFOR($Resource.GsForm_Assets,'css/images/favicons/apple-touch-icon-114x114.png')}" /> 
+<link rel="apple-touch-icon" sizes="72x72" href="{!URLFOR($Resource.GsForm_Assets,'css/images/favicons/apple-touch-icon-72x72.png')}" /> 
+<link rel="apple-touch-icon" href="{!URLFOR($Resource.GsForm_Assets,'css/images/favicons/apple-touch-icon.png')}" /> 
+<link rel="shortcut icon" href="{!URLFOR($Resource.GsForm_Assets,'css/images/favicons/favicon.ico')}" /> 
+
+<link rel="stylesheet" href="{!URLFOR($Resource.GsForm_Assets,'css/style.css')}" /> 
+<script src="{!URLFOR($Resource.GsForm_Assets,'js/head.js')}"></script> 
+<script src="{!URLFOR($Resource.GsForm_Assets,'js/libs/jquery-1.8.2.min.js')}"></script> 
+<script src="{!URLFOR($Resource.GsForm_Assets,'js/csso-widget.js')}"></script> 
+<link rel="stylesheet" href="{!URLFOR($Resource.GsForm_Assets,'css/cssolight.css')}" /> 
+
+<!-- MRSO assets --> 
+<link href="{!URLFOR($Resource.GsForm_Assets,'css/mrso/mrso-v2.css')}" rel="stylesheet" /> 
+<link href="{!URLFOR($Resource.GsForm_Assets,'css/mrso/lightbox.css')}" rel="stylesheet" /> 
+<script src="{!URLFOR($Resource.GsForm_Assets,'js/mrso/application.js')}"></script> 
+<script src="{!URLFOR($Resource.GsForm_Assets,'js/mrso/lightbox.js')}"></script> 
+
+<!-- jQuery --> 
+<link href="{!URLFOR($Resource.GsForm_Assets,'jquery-ui.css')}" rel="stylesheet" />
+<script src="{!URLFOR($Resource.GsForm_Assets,'jquery-ui.js')}"></script>
+
+</head> 
+
+<!--[if lt IE 7]> <body class="lt-ie9 lt-ie8 lt-ie7"> <![endif]--> 
+<!--[if IE 7]>    <body class="lt-ie9 lt-ie8"> <![endif]--> 
+<!--[if IE 8]>    <body class="lt-ie9"> <![endif]--> 
+<!--[if gt IE 8]><!--> <body> <!--<![endif]--> 
+
+<!-- START Accessibility links --> 
+<div class="accessibility-links"> <a href="#main" class="visuallyhidden focusable">Skip to content</a> <a href="#primary-nav" class="visuallyhidden focusable">Skip to primary navigation</a> </div> 
+<!-- END Accessibility links --> 
+
+<!-- START GE01 Header --> 
+<div class="l-header"> 
+  <div id="header"> 
+    <header> 
+      <!-- START top nav --> 
+      <div class="top-nav clearfix">       </div> 
+      <!-- END top nav --> 
+      
+      <!-- START logo --> 
+      <a href="#" class="main-logo"> <apex:image id="theImage" value="{!URLFOR($Resource.GsForm_Assets,'css/images/auspost.png')}" /> </a>
+      <!-- END logo --> 
+      
+      <!-- START primary nav --> 
+      <div id="primary-nav" class="primary-nav clearfix"> 
+        <h3>Customer application confirmation</h3> 
+      </div> 
+      <!-- END primary nav --> 
+
+      <!-- APEX message area to help with debugging --> 
+      <apex:pageMessages />
+    </header> 
+  </div> 
+</div> 
+<!-- END GE01 Header --> 
+ 
+<div class="l-container l-wide"> 
+  <div class="l-main clearfix" role="main" id="main"> 
+    <!-- MAIN PANEL --> 
+    <div class="content-panel">
+
+    <h1>Customer Application Confirmation</h1>
+
+    <!-- START CM51 Value prop  -->
+    <p class="value-proposition"></p>
+        
+    <apex:form id="acquisitionForm" styleClass="form fn-validation">
+
+    <h2>Application Confirmed</h2>
+
+    <hr />
+
+
+    <div class="input input-columns">
+
+
+    <p>Thank you for accepting the offer of Australia Post services.</p>
+    <p>Your application will now be processed and the outcome advised by return email.</p>
+
+    
+    </div>
+    
+    <hr />
+    
+</apex:form>
+    </div> 
+    <!-- END MAIN PANEL --> 
+    
+  </div> 
+</div> 
+ 
+<!-- START GE02 Footer --> 
+<div class="l-footer"> 
+  <div id="footer"> 
+    <footer> 
+    <div class="sub-footer-links"> 
+      <ul> 
+        <li><a href="http://auspost.com.au/about-us/about-our-site.html">About our site</a></li> 
+        <li><a href="http://auspost.com.au/terms-conditions.html">Terms &amp; conditions</a></li> 
+        <li><a href="http://auspost.com.au/privacy.html">Privacy policy</a></li> 
+        <li><a href="https://contactus.auspost.com.au">Support</a></li>  
+      </ul> 
+  </div> 
+  </footer> 
+</div> 
+</div> 
+<!-- END GE02 Footer --> 
+ 
+<script src="{!URLFOR($Resource.GsForm_Assets,'js/script.js')}"></script> 
+<!--[if lt IE 8]>
+        <script src="{!URLFOR($Resource.GsForm_Assets,'js/unsupportedIE.js')}"></script>
+    <![endif]--> 
+ 
+<script type="text/javascript"> 
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-XXXXX-X']);
+    _gaq.push(['_trackPageview']);
+ 
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script> 
+
+
+<!-- SiteCatalyst code version: H.21.1.
+Copyright 1996-2010 Adobe, Inc. All Rights Reserved
+More info available at http://www.omniture.com -->
+<script type="text/javascript">
+s.pageName = "auspost:customer application form:confirmed";
+var s_code=s.t();if(s_code)document.write(s_code);
+</script>
+<script type="text/javascript">if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-');</script><noscript><img src="https://australiapost.122.2o7.net/b/ss/auspost-prd/1/H.21.1--NS/0?[AQB]&amp;cdp=3&amp;[AQE]" height="1" width="1" alt="" /></noscript>
+
+  
+</body>
+</html>
+
+</apex:page>

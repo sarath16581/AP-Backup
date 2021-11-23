@@ -1,0 +1,34 @@
+<!--
+    @Author      :  nandan.narasappa@auspost.com.au
+    @Name        :  VE_CardedCase
+    @Date        :  31/10/2016
+    @Description :  Visualforce component to display Attempt to delivery event message & case details in email template
+-->
+<apex:component access="global" controller="VE_CardedCaseController" id="caseComponent">
+    <!-- Component Attributes -->
+    <apex:attribute name="case" description="case record" type="Case" assignTo="{!cardedCase}" id="caseAttr"/>
+    
+    <!-- Output Panel to display case & event message details -->
+    <apex:outputPanel id="caseDetailPanel">
+        <!-- Case Details -->
+        <apex:repeat var="casefield" value="{!$ObjectType.Case.fieldsets.Carded_Case}" id="caseList">
+            <apex:outputLabel value="{!casefield.Label} : " for="casefieldId" id="caseFieldLabel"/>
+            <apex:outputField value="{!cardedCase[casefield]}" id="casefieldId"/>
+            <br/>
+        </apex:repeat>
+        <apex:outputLabel value="Contact Phone : " for="casephoneId" id="phone"/>
+        <apex:outputField value="{!case.Contact.Phone}" id="casephoneId" rendered="{!case.Contact.Phone !=null}"/>
+        <apex:outputField value="{!case.Contact.MobilePhone}" id="casemobilephoneId" rendered="{!case.Contact.MobilePhone != null && case.Contact.Phone ==null }"/>
+        <br/>
+        <!-- Event Message Details for "Attempt to delivery" -->
+        <apex:repeat var="eventfield" value="{!eventMessageFields}" id="eventMsgs">
+            <apex:outputLabel value="{!eventfield.Label} : " for="eventfieldId" id="eventFieldLabel"/>
+            <apex:outputField value="{!eventMessage[eventfield]}" id="eventfieldId"/>
+            <br/>
+        </apex:repeat>
+        <br/>
+        <br/>
+        <apex:outputText value="{!$Label.CL_CardedMessage}" />
+
+    </apex:outputPanel>
+</apex:component>

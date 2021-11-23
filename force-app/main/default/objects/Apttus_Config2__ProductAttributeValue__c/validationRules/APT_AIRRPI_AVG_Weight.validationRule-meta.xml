@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_AIRRPI_AVG_Weight</fullName>
+    <active>true</active>
+    <description>Registered Post International AVG Weight must be less than 2 kg.</description>
+    <errorConditionFormula>ISPICKVAL(APT_Volume_Data__c, &apos;Yes&apos;) 
+&amp;&amp; (APT_RegisteredPostInternationalAnnualVol__c != 0 
+&amp;&amp; (NOT( APT_RegisteredPostInternationalAVGWeight__c  &gt;= 0.001) || NOT( APT_RegisteredPostInternationalAVGWeight__c  &lt;= 2))) || (APT_RegisteredPostInternationalAVGWeight__c = 0 &amp;&amp; APT_RegisteredPostInternationalAnnualVol__c != 0) &amp;&amp; NOT( Apttus_Config2__IsTransient__c)</errorConditionFormula>
+    <errorDisplayField>APT_RegisteredPostInternationalAVGWeight__c</errorDisplayField>
+    <errorMessage>Invalid value for Registered Post International AVG Weight.</errorMessage>
+</ValidationRule>

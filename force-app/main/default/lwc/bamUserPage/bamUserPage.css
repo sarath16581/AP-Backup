@@ -1,0 +1,39 @@
+/*.container {*/
+    /*display: flex;*/
+    /*flex-direction: row;*/
+/*}*/
+
+/*.juicy {*/
+    /*flex: 1;*/
+/*}*/
+
+/*.content {*/
+    /*flex: 2;*/
+/*}*/
+
+.spinner-container {
+    top: 0 !important;
+    left: 0 !important;
+    height:100%;
+    width:100%;
+    z-index: 9000;
+}
+
+.fixed-max-height {
+    max-height: 300px;
+    overflow: auto;
+}
+
+.section-separator {
+    border-bottom: 1px solid #D0D5D8;
+}
+
+.super-admin-you-text {
+    border-radius: 2px;
+    background: #05ac3e;
+    padding: 2px 4px 2px 4px;
+    font-size: small;
+    font-weight: normal;
+    color:white;
+    font-family: 'Salesforce Sans', Arial, sans-serif
+}

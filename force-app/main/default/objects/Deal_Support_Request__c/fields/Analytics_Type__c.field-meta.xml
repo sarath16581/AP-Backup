@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Analytics_Type__c</fullName>
+    <description>Use in Commercial Analytic &amp; Modelling request type.</description>
+    <externalId>false</externalId>
+    <label>Analytics Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Supply Chain Optimisation</fullName>
+                <default>false</default>
+                <label>Supply Chain Optimisation</label>
+            </value>
+            <value>
+                <fullName>Cost Optimisation</fullName>
+                <default>false</default>
+                <label>Cost Optimisation</label>
+            </value>
+            <value>
+                <fullName>Establish Freight Profile</fullName>
+                <default>false</default>
+                <label>Establish Freight Profile</label>
+            </value>
+            <value>
+                <fullName>Population of Pricing Schedules</fullName>
+                <default>false</default>
+                <label>Population of Pricing Schedules</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

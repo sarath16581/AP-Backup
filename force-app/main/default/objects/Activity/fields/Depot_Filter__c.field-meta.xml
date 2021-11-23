@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Depot_Filter__c</fullName>
+    <description>StarTrack: Capture Depot filter information</description>
+    <externalId>false</externalId>
+    <label>Depot Filter</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>All</fullName>
+                <default>false</default>
+                <label>All</label>
+            </value>
+            <value>
+                <fullName>Metros Only</fullName>
+                <default>false</default>
+                <label>Metros Only</label>
+            </value>
+            <value>
+                <fullName>Regions Only</fullName>
+                <default>false</default>
+                <label>Regions Only</label>
+            </value>
+            <value>
+                <fullName>All by State</fullName>
+                <default>false</default>
+                <label>All by State</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

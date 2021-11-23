@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Account_Relationship__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Determines the relationship between the Contact and the Relationship Map Account</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Set to Internal for Contacts in the Politcal Map Account or External for Contacts outside of the Account</inlineHelpText>
+    <label>Account Relationship</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Internal</fullName>
+                <default>true</default>
+                <label>Internal</label>
+            </value>
+            <value>
+                <fullName>External</fullName>
+                <default>false</default>
+                <label>External</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

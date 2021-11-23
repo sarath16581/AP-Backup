@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Org_Relationship__c</fullName>
+    <description>This field is used for the Search return results, when identifying if an individual has a primary organization or not. This field is not displayed on any page layouts.</description>
+    <externalId>false</externalId>
+    <formula>IF(
+NOT(ISBLANK(AccountId))
+, HYPERLINK(&quot;/&quot;&amp;Account.Id, Account.Name,&apos;_top&apos;),
+
+ FirstName &amp; &quot; &quot; &amp; LastName)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Org Relationship</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

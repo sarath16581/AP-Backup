@@ -1,0 +1,15 @@
+<aura:component>
+    <aura:attribute name="name" type="String" />
+    <aura:attribute name="type" type="String" default="text"/>
+    <aura:attribute name="required" type="Boolean" default="false" />
+    <aura:attribute name="label" type="String" />
+    <aura:attribute name="value" type="Object" />
+    <aura:attribute name="valueLabel" type="String" />
+    <aura:attribute name="uniqueKey" type="String" />
+    <aura:handler name='init' value='{!this}' action='{!c.doInit}' />
+       
+    <div id="divId">
+        <label id="labelId">{!v.label}</label>
+    </div>
+    <c:postCodeMappingSearchWrapper selectedPostCode="{!v.value}" onselectedpostcode="{!c.searchResultSelectHandler}"></c:postCodeMappingSearchWrapper>
+</aura:component>

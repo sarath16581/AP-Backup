@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BSC_IVE_Group_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>BSC - IVE Group</label>
+    <queue>BSC_IVE_Group</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

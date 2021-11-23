@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Freight_Offering_Special_Services</fullName>
+    <active>true</active>
+    <errorConditionFormula>and(
+Cartons__c=false,
+Satchels_Jiffy_Bags__c=false,
+Additional_Freight_Presentation__c=false,
+Incompatible_Freight__c =false,
+Bulk_Pallets__c=false,  Service_Requirements__c =false,  RecordTypeId =&apos;0125D0000000lIt&apos;)</errorConditionFormula>
+    <errorMessage>Please select a Freight Offering</errorMessage>
+</ValidationRule>

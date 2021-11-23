@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Sub_Classification__c</fullName>
+    <externalId>false</externalId>
+    <label>Sub Classification</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>APT_Classification__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Product Penetration</fullName>
+                <default>false</default>
+                <label>Product Penetration</label>
+            </value>
+            <value>
+                <fullName>Up Rate</fullName>
+                <default>false</default>
+                <label>Up Rate</label>
+            </value>
+            <value>
+                <fullName>Up Sell</fullName>
+                <default>false</default>
+                <label>Up Sell</label>
+            </value>
+            <value>
+                <fullName>Contracted Price Increases</fullName>
+                <default>false</default>
+                <label>Contracted Price Increases</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Growth</controllingFieldValue>
+            <valueName>Product Penetration</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Growth</controllingFieldValue>
+            <valueName>Up Rate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Growth</controllingFieldValue>
+            <valueName>Up Sell</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Growth</controllingFieldValue>
+            <valueName>Contracted Price Increases</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

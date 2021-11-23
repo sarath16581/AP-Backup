@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Score__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(DMAPP__Answer__c, &apos;Yes&apos;),
+DMAPP__AM_Question__r.DMAPP__Yes_Score__c, IF(ISPICKVAL(DMAPP__Answer__c, &apos;No&apos;),
+DMAPP__AM_Question__r.DMAPP__No_Score__c, DMAPP__AM_Question__r.DMAPP__Unknown_Score__c))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Score</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

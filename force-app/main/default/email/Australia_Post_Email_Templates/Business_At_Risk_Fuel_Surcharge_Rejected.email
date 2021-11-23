@@ -1,0 +1,9 @@
+Dear {!At_Risk_Business__c.Key_Sales_Owner__c}, 
+ 
+Please be advised that the Mitigation Plan for the Business Risk/Loss recorded against {!At_Risk_Business__c.Legal_Entity_Name__c}  has been rejected.
+ 
+At Risk Business Name - {!At_Risk_Business__c.Name}
+
+{!At_Risk_Business__c.Link}
+  
+Click on the link above to view the record.

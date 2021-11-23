@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Either_Badge_or_Trailmix_Validation</fullName>
+    <active>true</active>
+    <description>Allow only one of the Badge/Trailmix fields to be populated at a time</description>
+    <errorConditionFormula>ISBLANK(Badge__c) == ISBLANK(Trailmix__c)</errorConditionFormula>
+    <errorMessage>Please select either a Badge or a Trailmix (but not both)</errorMessage>
+</ValidationRule>

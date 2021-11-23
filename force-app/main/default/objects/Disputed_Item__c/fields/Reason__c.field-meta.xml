@@ -1,0 +1,1372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason__c</fullName>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Reason_Category__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>BML - Overcharged</fullName>
+                <default>false</default>
+                <label>BML - Overcharged</label>
+            </value>
+            <value>
+                <fullName>BML - Undercharged</fullName>
+                <default>false</default>
+                <label>BML - Undercharged</label>
+            </value>
+            <value>
+                <fullName>BML - Wrong Account</fullName>
+                <default>false</default>
+                <label>BML - Wrong Account</label>
+            </value>
+            <value>
+                <fullName>eLMS Mailing Statement</fullName>
+                <default>false</default>
+                <label>eLMS Mailing Statement</label>
+            </value>
+            <value>
+                <fullName>Operator Error</fullName>
+                <default>false</default>
+                <label>Operator Error</label>
+            </value>
+            <value>
+                <fullName>Contract Expired - Charged Full Rate</fullName>
+                <default>false</default>
+                <label>Contract Expired - Charged Full Rate</label>
+            </value>
+            <value>
+                <fullName>Incorrect Product Data Provided</fullName>
+                <default>false</default>
+                <label>Incorrect Product Data Provided</label>
+            </value>
+            <value>
+                <fullName>Un-manifested Fee Refund</fullName>
+                <default>false</default>
+                <label>Un-manifested Fee Refund</label>
+            </value>
+            <value>
+                <fullName>Manifest Not Posted</fullName>
+                <default>false</default>
+                <label>Manifest Not Posted</label>
+            </value>
+            <value>
+                <fullName>Minimum Value - Shortfall Fee</fullName>
+                <default>false</default>
+                <label>Minimum Value - Shortfall Fee</label>
+            </value>
+            <value>
+                <fullName>Delivery Error</fullName>
+                <default>false</default>
+                <label>Delivery Error</label>
+            </value>
+            <value>
+                <fullName>No Proof Of Delivery</fullName>
+                <default>false</default>
+                <label>No Proof Of Delivery</label>
+            </value>
+            <value>
+                <fullName>Early Payment Rebate</fullName>
+                <default>false</default>
+                <label>Early Payment Rebate</label>
+            </value>
+            <value>
+                <fullName>Rebate Not Applied</fullName>
+                <default>false</default>
+                <label>Rebate Not Applied</label>
+            </value>
+            <value>
+                <fullName>Product Return (Customer)</fullName>
+                <default>false</default>
+                <label>Product Return (Customer)</label>
+            </value>
+            <value>
+                <fullName>Write Off</fullName>
+                <default>false</default>
+                <label>Write Off</label>
+            </value>
+            <value>
+                <fullName>Customer Claim Met</fullName>
+                <default>false</default>
+                <label>Customer Claim Met</label>
+            </value>
+            <value>
+                <fullName>Fee Refund Applied</fullName>
+                <default>false</default>
+                <label>Fee Refund Applied</label>
+            </value>
+            <value>
+                <fullName>Additional Charges</fullName>
+                <default>false</default>
+                <label>Additional Charges</label>
+            </value>
+            <value>
+                <fullName>Annual Price Review Rollback</fullName>
+                <default>false</default>
+                <label>Annual Price Review Rollback</label>
+            </value>
+            <value>
+                <fullName>Despatch ID Error</fullName>
+                <default>false</default>
+                <label>Despatch ID Error</label>
+            </value>
+            <value>
+                <fullName>Product Return (Commercial)</fullName>
+                <default>false</default>
+                <label>Product Return (Commercial)</label>
+            </value>
+            <value>
+                <fullName>Cubic Negotiated Settlement</fullName>
+                <default>false</default>
+                <label>Cubic Negotiated Settlement</label>
+            </value>
+            <value>
+                <fullName>Incorrect service</fullName>
+                <default>false</default>
+                <label>Incorrect service</label>
+            </value>
+            <value>
+                <fullName>Consignment note Transfer</fullName>
+                <default>false</default>
+                <label>Consignment note Transfer</label>
+            </value>
+            <value>
+                <fullName>Unable to supply consignment note copy</fullName>
+                <default>false</default>
+                <label>Unable to supply consignment note copy</label>
+            </value>
+            <value>
+                <fullName>CWC Recovery</fullName>
+                <default>false</default>
+                <label>CWC Recovery</label>
+            </value>
+            <value>
+                <fullName>Duplicate Cash Receipts</fullName>
+                <default>false</default>
+                <label>Duplicate Cash Receipts</label>
+            </value>
+            <value>
+                <fullName>Small Debt Write Off</fullName>
+                <default>false</default>
+                <label>Small Debt Write Off</label>
+            </value>
+            <value>
+                <fullName>Incorrect Handrate / Missed Quote</fullName>
+                <default>false</default>
+                <label>Incorrect Handrate / Missed Quote</label>
+            </value>
+            <value>
+                <fullName>Incorrect Origin/Destination</fullName>
+                <default>false</default>
+                <label>Incorrect Origin/Destination</label>
+            </value>
+            <value>
+                <fullName>Invalid Original Billing Details</fullName>
+                <default>false</default>
+                <label>Invalid Original Billing Details</label>
+            </value>
+            <value>
+                <fullName>Miscellaneous Charge</fullName>
+                <default>false</default>
+                <label>Miscellaneous Charge</label>
+            </value>
+            <value>
+                <fullName>Cubic Leopard scan</fullName>
+                <default>false</default>
+                <label>Cubic Leopard scan</label>
+            </value>
+            <value>
+                <fullName>Incorrect Cube Data</fullName>
+                <default>false</default>
+                <label>Incorrect Cube Data</label>
+            </value>
+            <value>
+                <fullName>Misdirect</fullName>
+                <default>false</default>
+                <label>Misdirect</label>
+            </value>
+            <value>
+                <fullName>Second Delivery Charge</fullName>
+                <default>false</default>
+                <label>Second Delivery Charge</label>
+            </value>
+            <value>
+                <fullName>Performance Failure (Fleet)</fullName>
+                <default>false</default>
+                <label>Performance Failure (Fleet)</label>
+            </value>
+            <value>
+                <fullName>Prepaids Additional Prepaid Weight</fullName>
+                <default>false</default>
+                <label>Prepaids Additional Prepaid Weight</label>
+            </value>
+            <value>
+                <fullName>BML - Duplicate Mail</fullName>
+                <default>false</default>
+                <label>BML - Duplicate Mail</label>
+            </value>
+            <value>
+                <fullName>BML - Mailing Statement</fullName>
+                <default>false</default>
+                <label>BML - Mailing Statement</label>
+            </value>
+            <value>
+                <fullName>BML - Operator Error</fullName>
+                <default>false</default>
+                <label>BML - Operator Error</label>
+            </value>
+            <value>
+                <fullName>Customer Account Transfer</fullName>
+                <default>false</default>
+                <label>Customer Account Transfer</label>
+            </value>
+            <value>
+                <fullName>Refund credit balance</fullName>
+                <default>false</default>
+                <label>Refund credit balance</label>
+            </value>
+            <value>
+                <fullName>Internal Post transfer</fullName>
+                <default>false</default>
+                <label>Internal Post transfer</label>
+            </value>
+            <value>
+                <fullName>Credit2</fullName>
+                <default>false</default>
+                <label>Credit2</label>
+            </value>
+            <value>
+                <fullName>Data Entry Error</fullName>
+                <default>false</default>
+                <label>Data Entry Error</label>
+            </value>
+            <value>
+                <fullName>Duplicate Billing</fullName>
+                <default>false</default>
+                <label>Duplicate Billing</label>
+            </value>
+            <value>
+                <fullName>Incorrect Bill</fullName>
+                <default>false</default>
+                <label>Incorrect Bill</label>
+            </value>
+            <value>
+                <fullName>Incorrect Pricing Profile Applied</fullName>
+                <default>false</default>
+                <label>Incorrect Pricing Profile Applied</label>
+            </value>
+            <value>
+                <fullName>Late Delivery Claim</fullName>
+                <default>false</default>
+                <label>Late Delivery Claim</label>
+            </value>
+            <value>
+                <fullName>Incorrect Cubic Data(Operations)</fullName>
+                <default>false</default>
+                <label>Incorrect Cubic Data(Operations)</label>
+            </value>
+            <value>
+                <fullName>Incorrect Weight</fullName>
+                <default>false</default>
+                <label>Incorrect Weight</label>
+            </value>
+            <value>
+                <fullName>Product Return</fullName>
+                <default>false</default>
+                <label>Product Return</label>
+            </value>
+            <value>
+                <fullName>Rebate</fullName>
+                <default>false</default>
+                <label>Rebate</label>
+            </value>
+            <value>
+                <fullName>Cash Transfer</fullName>
+                <default>false</default>
+                <label>Cash Transfer</label>
+            </value>
+            <value>
+                <fullName>Manual Connote Surcharge</fullName>
+                <default>false</default>
+                <label>Manual Connote Surcharge</label>
+            </value>
+            <value>
+                <fullName>Incorrect Pricing</fullName>
+                <default>false</default>
+                <label>Incorrect Pricing</label>
+            </value>
+            <value>
+                <fullName>Returns Charge</fullName>
+                <default>false</default>
+                <label>Returns Charge</label>
+            </value>
+            <value>
+                <fullName>Consignment Raised not Sent</fullName>
+                <default>false</default>
+                <label>Consignment Raised not Sent</label>
+            </value>
+            <value>
+                <fullName>CCM Damages</fullName>
+                <default>false</default>
+                <label>CCM Damages</label>
+            </value>
+            <value>
+                <fullName>CCM ExGratia</fullName>
+                <default>false</default>
+                <label>CCM ExGratia</label>
+            </value>
+            <value>
+                <fullName>CCM Late Delivery Claim</fullName>
+                <default>false</default>
+                <label>CCM Late Delivery Claim</label>
+            </value>
+            <value>
+                <fullName>Bad Debt Write Off</fullName>
+                <default>false</default>
+                <label>Bad Debt Write Off</label>
+            </value>
+            <value>
+                <fullName>Receiver Reversal</fullName>
+                <default>false</default>
+                <label>Receiver Reversal</label>
+            </value>
+            <value>
+                <fullName>General Ledger Adjustment</fullName>
+                <default>false</default>
+                <label>General Ledger Adjustment</label>
+            </value>
+            <value>
+                <fullName>Incorrect Miscellaneous Charge</fullName>
+                <default>false</default>
+                <label>Incorrect Miscellaneous Charge</label>
+            </value>
+            <value>
+                <fullName>Subdocket Charge</fullName>
+                <default>false</default>
+                <label>Subdocket Charge</label>
+            </value>
+            <value>
+                <fullName>International Charge Error</fullName>
+                <default>false</default>
+                <label>International Charge Error</label>
+            </value>
+            <value>
+                <fullName>Non Consolidation</fullName>
+                <default>false</default>
+                <label>Non Consolidation</label>
+            </value>
+            <value>
+                <fullName>Special Services</fullName>
+                <default>false</default>
+                <label>Special Services</label>
+            </value>
+            <value>
+                <fullName>No Proof Of Delivery Available</fullName>
+                <default>false</default>
+                <label>No Proof Of Delivery Available</label>
+            </value>
+            <value>
+                <fullName>No Track &amp; Trace Scans</fullName>
+                <default>false</default>
+                <label>No Track &amp; Trace Scans</label>
+            </value>
+            <value>
+                <fullName>Satchel Migration</fullName>
+                <default>false</default>
+                <label>Satchel Migration</label>
+            </value>
+            <value>
+                <fullName>Incorrect Weight (Customer)</fullName>
+                <default>false</default>
+                <label>Incorrect Weight (Customer)</label>
+            </value>
+            <value>
+                <fullName>Incorrect Weight (Operations)</fullName>
+                <default>false</default>
+                <label>Incorrect Weight (Operations)</label>
+            </value>
+            <value>
+                <fullName>CCM -Sales Director</fullName>
+                <default>false</default>
+                <label>CCM -Sales Director</label>
+            </value>
+            <value>
+                <fullName>Incorrect Cubic Data(Customer)</fullName>
+                <default>false</default>
+                <label>Incorrect Cubic Data(Customer)</label>
+            </value>
+            <value>
+                <fullName>Manual Handling Surcharge</fullName>
+                <default>false</default>
+                <label>Manual Handling Surcharge</label>
+            </value>
+            <value>
+                <fullName>Schedule Rates</fullName>
+                <default>false</default>
+                <label>Schedule Rates</label>
+            </value>
+            <value>
+                <fullName>CHQ Handling Fee Reversal</fullName>
+                <default>false</default>
+                <label>CHQ Handling Fee Reversal</label>
+            </value>
+            <value>
+                <fullName>Manifest Correction Fee Credit</fullName>
+                <default>false</default>
+                <label>Manifest Correction Fee Credit</label>
+            </value>
+            <value>
+                <fullName>Incorrect Cubic Data</fullName>
+                <default>false</default>
+                <label>Incorrect Cubic Data</label>
+            </value>
+            <value>
+                <fullName>International Linehaul Surcharge</fullName>
+                <default>false</default>
+                <label>International Linehaul Surcharge</label>
+            </value>
+            <value>
+                <fullName>Annual Pricing Review</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Annual Pricing Review</label>
+            </value>
+            <value>
+                <fullName>CCM - Damages</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CCM - Damages</label>
+            </value>
+            <value>
+                <fullName>CCM - Exgratia</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CCM - Exgratia</label>
+            </value>
+            <value>
+                <fullName>CCM - Late Delivery Claims</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CCM - Late Delivery Claims</label>
+            </value>
+            <value>
+                <fullName>Commercial  Incorrect Pricing</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Commercial  Incorrect Pricing</label>
+            </value>
+            <value>
+                <fullName>Commercial CCM - Damages</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Commercial CCM - Damages</label>
+            </value>
+            <value>
+                <fullName>Commercial CCM - Exgratia</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Commercial CCM - Exgratia</label>
+            </value>
+            <value>
+                <fullName>Commercial CCM Late Del Claim</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Commercial CCM Late Del Claim</label>
+            </value>
+            <value>
+                <fullName>Commercial Despatch Id</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Commercial Despatch Id</label>
+            </value>
+            <value>
+                <fullName>Commercial Incorrect Price</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Commercial Incorrect Price</label>
+            </value>
+            <value>
+                <fullName>Commercial Non Consolidate</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Commercial Non Consolidate</label>
+            </value>
+            <value>
+                <fullName>Commercial Product Return</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Commercial Product Return</label>
+            </value>
+            <value>
+                <fullName>Commercial Rebate</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Commercial Rebate</label>
+            </value>
+            <value>
+                <fullName>Commercial Satchel Mgrtn</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Commercial Satchel Mgrtn</label>
+            </value>
+            <value>
+                <fullName>Consignment Raised But Not Sent</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Consignment Raised But Not Sent</label>
+            </value>
+            <value>
+                <fullName>Consignment Surcharges</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Consignment Surcharges</label>
+            </value>
+            <value>
+                <fullName>Consignment Transfer</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Consignment Transfer</label>
+            </value>
+            <value>
+                <fullName>Customer  Incorrect Service</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Customer  Incorrect Service</label>
+            </value>
+            <value>
+                <fullName>Customer - Con Raised Not Sent</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Customer - Con Raised Not Sent</label>
+            </value>
+            <value>
+                <fullName>Customer Con Raised Not Sent</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Customer Con Raised Not Sent</label>
+            </value>
+            <value>
+                <fullName>Customer Connote Transfer</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Customer Connote Transfer</label>
+            </value>
+            <value>
+                <fullName>Customer Consignment Transfer</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Customer Consignment Transfer</label>
+            </value>
+            <value>
+                <fullName>Customer Incorrect Cubic Data</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Customer Incorrect Cubic Data</label>
+            </value>
+            <value>
+                <fullName>Customer Incorrect Service</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Customer Incorrect Service</label>
+            </value>
+            <value>
+                <fullName>Customer Incorrect Weight</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Customer Incorrect Weight</label>
+            </value>
+            <value>
+                <fullName>Despatch ID - Incorrect Origin</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Despatch ID - Incorrect Origin</label>
+            </value>
+            <value>
+                <fullName>Finance - Connote Surcharge</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance - Connote Surcharge</label>
+            </value>
+            <value>
+                <fullName>Finance - Unable To Supply Cop</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance - Unable To Supply Cop</label>
+            </value>
+            <value>
+                <fullName>Finance Bad Debt Write Off</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance Bad Debt Write Off</label>
+            </value>
+            <value>
+                <fullName>Finance CWC Recovery</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance CWC Recovery</label>
+            </value>
+            <value>
+                <fullName>Finance Cash Transfer</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance Cash Transfer</label>
+            </value>
+            <value>
+                <fullName>Finance Consignment Surcharge</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance Consignment Surcharge</label>
+            </value>
+            <value>
+                <fullName>Finance Data Entry Error</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance Data Entry Error</label>
+            </value>
+            <value>
+                <fullName>Finance Dup Cash Receipts</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance Dup Cash Receipts</label>
+            </value>
+            <value>
+                <fullName>Finance Duplicated Billing</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance Duplicated Billing</label>
+            </value>
+            <value>
+                <fullName>Finance Gl Adjustment</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance Gl Adjustment</label>
+            </value>
+            <value>
+                <fullName>Finance Intl Charge Error</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance Intl Charge Error</label>
+            </value>
+            <value>
+                <fullName>Finance Negotiated Stlmt</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance Negotiated Stlmt</label>
+            </value>
+            <value>
+                <fullName>Finance Receiver Reversal</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance Receiver Reversal</label>
+            </value>
+            <value>
+                <fullName>Finance Refund Credit Balance</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance Refund Credit Balance</label>
+            </value>
+            <value>
+                <fullName>Finance Small Debt Write Off</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance Small Debt Write Off</label>
+            </value>
+            <value>
+                <fullName>Finance Unable Sup Copy</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance Unable Sup Copy</label>
+            </value>
+            <value>
+                <fullName>Finance Write Off</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Finance Write Off</label>
+            </value>
+            <value>
+                <fullName>Hand Rate - Incorrect/Missed Quote</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Hand Rate - Incorrect/Missed Quote</label>
+            </value>
+            <value>
+                <fullName>Incorrect Misc Charges</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Incorrect Misc Charges</label>
+            </value>
+            <value>
+                <fullName>Incorrect Service Level</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Incorrect Service Level</label>
+            </value>
+            <value>
+                <fullName>Incorrect Weight Provided</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Incorrect Weight Provided</label>
+            </value>
+            <value>
+                <fullName>Intl Charge Error</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Intl Charge Error</label>
+            </value>
+            <value>
+                <fullName>K01 Refund Credit Balance</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K01 Refund Credit Balance</label>
+            </value>
+            <value>
+                <fullName>K02 Customer Account Transfer</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K02 Customer Account Transfer</label>
+            </value>
+            <value>
+                <fullName>K03 Internal Post transfer</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K03 Internal Post transfer</label>
+            </value>
+            <value>
+                <fullName>K05 Data Entry Error</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K05 Data Entry Error</label>
+            </value>
+            <value>
+                <fullName>K06 Duplicate billing</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K06 Duplicate billing</label>
+            </value>
+            <value>
+                <fullName>K07 Incorrect Bill</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K07 Incorrect Bill</label>
+            </value>
+            <value>
+                <fullName>K08 Contract expired – charged full rate</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K08 Contract expired – charged full rate</label>
+            </value>
+            <value>
+                <fullName>K09 Incorrect pricing profile applied</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K09 Incorrect pricing profile applied</label>
+            </value>
+            <value>
+                <fullName>K10 Incorrect product data provided</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K10 Incorrect product data provided</label>
+            </value>
+            <value>
+                <fullName>K11 Un-manifested fee refund</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K11 Un-manifested fee refund</label>
+            </value>
+            <value>
+                <fullName>K12 Delivery error</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K12 Delivery error</label>
+            </value>
+            <value>
+                <fullName>K13 Late Delivery Claim</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K13 Late Delivery Claim</label>
+            </value>
+            <value>
+                <fullName>K14 Manifested not Posted</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K14 Manifested not Posted</label>
+            </value>
+            <value>
+                <fullName>K15 No proof of delivery</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K15 No proof of delivery</label>
+            </value>
+            <value>
+                <fullName>K16 Customer claim met</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K16 Customer claim met</label>
+            </value>
+            <value>
+                <fullName>K17 Early Payment Rebate</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K17 Early Payment Rebate</label>
+            </value>
+            <value>
+                <fullName>K18 Fee refund applied</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K18 Fee refund applied</label>
+            </value>
+            <value>
+                <fullName>K19 Minimum Value - Collection/Shortfall Fee</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K19 Minimum Value - Collection/Shortfall Fee</label>
+            </value>
+            <value>
+                <fullName>K20 Rebate</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K20 Rebate</label>
+            </value>
+            <value>
+                <fullName>K21 Incorrect weight</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K21 Incorrect weight</label>
+            </value>
+            <value>
+                <fullName>K22 Product return</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K22 Product return</label>
+            </value>
+            <value>
+                <fullName>K23 Incorrect cubic data</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K23 Incorrect cubic data</label>
+            </value>
+            <value>
+                <fullName>K24 Write Off</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>K24 Write Off</label>
+            </value>
+            <value>
+                <fullName>Late Delivery Claims</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Late Delivery Claims</label>
+            </value>
+            <value>
+                <fullName>Leopard Scanner</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Leopard Scanner</label>
+            </value>
+            <value>
+                <fullName>Miscellaneous</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Miscellaneous</label>
+            </value>
+            <value>
+                <fullName>Negotiated Settlement</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Negotiated Settlement</label>
+            </value>
+            <value>
+                <fullName>No POD Available</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>No POD Available</label>
+            </value>
+            <value>
+                <fullName>No Track &amp; Trace Scanning</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>No Track &amp; Trace Scanning</label>
+            </value>
+            <value>
+                <fullName>Operations Cube - Leopard Scanner</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Operations Cube - Leopard Scanner</label>
+            </value>
+            <value>
+                <fullName>Operations Incorrect Cube</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Operations Incorrect Cube</label>
+            </value>
+            <value>
+                <fullName>Operations Incorrect Cube Data</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Operations Incorrect Cube Data</label>
+            </value>
+            <value>
+                <fullName>Operations Incorrect Misc Charge</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Operations Incorrect Misc Charge</label>
+            </value>
+            <value>
+                <fullName>Operations Incorrect Weight</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Operations Incorrect Weight</label>
+            </value>
+            <value>
+                <fullName>Operations Late Delivery Clms</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Operations Late Delivery Clms</label>
+            </value>
+            <value>
+                <fullName>Operations Misdirect</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Operations Misdirect</label>
+            </value>
+            <value>
+                <fullName>Operations No Pod Available</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Operations No Pod Available</label>
+            </value>
+            <value>
+                <fullName>Operations No T&amp;T Scan</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Operations No T&amp;T Scan</label>
+            </value>
+            <value>
+                <fullName>Operations Return Charge</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Operations Return Charge</label>
+            </value>
+            <value>
+                <fullName>Operations Second Delivery Charge</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Operations Second Delivery Charge</label>
+            </value>
+            <value>
+                <fullName>Operations Special Service</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Operations Special Service</label>
+            </value>
+            <value>
+                <fullName>Operations Sub Docket Charge</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Operations Sub Docket Charge</label>
+            </value>
+            <value>
+                <fullName>Performance Failure - Fleet</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Performance Failure - Fleet</label>
+            </value>
+            <value>
+                <fullName>Receiver Reversals</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Receiver Reversals</label>
+            </value>
+            <value>
+                <fullName>Revenue CWC Recovery</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Revenue CWC Recovery</label>
+            </value>
+            <value>
+                <fullName>Revenue Data Entry Error</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Revenue Data Entry Error</label>
+            </value>
+            <value>
+                <fullName>Revenue Duplicate Billing</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Revenue Duplicate Billing</label>
+            </value>
+            <value>
+                <fullName>Second Delivery / ADA</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Second Delivery / ADA</label>
+            </value>
+            <value>
+                <fullName>Small Debt Write-Off</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Small Debt Write-Off</label>
+            </value>
+            <value>
+                <fullName>Sub-Docket Charge</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Sub-Docket Charge</label>
+            </value>
+            <value>
+                <fullName>Unable to supply Finance Copy</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Unable to supply Finance Copy</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Manual Handling Surcharge</controllingFieldValue>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Incorrect Cubic Data(Customer)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Manual Handling Surcharge</controllingFieldValue>
+            <valueName>Incorrect Cubic Data</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Security surcharge</controllingFieldValue>
+            <controllingFieldValue>Discretionary Settlement</controllingFieldValue>
+            <valueName>Fee Refund Applied</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Surcharge</controllingFieldValue>
+            <valueName>International Linehaul Surcharge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting adjustment</controllingFieldValue>
+            <valueName>Duplicate Cash Receipts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting adjustment</controllingFieldValue>
+            <valueName>Customer Account Transfer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting adjustment</controllingFieldValue>
+            <valueName>Refund credit balance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting adjustment</controllingFieldValue>
+            <valueName>Internal Post transfer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting adjustment</controllingFieldValue>
+            <valueName>Cash Transfer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting adjustment</controllingFieldValue>
+            <valueName>Receiver Reversal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting adjustment</controllingFieldValue>
+            <valueName>General Ledger Adjustment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting adjustment</controllingFieldValue>
+            <valueName>CHQ Handling Fee Reversal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>Despatch ID Error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>Consignment note Transfer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>Unable to supply consignment note copy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>CWC Recovery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>Invalid Original Billing Details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>Prepaids Additional Prepaid Weight</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>Credit2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>Data Entry Error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>Duplicate Billing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>Incorrect Bill</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>Incorrect Miscellaneous Charge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>Subdocket Charge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>International Charge Error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Processing error</controllingFieldValue>
+            <valueName>Manual Handling Surcharge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
+            <valueName>BML - Overcharged</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
+            <valueName>BML - Undercharged</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
+            <valueName>BML - Wrong Account</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
+            <valueName>eLMS Mailing Statement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
+            <valueName>Operator Error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
+            <valueName>BML - Duplicate Mail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
+            <valueName>BML - Mailing Statement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bulk Mail Lodgement (BML)</controllingFieldValue>
+            <valueName>BML - Operator Error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Contract Expired - Charged Full Rate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Incorrect Product Data Provided</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Un-manifested Fee Refund</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Annual Price Review Rollback</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <controllingFieldValue>Order Processing Error</controllingFieldValue>
+            <valueName>Cubic Negotiated Settlement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Incorrect service</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Incorrect Handrate / Missed Quote</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Incorrect Origin/Destination</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Miscellaneous Charge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <controllingFieldValue>Order Processing Error</controllingFieldValue>
+            <valueName>Incorrect Cube Data</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Incorrect Pricing Profile Applied</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Manual Connote Surcharge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Incorrect Pricing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Non Consolidation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Special Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Incorrect Weight (Customer)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Schedule Rates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Data Issue</controllingFieldValue>
+            <valueName>Manifest Correction Fee Credit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Issue</controllingFieldValue>
+            <valueName>Manifest Not Posted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Issue</controllingFieldValue>
+            <valueName>Delivery Error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Issue</controllingFieldValue>
+            <valueName>No Proof Of Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Issue</controllingFieldValue>
+            <valueName>Misdirect</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Issue</controllingFieldValue>
+            <valueName>Second Delivery Charge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Issue</controllingFieldValue>
+            <valueName>Performance Failure (Fleet)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Issue</controllingFieldValue>
+            <valueName>Late Delivery Claim</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Issue</controllingFieldValue>
+            <valueName>Returns Charge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Issue</controllingFieldValue>
+            <valueName>Consignment Raised not Sent</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Issue</controllingFieldValue>
+            <valueName>No Proof Of Delivery Available</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Issue</controllingFieldValue>
+            <valueName>No Track &amp; Trace Scans</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Discretionary Settlement</controllingFieldValue>
+            <valueName>Minimum Value - Shortfall Fee</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Discretionary Settlement</controllingFieldValue>
+            <valueName>Customer Claim Met</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Discretionary Settlement</controllingFieldValue>
+            <valueName>CCM Damages</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Discretionary Settlement</controllingFieldValue>
+            <valueName>CCM ExGratia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Discretionary Settlement</controllingFieldValue>
+            <valueName>CCM Late Delivery Claim</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Discretionary Settlement</controllingFieldValue>
+            <valueName>CCM -Sales Director</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Processing Error</controllingFieldValue>
+            <valueName>Product Return (Customer)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Processing Error</controllingFieldValue>
+            <valueName>Product Return (Commercial)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Processing Error</controllingFieldValue>
+            <valueName>Cubic Leopard scan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Processing Error</controllingFieldValue>
+            <valueName>Incorrect Cubic Data(Operations)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Processing Error</controllingFieldValue>
+            <valueName>Incorrect Weight</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Processing Error</controllingFieldValue>
+            <valueName>Product Return</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Processing Error</controllingFieldValue>
+            <valueName>Satchel Migration</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Processing Error</controllingFieldValue>
+            <valueName>Incorrect Weight (Operations)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Write off</controllingFieldValue>
+            <valueName>Write Off</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Write off</controllingFieldValue>
+            <valueName>Additional Charges</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Write off</controllingFieldValue>
+            <valueName>Small Debt Write Off</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Write off</controllingFieldValue>
+            <valueName>Bad Debt Write Off</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Rebate</controllingFieldValue>
+            <valueName>Early Payment Rebate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Rebate</controllingFieldValue>
+            <valueName>Rebate Not Applied</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Rebate</controllingFieldValue>
+            <valueName>Rebate</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

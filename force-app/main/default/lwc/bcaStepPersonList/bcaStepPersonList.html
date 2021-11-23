@@ -1,0 +1,31 @@
+<!--
+ - Created by vcheng on 4/03/2021.
+ -->
+
+<!-- Bca Step Person List -->
+<template>
+
+    <template for:each={directors} for:item="director">
+        <div key={director.index} class="form-summary-box">
+            <div class="slds-p-horizontal_large">
+                <template if:true={director.firstName}>
+                    <h3>{director.firstName} {director.middleName} {director.lastName}</h3>
+                </template>
+                <template if:false={director.firstName}>
+                    <h3>Untitled</h3>
+                </template>
+                <span>
+                    <!--<lightning-button-icon icon-name="action:edit" class="accordion-button"
+                                             data-id={director.index}
+                                             onclick={editPerson}></lightning-button-icon>-->
+
+                    <button class="slds-button slds-button_icon slds-button_icon-border no-border" title="Edit Details"
+                            data-id={director.index} onclick={editPerson}>
+                        <c-bsp-custom-icons icon="edit-pencil" size="small"></c-bsp-custom-icons>
+                    </button>
+                                            
+                </span> 
+            </div>
+        </div>
+    </template>
+</template>

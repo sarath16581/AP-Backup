@@ -1,0 +1,17 @@
+<!-- 2021-08-30 naveen.rajanna@auspost.com.au RELEASE UPDATES Enable Aura Component Access Fix -->
+<aura:component controller="ServiceNow_UploadFIleController" implements="forceCommunity:availableForAllPageTypes" access="global">
+    <ltng:require scripts="{!join(',',$Resource.GlobalAssets + '/js/lightning/utils.js')}" />
+    <aura:attribute name="parentId" type="String" default="" access="public"/>
+    <aura:attribute name="fileToBeUploaded" type="Object[]"/>
+    <aura:attribute name="allowedExtensions" type="String"/>
+    <aura:attribute name="allowedMaxSize" type="String"/>
+    <c:waitingQueueComponent aura:id="loader" />
+
+
+    <div class="container">
+        <h4 >Attach a document or image</h4>
+        <p>PDF, JPEG and DOC files up to 4MB accepted</p>
+        <lightning:input type="file" name="file" multiple="true" files="{!v.fileToBeUploaded}"  onchange="{! c.save }" max="1" />
+    </div>
+
+</aura:component>

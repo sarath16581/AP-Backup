@@ -1,0 +1,15 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[Request to renew the negotiated payment -&nbsp;&nbsp;{!Partner_Addendum__c.Sub_Type__c} &nbsp;for&nbsp;Licence {!Partner_Addendum__c.Licence__c} is rejected.<div><br></div><div>
+
+
+
+
+
+
+
+<p class="p1"><span class="s1">Reason for rejection:&nbsp;</span></p>
+<p class="p2"><span class="s1">{!ApprovalRequest.Comments}&nbsp;</span></p><p class="p2"><span class="s1"><br></span></p><p class="p2"><span class="s1">Regards,</span></p></div>]]></td>
+</tr>
+</table>

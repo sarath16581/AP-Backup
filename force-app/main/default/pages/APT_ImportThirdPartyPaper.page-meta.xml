@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>35.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>VF Page called after successful import of third party paper</description>
+    <label>APT_ImportThirdPartyPaper</label>
+    <packageVersions>
+        <majorNumber>8</majorNumber>
+        <minorNumber>347</minorNumber>
+        <namespace>Apttus</namespace>
+    </packageVersions>
+</ApexPage>

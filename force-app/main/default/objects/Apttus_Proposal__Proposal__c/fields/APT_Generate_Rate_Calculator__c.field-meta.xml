@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Generate_Rate_Calculator__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF ( 
+AND(
+    (
+     AND(
+         NOT(ISPICKVAL( Apttus_Proposal__Approval_Stage__c  , &apos;Approval Required&apos;)) 
+			&amp;&amp; 
+	 NOT(ISNULL(Apttus_QPConfig__ConfigurationFinalizedDate__c)) 
+	)
+     || ISPICKVAL( Apttus_Proposal__Approval_Stage__c  , &apos;Approved&apos;)
+    ), Not(APT_Document_Generation_in_Progress__c)
+     ,NOT(ISPICKVAL( Apttus_Proposal__Approval_Stage__c  , &apos;In Review&apos;))
+     ,International_Product_Exists__c == true
+   ) , HYPERLINK(&quot;/apex/APT_ViewRatecardBatchExecute?id=&quot;&amp;Id&amp;&apos;&amp;isRCCall=true&apos; , IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;), NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Generate Rate Calculator</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

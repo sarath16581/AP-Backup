@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_Limit_Review</fullName>
+    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>Credit_Work_Type__c</columns>
+    <columns>Stage__c</columns>
+    <columns>Status__c</columns>
+    <columns>Credit_Representative__c</columns>
+    <columns>Credit_Person_Code__c</columns>
+    <columns>KPI_SLA__c</columns>
+    <columns>Has_Closure_SLA_been_exceeded__c</columns>
+    <columns>Sub_Account_Checkbox__c</columns>
+    <columns>Billing_Account__c</columns>
+    <columns>Organisation__c</columns>
+    <columns>Requestor__c</columns>
+    <columns>Priority__c</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Deal_Support_Request__c.Credit_Management_Request</value>
+    </filters>
+    <filters>
+        <field>Credit_Work_Type__c</field>
+        <operation>equals</operation>
+        <value>Credit limit review</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Submitted,Received Information,Completed,In Progress</value>
+    </filters>
+    <label>Credit Limit Review</label>
+    <language>en_US</language>
+    <queue>Credit_Limit_Review</queue>
+    <sharedTo>
+        <group>Deal_Enablement_Centre_Team</group>
+        <group>Other_Credit_DSR_Work_Type</group>
+    </sharedTo>
+</ListView>

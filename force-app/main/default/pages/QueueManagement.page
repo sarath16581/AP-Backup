@@ -1,0 +1,96 @@
+<!--
+    Custom VF page for Queue Management
+    BKLG-00920:
+    A subset of users (who are not administrators and thus don't have access to the manage queues function), need to be able to add and remove users from SSSW queues.
+    They should be able to see a list of all SSSW queues.
+    They should be able to select a SSSW queue and view the current membership.
+    They should be able to remove a user from a SSSW queue.
+    They should be able to add a user with SSSW agent profile to a SSSW queue.
+
+    Created by: LMancilla
+    Bluewolf
+    September 22 2014
+-->
+<apex:page controller="QueueManagementController">
+
+    <apex:pageMessages />
+    
+    <apex:form id="mainForm">
+        <apex:pageBlock mode="edit" id="queuePageBlock" title="Queue Management">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save}"/><br/>
+            </apex:pageBlockButtons>
+
+            <apex:actionRegion >
+                <apex:pageBlockSection title="Queue Member Assignment" columns="1">
+                    <p>
+                        To add members to this queue, select a type of member, then choose the group, role, or user from the "Available Members" and move them to the "Selected Members."
+                        If the sharing model for all objects in the Queue is Public Read/Write/Transfer, you do not need to assign users to the queue, as all users already have access to the records for those objects.
+                    </p>
+
+                    <br/><br/>
+
+                    <apex:outputPanel layout="block">
+                        <apex:selectlist size="1" value="{!criteriaSelectedValue}" id="criteriaSelectList">
+                            <apex:selectOption itemValue="User" itemLabel="Assign Queue to User"/>
+                            <apex:selectOption itemValue="Queue" itemLabel="Assign User to Queue"/>
+                            <apex:actionSupport event="onchange" rerender="multiselectPanel" action="{!clearAllData}" status="searchStatus" />
+                        </apex:selectlist>
+                        <apex:inputText html-placeholder="Search for user..." value="{!searchText}" id="searchTextInput"/>
+                        <apex:commandButton id="findBtn" value="Find" action="{!queryNames}" status="searchStatus" rerender="multiselectPanel" />
+
+                        <apex:actionStatus id="searchStatus">
+                            <apex:facet name="start">
+                                <img class="waitingImage" src="/img/loading.gif" title="Loading..." style="padding-left:8px;" />
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:outputPanel>
+
+                    <br/>
+
+                    <apex:outputPanel id="multiselectPanel" layout="block" styleClass="duelingListBox">
+                        <apex:outputLabel for="searchResultOptions" value="Matching User(s): " rendered="{!criteriaSelectedValue='User'}"/>
+                        <apex:outputLabel for="searchResultOptions" value="Available Queue(s): " rendered="{!criteriaSelectedValue<>'User'}"/>
+                        <apex:selectlist value="{!selectedSearchResult}" id="searchResultOptions" size="1">
+                            <apex:selectOptions value="{!searchResults}"/>
+                            <apex:actionSupport event="onchange" rerender="multiselectPanel" action="{!fillLists}" status="searchStatus" />
+                        </apex:selectlist>
+                        <br/><br/>
+                        <!--Query limits to 1000 so if the size is 1000, it means not all results are returned. Warning is issued to user.-->
+                        <apex:outputText value="We've found more than 1000 records. Only the first 1000 are displayed. You might need to refine your search criteria." style="color: red;" rendered="{!showLimitWarning}"/>
+                        <br/><br/>
+
+                        <table class="layout" id="listTable">
+                            <tbody>
+                            <tr>
+                                <td class="selectCell">
+                                    <b>Available</b><br/>
+                                    <apex:selectlist multiselect="true" value="{!selectedLeftValue}" id="leftOptions" size="10">
+                                        <apex:selectOptions value="{!leftSelectOptions}"/>
+                                    </apex:selectlist>
+                                </td>
+
+                                <td>
+                                    Add<br/>
+                                    <apex:outputPanel layout="block">
+                                        <apex:commandButton value=">" action="{!addItems}" rerender="leftOptions,rightOptions" status="searchStatus"/><br/>
+                                        <apex:commandButton value="<" action="{!removeItems}"  rerender="leftOptions,rightOptions" status="searchStatus"/><br/>
+                                    </apex:outputPanel>
+                                    Remove<br/>
+                                </td>
+
+                                <td class="selectCell">
+                                    <b>Assigned</b><br/>
+                                    <apex:selectlist multiselect="true" value="{!selectedRightValue}" id="rightOptions" size="10">
+                                        <apex:selectOptions value="{!rightSelectOptions}"/>
+                                    </apex:selectlist>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+            </apex:actionRegion>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

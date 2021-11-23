@@ -1,0 +1,2460 @@
+<apex:page docType="html-5.0" controller="CTIListenerController"
+    showHeader="false" title="WorkspaceConnector Page">
+    <apex:form >
+    	<apex:includeScript value="/soap/ajax/31.0/connection.js" />
+        <apex:includeScript value="/support/console/31.0/integration.js" />
+        <apex:includeScript value="/support/api/31.0/interaction.js" />
+        <apex:includeScript value="{!$Resource.jquery191}" />
+        
+        <apex:includeScript value="{!$Resource.bootstrapJS}" />
+        <apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+        <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+
+        <apex:includeScript value="{!$Resource.jQueryCookie}" />        
+        <apex:includeScript value="{!$Resource.jQueryJSON}" />
+        
+        <apex:includeScript value="{!$Resource.SSSWJS}" />
+        
+        <script type="text/javascript"
+            src="{!URLFOR($Resource.jquery, 'jquery-1.10.2.min.js')}"></script>
+        <script type="text/javascript">
+            var version = "01.07 02032014"
+            // set defaults                              
+            var requestTimeout = 5000;
+            var pollQueueTimeout = 100;
+            var pollQueueTimeoutError = 500;
+            var pollURL = "http://localhost";
+            var url127 = "http://127.0.0.1";
+            var useLocalHost = true;
+            var pollPort = 0;
+            var requestPort = 0;
+
+            var hideLog = true;
+            var statusConnected = false;
+
+            var ixnWindows = [];
+            var clickToDialNum = "";
+
+            var inServiceCloudConsole = false;
+
+		var excludedPhoneNumbers = [];
+                                        
+        <apex:repeat value="{!excludedPhoneNumbers}" var="num"> 
+      		excludedPhoneNumbers.push('{!num}'); 
+		</apex:repeat>
+
+            j$ = jQuery.noConflict();
+
+            j$(function() {
+                j$("select:disabled").addClass("form-control input-sm");
+            
+                show();
+            
+                logToConsole("Version = " + version);
+                sforce.interaction
+                        .isInConsole(function(isCon) {
+                            if (isCon.result) {
+                                inServiceCloudConsole = true;
+                                logToConsole('In Console');
+                            } else {
+                                logToConsole('Not in console');
+                                //return;
+                            }
+                            //var serviceCloudConsoleOnly = getURLParam("servicecloudconsoleonly","true");
+                            //logToConsole('serviceCloudConsoleOnly = '+serviceCloudConsoleOnly);
+                            var serviceCloudConsoleOnly = getURLParam(
+                                    "servicecloudconsoleonly",
+                                    "notPresent");
+                            logToConsole("serviceCloudConsoleOnly from url = "
+                                    + serviceCloudConsoleOnly);
+                            if (serviceCloudConsoleOnly == "notPresent") {
+                                serviceCloudConsoleOnly = readCookie("wsc_serviceCloudConsoleOnly");
+                                logToConsole("serviceCloudConsoleOnly from cookie = "
+                                        + serviceCloudConsoleOnly);
+                                //TODO need to make default behavior part of call center definition
+                                if (serviceCloudConsoleOnly == 0)
+                                    serviceCloudConsoleOnly = "false";
+                            } else {
+                                createCookie(
+                                        "wsc_serviceCloudConsoleOnly",
+                                        serviceCloudConsoleOnly,
+                                        1);
+                            }
+                            logToConsole('serviceCloudConsoleOnly = '
+                                    + serviceCloudConsoleOnly);
+                            if ((serviceCloudConsoleOnly == "false")
+                                    || (serviceCloudConsoleOnly && inServiceCloudConsole)) {
+                                initLogo();
+                                initCallCenter();
+                                logToConsole('Start polling');
+                                poll(100);
+                                logToConsole('Polling started');
+                                CanCommunicate();
+                            } else {
+                                sforce.interaction.cti
+                                        .setSoftphoneHeight(0);
+                                sforce.interaction.cti
+                                        .setSoftphoneWidth(0);
+                            }
+                        });
+            });
+
+            function initLogo() {
+                var imgUrl = j$('#logo').html();
+                j$('#logoTd').html('<img src="' + imgUrl  + '">');
+                sforce.interaction.cti.setSoftphoneHeight(605);
+                sforce.interaction.cti.setSoftphoneWidth(415);
+            }
+
+            function initCallCenter() {
+                pollPort = getURLParam("pollport", pollPort);
+                requestPort = getURLParam("requestport", requestPort);
+                logToConsole('pollPort from URL - ' + pollPort);
+                logToConsole('requestPort from URL - ' + requestPort);
+
+                //if no port from url, get them from the cookie
+                if (pollPort == 0) {
+                    pollPort = readCookie("wsc_pollPort");
+                    requestPort = readCookie("wsc_requestPort");
+                    logToConsole('pollPort from cookie - ' + pollPort);
+                    logToConsole('requestPort from cookie - ' + requestPort);
+                }
+
+                sforce.interaction.cti
+                        .getCallCenterSettings(function(response) {
+                            logToConsole('getCallCenterSettings - '
+                                    + response.result);
+                            var callCenterDefinition = j$
+                                    .parseJSON(response.result);
+
+                            if (callCenterDefinition['/WorkspaceOptions/RequestTimeout'] != undefined
+                                    && callCenterDefinition['/WorkspaceOptions/RequestTimeout'] != null) {
+                                requestTimeout = callCenterDefinition['/WorkspaceOptions/RequestTimeout'];
+                                logToConsole('getCallCenterSettings: requestTimeout - '
+                                        + requestTimeout);
+                            }
+
+                            if (callCenterDefinition['/WorkspaceOptions/PollQueueTimeout'] != undefined
+                                    && callCenterDefinition['/WorkspaceOptions/PollQueueTimeout'] != null) {
+                                pollQueueTimeout = callCenterDefinition['/WorkspaceOptions/PollQueueTimeout'];
+                                logToConsole('getCallCenterSettings: pollQueueTimeout - '
+                                        + pollQueueTimeout);
+                            }
+
+                            if (callCenterDefinition['/WorkspaceOptions/PollQueueTimeoutError'] != undefined
+                                    && callCenterDefinition['/WorkspaceOptions/PollQueueTimeoutError'] != null) {
+                                pollQueueTimeoutError = callCenterDefinition['/WorkspaceOptions/PollQueueTimeoutError'];
+                                logToConsole('getCallCenterSettings: pollQueueTimeoutError - '
+                                        + pollQueueTimeoutError);
+                            }
+
+                            if (callCenterDefinition['/WorkspaceOptions/UseLocalHost'] != undefined
+                                    && callCenterDefinition['/WorkspaceOptions/UseLocalHost'] != null) {
+                                useLocalHost = callCenterDefinition['/WorkspaceOptions/UseLocalHost'];
+                                logToConsole('getCallCenterSettings: UseLocalHost - '
+                                        + useLocalHost);
+                                if (useLocalHost === 'false')
+                                    pollURL = url127;
+                                logToConsole('getCallCenterSettings: pollURL - '
+                                        + pollURL);
+                            }
+
+                            if (pollPort == 0) {
+                                if (callCenterDefinition['/WorkspaceOptions/PollPort'] != undefined
+                                        && callCenterDefinition['/WorkspaceOptions/PollPort'] != null
+                                        && callCenterDefinition['/WorkspaceOptions/PollPort'] != '') {
+                                    pollPort = callCenterDefinition['/WorkspaceOptions/PollPort'];
+                                    logToConsole('getCallCenterSettings: pollPort - '
+                                            + pollPort);
+                                } else {
+                                    pollPort = 5050;
+                                    logToConsole('pollPort default - '
+                                            + pollPort);
+                                }
+                            }
+
+                            if (requestPort == 0) {
+                                if (callCenterDefinition['/WorkspaceOptions/RequestPort'] != undefined
+                                        && callCenterDefinition['/WorkspaceOptions/RequestPort'] != null
+                                        && callCenterDefinition['/WorkspaceOptions/RequestPort'] != '') {
+                                    requestPort = callCenterDefinition['/WorkspaceOptions/RequestPort'];
+                                    logToConsole('getCallCenterSettings: requestPort - '
+                                            + requestPort);
+                                } else {
+                                    requestPort = 5051;
+                                    logToConsole('requestPort default - '
+                                            + requestPort);
+                                }
+                            }
+                            // if the port value is valid store the port information into a cookie
+                            if (pollPort != 0) {
+                                createCookie("wsc_pollPort", pollPort, 1);
+                                createCookie("wsc_requestPort", requestPort, 1);
+                            }
+
+                        });
+            }
+
+            // connection is made, enable features
+            function CanCommunicate() {
+                var dialListener = function(response) {
+                    if (response.result == null) {
+                        return;
+                    }
+
+                    var result = JSON.parse(response.result);
+                    var numberToCall = result.number;
+
+                    // Remove any formatting, so it's just numbers.
+                    numberToCall = numberToCall.replace(/\D/g, '');
+
+                    var msg = {
+                        action : 'Dial',
+                        actionData : {
+                            number : numberToCall
+                        }
+                    };
+                    clickToDialNum = numberToCall;
+                    log("clickToDialNum = " + clickToDialNum);
+                    Send(JSON.stringify(msg));  
+                    
+                    j$('#clickToDialNum').val(clickToDialNum);              
+                };
+                sforce.interaction.cti.onClickToDial(dialListener);
+
+                sforce.interaction.cti.enableClickToDial(function(response) {
+                    if (response.result) {
+                        log("ClickToDial result was true");
+                    } else {
+                        log("ClickToDial result was false");
+                    }
+                    logToConsole("ClickToDial = " + response.result);
+                });
+
+                var subEventHandler = function(result) {
+                    log("Focus changed to a different subtab. ID is:"
+                            + result.id + "and object Id is:" + result.objectId);
+                    // determine if we are going to send to Workspace
+                    checkSubTab(result.objectId, "opened");
+                };
+                var primaryEventHandler = function(result) {
+                    log("Focus changed to a different primary tab. ID is:"
+                            + result.id + "and the object Id is:"
+                            + result.objectId);
+                    // determine if we are going to send to Workspace
+                    checkPrimarytab(result.objectId, "opened");
+                };
+
+                if (inServiceCloudConsole) {
+                    //Add a listener for the 'CTIEvent' event type
+                    sforce.console.addEventListener('CTIEvent',
+                            receiveSFMessage);
+                    sforce.console.onFocusedPrimaryTab(primaryEventHandler);
+                    //this does not work - get this error message
+                    //"onFocusedSubtab: Cannot get workspace from frameId: SoftphoneIframe"
+                    sforce.console.onFocusedSubtab(subEventHandler);
+                }
+
+                if (!inServiceCloudConsole) {
+                    window.addEventListener('message', receiveWindowMessage,
+                            false);
+
+                    //If not in service cloud console, the search function must store the
+                    //agent selection in the WorkspaceConnectorInfo becasue when the agent
+                    //selects an entry from the search, it causes a refresh and the Connector
+                    //is re-initialized. The Connector needs to check if there is anything
+                    //in the WorkspaceConnectorInfo to send it to workspace
+                    CTIListenerController
+                            .retrieveWorkspaceConnectorInfo(
+                                    "init",
+                                    function(info) {
+                                        logToConsole("retrieveWorkspaceConnectorInfo = "
+                                                + info);
+                                        if (info != "none") {
+                                            info = info
+                                                    .replace(
+                                                            /&(l|g|quo)t;/g,
+                                                            function(a, b) {
+                                                                return {
+                                                                    l : '<',
+                               						g   : '>',
+                                                                    quo : '"'
+                                                                }[b];
+                                                            });
+                                            logToConsole("retrieveWorkspaceConnectorInfo returns "
+                                                    + info);
+                                            var infoEval = eval('(' + info
+                                                    + ')');
+                                            if (infoEval.id != "null"
+                                                    && infoEval.sfdcObjectId != "null")
+                                                sendAttachData(info);
+                                            //reset the object/interaction id 
+                                            CTIListenerController
+                                                    .setWorkspaceConnectorInfo(
+                                                            "null",
+                                                            "null",
+                                                            function(result) {
+                                                                logToConsole("setWorkspaceConnectorInfo to null returns "
+                                                                        + result);
+                                                            });
+                                        }
+                                    });
+                }
+            };
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+
+            // *** Send to iWS *** //
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+
+            //inform workspace of navigation to Account primary tab
+            function checkPrimarytab(objID, actionPerformed) {
+                log('checkPrimarytab: find associated inx Id for sfObject - '
+                        + objID + 'action - ' + actionPerformed);
+                if (objID != null) {
+                    log("checkPrimarytab not null");
+                    var test = j$.inArray(objID, ixnWindows);
+                    if (test != -1) {
+                        log('checkPrimarytab: found match, sending to IWS');
+                        Send('{"action":"ShowInteraction","actionData":{"interactionId":"'
+                                + ixnWindows[test] + '"}');
+                    } else
+                        log('checkPrimarytab: could not find match');
+                } else
+                    log('checkPrimarytab: objID is null');
+            }
+
+            //inform workspace of navigation to Contact sub tab
+            function checkSubTab(objID) {
+                log('checkSubTab: find associated inx Id for sfObject - '
+                        + objID);
+                if (objID != null) {
+                    log("checkSubTab not null");
+                    var test = j$.inArray(objID, ixnWindows);
+                    if (test != -1) {
+                        log('checkSubTab: found match, sending to IWS');
+                        Send('{"action":"ShowInteraction","actionData":{"interactionId":"'
+                                + ixnWindows[test] + '"}');
+                    } else
+                        log('checkSubTab: could not find match');
+                }
+
+                //log.debug('checkSubTab: objID is null');
+            }
+
+            //inform workspace so it can attach data  
+            //input must be in JSON format
+            function sendAttachData(newData) {
+                log("sendAttachData - " + newData);
+                processAttachData('{"action":"AttachData","actionData":'
+                        + newData + '}');
+            }
+
+            function processAttachData(objToProcess) {
+                window.console && console.log("processAttachData");
+                Send(objToProcess);
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+            // event processing
+            //
+            // processMessage is called for all received communications from Interaction Workspace
+            // that contains valid work to be performed.
+            ////////////////////////////////////////////////////////////////////////////////////////        
+
+            function processMessage(obj) {
+                //calculate date time
+                var date = new Date();
+                var displayDate = (date.getMonth() + 1) + '/'
+                        + (date.getDate()) + '/' + date.getFullYear() + " "
+                        + date.getHours() + ':' + date.getMinutes() + ':'
+                        + date.getSeconds();
+
+                if (obj.action == "OpenObject") {
+                    log("in OpenObject");
+                    // open based on type attribute                
+                    if (obj.type == "Voice") {
+                        // if we have a userData attribute of MainMenu, then go to case processing
+                        if (obj.userData.MainMenu != null) {
+                            log("processMessage: Voice Case handling for menu = "
+                                    + obj.userData.MainMenu);
+                            performCaseAction(obj);
+                        } else {
+                            // Inbound or internal voice
+                            if (obj.calltype == "Inbound"
+                                    || obj.calltype == "Internal") {
+                                log("processMessage: Inbound Voice handling for caller ID = "
+                                        + obj.source);
+                                performInboundVoiceAction(obj);
+                            }
+
+                            // Outbound voice                        
+                            if (obj.calltype == "Outbound") {
+                                // attempt to open on outbound
+                                log("processMessage: Outbound Voice handling for party = "
+                                        + obj.destination);
+                                performOutboundVoiceAction(obj);
+                            }
+                            if (obj.calltype == "Unknown") {
+                                log("processMessage: Unknown, clickToDialNum = "
+                                        + clickToDialNum
+                                        + ", destination = "
+                                        + obj.destination);
+                                clickToDialNum = "";
+                                //performOutboundVoiceAction(obj);
+                            }
+                        }
+                    } else if (obj.type == "Email") {
+                        log("processMessage: Email pop action for address: "
+                                + obj.source);
+                        performEmailAction(obj);
+                    } else if (obj.type == "Chat") {
+                        log("processMessage: Chat pop action for address: "
+                                + obj.source);
+                        performChatAction(obj);
+                    } else if (obj.type == "InteractionWorkItem") {
+                        log("processMessage: Workitem pop action for mediaType: "
+                                + obj.mediaType);
+                        performWorkItemAction(obj);
+                    } else if (obj.type == "OpenMedia") {
+                        log("processMessage: OpenMedia pop action for mediaType: "
+                                + obj.mediaType + " for address: " + obj.source);
+                        performOpenMediaAction(obj);
+                    } else if (obj.type == "InteractionSms") {
+                        log("processMessage: Sms pop action for address: "
+                                + obj.source);
+                        performSmsAction(obj);
+                    }
+                } else if (obj.action == "CreateActivity") {
+                    log("CreateActivity for connID " + obj.id
+                            + " delete Windows - " + ixnWindows[obj.id]);
+                    delete ixnWindows[obj.id];
+
+                    var objectIdForActivity = "";
+                    //check for attached data sfdcObjectId - if it is there, then use that
+                    if (obj.userData.sfdcObjectId != null)
+                        objectIdForActivity = obj.userData.sfdcObjectId;
+
+                    log("CreateActivity for connID " + obj.id
+                            + " using object " + objectIdForActivity);
+
+                    // create the task                
+                    createTask(obj, objectIdForActivity);
+                } else if (obj.action == "MarkedDone") {
+                    log("MarkedDone for connID " + obj.id
+                            + " delete Windows - " + ixnWindows[obj.id]);
+                    delete ixnWindows[obj.id];
+                } else if (obj.action == "FocusTab") {
+                    log("FocusTab for " + obj.id);
+                    processFocusTab(obj.id);
+                }
+                clickToDialNum = "";
+            }
+
+            // bring a primary tab to front  
+            function processFocusTab(connId) {
+                log("processFocusTab for " + connId);
+                var objId = ixnWindows[connId];
+                if (objId != null) {
+                    if (inServiceCloudConsole)
+                        force.console.openPrimaryTab(null, '/' + objId, true);
+                }
+            }
+
+            // refresh a primary tab  
+            var processTabID = function processTabID(result) {
+                if (result.id != null) {
+                    log("processTabID result.id = " + result.id);
+                    sforce.console.refreshPrimaryTabById(result.id, false);
+                }
+            };
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+            // Inbound and Outbound Voice handling
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+            // screen pop for inbound voice. If role is RoleDestination, then this is inbound, if
+            // RoleOrigination, then it is an manual outbound dial        
+            function performInboundVoiceAction(obj) {
+                log("in performInboundVoiceAction()");
+
+                // determine number to use based on role
+                log("Role is " + obj.role);
+                var lookupNumber = obj.source;
+                if (obj.role == 'RoleOrigination')
+                    lookupNumber = obj.destination;
+
+                // if contains a CaseNumber attached data, pop on it
+                if (obj.userData.CaseNumber !== undefined) {
+                    CTIListenerController
+                            .findCaseFromNumber(
+                                    obj.userData.CaseNumber,
+                                    function(o) {
+                                        if (o != null) {
+                                            log("Screen popping CASE record: "
+                                                    + o.Name);
+                                            if (inServiceCloudConsole) {
+                                                sforce.console.openPrimaryTab(
+                                                        null, '/' + o.Id, true);
+                                            } else {
+                                                sforce.interaction.screenPop(
+                                                        '/' + o.Id, function(
+                                                                response) {
+                                                        });
+                                            }
+                                        } else {
+                                            log("No records found with Case Number containing: "
+                                                    + lookupNumber);
+                                        }
+                                    });
+                } else {
+                    // check for attached data sfdcObjectId - if it is already there, then use that 
+                    if (obj.userData.sfdcObjectId !== undefined) {
+                        log("sfdcObjectId = " + obj.userData.sfdcObjectId);
+                        if (inServiceCloudConsole) {
+                            sforce.console.openPrimaryTab(null, '/'
+                                    + obj.userData.sfdcObjectId, true);
+                        } else {
+                            sforce.interaction.screenPop('/'
+                                    + obj.userData.sfdcObjectId, function(
+                                    response) {
+                            });
+                        }
+                        return;
+                    }
+
+                    // using the source attribute locate the contact
+                    CTIListenerController
+                            .findObjectFromANI(
+                                    lookupNumber,
+                                    function(o) {
+                                        //CTIListenerController.findContactFromANI(lookupNumber,function(o) {
+                                        if (o != null) {
+                                            if (o == 'multiple found'
+                                                    || o == 'not found') {
+                                                openSearch(lookupNumber, obj.id);
+                                                return;
+                                            }
+                                            log("Screen popping record: "
+                                                    + o.FirstName);
+                                            if (inServiceCloudConsole) {
+                                                sforce.console.openPrimaryTab(
+                                                        null, '/' + o.Id, true);
+                                            } else {
+                                                sforce.interaction.screenPop(
+                                                        '/' + o.Id, function(
+                                                                response) {
+                                                        });
+                                            }
+                                            //inform workspace of SFobject id for subsequent use in activity creation and transfer
+                                            var newData = '{"sfdcObjectId":"'
+                                                    + o.Id + '","id":"'
+                                                    + obj.id + '"}';
+                                            ixnWindows[obj.id] = o.id;
+                                            sendAttachData(newData);
+                                        } else {
+                                            log("No records found with phone field containing: "
+                                                    + lookupNumber);
+                                        }
+                                    });
+                }
+            }
+
+            // screen pop for outbound voice
+            function performOutboundVoiceAction(obj) {
+                log("in performOutboundVoiceAction()");
+                // check for attached data sfdcObjectId - if it is already there, then pop that 
+                if (obj.userData.sfdcObjectId !== undefined) {
+                    log("sfdcObjectId = " + obj.userData.sfdcObjectId);
+                    if (inServiceCloudConsole) {
+                        sforce.console.openPrimaryTab(null, '/'
+                                + obj.userData.sfdcObjectId, true);
+                    } else {
+                        sforce.interaction.screenPop('/'
+                                + obj.userData.sfdcObjectId,
+                                function(response) {
+                                });
+                    }
+                    return;
+                }
+
+                // using the destination attribute locate the contact
+                CTIListenerController
+                        .findObjectFromANI(
+                                obj.destination,
+                                function(o) {
+                                    //CTIListenerController.findContactFromANI(obj.destination,function(o) {
+                                    if (o != null) {
+                                        log("Screen popping record: " + o.Name);
+                                        if (inServiceCloudConsole) {
+                                            sforce.console.openPrimaryTab(null,
+                                                    '/' + o.Id, true);
+                                        } else {
+                                            sforce.interaction.screenPop('/'
+                                                    + o.Id, function(response) {
+                                            });
+                                        }
+                                        //inform workspace of SFobject id for subsequent use in activity creation and transfer
+                                        var newData = '{"sfdcObjectId":"'
+                                                + o.Id + '","id":"' + obj.id
+                                                + '"}';
+                                        sendAttachData(newData);
+                                    } else {
+                                        log("No records found with phone field containing: "
+                                                + obj.destination);
+                                    }
+                                });
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+            // Email handling
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+            // screen pop for email
+
+            function performEmailAction(obj) {
+                log("in performEmailAction()");
+                // check for attached data sfdcObjectId - if it is already there, then pop that 
+                if (obj.userData.sfdcObjectId !== undefined) {
+                    log("sfdcObjectId = " + obj.userData.sfdcObjectId);
+                    if (inServiceCloudConsole) {
+                        sforce.console.openPrimaryTab(null, '/'
+                                + obj.userData.sfdcObjectId, true);
+                    } else {
+                        sforce.interaction.screenPop('/'
+                                + obj.userData.sfdcObjectId,
+                                function(response) {
+                                });
+                    }
+                    return;
+                }
+                // using the source attribute locate the contact
+                CTIListenerController
+                        .findContactFromEmailAddress(
+                                obj.source,
+                                function(o) {
+                                    if (o != null) {
+                                        log("Screen popping record: " + o.Name);
+                                        if (inServiceCloudConsole) {
+                                            sforce.console.openPrimaryTab(null,
+                                                    '/' + o.Id, true);
+                                        } else {
+                                            sforce.interaction.screenPop('/'
+                                                    + o.Id, function(response) {
+                                            });
+                                        }
+                                        //inform workspace of SFobject id for subsequent use in activity creation and transfer
+                                        var newData = '{"sfdcObjectId":"'
+                                                + o.Id + '","id":"' + obj.id
+                                                + '"}';
+                                        sendAttachData(newData);
+                                    } else {
+                                        log("No records found with email address containing: "
+                                                + obj.source);
+                                    }
+                                });
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+            // Chat handling
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+            // screen pop for chat
+            function performChatAction(obj) {
+                log("in performChatAction()");
+                // check for attached data sfdcObjectId - if it is already there, then pop that 
+                if (obj.userData.sfdcObjectId !== undefined) {
+                    log("sfdcObjectId = " + obj.userData.sfdcObjectId);
+                    if (inServiceCloudConsole) {
+                        sforce.console.openPrimaryTab(null, '/'
+                                + obj.userData.sfdcObjectId, true);
+                    } else {
+                        sforce.interaction.screenPop('/'
+                                + obj.userData.sfdcObjectId,
+                                function(response) {
+                                });
+                    }
+                    return;
+                }
+
+                var name = obj.source;
+
+                // using the source attribute locate the contact
+                CTIListenerController
+                        .findContactFromChatAddress(
+                                name,
+                                function(o) {
+                                    if (o != null) {
+                                        log("Screen popping record: " + o.Name);
+                                        if (inServiceCloudConsole) {
+                                            sforce.console.openPrimaryTab(null,
+                                                    '/' + o.Id, true);
+                                        } else {
+                                            sforce.interaction.screenPop('/'
+                                                    + o.Id, function(response) {
+                                            });
+                                        }
+                                        //inform workspace of SFobject id for subsequent use in activity creation and transfer
+                                        var newData = '{"sfdcObjectId":"'
+                                                + o.Id + '","id":"' + obj.id
+                                                + '"}';
+                                        sendAttachData(newData);
+                                    } else {
+                                        log("performChatAction: No records found with Name containing: "
+                                                + name);
+                                    }
+                                });
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+            // WorkItem handling
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+            // screen pop for WorkItem
+            function performWorkItemAction(obj) {
+                log("in performWorkItemAction()");
+                // check for attached data sfdcObjectId - if it is already there, then pop that 
+                if (obj.userData.sfdcObjectId !== undefined) {
+                    log("sfdcObjectId = " + obj.userData.sfdcObjectId);
+                    if (inServiceCloudConsole) {
+                        sforce.console.openPrimaryTab(null, '/'
+                                + obj.userData.sfdcObjectId, true);
+                    } else {
+                        sforce.interaction.screenPop('/'
+                                + obj.userData.sfdcObjectId,
+                                function(response) {
+                                });
+                    }
+                    return;
+                }
+                var name = obj.source;
+
+                // using the source attribute locate the contact
+                CTIListenerController
+                        .findContactFromWorkItemAddress(
+                                name,
+                                function(o) {
+                                    if (o != null) {
+                                        log("Screen popping record: " + o.Name);
+                                        if (inServiceCloudConsole) {
+                                            sforce.console.openPrimaryTab(null,
+                                                    '/' + o.Id, true);
+                                        } else {
+                                            sforce.interaction.screenPop('/'
+                                                    + o.Id, function(response) {
+                                            });
+                                        }
+                                        //inform workspace of SFobject id for subsequent use in activity creation and transfer
+                                        var newData = '{"sfdcObjectId":"'
+                                                + o.Id + '","id":"' + obj.id
+                                                + '"}';
+                                        sendAttachData(newData);
+                                    } else {
+                                        log("performWorkItemAction: No records found with Name containing: "
+                                                + name);
+                                    }
+                                });
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+            // Open Media handling
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+            // screen pop for OpenMedia
+            function performOpenMediaAction(obj) {
+                log("in performOpenMediaAction()");
+                // check for attached data sfdcObjectId - if it is already there, then pop that 
+                if (obj.userData.sfdcObjectId !== undefined) {
+                    log("sfdcObjectId = " + obj.userData.sfdcObjectId);
+                    if (inServiceCloudConsole) {
+                        sforce.console.openPrimaryTab(null, '/'
+                                + obj.userData.sfdcObjectId, true);
+                    } else {
+                        sforce.interaction.screenPop('/'
+                                + obj.userData.sfdcObjectId,
+                                function(response) {
+                                });
+                    }
+                    return;
+                }
+                var name = obj.source;
+
+                // using the source attribute locate the contact
+                CTIListenerController
+                        .findContactFromOpenMediaAddress(
+                                name,
+                                function(o) {
+                                    if (o != null) {
+                                        log("Screen popping record: " + o.Name);
+                                        if (inServiceCloudConsole) {
+                                            sforce.console.openPrimaryTab(null,
+                                                    '/' + o.Id, true);
+                                        } else {
+                                            sforce.interaction.screenPop('/'
+                                                    + o.Id, function(response) {
+                                            });
+                                        }
+                                        //inform workspace of SFobject id for subsequent use in activity creation and transfer
+                                        var newData = '{"sfdcObjectId":"'
+                                                + o.Id + '","id":"' + obj.id
+                                                + '"}';
+                                        sendAttachData(newData);
+                                    } else {
+                                        log("performOpenMediaAction: No records found with Name containing: "
+                                                + name);
+                                    }
+                                });
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+            // Case handling
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+            /* 
+            Opens an existing Case if MainMenu = 'Existing Ticket'
+            or creates a new Case if MainMenu = 'New Ticket'
+             */
+            function performCaseAction(openObj) {
+                log("in performCaseAction() with main menu="
+                        + openObj.userData.MainMenu);
+
+                // Existing Ticket
+                if (openObj.userData.MainMenu == 'Existing Ticket') {
+                    log("Opening an Existing CASE with number: "
+                            + openObj.userData.TicketNumber);
+                    CTIListenerController
+                            .findCaseFromNumber(
+                                    openObj.userData.TicketNumber,
+                                    function(result, event) {
+                                        if (result != null) {
+                                            log("found Case.Id=" + result.Id
+                                                    + " (CaseNumber "
+                                                    + result.CaseNumber + ")");
+                                            if (inServiceCloudConsole) {
+                                                sforce.console
+                                                        .openPrimaryTab(
+                                                                null,
+                                                                '/' + result.Id,
+                                                                true,
+                                                                result.CaseNumber);
+                                            } else {
+                                                sforce.interaction.screenPop(
+                                                        '/' + result.Id,
+                                                        function(response) {
+                                                        });
+                                            }
+                                        } else {
+                                            log('No case found, defaulting to navigator tab for user search');
+                                            try {
+                                                // display the CaseNotFound page allowing the user to correct
+                                                // correct the input case and re-pop.
+                                                if (inServiceCloudConsole)
+                                                    sforce.console
+                                                            .openPrimaryTab(
+                                                                    null,
+                                                                    '/apex/WSC_CaseNotFound?CaseNumber='
+                                                                            + openObj.userData.TicketNumber,
+                                                                    true,
+                                                                    'Case Not Found');
+                                            } catch (e) {
+                                                //alert("Error=" + e);                       
+                                            }
+                                        }
+                                    });
+                }
+
+                // New Ticket            
+                if (openObj.userData.MainMenu == 'New Ticket') {
+                    log("New Ticket requested");
+
+                    // fetch the product line and product IDs
+                    var canPop = false; // indicates if all data attributes available to pop form                
+                    CTIListenerController
+                            .getProductFromName(
+                                    openObj.userData.FunctionalGroup,
+                                    function(pl) {
+                                        if (pl != null) {
+                                            CTIListenerController
+                                                    .getProductFromName(
+                                                            openObj.userData.ProductGroup,
+                                                            function(sp) {
+                                                                if (sp != null) {
+                                                                    log("Opening new Product Case for "
+                                                                            + openObj.userData.Employer
+                                                                            + " using product line: "
+                                                                            + openObj.userData.FunctionalGroup
+                                                                            + " and product: "
+                                                                            + openObj.userData.ProductGroup);
+                                                                    // open the New Case page forcing bypass of first two forms with prefilled contacts and products
+                                                                    if (inServiceCloudConsole)
+                                                                        sforce.console
+                                                                                .openPrimaryTab(
+                                                                                        null,
+                                                                                        '/apex/Portal_Select_Case_Type?isSaas=true&RecordType=012J0000000CsVB&sto='
+                                                                                                + openObj.userData.SoldToSFDCId
+                                                                                                + '&eu='
+                                                                                                + openObj.userData.EndUserSFDCId
+                                                                                                + '&pl='
+                                                                                                + pl.Id
+                                                                                                + '&sp='
+                                                                                                + sp.Id
+                                                                                                + '&conid='
+                                                                                                + openObj.userData.ContactSFDCId,
+                                                                                        true,
+                                                                                        'New Case');
+                                                                    canPop = true; // we have popped                                    
+                                                                }
+                                                            });
+                                        }
+                                    });
+                }
+
+                // Something Else             
+                if (openObj.userData.MainMenu == 'Something Else') {
+                    log("Something else requested");
+                    // do nothing
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+            // Task handling
+            //
+            // Writes a simple task from provided disposition information
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+            function createTask(createObj, objIdForActivity) {
+                log("createTask");
+                //calculate date time
+                var date = new Date();
+                var displayDate = (date.getMonth() + 1) + '/'
+                        + (date.getDate()) + '/' + date.getFullYear() + " "
+                        + date.getHours() + ':' + date.getMinutes() + ':'
+                        + date.getSeconds();
+
+                var lookupSource = "";
+                var ixnType = "";
+                var mediaType = "";
+                log("createTask for " + createObj.type);
+                switch (createObj.type) {
+                case "Voice":
+                    // if outbound then use destination as source
+                    if (createObj.calltype == "Outbound") {
+                        lookupSource = createObj.destination;
+                        ixnType = "Outbound";
+                    } else {
+                        if (createObj.role == 'RoleOrigination') {
+                            lookupSource = createObj.destination;
+                            ixnType = "Voice-Outbound Dial";
+                        } else {
+                            lookupSource = createObj.source;
+                            ixnType = "Voice-Inbound";
+                        }
+                    }
+                    break;
+                case "Email":
+                    lookupSource = createObj.source;
+                    ixnType = createObj.type;
+                    break;
+                case "Chat":
+                    //lookupSource=createObj.userData.FirstName + ' ' + createObj.userData.LastName
+                    lookupSource = createObj.source;
+                    ixnType = createObj.type;
+                    break;
+                case "InteractionWorkItem":
+                    //lookupSource=createObj.userData.FirstName + ' ' + createObj.userData.LastName
+                    lookupSource = createObj.source;
+                    ixnType = createObj.type;
+                    mediaType = createObj.mediaType;
+                    break;
+                case "OpenMedia":
+                    //lookupSource=createObj.userData.FirstName + ' ' + createObj.userData.LastName
+                    lookupSource = createObj.source;
+                    ixnType = createObj.type;
+                    mediaType = createObj.mediaType;
+                    break;
+                case "Social":
+                    lookupSource = createObj.source;
+                    ixnType = createObj.type;
+                    break;
+                default:
+                    log("activity not created for " + createObj.type);
+                    return;
+                }
+
+                if (objIdForActivity != "")
+                    log("createTask: " + ixnType + " using objIdForActivity "
+                            + objIdForActivity + ", not lookupSource "
+                            + lookupSource);
+                else
+                    log("createTask: " + ixnType + " using lookupSource "
+                            + lookupSource + ", not objIdForActivity");
+
+                var _CALL_DURATION = (createObj.duration === undefined) ? ""
+                        : createObj.duration;
+                var _IXNTYPE = ixnType;
+                var _COMMENTS = (createObj.notes === undefined) ? ""
+                        : createObj.notes;
+                var _DISP = (createObj.userData.DispositionCode === undefined) ? ""
+                        : createObj.userData.DispositionCode;
+                var _DNIS = (createObj.destination === undefined) ? ""
+                        : createObj.destination;
+                var _GENESYSID = (createObj.id === undefined) ? ""
+                        : createObj.id;
+                var _ANI = (createObj.source === undefined) ? ""
+                        : createObj.source;
+                var _SFDC_OBJECT_ID = objIdForActivity;
+                var _SFDC1value = (createObj.SFDC1value === undefined) ? ""
+                        : createObj.SFDC1value;
+                var _SFDC2value = (createObj.SFDC2value === undefined) ? ""
+                        : createObj.SFDC2value;
+                var _SFDC3value = (createObj.SFDC3value === undefined) ? ""
+                        : createObj.SFDC3value;
+                var _SFDC4value = (createObj.SFDC4value === undefined) ? ""
+                        : createObj.SFDC4value;
+                var _SFDC5value = (createObj.SFDC5value === undefined) ? ""
+                        : createObj.SFDC5value;
+                var _SFDC1field = (createObj.SFDC1field === undefined) ? ""
+                        : createObj.SFDC1field;
+                var _SFDC2field = (createObj.SFDC2field === undefined) ? ""
+                        : createObj.SFDC2field;
+                var _SFDC3field = (createObj.SFDC3field === undefined) ? ""
+                        : createObj.SFDC3field;
+                var _SFDC4field = (createObj.SFDC4field === undefined) ? ""
+                        : createObj.SFDC4field;
+                var _SFDC5field = (createObj.SFDC5field === undefined) ? ""
+                        : createObj.SFDC5field;
+
+                log("creating task map");
+                var mapActivity = {
+                    "Call Duration" : _CALL_DURATION,
+                    "IXN Type" : _IXNTYPE,
+                    "Comments" : _COMMENTS,
+                    "Disposition" : _DISP,
+                    "DNIS" : _DNIS,
+                    "GenesysId" : _GENESYSID,
+                    "ANI" : _ANI,
+                    "sfdc Object Id" : _SFDC_OBJECT_ID,
+                    "SFDC1value" : _SFDC1value,
+                    "SFDC2value" : _SFDC2value,
+                    "SFDC3value" : _SFDC3value,
+                    "SFDC4value" : _SFDC4value,
+                    "SFDC5value" : _SFDC5value,
+                    "SFDC1field" : _SFDC1field,
+                    "SFDC2field" : _SFDC2field,
+                    "SFDC3field" : _SFDC3field,
+                    "SFDC4field" : _SFDC4field,
+                    "SFDC5field" : _SFDC5field,
+                    "Media Type" : mediaType,
+                    "DATE" : displayDate,
+                    "LOOKUP" : lookupSource
+                };
+
+                CTIListenerController
+                        .createActivity(
+                                mapActivity,
+                                function(result, event) {
+                                    log("createActivity RESULT = " + result);
+
+                                    if (result != null && result != "not found") {
+                                        log("redirect to new activity - "
+                                                + result);
+                                        if (inServiceCloudConsole) {
+                                            sforce.console.openPrimaryTab(null,
+                                                    '/' + result, true);
+
+                                            log("getTabID for refresh");
+                                            sforce.console
+                                                    .getFocusedPrimaryTabId(processTabID);
+                                        } else {
+                                            sforce.interaction.screenPop('/'
+                                                    + result,
+                                                    function(response) {
+                                                    });
+                                        }
+                                    } else
+                                        log("Could not create task for");
+                                });
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+
+            // *** Search Handling **** //
+
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+            function openSearch(searchField, ixnId) {
+                log("openSearch for " + searchField);
+                //var urlString = "/apex/CustomContactLookupBA?lksrch="+searchField + "&ixnId=" + ixnId;
+                var urlString = "/apex/CustomContactLookupBA?lksrch="
+                        + searchField + "&ixnId=" + ixnId
+                        + "&inServiceCloudConsole=" + inServiceCloudConsole;
+                log("url = " + urlString);
+                if (inServiceCloudConsole) {
+                    sforce.console.openPrimaryTab(null, urlString, true,
+                            'Search');
+                } else {
+                    sforce.interaction.screenPop(urlString, function(response) {
+                    });
+                }
+            }
+
+            function processObjectSelected(result) {
+                //  Search page returns the following:
+                var objSelected = eval('(' + result + ')');
+                log("processObjectSelected for " + objSelected.id);
+                if (objSelected.id != '') {
+                    //inform workspace of SFobject id for subsequent use in activity creation and transfer
+                    var newData = '{"sfdcObjectId":"' + objSelected.id
+                            + '","id":"' + objSelected.interactionId + '"}';
+                    sendAttachData(newData);
+                    ixnWindows[objSelected.interactionId] = objSelected.id;
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+
+            // *** Request received from other VF pages **** //
+
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+            var receiveSFMessage = function(result) {
+                //receive message from Salesforce fireEvent
+                var myObj = eval('(' + result.message + ')');
+                window.console && console.log("receiveSFMessage CTIEvent = " + myObj.action);
+                if (myObj.action == "ObjectSelected")
+                    processObjectSelected(result.message);
+                if (myObj.action == "AttachData")
+                    processAttachData(result.message);
+            };
+
+            function receiveWindowMessage(event) {
+                //receive message from window listener
+                window.console && console.log("receiveWindowMessage = " + event.data);
+                var s = event.data;
+                //The only message to process is AttachData
+                var n = s.indexOf("AttachData");
+                if (n > -1) {
+                    processAttachData(s);
+                } else
+                    window.console && console.log("receiveWindowMessage no processing");
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+
+            // *** AJAX Functions **** //
+
+            ////////////////////////////////////////////////////////////////////////////////////////           
+
+            function poll(timeout) {
+
+                //window.console && console.log('Poll in ' + timeout);
+                setTimeout(function() {
+                    j$.ajax({
+                        url : pollURL + ":" + pollPort + "/poll",
+                        timeout : requestTimeout,
+                        async : true,
+                        crossDomain : true,
+                        cache : false,
+                        dataType : 'jsonp',
+                        success : function(data) {
+                            //window.console && console.log('Action='+data.action);
+                            if (data.action != 'NoWork') {
+                                log('JSON Received- ' + j$.param(data));
+                                //processMessage(data);
+                                processMessageCustom(data);
+                            }
+
+                            poll(pollQueueTimeout);
+                            changeDisplayStatus(true);
+                        },
+                        error : function(xhr, ajaxOptions, thrownError) {
+                            log('work request error (' + pollPort + ') '
+                                    + xhr.status + ' ' + thrownError);
+
+                            changeDisplayStatus(false);
+
+                            if (thrownError == 'timeout')
+                                poll(pollQueueTimeoutError);
+                            else
+                                poll(pollQueueTimeout);
+                        }
+                    });
+
+                }, timeout);
+            }
+
+            function Send(message) {                
+                log("Sending:" + message);
+                j$.ajax({
+                    url : pollURL + ":" + requestPort + "/request=" + message,
+                    timeout : requestTimeout,
+                    async : false,
+                    crossDomain : true,
+                    cache : false,
+                    dataType : 'jsonp',
+                    success : function(data) {
+                        log('Request sent ' + data.response);
+                    },
+                    error : function(xhr, ajaxOptions, thrownError) {
+                        log('Request sent error (' + requestPort + ') '
+                                + xhr.status + ' ' + thrownError);
+                    }
+                });
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+
+            // *** MISC Functions **** //
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+
+            function timestamp() {
+                var dd = new Date();
+                var hh = dd.getHours();
+                var mm = dd.getMinutes();
+                var ss = dd.getSeconds();
+                return "<span style='color: blue;'>"
+                        + ((hh > 9) ? hh : "0" + hh) + ":"
+                        + ((mm > 9) ? mm : "0" + mm) + ":"
+                        + ((ss > 9) ? ss : "0" + ss) + "</span>";
+            };
+
+            //Valid values in Salesforce = between 30 minutes and 8 hours.
+            function testResetSessionTimeOut() {
+                sforce.console.resetSessionTimeOut();
+                log("reset timeout");
+            };
+
+            /// logs a line to the console component visual log
+            function log(message) {
+                
+                window.console&&console.log('+++++>>> CTI Log: ' + message);
+                
+                if (hideLog) //do not show anything if log is switched off
+                    return;
+
+                var id = document.getElementById("log");
+                if (id.innerHTML.length > 0)
+                    id.innerHTML = id.innerHTML + "<br>" + timestamp() + " "
+                            + message;
+                else
+                    id.innerHTML = timestamp() + " " + message;
+            }
+
+            /// clears the log in the console
+            function clearLog() {
+                j$('#log').html('');
+            }
+
+            function changeDisplayStatus(connected) {
+                //logToConsole("changeDisplayStatus statusConnected = " + statusConnected);
+                //logToConsole("changeDisplayStatus hideLog = " + hideLog);
+                //logToConsole("changeDisplayStatus request = " + connected);
+
+                var imgURL;
+                if (connected) {
+                    statusConnected = true;
+                    if (hideLog) {
+                        imgUrl = j$('#plus_green').html();
+                    } else {
+                        imgUrl = j$('#minus_green').html();
+                    }
+
+                } else {
+                    statusConnected = false;
+                    if (hideLog) {
+                        imgUrl = j$('#plus_red').html();
+                    } else {
+                        imgUrl = j$('#minus_red').html();
+                    }
+                }
+                j$('#statusTd').html(
+                        '<img id="logButton" src="' + imgUrl  + '">');
+                j$('#logButton').click(function() {
+                    changeLogStatus(!hideLog);
+                });
+            }
+
+            function changeLogStatus(log) {
+                logToConsole("changeLogStatus statusConnected = "
+                        + statusConnected);
+                logToConsole("changeLogStatus hideLog = " + hideLog);
+                logToConsole("changeLogStatus log request = " + log);
+
+                if (log) {
+                    //hiding log              
+                    if (statusConnected) {
+                        var imgUrl = j$('#plus_green').html();
+                    } else {
+                        var imgUrl = j$('#plus_red').html();
+                    }
+                    j$('#statusTd').html(
+                            '<img id="logButton" src="' + imgUrl  + '">');
+
+                    j$('#logButton').click(function() {
+                        changeLogStatus(false);
+                    });
+
+                    sforce.interaction.cti.setSoftphoneHeight(605);
+                    sforce.interaction.cti.setSoftphoneWidth(415);
+
+                    j$('#debug').hide();
+                } else {
+                    //showing log
+                    j$('#portStatus').html(
+                            "<span style='fontSize=8pt;'><b>Version: </b>"
+                                    + version + "<br>Poll Port:" + pollPort
+                                    + ", Request Port:" + requestPort
+                                    + "</style>");
+
+                    if (statusConnected) {
+                        var imgUrl = j$('#minus_green').html();
+                    } else {
+                        var imgUrl = j$('#minus_red').html()
+                    }
+
+                    j$('#statusTd').html(
+                            '<img id="logButton" src="' + imgUrl  + '">');
+
+                    j$('#logButton').click(function() {
+                        changeLogStatus(true);
+                    });
+
+                    sforce.interaction.cti.setSoftphoneHeight(765);
+                    sforce.interaction.cti.setSoftphoneWidth(415);
+                    j$('#debug').show();
+                }
+
+                hideLog = log;
+            }
+
+            function getURLParam(strParamName, strDefault) {
+                logToConsole('getURLParam');
+                var strReturn = strDefault;
+                var strHref = document.referrer;
+                if (strHref.indexOf("?") > -1) {
+                    var strQueryString = strHref.substr(strHref.indexOf("?"))
+                            .toLowerCase();
+                    var aQueryString = strQueryString.split("&");
+                    for (var iParam = 0; iParam < aQueryString.length; iParam++) {
+                        if (aQueryString[iParam].indexOf(strParamName + "=") > -1) {
+                            var aParam = aQueryString[iParam].split("=");
+                            strReturn = aParam[1];
+                            break;
+                        }
+                    }
+                }
+                return strReturn;
+            }
+
+            function logToConsole(message) {
+                if (typeof console != "undefined") {
+                    if (typeof console.log != "undefined") {
+                        window.console && console.log(message);
+                    }
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+            // Cookie Operations
+            ////////////////////////////////////////////////////////////////////////////////////////        
+
+            function createCookie(name, value, days) {
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    var expires = "; expires=" + date.toGMTString();
+                } else
+                    var expires = "";
+                document.cookie = name + "=" + value + expires + "; path=/";
+            }
+
+            function readCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ')
+                        c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0)
+                        return c.substring(nameEQ.length, c.length);
+                }
+                //return null;
+                return 0;
+            }
+
+            function eraseCookie(name) {
+                createCookie(name, "", -1);
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////        
+            ////////////////////////////////////////////////////////////////////////////////////////        
+            ////////////////////////////////////////////////////////////////////////////////////////
+            
+            
+        function processMessageCustom(obj) {                            
+                            logToConsole('######################### start custom processing ########################');
+							showLogTree(obj);
+							
+                            var date = new Date();
+                            var displayDate = (date.getMonth() + 1) + '/'
+                                    + (date.getDate()) + '/' + date.getFullYear() + " "
+                                    + date.getHours() + ':' + date.getMinutes() + ':'
+                                    + date.getSeconds();
+                                
+                            for(var key in obj){                            
+                                window.console && console.log(key + '====' + obj[key]);
+                            }
+                            
+                            for(var key in obj.userData){                           
+                                window.console && console.log(key + '==>>' + obj.userData[key]);
+                            }
+                                
+                            if (obj.action == "OpenObject") {
+       
+                                j$.cookie("transactionID", obj.id, {domain:"force.com"});
+                                
+                                if (obj.type == "Voice") {      
+                                    reset();
+                                    start();
+                                    
+                                    updateMiniCaseHeading(obj.calltype);
+                                    
+                                    if(obj.calltype == 'Outbound') {
+                                    	setCaseId(null, null);
+                                        log('Outbound call process...');
+                                        var hfContactID = j$('[id$="hfContactID"]');
+                                        j$('[id$="hfClickToDialContactID"]').val(hfContactID.val());
+                                        
+                                        var clickToDialNum = j$('#clickToDialNum').val();
+                                        var contactId = j$('[id$="hfClickToDialContactID"]').val();
+                                        
+                                        if(contactId) {
+	                                        CTIListenerController.getFullID(contactId, function(result, event){ 
+					                   			var transactionID = j$.cookie('transactionID');
+					                   			
+					                   			var ctiMessageAsJSON = '{"action":"AttachData","actionData":{"CustomerID":"' + result + '","r_INFO_CustomerANI":"' + clickToDialNum + '","SF_UserId":"{!$User.ID}","id":"' + transactionID + '"}}';
+						                        sforce.console.fireEvent('CTIEvent', ctiMessageAsJSON, function (ctiresult) {
+						                            for(var key in ctiresult){                          
+						                                window.console && console.log(key + '### >>' + ctiresult[key]);
+						                            }                                       
+						                        });
+				                            });
+				                       	}
+                                    }
+                                    if(obj.calltype == 'Inbound' || (obj.calltype == 'Consult' && obj.role == 'RoleDestination')) {      
+                                    	j$('#hfInboundJSON').val(j$.toJSON(obj));
+										
+										var IW_CaseUid = obj.userData.IW_CaseUid ? obj.userData.IW_CaseUid : '';
+										var isNewIWSCaseID = j$('#hfIWSCaseID').val() == '' || j$('#hfIWSCaseID').val() != IW_CaseUid;                                                                  	
+                                    	if(obj.calltype == 'Inbound' && isNewIWSCaseID) {
+                                    		sforce.console.fireEvent('RequestValues', 'clear', function(result) {});
+	                                    	
+	                                    	sforce.console.getPrimaryTabIds(function(result){
+	                                            for(i = 0; i < result.ids.length; i++)
+	                                                sforce.console.closeTab(result.ids[i]);
+	                                        });
+                                        }
+                                        
+                                        j$('#hfIWSCaseID').val(IW_CaseUid);
+                                        
+                                        var articleId = obj.userData.UData_sstrackingid && obj.userData.UData_sstrackingid !== undefined && obj.userData.UData_sstrackingid != 'unavailable' && obj.userData.UData_sstrackingid != 'undefined' ? obj.userData.UData_sstrackingid : '';
+                                        var lookupNumber = obj.userData.r_INFO_CustomerANI && obj.userData.r_INFO_CustomerANI != 'undefined' && obj.userData.r_INFO_CustomerANI != 'unavailable' ? obj.userData.r_INFO_CustomerANI : '';
+                                        
+                                        if (excludedPhoneNumbers.indexOf(lookupNumber) != -1) {
+                                        	lookupNumber = '';
+                                        }
+                                        
+										var hasCustomerID = obj.userData.CustomerID && obj.userData.CustomerID != '';                                     
+										
+										if(obj.userData.CaseID){
+											setCaseId(obj.userData.CaseID, null);
+											sforce.console.openPrimaryTab(null, '/' + obj.userData.CaseID, true);
+										} else {
+											setCaseId(null, null);
+										}
+										
+										if(hasCustomerID){
+											setContactId(obj.userData.CustomerID, null);
+											sforce.console.openPrimaryTab(null, '/' + obj.userData.CustomerID, true);
+										} else {
+											setContactId(null, null);
+										}
+                                        
+                                        var queue = obj.destination ? obj.destination : '';
+                                        var outcome = obj.userData.BusinessResultDisplay ? obj.userData.BusinessResultDisplay : '';
+                                        var serviceType = obj.userData.r_IWS_ServiceType ? obj.userData.r_IWS_ServiceType : '';
+                                        var segment = obj.userData.r_IWS_CustomerSegment ? obj.userData.r_IWS_CustomerSegment : '';
+                                        
+                                        var recordTypeObj = {};
+                                        recordTypeObj.Type = obj.userData.ENG_DimAttribute_2 ? obj.userData.ENG_DimAttribute_2 : '';
+                                        recordTypeObj.ProductCategory__c = obj.userData.r_IWS_ServiceType ? obj.userData.r_IWS_ServiceType  : '';
+                                        recordTypeObj.ProductSubCategory__c = obj.userData.r_IWS_ServiceSubType ? obj.userData.r_IWS_ServiceSubType : '';
+                                        recordTypeObj.EnquirySubType__c = obj.userData.ENG_DimAttribute_1 ? obj.userData.ENG_DimAttribute_1 : ''; 
+			
+                                        
+                                        window.console && console.log('######## recordTypeObj.Type = ' + recordTypeObj.Type);
+                                        window.console && console.log('######## recordTypeObj.ProductCategory__c = ' + recordTypeObj.ProductCategory__c);
+                                        window.console && console.log('######## recordTypeObj.ProductSubCategory__c = ' + recordTypeObj.ProductSubCategory__c);
+                                        window.console && console.log('######## recordTypeObj.EnquirySubType__c = ' + recordTypeObj.EnquirySubType__c);
+                                        
+                                        if(isNewIWSCaseID) {
+	                                        if(recordTypeObj.Type && recordTypeObj.Type.trim() != ''){
+	                                            sforce.console.fireEvent('MiniCaseFieldSet_Type', htmlDecode(recordTypeObj.Type), function(result){console.log('synching from CTI');});
+	                                        }
+	                                        if(recordTypeObj.ProductCategory__c && recordTypeObj.ProductCategory__c.trim() != '') {
+	                                            sforce.console.fireEvent('MiniCaseFieldSet_ProductCategory__c', htmlDecode(recordTypeObj.ProductCategory__c), function(result){console.log('synching from CTI');});
+	                                        } 
+	                                        
+	                                        if(recordTypeObj.Type && recordTypeObj.Type.trim() != '' && recordTypeObj.ProductCategory__c && recordTypeObj.ProductCategory__c.trim() != '') {
+	                                        	var typeProduct = recordTypeObj.Type + '|' +  recordTypeObj.ProductCategory__c;
+	                                            sforce.console.fireEvent('MiniCaseFieldSet_Type_and_Product__c', typeProduct, function(result){console.log('synching from CTI');});
+	                                        } 
+	                                        
+	                                        if(recordTypeObj.ProductSubCategory__c && recordTypeObj.ProductSubCategory__c.trim()){
+	                                            sforce.console.fireEvent('MiniCaseFieldSet_ProductSubCategory__c', htmlDecode(recordTypeObj.ProductSubCategory__c), function(result){console.log('synching from CTI')});
+	                                        }
+	                                        if(recordTypeObj.EnquirySubType__c && recordTypeObj.EnquirySubType__c.trim() != ''){
+	                                            sforce.console.fireEvent('MiniCaseFieldSet_EnquirySubType__c', htmlDecode(recordTypeObj.EnquirySubType__c), function(result){console.log('synching from CTI')});
+	                                        }
+	                                        
+	                                        if(articleId != null && articleId.trim() != '') {
+	                                            sforce.console.fireEvent('MiniCaseFieldSet_ReferenceID__c', articleId, function(result){});
+	                                       	}
+                                        }
+                                        
+                                        var variableKeysForPicklist = j$.toJSON(recordTypeObj);
+				                        console.log(variableKeysForPicklist);
+		                                        
+                                        j$('#hfQueue').val(queue);
+                                        j$('#hfServiceType').val(serviceType);
+                                        j$('#hfSegment').val(segment);
+                                        
+                                        logToConsole('ArticleId = ' + articleId);
+                                        logToConsole('lookupNumber = ' + lookupNumber);
+                                        
+                                        j$('[id$="txtPhoneNumber"]').val(lookupNumber);
+                                        j$('[id$="txtRefID"]').val(articleId);
+                                        
+                                        if(isNewIWSCaseID) {
+	                                        if(recordTypeObj.Type == '' && recordTypeObj.EnquirySubType__c == '') {                                        
+		                                        CTIListenerController.defaultValues(segment, serviceType, function(result,event){
+		                                            if(result.caseType){
+		                                                sforce.console.fireEvent('MiniCaseFieldSet_Type', htmlDecode(result.caseType), function(result){console.log('synching from CTI');});
+		                                            }
+		                                            if(result.productCategory) {
+		                                                sforce.console.fireEvent('MiniCaseFieldSet_ProductCategory__c', htmlDecode(result.productCategory), function(result){console.log('synching from CTI');});
+		                                            } 
+		                                            if(result.productSubcategory){
+		                                                sforce.console.fireEvent('MiniCaseFieldSet_ProductSubCategory__c', htmlDecode(result.productSubcategory), function(result){console.log('synching from CTI')});
+		                                            }   
+		                                            sforce.console.fireEvent('RequestValues', 'ALL', function(){window.console && console.log('Called RequestValues');});                      
+		                                        });    
+		                                    } else {
+		                                    	sforce.console.fireEvent('RequestValues', 'ALL', function(){window.console && console.log('Called RequestValues');});
+		                                    }
+	                                    }
+                                    
+                                        if(obj.userData.SalesforceURL){
+                                        	sforce.interaction.screenPop('/console#' + obj.userData.SalesforceURL, true);
+                                            //top.location = window.location.origin + '/console#' + obj.userData.SalesforceURL;
+                                        } else if(isNewIWSCaseID) {
+                                            if(articleId != '' || lookupNumber != '') {
+                                            	console.log('%%%%%%% CTI: Sending to Search pages...');
+                                            	sforce.console.fireEvent('CTI_ANI', lookupNumber, function(result) { console.log('Sent from CTI: ' + lookupNumber);});
+                                            	
+                                                CTIListenerController.loadCaseOrContact(
+                                                            articleId,
+                                                            lookupNumber,
+                                                            function(result, event) {
+                                                                if (event.status) {
+                                                                    console.log('####################### loadCaseOrContact... ########################');
+                                                                    console.log('result.caseId = ' + result.caseId);
+                                                                    console.log('result.contactId = ' + result.contactId);
+                                                                    console.log('obj.userData.CustomerID = ' + obj.userData.CustomerID);
+                                                                    console.log('obj.userData.CaseID = ' + obj.userData.CaseID);
+                                                                    
+                                                                    
+                                                                    if(result.caseId != '') {  
+                                                                    	if(!(obj.calltype == 'Consult' && obj.role == 'RoleDestination')) {         
+                                                                        	setCaseId(result.caseId, result.caseNumber);
+                                                                        }
+                                                                        
+                                                                        var focusOnCase = result.contactId == '';
+                                                                        if(!focusOnCase) {
+                                                                        	if(!(obj.calltype == 'Consult' && obj.role == 'RoleDestination')) {
+                                                                        		setContactId(result.contactId, result.contactName);   
+                                                                        		sforce.console.openPrimaryTab(null, '/' + result.contactId, true);
+                                                                        	}
+                                                                        }
+                                                                        
+                                                                        sforce.console.openPrimaryTab(null, '/' + result.caseId, focusOnCase, result.caseNumber, function(caseOpenedResult){
+                                                                        	sforce.console.setTabIcon('/img/icon/cases16.png', caseOpenedResult.id);
+                                                                        });
+                                                                        
+                                                                    } else if(result.contactId != '') {
+                                                                    	if(!(obj.calltype == 'Consult' && obj.role == 'RoleDestination')) {
+                                                                    		setContactId(result.contactId, result.contactName);
+                                                                    	}
+                                                                    	         
+                                                                        sforce.console.openPrimaryTab(null, '/' + result.contactId, true);
+                                                                        
+                                                                    } else if(!(obj.userData.CustomerID || obj.userData.CaseID)) {
+                                                                        sforce.console.openPrimaryTab(null,
+                                                                                    '/apex/SSSWSearch?aId='
+                                                                                            + articleId
+                                                                                            + '&ANI='
+                                                                                            + lookupNumber,
+                                                                                    true, 'MyCustomers Search');
+                                                                    } 
+                                                                } else {
+                                                                    sforce.console.openPrimaryTab(null,
+                                                                                    '/apex/SSSWSearch?aId='
+                                                                                            + articleId
+                                                                                            + '&ANI='
+                                                                                            + lookupNumber,
+                                                                                    true, 'MyCustomers Search');
+                                                                }           
+                                                            });
+                                            } else {
+                                                sforce.console.openPrimaryTab(null,
+                                                                '/apex/SSSWSearch?aId='
+                                                                        + articleId
+                                                                        + '&ANI='
+                                                                        + lookupNumber,
+                                                                true, 'MyCustomers Search');
+                                            }
+                                        } 
+                                    } 
+                                }
+                            } else if (obj.action == "CreateActivity") {
+                                stop();
+                                j$('#shareURLMessage').html('');
+                                
+                                var txtPhoneNumber = j$('[id$="txtPhoneNumber"]');
+                                var txtRefID = j$('[id$="txtRefID"]');
+                                
+                                var lookupNumber  = txtPhoneNumber.val() ? txtPhoneNumber.val() : '';
+                                var articleId = txtRefID.val() ? txtRefID.val() : '';
+                                var queue = j$('#hfQueue').val() ? j$('#hfQueue').val() : '';
+                                var outcome = obj.userData.BusinessResultDisplay ? obj.userData.BusinessResultDisplay : '';
+                                var serviceType = obj.userData.r_IWS_ServiceType ? obj.userData.r_IWS_ServiceType : '';
+                                var segment = obj.userData.r_IWS_CustomerSegment ? obj.userData.r_IWS_CustomerSegment : '';                                
+
+ 								var serviceType = obj.userData.r_IWS_ServiceType ? obj.userData.r_IWS_ServiceType : '';
+                                var segment = obj.userData.r_IWS_CustomerSegment ? obj.userData.r_IWS_CustomerSegment : '';
+                                
+                                var recordTypeObj = {};
+                                recordTypeObj.Type = obj.userData.ENG_DimAttribute_2 ? obj.userData.ENG_DimAttribute_2 : '';
+                                recordTypeObj.ProductCategory__c = obj.userData.r_IWS_ServiceType ? obj.userData.r_IWS_ServiceType  : '';
+                                recordTypeObj.ProductSubCategory__c = obj.userData.r_IWS_ServiceSubType ? obj.userData.r_IWS_ServiceSubType : '';
+                                recordTypeObj.EnquirySubType__c = obj.userData.ENG_DimAttribute_1 ? obj.userData.ENG_DimAttribute_1 : ''; 
+                                
+                                recordTypeObj.IWS_CallUuid = obj.userData.IWS_CallUuid ? obj.userData.IWS_CallUuid : '';
+                                recordTypeObj.IW_CaseUid = obj.userData.IW_CaseUid ? obj.userData.IW_CaseUid : '';
+																						
+                                var contactId = j$('#hfContactID').val();
+                                var caseId = j$('#hfCaseID').val();
+                                var whatId = (caseId != null && caseId.trim() != '') ? caseId.trim() : '';
+                                var whoId = obj.calltype == 'Outbound' ? j$('#hfClickToDialContactID').val() : (contactId != '' ? contactId : '');
+                                
+                                var subject = j$('[class*="MiniCaseFieldSet_Subject"]').val();
+                                if(subject == null || subject.trim() == '') {subject = obj.calltype + ' call'; }
+                                
+                                var description = j$('#hfInboundJSON').val();
+                                console.log('==============>>>> description: ' + description);
+                                if(description != null && description.trim() != ''){
+                                	var inboundObject = j$.evalJSON(description);
+                                	console.log(inboundObject);
+                                	
+                                	serviceType = inboundObject.userData.r_IWS_ServiceType ? inboundObject.userData.r_IWS_ServiceType : '';
+	                                segment = inboundObject.userData.r_IWS_CustomerSegment ? inboundObject.userData.r_IWS_CustomerSegment : '';
+	                                
+	                                recordTypeObj.Type = inboundObject.userData.ENG_DimAttribute_2 ? inboundObject.userData.ENG_DimAttribute_2 : '';
+	                                recordTypeObj.ProductCategory__c = inboundObject.userData.r_IWS_ServiceType ? inboundObject.userData.r_IWS_ServiceType  : '';
+	                                recordTypeObj.ProductSubCategory__c = inboundObject.userData.r_IWS_ServiceSubType ? inboundObject.userData.r_IWS_ServiceSubType : '';
+	                                recordTypeObj.EnquirySubType__c = inboundObject.userData.ENG_DimAttribute_1 ? inboundObject.userData.ENG_DimAttribute_1 : ''; 
+	                                
+	                                recordTypeObj.IWS_CallUuid = inboundObject.userData.IWS_CallUuid ? inboundObject.userData.IWS_CallUuid : '';
+	                                recordTypeObj.IW_CaseUid = inboundObject.userData.IW_CaseUid ? inboundObject.userData.IW_CaseUid : '';
+                                }
+                                
+                                var durationSecs = x.time() / 1000;
+                                var duration = $time.html();
+                                
+                                CTIListenerController.createCustomActivity(
+                                    whoId,
+                                    whatId,
+                                    subject,
+                                    description,
+                                    outcome,
+                                    duration,
+                                    Math.ceil(durationSecs),
+                                    articleId,
+                                    lookupNumber,
+                                    queue,
+                                    serviceType,
+                                    segment,
+                                    obj.id,
+                                    obj.calltype,
+                                    recordTypeObj.Type,
+                                    recordTypeObj.EnquirySubType__c,
+                                    recordTypeObj.ProductCategory__c,
+                                    recordTypeObj.ProductSubCategory__c,
+                                    recordTypeObj.IWS_CallUuid,
+                                    recordTypeObj.IW_CaseUid,
+                                    function(result,event) {
+                                        logToConsole('Create activity: ' + result);
+                                        if (event.status && result != '') {
+                                    		j$('#hfInboundJSON').val('');
+                                    		j$('#hfIWSCaseID').val('');
+            
+                                            sforce.console.fireEvent('RequestValues', 'clear', function(result){});
+                                            setCaseId(null, null);
+                                            j$('#hfClickToDialContactID').val('');
+                                            txtPhoneNumber.val('');
+                                            sforce.console.fireEvent('Clear_CTIPhoneCallback', '');
+                                            txtRefID.val('');
+                                            
+                                            sforce.interaction.setVisible(false, function() {});
+                                            
+                                            if(obj.calltype != 'Outbound') {
+                                            	setContactId(null, null);
+                                            }
+                                            
+                                        } else if (event.type === 'exception') {
+                                            alert('createActivity exception: '
+                                                    + event.message);
+                                        } else {
+                                            alert('createActivity error: '
+                                                    + event.message);
+                                        }
+                                });                 
+                                
+                            }  else if (obj.action == "MarkedDone") {
+                                log("MarkedDone for connID " + obj.id
+                                        + " delete Windows - " + ixnWindows[obj.id]);
+                                delete ixnWindows[obj.id];
+                            } else if (obj.action == "FocusTab") {
+                                log("FocusTab for " + obj.id);
+                                processFocusTab(obj.id);
+                            }
+                        }
+                        
+                        function updateMiniCaseHeading(heading){
+                        	var pbMiniCase = j$('[id$="pbMiniCase"] .mainTitle');
+                        	console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+                        	console.log(pbMiniCase);
+                        	pbMiniCase.html(heading + ' Call');
+                        }
+                                                
+                        var clsStopwatch = function() {
+                            // Private vars
+                            var startAt = 0; // Time of last start / resume. (0 if not running)
+                            var lapTime = 0; // Time on the clock when last stopped in milliseconds
+                
+                            var now = function() {
+                                return (new Date()).getTime();
+                            };
+                
+                            // Public methods
+                            // Start or resume
+                            this.start = function() {
+                                startAt = startAt ? startAt : now();
+                            };
+                
+                            // Stop or pause
+                            this.stop = function() {
+                                // If running, update elapsed time otherwise keep it
+                                lapTime = startAt ? lapTime + now() - startAt : lapTime;
+                                startAt = 0; // Paused
+                            };
+                
+                            // Reset
+                            this.reset = function() {
+                                lapTime = startAt = 0;
+                            };
+                
+                            // Duration
+                            this.time = function() {
+                                return lapTime + (startAt ? now() - startAt : 0);
+                            };
+                        };
+            
+                    var x = new clsStopwatch();
+                    var $time;
+                    var clocktimer;
+            
+                    function pad(num, size) {
+                        var s = "0000" + num;
+                        return s.substr(s.length - size);
+                    }
+            
+                    function formatTime(time) {
+                        var h = m = s = ms = 0;
+                        var newTime = '';
+            
+                        h = Math.floor(time / (60 * 60 * 1000));
+                        time = time % (60 * 60 * 1000);
+                        m = Math.floor(time / (60 * 1000));
+                        time = time % (60 * 1000);
+                        s = Math.floor(time / 1000);
+                        ms = time % 1000;
+            
+                        // With Milli second
+                        //newTime = pad(h, 2) + ':' + pad(m, 2) + ':' + pad(s, 2) + ':' + pad(ms, 3);
+            
+                        newTime = pad(h, 2) + ':' + pad(m, 2) + ':' + pad(s, 2);
+                        return newTime;
+                    }
+            
+                    function show() {
+                        $time = j$('.cti .mainTitle'); // document.getElementById('time');
+                        update();
+                    }
+            
+                    function update() {
+                        //$time.html('Duration: ' + formatTime(x.time()));
+                    }
+            
+                    function start() {
+                        clocktimer = setInterval("update()", 1);
+                        x.start();
+                    }
+            
+                    function stop() {
+                        x.stop();
+                        clearInterval(clocktimer);
+                    }
+            
+                    function reset() {
+                        stop();
+                        x.reset();
+                        update();
+                    }
+                                        
+        </script>
+        <style>
+
+html,body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*              background-color: #DCF3FA;  */
+    background-color: #CCE2ED;
+    color: #333;
+    line-height: 1;
+    width: 100%;
+}
+
+td img {
+    vertical-align: top;
+}
+
+.maxWidth,.dataCol span select {
+    max-width: 100%;
+}
+
+.MiniCase .bPageBlock .detailList .labelCol {
+    width: 25%;
+}
+
+.MiniCase .bPageBlock .detailList .dataCol {
+    width: 75%;
+}
+
+.MiniCase .bPageBlock .detailList .data2Col {
+    width: 75%;
+}
+
+.MiniCase .bPageBlock .detailList th,.bPageBlock .detailList td {
+    vertical-align: middle;
+}
+
+.existingCasesOrActivities .pbBody .pbSubsection .dataCol {
+    width: 100%;
+}
+
+body .bPageBlock {
+    border: none;
+    margin: 20px;
+    padding: 10px;
+}
+            
+textarea.input-sm {
+ height:150px; 
+}
+
+body .bPageBlock .pbHeader,body .bPageBlock .pbHeader table {
+    border: none;
+}
+
+body .bPageBlock .pbTitle,.bEditBlock .pbHeader>table>tbody>tr>td,.bPageBlock .pbHeader>table>tbody>tr>td
+    {
+    padding: 12px;
+    width: 100%;
+}
+
+.editPage .pbSubsection {
+    padding-bottom: 12px;
+}
+
+body .bPageBlock .pbTitle h2 {
+    font-family: "letter_one", "Helvetica Neue", Helvetica, Arial,
+        sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #dc1928;
+    margin-bottom: 10px;
+}
+
+.bPageBlock .labelCol {
+    padding-right: 0;
+    text-align: left;
+}
+
+body .bPageBlock.bEditBlock .pbBody .data2Col {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.input-sm {
+    margin: 5px 5px 5px 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.red {
+    display: block;
+    color:red;
+}
+
+.green {
+    display: block;
+    color:green;
+}
+</style>
+        <div style="overflow-y:auto;">
+            <c:LoadingSpinnerComponent showFunctionName="miniCaseShowProgressTop" hideFunctionName="miniCaseHideProgressTop" />
+            <input type="hidden" id="clickToDialNum" />
+            <input type="hidden" id="hfContactID" />  
+            <input type="hidden" id="hfClickToDialContactID" />
+            <input type="hidden" id="hfCaseID" /> 
+            <input type="hidden" id="hfServiceType" /> 
+            <input type="hidden" id="hfSegment" /> 
+            <input type="hidden" id="hfQueue" />
+            <input type="hidden" id="hfInboundJSON" />
+            <input type="hidden" id="hfIWSCaseID" />
+
+            <!-- these divs will store paths to images that will be manipulated by jquery-->
+            <div id="logo" class="hidden">{!URLFOR($Resource.wsc_icons,
+                'wsc_icons/wsc_logo.png')}</div>
+            <div id="minus_green" class="hidden">{!URLFOR($Resource.wsc_icons,
+                'wsc_icons/wsc_green_minus.png')}</div>
+            <div id="minus_red" class="hidden">{!URLFOR($Resource.wsc_icons,
+                'wsc_icons/wsc_red_minus.png')}</div>
+            <div id="plus_green" class="hidden">{!URLFOR($Resource.wsc_icons,
+                'wsc_icons/wsc_green_plus.png')}</div>
+            <div id="plus_red" class="hidden">{!URLFOR($Resource.wsc_icons,
+                'wsc_icons/wsc_red_plus.png')}</div>
+            <!-- end of divs -->
+
+            <div class="MiniCase">
+                <div class="cti">
+                    <apex:pageBlock title="Incoming Call" mode="edit" id="pbMiniCase">
+                        <apex:pageBlockSection columns="1" >
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Phone No." for="txtPhoneNumber" />
+                                <apex:inputtext value="{!txtPhoneNumber}" id="txtPhoneNumber"
+                                    disabled="true"
+                                    styleClass="form-control input-sm string maxWidth" />
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Reference ID" for="txtRefID" />
+                                <apex:inputtext value="{!txtRefID}" id="txtRefID"
+                                    disabled="true"
+                                    styleClass="form-control input-sm string maxWidth" />
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="URL" />
+                                <input type="button" value="Share" onclick="shareURL();"
+                                    class="btn" style="float:left;" />&nbsp;&nbsp;&nbsp;
+                                <span id="shareURLMessage" class="hidden" style="position:relative;top:.5em;" />
+                            </apex:pageBlockSectionItem>
+                            
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Contact" />
+                                <a href="#" id="btnContactID" onclick="showContact();" style="float:left;" />
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Case" />
+                                <a href="#" id="btnCaseID" onclick="showCase();" style="float:left;" />
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                    </apex:pageBlock>
+                </div>
+
+                <apex:pageBlock title="Enquiry" mode="edit" id="pbEnquiry">                 
+                    <apex:actionfunction name="dummyRefresh" immediate="true" rerender="pbEnquiry" oncomplete="miniCaseHideProgressTop();"/>
+                    <apex:actionfunction name="jrReloadPicklists" immediate="true" rerender="pbEnquiry" oncomplete="miniCaseShowProgressTop();dummyRefresh();" >
+                        <apex:param name="recordTypeId" assignTo="{!proxyCase.recordTypeId}" value="" />
+                    </apex:actionfunction>
+                    
+                    <apex:pageBlockSection >
+                        <apex:repeat value="{!$ObjectType.Case.FieldSets.CTIFieldSet}"
+                            var="f">
+
+                            <apex:inputField value="{!proxyCase[f.fieldPath]}"
+                                styleClass="MiniCaseFieldSet_{!f.fieldPath} form-control input-sm {!f.type} maxWidth"
+                                required="{!OR(f.required, f.dbRequired)}"
+                                onchange="synchData_MiniCaseFieldSet_{!f.fieldPath}(this);" />
+                            <script type="text/javascript">                               
+                            
+                                function synchData_MiniCaseFieldSet_{!f.fieldPath}(element) {
+                                    var currentField = j$(element);
+                                    sforce.console.fireEvent('MiniCaseFieldSet_{!f.fieldPath}', currentField.val(), function(result){});
+                                }
+                                
+                                sforce.console.addEventListener('MiniCaseFieldSet_{!f.fieldPath}', function(result) {
+                                    var currentField = j$('[class*="MiniCaseFieldSet_{!f.fieldPath}"]')[0];
+                                    j$(currentField).val(result.message);
+                                    window.console && console.log('CTI: Updating ' + currentField);
+                                    
+                                    if('{!f.type}'=='picklist') {
+                                        cti_setDependentPicklist(j$(currentField).attr('id'), false);
+                                    }
+                                });
+                            </script>
+                            <input type="hidden" id="MiniCaseFieldSet_{!f.fieldPath}"
+                                value="synchData_MiniCaseFieldSet_{!f.fieldPath}(this);" />
+                        </apex:repeat>
+                    </apex:pageblocksection>
+                </apex:pageblock>       
+
+                        <script type="text/javascript"
+                            src="{!URLFOR($Resource.jQueryOverride)}"></script>
+                        <script type="text/javascript"
+                            src="{!URLFOR($Resource.jQueryCookie)}"></script>
+                        <script type="text/javascript"
+                            src="{!URLFOR($Resource.jQueryJSON)}"></script>
+
+                        <script type="text/javascript">
+                    j$ = jQuery.noConflict(); 
+                    var caseManualCutoff = 0;
+                    var contactManualCutoff = 0;
+                    sforce.connection.sessionId = "{!$Api.Session_ID}";
+                    
+                    sforce.console.addEventListener('CTIPhone_Callback', function(result){
+                    	console.log('%%% Calling back ' + result.message);
+                    	sforce.console.fireEvent(result.message, j$('[id$="txtPhoneNumber"]').val());
+                    });
+                    
+                    function htmlDecode(value){
+                      return j$('<div/>').html(value).text();
+                    }
+
+                    function getFieldSetFieldsAndValues() {         
+                        var arr = j$('[class*="MiniCaseFieldSet_"]');
+                        var o = new Object();
+                        
+                        arr.each(function() {
+                            var className = j$(this).attr('class').split(' ')[0];
+                            className = className.substring(className.indexOf("_") + 1);
+        
+                            o[className] = j$(this).val().trim();
+                        });             
+                        
+                        var hfContactID = j$('[id$="hfContactID"]');
+                        if (hfContactID.val().trim() != '') {
+                            o["ContactId"] = hfContactID.val().trim();
+                        }
+                        
+                        return o;
+                    }
+                
+                    function reloadPicklists(){
+                        miniCaseShowProgressTop();
+                        var obj = getFieldSetFieldsAndValues();
+                        window.console&&console.log(obj);
+                        var variableKeysForPicklist = j$.toJSON(obj);
+                        window.console&&console.log(variableKeysForPicklist);
+                        CTIListenerController.getRecordTypeId(variableKeysForPicklist, function(result, event){
+                            if(event.status && result != '') {
+                                window.console&&console.log(result);
+                                sforce.console.fireEvent('UpdateMiniCaseRecordTypeID', result, function(){window.console && console.log('Called UpdateMiniCaseRecordTypeID...');});
+                            }
+                        });
+                    }
+                                                                         
+                    function setContactId(contactId, contactName){
+                        var btnContactID = j$('#btnContactID');
+                        btnContactID.attr("alt", contactId);
+                        if(contactName && contactName.trim() != ''){
+                        	btnContactID.html(contactName);
+                        } else {
+                        	btnContactID.html('View');
+                        }
+                        if(contactId && contactId != '') {
+                        	j$('#hfCotnactID').val(contactId);
+                            btnContactID.parent().parent().show();
+                            
+                            CTIListenerController.getFullID(contactId, function(result, event){ 
+	                   			var transactionID = j$.cookie('transactionID');
+                            	var ctiMessageAsJSON = '{"action":"AttachData","actionData":{"CustomerID":"'+ result +'","SF_UserId":"{!$User.ID}","id":"' + transactionID + '"}}';
+		                        sforce.console.fireEvent('CTIEvent', ctiMessageAsJSON, function (ctiresult) {
+		                            for(var key in ctiresult){                          
+		                                window.console && console.log(key + '### >>' + ctiresult[key]);
+		                            }                                       
+		                        });
+                            });
+                       	} else { 
+                            btnContactID.parent().parent().hide();
+                            j$('#hfCotnactID').val('');
+                        }                                 
+                    }
+                    
+                    function setCaseId(caseId, caseNumber){
+                    	var btnCaseID = j$('#btnCaseID');
+                        btnCaseID.attr("alt", caseId);
+                        if(caseNumber && caseNumber.trim() != ''){
+                        	btnCaseID.html(caseNumber);
+                        } else {
+                        	btnCaseID.html('View');
+                        }                        
+                        if(caseId && caseId != '') {
+                        	j$('#hfCaseID').val(caseId);
+                            btnCaseID.parent().parent().show();
+                            console.log('>>>>>>>>>>>>>>>> calling getFullID...');
+                            CTIListenerController.getFullID(caseId, function(result, event){ 
+	                   			var transactionID = j$.cookie('transactionID');
+	                   			
+	                   			var ctiMessageAsJSON = {};
+	                   			ctiMessageAsJSON.id = transactionID;
+	                   			ctiMessageAsJSON.action = "AttachData";
+	                   			ctiMessageAsJSON.actionData = {};
+	                   			ctiMessageAsJSON.actionData.SF_UserId = "{!$User.ID}";
+	                   			ctiMessageAsJSON.actionData.nvcCustomerId = result;
+	                   			ctiMessageAsJSON.actionData.CaseID = result;
+	                   			var query = "Select c.Type, c.ProductSubCategory__c, c.ProductCategory__c, c.EnquirySubType__c From Case c where Id = '" + caseId + "' limit 1";
+	                   			console.log(query);
+                            	var qresult = sforce.connection.query(query);
+                            	console.log(qresult);
+                            	if(qresult) {
+                            		var tempCase = qresult.records;
+                            		ctiMessageAsJSON.actionData.SF_Type = tempCase.Type;
+                            		ctiMessageAsJSON.actionData.SF_ProductCategory = tempCase.ProductCategory__c;
+                            		ctiMessageAsJSON.actionData.SF_ProductSubCategory = tempCase.ProductSubCategory__c;
+                            		ctiMessageAsJSON.actionData.SF_EnquirySubType = tempCase.EnquirySubType__c;
+                            	}                            	
+                            	console.log(ctiMessageAsJSON);      
+                            	console.log(j$.toJSON(ctiMessageAsJSON));                   	
+		                        sforce.console.fireEvent('CTIEvent', j$.toJSON(ctiMessageAsJSON), function (ctiresult) {
+		                            for(var key in ctiresult){                          
+		                                window.console && console.log(key + '### >>' + ctiresult[key]);
+		                            }                                       
+		                        });
+                            });
+                        } else { 
+                            btnCaseID.parent().parent().hide();
+                            j$('#hfCaseID').val('');
+                        }
+                    }
+                    
+                    setTimeout(function() {
+                        j$("select:disabled").addClass("form-control input-sm");
+                    }, 10000);
+                    
+                    function showContact(){
+                        var contactId = null;
+                        if(j$('#hfClickToDialContactID').val() != '') {
+                            contactId = j$('#hfClickToDialContactID').val();
+                        } else if(j$('#hfContactID').val() != '') {
+                            contactId = j$('#hfContactID').val();
+                        }
+                        sforce.console.openPrimaryTab(null, '/' + contactId, true);
+                    }
+                    
+                    function showCase() {
+                        if(j$('#hfCaseID').val() != '') {
+                            sforce.console.openPrimaryTab(null, '/' + j$('#hfCaseID').val(), true);
+                        }
+                    }
+                    
+                    function getPageInfo(tabId, callbackFunction, autoCutoff, objectType, currentManualCutoff, isPrimaryTab){
+                    	sforce.console.getPageInfo(tabId, function(result){
+	                        var pageInfo = j$.evalJSON(result.pageInfo);
+                    		
+                    		var manualCutoff = 0;
+                    		if(objectType == 'Case'){
+                    			manualCutoff = caseManualCutoff;
+                    		} else if(objectType = 'Contact') {
+                    			manualCutoff = contactManualCutoff;
+                    		}
+                    		
+                    		var autoCutoffLimit = isPrimaryTab ? 20 : 10;
+                    		//console.log('%%%%%%%%%%%%% autoCutoff:' + autoCutoff + ' out of ' + autoCutoffLimit);
+                    		if(currentManualCutoff == manualCutoff) {
+	                            if(pageInfo.objectName || autoCutoff >= autoCutoffLimit){
+	                            	//console.log('%%%%%%%%%%%%% ===> got it: ' + pageInfo.objectName);
+	                            } else {
+	                            	autoCutoff++;
+	                            	setTimeout(function(){getPageInfo(tabId, callbackFunction, autoCutoff, objectType, currentManualCutoff, isPrimaryTab);}, 500);
+	                            }
+	                            callbackFunction(pageInfo);
+                            }
+                        });
+                    }
+
+                    sforce.console.addEventListener('ContactID', function(result){
+                        var pageInfo = j$.evalJSON(result.message);
+                        setContactId(pageInfo.objectId, pageInfo.objectName);   
+                    });
+                    
+                    sforce.console.addEventListener('CaseID', function(result){
+                    	var pageInfo = j$.evalJSON(result.message);
+                        setCaseId(pageInfo.objectId, pageInfo.objectName);  
+                    });
+                                        
+                    var onFocusedTabFunction = function(pageInfo){
+	                   
+	                   	if(pageInfo.objectId.indexOf('{!$ObjectType.Case.keyPrefix}') == 0) {
+	                        j$('#hfCaseID').val(pageInfo.objectId);
+	                        sforce.console.fireEvent('CaseID', j$.toJSON(pageInfo), function(){});                        
+	                    } else {
+	                    	var contactId = pageInfo.contactId;
+	                    	if(pageInfo.objectId.indexOf('{!$ObjectType.Contact.keyPrefix}') == 0) {
+	                        	contactId = pageInfo.objectId;
+		                    }  
+
+		                    if(contactId){
+		                     	j$('#hfContactID').val(contactId);
+		                     	pageInfo.objectId = contactId;
+		                         sforce.console.fireEvent('ContactID', j$.toJSON(pageInfo), function(){});                   
+		                    }
+	                    }
+	                }
+	                
+	                function processFocusedTab(result, isPrimaryTab){
+	                	if(result.objectId){
+                    		if(result.objectId.indexOf('{!$ObjectType.Case.keyPrefix}') == 0) {
+                    			caseManualCutoff++;
+                    			getPageInfo(result.id, onFocusedTabFunction, 0, 'Case', caseManualCutoff, isPrimaryTab);
+                    		} else if(result.objectId.indexOf('{!$ObjectType.Contact.keyPrefix}') == 0 || result.objectId.indexOf('{!$ObjectType.Account.keyPrefix}') == 0) {
+                    			contactManualCutoff++;
+                    			getPageInfo(result.id, onFocusedTabFunction, 0, 'Contact', contactManualCutoff, isPrimaryTab);
+                    		}
+                    	}
+	                }
+	                
+                    sforce.console.onFocusedSubtab(function(result){
+                    	processFocusedTab(result, false);
+                    });
+                    
+                    sforce.console.onFocusedPrimaryTab(function(result){
+                        processFocusedTab(result, true)
+                    });
+                    
+                   
+                    
+                    j$(function(){
+                        sforce.console.fireEvent('RequestValues', 'clear', function(result){});
+                        
+                        j$('#btnCaseID').parent().parent().css('display', 'none');
+                        j$('#btnContactID').parent().parent().css('display', 'none');                        
+                        
+                    });
+                
+                    function shareURL(){
+                        j$('#shareURLMessage').html('');
+                        j$('#shareURLMessage').removeClass('hidden');
+                        sforce.console.getFocusedPrimaryTabId(function(ptab){
+                            if(ptab.success) {
+                                sforce.console.getTabLink(sforce.console.TabLink.PARENT_AND_CHILDREN, ptab.id, function(result){
+                                    var sharedLink = result.tabLink;
+                                    if(sharedLink.indexOf('#') != 0) {
+                                        sharedLink = sharedLink.substring(sharedLink.indexOf('#')+1)
+                                    }
+                                    
+                                    sharedLink = sharedLink.replace(/{!salesforceBaseURL}/g, '');
+                                    sharedLink = sharedLink.replace(/{!forceBaseURL}/g, '');
+                                    console.log('sharedLink: ' + sharedLink);                                  
+                                    
+                                    if(sharedLink.length > 250){
+                                    	console.log('sharedLink is greater than 250 characters...');
+                                        var urlParts = sharedLink.split("|");
+                                        sharedLink = '';
+                                        if(urlParts.length > 0) {
+                                        	var i = 0;
+                                        	while(sharedLink.length + urlParts[i].length <= 250) {
+                                        		sharedLink += urlParts[i] + '|';
+                                        		console.log('sharedLink: ' + sharedLink);   
+                                        		i++;
+                                        	}
+                                        } 
+                                    }
+                                        
+                                    window.console&&console.log('final shared url: ' + sharedLink);
+                                    showSharedLinkMessage('URL Shared...', true); 
+                                    var transactionID = j$.cookie('transactionID');
+                                    var ctiMessageAsJSON = '{"action":"AttachData","actionData":{"SalesforceURL":"' + sharedLink + '","SF_UserId":"{!$User.ID}","id":"' + transactionID + '"}}';
+                                    sforce.console.fireEvent('CTIEvent', ctiMessageAsJSON, function (ctiresult) {
+                                        for(var key in ctiresult){                          
+                                            window.console && console.log(key + '### >>' + ctiresult[key]);
+                                        }                                       
+                                    });
+                                });
+                            } else {
+                                showSharedLinkMessage('Please focus on a tab...', false);
+                            }
+                        });
+                    }   
+                    
+                    function showSharedLinkMessage(msg, isGreen){
+                        var shareURLMessage = j$('#shareURLMessage');
+                        shareURLMessage.show();
+                        shareURLMessage.html(msg);
+                        
+                        if(isGreen) {
+                            shareURLMessage.addClass('green');
+                            shareURLMessage.removeClass('red');
+                        } else {
+                            shareURLMessage.addClass('red');
+                            shareURLMessage.removeClass('green');
+                        }
+                        
+                        setTimeout(function(){
+                            j$('#shareURLMessage').fadeOut(1000, "linear",function(){});
+                        }, 500);
+                    }
+                    
+                    function cti_setDependentPicklist(parentId, preLoadChildList){
+                        if(parentId != null) {
+                            var tempLists = picklist.picklists;
+                            for(var picklistId in tempLists){
+                                    var currentPicklist = tempLists[picklistId];
+                                    if(parentId == currentPicklist.controller_id){
+                                        var parent = document.getElementById(currentPicklist.controller_id);
+                                        if(j$(parent).val() != ''){
+                                            if(preLoadChildList){
+                                                currentPicklist.onLoad();
+                                                currentPicklist.generate([null]);
+                                            }
+                                            currentPicklist.generate([j$(parent).val()]);
+                                        }
+                                        var pick = document.getElementById(picklistId);
+                                        var tempPick = j$(pick);
+                                        var par = j$(j$(j$(tempPick.parent()[0]).parent()[0]).parent()[0]).parent()[0];
+                                        var ch = j$(par).find('td input')[0];
+                                        if(ch != null){
+                                            tempPick.addClass(j$(ch).attr('id') + ' form-control input-sm picklist maxWidth');
+                                            tempPick.attr('onchange', j$(ch).attr('value'));
+                                        }
+                                    }
+                            }
+                        }
+                    }
+                    
+                    sforce.console.addEventListener('SynchronisedValues', function(result){
+                        var fieldValues = j$.evalJSON(result.message);
+                        for(var propertyName in fieldValues) {                  
+                            if(fieldValues.hasOwnProperty(propertyName)) {
+                                var value = fieldValues[propertyName];
+                                var className = '[class*=\"MiniCaseFieldSet_' + propertyName + '\"]';
+                                var currentField = j$(className)[0];
+                                var el = j$(currentField);
+                                el.val(value);
+                                if(el.hasClass('picklist')){                            
+                                    var loadChild = value != null && value.trim() != '';
+                                    cti_setDependentPicklist(el.attr('id'), true, loadChild);
+                                }
+                                el.val(value);
+                            }                   
+                        }
+                    });
+        
+                </script>
+            </div>
+            
+            <div>
+                <table>
+                    <tr>
+                        <td id="logoTd" vertical-align="top">
+                            <!-- these cells witll be filled by jquery -->
+                        </td>
+                        <td id="statusTd" vertical-align="top">
+                            <!-- these cells witll be filled by jquery -->
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="debug" style="display: none; width: 100%;">
+            
+            
+	            <div>
+	 			<style>
+					.expandable {
+					    cursor : pointer;
+					}
+				</style>			
+				IWS Values: <ul id="logger"></ul>
+				<script>
+					function showLogTree(obj) {
+					    if (obj != null) {
+					        var logTree = j$('#logger');
+					        logTree.empty();
+					        for (var k in obj) {
+					            if (typeof obj[k] == 'object' && obj[k] != null) {
+					                var innerLI = j$('<li></li>');
+					                innerLI.append(k + ' ----------------------');
+					                var innerLogTree = j$('<ul></ul>');
+					                for (var o in obj[k]) {
+					                    innerLogTree.append('<li>' + o + ' = ' + obj[k][o] + '</li>');
+					                }
+					                innerLI.append(innerLogTree);
+					                logTree.append(innerLI);
+					            } else {
+					                logTree.append('<li>' + k + ' = ' + obj[k] + '</li>');
+					            }
+					        }
+					        logTree.find('ul').hide();
+					        logTree.find('li').each(function () {
+					            if (j$(this).has("ul").size() > 0) {
+					                j$(this).addClass('expandable');
+					                j$(this).click(function () {
+					                    j$(this).find("ul").toggle();
+					                });
+					            }
+					        });
+					    }
+					}
+				</script>
+	            </div>
+            
+            
+                <div id="portStatus" style="margin: 5px"></div>
+                <table width="97%" id="commStatus" cellspacing="0" cellpadding="0"
+                    style="margin: 5px" border="0">
+                    <tr align="left">
+                        <td>Diagnostic Log:</td>
+                        <td align="right">
+                            <div align="right">
+                                <button onClick="clearLog();">Clear</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table width="100%" height="98%"
+                                style="border: 1px solid dimgray; background-color: white;">
+                                <tr>
+                                    <td><div height="100%" id="log" style="overflow: auto;"></div></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>    
+        </div>
+    </apex:form>
+</apex:page>

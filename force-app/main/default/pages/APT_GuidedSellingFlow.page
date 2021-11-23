@@ -1,0 +1,520 @@
+<!-- 
+    Apttus Config & Pricing
+    SFDCFlow
+     
+    @2012-2014 Apttus Inc. All rights reserved.
+
+ -->
+<apex:page standardController="Apttus_Config2__ProductConfiguration__c" 
+           extensions="APT_GuidedSellingFlowController" 
+           showHeader="false" 
+           sidebar="false" 
+           action="{!doInit}"
+           tabStyle="Product2" >        
+    
+    <apex:stylesheet value="{!$Resource.Apttus_Config2__ConfigStyles}" />
+    <apex:stylesheet value="{!URLFOR($Resource.Apttus_Config2__CPQGlobalCSS, 'CPQNewUI.css')}" />
+    <apex:stylesheet value="{!$Resource.Apttus_Config2__CPQCatalogCSS}" />
+    <apex:stylesheet value="{!$Resource.bootstrapmin}" />
+    <apex:stylesheet value="{!$Resource.style}" />
+    <apex:stylesheet value="{!$Resource.stylefixes}" /> 
+    <apex:stylesheet value="{!$Resource.fontawsome}" />     
+    <apex:includeScript value="{!URLFOR($Resource.Apttus_Config2__JQueryUILibrary19, 'js/jquery-1.8.3.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.Apttus_Config2__JQueryUILibrary19, 'js/jquery-ui-1.9.2.custom.min.js')}"/>
+    <link href="{!URLFOR($Resource.CartPageResources, 'css/bootstrap.min.css')}" rel="stylesheet"/>
+    <link href="{!URLFOR($Resource.CartPageResources, 'css/datepicker.css')}" rel="stylesheet"/>
+    <link href="{!URLFOR($Resource.impekable_stylesheet)}" rel="stylesheet" />
+    <apex:stylesheet value="{!URLFOR($Resource.Apttus_Config2__CPQPageResources,'CPQCommon.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.Apttus_Config2__CPQPageResources,'CPQCatalog.css')}" />
+    <!-- Theme Style -->
+    <link href="{!URLFOR($Resource.CartPageResources, 'css/style.css')}" rel="stylesheet"/>
+    <script type="text/javascript">
+    // This to make sure jQuery doesn't conflict with any other JS libraries
+        var j$ = jQuery.noConflict();
+        j$(window).load(function(){
+            var intervlId = null;
+            var counter = null;
+            
+            // initialize a timer to check if the finish button exists
+            // if found then invoke a click
+            // else wait 5 iterations and then cancel timer
+            j$(document).on("click", '.FlowNextBtn, .FlowPreviousBtn', function(event) {
+                if(intervlId != null){
+                    clearInterval(intervlId);
+                }
+                
+                counter = 0 ;
+                intervlId = setInterval(checkFinishButton, 3000) ;
+            
+            });
+            
+            function checkFinishButton(){
+                counter ++;
+                if (j$('.FlowFinishBtn')[0] != null) {
+                    clearInterval(intervlId);
+                    j$('.FlowFinishBtn')[0].click();
+                 
+                }else{
+                    if (counter == 5){
+                        clearInterval(intervlId);
+                    
+                    }
+                }
+            }
+        });
+     
+    </script>
+   <style>
+   .hidden>div {
+    display:none;
+    }
+
+    .visible>div {
+    display:block;
+    }
+    .FlowRadio {
+        width: 200px;
+    }
+    
+    .bundleProductsRow {
+        background-color: #fff;
+    }
+    
+    .bPageBlock .detailList .labelCol{
+        width:100% !important;
+    }
+    .apexp{
+    width:135% !important;
+    margin-left:-3% !important;    
+    }
+    input, button, select, textarea {       
+        width: 250px !important;
+     }
+     .waitingSearchDivOpacity {
+        background-color: #fff;
+        opacity: 0.9 !important;
+        width: 140% !important;
+        margin-left: -3% !important;
+     }
+     .waitingSearchDiv{
+         width:135% !important;
+     }
+     .aptProductRow .aptListButton{
+         width:50% !important;
+     }
+     .bgImageClass{
+        background-image: url(https://auspost.com.au/media/images/HP-1400x469_NO-TEXT.jpg) !important;
+        background-repeat: repeat-y !important;
+        background-size: 1500px 600px !important;
+        opacity: 0.85;
+     }
+     .top-bar {
+        height: 50px !important;
+        background-color: #2A94D6 !important;
+        border-bottom: 1px solid #cccccc;
+    }
+    .list-inline-breadcum-nav {
+        padding-left: 0;
+        list-style: none;
+        margin-left: -5px;
+        margin-top: -53px !important;
+     }
+     .boxContainer{
+        margin-top: -10px;
+        color: white !important;
+     }
+     .apt-cart-head-label {
+        color: white !important;
+        font-size: 13px;
+        font-weight: 500 !important;
+      }
+      .top-bar a {
+        color: white !important;
+        text-decoration: underline !important;
+        line-height: 70px;
+        font-size: 12px !important;
+        font-weight: 400 !important;
+     }
+     .aptProductPriceList li {
+        color: #646569 !important;
+        font-size: 12px !important;
+        font-weight: 100 !important;
+     }
+     .aptSearchProductName {
+        color: black !important;
+        text-decoration: none !important;
+        font-weight: 600 !important;
+        font-size: 15px !important;
+     }
+     .product-details .title {
+        color: black;
+        font-family: "Open Sans", sans-serif;
+        font-size: 15px;
+        font-weight: 400;
+        padding: 5px 0px;
+        border-bottom: 2px solid #060606;
+        padding-bottom: 8px;
+     }
+     .left-content {
+        width: 65% !important;
+        margin-right: 10px !important;
+      }
+      .aptProductRow .aptListButton {
+            width: 160px !important;
+            padding: 4px !important;
+            border-radius: 0px !important;
+            font-size: 12px !important;
+            color: black !important;
+            font-weight: 500 !important;
+        }
+        .aptProductRow .aptListButton:hover {
+            color: #FFF !important;
+            border: 1px solid;
+            border: 1px solid #E2E2E2 !important;
+            background: #2093D9 !important;
+            background-color: #2093D9 !important;
+        }
+        .customButtonStyle{
+            width: 160px !important;
+            padding: 4px !important;
+            border-radius: 0px !important;
+            font-size: 12px !important;
+            color: black !important;
+            font-weight: 500 !important;
+        }
+        .customButtonStyle:hover {
+             color: #FFF !important;
+            border: 1px solid;
+            border: 1px solid #E2E2E2 !important;
+            background: #2093D9 !important;
+            background-color: #2093D9 !important;
+        }
+        .FlowPreviousBtn , .FlowNextBtn {
+            width: 160px !important;
+            padding: 4px !important;
+            border-radius: 0px !important;
+            font-size: 12px !important;
+            color: black !important;
+            font-weight: 500 !important;
+        }
+        .FlowPreviousBtn:hover , .FlowNextBtn:hover{
+             color: #FFF !important;
+            border: 1px solid;
+            border: 1px solid #E2E2E2 !important;
+            background: #2093D9 !important;
+            background-color: #2093D9 !important;
+        }
+        .container {
+            width: 95% !important;
+         }
+         .interviewFormChoicesWithHelp {
+            float: left;
+            width: 400px;
+         }
+         input[type=radio] {
+            width: 40px!important;
+            vertical-align: sub !important;
+         }
+         h2, .h2{
+             font-size:15px !important;
+             margin-top:0px !important;
+             margin-bottom:0px !important;
+         }
+         div.aptProductImgContainer{
+             display:none;
+         }
+         tr.aptProductRow.bundleProductsRow td {
+            vertical-align: middle;
+         }
+         .top-bar{
+            background-color: #1797c0 !important;
+        }
+        /* Flow button hover background color CSS override */
+        .FlowPreviousBtn:hover, .FlowNextBtn:hover{
+            border: 1px solid #1797c0 !important;
+            background: #1797c0 !important;
+            background-color: #1797c0 !important;
+        } 
+        
+        /* Custom Button Style color CSS override */
+        .customButtonStyle:hover{
+            border: 1px solid #1797c0 !important;
+            background: #1797c0 !important;
+            background-color: #1797c0 !important;
+        }
+        
+        /* List button hover override CSS */
+        .aptProductRow .aptListButton:hover {
+            border: 1px solid #1797c0 !important;
+            background: #1797c0 !important;
+            background-color: #1797c0 !important;
+        }
+       </style>
+       <!-- Custom CSS override file -->
+      <link href="{!URLFOR($Resource.OppGuidedSellingCSSOverride)}" rel="stylesheet"/> 
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.right-content pull-right').addClass("hidden");
+
+      $('.right-content pull-right').click(function() {
+        var $this = $(this);
+        if ($this.hasClass("hidden")) {
+          $(this).removeClass("hidden").addClass("visible");
+        } else {
+          $(this).removeClass("visible").addClass("hidden");
+        }
+      });
+    });
+  </script>
+    
+      <apex:form id="idConfigSO" >
+      
+        <apex:pageMessages id="errorMessageSection"/>
+        <!--  required fields -->
+        <apex:outputText value="{!Apttus_Config2__ProductConfiguration__c.Name}" rendered="false" />
+        <apex:outputText value="{!Apttus_Config2__ProductConfiguration__c.Apttus_Config2__PriceListId__r.Name}" rendered="false" />
+        <apex:outputText value="{!Apttus_Config2__ProductConfiguration__c.Apttus_Config2__EffectiveDate__c}" rendered="false" />
+        <apex:outputText value="{!Apttus_Config2__ProductConfiguration__c.Apttus_Config2__Description__c}" rendered="false" />
+        <apex:outputText value="{!Apttus_Config2__ProductConfiguration__c.Apttus_Config2__BusinessObjectType__c}" rendered="false" />
+        <apex:outputText value="{!Apttus_Config2__ProductConfiguration__c.Apttus_Config2__BusinessObjectId__c}" rendered="false" />
+            
+            <div class="top-bar pricing-border">
+                    <div class="container container-class">
+                        <div class="boxContainer">
+                        <span class="apt-cart-head-label">Proposal:</span>&nbsp;
+                                <span class="apt-cart-head-label">
+                                    <a href="{!proposalPageUrl}" id="lookupId">{!proposal.Name}</a>
+                                </span>
+                                
+                                <span class="apt-location-text apt-cart-head-label">{!proposal.Apttus_Proposal__Proposal_Name__c}</span>
+                            
+                                &nbsp;|&nbsp;
+                                <span class="apt-cart-head-label">Approval Status:</span>
+                                <span class="approvalText apt-cart-head-label">{!proposal.Apttus_Proposal__Approval_Stage__c}</span>
+                                <span>&nbsp;</span></div>
+                        
+                        <ul class="list-inline-breadcum-nav pull-right">
+                            <li>
+                                <a href="#">
+                                     <img src="https://static.auspost.com.au/ap/css/images/auspost.png" alt="" class="logo" height="42" width="42"/>
+                                 </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+         
+    </apex:form>      
+    
+   <!-- content starts -->
+    <div class="container container-class bgImageClass">
+        <div class="page-title info">
+            <h1 style="color:#FFF;">product selection wizard</h1>
+        </div>
+        <div class="row m-top-40">
+            <!-- col-md-8 -->
+            <div class="left-content pull-left">
+                <section class="product-details">
+
+                    <div class="row">
+                        <!-- table-products -->
+                            <table id="flowsWrapperTable" class="table">
+                                 <tr><td width="0%"></td><td align="center">
+                                 <flow:interview name="Guided_Selling" 
+                                                      buttonLocation="bottom"
+                                                      finishLocation="{!finishPage}"
+                                                      reRender="instructions" 
+                                                      rendered="{!IsBundleStep}" >
+                                      <apex:param name="InterviewId" value="{!InterviewId}" />
+                                 </flow:interview>
+                                 </td><td width="10%"></td></tr>
+                          </table>
+                        <!-- /.table-products -->
+                        <apex:form >
+                            <apex:dataTable width="100%" 
+                                     value="{!BundleProducts}"
+                                     var="bundleItem" 
+                                     rules="rows" 
+                                     rowClasses="aptProductRow bundleProductsRow" 
+                                     styleClass="resultsTable" 
+                                     rendered="{!HasBundleProducts}" >
+                                     
+                                 <apex:column >
+                                    <apex:inputCheckbox value="{!bundleItem.isSelected}"/>
+                                </apex:column>
+                                
+                                <apex:column >
+                                    
+                                    <div class="aptProductCatalogLine">
+                                        <div class="aptProductImgContainer" style="">
+                                            <div style="width:100%">
+                                                <apex:image style="{!bundleItem.IconStyleCSS}" value="{!bundleItem.imageSrc}"
+                                                            rendered="{!(bundleItem.imageSrc != null)}" />
+                                            </div>
+                                            &nbsp;
+                                        </div>
+                                        <div class="aptProductInfoContainer" style="padding-top:10px;">
+                                            <div style="width:100%; float:left;">
+                                                <apex:outputText value="{!bundleItem.productSO.Name}" styleClass="aptSearchProductName" />               
+                                            </div>
+                                            <div style="width:100%; float:left;">
+                                                <apex:outputField value="{!bundleItem.productSO.Description}" />
+                                            </div>
+                                            <apex:outputPanel layout="block"
+                                                              rendered="{!bundleItem.productSO.ProductCode!=null}"
+                                                              style="width:100%; float:left;">
+                                                <label style="font-weight:bold;">{!$ObjectType.Product2.Fields.ProductCode.Label}:&nbsp;</label>
+                                                <apex:outputField value="{!bundleItem.productSO.ProductCode}" />                 
+                                            </apex:outputPanel>
+                                            <apex:outputPanel layout="block"
+                                                              rendered="{!bundleItem.productSO.Family!=null}"
+                                                              style="width:100%; float:left;">
+                                                <label style="font-weight:bold;">{!$ObjectType.Product2.Fields.Family.Label}:&nbsp;</label>           
+                                                <apex:outputField value="{!bundleItem.productSO.Family}"/>           
+                                            </apex:outputPanel>
+                                            <div style="width:100%; float:left;">
+                                                <apex:dataList value="{!bundleItem.options}"
+                                                                styleClass="aptProductPriceList" 
+                                                                var="option">
+                                                        <apex:outputField value="{!option.productSO.Name}"/>
+                                                </apex:dataList>
+                                                <script>
+                                                    console.log('bundle options for {!bundleItem.productSO.Id} = {!bundleItem.options}');
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </apex:column>
+                                
+                                <!-- <apex:column headerValue="{!$ObjectType.Product2.Fields.Name.Label}" >
+                                    <apex:outputField value="{!bundleItem.productSO.Name}" />
+                                </apex:column>  
+                                
+                                <apex:column headerValue="{!$ObjectType.Product2.Fields.ProductCode.Label}" >
+                                    <apex:outputField value="{!bundleItem.productSO.ProductCode}" />
+                                </apex:column>  
+                                
+                                <apex:column headerValue="{!$ObjectType.Product2.Fields.Family.Label}" >
+                                    <apex:outputField value="{!bundleItem.productSO.Family}" />
+                                </apex:column>  
+                                
+                                <apex:column headerValue="{!$ObjectType.Product2.Fields.Description.Label}" >
+                                    <apex:outputField value="{!bundleItem.productSO.Description}" />
+                                </apex:column>  
+                                
+                                <apex:column headerValue="{!$ObjectType.Apttus_Config2__LineItem__c.Fields.Apttus_Config2__Quantity__c.Label}" >
+                                    <apex:inputField value="{!bundleItem.LineItemSO.Apttus_Config2__Quantity__c}" />
+                                </apex:column>  
+                                
+                                <apex:column headerValue="{!$ObjectType.Apttus_Config2__LineItem__c.Fields.Apttus_Config2__SellingTerm__c.Label}" >
+                                    <apex:inputField value="{!bundleItem.LineItemSO.Apttus_Config2__SellingTerm__c}" />
+                                </apex:column>  
+                                 -->
+                                            
+                            </apex:dataTable>
+                            
+                            <apex:outputText value="{!$Label.Apttus_Config2__NoRecordsToDisplay}" rendered="{!if(showNoRecsToDisplayError == true && HasBundleProducts == false, true, false)}" />
+                            <BR/><BR/>
+                            <!-- 
+                            <apex:commandButton value="{!$Label.APT_Cancel}" action="{!BASE.getCatalogPage}" styleClass="aptCancelButton" />
+                             -->
+                            <apex:commandLink action="{!doCartSelected}" value="{!$Label.APT_Add_All_Selected}" styleClass="btn customButtonStyle" rendered="{!HasBundleProducts}" rerender="errorMessageSection" />
+                            <!-- apex:commandLink action="{!doSelectAll}" value="{!$Label.APT_Cart_All}"  styleClass=" btn customButtonStyle" rendered="{!HasBundleProducts}" / -->
+                            <apex:commandLink value="{!$Label.APT_Cancel}" action="{!redirectToCallerPage}" styleClass=" btn customButtonStyle" />
+                        </apex:form>
+                    </div>
+                </section>
+
+            </div>
+            <!-- /.col-md-8 -->
+            <!-- col-md-4 -->
+            <!--<apex:outputPanel rendered="{!if(BundleProducts == null || BundleProducts.size <= 0, true, false)}">
+                <div id="instructions" class="right-content pull-right" style="{!doInstructions}" >
+                    <section class="product-details" >
+                        <div class="title">
+
+                            <i class="fa fa-info-circle icon-color"></i> &nbsp; instructions
+                        </div>
+                        <div class="answer-info">
+                            The Product Selection Wizard will help you select the right product for your customer's needs.
+                        </div>
+                        <div class="answer-info">
+                            Answering questions thoroughly will allow you to skip unrelated questions and save time.
+                        </div>
+                        
+                        <div class="answer-info">
+                            <apex:image id="theImage" value="{!$Resource.SFRequiredMark}" styleClass="logo"/>
+                        </div>
+                    </section>
+                     </div>
+             <!--</apex:outputPanel>-->
+         </div>
+         
+ </div>              
+    <apex:form >
+
+            
+                <script>
+                                //remove decimal values from quantity field
+                                j$(".aptQuantity").each(function(){
+                                    if(j$(this).val().indexOf(".") > 0){
+                                        var qty = j$(this).val().substring(0, j$(this).val().indexOf("."));
+                                        j$(this).val(qty);
+                                    }
+                                });
+                                
+                                j$(".dataTypedouble").each(function(){
+                                    if(j$(this).val().indexOf(".") > 0){
+                                        var qty = j$(this).val().substring(0, j$(this).val().indexOf("."));
+                                        j$(this).val(qty);
+                                    }
+                                    if(j$(this).val().indexOf(",") > 0){
+                                        var qty = j$(this).val().substring(0, j$(this).val().indexOf(","));
+                                        j$(this).val(qty);
+                                    }
+                                });
+                                
+                                j$(".dataTypecurrency").each(function(){
+                                    var re = new RegExp(".\\d{3,}");
+                                    var re2 = new RegExp("\\(");
+                                    if(j$(this).is("input")){
+                                        
+                                        var matches =re.test(j$(this).val());
+                                        var matches2 = re2.test(j$(this).val());
+                                        //check if string matches a decimal format
+                                        if (matches){
+                                            j$(this).val(j$(this).val().substring(0,j$(this).val().indexOf(".")+3));
+                                            //check if value is a negative value the add closing parenthesis
+                                            if (matches2){
+                                                j$(this).val(j$(this).val()+")");
+                                            
+                                            }
+                                        }
+                                    }
+                                    else{
+                                        j$(this).children().each(function(){
+        
+                                            var matches =re.test(j$(this).html());
+                                            var matches2 = re2.test(j$(this).html());
+                                            //check if string matches a decimal format
+                                            if (matches){
+                                                j$(this).html(j$(this).html().substring(0,j$(this).html().indexOf(".")+3));
+                                                //check if value is a negative value the add closing parenthesis
+                                                if (matches2){
+                                                    j$(this).html(j$(this).html()+")");
+                                                
+                                                }
+                                            }
+                                        
+                                        
+                                        })
+                                    
+                                    }
+                                   
+                                 });
+                            </script>
+             
+     </apex:form>
+
+        
+</apex:page>

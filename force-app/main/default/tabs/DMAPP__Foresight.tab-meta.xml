@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Team Views</label>
+    <motif>Custom78: Map</motif>
+    <page>DMAPP__pb_team_view_plus_app</page>
+</CustomTab>

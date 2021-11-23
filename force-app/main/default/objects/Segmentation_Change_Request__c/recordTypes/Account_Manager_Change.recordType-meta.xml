@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Manager_Change</fullName>
+    <active>false</active>
+    <description>Request to change Account Manager within Sales Team.</description>
+    <label>Account Manager Change</label>
+    <picklistValues>
+        <picklist>Approval_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplicate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Processed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recalled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Submitted</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Proposed_Sales_Team__c</picklist>
+        <values>
+            <fullName>Federal Government</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_for_Change__c</picklist>
+        <values>
+            <fullName>Acc Mgr %E2%80%93 Director re-allocation of sales reps portfolio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Company Mergers or Acquisitions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Company administration or liquidation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Geographic %E2%80%93 Business relocation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost Customer%2FBusiness</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Market Segment change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunity level with customer decreased</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other %28Description must be added%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Profile %E2%80%93 business reasons for change of Sales Team</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spend %E2%80%93 above threshold for Sales Team</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spend %E2%80%93 below threshold  for Sales Team</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sales_Governance_Approval__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

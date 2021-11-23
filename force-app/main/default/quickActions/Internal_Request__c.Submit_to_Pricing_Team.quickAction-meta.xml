@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Submit request to pricing team for processing</description>
+    <fieldOverrides>
+        <field>Assigned_Team__c</field>
+        <formula>IF( NOT((RecordType.DeveloperName =&apos;Pricing_Request_Domestic_Parcels&apos;|| RecordType.DeveloperName = &apos;Pricing_Request_Domestic_Parcels_BAR&apos;|| RecordType.DeveloperName = &apos;Pricing_Request_Domestic_Parcels_gen_enq&apos;) &amp;&amp; Organisation__r.Is_Strategic_Account__c) &amp;&amp; ISPICKVAL( Internal_Request__c.Status__c , &apos;New Request Initiated&apos;) , &apos;Pricing Team&apos;, TEXT( Internal_Request__c.Assigned_Team__c ))</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Status__c</field>
+        <formula>CASE( Internal_Request__c.Status__c,&quot;New Request Initiated&quot;,&quot;Initial Review Required&quot;,&quot;Further Information Required&quot;,&quot;Further Information Provided by Sales&quot;,&quot;Pricing Response Provided&quot;,&quot;Review of Pricing Response Requested&quot;,&quot;&quot;)</formula>
+    </fieldOverrides>
+    <label>Submit to Pricing Team</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Status__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns/>
+    </quickActionLayout>
+    <successMessage>Pricing Support Request submitted</successMessage>
+    <type>Update</type>
+</QuickAction>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>APT_Set_Role_Name_to_Signer_1</fullName>
+        <field>Apttus_DocuApi__RoleName__c</field>
+        <literalValue>Signer 1</literalValue>
+        <name>Set Role Name to Signer 1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>APT_Set_Role_Name_to_Signer_2</fullName>
+        <field>Apttus_DocuApi__RoleName__c</field>
+        <literalValue>Signer 2</literalValue>
+        <name>Set Role Name to Signer 2</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>APT_Set_Role_Name_Signer_1</fullName>
+        <actions>
+            <name>APT_Set_Role_Name_to_Signer_1</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Set Role Name = ‘Signer 1’ on Docusign recipients object when a record of record type ‘Contact’/‘Email’ is created</description>
+        <formula>OR(RecordType.Name = &apos;Contact&apos;, AND(RecordType.Name = &apos;Email&apos;,!CONTAINS(Apttus_DocuApi__Email__c ,&apos;auspost.com&apos;)))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>APT_Set_Role_Name_Signer_2</fullName>
+        <actions>
+            <name>APT_Set_Role_Name_to_Signer_2</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Set Role Name = &apos;Signer 2’ on Docusign recipients object when a record of record type ‘User’/‘Email’ is created</description>
+        <formula>OR(RecordType.Name = &apos;User&apos;, AND(RecordType.Name = &apos;Email&apos;,CONTAINS(Apttus_DocuApi__Email__c ,&apos;auspost.com&apos;)))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

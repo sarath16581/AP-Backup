@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>ShortDescription__c</columns>
+    <columns>Description__c</columns>
+    <columns>Status__c</columns>
+    <columns>AppKey__c</columns>
+    <columns>Product__c</columns>
+    <columns>SVGRefId__c</columns>
+    <columns>ProvisioningAPIUrl__c</columns>
+    <columns>ValidationAPIUrl__c</columns>
+    <columns>DeprovisioningAPIUrl__c</columns>
+    <columns>ConfigurationModel__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+    <language>en_US</language>
+</ListView>

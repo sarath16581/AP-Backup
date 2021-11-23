@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Contact_Minimum_Record</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(OR(CONTAINS($Profile.Name,&quot;SSSW Social Integration&quot;), CONTAINS(CreatorProfile__c,&quot;SSSW Social Integration&quot;))) 
+&amp;&amp; 
+( 
+ISBLANK( FirstName ) 
+|| 
+( 
+ISBLANK( Email ) 
+&amp;&amp; 
+ISBLANK( MailingStreet ) 
+&amp;&amp; 
+ISBLANK( Phone ) 
+&amp;&amp; 
+ISBLANK( HomePhone ) 
+&amp;&amp; 
+ISBLANK( MobilePhone ) 
+&amp;&amp; 
+ISBLANK( OtherPhone ) 
+))</errorConditionFormula>
+    <errorDisplayField>Hidden_Data_Score_Individual__c</errorDisplayField>
+    <errorMessage>You have not met the minimum data for a Contact. 
+Must have a First and Last Name AND 1 of the following: 
+Email, 
+Address, 
+Phone / Mobile.</errorMessage>
+</ValidationRule>

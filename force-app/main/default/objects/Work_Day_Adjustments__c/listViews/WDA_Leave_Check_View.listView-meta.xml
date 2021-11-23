@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>WDA_Leave_Check_View</fullName>
+    <columns>NAME</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>OWNER.LAST_NAME</columns>
+    <columns>Sales_Team__c</columns>
+    <columns>Role__c</columns>
+    <columns>Jul_Leave_Adjustment__c</columns>
+    <columns>Aug_Leave_Adjustment__c</columns>
+    <columns>Sept_Leave_Adjustment__c</columns>
+    <columns>Oct_Leave_Adjustment__c</columns>
+    <columns>Nov_Leave_Adjustment__c</columns>
+    <columns>Dec_Leave_Adjustment__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Current_Role__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>WDA - Leave Check View</label>
+    <language>en_US</language>
+    <sharedTo>
+        <role>Business_Reporting</role>
+    </sharedTo>
+</ListView>

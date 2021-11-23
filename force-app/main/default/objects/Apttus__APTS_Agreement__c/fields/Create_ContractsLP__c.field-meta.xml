@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Create_ContractsLP__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (ISPICKVAL(Apttus__Status_Category__c, &quot;Request&quot;) &amp;&amp;  APT_of_Selected_Lodgement_Points__c &gt; 0, HYPERLINK(&quot;/apex/Apttus__SelectTemplate?id=&quot;&amp;Id &amp; &quot;&amp;action=Generate_Agreement&amp;templateType=Agreement&quot;, IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;), NULL)</formula>
+    <inlineHelpText>You have to add Lodgement Points before generating contract documents. Please also check Operational Schedule details before generating DOS Form.</inlineHelpText>
+    <label>Create Contracts (Single Document)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>fairwarn__All</fullName>
+    <columns>fairwarn__ID__c</columns>
+    <columns>NAME</columns>
+    <columns>fairwarn__Description__c</columns>
+    <columns>fairwarn__Status__c</columns>
+    <columns>fairwarn__Owner__c</columns>
+    <columns>fairwarn__OwnerName__c</columns>
+    <columns>fairwarn__Created_Date__c</columns>
+    <columns>fairwarn__Updated_By_User_ID__c</columns>
+    <columns>fairwarn__Updated_By_User_Name__c</columns>
+    <columns>fairwarn__Last_Activity__c</columns>
+    <columns>fairwarn__Discovery_Date__c</columns>
+    <columns>fairwarn__Occurrence_Start_Date__c</columns>
+    <columns>fairwarn__Occurrence_End_Date__c</columns>
+    <columns>fairwarn__Ticket_Closed_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>fairwarn__Deleted__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>All</label>
+</ListView>

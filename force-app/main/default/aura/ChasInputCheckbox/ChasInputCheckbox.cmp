@@ -1,0 +1,41 @@
+<aura:component extends="c:ChasBaseInput" description="Checkbox input">
+
+    <aura:attribute name="label" type="String" />
+    
+    <div>        
+        <!-- Errors -->
+        <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }" id="{! v.name }" />
+        
+        <div class="chas-input-field-container">
+            <div class="slds-form-element">
+            	<div class="slds-form-element__control">
+            		<span class="slds-checkbox">
+            			<input
+            				type="checkbox"
+            				id="{! v.name }"
+            				name="{! v.name }"
+                			required='{! v.required }'
+            				checked="{! v.value }"
+                            onchange='{! c.updateValue }'
+                            onblur='{! c.onchange }'
+                            aria-describedby="{! v.name + '-description ' + v.name + '-error' }"/>
+        				<label for="{! v.name }" class="slds-checkbox__label">
+        					<span class="chas-checkbox_outer">
+        						<span class="slds-checkbox_faux"></span>
+        					</span>
+        					<span class="slds-form-element__label">
+        						{! v.label }
+        					</span>
+        				</label>
+        			</span>
+        		</div>
+        	</div>
+            
+        </div>
+        
+        <div class="chas-below-input" id="{! v.name + '-description' }">
+        	{! v.body }
+        </div>
+        
+    </div>
+</aura:component>

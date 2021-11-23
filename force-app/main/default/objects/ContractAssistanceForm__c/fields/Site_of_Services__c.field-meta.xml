@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Site_of_Services__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Where will the services covered by the contract be performed?</inlineHelpText>
+    <label>Site of Services</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AP Site</fullName>
+                <default>false</default>
+                <label>AP Site</label>
+            </value>
+            <value>
+                <fullName>Customer Site</fullName>
+                <default>false</default>
+                <label>Customer Site</label>
+            </value>
+            <value>
+                <fullName>Third Party Site</fullName>
+                <default>false</default>
+                <label>Third Party Site</label>
+            </value>
+            <value>
+                <fullName>Digital/Online</fullName>
+                <default>false</default>
+                <label>Digital/Online</label>
+            </value>
+            <value>
+                <fullName>AP and Customer or other site</fullName>
+                <default>false</default>
+                <label>AP and Customer or other site</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

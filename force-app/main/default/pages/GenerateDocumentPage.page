@@ -1,0 +1,137 @@
+<!--
+ - Created by shashwat.a.nath on 19/09/2019.
+ - This VF page is invoked from the Generate Document Custom Button on Partner Agreement Document Record detail Page
+ - Visualforce Remote Action call to "updateAgreementDocumentRecord" method is made  post Document Generation via Conga Composer
+ - On Getting a Valid Response the System Redirects the User again to updated Partner Agreement Document Record detail Page
+ -->
+
+<apex:page standardController="Agreement_Document__c"
+           extensions="GenerateDocumentPageController"
+           id="GenerateDocumentPage">
+    <!--Included required scripts-->
+    <apex:includeScript value="/soap/ajax/36.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/36.0/apex.js"/>
+    <apex:includeScript value="/support/console/46.0/integration.js"/>
+    <!-- Script starts -->
+    <script type="text/javascript">
+        // Function to show the different Alert messages
+        function showAlertMessage(msg) {
+            var box = new SimpleDialog("hersh" + Math.random(), true);
+            parent.box = box;
+            box.setTitle("Generate Document");
+            box.createDialog();
+            box.setWidth(350);
+            box.setContentInnerHTML(msg + "<br /><br /><button class='btn' onclick='window.parent.box.hide(); redirection(); return false; '>OK</button>");
+            box.setupDefaultButtons();
+            box.show();
+
+        }
+        // Scanned Paper Approval Type Check
+        if ("{!Agreement_Document__c.Approval_Type__c}" == "Scanned Paper") {
+            showAlertMessage("An Agreement Document can not be generated for Approval Type 'Scanned Paper'.");
+        }
+        else{
+            // Draft Status Check
+            if ("{!Agreement_Document__c.Status__c}" !== "Draft") {
+                showAlertMessage("An Agreement Document can only be generated when the record is in 'Draft' status.");
+                //alert("An Agreement Document can only be generated when the record is in 'Draft' status.");
+                //sforce.one.back();
+                //redirection();
+            }
+            else{
+                var today = new Date();
+                var approvalType = ['No','Full','Single'];
+                var a = approvalType.indexOf("{!Agreement_Document__c.Approval_Type__c}");
+                var fromDate = "{!Agreement_Document__c.Agreement_Effective_From_Date_Reformat__c}";
+                // Agreement date Check
+                if( a >= 0 &&  fromDate  < today.toISOString().slice(0,10) ){
+                    showAlertMessage("The 'Agreement Effective From Date' must be greater than or equal to today before generating a document.");
+                }
+                else{
+                    // Generating the Conga Composer URL
+                    var CongaURL = "https://composer.congamerge.com" +
+                        "?sessionId={!$Api.Session_ID}" +
+                        "&serverUrl={!$Api.Partner_Server_URL_290}" +
+                        "&id={!Agreement_Document__c.Id}" +
+                        "&AC0=1" +
+                        "&OFN={!Agreement_Document__c.Document_Name__c}+-+{!Agreement_Document__c.Work_Centre_Code__c}+-"+formatDate(today) +
+                        "&AC1=Document Generated:+{!Agreement_Document__c.Document_Name__c}+-+{!Agreement_Document__c.Work_Centre_Code__c}+-"+formatDate(today) +
+                        "&QVar3Id={!$Setup.AgreeMgt_Conga_Query_Ids__c.Rates_Active_Name__c}?pv0={!Agreement_Document__c.Licence_Type__c}" +
+                        "&QueryId=" +
+                        "[Rates]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Rates__c}?pv0={QVar3}," +
+                        "[LegalEntity]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Legal_Entity__c}?pv0={!Agreement_Document__c.Legal_Entity_Id__c}," +
+                        "[NominatedContact]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Nominated_Contact__c}?pv0={!Agreement_Document__c.Nominated_Contact__c}," +
+                        "[ContactDirectorsExNC]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Contact_Role_Directors__c}?pv0={!Agreement_Document__c.Legal_Entity_Id__c}~pv1={!Agreement_Document__c.Nominated_Contact__c}," +
+                        "[ContactPartnersExNC]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Contact_Role_Partners__c}?pv0={!Agreement_Document__c.Legal_Entity_Id__c}~pv1={!Agreement_Document__c.Nominated_Contact__c}," +
+                        "[ContactTrusteesExNC]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Contact_Role_Trustees__c}?pv0={!Agreement_Document__c.Legal_Entity_Id__c}~pv1={!Agreement_Document__c.Nominated_Contact__c}," +
+                        "[ContactDecisMakeExNC]{!$Setup.AgreeMgt_Conga_Query_Ids__c.ContactRoleDecisionMaker__c}?pv0={!Agreement_Document__c.Legal_Entity_Id__c}~pv1={!Agreement_Document__c.Nominated_Contact__c}," +
+                        "[ContactAccrPsOffExNC]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Contact_Role_Acred_Passpt_Off__c}?pv0={!Agreement_Document__c.Legal_Entity_Id__c}~pv1={!Agreement_Document__c.Nominated_Contact__c}," +
+                        "[Licence]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Licence__c}?pv0={!Agreement_Document__c.Licence_Id__c}," +
+                        "[LoanInterestFree]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Loan_Interest_Free__c}?pv0={!Agreement_Document__c.Licence_Id__c}," +
+                        "[LoanRefurbishment]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Loan_Refurbishment__c}?pv0={!Agreement_Document__c.Licence_Id__c}," +
+                        "[LoanSecurity]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Loan_Security__c}?pv0={!Agreement_Document__c.Licence_Id__c}," +
+                        "[NegPaymentLicence]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Negotiated_Payment_Licence__c}?pv0={!Agreement_Document__c.Licence_Id__c}~pv1={!Agreement_Document__c.Agreement_Effective_From_Date_Reformat__c}," +
+                        "[NegPaymentFacility]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Negotiated_Payment_Facility__c}?pv0={!Agreement_Document__c.Facility_Id__c}~pv1={!Agreement_Document__c.Agreement_Effective_From_Date_Reformat__c}," +
+                        "[Facility]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Facility__c}?pv0={!Agreement_Document__c.Facility_Id__c}," +
+                        "[FacilityTimingCT]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Facility_Timing_Conveyance_Times__c}?pv0={!Agreement_Document__c.Facility_Id__c}," +
+                        "[FacilityTimingBST]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Facility_Timing_Boxing_Times__c}?pv0={!Agreement_Document__c.Facility_Id__c}," +
+                        "[Network]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Network__c}?pv0={!Agreement_Document__c.Network_Id__c}," +
+                        "[ParentNetwork]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Parent_Network__c}?pv0={!Agreement_Document__c.Parent_Network_Id__c}," +
+                        "[RetailRegionNetwork]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Grandparent_Network__c}?pv0={!Agreement_Document__c.Retail_Region_Network_Id__c}," +
+                        "[RelatedNetworks]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Related_Networks__c}?pv0={!Agreement_Document__c.Parent_Network_Id__c}," +
+                        "[Lockers]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Lockers__c}?pv0={!Agreement_Document__c.Network_Id__c}" +
+                        "&TemplateId={!Agreement_Document__c.Template_Id__c}" +
+                        "&DS7=1" +
+                        "&FP0=1" +
+                        "&BML=Generating+Agreement+Document";
+
+                    // Opening Conga in new Window
+                    window.open(CongaURL, "Conga", config='width=700,height=550,menubar=0' );
+                    // Invoking Remote Action to update the Partner Agreement Document Record
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.GenerateDocumentPageController.updateAgreementDocumentRecord}',
+                        '{!Agreement_Document__c.Id}' ,
+                        '{!Agreement_Document__c.Licence_Type__c}',
+                        function (result, event) {
+                            if (event.status) {
+                                // On Success
+                                console.log('Success');
+                                // Redirecting to the record detail page
+                                redirection();
+
+                            } else {
+                                // On Failure or Exception
+                                alert('Something went wrong . Please reach out to your Admin');
+                                // Redirecting to the record detail page
+                                redirection();
+                            }
+                        },
+                        {escape: true}
+
+                    );
+                }
+            }
+        }
+
+        // Function to format date
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear(),
+                hr =  d.getHours(),
+                min = d.getMinutes();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+            //var dateString = ;
+            return year+month+day+hr+min;
+        }
+
+        // Function to Redirect to Partner Agreement Document detail page
+        function redirection(){
+            window.location='/{!Agreement_Document__c.Id}';
+        }
+
+    </script>
+</apex:page>

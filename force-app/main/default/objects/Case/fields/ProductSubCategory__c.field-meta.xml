@@ -1,0 +1,1489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProductSubCategory__c</fullName>
+    <description>SSSW - Clear View Codes - Dependant Picklist</description>
+    <externalId>false</externalId>
+    <label>Product Sub Category</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>ProductCategory__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Access Maintenance</fullName>
+                <default>false</default>
+                <label>Access Maintenance</label>
+            </value>
+            <value>
+                <fullName>Acc Non-urgent</fullName>
+                <default>false</default>
+                <label>Acc Non-urgent</label>
+            </value>
+            <value>
+                <fullName>Acc Urgent</fullName>
+                <default>false</default>
+                <label>Acc Urgent</label>
+            </value>
+            <value>
+                <fullName>Accounts Payable</fullName>
+                <default>false</default>
+                <label>Accounts Payable</label>
+            </value>
+            <value>
+                <fullName>Accounts Payable AP</fullName>
+                <default>false</default>
+                <label>Accounts Payable AP</label>
+            </value>
+            <value>
+                <fullName>Accounts Payable ST</fullName>
+                <default>false</default>
+                <label>Accounts Payable ST</label>
+            </value>
+            <value>
+                <fullName>Advice</fullName>
+                <default>false</default>
+                <label>Advice</label>
+            </value>
+            <value>
+                <fullName>Agency</fullName>
+                <default>false</default>
+                <label>Agency</label>
+            </value>
+            <value>
+                <fullName>Airmail over 2kg</fullName>
+                <default>false</default>
+                <label>Airmail over 2kg</label>
+            </value>
+            <value>
+                <fullName>Airmail under 2kg</fullName>
+                <default>false</default>
+                <label>Airmail under 2kg</label>
+            </value>
+            <value>
+                <fullName>All Other ID&amp;V services</fullName>
+                <default>false</default>
+                <label>All Other ID&amp;V services</label>
+            </value>
+            <value>
+                <fullName>Amex</fullName>
+                <default>false</default>
+                <label>Amex</label>
+            </value>
+            <value>
+                <fullName>API Key Issues</fullName>
+                <default>false</default>
+                <label>API Key Issues</label>
+            </value>
+            <value>
+                <fullName>APMS</fullName>
+                <default>false</default>
+                <label>APMS</label>
+            </value>
+            <value>
+                <fullName>Armaguard</fullName>
+                <default>false</default>
+                <label>Armaguard</label>
+            </value>
+            <value>
+                <fullName>Article Collection</fullName>
+                <default>false</default>
+                <label>Article Collection</label>
+            </value>
+            <value>
+                <fullName>ATO</fullName>
+                <default>false</default>
+                <label>ATO</label>
+            </value>
+            <value>
+                <fullName>Bank@Post</fullName>
+                <default>false</default>
+                <label>Bank@Post</label>
+            </value>
+            <value>
+                <fullName>Banking</fullName>
+                <default>false</default>
+                <label>Banking</label>
+            </value>
+            <value>
+                <fullName>Barcodes</fullName>
+                <default>false</default>
+                <label>Barcodes</label>
+            </value>
+            <value>
+                <fullName>BCard</fullName>
+                <default>false</default>
+                <label>BCard</label>
+            </value>
+            <value>
+                <fullName>Billed</fullName>
+                <default>false</default>
+                <label>Billed</label>
+            </value>
+            <value>
+                <fullName>Business Letters</fullName>
+                <default>false</default>
+                <label>Business Letters</label>
+            </value>
+            <value>
+                <fullName>Car Insurance</fullName>
+                <default>false</default>
+                <label>Car Insurance</label>
+            </value>
+            <value>
+                <fullName>Cash on Delivery</fullName>
+                <default>false</default>
+                <label>Cash on Delivery</label>
+            </value>
+            <value>
+                <fullName>CEPOS</fullName>
+                <default>false</default>
+                <label>CEPOS</label>
+            </value>
+            <value>
+                <fullName>Change of Address Online</fullName>
+                <default>false</default>
+                <label>Change of Address Online</label>
+            </value>
+            <value>
+                <fullName>Cheque Fraud</fullName>
+                <default>false</default>
+                <label>Cheque Fraud</label>
+            </value>
+            <value>
+                <fullName>Cheques</fullName>
+                <default>false</default>
+                <label>Cheques</label>
+            </value>
+            <value>
+                <fullName>China Union Pay - CUP</fullName>
+                <default>false</default>
+                <label>China Union Pay - CUP</label>
+            </value>
+            <value>
+                <fullName>Concession stamps</fullName>
+                <default>false</default>
+                <label>Concession stamps</label>
+            </value>
+            <value>
+                <fullName>Contract/Account Issue</fullName>
+                <default>false</default>
+                <label>Contract/Account Issue</label>
+            </value>
+            <value>
+                <fullName>Contract/Credit Issues</fullName>
+                <default>false</default>
+                <label>Contract/Credit Issues</label>
+            </value>
+            <value>
+                <fullName>Courier Post</fullName>
+                <default>false</default>
+                <label>Courier Post</label>
+            </value>
+            <value>
+                <fullName>Customer Account Issues</fullName>
+                <default>false</default>
+                <label>Customer Account Issues</label>
+            </value>
+            <value>
+                <fullName>Delivery Choice</fullName>
+                <default>false</default>
+                <label>Delivery Choice</label>
+            </value>
+            <value>
+                <fullName>Delivery Choices</fullName>
+                <default>false</default>
+                <label>Delivery Choices</label>
+            </value>
+            <value>
+                <fullName>Dishonoured Cheques</fullName>
+                <default>false</default>
+                <label>Dishonoured Cheques</label>
+            </value>
+            <value>
+                <fullName>eBay Store</fullName>
+                <default>false</default>
+                <label>eBay Store</label>
+            </value>
+            <value>
+                <fullName>ECI</fullName>
+                <default>false</default>
+                <label>ECI</label>
+            </value>
+            <value>
+                <fullName>ECI Platinum</fullName>
+                <default>false</default>
+                <label>ECI Platinum</label>
+            </value>
+            <value>
+                <fullName>Economy Air under 2kg</fullName>
+                <default>false</default>
+                <label>Economy Air under 2kg</label>
+            </value>
+            <value>
+                <fullName>Economy Air under 500g</fullName>
+                <default>false</default>
+                <label>Economy Air under 500g</label>
+            </value>
+            <value>
+                <fullName>Economy Sea over 2kg</fullName>
+                <default>false</default>
+                <label>Economy Sea over 2kg</label>
+            </value>
+            <value>
+                <fullName>eLMS Assistance/Training</fullName>
+                <default>false</default>
+                <label>eLMS Assistance/Training</label>
+            </value>
+            <value>
+                <fullName>eParcel Assistance/Training</fullName>
+                <default>false</default>
+                <label>eParcel Assistance/Training</label>
+            </value>
+            <value>
+                <fullName>eParcel- Express</fullName>
+                <default>false</default>
+                <label>eParcel- Express</label>
+            </value>
+            <value>
+                <fullName>eParcel Online</fullName>
+                <default>false</default>
+                <label>eParcel Online</label>
+            </value>
+            <value>
+                <fullName>eParcel- Regular</fullName>
+                <default>false</default>
+                <label>eParcel- Regular</label>
+            </value>
+            <value>
+                <fullName>Express</fullName>
+                <default>false</default>
+                <label>Express</label>
+            </value>
+            <value>
+                <fullName>Express Platinum</fullName>
+                <default>false</default>
+                <label>Express Platinum</label>
+            </value>
+            <value>
+                <fullName>Express Post</fullName>
+                <default>false</default>
+                <label>Express Post</label>
+            </value>
+            <value>
+                <fullName>Express Post International</fullName>
+                <default>false</default>
+                <label>Express Post International</label>
+            </value>
+            <value>
+                <fullName>FAP 150</fullName>
+                <default>false</default>
+                <label>FAP 150</label>
+            </value>
+            <value>
+                <fullName>Farmhouse Direct</fullName>
+                <default>false</default>
+                <label>Farmhouse Direct</label>
+            </value>
+            <value>
+                <fullName>Fixed Assets</fullName>
+                <default>false</default>
+                <label>Fixed Assets</label>
+            </value>
+            <value>
+                <fullName>Foreign Currency</fullName>
+                <default>false</default>
+                <label>Foreign Currency</label>
+            </value>
+            <value>
+                <fullName>General merchandise</fullName>
+                <default>false</default>
+                <label>General merchandise</label>
+            </value>
+            <value>
+                <fullName>General Purpose - GPR</fullName>
+                <default>false</default>
+                <label>General Purpose - GPR</label>
+            </value>
+            <value>
+                <fullName>Gift cards</fullName>
+                <default>false</default>
+                <label>Gift cards</label>
+            </value>
+            <value>
+                <fullName>Global Logistics</fullName>
+                <default>false</default>
+                <label>Global Logistics</label>
+            </value>
+            <value>
+                <fullName>Go Online Returns</fullName>
+                <default>false</default>
+                <label>Go Online Returns</label>
+            </value>
+            <value>
+                <fullName>Home Insurance</fullName>
+                <default>false</default>
+                <label>Home Insurance</label>
+            </value>
+            <value>
+                <fullName>ID check - other</fullName>
+                <default>false</default>
+                <label>ID check - other</label>
+            </value>
+            <value>
+                <fullName>Identity &amp; document services</fullName>
+                <default>false</default>
+                <label>Identity &amp; document services</label>
+            </value>
+            <value>
+                <fullName>International Courier</fullName>
+                <default>false</default>
+                <label>International Courier</label>
+            </value>
+            <value>
+                <fullName>International Express</fullName>
+                <default>false</default>
+                <label>International Express</label>
+            </value>
+            <value>
+                <fullName>International Standard</fullName>
+                <default>false</default>
+                <label>International Standard</label>
+            </value>
+            <value>
+                <fullName>Inventory Control</fullName>
+                <default>false</default>
+                <label>Inventory Control</label>
+            </value>
+            <value>
+                <fullName>Invoice</fullName>
+                <default>false</default>
+                <label>Invoice</label>
+            </value>
+            <value>
+                <fullName>Item Transfer</fullName>
+                <default>false</default>
+                <label>Item Transfer</label>
+            </value>
+            <value>
+                <fullName>KeyPass</fullName>
+                <default>false</default>
+                <label>KeyPass</label>
+            </value>
+            <value>
+                <fullName>Land Titles check</fullName>
+                <default>false</default>
+                <label>Land Titles check</label>
+            </value>
+            <value>
+                <fullName>Load &amp; Go</fullName>
+                <default>false</default>
+                <label>Load &amp; Go</label>
+            </value>
+            <value>
+                <fullName>LPS API Requests</fullName>
+                <default>false</default>
+                <label>LPS API Requests</label>
+            </value>
+            <value>
+                <fullName>Mail hold</fullName>
+                <default>false</default>
+                <label>Mail hold</label>
+            </value>
+            <value>
+                <fullName>Mailing Statement Queries</fullName>
+                <default>false</default>
+                <label>Mailing Statement Queries</label>
+            </value>
+            <value>
+                <fullName>Mail Pick up</fullName>
+                <default>false</default>
+                <label>Mail Pick up</label>
+            </value>
+            <value>
+                <fullName>Mail redirection</fullName>
+                <default>false</default>
+                <label>Mail redirection</label>
+            </value>
+            <value>
+                <fullName>Manifests</fullName>
+                <default>false</default>
+                <label>Manifests</label>
+            </value>
+            <value>
+                <fullName>Manual Post Office (Non-EPOS)</fullName>
+                <default>false</default>
+                <label>Manual Post Office (Non-EPOS)</label>
+            </value>
+            <value>
+                <fullName>Merchant Services</fullName>
+                <default>false</default>
+                <label>Merchant Services</label>
+            </value>
+            <value>
+                <fullName>Messenger Post</fullName>
+                <default>false</default>
+                <label>Messenger Post</label>
+            </value>
+            <value>
+                <fullName>MMM</fullName>
+                <default>false</default>
+                <label>MMM</label>
+            </value>
+            <value>
+                <fullName>Mobile apps</fullName>
+                <default>false</default>
+                <label>Mobile apps</label>
+            </value>
+            <value>
+                <fullName>Mobile products</fullName>
+                <default>false</default>
+                <label>Mobile products</label>
+            </value>
+            <value>
+                <fullName>Money Order</fullName>
+                <default>false</default>
+                <label>Money Order</label>
+            </value>
+            <value>
+                <fullName>Money Order enquiry</fullName>
+                <default>false</default>
+                <label>Money Order enquiry</label>
+            </value>
+            <value>
+                <fullName>Money Order forms</fullName>
+                <default>false</default>
+                <label>Money Order forms</label>
+            </value>
+            <value>
+                <fullName>Money Orders</fullName>
+                <default>false</default>
+                <label>Money Orders</label>
+            </value>
+            <value>
+                <fullName>MRS Online</fullName>
+                <default>false</default>
+                <label>MRS Online</label>
+            </value>
+            <value>
+                <fullName>Multi-Currency Cash Passport</fullName>
+                <default>false</default>
+                <label>Multi-Currency Cash Passport</label>
+            </value>
+            <value>
+                <fullName>Multiple</fullName>
+                <default>false</default>
+                <label>Multiple</label>
+            </value>
+            <value>
+                <fullName>MyAccount</fullName>
+                <default>false</default>
+                <label>MyAccount</label>
+            </value>
+            <value>
+                <fullName>MyPost Business App</fullName>
+                <default>false</default>
+                <label>MyPost Business App</label>
+            </value>
+            <value>
+                <fullName>MyPost Concession Card</fullName>
+                <default>false</default>
+                <label>MyPost Concession Card</label>
+            </value>
+            <value>
+                <fullName>MyPost Deliveries</fullName>
+                <default>false</default>
+                <label>MyPost Deliveries</label>
+            </value>
+            <value>
+                <fullName>My Post ID card</fullName>
+                <default>false</default>
+                <label>My Post ID card</label>
+            </value>
+            <value>
+                <fullName>National Police Check</fullName>
+                <default>false</default>
+                <label>National Police Check</label>
+            </value>
+            <value>
+                <fullName>Online Returns Portal</fullName>
+                <default>false</default>
+                <label>Online Returns Portal</label>
+            </value>
+            <value>
+                <fullName>Online shop</fullName>
+                <default>false</default>
+                <label>Online shop</label>
+            </value>
+            <value>
+                <fullName>Ordinary mail</fullName>
+                <default>false</default>
+                <label>Ordinary mail</label>
+            </value>
+            <value>
+                <fullName>Other domestic letters</fullName>
+                <default>false</default>
+                <label>Other domestic letters</label>
+            </value>
+            <value>
+                <fullName>Other Domestic Parcels</fullName>
+                <default>false</default>
+                <label>Other Domestic Parcels</label>
+            </value>
+            <value>
+                <fullName>Other Financial Services</fullName>
+                <default>false</default>
+                <label>Other Financial Services</label>
+            </value>
+            <value>
+                <fullName>Other Insurance</fullName>
+                <default>false</default>
+                <label>Other Insurance</label>
+            </value>
+            <value>
+                <fullName>Other international letters</fullName>
+                <default>false</default>
+                <label>Other international letters</label>
+            </value>
+            <value>
+                <fullName>Other international Parcels</fullName>
+                <default>false</default>
+                <label>Other international Parcels</label>
+            </value>
+            <value>
+                <fullName>Others</fullName>
+                <default>false</default>
+                <label>Others</label>
+            </value>
+            <value>
+                <fullName>Other Technology products</fullName>
+                <default>false</default>
+                <label>Other Technology products</label>
+            </value>
+            <value>
+                <fullName>Other Web &amp; Apps</fullName>
+                <default>false</default>
+                <label>Other Web &amp; Apps</label>
+            </value>
+            <value>
+                <fullName>Pack &amp; Track International</fullName>
+                <default>false</default>
+                <label>Pack &amp; Track International</label>
+            </value>
+            <value>
+                <fullName>Pack and Track International</fullName>
+                <default>false</default>
+                <label>Pack and Track International</label>
+            </value>
+            <value>
+                <fullName>Parcel Collect</fullName>
+                <default>false</default>
+                <label>Parcel Collect</label>
+            </value>
+            <value>
+                <fullName>Parcel Lockers</fullName>
+                <default>false</default>
+                <label>Parcel Lockers</label>
+            </value>
+            <value>
+                <fullName>Parcel Post</fullName>
+                <default>false</default>
+                <label>Parcel Post</label>
+            </value>
+            <value>
+                <fullName>Parcel Send App</fullName>
+                <default>false</default>
+                <label>Parcel Send App</label>
+            </value>
+            <value>
+                <fullName>Parcel Send Assistance/Training</fullName>
+                <default>false</default>
+                <label>Parcel Send Assistance/Training</label>
+            </value>
+            <value>
+                <fullName>Passport</fullName>
+                <default>false</default>
+                <label>Passport</label>
+            </value>
+            <value>
+                <fullName>Passport &amp; ID Photos</fullName>
+                <default>false</default>
+                <label>Passport &amp; ID Photos</label>
+            </value>
+            <value>
+                <fullName>Payment</fullName>
+                <default>false</default>
+                <label>Payment Support</label>
+            </value>
+            <value>
+                <fullName>Petty Cash</fullName>
+                <default>false</default>
+                <label>Petty Cash</label>
+            </value>
+            <value>
+                <fullName>Philatelic (stamps)</fullName>
+                <default>false</default>
+                <label>Philatelic (stamps)</label>
+            </value>
+            <value>
+                <fullName>PO Boxes &amp; Bags</fullName>
+                <default>false</default>
+                <label>PO Boxes &amp; Bags</label>
+            </value>
+            <value>
+                <fullName>Post BillPay</fullName>
+                <default>false</default>
+                <label>Post BillPay</label>
+            </value>
+            <value>
+                <fullName>Postcard App</fullName>
+                <default>false</default>
+                <label>Postcard App</label>
+            </value>
+            <value>
+                <fullName>Post Office Accounting</fullName>
+                <default>false</default>
+                <label>Post Office Accounting</label>
+            </value>
+            <value>
+                <fullName>Post office locator</fullName>
+                <default>false</default>
+                <label>Post office locator</label>
+            </value>
+            <value>
+                <fullName>Printing</fullName>
+                <default>false</default>
+                <label>Printing</label>
+            </value>
+            <value>
+                <fullName>Priority Mail</fullName>
+                <default>false</default>
+                <label>Priority Mail</label>
+            </value>
+            <value>
+                <fullName>Registered Post</fullName>
+                <default>false</default>
+                <label>Registered Post</label>
+            </value>
+            <value>
+                <fullName>Registered Post International</fullName>
+                <default>false</default>
+                <label>Registered Post International</label>
+            </value>
+            <value>
+                <fullName>Registered Post International Prepaid</fullName>
+                <default>false</default>
+                <label>Registered Post International Prepaid</label>
+            </value>
+            <value>
+                <fullName>Registrations/Access</fullName>
+                <default>false</default>
+                <label>Registrations/Access</label>
+            </value>
+            <value>
+                <fullName>Regular Mail</fullName>
+                <default>false</default>
+                <label>Regular Mail</label>
+            </value>
+            <value>
+                <fullName>Remittance Advice</fullName>
+                <default>false</default>
+                <label>Remittance Advice</label>
+            </value>
+            <value>
+                <fullName>Reports</fullName>
+                <default>false</default>
+                <label>Reports</label>
+            </value>
+            <value>
+                <fullName>Retail Non-Urgent</fullName>
+                <default>false</default>
+                <label>Retail Non-Urgent</label>
+            </value>
+            <value>
+                <fullName>Retail Urgent</fullName>
+                <default>false</default>
+                <label>Retail Urgent</label>
+            </value>
+            <value>
+                <fullName>Risk &amp; Compliance</fullName>
+                <default>false</default>
+                <label>Risk &amp; Compliance</label>
+            </value>
+            <value>
+                <fullName>Sea Mail</fullName>
+                <default>false</default>
+                <label>Sea Mail</label>
+            </value>
+            <value>
+                <fullName>SecurePay</fullName>
+                <default>false</default>
+                <label>SecurePay</label>
+            </value>
+            <value>
+                <fullName>Send a Parcel</fullName>
+                <default>false</default>
+                <label>Send a Parcel</label>
+            </value>
+            <value>
+                <fullName>Send A Parcel-Card</fullName>
+                <default>false</default>
+                <label>Send A Parcel-Card</label>
+            </value>
+            <value>
+                <fullName>shop.auspost.com.au</fullName>
+                <default>false</default>
+                <label>shop.auspost.com.au</label>
+            </value>
+            <value>
+                <fullName>Shopmate</fullName>
+                <default>false</default>
+                <label>Shopmate</label>
+            </value>
+            <value>
+                <fullName>StarTrack (Next Flight Premium &amp; Express)</fullName>
+                <default>false</default>
+                <label>StarTrack (Next Flight Premium &amp; Express)</label>
+            </value>
+            <value>
+                <fullName>StarTrack Courier</fullName>
+                <default>false</default>
+                <label>StarTrack Courier</label>
+            </value>
+            <value>
+                <fullName>StarTrack International</fullName>
+                <default>false</default>
+                <label>StarTrack International</label>
+            </value>
+            <value>
+                <fullName>Stationery and packaging</fullName>
+                <default>false</default>
+                <label>Stationery and packaging</label>
+            </value>
+            <value>
+                <fullName>Superannuation</fullName>
+                <default>false</default>
+                <label>Superannuation</label>
+            </value>
+            <value>
+                <fullName>Tax file number</fullName>
+                <default>false</default>
+                <label>Tax file number</label>
+            </value>
+            <value>
+                <fullName>Tracked Letter</fullName>
+                <default>false</default>
+                <label>Tracked Letter</label>
+            </value>
+            <value>
+                <fullName>Tracking Applications</fullName>
+                <default>false</default>
+                <label>Tracking Applications</label>
+            </value>
+            <value>
+                <fullName>Travel Card</fullName>
+                <default>false</default>
+                <label>Travel Card</label>
+            </value>
+            <value>
+                <fullName>Travel Insurance</fullName>
+                <default>false</default>
+                <label>Travel Insurance</label>
+            </value>
+            <value>
+                <fullName>UMCS</fullName>
+                <default>false</default>
+                <label>UMCS</label>
+            </value>
+            <value>
+                <fullName>Unaddressed Mail</fullName>
+                <default>false</default>
+                <label>Unaddressed Mail</label>
+            </value>
+            <value>
+                <fullName>UPMS</fullName>
+                <default>false</default>
+                <label>UPMS</label>
+            </value>
+            <value>
+                <fullName>Vendor</fullName>
+                <default>false</default>
+                <label>Vendor</label>
+            </value>
+            <value>
+                <fullName>Video Stamp</fullName>
+                <default>false</default>
+                <label>Video Stamp</label>
+            </value>
+            <value>
+                <fullName>Website</fullName>
+                <default>false</default>
+                <label>Website</label>
+            </value>
+            <value>
+                <fullName>Western Union</fullName>
+                <default>false</default>
+                <label>Western Union</label>
+            </value>
+            <value>
+                <fullName>Working with children check</fullName>
+                <default>false</default>
+                <label>Working with children check</label>
+            </value>
+            <value>
+                <fullName>Refund</fullName>
+                <default>false</default>
+                <label>Refund</label>
+            </value>
+            <value>
+                <fullName>MC Gift Card</fullName>
+                <default>false</default>
+                <label>Mastercard Gift Card</label>
+            </value>
+            <value>
+                <fullName>Google</fullName>
+                <default>false</default>
+                <label>Google</label>
+            </value>
+            <value>
+                <fullName>iTunes</fullName>
+                <default>false</default>
+                <label>iTunes</label>
+            </value>
+            <value>
+                <fullName>eGift</fullName>
+                <default>false</default>
+                <label>eGift</label>
+            </value>
+            <value>
+                <fullName>Other Blackhawk</fullName>
+                <default>false</default>
+                <label>Other Blackhawk</label>
+            </value>
+            <value>
+                <fullName>Mastercard Everyday</fullName>
+                <default>false</default>
+                <label>Mastercard Everyday</label>
+            </value>
+            <value>
+                <fullName>Mastercard Travel</fullName>
+                <default>false</default>
+                <label>Mastercard Travel</label>
+            </value>
+            <value>
+                <fullName>Premium Unaddressed Mail</fullName>
+                <default>false</default>
+                <label>Premium Unaddressed Mail</label>
+            </value>
+            <value>
+                <fullName>Secure Accept and Collect</fullName>
+                <default>false</default>
+                <label>Secure Accept and Collect</label>
+            </value>
+            <value>
+                <fullName>Accounts Receivable</fullName>
+                <default>false</default>
+                <label>Accounts Receivable</label>
+            </value>
+            <value>
+                <fullName>SCR</fullName>
+                <default>false</default>
+                <label>SCR</label>
+            </value>
+            <value>
+                <fullName>Reply Paid</fullName>
+                <default>false</default>
+                <label>Reply Paid</label>
+            </value>
+            <value>
+                <fullName>Business Support Portal (BSP)</fullName>
+                <default>false</default>
+                <label>Business Support Portal (BSP)</label>
+            </value>
+            <value>
+                <fullName>Standard Parcel</fullName>
+                <default>false</default>
+                <label>Standard Parcel</label>
+            </value>
+            <value>
+                <fullName>Premium Express Parcel</fullName>
+                <default>false</default>
+                <label>Premium Express Parcel</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
+            <valueName>China Union Pay - CUP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
+            <valueName>General Purpose - GPR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
+            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
+            <valueName>Gift cards</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
+            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
+            <valueName>Multiple</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
+            <controllingFieldValue>eParcel</controllingFieldValue>
+            <controllingFieldValue>e-LMS</controllingFieldValue>
+            <controllingFieldValue>S &amp; T APIs</controllingFieldValue>
+            <controllingFieldValue>eParcel Unmanifested</controllingFieldValue>
+            <controllingFieldValue>Parcel Send</controllingFieldValue>
+            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
+            <valueName>Others</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
+            <valueName>Travel Card</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
+            <valueName>MC Gift Card</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
+            <valueName>Google</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
+            <valueName>iTunes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
+            <valueName>eGift</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
+            <valueName>Other Blackhawk</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
+            <valueName>Mastercard Everyday</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
+            <valueName>Mastercard Travel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>Acc Non-urgent</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>Acc Urgent</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>Accounts Payable AP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>Accounts Payable ST</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>Agency</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>APMS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>Armaguard</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>ATO</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>Banking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>BCard</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>Cheques</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <controllingFieldValue>Travel &amp; ID</controllingFieldValue>
+            <valueName>KeyPass</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>Manual Post Office (Non-EPOS)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>MMM</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>Money Order</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>UPMS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
+            <valueName>Western Union</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>Refund</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
+            <valueName>Accounts Receivable</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel</controllingFieldValue>
+            <controllingFieldValue>e-LMS</controllingFieldValue>
+            <controllingFieldValue>Parcel Send</controllingFieldValue>
+            <valueName>Access Maintenance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel</controllingFieldValue>
+            <controllingFieldValue>Parcel Send</controllingFieldValue>
+            <valueName>Barcodes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel</controllingFieldValue>
+            <controllingFieldValue>Parcel Send</controllingFieldValue>
+            <valueName>Contract/Credit Issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel</controllingFieldValue>
+            <valueName>eParcel Assistance/Training</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel</controllingFieldValue>
+            <controllingFieldValue>Parcel Send</controllingFieldValue>
+            <valueName>Go Online Returns</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel</controllingFieldValue>
+            <controllingFieldValue>Parcel Send</controllingFieldValue>
+            <valueName>Manifests</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel</controllingFieldValue>
+            <controllingFieldValue>Parcel Send</controllingFieldValue>
+            <valueName>Printing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel</controllingFieldValue>
+            <controllingFieldValue>Parcel Send</controllingFieldValue>
+            <valueName>Reports</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel</controllingFieldValue>
+            <controllingFieldValue>Parcel Send</controllingFieldValue>
+            <valueName>Tracking Applications</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>e-LMS</controllingFieldValue>
+            <valueName>Customer Account Issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>e-LMS</controllingFieldValue>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>eLMS Assistance/Training</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>e-LMS</controllingFieldValue>
+            <valueName>Mailing Statement Queries</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>S &amp; T APIs</controllingFieldValue>
+            <valueName>API Key Issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>S &amp; T APIs</controllingFieldValue>
+            <valueName>Contract/Account Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>S &amp; T APIs</controllingFieldValue>
+            <valueName>Delivery Choice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>S &amp; T APIs</controllingFieldValue>
+            <valueName>LPS API Requests</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>S &amp; T APIs</controllingFieldValue>
+            <valueName>Registrations/Access</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>S &amp; T APIs</controllingFieldValue>
+            <valueName>Send A Parcel-Card</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel Unmanifested</controllingFieldValue>
+            <valueName>Advice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel Unmanifested</controllingFieldValue>
+            <valueName>Billed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Send</controllingFieldValue>
+            <valueName>Parcel Send Assistance/Training</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Cash on Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Courier Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>eParcel- Express</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>eParcel- Regular</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Express</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Express Platinum</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Mail hold</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <valueName>Mail redirection</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Parcel Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>StarTrack (Next Flight Premium &amp; Express)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>StarTrack Courier</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Secure Accept and Collect</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Standard Parcel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Premium Express Parcel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
+            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
+            <valueName>Bank@Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
+            <valueName>General merchandise</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
+            <valueName>Mail Pick up</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
+            <valueName>Mobile products</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
+            <valueName>Passport &amp; ID Photos</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
+            <valueName>Philatelic (stamps)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
+            <valueName>PO Boxes &amp; Bags</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
+            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
+            <valueName>Post BillPay</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
+            <valueName>Post office locator</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
+            <valueName>Stationery and packaging</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <valueName>Airmail over 2kg</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <valueName>Airmail under 2kg</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <valueName>ECI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <valueName>ECI Platinum</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <valueName>Economy Air under 2kg</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <valueName>Economy Sea over 2kg</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <valueName>Express Post International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <valueName>Global Logistics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <valueName>International Courier</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <valueName>International Express</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <valueName>International Standard</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <valueName>Pack and Track International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <valueName>Registered Post International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <valueName>Sea Mail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <valueName>StarTrack International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; ID</controllingFieldValue>
+            <valueName>Identity &amp; document services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; ID</controllingFieldValue>
+            <valueName>Land Titles check</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; ID</controllingFieldValue>
+            <valueName>MyPost Concession Card</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; ID</controllingFieldValue>
+            <valueName>My Post ID card</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; ID</controllingFieldValue>
+            <valueName>National Police Check</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; ID</controllingFieldValue>
+            <valueName>Passport</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; ID</controllingFieldValue>
+            <valueName>Tax file number</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; ID</controllingFieldValue>
+            <valueName>Working with children check</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
+            <valueName>Car Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
+            <valueName>Foreign Currency</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
+            <valueName>Home Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
+            <valueName>Load &amp; Go</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
+            <valueName>Money Orders</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
+            <valueName>Multi-Currency Cash Passport</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
+            <valueName>Superannuation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money &amp; Insurance</controllingFieldValue>
+            <valueName>Travel Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Business Letters</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Express Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Priority Mail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Registered Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Regular Mail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Tracked Letter</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Unaddressed Mail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Premium Unaddressed Mail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Reply Paid</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <valueName>Economy Air under 500g</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>eBay Store</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>eParcel Online</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>Mobile apps</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>MRS Online</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>MyPost Business App</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>MyPost Deliveries</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>Online Returns Portal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>Online shop</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>Parcel Collect</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>Parcel Lockers</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>Parcel Send App</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>Send a Parcel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>Shopmate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>UMCS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>Website</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Web &amp; Apps</controllingFieldValue>
+            <valueName>Business Support Portal (BSP)</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

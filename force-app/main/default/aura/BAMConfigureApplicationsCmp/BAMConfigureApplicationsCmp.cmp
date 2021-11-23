@@ -1,0 +1,289 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes"
+                access="global"
+                controller="BAMConfigureApplicationsController">
+
+    <!-- for redirect -->
+    <aura:dependency resource="markup://force:navigateToURL" type="EVENT"/>
+    <!-- app event for VF page to respond -->
+    <aura:registerEvent name="appEvent" type="c:AsynchApexContinuationRequest"/>
+
+    <aura:attribute name="showSpinner" type="Boolean" default="false"/>
+
+    <!-- account context -->
+    <aura:attribute name="accountId" type="Id" default=""
+                    description="the account Id to set the context of this component"/>
+    <aura:attribute name="account" type="Account" default="" description="the account"/>
+
+    <aura:attribute name="products" type="List" default="" description="All product records"/>
+
+    <aura:attribute name="enableButton" type="Boolean" default="false" description="enable the update button"/>
+
+    <aura:attribute name="bamAdminContacts" type="List" default="" description="Bam Super Admins "/>
+
+    <!-- Contact selection for next step -->
+    <aura:attribute name="contactSearchString" type="String" default="" description="search string for contact"/>
+    <aura:attribute name="allContacts" type="List" default="" description="all contacts"/>
+    <aura:attribute name="contactList" type="List" default="" description="the filtered contacts"/>
+    <aura:attribute name="contactId" type="Id" default="" description="the selected Contact Id"/>
+    <aura:attribute name="enableProvisionContact" type="Boolean" default="false" description="require a selection"/>
+
+    <!-- handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="slds slds-m-around_medium ">
+        <div class="'slds-is-relative'">
+            <lightning:spinner class="{!if(v.showSpinner, '', 'slds-hidden')}"/>
+        </div>
+        <div class="slds-grid slds-wrap slds-gutters ">
+            <div class="slds-col slds-size_1-of-2 ">
+                <lightning:card variant="Narrow" iconName="standard:calibration">
+                    <aura:set attribute="title">
+                        <span class="slds-m-left_medium slds-text-title_bold">Enable Applications for <a
+                                    href="{!'/' + v.accountId}" target="_blank">{!v.account.Name}</a></span>
+                    </aura:set>
+
+                    <p class="slds-p-horizontal_small">
+                    <div class="slds-box_border slds-color__background_gray-5">
+                        <div class="slds-m-around_medium " style="max-width:100%">
+                            <table class="slds-table slds-table_bordered slds-table_striped">
+                                <thead class="slds-line-height_reset">
+                                <th class="" scope="col">
+                                    <div>Application</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div>State</div>
+                                </th>
+                                </thead>
+                                <tbody>
+                                <aura:iteration var="product" items="{!v.products}">
+                                    <tr>
+                                        <td>
+                                            <div class="slds-truncate">{!product.Name}</div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <lightning:input type="toggle"
+                                                                 value="{!product.Id}"
+                                                                 label="Active?"
+                                                                 checked="{!product.active}"
+                                                                 name="{!product.Id}"
+                                                                 variant="label-hidden"
+                                                                 onchange="{!c.onChangeStatus}"
+                                                />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="slds-m-around_medium">
+                            <lightning:button label="Update Applications"
+                                              onclick="{!c.onClickUpdate}"
+                                              variant="brand"
+                                              disabled="{!not(v.enableButton)}"
+                            />
+                        </div>
+                    </div>
+                    </p>
+                </lightning:card>
+            </div>
+            <!-- Contacts -->
+            <div class="slds-col slds-size_1-of-2">
+
+                <lightning:card iconName="standard:person_account">
+                    <aura:set attribute="title">
+                        <span class="slds-m-left_medium slds-text-title_bold">Access Management Administrators ({!v.bamAdminContacts.length})</span>
+                    </aura:set>
+                    <p class="slds-p-horizontal_small">
+                    <div class="slds-table--header-fixed_container" style="height:286px;">
+                        <div class="slds-scrollable_y" style="height:100%;">
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table--header-fixed">
+
+                                <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th class="slds-col slds-size_5-of-12" scope="col">
+                                        <div class="slds-cell-fixed" title="Name">Name</div>
+                                    </th>
+                                    <th class="slds-col slds-size_3-of-12" scope="col">
+                                        <div class="slds-cell-fixed" title="ContactStatus">Contact Status</div>
+                                    </th>
+                                    <th class="slds-col slds-size_2-of-12" scope="col">
+                                        <div class="slds-cell-fixed" title="RoleStatus">Role Status</div>
+                                    </th>
+                                    <th class="slds-col slds-size_2-of-12" scope="col">
+                                        <div class="slds-cell-fixed" title="link">&nbsp;&nbsp;</div>
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <aura:iteration items="{!v.bamAdminContacts}" var="admin">
+                                    <tr scope="row" valign="left">
+                                        <td data-label="Name" title="{!admin.Name}" >
+                                            <div class = "slds-size_11-of-12 slds-m-top_x-small slds-m-bottom_x-small slds-m-right_small custom-cell-fixed">
+                                                <div class="slds-truncate">
+                                                    <a data-id="{!admin.Id}"
+                                                       label="{!admin.Name}"
+                                                       onclick="{!c.redirectToContact}"
+                                                    >{!admin.Name}</a>
+                                                    <br></br>
+                                                    {!admin.Email}
+                                                    <aura:if isTrue="{!not(empty(admin.Phone))}"> - {!admin.Phone} </aura:if>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td data-label="ContactStatus" class="padding-on-column">
+                                            <span title="{!admin.ContactStatus}"
+                                                  class="slds-col slds-truncate">{!admin.ContactStatus}</span>
+                                        </td>
+                                        <td data-label="RoleStatus" class="padding-on-column">
+                                            <span title="{!admin.ApplicationRoleStatus}"
+                                                  class="slds-col slds-truncate">{!admin.ApplicationRoleStatus}</span>
+                                        </td>
+                                        <td title="onboard user">
+                                            <div class="slds-float_right">
+                                                <lightning:buttonIcon iconName="utility:edit"
+                                                                      alternativeText="Setup User"
+                                                                      variant="border-filled"
+                                                                      disabled="{!if(admin.ContactStatus != 'Active', true, false)}"
+                                                                      name="{!admin.Id}"
+                                                                      value="{!admin.Id}"
+                                                                      iconClass=" slds-button__icon_small"
+                                                                      onclick="{!c.onClickProvisionContact}"
+                                                />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </p>
+                </lightning:card>
+            </div>
+        </div>
+
+        <div class="slds-m-top_medium">
+            <lightning:card iconName="standard:approval">
+                <aura:set attribute="title">
+                    <span class="slds-m-left_medium slds-text-title_bold">Select a Contact to provision</span>
+                </aura:set>
+                <p class="slds-p-horizontal_small">
+                <div class="slds-m-top_small">
+                    <lightning:input label="Type to filter by name, email or phone"
+                                     variant="label-hidden"
+                                     type="text"
+                                     onchange="{!c.onChangeSearchContact}"
+                                     value="{!v.contactSearchString}"
+                                     placeholder="Type to filter by name, email or phone"/>
+                </div>
+                <div class="slds-m-top_x-small">
+                    <p class="slds-text-body_regular">Showing ({!v.contactList.length}) matching
+                        contact{!if(v.contactList.length == 1,'','s')}</p>
+                </div>
+                <div class="slds-table--header-fixed_container slds-m-top_x-small" style="height:600px;">
+                    <div class="slds-scrollable_y" style="height:100%;">
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer user-list slds-table--header-fixed">
+                            <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="slds-col slds-size_3-of-12" scope="col">
+                                    <div class="slds-cell-fixed" title="Name">Name</div>
+                                </th>
+                                <th class="slds-col slds-size_1-of-12" scope="col">
+                                    <div class="slds-cell-fixed" title="Status">Status</div>
+                                </th>
+                                <th class="slds-col slds-size_3-of-12" scope="col">
+                                    <div class="slds-cell-fixed" title="Email">Email</div>
+                                </th>
+                                <th class="slds-col slds-size_1-of-12" scope="col">
+                                    <div class="slds-cell-fixed" title="Phone">Phone</div>
+                                </th>
+                                <th class="slds-col slds-size_2-of-12" scope="col">
+                                    <div class="slds-cell-fixed" title="Applications">Existing Apps</div>
+                                </th>
+                                <th class="slds-col slds-size_1-of-12" scope="col">
+                                    <div class="slds-cell-fixed" title="link">&nbsp;&nbsp;</div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <aura:iteration items="{!v.contactList}" var="con">
+                                <tr scope="row" valign="left">
+                                    <td data-label="Name">
+
+                                        <div class="custom-cell-fixed slds-size_10-of-12" title="{!con.Name}">
+                                            <div class="slds-truncate slds-m-top_x-small slds-m-bottom_x-small slds-m-right_x-small" >
+                                                <a data-id="{!con.Id}"
+                                                   label="{!if(con.Status != 'Active', ' (' + con.Status +')', '')}"
+                                                   onclick="{!c.redirectToContact}">
+                                                    {!con.Name}&nbsp;
+                                                </a>
+                                                <br></br>
+                                                <aura:if isTrue="{!not(empty(con.CNumber))}"> <span title="{!con.CNumber}" class="slds-truncate">Registered for CSSO ({!con.CNumber})</span> </aura:if>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td data-label="Status" class="padding-on-column">
+                                        <span title="{!con.Status}" class="slds-truncate">{!con.Status}</span>
+                                    </td>
+                                    <td data-label="Email" class="padding-on-column">
+                                        <div class = "custom-cell-fixed slds-size_10-of-12" title="{!con.Email}">
+                                            <div class="slds-truncate slds-m-top_x-small slds-m-bottom_x-small" >
+                                                {!con.Email}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td data-label="Phone" class="padding-on-column">
+                                        <span title="{!con.Phone}" class="slds-col slds-truncate">{!con.Phone}</span>
+                                    </td>
+                                    <td data-label="Applications" valign="center" class="application-list slds-align-top padding-on-column">
+                                        <div class="slds-truncate" title="Application">
+                                            <ul class="slds-list">
+                                                <aura:if isTrue="{! con.Status == 'Active'}">
+                                                    <aura:iteration items="{!con.Applications}" var="application">
+                                                        <li key="{!application.Name}">
+                                                            <aura:if isTrue="{! application.statusError}">
+                                                                <span class="error slds-text-color_weak" title="{!application.errorMessage}">{!application.Name}</span>
+                                                                <br></br>
+                                                            </aura:if>
+                                                            <aura:if isTrue="{! application.statusPending}">
+                                                                <span class="pending slds-text-color_weak" title="{!application.statusPending}">{!application.Name}</span>
+                                                                <br></br>
+                                                            </aura:if>
+                                                            <aura:if isTrue="{! application.statusActive}">
+                                                                <span class="active slds-text-color_weak" title="{!application.statusActive}">{!application.Name}</span>
+                                                                <br></br>
+                                                            </aura:if>
+                                                        </li>
+                                                    </aura:iteration>
+                                                </aura:if>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td title="onboard user">
+                                        <div class="slds-float_right">
+                                            <lightning:buttonIcon iconName="utility:edit"
+                                                                  alternativeText="Setup User"
+                                                                  variant="border-filled"
+                                                                  disabled="{!if(con.Status != 'Active', true, false)}"
+                                                                  name="{!con.Id}"
+                                                                  value="{!con.Id}"
+                                                                  iconClass=" slds-button__icon_small"
+                                                                  onclick="{!c.onClickProvisionContact}"
+                                            />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </p>
+            </lightning:card>
+        </div>
+    </div>
+</aura:component>

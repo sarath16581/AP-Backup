@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>How_would_you_deliver_to_Amazon__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>If first questions answer is no, please select &apos;No&apos;</inlineHelpText>
+    <label>How would you deliver to Amazon?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Are_you_selling_on_Amazon__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Arrange themselves</fullName>
+                <default>false</default>
+                <label>Arrange themselves</label>
+            </value>
+            <value>
+                <fullName>Utilise existing freight partner</fullName>
+                <default>false</default>
+                <label>Utilise existing freight partner</label>
+            </value>
+            <value>
+                <fullName>Utilise a future/different freight partner</fullName>
+                <default>false</default>
+                <label>Utilise a future/different freight partner</label>
+            </value>
+            <value>
+                <fullName>Not sure</fullName>
+                <default>false</default>
+                <label>Not sure</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Arrange themselves</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Utilise existing freight partner</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Utilise a future/different freight partner</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Not sure</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

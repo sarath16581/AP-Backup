@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SAPProductSubcategory__c</fullName>
+    <externalId>false</externalId>
+    <label>SAP Product Subcategory</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>500g Satchel</fullName>
+                <default>false</default>
+                <label>500g Satchel</label>
+            </value>
+            <value>
+                <fullName>AaE</fullName>
+                <default>false</default>
+                <label>AaE</label>
+            </value>
+            <value>
+                <fullName>Air Parcel Return</fullName>
+                <default>false</default>
+                <label>Air Parcel Return</label>
+            </value>
+            <value>
+                <fullName>Australia Post Returns</fullName>
+                <default>false</default>
+                <label>Australia Post Returns</label>
+            </value>
+            <value>
+                <fullName>B4 size prepaid envelope</fullName>
+                <default>false</default>
+                <label>B4 size prepaid envelope</label>
+            </value>
+            <value>
+                <fullName>Carded parcel</fullName>
+                <default>false</default>
+                <label>Carded parcel</label>
+            </value>
+            <value>
+                <fullName>Cash on Delivery</fullName>
+                <default>false</default>
+                <label>Cash on Delivery</label>
+            </value>
+            <value>
+                <fullName>Courier Post Large Satchel</fullName>
+                <default>false</default>
+                <label>Courier Post Large Satchel</label>
+            </value>
+            <value>
+                <fullName>Courier Post Medium Satchel</fullName>
+                <default>false</default>
+                <label>Courier Post Medium Satchel</label>
+            </value>
+            <value>
+                <fullName>Courier Post Small Satchel</fullName>
+                <default>false</default>
+                <label>Courier Post Small Satchel</label>
+            </value>
+            <value>
+                <fullName>Courier Post with signature - C&amp;S</fullName>
+                <default>false</default>
+                <label>Courier Post with signature - C&amp;S</label>
+            </value>
+            <value>
+                <fullName>Courier Post with signature - Flexi POS</fullName>
+                <default>false</default>
+                <label>Courier Post with signature - Flexi POS</label>
+            </value>
+            <value>
+                <fullName>Courier Post with signature - PA</fullName>
+                <default>false</default>
+                <label>Courier Post with signature - PA</label>
+            </value>
+            <value>
+                <fullName>Courier Post with signature - SST</fullName>
+                <default>false</default>
+                <label>Courier Post with signature - SST</label>
+            </value>
+            <value>
+                <fullName>ECI Platinum</fullName>
+                <default>false</default>
+                <label>ECI Platinum</label>
+            </value>
+            <value>
+                <fullName>EMS</fullName>
+                <default>false</default>
+                <label>EMS</label>
+            </value>
+            <value>
+                <fullName>EMS Return</fullName>
+                <default>false</default>
+                <label>EMS Return</label>
+            </value>
+            <value>
+                <fullName>EP 3kg Large Satch</fullName>
+                <default>false</default>
+                <label>EP 3kg Large Satch</label>
+            </value>
+            <value>
+                <fullName>EP 3kg National</fullName>
+                <default>false</default>
+                <label>EP 3kg National</label>
+            </value>
+            <value>
+                <fullName>EP 3kg Satch WA SA Other</fullName>
+                <default>false</default>
+                <label>EP 3kg Satch WA SA Other</label>
+            </value>
+            <value>
+                <fullName>EP 500g National</fullName>
+                <default>false</default>
+                <label>EP 500g National</label>
+            </value>
+            <value>
+                <fullName>EP 500g Satch WA SA Other</fullName>
+                <default>false</default>
+                <label>EP 500g Satch WA SA Other</label>
+            </value>
+            <value>
+                <fullName>EP 5kg Satch</fullName>
+                <default>false</default>
+                <label>EP 5kg Satch</label>
+            </value>
+            <value>
+                <fullName>eParcel Call For Return</fullName>
+                <default>false</default>
+                <label>eParcel Call For Return</label>
+            </value>
+            <value>
+                <fullName>eParcel Cash to Collect</fullName>
+                <default>false</default>
+                <label>eParcel Cash to Collect</label>
+            </value>
+            <value>
+                <fullName>eParcel Express Post</fullName>
+                <default>false</default>
+                <label>eParcel Express Post</label>
+            </value>
+            <value>
+                <fullName>eParcel Express Post - Cash To Collect</fullName>
+                <default>false</default>
+                <label>eParcel Express Post - Cash To Collect</label>
+            </value>
+            <value>
+                <fullName>eParcel Express Post Return</fullName>
+                <default>false</default>
+                <label>eParcel Express Post Return</label>
+            </value>
+            <value>
+                <fullName>eParcel Post Return</fullName>
+                <default>false</default>
+                <label>eParcel Post Return</label>
+            </value>
+            <value>
+                <fullName>eParcel Special</fullName>
+                <default>false</default>
+                <label>eParcel Special</label>
+            </value>
+            <value>
+                <fullName>eParcel Standard</fullName>
+                <default>false</default>
+                <label>eParcel Standard</label>
+            </value>
+            <value>
+                <fullName>eParcel ULD</fullName>
+                <default>false</default>
+                <label>eParcel ULD</label>
+            </value>
+            <value>
+                <fullName>eParcel XL</fullName>
+                <default>false</default>
+                <label>eParcel XL</label>
+            </value>
+            <value>
+                <fullName>EP B4 Env NSW</fullName>
+                <default>false</default>
+                <label>EP B4 Env NSW</label>
+            </value>
+            <value>
+                <fullName>EP B4 National</fullName>
+                <default>false</default>
+                <label>EP B4 National</label>
+            </value>
+            <value>
+                <fullName>EP B4 Two-way Env</fullName>
+                <default>false</default>
+                <label>EP B4 Two-way Env</label>
+            </value>
+            <value>
+                <fullName>EP C5 Env NSW</fullName>
+                <default>false</default>
+                <label>EP C5 Env NSW</label>
+            </value>
+            <value>
+                <fullName>EP C5 National</fullName>
+                <default>false</default>
+                <label>EP C5 National</label>
+            </value>
+            <value>
+                <fullName>EP DL National</fullName>
+                <default>false</default>
+                <label>EP DL National</label>
+            </value>
+            <value>
+                <fullName>EP Flat Rate Box</fullName>
+                <default>false</default>
+                <label>EP Flat Rate Box</label>
+            </value>
+            <value>
+                <fullName>EP Flat Rate Satchel 3kg</fullName>
+                <default>false</default>
+                <label>EP Flat Rate Satchel 3kg</label>
+            </value>
+            <value>
+                <fullName>EP Flat Rate Satchel 500g</fullName>
+                <default>false</default>
+                <label>EP Flat Rate Satchel 500g</label>
+            </value>
+            <value>
+                <fullName>EP Generic</fullName>
+                <default>false</default>
+                <label>EP Generic</label>
+            </value>
+            <value>
+                <fullName>EP National Parcel Label</fullName>
+                <default>false</default>
+                <label>EP National Parcel Label</label>
+            </value>
+            <value>
+                <fullName>EP Parcel &lt;500g</fullName>
+                <default>false</default>
+                <label>EP Parcel &lt;500g</label>
+            </value>
+            <value>
+                <fullName>EP Parcel &gt;500g</fullName>
+                <default>false</default>
+                <label>EP Parcel &gt;500g</label>
+            </value>
+            <value>
+                <fullName>EP Pcl WA SA Other</fullName>
+                <default>false</default>
+                <label>EP Pcl WA SA Other</label>
+            </value>
+            <value>
+                <fullName>EP Plat 3kg Satch</fullName>
+                <default>false</default>
+                <label>EP Plat 3kg Satch</label>
+            </value>
+            <value>
+                <fullName>EP Plat 500g Satch</fullName>
+                <default>false</default>
+                <label>EP Plat 500g Satch</label>
+            </value>
+            <value>
+                <fullName>EP Plat Env</fullName>
+                <default>false</default>
+                <label>EP Plat Env</label>
+            </value>
+            <value>
+                <fullName>EP Plat Generic</fullName>
+                <default>false</default>
+                <label>EP Plat Generic</label>
+            </value>
+            <value>
+                <fullName>EP Plat Limited Edition 3kg Satch</fullName>
+                <default>false</default>
+                <label>EP Plat Limited Edition 3kg Satch</label>
+            </value>
+            <value>
+                <fullName>EP Plat Limited Edition 500g Satch</fullName>
+                <default>false</default>
+                <label>EP Plat Limited Edition 500g Satch</label>
+            </value>
+            <value>
+                <fullName>EP Plat Parcel Flat</fullName>
+                <default>false</default>
+                <label>EP Plat Parcel Flat</label>
+            </value>
+            <value>
+                <fullName>EP Plat Pcl</fullName>
+                <default>false</default>
+                <label>EP Plat Pcl</label>
+            </value>
+            <value>
+                <fullName>EP Plat Pcl &lt;500g</fullName>
+                <default>false</default>
+                <label>EP Plat Pcl &lt;500g</label>
+            </value>
+            <value>
+                <fullName>EP Plat Pcl &gt;500g</fullName>
+                <default>false</default>
+                <label>EP Plat Pcl &gt;500g</label>
+            </value>
+            <value>
+                <fullName>Express Post (via eParcel)</fullName>
+                <default>false</default>
+                <label>Express Post (via eParcel)</label>
+            </value>
+            <value>
+                <fullName>Express Post 5kg Generic</fullName>
+                <default>false</default>
+                <label>Express Post 5kg Generic</label>
+            </value>
+            <value>
+                <fullName>Express Post EP Pcl Generic</fullName>
+                <default>false</default>
+                <label>Express Post EP Pcl Generic</label>
+            </value>
+            <value>
+                <fullName>Express Post - Flexi POS</fullName>
+                <default>false</default>
+                <label>Express Post - Flexi POS</label>
+            </value>
+            <value>
+                <fullName>Express Post Label</fullName>
+                <default>false</default>
+                <label>Express Post Label</label>
+            </value>
+            <value>
+                <fullName>Express Post Label with signature</fullName>
+                <default>false</default>
+                <label>Express Post Label with signature</label>
+            </value>
+            <value>
+                <fullName>Express Post Large Envelope</fullName>
+                <default>false</default>
+                <label>Express Post Large Envelope</label>
+            </value>
+            <value>
+                <fullName>Express Post Large Satchel</fullName>
+                <default>false</default>
+                <label>Express Post Large Satchel</label>
+            </value>
+            <value>
+                <fullName>Express Post Medium Envelope</fullName>
+                <default>false</default>
+                <label>Express Post Medium Envelope</label>
+            </value>
+            <value>
+                <fullName>Express Post Medium Satchel</fullName>
+                <default>false</default>
+                <label>Express Post Medium Satchel</label>
+            </value>
+            <value>
+                <fullName>Express Post - PA</fullName>
+                <default>false</default>
+                <label>Express Post - PA</label>
+            </value>
+            <value>
+                <fullName>Express Post Small Envelope</fullName>
+                <default>false</default>
+                <label>Express Post Small Envelope</label>
+            </value>
+            <value>
+                <fullName>Express Post Small Satchel</fullName>
+                <default>false</default>
+                <label>Express Post Small Satchel</label>
+            </value>
+            <value>
+                <fullName>Express Post - SST</fullName>
+                <default>false</default>
+                <label>Express Post - SST</label>
+            </value>
+            <value>
+                <fullName>Express Post with signature - Flexi POS</fullName>
+                <default>false</default>
+                <label>Express Post with signature - Flexi POS</label>
+            </value>
+            <value>
+                <fullName>Express Post with signature - PA</fullName>
+                <default>false</default>
+                <label>Express Post with signature - PA</label>
+            </value>
+            <value>
+                <fullName>Express Post with signature - SST</fullName>
+                <default>false</default>
+                <label>Express Post with signature - SST</label>
+            </value>
+            <value>
+                <fullName>Flat Rate Box</fullName>
+                <default>false</default>
+                <label>Flat Rate Box</label>
+            </value>
+            <value>
+                <fullName>Flat Rate Satchel 3kg</fullName>
+                <default>false</default>
+                <label>Flat Rate Satchel 3kg</label>
+            </value>
+            <value>
+                <fullName>Flat Rate Satchel 500g</fullName>
+                <default>false</default>
+                <label>Flat Rate Satchel 500g</label>
+            </value>
+            <value>
+                <fullName>Freightways Inbound Satchel</fullName>
+                <default>false</default>
+                <label>Freightways Inbound Satchel</label>
+            </value>
+            <value>
+                <fullName>Freightways Outbound Satchel</fullName>
+                <default>false</default>
+                <label>Freightways Outbound Satchel</label>
+            </value>
+            <value>
+                <fullName>International General</fullName>
+                <default>false</default>
+                <label>International General</label>
+            </value>
+            <value>
+                <fullName>International Parcel</fullName>
+                <default>false</default>
+                <label>International Parcel</label>
+            </value>
+            <value>
+                <fullName>International Registered</fullName>
+                <default>false</default>
+                <label>International Registered</label>
+            </value>
+            <value>
+                <fullName>Messenger Post</fullName>
+                <default>false</default>
+                <label>Messenger Post</label>
+            </value>
+            <value>
+                <fullName>NSW Education Board Returns</fullName>
+                <default>false</default>
+                <label>NSW Education Board Returns</label>
+            </value>
+            <value>
+                <fullName>Ordinary parcel</fullName>
+                <default>false</default>
+                <label>Ordinary parcel</label>
+            </value>
+            <value>
+                <fullName>Parcel Post &lt;500g</fullName>
+                <default>false</default>
+                <label>Parcel Post &lt;500g</label>
+            </value>
+            <value>
+                <fullName>Parcel Post &gt;500g</fullName>
+                <default>false</default>
+                <label>Parcel Post &gt;500g</label>
+            </value>
+            <value>
+                <fullName>Parcel Post 3kg</fullName>
+                <default>false</default>
+                <label>Parcel Post 3kg</label>
+            </value>
+            <value>
+                <fullName>Parcel Post 500g</fullName>
+                <default>false</default>
+                <label>Parcel Post 500g</label>
+            </value>
+            <value>
+                <fullName>Parcel Post 5kg</fullName>
+                <default>false</default>
+                <label>Parcel Post 5kg</label>
+            </value>
+            <value>
+                <fullName>Parcel Post - Flexi POS</fullName>
+                <default>false</default>
+                <label>Parcel Post - Flexi POS</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Label</fullName>
+                <default>false</default>
+                <label>Parcel Post Label</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Label with signature</fullName>
+                <default>false</default>
+                <label>Parcel Post Label with signature</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Large Satchel</fullName>
+                <default>false</default>
+                <label>Parcel Post Large Satchel</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Medium Satchel</fullName>
+                <default>false</default>
+                <label>Parcel Post Medium Satchel</label>
+            </value>
+            <value>
+                <fullName>Parcel Post - PA</fullName>
+                <default>false</default>
+                <label>Parcel Post - PA</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Plus (via eParcel)</fullName>
+                <default>false</default>
+                <label>Parcel Post Plus (via eParcel)</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Prepaid Label</fullName>
+                <default>false</default>
+                <label>Parcel Post Prepaid Label</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Small Satchel</fullName>
+                <default>false</default>
+                <label>Parcel Post Small Satchel</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Spare</fullName>
+                <default>false</default>
+                <label>Parcel Post Spare</label>
+            </value>
+            <value>
+                <fullName>Parcel Post - SST</fullName>
+                <default>false</default>
+                <label>Parcel Post - SST</label>
+            </value>
+            <value>
+                <fullName>Parcel Post with signature - Flexi POS</fullName>
+                <default>false</default>
+                <label>Parcel Post with signature - Flexi POS</label>
+            </value>
+            <value>
+                <fullName>Parcel Post with signature - PA</fullName>
+                <default>false</default>
+                <label>Parcel Post with signature - PA</label>
+            </value>
+            <value>
+                <fullName>Parcel Post with signature - SST</fullName>
+                <default>false</default>
+                <label>Parcel Post with signature - SST</label>
+            </value>
+            <value>
+                <fullName>POSLite Tracking</fullName>
+                <default>false</default>
+                <label>POSLite Tracking</label>
+            </value>
+            <value>
+                <fullName>Receipted Delivery (Generic)</fullName>
+                <default>false</default>
+                <label>Receipted Delivery (Generic)</label>
+            </value>
+            <value>
+                <fullName>Registered Post Box (prepaid)</fullName>
+                <default>false</default>
+                <label>Registered Post Box (prepaid)</label>
+            </value>
+            <value>
+                <fullName>Registered Post Imprint</fullName>
+                <default>false</default>
+                <label>Registered Post Imprint</label>
+            </value>
+            <value>
+                <fullName>Registered Post Official (non-prepaid)</fullName>
+                <default>false</default>
+                <label>Registered Post Official (non-prepaid)</label>
+            </value>
+            <value>
+                <fullName>Registered Post Sheet of Singles (prepaid)</fullName>
+                <default>false</default>
+                <label>Registered Post Sheet of Singles (prepaid)</label>
+            </value>
+            <value>
+                <fullName>Retail Parcel Track</fullName>
+                <default>false</default>
+                <label>Retail Parcel Track</label>
+            </value>
+            <value>
+                <fullName>Secure Collect</fullName>
+                <default>false</default>
+                <label>Secure Collect</label>
+            </value>
+            <value>
+                <fullName>Small Letter size (prepaid envelope)</fullName>
+                <default>false</default>
+                <label>Small Letter size (prepaid envelope)</label>
+            </value>
+            <value>
+                <fullName>Spare</fullName>
+                <default>false</default>
+                <label>Spare</label>
+            </value>
+            <value>
+                <fullName>STE</fullName>
+                <default>false</default>
+                <label>STE</label>
+            </value>
+            <value>
+                <fullName>SWADS</fullName>
+                <default>false</default>
+                <label>SWADS</label>
+            </value>
+            <value>
+                <fullName>TOPS End</fullName>
+                <default>false</default>
+                <label>TOPS End</label>
+            </value>
+            <value>
+                <fullName>TOPS Node</fullName>
+                <default>false</default>
+                <label>TOPS Node</label>
+            </value>
+            <value>
+                <fullName>Tracked Airmail under 2kg</fullName>
+                <default>false</default>
+                <label>Tracked Airmail under 2kg</label>
+            </value>
+            <value>
+                <fullName>Tracking</fullName>
+                <default>false</default>
+                <label>Tracking</label>
+            </value>
+            <value>
+                <fullName>Tracking &amp; Sig</fullName>
+                <default>false</default>
+                <label>Tracking &amp; Sig</label>
+            </value>
+            <value>
+                <fullName>Standard</fullName>
+                <default>false</default>
+                <label>Standard</label>
+            </value>
+            <value>
+                <fullName>Standard + Signature</fullName>
+                <default>false</default>
+                <label>Standard + Signature</label>
+            </value>
+            <value>
+                <fullName>Premium Express + Signature</fullName>
+                <default>false</default>
+                <label>Premium Express + Signature</label>
+            </value>
+            <value>
+                <fullName>Premium Express</fullName>
+                <default>false</default>
+                <label>Premium Express</label>
+            </value>
+            <value>
+                <fullName>Returns Standard + Signature</fullName>
+                <default>false</default>
+                <label>Returns Standard + Signature</label>
+            </value>
+            <value>
+                <fullName>Returns Standard</fullName>
+                <default>false</default>
+                <label>Returns Standard</label>
+            </value>
+            <value>
+                <fullName>Returns Premium Express + Signature</fullName>
+                <default>false</default>
+                <label>Returns Premium Express + Signature</label>
+            </value>
+            <value>
+                <fullName>Returns Premium Express</fullName>
+                <default>false</default>
+                <label>Returns Premium Express</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

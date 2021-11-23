@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assigned_Team__c</fullName>
+    <description>To identify the team currently working on the request.
+The field is used to add Queue Name for Credit Management Request DSR.</description>
+    <externalId>false</externalId>
+    <label>Assigned Team</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pricing Team</fullName>
+                <default>false</default>
+                <label>Pricing Team</label>
+            </value>
+            <value>
+                <fullName>Product Specialist Team</fullName>
+                <default>false</default>
+                <label>Product Specialist Team</label>
+            </value>
+            <value>
+                <fullName>Legal Recovery Team</fullName>
+                <default>false</default>
+                <label>Legal Recovery Team</label>
+            </value>
+            <value>
+                <fullName>StarTrack Credit Team</fullName>
+                <default>false</default>
+                <label>StarTrack Credit Team</label>
+            </value>
+            <value>
+                <fullName>SMB South Team - VIC/TAS/WA/SA</fullName>
+                <default>false</default>
+                <label>SMB South Team - VIC/TAS/WA/SA</label>
+            </value>
+            <value>
+                <fullName>SMB North Team - NSW/QLD</fullName>
+                <default>false</default>
+                <label>SMB North Team - NSW/QLD</label>
+            </value>
+            <value>
+                <fullName>Enterprise Team</fullName>
+                <default>false</default>
+                <label>Enterprise Team</label>
+            </value>
+            <value>
+                <fullName>Government/ LPO Team</fullName>
+                <default>false</default>
+                <label>Government/ LPO Team</label>
+            </value>
+            <value>
+                <fullName>Change Bill A/C Detail/Credit Assessment</fullName>
+                <default>false</default>
+                <label>Change Bill A/C Detail/Credit Assessment</label>
+            </value>
+            <value>
+                <fullName>Credit Limit Review</fullName>
+                <default>false</default>
+                <label>Credit Limit Review</label>
+            </value>
+            <value>
+                <fullName>Unassigned Credit Management Requests</fullName>
+                <default>false</default>
+                <label>Unassigned Credit Management Requests</label>
+            </value>
+            <value>
+                <fullName>Intermediaries</fullName>
+                <default>false</default>
+                <label>Intermediaries</label>
+            </value>
+            <value>
+                <fullName>Credit Risk Team</fullName>
+                <default>false</default>
+                <label>Credit Risk Team</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style type="text/css">
+				/* 
+					core 'shell' CSS 
+				*/
+				body { width: 100%; min-width: 100%; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; font-family: Arial, Helvetica, sans-serif; }
+				table { border-collapse: collapse; }
+				ul { padding: 0; Margin: 0; }
+				li { Margin: 10px 0 0 20px; }
+				.addClassToSection a { color: #535f67!important; }
+				.ExternalClass { width: 100%; line-height: 100%; }
+				.appleLinks a { color:#535f67; text-decoration: none; }
+				.appleLinksWhite a { color:#ffffff; text-decoration: none; }
+				.appleLinksGrey a { color:#807370; text-decoration:none;}
+				div, p, a, li, td { -webkit-text-size-adjust:none; }
+
+				/* 
+					module mobile css
+				*/
+				@media only screen and (max-device-width: 500px)  {
+					.gmail-hack {
+						letter-spacing:320px!important;
+					}
+					.device-hide {
+						display:none!important;
+					}
+					.device-width {
+						/*width:320px!important;*/
+					}
+					.device-width-inner {
+						/*width:250px!important;*/
+					}
+					.container-sides-padding {
+						/*padding-left:35px!important;
+						padding-right:35px!important;*/
+					}
+					.header-copy-font {
+						font-size:15px!important;
+					}
+					.header-collapse-padding {
+						padding-bottom:10px!important;
+					}
+				}
+			</style>
+</head>
+<body width="100%" bgcolor="#F3F4F5" style="margin: 0; padding: 0;">
+<!-- START ISO-Header -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#F3F4F5" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+  <tr>
+    <td align="center"><!-- gmail hack to force desktop version -->
+      
+      <div role="presentation" class="gmail-hack" style="letter-spacing: 750px; line-height: 0; mso-hide: all">&nbsp;</div>
+      
+      <!-- header -->
+      
+      <table class="device-width" width="750" align="center" valign="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 750px;">
+        <tr><td class="container-sides-padding" style="display:none; color:#F3F4F5; font-family: Arial, Helvetica, sans-serif; font-size:0px; line-height:0px;">Welcome to SecurePay</td></tr>
+       
+        
+        <tr>
+          <td class="device-width" style="padding:35px 0 0 0;"><!-- left logo ****-->
+            
+            <table align="left" valign="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+              <tr>
+                <td>                
+                <!-- Australia Post and SecurePay Logo -->
+                <a href="https://www.securepay.com.au/" style="border:none; text-decoration:none;"><img  src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0152v00000HBqcg&oid=00D30000001GGce" height="50" border="0" margin="0" alt="Australia Post | SecurePay=" style="display:block; min-width:183px; min-height:38px;"  /></a></td>
+              </tr>			
+
+              <tr>
+                <td>                
+                <!-- Welcome to SecurePay Header Banner -->
+                <a href="https://www.securepay.com.au/" style="border:none; text-decoration:none;"><img  src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0152v00000GUjLD&oid=00D30000001GGce" width="750" border="0" margin="0" alt="SecurePay=" style="display:block; min-width:750px; overflow=hidden;"  /></a>
+              </tr>			  
+            </table>
+        </td>
+        </tr>
+      </table>
+
+      
+      <!-- corners -->
+      
+      <table role="presentation" class="device-hide" width="750" align="center" valign="top" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse;">
+        <tr>
+          <td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;"><!-- top left corner --> 
+            <img src="https://cdn-au.whispir.com/public/resources/56646bdac0d00ba1d83b87de1885e5f0d83.png" width="4" height="4" border="0" margin="0" alt="" style="display:block;" /></td>
+          <td width="496" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;"><!-- middle gap --> 
+            &nbsp; </td>
+          <td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;"><!-- top right corner --> 
+            <img src="https://cdn-au.whispir.com/public/resources/566aadbd9641f0bd6c564e0940348352f32.png" width="4" height="4" border="0" margin="0" alt="" style="display:block;"/></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<!-- END ISO-Header -->
+
+<!-- START ISO-Headline -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#F3F4F5" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+	<tr>
+		<td align="center">
+
+			<style type="text/css">
+				@media only screen and (max-device-width: 500px)  {
+					.headline-copy-font {
+						font-size:24px!important;
+						line-height:28px!important;
+						text-align: center;
+					}
+				}
+			</style>
+
+			<!-- inner single horizontal line -->
+			<table role="presentation"class="device-width" width="750"  border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; line-height:20px; text-align:center; width: 630px;">
+				<tr>
+					<td style="border-bottom:1px solid #a9afb7;">	
+					</td>
+				</tr>
+			</table>
+
+		</td>
+	</tr>
+</table>
+<!-- END ISO-Headline -->
+
+<!-- START ISO-Body -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#F3F4F5" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+	<tr>
+		<td align="center">
+			<!-- body -->
+			<table class="device-width" width="750" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 750px; ">
+				<tr>
+					<td class="container-sides-padding" style="padding:35px 60px 0 60px; color:#535f67; font-family: Arial, Helvetica, sans-serif; text-align:left; line-height:25px; font-size:18px">
+<b>Get ready to start accepting payments in foreign currencies</b>
+						<br /><br />   
+						Hi {!Application__c.ContactFirstName__c}, 
+						<br /><br />                         
+                          
+We are pleased to advise your application to enable foreign currency transactions with SecurePay has been approved.
+
+						<br /><br />    
+   
+						<b>What do you need to do now?</b>
+                        			<br/> <br/>
+It can take a few days for the Dynamic Currency Conversion (DCC) feature to be live on your account*, in the meantime you can integrate the DCC feature. Please visit our developer documentation and follow the  <a href="https://auspost.com.au/payments/docs/securepay/index.html#other-api-integrations" style="text-decoration:none; color:#009fda;">integration instructions</a>. After you have integrated, you will be ready to start accepting payments in foreign currencies. 
+                                               <br/> <br/>
+If you are interested in finding out more about the benefits of Dynamic Currency Conversion, <a href="https://www.securepay.com.au/why-securepay/dynamic-currency-conversion" style="text-decoration:none; color:#009fda;">visit our website</a>.
+						<br/> <br/>
+                                                <b>Terms and Conditions</b>
+                                                <br/> <br/>
+You can view a copy of the Dynamic Currency Conversion  <a href="https://www.securepay.com.au/terms-and-conditions/" style="text-decoration:none; color:#009fda;">Terms and Conditions</a> online.
+                        <br/> <br/>
+                        <b>Have a question?</b>
+                        <br/> <br/>
+                
+                        We are always here to help. Call our support team on 1300 786 756 or email us at <a href="mailto:support@securepay.com.au?subject=Securepay Enquiry&body=">support@securepay.com.au</a>
+
+                        <br/> <br/>
+
+                        Our support team is available Monday to Friday, 8am to 8pm Australian Eastern Standard Time (AEST). We are closed on public holidays and weekends.
+                        <br/> <br/>
+
+                        Thank you for using SecurePay. We look forward to continue working with you and helping you grow your online payments.
+                        <br/> <br/> <br/>
+
+
+                        <b>All the best,</b>
+                        <br/><br/>
+                        <b>The SecurePay Team</b>
+                        <br/><br/>
+                    </td>
+                </tr>
+                <tr>
+		 <td class="container-sides-padding" style="padding:35px 60px 0 60px; color:#535f67; font-family: Arial, Helvetica, sans-serif; text-align:left; line-height:10px; font-size:12px">
+*DCC should be live on your SecurePay account within 24 hours however it can take up to 5 business days.
+</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+
+<!-- START ISO-Footer -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#F3F4F5" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+	<tr>
+		<td align="center">
+
+			<style type="text/css">
+				div, p, a, li, td { -webkit-text-size-adjust:none; }
+				@media only screen and (max-device-width: 500px)  {
+					
+					.footer-security-image {
+						padding:0 23px 0 23px!important;
+					}
+					.footer-security-text {
+						font-size:12px!important;
+						line-height:14px!important;
+						padding-right:30px!important;
+					}
+					.footer-links-padding {
+						padding-top:5px!important;
+					}
+					.footer-outer-gap-height {
+						height:30px!important;
+						line-height:30px!important;
+					}
+					.footer-mobile-separator {
+						width:10px!important;
+					}
+				}
+			</style>
+
+			<!-- corners -->
+			<table class="device-hide" width="750" align="center" valign="top" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 750px; ">
+				<tr>
+					<td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+
+						<!-- top left corner -->
+						<img src="https://cdn-au.whispir.com/public/resources/566fe2e433187fd80b955d555a1cd3f7054.png" border="0" margin="0" alt="" style="display:block;" />
+					</td>
+					<td width="496" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+						<!-- middle gap -->
+						&nbsp;
+					</td>
+					<td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+
+						<!-- top right corner -->
+						<img src="https://cdn-au.whispir.com/public/resources/5669629f4eedeb5b159822d365a183ba6c4.png" border="0" margin="0" alt="" style="display:block;"/>
+					</td>
+				</tr>
+			</table>
+
+			<!-- security -->
+			<!-- <table class="device-width" width="750" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 750px;">
+				<tr>
+					<td class="footer-security-image" style="padding:13px 20px; background-color:#d0d5d8; -webkit-border-radius: 3px 0 0 3px; -moz-border-radius: 3px 0 0 3px; border-radius: 3px 0 0 3px;">
+						<img width="23" height="26" src="https://cdn-au.whispir.com/public/resources/5665bf95acbf58b97b905637c195bc3d6ad.png" border="0" margin="0" alt="Padlock Icon" style="display:block;"/>
+					</td>
+					<td class="footer-security-text" style="padding:13px; padding-left:0; color:#000000; font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; text-align:left; background-color:#d0d5d8; -webkit-border-radius: 0 3px 3px 0; -moz-border-radius: 0 3px 3px 0; border-radius: 0 3px 3px 0;">
+						Australia Post will never send you an email asking for your password, credit card details or account information. 
+					</td>
+				</tr>
+			</table> -->
+
+			<!-- disclaimer -->
+			<table class="device-width" width="750" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 750px;">
+				<tr>
+<!-- class="container-sides-padding" -->
+					<td class="device-width" style="padding-top:15px; color:#535f67; font-family: Arial, Helvetica, sans-serif; font-size:11px; line-height:14px; text-align:left;">
+						<!-- Message-specific disclaimer text -->
+
+			NAB provides the merchant banking services, which includes the authorisation, processing and settling of the cardholder’s card transactions to the merchant.<br/>
+			
+                        This email was sent by <a href="http://www.auspost.com.au/" target="_blank" style="color:#535f67; text-decoration:none">Australia Post</a>. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+						<!-- <br>
+
+					</td>
+				</tr>
+			</table>
+
+			<!-- outer single horizontal line -->
+			<table role="presentation"class="device-width" width="750"  border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; line-height:20px; text-align:center; width: 750px;">
+				<tr>
+					<td style="border-bottom:1px solid #a9afb7;">&nbsp;
+						
+					</td>
+				</tr>
+				<tr>
+					<td style="border-top:1px solid #a9afb7;">&nbsp;
+						
+					</td>
+				</tr>
+			</table>
+
+			<!-- outer single footer links -->
+			<table class="device-width" align="center" width="750" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 750px;">
+				<tr>
+					<td class="device-width" style="display:inline-block; padding: 0 0px 20px 0px; text-align:left; color:#535f67; font-family: Arial, Helvetica, sans-serif; font-size:11px;">
+					<a href="https://www.securepay.com.au/support/contact-us/" style="color:#535f67; text-decoration:none">Help &amp; support</a><span class="device-hide">&nbsp;&nbsp;</span> | <span class="device-hide">&nbsp;&nbsp;</span><a href="https://www.securepay.com.au/terms-and-conditions/" style="color:#535f67; text-decoration:none">Terms &amp; conditions</a><span class="device-hide">&nbsp;&nbsp;</span> | <span class="device-hide">&nbsp;&nbsp;</span><a href="https://auspost.com.au/privacy" style="color:#535f67; text-decoration:none">Privacy&nbsp;policy</a>
+					</td>
+				</tr>		
+			</table>
+
+		</td>
+	</tr>
+</table>
+<!-- END ISO-Footer -->
+
+<table class="device-width" align="center" width="750" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 750px;">
+  <tr>
+    <td class="container-sides-padding" style="display:inline-block; text-align:left; color:#535f67; font-family: Arial, Helvetica, sans-serif; font-size:11px;"><style type="text/css">
+							.hide{display:none;}
+						</style>
+      <img class="hide" src="@@web_link@@" width="1" height="1" style="display:none;" /></td>
+  </tr>
+</table>
+            
+            
+</body>
+</html>

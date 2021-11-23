@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact_Lookup_Validation</fullName>
+    <active>true</active>
+    <description>This rule determines if the selected contact &apos;s organisation in the sub account request form matches with billing account organisation.</description>
+    <errorConditionFormula>ISPICKVAL(Is_Parcel_Send_Login_Required__c  , &quot;Yes&quot;) &amp;&amp; 
+((APT_Source_of_Sub_Account_Request__c = &apos;Billing Account&apos; &amp;&amp; 
+SubAccountContact__r.AccountId  &lt;&gt;  APT_Billing_Account__r.Organisation__c) || 
+(APT_Source_of_Sub_Account_Request__c = &apos;Proposal&apos; &amp;&amp; 
+SubAccountContact__r.AccountId  &lt;&gt;  APT_Quote_Proposal__r.Apttus_Proposal__Account__c))</errorConditionFormula>
+    <errorMessage>The selected Sub Account Contact Organisation (Legal Entity) does not match the BillingAcc/Proposal Organisation (Legal Entity). Please select a Contact that is linked to the same Organisation (Legal Entity) as the associated Bill Acc/Proposal.</errorMessage>
+</ValidationRule>

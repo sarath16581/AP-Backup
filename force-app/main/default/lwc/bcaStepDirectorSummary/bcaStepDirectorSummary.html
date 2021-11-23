@@ -1,0 +1,43 @@
+<!--
+* @author Victor.Cheng@auspost.com.au
+* @date 2020-11-12
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Step in Credit Application Form to to summary Director details
+* @changelog
+* 19/01/2021 Victor.Cheng@auspost.com.au  Created
+*
+-->
+
+<!-- Bca Step Director Summary -->
+<template>
+      
+        <template for:each={directors} for:item="director">
+            <div key={director.index} class="form-summary-box slds-p-bottom_large">
+                <div class="slds-m-horizontal_large">
+                    <template if:true={director.firstName}>
+                        <h3>{director.firstName} {director.middleName} {director.lastName}</h3>
+                    </template>
+                    <template if:false={director.firstName}>
+                        <h3>Untitled</h3>
+                    </template>
+                    <span><lightning-button-icon icon-name="action:edit" class="accordion-button"
+                                                 data-id={director.index}
+                                                 onclick={editDirector}></lightning-button-icon></span>
+                    <!--<template if:false={onlyOneDirector}-->
+                    <lightning-button-icon icon-name="action:delete" class="accordion-button"
+                                           data-id={director.index} onclick={deleteDirector}
+                    ></lightning-button-icon>
+                    <!--/template-->
+                </div>
+            </div>
+        </template>
+
+        <div class="form-summary-box" onclick={clickAdd}>
+            <div class="slds-m-horizontal_large">
+                <h3>Add Director</h3>
+                <span><lightning-icon icon-name="utility:add" class="accordion-button"></lightning-icon></span>
+            </div>
+        </div>
+    
+</template>

@@ -1,0 +1,55 @@
+/**
+ * Created by Nathan on 10/6/20.
+ */
+
+.path-container {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+.path-container.compact li.slds-path__item {
+    font-size: 0.65rem !important;
+    display: none;
+}
+.path-container.compact .slds-path__link {
+    padding: 0;
+}
+
+.slds-path {
+    width: 100%;
+}
+
+.slds-path__nav .slds-is-complete {
+    white-space: nowrap;
+}
+
+div.slds-path__title {
+    font-size: 0.8em;
+}
+
+.slds-path__item.slds-is-complete.is-revoked, .slds-path__item.slds-is-complete.is-revoked::before, .slds-path__item.slds-is-complete.is-revoked::after  {
+    background: #b0adab;
+}
+
+.slds-tile__title {
+    color : black;
+}
+
+.slds-media__figure {
+    margin-left: 0.1rem;
+    margin-right:0.4rem;
+}
+
+@media screen and (min-width: 35em) {
+    .path-container.compact li.slds-path__item {
+        width: 3rem;
+        min-width: 3rem;
+        display: block;
+    }
+}
+@media screen and (min-width: 48em) {
+    .path-container.compact li.slds-path__item {
+        width: 4rem;
+        min-width: 4rem;
+    }
+}

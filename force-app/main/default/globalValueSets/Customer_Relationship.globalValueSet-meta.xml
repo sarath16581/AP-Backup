@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Family/Friend</fullName>
+        <default>false</default>
+        <label>Family/Friend</label>
+    </customValue>
+    <customValue>
+        <fullName>Business</fullName>
+        <default>false</default>
+        <label>Business</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer</fullName>
+        <default>false</default>
+        <label>Customer</label>
+    </customValue>
+    <description>Required by Snapit app to populate values on case and lead objects</description>
+    <masterLabel>Customer Relationship</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

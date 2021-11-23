@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email notification template sent to an outlet on submission of their case by CIA Team</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>CIA_Lodgement</letterhead>
+    <name>CIA - Registration Receipt</name>
+    <style>freeForm</style>
+    <subject>New Case {!Case.CaseNumber} has been created.</subject>
+    <textOnly>Dear Customer,
+
+Thank you for contacting the Australia Post Lodgement and API team. We’re looking into your query and will respond to you as soon as possible.
+
+Your case number is: {!Case.CaseNumber}
+
+Subject: {!Case.Subject}
+
+Want a prompt response?
+
+To help us respond to your query as quickly and efficiently as possible, please follow these tips:
+
+
+Please avoid sending a follow-up email until we have responded.
+Once we’ve replied, please reply to our response email for any future correspondence about that case.
+Please include our email address in the ‘To’ field of your email, not in the Cc or Bcc field.
+
+
+
+Following these tips will mean we get the right information back to you more promptly.
+
+If your matter is urgent, please call our national helpdesk at 1800 028 361 (Select Option 1) and quote the above Salesforce Case Number.
+
+Kind regards,
+
+The Australia Post Lodgement &amp; API team
+
+
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Vehicles</fullName>
+    <columns>Name</columns>
+    <columns>Registration_Number__c</columns>
+    <columns>Description</columns>
+    <columns>FleetNumber__c</columns>
+    <columns>Capacity__c</columns>
+    <columns>Type__c</columns>
+    <columns>Status__c</columns>
+    <columns>Hire_Vehicle__c</columns>
+    <columns>Model__c</columns>
+    <columns>ParentLocation</columns>
+    <columns>Service_Territory__c</columns>
+    <columns>Line_Haul__c</columns>
+    <columns>State__c</columns>
+    <columns>LastModifiedDate</columns>
+    <columns>ParkingBay__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>LocationType</field>
+        <operation>equals</operation>
+        <value>Vehicle</value>
+    </filters>
+    <label>All Vehicles</label>
+</ListView>

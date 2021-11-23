@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Creation_on_Licence_Lock</fullName>
+    <active>true</active>
+    <description>Prevent Creation of Partner Addendum when the Licence is Pending</description>
+    <errorConditionFormula>AND(
+ ISNEW(),
+ NOT(ISNULL(Licence__c)),
+ ISPICKVAL(Licence__r.Approval_Status__c,&apos;Pending&apos;)
+)</errorConditionFormula>
+    <errorMessage>Partner Addendums can not be created until the approval process is completed.</errorMessage>
+</ValidationRule>

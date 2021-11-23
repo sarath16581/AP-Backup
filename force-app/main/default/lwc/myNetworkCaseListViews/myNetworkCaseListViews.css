@@ -1,0 +1,4 @@
+/*adjusting help text position*/
+.THIS .customHelpTextClass div{
+    vertical-align: text-top !important;
+}

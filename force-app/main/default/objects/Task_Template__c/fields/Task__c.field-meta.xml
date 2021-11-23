@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Task__c</fullName>
+    <externalId>false</externalId>
+    <label>Task</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Collect Product</fullName>
+                <default>false</default>
+                <label>Collect Product</label>
+            </value>
+            <value>
+                <fullName>Deliver Product</fullName>
+                <default>false</default>
+                <label>Deliver Product</label>
+            </value>
+            <value>
+                <fullName>Collect Trailer</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Collect Trailer</label>
+            </value>
+            <value>
+                <fullName>Deliver Trailer</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Deliver Trailer</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RequestType__c</fullName>
+    <description>Request type for incoming requests</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Request type for incoming requests</inlineHelpText>
+    <label>Request Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>GET</fullName>
+                <default>false</default>
+                <label>GET</label>
+            </value>
+            <value>
+                <fullName>POST</fullName>
+                <default>false</default>
+                <label>POST</label>
+            </value>
+            <value>
+                <fullName>HEAD</fullName>
+                <default>false</default>
+                <label>HEAD</label>
+            </value>
+            <value>
+                <fullName>OPTIONS</fullName>
+                <default>false</default>
+                <label>OPTIONS</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

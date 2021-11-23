@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_Config2__SellingTermCalculationMethod__c</fullName>
+    <defaultValue>&quot;Calendar&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Indicates the method to calculate the selling term for Line Items.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The level of accuracy to calculate selling terms. With &quot;Precise&quot;, selling term is calculated using total number of days in start and end months (e.g. 8/30 to 9/29 = 1.03118 mo).
+Valid values (default=&quot;Normal&quot;):
+Normal
+Precise</inlineHelpText>
+    <label>Selling Term Calculation Method</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

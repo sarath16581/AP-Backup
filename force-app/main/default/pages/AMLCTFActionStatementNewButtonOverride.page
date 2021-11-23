@@ -1,0 +1,11 @@
+<apex:page standardController="AMLCTF_Audit_Action_Statement__c" extensions="AMLCTFActionStatementRedirectConExt" action="{!pageredir}">
+<!------------------------------------------------------------
+Author:        Kenny Liew
+Company:       Salesforce
+Description:   VF page to override "New: button of action statement's related list
+History
+<Date>      	<Authors Name>     	<Brief Description of Change>
+15.Sep.2016    	Kenny Liew     		Initial Version
+------------------------------------------------------------>
+
+</apex:page>

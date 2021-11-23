@@ -1,0 +1,40 @@
+<!--
+@changeLog: Hara.sahoo@auspost.com.au  24-07-2020  - Created : This is a stepper for mobile devices.
+-->
+<aura:component description="Stepper with chas progress only on mobile devices">
+    <aura:attribute name="label" type="String" />
+    <aura:attribute name="progress" type="String" />
+    <aura:attribute name="darkTheme" type="Boolean" default="false" />
+    <aura:attribute name="open" type="Boolean" default="false" />
+    <aura:attribute name="grouped" type="Boolean" default="false" />
+    <aura:attribute name="currentStepNumber" type="Integer" description="current step number"/>
+    
+    
+    <div class="{! 'dark-theme-' + v.darkTheme + ' grouped-' + v.grouped }">
+        <div class="{! 'chas-section-inner open-' + v.open }">
+            <a onclick="{! c.toggle }" class="chas-section-header">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_7-of-12">
+                        <label>{! v.label }</label>
+                    </div>
+                    <div class="slds-col slds-size_3-of-12">
+                        <span>Step {!v.currentStepNumber} of 3</span>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12">
+                        <div class="chas-section-icon">
+                            <aura:if isTrue="{! v.open }">
+                                <img src="{! $Resource.ChasIcons + '/chas-icons/pngs/UI/icons/chevron-up.png' }" alt="chevron-down" class="icon-class"/>
+                                <aura:set attribute="else">
+                                    <img src="{! $Resource.ChasIcons + '/chas-icons/pngs/UI/icons/chevron-mobile-stepper.png' }" alt="chevron-down" class="icon-class"/>
+                                </aura:set>
+                            </aura:if>                  
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <div class="chas-section-body">
+                {!v.body}
+            </div>
+        </div>
+    </div>
+</aura:component>

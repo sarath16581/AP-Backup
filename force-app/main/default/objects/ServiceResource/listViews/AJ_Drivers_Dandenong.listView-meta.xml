@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AJ_Drivers_Dandenong</fullName>
+    <columns>Name</columns>
+    <columns>ServiceCrew</columns>
+    <columns>DutyStartTime__c</columns>
+    <columns>FSL__GanttLabel__c</columns>
+    <columns>IsActive</columns>
+    <columns>Description</columns>
+    <columns>ResourceType</columns>
+    <columns>Location</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ResourceType</field>
+        <operation>equals</operation>
+        <value>T</value>
+    </filters>
+    <filters>
+        <field>IsActive</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>AJ - Drivers Dandenong</label>
+</ListView>

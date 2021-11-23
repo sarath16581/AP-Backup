@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>2-Way SMS template for Sender</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Sender 2-Way SMS No Response</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference {!Case.CaseNumber}
+
+Update for {!Case.Type} - {!Case.CaseNumber}
+
+Hi {!Contact.FirstName},
+
+You’ve recently reached out to us regarding an outstanding parcel that was sent to {!Case.Secondary_Contact__c}, a couple days ago we sent you a text message requesting further information and we haven’t heard back from you yet.
+
+If {!Case.Secondary_Contact__c} has advised you that the article has been received, feel free to hit delete on this email.
+
+If this is not the case, given the amount of time that has passed since the article was lodged, and the time since and its last scanning event, we will now be declaring this article lost in transit.
+
+If you wish to continue with the investigation through to its final stage, please reply to this email and your case will be prioritised (contact should be made within 24-48 hours).
+
+Please include the following if they are still outstanding:
+
+Proof of Value for the contents of the article posted
+Proof of Lodgement, your receipt from Australia
+
+
+Sorry we weren’t able to get a positive result for you, and utmost apologies for any inconvenience this has caused.
+
+Regards,
+
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

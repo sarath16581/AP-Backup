@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status095_PreActiveChecklistFullSingle</fullName>
+    <active>true</active>
+    <description>Please check the &apos;Pre Active Checklist Complete&apos; flag to confirm you have completed all Pre Activation tasks.</description>
+    <errorConditionFormula>AND(OR(ISPICKVAL(Approval_Type__c, &quot;Full&quot;),
+ISPICKVAL(Approval_Type__c, &quot;Single&quot;)),
+ISPICKVAL(PRIORVALUE(Status__c), &quot;Awaiting Signature&quot;),
+ISPICKVAL(Status__c, &quot;Active&quot;),
+NOT(ISBLANK(Pre_Active_Checklist__c)),
+NOT(Pre_Active_Checklist_Complete__c))</errorConditionFormula>
+    <errorMessage>Please check the &apos;Pre Active Checklist Complete&apos; flag to confirm you have completed all Pre Activation tasks.</errorMessage>
+</ValidationRule>

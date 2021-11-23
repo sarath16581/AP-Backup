@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Group__c</fullName>
+    <description>Phase 1 - Opportunity Fields (SAP)</description>
+    <externalId>false</externalId>
+    <label>Group</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Non Standard</fullName>
+                <default>false</default>
+                <label>Non Standard</label>
+            </value>
+            <value>
+                <fullName>Not assigned</fullName>
+                <default>false</default>
+                <label>Not assigned</label>
+            </value>
+            <value>
+                <fullName>Standard</fullName>
+                <default>false</default>
+                <label>Standard</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

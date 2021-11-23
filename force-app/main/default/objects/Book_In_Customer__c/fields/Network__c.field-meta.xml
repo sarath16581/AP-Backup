@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Network__c</fullName>
+    <description>StarTrack depot.</description>
+    <externalId>false</externalId>
+    <label>Network Facility</label>
+    <referenceTo>Network__c</referenceTo>
+    <relationshipLabel>Book-In Customers</relationshipLabel>
+    <relationshipName>Book_In_Customers</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

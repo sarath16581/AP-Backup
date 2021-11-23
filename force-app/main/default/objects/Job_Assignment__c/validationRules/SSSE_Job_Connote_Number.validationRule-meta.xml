@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSE_Job_Connote_Number</fullName>
+    <active>true</active>
+    <description>Connote Number must be populated on the Job before arranging a pickup</description>
+    <errorConditionFormula>AND(ISPICKVAL(Type__c,&apos;Pick Up&apos;),ISPICKVAL(Status__c,&apos;Closed&apos;), 
+OR(RecordType.DeveloperName = &apos;Security_Express&apos;, 
+RecordType.DeveloperName = &apos;Special_Services&apos;), 
+ISBLANK(Job__r.Connote_Number__c))</errorConditionFormula>
+    <errorMessage>Please provide a Connote Number on the Job for closing a pick up assignment.</errorMessage>
+</ValidationRule>

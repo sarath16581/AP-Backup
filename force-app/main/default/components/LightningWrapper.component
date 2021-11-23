@@ -1,0 +1,112 @@
+<!--
+	This basically allows any lightning component to be created dynamically using Lightning Out
+	This should NEVER be deployed for external users due to the obvious security risks of exposing the ability to push and receive data/events from the component on this page
+	Internal users should be ok given it's a controlled environment :)
+
+	Special note: helptext/tooltips in lightning require an slds-scope class applied on the body tag, if this functionality is necessary then it must be included in the wrapper page level
+-->
+<apex:component id="LightningWrapper">
+	<apex:attribute name="lightningApp" description="The name of the lightning app which contains the aura:dependency (example lightningApp=c:HappyParcelWrapperApp)" type="String" required="true"/>
+	<apex:attribute name="lightningComponent" description="The name of the lightning component instance (example lightningComponent=c:happyParcel - either LWC or AURA)" type="String" required="true"/>
+	<apex:attribute name="componentAttributes" description="JSON stringified object of attributes to be passed into the created component (Example {key1:value1,key2:value2}. Any escaped values such as &quot; and others are decoded first" type="String" required="false"/>
+
+	<apex:attribute name="crossOriginLwcEvents" description="A list of DOM events seperated by a ',' to listen for on the created component to propagate use postMessage (Not for Aura since it requires a special monitor) (NOTE: these events require bubbles: true and composed: true - more info https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.events_propagation) (example crossOriginLwcEvents=externalledd,articledetails)" type="String" required="false"/>
+	<apex:attribute name="crossOriginSupport" description="Determines whether CORS postMessage is required or not" type="Boolean" default="true"/>
+
+	<apex:includeLightning />
+
+	<!-- used to listen for changes to elements to recalculate height and send it back to parent so it can update -->
+	<c:ScriptLoader jslibraries="jquery,corsmessenger"></c:ScriptLoader>
+
+	<!-- using slds-scope for lightning-helptext -->
+	<apex:outputPanel id="lightningComponent"></apex:outputPanel>
+
+	<script>
+		// scope encapsulation
+		(function() {
+			var crossOriginSupport = {!crossOriginSupport};
+			var $createdComponent = null;
+			var messenger = new window.AP_CORS_MESSENGER();
+			var lightningApp = '{!lightningApp}';
+			var lightningComponent = '{!lightningComponent}';
+			var componentAttributes = '{!componentAttributes}';
+			var crossOriginLwcEvents = '{!crossOriginLwcEvents}';
+
+			// parse the stringified JSON into an actual object so it can be used
+			if(componentAttributes)
+				componentAttributes = specialJSON(componentAttributes);
+
+			if(crossOriginLwcEvents)
+				crossOriginLwcEvents = crossOriginLwcEvents.split(',');
+
+			// create the actual lightning component here and attach it to the DOM
+			var startTime = (new Date()).getTime();
+			console.log('Creating lightning component',  lightningApp, lightningComponent, componentAttributes);
+			$Lightning.use(lightningApp, function() {
+				$Lightning.createComponent(lightningComponent,
+					componentAttributes, '{!$Component.lightningComponent}',
+					function(cmp) {
+						var creationTime = ((new Date()).getTime() - startTime) / 1000;
+						console.log('Lightning Component created in: ' + creationTime + 's');
+
+						$createdComponent = cmp;
+
+						if(crossOriginSupport) {
+							// push a message to let the parent know the component is initialised
+							messenger.push(window.parent, 'lightningComponentInitialised', {});
+						}
+					}
+				);
+			});
+
+			/*************** START MONITORING **************/
+			// listen for changes in height and push them back to the parent to change the container height
+			if(crossOriginSupport) {
+				messenger.setHeightPushMonitor(window.parent);
+
+				// when ever we receive an attribute value from the parent, we push it into the created component
+				// this is done using messenger.push from the parent window (the one that included the iframe this component is rendered in)
+				messenger.get(window.parent, 'setLightningAttribute', function (data) {
+					if ($createdComponent != null) {
+						Object.keys(data).filter(function (item) {
+							return item !== 'eventType'
+						}).forEach(function (item) {
+							$createdComponent.set('v.' + item, data[item]);
+						});
+					}
+				});
+
+				// setup our event listeners that have been received from the parent
+				// we only specifically listen for the events that are required based on the config passed into the visualforce page
+				if (crossOriginLwcEvents) {
+					for (var i = 0; i < crossOriginLwcEvents.length; i++) {
+						document.getElementById('{!$Component.lightningComponent}').addEventListener(crossOriginLwcEvents[i], function (e) {
+							console.log('Event Received', lightningComponent, e.type, e.detail);
+							// proxy the event to the parent
+							messenger.push(window.parent, 'lightningEvent', {type: e.type, detail: e.detail});
+						});
+					}
+				}
+			}
+			/*************** END MONITORING **************/
+		})();
+
+		function getParameterByName(name) {
+			url = window.location.href;
+			name = name.replace(/[\[\]]/g, '\\$&');
+
+			var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+				results = regex.exec(url);
+			if (!results) return '';
+			if (!results[2]) return '';
+
+			return decodeURIComponent(results[2].replace(/\+/g, ' '));
+		}
+
+		function specialJSON(escapedJSON) {
+			var txt = document.createElement("textarea");
+			txt.innerHTML = escapedJSON;
+			return JSON.parse(txt.value);
+		}
+	</script>
+</apex:component>

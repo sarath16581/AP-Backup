@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>What_types_of_checks_are_required__c</fullName>
+    <description>Specific needs analysis on type of check required</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Specific needs analysis on type of check required</inlineHelpText>
+    <label>What types of checks are required?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Is_there_a_need_for_background_checks__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Police Checks</fullName>
+                <default>false</default>
+                <label>Police Checks</label>
+            </value>
+            <value>
+                <fullName>Working with Children (WWC)</fullName>
+                <default>false</default>
+                <label>Working with Children (WWC)</label>
+            </value>
+            <value>
+                <fullName>International Police Checks</fullName>
+                <default>false</default>
+                <label>International Police Checks</label>
+            </value>
+            <value>
+                <fullName>Visa Checks</fullName>
+                <default>false</default>
+                <label>Visa Checks</label>
+            </value>
+            <value>
+                <fullName>Bankruptcy Checks</fullName>
+                <default>false</default>
+                <label>Bankruptcy Checks</label>
+            </value>
+            <value>
+                <fullName>Individual Credit Checks</fullName>
+                <default>false</default>
+                <label>Individual Credit Checks</label>
+            </value>
+            <value>
+                <fullName>Anti-Money Laundering/Counter Terrorism Checks</fullName>
+                <default>false</default>
+                <label>Anti-Money Laundering/Counter Terrorism Checks</label>
+            </value>
+            <value>
+                <fullName>Qualification Check</fullName>
+                <default>false</default>
+                <label>Qualification Check</label>
+            </value>
+            <value>
+                <fullName>Medical Check</fullName>
+                <default>false</default>
+                <label>Medical Check</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Police Checks</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Working with Children (WWC)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>International Police Checks</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Visa Checks</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Bankruptcy Checks</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Individual Credit Checks</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Anti-Money Laundering/Counter Terrorism Checks</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Qualification Check</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Medical Check</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>6</visibleLines>
+</CustomField>

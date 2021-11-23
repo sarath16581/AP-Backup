@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Verification_of_Data_Before_Allocating</fullName>
+    <active>true</active>
+    <description>You need to check verified data before changing the status to allocated</description>
+    <errorConditionFormula>AND(ISPICKVAL(Status__c , &apos;Allocated&apos;), Verified_Data__c = FALSE)</errorConditionFormula>
+    <errorDisplayField>Verified_Data__c</errorDisplayField>
+    <errorMessage>Please verify data before changing the status to Allocated</errorMessage>
+</ValidationRule>

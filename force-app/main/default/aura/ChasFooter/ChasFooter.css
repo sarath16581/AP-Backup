@@ -1,0 +1,79 @@
+.THIS {
+	/*background-color: #292f33;*/
+	background-color: #FFFFFF;
+	font-size: 13px;
+}
+
+.THIS .container {
+	max-width: 1140px;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.THIS a {
+	text-align: center;
+	padding: 10px 0;
+	color: #212129;
+	display: block;
+	position: relative;
+}
+
+.THIS .section-one,
+.THIS .section-two {
+	margin: auto 0;
+}
+
+.THIS .section-one {
+	display: flex;
+	flex-direction: column;
+}
+
+.THIS .section-two {
+	border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.THIS .section-two a {
+	padding: 15px 0;
+	font-size: 14px;
+}
+
+.THIS a:focus,
+.THIS a:active {
+	outline: none;
+	box-shadow: none;
+}
+
+.THIS a:focus:after {
+	border: 1px dotted currentColor;
+	border-radius: 3px;
+	content: "";
+	display: block;
+	height: calc(100% - 10px);
+	left: 5px;
+	pointer-events: none;
+	position: absolute;
+	top: 5px;
+	width: calc(100% - 10px);
+}
+
+@media (min-width: 680px) {
+	.THIS .container {
+		flex-direction: row;
+		justify-content: space-between;
+		height: 80px;
+		align-items: center;
+	}
+
+	.THIS .section-one {
+		flex-direction: row;
+	}
+
+	.THIS .section-two {
+		border-top: none;
+	}
+
+	.THIS a {
+		padding: 0.75rem !important;
+	}
+}

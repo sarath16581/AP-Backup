@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MergeTest</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>MergeTest</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/13.0/connection.js&quot;)}
+
+var AccountObj = new sforce.SObject(&quot;Account&quot;);
+
+AccountObj.Id = &apos;{!Account.Id}&apos;;
+
+AccountObj.MasterRecordId = &apos;001O000000L0tdr&apos;;
+
+sforce.connection.update([AccountObj]);
+
+location.reload(true);</url>
+</WebLink>

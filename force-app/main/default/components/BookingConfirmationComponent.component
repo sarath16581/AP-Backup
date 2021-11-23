@@ -1,0 +1,126 @@
+<apex:component controller="PUD_BookingConfirmationController" access="global" layout="none">
+  <apex:attribute name="bookingid" type="string" access="global" assignTo="{!bookingRecordId}"  required="true" description="The id of Booking Record" />
+<html>
+ <body> 
+  <p> Pickup Request Notice</p>
+  <p> <b>Business Hub :</b>{!bookingRecord.Depot__r.name}</p>
+  <p> A pickup has been requested - please find details below.
+      Please note: The customer has already acknowledged Australia Post's pickup conditions.
+      If any articles below are listed as 16kg or over then assistance to load is required. 
+ </p>
+    <p>
+        <b>Summary :</b>
+    </p>
+    <p>
+        <hr/><br/>
+    </p>
+    <p>
+        <hr width="50%" align="left"/>
+    </p>
+    <p>
+       <u></u> 
+    </p>
+    <p>
+        <b>Customer Name :</b> {!bookingRecord.Customer__r.name}
+    </p>
+    <p>
+        <b>Business Name :</b> {!bookingRecord.Location__c}
+    </p>
+    <p>
+        <b>Order Number :</b> 
+    </p>
+    <p>
+        <b>Account Number :</b> {!bookingRecord.Customer__r.AccountNumber}
+    </p>
+    <p>
+        <b>Pickup address : </b>{!bookingRecord.Source_Street__c},  &nbsp;{!bookingRecord.Source_City__c}, &nbsp;{!bookingRecord.Source_State__c},&nbsp;{!bookingRecord.Source_Post_Code__c}
+    </p>
+    <p>
+        <b>Collection Time* : </b><span>{!bookingRecord.Effective_Date__c}&nbsp;&nbsp;{!bookingRecord.Earliest_Start_Time__c}&nbsp;&nbsp;{!bookingRecord.Latest_End_Time__c}</span>
+    </p>
+    <p>
+        <b>Additonal Information :</b> {!bookingRecord.Booking_Comments__c}
+    </p>
+    <p>
+        <b>Phone Contact :</b> {!bookingRecord.Contact_Phone_Number__c}
+    </p>
+    <p>
+        <b>Number of Items :</b> {!bookingRecord.Article_Count__c}
+    </p>
+    <p>
+        <b>Article Info :</b><br/>
+        {!bookingRecord.Article_Info__c}
+    </p>
+<p>
+    <b>Details Of The Collection (To be filled out by the driver)</b>    
+</p>
+<p>
+    <hr/><br/>
+</p>
+<p>
+    <hr width="50%" align="left"/><br/>
+</p>
+<p>
+    <b>Number of Items Collected :</b>
+</p>
+<p class="line">
+    <b>Customer Signature : <hr/></b>
+</p>
+<p>
+    <b>Customer Name :</b><hr/>
+</p>
+
+<p>
+    <b>Has ID been sighted : </b> <hr width="10%" align="left"/><b>Yes</b><br/><hr width="10%" align="left"/><b>No</b>
+</p>
+<p>
+    * If the collection date is a public holiday, collection should occur the following business day.
+</p>
+<p>
+    <b>Process for Domestic parcel pickup:</b>
+</p>
+<p>
+    1. Check that for each item a postage label is attached and signed
+</p>
+<p>
+    2. Check the weight of each item
+</p>
+<p>
+    3. Scan each item
+</p>
+<p>
+    4. Attach Express Post tape to express items
+</p>
+<p>
+    5. Request assistance for heavy items
+</p>
+<p>
+    6. Fill out this form with the details of the collection<br/>
+</p>
+<p>
+    <b>Process for International parcel pickup:</b>
+</p>
+<p>
+    1. Check that for each item a postage label is attached, signed, and dated (4 copies)
+</p>
+<p>
+    2. Check the weight of each item
+</p>
+<p>
+    3. Scan each item
+</p>
+<p>
+    4. Take copies marked "Australia Post Copy" and return those marked as "Sender's Copy"
+</p>
+<p>
+   5. Verify and record ID details and attach orange "ID Recorded" sticker
+</p>
+<p>
+    6. Request assistance for heavy items
+</p>
+<p>
+    7. Fill out this form with the details of the collection
+</p>
+</body> 
+</html>
+</apex:component>

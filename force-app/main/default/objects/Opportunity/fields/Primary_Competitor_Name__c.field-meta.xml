@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Competitor_Name__c</fullName>
+    <description>Updates via Workflow with the name of the record indicated as the Primary Competitor in the Competitors &amp; Incumbents related list</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Ensure the primary competitor tick box is ticked within the Competitor and Incumbent section from the Related tab (Data Quality Score – 15)</inlineHelpText>
+    <label>Primary Competitor Name</label>
+    <length>100</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

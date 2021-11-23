@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Checks_Phone_Or_Mobile</fullName>
+    <active>true</active>
+    <description>Applicable only to Service Delivery Contact Page Layout (Sales Operations Profile) to capture contact&apos;s either Phone Number or Mobile.</description>
+    <errorConditionFormula>AND($Profile.Name = &apos;Sales Operations&apos;,
+ISBLANK(Phone),ISBLANK(MobilePhone)
+)</errorConditionFormula>
+    <errorMessage>You have not met the minimum data for a Contact. 
+Must have a First, Last Name, Email, Address AND 1 of the following: 
+Phone or Mobile.</errorMessage>
+</ValidationRule>

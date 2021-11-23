@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Help__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>Tip/Hint text displayed to the user on clicking the &apos;i&apos; icon beside the assessment criterion. The same text is also displayed on the right of the &quot;add comments&quot; pop-up screen.</inlineHelpText>
+    <label>Help</label>
+    <length>1024</length>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>APT_Apttus_Contract__c</columns>
+    <columns>APT_Billing_Account__c</columns>
+    <columns>APT_Contracted_Revenue__c</columns>
+    <columns>APT_Contract_Volume__c</columns>
+    <columns>APT_Current_Quote_Indicator__c</columns>
+    <columns>APT_Domestic_Indicator__c</columns>
+    <columns>APT_International_Indicator__c</columns>
+    <columns>APT_SAP_Contract_Number__c</columns>
+    <columns>APT_SAP_Contract_Number_temp__c</columns>
+    <columns>SAP_Contract_Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+    <language>en_US</language>
+</ListView>

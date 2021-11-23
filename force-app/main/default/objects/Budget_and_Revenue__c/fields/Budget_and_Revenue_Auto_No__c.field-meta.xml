@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Budget_and_Revenue_Auto_No__c</fullName>
+    <description>Field to be used for Auto number with the Product Formula</description>
+    <displayFormat>{000000}</displayFormat>
+    <externalId>false</externalId>
+    <label>Budget and Revenue Auto No</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>AutoNumber</type>
+</CustomField>

@@ -1,0 +1,36 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 03/08/2020
+  * @description  : Component for enquiries list row on home page.
+--------------------------------------- History --------------------------------------------------
+03.08.2020    Jansi Rani   Created
+19-11-2020    Jansi rani   [BGICS-415] updated "Recall Request" text under "Details" column for an RTS enquiry
+-->
+<template>
+    <td class="table-first-cell table-checkbox-cell" data-id={caseWrapper.caseObj.Id}>
+        <template if:true={showCheckBox}>
+            <lightning-input onchange={handleChange} type="checkbox" checked={caseWrapper.isSelected}></lightning-input>
+        </template>
+    </td>
+    <td class={isActionRequiredClass}>
+        <a href={enquiryDetailHyperLink} class="underline" target="_blank">{caseWrapper.caseObj.CaseNumber}</a>
+    </td>
+    <td class={isActionRequiredClass}>
+        <lightning-formatted-date-time value={caseWrapper.caseObj.CreatedDate} year="numeric" month="numeric"
+            day="numeric">
+        </lightning-formatted-date-time>
+    </td>
+    <td class={isActionRequiredClass}><div class="table-word-break slds-cell-wrap">{trackingNumber}</div></td>
+    <!--<td class={isActionRequiredClass}>{service}</td>-->
+    <td class={isActionRequiredClass}><div class="table-word-break slds-cell-wrap">{subject}</div></td>
+    <td class={isActionRequiredClass}><div class="slds-cell-wrap">{caseWrapper.sendingTo}</div></td>
+    <td class={isActionRequiredClass}>{caseWrapper.caseUIStatus}</td>
+    <td class={isActionRequiredClass}><div class="table-long-cell">
+        <lightning-formatted-date-time value={caseWrapper.caseObj.LastModifiedDate} year="numeric" month="numeric"
+            day="numeric">
+        </lightning-formatted-date-time>&nbsp;
+        <lightning-formatted-date-time value={caseWrapper.caseObj.LastModifiedDate} hour="2-digit" minute="2-digit"
+            hour12="true">
+        </lightning-formatted-date-time></div>
+    </td>
+</template>

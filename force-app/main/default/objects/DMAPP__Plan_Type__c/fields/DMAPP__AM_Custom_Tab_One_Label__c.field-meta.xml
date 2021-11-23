@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__AM_Custom_Tab_One_Label__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This is the Label which will appear in your first AM Custom Tab</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is the Label which will appear in your first AM Custom Tab</inlineHelpText>
+    <label>Tab One Label</label>
+    <length>35</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

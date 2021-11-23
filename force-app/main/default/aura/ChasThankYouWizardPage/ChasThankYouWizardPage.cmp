@@ -1,0 +1,30 @@
+<!--
+  * @changeLog :
+  * 2020-10-26 hara.sahoo@auspost.com.au Modified : added new variable isEligibleForNetworkDeliveryIssue, for displaying custom message for network eligible cases created from delivery issue form
+-->
+<aura:component extends="c:SS_uiWizardPage" description="Display the success or error message upon case creation">
+    <aura:attribute name="tiles" type="List" default="['digital-id', 'safe-drop', 'my-post', 'extra-cover', 'po-boxes']" /> 
+    <aura:attribute name="header" type="String" default="Thanks, we've received your enquiry." /> 
+    <aura:attribute name="isUrgent" type="Boolean" />
+    <aura:attribute name='transferToPo' type='String'/>
+
+    <!-- Adobe Analytics Tracking Helpers -->
+    <ltng:require scripts="{!$Resource.GlobalAssets + '/js/lightning/adobeAnalyticsHelper.js'}" afterScriptsLoaded="{!c.onInit}" />
+    <aura:registerEvent name="adobeAnalyticsInterfaceEvent" type="c:adobeAnalyticsInterfaceEvent"/>
+
+    <!-- for analytics specific tracking on the thankyou page -->
+    <!-- by default this should be handled outside of this component, but there are scenarios where additional dynamic attributes need to be passed to analytics -->
+    <aura:attribute name="analyticsTriggerEvent" type="Boolean" default="false" />
+    <aura:attribute name="analyticsAdditionalAttributes" type="Map" default="{}" />
+    <!-- handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+
+    <!--Thank you Header -->
+    <c:ChasThankYouHeader caseNumber='{! v.wizardData.caseNumber }' header="{! v.header }" isUrgent="{! v.isUrgent }" 
+                          caseCreationStatus='{! v.wizardData.caseCreationStatus }' 
+                          hasCustomerSeenSafedropImage="{! v.wizardData.hasCustomerSeenSafeDrop}"
+                          transferToPo="{! v.wizardData.transferToPo}" isEligibleForNetworkDeliveryIssue="{! v.wizardData.isEligibleForNetworkAssignmentDeliveryIssue}"/>
+    <!-- Thank you Tiles -->
+    <c:ChasThankYouTiles tileList="{! v.tiles }" />
+
+</aura:component>

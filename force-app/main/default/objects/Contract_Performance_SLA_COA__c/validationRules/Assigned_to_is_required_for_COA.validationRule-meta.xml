@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assigned_to_is_required_for_COA</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISBLANK( Assigned_To__c) &amp;&amp;  RecordType.Name = &quot;COA&quot;</errorConditionFormula>
+    <errorDisplayField>Assigned_To__c</errorDisplayField>
+    <errorMessage>Assigned To is required</errorMessage>
+</ValidationRule>

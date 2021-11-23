@@ -1,0 +1,132 @@
+<aura:component controller="brideas_IdeasCtrl" description="brideas_Sidebar">
+    <aura:attribute name="commonVars" type="Object" description="NOT USED" />
+    <aura:attribute name="filters" type="Object" description="All filters options and status" />
+    <aura:attribute name="communityName" type="String" access="global" />
+    <aura:attribute name="categoriesSource" type="String" default="Ideas categories" access="global" description="NOT USED" />
+    <aura:attribute name="configFiltersCollapse" type="Boolean" default="false" access="global" />
+    <aura:attribute name="configLayoutName" type="String" default="Default" access="global" description="NOT USED" />
+    <aura:attribute name="configEnableProfileLink" type="Boolean" default="true" access="global" description="NOT USED" />
+    <aura:attribute name="parentName" type="String"/>
+
+    <aura:registerEvent name="ideasFilterEvent" type="c:brideas_FilterIdeaEvent"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="ltng:sendMessage" action="{!c.handleMessage}" />
+
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size--1-of-1 slds-order--2 slds-p-right--small slds-p-bottom--small filters-block">
+            <h2 class="title">{!$Label.c.FilterIdeasByTitle}</h2>
+            <div class="filter-selector">
+                <div class="{!v.filters.showBy.opened ? 'opened' : ''}">
+                    <h3 class="title">{!$Label.c.ShowTitle}
+                        <span class="arrow" onclick="{!c.toggleFilter}" data-target="showBy"></span>
+                    </h3>
+                    <ul class="list">
+                        <li class="{!empty(v.filters.showBy.selected) ? 'active' : ''}">
+                            <a onclick="{!c.selectFilter}" data-name="showBy" data-value="" href="javascript:void(0)">{!$Label.c.All}</a>
+                        </li>
+                        <li class="{!v.filters.showBy.selected == 'createdByMe' ? 'active' : ''}">
+                            <a onclick="{!c.selectFilter}"  data-name="showBy" data-value="createdByMe" href="javascript:void(0)">{!$Label.c.MyIdeas}</a>
+                        </li>
+                        <li class="{!v.filters.showBy.selected == 'commentedByMe' ? 'active' : ''}">
+                            <a onclick="{!c.selectFilter}" data-name="showBy" data-value="commentedByMe">{!$Label.c.CommentedByMe}</a>
+                        </li>
+                        <li class="{!v.filters.showBy.selected == 'archived' ? 'active' : ''}">
+                            <a onclick="{!c.selectFilter}" data-name="showBy" data-value="archived" href="javascript:void(0)">{!$Label.c.Archived}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="filter-selector">
+                <div class="{!v.filters.category.opened ? 'opened' : ''}">
+                    <h3 class="title">{!$Label.c.CategoryTitle}
+                        <span class="arrow" onclick="{!c.toggleFilter}" data-target="category"></span>
+                    </h3>
+                    <ul class="list">
+                        <li class="{!empty(v.filters.category.selected) ? 'active' : ''}">
+                            <a onclick="{!c.selectFilter}" data-name="category" data-value="" href="javascript:void(0)">{!$Label.c.All}</a>
+                        </li>
+                        <aura:iteration items="{!v.filters.category.options}" var="cat">
+                            <li class="{!cat.value == v.filters.category.selected ? 'active' : ''}">
+                                <a onclick="{!c.selectFilter}" data-name="category" data-value="{#cat.value}" href="javascript:void(0)">{#cat.label}</a>
+                            </li>
+                        </aura:iteration>
+                    </ul>
+                </div>
+            </div>
+            <div class="filter-selector">
+                <div class="{!v.filters.status.opened ? 'opened' : ''}">
+                    <h3 class="title">{!$Label.c.StatusTitle}
+                        <span class="arrow" onclick="{!c.toggleFilter}" data-target="status"></span>
+                    </h3>
+                    <ul class="list">
+                        <li class="{!empty(v.filters.status.selected) ? 'active' : ''}">
+                            <a onclick="{!c.selectFilter}" data-name="status" data-value="" href="javascript:void(0)">{!$Label.c.All}</a>
+                        </li>
+                        <aura:iteration items="{!v.filters.status.options}" var="s">
+                            <li class="{!s.value == v.filters.status.selected ? 'active' : ''}">
+                                <a onclick="{!c.selectFilter}" data-name="status" data-value="{#s.value}" href="javascript:void(0)">{#s.label}</a>
+                            </li>
+                        </aura:iteration>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-col slds-size--1-of-1 slds-order--1 slds-p-bottom--small mobile-filters-block">
+            <div class="filter-selector">
+                <div class="{!v.filters.showBy.mOpened ? 'opened' : ''}">
+                    <h3 class="title" onclick="{!c.toggleFilterMobile}" data-target="showBy">{!$Label.c.ShowTitle}
+                        <span class="val">
+                            {!empty(v.filters.showBy.selected) ? $Label.c.All :
+                                    v.filters.showBy.selected == 'createdByMe' ? $Label.c.MyIdeas :
+                                    v.filters.showBy.selected == 'commentedByMe' ? $Label.c.CommentedByMe :
+                                    v.filters.showBy.selected == 'archived' ? $Label.c.Archived :'na'}
+                        </span>
+                    </h3>
+                    <ul class="list">
+                        <li onclick="{!c.selectFilter}" data-name="showBy" data-value=""
+                            class="{!empty(v.filters.showBy.selected) ? 'active' : ''}">{!$Label.c.All}</li>
+                        <li onclick="{!c.selectFilter}" data-name="showBy" data-value="createdByMe"
+                            class="{!v.filters.showBy.selected == 'createdByMe' ? 'active' : ''}">{!$Label.c.MyIdeas}</li>
+                        <li onclick="{!c.selectFilter}" data-name="showBy" data-value="commentedByMe"
+                            class="{!v.filters.showBy.selected == 'commentedByMe' ? 'active' : ''}">{!$Label.c.CommentedByMe}</li>
+                        <li onclick="{!c.selectFilter}" data-name="showBy" data-value="archived"
+                            class="{!v.filters.showBy.selected == 'archived' ? 'active' : ''}">{!$Label.c.Archived}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="filter-selector">
+                <div class="{!v.filters.category.mOpened ? 'opened' : ''}">
+                    <h3 class="title" onclick="{!c.toggleFilterMobile}" data-target="category">{!$Label.c.CategoryTitle}
+                        <span class="val">{!empty(v.filters.category.selected) ? $Label.c.All : v.filters.category.selected}</span>
+                    </h3>
+                    <ul class="list">
+                        <li onclick="{!c.selectFilter}" data-name="category" data-value=""
+                            class="{!empty(v.filters.category.selected) ? 'active' : ''}">{!$Label.c.All}</li>
+                        <aura:iteration items="{!v.filters.category.options}" var="cat">
+                            <li onclick="{!c.selectFilter}" data-name="category" data-value="{#cat.value}"
+                                class="{!cat.value == v.filters.category.selected ? 'active' : ''}">{#cat.label}</li>
+                        </aura:iteration>
+                    </ul>
+                </div>
+            </div>
+            <div class="filter-selector">
+                <div class="{!v.filters.status.mOpened ? 'opened' : ''}">
+                    <h3 class="title" onclick="{!c.toggleFilterMobile}" data-target="status">{!$Label.c.StatusTitle}
+                        <span class="val">{!empty(v.filters.status.selected) ? $Label.c.All : v.filters.status.selected}</span>
+                    </h3>
+                    <ul class="list">
+                        <li onclick="{!c.selectFilter}" data-name="status" data-value=""
+                            class="{!empty(v.filters.status.selected) ? 'active' : ''}">{!$Label.c.All}</li>
+                        <aura:iteration items="{!v.filters.status.options}" var="s">
+                            <li onclick="{!c.selectFilter}" data-name="status" data-value="{#s.value}"
+                                class="{!s.value == v.filters.status.selected ? 'active' : ''}">{#s.label}</li>
+                        </aura:iteration>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</aura:component>

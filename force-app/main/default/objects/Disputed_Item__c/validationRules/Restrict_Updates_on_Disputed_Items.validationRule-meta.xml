@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Updates_on_Disputed_Items</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF ( 
+
+				AND(
+        Credit_Approval__c!=null,			
+								OR(TEXT(Credit_Approval__r.Status__c) = &apos;Approved&apos;, 
+											TEXT(Credit_Approval__r.Status__c) = &apos;Pending Approval Decision&apos;, 
+											TEXT(Credit_Approval__r.Status__c) = &apos;Pending Approval Signatures&apos;, 
+
+AND(Credit_Approval__r.RejectionFinal__c = TRUE, TEXT(Credit_Approval__r.Status__c)=&apos;Rejected&apos;)),
+
+
+							
+				OR(
+								ISCHANGED(Amount__c),
+    ISCHANGED(Amount__c),
+ISCHANGED(Amount_Claimed__c),
+ISCHANGED(Business_Segment__c),
+ISCHANGED(Case__c),
+ISCHANGED(Connote__c),
+ISCHANGED(Proposed_Credit__c),
+TEXT(PRIORVALUE(Product__c))&lt;&gt;TEXT(Product__c),
+ISCHANGED(Product_Sub_Category__c),
+ISCHANGED(Credit_Amount_Exclusive_GST__c),
+ISCHANGED(Credit_Amount_Inclusive_GST__c),
+ISCHANGED(Credit_Approval__c),
+ISCHANGED(Status__c),
+ISCHANGED(Type__c),
+ISCHANGED(Target_ERP__c),
+ISCHANGED(GSTAmount__c),
+ISCHANGED(Inc_GST__c),
+ISCHANGED(Reason__c),
+ISCHANGED(Reason_Category__c),
+ISCHANGED(RejectedReason__c),
+ISCHANGED(Status__c)
+)),true, false)</errorConditionFormula>
+    <errorMessage>You can not edit a Disputed Item that has been submitted for approval or which has been approved.</errorMessage>
+</ValidationRule>

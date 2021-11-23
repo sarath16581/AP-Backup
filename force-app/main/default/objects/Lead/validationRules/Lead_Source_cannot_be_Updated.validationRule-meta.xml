@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Source_cannot_be_Updated</fullName>
+    <active>true</active>
+    <description>The Lead Source field cannot be updated after a lead record has been created.</description>
+    <errorConditionFormula>AND( NOT(ISNEW()),
+$Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+NOT(RecordType.Name = &apos;Conveyancer Onboarding&apos;),
+ISCHANGED(LeadSource)
+)</errorConditionFormula>
+    <errorDisplayField>LeadSource</errorDisplayField>
+    <errorMessage>You cannot edit the Lead Source once it&apos;s been created</errorMessage>
+</ValidationRule>

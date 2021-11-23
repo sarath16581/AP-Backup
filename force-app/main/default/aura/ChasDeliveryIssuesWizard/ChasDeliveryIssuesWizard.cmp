@@ -1,0 +1,71 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" extends="c:SS_uiWizard" access="global" description="Wizard navigation unique to Delivery Issues">
+    
+    <aura:attribute name="name" type="String" default="DeliveryIssues" />
+    
+    <aura:attribute name="pageMap" type="Map"
+                    default="
+                             {
+                                'ChasDeliveryIssuesWPage01': {
+                                    'key': 'ChasDeliveryIssuesWPage01',
+                                    'name': 'c:ChasDeliveryIssuesWPage01',
+                                    'next': 'ChasContactDetailsPage',
+                                    'step': '1',
+                                    'currentStepName': 'Issue details',
+                                    'stage': 'start',
+                                    'gotoPages': {
+                                        'missingItemPage' :'/missing-or-lost-item'
+                                     },
+                                    'attributes': {
+                                        'authenticatedURL': '/delivery-issue-authenticated'
+                                    }
+                                },
+                                'ChasContactDetailsPage': {
+                                    'key': 'ChasContactDetailsPage',
+                                    'name': 'c:ChasContactDetailsPage',
+                                    'prev': 'ChasDeliveryIssuesWPage01',
+                                    'next': 'ChasDeliveryIssuesWPage03',
+                                    'step': '2',
+                                    'currentStepName': 'Contact details',
+                                    'stage': '',
+                                    'attributes': {
+                                        'authenticatedURL': '/delivery-issue-authenticated'
+                                    }
+                                },
+                                'ChasDeliveryIssuesWPage03': {
+                                    'key': 'ChasDeliveryIssuesWPage03',
+                                    'name': 'c:ChasDeliveryIssuesWPage03',
+                                    'prev': 'ChasContactDetailsPage',
+                                    'next': 'ChasThankYouWizardPage',
+                                    'step': '3',
+                                    'currentStepName': 'Review and submit',
+                                    'stage': '',
+                                    'attributes': {
+                                        'apexCaseCreationFunction': 'c.createCaseFromDeliveryIssue'
+                                    }
+                                },
+                                'ChasThankYouWizardPage': {
+                                    'key': 'ChasThankYouWizardPage',
+                                    'name': 'c:ChasThankYouWizardPage',
+                                    'step': '3',
+                                    'currentStepName': 'thankyou',
+                                    'stage': 'submit',
+                                    'attributes': {
+                                        'tiles': [
+                                            'my-post',
+                                            'safe-drop',
+                                            'extra-cover'
+                                        ],
+                                        'header': 'Thanks, we’ve received the details about your delivery issue',
+                                        'isUrgent': 'false'
+                                    }
+                                }
+                            }
+"/>
+    
+    
+    <aura:attribute name="startPage" type="String" default="ChasDeliveryIssuesWPage01" />
+    <aura:attribute name="currentPage" type="String" default="ChasDeliveryIssuesWPage01" />
+    <aura:attribute name="firstWordInProgressBar" type="String" default="Issue" />
+    <aura:attribute name="pageTitle" type="String" default="Delivery issue"/>
+    
+</aura:component>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_My_Campaign_Feedbacks</fullName>
+    <columns>NAME</columns>
+    <columns>Legal_Entity_Name__c</columns>
+    <columns>Contact__c</columns>
+    <columns>CampaignName__c</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>OWNER.LAST_NAME</columns>
+    <columns>Status__c</columns>
+    <filterScope>Mine</filterScope>
+    <label>All My Campaign Feedbacks</label>
+    <language>en_US</language>
+</ListView>

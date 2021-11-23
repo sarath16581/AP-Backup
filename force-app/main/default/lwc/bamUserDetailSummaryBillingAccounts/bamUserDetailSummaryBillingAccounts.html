@@ -1,0 +1,19 @@
+<template>
+    <div class="">
+        <template if:true={showButton}>
+            <template if:false={showAllBillingAccounts}>
+                <lightning-button variant="base" label="Show details" onclick={showAll} class="slds-p-horizontal_none"></lightning-button>
+            </template>
+            <template if:true={showAllBillingAccounts}>
+                <ul>
+                    <template for:each={billingAccounts} for:item="billingAccount">
+                        <li key={billingAccount.value}>
+                            {billingAccount.label}
+                        </li>
+                    </template>
+                </ul>
+                <lightning-button variant="base" label="hide details" onclick={showLess} class="slds-p-horizontal_none"></lightning-button>
+            </template>
+        </template>
+    </div>
+</template>

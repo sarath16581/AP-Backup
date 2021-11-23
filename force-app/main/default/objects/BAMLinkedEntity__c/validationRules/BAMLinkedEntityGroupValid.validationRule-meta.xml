@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAMLinkedEntityGroupValid</fullName>
+    <active>true</active>
+    <description>Rule ensure that a groups Organisation belongs to the Contacts organisation.</description>
+    <errorConditionFormula>!ISBLANK(Group__c) &amp;&amp; Group__r.Organisation__c != ContactRole__r.ContactApplication__r.Contact__r.AccountId</errorConditionFormula>
+    <errorDisplayField>Group__c</errorDisplayField>
+    <errorMessage>The group is invalid for the contact linked to the Contact Application record.</errorMessage>
+</ValidationRule>

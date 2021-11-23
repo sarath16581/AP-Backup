@@ -1,0 +1,2247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Licence_CPA</fullName>
+    <active>true</active>
+    <description>Licence agreement with a CPA Partner</description>
+    <label>Licence CPA</label>
+    <picklistValues>
+        <picklist>AccountSource</picklist>
+        <values>
+            <fullName>Procurement</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Approval_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cease Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Final Reminder Sent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>First Reminder Sent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Activated Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Cease Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Not Activated Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Second Reminder Sent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suspend End Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suspend With Fees Start Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suspend Without Fees Start Approved</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Authority_to_leave__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sender Authorisation Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Business_Sub_Category__c</picklist>
+        <values>
+            <fullName>Accommodation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Accounting Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Administrative</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Advertising Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aged Care</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Air Transport</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alcohol %26 Beverage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Amusement Parks %26 Attractions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Associations %26 Groups</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Automotive Accessories</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bakery %26 Confectionary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Books %26 Magazines</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Building %26 Maintenance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Building Society</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cafes%2C Restaurants %26 Takeaway Food Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cars%2C Motorbikes %26 Trailers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chemicals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cleaning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Clothing Accessories</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Clothing Apparel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coal%2C Ore %26 Oil</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Computer %26 Gaming</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cosmetics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Union</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dental %26 Optometry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Department Stores</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Electrical Appliances</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Electricity Supply</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Employment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Entertainment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Equipment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Footwear</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Furniture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gambling</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Garden %26 Nursery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gas Supply</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grain %26 Other Agriculture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Groceries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Higher Education</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Repairs %26 Products</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Homeware</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hospitals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internet %26 Data Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Legal Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Libraries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Machinery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Meat %26 Produce</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Meat%2C Dairy %26 Poultry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medical</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Minerals %26 Materials</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Music %26 Radio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Network operations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Newspaper %26 Book</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Online Broadcasting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Retail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Telecommunications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Wholesale</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Packaging Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Paper</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Performing Arts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pharmaceutical %26 Cosmetics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Photography</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Police %26 Fire %26 Correctional Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Printing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Employment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rail Transport</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Estate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Religious Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Research</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Road Transport</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>School Education</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Specialty Food</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sport %26 Fitness</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stationary %26 Paper</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Storage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Superannuation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Supplements %26 Vitamins</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tobacco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Toys%2C Gaming %26 Sporting Goods</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Travel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vet %26 Pet Products</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Waste Collection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Water Supply</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Water Transport</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wood</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wool%2C Leather%2C Clothing</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Cluster__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cluster</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unclassified</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Conveyancer_Customer_Pays__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CustomerCommunicationPreferenes__c</picklist>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fax</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CustomerSeedingSource__c</picklist>
+        <values>
+            <fullName>MRS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PO Box</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Philatelic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP CRM</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CustomerType__c</picklist>
+        <values>
+            <fullName>Consumer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Organisation Contact</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_Company_Structure__c</picklist>
+        <values>
+            <fullName>Australian Company with Overseas Offices</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Franchisee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Franchisor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International Trading</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No International Trading</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Part of International Parent Company</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_Tier__c</picklist>
+        <values>
+            <fullName>Tier 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 9</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Data_Collect_Source__c</picklist>
+        <values>
+            <fullName>EPOS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-EPOS</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Department__c</picklist>
+        <values>
+            <fullName>Admin</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Executive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Info%2FDatabase Mgt</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Legal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Logisitics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ops</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Production</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Depot_Collection__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sender Authorisation Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Distribution_Channel__c</picklist>
+        <values>
+            <fullName>Call Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Physical</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Division__c</picklist>
+        <values>
+            <fullName>Division 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Division 2</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Equipment_Fee_Exemption_Reason_Code__c</picklist>
+        <values>
+            <fullName>Bank%40POST</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FlexiPOS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RTC</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Facility_Equipment__c</picklist>
+        <values>
+            <fullName>Mail Sorting Desk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TLCC</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Holding_Role__c</picklist>
+        <values>
+            <fullName>New Accounts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prospect</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SMB Unallocated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Advertising %26 Media Agencies KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Banking%2C F%26PS KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Business North NSW 1 TSR 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Business North NSW 2 TSR 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Business North NSW 3 TSR 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Business North QLD TSR 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Business Sales 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Business South SA%2FNT TSR 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Business South VIC 1 TSR 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Business South VIC 1 TSR 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Business South VIC 2 TSR 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Business South VIC 3 TSR 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Business South WA TSR 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Communications KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Communications KAM 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Federal Government KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Health %26 Energy Business Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Health %26 Energy KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Health %26 Energy Service Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Inside Sales North 1 ISR 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Inside Sales North 1 ISR 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Inside Sales North 2 ISR 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Inside Sales North 3 ISR 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Inside Sales South 1 ISR 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Inside Sales South 2 ISR 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Inside Sales South 2 ISR 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Integrated Accounts KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Local Govt%2C NFP %26 Education KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant NSW State Government KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Parcel Key Accounts North KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Parcel Key Accounts South KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Parcel Partner Sales KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Postal Partners KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant QLD Commercial KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Retail Services KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant VIC State Government KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant WA%2FNT Commercial KAM 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant eCommerce BD KAM 1</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Hub_Catchment__c</picklist>
+        <values>
+            <fullName>ADELAIDE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ALEXANDRIA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ARCHERFIELD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BAYSWATER</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BENDIGO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BIBRA LAKE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BUNDALL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CARINGBAH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FRENCHS FOREST</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GEELONG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HOBART</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HOPPERS CROSSING</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HUNTER</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KINGSGROVE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LONSDALE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MACQUARIE PARK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MANSFIELD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MOORABBIN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MOUNT WAVERLEY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NAMBOUR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NEPEAN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OSBORNE PARK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PERTH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PORT MELBOURNE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SALISBURY SOUTH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SEAFORD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SEVEN HILLS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SHEPPARTON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SOMERTON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ST LEONARDS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TOOWOOMBA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TUGGERAH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VIRGINIA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WA Rural and Remote</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WANGARA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WELSHPOOL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WETHERILL PARK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WINNELLIE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WOLLONGONG</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ID_required__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Industry</picklist>
+        <values>
+            <fullName>Communications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Distribution %26 Industrial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Federal Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial %26 Professional Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Health</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Utilities</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Industry_Sub_Sector__c</picklist>
+        <values>
+            <fullName>A Agriculture%2C Forestry and Fishing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>B Mining</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>C Manufacturing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>D Electricity%2C Gas%2C Water and Waste Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>E Construction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>F Wholesale Trade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>G Retail Trade</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>H Accommodation and Food Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>I Transport%2C Postal and Warehousing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>J Information Media and Telecommunications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>K Financial and Insurance Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>L Rental%2C Hiring and Real Estate Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>M Professional%2C Scientific and Technical Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N Administrative and Support Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>O Public Administration and Safety</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>P Education and Training</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Q Health Care and Social Assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>R Arts and Recreation Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>S Other Services</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Intention_to_Sell_Online__c</picklist>
+        <values>
+            <fullName>1 to 3 Yrs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>After 3 Yrs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Within 12 Mths</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Language__c</picklist>
+        <values>
+            <fullName>English</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>French</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>German</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Legal_Entity_Type__c</picklist>
+        <values>
+            <fullName>Company</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partnership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sole Trader</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trust</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Licence_Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ceased</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Draft</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Not Activated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Licence_Type__c</picklist>
+        <values>
+            <fullName>CPA</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>MC_Business_Type__c</picklist>
+        <values>
+            <fullName>APRA Regulated Non-Public Offer Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>APRA Regulated Public Offer Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia Government Department</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia Government Other %28incl govt-owned companies%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australian Government Statutory Authority</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australian Private Company</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australian Public Company</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Charitable Institution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cooperative Society</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corporate Unit Trust</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Discretionary Investment Trust</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Discretionary Services Management Trust</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Discretionary Trading Trust</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Family Partnership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fixed Unit Trust</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hybrid Trust</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Individual%2FSole Trader</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Limited Partnership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Local Government Entity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Incorporated Entity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Partnership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Trust</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Unincorporated Entity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Social and Sporting Clubs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State Government Department</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State Government Other %28incl govt-owned companies%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State Government Statutory Authority</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Territory Government Entity</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Marketing_Comms_Type__c</picklist>
+        <values>
+            <fullName>Agencies</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corporate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Postal Partners</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>New_Business_Specialist_Team__c</picklist>
+        <values>
+            <fullName>New Business Enterprise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Business NSW%2FACT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Business QLD%2FWA%2FSA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Business VIC%2FTAS</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>No_Physical_Stores__c</picklist>
+        <values>
+            <fullName>1 Physical Store</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 to 20 Physical Stores</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>21 to 50 Physical Store</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>51%2B Physical Stores</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Not_Activated_Reason__c</picklist>
+        <values>
+            <fullName>Australia Post declined to proceed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Franchisor - Australia Post declined to proceed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prospective Agent declined to proceed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prospective Franchisee declined to proceed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Org_to_Org_Relationship__c</picklist>
+        <values>
+            <fullName>Competitor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Franchise or other inter-party business relationship</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inter-company ownership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Membership Relationships</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Organisation_Category__c</picklist>
+        <values>
+            <fullName>Organisation</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Person</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Ownership</picklist>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Subsidiary</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Ownership_of_Fax__c</picklist>
+        <values>
+            <fullName>Auspost</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Licensee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Fax</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Payment_Summary_Delivery__c</picklist>
+        <values>
+            <fullName>Digital via Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital via MPDM</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Postpoint_Unit_Type__c</picklist>
+        <values>
+            <fullName>Large</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>RA_required__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Rating</picklist>
+        <values>
+            <fullName>Cold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hot</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warm</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Redelivery__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sender authorisation required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Redirection__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sender authorisation required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sales_Org__c</picklist>
+        <values>
+            <fullName>Sales Org 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Org 2</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sales_Segment__c</picklist>
+        <values>
+            <fullName>Federal Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Holding Sales Team</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sales_Specialist_Team__c</picklist>
+        <values>
+            <fullName>Sales Specialists Enterprise %26 Strategic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Specialists NSW%2FACT%2FWA%2FSA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Specialists QLD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Specialists VIC%2FTAS</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Security_Status__c</picklist>
+        <values>
+            <fullName>Compliant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Upgrades Required</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ServiceSLA__c</picklist>
+        <values>
+            <fullName>Consumer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enterprise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MyPost Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SMB</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Service_Delivery_Model__c</picklist>
+        <values>
+            <fullName>Business Call Centre 13 11 18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Major Customer Call Centre 13 62 45</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Operations</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Service_Partnership_Team__c</picklist>
+        <values>
+            <fullName>Business North</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business South</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Short_Delivery__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Signed_Partner_Agreement__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>StarTrack_Customer_Stream__c</picklist>
+        <values>
+            <fullName>Emerald</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ruby</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sapphire</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Stock_Order_Day__c</picklist>
+        <values>
+            <fullName>Friday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Monday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thursday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tuesday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wednesday</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Stock_Order_Frequency__c</picklist>
+        <values>
+            <fullName>Fortnightly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Monthly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Weekly</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sub_Segment__c</picklist>
+        <values>
+            <fullName>Advertising%2FMarketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Automotive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Building Construction%2FProperty Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Computer and IT related</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Education</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Electrical Goods and Equipment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Entertainment %26 Recreation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Federal Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Groceries %26 Liquor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Healthcare%2FMedical</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Legal %26 Professional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Local Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manufacturing%2FIndustrial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mining%2FPetroleum</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Political and Religious Organisations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Printing%2FPublishing%2FIntermediaries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional Associations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Social Assistance%2FCharities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Telecommunications%2FBroadcasting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Utilities</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sub_docket__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Supply_Chain_Team__c</picklist>
+        <values>
+            <fullName>Advertising and Media Agencies</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Banking%2C Finance %26 Professional Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Hubs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business North NSW 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business North NSW 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business North NSW 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business North QLD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business South SA%2FNT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business South VIC 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business South VIC 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business South VIC 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business South WA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Communications</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Federal Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Health %26 Energy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Holding Sales Team</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inside Sales North 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inside Sales North 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inside Sales North 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inside Sales South 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inside Sales South 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Integrated Accounts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Local Govt%2C NFP %26 Education</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NSW State Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Key Accounts North</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Key Accounts South</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Partner Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Postal Partners</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QLD Commercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Supply Chain Optimisation Central</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Supply Chain Optimisation North</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Supply Chain Optimisation South</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VIC State Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WA%2FNT Commercial</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Termination_Reason__c</picklist>
+        <values>
+            <fullName>Agent%E2%80%99s business ceased to operate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agreement not renewed when expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agreement terminated by Agent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agreement terminated by Australia Post</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Transfer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Business Partners</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enterprise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Large Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mid Market</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_of_In_Conjunction_Business__c</picklist>
+        <values>
+            <fullName>Bottle Shop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Café</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Council Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Drycleaner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Florist</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Store</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gift Shop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hardware</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hotel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Library</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lotto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Milk Bar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Newsagent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Petrol Station</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pharmacy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Estate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Roadhouse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standalone</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Wine_Damage_Instruction__c</picklist>
+        <values>
+            <fullName>Deliver as Addressed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Discard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Return To Sender</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Zone_Type__c</picklist>
+        <values>
+            <fullName>1Zone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3Zone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6Zone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9Zone</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Zone__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

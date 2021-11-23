@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Depot_Address__c</fullName>
+    <description>Depot Address</description>
+    <externalId>false</externalId>
+    <formula>IF(Case__r.Network__r.Network_Address__c  = NULL, &apos;&apos;,Case__r.Network__r.Network_Address__c)</formula>
+    <inlineHelpText>Depot Address</inlineHelpText>
+    <label>Depot Address</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

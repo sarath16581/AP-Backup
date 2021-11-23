@@ -1,0 +1,308 @@
+<!--
+2020-05-05 - Nathan Franklin - changed variable name for consistency
+-->
+<apex:page controller="bspEnquiryDetail"
+    cache="false"
+    contentType="text/html"
+    showHeader="false"
+    sidebar="false"
+    standardStylesheets="false"
+    title="Business Support Portal"
+    docType="html-5.0"
+    applyHtmlTag="false">
+
+    <html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="DC.Creator" scheme="AglsAgent" content="Australia Post" />
+        <meta name="DC.Title" content="Australia Post - Home" />
+        <title>Business Support Portal</title>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="apple-touch-icon" sizes="144x144" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-144x144.png')}" />
+        <link rel="apple-touch-icon" sizes="114x114" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-114x114.png')}" />
+        <link rel="apple-touch-icon" sizes="72x72" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-72x72.png')}" />
+        <link rel="apple-touch-icon" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon.png')}" />
+        <link rel="shortcut icon" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/favicon.ico')}" />
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/style.css')}" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/head.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/libs/jquery-1.8.2.min.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/csso-widget.js')}"></script>
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/cssolight.css')}" />
+        
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/style-icams-addons.css')}" />
+    
+        <!-- MRSO assets -->
+        <link href="{!URLFOR($Resource.BSP_Asset,'css/mrso/mrso-v2.css')}" rel="stylesheet" />
+        <link href="{!URLFOR($Resource.BSP_Asset,'css/mrso/lightbox.css')}" rel="stylesheet" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/mrso/application.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/mrso/lightbox.js')}"></script>
+      
+        <link href="{!URLFOR($Resource.BSP_Asset,'jquery-ui.css')}" rel="stylesheet" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'jquery-ui.js')}"></script>
+
+    
+        <script src="{!URLFOR($Resource.BSP_Asset,'GsForm_Script.js')}"></script>
+      
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_CSS)}"/>
+  
+        <script src="{!URLFOR($Resource.BSP_JS)}"/>         
+        
+        <style>
+
+        </style>
+        
+        <script>
+            $(function() {
+//                $( "#accordion" ).accordion();
+                                $( document ).tooltip();
+            });
+        </script>
+    </head>
+ 
+    
+    <!--[if lt IE 7]> <body class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]>    <body class="lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]>    <body class="lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]><!--> <body> <!--<![endif]-->
+    
+    <!-- START Accessibility links -->
+    
+    <div class="accessibility-links"> <a href="#main" class="visuallyhidden focusable">Skip to content</a> <a href="#primary-nav" class="visuallyhidden focusable">Skip to primary navigation</a> </div>
+    <!-- END Accessibility links --> 
+    <!-- START GE01 Header -->
+    <c:MpbHspHeader />
+    <!-- END GE01 Header -->
+
+ 
+   <div class="l-container">
+
+        <div class="l-main l-without-left-panel clearfix" role="main" id="main">
+    
+            <!-- MAIN PANEL -->
+            <div class="content-panel">
+                <div class='workarea'>
+
+                   <!-- START CM51 Value prop  -->
+                   <p class="value-proposition"></p>   
+       
+                   <div style="clear:both"/>
+
+                   <div id="breadcrumbs" >
+                       <!-- <a class="clearfix left bw-breadcrumbs-link-color" href="{!$Site.CurrentSiteUrl}bspEnquiry">Home</a>  -->
+					   <a class="clearfix left bw-breadcrumbs-link-color" href="{!$Site.CurrentSiteUrl}MpbHspEnquiry">Home</a>
+                       <div class="left bw-breadcrumbs-text-color">
+                           &nbsp;&nbsp;>&nbsp;&nbsp;Incident detail
+                       </div>
+                   </div> 
+
+                   <div style="clear:both"/>
+
+                   <apex:form styleClass="fn-validation" enctype="multipart/form-data">
+         
+
+                        <apex:Messages styleclass="form-errors"/>
+                        <!-- START Error list
+                                If there are serverside errors, include them as <li> elements
+                                If there are no serverside errors, still include this DIV, but without any <li> elements. It will be used by JavaScript.
+                        -->
+                        <div class="form-errors hidden">
+                            <h3>Please enter the required information.</h3>
+                        </div>
+                        <!-- END Error list -->
+ 
+                        <apex:outputPanel styleClass="bw-enq-details">      
+                            <h1>Enquiry details</h1>
+                            <div class="bw-enq-subtitles">
+                                <h2>{!enq.CCUEnquiryType__c} for {!enq.CaseNumber}</h2>
+                                <h3>
+                                    Created on&nbsp;
+                                    <apex:outputField value="{!enq.CreatedDate}"/>
+                                </h3>
+                            </div>
+                            <div class="bw-enq-toolbox">
+                                <div class="bw-status-box">
+                                    <apex:outputText styleClass="bw-enq-status {!IF(CONTAINS(LOWER(enq.Status), 'close'), 'closed', 'open')}" value="{!IF(LOWER(enq.Status)=='awaiting customer response','Action Required',IF((LOWER(enq.status)=='closed'&&enq.Permanent_Close__c)||enq.subject=='Bulk Upload',enq.status,IF(LOWER(enq.status)=='closed'&&!enq.Permanent_Close__c,'Resolved','In Progress')))}"/><br/>
+                                    Updated&nbsp;
+                                    <apex:outputField value="{!enq.LastModifiedDate}"/>
+                                </div>
+                                <div class="action bw-print" onclick="window.print();">
+                                    <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/icons-32bit/print.png')}"/>
+                                    Print
+                                </div>
+                                <apex:outputPanel rendered="{!IF(LOWER(enq.status)=='closed'&&NOT(enq.Permanent_Close__c),false,true)}">
+                                <div class="action bw-close-enq" title="If no further investigation is required, resolve your enquiry." onclick="JsCloseCase();">
+                                    <apex:image url="{!URLFOR($Resource.BSP_Custom, 'images/close-icon.png')}"/>
+                                    Resolve enquiry
+                                </div>
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!IF(LOWER(enq.status)=='closed'&&NOT(enq.Permanent_Close__c),true,false)}" title="Click on the link to re-open case">
+                                    <div class="action bw-close-enq" title="If the case is not resolved, reopen your enquiry." onclick="JsCloseCase();">
+                                        <apex:commandLink value="Re-open Enquiry" action="{!reopenCase}"/>
+                                        
+                                    </div>
+                                </apex:outputPanel>
+                                <apex:actionFunction name="VfCloseCase" action="{!closeCase}" rendered="{!LOWER(enq.Status)!='closed'}"/>
+                            </div>
+                            
+                            <hr/>
+                            
+                            <h5>Enquiry name</h5>
+                            <apex:outputText styleClass="bw-readonly-field" value="{!enq.CCUYourReference__c}"/>
+                            
+                            <h4>Item details</h4>
+                            
+                            <table class="bw-item-details">
+                                <tr>
+                                    <td>
+                                        <h5>Tracking number</h5>
+                                        <apex:outputText styleClass="bw-readonly-field" value="{!enq.ReferenceID__c}"/>
+                                    </td>
+                                    <td>
+                                        <h5>Posting date</h5>
+                                        <apex:outputText styleClass="bw-readonly-field" value="{0, date, dd'/'MM'/'yyyy}">
+                                            <apex:param value="{!enq.DatePosted__c}"/>
+                                        </apex:outputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5>Item type</h5>
+                                        <apex:outputText styleClass="bw-readonly-field" value="{!IF(NOT(ISBLANK(enq.ArticleType__c)),enq.ArticleType__c,enq.ProductCategory__c)}"/>
+                                    </td>
+                                    <td>
+                                        <h5>Service used</h5>
+                                        <apex:outputText styleClass="bw-readonly-field" value="{!IF(NOT(ISBLANK(enq.CCUServiceUsed__c)),enq.CCUServiceUsed__c,enq.ProductSubCategory__c)}"/>
+                                    </td>
+                                    <td>
+                                        <h5>Item contents</h5>
+                                        <apex:outputText styleClass="bw-readonly-field" value="{!IF(NOT(ISBLANK(enq.CCUItemContents__c)),enq.CCUItemContents__c,enq.DescriptionofContents__c)}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <hr/>
+                            
+                            <div class="bw-address bw-from-address">
+                                <h4>From</h4>
+                                <apex:outputText styleClass="bw-readonly-tofrom" value="{!fromName}"/>
+                                <apex:outputText styleClass="bw-readonly-tofrom" value="{!fromCompany}"/>
+                                <apex:outputText styleClass="bw-readonly-tofrom" value="{!fromAddress1}"/>
+                                <apex:outputText styleClass="bw-readonly-tofrom" value="{!fromAddress2}"/>
+                            </div>
+                            
+                            <div class="bw-address bw-to-address">
+                                <h4>To</h4>
+                                <apex:outputText styleClass="bw-readonly-tofrom" value="{!toName}"/>
+                                <apex:outputText styleClass="bw-readonly-tofrom" value="{!toCompany}"/>
+                                <apex:outputText styleClass="bw-readonly-tofrom" value="{!toAddress1}"/>
+                                <apex:outputText styleClass="bw-readonly-tofrom" value="{!toAddress2}"/>
+                            </div>
+   
+                            
+                        </apex:outputPanel>
+                    
+                        
+                        <!-- START Communication History -->
+                    
+                        <apex:outputPanel styleClass="bw-comm-history">
+                            <apex:outputPanel rendered="{!LOWER(enq.Status)!='closed'}">
+                                <div class="bw-comm-history-corner"></div>
+                                
+                                <h2>Communication history</h2>
+                                
+                                <apex:inputTextarea styleClass="bw-comments bw-input-field" html-placeholder="Add a comment or update" value="{!newCaseComment.CommentBody}" />
+
+                             
+                                <div class="bw-add-attachment">
+                                    <apex:actionRegion >
+                                        <apex:image url="{!URLFOR($Resource.BSP_Custom, 'images/plus-icon.png')}" alt="Add" styleclass="left cursor-pointer" onclick="JS_DisplayAttachmentButtonED();" />
+                                        <apex:actionFunction name="SF_DisplayAttachmentButtonED" rerender="attachment-button" action="{!SF_DisplayAttachmentButton}" status="loading-att"/>
+          
+                                        <apex:actionStatus id="loading-att">
+                                            <apex:facet name="start">
+                                                <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                            </apex:facet>
+                                        </apex:actionStatus>                                   
+                                    </apex:actionRegion>
+                                </div>
+                                    
+                                <div id="attachment-block"> 
+                                    <h4 >Attach a document or image</h4>
+                                    <p>PDF, JPEG and DOC files up to {!fileSizeLimitInteger}MB accepted</p>
+                                    <apex:outputPanel id="attachment-button">
+                                        <apex:inputFile value="{!mpbFileBody}" fileName="{!mpbFileName}" filesize="{!mpbFileBodyLength}" contentType="{!mpbFileContentType}" id="file" rendered="{!showAttachmentButtonFlag}" />
+                                    </apex:outputPanel>
+                                </div>
+                                
+                                <apex:CommandButton value="Send" styleClass="primary-cta button-submit" action="{!addComment}" />
+                            </apex:outputPanel>
+                            
+                            <apex:outputPanel rendered="{!LOWER(enq.Status)='closed'}">
+                                <div class="bw-comm-history-corner"></div>
+                                
+                                <h2>Communication history</h2>
+
+                                <h2>This enquiry cannot be reopened or updated. If you need further assistance, please submit a new enquiry.</h2>                            
+                            </apex:outputPanel>
+
+                            <apex:outputPanel id="existing-attachments" rendered="{!(existingAttachments.size!=0)}">
+                                <br/>
+                                <table>
+                                <tr>
+                                    <td width="200px" style="background-color: F3F1EE;">
+                                        <h4>File Attachment</h4>
+                                    </td>
+                                    <td style="background-color: F3F1EE;">
+                                        <apex:repeat value="{!existingAttachments}" var="a" >
+                                            <apex:outputLink value="{!URLFOR($Action.Attachment.Download,a.id)}" target="_blank">{!a.Name}</apex:outputLink>&nbsp;&nbsp;&nbsp;<span>({!a.BodyLength} bytes)</span><br/>
+                                        </apex:repeat>
+                                    </td>
+                                </tr>
+                                </table>
+                            </apex:outputPanel>
+                            <!--Yongling CHUA 27/6/17 - Commented out this section as to prevent causing error after changing controller to With Sharing Class due to security breach.-->
+                            <div id="accordion">
+                                <apex:repeat value="{!commHistoryList}" var="c">
+                                    <apex:outputText value="{!c.Header}" escape="false" />
+                                    <apex:outputText value="{!c.Body}" escape="false" rendered="{!c.objType='comment'}" />
+                                    <apex:outputPanel rendered="{!c.objType='message'}">
+                                        <pre><span style="font-family: Arial,sans-serif;"><apex:outputText value="{!c.Body}" escape="true" /></span></pre>
+                                    </apex:outputPanel>
+                                </apex:repeat>                                   
+                            </div>
+						
+                           
+                        </apex:outputPanel>
+                        <!-- END Communication History -->
+
+                    </apex:form>  
+    
+
+                </div> 
+            </div>
+            <!-- END MAIN PANEL --> 
+
+
+            <!-- START Your details -->
+
+            <c:MpbHspYourDetails />
+            <!-- END Your details -->
+
+            <!-- 21/04 MyPostBusiness -->
+            <c:MpbHspCallMeBackRestCall />
+
+        </div>
+        
+    </div>
+
+    
+    <!-- START GE02 Footer -->
+    <c:bspFooter />
+    <!-- END GE02 Footer --> 
+
+
+    </body>
+    </html>
+
+</apex:page>

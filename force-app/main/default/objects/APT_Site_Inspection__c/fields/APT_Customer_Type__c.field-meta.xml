@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Customer_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Customer Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Customer</fullName>
+                <default>false</default>
+                <label>New Customer</label>
+            </value>
+            <value>
+                <fullName>Variation</fullName>
+                <default>false</default>
+                <label>Variation</label>
+            </value>
+            <value>
+                <fullName>Cancellation</fullName>
+                <default>false</default>
+                <label>Cancellation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

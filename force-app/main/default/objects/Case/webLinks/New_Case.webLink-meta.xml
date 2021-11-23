@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Case</fullName>
+    <availability>online</availability>
+    <description>New case button used to create case within Opportunity layout</description>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>New Case</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>/setup/ui/recordtypeselect.jsp?ent=Case&amp;retURL=/{!Opportunity.Id}&amp;save_new_url=%2F500%2Fe%3FretURL%3D%252F500%252Fo
+
+&amp;CF00N90000004N5z7_lkid={!Opportunity.Id}
+&amp;CF00N90000004N5z7={!Opportunity.Name}
+&amp;retURL=/{!Opportunity.Id}
+&amp;saveURL=/{!Opportunity.Id}</url>
+</WebLink>

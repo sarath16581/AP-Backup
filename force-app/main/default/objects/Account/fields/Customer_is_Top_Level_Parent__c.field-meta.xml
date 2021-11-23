@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_is_Top_Level_Parent__c</fullName>
+    <description>If the customer Legacy ID number is the same as the Top Level Parent Organisation the value is to return a 1 if not to return a 0. This is to enable reports to just sum the Top Level Parent Organisations. This field can only be used if the Top Level Parent Organisation appears in the report as the other customers in the hierarchy, so the result will return a 1 rather than count each individual customer.</description>
+    <externalId>false</externalId>
+    <formula>IF ( LEGACY_ID__c = Ultimate_Parent_Number__c , 1 , 0 )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Customer is Top Level Parent</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

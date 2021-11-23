@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales_Event_Compact_Layout</fullName>
+    <fields>Subject</fields>
+    <fields>StartDateTime</fields>
+    <fields>Location</fields>
+    <fields>WhatId</fields>
+    <fields>Type</fields>
+    <fields>EndDateTime</fields>
+    <fields>WhoId</fields>
+    <fields>Category__c</fields>
+    <label>Sales Event Compact Layout</label>
+</CompactLayout>

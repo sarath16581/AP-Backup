@@ -1,0 +1,144 @@
+<apex:page id="MerchantPortalLoginFlow" controller="BAMMerchantPortalLoginFlowController" action="{!checkTandC}" showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false">
+
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+        <apex:stylesheet value="{!URLFOR($Resource.MerchantPortalAssets, 'css/login.css')}" />
+
+        <style type="text/css">
+
+            /*********************************************************
+             * Font Declarations
+             *********************************************************/
+            @font-face {
+                font-family: 'AP Letter';
+                src: url("{!$Resource.cpApFonts}/letter-bold-webfont.woff2") format("woff2"), url("{!$Resource.cpApFonts}/letter-bold-webfont.woff") format("woff");
+                font-weight: bold;
+                font-style: normal;
+            }
+
+            @font-face {
+                font-family: 'AP Letter';
+                src: url("{!$Resource.cpApFonts}/letter-bolditalic-webfont.woff2") format("woff2"), url("{!$Resource.cpApFonts}/letter-bolditalic-webfont.woff") format("woff");
+                font-weight: bold;
+                font-style: italic;
+            }
+
+            @font-face {
+                font-family: 'AP Letter';
+                src: url("{!$Resource.cpApFonts}/letter-light-webfont.woff2") format("woff2"), url("{!$Resource.cpApFonts}/letter-light-webfont.woff") format("woff");
+                font-weight: 300;
+                font-style: normal;
+            }
+
+            @font-face {
+                font-family: 'AP Letter';
+                src: url("{!$Resource.cpApFonts}/letter-lightitalic-webfont.woff2") format("woff2"), url("{!$Resource.cpApFonts}/letter-lightitalic-webfont.woff") format("woff");
+                font-weight: 300;
+                font-style: italic;
+            }
+
+            @font-face {
+                font-family: 'AP Letter';
+                src: url("{!$Resource.cpApFonts}/letter-medium-webfont.woff2") format("woff2"), url("{!$Resource.cpApFonts}/letter-medium-webfont.woff") format("woff");
+                font-weight: 600;
+                font-style: normal;
+            }
+
+            @font-face {
+                font-family: 'AP Letter';
+                src: url("{!$Resource.cpApFonts}/letter-mediumitalic-webfont.woff2") format("woff2"), url("{!$Resource.cpApFonts}/letter-mediumitalic-webfont.woff") format("woff");
+                font-weight: 600;
+                font-style: italic;
+            }
+
+            @font-face {
+                font-family: 'AP Letter';
+                src: url("{!$Resource.cpApFonts}/letter-regular-webfont.woff2") format("woff2"), url("{!$Resource.cpApFonts}/letter-regular-webfont.woff") format("woff");
+                font-weight: normal;
+                font-style: normal;
+            }
+
+            @font-face {
+                font-family: 'AP Letter';
+                src: url("{!$Resource.cpApFonts}/letter-regularitalic-webfont.woff2") format("woff2"), url("{!$Resource.cpApFonts}/letter-regularitalic-webfont.woff") format("woff");
+                font-weight: normal;
+                font-style: italic;
+            }
+
+        </style>
+
+    </head>
+    <body>
+
+    <div id="content-wrapper">
+
+        <header id="header">
+
+            <div class="left">
+                <img src="{! $Resource.MerchantPortalAssets + '/svg/ap-logo.svg'}" alt="Australia Post Merchant Portal" />
+                <h1 class="slds-m-left_small">Merchant Portal</h1>
+            </div>
+
+        </header>
+
+        <div id="mainBody" class="layout-contained">
+            <apex:form id="submitForm" styleClass="submitForm">
+
+                <apex:actionFunction name="submitForm" action="{!submit}"></apex:actionFunction>
+
+                <div class="card flow-container">
+                    <h2 style="font-size:1.7rem;line-height:1.5;text-align:center;">Terms and Conditions</h2>
+
+                    <apex:outputPanel rendered="{!isError}" layout="none">
+                        <div style="margin: 2rem 0;" class="error">
+                            You must accept the Terms and <br/>Conditions of use to continue.
+                        </div>
+                    </apex:outputPanel>
+
+                    <div style="margin: 2rem 0;" class="login-checkbox">
+                        <label>
+                            <span><apex:inputCheckbox value="{!agreeTsAndCs}" /></span><span>I confirm I have read and accept the<br/><a href="https://auspost.com.au/terms-conditions/api-licence-terms-and-conditions" target="_blank">Application License Terms and Conditions</a></span>
+                        </label>
+                    </div>
+
+                    <button type="button" onclick="submitForm()">Continue</button>
+
+                </div>
+
+            </apex:form>
+
+        </div>
+
+    </div>
+    <footer id="footer">
+        <div class="layout-contained">
+            <div class="left">
+                <ul class="slds-list_horizontal slds-has-inline-block-links_space">
+                    <li>
+                        <a href="https://auspost.com.au/terms-conditions/api-licence-terms-and-conditions" target="_blank">Terms &amp; Conditions</a>
+                    </li>
+                    <li>
+                        <a href="https://auspost.com.au/general/merchant-portal-privacy-notice" target="_blank">Privacy Policy</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="right-links">
+                <ul class="slds-list_horizontal slds-has-inline-block-links_space">
+                    <li>
+                        <a href="https://auspost.com.au/help-and-support/merchant-portal">
+                                <span class="slds-icon_container slds-icon-standard-account" title="Help and Support">
+                                    <svg aria-hidden="true" class="slds-icon">
+                                        <use xlink:href="{!URLFOR($Resource.MerchantPortalAssets, 'svg/symbols.svg#help-circle')}"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">&nbsp;&nbsp;Help &amp; Support</span>
+                                </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    </body>
+    </html>
+
+</apex:page>

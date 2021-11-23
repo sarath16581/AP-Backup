@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Prevent_Modify_user_name</fullName>
+    <active>true</active>
+    <description>User validation rule to prevent Service Agent to change First name and Last name.</description>
+    <errorConditionFormula>AND (
+OR($User.UserRoleId == $Label.SSSW_NSA_ROLE_ID, $User.UserRoleId == $Label.SSSW_SSA_ROLE_ID),
+OR(CONTAINS( UserRole.Name , &quot;SSSW South Service Agent&quot;), CONTAINS( UserRole.Name , &quot;SSSW North Service Agent&quot;)),
+OR(ISCHANGED(FirstName), ISCHANGED(LastName), ISCHANGED(Email), ISCHANGED( CompanyName ), ISCHANGED(Alias))
+)</errorConditionFormula>
+    <errorMessage>System prohibits Service Agents to amend First Name, Last Name and email addresses. Please contact your Team Leader or Salesforce Administrator.</errorMessage>
+</ValidationRule>

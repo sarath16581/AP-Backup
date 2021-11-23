@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSWRoutingRecordDifferentForNewAndUpdat</fullName>
+    <active>true</active>
+    <description>Inorder to avoid complications in code - need to create more than 1 record if the same rule needs to apply for new and isupdate cases. This can be improved later.</description>
+    <errorConditionFormula>IsNew__c &amp;&amp;  IsUpdated__c</errorConditionFormula>
+    <errorMessage>Please create another Routing record for new Cases</errorMessage>
+</ValidationRule>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MilestoneType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>StarTrack milestone used to track the time it takes for an investigator to take ownership of a case once its been transferred to a queue</description>
+    <recurrenceType>none</recurrenceType>
+</MilestoneType>

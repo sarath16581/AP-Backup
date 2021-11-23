@@ -1,0 +1,176 @@
+<!--
+  * @author       : arjun.singh@auspost.com.au
+  * @date         : 13/05/2020
+  * @description  : Component has the information related to Sorting Details of an Article
+--------------------------------------- History --------------------------------------------------
+15.05.2020    Arjun Singh    Created
+-->
+<template>
+    <div class="slds-m-around_medium">
+        <template if:false={sortingEventMessageFound}>
+            <p style="color:red">There are no related sorting events to display</p>
+        </template>
+        <template if:true={sortingEventMessageFound}>
+            <div class="slds-box slds-theme_default slds-scrollable_x">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                    <thead>
+                        <tr>
+                            <th class="">
+                                <div class="slds-truncate" title="Event Type">Event Type</div>
+                            </th>
+                            <th class="" style="width:120px;">
+                                <div class="slds-truncate" title="Actual Time">Actual Time</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Machine Device ID">Component ID</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Machine Device ID">Component Name</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Machine Device Type">Component ID - Routing Outlet</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Machine Device Type">Component Name - Routing Outlet</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Machine Device Name">Component ID - Actual Destination</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Machine Device Name">Component Name - Actual Destination</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Output Status">Output Status</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Output Reason">Output Reason</div>
+                            </th>
+                            <th>
+                                <div class="slds-truncate" title="Routing Result Source">Routing Result Source</div>
+                            </th>
+                            
+                            <th class="">
+                                <div class="slds-truncate" title="OCR/VCS - DPID">OCR/VCS - DPID</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="OCR/VCS - Postcode">OCR/VCS - Postcode</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Default - Article DWS Height">Default - Article DWS Height</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Actual - Article DWS Height">Actual - Article DWS Height</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Default - Article DWS Length">Default - Article DWS Length</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Actual - Article DWS Length">Actual - Article DWS Length</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Default - Article DWS Width">Default - Article DWS Width</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Actual - Article DWS Width">Actual - Article DWS Width</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Default - Article DWS Weight">Default - Article DWS Weight</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Actual - Article DWS Weight">Actual - Article DWS Weight</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="Containerisation - Container ID">Container ID</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="VISA Label - Line 1 Text">VISA Label - Line 1</div>
+                            </th>
+                            <th class="">
+                                <div class="slds-truncate" title="VISA Label - Line 2 Text">VISA Label - Line 2</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>                        
+                    <template for:each={sortingEventMessages} for:item="sortingEventMessage">
+                        <tr key={sortingEventMessage.Id}>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.EventType__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.planDate}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                    {sortingEventMessage.DeviceID__c}
+                            </td>                            
+                            <td class="slds-cell-wrap">
+                                    {sortingEventMessage.Machine_Device_Name__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                    {sortingEventMessage.SortDest__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                    {sortingEventMessage.Logical_Destination_Name__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                    {sortingEventMessage.SortOutputComp__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                    {sortingEventMessage.Actual_Destination_Name__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.SortOutputStatus__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.SortOutputReason__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.RoutingResultSource__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.OCRVCS_DPID__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.OCRVCSPostcode__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.DefaultHeight__c}
+                            </td>
+                            
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.Height__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.DefaultLength__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.Length__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.DefaultWidth__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.Width__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.DefaultWeight__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.Weight__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.PhysicalContainerID__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.VISALabelLine1__c}
+                            </td>
+                            <td class="slds-cell-wrap">
+                                {sortingEventMessage.VISALabelLine2__c}
+                            </td>
+                        </tr>
+                    </template>    
+                    </tbody>
+                </table>
+            </div>
+        </template>
+    </div>
+</template>

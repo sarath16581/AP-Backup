@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ST_Sub_Product__c</fullName>
+    <externalId>false</externalId>
+    <label>ST Sub-Product</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Courier</fullName>
+                <default>false</default>
+                <label>Courier</label>
+            </value>
+            <value>
+                <fullName>Parcel Post</fullName>
+                <default>false</default>
+                <label>Parcel Post</label>
+            </value>
+            <value>
+                <fullName>Road Express</fullName>
+                <default>false</default>
+                <label>Road Express</label>
+            </value>
+            <value>
+                <fullName>Premium</fullName>
+                <default>false</default>
+                <label>Premium</label>
+            </value>
+            <value>
+                <fullName>Fixed Price Premium</fullName>
+                <default>false</default>
+                <label>Fixed Price Premium</label>
+            </value>
+            <value>
+                <fullName>3PL</fullName>
+                <default>false</default>
+                <label>3PL</label>
+            </value>
+            <value>
+                <fullName>International</fullName>
+                <default>false</default>
+                <label>International</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

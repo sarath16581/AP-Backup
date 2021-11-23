@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales Excellence Pipeline</fullName>
+    <description>Support process for Sales Pipeline case management</description>
+    <isActive>true</isActive>
+    <values>
+        <fullName>Awaiting Internal Response</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Closed</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Deferred</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Discontinued</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Merged</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Open</fullName>
+        <default>true</default>
+    </values>
+    <values>
+        <fullName>Waiting for someone else</fullName>
+        <default>false</default>
+    </values>
+</BusinessProcess>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This email template is used in the Case Approval Process for Unannounced Retail Audit Cases. Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>AMLCTF_Retail_Audit_Letterhead</letterhead>
+    <name>Unannounced Audit Case Approval Email Notification</name>
+    <style>freeForm</style>
+    <subject>Unannounced Retail Audit for {!Case.NetworkName__c} for your approval</subject>
+    <textOnly>Hi,
+
+An Unannounced Retail Audit has been requested, with the following details:
+
+Auditor: {!Case.OwnerFullName}
+Case #: {!Case.CaseNumber}
+Subject: {!Case.Subject}
+Retail Outlet: {!Case.NetworkName__c}
+WCC: {!Case.AMLCTF_WCC__c}
+Planned Audit Date: {!Case.AMLCTF_Planned_Audit_Date__c}
+
+Use the link below to access the desktop app to view the Case record along with its attachments, as well as to approve or reject this request:
+{!ApprovalRequest.External_URL}
+
+Alternatively, you may also approve or reject this item, replying to this email with the word APPROVE, APPROVED, YES, REJECT, REJECTED, or NO. You can also add comments on the second line. The comments will be stored with the approval request in Salesforce CRM.
+
+Note: For salesforce.com to process your response by email the word APPROVE, APPROVED, YES, REJECT, REJECTED, or NO must be in the very first line of the reply email. Also, any comment must be in the second line.
+
+Regards.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

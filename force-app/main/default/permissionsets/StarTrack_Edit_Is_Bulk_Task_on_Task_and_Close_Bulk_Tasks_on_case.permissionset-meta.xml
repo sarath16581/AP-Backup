@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>StarTrack: Permission set to allow create and close bulk tasks.</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Close_Bulk_Tasks__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Event.Is_Bulk_Task__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.Is_Bulk_Task__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>StarTrack:Edit &quot;Is Bulk Task?&quot; on Task and &quot;Close Bulk Tasks&quot; on case</label>
+    <license>Salesforce</license>
+</PermissionSet>

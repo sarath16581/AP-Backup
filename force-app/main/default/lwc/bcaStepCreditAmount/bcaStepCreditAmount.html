@@ -1,0 +1,47 @@
+<!--
+* @author Victor.Cheng@auspost.com.au
+* @date 2020-12-17
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Step in Credit Application Form to input Business Credit Amount details
+* @changelog
+* 2020-12-17 Victor.Cheng@auspost.com.au     Created
+* 2020-12-17 avula.jansirani@auspost.com.au  Updated
+* 2021-06-30 avula.jansirani@auspost.com.au  Removed min,message-when-range-underflow attributes for 'Estimated monthly postage costs', because these are not supported for type='text'  [STP-6333]
+-->
+
+
+<template>
+    <!--Estimated monthly postage costs-->
+    <lightning-input label="Estimated monthly postage costs"
+                     name="monthlyAmount" 
+                     data-id="monthlyAmount" 
+                     max-length="7"
+                     placeholder="$" 
+                     minimum-fraction-digits="0" 
+                     step="1" 
+                     required="true" 
+                     class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 short-form-field"
+                     message-when-value-missing={enterEstimatedCostValidationMsg}
+                     onkeydown={enforceFormat}
+                     onchange={onChangeField}
+                     onfocusout={handleFocusOut} ><!-- min="1"--><!--  message-when-range-underflow={enterValieCostMsg}-->
+    </lightning-input>
+
+    <div class="shaded-box">
+        <p aria-live="polite">
+            <!--Recommended credit amount-->
+            <span class="slds-p-right_small">Recommended credit amount:</span>
+             <b><lightning-formatted-number value={_creditAmount.recommendedAmount} 
+                                            format-style="currency" 
+                                            currency-code="AUD" 
+                                            currency-display-as="symbol" 
+                                            name="recommendedAmount" 
+                                            data-id="recommendedAmount" 
+                                            minimum-fraction-digits="0">
+                </lightning-formatted-number></b>
+        </p>
+    </div>
+
+  
+</template>

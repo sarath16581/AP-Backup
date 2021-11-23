@@ -1,0 +1,20 @@
+<messaging:emailTemplate subject="Task Overdue" recipientType="User" relatedToType="Task">
+<messaging:plainTextEmailBody >
+Dear {!relatedTo.Owner.FirstName},
+
+This is an overdue reminder for the Task {!relatedTo.Subject}.
+
+Please click on the link below to view the record. 
+
+{!LEFT($Api.Partner_Server_URL_140, FIND('.com', $Api.Partner_Server_URL_140) + 4) + relatedTo.Id}
+</messaging:plainTextEmailBody>
+<messaging:htmlEmailBody >
+Dear {!relatedTo.Owner.FirstName},
+<br/><br/>
+This is an overdue reminder for the Task {!relatedTo.Subject}.
+<br/><br/>
+Please click on the link below to view the record. 
+<br/><br/>
+{!LEFT($Api.Partner_Server_URL_140, FIND('.com', $Api.Partner_Server_URL_140) + 4) + relatedTo.Id}
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

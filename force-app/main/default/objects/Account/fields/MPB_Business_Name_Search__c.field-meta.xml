@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MPB_Business_Name_Search__c</fullName>
+    <description>MPB Business Name used for Unique Validation</description>
+    <externalId>false</externalId>
+    <formula>SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( 
+SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( 
+SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( 
+SUBSTITUTE( 
+IF(CONTAINS(RIGHT(SUBSTITUTE(SUBSTITUTE(LOWER(Name),&quot;.&quot;,&quot;&quot;),&quot;,&quot;,&quot;&quot;),4),&quot; inc&quot;),RPAD(LOWER(Name),LEN(Name)-5), 
+IF(CONTAINS(RIGHT(SUBSTITUTE(SUBSTITUTE(LOWER(Name),&quot;.&quot;,&quot;&quot;),&quot;,&quot;,&quot;&quot;),13),&quot; incorporated&quot;), RPAD(LOWER(Name),LEN(Name)-13) , 
+IF(AND(CONTAINS(&quot;1234567890!@#$%^&amp;*()-_=+~`\&quot;\&apos;;:/?&gt;&lt;,.[]{}|p &quot;, MID(Lower(Name), (FIND(&quot;pty&quot;, LOWER(Name)))-1, 1)) , 
+CONTAINS(&quot;1234567890!@#$%^&amp;*()-_=+~`\&quot;\&apos;;:/?&gt;&lt;,.[]{}| &quot;, MID(Lower(Name), (FIND(&quot;pty&quot;, LOWER(Name)))+3, 1))),SUBSTITUTE(Lower(Name),MID(Lower(Name), (FIND(&quot;pty&quot;, LOWER(Name))), 3),&quot;&quot;) , 
+IF(AND(CONTAINS(&quot;1234567890!@#$%^&amp;*()-_=+~`\&quot;\&apos;;:/?&gt;&lt;,.[]{}|l &quot;, MID(Lower(Name), (FIND(&quot;ltd&quot;, LOWER(Name)))-1, 1)) , 
+CONTAINS(&quot;1234567890!@#$%^&amp;*()-_=+~`\&quot;\&apos;;:/?&gt;&lt;,.[]{}| &quot;, MID(Lower(Name), (FIND(&quot;ltd&quot;, LOWER(Name)))+3, 1))),SUBSTITUTE(Lower(Name),MID(Lower(Name), (FIND(&quot;ltd&quot;, LOWER(Name))), 3),&quot;&quot;), LOWER(Name))))),&quot;&amp;&quot;,&quot;and&quot;),&quot;.&quot;,&quot;&quot;),&quot; pty&quot;, &quot;&quot; ), &quot; ltd&quot;, &quot;&quot;), &quot; &quot;, &quot;&quot;), &quot;&apos;&quot;, &quot;&quot;), &quot;-&quot;, &quot;&quot;), &quot;\&apos;&quot;, &quot;&quot;), &quot;\&quot;&quot;, &quot;&quot;), &quot;,&quot; ,&quot;&quot;), &quot;“&quot; ,&quot;&quot;), &quot;‘&quot; ,&quot;&quot;), &quot;”&quot; ,&quot;&quot;), &quot;’&quot; ,&quot;&quot;), &quot;‛&quot; ,&quot;&quot;), &quot;’&quot; ,&quot;&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>MPB Business Name Search</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

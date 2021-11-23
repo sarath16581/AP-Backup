@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Debrief_Status__c</fullName>
+    <description>Indicates status of bid debrief</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select the current status of bid debrief</inlineHelpText>
+    <label>Debrief Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>No debrief</fullName>
+                <default>false</default>
+                <label>No debrief</label>
+            </value>
+            <value>
+                <fullName>Waiting on customer</fullName>
+                <default>false</default>
+                <label>Waiting on customer</label>
+            </value>
+            <value>
+                <fullName>Waiting on sales executive</fullName>
+                <default>false</default>
+                <label>Waiting on sales executive</label>
+            </value>
+            <value>
+                <fullName>Completed</fullName>
+                <default>false</default>
+                <label>Completed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

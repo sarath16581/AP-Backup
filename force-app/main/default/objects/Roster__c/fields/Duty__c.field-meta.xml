@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Duty__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The duty service resource to assign a driver to</description>
+    <externalId>false</externalId>
+    <label>Operational Duty</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>ServiceResource.IsActive</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <filterItems>
+            <field>ServiceResource.ResourceType</field>
+            <operation>equals</operation>
+            <value>C</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>ServiceResource</referenceTo>
+    <relationshipName>Duty_Roster_Records</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

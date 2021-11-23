@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Are_you_a_charity_or_local_council__c</fullName>
+    <externalId>false</externalId>
+    <label>Are you a charity or local council?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Council Sending Publications</fullName>
+                <default>false</default>
+                <label>Council Sending Publications</label>
+            </value>
+            <value>
+                <fullName>Council Sending Letters</fullName>
+                <default>false</default>
+                <label>Council Sending Letters</label>
+            </value>
+            <value>
+                <fullName>Charity Sending Publications</fullName>
+                <default>false</default>
+                <label>Charity Sending Publications</label>
+            </value>
+            <value>
+                <fullName>Charity Sending Letters</fullName>
+                <default>false</default>
+                <label>Charity Sending Letters</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

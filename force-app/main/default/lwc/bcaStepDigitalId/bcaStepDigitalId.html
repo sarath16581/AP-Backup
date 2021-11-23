@@ -1,0 +1,28 @@
+<!--
+ - Created by vcheng on 15/04/2021.
+ -->
+
+<!-- Bca Step Digital Id -->
+<template>
+        <div class="form-outer-box">
+                <div class="form-inner-box-wide">
+                        <div class="slds-p-around_medium">
+                                <p>We’re using Digital iD™ by Australia Post to make it quicker and easier to verify our customers</p><br />
+                                <p>To continue, you’ll need one of these documents:</p>
+                                <ul class="disc-list-style">
+                                        <li>Australian driver licence</li>
+                                        <li>Australian passport</li>
+                                        <li>Foreign passport with Australian visa</li>
+                                        <li>Australian birth certificate</li>
+                                        <li>Australian citizenship certificate</li>
+                                        <li>ImmiCard</li>
+                                </ul>
+                                <p><b>Note:</b> If you don’t have your ID with you, or want to use a different ID type, please visit a Post Office to complete verification in person.</p>
+                                <br/>
+                                <template if:true={showButton}>
+                                        <div class="digital-id-button" lwc:dom="manual" id={CONTAINER_DIV_ID} data-id={CONTAINER_DIV_ID}></div>
+                                </template>
+                        </div>
+                </div>
+        </div>
+</template>

@@ -1,0 +1,58 @@
+/*
+    2020-04-01 nathan.franklin@auspost.com.au Created
+*/
+
+/* icon */
+.content-grid > div:first-child {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.content-grid > div > div:last-child p {
+    margin-bottom: 0;
+}
+
+.full-height,
+:host {
+    height: 100%;
+}
+
+.slds-badge {
+    min-width: 4.5rem;
+    text-align: center;
+    display: inline-block;
+}
+
+.slds-badge.unusual,
+.slds-badge.missort,
+.slds-badge.looping {
+    background-color: #3aa6dd;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.slds-grid.data-grid {
+    flex-wrap: wrap;
+}
+.data-grid .content,
+.data-grid .badge {
+    width: 100%;
+}
+
+/* large - see https://www.lightningdesignsystem.com/design-tokens/#category-media-query for more info*/
+@media only screen and (min-width: 64.0625em) {
+    .slds-grid.data-grid {
+        flex-wrap: nowrap;
+    }
+    .data-grid .content {
+        order: 1;
+        width: auto;
+    }
+
+    .data-grid .badge {
+        order: 2;
+        width: auto;
+        margin-left: 1rem;
+    }
+}

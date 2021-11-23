@@ -1,0 +1,30 @@
+<apex:page controller="TIBCODataVisulaizationTestCont" tabStyle="Case" showHeader="false" sidebar="false">
+	<apex:pageBlock >
+	<apex:form >
+		<apex:outputLabel value="Article Id:" />
+		<apex:inputText value="{!articleId}" />
+		<apex:commandButton value="Search" action="{!search}"
+			rerender="sapData" status="sts1"/>
+			
+		<apex:commandButton value="Create Articles" action="{!createArticles}"
+			rerender="sapData" status="sts1"/>
+			
+		<apex:actionStatus id="sts1" stopText="">
+			<apex:facet name="start">
+				<apex:image value="/img/loading.gif" />
+			</apex:facet>
+		</apex:actionStatus>
+
+		<br />
+		<br />
+
+		<h1>SAP Data</h1>
+		<hr />
+		<apex:outputPanel id="sapData">
+			<apex:outputPanel rendered="{!showSapData}">
+				<c:TIBCODataVisualizerComponent searchResult="{!searchResult}" enableCreateCase="true"/>
+			</apex:outputPanel>
+		</apex:outputPanel>
+	</apex:form>
+	</apex:pageBlock>	
+</apex:page>

@@ -1,0 +1,475 @@
+<!--
+Author:        Patrick James Franco
+Company:       Cloud Sherpas
+Description:   StarTrack Task Search page
+History
+September 10, 2015 - Patrick James Franco - Created
+September 23, 2015 - Patrick James Franco - Added loading image
+September 30, 2015 - Patrick James Franco - Added search result table row highlighting feature
+October 2, 2015 - David Catindoy - Added Print My Tasks functionality
+October 2, 2015 - Patrick James Franco - Added javascript to uniquely identify lookups in search panel
+October 5, 2015 - Patrick James Franco - Changed Area label and alignment, Added no task found entry
+January 12, 2018 - Nanda Kothamasu - Added Select / deselect search record list items as per REQ1302315
+September 16, 2021 - Steve Judd - Changed Task Detail section to use select option for status list MW0004540
+-->
+
+<apex:page controller="StarTrackTaskSearch_ControllerX">
+    <div id="loading" style="display: none">
+        <img id="loading-image" src="/img/loading.gif" alt="Loading..." />
+    </div>
+    <style>
+        .highlightRow {
+            background-color:#e3f3ff;
+        }
+        .iFrameHolder {
+            background:url(../img/loading.gif) center center no-repeat;
+        }
+        #loading {
+           width: 100%;
+           height: 100%;
+           top: 0px;
+           left: 0px;
+           position: fixed;
+           display: block;
+           opacity: 0.7;
+           background-color: #fff;
+           z-index: 99;
+           text-align: center;
+        }
+
+        #loading-image {
+          position: absolute;
+          top: 35%;
+          left: 50%;
+          z-index: 100;
+        }
+        
+         .custPopup{
+            background-color: white;
+            border-width: 1px;
+            border-color: gray;
+            border-style: solid;
+            z-index: 9999;
+            left: 38%;
+            padding:10px;
+            position: fixed;
+            width: 275px;
+            bottom: 50%;
+        }
+        .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+
+    </style>
+    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript">
+        function highlightElem(selectedRow) {
+            var tableRowSize = document.getElementById("{!$Component.pageBlock.pageForm.sectionResult.searchResultTable}").getElementsByTagName("tr").length;
+            var tableRows = document.getElementById("{!$Component.pageBlock.pageForm.sectionResult.searchResultTable}").getElementsByTagName("tr");
+
+            // Remove highlight from all rows
+            for (var i = 0; i < tableRowSize; i++)
+            {
+                var thisClass = tableRows[i].className;
+                if(thisClass.indexOf("highlightRow") != -1){
+                    thisClass = thisClass.replace("highlightRow", "");
+                    tableRows[i].className = thisClass;
+                }
+            }
+
+            // Process selected row
+            var rowClass = selectedRow.className;
+            if(rowClass.indexOf("highlightRow") == -1){
+                selectedRow.className += ' highlightRow';
+            }
+        }
+
+        function displayProgress(val) {
+            if(val){
+                document.getElementById('loadImg').style.display = 'inline';
+            }
+            else{
+                document.getElementById('loadImg').style.display = 'none';
+            }
+        }
+
+        function downloadReport(id){
+            window.open('/'+id+'?export=1&enc=UTF-8&xf=xls');
+        }
+
+        function displayLoad(theElement){
+            document.getElementById(theElement).style.display = 'inline';
+        }
+        function disableButton(thisElement) {
+            thisElement.className = "btn btnDisabled";
+        }
+        function disableChatterButtons(fromBtnName) {
+            if (fromBtnName == 'Post') {
+                document.getElementById('{!$Component.pageBlock.chatterSection.pageFormComments.chatterPBS.chatterPBSI2.chatterRefreshBtn}').className = "btn btnDisabled";
+            } else if (fromBtnName == 'Refresh') {
+                document.getElementById('{!$Component.pageBlock.chatterSection.pageFormComments.chatterPBS.chatterPBSI2.chatterPostBtn}').className = "btn btnDisabled";
+            }
+        }
+        function hideLoading() {
+            $('#loading').hide();
+        }
+        function showLoading() {
+            $('#loading').show();
+        }
+
+        function printTasks() {
+            var ids = document.getElementById('{!$Component.pageBlock.pageForm.idsForPrinting}').value;
+            if (ids != '') {
+                window.open('/apex/StarTrackTasksRenderPDF?id=' + ids);
+            } else {
+                alert('Select Task/s to print.')
+            }            
+        }
+        function printSingleTask() {
+            var ids = document.getElementById('{!$Component.pageBlock.pageForm2.idForPrinting}').value;
+            if (ids != '') {
+                window.open('/apex/StarTrackTasksRenderPDF?id=' + ids);
+            } else {
+                alert('Select Task/s to print.')
+            }            
+        }
+    // checkAll - Select / deselect all record list items. NK 
+    function checkAll(checkVal){ 
+     	var inputElem = document.getElementsByTagName("input");
+        var xchecked;
+        if (checkVal){
+           	 xchecked = document.getElementById('{!$Component.pageBlock.pageForm.sectionResult.searchResultTable.selAll}').checked;
+            }else{
+                xchecked = checkVal;
+                document.getElementById('{!$Component.pageBlock.pageForm.sectionResult.searchResultTable.selAll}').checked = false;
+         }
+        //  alert(inputElem.length.toString());
+        	for(var i=0; i<inputElem.length; i++)
+				{
+					if(inputElem[i].id.indexOf("checkedone")!=-1)
+                        inputElem[i].checked = xchecked;  
+				}
+        }
+    </script>
+    <apex:outputPanel id="scanEventsScript">
+    <script type="text/javascript">
+        twistSection(document.getElementById('img_{!$Component.pageBlock.scanEventsSection1}'));
+        twistSection(document.getElementById('img_{!$Component.pageBlock.scanEventsSection2}'));
+    </script>
+    </apex:outputPanel>
+
+    
+    <apex:pageBlock id="pageBlock" title="Task Search" tabStyle="StarTrack_Operations__tab">
+
+    <apex:form id="pageForm">
+    <apex:actionFunction name="selectRow" action="{!getSelectedTaskDetails}" reRender="taskDetailPanel, scanEventsScript, scanEventsPanel, chatterPanel, searchResultAndDetail">
+        <apex:param name="P1" value="" assignTo="{!selectedTaskId}"/>
+    </apex:actionFunction>
+    <apex:actionFunction name="refreshDetail" action="{!getSelectedTaskDetails}" reRender="taskDetailPanel, searchResultAndDetail"/>
+    <apex:actionFunction name="changeFilter" action="{!changeFilter}" status="showProgress" reRender="searchFilterPanel, searchResultPanel, taskDetailPanel, scanEventsPanel, scanEventsScript, chatterPanel, searchResultAndDetail"/>
+     <apex:actionFunction name="refreshDepotArea" action="{!changeDepotAreaVisibility}" reRender="searchFilterPanel"/>
+    <apex:actionStatus id="showProgress" onstart="displayProgress(true)" onstop="displayProgress(false)" />
+
+        <apex:outputPanel id="searchFilterPanel">
+        <apex:outputPanel rendered="{!limitExceeded}">
+                <apex:pageMessages id="errMsg"></apex:pageMessages>
+        </apex:outputPanel>
+        <apex:pageBlockSection title="Search Filters" collapsible="true" columns="2">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Filter Type"/>
+                <apex:outputPanel >
+                    <apex:selectList value="{!filterType}" size="0" onchange="changeFilter()">
+                        <apex:selectOptions value="{!FilterTypes}"/>
+                    </apex:selectList>
+                    &nbsp; <img id="loadImg" src="/img/loading.gif" alt="Loading..." height="14px" width="14px" style="display: none"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem rendered="{!displayCustomFilters}">
+                <apex:outputLabel value="Depot"/>
+                <apex:inputField value="{!dummyTaskA.Network__c}" required="false" onchange="refreshDepotArea()"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem rendered="{!displayCustomFilters}">
+                <apex:outputLabel value="Owner"/>
+                <apex:inputField value="{!dummyTaskA.OwnerId}" required="false"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem rendered="{!(displayCustomFilters && NOT(displayDepotAreaFilter))}"/>
+            <apex:pageBlockSectionItem rendered="{!(displayCustomFilters && displayDepotAreaFilter)}">
+                <apex:outputLabel value="Depot Area"/>
+                <apex:selectList value="{!depotAreaList}" multiselect="true" size="5">
+                    <apex:selectOptions value="{!DepotAreas}"/>
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem rendered="{!displayCustomFilters}">
+                <apex:outputLabel value="Legal Entity"/>
+                <apex:inputField value="{!dummyCase.AccountId}" required="false"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem rendered="{!displayCustomFilters || displayAreaTasksFilters}">
+                <apex:outputLabel value="Run Dock"/>
+                <apex:selectList value="{!runDock}" multiselect="true" size="5">
+                    <apex:selectOptions value="{!RunDocks}"/>
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem rendered="{!displayCustomFilters || displayAreaTasksFilters}">
+                <apex:outputLabel value="Bulk"/>
+                <apex:selectList value="{!bulkField}" multiselect="true" size="5">
+                    <apex:selectOptions value="{!BulkFields}"/>
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem rendered="{!displayCustomFilters}">
+                <apex:outputLabel value="Status"/>
+                <apex:selectList value="{!taskStatus}" multiselect="true" size="4">
+                    <apex:selectOptions value="{!TaskStatuses}"/>
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Created Date Range"/>
+                <apex:outputPanel >
+                    <apex:outputText value="Start" styleClass="labelCol vfLabelColTextWrap"/>
+                    <apex:inputField value="{!dummyTaskA.Case_Delivery_Collection_Date__c}" required="false"/><br/><br/>
+                    <apex:outputText value="End " styleClass="labelCol vfLabelColTextWrap"/>
+                    <apex:inputField value="{!dummyTaskB.Case_Delivery_Collection_Date__c}" required="false"/>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem rendered="{!displayCustomFilters}">
+                <apex:outputLabel value="Consignment"/>
+                <apex:inputText value="{!consignment}"/>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <div align="center">
+            <apex:commandButton value="Refresh" action="{!searchTasks}" reRender="searchFilterPanel, searchResultTable, searchResultPanel, taskDetailPanel, scanEventsPanel, chatterPanel, searchResultAndDetail" rendered="{!IF(filterType != 'Custom' && filterType != 'My Area Tasks', true, false)}" status="showProgress"/>
+            <apex:commandButton value="Search" action="{!searchTasks}" reRender="searchFilterPanel, searchResultTable, searchResultPanel, taskDetailPanel, scanEventsPanel, chatterPanel, searchResultAndDetail" rendered="{!IF(filterType == 'Custom' || filterType == 'My Area Tasks', true, false)}" status="showProgress"/>
+            <apex:commandButton value="Reset" action="{!resetFilter}" reRender="searchFilterPanel, searchResultTable, searchResultPanel, taskDetailPanel, scanEventsPanel, chatterPanel, searchResultAndDetail" rendered="{!IF(filterType == 'Custom' || filterType == 'My Area Tasks', true, false)}" onclick="disableButton(this);displayLoad('loadIconRes')"/>&nbsp;
+            <apex:outputPanel id="loadIconRes">
+                <img id="loadIconRes" src="/img/loading.gif" style="display: none"/>
+            </apex:outputPanel>
+        </div>
+        </apex:outputPanel>
+        <br/>
+        <apex:outputPanel id="searchResultPanel">
+        <apex:inputHidden id="idsForPrinting" value="{!idsForPDFPrinting}" />
+        <apex:pageBlockSection id="sectionResult" title="Search Result" collapsible="false" columns="1">
+            <apex:pageBlockTable id="searchResultTable" value="{!resultTaskWrapper}" var="sts" onRowClick="highlightElem(this)" rendered="{!resultTaskWrapper.size > 0}">
+                <!-- NK - Checkbox is provided on header of searchresults which ability to select or deselct all row data -->
+                <apex:column >                     
+                    <apex:facet name="header">
+                        <apex:inputCheckbox id="selAll" value="{!sts.isSelected}"  onchange="checkAll(true);">  
+                             <apex:actionSupport event="onchange" rerender="checkedone"/>
+                        </apex:inputCheckbox>
+                    </apex:facet> 
+                    <apex:inputCheckbox value="{!sts.isSelected}" id="checkedone"/>
+                </apex:column>
+                
+                <apex:repeat value="{!$ObjectType.Task.FieldSets.Task_Search}" var="ts">
+                    <apex:column value="{!sts.twTask[ts]}" rendered="{!IF(ts != 'Network__c', true, false)}" onclick="selectRow('{!sts.twTask.Id}')">
+                        <apex:facet name="header">
+                            <apex:outputPanel >
+                                <apex:commandLink action="{!searchTasks}" value="{!ts.Label}" rendered="{!IF(ts != 'CaseObject__r.ArticleTest__c', true, false)}">
+                                    <apex:param value="{!ts}" assignTo="{!sortExpression}" name="{!ts}"/>
+                                </apex:commandLink>
+                                <apex:commandLink action="{!searchTasks}" value="Consignment" rendered="{!IF(ts == 'CaseObject__r.ArticleTest__c', true, false)}">
+                                    <apex:param value="{!ts}" assignTo="{!sortExpression}" name="{!ts}"/>
+                                </apex:commandLink>
+                            </apex:outputPanel>
+                        </apex:facet>
+                    </apex:column>
+                </apex:repeat>
+            </apex:pageBlockTable>
+            <apex:outputText rendered="{!resultTaskWrapper.size = 0}">No Tasks found.</apex:outputText>
+        </apex:pageBlockSection>
+
+        <div align="center">
+            <apex:commandButton rerender="searchResultPanel" action="{!first}" disabled="{!disablePrevious}" value="<<" rendered="{!totalResultSize > limitBy}"/>&nbsp;
+            <apex:commandButton rerender="searchResultPanel" action="{!previous}" disabled="{!disablePrevious}" value="<" rendered="{!totalResultSize > limitBy}"/>&nbsp;
+            <apex:commandButton value="Acknowledge" action="{!acknowledgeTasks}" rerender="searchResultTable, searchResultAndDetail, chatterPanel" rendered="{!IF(AND(resultTaskWrapper.size > 0, filterType != 'My Acknowledged'), true, false)}" onclick="showLoading();" oncomplete="hideLoading(); checkAll(false);"/>&nbsp;
+            <apex:commandButton id="reassignList" value="Reassign" action="{!showListPopUp}" rerender="popUpList, searchResultAndDetail, chatterPanel" rendered="{!IF(AND(resultTaskWrapper.size > 0, filterType != 'My Finished Tasks'), true, false)}" onclick="showLoading();" oncomplete="hideLoading();"/>&nbsp;
+            <apex:commandButton action="{!renderTasksAsPDF}" value="Print Tasks" rendered="{!AND(resultTaskWrapper.size > 0, filterType != 'My Acknowledged')}" oncomplete="printTasks();" rerender="searchResultPanel, taskDetailPanel, chatterPanel, searchResultAndDetail"/>
+            <apex:commandButton action="{!renderTasksAsPDF}" value="Print My Tasks" rendered="{!AND(resultTaskWrapper.size > 0, filterType == 'My Acknowledged')}" oncomplete="printTasks();" rerender="searchResultPanel, taskDetailPanel, chatterPanel, searchResultAndDetail"/>
+            <!--apex:commandButton value="Print My Tasks" onclick="downloadReport('{!$Setup.StarTrack_Settings__c.My_Open_Tasks_Report_Id__c}');" rendered="{!IF(AND(resultTaskWrapper.size > 0, filterType == 'My Acknowledged'), true, false)}"/-->&nbsp;
+            <apex:commandButton rerender="searchResultPanel" action="{!next}" disabled="{!disableNext}" value=">" rendered="{!totalResultSize > limitBy}"/>&nbsp;
+            <apex:commandButton rerender="searchResultPanel" action="{!last}" disabled="{!disableNext}" value=">>" rendered="{!totalResultSize > limitBy}"/>
+            <apex:outputText rendered="{!resultTaskWrapper.size > 0}" style="padding-left: 50px;" value="{!pageResultText}"/>
+        </div><br/>
+        <script type="text/javascript">
+            var tableLinks = document.getElementById("{!$Component.pageBlock.pageForm.sectionResult.searchResultTable}").getElementsByTagName("a");
+            for (var j = 0; j < tableLinks.length; j++) {
+                //var newId = 'searchLink' + j;
+                var newId = tableLinks[j].id + j;
+                var url = tableLinks[j].getAttribute("href");
+                var objectId = url.substr(url.length - 15);
+
+                tableLinks[j].id = newId;
+                tableLinks[j].setAttribute("onblur", "LookupHoverDetail.getHover('" + newId + "').hide();");
+                tableLinks[j].setAttribute("onfocus", "LookupHoverDetail.getHover('" + newId + "', '/" + objectId + "/m?retURL=%2F" + objectId + "&isAjaxRequest=1').show();");
+                tableLinks[j].setAttribute("onmouseout", "LookupHoverDetail.getHover('" + newId + "').hide();");
+                tableLinks[j].setAttribute("onmouseover", "LookupHoverDetail.getHover('" + newId + "', '/" + objectId + "/m?retURL=%2F" + objectId + "&isAjaxRequest=1').show();");    
+            }
+        </script>
+        </apex:outputPanel>
+        <apex:outputPanel id="popUpList">
+        <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayListPopUp}"/>
+            <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayListPopUp}">
+                <apex:pageBlockSection title="Select Depot Area" collapsible="false" columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputPanel >
+                            <apex:outputLabel value="Depot Area"/>
+                        </apex:outputPanel>
+                        <apex:outputPanel >
+                            <apex:selectList id="selectList" value="{!depotAreaId}" size="1" label="Depot Area" style="width: 95%;">
+                                <apex:selectOptions value="{!depotAreaRecords}"/>
+                            </apex:selectList>
+                            <!--apex:inputField value="{!bulkTaskUpdateHandler['Depot_Role__c']}" required="false" /-->
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>                    
+                <apex:commandButton value="Save" action="{!reassignTasks}" style="float: right;" rerender="popUpList, searchResultPanel, taskDetailPanel, scanEventsPanel, chatterPanel" onclick="disableButton(this);">
+                    <apex:param name="detailReassign" value="false" assignTo="{!detailReassign}"/>
+                </apex:commandButton>
+                <apex:commandButton value="Close" action="{!closeListPopup}" rerender="popUpList" style="float: right;"/>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        
+        </apex:form>
+
+        <apex:outputPanel id="searchResultAndDetail">
+            
+            
+        <apex:pageMessages rendered="{!funcErr}" id="errMsg1"></apex:pageMessages>
+        <apex:outputPanel id="chatterPanel" style="{!IF(initChatterLoad, 'display: inline-block; float: right; width: 25%;padding-top: 15px;', 'display: inline-block; float: right; width: 25%;')}">
+            <apex:pageBlockSection id="chatterSection" title="Chatter Feed" columns="1" rendered="{!selectedTaskId != ''}" collapsible="false">
+                <apex:outputPanel id="chatterPanel1" style="display: inline-block; width: 100%; overflow-y: auto; height: 300px;">
+                    <c:TaskChatterFeed idx="{!selectedTaskId}"/>
+                </apex:outputPanel>
+                <apex:outputPanel id="chatterPanel2" style="display: inline-block; width: 100%; height: 40px;">
+                    <apex:form id="pageFormComments">
+                        <apex:pageBlockSection columns="2" id="chatterPBS">
+                            <apex:pageBlockSectionItem id="chatterPBSI1">
+                                <apex:outputPanel >
+                                    <apex:outputLabel value="Operation Comments"/>
+                                </apex:outputPanel>
+                                <apex:outputPanel >
+                                    <apex:inputTextarea value="{!chatterComment}"/>
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem id="chatterPBSI2">
+                                <apex:outputPanel >
+                                    <apex:commandButton id="chatterPostBtn" value="Post" action="{!postToFeed}" rerender="searchResultPanel, taskDetailPanel, chatterPanel, searchResultAndDetail, scanEventsScript, scanEventsPanel" onclick="disableButton(this);disableChatterButtons('Post');displayLoad('loadIconChatter');"/>
+                                </apex:outputPanel>
+                                <apex:outputPanel >
+                                    <apex:commandButton id="chatterRefreshBtn" action="{!refresh}" value="Refresh" reRender="taskDetailPanel, chatterPanel" onclick="disableButton(this);disableChatterButtons('Refresh');displayLoad('loadIconChatter');"/>
+                                    <apex:outputPanel id="loadIconChatter">
+                                        <img id="loadIconChatter" src="/img/loading.gif" style="display: none"/>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>                                
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                    </apex:form>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+        </apex:outputPanel>
+
+
+        <apex:form id="pageForm2">
+            <apex:outputPanel id="popUpDetail">
+            <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayDetailPopUp}"/>
+                <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayDetailPopUp}">
+                    <apex:pageBlockSection title="Select Depot Area" collapsible="false" columns="1">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputPanel >
+                                <apex:outputLabel value="Depot Area"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel >
+                                <apex:selectList id="selectList" value="{!depotAreaId}" size="1" label="Depot Area" style="width: 95%;">
+                                    <apex:selectOptions value="{!depotAreaRecords}"/>
+                                </apex:selectList>
+                                <!--apex:inputField value="{!selectedTaskWrapper.twTask['Depot_Role__c']}" required="false" /-->
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>                    
+                    <apex:commandButton value="Save" action="{!reassignTasks}" rerender="popUpDetail, taskDetailPanel, searchResultPanel, scanEventsPanel, chatterPanel" style="float: right;" onclick="disableButton(this);">
+                        <apex:param name="detailReassign" value="true" assignTo="{!detailReassign}"/>
+                    </apex:commandButton>
+                    <apex:commandButton value="Close" action="{!closeDetailPopup}" rerender="popUpDetail" style="float: right;"/>
+                </apex:outputPanel>
+            </apex:outputPanel>
+        <apex:outputPanel id="taskDetailPanel" style="display: inline-block; width: 75%;">
+        <apex:inputHidden id="idForPrinting" value="{!idForPDFPrinting}" />
+            <!--apex:pageMessages rendered="{!funcErr}" id="errMsg"></apex:pageMessages-->
+        <apex:pageBlockSection id="sectionDetail" title="Task Detail" collapsible="false" columns="2" rendered="{!selectedTaskId != ''}">
+            <apex:repeat value="{!$ObjectType.Task.FieldSets.Task_Detail}" var="td">
+                <apex:pageBlockSectionItem rendered="{!td != 'Operations_Outcome__c' && td != 'TaskUpdate__c'}">
+                    <apex:outputPanel >
+                        <apex:outputLabel value="{!td.Label}" rendered="{!td != 'CaseObject__r.ArticleTest__c' && td != 'CreatedDate'
+                        	&& td != 'CaseObject__r.Network__c' && td != 'CreatedDate' && td != 'Description' && td != 'CaseObject__c'
+                        	&& td != 'CaseObject__r.Related_Billing_Account__c'}"/>
+                        <apex:outputLabel value="Task Created Date" rendered="{!IF(td == 'CreatedDate', true, false)}"/>
+                        <apex:outputLabel value="Consignment Number" rendered="{!IF(td == 'CaseObject__r.ArticleTest__c', true, false)}"/>
+                        <apex:outputLabel value="Task Description" rendered="{!IF(td == 'Description', true, false)}"/>
+                        <apex:outputLabel value="Case Number" rendered="{!IF(td == 'CaseObject__c', true, false)}"/>
+                        <apex:outputLabel value="Depot" rendered="{!IF(td == 'CaseObject__r.Network__c', true, false)}"/>
+                        <apex:outputLabel value="Billing Account" rendered="{!IF(td == 'CaseObject__r.Related_Billing_Account__c', true, false)}"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!selectedTaskWrapper.twTask[td]}" rendered="{!IF($User.Id == selectedTaskWrapper.twTask.OwnerId,IF(OR(td == 'Status',td == 'Operations_Outcome__c', td == 'Resolution_Code__c', td == 'TaskUpdate__c'),false,true),true)}"/>
+                        <apex:inputField value="{!selectedTaskWrapper.twTask[td]}" required="false" rendered="{!IF(AND($User.Id == selectedTaskWrapper.twTask.OwnerId, OR(td == 'Operations_Outcome__c', td == 'Resolution_Code__c', td == 'TaskUpdate__c')), true, false)}"/>
+                        <apex:selectList id="selectListStatus" value="{!selectedTaskWrapper.twTask[td]}" size="1" label="Status" style="width: 45%;" required="false" rendered="{!IF(AND($User.Id == selectedTaskWrapper.twTask.OwnerId, td == 'Status'), true, false)}">
+                            <apex:selectOptions value="{!TaskStatuses}"/>
+                        </apex:selectList>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!(td == 'Operations_Outcome__c' || td == 'TaskUpdate__c')}">
+                    <apex:outputPanel >
+                        <apex:outputLabel value="{!td.Label}"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel >
+                        <apex:inputField value="{!selectedTaskWrapper.twTask[td]}" required="false" rendered="{!IF(AND($User.Id == selectedTaskWrapper.twTask.OwnerId, OR(td == 'TaskUpdate__c', td == 'Operations_Outcome__c')), true, false)}"/>
+                        <apex:outputField value="{!selectedTaskWrapper.twTask[td]}" rendered="{!IF($User.Id == selectedTaskWrapper.twTask.OwnerId,IF(OR(td == 'TaskUpdate__c', td == 'Operations_Outcome__c'),false,true),true)}"/>
+                    </apex:outputPanel>              
+                </apex:pageBlockSectionItem>
+            </apex:repeat>
+        </apex:pageBlockSection>
+        <div align="center">
+            <apex:commandButton action="{!renderTasksAsPDF}" value="Print Task" rerender="searchResultPanel, taskDetailPanel, searchResultAndDetail, chatterPanel" rendered="{!IF(selectedTaskId != null, true, false)}" oncomplete="printSingleTask();">
+                <apex:param name="detailPrint" value="true" assignTo="{!detailPrint}"/>
+            </apex:commandButton>&nbsp;
+            <apex:commandButton id="saveBtn" value="Save" action="{!saveTaskDetails}" rerender="searchResultPanel, taskDetailPanel, chatterPanel, searchResultAndDetail, scanEventsScript, scanEventsPanel" rendered="{!IF(AND($User.Id == selectedTaskWrapper.twTask.OwnerId, selectedTaskId != null), true, false)}" onclick="disableButton(this);displayLoad('loadIconSave');"/>&nbsp;
+            <apex:commandButton id="reassignDetail" value="Reassign" action="{!showDetailPopup}" rerender="popUpDetail, taskDetailPanel, chatterPanel, searchResultAndDetail" rendered="{!AND(selectedTaskId != null, selectedTaskWrapper.twTask.Status != 'Finished')}" onclick="showLoading();" oncomplete="hideLoading();"/>&nbsp;
+            <apex:outputPanel id="loadIconSave">
+                <img id="loadIconSave" src="/img/loading.gif" style="display: none"/>
+            </apex:outputPanel>
+            <apex:commandButton value="Acknowledge" action="{!acknowledgeTasks}" rerender="searchResultPanel, searchResultAndDetail, chatterPanel" rendered="{!IF(AND($User.Id != selectedTaskWrapper.twTask.OwnerId, selectedTaskId != null), true, false)}" onclick="disableButton(this);displayLoad('loadIconAck');">
+                <apex:param name="detailAcknowledge" value="true" assignTo="{!detailAcknowledge}"/>
+            </apex:commandButton>&nbsp;
+            <apex:outputPanel id="loadIconAck">
+                <img id="loadIconAck" src="/img/loading.gif" style="display: none"/>
+            </apex:outputPanel>
+        </div>
+        </apex:outputPanel>
+        </apex:form>
+        
+        </apex:outputPanel>
+
+        <apex:outputPanel id="scanEventsPanel">
+            <apex:pageBlockSection id="scanEventsSection1" title="Scan Events" collapsible="true" columns="1" rendered="{!selectedConsignmentId != ''}">
+                <div class="iFrameHolder">
+                    <apex:iframe id="scanEventsFrame" src="/apex/StarTrackViewAllScanEvents?id={!selectedConsignmentId}&isdtp=mn" rendered="{!selectedConsignmentId != ''}" scrolling="true">
+                    </apex:iframe>
+                </div>
+                
+            </apex:pageBlockSection>
+            <apex:pageBlockSection id="scanEventsSection2" title="Scan Events" collapsible="true" columns="1" rendered="{!showScanEventsNoConsign}">
+                <apex:outputText >The Task is not associated to a consignment</apex:outputText>
+            </apex:pageBlockSection>        
+        </apex:outputPanel>
+
+    </apex:pageBlock>
+
+
+</apex:page>

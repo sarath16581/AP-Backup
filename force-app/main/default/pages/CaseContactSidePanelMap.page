@@ -1,0 +1,72 @@
+<apex:page standardController="Case" extensions="CaseContactSidepanelContExt" standardStylesheets="false" showHeader="false" sidebar="false">
+
+    <apex:includeScript value="/support/console/29.0/integration.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-1.10.2.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-ui-1.10.3.custom.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.JQueryUI, '/css/ui-lightness/jquery-ui-1.10.3.custom.min.css')}"/>
+    
+    <apex:includeScript value="{!$Resource.bootstrapJS}" />
+    <apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+    <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+    
+    <apex:stylesheet value="{!$Resource.SSSWCSS}" />
+    <apex:includeScript value="{!$Resource.SSSWJS}" />
+    
+    <script type="text/javascript">
+        var $j = jQuery.noConflict();
+        
+        $j(document).ready(function() {
+            addHyperlinkToMap();
+        });
+        
+        //opens the primary tab and the sub tab in that primary tab. 
+        //if the primaryTabUrl is null, opens the sub tab in the enclosing primary tab
+        function openSubTabInPrimaryTab(subtabUrl, primaryTabUrl) {
+            if (typeof primaryTabUrl === 'undefined') {
+                sforce.console.getEnclosingPrimaryTabId(function(result) {  
+                    sforce.console.openSubtab(result.id, subtabUrl, true, '', null);
+                });
+            } else {
+                sforce.console.openPrimaryTab(null, primaryTabUrl, true, '', function(result) {
+                    sforce.console.openSubtab(result.id, subtabUrl, true, '', null);
+                });
+            }
+        }
+        
+        function openPrimaryTab(primaryTabUrl) {
+            sforce.console.openPrimaryTab(null, primaryTabUrl, true, '');
+        }
+
+        function addHyperlinkToMap() {
+            $j("#contactMap")
+                .click(function() {
+                    //openSubTabInPrimaryTab('/apex/facilitysearch?id={!caseContact.Id}', '/{!caseContact.Id}');
+                    sforce.console.openPrimaryTab(null, '/{!caseContact.Id}', true, '', function(result) {
+                        sforce.console.addEventListener('ContactLoaded', listener);
+                    });
+                })
+                .hover(function() {
+                    $j(this).css({cursor: "pointer"});
+                });
+        }
+        
+        var listener = function (result) {
+            if (result.message == '{!caseContact.Id}'.substring(0, 15)) {
+                sforce.console.fireEvent('OpenFacilities', '{!caseContact.Id}'.substring(0, 15), callback);
+            }
+        };
+                     
+        var callback = function(result) {
+            if (result.success) {
+                window.console&&console.log('OpenFacilities fired!');
+            } else {
+                window.console&&console.log('OpenFacilities could not be fired!');
+            } 
+        };        
+    </script>
+    
+    <div id="contactMap">
+        <apex:image id="theImage" value="{!mapURL}" width="100%"/>
+    </div>
+    
+</apex:page>

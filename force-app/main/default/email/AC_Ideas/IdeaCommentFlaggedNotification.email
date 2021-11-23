@@ -1,0 +1,6 @@
+<p><a href="https://auspost.my.salesforce.com/{!ideaLink}">{!ideaTitle}</a> has been flagged by {!username}</p>
+<hr />
+<p>Comment details:</p>
+{!ideaCommentBody}
+<p><em>Review the comment against <a href="https://community.auspost.com.au/s/article/Community-principles"><em>Community Principles</em></a> and edit or remove as required. Advise the user at your discretion. If you are unsure, contact the Community Manager.</p>
+<p><a href="https://auspost.my.salesforce.com/aFK/o"><em>Link to the flagged content</em></a></p>

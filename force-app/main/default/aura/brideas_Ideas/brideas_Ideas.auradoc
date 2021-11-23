@@ -1,0 +1,20 @@
+<aura:documentation>
+	<aura:description>
+        <p>Ideas Lightning component represents a paginated list of ideas.</p>
+        <p>Features:</p>
+        <ul>
+            <li>configurable number of items per page</li>
+            <li>filter ideas by category, status and self created</li>
+            <li>ability to set list custom settings as a source for categories</li>
+        </ul>
+        <p>Installation</p>
+        <ul>
+            <li>install package</li>
+            <li>create Idea Zone and assign to your community</li>
+            <li>find &lsquo;community&rsquo; record within 'LghtIdeas Settings' in custom settings section and insert your Ideas Zone Name</li>
+            <li>add categories values in picklist field of Idea object</li>
+            <li>drug component on any page in Community Builder</li>
+        </ul>
+        <p>Created by Bedrock CRM Consulting.</p>
+    </aura:description>
+</aura:documentation>

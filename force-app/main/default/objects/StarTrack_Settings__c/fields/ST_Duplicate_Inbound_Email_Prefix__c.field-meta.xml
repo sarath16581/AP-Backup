@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ST_Duplicate_Inbound_Email_Prefix__c</fullName>
+    <description>This field will capture the prefix to be appended to a duplicate email detected by the system.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field will capture the prefix to be appended to a duplicate email detected by the system.</inlineHelpText>
+    <label>StarTrack Duplicate Inbound Email Prefix</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

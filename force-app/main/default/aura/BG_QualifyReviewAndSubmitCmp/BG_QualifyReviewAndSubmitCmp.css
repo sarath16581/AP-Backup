@@ -1,0 +1,46 @@
+.THIS {
+}
+.THIS .slds-icon-text-default
+{
+    fill: white;
+}
+.THIS .outputValue
+{
+    font-size: larger;
+    font-weight: bold;
+    
+}
+.THIS .outputText 
+{
+    font-size: larger;
+    
+}
+
+.THIS .mainAccordianSection  .slds-button{
+    font-size: 14px;
+    font-weight: bolder;
+    color: white;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 5px;
+    /* background:#164a85;*/
+    background:#696969;
+}
+
+
+.THIS .subAccordianSection .slds-button
+{  
+    font-size: 14px;
+    font-weight: bolder;
+    color: black;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+    /*background:#0070d2;*/
+    background:#E2DFDA;
+}
+
+.THIS .subAccordianSection .slds-button svg
+{  
+    fill: black;
+}

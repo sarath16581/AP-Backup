@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AusPost_Resourcing__c</fullName>
+    <description>Phase 1 - Opportunity Assessment (PWC)
+
+Identify if other parts of Australia Post need to be engaged as part of these initiatives</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Who else in Australia Post needs to be engaged for this step?</inlineHelpText>
+    <label>AusPost Resourcing</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

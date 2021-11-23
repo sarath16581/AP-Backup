@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Update_Revenue_by_Billing_Name</fullName>
+        <description>This item will update the Revenue by Billing Account Name to include the Product and an Autonumber</description>
+        <field>Name</field>
+        <formula>Product__r.Name + &quot; - &quot; +  Revenue_by_Billing_Account_Auto_Number__c</formula>
+        <name>Update Revenue by Billing Name</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Phase 2-Update Revenue by Billing Account Name</fullName>
+        <actions>
+            <name>Update_Revenue_by_Billing_Name</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Revenue_by_Billing_Account__c.CreatedDate</field>
+            <operation>greaterThan</operation>
+            <value>1/1/1900</value>
+        </criteriaItems>
+        <description>This workflow rule will update the Revenue by Billing Account name to concatenate the Product Name with a Auto Number</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Parent_Booking_Required</fullName>
+    <active>true</active>
+    <description>Parent booking is required on delivery bookings</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName = &apos;AP_Dependant_Delivery&apos;,
+    ISBLANK( Parent_Booking__c )
+)</errorConditionFormula>
+    <errorMessage>Delivery bookings must have a parent pickup booking assigned.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,45 @@
+<!--
+- Created by alexvolkov on 29/1/20.
+-->
+
+<!-- Address Lookup Wrapper to expose on record pages -->
+<template>
+    <lightning-card>
+       <template if:true={objectAPIName}>
+        <lightning-record-edit-form record-id={recordId} object-api-name={objectAPIName}>
+            <lightning-messages>
+            </lightning-messages>
+            <template if:true={showSpinner}>
+                <lightning-spinner size="small" alternative-text="Loading..."></lightning-spinner>
+            </template>
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <template if:true={showAddressInput}>
+                <template for:each={addressData} for:item="addr">
+                 <lightning-card title={addr.cTitle} icon-name="standard:record" key={addr.addressType}>
+                    <template if:true={addr.currentAddress}>
+                        <div class="slds-align_absolute-center">
+                            <p>Current Address: <lightning-formatted-text value={addr.currentAddress} linkify></lightning-formatted-text></p>
+                        </div>
+                    </template>
+                <c-ame-address-validation1
+                        class="form-input customer-address"
+                        label="Address"
+                        onstreetchange={handleManualChange}
+                        onsearchtermchange={handleStreetValueChange}
+                        data-id={addr.addressType}>
+                </c-ame-address-validation1>
+                     <br/>
+                 </lightning-card>
+                </template>
+                </template>
+            </lightning-layout-item>
+            <br/>
+            <div class="slds-align_absolute-center">
+            <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Save"
+                              onclick={saveRecord}>
+            </lightning-button>
+            </div>
+        </lightning-record-edit-form>
+       </template>
+    </lightning-card>
+</template>

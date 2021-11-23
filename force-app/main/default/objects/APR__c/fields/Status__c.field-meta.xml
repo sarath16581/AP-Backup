@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <description>Annual Price Review Status</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The status of the APR record, this is to be updated by the Account Manager responsible for the APR negotiation.</inlineHelpText>
+    <label>Status</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Accepted</fullName>
+                <default>false</default>
+                <label>Accepted</label>
+            </value>
+            <value>
+                <fullName>Account Lost</fullName>
+                <default>false</default>
+                <label>Account Lost</label>
+            </value>
+            <value>
+                <fullName>Auto-Accepted</fullName>
+                <default>false</default>
+                <label>Auto-Accepted</label>
+            </value>
+            <value>
+                <fullName>Deferral</fullName>
+                <default>false</default>
+                <label>Deferral</label>
+            </value>
+            <value>
+                <fullName>Exemption</fullName>
+                <default>false</default>
+                <label>Exemption</label>
+            </value>
+            <value>
+                <fullName>Go early</fullName>
+                <default>false</default>
+                <label>Go early</label>
+            </value>
+            <value>
+                <fullName>Open</fullName>
+                <default>true</default>
+                <label>Open</label>
+            </value>
+            <value>
+                <fullName>Reduction</fullName>
+                <default>false</default>
+                <label>Reduction</label>
+            </value>
+            <value>
+                <fullName>Unresolved</fullName>
+                <default>false</default>
+                <label>Unresolved</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

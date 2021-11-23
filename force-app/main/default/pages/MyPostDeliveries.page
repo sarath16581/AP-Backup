@@ -1,0 +1,66 @@
+<!--
+6/4/2018 Disha Kariya - Modified class to add editable feature for NCCC.
+21/08/2019  Disha Kariya    Updated to display Delivery preference based on Code
+-->
+<apex:page standardController="Account" extensions="MyPostDeliveriesController" showHeader="false">
+    <apex:form >
+    <apex:pageBlock id="block">
+        <apex:pageMessages />
+        <!-- <apex:pageBlockSection id="Buttons"> Add after moving to PTEST rendered="{!deliveryPreference != null}"> -->
+            <apex:pageBlockButtons dir="LTR" location="top">
+                 
+            <apex:commandButton reRender="block" value="Edit" action="{!editMethod}" rendered="{!showEditButton}"/> 
+                <!-- Replace rendered in Edit button after moving it to PTEST rendered="{!deliveryPreference != null && NOT(showSetSection)}"/> -->
+                <apex:commandButton reRender="block" value="Save" action="{!saveToSAP}" rendered="{!showSetSection}"/>
+                <apex:commandButton reRender="block" value="Cancel" action="{!cancel}" rendered="{!showSetSection}"/>
+            </apex:pageBlockButtons>
+        <!-- </apex:pageBlockSection> -->
+
+    <apex:pageBlockSection collapsible="false" title="Safe Drop Preference" id="setDelPref" rendered="{!showSetSection}">
+        
+        <apex:outputLabel >Do you have difficulty reaching above 1.5m?</apex:outputLabel>
+        <apex:inputCheckbox value="{!aboveChecked}" onchange="update_js;"/>
+        <apex:outputLabel >Do you have difficulty reaching below 0.5m?</apex:outputLabel>
+        <apex:inputCheckbox value="{!belowChecked}" onchange="update_js;"/>
+        <apex:outputLabel >Select Safe Drop for eligible parcels</apex:outputLabel>
+        <apex:selectList size="1" value="{!selectedDelPref}"> 
+            <apex:selectOptions value="{!selectedPreferences}"/>  
+        </apex:selectList>
+          
+    </apex:pageBlockSection>
+    <apex:pageBlockSection columns="1" rendered="{!deliveryPreference != null}" id="dispDelPref">
+        <apex:outputPanel style="font-family: Geneva, Arial, Helvetica, sans-serif;font-size: 91%;">
+        <table width="100%" >
+            <tr style="border-width: 0 0px 1px 1px; vertical-align: middle; 
+                                        border:1px solid #e0e3e5;padding: 5px 2px 4px 5px;"> 
+            <td width="5%" class="contact-field" >
+                <apex:image url="{!URLFOR($Resource.MyDeliveryPrefIcons,img)}" height="32" width="32" title="Parcel Locker" style="margin: auto;"/>
+                </td>
+                <td  style="vertical-align: middle;"  class="contact-field" >
+        <apex:outputText value="Parcel Locker -" style="vertical-align: middle;"/>&nbsp;
+        <apex:outputText value="{!message}" style="vertical-align: middle;"/>
+
+                </td>
+            </tr>
+            </table>
+        </apex:outputPanel>
+                <apex:outputPanel style="font-family: Geneva, Arial, Helvetica, sans-serif;font-size: 91%;">
+        <table width="100%">
+            <tr>
+                <td width="5%"  class="contact-field">
+                <apex:image url="{!URLFOR($Resource.MyDeliveryPrefIcons,IF(safeDropOff == true , 'no-safe-drop.png',IF(deliveryPreference.SafeDropInstruction__c == '', 'N-A.png','safe-drop.png')))}" height="32" width="32" title="Safe Drop Preference"/>
+                </td>
+                <td  style="vertical-align: middle;"  class="contact-field" >
+                    <apex:outputText value="Safe Drop Preference -" style="vertical-align: middle;"/>&nbsp;
+                    <apex:outputText label="Safe Drop Preference" style="vertical-align: middle;" value="{!IF(safeDropOff == true , 'Not Currently Set',IF(deliveryPreference.SafeDropInstruction__c == '', 'Never Set','Yes - '+deliveryPreferenceToDisplay))}"/>
+                </td>
+            </tr>
+            </table>
+        </apex:outputPanel>
+    </apex:pageBlockSection>
+        <apex:outputPanel rendered="{!deliveryPreference == null && !showSetSection}">
+                <h6><b> No Delivery Preferences Found </b></h6>
+        </apex:outputPanel>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

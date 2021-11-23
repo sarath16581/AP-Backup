@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact_Blitz_Update_My_Contacts</fullName>
+    <columns>Record_Maintainer__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>FULL_NAME</columns>
+    <columns>CONTACT.TITLE</columns>
+    <columns>CONTACT.EMAIL</columns>
+    <columns>CONTACT.PHONE1</columns>
+    <columns>CONTACT.PHONE3</columns>
+    <columns>Status__c</columns>
+    <columns>Email_Electronic_Opt_In__c</columns>
+    <columns>Account_Manager_changes__c</columns>
+    <columns>Pricing__c</columns>
+    <columns>Contracts__c</columns>
+    <columns>Service_Compliance__c</columns>
+    <columns>APR_Contact__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CONTACT.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Contact.Sales_Contact</value>
+    </filters>
+    <filters>
+        <field>hidden_Tie_Contact_To_Account__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </filters>
+    <label>All Contacts In My Portfolio</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>All_Users_Ex_SSSW</group>
+    </sharedTo>
+</ListView>

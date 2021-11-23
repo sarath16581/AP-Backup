@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Job_Sub_Category__c</fullName>
+    <description>Second level classification of the Contact’s job function. Dependent on the value in Job Category. Added after Marketing review  to replace Title Group (Aug 2015)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select the relevant Job Sub-Category associated with the chosen Job Category.</inlineHelpText>
+    <label>Job Sub-Category</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Job_Category__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Account Management</fullName>
+                <default>false</default>
+                <label>Account Management</label>
+            </value>
+            <value>
+                <fullName>Accounting</fullName>
+                <default>false</default>
+                <label>Accounting</label>
+            </value>
+            <value>
+                <fullName>Accounts Payable</fullName>
+                <default>false</default>
+                <label>Accounts Payable</label>
+            </value>
+            <value>
+                <fullName>Accounts Receivable</fullName>
+                <default>false</default>
+                <label>Accounts Receivable</label>
+            </value>
+            <value>
+                <fullName>Administration</fullName>
+                <default>false</default>
+                <label>Administration</label>
+            </value>
+            <value>
+                <fullName>Analysis &amp; Reporting</fullName>
+                <default>false</default>
+                <label>Analysis &amp; Reporting</label>
+            </value>
+            <value>
+                <fullName>Audit</fullName>
+                <default>false</default>
+                <label>Audit</label>
+            </value>
+            <value>
+                <fullName>Business Development</fullName>
+                <default>false</default>
+                <label>Business Development</label>
+            </value>
+            <value>
+                <fullName>Call Centre</fullName>
+                <default>false</default>
+                <label>Call Centre</label>
+            </value>
+            <value>
+                <fullName>Commercial Operations</fullName>
+                <default>false</default>
+                <label>Commercial Operations</label>
+            </value>
+            <value>
+                <fullName>Communications &amp; Brand</fullName>
+                <default>false</default>
+                <label>Communications &amp; Brand</label>
+            </value>
+            <value>
+                <fullName>Consulting</fullName>
+                <default>false</default>
+                <label>Consulting</label>
+            </value>
+            <value>
+                <fullName>C-Suite</fullName>
+                <default>false</default>
+                <label>C-Suite</label>
+            </value>
+            <value>
+                <fullName>Customer Experience</fullName>
+                <default>false</default>
+                <label>Customer Experience</label>
+            </value>
+            <value>
+                <fullName>Customer Management</fullName>
+                <default>false</default>
+                <label>Customer Management</label>
+            </value>
+            <value>
+                <fullName>Data &amp; Insights</fullName>
+                <default>false</default>
+                <label>Data &amp; Insights</label>
+            </value>
+            <value>
+                <fullName>Design</fullName>
+                <default>false</default>
+                <label>Design</label>
+            </value>
+            <value>
+                <fullName>Digital Marketing</fullName>
+                <default>false</default>
+                <label>Digital Marketing</label>
+            </value>
+            <value>
+                <fullName>Direct Marketing &amp; CRM</fullName>
+                <default>false</default>
+                <label>Direct Marketing &amp; CRM</label>
+            </value>
+            <value>
+                <fullName>Executive / Senior Management</fullName>
+                <default>false</default>
+                <label>Executive / Senior Management</label>
+            </value>
+            <value>
+                <fullName>Infrastructure</fullName>
+                <default>false</default>
+                <label>Infrastructure</label>
+            </value>
+            <value>
+                <fullName>IT Security</fullName>
+                <default>false</default>
+                <label>IT Security</label>
+            </value>
+            <value>
+                <fullName>Learning &amp; Development</fullName>
+                <default>false</default>
+                <label>Learning &amp; Development</label>
+            </value>
+            <value>
+                <fullName>Legal</fullName>
+                <default>false</default>
+                <label>Legal</label>
+            </value>
+            <value>
+                <fullName>Logistics</fullName>
+                <default>false</default>
+                <label>Logistics</label>
+            </value>
+            <value>
+                <fullName>Middle Management</fullName>
+                <default>false</default>
+                <label>Middle Management</label>
+            </value>
+            <value>
+                <fullName>Operations</fullName>
+                <default>false</default>
+                <label>Operations</label>
+            </value>
+            <value>
+                <fullName>Payroll</fullName>
+                <default>false</default>
+                <label>Payroll</label>
+            </value>
+            <value>
+                <fullName>People &amp; Culture</fullName>
+                <default>false</default>
+                <label>People &amp; Culture</label>
+            </value>
+            <value>
+                <fullName>Politician - Federal</fullName>
+                <default>false</default>
+                <label>Politician - Federal</label>
+            </value>
+            <value>
+                <fullName>Politician - Local</fullName>
+                <default>false</default>
+                <label>Politician - Local</label>
+            </value>
+            <value>
+                <fullName>Politician - State</fullName>
+                <default>false</default>
+                <label>Politician - State</label>
+            </value>
+            <value>
+                <fullName>Procurement</fullName>
+                <default>false</default>
+                <label>Procurement</label>
+            </value>
+            <value>
+                <fullName>Product</fullName>
+                <default>false</default>
+                <label>Product</label>
+            </value>
+            <value>
+                <fullName>Project Management</fullName>
+                <default>false</default>
+                <label>Project Management</label>
+            </value>
+            <value>
+                <fullName>Public Relations &amp; Events</fullName>
+                <default>false</default>
+                <label>Public Relations &amp; Events</label>
+            </value>
+            <value>
+                <fullName>Reporting, Data &amp; Analytics</fullName>
+                <default>false</default>
+                <label>Reporting, Data &amp; Analytics</label>
+            </value>
+            <value>
+                <fullName>Research &amp; Insights</fullName>
+                <default>false</default>
+                <label>Research &amp; Insights</label>
+            </value>
+            <value>
+                <fullName>Risk</fullName>
+                <default>false</default>
+                <label>Risk</label>
+            </value>
+            <value>
+                <fullName>Secondary &amp; Primary</fullName>
+                <default>false</default>
+                <label>Secondary &amp; Primary</label>
+            </value>
+            <value>
+                <fullName>Services &amp; Support</fullName>
+                <default>false</default>
+                <label>Services &amp; Support</label>
+            </value>
+            <value>
+                <fullName>Strategy, Planning &amp; Performance</fullName>
+                <default>false</default>
+                <label>Strategy, Planning &amp; Performance</label>
+            </value>
+            <value>
+                <fullName>Taxation</fullName>
+                <default>false</default>
+                <label>Taxation</label>
+            </value>
+            <value>
+                <fullName>Telesales</fullName>
+                <default>false</default>
+                <label>Telesales</label>
+            </value>
+            <value>
+                <fullName>Tertiary</fullName>
+                <default>false</default>
+                <label>Tertiary</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Partnership Agreement</fullName>
+                <default>false</default>
+                <label>Partnership Agreement</label>
+            </value>
+            <value>
+                <fullName>Unmanifested</fullName>
+                <default>false</default>
+                <label>Unmanifested</label>
+            </value>
+            <value>
+                <fullName>Support</fullName>
+                <default>false</default>
+                <label>Support</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Executive / Owner</controllingFieldValue>
+            <controllingFieldValue>Finance</controllingFieldValue>
+            <controllingFieldValue>Human Resources</controllingFieldValue>
+            <controllingFieldValue>Information Technology</controllingFieldValue>
+            <controllingFieldValue>Marketing</controllingFieldValue>
+            <controllingFieldValue>Operations</controllingFieldValue>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <controllingFieldValue>Government</controllingFieldValue>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <valueName>C-Suite</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Executive / Owner</controllingFieldValue>
+            <controllingFieldValue>Government</controllingFieldValue>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Finance</controllingFieldValue>
+            <valueName>Accounting</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Finance</controllingFieldValue>
+            <valueName>Accounts Payable</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Finance</controllingFieldValue>
+            <valueName>Accounts Receivable</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Finance</controllingFieldValue>
+            <controllingFieldValue>Human Resources</controllingFieldValue>
+            <controllingFieldValue>Information Technology</controllingFieldValue>
+            <controllingFieldValue>Marketing</controllingFieldValue>
+            <controllingFieldValue>Operations</controllingFieldValue>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <controllingFieldValue>Government</controllingFieldValue>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <valueName>Administration</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Finance</controllingFieldValue>
+            <valueName>Analysis &amp; Reporting</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Finance</controllingFieldValue>
+            <valueName>Audit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Finance</controllingFieldValue>
+            <controllingFieldValue>Human Resources</controllingFieldValue>
+            <controllingFieldValue>Information Technology</controllingFieldValue>
+            <controllingFieldValue>Marketing</controllingFieldValue>
+            <controllingFieldValue>Operations</controllingFieldValue>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <controllingFieldValue>Government</controllingFieldValue>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <valueName>Executive / Senior Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Finance</controllingFieldValue>
+            <controllingFieldValue>Human Resources</controllingFieldValue>
+            <controllingFieldValue>Information Technology</controllingFieldValue>
+            <controllingFieldValue>Marketing</controllingFieldValue>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <valueName>Operations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Finance</controllingFieldValue>
+            <valueName>Payroll</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Finance</controllingFieldValue>
+            <valueName>Procurement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Finance</controllingFieldValue>
+            <valueName>Risk</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Finance</controllingFieldValue>
+            <valueName>Taxation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Human Resources</controllingFieldValue>
+            <valueName>Learning &amp; Development</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Human Resources</controllingFieldValue>
+            <valueName>People &amp; Culture</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Information Technology</controllingFieldValue>
+            <valueName>Infrastructure</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Information Technology</controllingFieldValue>
+            <valueName>IT Security</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Information Technology</controllingFieldValue>
+            <valueName>Unmanifested</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Information Technology</controllingFieldValue>
+            <valueName>Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Marketing</controllingFieldValue>
+            <valueName>Communications &amp; Brand</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Marketing</controllingFieldValue>
+            <valueName>Customer Experience</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Marketing</controllingFieldValue>
+            <valueName>Design</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Marketing</controllingFieldValue>
+            <valueName>Digital Marketing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Marketing</controllingFieldValue>
+            <valueName>Direct Marketing &amp; CRM</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Marketing</controllingFieldValue>
+            <valueName>Product</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Marketing</controllingFieldValue>
+            <valueName>Public Relations &amp; Events</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Marketing</controllingFieldValue>
+            <valueName>Reporting, Data &amp; Analytics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Marketing</controllingFieldValue>
+            <valueName>Research &amp; Insights</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Marketing</controllingFieldValue>
+            <valueName>Strategy, Planning &amp; Performance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Operations</controllingFieldValue>
+            <valueName>Call Centre</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Operations</controllingFieldValue>
+            <valueName>Commercial Operations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Operations</controllingFieldValue>
+            <valueName>Data &amp; Insights</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Operations</controllingFieldValue>
+            <valueName>Legal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Operations</controllingFieldValue>
+            <valueName>Logistics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Operations</controllingFieldValue>
+            <valueName>Project Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <valueName>Account Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <valueName>Business Development</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <valueName>Consulting</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <valueName>Customer Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <valueName>Telesales</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales</controllingFieldValue>
+            <valueName>Partnership Agreement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Government</controllingFieldValue>
+            <valueName>Middle Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Government</controllingFieldValue>
+            <valueName>Politician - Federal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Government</controllingFieldValue>
+            <valueName>Politician - Local</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Government</controllingFieldValue>
+            <valueName>Politician - State</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Government</controllingFieldValue>
+            <valueName>Services &amp; Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <valueName>Secondary &amp; Primary</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Education</controllingFieldValue>
+            <valueName>Tertiary</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

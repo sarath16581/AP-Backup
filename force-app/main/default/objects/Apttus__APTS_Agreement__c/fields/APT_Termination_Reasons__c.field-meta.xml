@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Termination_Reasons__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Initiate Termination button will be hidden unless you select reasons for termination. Select reasons why there is request to terminate this contract.</inlineHelpText>
+    <label>Termination Reasons</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Ceased trade (no trade over 6 months)</fullName>
+                <default>false</default>
+                <label>Ceased trade (no trade over 6 months)</label>
+            </value>
+            <value>
+                <fullName>Ceased trade (no trade over 12 months)</fullName>
+                <default>false</default>
+                <label>Ceased trade (no trade over 12 months)</label>
+            </value>
+            <value>
+                <fullName>Not performing to contracted min volume</fullName>
+                <default>false</default>
+                <label>Not performing to contracted min volume</label>
+            </value>
+            <value>
+                <fullName>Moving to another AP service</fullName>
+                <default>false</default>
+                <label>Moving to another AP service</label>
+            </value>
+            <value>
+                <fullName>Rights to terminate the General Terms</fullName>
+                <default>false</default>
+                <label>Rights to terminate the General Terms</label>
+            </value>
+            <value>
+                <fullName>Rights to terminate a Service Schedule</fullName>
+                <default>false</default>
+                <label>Rights to terminate a Service Schedule</label>
+            </value>
+            <value>
+                <fullName>Change of business ownership</fullName>
+                <default>false</default>
+                <label>Change of business ownership</label>
+            </value>
+            <value>
+                <fullName>Change of business name</fullName>
+                <default>false</default>
+                <label>Change of business name</label>
+            </value>
+            <value>
+                <fullName>Terminate General Terms for breach</fullName>
+                <default>false</default>
+                <label>Terminate General Terms for breach</label>
+            </value>
+            <value>
+                <fullName>Terminate a Service Schedule for breach</fullName>
+                <default>false</default>
+                <label>Terminate a Service Schedule for breach</label>
+            </value>
+            <value>
+                <fullName>Terminate General Terms for convenience</fullName>
+                <default>false</default>
+                <label>Terminate General Terms for convenience</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

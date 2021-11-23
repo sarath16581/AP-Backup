@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Charge_Type_Code__c</fullName>
+    <description>Field to keep the charge type codes which will determine the creation of pli&apos;s &amp; pme&apos;s. (Eg : For AIRPCL, we have to consider AIRSMPCL in addition of AIRPCL.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Charge Type Code</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

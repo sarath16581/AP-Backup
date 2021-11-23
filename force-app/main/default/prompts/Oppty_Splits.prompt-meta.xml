@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Oppty_Splits</masterLabel>
+    <promptVersions>
+        <actionButtonLabel>Click here for more info!</actionButtonLabel>
+        <actionButtonLink>https://auspost.sharepoint.com/:b:/s/SPBG/Sales-support-site/ET_FMU4J8YVFn-DeU1Fn1DsBycEJpZlSmoAjQm_758itpA?e=g1VTuD</actionButtonLink>
+        <body>&lt;p&gt;&lt;span style=&quot;color: rgb(62, 62, 60);&quot;&gt;Replacing specialist driver fields, Opportunity Splits is now live, enabling Sales and Specialist professionals to share Annual Contract Value (ACV), recognising the effort that all Sales Professionals put into the deal. Opportunity Splits are the key component to ensuring fair and equitable sales recognition across all BG&amp;amp;I sales teams and captures two types of splits being: Direct Contribution and Overlay Contribution.&lt;/span&gt;&lt;/p&gt;</body>
+        <customApplication>BG_Sales</customApplication>
+        <delayDays>1</delayDays>
+        <description>In-app guidance pop up for oppty splits roll out</description>
+        <displayType>DockedComposer</displayType>
+        <endDate>2020-12-11</endDate>
+        <header>New Opportunity Splits now live</header>
+        <isPublished>true</isPublished>
+        <masterLabel>Oppty_Splits</masterLabel>
+        <publishedDate>2020-11-12</publishedDate>
+        <shouldDisplayActionButton>true</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
+        <startDate>2020-11-11</startDate>
+        <targetPageKey1>Opportunity</targetPageKey1>
+        <targetPageKey2>view</targetPageKey2>
+        <targetPageType>standard__recordPage</targetPageType>
+        <timesToDisplay>3</timesToDisplay>
+        <title>Capturing sales recognition</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+        <videoLink>https://web.microsoftstream.com/embed/video/c2a37305-4789-48c9-a195-0b5273694a72?autoplay=false&amp;amp;showinfo=true</videoLink>
+    </promptVersions>
+</Prompt>

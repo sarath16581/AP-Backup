@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SWMY - Depot Collect/OFBD</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SWMY - Depot Collect/OFBD</name>
+    <style>none</style>
+    <subject>SWMY - Depot Collect/OFBD</subject>
+    <textOnly>Hi {!Case.Receiver_Contact_First_Name__c},
+
+
+Thank you for your request regarding a depot collection for your consignment:
+
+Article
+
+{!Case.ArticleTest__c}
+
+Receiver Name
+
+{!Case.Receiver_Name__c}
+
+Address
+
+{!Case.Address4__c}, {!Case.Address4Suburb__c},{!Case.Address4Postcode__c}
+
+Your freight is already on board for delivery today {!Today}, but in the event you are not available to take delivery today, I have requested a depot collection with our operations team for tomorrow, {!TODAY() +1}, and a representative from our Investigations team will contact you accordingly.
+
+Kind regards,
+
+{!User.Name}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

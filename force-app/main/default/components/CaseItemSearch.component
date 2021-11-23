@@ -1,0 +1,140 @@
+<apex:component controller="EmailTemplateDISCompCont" access="global" >
+    <apex:attribute name="compId" type="Id" description="the case ID" assignTo="{!caseId}"/>
+
+    <head>  
+        <style>
+            body { 
+                font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+                font-size: 10pt;
+            }
+            h3 {
+                margin-bottom: 5px; 
+                font-size: 11pt;
+            }
+            td, th {
+                border: 1px solid black;
+                padding: 0 5px 0 5px;
+            }
+            table {
+                border-collapse: collapse;
+                border: 2px solid black;
+                width: 100%;
+            }
+            .empty {
+                height: 60px;
+                text-align: center;
+            }
+            div.section {
+                float: left;
+                width: 100%;
+                text-align: left;
+            }
+            div.section tr th {
+                text-align: left;
+            }
+            div#case-section {
+                width: 49%;
+                margin-right: 2%;
+            }
+            div#contact-section table th {
+                width: 50%;
+            }
+            div#case-section table th {
+                width: 30%;
+            }
+            div#article-section {
+                width: 49%;
+            }
+            div#article-section table th {
+                width: 50%;
+            }
+            div#event-message-section tr th {
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <div class="section" id="contact-section">
+        <h3>Contact</h3>
+        <table class="{!IF(myContact.DoNotDisclose__c,'empty','')}">
+            <apex:repeat value="{!ItemSearchContactFields}" var="f" rendered="{!IF(myContact.DoNotDisclose__c,'false','true')}">
+                <tr>
+                    <th><apex:outputLabel value="{!f.Label}"/></th>
+                    <td><apex:outputText styleClass="form-control input-sm {!f.type}" value="{!myContact[f]}"/></td>
+                </tr>
+            </apex:repeat>
+            <!-- Do not display contact if DoNotDisclose__c is true -->
+            <apex:repeat value="{!1}" rendered="{!IF(myContact.DoNotDisclose__c,'true','false')}">
+                <tr>
+                    <td>Cannot disclose contact</td>
+                </tr>
+            </apex:repeat>
+        </table>
+    </div>
+   
+    <div class="section" id="case-section">    
+        <h3>Case</h3>
+        <table>
+            <apex:repeat value="{!CaseFields}" var="f">
+                <tr>
+                    <th><apex:outputLabel value="{!f.Label}" /></th>
+                    <td><apex:outputText styleClass="form-control input-sm {!f.type}" value="{!myCase[f]}"/></td>
+                </tr>
+            </apex:repeat>
+        </table>
+    </div>
+ 
+    <div class="section" id="article-section">
+        <h3>Article</h3>
+        <table>
+            <apex:repeat value="{!ItemSearchArticleFields}" var="f">
+                <tr>
+                    <th><apex:outputLabel value="{!f.Label}" /></th>
+                    <td><apex:outputText styleClass="form-control input-sm {!f.type}" value="{!article[f]}"/></td>
+                </tr>
+            </apex:repeat>
+        </table>
+    </div>
+    
+    <div class="section" id="event-message-section">
+        <h3>Event Messages</h3>
+        <table>
+            <tr>
+                <apex:repeat value="{!ItemSearchEventMessagesFields}" var="f">
+                    <th><apex:outputLabel value="{!f.Label}"/></th>
+                </apex:repeat>
+            </tr>
+            <apex:repeat value="{!EventMessages}" var="item">
+                <tr>
+                    <apex:repeat value="{!ItemSearchEventMessagesFields}" var="f">
+                        <td>
+                            <apex:outputText styleClass="form-control input-sm {!f.type}" rendered="{!IF(f.type='datetime','false','true')}" value="{!item[f]}" />
+                            <apex:outputText styleClass="form-control input-sm {!f.type}" rendered="{!IF(f.type='datetime','true','false')}"  value="{0,date,dd.MM.yyyy HH:mm:ss aaa z}">
+                                <apex:param value="{!item[f]}" />
+                            </apex:outputText>
+                        </td>
+                    </apex:repeat>            
+                </tr>
+            </apex:repeat>
+            <apex:repeat value="{!1}" rendered="{!IF(EventMessages=null,'true', 'false')}">
+                <tr>
+                    <td class="empty" colspan="{!ItemSearchEventMessagesFields.size}">There are no event messages</td>
+                </tr>
+            </apex:repeat>
+        </table>
+    </div>
+    
+    <div class="section" id="additional-info-section">
+		<apex:repeat value="{!1}" rendered="{!IF(myCase.Updated_Case_Comments__c != '','true','false')}">
+   			<h3>Additional Information</h3>
+    		<table>
+    			<tr>
+    				<td>
+             			<apex:outputText value="{!myCase.Updated_Case_Comments__c}" />
+    				</td>
+    			</tr>
+    		</table>
+        </apex:repeat>
+    </div>
+
+</apex:component>

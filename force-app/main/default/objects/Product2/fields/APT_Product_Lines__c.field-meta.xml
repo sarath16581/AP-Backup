@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Product_Lines__c</fullName>
+    <description>This is used to automate the determination of all the included product lines in an Agreement based on the products associated as proposal line items on a quote proposal.</description>
+    <externalId>false</externalId>
+    <label>Product Lines</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>eParcels Domestic</fullName>
+                <default>false</default>
+                <label>eParcels Domestic</label>
+            </value>
+            <value>
+                <fullName>International</fullName>
+                <default>false</default>
+                <label>International</label>
+            </value>
+            <value>
+                <fullName>StarTrack</fullName>
+                <default>false</default>
+                <label>StarTrack</label>
+            </value>
+            <value>
+                <fullName>Local Pickup and Delivery Services</fullName>
+                <default>false</default>
+                <label>Local Pickup and Delivery Services</label>
+            </value>
+            <value>
+                <fullName>UMS</fullName>
+                <default>false</default>
+                <label>UMS</label>
+            </value>
+            <value>
+                <fullName>Workforce Verification</fullName>
+                <default>false</default>
+                <label>Workforce Verification</label>
+            </value>
+            <value>
+                <fullName>Print Post</fullName>
+                <default>false</default>
+                <label>Print Post</label>
+            </value>
+            <value>
+                <fullName>On Demand</fullName>
+                <default>false</default>
+                <label>On Demand</label>
+            </value>
+            <value>
+                <fullName>Decipha</fullName>
+                <default>false</default>
+                <label>Decipha</label>
+            </value>
+            <value>
+                <fullName>Legacy Products</fullName>
+                <default>false</default>
+                <label>Legacy Products</label>
+            </value>
+            <value>
+                <fullName>Courier</fullName>
+                <default>false</default>
+                <label>Courier</label>
+            </value>
+            <value>
+                <fullName>BPA - RETURNS</fullName>
+                <default>false</default>
+                <label>BPA - RETURNS</label>
+            </value>
+            <value>
+                <fullName>BPA - REPLY+RETURNS</fullName>
+                <default>false</default>
+                <label>BPA - REPLY+RETURNS</label>
+            </value>
+            <value>
+                <fullName>Post Billpay OTC</fullName>
+                <default>false</default>
+                <label>Post Billpay OTC</label>
+            </value>
+            <value>
+                <fullName>Post Billpay by Phone</fullName>
+                <default>false</default>
+                <label>Post Billpay by Phone</label>
+            </value>
+            <value>
+                <fullName>Post Billpay on the Internet</fullName>
+                <default>false</default>
+                <label>Post Billpay on the Internet</label>
+            </value>
+            <value>
+                <fullName>Post Billpay Scan &amp; Pay</fullName>
+                <default>false</default>
+                <label>Post Billpay Scan &amp; Pay</label>
+            </value>
+            <value>
+                <fullName>Clean Mail</fullName>
+                <default>false</default>
+                <label>Clean Mail</label>
+            </value>
+            <value>
+                <fullName>Impact/Metered</fullName>
+                <default>false</default>
+                <label>Impact/Metered</label>
+            </value>
+            <value>
+                <fullName>Local Country Letters</fullName>
+                <default>false</default>
+                <label>Local Country Letters</label>
+            </value>
+            <value>
+                <fullName>Pre-Sort</fullName>
+                <default>false</default>
+                <label>Pre-Sort</label>
+            </value>
+            <value>
+                <fullName>Competition</fullName>
+                <default>false</default>
+                <label>Competition</label>
+            </value>
+            <value>
+                <fullName>SecurePay Online Payments</fullName>
+                <default>false</default>
+                <label>SecurePay Online Payments</label>
+            </value>
+            <value>
+                <fullName>Community Update</fullName>
+                <default>false</default>
+                <label>Community Update</label>
+            </value>
+            <value>
+                <fullName>Priority Product</fullName>
+                <default>false</default>
+                <label>Priority Product</label>
+            </value>
+            <value>
+                <fullName>Track Mail</fullName>
+                <default>false</default>
+                <label>Track Mail</label>
+            </value>
+            <value>
+                <fullName>Undefined</fullName>
+                <default>false</default>
+                <label>Undefined</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract</fullName>
+                <default>false</default>
+                <label>Parcel Contract</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract-Feature</fullName>
+                <default>false</default>
+                <label>Parcel Contract-Feature</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract-Surcharge</fullName>
+                <default>false</default>
+                <label>Parcel Contract-Surcharge</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract-Return</fullName>
+                <default>false</default>
+                <label>Parcel Contract-Return</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

@@ -1,0 +1,66 @@
+<!--
+    STP:20/02/2020: 
+    This component display the product questions by querying from Qualification_Template_Questions__c in ASC order
+    The 'product'is input parameter with product name value
+-->
+<aura:component controller='BG_QualificationApex'>
+    <aura:attribute name="product" type="String" />
+    <aura:attribute name="productQuestions" type="Object"/> 
+    <aura:attribute name="productQuestionsWithoutChild" type="Object"/>
+    <aura:attribute name="selectedProductsQuestions" type="Map" />
+    <aura:attribute name="selectedProductRelatedQuestions" type="Map"/>
+    <aura:attribute name="relatedQuestions" type="Object"/>
+    <aura:attribute name="estimatedRevenue" type="Decimal" />
+    <aura:attribute name="notes" type="String" />
+    <aura:attribute name="modifiedIndex" type="Integer" default="0"/>
+    <aura:attribute name="indexVar" type="Integer" default="5"/>
+    <aura:attribute name="qualId" type="String" />
+    <aura:attribute name="existingQualification" type="Object"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="showEstimatedRevenue" type="Boolean" default="true" />
+    <aura:attribute name="isManualOpp" type="Boolean" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="RelatedQuestionOrderEvt" event="c:BG_RelatedQuestionOrderEvt" action="{!c.handleRelatedQuestionEvent}"/>
+    <!-- validation methods -->
+    <aura:method name="reportValidity" action="{! c.reportValidity }" />
+    <aura:method name="checkValidity" action="{! c.checkValidity }" />
+    
+    <div style='center;width:100%' >
+        
+        <aura:iteration items="{!v.productQuestions}" var="catQuestion" indexVar="index">
+           <c:BG_EachPreQualQuestion aura:id="field" catQuestion='{!catQuestion}' index='{!v.modifiedIndex + 1+ index}' selectedProductRelatedQuestions='{!v.selectedProductRelatedQuestions}' product='{!v.product}'/>   
+        </aura:iteration>
+        <aura:if isTrue="{!v.showEstimatedRevenue}">
+            <c:BG_InfoInputWrap 
+                            aura:id="field"
+                            name="er"
+                            label="Estimated Revenue"
+                            value="{!v.estimatedRevenue}"
+                            type="number"
+                            messageWhenValueMissing=" "
+                            onchange="{!c.onchangeRevenue}"
+                            formatter='Currency'
+                            required = 'true'
+                            />
+        </aura:if>
+
+        <!-- aura:if here to check if opp is converted yet-->
+        <aura:if isTrue="{!v.isManualOpp}"> 
+            <!-- Do Not Display "Notes" Section for Manually Created Opportunity -->
+            <aura:set attribute="else">
+                <!-- Display "Notes" Section for Lead or Converted Opportunity -->
+                <c:BG_InfoInputWrap 
+                            aura:id="field"
+                            name="notes"
+                            label="Notes"
+                            value="{!v.notes}"
+                            type="textarea"
+                            messageWhenValueMissing=" "
+                            onchange="{!c.onchangeNotes}"
+                            maxlength='255'
+                            />
+            </aura:set>
+        </aura:if>
+    </div>
+    
+</aura:component>

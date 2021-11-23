@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Other_StarTrack_Integration_Type_s__c</fullName>
+    <description>.</description>
+    <externalId>false</externalId>
+    <label>Web</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>FMU (Online)</fullName>
+                <default>false</default>
+                <label>FMU (Online)</label>
+            </value>
+            <value>
+                <fullName>eParcel Web</fullName>
+                <default>false</default>
+                <label>eParcel Web</label>
+            </value>
+            <value>
+                <fullName>Web Despatch</fullName>
+                <default>false</default>
+                <label>Web Despatch</label>
+            </value>
+            <value>
+                <fullName>MyStarTrack Online</fullName>
+                <default>false</default>
+                <label>MyStarTrack Online</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>6</visibleLines>
+</CustomField>

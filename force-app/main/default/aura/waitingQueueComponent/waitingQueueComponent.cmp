@@ -1,0 +1,13 @@
+<!--
+	2018-02-17 nathan.franklin@auspost.com.au created
+-->
+<aura:component description="waitingQueueComponent">
+	<aura:attribute name="waitingQueue" type="Integer" access="private" default="0" />
+
+	<aura:method name="startWait" action="{!c.startWait}" access="GLOBAL" description="Show the waiting window" />
+	<aura:method name="stopWait" action="{!c.stopWait}" access="GLOBAL" description="Hide the waiting window" />
+
+	<aura:if isTrue="{!v.waitingQueue > 0}">
+		<lightning:spinner variant="brand" size="large" aura:id="spinner" />
+	</aura:if>
+</aura:component>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Contains configuration that manages case creation from myNetwork forms</description>
+    <label>MyNetworkSmartForms</label>
+    <pluralLabel>MyNetworkSmartForms</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

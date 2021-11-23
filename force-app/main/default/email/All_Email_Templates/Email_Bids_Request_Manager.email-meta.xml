@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>A email to advise the Bids Manager that a new request has been created</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>SFDC_Blank</letterhead>
+    <name>Email Bids Request Manager</name>
+    <style>freeForm</style>
+    <subject>New Bid Requests - {!Bid__c.Name}</subject>
+    <textOnly>Hello,
+
+A new bid request has been created: {!Bid__c.Name}
+
+Some related information regarding the bid
+
+Sales Team: {!Bid__c.Sales_Team_Display__c}
+Opportunity Driver: {!Bid__c.Coverage_Sales_Driver__c}
+Customer Name: {!Bid__c.Customer_Name__c}
+Opportunity Name: {!Bid__c.Opportunity_Name__c}
+Total Opportunity Value: {!Bid__c.Annual_Revenue__c}
+Date of Submission/Due Date:{!Bid__c.CreatedDate}  /  {!Bid__c.Due_Date__c}
+
+Regards,
+
+The Salesforce team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Duty_Start__c</fullName>
+    <description>Start date time of the duty (when FFD completed). Used to calculate Active Session 1.</description>
+    <externalId>false</externalId>
+    <formula>Primary_SA__r.ActualEndTime</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Duty Start</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

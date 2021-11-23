@@ -1,0 +1,26 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 24/07/2020
+  * @description  : Component for error display on top of the page.
+--------------------------------------- History --------------------------------------------------
+24.07.2020    Jansi Rani   Created
+-->
+
+<template>
+    <div class="slds-grid slds-p-around_medium error-box">
+        <!-- Error messages-->
+        <template if:true={errorMessage}>
+
+            <div class="slds-grid">
+                <c-bsp-custom-icons icon="round-exclaim" size="s-medium" fill="#DC1928" iconclass="icon-inline"></c-bsp-custom-icons>
+                <template if:true={htmlFormat}>
+                    <lightning-formatted-rich-text class='slds-text-color_error' value={errorMessage}></lightning-formatted-rich-text>
+                </template>
+                <template if:false={htmlFormat}>
+                    <p class='slds-text-color_error'>{errorMessage}</p>
+                </template>
+            </div>
+
+        </template>
+    </div>
+</template>

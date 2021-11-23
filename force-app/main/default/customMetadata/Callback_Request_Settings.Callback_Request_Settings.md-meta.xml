@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Callback_Request_Settings</label>
+    <protected>false</protected>
+    <values>
+        <field>Callback_Request_Closed_Queue_Name__c</field>
+        <value xsi:type="xsd:string">SSSW_Callback_Request_Closed_Queue</value>
+    </values>
+    <values>
+        <field>Callback_Request_Queue_Name__c</field>
+        <value xsi:type="xsd:string">SSSW_Callback_Request_Queue</value>
+    </values>
+    <values>
+        <field>CaseStatus__c</field>
+        <value xsi:type="xsd:string">Awaiting Network Response</value>
+    </values>
+    <values>
+        <field>Case_Queue_Name__c</field>
+        <value xsi:type="xsd:string">SSSW Network Queue</value>
+    </values>
+    <values>
+        <field>Case_Type__c</field>
+        <value xsi:type="xsd:string">Investigation</value>
+    </values>
+    <values>
+        <field>CustomerType__c</field>
+        <value xsi:type="xsd:string">Consumer</value>
+    </values>
+    <values>
+        <field>Enquiry_Sub_Type__c</field>
+        <value xsi:type="xsd:string">Disputed delivery scan</value>
+    </values>
+    <values>
+        <field>Initial_SLA_in_Hours__c</field>
+        <value xsi:type="xsd:double">40.0</value>
+    </values>
+    <values>
+        <field>Product_Category__c</field>
+        <value xsi:type="xsd:string">Domestic Parcels,Domestic Letters</value>
+    </values>
+    <values>
+        <field>Second_SLA_in_Hours__c</field>
+        <value xsi:type="xsd:double">6.0</value>
+    </values>
+</CustomMetadata>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <allowRecall>false</allowRecall>
+    <allowedSubmitters>
+        <type>owner</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Name</field>
+        <field>Owner</field>
+        <field>Status__c</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>false</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <name>BAU_Users</name>
+                <type>queue</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <label>Requirement Request</label>
+        <name>Requirement_Request</name>
+    </approvalStep>
+    <description>This approval process will be for users to raise requests.</description>
+    <emailTemplate>BAU_Email_Templates/Requirement_Notification</emailTemplate>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <finalApprovalActions>
+        <action>
+            <name>Send_Requirement_Approval_Email</name>
+            <type>Alert</type>
+        </action>
+        <action>
+            <name>Update_Approved_for_Backlog_Checkbox</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Update_Stage_Investigate</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Update_Status_In_Progress</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalApprovalActions>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
+    <finalRejectionActions>
+        <action>
+            <name>Send_Requirement_Rejection_Email</name>
+            <type>Alert</type>
+        </action>
+    </finalRejectionActions>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <initialSubmissionActions>
+        <action>
+            <name>Send_Requirement_Submission_Email</name>
+            <type>Alert</type>
+        </action>
+    </initialSubmissionActions>
+    <label>Requirement Request</label>
+    <processOrder>0</processOrder>
+    <recordEditability>AdminOnly</recordEditability>
+    <showApprovalHistory>false</showApprovalHistory>
+</ApprovalProcess>

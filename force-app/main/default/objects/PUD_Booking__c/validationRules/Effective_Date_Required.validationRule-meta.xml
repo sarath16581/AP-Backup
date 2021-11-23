@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Effective_Date_Required</fullName>
+    <active>true</active>
+    <description>Effective date is a required field on pickup bookings</description>
+    <errorConditionFormula>AND(
+ OR(RecordType.DeveloperName = &apos;AP_Adhoc_Pickup&apos;, 
+    RecordType.DeveloperName = &apos;AP_Permanent_Pickup&apos;),
+   ISNULL(Effective_Date__c) 
+)</errorConditionFormula>
+    <errorMessage>Effective Date is required on pickup bookings.</errorMessage>
+</ValidationRule>

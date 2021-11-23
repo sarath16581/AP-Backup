@@ -1,0 +1,16 @@
+Hi!
+
+An opportunity you are driving appears to meet the criteria for an Implementation Project and has hit stage four.  The customer is {!Opportunity.Account} and the opportunity name is {!Opportunity.Name}.
+
+Here's a link to the Opportunity record:
+{!Opportunity.Link}
+
+I'm keen for my team to be involved as early as possible and would appreciate it if you could contact me on 0407209706 or via email to discuss. 
+
+Regards
+
+Andrew Strongman
+Implementation Manager
+Sales Operations
+
+Please note that this is a system generated email.

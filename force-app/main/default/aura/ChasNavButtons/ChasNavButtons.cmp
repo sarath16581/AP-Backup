@@ -1,0 +1,27 @@
+<aura:component description="Wizard next and Back buttons">
+    <aura:attribute name="submit" type="Boolean" default="false" />
+    <aura:attribute name="disabled" type="Boolean" default="true" />
+    <aura:attribute name="nextLabel" type="String" default="Next" />
+    <aura:attribute name="nextAction" type="Aura.Action" />
+    <aura:attribute name="backLabel" type="String" default="Back" />
+    <aura:attribute name="backAction" type="Aura.Action" />
+    <aura:attribute name="loading" type="Boolean" default="false" />
+    <aura:attribute name="customStyle" type="String" default="" description="pass custom styles to the button box"/>
+    <aura:attribute name="buttonCustomClass" type="String" default="" description="pass custom styles to the button"/>
+
+    <aura:handler name="change" value="{!v.loading}" action=" {!c.handleSpinner}" />
+	
+	<div class="chas-button-box" style="{!v.customStyle}">
+        <aura:if isTrue="{! v.nextAction }">
+        	<aura:if isTrue="{! v.submit }">
+            	<lightning:button disabled="{!v.disabled}" type="submit" aura:Id='nextButton' onclick="{! c.nextClicked }" label="{! v.nextLabel }" variant="brand" class="{! 'chas-button disabled-' + v.disabled  + ' ' + v.buttonCustomClass }"/>
+            	<aura:set attribute="else">
+            		<lightning:button disabled="{!v.disabled}" aura:Id='nextButton' onclick="{! v.nextAction }" label="{! v.nextLabel }" variant="brand" class="{! 'chas-button disabled-' + v.disabled  + ' ' + v.buttonCustomClass}"/>
+            	</aura:set>
+            </aura:if>
+        </aura:if>
+        <aura:if isTrue="{! v.backAction }">
+            <lightning:button disabled="{!v.disabled}" onclick="{! v.backAction }" label="{! v.backLabel }" variant="base" class="{'chas-prev-button' + ' ' + !v.buttonCustomClass}"/>
+        </aura:if>
+    </div>
+</aura:component>

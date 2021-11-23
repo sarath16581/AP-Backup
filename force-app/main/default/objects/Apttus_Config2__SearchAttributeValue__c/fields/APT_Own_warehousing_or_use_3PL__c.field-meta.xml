@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Own_warehousing_or_use_3PL__c</fullName>
+    <externalId>false</externalId>
+    <label>Own warehousing or use 3PL?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Own</fullName>
+                <default>false</default>
+                <label>Own</label>
+            </value>
+            <value>
+                <fullName>3PL</fullName>
+                <default>false</default>
+                <label>3PL</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

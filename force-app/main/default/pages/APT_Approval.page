@@ -1,0 +1,7 @@
+<apex:page controller="APT_ApprovalController" action="{!validateApprovals}">
+<apex:form >
+    <apex:pageBlock >
+        <apex:pagemessages rendered="{!haserrorMessages}" id="pgMsgs"/>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

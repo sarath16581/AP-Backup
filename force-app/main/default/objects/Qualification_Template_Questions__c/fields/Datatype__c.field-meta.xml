@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Datatype__c</fullName>
+    <description>This field determines the data type of the response to be captured, whether its a Text (free text) or a Picklist field.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field determines the data type of the response to be captured, whether its a Text (free text) or a Picklist field.</inlineHelpText>
+    <label>Datatype</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Text Field</fullName>
+                <default>false</default>
+                <label>Text Field</label>
+            </value>
+            <value>
+                <fullName>Picklist Field</fullName>
+                <default>false</default>
+                <label>Picklist Field</label>
+            </value>
+            <value>
+                <fullName>Multiselect Field</fullName>
+                <default>false</default>
+                <label>Multiselect Field</label>
+            </value>
+            <value>
+                <fullName>date</fullName>
+                <default>false</default>
+                <label>Date</label>
+            </value>
+            <value>
+                <fullName>number</fullName>
+                <default>false</default>
+                <label>Number</label>
+            </value>
+            <value>
+                <fullName>Multiline Text</fullName>
+                <default>false</default>
+                <label>Multiline Text</label>
+            </value>
+            <value>
+                <fullName>Percent</fullName>
+                <default>false</default>
+                <label>Percent</label>
+            </value>
+            <value>
+                <fullName>Postcode Lookup</fullName>
+                <default>false</default>
+                <label>Postcode Lookup</label>
+            </value>
+            <value>
+                <fullName>Radio Button</fullName>
+                <default>false</default>
+                <label>Radio Button</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Update_the_Idea_Status_on_creation</fullName>
+        <field>Status</field>
+        <literalValue>New</literalValue>
+        <name>Update the Idea Status on creation</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Update the Idea Status on creation</fullName>
+        <actions>
+            <name>Update_the_Idea_Status_on_creation</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>This workflow will update the Idea status to &quot;New&quot; once the idea is created.</description>
+        <formula>ISNEW()</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

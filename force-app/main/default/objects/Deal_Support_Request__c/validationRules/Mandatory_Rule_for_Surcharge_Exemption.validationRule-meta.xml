@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mandatory_Rule_for_Surcharge_Exemption</fullName>
+    <active>true</active>
+    <description>This rule is to ensure all mandatory fields are populated before surcharge exemption request is submitted</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName =&quot;Surcharge_Exemption_Request&quot;,
+ Surcharge_Submitted_for_Approval__c = true,
+OR(ISBLANK(TEXT(Status__c)),ISBLANK(Product__c),ISBLANK(Organisation__c),ISBLANK(TEXT(Exemption_Type__c)),ISBLANK(Annual_Value_of_Exemption__c),ISBLANK( Commercial_Justification__c),ISBLANK( Mitigation_Plan__c),ISBLANK( Exemption_End_Date__c),ISBLANK(Comments__c)))</errorConditionFormula>
+    <errorMessage>Request cannot be submitted to the support team as all the mandatory fields have not been updated. Please edit the request and complete all the mandatory fields and then submit request to Support Team</errorMessage>
+</ValidationRule>

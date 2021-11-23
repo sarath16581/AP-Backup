@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Retail Auditors - WA</name>
+    <queueMembers>
+        <users>
+            <user>patrick.harrison@auspost.com.au</user>
+            <user>rodney.cox@auspost.com.au</user>
+            <user>tina.tsafas@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

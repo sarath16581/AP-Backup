@@ -1,0 +1,43 @@
+<!--
+ @description
+ This is the form , if the user entered address doesnt match to what in the system for a safedrop flow.This form presents the user with a set of forms to proceed
+ further to create a case.
+ @author Hara Sahoo
+ @date 2020-07-06
+ @changelog : 2020-07-06 : Created : Change made for roll out of Safe Drop feature on Missing Items form
+ 2020-11-26 : Added   : hara.sahoo@auspost.com.au Added click tracking for adobe analytics
+-->
+<aura:component extends="c:SS_uiWizardPage" description="displays the messages when the address entered doesnt match with the service">
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <!--Go back button-->
+    <div class="left-padding">
+        <img src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/back_arrow.png" alt="Go back"/><label>&nbsp;</label>
+        <lightning:button label="BACK" variant="base" onclick="{!c.goBackHandler}" class="goBack"/>
+    </div>
+    
+    <aura:if isTrue="{!v.wizardData.selectedRadio1Name == 'Sender'}">
+        <legend class="chas-header bottom-padding left-padding">
+            <h2>Right, let’s investigate</h2>
+        </legend>
+        <div class="outer-box">
+            <h4 style="padding-bottom:24px">If the recipient doesn't have this parcel, it's possible that the delivery address was entered, written, or provided incorrectly</h4>
+            <h4 style="padding-bottom:32px">In that case, the parcel would have been delivered to the wrong address.</h4>
+            <div>
+                <c:ChasNavButtons nextLabel="Continue" disabled="false" nextAction="{! c.goForward }"/>
+            </div>
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!v.wizardData.selectedRadio1Name == 'Recipient'}">
+        <legend class="chas-header bottom-padding left-padding">
+            <h2>We’ll need the sender’s help here</h2>
+        </legend>
+        <div class="outer-box">
+            <h4 style="padding-bottom:24px">They may have entered or written your address incorrectly. In that case, your parcel would have been delivered to that address.</h4>
+            <h4 style="padding-bottom:32px">You can contact the sender to investigate, or continue to submit an enquiry.</h4>
+            
+            <div>
+                <c:ChasNavButtons nextLabel="Continue" disabled="false" nextAction="{! c.goForward }"/>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

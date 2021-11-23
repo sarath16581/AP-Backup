@@ -1,0 +1,81 @@
+<!--
+  * @author       : Don Ramos. don.ramos@auspost.com.au
+  * @date         : 23/07/2020
+  * @description  : Component for footer.
+--------------------------------------- History --------------------------------------------------
+23.07.2020    Don Ramos   Created
+-->
+<template>
+    <div class="footer full-width-parent white-bgcolor slds-p-top_large">
+
+        <div class="slds-grid slds-grid_align-center full-width-child white-bgcolor slds-p-horizontal_medium slds-p-bottom_medium">
+            <div class="slds-col slds-size_1-of-1">
+                <h3>Quick links</h3>
+            </div>
+        </div>
+        <div class="slds-grid slds-wrap full-width-child white-bgcolor slds-p-horizontal_medium">
+
+            <div
+                class="slds-col slds-size_12-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12 slds-p-bottom_medium">
+                <ul>
+                    <li>
+                        <c-bsp-custom-icons icon="chevron-right" size="x-small" iconclass="icon-inline"></c-bsp-custom-icons><a target="_blank"
+                            href="https://auspost.com.au/content/dam/auspost_corp/media/documents/business-support-portal-guide.pdf">User's
+                            guide</a>
+                    </li>
+                    <li>
+                        <c-bsp-custom-icons icon="chevron-right" size="x-small" iconclass="icon-inline"></c-bsp-custom-icons><a target="_blank"
+                            href="https://auspost.com.au/help-and-support/answers?c=">FAQs - Australia Post</a>
+                    </li>
+                    <li>
+                        <c-bsp-custom-icons icon="chevron-right" size="x-small" iconclass="icon-inline"></c-bsp-custom-icons><a target="_blank"
+                            href="https://startrack.com.au/support">FAQs - StarTrack</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div
+                class="slds-col slds-size_12-of-12 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-p-bottom_medium">
+                <ul>
+                    <li>
+                        <c-bsp-custom-icons icon="chevron-right" size="x-small" iconclass="icon-inline"></c-bsp-custom-icons><a target="_blank"
+                            href="https://online.auspost.com.au/eParcel/common/auth/login.do">Login to eParcel</a>
+                    </li>
+                    <li>
+                        <c-bsp-custom-icons icon="chevron-right" size="x-small" iconclass="icon-inline"></c-bsp-custom-icons><a target="_blank"
+                            href="https://eparceltrack.auspost.com.au/">Login to eMerchant tracking</a>
+                    </li>
+                    <li>
+                        <c-bsp-custom-icons icon="chevron-right" size="x-small" iconclass="icon-inline"></c-bsp-custom-icons><a target="_blank"
+                            href="https://id.auspost.com.au/csso/login">Login to My Business Account</a>
+                    </li>
+                    <template if:true={isCongnitionUser}>
+                        <li>
+                            <c-bsp-custom-icons icon="chevron-right" size="x-small" iconclass="icon-inline"></c-bsp-custom-icons><a target="_blank"
+                                href="/bsp/apex/cognitionvF">Cognition</a>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+            <div
+                class="slds-col slds-size_12-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12 slds-p-bottom_medium">
+                <ul>
+                    <li>
+                        <a target="_blank" href="http://auspost.com.au/sitemap.html">Sitemap</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://auspost.com.au/about-us/about-our-site.html">About our site</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://auspost.com.au/terms-conditions.html">Terms and Conditions</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://auspost.com.au/privacy.html">Privacy Policy</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</template>

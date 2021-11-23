@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AMLCTF_Create_Findings_Document</fullName>
+    <availability>online</availability>
+    <description>This button triggers Conga to create a skeleton Unannounced Audit Findings document used to summarise findings from Unannounced Retail Audits. Added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Create Findings Document</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>var CongaURL = &quot;https://composer.congamerge.com&quot; +
+&quot;?sessionId={!API.Session_ID}&quot; +
+&quot;&amp;serverUrl={!API.Partner_Server_URL_290}&quot; +
+&quot;&amp;id={!Case.Id}&quot; +
+&quot;&amp;TemplateId={!$Setup.AMLCTF_Retail_Audit_Settings__c.AMLCTF_Conga_Template_Findings_Document__c}&quot; +
+&quot;&amp;DS7=3&quot; +
+&quot;&amp;SC0=1&quot; +
+&quot;&amp;SC1=Attachments&quot; +
+&quot;&amp;FP0=2&quot;;
+
+window.open( CongaURL, &quot;Conga&quot;, &quot;width=700,height=550,menubar=0&quot; );</url>
+</WebLink>

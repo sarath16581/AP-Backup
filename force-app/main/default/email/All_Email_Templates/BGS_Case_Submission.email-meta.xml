@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Acknowledging BGS Service Deliery case creation sent by a customer via an Email</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>BGS Case Submission</name>
+    <style>none</style>
+    <subject>Case Created with Australia Post - {!Case.CaseNumber}</subject>
+    <textOnly>Hi {!Contact.FirstName}
+
+Thank you for contacting Australia Post.
+
+We have received your enquiry: {!Case.Subject}
+
+A case has been created and your Case Reference Number is {!Case.CaseNumber}.
+
+A member of our support team will be in touch shortly.
+
+
+Australia Post will never send you an email asking for your password, credit card details or account information.
+
+
+This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. Visit auspost.com.au for further information on our online security.
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

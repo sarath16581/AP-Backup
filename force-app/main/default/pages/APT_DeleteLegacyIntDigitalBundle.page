@@ -1,0 +1,21 @@
+<apex:page controller="APT_DeleteLegacyIntDigitalBundleCnt" action="{!doRenewDelete}">
+<c:APT_WaitComponent />
+<apex:actionStatus id="ajaxStatus" onstart="wait(true)" onstop="wait(false)" />
+<apex:form >
+    <style>
+        .aptOutputLabel {
+            color: #4a4a56;
+            font-size: 91%;
+            font-weight: bold;
+            text-align: right;
+        }        
+    </style>
+     
+    <apex:pageBlock >
+        <apex:pageBlockSection columns="1" id="errorMessageSection">
+            <apex:pagemessages rendered="{!haserrorMessages}"/>
+        </apex:pageBlockSection>
+   <!-- <apex:commandButton disabled="false" value="{!$Label.APT_Renew}" action="{!doRenewDelete}" reRender="errorMessageSection"/>-->
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

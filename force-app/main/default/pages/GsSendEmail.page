@@ -1,0 +1,10 @@
+<apex:page showHeader="false" standardController="CampaignMember" tabStyle="CampaignMember" extensions="GsSendEmailController">
+    <apex:form >
+        <apex:sectionHeader Title="Green Shoots" subtitle="Email Delivery"/>
+        <apex:pageBlock Title="Send Green Shoots Invitation Email To: {!CampaignMember.Lead.Name} {!CampaignMember.Lead.Email}">
+            <apex:pageMessages />   
+            <apex:commandButton value="Send Email" action="{!sendEmail}" rendered="{!NOT(isError) && NOT(emailSent)}"/>
+            <apex:commandButton value="Close" onclick="window.close(); return false;"/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

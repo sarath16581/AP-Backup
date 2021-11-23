@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DelegateGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customObjects>Partner_Addendum</customObjects>
+    <customObjects>Partner_Info_Change</customObjects>
+    <customObjects>Agreement_Document</customObjects>
+    <customObjects>Rate_List</customObjects>
+    <label>Retail Admin</label>
+    <loginAccess>false</loginAccess>
+    <permissionSets>PartnerInfo Network Manager</permissionSets>
+    <permissionSets>PartnerInfo RNP Manager</permissionSets>
+    <permissionSets>PartnerInfo State Admin Manager</permissionSets>
+    <permissionSets>PartnerInfo Update WCIS Fields</permissionSets>
+    <profiles>PartnerInfo Read Only</profiles>
+    <profiles>PartnerInfo Agreement Admin</profiles>
+    <roles>PartnerInfo National RNP Manager</roles>
+    <roles>PartnerInfo Network Manager</roles>
+    <roles>PartnerInfo State Admin Manager</roles>
+</DelegateGroup>

@@ -1,0 +1,138 @@
+<!--
+Created to support parsing the transcript received from Chat Bot into a readable format.
+The data passed from Chat Bot is only formatted correctly after the Live Chat Transcript record is created.
+Omni is not enabled, so live chat transcript is only created after the chat finishes and not before, so the data is temporarily displayed on the Chat Vistor Info page in an unformatted way.
+
+
+2018-11-20    nathan.franklin@auspost.com.au  Created
+-->
+<apex:page id="LiveChatBotTranscript">
+
+    <c:ScriptLoader jslibraries="jquery,integration" />
+
+    <style type="text/css">
+
+        #liveAgentChatLogText {
+            margin-top: 20px;
+            width: 50%;
+            max-width: 600px;
+            min-width: 400px;
+        }
+
+        #liveAgentChatLogText > div > span, #liveAgentChatLogText > span {
+            display: block;
+            line-height: 1.3;
+            padding: 15px;
+            border-radius: 5px;
+            position: relative;
+            word-wrap: break-word;
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #liveAgentChatLogText .ap {
+            background-color: #f3f1ee;
+            margin: 0 60px 10px 35px;
+            color: #1D252C;
+        }
+        #liveAgentChatLogText .ap:before {
+            width: 14px;
+            height: 14px;
+            position: absolute;
+            content: '';
+            bottom: 30%;
+            left: -7px;
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+            background-color: #f3f1ee;
+        }
+
+        #liveAgentChatLogText .customer {
+            background-color: #483dc4;
+            margin: 0 35px 10px 60px;
+            color: #fff;
+        }
+
+        #liveAgentChatLogText .customer:before {
+            width: 14px;
+            height: 14px;
+            position: absolute;
+            content: '';
+            float: right;
+            bottom: 30%;
+            right: 4px;
+            margin: 0 -10px;
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+            background-color: #483dc4;
+        }
+
+    </style>
+
+    <script type='text/javascript'>
+
+        var j$ = jQuery.noConflict();
+        j$(function($) {
+            sforce.console.setTabTitle('Chat Bot Transcript');
+
+            sforce.console.getEnclosingPrimaryTabId(function(result) {
+                var tabId = result.id;
+                console.log(tabId);
+
+                sforce.console.chat.getDetailsByPrimaryTabId(tabId, function(result) {
+                    console.log('Chat Details: ', result);
+
+                    var found = false;
+                    var conversation = [];
+                    if(result.success) {
+                        for(var i=0;i<result.details.customDetails.length;i++) {
+                            var custom = result.details.customDetails[i];
+                            if(custom.label === 'Transcript') {
+                                found = true;
+                                var value = custom.value;
+                                var parts = value.split(/(\<br\>|\n)/i);
+                                for(var a=0;a<parts.length;a++) {
+                                    var line = parts[a];
+                                    // check for invalid components
+                                    if(line.toLowerCase() === '<br>' || line === '')
+                                        continue;
+
+                                    //pattern works for format "(13:51:12,) Customer: contact us"
+                                    // this pattern will match the following (in square brackets)
+                                    // "([13:51:12],) [Customer]: [contact us]"
+                                    var matches = line.match(/\(([\d:\s\w]*).+?\)[\s]*?(\w+)?:\s*(.*)/i);
+                                    if(matches != null && matches.length == 4) {
+                                        conversation.push({time: matches[1], speaker: matches[2], message: decodeURI(matches[3])});
+                                    }
+
+                                }
+                                break;
+                            }
+                        }
+                    }
+
+                    if(!found) {
+                        // automatically close this tab because there was no custom transcript passed in with the chat message
+                        // this scenario would be valid if there was no chatbot pre discussion and BSP/MPB escalations
+                        sforce.console.getEnclosingTabId(function(tabResult) {
+                            if(tabResult.success) {
+                                sforce.console.closeTab(tabResult.id);
+                            }
+                        });
+                    } else {
+                        // plot the conversation between chatbot and user below
+                        console.log(conversation);
+                        for(var i=0;i<conversation.length;i++) {
+                            var div = '<span class="' + conversation[i].speaker.toLowerCase() + '"><span class="messageText"><strong>' + jQuery('<div/>').text(conversation[i].speaker).text() + '</strong><br/>' + jQuery('<div/>').text(conversation[i].message).text() + '</span><br/><span style="text-align:right;display:block;">' + jQuery('<div/>').text(conversation[i].time).text() + '</span></span>';
+                            j$('#liveAgentChatLogText').append(div);
+                        }
+                    }
+                });
+            });
+
+        });
+
+    </script>
+
+    <!-- main app container -->
+    <div id="liveAgentChatLogText"></div>
+</apex:page>

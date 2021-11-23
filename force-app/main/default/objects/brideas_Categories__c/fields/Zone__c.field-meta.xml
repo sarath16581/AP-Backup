@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Zone__c</fullName>
+    <description>Assigned Ideas Zone</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Used to define the Community where to display current category</inlineHelpText>
+    <label>Zone Name</label>
+    <length>50</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

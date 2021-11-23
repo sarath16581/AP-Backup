@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Confirmation email sent to LPO when registration is submitted to Western Union</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Western_Union_Registration</letterhead>
+    <name>Confirmation email to LPO</name>
+    <style>freeForm</style>
+    <subject>{!Membership__c.Name} Western Union Registration - Application Submitted</subject>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

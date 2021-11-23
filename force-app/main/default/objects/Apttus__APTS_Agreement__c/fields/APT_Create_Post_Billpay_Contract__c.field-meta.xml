@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Create_Post_Billpay_Contract__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (AND( OR(
+AND(ISPICKVAL(Apttus__Status_Category__c,&quot;In Signatures&quot;), 
+ISPICKVAL(Apttus__Status__c, &quot;Fully Signed&quot;)),
+ISPICKVAL(Apttus__Status_Category__c,&quot;In Effect&quot;)), 
+CONTAINS(RecordType.Name, &apos;Letter&apos; )
+),
+
+HYPERLINK(&quot;/apex/Apttus__ChildAgreement?id=&quot;&amp;Id&amp;&quot;&amp;recordTypeId=&quot;&amp;$Setup.APT_R2T_System_Properties__c.APT_PostbillpayRecordTypeID__c&amp;&quot;&amp;copyLineItems=true&quot;, IMAGE(&quot;/resource/APT_CreatePBPContract&quot;, &quot;Create Post Billpay Cobtract&quot;),&quot;_self&quot;),NULL)</formula>
+    <inlineHelpText>After Letter of Intent is Fully Signed - Create Post Billpay Contract, this button will remain hidden until Letter of Intent is signed.</inlineHelpText>
+    <label>Create Post Billpay Contract</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

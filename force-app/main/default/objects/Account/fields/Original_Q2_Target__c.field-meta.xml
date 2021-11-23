@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Original_Q2_Target__c</fullName>
+    <defaultValue>0</defaultValue>
+    <description>Stores the Original Q2 Target for Customer</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Stores the Original Q2 Target for Customer</inlineHelpText>
+    <label>Original Q2 Target</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Currency</type>
+</CustomField>

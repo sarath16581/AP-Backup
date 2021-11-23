@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact_Status__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 
+    AND(
+        NOT(ISBLANK(Last_Activity_Date__c )),
+        NOT(ISBLANK( Ideal_Call_Frequency_Days__c)),
+         IsPersonAccount 
+    ) ,
+    IF( 
+        (TODAY() - Last_Activity_Date__c)/Ideal_Call_Frequency_Days__c &lt; 0.75,
+         IMAGE(&apos;/resource/1319081298000/greenIcon&apos;, &apos;green icon&apos; , 25,25),
+         IF(
+              (TODAY() - Last_Activity_Date__c)/Ideal_Call_Frequency_Days__c &lt; 1,
+         IMAGE(&apos;/resource/1319081274000/yellowIcon&apos;, &apos;yellow icon&apos; , 25,25),
+          IMAGE(&apos;/resource/1319081248000/redIcon&apos;, &apos;red icon&apos; , 25,25)
+         )
+     ),&apos;&apos;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Contact Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

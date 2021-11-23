@@ -1,0 +1,204 @@
+// enable debugging for window.alert to visibly show errors. otherwise, errors will only be passed through to the onError event
+var engageDebug = true;
+
+if (typeof (window.Engage) !== 'undefined') {
+    throw new Error("Engage: Engage already defined, can not continue");
+}
+
+if (typeof (window.console) === 'undefined') {
+    if (engageDebug) {
+        window.console = { log: function (message) { window.alert(message); } };
+    }
+}
+
+if (typeof (window.external) === 'undefined') {
+    window.external = {};
+}
+
+if (!Array.prototype.indexOf) {
+    // older versions of IE don't support indexOf, so include it here for convenience
+    Array.prototype.indexOf = function (searchElement /*, fromIndex */) {
+        "use strict";
+        if (this === void 0 || this === null) {
+            throw new TypeError();
+        }
+        var t = Object(this);
+        var len = t.length >>> 0;
+        if (len === 0) {
+            return -1;
+        }
+        var n = 0;
+        if (arguments.length > 0) {
+            n = Number(arguments[1]);
+            if (n !== n) { // shortcut for verifying if it's NaN
+                n = 0;
+            } else if (n !== 0 && n !== Infinity && n !== -Infinity) {
+                n = (n > 0 || -1) * Math.floor(Math.abs(n));
+            }
+        }
+        if (n >= len) {
+            return -1;
+        }
+        var k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);
+        for (; k < len; k++) {
+            if (k in t && t[k] === searchElement) {
+                return k;
+            }
+        }
+        return -1;
+    };
+}
+
+function MulticastDelegate(context) {
+    var obj = context || window,
+        handlers = [];
+
+    this.event = {
+        subscribe: function (handler) {
+            if (typeof (handler) === 'function') {
+                handlers.push(handler);
+            }
+        },
+        unsubscribe: function (handler) {
+            if (typeof (handler) === 'function') {
+                handlers.splice(handlers.indexOf(handler), 1);
+            }
+        }
+    };
+
+    this.execute = function () {
+        var args = Array.prototype.slice.call(arguments);
+        for (var i = 0; i < handlers.length; i++) {
+            handlers[i].apply(obj, args);
+        }
+    };
+}
+
+window.Engage = (function () {
+    var iwsAttached = false,
+        errorDelegate = new MulticastDelegate(_public),
+        recorderDelegate = new MulticastDelegate(_public),
+        outcomeDelegate = new MulticastDelegate(_public),
+        newInteractionDelegate = new MulticastDelegate(_public);
+
+    try { if (typeof (window.external.ShowMessage) !== 'undefined') iwsAttached = true; } catch (err) { } // ignore errors, just assume IWS isn't there if erroring
+
+    // private to be called from .NET
+    var _private = {
+        error: errorDelegate.execute,
+        recordingStatusChanged: recorderDelegate.execute,
+        outcomeChanged: outcomeDelegate.execute,
+        newInteraction: newInteractionDelegate.execute
+    };
+
+    if (!engageDebug && !window.console) {
+        window.console = { log: _private.error };
+    }
+
+    // public to be called from consumer/crm
+    var _public = {
+        hasIWS: iwsAttached,
+
+        isInteractionAvailable: function () { if (iwsAttached) return window.external.IsInteractionAvailable(); return false; },
+
+        // allows IWS to call into the web page, useful for two way communication
+        init: function () { if (iwsAttached) window.external.UseEngageAPI(); },
+
+        desktopVersion: (function () { if (iwsAttached) return window.external.GetVersion(); return "IWS Not Available"; })(),
+        apiVersion: "2.2",
+
+        onError: errorDelegate.event,  // args: (message)
+
+        // only works for single instance windows for the moment
+        onNewInteraction: newInteractionDelegate.event, // args: () - None
+
+        showAlert: function (message) {
+            if (iwsAttached) window.external.ShowMessage(message);
+        },
+
+        data: {
+            set: function (key, value) {
+                if (iwsAttached) window.external.SetAttachedData(key, value);
+            },
+            get: function (key) {
+                if (iwsAttached) return window.external.GetAttachedData(key);
+                return false;
+            },
+            has: function (key) {
+                if (iwsAttached) return window.external.HasAttachedData(key);
+                return false;
+            }
+
+        },
+
+        customer: {
+            setId: function (id) {
+                _public.data.set("CustomerID", id);
+            },
+            getId: function () {
+                return _public.data.get("CustomerID");
+            },
+            setCaseId: function (id) {
+                _public.data.set("CaseID", id);
+            },
+            getCaseId: function () {
+                return _public.data.get("CaseID");
+            }
+        },
+
+        interaction: {
+            // not currently implemented - there isn't an acceptable ID to use until the interaction hits the reporting server
+            getId: function () {
+
+            }
+        },
+
+        // call recorder module
+        recorder: {
+            // these need to be wrapped, as referencing the function actually calls it for some reason
+            pause: function () { if (iwsAttached) window.external.PauseRecording(); },
+            resume: function () { if (iwsAttached) window.external.ResumeRecording(); },
+            canPause: function () { if (iwsAttached) return window.external.CanPause(); return false; },
+            canResume: function () { if (iwsAttached) return window.external.CanResume(); return false; },
+            /* isRecording returns true if call recording is turned on, no matter what the state of the recording is */
+            isRecording: function () { if (iwsAttached) return window.external.IsRecording(); return false; },
+            statusChanged: recorderDelegate.event // args: (oldvalue, newvalue)
+        },
+
+        // outcome module
+        outcome: {
+            // behaviours are only used for dialler calls
+            validBehaviours: ['AnsweringMachine', 'WrongParty', 'FaxMachine', 'NoAnswer', 'Disconnected', 'Busy', 'RightParty', 'Conversion'],
+            set: function (outcomes, behaviours) { // outcomes = ['tier 1', 'tier 2', 'tier 3'], behaviours = ['Sale', 'NoAnswer']
+                var serialOutcomes = outcomes.join(' > ');
+                if (typeof (behaviours) === 'undefined')
+                    behaviours = [];
+                var serialBehaviours = behaviours.join(' > ');
+                if (iwsAttached) window.external.SetOutcome(serialOutcomes, serialBehaviours);
+            },
+            get: function () {
+                if (iwsAttached) return window.external.GetOutcome();
+                return undefined;
+            },
+            changed: outcomeDelegate.event // args: (oldOutcome, newOutcome) // outcome format: "tier 1 > tier 2 > tier 3"
+        }
+    };
+
+    window.EngageDelegate = function () {
+        // this is the one global function that IWS will call, passing the function name and any arguments
+        var args = Array.prototype.slice.call(arguments);
+        var funcName = args.shift();
+        var func = _private[funcName];
+        if (typeof (func) === 'function') {
+            return func.apply(_private, args);
+        }
+        func = window[funcName];
+        if (typeof (func) === 'function') {
+            return func.apply(_private, args);
+        }
+        console.log("Function (" + funcName + ") not found");
+    };
+
+    return _public;
+
+})();

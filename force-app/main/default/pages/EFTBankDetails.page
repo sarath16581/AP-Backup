@@ -1,0 +1,32 @@
+<apex:page standardController="Compensation__c" extensions="EFTBankDetailsController" showHeader="false" doctype="html-5.0" >
+<apex:form id="form">
+	<apex:pageBlock id="block">
+        <apex:pageMessage summary="Bank Details Provided" severity="INFO" rendered="{!detailsProvided}" strength="3"/>
+        <!-- DDS-6866: notification that this compensation is await for bank details from customer -->
+        <apex:pageMessage summary="Await Bank Details From Customer" severity="INFO" rendered="{!awaitBankDetailsFromCustomer}" strength="3"/>
+        <!-- <apex:pageMessage summary="Privacy Statement" severity="Warning" rendered="{!showEditScreen}" strength="3"/> -->
+		<apex:pageMessages />
+       <apex:pageBlockButtons location="top">
+            <apex:commandButton reRender="block" value="Edit" action="{!editMethod}" rendered="{!showEditButton}"/> 
+       		<apex:commandButton reRender="block" value="Save" action="{!saveMethod}" rendered="{!showEditScreen}"/>
+       		<apex:commandButton reRender="block" value="Cancel" action="{!cancelMethod}" rendered="{!showEditScreen}"/>
+       </apex:pageBlockButtons>
+       <apex:pageBlockSection title="Bank Details" columns="1" rendered="{!showEditScreen}" >
+	       <apex:pageBlockSection columns="2">
+	       	<apex:inputText Id="accName" label="Account Name" size="50" value="{!accountName}"/>
+	       	<br/>
+	       	<apex:inputText Id="accBSB" label="BSB" size="6" value="{!accountBSB}"/>
+	       	<apex:inputText Id="accNumber" label="Account Number" value="{!accountNumber}"/>
+	       	</apex:pageBlockSection>
+	       	<apex:pageBlockSectionItem >
+            <apex:inputCheckbox id="privacyCheck" value="{!privacyCheck}"/>
+            <apex:outputLabel escape="false" value="I have advised the customer: &quot;For us to process this, we will need to capture some personal information, including your bank details. This information will be used to process the transfer&quot; "/>
+            </apex:pageBlockSectionItem>
+	       	<apex:pageBlockSectionItem >
+	       	<apex:inputCheckbox id="confirmDetails" value="{!confirmDetails}"/>
+        		<apex:outputLabel value=" I have confirmed with the customer the bank details I entered are correct"/>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:form>
+</apex:page>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Oppty_Primary_Campaign__c</fullName>
+    <description>STP - Primary campaign name from Opportunity associated to the DSR.</description>
+    <externalId>false</externalId>
+    <formula>Opportunity__r.Primary_Campaign_Name__c</formula>
+    <label>Primary Campaign</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

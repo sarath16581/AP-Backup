@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Opportunity_Product</fullName>
+        <description>Used to update  the &quot;implementation Value&quot; field on the Oppty product as part of identify if an oppty is eligible for an Implementation project</description>
+        <field>Implementation_value__c</field>
+        <formula>TotalPrice</formula>
+        <name>Oppty Product Imp Value Field Updat</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Opportunity_Product_Off_the_Shelf</fullName>
+        <field>Off_the_shelf_check__c</field>
+        <literalValue>1</literalValue>
+        <name>Opportunity Product: Off the Shelf</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>ProductClass</fullName>
+        <field>ProdClassFieldUpdate__c</field>
+        <formula>ProductClass__c</formula>
+        <name>ProductClass</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Reset_OPCValidated_Flag</fullName>
+        <field>OPCValidated__c</field>
+        <literalValue>0</literalValue>
+        <name>Reset OPCValidated Flag</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Hidden_Annualised_Value</fullName>
+        <field>Hidden_Annualised_Value__c</field>
+        <formula>Annualised_Value__c</formula>
+        <name>Update Hidden Annualised Value</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Hidden_In_Year_Revenue</fullName>
+        <description>Assign Formula In Year Revenue value to number hidden In Year Revenue field</description>
+        <field>Hidden_In_Year_Revenue__c</field>
+        <formula>In_Year_Revenue__c</formula>
+        <name>Update Hidden In Year Revenue</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Implementation Value Update</fullName>
+        <actions>
+            <name>Opportunity_Product</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 or 2 or 3 or 4</booleanFilter>
+        <criteriaItems>
+            <field>Product2.Product_Level_3__c</field>
+            <operation>contains</operation>
+            <value>Transactional/Addressed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Product2.Product_Level_3__c</field>
+            <operation>contains</operation>
+            <value>Domestic Express Post Parcels L3</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Product2.Product_Level_3__c</field>
+            <operation>contains</operation>
+            <value>Domestic Parcels</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Product2.Product_Level_3__c</field>
+            <operation>contains</operation>
+            <value>Express Post Envelopes L3</value>
+        </criteriaItems>
+        <description>Used to update the Implementation value field on the oppty prod record if the product is one that is elgible for an implementation project. Currently only eParcels product</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Opportunity Product - OPC Clear Validation Flag</fullName>
+        <actions>
+            <name>Reset_OPCValidated_Flag</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>12-09-13 OPC Validation Rebuild - Clear validation flag if record is updated</description>
+        <formula>AND(OPCValidated__c = true, OR(ISCHANGED( Classification__c ), ISCHANGED( Contract_Start_Date__c ), ISCHANGED( Product2Id )))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Opportunity Product Assign Annualised Value</fullName>
+        <actions>
+            <name>Update_Hidden_Annualised_Value</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Hidden_In_Year_Revenue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Assign Formula annualized value to number hidden annualized value field.</description>
+        <formula>true</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Opportunity Product Off the Shelf</fullName>
+        <actions>
+            <name>Opportunity_Product_Off_the_Shelf</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Phase 1 - As a product is added to the Opportunity Line, the Off the Shelf checkbox is ticked depending on the product that is chosen.</description>
+        <formula>PricebookEntry.Product2.Off_The_Shelf__c</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 Set ProductClass field</fullName>
+        <actions>
+            <name>ProductClass</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Phase 2 workflow introduced for OPC to make sure that the same product, type and classification records cannot be created</description>
+        <formula>NOT(ISBLANK(Contract_Start_Date__c ))&amp;&amp;NOT(ISBLANK( Contract_End_Date__c ))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

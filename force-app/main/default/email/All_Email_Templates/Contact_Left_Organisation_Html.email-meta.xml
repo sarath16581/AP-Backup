@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notification to Acc Owner that contact has left organisation</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>ExternalContactEmail</letterhead>
+    <name>Contact Left Organisation Html</name>
+    <style>freeForm</style>
+    <subject>Contact Left Organisation: {!Contact.Name} from {!Account.Name}</subject>
+    <textOnly>You are receiving this email because one of your managed contacts - {!Contact.Name} from {!Account.Name} - has been identified as Left Organisation.
+
+This email is system generated as the result of a contact hygiene check or returned mailing.
+
+Your contact&apos;s Status has been changed to Left Organisation, and their Contact Maintained By value set to Unmanaged.
+
+Please review the contact information and make any other changes you think necessary.
+
+Please don’t respond to this notification via reply e-mail.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

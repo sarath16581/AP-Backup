@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approval_Status__c</fullName>
+    <description>Partner Info</description>
+    <externalId>false</externalId>
+    <label>Approval Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pending</fullName>
+                <default>false</default>
+                <label>Pending</label>
+            </value>
+            <value>
+                <fullName>Approved</fullName>
+                <default>false</default>
+                <label>Approved</label>
+            </value>
+            <value>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+                <label>Rejected</label>
+            </value>
+            <value>
+                <fullName>First Reminder Sent</fullName>
+                <default>false</default>
+                <label>First Reminder Sent</label>
+            </value>
+            <value>
+                <fullName>Second Reminder Sent</fullName>
+                <default>false</default>
+                <label>Second Reminder Sent</label>
+            </value>
+            <value>
+                <fullName>Final Reminder Sent</fullName>
+                <default>false</default>
+                <label>Final Reminder Sent</label>
+            </value>
+            <value>
+                <fullName>Suspend With Fees Start Approved</fullName>
+                <default>false</default>
+                <label>Suspend With Fees Start Approved</label>
+            </value>
+            <value>
+                <fullName>Suspend Without Fees Start Approved</fullName>
+                <default>false</default>
+                <label>Suspend Without Fees Start Approved</label>
+            </value>
+            <value>
+                <fullName>Suspend End Approved</fullName>
+                <default>false</default>
+                <label>Suspend End Approved</label>
+            </value>
+            <value>
+                <fullName>Cease Approved</fullName>
+                <default>false</default>
+                <label>Cease Approved</label>
+            </value>
+            <value>
+                <fullName>Pending Cease Approval</fullName>
+                <default>false</default>
+                <label>Pending Cease Approval</label>
+            </value>
+            <value>
+                <fullName>Pending Not Activated Approval</fullName>
+                <default>false</default>
+                <label>Pending Not Activated Approval</label>
+            </value>
+            <value>
+                <fullName>Not Activated Approved</fullName>
+                <default>false</default>
+                <label>Not Activated Approved</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

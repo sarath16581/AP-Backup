@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Start using our in-store VOI service</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>ExternalContactEmail</letterhead>
+    <name>Start using our in-store VOI service</name>
+    <style>freeForm</style>
+    <subject>Start using our in-store VOI service</subject>
+    <textOnly>Hi {!Contact.FirstName},
+
+Thanks for returning your signed VOI (Property Transfers) Referral Agreement. Now you and your clients can use our in-store verification of identity (VOI) service at participating Post Offices.
+
+Generate your forms
+You have a choice of two VOI forms that are quick and easy to complete:
+
+Reusable VOI form (version V5.10) – Pre-populated with your company name and unique barcode, this form can be printed as needed for clients to complete manually.
+Client-specific VOI form (version V5.10) – Also pre-populated with your company name and barcode, this form allows you to prefill individual clients&apos; details.
+
+Access the online form generators via the Property VOI portal at https://auspost.com.au/propertyvoi
+
+Access VOI reports
+You can access reports via the Property VOI portal. You&apos;ll find instructions on how to use the report repository here.
+
+Questions?
+Email us at LandTitleVOI@auspost.com.au or call us on 1300 364 543.
+
+
+Kind regards,
+
+Australia Post Property VOI Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

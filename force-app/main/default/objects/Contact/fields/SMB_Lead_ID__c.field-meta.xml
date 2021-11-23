@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SMB_Lead_ID__c</fullName>
+    <description>This is the field to capture visitor cookie ID information for marketing purpose, sourced from lead record</description>
+    <externalId>false</externalId>
+    <label>SMB Lead ID</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

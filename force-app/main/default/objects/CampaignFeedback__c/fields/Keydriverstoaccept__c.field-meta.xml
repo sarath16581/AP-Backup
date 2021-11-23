@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Keydriverstoaccept__c</fullName>
+    <externalId>false</externalId>
+    <label>Key drivers to accept</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Willcustomertakeupservice__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Product Pricepoint</fullName>
+                <default>false</default>
+                <label>Product Pricepoint</label>
+            </value>
+            <value>
+                <fullName>Enhanced Service Levels</fullName>
+                <default>false</default>
+                <label>Enhanced Service Levels</label>
+            </value>
+            <value>
+                <fullName>Reliability</fullName>
+                <default>false</default>
+                <label>Reliability</label>
+            </value>
+            <value>
+                <fullName>Flexibility</fullName>
+                <default>false</default>
+                <label>Flexibility</label>
+            </value>
+            <value>
+                <fullName>Solves a Paint Point</fullName>
+                <default>false</default>
+                <label>Solves a Paint Point</label>
+            </value>
+            <value>
+                <fullName>Reduced Costs</fullName>
+                <default>false</default>
+                <label>Reduced Costs</label>
+            </value>
+            <value>
+                <fullName>Customer Experience</fullName>
+                <default>false</default>
+                <label>Customer Experience</label>
+            </value>
+            <value>
+                <fullName>Trusted Provider</fullName>
+                <default>false</default>
+                <label>Trusted Provider</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Product Pricepoint</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Enhanced Service Levels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Reliability</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Flexibility</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Solves a Paint Point</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Reduced Costs</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Customer Experience</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Trusted Provider</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

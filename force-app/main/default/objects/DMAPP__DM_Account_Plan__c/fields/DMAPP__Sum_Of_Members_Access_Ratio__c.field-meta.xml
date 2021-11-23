@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Sum_Of_Members_Access_Ratio__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Sum Of Members Access Ratio</label>
+    <summarizedField>DMAPP__AM_Plan_Team__c.DMAPP__Plan_Access_Ratio__c</summarizedField>
+    <summaryForeignKey>DMAPP__AM_Plan_Team__c.DMAPP__Account_Plan__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

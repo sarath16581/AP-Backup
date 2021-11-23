@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <links>Merge_Individuals_and_Organisations</links>
+    <links>New_Organisation</links>
+    <links>Edit_Organisation</links>
+    <links>New_Contact</links>
+    <links>Edit_Contact</links>
+    <pageComponentType>links</pageComponentType>
+</HomePageComponent>

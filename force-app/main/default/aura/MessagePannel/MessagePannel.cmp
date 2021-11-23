@@ -1,0 +1,38 @@
+<!--
+ - Created by hasantha on 16/4/19.
+ -->
+
+<!-- 2018-06-25 nicholas.summons@auspost.com.au created -->
+<!-- 2021-08-30 naveen.rajanna@auspost.com.au RELEASE UPDATES Enable Aura Component Access Fix -->
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global">
+
+    <aura:attribute name="message" type="String" required="true" />
+    <aura:attribute name="type" type="String" required="true" />
+
+    <aura:attribute name="error" type="Boolean" default="false" />
+    <aura:attribute name="success" type="Boolean"  default="false" />
+    <aura:attribute name="info" type="Boolean" default="false" />
+
+    <aura:method name="showMessage" action="{!c.showMessage}" access="GLOBAL" description="Show the success message">
+        <aura:attribute name="message" type="String"/>
+        <aura:attribute name="type" type="String" />
+    </aura:method>
+
+    <aura:if isTrue="{!v.success}">
+        <ui:message title="Confirmation" severity="confirm" closable="true" >
+            {!v.message}
+        </ui:message>
+    </aura:if>
+
+    <aura:if isTrue="{!v.info}">
+        <ui:message title="Information" severity="info" closable="true">
+            {!v.message}
+        </ui:message>
+    </aura:if>
+
+    <aura:if isTrue="{!v.error}">
+        <ui:message title="Error" severity="error" closable="true">
+            {!v.message}
+        </ui:message>
+    </aura:if>
+</aura:component>

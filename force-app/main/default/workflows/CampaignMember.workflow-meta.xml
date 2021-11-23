@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Notification_of_New_Lead_The_Digital_iD_Business</fullName>
+        <description>Notification of New Lead -The Digital iD – Business</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>dominic.gluchowski@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>kelly.taylor@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>nicholas.tomaras@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>tung.nguyen@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Email_Templates/Notification_of_New_Lead_The_Digital_iD_Business</template>
+    </alerts>
+    <rules>
+        <fullName>New Digital ID Lead</fullName>
+        <actions>
+            <name>Notification_of_New_Lead_The_Digital_iD_Business</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Campaign.Name</field>
+            <operation>contains</operation>
+            <value>Digital iD™ Business Leads</value>
+        </criteriaItems>
+        <description>Send an email when a new Digital ID campaign member lead is created</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>JT_Requested_ULD_Qty</fullName>
+    <columns>NAME</columns>
+    <columns>OBJECT_ID</columns>
+    <columns>Node_Type__c</columns>
+    <filterScope>Mine</filterScope>
+    <label>JT Requested ULD Qty</label>
+</ListView>

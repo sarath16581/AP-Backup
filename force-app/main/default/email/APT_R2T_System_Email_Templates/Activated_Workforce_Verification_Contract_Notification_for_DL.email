@@ -1,0 +1,20 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<span style="color: rgb(0, 0, 0); font-family: Calibri, sans-serif; font-size: 12pt;">Hi All,</span><div style=""><span style="color: rgb(0, 0, 0); font-family: Calibri, sans-serif; font-size: 12pt;"><br></span><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-family: Calibri, sans-serif; font-size: 12pt;">Exciting news again - A new WFV customer contract has been signed. Please find
+link to the contract record here {!Apttus__APTS_Agreement__c.Link}&nbsp;</span></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-family: Calibri, sans-serif; font-size: 12pt;"><br></span></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-family: Calibri, sans-serif; font-size: 12pt;">Customer: {!Apttus__APTS_Agreement__c.APT_Legal_Entity_Name__c}</span></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><br></div><div style="">
+
+<span style="color: rgb(0, 0, 0); font-family: Calibri, sans-serif; font-size: 12pt;">Account Manager:&nbsp;</span><font face="Calibri, sans-serif">{!Apttus__APTS_Agreement__c.OwnerFirstName} {!Apttus__APTS_Agreement__c.OwnerLastName}</font></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b style="font-size: 12pt;"><br></b></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><strong style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-size:12.0pt;font-family:
+&quot;Calibri&quot;,sans-serif;mso-fareast-font-family:Calibri;mso-fareast-theme-font:
+minor-latin;mso-ansi-language:EN-AU;mso-fareast-language:EN-AU;mso-bidi-language:
+AR-SA">Product team - Please notify ACIC to create an office code and label:</span></strong><span style="color: rgb(0, 0, 0); font-family: Calibri, sans-serif; font-size: 12pt;"><br>
+Office code:&nbsp;</span><span style="font-family: Calibri, sans-serif; font-size: 12pt;">{!Apttus__APTS_Agreement__c.APT_Customer_Number__c}</span></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font face="Calibri, sans-serif"><span style="font-size: 12pt;">
+Office label:&nbsp;</span>&nbsp;{!Apttus__APTS_Agreement__c.APT_Legal_Entity_Name__c}<span style="font-size: 12pt;">&nbsp;(or abbreviated as required)</span></font></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b style="font-size: 12pt;"><br></b></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b style="font-size: 12pt;"><br></b></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><p><strong><span style="font-family:&quot;Calibri&quot;,sans-serif">WFV Customer Support
+Team - Please work with Salesforce Marketing Cloud team to ensure domains are
+unblocked for registration emails.</span></strong><o:p></o:p></p><p><strong><span style="font-family:&quot;Calibri&quot;,sans-serif"><br></span></strong></p>
+
+<p>This is an automated message from Salesforce. Please do not reply.<o:p></o:p></p>
+
+<p class="MsoNormal"><span style="font-size:11.0pt">&nbsp;</span></p></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><br></div></div>]]></td>
+</tr>
+</table>

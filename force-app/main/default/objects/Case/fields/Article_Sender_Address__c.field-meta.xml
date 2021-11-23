@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Article_Sender_Address__c</fullName>
+    <description>StarTrack Article Sender Address field will be used to store the Sender Address field value found in the related Article record.</description>
+    <externalId>false</externalId>
+    <formula>IF( No_Data_Consignment__c,Address1__c, ArticleTest__r.SenderAddress__c)</formula>
+    <label>Sender Address</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

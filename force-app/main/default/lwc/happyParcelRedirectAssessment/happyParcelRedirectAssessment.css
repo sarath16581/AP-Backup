@@ -1,0 +1,10 @@
+/*
+    2020-04-01 nathan.franklin@auspost.com.au Created
+*/
+
+/* icon */
+.content-grid > div:first-child {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Air</fullName>
+        <default>false</default>
+        <label>Air</label>
+    </customValue>
+    <customValue>
+        <fullName>Road</fullName>
+        <default>false</default>
+        <label>Road</label>
+    </customValue>
+    <customValue>
+        <fullName>Parcels</fullName>
+        <default>false</default>
+        <label>Parcels</label>
+    </customValue>
+    <customValue>
+        <fullName>Letters</fullName>
+        <default>false</default>
+        <label>Letters</label>
+    </customValue>
+    <customValue>
+        <fullName>Trusted Services</fullName>
+        <default>false</default>
+        <label>Trusted Services</label>
+    </customValue>
+    <customValue>
+        <fullName>Business Credit Account Facilities</fullName>
+        <default>false</default>
+        <label>Business Credit Account Facilities</label>
+    </customValue>
+    <description>List of values highlighting the product families for AP and Startrack</description>
+    <masterLabel>Product Family</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

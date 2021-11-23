@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Next_Fortnight</fullName>
+    <columns>NAME</columns>
+    <columns>Duty_Board__c</columns>
+    <columns>Service_Resource__c</columns>
+    <columns>Active_Route_Days__c</columns>
+    <columns>Start_Week__c</columns>
+    <columns>Start_Date__c</columns>
+    <columns>End_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Start_Week__c</field>
+        <operation>equals</operation>
+        <value>2017-29</value>
+    </filters>
+    <label>Next Fortnight</label>
+    <language>en_US</language>
+</ListView>

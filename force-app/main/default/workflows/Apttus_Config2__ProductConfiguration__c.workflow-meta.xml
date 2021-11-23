@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>APT_Is_Clone_Check1</fullName>
+        <field>APT_Is_Cloned__c</field>
+        <literalValue>1</literalValue>
+        <name>APT Is Clone Check1</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>APT Update Is Cloned</fullName>
+        <actions>
+            <name>APT_Is_Clone_Check1</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>NOT(ISBLANK(Apttus_QPConfig__Proposald__r.APT_Parent_Proposal__c))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

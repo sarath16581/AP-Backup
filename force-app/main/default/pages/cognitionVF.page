@@ -1,0 +1,79 @@
+<!--
+ -  CognitionVF is the main container for the cognition lightning component
+ - History:
+ 	 12-09-2018: Modified - H Liyanage : Cognition Phase 2 changes, added the refresh timer
+-->
+<apex:page standardStylesheets="false" applyBodyTag="false" showHeader="false"  >
+	<apex:includeLightning />
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+        #lightningComponent {width: 100%;}
+    </style>
+    <apex:includeScript value="{!URLFOR($Resource.Cognition_StaticRes, '/js/jquery-1.11.1.min.js')}" />
+    <apex:includeScript value="{!$Resource.Cognition_StaticRes + '/js/CognitionUtility.js'}"/>
+	<apex:stylesheet value="{!URLFOR($Resource.Cognition_StaticRes, '/css/Cognition_Styles2.css')}" />
+
+    <div id="content">
+        <div id="lightningComponent" />
+        <div id="broker" />
+    </div>
+    <script>
+        window.timeout;
+        var count = 1;
+        var start = Date.now();
+        window.addEventListener("message", function(event) {
+
+            // Handle the message
+            if (event.data.state === "INIT_REFRESH_TIMER") {
+                // clear the timer if there is a once
+                if (window.timeout != null) {
+                    clearTimeout(window.timeout);
+                }
+                var interval = 600000;
+                // if any issues retrieve interval
+                if(typeof event.data.interval !== 'undefined') {
+                    interval = event.data.interval;
+                }
+                // set or reset the timeout here, if the timer ran till the defined interval
+                // send the message to lightning component for a refresh
+                window.timeout = setTimeout(function() {
+                    // auditing purposes, we log these on the console
+                    var millis = Date.now() - start;
+                    console.log('MAIN : REFRESH FIRED @',new Date()+' for'+ count+ '(st/nd/th)times with interval ('+Math.floor(millis/1000)+') seconds');
+                    count++;
+
+                    window.postMessage({
+                        'state': 'FIRE_REFRESH'
+                    }, event.origin);
+                }, interval);
+            }
+        });
+
+        // create the lightning component
+        window.onload = function() {
+            $Lightning.use("c:cognitionLO", function() {
+                $Lightning.createComponent("c:AsynchApexContinuationBroker",
+                    {},
+                    "broker",
+                    function(cmp) {
+                        console.log('Broker Component created');
+                        console.log(cmp);
+                    });
+
+                var accListComp = $Lightning.createComponent("c:Cognition_CustomerCognition", {
+                        function() {
+                            console.log('cmp created...');
+                        }
+                    },
+                    "lightningComponent",
+                    function(component) {
+
+                    });
+            });
+        }
+
+    </script>
+</apex:page>

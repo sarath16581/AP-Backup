@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales Ops Service Delivery</fullName>
+    <description>Case support process for Sales operation delivery team</description>
+    <isActive>true</isActive>
+    <values>
+        <fullName>Awaiting Customer Response</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Awaiting Internal Response</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Awaiting Network Response</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Closed</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>In Progress</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>New</fullName>
+        <default>true</default>
+    </values>
+</BusinessProcess>

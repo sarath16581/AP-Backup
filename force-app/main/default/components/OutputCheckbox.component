@@ -1,0 +1,11 @@
+<!--
+Type: Vf component used in the visualforce email template "Special Services Case Creation Email Template"
+Purpose:    to show the checkbox in the email ,corresponding to the boolean values fetched from salesforce         
+History:
+--------------------------------------------------
+15.02.2019      Anshul Goyal      Created
+-->
+<apex:component access="global">
+	<apex:attribute name="value" description="Is the checkbox checked?" type="Boolean" />
+	<img src="/img/checkbox_{!IF(value, '', 'un')}checked.gif" title="{!IF(value, 'Checked', 'Not Checked')}" />
+</apex:component>

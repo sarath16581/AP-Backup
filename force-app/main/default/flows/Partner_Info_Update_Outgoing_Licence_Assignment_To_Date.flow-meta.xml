@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <decisions>
+        <name>IsOutgoingLicenceValid</name>
+        <label>IsOutgoingLicenceValid</label>
+        <locationX>210</locationX>
+        <locationY>68</locationY>
+        <defaultConnectorLabel>[Default Outcome]</defaultConnectorLabel>
+        <rules>
+            <name>OutgoingLicenceValid</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>OutgoingLicence</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Assignment_To_Date</targetReference>
+            </connector>
+            <label>OutgoingLicenceValid</label>
+        </rules>
+    </decisions>
+    <description>Updates End Date of outgoing Licence</description>
+    <interviewLabel>Partner Info {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Partner Info - Update Outgoing Licence Assignment To Date</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Set_Assignment_To_Date</name>
+        <label>Set Assignment To Date</label>
+        <locationX>232</locationX>
+        <locationY>301</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>OutgoingLicence.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Assignment_Effective_To_Date__c</field>
+            <value>
+                <elementReference>NewAssignemntFromDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Termination_Reason__c</field>
+            <value>
+                <stringValue>New Assignment</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <startElementReference>IsOutgoingLicenceValid</startElementReference>
+    <status>Active</status>
+    <variables>
+        <name>NewAssignemntFromDate</name>
+        <dataType>Date</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>OutgoingLicence</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+</Flow>

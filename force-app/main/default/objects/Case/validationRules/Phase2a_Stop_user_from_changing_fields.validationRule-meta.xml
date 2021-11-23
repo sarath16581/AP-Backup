@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phase2a_Stop_user_from_changing_fields</fullName>
+    <active>true</active>
+    <description>stop users from changing the originating OPC and opportunity values</description>
+    <errorConditionFormula>RecordType.Name =&quot;Sales Manager Review Exception&quot;  &amp;&amp; (ISCHANGED( Originating_OPC__c )  ||  ISCHANGED( Opportunity__c ) ||  ISCHANGED( Product__c))</errorConditionFormula>
+    <errorMessage>The Originating OPC, Product and Opportunity values cannot be changed. Please cancel record.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Tab_Name_List__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This setting allows us to select the names and order of the Dealmaker Tabs and Launchpad items. The value of this field should be a comma separated list of Tab names. This field should only be used by TAS group administrators.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This setting allows us to select the names and order of the Dealmaker Tabs and Launchpad items. The value of this field should be a comma separated list of Tab names. This field should only be used by TAS group administrators.</inlineHelpText>
+    <label>Tab Name List</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

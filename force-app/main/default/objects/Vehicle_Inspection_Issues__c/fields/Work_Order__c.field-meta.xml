@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Work_Order__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Work Order from which the Issue was first detected</description>
+    <externalId>false</externalId>
+    <label>Work Order</label>
+    <referenceTo>WorkOrder</referenceTo>
+    <relationshipLabel>Vehicle Inspection Issues</relationshipLabel>
+    <relationshipName>Vehicle_Inspection_Issues</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

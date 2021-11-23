@@ -1,0 +1,133 @@
+<!-- Author       : Accenture IDC Team -->
+<!-- Created Date : 08/10/2013 -->
+<!-- Description  : This Visualforce page is used to search for ExceptionLog__c records, filtered on the basis of CreatedDate
+                    and to convert the retrieved Exceptions into Defect__c records or to export them in the form of CSV -->
+<!--
+  * This software and all content is the property of ACCENTURE or its licensors, 
+  * and is for the internal and confidential use of employees and authorized agents 
+  * of ACCENTURE solely for the benefit of ACCENTURE and its affiliates.  
+  * The software and contents are protected by copyright, trade secret and patent laws, 
+  * and other local and international laws and treaties.  
+  * Unauthorized use may subject the user to civil and criminal penalties.  
+  * The software contains confidential information of ACCENTURE and its affiliates.  
+  * You may not access, use, copy, install, modify, transfer, or distribute this software 
+  * (electronically or otherwise), or create any copy, adaptation, transcription, or 
+  * derivative thereof, except as expressly authorized by ACCENTURE.  
+  * You may not divulge, disclose or communicate to any other third party, any of the 
+  * confidential information contained in the software, including the software itself.  
+  * ACCENTURE maintains full and exclusive right, title and ownership interest in and 
+  * to the software and all copyright, patent, trade secret, trademark and other intellectual 
+  * property rights therein.
+-->
+<apex:page controller="VFC_ExceptionSearch" sidebar="false" id="exceptionSearchPageId">
+    <apex:form >
+        <apex:pageBlock title="Exception Search" id="exceptionSearchBlockId">
+            
+            <apex:pageMessages id="pageErrorMsg"/>
+            
+            <apex:pageBlockButtons location="Bottom" id="searchButtonLoc">
+                <apex:commandButton value="Search" action="{!search}" oncomplete="counterFunc()" reRender="pageErrorMsg, searchResultSec" id="searchButton" status="recSearch"/>
+                <apex:actionStatus id="recSearch" startText="Searching..." /> 
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection title="Please select the dates for which exception records needs to be search" id="searchHeader" collapsible="false">
+                <apex:pageBlockSectionItem id="startDateSec">
+                    <apex:outputLabel value="Start Date" id="startDate"/>
+                    <apex:inputText value="{!wrapVar.startDate}" size="10" id="startDatePicker" onfocus="DatePicker.pickDate(false, this , false);" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="endDateSec">
+                    <apex:outputLabel value="End Date" id="endDate"/>
+                    <apex:inputText value="{!wrapVar.endDate}" size="10" id="endDatePicker" onfocus="DatePicker.pickDate(false, this , false);" />  
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <apex:pageBlock id="searchResultSec" title="Search Result">
+            <apex:outputLabel value="Currently No Records Found" rendered="{!NOT(display)}" id="noResult"/>
+            
+            <apex:pageBlockButtons location="Bottom" rendered="{!if(wrapVar.exceptionList.size>maxRecs,true,false)}" id="paginationSec">
+                <apex:commandLink value="Previous" action="{!previous}" reRender="exceptionTable" id="prev"/>&nbsp;&nbsp; | &nbsp;&nbsp;
+                <apex:commandLink value="Next" action="{!next}" reRender="exceptionTable" id="next"/> 
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockButtons location="top" rendered="{!display}" id="searchResultButtons">
+                <!--<apex:commandButton value="Convert to Defect" onClick="confirmDelete()" reRender="pageErrorMsg" id="defectConv"/>-->
+                <apex:commandButton value="Export To CSV" action="{!convertToCSV}" id="csvExport"/>
+            </apex:pageBlockButtons>
+                        
+           <br/> <apex:outputLabel value="{!$Label.CSVMessage}" rendered="{!display}" id="noCheck" style="font-weight:bold"/><br/><br/>
+            
+            <apex:pageBlockSection columns="1" rendered="{!display}" id="searchTable">
+                
+                <apex:pageBlockTable value="{!showExceptionList}" var="excp" id="exceptionTable">                                   
+                    <apex:column id="checkboxSec">
+                        <apex:facet name="header">
+                            <apex:inputCheckbox onclick="checkAll(this,'checkedOne')" id="checkboxAll" selected="{!checked}" />
+                        </apex:facet>                        
+                        <apex:inputCheckbox value="{!wrapVar.selected[excp.Id]}" id="checkedOne" onchange="callSelect(this.checked)" />
+                    </apex:column>
+                    <apex:column headerValue="Name" value="{!wrapVar.exceptionMap[excp.Id].Name}" id="name"/>
+                    <apex:column headerValue="Exception Type" value="{!wrapVar.exceptionMap[excp.Id].ExceptionType__c}" id="createdBy"/>
+                    <apex:column headerValue="Exception Code" value="{!wrapVar.exceptionMap[excp.Id].ExceptionCode__c}" id="owner"/>
+                    <apex:column headerValue="Is Handled" value="{!wrapVar.exceptionMap[excp.Id].IsHandled__c}" id="dept"/>                    
+                </apex:pageBlockTable> 
+                               
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <apex:actionFunction action="{!selectAll}" name="callSelectFunc" rerender="searchResultSec" id="selectFunc" />
+        <!--
+        <apex:actionFunction action="{!deleteException}" name="callDelete" rerender="searchResultSec" id="defectFunc" oncomplete="counterFunc()">
+            <apex:param assignTo="{!wrapVar.delException}" value="" name="exceptionStatus" id="excpDelVal"/>
+        </apex:actionFunction>
+        --> 
+                 
+    </apex:form>
+    <script type="text/javascript">
+        var cntr;       
+        
+        function counterFunc(){
+            cntr=0;            
+        }
+        
+        function callSelect(checkVal){
+            if(checkVal){
+                cntr++;
+            }
+            else{
+                cntr--;
+            }
+            callSelectFunc();
+        }
+        
+        function checkAll(cb,cbid){
+            cntr=0;
+            var inputElem = document.getElementsByTagName("input");                    
+            for(var i=0; i<inputElem.length; i++){            
+                if(inputElem[i].id.indexOf(cbid)!=-1){                                       
+                    inputElem[i].checked = cb.checked;                    
+                }  
+                if(inputElem[i].checked){
+                    cntr++;
+                }              
+            }            
+        }
+        
+        //function confirmDelete(){
+            //if(cntr==0){
+                //alert('Select atleast 1 record !');
+            //}
+            //else{
+                //var agree=confirm("Are you sure you want to delete the converted exceptions?");
+                //var delExceptionVal='';
+                //if (agree){
+                     //delExceptionVal = 'deleteException' ;                 
+                //}
+                //else{
+                    //delExceptionVal = 'convertException' ;
+                //} 
+                //callDelete(delExceptionVal);   
+            //}            
+        //}
+    </script>
+</apex:page>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Current_Role__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This box is used to indicate whether this record relates the Assigned To users current role</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This box is used to indicate whether this record relates the Assigned To users current role</inlineHelpText>
+    <label>Current Role</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MHS_Status_Accepted</fullName>
+    <active>false</active>
+    <errorConditionFormula>(MHS_Confirmed_Rate__c &lt; MHS_Published_Rate__c || ISBLANK(MHS_Confirmed_Rate__c) || MHS_Confirmed_Rate__c = 0 ) 
+ &amp;&amp; 
+( ISPICKVAL( MHS_Status__c , &apos;Accepted&apos;) || ISPICKVAL( MHS_Status__c , &apos;Auto-Accepted&apos;))</errorConditionFormula>
+    <errorMessage>When the MHS Status is Accepted or Auto-Accepted the value in the MHS Confirmed Rate must be equal to or greater than the value in the MHS Published Rate.</errorMessage>
+</ValidationRule>

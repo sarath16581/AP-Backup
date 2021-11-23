@@ -1,0 +1,86 @@
+<template>
+  <template if:true={isOpportunityLoaded}>
+    <lightning-input 
+      class="formlette-input"
+      type="text" 
+      label="Opportunity" 
+      name="opportunityName"
+      value={OpportunityRecord.Name}
+      read-only>
+    </lightning-input>
+
+    <lightning-input 
+      class="formlette-input"
+      type="text" 
+      label="Organisation" 
+      name="organisationName"
+      value={OpportunityRecord.Account.Name}
+      read-only>
+    </lightning-input>
+  </template>
+  <template if:false={isOpportunityLoaded}>
+    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+  </template>
+
+  <template if:true={isProductPicklistValuesLoaded}>
+    <lightning-dual-listbox class="formlette-input"
+                            label="Product"
+                            name="product"
+                            options={ProductPicklistValues.values}
+                            onfocusout={handleTouched}
+                            onchange={handleValueChange}
+                            required>
+    </lightning-dual-listbox>
+  </template>
+  <template if:false={isProductPicklistValuesLoaded}>
+    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+  </template>
+
+  <template if:true={isWorkTypePicklistValuesLoaded}>
+    <lightning-combobox class="formlette-input"
+                        label="Work Type"
+                        name="workType"
+                        placeholder="-Select-"
+                        options={WorkTypePicklistValues}
+                        onfocusout={handleTouched}
+                        onchange={handleWorkTypeChange}
+                        required>
+    </lightning-combobox>
+  </template>
+  <template if:false={isWorkTypePicklistValuesLoaded}>
+    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+  </template>
+
+  <lightning-combobox class="formlette-input"
+                      label="Support Work Type"
+                      name="supportWorkType"
+                      placeholder="-Select-"
+                      options={SupportWorkTypeDependentPicklistValues}
+                      onfocusout={handleTouched}
+                      onchange={handleValueChange}>
+  </lightning-combobox>
+
+  <lightning-textarea class="formlette-input"
+                      label="Description" 
+                      name="description"
+                      placeholder="Description"
+                      onfocusout={handleTouched}
+                      onchange={handleValueChange}>
+  </lightning-textarea>
+
+  <div class="slds-p-vertical_small">
+    <template if:true={saveState}>
+      <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </template>
+    <template if:false={saveState}>
+      <div class="slds-text-color_destructive">
+        {errorMessage}
+      </div>
+      <div class="slds-text-color_success">
+        {saveMessage}
+      </div>
+      <lightning-button label="Save" variant="brand" onclick={handleInsert} class="slds-m-right_small"></lightning-button>
+    </template>
+    <lightning-button label="Close" variant="brand" onclick={closeQuickAction}></lightning-button>
+  </div>
+</template>

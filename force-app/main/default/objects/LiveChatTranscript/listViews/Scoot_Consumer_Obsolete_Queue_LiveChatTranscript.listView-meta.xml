@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Scoot_Consumer_Obsolete_Queue_LiveChatTranscript</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Scoot (Consumer) - Obsolete Queue</label>
+    <queue>Scoot_Consumer_Obsolete_Queue</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

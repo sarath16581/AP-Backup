@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Field_Change_Validation</fullName>
+    <active>true</active>
+    <description>Phase 1 - Only Customer Data Management Team can change the customer name, ABN and ACN numbers
+BG 29/11: Validation rule updated to allow Data Management Team Supers Users
+BG 15/02: Validation rule updated to stop users updating Customer core fields</description>
+    <errorConditionFormula>IF(
+(Role_Type_Roll_Up__c = &quot;Customer&quot;) &amp;&amp;
+(((ISCHANGED(Name) ||
+ISCHANGED(ABN__c) ||
+ISCHANGED(ParentId) ||
+ISCHANGED(Industry_Sector__c) ||
+ISCHANGED(ACN__c) ||
+ISCHANGED(Organisation_Trading_Name__c) ||
+ISCHANGED(Type)) &amp;&amp; ($Profile.Name != &quot;Customer Team&quot; &amp;&amp; $Profile.Name != &apos;System Administrator&apos; &amp;&amp; $Profile.Name != &apos;Customer Team Super Users&apos; &amp;&amp; $Profile.Name != &apos;Marketing Super Users&apos; &amp;&amp; $Profile.Name != &apos;Enterprise Onboarding&apos;)) || ((
+ISCHANGED(BillingStreet) ||
+ISCHANGED(BillingCity) ||
+ISCHANGED(BillingState) ||
+ISCHANGED(BillingPostalCode) ||
+ISCHANGED(Billing_DPID__c) ||
+ISCHANGED(DUNS_Number__c) ||
+ISCHANGED(Shipping_DPID__c) ||
+ISCHANGED(ShippingStreet) ||
+ISCHANGED(ShippingCity) ||
+ISCHANGED(ShippingState) ||
+ISCHANGED(ShippingPostalCode) ||
+ISCHANGED(ShippingCountry))
+&amp;&amp; (($Profile.Name != &quot;Customer Team&quot; &amp;&amp; $Profile.Name != &apos;System Administrator&apos; &amp;&amp; $Profile.Name != &apos;Customer Team Super Users&apos; &amp;&amp; $Profile.Name != &apos;Marketing Super Users&apos; &amp;&amp; $Profile.Name != &apos;Enterprise Onboarding&apos;)&amp;&amp; NOT(Owner.IsCurrentUser__c &amp;&amp; ($Profile.Name =&apos;BG Base&apos; || $Profile.Name =&apos;Hub Users&apos;) )))) , true, false)</errorConditionFormula>
+    <errorMessage>Please raise a case record to the Data Quality Management team to change Customers Organisation core details.</errorMessage>
+</ValidationRule>

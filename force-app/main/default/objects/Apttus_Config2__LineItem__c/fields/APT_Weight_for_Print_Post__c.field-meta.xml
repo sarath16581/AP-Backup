@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Weight_for_Print_Post__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight__c, &quot;Small Letter&quot; ), &quot;Small Letter; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight__c, &quot;Large&lt; 500&quot; ), &quot;Large&lt; 500; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight__c, &quot;Large &gt;500&quot; ), &quot;Large &gt;500; &quot;,null )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Weight for Print Post</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

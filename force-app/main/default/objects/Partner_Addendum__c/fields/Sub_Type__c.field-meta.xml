@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Type__c</fullName>
+    <description>Sub Type</description>
+    <externalId>false</externalId>
+    <label>Sub Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Mail Bag Despatched Variation</fullName>
+                <default>false</default>
+                <label>Mail Bag Despatched Variation</label>
+            </value>
+            <value>
+                <fullName>Private Counter Delivery Points Variation</fullName>
+                <default>false</default>
+                <label>Private Counter Delivery Points Variation</label>
+            </value>
+            <value>
+                <fullName>Business Counter Delivery Points Variation</fullName>
+                <default>false</default>
+                <label>Business Counter Delivery Points Variation</label>
+            </value>
+            <value>
+                <fullName>Private Delivery Points Variation</fullName>
+                <default>false</default>
+                <label>Private Delivery Points Variation</label>
+            </value>
+            <value>
+                <fullName>Business Delivery Points Variation</fullName>
+                <default>false</default>
+                <label>Business Delivery Points Variation</label>
+            </value>
+            <value>
+                <fullName>Negotiated Accommodation Fee</fullName>
+                <default>false</default>
+                <label>Negotiated Accommodation Fee</label>
+            </value>
+            <value>
+                <fullName>Storage of Carded Articles Annual Fee</fullName>
+                <default>false</default>
+                <label>Storage of Carded Articles Annual Fee</label>
+            </value>
+            <value>
+                <fullName>Storage of Mail Fee</fullName>
+                <default>false</default>
+                <label>Storage of Mail Fee</label>
+            </value>
+            <value>
+                <fullName>Mail Conveyancing Fee</fullName>
+                <default>false</default>
+                <label>Mail Conveyancing Fee</label>
+            </value>
+            <value>
+                <fullName>Clearance of Remote SPB Fee</fullName>
+                <default>false</default>
+                <label>Clearance of Remote SPB Fee</label>
+            </value>
+            <value>
+                <fullName>Counter Collection on non RSD days</fullName>
+                <default>false</default>
+                <label>Counter Collection on non RSD days</label>
+            </value>
+            <value>
+                <fullName>Representation Allowance - Reply Paid</fullName>
+                <default>false</default>
+                <label>Representation Allowance - Reply Paid</label>
+            </value>
+            <value>
+                <fullName>Representation Allowance - First Day Covers</fullName>
+                <default>false</default>
+                <label>Representation Allowance - First Day Covers</label>
+            </value>
+            <value>
+                <fullName>Business Transit Points Variation</fullName>
+                <default>false</default>
+                <label>Business Transit Points Variation</label>
+            </value>
+            <value>
+                <fullName>Private Transit Points Variation</fullName>
+                <default>false</default>
+                <label>Private Transit Points Variation</label>
+            </value>
+            <value>
+                <fullName>New Business Spotter&apos;s Fee</fullName>
+                <default>false</default>
+                <label>New Business Spotter&apos;s Fee</label>
+            </value>
+            <value>
+                <fullName>Customer Transfer Fee</fullName>
+                <default>false</default>
+                <label>Customer Transfer Fee</label>
+            </value>
+            <value>
+                <fullName>Mail Service Payment</fullName>
+                <default>false</default>
+                <label>Mail Service Payment</label>
+            </value>
+            <value>
+                <fullName>Interest Free Loan</fullName>
+                <default>false</default>
+                <label>Interest Free Loan</label>
+            </value>
+            <value>
+                <fullName>Refurbishment Loan</fullName>
+                <default>false</default>
+                <label>Refurbishment Loan</label>
+            </value>
+            <value>
+                <fullName>Security Loan</fullName>
+                <default>false</default>
+                <label>Security Loan</label>
+            </value>
+            <value>
+                <fullName>Ad-hoc</fullName>
+                <default>false</default>
+                <label>Ad-hoc</label>
+            </value>
+            <value>
+                <fullName>Miscellaneous Type 1</fullName>
+                <default>false</default>
+                <label>Miscellaneous Type 1</label>
+            </value>
+            <value>
+                <fullName>Miscellaneous Type 2</fullName>
+                <default>false</default>
+                <label>Miscellaneous Type 2</label>
+            </value>
+            <value>
+                <fullName>Miscellaneous Type 3</fullName>
+                <default>false</default>
+                <label>Miscellaneous Type 3</label>
+            </value>
+            <value>
+                <fullName>Acceptance of Defence Parcels Less Than 2kg</fullName>
+                <default>false</default>
+                <label>Acceptance of Defence Parcels Less Than 2kg</label>
+            </value>
+            <value>
+                <fullName>Annual Rent Subsidy Amount</fullName>
+                <default>false</default>
+                <label>Annual Rent Subsidy Amount</label>
+            </value>
+            <value>
+                <fullName>Annual Phone Subsidy Amount</fullName>
+                <default>false</default>
+                <label>Annual Phone Subsidy Amount</label>
+            </value>
+            <value>
+                <fullName>Annual Lease Fee</fullName>
+                <default>false</default>
+                <label>Annual Lease Fee</label>
+            </value>
+            <value>
+                <fullName>Public Liability</fullName>
+                <default>false</default>
+                <label>Public Liability</label>
+            </value>
+            <value>
+                <fullName>Repayment Arrangement</fullName>
+                <default>false</default>
+                <label>Repayment Arrangement</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

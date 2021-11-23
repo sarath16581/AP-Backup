@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sort_n_Round_Setup_Con_Or_PDO__c</fullName>
+    <description>The number of contractors or postal delivery officer at the LPO performing both primary sort and round set up.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The number of contractors or postal delivery officer at the LPO performing both primary sort and round set up.</inlineHelpText>
+    <label>Sort n Round Setup Con Or PDO</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

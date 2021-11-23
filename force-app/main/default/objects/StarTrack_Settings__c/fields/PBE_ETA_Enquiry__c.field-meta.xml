@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PBE_ETA_Enquiry__c</fullName>
+    <description>Pickup Booking Enquiry Queue Name when Purpose = &quot;Pickup ETA&quot;</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Pickup Booking Enquiry Queue Name when Purpose = &quot;Pickup ETA&quot;</inlineHelpText>
+    <label>PBE Pickup ETA</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

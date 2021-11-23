@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Activity_Name__c</fullName>
+    <description>This field will be similar to the ‘Opportunity’ field where the description is written by the seller – a separate field is required in order to allow the Bid Manager to enter their own description</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Field that will allow a name or description of the bid response or activity to be recorded by the Bid Manager</inlineHelpText>
+    <label>Activity Name</label>
+    <length>150</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

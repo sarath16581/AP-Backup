@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>et4ae5__All</fullName>
+    <columns>NAME</columns>
+    <columns>et4ae5__EmailName__c</columns>
+    <columns>et4ae5__SubjectLine__c</columns>
+    <columns>et4ae5__DateSent__c</columns>
+    <columns>et4ae5__NumberSent__c</columns>
+    <columns>et4ae5__Bounce_Rate_del__c</columns>
+    <columns>et4ae5__Number_Delivered__c</columns>
+    <columns>et4ae5__Deliverability_Rate__c</columns>
+    <columns>et4ae5__NumberofUniqueOpens__c</columns>
+    <columns>et4ae5__Open_Rate__c</columns>
+    <columns>et4ae5__NumberofUniqueClicks__c</columns>
+    <columns>et4ae5__Click_Through_Rate__c</columns>
+    <columns>et4ae5__Unsubscribe_Rate__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>et4ae5__EmailName__c</field>
+        <operation>contains</operation>
+        <value>BUS</value>
+    </filters>
+    <filters>
+        <field>et4ae5__EmailName__c</field>
+        <operation>contains</operation>
+        <value>NL</value>
+    </filters>
+    <label>ORIA</label>
+    <language>en_US</language>
+</ListView>

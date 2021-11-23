@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SWMY - APO collection</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SWMY - APO collection</name>
+    <style>none</style>
+    <subject>SWMY - APO collection</subject>
+    <textOnly>Hi {!Case.Receiver_Contact_First_Name__c},
+
+Thank you for your enquiry regarding consignment:
+
+
+Article
+
+{!Case.ArticleTest__c}
+
+Receiver Name
+
+{!Case.Receiver_Name__c}
+
+Address
+
+{!Case.Address4__c}, {!Case.Address4Suburb__c},{!Case.Address4Postcode__c}
+
+Your freight is awaiting collection at the 
+
+Xxxx Australia Post
+
+address/suburb/state/postcode
+
+Opening Hours:
+
+Kind regards,
+
+{!User.Name}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

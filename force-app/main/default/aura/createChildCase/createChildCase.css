@@ -1,0 +1,12 @@
+.THIS .required-field label:after {
+   content: '*';
+   font-size:12px;
+   color: #f00;
+   position:absolute;
+   left:-5px;
+   top:2px;
+}
+
+.THIS {
+    background-color: white;
+}

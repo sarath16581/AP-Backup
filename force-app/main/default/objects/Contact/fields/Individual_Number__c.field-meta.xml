@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Individual_Number__c</fullName>
+    <description>djk 20/10/11
+unique id for indiviuals - only available for perosn accounts, changes to autonumber post migration</description>
+    <externalId>false</externalId>
+    <label>Individual Number</label>
+    <length>40</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

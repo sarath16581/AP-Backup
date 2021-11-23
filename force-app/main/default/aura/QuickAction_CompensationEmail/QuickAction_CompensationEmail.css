@@ -1,0 +1,9 @@
+.THIS .spinner-text::after {
+    position: absolute;
+    content: 'Sending compensation email...';
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 3em);
+    font-weight: bold;
+    max-height: 300px;
+}

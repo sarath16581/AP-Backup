@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Display_On_Mobile__c</fullName>
+    <description>Calculation to determine if the Service Appointment should be displayed to the driver on the mobile device.  Referenced in the Service Appointment list view FieldServiceMobile, which is set in the Field Service Mobile settings as the default list view.  Scheduled SAs only displayed for non duty assignment</description>
+    <externalId>false</externalId>
+    <formula>IF( OR(AND(TEXT(Status) = &apos;Scheduled&apos;,TEXT(Primary_SR__r.ResourceType)=&apos;T&apos;),
+       TEXT(Status) = &apos;Dispatched&apos;,
+       TEXT(Status) = &apos;In Progress&apos;,
+       TEXT(Status) = &apos;On Hold&apos;,
+       BEGINS(Subject,&apos;**MESSAGE RECEIVED&apos;),
+       Message_Active__c = true,
+       TEXT(Work_Order__r.Fit_For_Duty_Response__c) = &apos;No&apos;
+      ), 
+    true,
+    false
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Display On Mobile</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Old_Customer_Name__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This field is only required to be completed for ABN SCCR’s. The is the customer which is currently in your portfolio that will no longer trade</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field is only required to be completed for ABN SCCR’s. The is the customer which is currently in your portfolio that will no longer trade</inlineHelpText>
+    <label>Old Customer Name</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Sales Coverage Change Requests (Old Customer)</relationshipLabel>
+    <relationshipName>Sales_Coverage_Change_Requests</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

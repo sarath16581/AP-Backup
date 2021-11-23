@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Partnership_Manager_Email__c</fullName>
+    <description>This field is currently used for Service Now Integration - Bulk Queries, it is used to view the Service Partner&apos;s email address (User&apos;s email address).</description>
+    <externalId>false</externalId>
+    <formula>Service_Partnership_Manager__r.Email</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Service Partnership Manager Email</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

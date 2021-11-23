@@ -1,0 +1,61 @@
+<!--
+  @description       : Goolge Map Places Search component.
+  @author            : Ankur Gandhi
+  @group             : BCA
+  @last modified on  : 03-16-2021
+  @last modified by  : ankur.gandhi@auspost.com.au
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   03-15-2021   ankur.gandhi@auspost.com.au          Initial Version
+-->
+<template>
+
+    <div class="slds-form-element slds-lookup slds-is-open">
+
+        <!--<div class="slds-form-element">
+            <label class="slds-form-element__label" for="text-input-id-1">Input Label</label>
+            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left-right">
+              <input type="text" 
+                    id="text-input-id-1"  
+                    placeholder="" 
+                    class="slds-input" 
+                    onkeyup={search}/>
+              <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" title="Clear">
+                <svg class="slds-button__icon slds-icon-text-light" aria-hidden="true">
+                  <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#clear"></use>
+                </svg>
+                <span class="slds-assistive-text">Clear</span>
+              </button>
+            </div>
+        </div>-->
+
+
+
+
+        <!-- Search Box -->
+        <div class="search-container">      
+            <!--<lightning-layout-item size="12">-->
+                <lightning-input class="address-input" name={name} label={label} autocomplete='off'
+                    placeholder={placeholder} required={required} onkeyup={search} value={searchAddressTerm}
+                    variant={variant} onfocus={openSearchResultsList} onblur={closeSearchResultsList} field-level-help={fieldLevelHelp}></lightning-input>
+            <!--</lightning-layout-item>-->
+            <template if:true={isSearchingAddressDetails}>
+                <lightning-spinner size="small" alternative-text="Loading"></lightning-spinner>
+            </template>
+        </div>
+        <template if:true={shouldShowDropDown}>
+            <div class="slds-lookup__menu slds address-lookup-drop">
+                <template if:true={isLoading}>
+                    <div class="slds-p-horizontal_large slds-text-body_small">searching...</div>
+                </template>
+                <ul class="slds-lookup__list" role="listbox">
+                    <template for:each={searchResults} for:item="result">
+                        <c-search-result key={result.moniker} record={result} 
+                            search-term={searchAddressTerm} onselected={handleSearchResultSelect}>
+                        </c-search-result>
+                    </template>
+                </ul>
+            </div>
+        </template>
+    </div>
+</template>

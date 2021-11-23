@@ -1,0 +1,6 @@
+<design:component>
+    <design:attribute name="label" label="Header label" description="The text to be displayed in the header." />
+    <design:attribute name="backButtonLabel" label="Back button label" description="The text to be displayed in the back button. Leave blank to hide the back button." />
+    <design:attribute name="backButtonUrl" label="Back button URL" description="The URL link for the back button." />
+
+</design:component>

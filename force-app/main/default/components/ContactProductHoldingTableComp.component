@@ -1,0 +1,219 @@
+<!--
+    @Author      :  kalpita.talwadekar@auspost.com.au
+    @Date        :  19/10/2015
+    @Description :  Visualforce Component to display table for contact product holdings
+	2021 Mar 16 madhuri.awasthi@auspost.com.au INC1758530 Date format of Activation and Next Allocation date changed
+-->
+
+<apex:component controller="ContactProductHoldingTableCompController">
+    
+    <style type="text/css">
+        .customPopup{
+            background-color: white;
+            border-style: solid;
+            border-width: 2px;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            z-index: 9999;
+            width: 260px;
+            margin-left: -100px;
+            top:50px;
+        }
+        .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 50;
+            left: 0;
+            z-index: 9998;
+        }  
+    </style>
+    
+    <apex:attribute name="contactId" description="the selected contactid" type="string" required="true" assignTo="{!contId}"/>
+    
+    <apex:form styleClass="contactFrm" id="contFrm"> 
+    <c:LoadingSpinnerComponent showFunctionName="showProgress" hideFunctionName="hideProgress" /> 
+    
+        <apex:outputPanel id="msg"> 
+            <apex:messages styleClass="alert alert-danger"/>
+        </apex:outputPanel>
+        <apex:pageBlock id="table">
+        
+            <!--  showing additional details of product holdings in popup --->
+            <apex:outputpanel layout="block" id="popup" rendered="{!showPopup}" >
+                <apex:outputpanel styleclass="popupBackground" layout="block" />
+                     <apex:outputpanel styleClass="customPopup"  layout="block" >
+                         <!-- MYPOST_Card and MYPOST_Consumer Details -->
+                         <apex:panelGrid columns="2" width="100%" rendered="{!typePrdHld == $Label.CL_PH_MYPOST_CARD
+                                                                 || typePrdHld == $Label.CL_PH_MYPOST_CONSUMER }">
+                                    <apex:outputLabel style="color: #4a4a56;text-align: right; font-size: 91%;font-weight: bold;">{!$Label.CL_PH_Card_Number}</Apex:outputLabel>
+                                    <apex:outputText >{!pstCrd.CardNumber__c}</apex:outputText>
+                                
+                                    <apex:outputLabel style="color: #4a4a56;text-align: left; font-size: 91%;font-weight: bold;">{!$Label.CL_PH_Activation_Date}</Apex:outputLabel>     
+                                    <apex:outputText value="{0, date,EEEE d MMMM yyyy}"> 
+                                        <apex:param value="{!pstCrd.ActivationDate__c}" /> 
+                                    </apex:outputText> 
+    
+                                    <apex:outputLabel style="color: #4a4a56;text-align: left; font-size: 91%;font-weight: bold;">{!$Label.CL_PH_Card_Status}</Apex:outputLabel>
+                                    <apex:outputText >{!statusPrdHld}</apex:outputText>
+                                
+                                    <apex:outputLabel style="color: #4a4a56;text-align: left; font-size: 91%;font-weight: bold;">{!$Label.CL_PH_Available_stampbooks}</Apex:outputLabel>
+                                    <apex:outputText >{!pstCrd.AvailableStampEntitlement__c}</apex:outputText>
+                                
+                                        <apex:outputLabel style="color: #4a4a56;text-align: left; font-size: 91%;font-weight: bold;">{!$Label.CL_PH_Nxt_All_Date}</Apex:outputLabel>
+                                    <apex:outputText value="{0, date,EEEE d MMMM yyyy}"> 
+                                        <apex:param value="{!pstCrd.NextStampAllocationDate__c}" /> 
+                                    </apex:outputText>  
+                                
+                            </apex:panelGrid>
+                            <!-- POB Details -->
+                            <apex:panelGrid columns="2" width="100%" rendered="{!typePrdHld == $Label.CL_PH_POB}">
+                                
+                                    <apex:outputLabel style="color: #4a4a56;text-align: left; font-size: 91%;font-weight: bold;">{!$Label.CL_PH_Lease_Id}</Apex:outputLabel>
+                                    <apex:outputText >{!lhd.LeaseID__c}</apex:outputText>
+                                
+                                    <apex:outputLabel style="color: #4a4a56;text-align: left; font-size: 91%;font-weight: bold;">{!$Label.CL_PH_Service_Desc}</Apex:outputLabel>     
+                                    <apex:outputText >{!lhd.ServiceDescription__c}</apex:outputText>
+    
+                                    <apex:outputLabel style="color: #4a4a56;text-align: left; font-size: 91%;font-weight: bold;">{!$Label.CL_PH_ServLocation}</Apex:outputLabel>
+                                    <apex:outputText >{!lhd.ServiceLocation__c}</apex:outputText>
+                                
+                                    <apex:outputLabel style="color: #4a4a56;text-align: left; font-size: 91%;font-weight: bold;">{!$Label.CL_PH_Service_Type}</Apex:outputLabel>
+                                    <apex:outputText >{!Lhd.ServiceType__c}</apex:outputText>
+                                  
+                            </apex:panelGrid>
+                            <!-- Address holding Parcel Locker, Parcel Collect and MyDeliveries Details -->
+                            <apex:panelGrid columns="2" width="100%" style="" 
+                                    rendered="{!typePrdHld == $Label.CL_PH_MYDELIVERIES || typePrdHld == $Label.CL_PH_PARCEL_LOCKER
+                                                     || typePrdHld == $Label.CL_PH_PARCEL_COLLECT }">
+    
+                                    <apex:outputLabel style="color: #4a4a56;text-align: left; font-size: 91%;font-weight: bold;">{!$Label.CL_PH_Card_Status}</Apex:outputLabel>
+                                    <apex:outputText >{!statusPrdHld}</apex:outputText>
+                                
+                                    <apex:outputLabel style="color: #4a4a56;text-align: left; font-size: 91%;font-weight: bold;">{!$Label.CL_PH_Delivery_Addre}</Apex:outputLabel>     
+                                    <apex:outputText > {!delAddrss.DeliveryAddressee__c} </apex:outputText> 
+                                    
+                                    <apex:outputLabel style="color: #4a4a56;text-align: left; font-size: 91%;font-weight: bold;">{!$Label.CL_PH_Delivery_Addr}</Apex:outputLabel>     
+                                    <apex:repeat value="{!listofAdd}" var="delAddrss">
+                                        <apex:outputText value=" {!delAddrss.Street__c}," /> 
+                                        <apex:outputText value=" {!delAddrss.Street2__c},"/> 
+                                        <apex:outputText value=" {!delAddrss.City__c},"/> 
+                                        <apex:outputText value=" {!delAddrss.CountryID__c},"/> 
+                                        <apex:outputText value=" {!delAddrss.PostCode__c}"/> <br/><br/>
+                                    </apex:repeat>
+                                    <apex:outputText />
+                                    <apex:panelGrid columns="4" cellspacing=" 2" style="float:right;" >
+                                        <apex:commandLink action="{!previousAdd}" rendered="{!hasPreviousAdd}"  reRender="table" 
+                                                    status="status">Previous |</apex:commandlink>
+                                        <apex:commandLink action="{!nextAdd}"  rendered="{!hasNextAdd}"  reRender="table" 
+                                                    status="status">Next |</apex:commandlink>
+                                    </apex:panelGrid>
+                            </apex:panelGrid>
+                            <!-- Other Type of Product Holdings Details- IDV, Load and Go, etc -->
+                            <apex:panelGrid columns="2" width="100%" rendered="{!typePrdHld != $Label.CL_PH_POB && typePrdHld != $Label.CL_PH_MYPOST_CARD && 
+                                                    typePrdHld != $Label.CL_PH_MYPOST_CONSUMER && 
+                                                    typePrdHld != $Label.CL_PH_MYDELIVERIES && typePrdHld != $Label.CL_PH_PARCEL_LOCKER
+                                                    && typePrdHld != $Label.CL_PH_PARCEL_COLLECT }">
+    
+                                    <apex:outputLabel style="color: #4a4a56;text-align: left; font-size: 91%;font-weight: bold;">CL_PH_Card_Number</Apex:outputLabel>
+                                    <apex:outputText >{!pstCrd.CardNumber__c}</apex:outputText>
+                                
+                                    <apex:outputLabel style="color: #4a4a56;text-align: left; font-size: 91%;font-weight: bold;">CL_PH_Card_Status</Apex:outputLabel> 
+                                    <apex:outputText >{!statusPrdHld}</apex:outputText>
+    
+                            </apex:panelGrid>
+                     <br/>
+                     <center>                     
+                     <apex:commandButton action="{!closePopup}" value="OK" reRender="table,popup" status="status"/>
+                     </center>
+                </apex:outputpanel>  
+            </apex:outputpanel>
+             <!-- end of popup-->
+         
+             <!-- message for no product holdings -->
+            <apex:outputPanel rendered="{!listOfProdHold.size != 0}">
+                <h6 style="margin-top:10px;float:left;"><b>Product Holdings </b></h6>
+                <b style="margin-top:20px;float:right;">
+                    <font color="#00AC3E" >{!$LABEL.CL_PH_New_Active}</font> |  <font color="#D91A32" >{!$LABEL.CL_PH_Inactive_Expired}</font> |  <font color="#FF9000" >{!$LABEL.CL_PH_Replaced}</font> | <font color="#F05B7D"> {!$LABEL.CL_PH_Other} </font>
+                </b>
+            </apex:outputPanel>
+            
+            <!-- panel to show the list of product holdings -->
+            <apex:outputPanel rendered="{!listOfProdHold.size != 0}" >
+                <table class="contact-table" width="100%" style="border: 1px solid #e0e3e5;" >
+                    <tr class="headerRow">
+                        <th class="contact-label" style= "background: #f2f3f3;    border-spacing: 2px;border-color: grey; border-width: 0 0 1px 1px;
+                                                        border-color: #e0e3e5;color: #000;font-weight: bold; padding: 5px 2px 4px 5px;"/>
+                    
+                        <th class="contact-label" style= "background: #f2f3f3;    border-spacing: 2px;border-color: grey; border-width: 0 0 1px 1px;
+                                                        border-color: #e0e3e5;color: #000;font-weight: bold; padding: 5px 2px 4px 5px;">
+                        
+                        
+                            Product Description
+                        </th>
+                       
+                        <th class="contact-label" style="background: #f2f3f3;    border-spacing: 2px;border-color: grey; border-width: 0 0 1px 1px;
+                                                        border-color: #e0e3e5;color: #000;font-weight: bold; padding: 5px 2px 4px 5px;">
+                            Last Change Date
+                        </th>
+                    </tr>
+                    <apex:repeat value="{!listOfProdHold}" var="f" id="tablerep">
+                        <tr style="border-width: 0 0px 1px 1px; vertical-align: middle; 
+                                        border:1px solid #e0e3e5;padding: 5px 2px 4px 5px;
+                                        color: {!IF(Contains(statusKeyValues,f.statusDesc), prdHoldIconMap[f.statusDesc],'#F05B7D')};">
+                        
+                            <td class="contact-field" >
+                              <apex:commandlink action="{!showPopup}" rerender="table,popup" status="status" immediate="true" >
+                                  <apex:param value="{!f.prdId}" assignTo="{!typePrdHld}" name="typePrdHld" />
+                                  <apex:param value="{!f.statusDesc}" assignTo="{!statusPrdHld}" name="statusPrdHld" />
+                                  <apex:param value="{!f.instId}" assignTo="{!instId}" name="instId" />
+                                  <apex:variable var="imageVar" value="{!IF(Contains(statusKeyValues,f.prdId), prdHoldIconMap[f.prdId], 'productholdings/ui-product_holdings-03-mydeliveries_user.png')}"/>
+                                  <apex:image url="{!URLFOR($Resource.ProductHoldingIcons, imageVar)}"/>
+                              </apex:commandLink>
+                            </td>
+                            <td class="contact-field" >
+                                <apex:commandlink style="color: {!IF(Contains(statusKeyValues,f.statusDesc), prdHoldIconMap[f.statusDesc],'#F05B7D')}" action="{!showPopup}" rerender="table,popup" status="status" immediate="true" >
+                                  <apex:param value="{!f.prdId}" assignTo="{!typePrdHld}" name="typePrdHld" />
+                                  <apex:param value="{!f.statusDesc}" assignTo="{!statusPrdHld}" name="statusPrdHld" />
+                                  <apex:param value="{!f.instId}" assignTo="{!instId}" name="instId" />
+                                  <apex:variable var="imageVar" value="{!prdHoldIconMap[f.prdId]}"/>
+                               <b> <apex:outputText value="{!f.prodDesc}"/> </b>
+                                </apex:commandLink>
+                            </td>
+                            <td class="contact-field" >
+                                 <apex:outputText value="{!f.UCTDateTime}"/>
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+                
+                <apex:panelGrid columns="4" cellspacing=" 2" >
+                <apex:commandLink action="{!first}" rendered="{!pageNumber != 1 }"  reRender="table" 
+                            status="status">First |</apex:commandlink>
+                <apex:commandLink action="{!previous}" rendered="{!hasPrevious}"  reRender="table" 
+                            status="status">Previous |</apex:commandlink>
+                <apex:commandLink action="{!next}"  rendered="{!hasNext}"  reRender="table" 
+                            status="status">Next |</apex:commandlink>
+                <apex:commandLink action="{!last}" rendered="{!hasNext}"  reRender="table" 
+                            status="status">Last |</apex:commandlink>
+                </apex:panelGrid>
+                
+            </apex:outputPanel>  
+            <!-- action status tag, to show users tasks in progress -->
+            <apex:actionStatus id="status" style="margin-left: -100px;
+                top:50px;" >
+                   <apex:facet name="start" >
+                       <img src="/img/loading.gif"  height="20" width="20"/>
+                     </apex:facet>
+            </apex:actionStatus>
+            <apex:outputPanel rendered="{!listOfProdHold.size == 0}">
+                <h6><b> No Product Holdings Found </b></h6>
+            </apex:outputPanel> 
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:component>

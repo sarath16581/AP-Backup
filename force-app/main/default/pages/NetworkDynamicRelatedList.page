@@ -1,0 +1,13 @@
+<apex:page applyHtmlTag="true" sidebar="false" showHeader="false" showChat="false" extensions="NetworkDynamicRelatedListController" standardController="Network__c">
+    <c:ScriptLoader jsLibraries="jquery,jqueryui" />
+    <script>
+    var j$ = jQuery.noConflict();
+    j$(function(){
+        if (parent && parent.resilzeRelatedListFrame)
+            parent.resilzeRelatedListFrame('{!$CurrentPage.parameters.id}_{!$CurrentPage.parameters.isCaseRelated}{!relatedFieldNamesSingular}', j$('body').height() + 25);
+        else
+            parent.resizeFrame_{!$CurrentPage.parameters.id}_{!$CurrentPage.parameters.isCaseRelated}{!relatedFieldNamesSingular}(j$('body').height()+25);
+    });
+    </script>
+    <apex:dynamiccomponent componentValue="{!relatedListComponentValue}" />
+</apex:page>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Depot_Area__c</fullName>
+    <description>StarTrack: Capture &quot;Depot Area&quot; for rules and to check against Depot Area object.</description>
+    <externalId>false</externalId>
+    <label>Depot Area</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Agent</fullName>
+                <default>false</default>
+                <label>Agent</label>
+            </value>
+            <value>
+                <fullName>Book Ins</fullName>
+                <default>false</default>
+                <label>Book Ins</label>
+            </value>
+            <value>
+                <fullName>Bulk</fullName>
+                <default>false</default>
+                <label>Bulk</label>
+            </value>
+            <value>
+                <fullName>Dangerous Goods</fullName>
+                <default>false</default>
+                <label>Dangerous Goods</label>
+            </value>
+            <value>
+                <fullName>Depot Collection</fullName>
+                <default>false</default>
+                <label>Depot Collection</label>
+            </value>
+            <value>
+                <fullName>In Depot/Fleet</fullName>
+                <default>false</default>
+                <label>In Depot/Fleet</label>
+            </value>
+            <value>
+                <fullName>International</fullName>
+                <default>false</default>
+                <label>International</label>
+            </value>
+            <value>
+                <fullName>LDC</fullName>
+                <default>false</default>
+                <label>LDC</label>
+            </value>
+            <value>
+                <fullName>Line Haul</fullName>
+                <default>false</default>
+                <label>Line Haul</label>
+            </value>
+            <value>
+                <fullName>Loose Bulk</fullName>
+                <default>false</default>
+                <label>Loose Bulk</label>
+            </value>
+            <value>
+                <fullName>Management</fullName>
+                <default>false</default>
+                <label>Management</label>
+            </value>
+            <value>
+                <fullName>MCL</fullName>
+                <default>false</default>
+                <label>MCL</label>
+            </value>
+            <value>
+                <fullName>Operations</fullName>
+                <default>false</default>
+                <label>Operations</label>
+            </value>
+            <value>
+                <fullName>Radio Room</fullName>
+                <default>false</default>
+                <label>Radio Room</label>
+            </value>
+            <value>
+                <fullName>Redelivery</fullName>
+                <default>false</default>
+                <label>Redelivery</label>
+            </value>
+            <value>
+                <fullName>Redirection</fullName>
+                <default>false</default>
+                <label>Redirection</label>
+            </value>
+            <value>
+                <fullName>Refused/RTS</fullName>
+                <default>false</default>
+                <label>Refused/RTS</label>
+            </value>
+            <value>
+                <fullName>Searches</fullName>
+                <default>false</default>
+                <label>Searches</label>
+            </value>
+            <value>
+                <fullName>Special Services</fullName>
+                <default>false</default>
+                <label>Special Services</label>
+            </value>
+            <value>
+                <fullName>Unaddressed/Unidentified/Damaged Goods</fullName>
+                <default>false</default>
+                <label>Unaddressed/Unidentified/Damaged Goods</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

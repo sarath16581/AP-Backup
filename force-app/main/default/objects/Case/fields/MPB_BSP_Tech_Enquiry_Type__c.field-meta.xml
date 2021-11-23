@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MPB_BSP_Tech_Enquiry_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>MPB BSP Tech Enquiry Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sending parcels</fullName>
+                <default>false</default>
+                <label>Sending parcels</label>
+            </value>
+            <value>
+                <fullName>MyPost Business app</fullName>
+                <default>false</default>
+                <label>MyPost Business app</label>
+            </value>
+            <value>
+                <fullName>Small Business offers</fullName>
+                <default>false</default>
+                <label>Small Business offers</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

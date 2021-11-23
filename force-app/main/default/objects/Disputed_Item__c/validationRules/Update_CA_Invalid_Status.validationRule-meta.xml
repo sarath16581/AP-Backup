@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Update_CA_Invalid_Status</fullName>
+    <active>true</active>
+    <description>Disputed Item cannot be verified claim if the Credit Approval of the relevant Product Family is in Invalid Status.</description>
+    <errorConditionFormula>AND(ISPICKVAL(Credit_Approval__r.Status__c,&apos;Invalid&apos;), ISPICKVAL(Status__c,&apos;Verified Claim&apos;))</errorConditionFormula>
+    <errorMessage>Please update the Status of the Credit Approval of the relevant Product Family to New before changing the Disputed Item to Verified Claim.</errorMessage>
+</ValidationRule>

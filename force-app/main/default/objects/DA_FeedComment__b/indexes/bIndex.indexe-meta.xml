@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Index xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>bIndex</fullName>
+    <fields>
+        <name>S_FeedItemId_Indexed__c</name>
+        <sortDirection>ASC</sortDirection>
+    </fields>
+    <fields>
+        <name>S_Id_Indexed__c</name>
+        <sortDirection>ASC</sortDirection>
+    </fields>
+    <label>DA Feed Comment Index</label>
+</Index>

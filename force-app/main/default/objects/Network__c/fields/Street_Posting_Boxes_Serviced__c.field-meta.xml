@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Street_Posting_Boxes_Serviced__c</fullName>
+    <description>This is the sum of all the street posting boxes that LPO services, it includes all the different types codes and different box sizes.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is the sum of all the street posting boxes that LPO services, it includes all the different types codes and different box sizes.</inlineHelpText>
+    <label>Street Posting Boxes Serviced</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

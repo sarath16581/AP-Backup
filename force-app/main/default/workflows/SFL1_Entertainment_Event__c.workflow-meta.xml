@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Approval_for_the_event_is_Needed</fullName>
+        <description>Approval for the event is Needed</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Line_Manager_1__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Line_Manager_2__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Event_Approval/Event_Approval_Needed_LM_New</template>
+    </alerts>
+    <alerts>
+        <fullName>Approval_for_the_event_is_Needed_GM</fullName>
+        <description>Approval for the event is Needed - GM</description>
+        <protected>false</protected>
+        <recipients>
+            <field>General_Manager_1__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>General_Manager_2__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Event_Approval/Event_Approval_Needed_GM_New</template>
+    </alerts>
+    <alerts>
+        <fullName>Event_Assigned_to_Host_Notification</fullName>
+        <description>Event Assigned to Host Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <field>Owner_2__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Event_Approval/Notify_event_hosts_New</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Co_Host</fullName>
+        <description>Notify Co-Host</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <field>Owner_2__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Event_Approval/Notify_host_after_GM_approval</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Single_Host</fullName>
+        <description>Notify Single Host</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Event_Approval/Notify_host_after_GM_approval</template>
+    </alerts>
+    <alerts>
+        <fullName>Reminder_Event_Approval</fullName>
+        <description>Reminder of Event Approval</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Event_Approval/Event_Approval_Reminder</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Approval_Status_to_Approved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Approval Status to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approval_Status_to_Rejected</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Approval Status to Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approval_to_Pending</fullName>
+        <description>Update approval status to Pending after submission of approval request</description>
+        <field>Approval_Status__c</field>
+        <literalValue>Pending</literalValue>
+        <name>Approval Status to Pending</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Notify event hosts</fullName>
+        <actions>
+            <name>Event_Assigned_to_Host_Notification</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>This is to notify event hosts about the new event they need to add guests</description>
+        <formula>ISCHANGED(OwnerId)  ||  ISCHANGED( Owner_2__c )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Reminder to submit Approval</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>SFL1_Entertainment_Event__c.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>New</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>SFL1_Entertainment_Event__c.Approval_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <description>Sellers need to be reminded 42 days prior to the event occurring date to submit approval button on the event recrod.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Reminder_Event_Approval</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>SFL1_Entertainment_Event__c.Event_Date_Time__c</offsetFromField>
+            <timeLength>-42</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+</Workflow>

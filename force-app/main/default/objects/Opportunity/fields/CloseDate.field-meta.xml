@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CloseDate</fullName>
+    <inlineHelpText>Date when you plan to close the opportunity. When you set an open opportunity&apos;s Stage to a type of “Closed/Won,” the Close Date is set to the current date.</inlineHelpText>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>true</trackTrending>
+</CustomField>

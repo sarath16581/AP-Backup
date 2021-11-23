@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Charge_Code_And_Description__c</fullName>
+    <description>For SAP Mapping: Charge Code(s) and Charge Code description
+ (Concatenate)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>For SAP Mapping: Charge Code(s) and Charge Code description
+ (Concatenate)</inlineHelpText>
+    <label>Charge Code &amp; Description</label>
+    <length>250</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

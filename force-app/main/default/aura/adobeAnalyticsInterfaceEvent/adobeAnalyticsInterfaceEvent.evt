@@ -1,0 +1,10 @@
+<!--
+    Generic component for pushing adobe analytics track events
+    2019-08-30 nathan.franklin@auspost.com.au Created
+-->
+<aura:event type="APPLICATION" description="Event for Adobe Analytics Tracking Data">
+    <aura:attribute name="trackingType" description="The value to pass into _satellite.track()" type="String" access="public" />
+    <aura:attribute name="componentAttributes" description="The object to be merged into analytics.component.xx" type="Object" access="public" />
+    <aura:attribute name="interactionCategory" description="Category to pass into analytics.page.pageData.interactionDescription. Relevant where trackingType is 'site-interact'." type="String" access="public" />
+    <aura:attribute name="interactionDescription" description="Description to pass into analytics.page.pageData.interactionDescription. Relevant where trackingType is 'site-interact'." type="String" access="public" />
+</aura:event>

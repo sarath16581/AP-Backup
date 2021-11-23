@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Document_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Document Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Contract</fullName>
+                <default>false</default>
+                <label>Contract</label>
+            </value>
+            <value>
+                <fullName>Deed of Variation</fullName>
+                <default>false</default>
+                <label>Deed of Variation</label>
+            </value>
+            <value>
+                <fullName>Renewal</fullName>
+                <default>false</default>
+                <label>Renewal</label>
+            </value>
+            <value>
+                <fullName>Other supporting document</fullName>
+                <default>false</default>
+                <label>Other supporting document</label>
+            </value>
+            <value>
+                <fullName>Uprate Letter</fullName>
+                <default>false</default>
+                <label>Uprate Letter</label>
+            </value>
+            <value>
+                <fullName>DIFOT</fullName>
+                <default>false</default>
+                <label>DIFOT</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

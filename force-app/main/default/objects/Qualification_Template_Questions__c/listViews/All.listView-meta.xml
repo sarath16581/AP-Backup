@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Related_Response__c</columns>
+    <columns>Initiation_Pathway__c</columns>
+    <columns>Category__c</columns>
+    <columns>Datatype__c</columns>
+    <columns>Order__c</columns>
+    <columns>Required__c</columns>
+    <columns>Question_Text__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Active__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Category__c</field>
+        <operation>equals</operation>
+        <value>Discovery</value>
+    </filters>
+    <label>All</label>
+</ListView>

@@ -1,0 +1,14 @@
+<template>
+    <!--Test user Id-->
+
+    <div class="slds-text-color_error"> {error}</div>
+    <lightning-input label="LoggedIn User Id" name="userId" data-id="userId" class="" type="text" value={userId}
+        onchange={onChangeField}></lightning-input>
+
+    <lightning-button name='Login' label='Log In' onclick={loginHandler}></lightning-button>
+
+    <div if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+    </div>
+
+</template>

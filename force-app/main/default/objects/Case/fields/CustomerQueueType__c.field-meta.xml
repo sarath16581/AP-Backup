@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CustomerQueueType__c</fullName>
+    <externalId>false</externalId>
+    <label>Customer Queue Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Consumer</fullName>
+                <default>true</default>
+                <label>Consumer</label>
+            </value>
+            <value>
+                <fullName>Gold</fullName>
+                <default>false</default>
+                <label>Gold</label>
+            </value>
+            <value>
+                <fullName>SMB</fullName>
+                <default>false</default>
+                <label>SMB</label>
+            </value>
+            <value>
+                <fullName>Enterprise</fullName>
+                <default>false</default>
+                <label>Enterprise</label>
+            </value>
+            <value>
+                <fullName>MyPost Business</fullName>
+                <default>false</default>
+                <label>MyPost Business</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

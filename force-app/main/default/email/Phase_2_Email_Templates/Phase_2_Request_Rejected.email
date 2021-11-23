@@ -1,0 +1,9 @@
+Your Sales Coverage Change Request has been rejected. Please find details below.
+
+Organisation: {!Account.Name}
+Link to Request: {!Segmentation_Change_Request__c.Link}
+
+Effective Date of Change: {!Segmentation_Change_Request__c.Lock_In_Date__c}
+
+Escalation Process
+If you disagree with the decision, please consult your Sales Manager or Sales Director in the first instance.

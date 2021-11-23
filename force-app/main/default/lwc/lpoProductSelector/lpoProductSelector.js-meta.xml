@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <propertyType name="sObj" extends="SObject" label="Object"/>
+            <property name="eParcel" type="{sObj[]}" label="eParcel Collection" role="inputOnly"/>
+            <property name="eParcelIntl" type="{sObj[]}" label="eParcel International Collection" role="inputOnly"/>
+            <property name="myPost" type="{sObj[]}" label="MyPost Business Collection" role="inputOnly"/>
+            <property name="securePay" type="{sObj[]}" label="SecurePay Collection" role="inputOnly"/>
+            <property name="starTrackExpress" type="{sObj[]}" label="Star Track Express Collection" role="inputOnly"/>
+            <property name="starTrackCourier" type="{sObj[]}" label="Star Track Courier Collection" role="inputOnly"/>
+            <property name="eParcelSelected" type="{sObj[]}" label="Selected eParcel" role="outputOnly"/>
+            <property name="eParcelIntlSelected" type="{sObj[]}" label="Selected eParcel International" role="outputOnly"/>
+            <property name="myPostSelected" type="{sObj[]}" label="Selected MyPost Business" role="outputOnly"/>
+            <property name="securePaySelected" type="{sObj[]}" label="Selected SecurePay" role="outputOnly"/>
+            <property name="starTrackExpressSelected" type="{sObj[]}" label="Selected Star Track Express" role="outputOnly"/>
+            <property name="starTrackCourierSelected" type="{sObj[]}" label="Selected Star Track Courier" role="outputOnly"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

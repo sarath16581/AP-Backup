@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_Auto_Response_Email__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>StarTrack service cloud project created field to handle logic to determine whether to send an Email for Delivery enquiries (filtering out Business Solutions enquiries)</description>
+    <externalId>false</externalId>
+    <label>Send Auto Response Email</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

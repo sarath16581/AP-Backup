@@ -1,0 +1,97 @@
+<!--Component for the Top Featured Idea on the Community Home Page-->
+<aura:component controller="brideas_FeatureIdeasCtrl" implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="ideasNumber" type="Integer" default="1" description="the number of ideas" />
+    <aura:attribute name="wrapper" type="brideas_IdeaWrapper[]" />
+    <aura:attribute name="title" type="String" />
+    <aura:attribute name="pageName" type="String" />
+    <aura:attribute name="orderBy" type="String" default="Popular" access="global" />
+    <aura:attribute name="userInfo" type="Object" description="Represents information about current user" />
+    <aura:attribute name="item" type="brideas_IdeaWrapper" />
+    <aura:attribute name="routeInput" type="Map"/>
+    <aura:attribute name="systemMessage" type="Object" />
+    <aura:attribute name="loginPage" type="String" default="login" access="global" description="Community Login Page URL" />
+    <aura:attribute name="shortBodyList" type="object[]" />
+    <aura:attribute name="baseURL" type="String" />
+    
+    <aura:registerEvent name="ideasErrorEvent" type="c:brideas_Error" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="updateCommentsNumber" event="c:brideas_UpdateEvent" action="{!c.updateCommentsNumberHandler}" />
+    <aura:handler name="ideasErrorEvent" event="c:brideas_Error" action="{!c.handleErrorEvent}" />
+    
+  <div class="ideas-featured-wrapper">
+  <div class="ideas-featured-inner">
+      <h2 class="title">{!v.title} <a class="subTitle" href="{! v.baseURL + '/ideas-list/'}">See all Ideas <img src="/sfsites/c/resource/ap_community_chevron" alt="" class="featured-header-caret"/></a></h2>
+  <div class="featured-idea">
+      <div>
+         <aura:iteration items="{!v.wrapper}" var="wrap" indexVar="ideaN">
+             
+             <h3 class="titleContent"><a class="titleContent" href="{! v.baseURL + '/idea/' + wrap.item.Id}">{!wrap.item.Title}</a></h3>
+         <div class="idea-header slds-grid">
+            <div class="slds-col user-image">
+                <a href="{! v.baseURL + '/profile/' + wrap.item.CreatedById}">
+                    <img src="{!wrap.item.CreatorSmallPhotoUrl}" width="64" alt="User photo"></img>
+                </a>
+            </div>
+            <div class="slds-col">
+                <p class="username">
+                    <a href="{! v.baseURL + '/profile/' + wrap.item.CreatedById}"><c:brideas_UserDisplayName userId="{!wrap.item.CreatedById}" /></a>
+                </p>
+                <p class="date"><ui:outputDateTime value="{!wrap.item.CreatedDate}" format="MMMM d, y" /></p>
+            </div>
+             <div class="status" style="{!wrap.statusColor ? 'border-color:' + wrap.statusColor + '; color:' + wrap.statusColor : ''}"> 
+                 <div class="flag-3" style="{!wrap.statusColor ? 'border-color:' + wrap.statusColor + '; color:' + wrap.statusColor : ''}">
+                       <span><a style="{!wrap.statusColor ? 'color:' + wrap.statusColor : ''}" href="{! v.baseURL + '/ideas-list#topIdeaOnHomePage#status=' + wrap.item.Status}">{!wrap.item.Status}</a></span>
+                 </div>
+             </div>
+        </div>
+        <div class="bodyContent">
+            <aura:iteration items="{!v.shortBodyList}" var="bodyVar">
+             	<aura:if isTrue="{!bodyVar.ideaId == wrap.item.Id}">
+                    <aura:unescapedHtml value="{!bodyVar.shortBody}" />
+                    <aura:if isTrue="{!notequals(wrap.item.Body, bodyVar.shortBody)}">
+                        ...<a class ="see-more" href="{! v.baseURL + '/idea/' + wrap.item.Id}">see more</a> 
+                    </aura:if>
+                 </aura:if>
+             </aura:iteration>
+        </div>
+        <div class="category">
+              <span><a style="color:#292f33" class="category" href="{! v.baseURL + '/ideas-list#topIdeaOnHomePage#category=' + wrap.item.Categories}">{!wrap.item.Categories}</a></span>
+        </div>
+                             
+    <div class="idea-bottom">
+            <div class="left-info">
+                <div>
+                    <aura:if isTrue="{!not(equals(wrap.voteStatus, 'voted'))}">
+                        <img src="{!$Resource.BrIdeas + '/images/heart-black.png'}" alt="Vote" />
+                        <a style="margin-top: 4px" data-selected-index="{!ideaN}" onclick="{!c.vote}">{!$Label.c.VoteBtnLabel}</a>
+                    </aura:if>
+                    <aura:if isTrue="{!equals(wrap.voteStatus, 'voted')}">
+                        <img src="{!$Resource.BrIdeas + '/images/heart-red.png'}" alt="Voted" />
+                        <span style="margin-top: 4px">Voted</span>
+                    </aura:if>
+                </div>
+                <div>
+                    <img src="{!$Resource.BrIdeas + '/images/comment-black.png'}" alt="Comment"/>
+                   
+                    <a style="margin-top: 4px" data-selected-index="{!ideaN}" onclick="{!c.openIdeaAddComment}">{!$Label.c.CommentBtnLabel}</a>
+                </div>
+            </div>
+
+            <div class="right-info">
+                <span class="comments-number">
+                    {!wrap.NumComments}&nbsp; 
+                    <a data-selected-index="{!ideaN}" onclick="{!c.openIdeaComments}">{!equals(wrap.NumComments,1)?$Label.c.Comment:$Label.c.Comments}</a>
+                </span>
+                <span class="votes-number">{!wrap.votesNum}&nbsp;{!equals(wrap.votesNum,1)?$Label.c.VoteLabel:$Label.c.VotesLabel}</span>
+            </div>
+   </div>
+            </aura:iteration>
+   </div>      
+ </div>
+ </div>
+ </div>
+    <div style="display: none;">
+        <a href="{!v.loginPage}" aura:id="hiddenLoginBtn"></a>
+    </div>
+</aura:component>

@@ -1,0 +1,8 @@
+<aura:component description="Display user name by Id" controller="brideas_CommunityCtrl">
+    <aura:attribute name="userId" type="String" />
+    <aura:attribute name="displayName" type="String" default="" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    <span class="user-name">{!v.displayName}</span>
+</aura:component>

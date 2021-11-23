@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Changing_the_Status_to_Verified</fullName>
+    <active>true</active>
+    <description>Non Sales users should not be able to change the Status (Stage) to Verified</description>
+    <errorConditionFormula>AND
+(
+$Permission.BG_Core,
+NOT($Permission.BG_Sales),
+ISPICKVAL(Status, &quot;Verified&quot;)
+)</errorConditionFormula>
+    <errorMessage>Lead to Opportunity conversion is restricted to Sales Profiles</errorMessage>
+</ValidationRule>

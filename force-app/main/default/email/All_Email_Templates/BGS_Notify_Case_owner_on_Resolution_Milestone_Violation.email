@@ -1,0 +1,17 @@
+You received this email because a case owned by a member of your team, {!Case.OwnerFullName}, has exceeded its assigned resolution time.
+
+Here are the Case Details:
+
+Case Number: {!Case.CaseNumber}
+Case Created: {!Case.CreatedDate}
+
+Subject: {!Case.Subject} 
+
+Case Contact: {!Case.Contact}
+Organisation: {!Case.Account}
+
+Case Owner: {!Case.OwnerFullName}
+Case Detail Link: {!Case.Link} 
+
+
+This is an auto-generated email, please do not reply. If you think you shouldn't have received this email, please contact your Salesforce Administrator.

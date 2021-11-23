@@ -1,0 +1,134 @@
+<aura:component implements="forceCommunity:themeLayout" access="global" description="Custom Theme Layout for Inner pages">
+    <aura:attribute name="search" type="Aura.Component[]" required="false" />
+    <aura:attribute name="profileMenu" type="Aura.Component[]" required="false" />
+    <aura:attribute name="navBar" type="Aura.Component[]" required="false" />
+
+    <div class="cp-background">
+
+        <section class="ap-nav">
+            <div class="ap-navbar">
+                <div class="cp-logo-div">
+                    <a href="https://auspost.com.au/" target="blank" data-event="site interaction" data-category="CTA" data-description="header-ap-logo">
+                        <!-- <img class="auspost-navlogo" src="https://auspost.com.au/content/dam/global/header-logo/brand-icon-australia-post.svg" alt="Australia Post logo link to Australia Post website home"/> -->
+                        <img class="auspost-navlogo" src="{!$Resource.cp_AusPost_Logo}" alt="Australia Post logo link to Australia Post website home"/>   
+                    </a>
+                </div>
+                <ul>
+                    <li>
+                        <a href="https://auspost.com.au/about-us" target="blank" data-event="site interaction" data-category="CTA" data-description="header-about-us">
+                            <!-- <c:cpsvgIcon svgPath="/community/_slds/icons/utility-sprite/svg/symbols.svg?cache=9.8.0#world" class="nav-icons" assistiveText = 'Know about us'/>About us</a> -->
+                            <img class="auspost-navlinks" src="{!$Resource.ap_community_australia_icon}" alt="Link to know more about us"/>About us</a>
+                    </li>
+                    <li>
+                        <a href="https://auspost.com.au/help-and-support" target="blank" data-event="site interaction" data-category="CTA" data-description="header-helpsupport">
+                            <!--<c:cpsvgIcon svgPath="{!$Resource.cpIcons + '#articles'}" class="nav-icons" assistiveText = 'Help and support'/>Help &amp; support</a>-->
+                            <img class="auspost-navlinks" src="{!$Resource.AusPostCommunity + '/images/menu_help_support.png'}" alt="Link to Help &amp; support"/>Help &amp; support</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="cp-nav-full-width" >
+            <section class="cp-nav-container">
+                <nav class="cp-nav slds-col_bump-right" aura:id="cpnav">
+
+                    <div class="cp-navbar" aura:id="cpnavbar">
+                        <c:cpNavBar/>
+                    </div>
+                </nav>
+
+
+                <div class="cp-search-is-here slds-hide" aura:id="cpsearch-expanded"  onBlur="{! c.handleOnBlur}">
+                    <div class="Table" >
+                        <div class="Row" >
+                            <div class="Cell one" style="width:60%">
+
+                            </div>
+                            <div class="Cell two" style="width:35%">
+                                {!v.search}
+                            </div>
+                            <div class="Cell three" >
+                                <button type="button" class="slds-button"
+                                        onclick="{! c.handleClick }" id="searchClose" title="Close search" data-aura-rendered-by="212:254;a">
+                                        <!--<lightning:icon size="small" src="/_slds/icons/utility-sprite/svg/symbols.svg?cache=9.8.0#close"
+                                        alternativeText="close" />-->
+                                    <img class="slds-icon slds-icon_small" src="{!$Resource.AusPostCommunity + '/images/menu_search_close.png'}"/>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <nav class="cp-profile-nav" aura:id="cpprofilenav">
+
+                    <div class="cp-profile">
+                        <div class="cp-profile-box">
+                            <div class="Table" >
+                                <div class="Row" >
+                                    <div class="Cell one" >
+                                        <div class="cp-search-icon-container">
+                                        <span class="slds-icon_container slds-icon-utility-search" title="Search">
+                                            <button type="button"  id="searchOpen"  class="slds-button collapsed-search" onclick="{! c.handleClick }">
+                                                <!--<lightning:icon class="slds-button__icon slds-icon_xx-small slds-global-header__icon slds-icon-utility-notification slds-icon_container forceIcon"
+                                                                src="/_slds/icons/utility-sprite/svg/symbols.svg?cache=9.8.0#search"
+                                                                alternativeText="search"
+                                                />-->
+                                                <img class="slds-icon slds-icon_small" src="{!$Resource.AusPostCommunity + '/images/menu_search.png'}"/>
+                                            </button>
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <div class="Cell two" >
+                                        <!--Notifications will be enabled after Salesforce security issue is addressed-->
+                                        <!--<forceCommunity:notifications/>-->
+                                    </div>
+                                    <div class="Cell two" >
+                                        {!v.profileMenu}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+            </section>
+        </div>
+
+        <div class="outer">
+            <div class="mainContentArea">
+                {!v.body}
+            </div>
+        </div>
+
+        <section class="footer">
+            <div class="footer-inner">
+                <ul class="cp-footer-links">
+                    <li>
+                        <a href="https://auspost.com.au/help-and-support" alt="link to Australia Post help &amp; support" target="blank" data-event="site interaction" data-category="CTA" data-description="footer-helpsupport">Help &amp; support</a>
+                    </li>
+                    <li>
+                        <a href="https://community.auspost.com.au/s/news/about-our-online-community-20Y2v000000PlMSEA0" alt="link to about-the-community page" data-event="site interaction" data-category="CTA" data-description="footer-about-site">About this site</a>
+                    </li>
+                    <li>
+                        <a href="https://auspost.com.au/terms-conditions/community-terms-of-use" alt="link to Australia Post terms and conditions" target="blank" data-event="site interaction" data-category="CTA" data-description="footer-terms-conditions">Terms &amp; Conditions</a>
+                    </li>
+                    <li>
+                        <a href="https://auspost.com.au/privacy" alt="link to Australia Post privacy policy" target="blank" data-event="site interaction" data-category="CTA" data-description="footer-privacy-policy">Privacy policy</a>
+                    </li>
+                </ul>
+                <ul class="cp-footer-social">
+                    <li>
+                        <a href="https://www.facebook.com/australiapost" target="_blank" title="facebook" data-event="site interaction" data-category="CTA" data-description="footer-facebook"><img src="{!$Resource.cp_ap_social_icons_png + '/facebook.png'}" alt="Facebook logo link to Australia Post facebook page"/></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/auspost" target="_blank" title="twitter" data-event="site interaction" data-category="CTA" data-description="footer-twitter"><img src="{!$Resource.cp_ap_social_icons_png + '/twitter.png'}" alt="Twitter logo link to Australia Post twitter page"/></a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/company/australia-post" target="_blank" title="linkedin" data-event="site interaction" data-category="CTA" data-description="footer-linkedin"><img src="{!$Resource.cp_ap_social_icons_png + '/linkedin.png'}" alt="LinkedIn logo link to Australia Post LinkedIn page"/></a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+</aura:component>

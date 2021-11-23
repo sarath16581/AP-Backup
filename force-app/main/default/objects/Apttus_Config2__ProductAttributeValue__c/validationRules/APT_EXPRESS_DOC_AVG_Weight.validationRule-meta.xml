@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_EXPRESS_DOC_AVG_Weight</fullName>
+    <active>true</active>
+    <description>International Express Doc Weight (Kg) must be less than 2 kg.</description>
+    <errorConditionFormula>ISPICKVAL(APT_Volume_Data__c, &apos;Yes&apos;) &amp;&amp; 
+((APT_Int_Express_Document_Volume__c!= 0 
+&amp;&amp; (NOT(APT_Int_Express_Doc_Weight_Kg__c&gt;= 0.001) || NOT(APT_Int_Express_Doc_Weight_Kg__c&lt;= 2))) 
+|| (APT_Int_Express_Document_Volume__c!= 0 &amp;&amp; APT_Int_Express_Doc_Weight_Kg__c= 0)) &amp;&amp; NOT( Apttus_Config2__IsTransient__c)</errorConditionFormula>
+    <errorDisplayField>APT_Int_Express_Doc_Weight_Kg__c</errorDisplayField>
+    <errorMessage>Invalid value for International Express Doc Weight (Kg).</errorMessage>
+</ValidationRule>

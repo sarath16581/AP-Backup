@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>custom setting to hold the network comments and email template to be used for same</description>
+    <enableFeeds>false</enableFeeds>
+    <label>PON_Update_EmailTemplates</label>
+    <visibility>Public</visibility>
+</CustomObject>

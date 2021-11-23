@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>Account</object>
+        <objectField>Id</objectField>
+        <userField>Contact.Account</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>Article__c</object>
+        <objectField>Billing_Account__c.Organisation__c</objectField>
+        <userField>Contact.Account</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>BAMContactApplication__c</object>
+        <objectField>Contact__c.Account</objectField>
+        <userField>Contact.Account</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>BAMExternalOnboardingRequest__c</object>
+        <objectField>Contact__c.Account</objectField>
+        <userField>Contact.Account</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Read</accessLevel>
+        <object>BAMGroup__c</object>
+        <objectField>Organisation__c</objectField>
+        <userField>Contact.Account</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>Case</object>
+        <objectField>Account</objectField>
+        <userField>Contact.Account</userField>
+    </accessMappings>
+    <description>Specific access rules to enable:
+R/W cases on account
+R/W articles on account
+R/W external onboarding request records for merchant portal
+R/W to current account
+R/W Contact Application for BAM
+R on Group</description>
+    <name>BSP/MPB/MP Community Sharing</name>
+    <profiles>BSP Community User</profiles>
+    <profiles>Merchant Portal Community User</profiles>
+    <profiles>Mypost Business Help %26 Support Community User</profiles>
+</SharingSet>

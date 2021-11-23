@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Locally_Managed_Opportunities</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Locally Managed Opportunities</label>
+        <sharedTo>
+            <group>Hub_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Locally_Managed__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>EnterpriseOnboarding_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to enable users of the Enterprise Onboarding team to be able to add themselves to the opportunity team with R/W access</description>
+        <label>EnterpriseOnboarding_Sharing</label>
+        <sharedTo>
+            <role>Enterprise_Onboarding_Team</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Inside_Sales_TSA_Team_Leader</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Sharing rule - opp owned by TSA team leader to be shared with SSSW team</description>
+        <label>Inside Sales TSA - Team Leader</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>SSSW_North_Team_Lead</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <role>Inside_Sales_BMS_Team_Leader</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Super_Users</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Super Users</label>
+        <sharedTo>
+            <group>AusPostSuperUsers</group>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

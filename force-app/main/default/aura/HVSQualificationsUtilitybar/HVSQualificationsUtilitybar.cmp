@@ -1,0 +1,33 @@
+<!--
+    STP:19/11/2020: Suman Gunaganti
+    Application Utility component retrieves the qualification records for Lead record in High velocity sales console
+-->
+<aura:component implements="force:hasRecordId,flexipage:availableForAllPageTypes"
+access="global" controller='BG_QualificationApex'>
+
+    <aura:attribute name="qualificationList" type="Qualification__c[]"  default=''/>
+    <aura:attribute name="leadId" type="String" default='00Q1m000000y1hEEAQ'/>
+    <aura:attribute name="loaded" type="Boolean" default="false" />
+
+    <aura:handler name="change" value="{!v.recordId}" action="{!c.onRecordIdChange}"/>
+    <aura:handler name="init" value="{!v.recordId}" action="{!c.onRecordIdChange}"/>
+    
+    <!--<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>-->
+    <aura:if isTrue="{! v.loaded }">
+        <aura:if isTrue='{!v.qualificationList.length > 0}'>
+            <lightning:accordion aura:id="accordion" activeSectionName="0">
+                <aura:iteration items="{!v.qualificationList}" var="qual" indexVar="index">
+                    <lightning:accordionSection name='index' label='{!qual.Name}'>                
+                        <c:BG_QualificationDetailsView recordId='{!qual.Id}' />
+                    </lightning:accordionSection>            
+                </aura:iteration>
+            </lightning:accordion>
+            <aura:set attribute="else">
+                <p><lightning:formattedText value="No Qualifications recorded" /></p>
+            </aura:set>
+        </aura:if>
+        <aura:set attribute="else">
+            <lightning:spinner alternativeText="Loading" />
+        </aura:set>
+    </aura:if>
+</aura:component>

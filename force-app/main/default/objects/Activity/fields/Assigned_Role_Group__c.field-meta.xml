@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assigned_Role_Group__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Owner:User.UserRole.RollupDescription  = &apos;Business North&apos; || 
+    Owner:User.UserRole.RollupDescription  = &apos;Business North NSW 1&apos; ||
+    Owner:User.UserRole.RollupDescription  = &apos;Business North NSW 2&apos; || 
+    Owner:User.UserRole.RollupDescription  = &apos;Business North NSW 3&apos; ||
+    Owner:User.UserRole.RollupDescription  = &apos;Business North QLD&apos; || 
+    Owner:User.UserRole.RollupDescription  = &apos;Business South&apos; || 
+    Owner:User.UserRole.RollupDescription  = &apos;Business South SA/NT&apos; ||
+    Owner:User.UserRole.RollupDescription  = &apos;Business South VIC 1&apos; || 
+    Owner:User.UserRole.RollupDescription  = &apos;Business South VIC 2&apos; ||
+    Owner:User.UserRole.RollupDescription  = &apos;Business South VIC 3&apos; ||
+    Owner:User.UserRole.RollupDescription  = &apos;Business South WA&apos;, &apos;Business South North&apos;,
+IF( Owner:User.UserRole.RollupDescription  = &apos;Inside Sales&apos; || 
+    Owner:User.UserRole.RollupDescription  = &apos;Inside Sales Central&apos; ||
+    Owner:User.UserRole.RollupDescription  = &apos;Inside Sales North 1&apos; || 
+    Owner:User.UserRole.RollupDescription  = &apos;Inside Sales North 2&apos; ||
+    Owner:User.UserRole.RollupDescription  = &apos;Inside Sales North 3&apos; ||
+    Owner:User.UserRole.RollupDescription  = &apos;Inside Sales South&apos; || 
+    Owner:User.UserRole.RollupDescription  = &apos;Inside Sales South 2&apos;, &apos;Inside Sales&apos;, 
+IF( Owner:User.UserRole.RollupDescription  = &apos;Parcel Key Accounts North&apos; || 
+    Owner:User.UserRole.RollupDescription  = &apos;Parcel Key Accounts South&apos; ||
+    Owner:User.UserRole.RollupDescription  = &apos;Parcel Partner Sales&apos;, &apos;Key Account Partner&apos;, &apos;&apos;
+)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Assigned Role Group</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

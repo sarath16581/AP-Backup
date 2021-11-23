@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Specialist_Name_on_Sales_Specialt_Eng</fullName>
+    <active>true</active>
+    <description>Name of Specialist must be completed when Product Specialist Engagement checked</description>
+    <errorConditionFormula>BEGINS( RecordType.DeveloperName , &apos;Pricing_Request&apos;) &amp;&amp;
+Product_Specialist_Engagement__c = TRUE &amp;&amp;  
+ISBLANK( Name_of_Product_Specialist__c )</errorConditionFormula>
+    <errorDisplayField>Name_of_Product_Specialist__c</errorDisplayField>
+    <errorMessage>When the Product Specialist Engagement is checked, the Name of Specialist field must be completed</errorMessage>
+</ValidationRule>

@@ -1,0 +1,31 @@
+<!-- 
+  ** Aura Component for Opportunity Closure 
+  ** Author: Lavanya Kavuri (lkavuri@salesforce.com)
+  ** Date: 24-Feb-2020, STP-603, STP-605
+  21-Apr-2020, REQ2480335, comment max height in modal container style
+  11-Jun-2020, INC1800403, Fix issue with modal upon Salesforce Release update
+-->
+
+<aura:component controller="OpportunityClosureController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+  <!-- CSS for Modal Width -->
+  <aura:html tag="style">
+    .slds-modal__container{ 
+      height : 100% !important;
+      max-height: 100%% !important;
+      width: 80%; 
+      max-width: 85%; 
+    } 
+    .quick-actions-panel .slds-modal__content{ 
+      height : 100% !important; 
+      max-height: 100% !important; 
+    } 
+    .slds-modal__footer{ 
+      display: inline !important; 
+    }
+    .cuf-publisherCancelButton {
+      display: none !important;
+    }
+  </aura:html>     
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+  <c:opportunityClosure recordId="{!v.recordId}" onclose="{!c.closeComp}" />
+</aura:component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>View_Contact_Status</fullName>
+    <availability>online</availability>
+    <description>List button on Case tab to view Parent Contacts under related Legal Entity for cases</description>
+    <displayType>massActionButton</displayType>
+    <linkType>page</linkType>
+    <masterLabel>View Contact Status</masterLabel>
+    <openType>replace</openType>
+    <page>CustomerOnboardingViewContactStatus</page>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+</WebLink>

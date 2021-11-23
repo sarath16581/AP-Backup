@@ -1,0 +1,91 @@
+.THIS .slds-accordion__section {
+    padding-top: 10px !important;
+    padding-bottom: 0.1rem !important;
+    padding-left: 0rem !important;
+    padding-right: 0rem !important;
+}
+
+.THIS .slds-accordion__summary {
+    margin-bottom: 0.1rem !important;
+}
+
+
+.THIS .headFont{
+    
+    font-size: 0.9rem;
+    font-weight: bolder;
+    color: black;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 5px;
+    /*background:#164a85; */
+    background:#F3F2F2;
+}
+.THIS .customLayout{
+    /* background-color:#f3f2f2 !important; */
+}
+.THIS .mainAccordianSection  .slds-button{
+    font-size: 0.9rem;;
+    font-weight: bolder;
+    color: #ffffff;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 5px;
+    /* background:#164a85;*/
+    background:firebick;
+}
+
+
+.THIS .subAccordianSection .slds-button
+{  
+    font-size: 0.8rem;;
+    font-weight: bolder;
+    color: #ffffff;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+    /*background:#0070d2;*/
+    background:dimgrey;
+}
+.THIS .errorFont{
+    color: red;
+    
+}
+.THIS .review-submit  dt {
+    /*font-family: vic_bold, Helvetica, Arial, sans-serif;
+    font-weight: bold; */
+    font-size: 14px;
+    
+}
+
+.THIS .review-submit dd {
+    padding-bottom: 1rem;
+    padding-left: 0.5rem;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+@media (max-width: 489px) {
+    .THIS .review-submit dd {
+        padding-left: 0;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+}
+
+@media (min-width: 480px) {
+    
+    .THIS .review-submit-product dt {
+        width: 100%;
+        display: inline-block;
+        font-size: 14px;
+    }
+    
+    .THIS .review-submit-product dd {
+        width: 100%;
+        display: inline-block;
+        font-weight: bold;
+        font-size: 14px;
+    }
+}

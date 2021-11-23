@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Review_Duration__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Set duration field based on Status and difference between start and end times. Return the total number of minutes</description>
+    <externalId>false</externalId>
+    <formula>IF ( 
+    DMAPP__Status__c == &apos;Completed&apos;, 
+    IF (
+        DMAPP__End_Time__c - DMAPP__Start_Time__c &gt; 0, 
+        ROUND( (DMAPP__End_Time__c - DMAPP__Start_Time__c ) * 24 * 60, 0),
+        0
+    ), 
+    DMAPP__Scheduled_Duration__c
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Review_Duration</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

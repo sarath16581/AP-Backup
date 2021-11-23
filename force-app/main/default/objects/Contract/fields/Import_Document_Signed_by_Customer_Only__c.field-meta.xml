@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Import_Document_Signed_by_Customer_Only__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (AND( 
+ISPICKVAL(Status_Category__c, &quot;In Signatures&quot;), 
+ISPICKVAL(Status__c, &quot;Other Party Signatures&quot;)
+), 
+HYPERLINK(&quot;/apex/Apttus__OfflineDocumentImport?id=&quot;&amp;Id+&quot;&amp;finishPage=APT_ImportPartiallySignedDoc&quot;, IMAGE(&quot;/resource/APT_ImportDocumentCustomer&quot;, &quot;Import Document Signed by Customer Only&quot;),&quot;_self&quot;), NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Import Document Signed By Customer Only</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

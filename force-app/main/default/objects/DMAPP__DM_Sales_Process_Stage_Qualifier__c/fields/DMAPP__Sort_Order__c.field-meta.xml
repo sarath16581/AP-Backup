@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Sort_Order__c</fullName>
+    <defaultValue>10</defaultValue>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>The order in which this qualifier is displayed relative to the other qualifiers in the stage.
+
+You should make the order value unique for each qualifier in the stage, to guarantee the same order display each time.</inlineHelpText>
+    <label>Sort Order</label>
+    <precision>18</precision>
+    <required>true</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

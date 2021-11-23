@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>A button on Organisation page layout, call Flow to create a new opportunity record with &apos;Simple&apos; record type. After successful creation, navigate the user to the new opportunity record.</description>
+    <flowDefinition>Create_New_Opportunity_From_Organisation</flowDefinition>
+    <label>New Opportunity</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>MyPost Business lead.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Lead Seeker - MyPost Business</name>
+    <style>none</style>
+    <subject>Seeker Rewards Program – Update on {!Lead.Lead_Number__c} for {!Lead.Company}</subject>
+    <textOnly>Dear {!Lead.First_Name_Formula__c},
+
+Thank you for submitting a new business lead.
+
+We have been in touch with the potential customer and at this stage MyPost Business is the most suitable solution for their business needs.
+
+Our diligent leads team is now taking action and the customer will receive all the information they need to register for MyPost Business.
+
+Thank you again for submitting your lead. Every lead is of value (and could earn you points!), so please keep them coming!
+
+Regards,
+The Seeker Team
+
+
+
+Terms &amp; conditions | Privacy policy | Security
+
+
+
+
+
+Contact us: If this email has been incorrectly sent to you or the information contained within isn’t correct, please let us know at seekerrewards@auspost.com.au
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

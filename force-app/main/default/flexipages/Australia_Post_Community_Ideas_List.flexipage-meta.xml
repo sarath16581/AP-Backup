@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <flexiPageRegions>
+        <appendable>enabled</appendable>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>configDescription</name>
+                    <value>We want all your best ideas on improving parcel tracking and tracking products.</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>configTitleText</name>
+                    <value>Featured category:</value>
+                </componentInstanceProperties>
+                <componentName>brideas_FeaturedCategoryHeader</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>ContentHeader</name>
+        <prependable>enabled</prependable>
+        <replaceable>enabled</replaceable>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <appendable>enabled</appendable>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>categoriesSource</name>
+                    <value>Ideas categories</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>configFiltersCollapse</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>itemsPerPage</name>
+                    <value>5</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>loginPage</name>
+                    <value>login</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>orderBy</name>
+                    <value>Recent</value>
+                </componentInstanceProperties>
+                <componentName>brideas_Ideas</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>Content</name>
+        <prependable>enabled</prependable>
+        <replaceable>enabled</replaceable>
+        <type>Region</type>
+    </flexiPageRegions>
+    <masterLabel>Ideas List</masterLabel>
+    <template>
+        <name>brideas_OneColumnLayout</name>
+    </template>
+    <type>CommAppPage</type>
+</FlexiPage>

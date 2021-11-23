@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Account_Owner_Change</fullName>
+    <active>true</active>
+    <description>Allow only selected Admin profiles to change an Account Owner. Critical to Customer Data Team.</description>
+    <errorConditionFormula>NOT(ISNEW()) 
+
+&amp;&amp; 
+
+AND (NOT( $Profile.Name==&apos;System Administrator&apos; || 
+$Profile.Name==&apos;Customer Team&apos; || $Profile.Name==&apos;Sales Admin&apos; || $Profile.Name==&apos;Enterprise Onboarding&apos; || $User.Id = &apos;00590000000ily1&apos;) , 
+
+NOT ($Profile.Name==&apos;Marketing&apos; &amp;&amp; OwnerId == $Setup.ConfigSetting__c.Holding_UserID__c), 
+OR(Role_Type_Roll_Up__c = &quot;Customer&quot;,AND(Role_Type_Roll_Up__c = &quot;Known&quot;,OR($Profile.Name==&apos;Hub Users&apos;,$Profile.Name==&apos;Coverage Sales&apos;,$Profile.Name==&apos;Sales Operations&apos;,$Profile.Name==&apos;Product Sales&apos;))),ISCHANGED(OwnerId))</errorConditionFormula>
+    <errorDisplayField>OwnerId</errorDisplayField>
+    <errorMessage>The ownership of the Organisation cannot be changed via this field. Please raise a Sales Coverage Change Request to request the change of ownership as per the Customer Alignment Policy.</errorMessage>
+</ValidationRule>

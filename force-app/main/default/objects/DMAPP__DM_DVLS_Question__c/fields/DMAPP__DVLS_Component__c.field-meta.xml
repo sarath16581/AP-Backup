@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__DVLS_Component__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Dealmaker Component</label>
+    <referenceTo>DMAPP__DM_DVLS_Component__c</referenceTo>
+    <relationshipLabel>Test Questions</relationshipLabel>
+    <relationshipName>DM_DVLS_Question</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

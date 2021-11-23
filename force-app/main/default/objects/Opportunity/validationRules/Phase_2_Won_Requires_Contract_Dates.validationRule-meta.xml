@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phase_2_Won_Requires_Contract_Dates</fullName>
+    <active>true</active>
+    <errorConditionFormula>(Count_of_Contract_Start_Dates__c &gt;0  ||  Count_of_Contract_End_Dates__c &gt; 0) &amp;&amp; IsWon &amp;&amp;  ECLM_IsReview__c = False</errorConditionFormula>
+    <errorMessage>Please enter the Revenue Dates on the Opportunity Products.</errorMessage>
+</ValidationRule>

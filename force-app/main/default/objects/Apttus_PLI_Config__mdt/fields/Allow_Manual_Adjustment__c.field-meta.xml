@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Allow_Manual_Adjustment__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>To capture whether the field Apttus_Config2__AllowManualAdjustment__c needs to be set on the PLI for a given product type.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Allow Manual Adjustment</label>
+    <type>Checkbox</type>
+</CustomField>

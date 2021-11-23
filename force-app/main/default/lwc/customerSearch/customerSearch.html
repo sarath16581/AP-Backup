@@ -1,0 +1,18 @@
+<template>
+    <div class="container">
+        <c-lookup 
+            class="lookup"
+            field-list="Id, FirstName, LastName, Name, MobilePhone, Email, CRMCSSOID__c, LevelOfAssurance__c, IsPersonAccount, Account.Name, APCN__c"
+            sobject-name="Contact"
+            fields-to-search="MobilePhone,Email,APCN__c"
+            icon-name="standard:contact"
+            placeholder="Search for Customer by email, phone or MyPost number" 
+            search-result-title-formatter={titleFormatter}
+            search-result-subtitle-formatter={subtitleFormatter} 
+            search-result-select-handler={searchResultSelectHandler}
+            label={label}
+            field-level-help={fieldLevelHelp}
+            required={required}>
+        </c-lookup>
+        </div>
+</template>

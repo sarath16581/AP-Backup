@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FF_Terminate__c</fullName>
+    <description>Terminate the agreement</description>
+    <externalId>false</externalId>
+    <formula>IF (OR(AND(ISPICKVAL(Status_Category__c,&quot;In Effect&quot;),NOT(ISPICKVAL(Status__c,&quot;Being Amended&quot;)), NOT(ISPICKVAL(Status__c,&quot;Being Renewed&quot;)))),HYPERLINK(&quot;/apex/Apttus__AgreementTerminate?id=&quot; &amp; Id, IMAGE(&quot;/resource/Apttus__Button_Terminate&quot;, &quot;Terminate&quot;),&quot;_self&quot;), NULL)</formula>
+    <inlineHelpText>Terminate the contract</inlineHelpText>
+    <label>Terminate</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

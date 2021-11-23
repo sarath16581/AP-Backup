@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Pending_Info_to_Support_Team</fullName>
+    <active>true</active>
+    <description>This validation rule allows only Deal Support Team users to request for additional information from Sales user.</description>
+    <errorConditionFormula>AND
+(
+NOT($Permission.BG_Deal_Support),
+ISCHANGED(Status__c),
+ISPICKVAL(Status__c, &quot;Pending Information&quot;)
+)</errorConditionFormula>
+    <errorMessage>Deal Support Team members are only authorised to click this button</errorMessage>
+</ValidationRule>

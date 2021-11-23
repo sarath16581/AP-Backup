@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_No_Data_Consignment</fullName>
+    <active>true</active>
+    <description>Check if no data consignment is allowed (e.g. case owner is not a queue).</description>
+    <errorConditionFormula>AND(Owner_is_Queue__c,
+    No_Data_Change__c,
+    OR(
+       ISCHANGED(No_Data_Change__c),
+       ISCHANGED(Number_of_No_Data_Consignment_Updates__c))
+    )</errorConditionFormula>
+    <errorMessage>Please take ownership of the case and try again.</errorMessage>
+</ValidationRule>

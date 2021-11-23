@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>SFDC_Blank</letterhead>
+    <name>Approval Request for CSQ</name>
+    <style>freeForm</style>
+    <subject>Approval Request for {!Customer_Scoping_Questionnaire__c.Name}</subject>
+    <textOnly>Hello ,
+
+{!Customer_Scoping_Questionnaire__c.CreatedBy} has requested your approval for the following item.
+
+Full CSQ: {!Customer_Scoping_Questionnaire__c.Link}
+
+CSQ Items to note:
+- Incompatible % of total volume: {!Customer_Scoping_Questionnaire__c.Incompatible_of_total_volume__c}
+- DG % as a proportion of total volume: {!Customer_Scoping_Questionnaire__c.DG_as_a_proportion_of_total_volume__c}
+
+Non- Standard Requirements:
+- Additional Account Management: {!Customer_Scoping_Questionnaire__c.Additional_Account_Management__c}
+- Additional Assets: {!Customer_Scoping_Questionnaire__c.Additional_Assets__c}
+- Additional information if required: {!Customer_Scoping_Questionnaire__c.Additional_information_if_required__c}
+
+
+Thanks,
+
+Salesforce Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

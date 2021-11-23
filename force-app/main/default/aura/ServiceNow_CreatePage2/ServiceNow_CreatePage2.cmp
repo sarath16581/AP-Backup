@@ -1,0 +1,164 @@
+<aura:component implements="lightning:actionOverride,flexipage:availableForAllPageTypes,force:hasRecordId" controller="ServiceNow_CreatePageApexController2">
+    <aura:attribute name='fieldValueMapping' type='LayoutAPIRoot.DetailLayoutSection[]' />
+    <aura:attribute name="objectName" type="String" default="" />
+    <aura:attribute name="RecordTypeId" type="String" default="" /><!-- 012900000015EObAAM -->
+    <aura:attribute name="openModal" type="boolean" default="false" />
+    <aura:attribute name="selRecLabel" type="string" />
+    <aura:attribute name="selRecId" type="string" />
+    <aura:attribute name="selRecLabelForBillingAccount" type="string" />
+    <aura:attribute name="selRecIdForBillingAccount" type="string" />
+    <aura:attribute name="Spinner" type="boolean" default="false" />
+    <aura:attribute name="templateId" type="String" />
+    <aura:attribute name="isNewRecord" type="boolean" default="false" />
+    <aura:attribute name="searchObject" type="String" default="" />
+    <aura:attribute name="errorString" type="String" default="" />
+    <aura:attribute name="displayError" type="boolean" default="false" />
+    <aura:attribute name="lookupFieldAPIName" type="String" default="" />
+    <aura:attribute name="billingAccountHasError" type="boolean" default="false" />
+    <aura:attribute name="thirdPartyHasError" type="boolean" default="false" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.loadTemplate}" />
+    <aura:handler name="recSelectedEvent" event="c:ServiceNow_LookupRecSelectedEvent" action="{!c.recSelectedEventAction}" />
+
+    <ltng:require scripts="{!join(',',$Resource.GlobalAssets + '/js/lightning/utils.js')}" />
+
+    <!--loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <!-- Loading spinner end-->
+    <aura:if isTrue="{!v.displayError}">
+        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+            <span class="slds-assistive-text">error</span>
+            <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small" title="Description of icon when needed">
+            </span>
+            <h2>{!v.errorString}</h2>
+        </div>
+    </aura:if>
+    <lightning:card>
+        <aura:set attribute="title">
+            <lightning:icon iconName="standard:timesheet" size="small" /> &nbsp;&nbsp;Details
+        </aura:set>
+        <aura:set attribute="actions">
+            <lightning:button onclick="{!c.handleClick}" label="Save" iconName="utility:save" />
+            <lightning:button onclick="{!c.cancel}" label="Cancel" iconName="utility:close" />
+        </aura:set>
+        <aura:set attribute="footer">
+            <lightning:button onclick="{!c.handleClick}" label="Save" iconName="utility:save" />
+            <lightning:button onclick="{!c.cancel}" label="Cancel" iconName="utility:close" />
+        </aura:set>
+        <div class="slds-p-horizontal_small">
+            <div class="slds-grid slds-wrap slds-gutters">
+                <aura:iteration items="{!v.fieldValueMapping}" var="field">
+                    <aura:if isTrue="{!and(field.heading!='File Upload',field.useHeading)}">
+                        <div class="slds-col slds-size_12-of-12">
+                            <br />
+                            <h3 class="slds-section__title slds-theme--shade">
+                                <span class="slds-p-horizontal--small slds-truncate">{!field.heading}</span>
+                            </h3>
+                        </div>
+                    </aura:if>
+                    <aura:iteration items="{!field.layoutRows}" var="row">
+                        <aura:iteration items="{!row.layoutItems}" var="layoutItem">
+                            <aura:if isTrue="{!layoutItem.editable}">
+                                <aura:iteration items="{!layoutItem.layoutComponents}" var="LayoutComponent">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <div Id="{!LayoutComponent.details.name}" class="slds-form-element">
+                                            <aura:if isTrue="{!or(and(v.objectName == 'service_now_case__x', and(LayoutComponent.details.name != 'Case_Number__c', 
+                                                             LayoutComponent.details.name != 'Status__c')),and(v.objectName == 'Service_Now_Case_Comment__x', 
+                                                             and(LayoutComponent.details.name != 'Commented_By__c', LayoutComponent.details.name != 'Date_Time__c')))}">
+                                                <aura:if isTrue="{!LayoutComponent.details.renderAs == 'datetime'}">
+                                                    <lightning:input messageWhenValueMissing="{!'Please fill out '+LayoutComponent.details.label}" required="{!LayoutComponent.details.required}" class="inputFields" type="datetime" label="{!LayoutComponent.details.label}" value="{!LayoutComponent.details.dateTimevalue}" disabled="{!v.isNewRecord ? (!LayoutComponent.details.isCreatable) : (!LayoutComponent.details.isEditable)}" />
+                                                </aura:if>
+                                                <aura:if aura:id="inputFields" isTrue="{!LayoutComponent.details.renderAs == 'Picklist'}">
+                                                    <label class="slds-form-element__label slds-no-flex">
+                                                        <aura:if isTrue="{!LayoutComponent.details.required}"><label class="slds-text-color_error">*</label></aura:if>{!LayoutComponent.details.label}
+                                                    </label>
+                                                    <aura:if isTrue="{!and(LayoutComponent.details.helpText != '', LayoutComponent.details.helpText != null)}"><lightning:helptext content="{!LayoutComponent.details.helpText}"/></aura:if>
+                                                    <lightning:combobox messageWhenValueMissing="{!'Please fill out '+LayoutComponent.details.label}" class="inputFields" options="{!LayoutComponent.details.pickListValues}" value="{!LayoutComponent.details.value}" disabled="{!v.isNewRecord ? (!LayoutComponent.details.isCreatable) : (!LayoutComponent.details.isEditable)}" selected="{!LayoutComponent.details.value}" />
+                                                </aura:if>
+                                                <aura:if isTrue="{!LayoutComponent.details.renderAs == 'string'}">
+                                                    <label class="slds-form-element__label slds-no-flex">
+                                                        <aura:if isTrue="{!LayoutComponent.details.required}"><label class="slds-text-color_error">*</label></aura:if>{!LayoutComponent.details.label}
+                                                    </label>
+                                                    <aura:if isTrue="{!and(LayoutComponent.details.helpText != '', LayoutComponent.details.helpText != null)}"><lightning:helptext content="{!LayoutComponent.details.helpText}"/></aura:if>
+                                                    <lightning:input messageWhenValueMissing="{!'Please fill out '+LayoutComponent.details.label}" class="inputFields" value="{!LayoutComponent.details.value}" disabled="{!v.isNewRecord ? (!LayoutComponent.details.isCreatable) : (!LayoutComponent.details.isEditable)}" />
+                                                </aura:if>
+                                                <aura:if isTrue="{!LayoutComponent.details.renderAs == 'date'}">
+                                                    <lightning:input messageWhenValueMissing="{!'Please fill out '+LayoutComponent.details.label}" required="{!LayoutComponent.details.required}" class="inputFields" type="date" label="{!LayoutComponent.details.label}" value="{!LayoutComponent.details.dateValue}" disabled="{!v.isNewRecord ? (!LayoutComponent.details.isCreatable) : (!LayoutComponent.details.isEditable)}" />
+                                                </aura:if>
+                                                <aura:if isTrue="{!LayoutComponent.details.renderAs == 'boolean'}">
+                                                    <!--<lightning:input messageWhenValueMissing="{!'Please fill out '+LayoutComponent.details.label}" required="{!layoutItem.required}" class="inputFields" type="checkbox" label="{!LayoutComponent.details.label}" value="{!LayoutComponent.details.booleanValue}" disabled="{!(!LayoutComponent.details.isEditable)}" onchange="{!c.setBoolean}"/> -->
+                                                    <ui:inputCheckbox class="inputFields" label="{!LayoutComponent.details.label}" value="{!LayoutComponent.details.booleanValue}" disabled="{!v.isNewRecord ? (!LayoutComponent.details.isCreatable) : (!LayoutComponent.details.isEditable)}" />
+                                                </aura:if>
+                                                <aura:if isTrue="{!LayoutComponent.details.renderAs == 'textarea'}">
+                                                    <lightning:textArea messageWhenValueMissing="{!'Please fill out '+LayoutComponent.details.label}" required="{!LayoutComponent.details.required}" class="inputFields" label="{!LayoutComponent.details.label}" value="{!LayoutComponent.details.value}" disabled="{!v.isNewRecord ? (!LayoutComponent.details.isCreatable) : (!LayoutComponent.details.isEditable)}" />
+                                                </aura:if>
+                                                <aura:if isTrue="{!LayoutComponent.details.renderAs == 'Lookup'}">
+                                                    <label class="slds-form-element__label slds-no-flex">
+                                                        <aura:if isTrue="{!LayoutComponent.details.required}"><label class="slds-text-color_error">*</label></aura:if>{!LayoutComponent.details.label}
+                                                    </label>
+                                                    <aura:if isTrue="{!and(LayoutComponent.details.helpText != '', LayoutComponent.details.helpText != null)}"><lightning:helptext content="{!LayoutComponent.details.helpText}"/></aura:if>
+                                                    <div class="slds-form-element__control  slds-input-has-icon slds-input-has-icon_right">
+                                                        <lightning:buttonIcon aura:id="{!LayoutComponent.details.name}" iconName="utility:search" variant="bare" onclick="{!c.lookupSearch}" alternativeText="{!LayoutComponent.details.label}" class="slds-input__icon  slds-input__icon_right" />
+                                                        <aura:if isTrue="{!LayoutComponent.details.name == 'Billing_Account__c'}">
+                                                            <aura:set attribute="else">
+                                                                <input id="thirdPartyReference" type="text" onkeypress="{!c.keyPressLookup}" value="{!v.selRecLabel}" class="{!v.thirdPartyHasError ? 'slds-input inputFields slds-has-error' : 'slds-input inputFields'}" required="{!LayoutComponent.details.required}" disabled="{!v.isNewRecord ? (!LayoutComponent.details.isCreatable) : (!LayoutComponent.details.isEditable)}" />
+                                                                <div><label class="slds-text-color_error">{!v.thirdPartyHasError ? 'Please select valid '+LayoutComponent.details.label : ''}</label></div>
+                                                            </aura:set>
+                                                            <input id="billingAccount" type="text" onkeypress="{!c.keyPressLookup}" value="{!v.selRecLabelForBillingAccount}" class="{!v.billingAccountHasError ? 'slds-input inputFields slds-has-error' : 'slds-input inputFields'}" required="{!LayoutComponent.details.required}" disabled="{!v.isNewRecord ? (!LayoutComponent.details.isCreatable) : (!LayoutComponent.details.isEditable)}" />
+                                                            <div><label class="slds-text-color_error">{!v.billingAccountHasError ? 'Please select valid '+LayoutComponent.details.label : ''}</label></div>
+                                                        </aura:if>
+                                                    </div>
+                                                </aura:if>
+                                            </aura:if>
+                                        </div>
+                                        <p class="slds-text-color_error" id="{!LayoutComponent.details.name + '--span'}"></p>
+                                    </div>
+                                </aura:iteration>
+                            </aura:if>
+                        </aura:iteration>
+                    </aura:iteration>
+                </aura:iteration>
+                <!-- <div class="slds-col slds-size_1-of-2">
+                    <div class="inputForminnerDiv slds-form-element">
+                        <label class="slds-form-element__label slds-no-flex">Parent Record</label>
+                        <div class="slds-form-element__control  slds-input-has-icon slds-input-has-icon_right">
+                            <lightning:buttonIcon iconName="utility:search" variant="bare" onclick="{!c.lookupSearch}" alternativeText="Search" class="slds-input__icon  slds-input__icon_right" />
+                            <lightning:input type="text"  value="{!v.selRecLabel}" class="inputFields"/>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </lightning:card>
+
+
+    <aura:if isTrue="{!v.openModal}">
+        <div class="slds-backdrop slds-backdrop--open">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="{!c.closeModal}">
+                        X
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="header99" class="slds-text-heading--medium">Select Parent Record</h2>
+                </div>
+                <div class="slds-modal__content slds-p-around--medium">
+                    <c:ServiceNow_LookupList objectAPIName="{!v.objectName}" recLimit="5" searchObject="{!v.searchObject}" lookupFieldAPIName="{!v.lookupFieldAPIName}" />
+                </div>
+                <div class="slds-modal__footer">
+                    <button class="slds-button slds-button--neutral" onclick="{!c.closeModal}">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+
+    </aura:if>
+</aura:component>

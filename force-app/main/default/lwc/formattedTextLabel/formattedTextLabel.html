@@ -1,0 +1,100 @@
+<!--
+	Formatted Text Label
+	Provides a label/value output based on the format that was passed in
+
+    2020-04-01 nathan.franklin@auspost.com.au Created
+    2020-09-18 - Ranjeewa Silva - Replace read-only checkbox with lightning icons for boolean fields.
+    2021-10-15 - Nathan Franklin - Added icon rendering
+-->
+<template>
+
+	<template if:true={label}>
+		<div class="slds-form-element slds-clearfix">
+			<div class="slds-form-element__label"><strong>{label}</strong></div>
+			<template if:true={ishelpTextRequired}>
+				<lightning-helptext content={helpText}></lightning-helptext>
+			</template>
+			<div class="slds-form-element__control">
+				<template if:true={isText}>
+					<lightning-formatted-text value={value}></lightning-formatted-text>
+				</template>
+				<template if:true={isIcon}>
+					<lightning-icon icon-name={iconName} size={iconSize} variant={iconVariant} class="slds-m-right_xx-small icon-style" title={helpText}></lightning-icon>
+				</template>
+				<template if:true={isUrl}>
+					<a href={url} target={urlTarget}>{value}</a>
+				</template>
+				<template if:true={isBoolean}>
+					<template if:true={value}>
+						<lightning-icon icon-name="utility:check" size="x-small"></lightning-icon>
+					</template>
+					<template if:false={value}>
+						<lightning-icon icon-name="utility:close" size="x-small"></lightning-icon>
+					</template>
+				</template>
+				<template if:true={isDate}>
+					<template if:true={isValidDate}>
+						<lightning-formatted-date-time value={value} year="numeric" month="2-digit" day="2-digit" weekday="long"></lightning-formatted-date-time>
+					</template>
+				</template>
+				<template if:true={isDateTime}>
+					<template if:true={isValidDateTime}>
+						<lightning-formatted-date-time value={value} year="numeric" month="2-digit" day="2-digit" hour="2-digit" minute="2-digit"></lightning-formatted-date-time>
+					</template>
+				</template>
+				<template if:true={isTime}>
+					<template if:true={isValidTime}>
+						<lightning-formatted-time value={value}></lightning-formatted-time>
+					</template>
+				</template>
+				<template if:true={isNumber}>
+					<lightning-formatted-number value={value} format-style="decimal" maximum-fraction-digits={scale}></lightning-formatted-number>
+				</template>
+				<template if:true={isPercentage}>
+					<lightning-formatted-number value={value} format-style="percent" maximum-fraction-digits={scale}></lightning-formatted-number>
+				</template>
+				<template if:true={isCurrency}>
+					<lightning-formatted-number value={value} format-style="currency" maximum-fraction-digits={scale}></lightning-formatted-number>
+				</template>
+			</div>
+		</div>
+	</template>
+	<template if:false={label}>
+		<template if:true={isText}>
+			<lightning-formatted-text value={value}></lightning-formatted-text>
+		</template>
+		<template if:true={isUrl}>
+			<a href={url} target={urlTarget}>{value}</a>
+		</template>
+		<template if:true={isIcon}>
+			<lightning-icon icon-name={iconName} size={iconSize} variant={iconVariant} class="slds-m-right_xx-small icon-style" title={helpText}></lightning-icon>
+		</template>
+		<template if:true={isBoolean}>
+			<template if:true={value}>
+				<lightning-icon icon-name="utility:check" size="x-small"></lightning-icon>
+			</template>
+			<template if:false={value}>
+				<lightning-icon icon-name="utility:close" size="x-small"></lightning-icon>
+			</template>
+		</template>
+		<template if:true={isDate}>
+			<lightning-formatted-date-time value={value} year="numeric" month="2-digit" day="2-digit" weekday="long"></lightning-formatted-date-time>
+		</template>
+		<template if:true={isDateTime}>
+			<lightning-formatted-date-time value={value} year="numeric" month="2-digit" day="2-digit" hour="2-digit" minute="2-digit"></lightning-formatted-date-time>
+		</template>
+		<template if:true={isTime}>
+			<lightning-formatted-time value={value}></lightning-formatted-time>
+		</template>
+		<template if:true={isNumber}>
+			<lightning-formatted-number value={value} format-style="decimal" maximum-fraction-digits={scale}></lightning-formatted-number>
+		</template>
+		<template if:true={isPercentage}>
+			<lightning-formatted-number value={value} format-style="percent" maximum-fraction-digits={scale}></lightning-formatted-number>
+		</template>
+		<template if:true={isCurrency}>
+			<lightning-formatted-number value={value} format-style="currency" maximum-fraction-digits={scale}></lightning-formatted-number>
+		</template>
+	</template>
+
+</template>

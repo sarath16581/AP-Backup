@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="GlueTest.css" />
+    </head>
+    <body>
+        <div class="login-card">
+            <div id="version"></div>
+        </div>
+        <script type="text/javascript" src="lib/require.min.js"></script>
+        <script>
+            require.config({
+                paths: {
+                    'util': 'lib/util',
+                    'jquery': 'lib/jquery-3.1.1.min',
+                    'moment': 'lib/moment.min',
+                    'i18next': 'lib/i18next.min',
+                    'jqueryI18next': 'lib/jquery-i18next.min',
+                    'i18nextXHRBackend': 'lib/i18next-xhr-backend.min',
+                    'integration': 'lib/sfdc_testharness',
+                    'interaction': 'lib/sfdc_testharness'
+                },
+                shim: {
+                    'jquery': {
+                        exports: '$'
+                    }
+                }
+            });
+
+            require(['SFDC/sfdc', 'SFDC/package', 'config'], function(sfdc, packageInfo, config) {
+                $('#version').text(packageInfo.NAME + ' v' + packageInfo.VERSION);
+                sfdc.initialize('').done(function() {
+                });
+            });
+        </script>
+    </body>
+</html>

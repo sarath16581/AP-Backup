@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Agreement_Duration__c</fullName>
+    <description>How long is the agreement with the customer?</description>
+    <externalId>false</externalId>
+    <label>Agreement Duration</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1 Year</fullName>
+                <default>false</default>
+                <label>1 Year</label>
+            </value>
+            <value>
+                <fullName>2 Years</fullName>
+                <default>false</default>
+                <label>2 Years</label>
+            </value>
+            <value>
+                <fullName>3 Years</fullName>
+                <default>false</default>
+                <label>3 Years</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

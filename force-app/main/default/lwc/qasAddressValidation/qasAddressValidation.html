@@ -1,0 +1,67 @@
+<template>
+
+    <div class="slds-form-element slds-lookup slds-is-open">
+        <!-- Search Box -->
+        <div class="search-container">      
+            <lightning-layout-item size="12">
+                <lightning-input class="address-input" data-id="address-search" type="search" name={name} label={label}
+                    placeholder={placeholder} required={required} onkeyup={search} value={searchAddressTerm}
+                    variant={variant} onfocus={openSearchResultsList} onblur={closeSearchResultsList} onchange={handleAddressInputChange} field-level-help={fieldLevelHelp}></lightning-input>
+            </lightning-layout-item>
+            <!-- Commented out until customvalidity is included into the component. Currently able to bypass validation by collapsing this section on the respective form  
+            <lightning-button-icon class="search-item slds-m-top_large" icon-name={toggleButtonIcon} variant="border-filled"
+                alternative-text="expand address details" onclick={toggleAddressDetails}>
+            </lightning-button-icon> -->
+            <template if:true={isSearchingAddressDetails}>
+                <lightning-spinner size="small" alternative-text="Loading"></lightning-spinner>
+            </template>
+        </div>
+        <template if:true={shouldShowDropDown}>
+            <div class="slds-lookup__menu slds">
+                <template if:true={isLoading}>
+                    <div class="slds-p-horizontal_large slds-text-body_small">searching...</div>
+                </template>
+                <ul class="slds-lookup__list" role="listbox">
+                    <template for:each={searchResults} for:item="result">
+                        <c-search-result key={result.moniker} record={result} icon-name="standard:address"
+                            search-term={searchAddressTerm} onselected={handleSearchResultSelect}>
+                        </c-search-result>
+                    </template>
+                </ul>
+            </div>
+        </template>
+        <!-- Adress Details -->
+        <template if:true={showAddressDetails}>
+            <lightning-layout class="slds-box slds-m-top_small" multiple-rows>
+                <lightning-layout-item size="12">
+                    <lightning-input class="address-input" required={required} type="text" name="addressLine1" label="Line 1" onchange={handleAddressChange} value={address.addressLine1}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="12">
+                    <lightning-input type="text" name="addressLine2" label="Line 2" onchange={handleAddressChange} value={address.addressLine2}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="12">
+                    <lightning-input class="address-input" required={required} type="text" name="city" label="Suburb" onchange={handleAddressChange} value={address.city}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input class="address-input" required={required} type="text" name="state" label="State" onchange={handleAddressChange} value={address.state}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input required={required} class="slds-m-left_small address-input" type="text" name="postcode" label="Postcode" value={address.postcode}
+                    pattern="[0-9]{4}" message-when-pattern-mismatch="Enter a valid postcode" onchange={handleAddressChange}></lightning-input>
+                </lightning-layout-item>
+                <!--<lightning-layout-item size="6">
+                    <lightning-input class="address-input" required={required} type="text" name="countrycode" label="Country Code" value={address.countrycode}
+                        onchange={handleAddressChange}></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input required={required} class="slds-m-left_small address-input" disabled type="text" name="dpid" label="DPID" value={address.dpid}
+                        onchange={handleAddressChange}></lightning-input>
+                </lightning-layout-item>-->
+            </lightning-layout>
+        </template>
+    </div>
+</template>

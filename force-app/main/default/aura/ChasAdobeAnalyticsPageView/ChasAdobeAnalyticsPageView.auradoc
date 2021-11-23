@@ -1,0 +1,6 @@
+<aura:documentation>
+    <aura:description>Documentation for ChasAdobeAnalyticsPageView</aura:description>
+    <aura:example name="ChasAdobeAnalyticsPageView" ref="ChasAdobeAnalyticsPageView" label="ChasAdobeAnalyticsPageView">
+        Example for ChasAdobeAnalyticsPageView
+    </aura:example>
+</aura:documentation>

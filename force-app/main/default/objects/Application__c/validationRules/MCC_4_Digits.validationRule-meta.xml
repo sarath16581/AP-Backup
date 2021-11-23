@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MCC_4_Digits</fullName>
+    <active>true</active>
+    <description>2014-10 APMS</description>
+    <errorConditionFormula>AND
+(
+  (NOT ISBLANK(MCC__c)),
+  OR 
+  (
+    (NOT ISNUMBER(MCC__c)),
+    (LEN(MCC__c)&lt;4),
+    (CONTAINS(MCC__c, &quot;.&quot;))
+  )
+)</errorConditionFormula>
+    <errorDisplayField>MCC__c</errorDisplayField>
+    <errorMessage>Merchant Category Code must contain 4 digits.</errorMessage>
+</ValidationRule>

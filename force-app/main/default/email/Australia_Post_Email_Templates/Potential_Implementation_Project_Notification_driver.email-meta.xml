@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>The email generated and sent to the driver when a potential Implementation oppty is identified and hits stage 4.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Potential Implementation Project Notification (Driver)</name>
+    <style>none</style>
+    <subject>Potential Implementation Project Notification</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

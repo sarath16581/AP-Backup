@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status_Calc__c</fullName>
+    <description>If the booking is a child, then get the parent booking status</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(Parent_Booking__c),Status__c,Parent_Booking__r.Status__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Status Calc</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

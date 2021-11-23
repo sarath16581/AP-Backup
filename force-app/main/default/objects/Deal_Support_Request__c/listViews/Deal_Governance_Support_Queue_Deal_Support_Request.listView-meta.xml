@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deal_Governance_Support_Queue_Deal_Support_Request</fullName>
+    <columns>NAME</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>Requestor_Name__c</columns>
+    <columns>RECORDTYPE</columns>
+    <columns>Support_Work_Type__c</columns>
+    <columns>Stage__c</columns>
+    <columns>Status__c</columns>
+    <columns>Organisation__c</columns>
+    <columns>Opportunity_Close_Date__c</columns>
+    <columns>Priority__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Deal_Support_Request__c.B_G_Deal_Desk,Deal_Support_Request__c.B_G_Deal_Governance_Operation,Deal_Support_Request__c.Commit_To_Action_Propose,Deal_Support_Request__c.Commit_To_Action_Pursue</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Submitted,Received Information,In Progress</value>
+    </filters>
+    <label>Deal Governance Team</label>
+    <sharedTo>
+        <group>Deal_Governance_Support_Team</group>
+    </sharedTo>
+</ListView>

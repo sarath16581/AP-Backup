@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Validate_CSC_Input</fullName>
+    <active>true</active>
+    <description>Validate if CSC input is valid or not.</description>
+    <errorConditionFormula>AND( 
+NOT(No_Data_Consignment__c),
+RecordType.Name = &apos;Delivery Enquiry&apos;,
+  OR( ISCHANGED( Primary_Name__c ),
+      ISCHANGED( DDC_Receiver_First_Name__c ),
+      ISCHANGED( DDC_Receiver_Last_Name__c ),
+      ISCHANGED( Address1__c ),
+      ISCHANGED( Address3Suburb__c ),
+      ISCHANGED( Address3Postcode__c ),
+      ISCHANGED( Address4__c ),
+      ISCHANGED( Number_of_Items__c ),
+      ISCHANGED( Service_Type__c ),
+      ISCHANGED( Unit_Type__c )
+    )
+)</errorConditionFormula>
+    <errorMessage>You cannot edit &apos;No Data&apos; Sender and Receiver details if the associated Consignment is not a &apos;No Data&apos; Consignment.</errorMessage>
+</ValidationRule>

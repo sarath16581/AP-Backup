@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Stage_Image__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE( StageName,&quot;Noticed&quot;,IMAGE(&quot;/resource/n1&quot;,&quot;Noticed&quot;,100,800),&quot;Identified&quot;,IMAGE(&quot;/resource/i2&quot;,&quot;Identified&quot;,100,800),&quot;Validated&quot;,IMAGE(&quot;/resource/v3&quot;,&quot;Validated&quot;,100,800),&quot;Qualified&quot;,IMAGE(&quot;/resource/q4&quot;,&quot;Qualified&quot;,100,800),&quot;Conditional Agreement&quot;,IMAGE(&quot;/resource/c5&quot;,&quot;Conditional Agreement&quot;,100,800),&quot;Closed Won&quot;,IMAGE(&quot;/resource/wl6&quot;,&quot;Closed Won&quot;,100,800),&quot;Closed Lost&quot;,IMAGE(&quot;/resource/wl6&quot;,&quot;Closed Lost&quot;,100,800),IMAGE(&quot;/resource/sales_proc&quot;,&quot;Sales Process&quot;,100,800))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Stage Image</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

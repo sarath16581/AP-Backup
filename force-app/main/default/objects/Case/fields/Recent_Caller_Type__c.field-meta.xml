@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Recent_Caller_Type__c</fullName>
+    <description>Capture recent caller type information</description>
+    <externalId>false</externalId>
+    <label>Contact Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sender</fullName>
+                <default>false</default>
+                <label>Sender</label>
+            </value>
+            <value>
+                <fullName>Receiver</fullName>
+                <default>false</default>
+                <label>Receiver</label>
+            </value>
+            <value>
+                <fullName>3rd Party</fullName>
+                <default>false</default>
+                <label>3rd Party</label>
+            </value>
+            <value>
+                <fullName>Public</fullName>
+                <default>false</default>
+                <label>Public</label>
+            </value>
+            <value>
+                <fullName>Internal</fullName>
+                <default>false</default>
+                <label>Internal</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

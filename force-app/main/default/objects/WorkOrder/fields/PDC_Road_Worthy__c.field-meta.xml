@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PDC_Road_Worthy__c</fullName>
+    <description>Overall status of a vehicle check performed in Pre Departure Check, Drop Trailer, or Return Vehicle jobs.</description>
+    <externalId>false</externalId>
+    <formula>IF(OR(TEXT(Truck_Check_Status__c)    =&apos;Critical Issue&apos;,
+      TEXT(A_Trailer_Check_Status__c)=&apos;Critical Issue&apos;,
+      TEXT(B_Trailer_Check_Status__c)=&apos;Critical Issue&apos;),&apos;Failed - Critical Issue&apos;,
+IF(OR(TEXT(Truck_Check_Status__c)    =&apos;Non Critical Issue&apos;,
+      TEXT(A_Trailer_Check_Status__c)=&apos;Non Critical Issue&apos;,
+      TEXT(B_Trailer_Check_Status__c)=&apos;Non Critical Issue&apos;),&apos;Passed - Non Critical Issue&apos;,
+&apos;Passed&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Check Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

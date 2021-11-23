@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_Config2__BillingCycleStart__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Indicates when the billing cycle should start</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Indicates when the billing cycle should start</inlineHelpText>
+    <label>Billing Cycle Start</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Billing Day of Month</fullName>
+                <default>false</default>
+                <label>Billing Day of Month</label>
+            </value>
+            <value>
+                <fullName>Ready for Billing Date</fullName>
+                <default>true</default>
+                <label>Ready for Billing Date</label>
+            </value>
+            <value>
+                <fullName>Period Start Date</fullName>
+                <default>false</default>
+                <label>Period Start Date</label>
+            </value>
+            <value>
+                <fullName>Order Date</fullName>
+                <default>false</default>
+                <label>Order Date</label>
+            </value>
+            <value>
+                <fullName>Account Billing Day</fullName>
+                <default>false</default>
+                <label>Account Billing Day</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

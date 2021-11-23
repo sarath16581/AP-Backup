@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Default_I2C_CAM</fullName>
+    <active>true</active>
+    <description>Use this to create an Invoice to Cash Credit Approval Matrix!!</description>
+    <label>Default I2C CAM</label>
+    <picklistValues>
+        <picklist>Approver1Role__c</picklist>
+        <values>
+            <fullName>CEO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Resolutions Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Divisional CFO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EGM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EGM Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GCFO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group COO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Head of Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Head of Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcels COO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Director</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Approver2Role__c</picklist>
+        <values>
+            <fullName>CEO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Resolutions Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Divisional CFO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EGM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EGM Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GCFO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group COO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Head of Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Head of Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcels COO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Director</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Approver3Role__c</picklist>
+        <values>
+            <fullName>CEO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Resolutions Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Divisional CFO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EGM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EGM Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GCFO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group COO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Head of Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Head of Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcels COO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Director</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Approver4Role__c</picklist>
+        <values>
+            <fullName>CEO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Resolutions Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Divisional CFO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EGM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EGM Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GCFO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group COO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Head of Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Head of Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcels COO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Director</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Approver5Role__c</picklist>
+        <values>
+            <fullName>CEO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Resolutions Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Divisional CFO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EGM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EGM Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GCFO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group COO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Head of Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Head of Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcels COO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Director</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Approver6Role__c</picklist>
+        <values>
+            <fullName>CEO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Resolutions Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Divisional CFO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EGM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EGM Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GCFO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GM of Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group COO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Head of Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Head of Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcels COO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Director</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CreditType__c</picklist>
+        <values>
+            <fullName>Discretionary Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-Discretionary</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Product_Family__c</picklist>
+        <values>
+            <fullName>Business Credit Account Facilities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Letters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcels</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trusted Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>default</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Product_Sub_Category__c</picklist>
+        <values>
+            <fullName>3PL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Banking Services %28Bank%40Post%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consumer Identity Services %28Police Checks%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data %26 Insights</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decipha Product and Solutions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital iD - Digital ID Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct Entry Letters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Emerging Identity Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Services - Alpha</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Government %26 State Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Government and Agency Services %28Federal Services%2FMarketplaces%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Identity Services - Fraud Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Intermediaries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International Outward Letters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International Postal%2FParcels</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International Products</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Late Payment Charge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Local marketplaces</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail Channel %26 Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manage My Finances %2F PostBillPay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ordinary %26 Other Letters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Post Commercial %26 Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment Processing %2F SecurePay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Premium%2C Next Flight</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Presort Letters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Print Post</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product %26 Regulatory Analysis %26 Planning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Network Interface</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reply Paid</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Financial Products - Cards</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Financial Products - Cash Services %28Money Orders%2FFX%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Financial Products - Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Financial Products - Store-in-Store</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ST Express Product %28ST%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tmall subscriptions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trusted Solutions Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trusted Solutions Centre - AP Digital Mailbox</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trusted Solutions Centre - Emerging Products</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trusted Solutions Centre - Manage My Details %2F MRS %2F COAN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trusted Solutions Centre - Manage my Details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trusted Solutions Centre - Manage my Storage %26 Comms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unaddressed Mail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>default</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eCommerce scorecard</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

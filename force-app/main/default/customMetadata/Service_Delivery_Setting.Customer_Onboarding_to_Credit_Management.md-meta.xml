@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Customer Onboarding to Credit Management</label>
+    <protected>false</protected>
+    <values>
+        <field>Case_Team_Member_Role__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Convert_attachment_to_files__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Convert_files_to_attachment__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Create_Case_Team_Member_for_Child_Case__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Enable_file_and_attachment_sharing__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>FieldSet__c</field>
+        <value xsi:type="xsd:string">Customer_Onboarding_to_Credit_Management</value>
+    </values>
+    <values>
+        <field>IsActive__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Notify_Child_Case_Owner__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Notify_Child_Case_Team_Members__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Owner_ID__c</field>
+        <value xsi:type="xsd:string">00G90000002sNOz</value>
+    </values>
+    <values>
+        <field>Source_RecordType_Id__c</field>
+        <value xsi:type="xsd:string">0122v000001DZqLAAW</value>
+    </values>
+    <values>
+        <field>Target_RecordType_Id__c</field>
+        <value xsi:type="xsd:string">01290000001UPh0AAG</value>
+    </values>
+</CustomMetadata>

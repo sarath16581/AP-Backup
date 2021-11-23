@@ -1,0 +1,319 @@
+<!--
+Last Modified By - Mausam Padhiyar
+Last Modified Date - 14th Nov, 2016 | 1417 | Cash Account Assessment label change for contact details
+
+Last Modified By - Mausam Padhiyar
+Last Modified Date - 5th Dec, 2016 | 1773 | Cash Account creation
+-->
+
+<apex:page id="pageId" standardController="Account" extensions="APT_CashAccountAssessmentController" action="{!accounDetails}" sidebar="false">
+
+<script>
+    <!-- 1551 -->
+    function noEnter(ev)  {
+        if (window.event && window.event.keyCode == 13 || ev.which == 13) {         
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    <!-- 1773 -->
+    function requestOrgIDDetailsJS() {
+        requestOrgIDDetailsAF();
+    }
+    <!-- 1773 -->
+    
+</script>
+<style>    
+        .customTable th,.customTable td{
+            font-size:14px;
+            width:15%;
+        }
+        
+        .customTable {
+            width:100%;
+        }
+        table.bottom-underline td {
+            border-bottom : 1px dotted #d8d8d8 !important;
+        }
+        
+        table.bottom-underline {
+            border-collapse:collapse;
+        }
+        
+        .bold {
+            font-weight:bold;   
+        }
+        
+        .businessName{
+            width:30% !important;
+        }
+        
+        .headingTD {
+        
+            font-weight:bold; 
+            font-size:14px;
+        }
+        
+        .aptRequiredBlock {
+            background-color: #c00;
+            font-weight: bold;
+            height: 100%;           
+        }
+
+
+</style>
+<apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+        <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+        <apex:stylesheet value="{!$Resource.jQueryLayoutCSS}" />
+        <apex:stylesheet value="{!$Resource.jQueryUI1_10_3_Css}" />
+        <script src="{!URLFOR($Resource.jQuery111)}" />
+        <script src="{!URLFOR($Resource.bootstrapJS)}" />
+        <script src="{!URLFOR($Resource.jQueryUI1_10_3)}" />
+        <script src="{!URLFOR($Resource.jQueryLayout)}" />
+        <script src="/support/console/28.0/integration.js" />
+        <script src="/support/api/28.0/interaction.js" />
+        
+        <Style>
+        body{
+            font-size:   12px !important;
+            
+        }
+        .customerAgreed{
+            margin-right:10px;
+        }
+        .btn{
+            margin:5px !important;
+        }
+        </Style>
+
+    <c:APT_WaitComponent />
+    <apex:actionStatus id="ajaxStatus" onstart="wait(true)" onstop="wait(false)" />
+
+
+
+    <apex:form id="apxForm">
+        <apex:pageMessages id="errorMessageSection"/>
+        <apex:sectionHeader title="{!$Label.APT_CashAccount}" />
+        
+        <apex:outputPanel rendered="{!showcashAccount}">
+        <apex:pageBlock >
+              <apex:pageBlockSection title="{!$Label.APT_CustomerDetails}" collapsible="false">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_CustomerName}"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cust_Name__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_ABN}"></apex:outputLabel>
+                        <apex:outputField value="{!cashAccount.APT_ABN__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_ACN}"></apex:outputLabel>
+                        <apex:outputField value="{!cashAccount.APT_ACN__c}"/>
+                    </apex:pageBlockSectionItem>
+              </apex:pageBlockSection>  
+              <apex:pageBlockSection title="{!$Label.APT_LocationAddress}" collapsible="false">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Unit Number"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Postal_Address_Unit_Number__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    </apex:pageblocksectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Street Number"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Postal_Address_Street_Number__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    </apex:pageblocksectionItem>
+                    <apex:pageBlockSectionItem >
+                        <c:APT_AddressComponent address="{!physicaladdress}"  legend="" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel ></apex:outputLabel>
+                        <apex:outputLabel ></apex:outputLabel>
+                        
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_CustomerLVL}"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cust_Lvl_Suite_Bldg__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                   <!-- <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Customer Str no/Name"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cust_Str_no_Name__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Customer Suburb"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cust_Suburb__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Customer State"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cust_State__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Customer Postcode"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cust_Postcode__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem> --> 
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_CustomerTel}"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cust_Telephone__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_CustomerFax}"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cust_Fax__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_CustomerSite}"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cust_Website__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_CustomerEmail}"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cust_Email__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection> 
+              <apex:pageBlockSection title="{!$Label.APT_Contact_Details}" collapsible="false">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_Salutations}"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Mr_Mrs_Dr_Etc__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_ContactFirstName}"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cont_First_Name__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_ContactLastName}"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cont_Last_Name__c}" onkeypress="return noEnter(event);"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_ContactJobTitle}"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cont_Job_Title__c}" onkeypress="return noEnter(event);"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_ContactTel}"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cont_Telephone__c}" onkeypress="return noEnter(event);"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_ContactMob}"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cont_Mobile__c}" onkeypress="return noEnter(event);"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_ContactFax}"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cont_Fax__c}" onkeypress="return noEnter(event);"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_Market}"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Can_we_market_to_them__c}" onkeypress="return noEnter(event);"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_ContactEmail}"></apex:outputLabel>
+                        <apex:inputField value="{!cashAccount.APT_Cont_Email__c}" onkeypress="return noEnter(event);"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="{!$Label.APT_Mailing}" collapsible="false"> 
+            
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Unit Number"></apex:outputLabel>
+                    <apex:inputField value="{!cashAccount.APT_Unit_Number__c}" onkeypress="return noEnter(event);"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                </apex:pageblocksectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Street Number"></apex:outputLabel>
+                    <apex:inputField value="{!cashAccount.APT_Street_Number__c}" onkeypress="return noEnter(event);"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                </apex:pageblocksectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <c:APT_AddressComponent address="{!mailingAddress}"  legend="" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                        
+                </apex:pageblocksectionItem>
+                <apex:pageBlockSectionItem >
+                    
+                </apex:pageblocksectionItem>
+            </apex:pageBlockSection>  
+                
+    </apex:pageBlock>  
+               </apex:outputPanel>
+        
+        
+        
+        
+        
+        
+    <apex:outputPanel rendered="{!showcashAssessment}">
+            <!-- 1773 -->
+            <apex:actionFunction name="requestOrgIDDetailsAF" action="{!requestOrgIDDetails}" status="ajaxStatus" rerender="apxForm" rendered="{!Not(showcashAccount)}"/>
+            <!-- 1773 -->
+            
+            <!--Search and Select Section-->
+            
+            <apex:pageBlock title="{!$Label.APT_SearchSelectOrg}" id="OrgDetailSection">
+               
+                <apex:outputPanel >
+                    <apex:selectRadio styleClass="assessmentTypeClass" value="{!assesmentType}" id="assessmentTypeId">
+                        <apex:selectOptions value="{!CompanyBusinessType}"/>
+                    </apex:selectRadio>                   
+                </apex:outputPanel>
+                
+                <apex:outputPanel >
+                    <apex:inputText value="{!userinput}" style="height: 24px;width: 360px;margin-right:20px;" id="OrganisationDetails"  onkeypress="return noEnter(event);" />
+                </apex:outputPanel>
+                <br/>
+                <apex:outputPanel >
+                    <apex:outputLabel id="OrgDetialsError"  style="color:red;"></apex:outputLabel>
+                </apex:outputPanel>       
+        </apex:pageBlock>
+           
+        <br/> 
+         
+         
+     <apex:pageBlock title="{!$Label.APT_SearchResult}"  rendered="{!showSearchResults}">
+                <apex:pageBlockSection collapsible="true" columns="1">
+                 <apex:variable value="{!0}" var="rowNum"/>
+                    <table class="customTable">
+                        <tr>
+                        <th style="width:40% !important">Business Name</th>
+                        <th >Location</th>
+                        <th >Status</th>
+                        <th >ABN</th>
+                        <th ></th>
+                            </tr>
+                        
+                        <apex:repeat value="{!orgIdResultList}" var="report">
+                            <tr>
+                            <td width="40%">{!report.MatchName}</td>
+                            <td>{!report.State}</td>
+                            <td>{!report.ASICReport.ASICStatus}</td>
+                            <td>{!report.AustralianBusinessNumber}</td>
+                                                        
+                            
+                            </tr>
+                        </apex:repeat>
+                    </table>
+                </apex:pageBlockSection>
+               <br/>
+               
+               <table>
+               <tr>
+               <td></td>
+               </tr>
+               </table>
+            </apex:pageBlock>
+            
+          </apex:outputPanel> 
+
+    <center>
+        <!-- 1773 -->
+        <apex:commandButton value="{!$Label.APT_Search}" action="{!createCashAccount}" onComplete="requestOrgIDDetailsJS();" rerender="apxForm" rendered="{!Not(showcashAccount)}"/>
+        <!-- 1773 -->
+        <apex:commandButton value="{!$Label.APT_Next}"  action="{!doNextForChargeAccount}" reRender="apxForm" status="ajaxStatus" rendered="{!showcashAccount}" />
+        <apex:commandButton value="{!$Label.APT_Back_to_Proposal}" action="{!backToProposal}" immediate="true"/>
+    </center>   
+          
+</apex:form>
+</apex:page>

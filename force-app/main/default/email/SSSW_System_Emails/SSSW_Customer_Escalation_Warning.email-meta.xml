@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SSSW - Used to notify the Customer when the Case has been escalated.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Customer Escalation Warning</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber} requires your attention</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference number {!Case.CaseNumber}
+
+
+We recently contacted you regarding your enquiry, and need some additional information in order to proceed with your case
+
+
+
+Previous Comment: {!Case.Last_Case_Comment}
+
+
+If you no longer require our assistance, please kindly close this enquiry by visiting {!IF(CONTAINS(Case.Customer_Type__c,&apos;Consumer&apos;), &apos;Login - Consumer&apos;, IF(CONTAINS(Case.Customer_Type__c,&apos;MyPost Business&apos;), &apos;Login - MyPost Business&apos;, &apos;Login - Enterprise&apos;))}
+
+Alternatively, please reply to this email to provide more information and we will be happy to assist you.
+
+Thank you,
+
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

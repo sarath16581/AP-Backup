@@ -1,0 +1,546 @@
+<apex:page showHeader="false" controller="Cognition_Controller">
+    <apex:slds />
+    <apex:form >
+        <html>
+
+        <head>
+            <!--
+                <link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+                <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+                <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>            
+            -->
+            <apex:stylesheet value="{!URLFOR($Resource.Cognition_StaticRes, '/css/Cognition_GMap.css')}" id="gmap-css" />
+            <apex:stylesheet value="{!URLFOR($Resource.Cognition_StaticRes, '/css/bootstrap.min.css')}" id="bootstrap-css" />
+            <apex:includeScript value="{!URLFOR($Resource.Cognition_StaticRes, '/js/jquery-1.11.1.min.js')}" />
+            <apex:includeScript value="{!URLFOR($Resource.Cognition_StaticRes, '/js/bootstrap.min.js')}" />
+            <apex:includeScript value="{!URLFOR($Resource.Cognition_StaticRes, '/js/CognitionUtility.js')}" />
+        </head>
+
+        <body>
+
+        <div id="map"></div>
+        <script>
+
+            var lexOrigin = 'https://{!$CurrentPage.parameters.lcHost}';
+
+            //Data for Google map
+            var data;
+
+            // Made gmarkers,bounds and map global
+            var gmarkers = [];
+            var map;
+            var bounds;
+            var infoWindow;
+            var baseUrl = '';
+            var isInternalUser = '';
+            var refreshInterval = '';
+
+            // configure the cognition types in the array to display the defined marker
+            var availableTypes = [1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14];
+
+            // Declare all other functions and variables
+            // .svg template file for default markers can be found in the static resource bundle
+            var type0 = "{!JSENCODE($Resource.Cognition_StaticRes + '/images/cognitionType0.png')}";
+            var type1 = "{!JSENCODE($Resource.Cognition_StaticRes + '/images/cognitionType1.png')}";
+            var type2 = "{!JSENCODE($Resource.Cognition_StaticRes + '/images/cognitionType2.png')}";
+            var type3 = "{!JSENCODE($Resource.Cognition_StaticRes + '/images/cognitionType3.png')}";
+            var type4 = "{!JSENCODE($Resource.Cognition_StaticRes + '/images/cognitionType4.png')}";
+            var type5 = "{!JSENCODE($Resource.Cognition_StaticRes + '/images/cognitionType5.png')}";
+            var type6 = "{!JSENCODE($Resource.Cognition_StaticRes + '/images/cognitionType6.png')}";
+            var type7 = "{!JSENCODE($Resource.Cognition_StaticRes + '/images/cognitionType7.png')}";
+            var type11 = "{!JSENCODE($Resource.Cognition_StaticRes + '/images/cognitionType11.png')}";
+            var type12 = "{!JSENCODE($Resource.Cognition_StaticRes + '/images/cognitionType12.png')}";
+            var type13 = "{!JSENCODE($Resource.Cognition_StaticRes + '/images/cognitionType13.png')}";
+            var type14 = "{!JSENCODE($Resource.Cognition_StaticRes + '/images/cognitionType14.png')}";
+            var defaultImage = "{!JSENCODE($Resource.Cognition_StaticRes + '/images/cognitionTypeDefault.png')}";
+
+            var icons = {
+                0: {
+                    icon: type0
+                },
+                1: {
+                    icon: type1
+                },
+                2: {
+                    icon: type2
+                },
+                3: {
+                    icon: type3
+                },
+                4: {
+                    icon: type4
+                },
+                5: {
+                    icon: type5
+                },
+                6: {
+                    icon: type6
+                },
+                7: {
+                    icon: type7
+                },
+                11: {
+                    icon: type11
+                },
+                12: {
+                    icon: type12
+                },
+                13: {
+                    icon: type13
+                },
+                14: {
+                    icon: type14
+                },
+            };
+
+            function addMarker(feature) {
+                var marker = new google.maps.Marker({
+                    position: feature.position,
+                    icon: feature.icon,
+                    map: map
+                });
+
+                gmarkers.push(marker);
+
+                bounds.extend(marker.position);
+
+                var markerText = feature.markerText;
+                // if only one location is available zoom to it, AND open the info wondow
+                if (feature.mapData.length === 1) {
+
+                    map.setCenter({
+                        lat: feature.mapData[0].lat,
+                        lng: feature.mapData[0].lng
+                    });
+                    map.setZoom(12);
+                    //open the info window
+                    if(feature.type === 11 || feature.type === 12 || feature.type === 13) {
+                        addPickupInfoWindow(marker, data.requestGUID, markerText);
+                    } else {
+                        addConsignmentInfoWindow(marker, data.requestGUID, markerText);
+                    }
+                }
+
+                // binding info windows for makers
+                marker.addListener('click', function() {
+                    if(feature.type === 11 || feature.type === 12 || feature.type === 13) {
+                        addPickupInfoWindow(marker, data.requestGUID, markerText);
+                    }  else {
+                        addConsignmentInfoWindow(marker, data.requestGUID, markerText);
+                    }
+                });
+            }
+
+            //Send message to LC
+            function sendToLC(message) {
+                if (typeof(lexOrigin) != 'undefined') {
+                    parent.postMessage(message, lexOrigin);
+                }
+            }
+
+            //Receive message from LC
+            window.addEventListener("message", function(event) {
+                console.log('Data Sent to google map VF: ', event.data);
+                data = event.data;
+                baseUrl = event.data.baseUrl;
+                isInternalUser = event.data.isInternalUser;
+                console.log('config isInternalUser',isInternalUser);
+                if (data.action2Perform == "start") {
+                    CognitionUtil.refreshInterval = event.data.refreshInterval;
+                    // initialising the timer to refresh the data from API on mouse over of the map
+                    CognitionUtil.origin = lexOrigin;
+                    CognitionUtil.enableTimer(lexOrigin);
+                } else if (data.action2Perform == "clear") {
+                    for (i = 0; i < gmarkers.length; i++) {
+                        gmarkers[i].setMap(null);
+                    }
+                    // Set default bounds
+                    map.setCenter({
+                        lat: -35.9802,
+                        lng: 130.8554
+                    });
+                    map.setZoom(4);
+                    gmarkers = [];
+                    bounds = new google.maps.LatLngBounds();
+                } else if (data.action2Perform == "update") {
+                    //iterate through map data for each point (even if 1)
+                    var mapData = data.mapData;
+
+                    for (var i = 0, j = mapData.length; i < j; i++) {
+                        //Add marker for each point
+                        var myLatlng = new google.maps.LatLng(mapData[i].lat, mapData[i].lng);
+
+                        if (mapData[i].Type) {
+                            // display the default marker
+                            if (!availableTypes.includes(mapData[i].Type)) {
+                                addMarker({
+                                    position: myLatlng,
+                                    markerText: mapData[i].markerText,
+                                    icon: defaultImage,
+                                    mapData: mapData,
+                                    type: mapData[i].Type
+                                });
+                            } else {
+                                // display the relevent marker
+                                addMarker({
+                                    position: myLatlng,
+                                    markerText: mapData[i].markerText,
+                                    icon: icons[mapData[i].Type].icon,
+                                    mapData: mapData,
+                                    type: mapData[i].Type
+                                });
+                            }
+                        }
+                    }
+
+                    // If all Consignment data is loaded, then set bounds
+                    if (data.setBounds) {
+                        map.fitBounds(bounds);
+
+                    }
+                    //initialize refresh timer once the map is loaded
+                    CognitionUtil.initRefreshTimer();
+                } else if (data.action2Perform == "closeInfoWindow") {
+                    // close any opened info windows, so the user is not mislead
+                    infoWindow.close();
+                }
+
+
+                if (typeof(event.data.loadGoogleMap) != 'undefined') {
+                    var script = document.createElement("script");
+                    script.src = "https://maps.googleapis.com/maps/api/js?v=3.29&" + "{!$Setup.CustomerCognitionSettings__c.GoogleMapKey__c}" + "&callback=initMap";
+                    document.getElementsByTagName("head")[0].appendChild(script);
+                }
+            }, false);
+
+            //Callback when Google Map is loaded
+            function initMap() {
+                // Declared map as global variable
+                map = new google.maps.Map(
+                    document.getElementById("map"), {
+                        zoom: parseInt(4),
+                        center: new google.maps.LatLng("-35.9802", "130.8554"),
+                    }
+                );
+                infoWindow = new google.maps.InfoWindow({});
+            }
+
+            function addPickupInfoWindow(marker, myreqGUID, message) {
+                //InfoWindow
+                Cognition_Controller.getPickupDetailsAsync(
+                    myreqGUID, message,
+                    function(result, event) {
+                        var consignType = result.Type;
+
+                        var msg = '<div id="iw-container" style="margin-left: 20px;margin-top: 20px;">' +
+                                '<div style="width: 313px;" class="iw-title'+consignType+'">'+result.BookingNbr+' - '+result.Type_EnumString+'</div>' +
+                                    '<div class="panel with-nav-tabs panel-success">'+
+                                        '<div class="panel-heading iw-tabPanel'+consignType+'">'+
+                                            '<ul class="nav nav-tabs">'+
+                                                '<li class="active">'+
+                                                    '<a href="#tab1" data-toggle="tab">Summary</a>'+
+                                                '</li>'+
+                                                '<li>'+
+                                                    '<a href="#tab2" data-toggle="tab">Address</a>'+
+                                                '</li>'+
+                                                '<li>'+
+                                                    '<a href="#tab3" data-toggle="tab">OtherInfo</a>'+
+                                                '</li>'+
+
+                                            '</ul>'+
+                                        '</div>'+
+                                        '<div class="panel-body">'+
+                                            '<div class="tab-content">'+
+                                                '<div class="tab-pane fade in active" id="tab1" style="height: 280px;">'+
+                                                    '<div class="iw-content" id="summary">' +
+                                                        cleansePara(result.ContextualParagragh1) +
+                                                        cleansePara(result.ContextualParagragh2) +
+                                                        cleansePara(result.ContextualParagragh3) +
+                                                        '<table class="popup-table">'+
+                                                            '<tr>'+
+                                                                '<td>Booking #: </td>'+
+                                                                '<td>'+cleanseText(result.BookingNbr) +'</td>'+
+                                                            '</tr>'+
+                                                               CognitionUtil.getEventDateTime(result.EventDateTime,result.Type) +
+                                                            '<tr>'+
+                                                                '<td>Depot: </td>'+
+                                                                '<td>'+cleanseText(result.Depot) +'</td>'+
+                                                            '</tr>'+
+                                                            '<tr>'+
+                                                                '<td>Service: </td>'+
+                                                                '<td>'+cleanseText(result.ServiceCode) +'</td>'+
+                                                            '</tr>'+
+                                                            '<tr>'+
+                                                                '<td>Ready Time: </td>'+
+                                                                '<td>'+cleanseText(result.ReadyTime) +'</td>'+
+                                                            '</tr>'+
+                                                            '<tr>'+
+                                                                '<td>Close Time: </td>'+
+                                                                '<td>'+cleanseText(result.CloseTime) +'</td>'+
+                                                            '</tr>'+
+                                                            '<tr>'+
+                                                                '<td>Quantity: </td>'+
+                                                                '<td>'+cleanseText(result.Quantity) +'</td>'+
+                                                            '</tr>'+
+                                                            '<tr>'+
+                                                                '<td>Booking Instructions: </td>'+
+                                                                '<td>'+cleanseText(result.BookingInstructions) +'</td>'+
+                                                            '</tr>'+
+                                                                // conditionally display of LPO and signature
+                                                                CognitionUtil.cardedConsignmentOrSignature(result) +
+                                                            '<tr>'+
+                                                                '<td>Case Number: </td>'+
+                                                                '<td>'+cleanseText(result.SFCaseNumber) +'</td>'+
+                                                            '</tr>'+
+                                                        '</table>'+
+                                                    '</div>' +
+                                                '</div>'+
+                                                '<div class="tab-pane fade" id="tab2" style="height: 280px;">'+
+                                                    '<div class="iw-content" id="summary">' +
+                                                        '<table class="popup-table">'+
+                                                            '<tr>'+
+                                                                '<td>Address:</td>'+
+                                                                '<td>'+CognitionUtil.getAddress(result)+'</td>'+
+                                                            '</tr>'+
+                                                        '</table>'+
+                                                    '</div>' +
+                                                '</div>'+
+                                                '<div class="tab-pane fade" id="tab3" style="height: 280px;">'+
+                                                    '<div class="iw-content" id="summary">' +
+                                                        '<table class="popup-table">'+
+                                                            '<tr>'+
+                                                                '<td>Contact:</td>'+
+                                                                '<td>'+cleanseText(result.Contact)+'</td>'+
+                                                            '</tr>'+
+                                                            '<tr>'+
+                                                                '<td>Contact Area:</td>'+
+                                                                '<td>'+cleanseText(result.ContactArea)+'</td>'+
+                                                            '</tr>'+
+                                                            CognitionUtil.getReason(result) +
+                                                        '</table>'+
+                                                    '</div>' +
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>';
+                        infoWindow.setContent(msg);
+
+                        infoWindow.open(map, marker);
+
+                    }, {
+                        buffer: false,
+                        escape: true,
+                        timeout: 30000
+                    }
+                );
+            }
+
+            function addConsignmentInfoWindow(marker, myreqGUID, message) {
+
+                //InfoWindow
+                Cognition_Controller.getConsignmentDetailsAsync(
+                    myreqGUID, message,
+                    function(result, event) {
+                        var consignType = result.Type;
+
+                        if (!availableTypes.includes(consignType)){
+                            consignType = 99;
+                        }
+
+                        var referenceArray = [];
+                        referenceArray = result.References;
+                        // var typeVal = referenceArray[0].Type;
+                        var referenceString = "";
+
+                        if (typeof referenceArray!= 'undefined' && referenceArray.length > 0) {
+                            for (var key in referenceArray) {
+                                if (referenceArray.hasOwnProperty(key)) {
+                                    referenceString = referenceString + referenceArray[key].Type + ': ' + referenceArray[key].Value + '<br/>';
+                                }
+                            }
+                        }
+
+                        var senderRefData = (null != result.SendersReference ? result.SendersReference :'Not Provided');
+
+                        var addressData = '';
+                        if (result.ReceiverName + '' != '') {
+                            addressData = result.ReceiverName + ',<br>';
+                        }
+
+                        addressData += result.Address1;
+                        if (result.Address2 + '' != '') {
+                            addressData += ',<br>' + result.Address2;
+                        }
+                        addressData += ',<br>' + result.ReceiverSuburb + ' ' +
+                            result.ReceiverPostcode;
+
+                        var etaData = 'Not Available';
+                        if (result.ETADateTime + '' != '') {
+                            etaData = (result.ETADateTime).substring(0, 10);
+                        }
+                        var despDateData = 'Not Available';
+                        if (result.DespatchDate + '' != '') {
+                            despDateData = (result.DespatchDate).substring(0, 10);
+                        }
+
+                        var msg = '<div id="iw-container" style="margin-left: 20px;margin-top: 20px;">' +
+                            '<div class="iw-title'+consignType+'">'+result.Consignment+' - '+CognitionUtil.getTitle(result)+'</div>' +
+                                '<div class="panel with-nav-tabs panel-success">'+
+                                    '<div class="panel-heading iw-tabPanel'+consignType+'">'+
+                                        '<ul class="nav nav-tabs">'+
+                                            '<li class="active">'+
+                                                '<a href="#tab1" data-toggle="tab">Summary</a>'+
+                                            '</li>'+
+                                            '<li>'+
+                                                '<a href="#tab2" data-toggle="tab">Sender</a>'+
+                                            '</li>'+
+                                            '<li>'+
+                                                '<a href="#tab3" data-toggle="tab">DeliverTo</a>'+
+                                            '</li>'+
+                                            '<li>'+
+                                                '<a href="#tab4" data-toggle="tab">OtherInfo</a>'+
+                                            '</li>'+
+                                        '</ul>'+
+                                    '</div>'+
+                                    '<div class="panel-body">'+
+                                        '<div class="tab-content">'+
+                                            '<div class="tab-pane fade in active" id="tab1" style="height: 280px;">'+
+                                                '<div class="iw-content" id="summary">' +
+                                                    cleansePara(result.ContextualParagragh1) +
+                                                    cleansePara(result.ContextualParagragh2) +
+                                                    '<table class="popup-table">'+
+                                                        '<tr>'+
+                                                            '<td>Network: </td>'+
+                                                            '<td>'+result.Network+'</td>'+
+                                                        '</tr>'+
+                                                        '<tr>'+
+                                                            '<td>Product: </td>'+
+                                                            '<td>'+result.ServiceCode+'</td>'+
+                                                        '</tr>'+
+                                                        '<tr>'+
+                                                            '<td>Number of Items: </td>'+
+                                                            '<td>'+result.NbrItems+'</td>'+
+                                                        '</tr>'+
+                                                        '<tr>'+
+                                                            '<td>Sender\'s Reference: </td>'+
+                                                            '<td>'+senderRefData+'</td>'+
+                                                        '</tr>'+
+                                                            // conditionally display of LPO and signature
+                                                            CognitionUtil.cardedConsignmentOrSignature(result) +
+                                                            // display the case number if available
+                                                        '<tr>'+
+                                                            '<td>Case Number: </td>'+
+                                                            '<td>'+cleanseText(result.SFCaseNumber) +'</td>'+
+                                                        '</tr>'+
+                                                            // display the live tracking URL
+                                                            CognitionUtil.getLiveTrackingURL(result, isInternalUser) +
+                                                        '</table>'+
+                                                '</div>' +
+                                            '</div>'+
+                                            '<div class="tab-pane fade" id="tab2" style="height: 280px;">'+
+                                                '<div class="iw-content" id="summary">' +
+                                                    '<table class="popup-table">'+
+                                                    '<tr>'+
+                                                        '<td>Sender Name:</td>'+
+                                                        '<td>'+result.SenderName+'</td>'+
+                                                    '</tr>'+
+
+                                                    '<tr>'+
+                                                        '<td>Despatch Date: </td>'+
+                                                        '<td>'+despDateData+'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>References:</td>'+
+                                                        '<td>'+referenceString +'</td>'+
+                                                    '</tr>'+
+
+                                                    '</table>'+
+                                                '</div>' +
+                                            '</div>'+
+                                            '<div class="tab-pane fade" id="tab3" style="height: 280px;">'+
+                                                '<div class="iw-content" id="summary">' +
+                                                    '<table class="popup-table">'+
+                                                    '<tr>'+
+                                                        '<td>Address:</td>'+
+                                                        '<td>'+addressData+'</td>'+
+                                                    '</tr>'+
+                                                    '</table>'+
+                                                '</div>' +
+                                            '</div>'+
+                                            '<div class="tab-pane fade" id="tab4" style="height: 280px;">'+
+                                                '<div class="iw-content" id="summary">' +
+                                                    '<table class="popup-table">'+
+                                                    '<tr>'+
+                                                        '<td>Depot:</td>'+
+                                                        '<td>'+result.Depot+'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>ETA Date:</td>'+
+                                                        '<td>'+etaData+'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Last Event Time:</td>'+
+                                                        '<td>'+result.EventDateTime+'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Event Description:</td>'+
+                                                        '<td>'+result.EventDesc+'</td>'+
+                                                    '</tr>'+
+                                                    '</table>'+
+                                                '</div>' +
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>';
+                        infoWindow.setContent(msg);
+
+                        infoWindow.open(map, marker);
+
+                    }, {
+                        buffer: false,
+                        escape: true,
+                        timeout: 30000
+                    }
+                );
+            }
+
+            var vfHost = "{!LEFT($CurrentPage.URL,FIND('/',$CurrentPage.URL,9))}";
+            sendToLC({
+                'state': 'LOADED',
+                'vfHost': vfHost
+            });
+
+            /**
+             * cleanse the values passed in and format if null or undefined
+             * @param inStr
+             * @returns {string}
+             */
+            function cleanseText(inStr) {
+                if(typeof inStr === 'undefined' || inStr === null ) {
+                    inStr = '-';
+                }
+
+                return inStr;
+            }
+
+            /**
+             * @param string
+             * @returns {string}
+             * cleanse the paragraphs
+             */
+            function cleansePara(inStr) {
+                if(typeof inStr === 'undefined' || inStr === null ) {
+                    return '';
+                }
+
+                return '<p>'+inStr+'</p>';
+            }
+
+        </script>
+        </body>
+
+        </html>
+    </apex:form>
+</apex:page>

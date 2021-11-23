@@ -1,0 +1,263 @@
+.THIS {
+  background: #FFFFFF;
+}
+
+.THIS .inner {
+  /*height: 60px;*/
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.THIS .menu-button {
+  padding: 15px;
+  color: #4D4D54;
+}
+
+.THIS .primary-nav {
+  background-color: #f9f8f7;
+  height: 100%;
+  min-height: 100%;
+  min-width: 80%;
+  outline: 0;
+  overflow-x: hidden;
+  position: relative;
+  width: 80%;
+  z-index: 11;
+}
+
+.THIS .desktop-login.is-open {
+  display: block;
+}
+
+.THIS .desktop-login {
+  display: none;
+  background-color: transparent;
+  bottom: 0;
+  height: auto;
+  left: auto;
+  padding-top: 15px;
+  position: absolute;
+  right: 0;
+  text-align: left;
+  top: 100%;
+  width: 230px;
+  z-index: 12;
+}
+
+.THIS .desktop-login:after {
+  border-color: transparent transparent #fff;
+  border-style: solid;
+  border-width: 0 10px 10px;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 0;
+  left: 80%;
+  position: absolute;
+  transform: translate(-50%);
+  width: 0;
+  z-index: 10;
+}
+
+.THIS .desktop-login-inner {
+  border-radius: 3px;
+  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, .3);
+  height: auto;
+  overflow: auto;
+}
+
+.THIS .desktop-login-links {
+  color: #382f2d;
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 34px;
+  padding: 0 16px;
+  text-decoration: none;
+  position: relative;
+}
+
+.THIS a.desktop-login-links:hover,
+.THIS a.desktop-login-links:focus {
+  color: #fff !important;
+  background-color: #dc1928;
+  border-radius: 3px;
+}
+
+.THIS .desktop-account {
+  background-color: white;
+  border-bottom: .5px solid #e2dfda;
+  padding: 24px 16px;
+}
+
+.THIS .desktop-products {
+  background-color: #f9f8f7;
+  padding: 24px 16px;
+}
+
+.THIS .desktop-nav .login {
+  color: #dc1928;
+}
+
+.THIS .close-button {
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  min-height: 100%;
+  opacity: .75;
+  position: relative;
+  width: 100%;
+}
+
+.THIS .is-active .close-button {
+  background-color: #000;
+  transition: background-color .5s linear;
+  transition-delay: .3s;
+}
+
+.THIS .close-button .slds-button__icon {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+}
+
+.THIS .desktop-nav {
+  flex: 1;
+}
+
+.THIS .desktop-nav li {
+  position: relative;
+}
+
+.THIS .outer-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.THIS .nav-links {
+  display: block;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 10px;
+  /*color: white;*/
+  color: #4D4D54;
+  border-radius: 3px;
+  font-size: 12px;
+  /*text-decoration: none;*/
+}
+
+.THIS .nav-links .slds-icon_container {
+  margin-right: 4px;
+}
+
+.THIS .nav-links:hover,
+.THIS .nav-links:focus,
+.THIS .nav-links:active {
+  /*background: #535f67;*/
+}
+
+.THIS a.nav-links:hover>span {
+
+  text-decoration-color: #4D4D54;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+}
+
+.THIS .desktop-nav .slds-icon {
+  margin-right: 5px;
+}
+
+.THIS .desktop-nav .chevron.slds-icon {
+  margin-right: 0;
+  margin-left: 5px;
+  height: 0.5rem;
+  width: 0.5rem;
+  transform: rotate(90deg);
+}
+
+.THIS .hide-small {
+  display: none;
+}
+
+.THIS .hide-large {
+  display: block;
+}
+
+.THIS a span {
+  pointer-events: none;
+  display: inline-block;
+}
+
+.THIS a:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.THIS .nav-links:focus:after {
+  border: 1px dotted currentColor;
+  border-radius: 3px;
+  content: "";
+  display: block;
+  height: calc(100% - 2px);
+  left: 1px;
+  pointer-events: none;
+  position: absolute;
+  top: 1px;
+  width: calc(100% - 2px);
+}
+
+.THIS .slds-button:focus:after {
+  border: 1px dotted currentColor;
+  border-radius: 3px;
+  content: "";
+  display: block;
+  height: calc(100% - 10px);
+  left: 5px;
+  pointer-events: none;
+  position: absolute;
+  top: 5px;
+  width: calc(100% - 10px);
+}
+
+/*********************************************************
+ * Logo Container Style
+ *********************************************************/
+.THIS .custom-logo-container {
+  flex-grow: 2;
+  flex-basis: 0;
+  display: flex;
+}
+
+.THIS .custom-logo {
+  padding-right: 1rem;
+}
+
+/*********************************************************
+ * Media Style Declarations
+ *********************************************************/
+@media (min-width: 480px) {
+  .THIS .primary-nav {
+    min-width: 350px;
+    width: 350px;
+  }
+
+  .THIS .custom-logo {
+    padding-right: .5rem;
+  }
+}
+
+@media (min-width: 680px) {
+
+  .THIS .hide-small {
+    display: block;
+  }
+
+  .THIS .hide-large,
+  .THIS .mobile-nav {
+    display: none;
+  }
+}

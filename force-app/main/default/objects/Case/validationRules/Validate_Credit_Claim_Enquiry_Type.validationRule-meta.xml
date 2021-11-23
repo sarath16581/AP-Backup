@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_Credit_Claim_Enquiry_Type</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF(AND(
+      OR(ISPICKVAL(Enquiry_Type__c, &apos;Copy of Connote&apos;),
+      ISPICKVAL(Enquiry_Type__c, &apos;Copy of POD&apos;)),
+      ISBLANK(Connote_number__c)),
+      true, false)</errorConditionFormula>
+    <errorDisplayField>Connote_number__c</errorDisplayField>
+    <errorMessage>Connote # cannot be blank when Case Type is set to &apos;Copy of Connote&apos; or &apos;Copy of POD&apos;.</errorMessage>
+</ValidationRule>

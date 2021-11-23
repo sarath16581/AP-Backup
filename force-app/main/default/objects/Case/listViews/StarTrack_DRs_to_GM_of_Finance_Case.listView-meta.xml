@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_DRs_to_GM_of_Finance_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>DRs to GM of Finance</label>
+    <queue>StarTrack_DRs_to_GM_of_Finance</queue>
+    <sharedTo>
+        <group>SystemAdmin</group>
+    </sharedTo>
+</ListView>

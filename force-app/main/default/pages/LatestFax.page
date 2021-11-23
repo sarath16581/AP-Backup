@@ -1,0 +1,7 @@
+<apex:page standardController="Fax__c" extensions="LatestFaxExt" action="{!reLoad}">
+<apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+<apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+<apex:stylesheet value="{!$Resource.SSSWCSS}" />
+<br/>
+<apex:messages styleClass="alert alert-danger"/>
+</apex:page>

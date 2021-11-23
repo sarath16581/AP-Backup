@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>SFDC_Blank</letterhead>
+    <name>CME eParcel Onboarding Case In Progress</name>
+    <style>freeForm</style>
+    <subject>Case {!Case.CaseNumber} - {!Case.Subject} - In Progress</subject>
+    <textOnly>Dear Colleague,
+
+Your eParcel Onboarding case can now be actioned.
+
+Case Number: {!Case.CaseNumber}
+
+Subject: {!Case.Subject}
+
+Case Description: {!Case.Description}
+
+Please don’t respond to this notification via reply e-mail.
+
+You can track the progress of your case, make further comments and add relevant attachments online by following the link below.
+
+{!Case.Link} or entering your case number into the search engine on the front page of SalesForce.com.
+
+Regards
+
+Contract Management Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

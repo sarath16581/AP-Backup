@@ -1,0 +1,19 @@
+/*
+    2020-09-21 - Ranjeewa Silva - Created
+*/
+.container {
+    align-self:flex-start;
+    width:100%;
+}
+
+.slds-truncate {
+    white-space: normal;
+}
+
+.notbold {
+    font-weight: normal !important;
+}
+
+.iconDiv {
+     align-items: flex-start;
+}

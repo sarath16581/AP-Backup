@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Current_rates_reqd_on_Domestic_for_Exist</fullName>
+    <active>true</active>
+    <description>Current rates are required on a Domestic Deal Support Request for Existing Customer (Opp, BAR or Org)</description>
+    <errorConditionFormula>(RecordType.DeveloperName = &apos;Pricing_Request_Domestic_Parcels&apos; &amp;&amp; 
+(ISPICKVAL( Request_type__c , &apos;Opportunity&apos;) &amp;&amp;  Opportunity_Type__c = &apos;Existing Customer&apos;)) &amp;&amp;
+ ISBLANK( Current_Rates__c  )</errorConditionFormula>
+    <errorDisplayField>Current_Rates__c</errorDisplayField>
+    <errorMessage>A Domestic Request on an Opportunity for an Existing Customer must have Current Rates included</errorMessage>
+</ValidationRule>

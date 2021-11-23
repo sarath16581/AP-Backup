@@ -1,0 +1,1060 @@
+<!--
+        @Author      :
+        @Date        :
+        @Description :  Visualforce page to display case details and allow users to make updates to case
+        history 
+        kalpita.talwadekar@aupost.com.au updated code for pop-up handing
+        kalpita.talwadekar@aupost.com.au updated code for edd details display
+        dion.gunn@auspost.com.au        Modifications to display MLS Remediation Address fields
+        nanda.kothamasu@auspost.com.au (NK)     Modified code to capture ProductSubCategory__c data in hidden field to lookup EnquirySubType_c drop down list.
+                                                This fix is done based on Incidents (INC0929902, INC0874076, & INC0843700)
+        nanda.kothamasu@auspost.com.au (NK)     Stop unnecessart reload of the page after selecting dependent drop down list values (INC0952078)
+        06/22/17 angelo.rivera@auspost.com.au - added Javascript for riverbed - Resource.Web_Analyser
+        2017-09-25 nathan.franklin@auspost.com.au - Added script loader and general formatting changes
+        06.11.2017 kalpita.talwadekar@auspost.com.au    updated refreshCurrentTab for no tab re-open but just refresh the current case tab.
+        09-04-2018 nanda.kothamasu@auspost.com.au      Commented "Delivery Date Details" section as per REQ1386788
+        07-09-2018 saiswetha.pingali@auspost.com.au Added new function 'SetPortalDetails' to set the sender and receiver address for portal cases as per requirement from REQ1535433
+        2017-09-20 nathan.franklin@auspost.com.au Added a new event that fires after Case Details is saved for catching changes to the record for CTI functionality.
+        2018-10-22 swati.mogadala@auspost.com.au Changed Description label to 'Message to Network' as per REQ1561758
+        2018-10-22 disha.kariya@auspost.com.au Moved showErrorDialog() inside form tag to display error message when agent is part of the queue when reassigning.
+        2020-05-22 dheeraj.mandavilli@auspost.com.au Invoking the checkduplicates and generatetatchments from seperate action functions.
+        2020-06-19 dheeraj.mandavilli@auspost.com.au Removed generateattatchments method from Case details page and kept in Faxtrigger
+    -->
+    <apex:page standardController="Case" extensions="CaseDetailsCaseContExt,TIBCOArticleComponentCont"
+               id="pageId" standardStylesheets="true" action="{!initializePage}" >
+        <apex:form >
+            <apex:actionFunction name="checkDuplicates" action="{!checkDuplicates}" rerender="popup"/>
+        </apex:form>
+
+        <script>
+            j$(window).load(function() {
+
+                if(!window.loadedInitComplete) {
+                    window.loadedInitComplete = true;
+
+                    // kick it off
+                    checkDuplicates();
+                }
+            });
+        </script>
+
+
+        <c:ScriptLoader jsLibraries="jquery,jqueryui,jquery.json,ssswconsole,interaction,integration,bootstrap,webanalyser"
+                        cssLibraries="jqueryui,bootstrap,ssswconsole"/>
+
+        <apex:stylesheet value="{!URLFOR($Resource.AddressValidation, '/AddressValidationScript/AddressValidationStylesheet.css')}"/>
+
+        <apex:includeScript value="/canvas/sdk/js/publisher.js"/>
+
+
+        <style>
+
+
+            #error-dialog {
+                border: 1px solid #b81414;
+                background-color: #edfff1;
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+                border-radius: 5px;
+                padding: 10px;
+                margin: 10px 0;
+                line-height: 16px;
+            }
+            .ui-dialog-titlebar {
+                background: #F8F8F8;
+                border-color: #F8F8F8;
+            }
+
+            .ui-dialog-buttonpane {
+                border-color: white;
+            }
+
+            .myDialogClass {
+                background: white;
+            }
+
+            .ui-dialog {
+                font-family: sans-serif;
+            }
+
+            .ui-dialog-titlebar-close {
+                visibility: hidden;
+            }
+
+            .hide {display:none;}
+
+            .error-msg-content {
+                margin-left: 36px;
+            }
+            .error-msg-title {
+                font-size: 14px;
+                font-weight: bold;
+                color: #b81414;
+            }
+            .error-msg-text {
+                font-size: 12px;
+                font-weight: normal;
+                color: #b81414;
+            }
+            .customPopup{
+                background-color: white;
+                border-style: solid;
+                border-width: 2px;
+                left: 50%;
+                padding:10px;
+                position: absolute;
+                z-index: 9999;
+                width: 250px;
+                margin-left: -100px;
+                top:100px;
+            }
+            .popupBackground{
+                background-color:black;
+                opacity: 0.20;
+                filter: alpha(opacity = 20);
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                z-index: 9998;
+            }
+
+            .mlsTextFields {
+                height: 100px;
+            }
+            .mlsFieldAlignment {
+                float: right;
+            }
+
+
+        </style>
+
+        <!--  Hidden field --> <input type="hidden" id="hfPSC" autocomplete="off"/>
+        <!-- NK added (4th): Added this field to capture Product Sub Category data. This is updated when every any change in the Product Sub Category data. -->
+
+        <apex:form id="formId">
+            <apex:inputhidden id="hfSectionsDisplayOnLoad" value="{!sectionsDisplayOnLoad}"/>
+
+            <!-- added by kalpita for duplicate enquiries -->
+            <apex:outputPanel layout="block" id="popup">
+                <apex:outputPanel styleclass="popupBackground" layout="block" rendered="{!showpopup}" />
+
+                <apex:outputPanel styleClass="customPopup" layout="block" rendered="{!showpopup}">
+                    <center>
+                        An open case for this reference ID already exists, update or resolve the existing case. Do not
+                        create a duplicate case
+                        <br/><br/>
+                        <!--apex:commandButton action="{!}" value="Continue" reRender="popup"/-->
+                        <apex:commandButton id="btnCreateCase" value="OK" onclick="closePopup()"
+                                            action="{!closePopup}" rerender="popup"/>&nbsp;&nbsp;&nbsp;
+                    </center>
+                </apex:outputPanel>
+            </apex:outputPanel>
+            <!-- end of added by kalpita -->
+
+            <apex:outputPanel layout="block" styleClass="hide" id="pnlClientSideMessage">
+                <apex:pagemessage severity="error" strength="3" summary="There is an error"/>
+            </apex:outputPanel>
+            <apex:outputPanel id="pnlMessages">
+                <apex:messages styleClass="{!IF(warnings,'alert alert-info','alert alert-danger')}"/>
+                <apex:actionfunction action="{!checkValidation}" name="checkValidation" rerender="pnlMessages"
+                                     immediate="true"/>
+            </apex:outputPanel>
+            <div class="page-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2">
+                            <apex:image value="{!URLFOR($Resource.SSSWIcons, 'Lock.png')}" height="30px"
+                                        rendered="{!Case.Permanent_Close__c}"
+                                        alt="This Case has been Permenatley Closed. No Status Changes can be made."/>
+                            <input style="height:30px; width:17%;display:none" id="btnExpand"
+                                   class="btn detail" onclick="expandToPrimaryTab();" type="button" value="Expand"/>
+                            &nbsp;
+                            <apex:commandButton style="height:30px; width:15%" rendered="{!Case.recordtype.developername == 'SSSWFax'}"
+                                                styleClass="btn detail" onclick="SetTabSavedChanges();setInactive(this, 'Saving...');"
+                                                value="Save" action="{!save}" oncomplete="showInfoDialog();closePrimaryTab();setActive(this, 'Save'); return false;"
+                                                rerender="formId" id="savebtnFax"/>
+
+                            <apex:commandButton style="height:30px; width:15%" rendered="{!Case.recordtype.developername != 'SSSWFax'}"
+                                                styleClass="btn detail" onclick="SetTabSavedChanges();setInactive(this, 'Saving...');"
+                                                value="Save" action="{!save}" oncomplete="showInfoDialog();RefreshPrimaryTabById();setActive(this,'Save'); return false;"
+                                                rerender="formId" id="savebtn"/>
+                            &nbsp;
+                            <apex:commandButton style="height:30px; width:25%" styleClass="btn detail" onclick="SetTabSavedChanges();setInactive(this, 'Closing...');"
+                                                value="Close Case" action="{!close}" rerender="formId" oncomplete="showInfoDialog();RefreshPrimaryTabById();setActive(this, 'Close Case'); return false;"/>
+                            &nbsp;
+                            <apex:commandButton style="height:30px; width:17%" styleClass="btn detail" value="Cancel" rerender="formId" oncomplete="RefreshTab(); return false;"/>
+                            &nbsp;
+                            <apex:commandButton style="height:30px; width:17%" styleClass="btn detail" value="Clone" onclick="setInactive(this, 'Cloning...');openAClonedTab(this); return false;" oncomplete="return false;"/>
+
+                            &nbsp;         <!-- Reassign button for manual routing -->
+                            <apex:commandButton style="height:30px; width:17%" action="{!assignCase}" onclick="setInactive(this, 'Reassigning...');" oncomplete="showErrorDialog();" styleClass="btn detail" value="Reassign" rerender="formId" disabled="{!isChildCase}"/>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <apex:inputfield value="{!myCase.Type_and_Product__c}" styleClass="picklistSynch_Type_and_Product__c hide"/>
+            <input type="hidden" id="hfRecordTypeId"/>
+            <c:LoadingSpinnerComponent showFunctionName="caseDetailsShowProgress" hideFunctionName="caseDetailsHideProgress"
+                                       topMargin="10%"/>
+            <apex:actionfunction name="dummyRefresh" immediate="true" rerender="formId"
+                                 oncomplete="caseDetailsHideProgress();setJoinPicklist();"/>
+            <apex:actionfunction name="reloadPicklists" action="{!reloadPicklists}" rerender="formId" immediate="true"
+                                 oncomplete="caseDetailsShowProgress();dummyRefresh();">
+                <apex:param name="recordTypeId" assignTo="{!myCase.recordTypeId}" value=""/>
+                <apex:param name="type" assignTo="{!myCase.Type}" value=""/>
+                <apex:param name="productCategory" assignTo="{!myCase.ProductCategory__c}" value=""/>
+                <apex:param name="productsubCategory" assignTo="{!myCase.ProductSubCategory__c}" value=""/>
+            </apex:actionfunction>
+
+            <div id="saved-dialog" class="hide">
+                <img src="/img/msg_icons/confirm24.png" class="saved-img"/>
+                <div class="saved-msg-content">
+                    <div class="saved-msg-title">Success!</div>
+                    <div class="saved-msg-text">Record has been successfully
+                        updated.
+                    </div>
+                </div>
+            </div>
+
+            <!-- error dialog for reassign button -->
+            <div id="error-dialog" class="hide">
+                <apex:outputPanel rendered="{!(isAssign && sameOwner)}">
+                    <img src="/img/msg_icons/error16.png" class="saved-img"/>
+                    <div class="error-msg-content">
+                        <div class="error-msg-title">Error!</div>
+                        <div class="error-msg-text">The case has not been reassigned as you are member of the
+                            queue {!assignedQueueName}.
+                        </div>
+                        <div class="error-msg-text">Refer to Knowledge for information on how to manage this case, or ask a
+                            manager for assistance
+                        </div>
+                    </div>
+                </apex:outputPanel>
+            </div>
+
+            <input id="dummyToAvoidLoadingDatepicker" style="margin-left:-500px;width:1px" autofocus="true"/>
+
+            <apex:repeat value="{!SectionDetails}" var="fm">
+                <div style="{!IF(fm.isDynamicDisplay, 'display:none', 'display:block')}" class="{!IF(fm.isDynamicDisplay, fm.groupTag + '-dynamicDisplaySection', 'houdini-G')}" id="{!fm.groupTag}:{!fm.myLabel}-block">
+                    <div class="{!IF(fm=='HIDDEN','hide','none')} caseDrawerHeader" onmouseover="this.className='caseDrawerHeaderActive'"
+                         onmouseout="this.className='caseDrawerHeader'" onclick="toggleSection('{!fm.groupTag+fm.indexAsString+fm.myLabel}')">
+
+                        <div class="caseDrawerIcon cdExpandedIcon" id="{!fm.groupTag+fm.indexAsString+fm.myLabel}-icon"></div>
+
+                        <div style="float:left;">
+                            <h>{!fm.myLabel}</h>
+                            <a href="#" onclick="setBSPDetails('Sender','{!fm.groupTag+fm.indexAsString+fm.myLabel}');" style="padding-left:10px;display:{!IF(fm.myLabel = 'BSP' || fm.myLabel = 'MyPost Business', 'inline-block', 'none')}">Set Sender</a>&nbsp;&nbsp;&nbsp;
+                            <a href="#" onclick="setPortalDetails('Sender','{!fm.groupTag+fm.indexAsString+fm.myLabel}');" style="padding-left:10px;display:{!IF(fm.myLabel = 'Portal', 'inline-block', 'none')}">Set Sender</a>&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <a href="#" onclick="copyFromContact('{!fm.myLabel}','{!fm.groupTag+fm.indexAsString+fm.myLabel}');activateSave();" style="float:right;padding-right:10px;display:{!IF(fm.myLabel = 'Sender/Redirection From' || fm.myLabel = 'Addressee/Redirection To', 'block', 'none')}">Copy from Contact</a>&nbsp;&nbsp;&nbsp;
+                        <a href="#" onclick="setBSPDetails('Addressee','{!fm.groupTag+fm.indexAsString+fm.myLabel}');" style="float:right;padding-right:10px;display:{!IF(fm.myLabel = 'BSP' || fm.myLabel = 'MyPost Business', 'block', 'none')}">Set Addressee</a>
+                        <a href="#" onclick="setPortalDetails('Addressee','{!fm.groupTag+fm.indexAsString+fm.myLabel}');" style="float:right;padding-right:10px;display:{!IF(fm.myLabel = 'Portal', 'block', 'none')}">Set Addressee</a>
+                    </div>
+                    <div id="{!fm.groupTag+fm.indexAsString+fm.myLabel}">
+                        <apex:repeat value="{!fm.fieldDetails}" var="f">
+                            <div class="case-field-float" id="{!f.myName}">
+                                <apex:outputLabel value="{!IF(f.myLabel="Description","Message to Network",f.myLabel)}"
+                                                  styleClass="{!IF(f.required," required","")}"/>
+                                <br/>
+                                <span class="{!IF(CONTAINS(LOWER(f.myType), 'datetime'),'',LOWER(f.myType))} ">
+                                    <apex:inputField value="{!myCase[f.myName]}" styleClass="form-control input-sm detail  {!IF(AND(CONTAINS(f.myName,'Address'),AND(NOT(CONTAINS(f.myName,'Email')),NOT(CONTAINS(f.myName,'Postcode')))),'addressValidation',IF(CONTAINS(f.myName, 'Postcode'), 'postcodeAutocomplete', ''))} {!IF(OR(f.myName == 'Type', f.myName == 'ProductCategory__c', f.myName == 'EnquirySubType__c', f.myName == 'ProductSubCategory__c'), 'remediationField_' + f.myName, '')} {!f.myType} {!f.myName} picklistSynch_{!f.myName}"
+                                                     onKeyDown="SetTabUnsavedChanges();" ondblclick="{!IF(LOWER(f.myType)='url','linkClicked(this)', IF(LOWER(f.myType)='reference','referenceDblClicked(this, \"' + myCase[f.myName] + '\")',''))}"
+                                                     style="{!IF(AND(NOT(myCase[f.myName]=''), LOWER(f.myType)='reference'), 'text-decoration:underline;cursor:pointer;', '')}" onchange="toggleRemediationSection();activateSave();synchFieldValues(this, '{!f.myName}');SetTabUnsavedChanges();{!IF(f.isDynamicDisplay,'showDynamicSection(\"' + f.groupTag + '\",this);', '')}"
+                                                     rendered="{!f.isEditable}" required="{!f.required}"/>
+                            </span>
+                                <apex:inputField value="{!myCase[f.myName]}" rendered="{!(Not(f.isEditable) && LOWER(f.myType)=='boolean')}" onchange="activateSave();"/>
+                                <apex:outputText styleClass="form-control input-sm detail {!LOWER(f.myType)}" rendered="{!(NOT(f.isEditable) && LOWER(f.myType) != 'boolean')}" value="{!myCase[f.myName]}" escape="{!IF(LOWER(f.myType)=='string','false','true')}"/>
+                            </div>
+                        </apex:repeat>
+                    </div>
+                </div>
+            </apex:repeat>
+            <script>
+                //Moved showErrorDialog() inside form tag to display error message when agent is part of the queue when reassigning.
+                function showErrorDialog() {
+                    console.log('SameOwner--->'+{!sameOwner});
+                    console.log('isAssign--->'+{!isAssign});
+                    if({!sameOwner}) {
+                        var element1 = document.getElementById('error-dialog');
+                        element1.className = "show";
+                    }
+                    else {
+                        RefreshPrimaryTabById();
+                    }
+
+                }                
+
+                function showInfoDialog() {
+                    if({!itemHeld}) {
+                        alert('{!$Label.SSSW_Item_Held_Message}');
+                    }
+                }
+            </script>
+            <!--Commented below code block as per REQ1386788 - Nanda Kothamasu
+                 edd details added by kalpita
+                 <apex:outputPanel rendered="{!showEDDSec }" id="eddSec">
+                     <div style="display:block"
+                          class="fm.groupTag"
+                          id="block">
+                         <div class="caseDrawerHeader" onmouseover="this.className='caseDrawerHeaderActive'" onmouseout="this.className='caseDrawerHeader'">
+                   -- div class="caseDrawerIcon cdExpandedIcon" id="edd2"/ --
+                             <div style="float:left;">
+                                 <h>Delivery Date Details</h>
+                             </div>
+                         </div>
+                         <div id="eddDetails">
+                             <apex:panelGrid columns="1" width="100%" id="pGrid">
+
+                                 <apex:outputPanel id="pnlED1D" layout="block">
+                                     <table width="100%">
+                                         <tr valign="middle">
+                                             <td><apex:outputlabel value="Sender Postcode"/></td>
+                                             <td><apex:inputText value="{!senderCode}" styleClass="form-control input-sm detail"/></td>
+                                         </tr>
+                                         <tr valign="middle">
+                                             <td><apex:outputlabel value="Receiver Postcode"/></td>
+                                             <td><apex:inputText value="{!receiverCode}" styleClass="form-control input-sm detail"/></td>
+                                         </tr>
+                                         <tr valign="middle">
+                                             <td><apex:outputlabel value="Lodgement Date"/></td>
+                                             <td><apex:inputField value="{!eddCase.DatePosted__c}" styleClass="form-control input-sm detail" onchange="activateSave();" /></td>
+                                         </tr>
+                                     </table>
+                                 </apex:outputPanel>
+                                 --apex:outputPanel rendered="{!hasEDD}"--
+                                 --<apex:outputlabel for="pnlEDD" value="Estimated Delivery Date" id="second"/>--<br/>
+                                 <apex:outputPanel layout="block" styleclass="rowwrapperDetails">
+                                     <label for="txtExpectedDeliveryDate">Dynamic Estimated Delivery Date</label>
+                                     <span id="txtExpectedDeliveryDate">
+                                         <apex:outputPanel rendered="{!IF(boundArticle.proxyArticle.ExpectedDeliveryDate__c != null, true, false)}">
+                                             <apex:outputtext value="{0,date,dd'/'MM'/'yyyy}">
+                                                 <apex:param value="{!boundArticle.proxyArticle.ExpectedDeliveryDate__c}"/>
+                                             </apex:outputtext>  &nbsp;&nbsp;
+                                             <img src="/img/msg_icons/{!boundArticle.eddImageIconName}" id="img"/>
+                                         </apex:outputPanel>
+                                         <apex:outputPanel rendered="{!IF(boundArticle.proxyArticle.ExpectedDeliveryDate__c != null, false, true)}">
+                                             <i><a href="#" onclick="{!id}_eddTibcoLoad();">calculate...</a></i>
+                                         </apex:outputPanel>
+                                     </span>
+                                 </apex:outputPanel>
+                                 <br/>
+                                 <apex:outputPanel id="pnlEDD" layout="block">
+                                     <table width="45%">
+                                         <tr valign="middle">
+                                             <td><apex:outputlabel value="Estimated Delivery Date" /></td>
+                                             <td>
+                                                 <apex:outputlabel value="{!dateString}" style="margin-left:30px;"/> &nbsp;&nbsp;
+                                                 <apex:commandLink value="Calculate" action="{!doCalculate}" reRender="eddSec" status="loading"/>
+                                             </td>
+                                         </tr>
+                                     </table>
+                                     <center>
+                                         <apex:actionStatus id="loading" startText="Calculating...."></apex:actionStatus>
+                                     </center>
+                                     --/apex:outputPanel--
+                                 </apex:outputPanel>
+                                 <br/>
+                                 <apex:outputPanel >
+                                     <apex:outputPanel id="first">
+                                         <apex:outputPanel rendered="{!missingItemLodged}">
+                                             <apex:outputlabel for="pnlEDD2" value="A missing item case can be logged for the sender" />
+                                             <apex:outputPanel id="pnlEDD2" layout="block">
+                                                 <table>
+                                                     <tr valign="middle">
+                                                         <td>&nbsp;&nbsp;<img src="{!URLFOR($Resource.EDDWidgetImages,'images/01.png')}" id="img"/></td>
+                                                     </tr>
+                                                 </table>
+                                             </apex:outputPanel>
+                                         </apex:outputPanel>
+
+                                         <apex:outputPanel rendered="{!missingItemLodgedOnAfter}">
+                                             <apex:outputlabel for="pnlEDD3" value="A missing item case can be logged on or after " />
+                                             <apex:outputPanel id="pnlEDD3" layout="block">
+                                                 <table>
+                                                     <tr valign="middle">
+                                                         <td>
+                                                             <apex:outputText value="{0,date,dd/MM/yy}">
+                                                                 <apex:param value="{!onAfterDate}"/>
+                                                             </apex:outputText>
+                                                         </td>
+                                                         <td>&nbsp;&nbsp;<img src="{!URLFOR($Resource.EDDWidgetImages,'images/02.png')}" id="img"/></td>
+                                                     </tr>
+                                                 </table>
+                                             </apex:outputPanel>
+                                         </apex:outputPanel>
+
+                                         <apex:outputPanel rendered="{!infoRequired}">
+                                             <apex:outputlabel for="pnlEDD4" value="Fill in all details to see the estimated delivery date" />
+                                             <apex:outputPanel id="pnlEDD4" layout="block">
+                                                 <table>
+                                                     <tr valign="middle">
+                                                         <td>&nbsp;&nbsp;<img src="{!URLFOR($Resource.EDDWidgetImages,'images/03.png')}" id="img"/></td>
+                                                     </tr>
+                                                 </table>
+                                             </apex:outputPanel>
+                                         </apex:outputPanel>
+
+                                         <apex:outputPanel rendered="{!missingItemDelayed}">
+                                             <apex:outputlabel for="pnlEDD5" value="This item has been delayed, see tracking scans for more info"/>
+                                             <apex:outputPanel id="pnlEDD5" layout="block">
+                                                 <table>
+                                                     <tr valign="middle">
+                                                          -- td>{!dateString}</td --
+                                                         <td>&nbsp;&nbsp;<img src="{!URLFOR($Resource.EDDWidgetImages,'images/03.png')}" id="img"/></td>
+                                                     </tr>
+                                                 </table>
+                                             </apex:outputPanel>
+                                         </apex:outputPanel>
+                                     </apex:outputPanel>
+                                 </apex:outputPanel>
+
+                                 <apex:outputlabel />
+
+                             </apex:panelGrid>
+                         </div>
+                     </div>
+                 </apex:outputPanel>
+         Commented this code block as per REQ1386788 - Nanda Kothamasu
+         -->
+
+            <c:PostcodeSuburbLookup className="postcodeAutocomplete" display="postcode"/>
+            <c:AddressValidation onselect="CaseAddressComponentExternalSelect_{!id}"/>
+            <c:CaseAddressComponent currentCase="{!myCase}" onkeydown="SetTabUnsavedChanges"
+                                    onExternalSelect="CaseAddressComponentExternalSelect_{!id}"
+                                    externalClear="externalClear_{!id}"
+                                    relArticle="{!relatedArticle}"
+                                    copyFromContact="CaseAddressComponentCopyFromContact_{!id}"
+                                    senderSingleLineAddressFieldName="Address1__c"
+                                    addresseeSingleLineAddressFieldName="Address2__c"
+                                    addresseeSectionName="Addressee/Redirection To"
+                                    mlsFieldName="mls_Address__c"
+                                    mlsSectionName="Suggested Address Correction"
+                                    remediationAvailable="{!remediationAvailable}"
+                                    senderSectionName="Sender/Redirection From"/>
+
+        </apex:form>
+
+
+        <script type="text/javascript">
+
+
+            var j$ = jQuery.noConflict();
+            j$(document).ready(function() {
+                initButtons();
+                //Dion Gunn - 30-03-2017 - Adding on change event to clearview codes as something is removing them when set in the repeat tags above.
+                //This is to support remediation functionality.
+                j$( "#EnquirySubType__c select" ).on("change",toggleRemediationSection);
+                j$( "#ProductSubCategory__c select" ).on("change",toggleRemediationSection);
+                j$( ".picklistSynch_Type" ).on("change",toggleRemediationSection);
+                j$( ".picklistSynch_ProductCategory__c" ).on("change",toggleRemediationSection);
+
+                //Clear the Remediation Address fields if the single line address is manually changed (i.e not via QAS).
+                var elem = j$(".mls_Address__c");
+                console.warn(elem);
+                // Save current value of element
+                elem.data('oldVal', elem.val());
+
+                // Look for changes in the value
+                elem.on("click keyup input paste", function(event){
+                    // If value has changed...
+                    if (elem.data('oldVal') != elem.val()) {
+                        //console.warn('Value has changed from ' + elem.data('oldVal') + 'to ' + elem.val());
+                        // Updated stored value
+                        elem.data('oldVal', elem.val());
+                        // Call external clear to wipe the fields.
+                        externalClear_{!id}(elem.get(0));
+                    }
+                });
+            });
+
+            /*function checkDuplicates() {
+
+                <!--var caseId = '{!caseId}';-->
+                CaseDetailsCaseContExt.checkDuplicates(caseId,function(result,event){
+                    window.console&&console.log(result);
+                    if(event.status && result != '') {
+                        checkDuplicates();
+                    }
+                });
+            }*/
+
+            function initButtons() {
+                j$("[id*='savebtn']")
+                    .prop('disabled', true);
+                j$("[id*='savebtnFax']")
+                    .prop('disabled', true);
+            }
+
+            j$(function() {
+                var articleID = '{!myCase.ArticleTest__c}';
+                if(articleID.trim() != '')
+                {
+                    sforce.console.getEnclosingPrimaryTabObjectId(function(er){
+                        if(er.id == '{!id}'){
+                            sforce.console.getEnclosingPrimaryTabId(function(result) {
+                                sforce.console.openSubtab(result.id, '/' + articleID.trim(), false, '{!myCase.articleTest__r.Name}', null, function(subresult){
+                                    window.console&&console.log('=============== subtab id: ' + subresult.id);
+                                    sforce.console.setTabIcon('/img/icon/stamp16.png', subresult.id);
+                                },'');
+                            });
+                        }
+                    });
+                }
+
+                /*Clears the email builder - Prevents Facility and Customer Email crossover */
+                Sfdc.canvas.publisher.publish(
+                    {
+                        name:"publisher.setActionInputValues",
+                        payload:
+                            {
+                                actionName:"Case.Email",
+                                emailFields:
+                                    {
+                                        to:{value:"{!Case.Contact.Email}"}
+                                        //subject:{value:""},
+                                        //body:{value:""}
+                                    }
+                            }
+                    }
+                );
+                Sfdc.canvas.publisher.publish({name:'publisher.selectAction',payload:{actionName:'Case.CaseDetails'}});
+            });
+
+            var $successDialog = j$('<div></div>')
+                .html('You will lose any unsaved changes. Are you sure you want to continue?')
+                .dialog({
+                    autoOpen: false,
+                    title: 'Unsaved Changes',
+                    width: 500,
+                    height: 150,
+                    modal: true,
+                    resizable: true,
+                    dialogClass: "myDialogClass",
+                    position: { my: "center top", at: "center top", of: window },
+                    buttons: [
+                        {
+                            tabIndex: -1,
+                            text: 'Continue',
+                            click: function() {
+                                j$(this).dialog( "close" );
+                                cleanAndCloseTab();
+                            }
+                        },
+                        {
+                            tabIndex: -1,
+                            text: 'Cancel',
+                            click: function() {
+                                j$(this).dialog( "close" );
+                            }
+                        }
+                    ]
+                });
+            var $errorDialog = j$('<div></div>')
+                .html('There has been an issue while trying to update the record. Please refresh the browser and try again.')
+                .dialog({
+                    autoOpen: false,
+                    title: 'Message:',
+                    resizable: false,
+                    width: 200,
+                    height: 150,
+                    autoResize: true,
+                    modal: true,
+                    dialogClass: "myDialogClass",
+                    position: { my: "center top", at: "center top", of: window },
+                    buttons: [
+                        {
+                            tabIndex: -1,
+                            text: 'Close',
+                            click: function() {
+                                j$(this).dialog( "close" );
+                            }
+                        }
+                    ]
+                });
+
+            function SetTabSavedChanges() {
+                sforce.console.getFocusedSubtabId(setTabClean);
+            };
+
+            function SetTabUnsavedChanges() {
+                sforce.console.getFocusedSubtabId(setTabDirty);
+            };
+
+            function setTabClean(result) {
+                sforce.console.setTabUnsavedChanges(false, displayResult, result.id);
+            };
+
+            function setTabCleanAndClose(result) {
+                sforce.console.setTabUnsavedChanges(false, closeOnSuccess, result.id);
+            };
+
+            function setTabDirty(result) {
+                sforce.console.setTabUnsavedChanges(true, displayResult, result.id);
+            };
+
+            function closeOnSuccess(result) {
+                if (result.success) {
+                    window.console&&console.log('Tab status has been successfully updated');
+                    //sforce.console.getFocusedSubtabId(showTabId);
+                    refreshCurrentTab();
+                } else {
+                    window.console&&console.log('Tab status couldn?t be updated');
+                }
+            };
+
+            function displayResult(result) {
+                if (result.success) {
+                    window.console&&console.log('Tab status has been successfully updated');
+                } else {
+                    window.console&&console.log('Tab status couldn?t be updated');
+                }
+            };
+
+            function RefreshTab() {
+                window.console&&console.log('inside refresh tab');
+                var isError = document.getElementsByClassName('alert alert-danger');
+                window.console&&console.log(isError);
+                if(isError.length==0) {
+                    $successDialog.dialog('open');
+                    j$('.ui-dialog :button').blur();
+                } else {
+                    $errorDialog.dialog('open');
+                }
+            }
+
+            function setInactive(el, msg){
+                j$(el).val(msg);
+                j$(el).attr("disabled", "disabled");
+            }
+
+            function activateSave(){
+                j$("[id*='savebtn']")
+                    .prop('disabled', false);
+                j$("[id*='savebtnFax']")
+                    .prop('disabled', false);
+            }
+
+            function setActive(el, msg){
+                j$(el).val(msg);
+                j$(el).removeAttr("disabled", "disabled");
+            }
+
+            function openAClonedTab(el) {
+                var caseId = '{!caseId}';
+                var URL = '/';
+                CaseDetailsCaseContExt.getClonedCaseId(caseId,function(result,event){
+                    if(event.status) {
+                        window.console&&console.log(result);
+                        URL = URL + result;
+                        sforce.console.openPrimaryTab(null,URL,true);
+                    }
+                    setActive(el, 'Clone');
+                });
+            }
+            function openAChildTab() {
+                window.console&&console.log('inside child tab fn');
+                var caseId = '{!caseId}';
+                var URL = '/';
+                CaseDetailsCaseContExt.getChildCaseId(caseId,function(result,event){
+                    window.console&&console.log(result);
+                    if(event.status) {
+                        window.console&&console.log(result);
+                        URL = URL + result;
+                        sforce.console.openPrimaryTab(null,URL,true);
+                    }
+                });
+            }
+
+            sforce.console.addEventListener('ChildCaseForAnotherNetwork_{!myCase.caseNumber}', function (result) {
+                openAChildTab();
+            });
+
+            function cleanAndCloseTab() {
+                sforce.console.getFocusedSubtabId(setTabCleanAndClose);
+            }
+            function RefreshPrimaryTabById() {
+                var hasErrors = {!ErrorsPresent};
+                if(!hasErrors) {
+                    window.console&&console.log('inside fn');
+                    var isError = document.getElementsByClassName('alert alert-danger');
+                    window.console&&console.log(isError);
+                    if(isError.length==0) {
+                        showSavedDialog();
+                        //sforce.console.getFocusedSubtabId(showTabId);
+                        refreshCurrentTab();
+                        //$successDialog.dialog('open');
+                    }
+                }
+            }
+
+            //function showErrorDialog() {
+            //   console.log('SameOwner--->'+{!sameOwner});
+            //    console.log('isAssign--->'+{!isAssign});
+            //    if({!sameOwner}) {
+            //        var element1 = document.getElementById('error-dialog');
+            //        element1.className = "show";
+            //    }
+            //    else {
+            //        RefreshPrimaryTabById();
+            //    }
+
+            //}
+
+            var refreshCurrentTab = function refreshCurrentTab() {
+                sforce.console.getEnclosingPrimaryTabId(function(result){
+                    sforce.console.getFocusedPrimaryTabObjectId(function(res) {
+                        if ('{!myCase.Id}'.indexOf(res.id) == 0) {
+                            //case is opened in primary tab
+                            //sforce.console.openPrimaryTab(result.id, '/{!myCase.Id}', true, '', refreshSuccess);
+                            sforce.console.refreshPrimaryTabById(result.id, true, refreshSuccess,true);
+                        } else {
+                            //case is opened in sub tab
+                            sforce.console.getFocusedSubtabId(function(r){
+                                //sforce.console.openSubtab(result.id, '/{!myCase.Id}', true, '', r.id, refreshSuccess);
+                                sforce.console.refreshSubtabById(r.id, true, refreshSuccess,true);
+                            });
+                        }
+                    });
+                });
+            }
+
+            /*var showTabId = function showTabId(result) {
+                window.console&&console.log('Tab ID: ' + result.id);
+                var toRefreshId = result.id;
+                sforce.console.refreshSubtabById(toRefreshId, true, refreshSuccess);
+
+            };*/
+
+            var refreshSuccess = function refreshSuccess(result) {
+                if (result.success == true) {
+
+                    // After the case details page is saved, the Genesys CTI adapter needs to be made aware of this so it can refresh it's data
+                    // this is necessary because there is no native onRefreshedPrimaryTab console event
+                    // this is the only place where SSSW agents will update records, so this is an acceptable workaround to broadcast that a record has been saved
+                    sforce.console.fireEvent('CaseDetails_Refreshed', '{!id}');
+
+                    //sforce.console.fireEvent('CaseID', '{"objectId":"{!id}", "objectName":"{!myCase.CaseNumber}"}');
+                    window.console&&console.log('Primary tab refreshed successfully');
+                } else {
+                    window.console&&console.log('Primary tab did not refresh');
+                }
+            };
+
+
+            function showMiniCaseErrorPanel(msg) {
+                window.console&&console.log('showing error message: ' + msg);
+                j$(".messageText").html(msg);
+                j$('[id$="pnlClientSideMessage"]').removeClass('hide').addClass('show');
+                j$(".message").show();
+            }
+
+            function clearMiniCaseErrorPanel() {
+                j$(".messageText").html("");
+                j$('[id$="pnlClientSideMessage"]').removeClass('show').addClass('hide');
+                j$(".message").hide();
+            }
+
+            function closePrimaryTab() {
+                sforce.console.getEnclosingTabId(function(result){
+                    sforce.console.closeTab(result.id);
+                });
+            }
+            //added by kalpita for closing the popup
+            function closePopup() {
+                j$('[id$="popup"]').removeClass('show').addClass('hide');
+
+            }
+
+            j$(function(){
+                sforce.console.fireEvent('CaseID', '{"objectId":"{!id}", "objectName":"{!myCase.CaseNumber}"}');
+
+                sforce.console.getEnclosingPrimaryTabObjectId(function(result){
+                    if(result.success && result.id.indexOf('{!id}') != 0) {
+                        j$('#btnExpand').show();
+                    }else{
+                        j$('#btnExpand').hide();
+                    }
+                });
+
+                j$('select.reference').css('text-decoration', 'none');
+                var hasErrors = {!ErrorsPresent};
+
+                window.console&&console.log('######################### hfSectionsDisplayOnLoad ###############################');
+                var hfSectionsDisplayOnLoad = j$(document.getElementById('{!$Component.formId.hfSectionsDisplayOnLoad}'));
+                window.console&&console.log(hfSectionsDisplayOnLoad.val());
+                var sectionsDisplayOnLoad = j$.evalJSON(hfSectionsDisplayOnLoad.val());
+                console.log(sectionsDisplayOnLoad);
+
+                for(var key in sectionsDisplayOnLoad[0]){
+                    window.console && console.log(key + '====' + sectionsDisplayOnLoad[0][key]);
+                    j$("div[id='" + key + ':' + sectionsDisplayOnLoad[0][key] + "-block']").show();
+                }
+
+                if(!hasErrors){
+                    window.console&&console.log('######################### Checking validations ###############################');
+                    checkValidation();
+                }
+
+                j$('#hfRecordTypeId').val('{!myCase.recordTypeId}');
+                // NK Refer 4th to capture data on load of page
+                j$('#hfPSC').val('{!myCase.ProductSubCategory__c}');
+            });
+
+            //  added for INC0536244 fix : Nandan N
+            window.onload = function(){
+                expandButtonOnSubTab();
+            }
+
+            // Function added for INC0536244 fix : Nandan N
+            function expandButtonOnSubTab(){
+                if (sforce.console.isInConsole()) {
+                    sforce.console.getEnclosingPrimaryTabObjectId(toggleExpandButton);
+                }
+            }
+
+            // Function added for INC0536244 fix : Nandan N
+            function toggleExpandButton(result) {
+                // Display the object ID
+                console.log('** Record Id ==>'+'{!id}');
+                console.log('** Object Id ==>' + result.id);
+                if(result.success && result.id.indexOf('{!id}') != 0) {
+                    j$('#btnExpand').show();
+                }
+                else{
+                    j$('#btnExpand').hide();
+                }
+            };
+
+            function updateSectionsDisplayOnLoad(groupTag, val){
+                var hfSectionsDisplayOnLoad = j$(document.getElementById('{!$Component.formId.hfSectionsDisplayOnLoad}'));
+                window.console&&console.log(hfSectionsDisplayOnLoad.val());
+                var sectionsDisplayOnLoad = j$.evalJSON(hfSectionsDisplayOnLoad.val());
+                sectionsDisplayOnLoad[0][groupTag] = val;
+                var json = j$.toJSON(sectionsDisplayOnLoad);
+                window.console&&console.log(json);
+                hfSectionsDisplayOnLoad.val(json);
+            }
+
+            function expandToPrimaryTab() {
+                sforce.console.getFocusedSubtabId(function(result){
+                    if(result.success) {
+                        sforce.console.getFocusedSubtabObjectId(function(sresult){
+                            if(sresult.success) {
+                                sforce.console.openPrimaryTab(null, '/' + sresult.id, true);
+                                sforce.console.closeTab(result.id);
+                            }
+                        });
+                    }
+                });
+            }
+
+            function showDynamicSection(groupTag, el){
+                window.console&&console.log('groupTag=' + groupTag);
+                var val = j$(el).val();
+                window.console&&console.log('val=' + val);
+                j$('.' + groupTag + '-dynamicDisplaySection').hide();
+                window.console&&console.log(j$("div[id='" + groupTag + ':' + val + '-block' + "']"));
+                j$("div[id='" + groupTag + ':' + val + '-block' + "']").show();
+
+                updateSectionsDisplayOnLoad(groupTag, val);
+            }
+
+            function synchFieldValues(el, fieldClassName){
+                var v = j$(el).val();
+                console.log('---'+v);
+                // NK added (refer 4th) to fix data drops issue when user change Type or Product Category. Start
+                if(fieldClassName == 'ProductSubCategory__c'){
+
+                    j$('#hfPSC').val(v); // On change event captures Product Sub Category data in hidden field -
+                }
+                //if(fieldClassName == 'ProductCategory__c'){
+
+                //j$('#hfPSC').val(''); // On change event captures Product Sub Category data in hidden field -
+                //}
+
+                // NK End.
+
+                j$("." + fieldClassName).each(function(index){
+                    j$(this).val(v);
+                });
+                console.log(fieldClassName);
+                if(fieldClassName == 'Address1__c' || fieldClassName == 'Address2__c') {
+                    externalClear_{!id}(el);
+                }
+
+                if(fieldClassName == 'Type' || fieldClassName == 'ProductCategory__c' || fieldClassName == 'ProductSubCategory__c') {
+                    setJoinPicklist(v);
+                    /* INC0952078 - not require to recalculate and get the drop down list values. Just a field refresh is good enough.
+                            var caseType = j$('.Type').val().trim();
+                            var productCategory = j$('.ProductCategory__c').val().trim();
+                            var productsubCategory = j$('#hfPSC').val().trim();  //v.trim(); NK refer 4th change the data capture reference
+                            console.log('---'+productsubCategory);
+                            if(caseType != '' && productCategory != '' && productsubCategory != ''){
+                                CaseDetailsCaseContExt.getRecordTypeId(caseType, productCategory, productsubCategory , function(result, event){
+                                    if(event.status && result != ''){
+                                        console.log('######## recordTypeId = ' + result + ' vs ' + j$('#hfRecordTypeId').val());
+                                        if(j$('#hfRecordTypeId').val() != result) {
+                                            caseDetailsShowProgress();
+                                            reloadPicklists(result, caseType, productCategory, productsubCategory);
+                                            j$('#hfRecordTypeId').val(result);
+                                        }
+                                    }
+                                });
+                            }INC0952078 */
+                }
+            }
+
+            function htmlDecode(value){
+                return j$('<div/>').html(value).text();
+            }
+
+            function copyFromContact(from, sectionName){
+                console.log('>>>>>>>>>>>>>>>>> from:'+from + '|section:' + sectionName);
+                var addressObj = {};
+                addressObj.from = from;
+                addressObj.addressLine1 = '{!jsEncode(myCase.contact.MailingStreet)}';
+                addressObj.addressLine2 = '{!jsEncode(myCase.contact.MailingStreet2__c)}';
+                addressObj.city = '{!jsEncode(myCase.contact.MailingCity)}';
+                addressObj.state = '{!jsEncode(myCase.contact.MailingState)}';
+                addressObj.postcode = '{!jsEncode(myCase.contact.MailingPostalCode)}';
+                addressObj.country = '{!jsEncode(myCase.contact.MailingCountry)}';
+                addressObj.dpid = '{!jsEncode(myCase.contact.MailingDPID__c)}';
+
+                console.log('>>>>>>>>>>>>>>>>>');
+                console.log(addressObj);
+                console.log(CaseAddressComponentCopyFromContact_{!id});
+                CaseAddressComponentCopyFromContact_{!id}(addressObj);
+
+                var address = addressObj.addressLine1 + (addressObj.addressLine2 != '' ? ' ' + addressObj.addressLine2 : '');
+                address += ' ' + addressObj.city + ' ' + addressObj.state + ' ' + addressObj.postcode;
+
+                if(from == 'Sender/Redirection From') {
+                    var senderName = j$('.Primary_Name__c');
+                    var senderEmail = j$('.Primary_Email__c');
+                    var senderAddress = j$('.Address1__c');
+                    var senderCompany = j$('.Primary_Company__c');
+
+                    if(senderName) {
+                        senderName.val(htmlDecode('{!jsEncode(myCase.contact.name)}'));
+                    }
+
+                    if(senderEmail) senderEmail.val(htmlDecode('{!jsEncode(myCase.contact.email)}'));
+                    if(senderAddress) senderAddress.val(htmlDecode(address));
+                    if("{!myCase.contact.isPersonAccount}"=="true") {
+                        senderCompany.val("");
+                    }else{
+                        senderCompany.val(htmlDecode('{!jsEncode(myCase.contact.account.name)}'));
+                    }
+
+                } else if(from == 'Addressee/Redirection To'){
+                    var receiverName = j$('.Secondary_Contact__c');
+                    var receiverEmail = j$('.SecondaryEmail__c');
+                    var receiverAddress = j$('.Address2__c');
+                    var receiverCompany = j$('.Secondary_Companry__c');
+
+                    if(receiverName) receiverName.val(htmlDecode('{!jsEncode(myCase.contact.name)}'));
+                    if(receiverEmail) receiverEmail.val(htmlDecode('{!jsEncode(myCase.contact.email)}'));
+                    if(receiverAddress) receiverAddress.val(htmlDecode(address));
+                    if("{!myCase.contact.isPersonAccount}"=="true"){
+                        receiverCompany.val("");
+                    }else{
+                        receiverCompany.val(htmlDecode('{!jsEncode(myCase.contact.account.name)}'));
+                    }
+                }
+                toggleSection(sectionName);
+                SetTabUnsavedChanges();
+            }
+
+            function setBSPDetails(detail, sectionName){
+                if(detail == 'Sender') {
+                    var senderName = j$('.Primary_Name__c');
+                    var senderAddress = j$('.Address1__c');
+                    var senderCompany = j$('.Primary_Company__c');
+
+                    if(senderName) senderName.val(htmlDecode('{!jsEncode(myCase.BSP_Sender_Name__c)}'));
+                    if(senderAddress) senderAddress.val(htmlDecode('{!jsEncode(myCase.BSP_Sender_Address__c)}'));
+                    if(senderCompany) senderCompany.val(htmlDecode('{!jsEncode(myCase.BSP_Sender_Company__c)}'));
+                }
+                else if(detail == 'Addressee')
+                {
+                    var receiverName = j$('.Secondary_Contact__c');
+                    var receiverAddress = j$('.Address2__c');
+                    var receiverCompany = j$('.Secondary_Companry__c');
+
+                    if(receiverName) receiverName.val(htmlDecode('{!jsEncode(myCase.BSP_Addressee_Name__c)}'));
+                    if(receiverAddress) receiverAddress.val(htmlDecode('{!jsEncode(myCase.BSP_Addressee_Address__c)}'));
+                    if(receiverCompany) receiverCompany.val(htmlDecode('{!jsEncode(myCase.BSP_Addressee_Company__c)}'));
+                }
+                toggleSection(sectionName);
+                SetTabUnsavedChanges();
+            }
+
+            /**
+             * added for REQ1535433 'SetSender' and 'SetAddressee' for Portal cases
+             **/
+            function setPortalDetails(detail, sectionName){
+                var addressObj = {};
+                if(detail == 'Sender')
+                {
+                    addressObj.from = 'Sender/Redirection From';
+                    addressObj.addressLine1 = '{!jsEncode(myCase.Address3__c)}';
+                    addressObj.addressLine2 = '{!jsEncode(myCase.Address3Line2__c)}';
+                    addressObj.city = '{!jsEncode(myCase.Address3Suburb__c)}';
+                    addressObj.state = '{!jsEncode(myCase.Address3State__c)}';
+                    addressObj.postcode = '{!jsEncode(myCase.Address3Postcode__c)}';
+                    addressObj.country = '{!jsEncode(myCase.Address3Country__c)}';
+
+                    console.log(CaseAddressComponentCopyFromContact_{!id});
+                    CaseAddressComponentCopyFromContact_{!id}(addressObj);
+                    var address = addressObj.addressLine1 + (addressObj.addressLine2 != '' ? ' ' + addressObj.addressLine2 : '');
+                    address += ' ' + addressObj.city + ' ' + addressObj.state + ' ' + addressObj.postcode;
+                    var senderAddress = j$('.Address1__c');
+
+                    if(senderAddress) senderAddress.val(htmlDecode(address));
+                }
+                else if(detail == 'Addressee')
+                {
+
+                    addressObj.from = 'Addressee/Redirection To';
+                    addressObj.addressLine1 = '{!jsEncode(myCase.Address4__c)}';
+                    addressObj.addressLine2 = '{!jsEncode(myCase.Address4Line2__c)}';
+                    addressObj.city = '{!jsEncode(myCase.Address4Suburb__c)}';
+                    addressObj.state = '{!jsEncode(myCase.Address4State__c)}';
+                    addressObj.postcode = '{!jsEncode(myCase.Address4Postcode__c)}';
+                    addressObj.country = '{!jsEncode(myCase.Address4Country__c)}';
+
+                    console.log(CaseAddressComponentCopyFromContact_{!id});
+                    CaseAddressComponentCopyFromContact_{!id}(addressObj);
+                    var address = addressObj.addressLine1 + (addressObj.addressLine2 != '' ? ' ' + addressObj.addressLine2 : '');
+                    address += ' ' + addressObj.city + ' ' + addressObj.state + ' ' + addressObj.postcode;
+                    var receiverAddress = j$('.Address2__c');
+
+                    if(receiverAddress) receiverAddress.val(htmlDecode(address));
+
+                }
+                toggleSection(sectionName);
+                SetTabUnsavedChanges();
+            }
+
+            function setJoinPicklist(element) {
+                var type = j$('.picklistSynch_Type').val();
+                var productCategory = j$('.picklistSynch_ProductCategory__c').val();
+                var productsubCategory = j$('#hfPSC').val();  // element;  NK refer 4th data references are changed from element to actual Productsubcategory data
+
+                console.log('type: ' + type);
+                console.log('productCategory: ' + productCategory);
+                console.log('productSubCategory: ' + productsubCategory);
+                //  if (type != '' && productCategory != '') { // INC0952078
+                var joint = j$('.picklistSynch_Type_and_Product__c');
+                joint.val(type + '|' + productCategory + '|' + productsubCategory);
+                joint.change();
+                // INC0952078 }
+            }
+
+        </script>
+    </apex:page>

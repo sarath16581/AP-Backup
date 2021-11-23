@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>hidden_Account_Managers_Email__c</fullName>
+    <description>Formula places the Org Owner&apos;s email on the Contact record. Suggested by sellers to identify their contacts more easily.</description>
+    <externalId>false</externalId>
+    <formula>Account.Account_Manager_Email__c</formula>
+    <label>Account Managers Email</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

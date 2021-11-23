@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <outboundMessages>
+        <fullName>ArticleRecallRedirect</fullName>
+        <apiVersion>41.0</apiVersion>
+        <description>Sends a Redirect/Recall event message to SAP EM. Used by AusPost Business Portal (Merchant Recall)</description>
+        <endpointUrl>https://webapi-ptestext.npe.auspost.com.au/ptest/Services/TransportandLogisticsServices/EventManagement/PublishMerchantRecall</endpointUrl>
+        <fields>AddressLine1__c</fields>
+        <fields>AddressLine2__c</fields>
+        <fields>City__c</fields>
+        <fields>Company__c</fields>
+        <fields>Country__c</fields>
+        <fields>CreatedDate</fields>
+        <fields>Id</fields>
+        <fields>Name__c</fields>
+        <fields>Postcode__c</fields>
+        <fields>RecordType__c</fields>
+        <fields>State__c</fields>
+        <fields>TimestampLocalTimezone__c</fields>
+        <fields>TrackingID__c</fields>
+        <fields>Type__c</fields>
+        <includeSessionId>true</includeSessionId>
+        <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
+        <name>Article Recall/Redirect</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>true</useDeadLetterQueue>
+    </outboundMessages>
+    <rules>
+        <fullName>Send Recall%2FRedirect Event to SAP</fullName>
+        <actions>
+            <name>ArticleRecallRedirect</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>RedirectRequest__c.CreatedDate</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

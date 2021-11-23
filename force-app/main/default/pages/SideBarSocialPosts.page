@@ -1,0 +1,471 @@
+<apex:page controller="SideBarSocialPostsCtr" standardStylesheets="false" showHeader="false">
+<!-- tab POST_DEV -->
+
+<html lang="en">
+    <head>
+
+    <script src="/support/console/30.0/integration.js" type="text/javascript">
+    </script>
+
+        <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+
+        <!-- Bootstrap -->
+        <title>
+            SocialPost Sidebar List
+        </title>
+
+        <script type="text/javascript">
+
+            $ = jQuery.noConflict();
+            /**
+                logic for handling console tab opening
+            **/
+            var openTab = function(url,tabTitle, iconType) {
+            //Open a new primary tab with the salesforce.com home page in it
+            console.log('URL : '+url +' . tabtitle :'+tabTitle);
+                    switch(iconType){
+                            case 'case' : setIcon = setCaseIcon;
+                            break;
+                            case 'post' : setIcon = setPostIcon;
+                            break;
+                            case 'persona' : setIcon = setPersonaIcon;
+                            break;
+                            default : setIcon = setCaseIcon;
+                    }
+            sforce.console.openPrimaryTab(null, url, true, tabTitle, setIcon,url);
+
+            }
+
+            var setPostIcon = function(result) {
+                if (result.success) {
+                    sforce.console.setTabIcon('/img/social/SocialPost16.png',result.id);
+                }
+            };
+
+            var setPersonaIcon = function(result) {
+                if (result.success) {
+                    sforce.console.setTabIcon('/img/social/SocialPersona16.png',result.id);
+                }
+            };
+
+            var setCaseIcon = function(result) {
+                if (result.success) {
+                    sforce.console.setTabIcon('/img/icon/cases16.png',result.id);
+                }
+            };
+
+            var setIconSuccess = function(result) {
+                if (result.success == true) {
+                    alert('Tab Icon successfully set');
+                }else {
+                    alert('Tab Icon cannot be set');
+                }
+                console.log(result.success);
+            };
+
+            /**
+                logic for handling sidebar action btns
+            **/
+            function checkEnableBtns(){
+                console.log('checkEnableBtns');
+
+                var enableActions = false;
+                var cssEnableActions = 'disabledBtn';
+
+                //enable btns if at least one checkbox is selected
+                if ($("input:checkbox[name=checkboxlist]:checked").size() > 0){
+                    enableActions=true;
+                    cssEnableActions = 'enabledBtn';
+                }
+                $(".ctrlSelected").each(function(){
+                    if (!enableActions)
+                        $(this).attr('disabled','disabled');
+                    else
+                        $(this).removeAttr('disabled' );
+                  $(this).removeClass('enabledBtn').removeClass('disabledBtn').addClass(cssEnableActions);
+
+
+
+                });
+
+                  //check CreateCase
+                  if ( $("input:checkbox.outBound:checked").size()>0 ){
+                    $('#createCase').attr('disabled','disabled').addClass('disabledBtn');
+                    console.log('disable caseCreate , theres outBound');
+                  }
+
+
+                var colorStr = '#DDDDFF'; // color of highlight
+                $(".newItem").each(function (i,x) {
+                    $(this).css("background-color",colorStr);
+                    setTimeout(function(){
+                        $(x).css("background-color","#ffffff"); // reset background
+                        $(".newItem").removeClass('newItem');
+                    },1000);
+                });
+
+            }
+
+
+            function bindEvents(){
+                 $("input:checkbox[name=checkboxlist]").on("change",function(i,e){
+                    checkEnableBtns();
+                });
+                checkEnableBtns();
+            }
+
+            $(document).ready(function() {
+               bindEvents();
+            });
+
+
+            var selected  ;
+            function updatePosts(action) {
+                selected = new Array();
+                $("input:checkbox[name=checkboxlist]:checked").each(function(){
+                         var val = $(this).attr('id');
+                         selected.push(val);
+                });
+
+                if(selected.length > 0){
+                    if(action == 'createcases'){
+                        createCaseJs(
+                            selected.toString()
+                        );
+                    }
+                    else if(action == 'ignorepost'){
+                        ignorePostsJs(
+                            selected.toString()
+                        );
+                    }
+                    else if(action == 'removeCaseParent'){
+                                 updateCaseAssignmentJs(
+                                    selected.toString(),'-1'
+                                );
+                    }
+
+                 }
+            }
+
+            function  selectThisCase(aId){
+
+                selected = new Array();
+                $("input:checkbox[name=checkboxlist]:checked").each(function(){
+                         var val = $(this).attr('id');
+                         selected.push(val);
+                });
+
+                console.log('selected '+aId + 'selected :' + selected);
+                updateCaseAssignmentJs(
+                    selected.toString(),aId
+                );
+
+            }
+
+            function displayLookUp(){
+                var sel = $("input:checkbox[name=checkboxlist]:checked").size();
+                if (sel >  0)
+                 window.open("{!URLFOR($Page.CaseList)}", "", "width=600, height=600");
+            }
+
+
+                // reloads the component if clicked after more than 15 minutes of inactivity
+        var bd = document.getElementsByTagName('body')[0];
+        var time = new Date().getTime();
+
+        bd.onclick = goLoad;
+        function goLoad() {
+        if(new Date().getTime() - time >= 900000) {
+                time = new Date().getTime();
+                window.location.reload(true);
+                }else{
+                        time = new Date().getTime();
+                }
+        }
+
+
+        function highlight(){
+            console.log(' highlight for '+selected);
+
+            var colorStr = '#DDDDFF'; // color of highlight
+            for(s in selected){
+                if (typeof $('#td_'+selected[s]) == 'object'){
+
+                    $('#td_'+selected[s]).css("background-color",colorStr);
+                    $('#td_'+selected[s]).addClass('highL');
+                    setTimeout(function(){
+                        $('.highL').css("background-color","#ffffff").removeClass('highL');
+                    },1000);
+                }
+            }
+            selected = null;
+            bindEvents();
+        }
+
+        </script>
+
+
+        <c:SideBarPostListCss />
+        
+        
+     </head>
+     <body>
+     <div class="container">
+            <apex:outputpanel >
+
+                <apex:pageMessages id="showmsg"></apex:pageMessages>
+
+                <apex:actionstatus id="whileLoading">
+                    <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
+                         height: 100%;opacity:0.65;width:100%;">
+                        <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="Working..." />
+                        <span class="waitingDescription">Working...</span>
+                        </div>
+                    </div>
+                    </apex:facet>
+                </apex:actionstatus>
+            </apex:outputpanel>
+
+         <apex:form id="pageForm">
+
+
+
+
+<apex:outputPanel layout="block" id="btnBlock">
+
+<div class="header TableSidebar">
+    <div>
+        <div class="CellSidebar">View:</div>
+        <div class="CellSidebar">
+            <apex:selectList styleClass="form-control" value="{!socPostFilterId}" size="1" id="filterMenu">
+            <apex:selectOptions value="{!listViewOptions}">
+            </apex:selectOptions>
+            <apex:actionSupport event="onchange"  action="{!resetFilter}" rerender="postList,btnBlock,showmsg"  status="whileLoading"   oncomplete="highlight()"/>
+            </apex:selectList>
+        </div>
+    </div>
+
+
+
+    <div class="Row">
+        <div class="CellSidebar" colspan="2">
+        <input id="createCase" class="btn btn-default ctrlSelected" type="button" value="Create Case" onclick="updatePosts('createcases')" />
+        <input class="btn btn-default ctrlSelected" type="button" value="Ignore" onclick="updatePosts('ignorepost')" />
+        <input class="btn btn-default lookUp ctrlSelected" type="button" value="LookUp" onclick="displayLookUp()"  />
+        <input class="btn btn-default ctrlSelected" type="button" value="Remove Case" onclick="updatePosts('removeCaseParent')"  />
+        <input class="btn btn-default refresh" type="button"  onclick="refreshListJs()"  />
+
+            <!-- firstPage  btn -->
+         <apex:commandButton styleClass="{!IF(!hasPrevious, 'btn btn-default','btn btn-primary')}"
+                        action="{!first}"
+                        value="|<<"
+                        reRender="postList,btnBlock"
+                        status="whileLoading"
+                        disabled="{!NOT(hasPrevious)}"   />
+
+            <!-- previousPage  btn -->
+            <apex:commandButton styleClass="{!IF(!hasPrevious, 'btn btn-default','btn btn-primary')}"
+                        action="{!previous}"
+                        value="<"
+                        reRender="postList,btnBlock"
+                        status="whileLoading"
+                        disabled="{!NOT(hasPrevious)}"     />
+
+            <!-- nextPage  btn -->
+            <apex:commandButton styleClass="{!IF(!hasNext, 'btn btn-default','btn btn-primary')}"
+                        action="{!next}"
+                        value=">"
+                        reRender="postList,btnBlock"
+                        status="whileLoading"
+                        disabled="{!NOT(hasNext)}" />
+            <!-- lastPage btn-->
+            <apex:commandButton styleClass="{!IF(!hasNext, 'btn btn-default','btn btn-primary')}"
+                        action="{!last}"
+                        value=">>|"
+                        reRender="postList,btnBlock"
+                        status="whileLoading"
+                        disabled="{!NOT(hasNext)}"  />
+    </div>
+    </div>
+    <div class="Row">
+        <div class="CellSidebar" colspan="2">
+        <apex:outputText id="pageList">
+             {!(IF(noOfRecords == 0, 0, (pageNumber * pageSize)+1-pageSize))} - {!IF((pageNumber * pageSize)>noOfRecords, noOfRecords,(pageNumber * pageSize))} of {!noOfRecords}
+
+
+        </apex:outputText>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+</apex:outputPanel>
+
+
+     <apex:outputPanel id="postList" >
+
+
+
+<div class="content TableSidebar">
+        <apex:repeat value="{!SocialPosts}" var="item">
+<div class="Row">
+    <div class="col00 Cell1" >
+        <input type="checkbox" id="{!item.id}" name="checkboxlist" class="{!IF(item.IsOutbound,'outBound','')}"/>
+    </div>
+   <div class="col01 CellSidebar">
+        <div>
+            <div class="row1" >
+                <div class="col10" colspan="9" id ="td_{!item.Id}">
+            <!-- social post content -->
+            
+                <div>
+                    <a href="#" class="fixContent"  onclick="javascript:openTab('/{!item.Id}','{!LEFT(item.Name, 16)}{!IF(LEN(item.Name)>16,'...','')}','post');">
+                        <apex:outputPanel rendered="{!(item.Provider='Twitter')}" style="word-break: break-word;">
+                            {!LEFT(item.Content, 140)}{!IF(LEN(item.Content)>140,'...','')}
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!(item.Provider!='Twitter')}" style="word-break: break-word;">
+                            {!LEFT(item.Content, 300)}{!IF(LEN(item.Content)>300,'...','')}
+                        </apex:outputPanel>
+                    </a>
+                </div>
+                <div style="margin:5px 0 2px 0;color:#b0b0b0">
+                    <span><apex:outputField value="{!item.posted}"/></span>
+                </div>
+                </div>
+            </div>
+           
+            
+            <div class="row2">
+            
+            <apex:outputPanel styleClass="outbounds" layout="block" rendered="{!item.isOutbound}">&nbsp;</apex:outputPanel>
+            
+
+            <div>
+                <span>
+                 <apex:image styleClass="provider iconFix" rendered="{!(item.Provider='Twitter')}" url="{!URLFOR($Resource.SideBarPostList, 'imgs/twitter.png')}" />
+                 <apex:image styleClass="provider iconFix"  rendered="{!(item.Provider='Facebook')}" url="{!URLFOR($Resource.SideBarPostList, 'imgs/FaceBook-24x24.png')}" />
+
+                {!item.MessageType}
+
+                </span>
+
+                <span class="spacer">
+                    <apex:outputPanel rendered="{!AND(item.AttachmentType !='',item.AttachmentUrl!='')}">
+                    |</apex:outputPanel>
+                </span>
+
+                <span>
+                    <!-- attachment -->
+                    <apex:outputPanel styleclass="attachmentIcon text-center " rendered="{!AND(item.AttachmentType !='',item.AttachmentType!='')}">
+                    <apex:image url="{!URLFOR($Resource.SideBarPostList, 'imgs/clip-icon.png')}"  styleclass="iconFix"/>
+                    </apex:outputPanel>
+                </span>
+
+                    <apex:variable var="author" value="{!IF(item.Provider='Twitter' ,
+                          IF(item.Handle!='',
+                                  '@'+item.Handle,
+                                   item.TopicProfileName),
+                           IF(item.Handle!='',
+                                   item.Handle,
+                                   item.TopicProfileName))}" />
+
+                <span  class="spacer">
+                    <apex:outputPanel rendered="{!author != ''}">
+                    |</apex:outputPanel>
+                </span>
+
+                <span>
+
+                     
+
+                    <!-- Author-->
+                    <a href="#" onclick="javascript:openTab('/{!item.PersonaId}','{!LEFT(author, 16)}{!IF(LEN(author)>16,'...','')}','persona');">
+                        {!author}
+                    </a>
+                </span>
+
+                <span  class="spacer">
+                    <apex:outputPanel rendered="{!(item.ReviewedStatus!=null)}">
+                    |</apex:outputPanel>
+                </span>
+
+                <span>
+
+
+                <!-- Reviewed status-->
+                {!item.ReviewedStatus}
+
+                </span>
+
+                <span class="spacer">
+                    <apex:outputPanel rendered="{!(item.ParentId!=null)}">
+                    |</apex:outputPanel>
+                </span>
+
+                <span>
+
+                    <!-- Case Link-->
+
+                    <apex:outputPanel rendered="{!(item.ParentId!=null)}"  onclick="openTab('/{!item.ParentId}','{!If(item.ParentId!= null, caseNumberMap[item.ParentId],'')}','case');" >
+                    <a href="#">
+                        <apex:image url="{!URLFOR($Resource.SideBarPostList, 'imgs/cases16.png')}"  styleclass="iconFix"/>
+                        {!If(item.ParentId!= null,caseNumberMap[item.ParentId],'')}
+
+                    </a>
+                    </apex:outputPanel>
+
+
+                </span>
+                
+                   <apex:outputPanel layout="block" styleClass="post-separator"></apex:outputPanel>
+                
+
+                
+                </div>
+                
+              
+            </div>
+           
+            
+        </div>
+    </div>
+</div>
+
+    </apex:repeat>
+</div>
+
+
+
+             </apex:outputPanel>
+
+
+            <apex:actionFunction name="refreshListJs" action="{!reload}" reRender="postList,btnBlock,showmsg"   status="whileLoading" oncomplete="highlight();" >
+            </apex:actionFunction>
+
+            <apex:actionFunction name="createCaseJs" action="{!createCases}" reRender="postList,btnBlock,showmsg"   status="whileLoading"   oncomplete="highlight();" >
+                <apex:param name="selectedPosts" value="" />
+            </apex:actionFunction>
+            <apex:actionFunction name="ignorePostsJs" action="{!ignorePosts}" reRender="postList,btnBlock,showmsg"  status="whileLoading"    oncomplete="highlight();" >
+                <apex:param name="selectedPosts" value="" />
+            </apex:actionFunction>
+
+            <apex:actionFunction name="updateCaseAssignmentJs" action="{!updateCaseAssignment}" reRender="postList,btnBlock,showmsg"  status="whileLoading"    oncomplete="highlight();" >
+                <apex:param name="selectedPosts" value="" />
+                <apex:param name="caseId" value="" />
+            </apex:actionFunction>
+
+
+             </apex:form>
+        </div>
+        <!-- /container -->
+
+
+     </body>
+</html>
+
+</apex:page>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales_Manager_Review_Exception_Lock_Down</fullName>
+    <active>true</active>
+    <description>Don&apos;t allow users from making any changes to the case once status is &apos;In Progress&apos;, &apos;Closed&apos; and OPC Admin is &quot;Approved&quot;, &quot;Rejected&quot; and &quot;Duplicate Case&quot;. (Note: Only System Admin and Sales Operation Super User are allowed to do so.)</description>
+    <errorConditionFormula>AND( 
+ RecordType.Name = &apos;Sales Manager Review Exception&apos;, 
+ (ISCHANGED(Description)),
+  NOT($Profile.Name = &apos;Sales Operations Super User&apos;),
+
+OR(ISPICKVAL( Status, &apos;In Progress&apos;),ISPICKVAL( Status, 
+   &apos;Closed&apos;),ISPICKVAL( Resolution_Status__c, &apos;Approved&apos;), 
+   ISPICKVAL( Resolution_Status__c, &apos;Rejected&apos;),ISPICKVAL( 
+   Resolution_Status__c, &apos;Duplicate case&apos;)))</errorConditionFormula>
+    <errorMessage>You are not allowed to amend the description field. Please use &quot;New&quot; button under Case Comment section to add more details</errorMessage>
+</ValidationRule>

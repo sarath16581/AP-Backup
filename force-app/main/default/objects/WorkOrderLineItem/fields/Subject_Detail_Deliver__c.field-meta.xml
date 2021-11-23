@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Subject_Detail_Deliver__c</fullName>
+    <description>The subject details to display against a delivery WOLI.  Returns the default quantity to reflect actual amounts as they are recorded. Used to provide task detail on the mobile device in flow TDF_Collect_Deliver.</description>
+    <externalId>false</externalId>
+    <formula>&apos;Deliver &apos; &amp; Product__r.Name  &amp; &apos; (&apos; &amp;  TEXT(Default_Quantity__c)  &amp; &apos;)&apos; &amp; 
+IF(ISBLANK(Collect_From_Work_Order__c),&apos;&apos;, &apos; collected from &apos; &amp; Collect_From_Work_Order__r.Location.Name) &amp; 
+IF(ISBLANK(Deliver_To_Dock_Number__c),&apos;&apos;,&apos; to dock &apos; &amp; Deliver_To_Dock_Number__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Deliver Details</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

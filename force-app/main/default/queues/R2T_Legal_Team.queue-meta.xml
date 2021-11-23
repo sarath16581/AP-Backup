@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <name>R2T Legal Team</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>Sales_Business_System_Team</publicGroup>
+        </publicGroups>
+        <users>
+            <user>david.gunson@auspost.com.au</user>
+            <user>david.walker@auspost.com.au</user>
+            <user>eddy.addicks@auspost.com.au</user>
+            <user>hannah.chipperfield@auspost.com.au</user>
+            <user>hue.pham@auspost.com.au</user>
+            <user>jane.albert@auspost.com.au</user>
+            <user>jasper.kjar-cruttenden@auspost.com.au</user>
+            <user>kate.cropper@auspost.com.au</user>
+            <user>lyndall.henry@auspost.com.au</user>
+            <user>marina.panagacos@auspost.com.au</user>
+            <user>nick.macdonald@auspost.com.au</user>
+            <user>nicole.seeto@auspost.com.au</user>
+            <user>paul.gentle@startrack.com.au</user>
+            <user>philip.govey@auspost.com.au</user>
+            <user>sarah.nicholls@auspost.com.au</user>
+            <user>simon.mackenzie@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Apttus_Approval__Approval_Request__c</sobjectType>
+    </queueSobject>
+</Queue>

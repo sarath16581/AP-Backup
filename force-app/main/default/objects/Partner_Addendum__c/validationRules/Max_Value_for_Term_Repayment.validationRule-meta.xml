@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Max_Value_for_Term_Repayment</fullName>
+    <active>true</active>
+    <description>For Repayment Arrangement, maximum is 36 months.</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName = &apos;Repayment Arrangement&apos;, Term__c &gt; 36)</errorConditionFormula>
+    <errorMessage>For Repayment Arrangement, maximum allowed value is 36 months.</errorMessage>
+</ValidationRule>

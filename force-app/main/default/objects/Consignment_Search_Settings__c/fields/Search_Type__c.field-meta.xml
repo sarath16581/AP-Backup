@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Search_Type__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>StarTrack: Capture Search type information to identify which picklist field belongs to</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Currently expected values are true for consignment search and false for Date</inlineHelpText>
+    <label>Search Type</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

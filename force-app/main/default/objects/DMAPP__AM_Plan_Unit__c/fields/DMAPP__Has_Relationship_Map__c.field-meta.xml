@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Has_Relationship_Map__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>AND(DMAPP__Account_Political_Map__c &lt;&gt; null, DMAPP__Account_Political_Map__c &lt;&gt; &apos;&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Has Relationship Map</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

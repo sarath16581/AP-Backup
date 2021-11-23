@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sent_To_Network_Date__c</fullName>
+    <description>Capture date/time when the case owner is changed to SSSW Network Queue.</description>
+    <externalId>false</externalId>
+    <label>Sent To Network Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

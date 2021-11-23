@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Day_of_Delivery__c</fullName>
+    <externalId>false</externalId>
+    <formula>Apttus_Config2__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Day_of_Delivery__c</formula>
+    <label>Day of Delivery</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

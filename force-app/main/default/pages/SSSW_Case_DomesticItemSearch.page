@@ -1,0 +1,27 @@
+<apex:page standardController="Case" showHeader="false" standardStylesheets="false" renderAs="pdf" sidebar="false" applyBodyTag="false">
+  
+<head>  
+	<apex:stylesheet value="{!$Resource.SSSWEmailTemplatesCSS}" />
+
+</head>
+
+<!-- <div id="header"> -->
+<!--     <h1>Fax Item Search - Case: {!Case.CaseNumber}</h1> -->
+<!--     <img src="{!$Resource.auspost_logo}"/> -->
+<!-- </div> -->
+
+<c:DISEmailTemplate compId="{!Case.Id}"/>
+
+<div class="section" id="comment-section">
+    <h3>Comments</h3>
+    <table>
+       <tr><td><br/></td></tr>
+       <tr><td><br/></td></tr>
+       <tr><td><br/></td></tr>
+       <tr><td><br/></td></tr>
+       <tr><td><br/></td></tr>
+       <tr><td><br/></td></tr>
+    </table>
+</div>
+
+</apex:page>

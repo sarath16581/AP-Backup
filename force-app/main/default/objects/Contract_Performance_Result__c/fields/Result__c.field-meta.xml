@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Result__c</fullName>
+    <externalId>false</externalId>
+    <label>Result</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Met</fullName>
+                <default>false</default>
+                <label>Met</label>
+            </value>
+            <value>
+                <fullName>Not Met</fullName>
+                <default>false</default>
+                <label>Not Met</label>
+            </value>
+            <value>
+                <fullName>Partially Met</fullName>
+                <default>false</default>
+                <label>Partially Met</label>
+            </value>
+            <value>
+                <fullName>Not Assessed</fullName>
+                <default>true</default>
+                <label>Not Assessed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

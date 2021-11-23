@@ -1,0 +1,127 @@
+<apex:page sideBar="false" controller="brideas_SettingsCtrl">
+    <apex:stylesheet value="{!URLFOR($Resource.BrIdeas, '/css/style.css')}"/>
+
+    <div class="bedrock-ideas-settings">
+        <div class="settings">
+            <h1>Community Ideas Component Settings</h1>
+            <apex:messages styleClass="messages" />
+            <apex:form >
+                <br />
+                <div class="buttons">
+                    <apex:commandButton action="{!saveSettings}" value="Save changes" />
+                </div>
+
+                <apex:tabPanel switchType="client" selectedTab="general" tabClass="activeTab" inactiveTabClass="inactiveTab">
+                    <apex:tab styleClass="itemTab" label="General" name="general" onTabEnter="">
+                        <h2>Ideas Zone</h2>
+                        <div class="field-row">
+                            <div class="label">Default Ideas Zone:</div>
+                            <apex:selectList value="{!selectedZone}" multiselect="false" size="1">
+                                <apex:selectOptions value="{!zonesOptions}" />
+                            </apex:selectList>
+                        </div>
+                        <br />
+                        <br />
+                        <h2>Reputation Points</h2>
+                        <div class="field-row">
+                            <div class="label">Post an idea:</div>
+                            <apex:inputText value="{!reputationPoints['postIdeaPoints']}" size="2" />
+                        </div>
+                        <div class="field-row">
+                            <div class="label">Post a comment:</div>
+                            <apex:inputText value="{!reputationPoints['postCommentPoints']}" size="2" />
+                        </div>
+                        <div class="field-row">
+                            <div class="label">Make a vote:</div>
+                            <apex:inputText value="{!reputationPoints['votePoints']}" size="2" />
+                        </div>
+                        <h2>Categories</h2>
+                        <div class="field-row">
+                            <div class="label">Featured Category:</div>
+                            <apex:selectList value="{!selectedFeaturedCategory}" multiselect="false" size="1">
+                                <apex:selectOptions value="{!featuredCategoryOptions}" />
+                            </apex:selectList>
+                        </div>
+                        <!-- Below code is added on 16-08-2018 to give the capability to store featured category image url 
+                             and render the image on Ideas List page as part of Communities changes. -->
+                        <div class="field-row">
+                            <div class="label">Featured Category Image URL:</div>
+                            <apex:inputText value="{!featuredCategoryImageURL}" style="width: 350px;" />
+                        </div>
+                        <h2>Join Group</h2>
+                        <div class="field-row">
+                            <div class="label">Survey URL:</div>
+                            <apex:inputText value="{!surveyURL}" style="width: 350px;" />
+                        </div>
+                    </apex:tab>
+
+                    <apex:tab styleClass="itemTab" label="Moderation" name="moderation" onTabEnter="">
+                        <h2>Moderators</h2>
+                        <ul class="moderators-list">
+                        <apex:repeat value="{!moderators}" var="moderator" >
+                            <li><a href="/{!moderator.Id}">{!moderator.Name}</a> ({!moderator.Email})</li>
+                        </apex:repeat>
+                        </ul>
+                        <h2>Forbidden words</h2>
+                        <div>
+                            <apex:inputTextarea value="{!forbiddenWords}" rows="10" cols="80" />
+                        </div>
+                    </apex:tab>
+
+                    <apex:tab styleClass="itemTab" label="Status settings" name="status" onTabEnter="">
+                        <h2>Status colors</h2>
+                        <apex:repeat value="{!allStatusColors}" var="status" >
+                            <div class="field-row status">
+                                <div class="label">{!status + ':'}</div>
+                                <apex:inputText value="{!allStatusColors[status]}" size="5" onChange="updateColor(this)" />
+                                <span class="marker" style="background-color: {!allStatusColors[status]}"></span>
+                            </div>
+                        </apex:repeat>
+                        <br />
+                        <br />
+                        <h2>Status update settings</h2>
+                        <div class="field-row">
+                            <div class="label">Enabled:</div>
+                            <apex:inputCheckbox value="{!isStatusUpdateEnabled}" />
+                        </div>
+                        <div class="field-row">
+                            <div class="label">Points threshold:</div>
+                            <apex:inputText title="Limit for Status" value="{!limitForStatus}" size="4" />
+                        </div>
+                        <div class="field-row">
+                            <div class="label">Old status:</div>
+                            <apex:selectList value="{!statusToChange}" multiselect="false" size="1">
+                                <apex:selectOptions value="{!ideaStatusesOption}" />
+                            </apex:selectList>
+                        </div>
+                        <div class="field-row">
+                            <div class="label">New status:</div>
+                            <apex:selectList value="{!nextStatus}" multiselect="false" size="1">
+                                <apex:selectOptions value="{!ideaStatusesOption}" />
+                            </apex:selectList>
+                        </div>
+                    </apex:tab>
+                </apex:tabPanel>
+                <div class="buttons">
+                    <apex:commandButton action="{!saveSettings}" value="Save changes" />
+                </div>
+            </apex:form>
+        </div>
+        <div class="company-info">
+            <img src="{!URLFOR($Resource.BrIdeas, '/images/ac_logo.png')}" alt="Advanced Communities" class="logo" />
+            <p><span>Community Ideas</span> is created and maintained by <span>AdvancedCommunities.com</span> - the Community Cloud experts.</p>
+            <p>We specialize in Community Cloud customization, development and consulting.<br /> Feel free to contact us regarding anything related to Community Cloud.</p>
+            <p><a href="http://advancedcommunities.com">advancedcommunities.com</a><br /> <a href="mailto:sales@advancedcommunities.com">sales@advancedcommunities.com</a></p>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function updateColor(updatedInput){
+            var colorCode = updatedInput.value;
+            var container = updatedInput.parentNode;
+            var marker = container.querySelector('.marker');
+
+            marker.style.backgroundColor = colorCode;
+        }
+    </script>
+</apex:page>

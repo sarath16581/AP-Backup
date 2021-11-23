@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__ValueToCustomerValidRange</fullName>
+    <active>true</active>
+    <errorConditionFormula>(DMAPP__Value_Contribution_Green__c &lt; 0 || DMAPP__Value_Contribution_Green__c &gt; 1)  || (DMAPP__Value_Contribution_Amber__c  &lt; 0 ||  DMAPP__Value_Contribution_Amber__c &gt; 1) || (DMAPP__Value_Contribution_Amber__c  &gt;  DMAPP__Value_Contribution_Green__c)</errorConditionFormula>
+    <errorMessage>Value To Customer Green and Amber cannot be less than 0% or greater than 100% and Value To Customer Green cannot be less than Value To Customer Amber</errorMessage>
+</ValidationRule>

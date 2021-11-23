@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>To respond to contacts about scam email 8.8.19</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Scam SMS Bulk Email</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}.</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference {!Case.CaseNumber}
+
+Update for {!Case.Type} - {!Case.CaseNumber}
+
+Hi,
+
+Thank you for taking the time to contact us about the SMS you received. I&apos;m sure I can help you further. 
+
+Based on the information you have provided I can confirm that the SMS you received is a scam. Australia Post is currently aware of a fraudulent SMS circulating regarding a parcel being held at &quot;Terminal 2&quot; requiring further payment. The SMS will also contain a link which will request you to make a small shipping payment and enter your personal details. Please note that Australia Post will never SMS customers requesting further payment or personal information.
+
+Moving forward, I would suggest that you please disregard and delete the SMS.
+
+If you continue to receive similar messages in the future I’ve included some tips on how to best deal with them.
+
+- Do not click on any links
+- Report any scam emails to Scamwatch at: https://www.scamwatch.gov.au/report-a-scam
+- Delete the message upon reporting it to Scamwatch.
+
+Please also be aware that Australia Post will never:
+- Email/SMS you to reconfirm your address by clicking a link
+- Send you an email/SMS asking for your password, credit card details or account information
+- SMS, call or email you unexpectedly to request a payment
+
+Thank you for bringing this to our attention and I do hope that this information has provided some clarity.
+
+
+Regards,
+
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

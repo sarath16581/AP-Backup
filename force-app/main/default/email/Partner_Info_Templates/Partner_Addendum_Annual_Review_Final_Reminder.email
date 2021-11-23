@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+	<title>Annual Review</title>
+</head>
+<body>
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Good Morning</span><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"></span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"><b>This is a final reminder.</b></span><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"></span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Licence Record {!Partner_Addendum__c.Licence__c} has a Partner Addendum due to expire.</span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">If this PA is not extended by the end of month it will be ceased.</span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Click <a href="{!Partner_Addendum__c.Link}">here</a> to view Partner Addendum.</span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Regards</span></p>
+
+
+</body>
+</html>

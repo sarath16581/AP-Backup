@@ -1,0 +1,233 @@
+<!--
+* @author avula.jansirani@auspost.com.au
+* @date 2020-01-20
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: The main review cmp where user can review all the step data entered in previous steps before submitting a credit form.
+* @changelog
+* 2020-01-20 avula.jansirani@auspost.com.au
+*
+-->
+<template>
+
+    <template if:true={isCreditAssesment}>
+      
+        <template if:true={isAbnDetails}>
+            
+            <!--ABN Summary-->
+            <div class="form-outer-box-review">
+                <div class="form-inner-box-wide">
+                    <c-bca-summary-a-b-n data-id='abnSummary' abn-details={creditAssessment.abnDetails} 
+                                         trading-name-manual-entry-const={tradingManualConstName} 
+                                         step-name={PAGE_IDS.abn} oneditdetails={navigateToEditStep}>
+                    </c-bca-summary-a-b-n>
+                </div>
+            </div>
+
+            <!--Trustee company details-->
+            <template if:true={isTrusteeCompanyDetails}>
+                <div class="form-outer-box-review">
+                    <div class="form-inner-box-wide">
+                        <c-bca-summary-a-b-n data-id='acnSummary' abn-details={creditAssessment.abnDetails.acnDetails}
+                                             trading-name-manual-entry-const={tradingManualConstName} 
+                                             step-name={PAGE_IDS.abn}
+                                             oneditdetails={navigateToEditStep} 
+                                             req-from='ACN'>
+                        </c-bca-summary-a-b-n>
+                    </div>
+                </div>
+            </template>
+
+            <!--Trust details-->
+           <template if:true={isTrustDetailsExists}>
+            <div class="form-outer-box-review">
+                <div class="form-inner-box-wide"> 
+                    <c-bca-summary-trust-details  step-name={PAGE_IDS.trust} 
+                                                  trust-files={creditAssessment.trustFiles}
+                                                  oneditdetails={navigateToEditStep}>
+                    </c-bca-summary-trust-details>
+            </div></div>
+           </template>
+
+        </template>
+
+
+        <!-- Business Address details  -->
+        <template if:true={isBusinessAddressDetails}>
+            <div class="form-outer-box-review">
+                <div class="form-inner-box-wide"> 
+                    <c-bca-summary-business-address step-name={PAGE_IDS.businessAddress} 
+                                                    business-address-details={creditAssessment.businessAddressDetails}
+                                                    oneditdetails={navigateToEditStep}>
+                    </c-bca-summary-business-address>
+                    </div></div>
+        </template>
+
+        <!-- Business Type details  -->
+        <template if:true={isBusinessTypeDetails}>
+            <div class="form-outer-box-review">
+                <div class="form-inner-box-wide"> 
+                    <c-bca-summary-business-type-details step-name={PAGE_IDS.businessType} 
+                                                         business-type-details={creditAssessment.businessTypeDetails}
+                                                         entity-type-group={entityTypeGroup} 
+                                                         trust-type={trustType} 
+                                                         oneditdetails={navigateToEditStep}>
+                    </c-bca-summary-business-type-details>
+                </div></div>    
+        </template>
+
+        <!-- Director details  -->
+        <template if:true={isDirectorDetails}>
+            <div class="form-outer-box-review">
+                <div class="form-inner-box-wide"> 
+                    <c-bca-summary-director-details step-name='businessPerson1'  
+                                                    director-details={creditAssessment.directors}
+                                                    entity-type-group={entityTypeGroup} 
+                                                    trust-type={trustType} 
+                                                    class="page-break"
+                                                    oneditdetails={navigateToEditStep}>
+                    </c-bca-summary-director-details>
+                    </div></div>
+        </template>
+
+        <!--Busness contact persion details-->
+        <template if:true={isBusinessContact}>
+            <div class="form-outer-box-review">
+                <div class="form-inner-box-wide">
+                   <c-bca-summary-business-contact-person step-name={PAGE_IDS.businessContact} 
+                                                       business-contact={creditAssessment.businessContact}
+                                                       oneditdetails={navigateToEditStep}>
+                   </c-bca-summary-business-contact-person>
+                </div>
+            </div>
+        </template>
+
+        <!--Email address for correspondence-->
+        <template if:true={isEmailAddForCorrespondence}>
+            <div class="form-outer-box-review">
+                <div class="form-inner-box-wide"> 
+                    <c-bca-summary-email-add-for-correspondence step-name={PAGE_IDS.emailCorrespondence} 
+                                                                email-for-correspondence={creditAssessment.emailForCorrespondence}
+                                                                oneditdetails={navigateToEditStep}>
+                    </c-bca-summary-email-add-for-correspondence>
+                    </div>
+                </div>
+        </template>
+
+        <!--Credit amount-->
+        <template if:true={isCreditAmountDetails}>
+            <div class="form-outer-box-review">
+                <div class="form-inner-box-wide"> 
+                    <c-bca-summary-credit-amount step-name={PAGE_IDS.creditAmount} 
+                                                 credit-amount={creditAssessment.creditAmount}
+                                                 oneditdetails={navigateToEditStep}>
+                    </c-bca-summary-credit-amount>
+                </div>
+            </div>
+        </template>
+
+        <!--Direct debit-->
+        <template if:true={isDirectDebitDetails}>
+        <div class="form-outer-box-review">
+            <div class="form-inner-box-wide"> 
+                <c-bca-summary-direct-debit step-name={PAGE_IDS.directDebit}
+                                            direct-debit={creditAssessment.directDebit} 
+                                            class="page-break"
+                                            oneditdetails={navigateToEditStep}>
+                </c-bca-summary-direct-debit>
+            </div>
+        </div>    
+        </template>    
+
+        <!--BusinessRef-->
+        <template if:true={isBusinessRef}>
+            <div class="form-outer-box-review">
+                <div class="form-inner-box-wide"> 
+                    <c-bca-summary-business-refs step-name='businessReference1' 
+                                                 business-refs={creditAssessment.businessRefs}
+                                                 oneditdetails={navigateToEditStep}>
+                    </c-bca-summary-business-refs>
+                </div>
+            </div>
+        </template>
+
+        <!--Preferred postal outlets-->
+        <template if:true={isPostalOutlets}>
+            <div class="form-outer-box-review">
+                <div class="form-inner-box-wide">
+                    <c-bca-summary-postal-outlets step-name={PAGE_IDS.postalOutlets} 
+                                                  oneditdetails={navigateToEditStep}
+                                                  postal-outlets={creditAssessment.postalOutlets}>
+                    </c-bca-summary-postal-outlets>
+                </div>
+            </div>
+        </template>
+        
+        <!-- Who lodged this application -->
+        <!-- <template if:true={isPostalOutlets}>  //no needd this condition here, just added to show this cmp after postlets selected
+        <div class="form-outer-box-review">
+            <div class="form-inner-box-wide slds-m-vertical_small">
+                <c-bca-step-business-contact label='Who is lodging this application?'
+                                             data-id='lodgingContact' 
+                                             show-authorized-banner-text='true'
+                                             contact-person-options={contactPersonOptions} 
+                                             selected-contact={selectedContact} 
+                                             directors={directors}
+                                             radio-button-id='lodgingContact' >
+                </c-bca-step-business-contact>
+            </div>
+        </div>
+        </template>-->
+        <!-- Terms & Conditions-->
+        <c-bca-terms-and-conditions label='Business credit account terms and conditions' 
+                                    data-id='reviewTC'
+                                    tems-and-conditions={TC} 
+                                    agree-label={authorizeText}
+                                    download-u-r-l={summaryTCDownloadURL}
+                                    error-message={termsAndConditionsErrorMsg}
+                                    allow-downlaod='yes'
+                                    onchangeevent={onChangeEvent}
+                                    class="summary-margin page-break"
+                                    display-label2=true
+                                    display-label3=true
+                                    agree-label2-error-msg={businessPurposeErrorMsg}
+                                    agree-label3-error-msg={businessPrivacyErrorMsg}
+                                    application-signed-date ={applicationSignedDate}
+                                    onclickfindoutmoreevent={toggleFindOutMore}
+                                    pivacy-notice-u-r-l ={privacyNoticeURL}
+                                    is-g-o-v-t-entity-type={isGOVTEntityType}
+                                    > 
+        </c-bca-terms-and-conditions>
+
+        <!-- Find out more Modal -->
+        <template if:true={showFindMore}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true"
+                    aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <div class="slds-is-relative">
+                            
+                            <header class="slds-modal__header slds-p-around_x-large">
+                                <h2 id="modal-heading-02" class="slds-hyphenate"></h2>
+                            </header>
+
+                            
+                            <div class="slds-modal__content slds-p-horizontal_x-large" id="modal-content-id-2">
+                                <p>The consumer credit laws regulate credit provided to individuals wholly or predominantly for personal, domestic or household purposes, and require lenders, among other things, to hold an Australian Credit Licence and comply with a range of obligations intended to protect consumers. 
+                                    <br><br>These obligations include requirements in relation to the form and content of the credit contract, making a range of disclosures before the contract is entered and while it is in effect, responsible lending obligations to enquire as to whether the loan is ‘not unsuitable’ for the borrower, and access to internal and external dispute resolution measures, among other things.
+                                    <br><br>These laws do not apply to credit for which there is no charge, or to any borrowing by a company or that is wholly or predominantly for business purposes. Australia Post Corporation does not hold an Australian Credit Licence, and does not offer credit to consumers or for personal domestic our household purposes.
+                                
+                                </p>
+
+                            </div>
+                            
+                            <footer class="slds-modal__footer slds-p-around_x-large slds-grid slds-grid_align-center">
+                                    <button title="Close" onclick={toggleFindOutMore}
+                                        class="slds-button slds-button_brand" type="button">Close</button>
+                            </footer>
+                        </div>
+                    </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </template>
+</template>

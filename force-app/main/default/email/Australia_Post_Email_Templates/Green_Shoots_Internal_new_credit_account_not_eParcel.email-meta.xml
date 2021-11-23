@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Green Shoots - Internal -  new credit account not eParcel</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>Green Shoots - Internal -  new credit account not eParcel</name>
+    <style>freeForm</style>
+    <subject>Green Shoots Credit Application Submitted and Confirmed - Action Needed</subject>
+    <textOnly>Hi All
+ 
+Please see attached application form for new customer {!Lead.Company}.
+ 
+Steps:
+ 
+Credit management =  create customer account/send welcome pack. then notify Customer Data team (DL HQ CDM Credit Updates)
+Customer Data team = create customer hierarchy and update Sales force, then notify eParcelcustomercreation@auspost.com.au once completed.
+ 
+Note: Please CC eParcelcustomercreation@auspost.com.au in all emails as setup time for each customer needs to be tracked.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

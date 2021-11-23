@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SubCategory_Required_If_Job_Category</fullName>
+    <active>true</active>
+    <description>A Job Sub-Category is required if there is a value in the Job Category</description>
+    <errorConditionFormula>AND(NOT(ISPICKVAL(  Job_Category__c  ,&quot;&quot;)),ISPICKVAL(  Job_Sub_Category__c ,&quot;&quot;))</errorConditionFormula>
+    <errorDisplayField>Job_Sub_Category__c</errorDisplayField>
+    <errorMessage>Must have a Job Sub-Category with a Job Category</errorMessage>
+</ValidationRule>

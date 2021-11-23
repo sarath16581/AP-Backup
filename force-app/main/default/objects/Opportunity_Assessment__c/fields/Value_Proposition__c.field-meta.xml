@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Value_Proposition__c</fullName>
+    <description>Phase 1 - Opportunity Assessment (PWC)
+
+Identifying the key products we plan to offer and why the customer would choose us as opposed to the competition</description>
+    <externalId>false</externalId>
+    <inlineHelpText>What is our value proposition and product/ solution offering?</inlineHelpText>
+    <label>Value Proposition</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

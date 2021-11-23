@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email template for CMA CPA Licence renewal reminder</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Partner Info CMA CPA Renewal Reminders Email</name>
+    <style>none</style>
+    <subject>CMA CPA renewal reminder {!Account.Name}</subject>
+    <textOnly>Good Morning
+
+Licence Record {!Account.Name} has the existing contract due to expire soon.
+
+Please review this Contract agreement and complete required documents if needed.
+
+Click here to view Licence.
+
+Regards</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

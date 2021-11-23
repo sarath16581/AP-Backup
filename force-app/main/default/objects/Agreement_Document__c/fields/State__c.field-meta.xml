@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>State__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(LEFT( Work_Centre_Code__c , 1), &apos;2&apos;, &apos;NSW/ACT&apos;, &apos;3&apos;, &apos;VIC&apos;, &apos;4&apos; , &apos;QLD&apos;, &apos;5&apos;,&apos;SA/NT&apos;,&apos;6&apos;,&apos;WA&apos;,&apos;7&apos;,&apos;TAS&apos;,&apos;-&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>State</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

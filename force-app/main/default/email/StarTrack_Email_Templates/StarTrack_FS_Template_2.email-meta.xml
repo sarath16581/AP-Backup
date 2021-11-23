@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>StarTrack final shortage template 2</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>StarTrack - Final Shortage Template 2</name>
+    <style>none</style>
+    <subject>Final Shortage - {!Case.ArticleTest__c}</subject>
+    <textOnly>Case No.: {!Case.CaseNumber}
+
+Hi All,
+
+Please note that the Final Shortage process is underway for consignment:
+
+Consignment number:  {!Case.ArticleTest__c}  
+Number of items:  {!Case.Number_of_Items__c}
+Dispatch date:  {!Case.Dispatch_Date__c}  
+Expected delivery date:  {!Case.Expected_Delivery_Date__c}
+Sender address:  {!Case.Article_Sender_Address__c}  
+Receiver address:  {!Case.Article_Receiver_Address__c}
+Delivery Type:  {!Case.Article_Service_Type__c}  
+Unit Type:  {!Case.Article_Unit_Type__c}
+Actual Weight(kg):  {!Case.Article_ActualWeight__c}  
+ATL  {!Case.ATL__c}
+Dangerous Goods:  {!Case.Article_Dangerous_Goods__c}  
+Delivery Instructions:  {!Case.DeliveryInstructions__c}
+Last scanning:  &quot;[PLEASE PUT LATEST SCANNING HERE]&quot;
+Description of contents:  {!Case.Description_of_contents__c}  
+Description of packaging:  {!Case.Description_of_packaging__c}
+Value of goods:  {!Case.Value_of_Goods__c}
+
+All preliminary checks have been completed with a negative find.
+
+
+Regards,
+
+{!User.Name}
+{!User.Title}
+{!User.Department}
+T {!User.Phone}
+
+{!Case.Thread_Id}
+
+This email is sent by Star Track Express Pty Limited or one of its related entities (collectively referred to as “STARTRACK”). The information contained in this email is confidential and may contain legally privileged information. Confidentiality and legal privilege are not waived or lost by reason of mistaken delivery. The content of this email is the view or opinion of the stated author and does not necessarily reflect the view or opinion of STARTRACK. If you are not the intended recipient or the person responsible for the delivery of the message to the intended recipient, any dissemination of the information is strictly prohibited. If you have received this email in error, please contact the sender by return email and delete the email and any attachments from your computer. Although STARTRACK has taken care to ensure the attachments (if any) to this email are virus free, STARTRACK does not warrant that any such attachments are free of errors, viruses or other malicious codes and does not accept liability for any consequences to the recipient upon opening or using this email.
+Help &amp; Support  |  Terms &amp; Conditions  |  Privacy Policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

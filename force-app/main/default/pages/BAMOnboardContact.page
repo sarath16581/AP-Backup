@@ -1,0 +1,56 @@
+<!--
+2019-06-01  vcheng@salesforce.com  Created
+2019-07-09  vcheng@salesforce.com
+            - removed BAMOnBoardContactVFController as page controller, since we are using future class to handle HTTP request
+-->
+<apex:page title="BAM Internal Onboarding">
+    <apex:includeLightning />    
+
+    <div>
+        <div style="width:100%;height:100%;" id="BAM_onboardContactContainer"/>
+
+        <div style="width:100%;height:100%;" id="BAM_onboardingContainer"/>
+    </div>
+
+
+
+    <script>
+
+
+        // From LEX > VF
+        var onLightningEvent = function (event) {
+
+            console.log('onLightningEvent');
+            console.log(event);
+            var className = event.getParam('className');
+            var methodName = event.getParam('methodName');
+            var sPayload = event.getParam('methodParams');
+            var useAsynchCallout = event.getParam('useAsynchCallout');
+
+            /* using future instead of continuation
+            */
+
+        };
+
+        var cmpOnboarding;
+        var contactId = '{!$CurrentPage.parameters.contactId}';
+        console.debug('BAMOnboardContactPage:: contact Id = ' + contactId);
+        // onboarding contact component
+        $Lightning.use("c:BAMInternalWrapper", function () {
+            $Lightning.createComponent("c:BAMOnboardContactCmp",
+                {'contactId': contactId},
+                "BAM_onboardContactContainer",
+                function (cmp) {
+                    cmpOnboarding = cmp;
+                    console.log('BAM Onboard Contact component created');
+
+                    $A.eventService.addHandler({
+                        "event": "c:AsynchApexContinuationRequest",
+                        "handler": onLightningEvent
+                    });
+                });
+        });
+
+    </script>
+
+</apex:page>

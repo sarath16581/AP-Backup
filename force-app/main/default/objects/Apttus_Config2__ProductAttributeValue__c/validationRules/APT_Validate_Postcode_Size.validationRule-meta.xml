@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Validate_Postcode_Size</fullName>
+    <active>true</active>
+    <description>Validate Lodgement Postcode.</description>
+    <errorConditionFormula>LEN(APT_Postcode__c) &gt; 4</errorConditionFormula>
+    <errorDisplayField>APT_Postcode__c</errorDisplayField>
+    <errorMessage>Invalid Lodgement Postcode.</errorMessage>
+</ValidationRule>

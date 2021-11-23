@@ -1,0 +1,12 @@
+<apex:component controller="APT_ProposalApprovalsComponentController" access="global">
+    <apex:attribute name="proposalId" 
+                    description="This is the Approval Request SObject." 
+                    type="String" 
+                    assignTo="{!proposalSOId}" />
+                    
+                        
+    
+    Click on the link below to access the Cart: 
+    <br/>
+    <apex:outputLink value="{!cartURL}">{!Proposal.Name}</apex:outputLink>
+</apex:component>

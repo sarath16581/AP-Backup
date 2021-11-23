@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Delivery_officer_knowledge__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Does the officer remember the delivery?</inlineHelpText>
+    <label>Delivery officer knowledge</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Address_type__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Recalls - safe dropped</fullName>
+                <default>false</default>
+                <label>Recalls - safe dropped</label>
+            </value>
+            <value>
+                <fullName>Recalls - delivered</fullName>
+                <default>false</default>
+                <label>Recalls - delivered</label>
+            </value>
+            <value>
+                <fullName>Cannot recall</fullName>
+                <default>false</default>
+                <label>Cannot recall</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Residential</controllingFieldValue>
+            <valueName>Recalls - safe dropped</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Residential</controllingFieldValue>
+            <controllingFieldValue>Business</controllingFieldValue>
+            <valueName>Recalls - delivered</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Residential</controllingFieldValue>
+            <controllingFieldValue>Business</controllingFieldValue>
+            <valueName>Cannot recall</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

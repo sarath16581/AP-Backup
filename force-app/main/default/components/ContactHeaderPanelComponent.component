@@ -1,0 +1,201 @@
+<apex:component controller="ContactHeaderPanelComponentCont">
+	<apex:attribute name="recordId" description="the selected account/contact id" type="string" required="true" assignTo="{!recId}"/>
+
+	<apex:includeScript value="/support/console/29.0/integration.js"/>
+
+	<style type="text/css">
+	
+		body {
+			font-size: 10px;
+			font-weight: bold;
+		}
+		
+		table, th, td {
+			border: 0px;
+		}
+		
+		table.panelContainer {
+			width : 100%;
+			height : 100%;
+			padding : 1px;
+		}
+		
+		table.detailtable {
+			width : 100%;
+			height : 100%;
+			margin-top : 5px;
+			margin-right : 5px;
+			border-collapse : collapse;
+			spacing : 3px;
+		}
+		
+		table.detailtable td {		
+			text-align : left;
+			vertical-align : top;
+			padding : 3px;
+		}
+		
+		table.detailtable th {
+			margin: 0;
+			height: 20px;
+			font-size: 12px;
+			color: #0096bf;		
+			text-align : left;
+			vertical-align : top;
+		}
+		
+		td.fieldvalue {
+			font-size: 12px;
+			font-weight: normal;
+		}
+		
+		.fieldvalue {
+			font-size: 12px;
+			font-weight: normal;
+			margin: 2px;
+		}
+		
+		td.nameColumn {
+			vertical-align : top;
+		}
+		
+		.name {
+			font-size: 23px;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			font-weight: normal;
+		}
+		
+		div.charttitle {
+			font-size : 12px;
+			color : #0096bf;
+			width : 250px;
+			margin-left : auto;
+			margin-right : auto;
+		}
+		
+		.titileIcon {
+			vertical-align : middle;
+		}
+		
+		.chart {
+			width : 250px;
+			height : 85px;
+			margin-left : auto;
+			margin-right : auto;
+		}
+		
+		.underline {
+			border-bottom : 1px solid rgba(0, 0, 0, 0.3);
+		}
+		
+		.npsText {
+			font-size : 16px;
+			vertical-align : middle;
+		}
+		
+		.DETRACTOR {
+			color : rgba(172, 38, 27, 0.5);
+		}
+		
+		.NEUTRAL {		
+			color : rgba(159, 109 , 27, 0.5);
+		}
+		
+		.PROMOTER {		
+			color : rgba(70, 131, 90, 0.5);
+		}
+	
+	</style>
+
+	<table class="panelContainer">
+	    <tr>
+	        <td class="nameColumn">
+	        	<div class="name">
+	        		<apex:outputText styleClass="underline" value="{!contactRec.Salutation} {!contactRec.Name}"/>
+	        	</div>
+	        	<div class="fieldvalue">
+					<br/>
+	        		<strong>E:&nbsp;</strong><apex:outputText value="{!contactRec.Email}" /><br/>
+                   	<strong>P:&nbsp;</strong><apex:outputText value="{!contactRec.Phone}"/><br/>
+                   	<strong>M:&nbsp;</strong><apex:outputText value="{!contactRec.MobilePhone}"/><br/>
+                   	<strong>F:&nbsp;</strong><apex:outputText value="{!contactRec.Fax}"/><br/>
+                 </div>
+            </td>
+	      	<td style="width:15%">
+	     		<table class="detailtable">
+	                <tr>
+	                    <th colspan="2"><div><apex:image styleClass="titileIcon" url="/img/icon/profile24.png"/>&nbsp;Identity</div></th>
+	                </tr>
+	                <tr>
+	                    <td><apex:outputText value="{!IF(isPersonAccount, 'APCN', 'Account Number')}:"/></td>
+	                    <td class="fieldvalue"><apex:outputText value="{!IF(isPersonAccount, contactRec.APCN__c, contactRec.Account.AccountNumber)}" /></td>
+	                </tr>
+	                <tr>
+	                    <td>Birthdate:</td>
+	                    <td class="fieldvalue"><apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+	                        <apex:param value="{!contactRec.Birthdate}"/></apex:outputText></td>
+	                </tr>
+	                <tr>
+	                    <td>Address:</td>	
+	                    <td class="fieldvalue">
+			        		<apex:outputText value="{!contactRec.MailingStreet}" /><br/>
+		                   	<apex:outputText value="{!contactRec.MailingCity}"/><apex:outputText value="," rendered="{!IF(ISBLANK(contactRec.MailingCity),false,true)}"/>&nbsp;
+		                   	<apex:outputText value="{!contactRec.MailingPostalCode}" />&nbsp;
+		                   	<apex:outputText value="{!contactRec.MailingCountry}" />&nbsp;
+		                   	<apex:image url="{!IF(ISBLANK(contactRec.MailingDPID__c), '/img/msg_icons/error16.png', '/img/msg_icons/confirm16.png')}"
+		                   	  	title="{!IF(ISBLANK(contactRec.MailingDPID__c), 'Invalid Address', 'Valid Address')}"/>	               
+						</td>
+	                </tr>
+	 
+	            </table>       
+	                
+	        </td>
+	        
+	        <td style="width:25%">
+	         	<table class="detailtable">
+	                <tr>
+	                	<th>
+	                		<c:ContactActivityHistoryChartComponent contactId="{!contId}"/>
+	                	</th>
+	                </tr>
+	            </table>
+	        </td>
+	        <td style="width:25%">
+	         	<table class="detailtable">
+	                <tr>
+	                	<th>
+	                		<c:ContactCaseHistoryChartComponent contactId="{!contId}"/>
+	                	</th>
+	                </tr>
+	            </table>
+	        </td>	        
+	        <td style="width:20%">
+	            <table class="detailtable">
+	                <tr>
+	                    <th colspan="2"><div><apex:image styleClass="titileIcon" url="/img/icon/dashboards24.png"/>&nbsp;Customer Statistics</div></th>
+	                </tr>
+	                 <tr>
+	                    <td>Average Call Time:&nbsp;</td>
+	                    <td><apex:outputText value="{!averageCallTime}" /></td>
+	                </tr>
+	                 <tr>
+	                    <td>Last Call Product:&nbsp;</td>
+	                    <td><apex:outputText value="{!lastCallProduct}" /></td>
+	                </tr>
+	                 <tr>
+	                    <td>Average NPS Response:&nbsp;</td>
+	                    <td><apex:outputText value="{!npsResponse}" /></td>
+	                </tr>
+	                <tr>
+	                	<td colspan="2">
+	                		<apex:image styleClass="titileIcon" url="{!URLFOR($Resource.SSSWIcons, IF(npsResponse < 7, 'Detractor.png', IF(npsResponse >= 7 && npsResponse < 9, 'Neutral.png', 'Promoter.png')))}"/>&nbsp;
+	                		<apex:outputText styleClass="npsText {!IF(npsResponse < 7, 'DETRACTOR', IF(npsResponse >= 7 && npsResponse < 9, 'NEUTRAL', 'PROMOTER'))}" 
+	                			value="{!IF(npsResponse < 7, 'DETRACTOR', IF(npsResponse >= 7 && npsResponse < 9, 'NEUTRAL', 'PROMOTER'))}"/>
+	                	</td>
+	                </tr>	                
+	            </table>
+	        </td>
+	    </tr>
+	</table>
+</apex:component>

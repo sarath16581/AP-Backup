@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Name__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+RecordType.DeveloperName = &apos;StarTrack&apos;,
+Billing_Account_Name__r.Customer_Name__c,
+Legal_Entity_Name_LookUp__r.Name
+)</formula>
+    <label>Account Name</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pay_Account_Type__c</fullName>
+    <description>The field is used for &apos;Credit Management Request&apos; DSR record type and is also used as a controlling field of Work Type which aim to differentiate between billing account or sub account.</description>
+    <externalId>false</externalId>
+    <label>Pay Account Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Billing Account</fullName>
+                <default>false</default>
+                <label>Billing Account</label>
+            </value>
+            <value>
+                <fullName>Sub Account</fullName>
+                <default>false</default>
+                <label>Sub Account</label>
+            </value>
+            <value>
+                <fullName>StarTrack Account</fullName>
+                <default>false</default>
+                <label>StarTrack Account</label>
+            </value>
+            <value>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Not Applicable</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Workshop_Group__c</fullName>
+    <externalId>false</externalId>
+    <label>Workshop Group</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer Management</fullName>
+                <default>false</default>
+                <label>Customer Management</label>
+            </value>
+            <value>
+                <fullName>Finance</fullName>
+                <default>false</default>
+                <label>Finance</label>
+            </value>
+            <value>
+                <fullName>Marketing</fullName>
+                <default>false</default>
+                <label>Marketing</label>
+            </value>
+            <value>
+                <fullName>NFR</fullName>
+                <default>false</default>
+                <label>NFR</label>
+            </value>
+            <value>
+                <fullName>Opportunity Management</fullName>
+                <default>false</default>
+                <label>Opportunity Management</label>
+            </value>
+            <value>
+                <fullName>Portfolio Management</fullName>
+                <default>false</default>
+                <label>Portfolio Management</label>
+            </value>
+            <value>
+                <fullName>Pricing Management</fullName>
+                <default>false</default>
+                <label>Pricing Management</label>
+            </value>
+            <value>
+                <fullName>Sales Management</fullName>
+                <default>false</default>
+                <label>Sales Management</label>
+            </value>
+            <value>
+                <fullName>Segmentation</fullName>
+                <default>false</default>
+                <label>Segmentation</label>
+            </value>
+            <value>
+                <fullName>SFDC Admin</fullName>
+                <default>false</default>
+                <label>SFDC Admin</label>
+            </value>
+            <value>
+                <fullName>tbc</fullName>
+                <default>false</default>
+                <label>tbc</label>
+            </value>
+            <value>
+                <fullName>OOS</fullName>
+                <default>false</default>
+                <label>OOS</label>
+            </value>
+            <value>
+                <fullName>Product Management</fullName>
+                <default>false</default>
+                <label>Product Management</label>
+            </value>
+            <value>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+                <label>Pricing</label>
+            </value>
+            <value>
+                <fullName>Revenue</fullName>
+                <default>false</default>
+                <label>Revenue</label>
+            </value>
+            <value>
+                <fullName>Data Quality</fullName>
+                <default>false</default>
+                <label>Data Quality</label>
+            </value>
+            <value>
+                <fullName>Pipeline Reporting</fullName>
+                <default>false</default>
+                <label>Pipeline Reporting</label>
+            </value>
+            <value>
+                <fullName>Organisation Data</fullName>
+                <default>false</default>
+                <label>Organisation Data</label>
+            </value>
+            <value>
+                <fullName>Sales Process</fullName>
+                <default>false</default>
+                <label>Sales Process</label>
+            </value>
+            <value>
+                <fullName>Customer Maps</fullName>
+                <default>false</default>
+                <label>Customer Maps</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

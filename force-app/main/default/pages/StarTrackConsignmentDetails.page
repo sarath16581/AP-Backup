@@ -1,0 +1,489 @@
+<!--
+    Description: This page is used in sidebar panel to highlight consignment details to console user.
+    History:
+    AUG.7.2015 Fahad Akhtar(CloudSherpas) Created
+    AUG.13.2015 Patrick James Franco (Cloud Sherpas) Added logic to open consignment detail in a primary tab; Case related list with regards to Article
+    JAN.26.2016 Patrick James Franco (Cloud Sherpas) Moved POD section Add to Case to left most part
+    FEB.10.2016 Patrick Franco (Cloud Sherpas) - Added conditional button that will open StarTrackConsignmentSearch page as sub tab
+    09.06.2020  Lija Jawahar     Omni-channel bug fix - Removed id from OpenSubtab- to avoid the conflict between primary and Subtab
+    -->
+<apex:page standardController="Case" extensions="StarTrackConsignmentDetails_ControllerX" showHeader="false" standardStylesheets="true" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+    <apex:includeScript value="/support/console/34.0/integration.js"/>
+
+    <div id="loading" style="display: none">
+        <img id="loading-image" src="/img/loading.gif" alt="Loading..." />
+    </div>
+
+    <style>
+
+    thead th {
+        font-size: 80%;
+    }
+
+    tbody td {
+        font-size: 80%;
+    }
+
+    .imageHover{
+        cursor: pointer; cursor: hand;
+    }
+
+    .bPageBlock .detailList .dataCol{
+        width: 25%;
+    }
+
+    .bPageBlock .detailList .labelCol{
+        width: 0px;
+    }
+
+    #loading {
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        position: fixed;
+        display: block;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+    }
+
+    #loading-image {
+        position: absolute;
+        top: 35%;
+        left: 50%;
+        z-index: 100;
+    }
+
+    </style>
+    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript">
+        var objectId;
+        var positionInYdir;
+        var positionInXdir;
+        function getPrimaryTabIdAndOpenSubtab(objId) {
+            if(sforce && sforce.console && sforce.console.isInConsole()){
+                objectId = objId;
+                sforce.console.getEnclosingPrimaryTabId(openSubtab);
+             }
+        }
+
+        var openSubtab = function openSubtab(result) {
+            var primaryTabId = result.id;
+            sforce.console.openSubtab(primaryTabId , '/' + objectId, true,
+                '', null, '', '');
+
+        };
+
+        function openCaseRecord(caseId){
+            if(sforce && sforce.console && sforce.console.isInConsole()){
+                sforce.console.openPrimaryTab(null, '/' + caseId, true);
+            } 
+        }
+
+        function selectTab(elmnt) {
+            // slds-active
+            $(elmnt).parent("li").siblings(".slds-active").removeClass("slds-active");
+            $(elmnt).parent("li").addClass("slds-active");
+
+            // tabindex
+            $(elmnt).parent("li").siblings().children("a").attr("tabindex", -1);
+            $(elmnt).attr("tabindex", 0);
+
+            // aria-selected
+            $(elmnt).parent("li").siblings().children("a").attr("aria-selected", false);
+            $(elmnt).attr("aria-selected", true);
+
+            // hiding previouly selected tab (slds-show/slds-hide)
+            $(elmnt).closest(".slds-tabs--default").children("div[role='tabpanel'].slds-show").addClass("slds-hide");
+            $(elmnt).closest(".slds-tabs--default").children("div[role='tabpanel'].slds-show").removeClass("slds-show");
+            // displaying newly selected tab (slds-show/slds-hide)
+            $(elmnt).closest(".slds-tabs--default").children("div[aria-labelledby='"+elmnt.id+"']").addClass("slds-show");
+            $(elmnt).closest(".slds-tabs--default").children("div[aria-labelledby='"+elmnt.id+"']").removeClass("slds-hide");
+        }
+
+        function openConsignmentSearch(){
+            if(sforce && sforce.console && sforce.console.isInConsole()){
+                sforce.console.getFocusedPrimaryTabId(function(primaryTab){
+                    //  09.06.202 LJ changed the id variable  to caseId
+                    sforce.console.openSubtab(primaryTab.id, '/apex/StarTrackConsignmentSearch?caseId={!Case.Id}&isdtp=vw', true, 'Consignment Search', null);
+                });
+            }
+        }
+        function displayLoad(theElement){
+            document.getElementById(theElement).style.display = 'inline';
+        }
+        function hideLoading() {
+            $('#loading').hide();
+        }
+        function showLoading() {
+            $('#loading').show();
+        }
+
+        function refreshScanEventsPage() {            
+            if(sforce && sforce.console && sforce.console.isInConsole()){
+                sforce.console.getEnclosingPrimaryTabId(refreshSubtab);
+            }            
+        }
+        var refreshSubtab = function refreshSubtab(result) {
+            if(sforce && sforce.console && sforce.console.isInConsole()){
+                var primaryTabId = result.id;
+                console.log('primaryTabId : ' + primaryTabId);
+                sforce.console.focusSubtabByNameAndPrimaryTabId('Scan Events', primaryTabId, refreshSuccess);
+            }     
+        };
+
+        var refreshSuccess = function refreshSuccess(result) {
+            if (result.success == true) {
+                sforce.console.getFocusedSubtabId(getFocusedId);  
+            }
+            console.log('succcess : ' + result.success);
+        }
+        var getFocusedId = function getFocusedId(result) {
+            console.log('id : ' + result.id);
+            var subTabId = result.id;
+            sforce.console.closeTab(subTabId, closeScanEventSuccess);
+            validateArticleValue('{!caseRecord.ArticleTest__c}');
+        }
+
+        var closeScanEventSuccess = function closeScanEventSuccess(result) {
+            console.log('close : '+ result.success);
+            if (result.success == true) {
+                validateArticleValue('{!caseRecord.ArticleTest__c}');
+            }
+        }
+
+        function getPrimaryTabIdAndOpenSubtab(objId, label) {
+            if(sforce && sforce.console && sforce.console.isInConsole()){
+                objectId = objId;
+                tabLabel = label;
+                sforce.console.getEnclosingPrimaryTabId(openSubtab);
+             }
+        }
+
+        var openSubtab = function openSubtab(result) {
+            var primaryTabId = result.id;
+            sforce.console.openSubtab(primaryTabId , '/' + objectId, true,
+                tabLabel, null, 'Scan Events', 'Scan Events');
+            sforce.console.refreshPrimaryTabById(primaryTabId, true);
+
+        };
+
+        function validateArticleValue(articleId){
+            if(articleId!=''){
+                getPrimaryTabIdAndOpenSubtab('apex/StarTrackViewAllScanEvents?id='+articleId, 'Scan Events');
+            }else{
+                alert('No Consignment associated to this case.');
+            }
+        }
+    </script>
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS080, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jquery214)}" />
+
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <div class="slds" style="padding-left: 5px; padding-right: 5px;">
+            <apex:outputPanel id="allPanel">
+            <apex:form id="thisForm">
+            <apex:actionFunction name="logTimeAction" action="{!logTime}" reRender="abc"/>
+
+            <apex:outputPanel rendered="{!Case.ArticleTest__c != NULL}" style="float: right;">
+                <button id="refreshButton" class="slds-button slds-button--brand slds-button--small">
+                    <apex:commandLink value="Refresh" onclick="showLoading();" action="{!searchConsignment}" oncomplete="hideLoading();refreshScanEventsPage();" style="color:white; text-decoration: none;" reRender="detailPanel1, relatedCasesPanel1, relatedNotesPanel1, relatedSubdocketsPanel1, relatedPODsPanel1"/>
+                </button>
+            </apex:outputPanel>
+
+            <apex:outputPanel id="detailPanel1">
+            <apex:pageBlock mode="maindetail">
+                <apex:pageBlockButtons location="top">
+                    <apex:commandButton value="Assign a Consignment" rendered="{!Case.ArticleTest__c == NULL}" onclick="openConsignmentSearch();"/>&nbsp;
+                </apex:pageBlockButtons>
+
+                <div id="detailPanel">
+                <apex:pageBlockSection columns="4">
+                    <apex:repeat value="{!$ObjectType.Case.FieldSets.Consignment_Detail_Page}" var="nd">
+                        <apex:outputPanel id="abc">
+                            <b>
+                                <apex:outputLabel id="otlbl" value="{!nd.Label}" rendered="{!(NOT(CONTAINS(nd, 'ArticleTest__c')))}" styleClass="fieldLabel" style="color: #8392aa;"/>
+                                <apex:outputText id="ottxt" value="Consignment" rendered="{!(CONTAINS(nd, 'ArticleTest__c'))}" styleClass="fieldLabel" style="color: #8392aa;"/>
+                            </b>
+                        </apex:outputPanel>
+                        <apex:outputPanel >
+                            <apex:outputField id="otfld" value="{!caseRecord[nd]}" rendered="{!(NOT(CONTAINS(nd, 'ArticleTest__c')))}"/>
+                            <apex:outputLink id="otlnk" value="" onclick="getPrimaryTabIdAndOpenSubtab('{!caseRecord[nd]}'); return false;" rendered="{!(CONTAINS(nd, 'ArticleTest__c'))}">{!caseRecord.ArticleTest__r.Name}</apex:outputLink>
+                        </apex:outputPanel>
+                    </apex:repeat>
+                    <!--Second field set -->
+                    <apex:repeat value="{!$ObjectType.Case.FieldSets.Consignment_Detail_Page_2}" var="nd">
+                        <apex:outputPanel id="abc">
+                            <b>
+                                <apex:outputLabel id="otlbl" value="{!nd.Label}" rendered="{!(NOT(CONTAINS(nd, 'ArticleTest__c')))}" styleClass="fieldLabel" style="color: #8392aa;"/>
+                            </b>
+                        </apex:outputPanel>
+                        <apex:outputPanel >
+                            <apex:outputField id="otfld" value="{!caseRecord[nd]}" rendered="{!(NOT(CONTAINS(nd, 'ArticleTest__c')))}"/>
+                        </apex:outputPanel>
+                    </apex:repeat>
+                </apex:pageBlockSection>
+                </div>
+
+            </apex:pageBlock>
+            </apex:outputPanel>
+
+            <div class="slds-tabs--default" style="width:100%;">
+                <!-- TABS -->
+                <apex:outputPanel rendered="{!(caseRecord.RecordType.Name == 'Delivery Enquiry' || caseRecord.RecordType.Name == 'Transit Warranty Claim' || caseRecord.RecordType.Name == 'Credit Dispute Claim')}">
+                    <ul class="slds-tabs--default__nav" role="tablist">
+                        <li class="slds-tabs__item slds-text-heading--label slds-active" title="Proof Of Delivery" role="presentation"><a href="#" role="tab" id="Tab4" tabindex="0" aria-selected="true" aria-controls="tab-default-4" onclick="selectTab(this); return false;">POD</a></li>
+                        <li class="slds-tabs__item slds-text-heading--label" title="Related Cases" role="presentation"><a href="#" role="tab" id="Tab1" tabindex="-1" aria-selected="false" aria-controls="tab-default-1" onclick="selectTab(this); return false;">Related Cases</a></li>
+                        <li class="slds-tabs__item slds-text-heading--label" title="Related Cases" role="presentation"><a href="#" role="tab" id="Tab5" tabindex="-1" aria-selected="false" aria-controls="tab-default-1" onclick="selectTab(this); return false;">IVR Transactions</a></li>
+                        <li class="slds-tabs__item slds-text-heading--label" title="Book-in Notes" role="presentation"><a href="#" role="tab" id="Tab2" tabindex="-1" aria-selected="false" aria-controls="tab-default-2" onclick="selectTab(this); return false;">Book-in Notes</a></li>
+                        <li class="slds-tabs__item slds-text-heading--label" title="Sub-dockets" role="presentation"><a href="#" role="tab" id="Tab3" tabindex="-1" aria-selected="false" aria-controls="tab-default-3" onclick="selectTab(this); return false;">Sub-dockets</a></li>
+                        <!--<li class="slds-tabs__item slds-text-heading--label" title="Labels" role="presentation"><a href="#" role="tab" id="Tab5" tabindex="-1" aria-selected="false" aria-controls="tab-default-5" onclick="selectTab(this);">Labels</a></li>-->
+                    </ul>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!(caseRecord.RecordType.Name <> 'Delivery Enquiry' && caseRecord.RecordType.Name <> 'Transit Warranty Claim' && caseRecord.RecordType.Name <> 'Credit Dispute Claim')}">
+                    <ul class="slds-tabs--default__nav" role="tablist">
+                        <li class="slds-tabs__item slds-text-heading--label slds-active" title="Related Cases" role="presentation"><a href="#" role="tab" id="Tab1" tabindex="0" aria-selected="true" aria-controls="tab-default-1" onclick="selectTab(this); return false;">Related Cases</a></li>
+                        <li class="slds-tabs__item slds-text-heading--label" title="Related Cases" role="presentation"><a href="#" role="tab" id="Tab5" tabindex="-1" aria-selected="false" aria-controls="tab-default-1" onclick="selectTab(this); return false;">IVR Transactions</a></li>
+                        <li class="slds-tabs__item slds-text-heading--label" title="Book-in Notes" role="presentation"><a href="#" role="tab" id="Tab2" tabindex="-1" aria-selected="false" aria-controls="tab-default-2" onclick="selectTab(this); return false;">Book-in Notes</a></li>
+                        <li class="slds-tabs__item slds-text-heading--label" title="Sub-dockets" role="presentation"><a href="#" role="tab" id="Tab3" tabindex="-1" aria-selected="false" aria-controls="tab-default-3" onclick="selectTab(this); return false;">Sub-dockets</a></li>
+                    </ul>
+                </apex:outputPanel>
+
+                <!-- TAB 4 -->
+                <div class="slds-tabs__content slds-show" role="tabpanel" aria-labelledby="Tab4" id="divTab4">
+                    <apex:outputPanel id="relatedPODsPanel1">
+                    <apex:outputText value="No records found." style="color:gray; font-style:italic; padding-left:2em;" rendered="{!relatedPODs.size == 0}" escape="false"/>
+                    <apex:outputPanel rendered="{!relatedPODs.size > 0}" id="relatedPODsPanel">
+                        <div class="slds-scrollable--x slds-scrollable--y" style="overflow:auto; height:200px; width:100%;" id="fourthDiv">
+                            <table class="slds-table slds-table--bordered" id="relatedPODsTable">
+                                <thead>
+                                    <tr class="slds-text-heading--label">
+                                        <th scope="col">Action</th>
+                                        <th>
+                                            <span class="slds-truncate">Image</span>
+                                        </th>
+                                        <apex:repeat value="{!$ObjectType.Proof_of_Delivery__c.FieldSets.StarTrack_Related_PODs}" var="pod">
+                                            <th scope="col">
+                                                <span class="slds-truncate">
+                                                    {!pod.label}
+                                                </span>
+                                            </th>
+                                        </apex:repeat>
+                                     </tr>
+                                </thead>
+                                <tbody>
+                                    <!--apex:form id="podForm"-->
+                                    <apex:repeat value="{!relatedPODs}" var="podRec">
+                                        <tr class="slds-hint-parent">
+                                            <td><apex:actionStatus startText="Copying to Case..." stopText="" id="copyPODstatus" >
+                                                <apex:facet name="stop">
+                                                <apex:commandButton action="{!attachPODSignatureToCase}" value="Add to Case" id="attachPODtoCaseButton" reRender="fourthDiv" status="copyPODstatus" oncomplete="">
+                                                    <apex:param name="sPODId" value="{!podRec.Id}"/>
+                                                    <apex:param name="sSignedBy" value="{!podRec.Signed_by__c}"/>
+                                                    <apex:param name="attachmentId" value="{!IF(podRec.NotesAndAttachments.size > 0, podRec.NotesAndAttachments[0].Id, podRec.AttachmentId__c)}"/>
+                                                </apex:commandButton>
+                                                </apex:facet>
+                                                </apex:actionStatus>
+                                            </td>
+                                            <td data-label="podThumbnail" role="row">
+                                                <apex:image styleClass="imageHover" value="/servlet/servlet.FileDownload?file={!podRec.NotesAndAttachments[0].Id}" rendered="{!podRec.NotesAndAttachments.size > 0}" width="20px" height="20px" onclick="getPrimaryTabIdAndOpenSubtab('servlet/servlet.FileDownload?file={!podRec.NotesAndAttachments[0].Id}');"/>
+                                            </td>
+                                            <apex:repeat value="{!$ObjectType.Proof_of_Delivery__c.FieldSets.StarTrack_Related_PODs}" var="pod">
+
+                                                <td data-label="{!pod.label}" role="row">
+                                                    <span class="slds-truncate">
+                                                        <apex:outputField value="{!podRec[pod]}" rendered="true"/>
+                                                    </span>
+                                                </td>
+                                            </apex:repeat>
+                                        </tr>
+                                    </apex:repeat>
+                                    <!--/apex:form-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </apex:outputPanel>
+                    </apex:outputPanel>
+                </div>
+
+                <!-- TAB 1 -->
+                <div class="slds-tabs__content slds-hide" role="tabpanel" aria-labelledby="Tab1" id="divTab1">
+                    <apex:outputPanel id="relatedCasesPanel1">
+                    <apex:outputText value="No records found." style="color:gray; font-style:italic; padding-left:2em;" rendered="{!relatedCases.size == 0}" escape="false"/>
+                    <apex:outputPanel rendered="{!relatedCases.size > 0}" id="relatedCasesPanel">
+                        <div class="slds-scrollable--x slds-scrollable--y" style="overflow:auto; height:200px; width:100%;" id="firstDiv">
+                            <table class="slds-table slds-table--bordered" id="relatedCasesTable">
+                                <thead>
+                                    <tr class="slds-text-heading--label">
+                                        <apex:repeat value="{!$ObjectType.Case.FieldSets.StarTrack_Related_Cases_Fieldset}" var="rel">
+                                            <th scope="col">
+                                                <span class="slds-truncate">
+                                                    {!rel.label}
+                                                </span>
+                                            </th>
+                                        </apex:repeat>
+                                     </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!relatedCases}" var="caseRec">
+                                        <tr class="slds-hint-parent">
+                                            <apex:repeat value="{!$ObjectType.Case.FieldSets.StarTrack_Related_Cases_Fieldset}" var="rel">
+                                                <td data-label="{!rel.label}" role="row">
+                                                    <span class="slds-truncate">
+                                                        <apex:outputField value="{!caseRec[rel]}" rendered="{!NOT(CONTAINS(rel, 'CaseNumber'))}"/>
+                                                        <apex:outputLink value="" onclick="openCaseRecord('{!caseRec.Id}'); return false;" rendered="{!(CONTAINS(rel, 'CaseNumber'))}">{!caseRec[rel]}</apex:outputLink>
+                                                    </span>
+                                                </td>
+                                            </apex:repeat>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                        </div>
+                    </apex:outputPanel>
+                    </apex:outputPanel>
+                </div>
+
+                <!-- TAB 4 - IVR transactions -->
+                <div class="slds-tabs__content slds-hide" role="tabpanel" aria-labelledby="Tab5" id="divTab5">
+                    <apex:outputPanel id="relatedCasesPanel4">
+                    <apex:outputText value="No records found." style="color:gray; font-style:italic; padding-left:2em;" rendered="{!relatedCasesIVR.size == 0}" escape="false"/>
+                    <apex:outputPanel rendered="{!relatedCasesIVR.size > 0}" id="relatedCasesPanel4a">
+                        <div class="slds-scrollable--x slds-scrollable--y" style="overflow:auto; height:200px; width:100%;" id="firstDiv">
+                            <table class="slds-table slds-table--bordered" id="relatedCasesTable">
+                                <thead>
+                                    <tr class="slds-text-heading--label">
+                                        <apex:repeat value="{!$ObjectType.Case.FieldSets.StarTrack_Related_Cases_Fieldset}" var="rel">
+                                            <th scope="col">
+                                                <span class="slds-truncate">
+                                                    {!rel.label}
+                                                </span>
+                                            </th>
+                                        </apex:repeat>
+                                     </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!relatedCasesIVR}" var="caseRec">
+                                        <tr class="slds-hint-parent">
+                                            <apex:repeat value="{!$ObjectType.Case.FieldSets.StarTrack_Related_Cases_Fieldset}" var="rel">
+                                                <td data-label="{!rel.label}" role="row">
+                                                    <span class="slds-truncate">
+                                                        <apex:outputField value="{!caseRec[rel]}" rendered="{!NOT(CONTAINS(rel, 'CaseNumber'))}"/>
+                                                        <apex:outputLink value="" onclick="openCaseRecord('{!caseRec.Id}'); return false;" rendered="{!(CONTAINS(rel, 'CaseNumber'))}">{!caseRec[rel]}</apex:outputLink>
+                                                    </span>
+                                                </td>
+                                            </apex:repeat>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                        </div>
+                    </apex:outputPanel>
+                    </apex:outputPanel>
+                </div>
+
+
+                <!-- TAB 2 -->
+                <div class="slds-tabs__content slds-hide" role="tabpanel" aria-labelledby="Tab2" id="divTab2">
+                    <apex:outputPanel id="relatedNotesPanel1">
+                    <apex:outputText value="No records found." style="color:gray; font-style:italic; padding-left:2em;" rendered="{!relatedNotes.size == 0}" escape="false"/>
+                    <apex:outputPanel rendered="{!relatedNotes.size > 0}" id="relatedNotesPanel">
+                        <div class="slds-scrollable--x slds-scrollable--y" style="overflow:auto; height:200px; width:100%;" id="secondDiv">
+                            <table class="slds-table slds-table--bordered" id="relatedNotesTable">
+                                <thead>
+                                    <tr class="slds-text-heading--label">
+                                        <apex:repeat value="{!$ObjectType.Book_In_Note__c.FieldSets.StarTrack_Related_Notes}" var="note">
+                                            <th scope="col">
+                                                <span class="slds-truncate">
+                                                    {!note.label}
+                                                </span>
+                                            </th>
+                                        </apex:repeat>
+                                     </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!relatedNotes}" var="bookinNote">
+                                        <tr class="slds-hint-parent">
+                                            <apex:repeat value="{!$ObjectType.Book_In_Note__c.FieldSets.StarTrack_Related_Notes}" var="note">
+                                                <td data-label="{!note.label}" role="row">
+                                                    <span class="slds-truncate">
+                                                        <apex:outputField value="{!bookinNote[note]}" rendered="{!NOT(CONTAINS(note, 'Name'))}"/>
+                                                        <apex:outputLink id="bookInName" onclick="getPrimaryTabIdAndOpenSubtab('{!bookinNote.Id}'); return false;" rendered="{!(CONTAINS(note, 'Name'))}"
+                                                            onblur="LookupHoverDetail.getHover(this.id).hide();"
+                                                            onmouseout="LookupHoverDetail.getHover(this.id).hide();"
+                                                            onfocus="LookupHoverDetail.getHover(this.id, '/{!bookinNote.Id}/m?retURL=%2F{!bookinNote.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                            onmouseover="LookupHoverDetail.getHover(this.id, '/{!bookinNote.Id}/m?retURL=%2F{!bookinNote.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                            value="{!bookinNote.Id}">
+                                                            <apex:outputText value="{!bookinNote[note]}"/>
+                                                        </apex:outputLink>
+                                                    </span>
+                                                </td>
+                                            </apex:repeat>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                        </div>
+                    </apex:outputPanel>
+                    </apex:outputPanel>
+                </div>
+
+                <!-- TAB 3 -->
+                <div class="slds-tabs__content slds-hide" role="tabpanel" aria-labelledby="Tab3" id="divTab3">
+                    <apex:outputPanel id="relatedSubdocketsPanel1">
+                    <apex:outputText value="No records found." style="color:gray; font-style:italic; padding-left:2em;" rendered="{!relatedSubdockets.size == 0}" escape="false"/>
+                    <apex:outputPanel rendered="{!relatedSubdockets.size > 0}" id="relatedSubdocketsPanel">
+                        <div class="slds-scrollable--x slds-scrollable--y" style="overflow:auto; height:200px; width:100%;" id="thirdDiv">
+                            <table class="slds-table slds-table--bordered" id="relatedSubdocketsTable">
+                                <thead>
+                                    <tr class="slds-text-heading--label">
+                                        <apex:repeat value="{!$ObjectType.Sub_Docket__c.FieldSets.StarTrack_Related_Sub_dockets}" var="sub">
+                                            <th scope="col">
+                                                <span class="slds-truncate">
+                                                    {!sub.label}
+                                                </span>
+                                            </th>
+                                        </apex:repeat>
+                                     </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!relatedSubdockets}" var="subDocket">
+                                        <tr class="slds-hint-parent">
+                                            <apex:repeat value="{!$ObjectType.Sub_Docket__c.FieldSets.StarTrack_Related_Sub_dockets}" var="sub">
+                                                <td data-label="{!sub.label}" role="row">
+                                                    <span class="slds-truncate">
+                                                        <apex:outputField value="{!subDocket[sub]}" rendered="{!NOT(CONTAINS(sub, 'Name'))}"/>
+                                                        <apex:outputLink id="subDocketName" onclick="getPrimaryTabIdAndOpenSubtab('{!subDocket.Id}'); return false;" rendered="{!(CONTAINS(sub, 'Name'))}"
+                                                            onblur="LookupHoverDetail.getHover(this.id).hide();"
+                                                            onmouseout="LookupHoverDetail.getHover(this.id).hide();"
+                                                            onfocus="LookupHoverDetail.getHover(this.id, '/{!subDocket.Id}/m?retURL=%2F{!subDocket.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                            onmouseover="LookupHoverDetail.getHover(this.id, '/{!subDocket.Id}/m?retURL=%2F{!subDocket.Id}&isAjaxRequest=1').show(); positionInYdir = $(this).offset()['top']; positionInXdir = $(this).offset()['left'];"
+                                                            value="{!subDocket.Id}">
+                                                            <apex:outputText value="{!subDocket[sub]}"/>
+                                                        </apex:outputLink>
+                                                    </span>
+                                                </td>
+                                            </apex:repeat>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                        </div>
+                    </apex:outputPanel>
+                    </apex:outputPanel>
+                </div>
+            </div>
+            </apex:form>
+            </apex:outputPanel>
+        </div>
+    </html>
+    <script language="javascript" type="text/javascript">
+        $(window).load(function() {
+            console.log('~~ onload - StarTrackConsignmentDetails_ControllerX');
+            logTimeAction();
+        });
+        
+    </script>
+</apex:page>

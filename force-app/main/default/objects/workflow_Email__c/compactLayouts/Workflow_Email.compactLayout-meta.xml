@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Workflow_Email</fullName>
+    <fields>To_Address__c</fields>
+    <fields>Name</fields>
+    <fields>Body_Summary__c</fields>
+    <fields>Email_Type__c</fields>
+    <label>Workflow Email</label>
+</CompactLayout>

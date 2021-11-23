@@ -1,0 +1,18 @@
+.THIS .slds-box {
+    border: 0;
+    margin-bottom: 1em;
+    }
+
+.THIS .sort-link {
+    font-size: .9em;
+    }
+
+.THIS .loading-spinner {
+    width: auto;
+    height: 32px;
+    background-size: 28px 28px;
+    background-position: left center;
+    padding: 6px 0 0 40px;
+    margin: 0;
+    color: #777777;
+    }

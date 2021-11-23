@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Locally_Managed_Mandatory_for_HUB_Users</fullName>
+    <active>true</active>
+    <description>This validation rule will make sure that if a HUB user is adding a Lead, the Locally Managed Checkbox will be required.</description>
+    <errorConditionFormula>OR($Profile.Name = &quot;Hub Users&quot;, $Profile.Name = &quot;Hub TSR Users&quot;) &amp;&amp;  Locally_Managed__c = FALSE</errorConditionFormula>
+    <errorMessage>The checkbox Locally Managed must be ticked.</errorMessage>
+</ValidationRule>

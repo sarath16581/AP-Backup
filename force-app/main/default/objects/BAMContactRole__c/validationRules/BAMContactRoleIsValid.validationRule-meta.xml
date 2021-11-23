@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAMContactRoleIsValid</fullName>
+    <active>true</active>
+    <description>Ensures that the application linked to the contact role entered matches the contact application&apos;s application field</description>
+    <errorConditionFormula>ApplicationRole__r.Application__c !=  ContactApplication__r.Application__c</errorConditionFormula>
+    <errorMessage>The application role selected is not valid for the Contact Application</errorMessage>
+</ValidationRule>

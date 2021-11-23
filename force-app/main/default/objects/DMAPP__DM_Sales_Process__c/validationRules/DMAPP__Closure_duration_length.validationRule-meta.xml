@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Closure_duration_length</fullName>
+    <active>true</active>
+    <errorConditionFormula>DMAPP__Closure_Duration__c  &gt; 1000</errorConditionFormula>
+    <errorDisplayField>DMAPP__Closure_Duration__c</errorDisplayField>
+    <errorMessage>Closure Duration cannot be greater than 1000 days</errorMessage>
+</ValidationRule>

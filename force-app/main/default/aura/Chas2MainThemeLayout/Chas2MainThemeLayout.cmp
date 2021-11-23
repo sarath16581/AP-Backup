@@ -1,0 +1,18 @@
+<aura:component implements="forceCommunity:themeLayout" access="global" description="Main community theme">
+    <!--<aura:attribute name="profileMenu" type="Aura.Component[]" required="false"/>-->  <!-- NM - do we want a Login/Logout in the profileMenu-->
+	<aura:attribute name="newHeader" type="Aura.Component[]" required="false"/>
+	<aura:attribute name="footer" type="Aura.Component[]" required="false"/>
+
+	<div>
+		<div class="newHeader">
+			{!v.newHeader}
+		</div>
+		<div class="main inner">
+			{!v.body}
+		</div>
+		<div class="footer">
+			{!v.footer}
+		</div>
+	</div>
+
+</aura:component>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_Contact_Address</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(CONTAINS($Profile.Name ,&apos;SSSW&apos;),OR(RecordType.DeveloperName = &apos;Money_Order&apos;,RecordType.DeveloperName = &apos;Replacement_Product&apos;),
+
+OR(AND(ISBLANK(Contact__r.MailingStreet ),ISBLANK(Contact__r.MailingStreet2__c)),
+
+ISBLANK(Contact__r.MailingPostalCode ),ISBLANK(Contact__r.MailingState ),ISBLANK(Contact__r.MailingCity )
+
+
+)
+
+)</errorConditionFormula>
+    <errorDisplayField>Contact__c</errorDisplayField>
+    <errorMessage>The Customers address details are required for money order or replacement products compensation types</errorMessage>
+</ValidationRule>

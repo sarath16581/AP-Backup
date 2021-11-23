@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product__c</fullName>
+    <description>What is the main product this opportunitiy is focused around</description>
+    <externalId>false</externalId>
+    <inlineHelpText>What is the main product this opportunitiy is focused around?</inlineHelpText>
+    <label>Primary Product</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AaE</fullName>
+                <default>false</default>
+                <label>AaE</label>
+            </value>
+            <value>
+                <fullName>Address Post</fullName>
+                <default>false</default>
+                <label>Address Post</label>
+            </value>
+            <value>
+                <fullName>Courier</fullName>
+                <default>false</default>
+                <label>Courier</label>
+            </value>
+            <value>
+                <fullName>Decipha</fullName>
+                <default>false</default>
+                <label>Decipha</label>
+            </value>
+            <value>
+                <fullName>Digital</fullName>
+                <default>false</default>
+                <label>Digital</label>
+            </value>
+            <value>
+                <fullName>eLetter</fullName>
+                <default>false</default>
+                <label>eLetter</label>
+            </value>
+            <value>
+                <fullName>Financial &amp; Commercial Services</fullName>
+                <default>false</default>
+                <label>Financial &amp; Commercial Services</label>
+            </value>
+            <value>
+                <fullName>First Direct Solutions</fullName>
+                <default>false</default>
+                <label>First Direct Solutions</label>
+            </value>
+            <value>
+                <fullName>ID&amp;V</fullName>
+                <default>false</default>
+                <label>ID&amp;V</label>
+            </value>
+            <value>
+                <fullName>Identity &amp; Government Services</fullName>
+                <default>false</default>
+                <label>Identity &amp; Government Services</label>
+            </value>
+            <value>
+                <fullName>International</fullName>
+                <default>false</default>
+                <label>International</label>
+            </value>
+            <value>
+                <fullName>Mail Services</fullName>
+                <default>false</default>
+                <label>Mail Services</label>
+            </value>
+            <value>
+                <fullName>MessengerPost Couriers</fullName>
+                <default>false</default>
+                <label>MessengerPost Couriers</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Parcels</fullName>
+                <default>false</default>
+                <label>Parcels</label>
+            </value>
+            <value>
+                <fullName>Payments</fullName>
+                <default>false</default>
+                <label>Payments</label>
+            </value>
+            <value>
+                <fullName>PostLogistics International</fullName>
+                <default>false</default>
+                <label>PostLogistics International</label>
+            </value>
+            <value>
+                <fullName>Retail Services</fullName>
+                <default>false</default>
+                <label>Retail Services</label>
+            </value>
+            <value>
+                <fullName>Securepay</fullName>
+                <default>false</default>
+                <label>Securepay</label>
+            </value>
+            <value>
+                <fullName>Startrack</fullName>
+                <default>false</default>
+                <label>Startrack</label>
+            </value>
+            <value>
+                <fullName>Supply Chain</fullName>
+                <default>false</default>
+                <label>Supply Chain</label>
+            </value>
+            <value>
+                <fullName>UMS</fullName>
+                <default>false</default>
+                <label>UMS</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

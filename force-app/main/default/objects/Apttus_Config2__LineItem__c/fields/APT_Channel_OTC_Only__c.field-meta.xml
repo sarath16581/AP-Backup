@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Channel_OTC_Only__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(CONTAINS( APT_PostBillPay_Channel__c , &apos;OTC&apos;) &amp;&amp; (CONTAINS( APT_PostBillPay_Channel__c , &apos;Phone&apos;)  || CONTAINS( APT_PostBillPay_Channel__c , &apos;Internet&apos;) || CONTAINS( APT_PostBillPay_Channel__c , &apos;Scan and Pay&apos;)), &apos;No&apos;, IF(CONTAINS( APT_PostBillPay_Channel__c , &apos;OTC&apos;), &apos;Yes&apos;, &apos;No&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Channel OTC Only?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

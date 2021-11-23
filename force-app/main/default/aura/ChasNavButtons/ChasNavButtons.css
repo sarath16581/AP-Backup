@@ -1,0 +1,14 @@
+.THIS .chas-button.loading-true::after {
+	left: 0.5rem;
+}
+
+.THIS .baseButton{
+	background-color: white;
+	color: red;
+	border: 1px solid black;
+}
+
+.THIS .baseButton:hover{
+	background-color: white;
+	color: red;
+}

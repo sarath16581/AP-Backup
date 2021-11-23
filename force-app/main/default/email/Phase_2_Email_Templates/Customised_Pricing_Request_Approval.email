@@ -1,0 +1,13 @@
+{!Custom_Pricing_Request__c.CreatedBy} has requested Custom Pricing for the following item:
+ 
+Customer Name:  {!Custom_Pricing_Request__c.Company_Name__c}           
+Opportunity:  {!Custom_Pricing_Request__c.Opportunity__c}                 
+Opportunity Total Value:  {!Custom_Pricing_Request__c.Opportunity_Value__c}       
+ 
+Please click this link to review this record.
+ 
+{!Custom_Pricing_Request__c.Link}
+ 
+Thank you,
+ 
+salesforce.com

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Planned_YTD_revenue__c</fullName>
+    <description>Sum of all previous including current monthly planned customer revenue’s for current financial year.</description>
+    <externalId>false</externalId>
+    <formula>IF(Current_Last_Year__c=&apos;THIS YEAR&apos;,
+(
+  CASE(MONTH(TODAY()),
+  7,Jul_Original_Budget__c,
+  8,Jul_Original_Budget__c+Aug_Original_Budget__c,
+  9,Jul_Original_Budget__c+Aug_Original_Budget__c+Sep_Original_Budget__c,
+  10,Jul_Original_Budget__c+Aug_Original_Budget__c+Sep_Original_Budget__c+Oct_Original_Budget__c,
+  11,Jul_Original_Budget__c+Aug_Original_Budget__c+Sep_Original_Budget__c+Oct_Original_Budget__c+Nov_Original_Budget__c,
+  12,Jul_Original_Budget__c+Aug_Original_Budget__c+Sep_Original_Budget__c+Oct_Original_Budget__c+Nov_Original_Budget__c+Dec_Original_Budget__c,
+  1,Jul_Original_Budget__c+Aug_Original_Budget__c+Sep_Original_Budget__c+Oct_Original_Budget__c+Nov_Original_Budget__c+Dec_Original_Budget__c+Jan_Original_Budget__c,
+  2,Jul_Original_Budget__c+Aug_Original_Budget__c+Sep_Original_Budget__c+Oct_Original_Budget__c+Nov_Original_Budget__c+Dec_Original_Budget__c
+   +Jan_Original_Budget__c+Feb_Original_Budget__c,
+  3,Jul_Original_Budget__c+Aug_Original_Budget__c+Sep_Original_Budget__c+Oct_Original_Budget__c+Nov_Original_Budget__c+Dec_Original_Budget__c
+   +Jan_Original_Budget__c+Feb_Original_Budget__c+Mar_Original_Budget__c,
+  4,Jul_Original_Budget__c+Aug_Original_Budget__c+Sep_Original_Budget__c+Oct_Original_Budget__c+Nov_Original_Budget__c+Dec_Original_Budget__c
+   +Jan_Original_Budget__c+Feb_Original_Budget__c+Mar_Original_Budget__c+Apr_Original_Budget__c,
+  5,Jul_Original_Budget__c+Aug_Original_Budget__c+Sep_Original_Budget__c+Oct_Original_Budget__c+Nov_Original_Budget__c+Dec_Original_Budget__c
+   +Jan_Original_Budget__c+Feb_Original_Budget__c+Mar_Original_Budget__c+Apr_Original_Budget__c+May_Original_Budget__c,
+  6,Jul_Original_Budget__c+Aug_Original_Budget__c+Sep_Original_Budget__c+Oct_Original_Budget__c+Nov_Original_Budget__c+Dec_Original_Budget__c
+   +Jan_Original_Budget__c+Feb_Original_Budget__c+Mar_Original_Budget__c+Apr_Original_Budget__c+May_Original_Budget__c+Jun_Original_Budget__c, null))
+  ,null
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Planned YTD revenue</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

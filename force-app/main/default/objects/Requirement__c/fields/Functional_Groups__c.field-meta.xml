@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Functional_Groups__c</fullName>
+    <externalId>false</externalId>
+    <label>Functional Group</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Address Validation</fullName>
+                <default>false</default>
+                <label>Address Validation</label>
+            </value>
+            <value>
+                <fullName>Billing Account Data</fullName>
+                <default>false</default>
+                <label>Billing Account Data</label>
+            </value>
+            <value>
+                <fullName>Call Management</fullName>
+                <default>false</default>
+                <label>Call Management</label>
+            </value>
+            <value>
+                <fullName>Campaign Reporting</fullName>
+                <default>false</default>
+                <label>Campaign Reporting</label>
+            </value>
+            <value>
+                <fullName>Collateral Submission</fullName>
+                <default>false</default>
+                <label>Collateral Submission</label>
+            </value>
+            <value>
+                <fullName>Collateral Visibility</fullName>
+                <default>false</default>
+                <label>Collateral Visibility</label>
+            </value>
+            <value>
+                <fullName>Customer Assignment</fullName>
+                <default>false</default>
+                <label>Customer Assignment</label>
+            </value>
+            <value>
+                <fullName>Customer Maps</fullName>
+                <default>false</default>
+                <label>Customer Maps</label>
+            </value>
+            <value>
+                <fullName>Customer Notification</fullName>
+                <default>false</default>
+                <label>Customer Notification</label>
+            </value>
+            <value>
+                <fullName>Customer Segmentation</fullName>
+                <default>false</default>
+                <label>Customer Segmentation</label>
+            </value>
+            <value>
+                <fullName>Customer Survey</fullName>
+                <default>false</default>
+                <label>Customer Survey</label>
+            </value>
+            <value>
+                <fullName>Data Integrity</fullName>
+                <default>false</default>
+                <label>Data Integrity</label>
+            </value>
+            <value>
+                <fullName>Duplicate Detection</fullName>
+                <default>false</default>
+                <label>Duplicate Detection</label>
+            </value>
+            <value>
+                <fullName>Expenses</fullName>
+                <default>false</default>
+                <label>Expenses</label>
+            </value>
+            <value>
+                <fullName>Incident Detail Visibility</fullName>
+                <default>false</default>
+                <label>Incident Detail Visibility</label>
+            </value>
+            <value>
+                <fullName>Incident Summary Visibility</fullName>
+                <default>false</default>
+                <label>Incident Summary Visibility</label>
+            </value>
+            <value>
+                <fullName>Meeting Management</fullName>
+                <default>false</default>
+                <label>Meeting Management</label>
+            </value>
+            <value>
+                <fullName>na</fullName>
+                <default>false</default>
+                <label>na</label>
+            </value>
+            <value>
+                <fullName>Opportunity Reporting</fullName>
+                <default>false</default>
+                <label>Opportunity Reporting</label>
+            </value>
+            <value>
+                <fullName>Organisation Data</fullName>
+                <default>false</default>
+                <label>Organisation Data</label>
+            </value>
+            <value>
+                <fullName>Organisation Structure</fullName>
+                <default>false</default>
+                <label>Organisation Structure</label>
+            </value>
+            <value>
+                <fullName>Out of Scope</fullName>
+                <default>false</default>
+                <label>Out of Scope</label>
+            </value>
+            <value>
+                <fullName>Point in Time Reporting</fullName>
+                <default>false</default>
+                <label>Point in Time Reporting</label>
+            </value>
+            <value>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+                <label>Pricing</label>
+            </value>
+            <value>
+                <fullName>Pricing Approval</fullName>
+                <default>false</default>
+                <label>Pricing Approval</label>
+            </value>
+            <value>
+                <fullName>Product Selection</fullName>
+                <default>false</default>
+                <label>Product Selection</label>
+            </value>
+            <value>
+                <fullName>Product Updates</fullName>
+                <default>false</default>
+                <label>Product Updates</label>
+            </value>
+            <value>
+                <fullName>Revenue Data</fullName>
+                <default>false</default>
+                <label>Revenue Data</label>
+            </value>
+            <value>
+                <fullName>Revenue Reporting</fullName>
+                <default>false</default>
+                <label>Revenue Reporting</label>
+            </value>
+            <value>
+                <fullName>Sales Team Optimisation</fullName>
+                <default>false</default>
+                <label>Sales Team Optimisation</label>
+            </value>
+            <value>
+                <fullName>User Notification</fullName>
+                <default>false</default>
+                <label>User Notification</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

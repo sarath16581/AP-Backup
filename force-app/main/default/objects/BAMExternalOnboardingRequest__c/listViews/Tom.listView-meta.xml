@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tom</fullName>
+    <columns>NAME</columns>
+    <columns>Contact__c</columns>
+    <columns>Application_Name__c</columns>
+    <columns>Contact_Application__c</columns>
+    <columns>Type__c</columns>
+    <columns>Status__c</columns>
+    <columns>Request_Date__c</columns>
+    <columns>Response_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Contact__c</field>
+        <operation>equals</operation>
+        <value>Tom Telstra</value>
+    </filters>
+    <label>Tom</label>
+    <language>en_US</language>
+</ListView>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Finish_Time_in_Time_Format</fullName>
+    <active>true</active>
+    <errorConditionFormula>Not( ISBLANK( Finish_Time__c )) &amp;&amp;  Not(REGEX( Finish_Time__c , &quot;^([0-1][0-9]|[2][0-3]):([0-5][0-9])$&quot;))</errorConditionFormula>
+    <errorDisplayField>Finish_Time__c</errorDisplayField>
+    <errorMessage>You must enter a time format in HH:MI</errorMessage>
+</ValidationRule>

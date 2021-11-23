@@ -1,0 +1,10 @@
+{!Today}
+
+Dear Approver,
+
+Can you please review and approve this Pricing Support Request {!Internal_Request__c.Link} for pricing at your earliest convenience?
+
+Thanks,
+
+{!User.FullName}
+{!User.Email}

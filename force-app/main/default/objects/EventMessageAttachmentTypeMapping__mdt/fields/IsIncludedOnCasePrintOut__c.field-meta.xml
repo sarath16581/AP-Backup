@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsIncludedOnCasePrintOut__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Marks that the attachment type is included on case print outs.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Marks that the attachment type is included on case print outs.</inlineHelpText>
+    <label>Is Included on Case Print Out</label>
+    <type>Checkbox</type>
+</CustomField>

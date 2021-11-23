@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Charge_Type__c</fullName>
+    <description>Charge type associated with the product / product type</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Charge Type</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Standard Price</fullName>
+                <default>true</default>
+                <label>Standard Price</label>
+            </value>
+            <value>
+                <fullName>License Fee</fullName>
+                <default>false</default>
+                <label>License Fee</label>
+            </value>
+            <value>
+                <fullName>Subscription Fee</fullName>
+                <default>false</default>
+                <label>Subscription Fee</label>
+            </value>
+            <value>
+                <fullName>Implementation Fee</fullName>
+                <default>false</default>
+                <label>Implementation Fee</label>
+            </value>
+            <value>
+                <fullName>Installation Fee</fullName>
+                <default>false</default>
+                <label>Installation Fee</label>
+            </value>
+            <value>
+                <fullName>Maintenance Fee</fullName>
+                <default>false</default>
+                <label>Maintenance Fee</label>
+            </value>
+            <value>
+                <fullName>Adjustment</fullName>
+                <default>false</default>
+                <label>Adjustment</label>
+            </value>
+            <value>
+                <fullName>AIRPCL</fullName>
+                <default>false</default>
+                <label>AIRPCL</label>
+            </value>
+            <value>
+                <fullName>AIRSMPCL</fullName>
+                <default>false</default>
+                <label>AIRSMPCL</label>
+            </value>
+            <value>
+                <fullName>EMSDOCT</fullName>
+                <default>false</default>
+                <label>EMSDOCT</label>
+            </value>
+            <value>
+                <fullName>EMSMERCH</fullName>
+                <default>false</default>
+                <label>EMSMERCH</label>
+            </value>
+            <value>
+                <fullName>Missing Manifest fee</fullName>
+                <default>false</default>
+                <label>Missing Manifest fee</label>
+            </value>
+            <value>
+                <fullName>Administrative fee</fullName>
+                <default>false</default>
+                <label>Administrative fee</label>
+            </value>
+            <value>
+                <fullName>Return to Sender</fullName>
+                <default>false</default>
+                <label>Return to Sender</label>
+            </value>
+            <value>
+                <fullName>Minimum Collection Value</fullName>
+                <default>false</default>
+                <label>Minimum Collection Value</label>
+            </value>
+            <value>
+                <fullName>eParcel Returns - Delivery Fee (per article)</fullName>
+                <default>false</default>
+                <label>eParcel Returns - Delivery Fee (per article)</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Call for Returns - Pick-up Fee (per request)</fullName>
+                <default>false</default>
+                <label>Parcel Post Call for Returns - Pick-up Fee (per request)</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Call for Returns - Delivery Fee (per article)</fullName>
+                <default>false</default>
+                <label>Parcel Post Call for Returns - Delivery Fee (per article)</label>
+            </value>
+            <value>
+                <fullName>Emsmer20</fullName>
+                <default>false</default>
+                <label>Emsmer20</label>
+            </value>
+            <value>
+                <fullName>AIRPTI</fullName>
+                <default>false</default>
+                <label>AIRPTI</label>
+            </value>
+            <value>
+                <fullName>Airmail Letters</fullName>
+                <default>false</default>
+                <label>Airmail Letters</label>
+            </value>
+            <value>
+                <fullName>Airmail Small Parcels</fullName>
+                <default>false</default>
+                <label>Airmail Small Parcels</label>
+            </value>
+            <value>
+                <fullName>Airmail Parcels</fullName>
+                <default>false</default>
+                <label>Airmail Parcels</label>
+            </value>
+            <value>
+                <fullName>Pack &amp; Track</fullName>
+                <default>false</default>
+                <label>Pack &amp; Track</label>
+            </value>
+            <value>
+                <fullName>RegPost International</fullName>
+                <default>false</default>
+                <label>RegPost International</label>
+            </value>
+            <value>
+                <fullName>ECI Documents</fullName>
+                <default>false</default>
+                <label>ECI Documents</label>
+            </value>
+            <value>
+                <fullName>ECI Merchandise</fullName>
+                <default>false</default>
+                <label>ECI Merchandise</label>
+            </value>
+            <value>
+                <fullName>International Bundle</fullName>
+                <default>false</default>
+                <label>International Bundle</label>
+            </value>
+            <value>
+                <fullName>ECI &lt;2kgs</fullName>
+                <default>false</default>
+                <label>ECI &lt;2kgs</label>
+            </value>
+            <value>
+                <fullName>International Economy</fullName>
+                <default>false</default>
+                <label>International Economy</label>
+            </value>
+            <value>
+                <fullName>International Express - Documents</fullName>
+                <default>false</default>
+                <label>International Express - Documents</label>
+            </value>
+            <value>
+                <fullName>International Returns - Standard Untracked</fullName>
+                <default>false</default>
+                <label>International Returns - Standard Untracked</label>
+            </value>
+            <value>
+                <fullName>International Standard with Signature</fullName>
+                <default>false</default>
+                <label>International Standard with Signature</label>
+            </value>
+            <value>
+                <fullName>International Economy with Signature</fullName>
+                <default>false</default>
+                <label>International Economy with Signature</label>
+            </value>
+            <value>
+                <fullName>International Standard</fullName>
+                <default>false</default>
+                <label>International Standard</label>
+            </value>
+            <value>
+                <fullName>International Express - Merchandise</fullName>
+                <default>false</default>
+                <label>International Express - Merchandise</label>
+            </value>
+            <value>
+                <fullName>International Returns - Express</fullName>
+                <default>false</default>
+                <label>International Returns - Express</label>
+            </value>
+            <value>
+                <fullName>International Airmail Letters</fullName>
+                <default>false</default>
+                <label>International Airmail Letters</label>
+            </value>
+            <value>
+                <fullName>International Extra Cover</fullName>
+                <default>false</default>
+                <label>International Extra Cover</label>
+            </value>
+            <value>
+                <fullName>International Digital PCMS Bundle</fullName>
+                <default>false</default>
+                <label>International Digital PCMS Bundle</label>
+            </value>
+            <value>
+                <fullName>International Digital PCMS Bundle incl Airmail Letters</fullName>
+                <default>false</default>
+                <label>International Digital PCMS Bundle incl Airmail Letters</label>
+            </value>
+            <value>
+                <fullName>Volunteer Price</fullName>
+                <default>false</default>
+                <label>Volunteer Price</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

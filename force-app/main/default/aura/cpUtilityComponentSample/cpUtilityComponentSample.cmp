@@ -1,0 +1,44 @@
+<!--
+	2018-04-30 nathan.franklin@auspost.com.au created
+-->
+<aura:component description="Provides sample usages of the cpUtilityComponent and waitingQueueComponent" implements="flexipage:availableForAllPageTypes">
+	<aura:attribute name="labels" type="List" />
+	<aura:attribute name="picklistValues" type="List" />
+
+	<div style="position:relative;">
+
+		<lightning:card title="Sample Component" iconName="standard:account">
+			<p class="slds-p-horizontal_small">
+				<lightning:button variant="brand" label="Load Sample Field Labels" onclick="{!c.loadFieldLabels}" />
+				<lightning:button variant="brand" label="Load Sample Picklist Values" onclick="{!c.loadPicklistValues}" />
+
+				<h2>Labels</h2>
+				<ul class="slds-list--dotted slds-p-horizontal_medium">
+					<aura:iteration items="{!v.labels}" var="l">
+						<li>{!l.fieldName} = {!l.label}</li>
+					</aura:iteration>
+				</ul>
+
+
+				<h2>Picklist Values</h2>
+				<ul class="slds-list--dotted slds-p-horizontal_medium">
+					<aura:iteration items="{!v.picklistValues}" var="picklistField">
+						<li>
+						{!picklistField.fieldName}
+							<ul class="slds-list--dotted">
+								<aura:iteration items="{!picklistField.values}" var="picklistValue">
+									<li>{!picklistValue.key} = {!picklistValue.value}</li>
+								</aura:iteration>
+							</ul>
+						</li>
+					</aura:iteration>
+				</ul>
+			</p>
+		</lightning:card>
+
+		<c:waitingQueueComponent aura:id="loader" />
+
+	</div>
+
+	<c:cpUtilityComponent aura:id="utility" />
+</aura:component>

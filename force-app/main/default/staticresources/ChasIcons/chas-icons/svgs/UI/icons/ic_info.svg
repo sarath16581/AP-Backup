@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/ic_info</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons/ic_info" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M22.5,22.5 C22.5,23.8825 21.3825,25 20,25 C18.6175,25 17.5,23.8825 17.5,22.5 L17.5,10 C17.5,8.6175 18.6175,7.5 20,7.5 C21.3825,7.5 22.5,8.6175 22.5,10 L22.5,22.5 Z M19.955,32.545 C18.55,32.545 17.41,31.4075 17.41,30 C17.41,28.595 18.55,27.455 19.955,27.455 C21.36,27.455 22.5,28.595 22.5,30 C22.5,31.4075 21.36,32.545 19.955,32.545 L19.955,32.545 Z M20,0 C8.955,0 0,8.955 0,20 C0,31.0475 8.955,40 20,40 C31.045,40 40,31.0475 40,20 C40,8.955 31.045,0 20,0 L20,0 Z" id="icon_info-copy" fill="#009ED9" transform="translate(20.000000, 20.000000) rotate(-180.000000) translate(-20.000000, -20.000000) "></path>
+    </g>
+</svg>

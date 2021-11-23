@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_if_email_is_valid</fullName>
+    <active>true</active>
+    <description>History
+- Gunith (8-7-19) : Support longer TLDs (INC1415352)</description>
+    <errorConditionFormula>AND(CONTAINS($Profile.Name, &apos;SSSW&apos;), NOT(ISBLANK(PersonEmail)),OR(NOT(REGEX ( UPPER ( PersonEmail) ,&quot;^[A-Z0-9._%+-/!#$%&amp;&apos;*=?^_`{|}~]+@[A-Z0-9.-]+\\.[A-Z]+$&quot;)),LEFT(RIGHT( LEFT(PersonEmail, FIND(&quot;@&quot;, PersonEmail) ), 2),1) = &quot;.&quot;))</errorConditionFormula>
+    <errorMessage>Invalid Email</errorMessage>
+</ValidationRule>

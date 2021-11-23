@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Question__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The qualifier text displayed to the user when working an opportunity through the sales process</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The text for the qualifier / verifiable outcome, displayed to the user on the &quot;Sales Process&quot; tab in Dealmaker.
+
+To progress an opportunity through the pipeline, the user sets the status on the qualifiers associated with each stage in the sales process.</inlineHelpText>
+    <label>Question</label>
+    <length>1024</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

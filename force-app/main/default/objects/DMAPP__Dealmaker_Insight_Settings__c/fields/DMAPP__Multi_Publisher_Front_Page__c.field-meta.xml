@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Multi_Publisher_Front_Page__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This setting determines whether the smart map browser and builder pages land on a multi publisher (namespace) view or an aggregated view.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This setting determines whether the smart map browser and builder pages land on a multi publisher (namespace) view or an aggregated view.</inlineHelpText>
+    <label>Multi Publisher Front Page</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

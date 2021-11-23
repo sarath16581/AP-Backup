@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Compensation_confirmation_email_on_approved_status</fullName>
+        <description>Compensation confirmation email on approved status</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Compensation_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>SSSW_System_Emails/SSSW_Compensation_Form_Submitted_Email</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>SSSWRejected</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>SSSW - Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Approve</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>SSSW Approve</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Approved_Awaiting_Customer</fullName>
+        <description>Intermediate staus before the final approved status</description>
+        <field>Status__c</field>
+        <literalValue>Approved Awaiting Customer</literalValue>
+        <name>SSSW Approved Awaiting Customer</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Assign_to_Comp_Queue</fullName>
+        <field>OwnerId</field>
+        <lookupValue>SSSWCompensation</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>SSSW - Assign to Comp Queue</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Case__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Assign_to_queue</fullName>
+        <field>AllocateToQueue__c</field>
+        <literalValue>1</literalValue>
+        <name>SSSW - Assign to queue</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Case__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Awaiting_Compensation_status</fullName>
+        <field>Status</field>
+        <literalValue>Awaiting Compensation</literalValue>
+        <name>SSSW - Awaiting Compensation status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Case__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Case_Awaiting_Comp</fullName>
+        <field>Awaiting_Compensation__c</field>
+        <literalValue>1</literalValue>
+        <name>SSSW - Case Awaiting Comp</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Case__c</targetObject>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Pending</fullName>
+        <field>Status__c</field>
+        <literalValue>Pending</literalValue>
+        <name>SSSW - Pending</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Proof_of_Value</fullName>
+        <field>Status__c</field>
+        <literalValue>Contact Customer for Proof of Value</literalValue>
+        <name>SSSW - Proof of Value</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_RT_Awaiting_Money_Order</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Money_Order_Number_Required</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>SSSW - RT Awaiting Money Order</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Status_Awaiting_Money_Order</fullName>
+        <field>Status__c</field>
+        <literalValue>Awaiting Money Order Number</literalValue>
+        <name>SSSW - Status Awaiting Money Order</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>SSSW - Approval Process Approved</fullName>
+        <actions>
+            <name>SSSW_Assign_to_queue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>TEXT(Status__c) = &apos;Approved&apos; &amp;&amp; TEXT(Case__r.ProductCategory__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.ProductSubCategory__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.EnquirySubType__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.Type) != &apos;&apos;</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Automatic Approval</fullName>
+        <actions>
+            <name>SSSW_Approve</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
+        <criteriaItems>
+            <field>Compensation__c.RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>Money Order,Money Order Number Required</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Replacement_Value__c</field>
+            <operation>lessThan</operation>
+            <value>100</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Total_Compensation_Amount__c</field>
+            <operation>lessThan</operation>
+            <value>100</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Other__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.SDR_Value__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Bank_Detail_Provided_By_Customer__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Automatic Approval %28Allocate To Queue%29</fullName>
+        <actions>
+            <name>SSSW_Assign_to_queue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>RecordType.Name != &apos;Money Order&apos; &amp;&amp; RecordType.Name != &apos;Money Order Number Required&apos; &amp;&amp; Replacement_Value__c &lt; 100 &amp;&amp; Total_Compensation_Amount__c &lt; 100 &amp;&amp; ISBLANK(Other__c) &amp;&amp; TEXT(Case__r.ProductCategory__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.ProductSubCategory__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.EnquirySubType__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.Type) != &apos;&apos;</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Automatic Approval - Awaiting Customer</fullName>
+        <actions>
+            <name>SSSW_Approved_Awaiting_Customer</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
+        <criteriaItems>
+            <field>Compensation__c.RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>Money Order,Money Order Number Required</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Replacement_Value__c</field>
+            <operation>lessThan</operation>
+            <value>100</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Total_Compensation_Amount__c</field>
+            <operation>lessThan</operation>
+            <value>100</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Other__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.SDR_Value__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Bank_Detail_Provided_By_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>Updates the compensation status when the customer has agreed to ptovide the bank details via webform</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Case Awaiting Compensation</fullName>
+        <actions>
+            <name>SSSW_Assign_to_Comp_Queue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SSSW_Awaiting_Compensation_status</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Compensation__c.RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>Retail Compensation</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Money Order number provided</fullName>
+        <actions>
+            <name>SSSW_Approve</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Compensation__c.MoneyOrderNumber__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Money Order number provided %28Allocate To Queue%29</fullName>
+        <actions>
+            <name>SSSW_Assign_to_queue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>NOT(ISBLANK(MoneyOrderNumber__c)) &amp;&amp; TEXT(Case__r.ProductCategory__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.ProductSubCategory__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.EnquirySubType__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.Type) != &apos;&apos;</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Money Order under 100</fullName>
+        <actions>
+            <name>SSSW_RT_Awaiting_Money_Order</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SSSW_Status_Awaiting_Money_Order</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Compensation__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Money Order</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Total_Compensation_Amount__c</field>
+            <operation>lessThan</operation>
+            <value>100</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Other__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Proof of Value required</fullName>
+        <actions>
+            <name>SSSW_Case_Awaiting_Comp</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SSSW_Proof_of_Value</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>21/6/2021 sjudd updated to refer to formula field
+Proof of value is required when the value exceeds the amount in the Proof of Value threshold.</description>
+        <formula>OR(Compensation_Amount__c &gt;= ProofOfValueThreshold__c,  Replacement_Value__c &gt;= ProofOfValueThreshold__c) &amp;&amp;  Proof_of_Value__c = false &amp;&amp;  RecordType.Name != &quot;Retail Compensation&quot;</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Proof of value provided</fullName>
+        <actions>
+            <name>SSSW_Pending</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>21/6/2021 sjudd updated to refer to ProofOfValuethreshold__c formula field</description>
+        <formula>(Compensation_Amount__c &gt;= ProofOfValueThreshold__c &amp;&amp; Proof_of_Value__c = true)|| (TEXT(Status__c) = &quot;Contact Customer for Proof of Value&quot; &amp;&amp; Compensation_Amount__c &lt; ProofOfValueThreshold__c )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

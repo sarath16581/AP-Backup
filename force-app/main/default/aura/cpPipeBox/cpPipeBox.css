@@ -1,0 +1,156 @@
+/*  **********************************************
+   @import 'variables';
+   Sass Variables
+   Are
+   Here
+   ***********************************************
+*/
+
+.THIS.cp-pipe-ul-wrap {
+    background: white;
+    width: 100%;
+    padding: 40px;
+    margin-top: -45px;
+    display: flex;
+    border-radius: 5px;
+}
+
+@media (min-width: 680px) {
+    .THIS.cp-pipe-ul-wrap {
+        max-width: 1210px;
+    }
+}
+
+@media (max-width: 1023px) {
+    .THIS.cp-pipe-ul-wrap {
+        padding: 12px;
+    }
+}
+
+.THIS ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 665px) {
+    .THIS ul {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.THIS li {
+    border-radius: 3px;
+    margin-bottom: 12px;
+    min-height: 65px;
+}
+
+@media (max-width: 664px) {
+    .THIS li {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 665px) {
+    .THIS li {
+        margin-bottom: initial;
+        width: 24%;
+    }
+}
+
+@media (min-width: 1210px) {
+    .THIS li {
+        height: 230px;
+    }
+}
+
+.THIS li:nth-child(1) {
+    background: #82efe3;
+}
+
+.THIS li:nth-child(2) {
+    background: #fec0ab;
+}
+
+.THIS li:nth-child(3) {
+    background: #cdc9f5;
+}
+
+.THIS li:nth-child(4) {
+    background: #f8abcc;
+}
+
+.THIS a {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+@media (min-width: 665px) {
+    .THIS a {
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        height: 100%;
+    }
+}
+
+.THIS a img {
+    width: 75px;
+    height: auto;
+}
+
+@media (min-width: 665px) {
+    .THIS a img {
+        width: 170px;
+        padding-top: 10px;
+    }
+}
+
+.THIS a .cp-pipe-text-box {
+    width: 100%;
+}
+
+@media (min-width: 665px) {
+    .THIS a .cp-pipe-text-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 73px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (min-width: 970px) {
+    .THIS a .cp-pipe-text-box {
+        justify-content: space-around;
+    }
+}
+
+.THIS h2 {
+    font-size: 16px;
+    color: #382f2d;
+}
+
+@media (min-width: 665px) {
+    .THIS h2 {
+        font-size: 20px;
+        margin-bottom: 6px;
+        line-height: 125%;
+        padding: 0 12px;
+    }
+}
+
+.THIS p {
+    font-size: 14px;
+    color: #382f2d;
+}
+
+@media (min-width: 665px) {
+    .THIS p {
+        padding: 0 12px;
+    }
+}

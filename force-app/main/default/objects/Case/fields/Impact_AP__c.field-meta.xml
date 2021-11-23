@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Impact_AP__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE ( Issue_Type__c ,
+&quot;Address incomplete&quot;,&quot;Operations&quot;,
+&quot;Barcode Bad Print Quality&quot;,&quot;Operations&quot;,
+&quot;Barcode Damaged&quot;,&quot;Operations&quot;,
+&quot;Barcode out of Specification&quot;,&quot;Operations&quot;,
+&quot;Customer Refusal to Barcode&quot;,&quot;Operations&quot;,
+&quot;No Barcode&quot;,&quot;Operations&quot;,
+&quot;Sorting/Routing Barcode obscured/damaged&quot;,&quot;Operations&quot;,
+&quot;Declared Incorrect Product&quot;,&quot;Revenue&quot;,
+&quot;Discrepancy has high impact&quot;,&quot;Revenue&quot;,
+&quot;Discrepancy has low impact&quot;,&quot;Revenue&quot;,
+&quot;Declared at higher pricing than actual category&quot;,&quot;Revenue&quot;,
+&quot;Declared at lower pricing than actual category&quot;,&quot;Revenue&quot;,
+&quot;Special services not declared&quot;,&quot;Revenue&quot;,
+&quot;Declared higher pricing than actual&quot;,&quot;Revenue&quot;,
+&quot;Declared lower pricing than actual&quot;,&quot;Revenue&quot;,
+&quot;Dangerous goods declaration unsigned&quot;,&quot;Revenue&quot;,
+&quot;Incorrect/ incomplete billing details&quot;,&quot;Revenue&quot;,
+&quot;Incorrect/incomplete Mailing Statement&quot;,&quot;Revenue&quot;,
+&quot;No mailing statement&quot;,&quot;Revenue&quot;,
+&quot;No parcels with mailing statement&quot;,&quot;Revenue&quot;,
+&quot;No/Incomplete Dangerous goods/Customs declaration&quot;,&quot;Revenue&quot;,
+&quot;Customer contract details missing or incomplete&quot;,&quot;Revenue&quot;,
+&quot;Incorrect/incomplete Manifest&quot;,&quot;Revenue&quot;,
+&quot;No electronic copy of manifest provided&quot;,&quot;Revenue&quot;,
+&quot;No hardcopy of manifest provided&quot;,&quot;Revenue&quot;,
+&quot;Incorrect/ incomplete ULD label&quot;,&quot;Operations&quot;,
+&quot;No ULD Label&quot;,&quot;Operations&quot;,
+&quot;Breakage/Product Damage&quot;,&quot;Operations&quot;,
+&quot;Over weight&quot;,&quot;Revenue/Operations&quot;,
+&quot;Oversize dimensions&quot;,&quot;Revenue/Operations&quot;,
+&quot;Prohibited or dangerous goods&quot;,&quot;Operations&quot;,
+&quot;Sealing/Packaging&quot;,&quot;Operations&quot;,
+&quot;No Postage Paid indicator&quot;,&quot;Operations&quot;,
+&quot;No Return Address&quot;,&quot;Operations&quot;,
+&quot;Incorrect Stamps used (International vs. Domestic)&quot;,&quot;Revenue/Operations&quot;,
+&quot;Mixed country &amp; metro&quot;,&quot;Operations&quot;,
+&quot;Mixed states&quot;,&quot;Operations&quot;,
+&quot;Incorrect/ incomplete label data&quot;,&quot;Operations&quot;,
+&quot;ULD weight exceeds 600kg&quot;,&quot;Operations&quot;,
+&quot;n/a&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Impact AP</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

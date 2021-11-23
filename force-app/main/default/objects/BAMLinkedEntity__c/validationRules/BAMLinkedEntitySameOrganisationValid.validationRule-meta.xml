@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAMLinkedEntitySameOrganisationValid</fullName>
+    <active>true</active>
+    <description>Rule ensures that an Org record can not be applied unless it matches the Contacts org. Currently there are no other use cases the require an org record that is not the Contact&apos;s Org.</description>
+    <errorConditionFormula>!ISBLANK( Organisation__c ) &amp;&amp; Organisation__c !=  ContactRole__r.ContactApplication__r.Contact__r.AccountId</errorConditionFormula>
+    <errorDisplayField>Organisation__c</errorDisplayField>
+    <errorMessage>The organisation is invalid for the contact linked to the Contact Application record.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCUServiceUsed__c</fullName>
+    <description>2014-05 CCU</description>
+    <externalId>false</externalId>
+    <label>Service Used</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Australia Post Global Logistics</fullName>
+                <default>false</default>
+                <label>Australia Post Global Logistics</label>
+            </value>
+            <value>
+                <fullName>Cash On Delivery</fullName>
+                <default>false</default>
+                <label>Cash On Delivery</label>
+            </value>
+            <value>
+                <fullName>Economy Air under 2kg</fullName>
+                <default>false</default>
+                <label>Economy Air under 2kg</label>
+            </value>
+            <value>
+                <fullName>Economy Sea over 2kg</fullName>
+                <default>false</default>
+                <label>Economy Sea over 2kg</label>
+            </value>
+            <value>
+                <fullName>eParcel</fullName>
+                <default>false</default>
+                <label>eParcel</label>
+            </value>
+            <value>
+                <fullName>eParcel Call for Return</fullName>
+                <default>false</default>
+                <label>eParcel Call for Return</label>
+            </value>
+            <value>
+                <fullName>Express Courier International</fullName>
+                <default>false</default>
+                <label>Express Courier International</label>
+            </value>
+            <value>
+                <fullName>Express Post</fullName>
+                <default>false</default>
+                <label>Express Post</label>
+            </value>
+            <value>
+                <fullName>Express Post Platinum</fullName>
+                <default>false</default>
+                <label>Express Post Platinum</label>
+            </value>
+            <value>
+                <fullName>International Courier</fullName>
+                <default>false</default>
+                <label>International Courier</label>
+            </value>
+            <value>
+                <fullName>International Express</fullName>
+                <default>false</default>
+                <label>International Express</label>
+            </value>
+            <value>
+                <fullName>International Standard</fullName>
+                <default>false</default>
+                <label>International Standard</label>
+            </value>
+            <value>
+                <fullName>Letter Service</fullName>
+                <default>false</default>
+                <label>Letter Service</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Parcel Domestic</fullName>
+                <default>false</default>
+                <label>Parcel Domestic</label>
+            </value>
+            <value>
+                <fullName>Parcel Post</fullName>
+                <default>false</default>
+                <label>Parcel Post</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Plus</fullName>
+                <default>false</default>
+                <label>Parcel Post Plus</label>
+            </value>
+            <value>
+                <fullName>Parcel Post XL</fullName>
+                <default>false</default>
+                <label>Parcel Post XL</label>
+            </value>
+            <value>
+                <fullName>Premium Express Parcel</fullName>
+                <default>false</default>
+                <label>Premium Express Parcel</label>
+            </value>
+            <value>
+                <fullName>Receipted Delivery</fullName>
+                <default>false</default>
+                <label>Receipted Delivery</label>
+            </value>
+            <value>
+                <fullName>Registered Post</fullName>
+                <default>false</default>
+                <label>Registered Post</label>
+            </value>
+            <value>
+                <fullName>Registered Post International</fullName>
+                <default>false</default>
+                <label>Registered Post International</label>
+            </value>
+            <value>
+                <fullName>Standard Parcel</fullName>
+                <default>false</default>
+                <label>Standard Parcel</label>
+            </value>
+            <value>
+                <fullName>StarTrack (Next Flight Premium &amp; Express)</fullName>
+                <default>false</default>
+                <label>StarTrack (Next Flight Premium &amp; Express)</label>
+            </value>
+            <value>
+                <fullName>StarTrack Courier</fullName>
+                <default>false</default>
+                <label>StarTrack Courier</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

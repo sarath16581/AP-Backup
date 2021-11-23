@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Depot_Role__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>StarTrack: Capture depot area for activity</description>
+    <externalId>false</externalId>
+    <label>Depot Area</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>$Source.Network__c</field>
+            <operation>equals</operation>
+            <valueField>Depot_Area__c.Depot__c</valueField>
+        </filterItems>
+        <isOptional>true</isOptional>
+    </lookupFilter>
+    <referenceTo>Depot_Area__c</referenceTo>
+    <relationshipLabel>Activities</relationshipLabel>
+    <relationshipName>Activities</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

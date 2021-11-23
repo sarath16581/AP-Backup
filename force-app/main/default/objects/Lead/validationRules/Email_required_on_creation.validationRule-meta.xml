@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email_required_on_creation</fullName>
+    <active>true</active>
+    <description>Email field will be made mandatory at time of lead creation</description>
+    <errorConditionFormula>AND(
+ISBLANK( Email ),
+RecordType.DeveloperName = &apos;BG_Standard&apos;,
+NOT( $User.Is_Integration_User__c )
+)</errorConditionFormula>
+    <errorMessage>Please enter the email of the lead</errorMessage>
+</ValidationRule>

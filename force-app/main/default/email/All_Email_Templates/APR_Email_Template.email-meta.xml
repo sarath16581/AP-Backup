@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>APR Email Template</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>APR Email Template</name>
+    <style>none</style>
+    <subject>APR Email Template</subject>
+    <textOnly>{!APR__c.CreatedDate}
+
+Dear {!APR__c.00NO0000001XiLh}
+
+We have completed our annual price review in accordance with our terms and conditions. An increase of {!APR__c.Confirmed_Rate__c} will apply to all quoted rates with effect from the billing week inclusive of {!APR__c.Confirmed_Date__c}
+
+In the previous two years, quoted rates increased by 4.9% and 4.4% respectively and we are pleased to continue this trend of reduced rate adjustments. Your revised quoted rates will remain in place for a period of twelve months.
+
+StarTrack will continue to make every effort to improve operational efficiency and service quality to ensure we provide you with the best express freight and logistics services in the industry.
+
+Please don’t hesitate to contact your Account Manager if you require any further information.
+
+Thank you for your ongoing loyalty and support.
+
+
+Yours faithfully
+
+George Pilovski
+Head of Pricing
+
+StarTrack
+219-241 Cleveland Street
+Strawberry Hills NSW 2010
+T: 13 2345
+W: auspost.com.au | startrack.com.au
+
+
+Star Track Express Pty Limited  ABN 44 001 227 890  Trading as StarTrack
+StarTrack is a business of Australia Post</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

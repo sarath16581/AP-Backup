@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Role_Type_Roll_Up__c</fullName>
+    <description>Phase 1 - Check record count to see if record is customer or prospect
+
+Fixed by CV 22/11 - incorrect defaulting to Prospect if is an Individual - extended criteria
+
+Updated by DLai 26/02/2016 - include Partner where record created by profile contains partner.</description>
+    <externalId>false</externalId>
+    <formula>IF( AND(Customer_Party_Role_Count__c = 1, NOT(IsPersonAccount)) , &apos;Customer&apos;,
+    IF( CreatorProfile__c=&apos;PartnerInfo Read Only&apos;,&apos;Partner&apos;,
+    IF( AND(NAC_Party_Role_Count__c=1, NOT(IsPersonAccount )), &apos;Non Account Customer&apos;, 
+    IF( AND(Prospect_Party_Role_Count__c=1, NOT(IsPersonAccount )), &apos;Prospect&apos;, 
+    IF( AND(Known_Party_Role_Count__c=1, NOT(IsPersonAccount )), &apos;Known&apos;, 
+    IF( AND(Customer_Party_Role_Count__c = 0, NAC_Party_Role_Count__c =0, Prospect_Party_Role_Count__c =0, Known_Party_Role_Count__c =0,NOT(IsPersonAccount )), &apos;&apos;,
+    IF( AND(IsPersonAccount, Prospect_Party_Role_Count__c = 0, Customer_Party_Role_Count__c = 0, NAC_Party_Role_Count__c = 0, Known_Party_Role_Count__c = 0),&apos;Individual&apos;,&apos;&apos;)
+)
+)
+)
+)
+)
+)</formula>
+    <label>Role</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

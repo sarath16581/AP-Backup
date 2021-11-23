@@ -1,0 +1,4 @@
+<apex:page controller="APT_GenerateOperationalScheduleControler" action="{!generate}">
+
+<apex:pageMessages />
+</apex:page>

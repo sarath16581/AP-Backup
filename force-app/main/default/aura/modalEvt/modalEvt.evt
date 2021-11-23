@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="ModalEvent">
+    <aura:attribute name="type" type="String" description="OK or Cancel"></aura:attribute>
+    <aura:attribute name="modalId" type="String" description="source Id"></aura:attribute>
+</aura:event>

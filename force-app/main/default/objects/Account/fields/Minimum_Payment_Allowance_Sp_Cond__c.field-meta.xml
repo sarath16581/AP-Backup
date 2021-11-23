@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Minimum_Payment_Allowance_Sp_Cond__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Does a Minimum Payment Allowance apply?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Does a Minimum Payment Allowance apply?</inlineHelpText>
+    <label>Minimum Payment Allowance Sp Cond</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

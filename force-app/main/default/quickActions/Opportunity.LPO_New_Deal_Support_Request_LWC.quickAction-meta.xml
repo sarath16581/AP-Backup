@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This action provides an LBP a way to create a Deal Enablement Centre DSR. Uses a custom component (LWC)</description>
+    <height>800</height>
+    <label>New Deal Support Request</label>
+    <lightningComponent>lpoCreateNewDealSupportRequestQuickAction</lightningComponent>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>LightningComponent</type>
+    <width>-100</width>
+</QuickAction>

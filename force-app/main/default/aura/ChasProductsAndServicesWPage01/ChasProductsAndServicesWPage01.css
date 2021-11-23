@@ -1,0 +1,131 @@
+/* 
+2020-07-06 Hara Sahoo:  Added styling for help and support form uplift as per the new designs
+*/
+
+.THIS .slds-icon {
+    fill: #535F67;
+}
+
+.THIS .iconClass svg {
+    width: 8px;
+    height: 24px;
+    fill: #212129;
+}
+
+.THIS .slds-button_icon:hover{
+    color:#212129;
+}
+.THIS .slds-button_icon:active{
+    color:yellow;
+    outline:0;
+    border:0px;
+}
+.THIS .slds-button_icon:focus:after{
+    border:none;
+}
+
+.THIS .slds-button_neutral:hover {
+    border: 2px solid #31313D;
+}
+.THIS .slds-button_neutral[disabled] {
+    color: #6D6D72;
+}
+.THIS .slds-button_neutral[disabled]:hover {
+    background: #F5F5F5;
+    border: 2px solid #E2E2E2;
+    border-radius: 8px;
+}
+.THIS .chas-input-field:hover {
+    border: 2px solid #31313D;
+}
+
+.THIS .slds-icon-utility-close svg:hover {
+    fill: #31313D;
+}
+.THIS .label-style {
+    font-size: 20px;
+    line-height: 26px;
+    letter-spacing: 0.8px;
+    color: #212129;
+    font-weight: 500;
+}
+
+.THIS .chas-button-box {
+    border-top: none;
+    padding-top: 0px !important;
+    flex-direction: row;
+}
+.THIS .slds-button_neutral {
+    height: 40px;
+    border: 2px solid #c7c5c5;
+    border-radius: 8px;
+    background: #FFFFFF;
+    color: #212129;
+}
+.THIS .form-input-container {
+    max-width: none;
+}
+.THIS .slds-input {
+    border: 2px solid #919194;
+    border-radius: 6px;
+}
+.THIS .slds-modal__close {
+    width: 4px;
+    height: 4px;
+    top: 41px;
+    right: 34px;
+}
+.THIS .slds-grid-address {
+    display: flex;
+}
+.THIS .state-col-width,
+.THIS .postcode-col-width {
+    width: 50%;
+}
+.THIS .form-input-container{
+    margin-bottom:none;
+}
+.THIS .info-tile{
+    margin-bottom: 32px;
+    margin-top:-11px;
+}
+@media (min-width: 680px) {
+    .THIS .chas-body_small {
+        margin-bottom: 32px;
+    }
+}
+@media (max-width: 680px) {
+    .THIS .chas-body_small {
+        margin-bottom: 24px;
+    }
+    .THIS .info-tile{
+        margin-top:-7px;
+    }
+}
+@media (min-width: 680px) {
+    .THIS .col-separator {
+        padding-left: 16px;
+    }
+}
+/* Mobile view*/
+@media (max-width: 680px) {
+    .THIS .state-col-width,
+    .THIS .postcode-col-width {
+        width: 100%;
+    }
+    .THIS .slds-grid-address {
+        display: block;
+    }
+    .THIS .slds-modal__close {
+        width: 4px;
+        height: 4px;
+        top: 37px;
+        right: 22px;
+    }
+    
+}
+.THIS .chas-error-message img {
+    height: 16px;
+    margin-top: -5px;
+    margin-right: 5px;
+}

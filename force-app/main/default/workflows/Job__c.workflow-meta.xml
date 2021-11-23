@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Depot_Task_Notification_Pre_Alert</fullName>
+        <description>Depot Task Notification Pre-Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Pickup_Depot_Email_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>SSSE_Templates/Depot_Pre_Alert_Notification_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Security_Express_Job_Details_Update_Alert</fullName>
+        <description>Security Express Job Details Update Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Case_Email_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>SSSE_Templates/Security_Express_Job_Details_Update_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>Security_Express_job_cancellation_email_alert</fullName>
+        <description>Security Express job cancellation email alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact_Email_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>SSSE_Templates/Security_Express_Job_Cancellation</template>
+    </alerts>
+    <alerts>
+        <fullName>Special_Services_Job_Cancelation</fullName>
+        <description>Special Services Job Cancelation</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Contact_Email_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>SSSE_Templates/Special_Services_Job_Cancellation</template>
+    </alerts>
+    <alerts>
+        <fullName>Special_Services_Job_Details_Update_Alert</fullName>
+        <description>Special Services Job Details Update Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Case_Email_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>SSSE_Templates/Special_Services_Job_Details_Update_Email</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Job_Closed_Date_Time_Update</fullName>
+        <field>Job_Closed_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Job Closed Date/Time Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Case_Email_Address</fullName>
+        <field>Case_Email_Address__c</field>
+        <formula>Case__r.Email_Address__c</formula>
+        <name>Update Case Email Address</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Security Express Job Cancellation</fullName>
+        <actions>
+            <name>Security_Express_job_cancellation_email_alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Job__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Cancelled</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Job__c.Job_Type__c</field>
+            <operation>equals</operation>
+            <value>Security Express</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Security Express Job Details Change Notification</fullName>
+        <actions>
+            <name>Security_Express_Job_Details_Update_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(NOT(ISNEW()),   ISPICKVAL(Job_Type__c, &apos;Security Express&apos;),   NOT(ISBLANK(Delivery_Date__c)),  NOT(ISPICKVAL(Delivery_Open_Time__c, &apos;&apos;)),   NOT(ISPICKVAL(Delivery_Close_Time__c, &apos;&apos;)),     NOT(ISBLANK(Pickup_Date__c)),     NOT(ISPICKVAL(Pickup_Open_Time__c, &apos;&apos;)),       NOT(ISPICKVAL(Pickup_Close_Time__c, &apos;&apos;)),       NOT(ISBLANK(Service_Code__c)),   OR(ISCHANGED(Delivery_Date__c),   ISCHANGED(Delivery_Open_Time__c), ISCHANGED(Delivery_Close_Time__c),  ISCHANGED(Pickup_Date__c), ISCHANGED(Pickup_Open_Time__c), ISCHANGED(Pickup_Close_Time__c),  ISCHANGED(Service_Code__c)))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Special Services Job Cancellation</fullName>
+        <actions>
+            <name>Special_Services_Job_Cancelation</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Job__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Cancelled</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Job__c.Job_Type__c</field>
+            <operation>equals</operation>
+            <value>Special Services</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Special Services Job Details Change Notification</fullName>
+        <actions>
+            <name>Special_Services_Job_Details_Update_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(NOT(ISNEW()), ISPICKVAL(Job_Type__c, &apos;Special Services&apos;), NOT(ISBLANK(Delivery_Date__c)), NOT(ISPICKVAL(Delivery_Open_Time__c, &apos;&apos;)), NOT(ISPICKVAL(Delivery_Close_Time__c, &apos;&apos;)), NOT(ISBLANK(Pickup_Date__c)), NOT(ISPICKVAL(Pickup_Open_Time__c, &apos;&apos;)), NOT(ISPICKVAL(Pickup_Close_Time__c, &apos;&apos;)), NOT(ISBLANK(Service_Code__c)),   OR(ISCHANGED(Delivery_Date__c), ISCHANGED(Delivery_Open_Time__c), ISCHANGED(Delivery_Close_Time__c), ISCHANGED(Pickup_Date__c), ISCHANGED(Pickup_Open_Time__c), ISCHANGED(Pickup_Close_Time__c), ISCHANGED(Service_Code__c)))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Case Email Address</fullName>
+        <actions>
+            <name>Update_Case_Email_Address</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Job__c.Job_Type__c</field>
+            <operation>equals</operation>
+            <value>Security Express,Special Services</value>
+        </criteriaItems>
+        <description>Update Case Email Address field and populate using Case__r.Email_Address__c</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Job Closed Date</fullName>
+        <actions>
+            <name>Job_Closed_Date_Time_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(ISPICKVAL(Status__c, &apos;Closed&apos;), OR(ISPICKVAL(Job_Type__c, &apos;Security Express&apos;), ISPICKVAL(Job_Type__c, &apos;Special Services&apos;)))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

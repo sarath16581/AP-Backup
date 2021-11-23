@@ -1,0 +1,8 @@
+{
+    "Consignment": "6AUZ00029759",
+    "EmployeeId": null,
+    "ContextualParagraghs": [
+        "Your shipment:6AUZ00029759,  is onboard the vehicle for delivery today.",
+        "Our Driver is expecting to deliver the order between 10:20 AM and 12:20 PM, and is currently 4 stops away"
+    ]
+}

@@ -1,0 +1,25 @@
+<apex:component >
+    <div class="accessibility-links"> 
+        <a href="#main" class="visuallyhidden focusable">Skip to content</a> 
+        <a href="#primary-nav" class="visuallyhidden focusable">Skip to primary navigation</a> 
+    </div>
+    <div class="l-header">
+        <div id="header">
+            <header>
+                <!-- START top nav --> 
+                <div class="top-nav clearfix"></div>
+                <!-- END top nav --> 
+          
+                <!-- START logo -->
+                <a href="#" class="main-logo"> <img src="{!URLFOR($Resource.BSP_Asset, 'css/images/logo-ap_st-2_h_1.png')}" alt="Australia Post logo" /> </a>
+                <!-- END logo --> 
+          
+                 <!-- START primary nav -->
+                <div id="primary-nav" class="primary-nav clearfix">
+                    <h3> Business Support Portal</h3>
+                </div>
+                <!-- END primary nav -->    
+            </header>
+        </div>
+    </div>
+</apex:component>

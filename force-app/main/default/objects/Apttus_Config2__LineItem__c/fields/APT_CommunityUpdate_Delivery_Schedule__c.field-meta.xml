@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_CommunityUpdate_Delivery_Schedule__c</fullName>
+    <externalId>false</externalId>
+    <label>Delivery Schedule</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>On Peak</fullName>
+                <default>false</default>
+                <label>On Peak</label>
+            </value>
+            <value>
+                <fullName>Regular (Off Peak)</fullName>
+                <default>false</default>
+                <label>Regular (Off Peak)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

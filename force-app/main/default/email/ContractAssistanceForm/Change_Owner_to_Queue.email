@@ -1,0 +1,3 @@
+Commercial Team Request {!ContractAssistanceForm__c.Name} has been assigned to the Commercial Team Queue. Please click on the link below to view the record.
+<br/><br/>
+{!ContractAssistanceForm__c.Link}

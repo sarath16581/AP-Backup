@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Fee_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Fee Type</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Minimum Fee</fullName>
+                <default>false</default>
+                <label>Minimum Fee</label>
+            </value>
+            <value>
+                <fullName>Post Billpay OTC</fullName>
+                <default>false</default>
+                <label>Post Billpay OTC</label>
+            </value>
+            <value>
+                <fullName>Post Billpay by Phone</fullName>
+                <default>false</default>
+                <label>Post Billpay by Phone</label>
+            </value>
+            <value>
+                <fullName>Post Billpay on the Internet</fullName>
+                <default>false</default>
+                <label>Post Billpay on the Internet</label>
+            </value>
+            <value>
+                <fullName>Post Billpay – Scan &amp; Pay</fullName>
+                <default>false</default>
+                <label>Post Billpay – Scan &amp; Pay</label>
+            </value>
+            <value>
+                <fullName>Visa</fullName>
+                <default>false</default>
+                <label>Visa</label>
+            </value>
+            <value>
+                <fullName>MasterCard</fullName>
+                <default>false</default>
+                <label>MasterCard</label>
+            </value>
+            <value>
+                <fullName>American Express</fullName>
+                <default>false</default>
+                <label>American Express</label>
+            </value>
+            <value>
+                <fullName>Diners card</fullName>
+                <default>false</default>
+                <label>Diners card</label>
+            </value>
+            <value>
+                <fullName>EFTPOS</fullName>
+                <default>false</default>
+                <label>EFTPOS</label>
+            </value>
+            <value>
+                <fullName>EFTPOS online</fullName>
+                <default>false</default>
+                <label>EFTPOS online</label>
+            </value>
+            <value>
+                <fullName>Other Specify:</fullName>
+                <default>false</default>
+                <label>Other Specify:</label>
+            </value>
+            <value>
+                <fullName>Per cheque handled</fullName>
+                <default>false</default>
+                <label>Per cheque handled</label>
+            </value>
+            <value>
+                <fullName>Per cheque dishonour</fullName>
+                <default>false</default>
+                <label>Per cheque dishonour</label>
+            </value>
+            <value>
+                <fullName>Debit, Credit  &amp; Charge Cards</fullName>
+                <default>false</default>
+                <label>Debit, Credit  &amp; Charge Cards</label>
+            </value>
+            <value>
+                <fullName>Set Up Costs</fullName>
+                <default>false</default>
+                <label>Set Up Costs</label>
+            </value>
+            <value>
+                <fullName>Post Billpay Support Manager User Licence Fee</fullName>
+                <default>false</default>
+                <label>Post Billpay Support Manager User Licence Fee</label>
+            </value>
+            <value>
+                <fullName>Change Management Fee</fullName>
+                <default>false</default>
+                <label>Change Management Fee</label>
+            </value>
+            <value>
+                <fullName>Emergency Release Fee</fullName>
+                <default>false</default>
+                <label>Emergency Release Fee</label>
+            </value>
+            <value>
+                <fullName>Transaction Fee, per transaction*</fullName>
+                <default>false</default>
+                <label>Transaction Fee, per transaction*</label>
+            </value>
+            <value>
+                <fullName>Dishonour cheque or Credit Card charge-back fee</fullName>
+                <default>false</default>
+                <label>Dishonour cheque or Credit Card charge-back fee</label>
+            </value>
+            <value>
+                <fullName>Cheque handling fee</fullName>
+                <default>false</default>
+                <label>Cheque handling fee</label>
+            </value>
+            <value>
+                <fullName>Visa, MasterCard credit card fee</fullName>
+                <default>false</default>
+                <label>Visa, MasterCard credit card fee</label>
+            </value>
+            <value>
+                <fullName>American Express Card fee**</fullName>
+                <default>false</default>
+                <label>American Express Card fee**</label>
+            </value>
+            <value>
+                <fullName>Diners Club Card fee***</fullName>
+                <default>false</default>
+                <label>Diners Club Card fee***</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

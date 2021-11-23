@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_RETURNS_EXPRESS_AVG_Weight</fullName>
+    <active>true</active>
+    <description>International Returns Express Wt (Kg) must be less than 20 kg.</description>
+    <errorConditionFormula>ISPICKVAL(APT_Volume_Data__c, &apos;Yes&apos;) &amp;&amp; 
+(APT_International_Returns_Express_Volume__c != 0 &amp;&amp; (NOT(  	APT_International_Returns_Exp_Weight_Kgs__c  &gt;= 0.001) 
+|| NOT(APT_International_Returns_Exp_Weight_Kgs__c  &lt;= 20))) || (APT_International_Returns_Express_Volume__c != 0 &amp;&amp; 	APT_International_Returns_Exp_Weight_Kgs__c = 0) &amp;&amp; NOT( Apttus_Config2__IsTransient__c)</errorConditionFormula>
+    <errorDisplayField>APT_International_Returns_Exp_Weight_Kgs__c</errorDisplayField>
+    <errorMessage>Invalid value for International Returns Express Wt (Kg).</errorMessage>
+</ValidationRule>

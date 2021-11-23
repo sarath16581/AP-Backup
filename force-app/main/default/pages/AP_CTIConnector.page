@@ -1,0 +1,263 @@
+<!--
+	2018-10-01 nathan.franklin@auspost.com.au Created for use with SFDCGenesysConnectorAP2 call centre (Red - genesys cti adapter)
+	2021-09-01 - Nathan Franklin - Added additional permissions capability for overflow agents taking CTI interactions
+-->
+<apex:page showHeader="false" controller="AP_ConnectorController2" sidebar="false">
+
+	<c:ScriptLoader jsLibraries="jquery,interaction,integration,localstate"
+					cssLibraries="bootstrap" />
+
+	<script type="text/javascript" src="{!URLFOR($Resource.AP_CTIConnector2, 'lib/require.min.js')}"></script>
+
+	<script type="text/javascript">
+  		Visualforce.remoting.timeout = 120000; // Set timeout at page level
+
+		var jqueryUrl = '{!URLFOR($Resource.GlobalAssets, '/js/jquery/1.12.4/jquery.min.js')}';
+		jqueryUrl = jqueryUrl.substr(0, jqueryUrl.length - 3);
+
+		require.config({
+			baseUrl : '{!URLFOR($Resource.AP_CTIConnector2)}',
+			paths: {
+				util: 'lib/util',
+				jquery: jqueryUrl,
+				moment: 'lib/moment.min',
+				connector: 'SFDC/connector',
+				integration: '/support/console/43.0/integration',
+				interaction: '/support/api/43.0/interaction',
+				i18next: 'lib/i18next.min',
+				jqueryI18next: 'lib/jquery-i18next.min',
+				i18nextXHRBackend: 'lib/i18next-xhr-backend.min'
+			},
+			shim: {
+				'jquery': {
+					exports: '$'
+				},
+				'integration': {
+					exports: 'sforce'
+				},
+				'interaction': {
+					exports: 'sforce'
+				}
+			}
+		});
+
+		// begin CTI adapter execution
+		require(['config', 'util', 'SFDC/sfdc', 'SFDC/package', 'interaction', 'AP/connected', 'AP/task', 'AP/case', 'controller/controller', 'AP/fakeit'],
+			function(config, util, sfdc, packageInfo, sforce, apConnected, apTask, apCase, controller, fakeIt) {
+				var log_prefix = "CRMConnector: ";
+
+				console.info(log_prefix + "VERSION: " + packageInfo.VERSION);
+				$('#version').text(packageInfo.NAME + ' v' + packageInfo.VERSION);
+
+				// load all the configuration for the CTI adapter in the 'Call Center' settings
+				sforce.interaction.cti.getCallCenterSettings(function(response) {
+
+					console.log(log_prefix, 'getCallCenterSettings', response.result);
+
+					var settings = $.parseJSON(response.result);
+					var height = settings['/reqGeneralInfo/reqSoftphoneHeight'];
+
+					// set the height of the popup window
+					sforce.interaction.cti.setSoftphoneHeight(height, function() {});
+
+					// initialise the CTI connector code
+					sfdc.initialize('{!URLFOR($Resource.AP_CTIConnector2)}/', settings).done(function() {
+						console.log(log_prefix, 'setting overrides')
+
+						// push the CTI connector settings
+						config.ALL = settings;
+
+						// set the user id
+						config.USER_ID = '{!$User.ID}';
+
+						// set the ivr mapping
+						// originally these were defined in the call center params, however, due to the level of customisation, those values would never be updated without verifying code
+						// given this, it makes more sense to code these parameters here.
+						config.CASE_MAPPINGS = {
+							'ReferenceID__c': 'UData_sstrackingid',
+							'Type': 'ENG_DimAttribute_2',
+							'ProductCategory__c': 'ServiceType',
+							'ProductSubCategory__c': 'ServiceSubType',
+							'EnquirySubType__c': 'ENG_DimAttribute_1'
+						};
+
+						// when syncing values from CTI adapter to MiniCase, it should be done in a specific order to ensure all fields/dependencies populate correctly
+						// NOTE the existence of the special field Type_and_Product__c which is dealt with at the time of pushing field values to mini case.
+						config.CASE_SYNC_ORDER = ['Type', 'ProductCategory__c', 'Type_and_Product__c', 'ProductSubCategory__c', 'EnquirySubType__c', 'ReferenceID__c'];
+
+						// stores the mappings when attaching Case data to Workspace,
+						config.CASE_MAPPING_OUTCOMES = {
+							'CaseID': 'Id',
+							'nvcCustomerId': 'Id',
+							'ENG_Outcome_4': 'Type',
+							'ENG_Outcome_2': 'ProductCategory__c',
+							'ENG_Outcome_3': 'ProductSubCategory__c',
+							'ENG_Outcome_1': 'EnquirySubType__c',
+							'BusinessResultDisplay': '' // special param
+						};
+
+						config.TASK_MAPPINGS = {
+							'ReferenceID__c': 'UData_sstrackingid'
+						};
+
+						// a special permission that prevents the closure of all of the console windows when a new interaction is received
+						// this is used in the AP/connected script
+						config.maintainWindowStateOnNewInteraction = {!IF($Permission.SSSWCTIMaintainWindowState,"true", "false")};
+
+						// these ensure that all the necessary code entry points are overridden by custom code
+						// by not editing the core files, this allows the CTI adapter code to be 'somewhat' upgradable
+						apConnected.setOverrides();
+						apCase.setOverrides();
+						apTask.setOverrides();
+
+						var pageController = new controller();
+						pageController.initialize();
+					});
+				});
+			}
+		);
+	</script>
+
+
+	<style type="text/css">
+		html, body {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			/*			  background-color: #DCF3FA;  */
+			background-color: #CCE2ED;
+			color: #333;
+			line-height: 1;
+			width: 100%;
+		}
+
+		td img {
+			vertical-align: top;
+		}
+
+		.maxWidth, .dataCol span select {
+			max-width: 100%;
+		}
+
+		.existingCasesOrActivities .pbBody .pbSubsection .dataCol {
+			width: 100%;
+		}
+
+		body .bPageBlock {
+			border: none;
+			margin: 20px;
+			padding: 10px;
+		}
+
+		textarea.input-sm {
+			height: 150px;
+		}
+
+		body .bPageBlock .pbHeader, body .bPageBlock .pbHeader table {
+			border: none;
+		}
+
+		body .bPageBlock .pbTitle, .bEditBlock .pbHeader>table>tbody>tr>td,
+		.bPageBlock .pbHeader>table>tbody>tr>td {
+			padding: 12px;
+			width: 100%;
+		}
+
+		.editPage .pbSubsection {
+			padding-bottom: 12px;
+		}
+
+		body .bPageBlock .pbTitle h2 {
+			font-family: "letter_one", "Helvetica Neue", Helvetica, Arial,
+			sans-serif;
+			font-size: 14px;
+			font-weight: bold;
+			color: #dc1928;
+			margin-bottom: 10px;
+		}
+
+		.bPageBlock .labelCol {
+			padding-right: 0;
+			text-align: left;
+		}
+
+		body .bPageBlock.bEditBlock .pbBody .data2Col {
+			padding-top: 0px;
+			padding-bottom: 0px;
+		}
+
+		.input-sm {
+			margin: 5px 5px 5px 0;
+		}
+
+		.hidden {
+			display: none;
+		}
+
+		.red {
+			display: block;
+			color: red;
+		}
+
+		.green {
+			display: block;
+			color: green;
+		}
+	</style>
+
+
+	<div class="login-card">
+		<div id="version"></div>
+	</div>
+
+	<apex:form >
+
+		<input type="hidden" id="wrapTime" />
+		<div style="overflow-y: auto;">
+			<c:LoadingSpinnerComponent showFunctionName="miniCaseShowProgressTop" hideFunctionName="miniCaseHideProgressTop" />
+
+			<div id="cti-details">
+				<apex:pageBlock title="Incoming Call" mode="edit" id="pbMiniCase" >
+					<apex:pageBlockSection columns="1">
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="Phone No." for="txtPhoneNumber" />
+							<input type="text" id="txtPhoneNumber" disabled="disabled" class="form-control input-sm string maxWidth" />
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="Contact" for="txtContact" />
+							<input type="text" id="txtContact" disabled="disabled" class="form-control input-sm string maxWidth" />
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="Case" for="txtCase" />
+							<input type="text" id="txtCase" disabled="disabled" class="form-control input-sm string maxWidth" />
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+				</apex:pageBlock>
+
+				<apex:pageBlock title="Enquiry" mode="edit" >
+					<apex:pageBlockSection columns="1">
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="Reference ID" for="txtRefID" />
+							<input type="text" id="ReferenceID__c" disabled="disabled" class="form-control input-sm string maxWidth" />
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="Case Type" for="txtCase" />
+							<input type="text" id="Type" disabled="disabled" class="form-control input-sm string maxWidth" />
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="Product Category" for="txtCase" />
+							<input type="text" id="ProductCategory__c" disabled="disabled" class="form-control input-sm string maxWidth" />
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="Product Sub Category" for="txtCase" />
+							<input type="text" id="ProductSubCategory__c" disabled="disabled" class="form-control input-sm string maxWidth" />
+						</apex:pageBlockSectionItem>
+						<apex:pageBlockSectionItem >
+							<apex:outputLabel value="Enquiry Sub Type" for="txtCase" />
+							<input type="text" id="EnquirySubType__c" disabled="disabled" class="form-control input-sm string maxWidth" />
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+				</apex:pageBlock>
+			</div>
+		</div>
+	</apex:form>
+
+</apex:page>

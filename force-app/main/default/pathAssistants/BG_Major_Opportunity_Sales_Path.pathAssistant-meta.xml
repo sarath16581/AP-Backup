@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Opportunity</entityName>
+    <fieldName>StageName</fieldName>
+    <masterLabel>BG Major Opportunity Sales Path</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>CloseDate</fieldNames>
+        <fieldNames>Closed_Reason__c</fieldNames>
+        <fieldNames>Closed_Comments__c</fieldNames>
+        <fieldNames>Data_Quality_Score__c</fieldNames>
+        <picklistValueName>Closed Disqualified</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>CloseDate</fieldNames>
+        <fieldNames>Closed_Reason__c</fieldNames>
+        <fieldNames>Closed_Comments__c</fieldNames>
+        <fieldNames>Data_Quality_Score__c</fieldNames>
+        <picklistValueName>Closed Duplicate</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>CloseDate</fieldNames>
+        <fieldNames>Closed_Reason__c</fieldNames>
+        <fieldNames>Closed_Comments__c</fieldNames>
+        <fieldNames>Data_Quality_Score__c</fieldNames>
+        <picklistValueName>Closed Lost</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>CloseDate</fieldNames>
+        <fieldNames>Closed_Reason__c</fieldNames>
+        <fieldNames>Closed_Comments__c</fieldNames>
+        <fieldNames>Data_Quality_Score__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;Objective:&lt;/b&gt; Commence implementation and onboarding, review outcomes and lessons learnt&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;In Salesforce:&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Ensure the final signed contract is captured in Salesforce (either via Apttus or raise a Deal Support Request for the Deal Enablement Centre to upload the offline contract)&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Help:&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Access help on the &lt;a href=&quot;https://mypo.st/FG7XB4ueoow&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;Support Resources page&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Visit the&lt;b&gt; &lt;/b&gt;&lt;a href=&quot;https://mypo.st/3FRcQ77L8sg&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;Capability Site&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Check out&lt;b&gt; &lt;/b&gt;&lt;a href=&quot;https://mypo.st/8goscEeAMN4&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;myTrailhead&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Closed Won</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>KeyContact__c</fieldNames>
+        <fieldNames>CloseDate</fieldNames>
+        <fieldNames>Amount</fieldNames>
+        <fieldNames>Primary_Competitor_Name__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;Objective:&lt;/b&gt; Identify potential customer needs and key customer stakeholders&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;In Salesforce:&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Add Key Contact &lt;/li&gt;&lt;li&gt;Add relevant information in the Opportunity Summary section&lt;/li&gt;&lt;li&gt;Plan tasks/events to engage customer&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Help:&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Access help on the &lt;a href=&quot;https://mypo.st/FG7XB4ueoow&quot; target=&quot;_blank&quot;&gt;Support Resources page&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Visit the &lt;a href=&quot;https://mypo.st/3FRcQ77L8sg&quot; target=&quot;_blank&quot;&gt;Capability Site&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Check out &lt;a href=&quot;https://mypo.st/8goscEeAMN4&quot; target=&quot;_blank&quot;&gt;myTrailhead&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Identify</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>KeyContact__c</fieldNames>
+        <fieldNames>CloseDate</fieldNames>
+        <fieldNames>Amount</fieldNames>
+        <fieldNames>Data_Quality_Score__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;Objective:&lt;/b&gt; Validate the proposed solution, negotiate final contractual terms, and execute contract&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;In Salesforce:&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Review products, revenue start and end dates. See &lt;a href=&quot;https://mypo.st/dJKsdtEEPh0&quot; target=&quot;_blank&quot;&gt;Opportunity Product Classification FAQs&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Generate the final contract  &lt;/li&gt;&lt;li&gt;Review and update the Close Date&lt;/li&gt;&lt;li&gt;Update revenue start and end dates&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Help:&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Access help on the &lt;a href=&quot;https://mypo.st/FG7XB4ueoow&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;Support Resources page&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Visit the &lt;a href=&quot;https://mypo.st/3FRcQ77L8sg&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;Capability Site&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Check out &lt;a href=&quot;https://mypo.st/8goscEeAMN4&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;myTrailhead&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Negotiate</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>KeyContact__c</fieldNames>
+        <fieldNames>CloseDate</fieldNames>
+        <fieldNames>Amount</fieldNames>
+        <fieldNames>Data_Quality_Score__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;Objective: &lt;/b&gt;Select products that meet customer needs, prepare proposal and obtain go ahead to proceed with the sale&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;In Salesforce:&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Generate a proposal&lt;/li&gt;&lt;li&gt;Provide estimated revenue dates - see &lt;a href=&quot;https://mypo.st/dJKsdtEEPh0&quot; target=&quot;_blank&quot;&gt;Opportunity Product Classification FAQs&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Record customer interactions&lt;/li&gt;&lt;li&gt;Complete Status Update &lt;/li&gt;&lt;li&gt;Attend ‘Commit to Action’ forum for Go/No-Go decision&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Help:&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Access help on the &lt;a href=&quot;https://mypo.st/FG7XB4ueoow&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;Support Resources page&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Visit the &lt;a href=&quot;https://mypo.st/3FRcQ77L8sg&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;Capability Site&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Check out &lt;a href=&quot;https://mypo.st/8goscEeAMN4&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;myTrailhead&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Propose</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>KeyContact__c</fieldNames>
+        <fieldNames>CloseDate</fieldNames>
+        <fieldNames>Amount</fieldNames>
+        <fieldNames>Primary_Competitor_Name__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;Objective:&lt;/b&gt; Capture customer needs, assess if our capabilities meet their needs and decide whether to proceed with the sale&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;In Salesforce:&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Add competitors and incumbents&lt;/li&gt;&lt;li&gt;Complete MH Blue Sheet and Funnel Scorecard&lt;/li&gt;&lt;li&gt;Attend ‘Commit to Action’ forum for Go/No-Go decision&lt;/li&gt;&lt;li&gt;Create DSRs&lt;/li&gt;&lt;li&gt;Provide estimation for Total Opportunity Value&lt;/li&gt;&lt;li&gt;Update Opportunity Splits (if required)&lt;/li&gt;&lt;li&gt;Update tasks/events&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Help:&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Access help on the &lt;a href=&quot;https://mypo.st/FG7XB4ueoow&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;Support Resources page&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Visit the&lt;b&gt; &lt;/b&gt;&lt;a href=&quot;https://mypo.st/3FRcQ77L8sg&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;Capability Site&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Check out&lt;b&gt; &lt;/b&gt;&lt;a href=&quot;https://mypo.st/8goscEeAMN4&quot; target=&quot;_blank&quot; style=&quot;font-size: 13px;&quot;&gt;myTrailhead&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Qualify</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Major</recordTypeName>
+</PathAssistant>

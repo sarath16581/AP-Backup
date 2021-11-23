@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>44.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Created to support parsing the transcript received from Chat Bot into a readable format.
+The data passed from Chat Bot is only formatted correctly after the Live Chat Transcript record is created.
+Omni is not enabled, so live chat transcript is only created after the chat finishes and not before, so the data is temporarily displayed on the Chat Vistor Info page in an unformatted way.</description>
+    <label>LiveChatBotTranscript</label>
+</ApexPage>

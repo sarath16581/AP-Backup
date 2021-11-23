@@ -1,0 +1,70 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<div style="font-size: 12pt;"><p class="MsoNormal" style="color: rgb(0, 0, 0);"><font face="Arial, sans-serif" size="2" style="background-color: rgb(255, 255, 255);"><span class="normaltextrun" style=""><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">Organisation Name:<font face="arial" style="font-size: 12pt;">&nbsp;</font></span></span></font><span style="font-size: 12pt; font-family: arial; background-color: rgb(255, 255, 255);"><font face="Arial, sans-serif" size="2" style="">{!Membership__c.Account__c}&nbsp;</font></span><span style="background-color: rgb(255, 255, 255);"><font face="Arial, sans-serif" style="" size="2">{!Membership__c.Name}</font></span></p><p class="MsoNormal" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0);"><span style="background-color: rgb(255, 255, 255);"><font face="Arial, sans-serif" size="2" style=""><br></font></span></p><p class="MsoNormal" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0);"><span style="background-color: rgb(255, 255, 255);"><font face="Arial, sans-serif" size="2">Dear Licensee,</font></span></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt; vertical-align: baseline;"><br></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt; vertical-align: baseline;"><font face="Arial, sans-serif" size="2" style="background-color: rgb(255, 255, 255);">Thank you for
+returning your Western Union r<span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">egistration pack.&nbsp; We have reviewed your registration pack and are
+unable to submit the application to Western Union due to the following issue/s:</span><o:p></o:p></font></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt; vertical-align: baseline;"><br></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt; vertical-align: baseline;"><b><u><font face="Arial, sans-serif" size="2" style="background-color: rgb(255, 255, 255);">Missing Information:<o:p></o:p></font></u></b></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt; vertical-align: baseline;"><font face="Arial, sans-serif"><br></font></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; margin: 0cm 0cm 0.0001pt; vertical-align: baseline;"><font face="Arial, sans-serif" style="background-color: rgb(255, 255, 255);"><b style=""><u style=""><font color="#cc0000">&lt;Free Text&gt; </font></u></b><i style=""><u style=""><font color="#cc0000" style="">-&nbsp;</font><font size="2"><o:p></o:p></font></u></i></font><span style="color: rgb(255, 0, 0); font-family: arial; font-size: 16px;">please remove or replace all that are not required below</span></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt 36pt; text-indent: -18pt; vertical-align: baseline;"><font face="Arial, sans-serif" style="" size="2"><span style="background-color: rgb(255, 255, 255); text-indent: -18pt;">·</span><span style="text-indent: -18pt; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: normal;">&nbsp; &nbsp; &nbsp;</span><span style="background-color: rgb(255, 255, 255); text-indent: -18pt;">Please attach 5
+years of work history or a current CV&nbsp;</span></font></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt 36pt; text-indent: -18pt; vertical-align: baseline;"><!--[if !supportLists]--><font face="Arial, sans-serif" size="2" style="background-color: rgb(255, 255, 255);">·<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: normal;">&nbsp; &nbsp; &nbsp;</span>Please sign and
+attach your AML Program pages 1 and 2&nbsp;<o:p></o:p></font></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt 36pt; text-indent: -18pt; vertical-align: baseline;"><!--[if !supportLists]--><font face="Arial, sans-serif" size="2" style="background-color: rgb(255, 255, 255);">·<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: normal;">&nbsp; &nbsp; &nbsp;</span>Please send a copy
+of colour Identification alternatively in black and white but they must be
+certified&nbsp;<o:p></o:p></font></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt 36pt; text-indent: -18pt; vertical-align: baseline;"><!--[if !supportLists]--><font face="Arial, sans-serif" size="2" style="background-color: rgb(255, 255, 255);">·<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: normal;">&nbsp; &nbsp; &nbsp;</span>Your ASIC
+registration must match your names exactly, please contact ASIC to include your
+middle name at <a href="http://www.asic.gov.au/" target="_blank"><span style="color: windowtext; text-decoration-line: none;">www.asic.gov.au</span></a>&nbsp;<o:p></o:p></font></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt 36pt; text-indent: -18pt; vertical-align: baseline;"><!--[if !supportLists]--><font face="Arial, sans-serif" size="2" style="background-color: rgb(255, 255, 255);">·<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: normal;">&nbsp; &nbsp; &nbsp;</span>Your ASIC principal
+place of business must match&nbsp;the physical location of your Licensed Post
+Office.&nbsp; Please contact ASIC to have this changed at&nbsp;<a href="http://www.asic.gov.au/" target="_blank"><span style="color: windowtext; text-decoration-line: none;">www.asic.gov.au</span></a>&nbsp;<o:p></o:p></font></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt 36pt; text-indent: -18pt; vertical-align: baseline;"><!--[if !supportLists]--><font face="Arial, sans-serif" size="2" style="background-color: rgb(255, 255, 255);">·<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: normal;">&nbsp; &nbsp; &nbsp;</span>AML/CTF form not
+received<o:p></o:p></font></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt; vertical-align: baseline;"><br></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt; vertical-align: baseline;"><font face="Arial, sans-serif" size="2" style="background-color: rgb(255, 255, 255);">Once all information
+has been changed/completed, please email confirmation to&nbsp;<span style="color: windowtext;"><a href="mailto:aml.dataentry@auspost.com.au">aml.dataentry@auspost.com.au</a></span>&nbsp;and we will be
+able to continue your application.&nbsp;<o:p></o:p></font></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt; vertical-align: baseline;"><br></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt; vertical-align: baseline;"><font face="Arial, sans-serif" size="2" style="background-color: rgb(255, 255, 255);">Kind regards,<o:p></o:p></font></p>
+
+<p class="paragraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin: 0cm 0cm 0.0001pt; vertical-align: baseline;"><br></p>
+
+<p class="MsoListParagraph" style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0); margin-left: 0cm;"><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255);"><font face="Arial, sans-serif" style="" size="2">Workforce
+Due Diligence</font></span><span style="font-size: 12pt; font-family: &quot;AP Letter&quot;;"><o:p></o:p></span></p></div><div style="font-size: 12pt; font-family: arial; color: rgb(0, 0, 0);"><br></div><div style="font-family: arial; color: rgb(0, 0, 0);"><p class="MsoNormal" style="font-size: 12pt;"><br></p><p class="MsoNormal" style="font-size: medium;"></p><p style="margin: 0in; font-family: arial; color: black;"><font size="1">Australia
+Post will never send you an email asking for your password, credit card details
+or account information.</font></p>
+
+<p style="margin: 0in; font-family: arial;"><font size="1"><span style="color:black">This email was sent by Australia Post, 111 Bourke Street,
+MELBOURNE VIC 3000. If you have any concerns, or don't think you should have
+received this email, please email&nbsp;</span><a href="mailto:aml.dataentry@auspost.com.au"><span style="font-style:italic">aml.dataentry@auspost.com.au</span></a><span style="color:black">. Visit&nbsp;</span><a href="https://ourpost.com.au/">ourpost.com.au</a><span style="color:black">&nbsp;for further information on our online&nbsp;</span><a href="https://auspost.com.au/about-us/about-our-site/online-security-scams-fraud">security</a><span style="color:black">.</span></font></p>
+
+<p style="margin: 0in; font-family: arial; color: black; text-align: center;"><font size="1">&nbsp;</font></p>
+
+<p style="margin: 0in; font-family: arial; text-align: center;"><font size="1"><a href="https://ourpost.com.au/people-resources/help-and-support.html">Help &amp;
+Support</a><span style="color:black">&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;</span><a href="https://auspost.com.au/terms-conditions?ilink=global-footer-terms-link">Terms
+&amp; Conditions</a><span style="color:black">&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="https://auspost.com.au/privacy">Privacy
+Policy</a></font></p><br><p style="font-size: 12pt;"></p></div>]]></td>
+</tr>
+</table>

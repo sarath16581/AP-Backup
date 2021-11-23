@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Service_Support</fullName>
+    <active>true</active>
+    <description>Startrack macro recordtype for Service Cloud</description>
+    <label>StarTrack Service &amp; Support</label>
+</RecordType>

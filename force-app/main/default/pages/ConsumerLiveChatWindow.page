@@ -1,0 +1,85 @@
+<!--
+04-Mar-2019 saiswetha.pingali@auspost.com.au Updated Waitmessagetext for REQ1701835
+06-Aug-2019 disha.kariya@auspost.com.au Update to add chat Header to close and print transcript.
+-->
+<apex:page showHeader="false" standardStylesheets="false" applyHtmlTag="false">
+    <html class="no-js" lang="en">
+        <head>
+            <script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
+            <apex:includeScript value="{!URLFOR($Resource.ConsumerLiveChatWindowAsset, 'MutationObserverPolyFill.js')}" />
+            <apex:includeScript value="{!URLFOR($Resource.ConsumerLiveChatWindowAsset, 'controller.js')}" />
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+            <meta name="DC.Creator" scheme="AglsAgent" content="Australia Post" />
+            <meta name="DC.Title" content="Australia Post - Home" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="apple-touch-icon" sizes="144x144" href="{!URLFOR($Resource.ConsumerLiveChatWindowAsset,'favicons/apple-touch-icon-144x144.png')}" />
+            <link rel="apple-touch-icon" sizes="114x114" href="{!URLFOR($Resource.ConsumerLiveChatWindowAsset,'favicons/apple-touch-icon-114x114.png')}" />
+            <link rel="apple-touch-icon" sizes="72x72" href="{!URLFOR($Resource.ConsumerLiveChatWindowAsset,'favicons/apple-touch-icon-72x72.png')}" />
+            <link rel="apple-touch-icon" href="{!URLFOR($Resource.ConsumerLiveChatWindowAsset,'favicons/apple-touch-icon.png')}" />
+            <link rel="shortcut icon" href="{!URLFOR($Resource.ConsumerLiveChatWindowAsset,'favicons/favicon.ico')}" />
+            <apex:stylesheet value="{!URLFOR($Resource.ConsumerLiveChatWindowAsset, 'style.css')}" />
+        </head>
+        <body>
+            <div style="top: 0; left: 0; right: 0; bottom: 0; position: absolute; background-color: #fff;">
+                <liveAgent:clientchat >
+                    <div id="nw_LiveAgentHeader" class="nw_LiveAgentHeader">
+                        <div class="nw_aplogoControls">
+                            <div class="bw-aplogo"></div>
+                        </div>
+                        <div class="nw_controls">
+                            <div class="nw_PrintControls">
+                                <div class="bw-share"></div>
+                            </div>
+                            <div class="nw_expandControls">
+                                <div class="bw-expand" id="expandCollapse"></div>
+                            </div>
+                            <div class="nw_CloseControls">
+                                <div class="bw-close"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="waitingMessageWrapper" role="dialog"><!-- do not remove
+                        do not remove --><div id="waitingMessageNew">
+                            <div class="bw-spinner loading"></div>
+                            <div class="waitingMessageQueuePosition" style="font-weight: bold;" aria-live="polite">
+                                <liveAgent:clientChatQueuePosition label="Queue position: " id="queuePosition"/>
+                            </div>
+                            <div class="waitingMessageText" aria-live="polite">We're connecting you with an agent. Please wait and they'll start your chat in a couple of minutes.</div>
+                        </div><!--do not remove--></div>
+        
+                    <div class="chatLogWindow" role="log">
+                        <div aria-live="polite">
+                            <liveAgent:clientChatLog />
+                            <liveAgent:clientChatAlertMessage />
+                            <liveAgent:clientChatStatusMessage />
+                        </div>
+                    </div>
+        
+                    <div class="nw_Input" role="form">
+                        <textarea class="nw_UserInputField" id="customMessageBox" onblur="this.placeholder='Enter text here'" placeholder="Enter text here" rows="2" area-label="Enter text here" maxlength="110" tabindex="0"></textarea>
+                        <div class="nw_UserSubmit nw_Disabled" role="button" tabindex="0" onclick="pageController.copyMessage();">
+                            <div class="nw_SubmitIcon"></div>
+                            <span class="nw_SubmitBtn" id="sendBtn">Send</span>
+                        </div>
+                    </div>
+                    <div id="hiddenContainer">
+                        <liveAgent:clientChatInput useMultiline="true" />
+                        <liveAgent:clientChatSendButton />
+                        <liveAgent:clientChatEndButton />
+                        <liveAgent:clientChatSaveButton />
+                        <liveAgent:clientChatCancelButton />
+                    </div>
+                </liveAgent:clientchat>
+            </div>
+            <script>
+                var j$ = jQuery.noConflict();
+                var pageController = new controller();
+                j$(function() {
+                    // initialize js controller
+                    pageController.initialize();
+                });
+            </script>
+        </body>
+    </html>
+</apex:page>

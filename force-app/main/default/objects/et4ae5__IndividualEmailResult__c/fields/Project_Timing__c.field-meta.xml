@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_Timing__c</fullName>
+    <description>Response to the timing profiling question for the tactical email stream</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Response to the timing profiling question for the tactical email stream</inlineHelpText>
+    <label>Project Timing</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Now</fullName>
+                <default>false</default>
+                <label>Now</label>
+            </value>
+            <value>
+                <fullName>Within 3 months</fullName>
+                <default>false</default>
+                <label>Within 3 months</label>
+            </value>
+            <value>
+                <fullName>3 to 6 months</fullName>
+                <default>false</default>
+                <label>3 to 6 months</label>
+            </value>
+            <value>
+                <fullName>6 to 12 months</fullName>
+                <default>false</default>
+                <label>6 to 12 months</label>
+            </value>
+            <value>
+                <fullName>12 months plus</fullName>
+                <default>false</default>
+                <label>12 months plus</label>
+            </value>
+            <value>
+                <fullName>Don’t know</fullName>
+                <default>false</default>
+                <label>Don’t know</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Enable_OM_Add_Call_Plan__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This setting restores the &apos;Add Call Plan&apos; button in Opportunity Manager. Otherwise, a link to the Call Planner application is shown in place of the button.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This setting restores the &apos;Add Call Plan&apos; button in Opportunity Manager. Otherwise, a link to the Call Planner application is shown in place of the button.</inlineHelpText>
+    <label>Enable OM Add Call Plan</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

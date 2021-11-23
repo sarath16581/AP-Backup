@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Status_Label__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF( 
+	DMAPP__Is_Complete__c , 
+	$Label.dmapp__tandi_completed, 
+	IF( !ISBLANK(DMAPP__Start_Time__c) &amp;&amp; ISBLANK(DMAPP__End_Time__c) ,
+		$Label.dmapp__tandi_started,
+		IF( 
+			DMAPP__Effective_Date__c &lt; BLANKVALUE($Setup.DMAPP__Dealmaker_Core_Settings__c.DMAPP__Mock_Today__c, TODAY()),
+			$Label.dmapp__tandi_overdue,			
+			IF( 
+				ISNULL( DMAPP__Reschedule_Date__c )|| ISNULL(DMAPP__Original_Schedule_Date__c) &amp;&amp; NOT(ISNULL(DMAPP__Reschedule_Date__c)), 
+				$Label.dmapp__tandi_scheduled,
+				IF(
+					DMAPP__Reschedule_Date__c &lt;= DMAPP__Original_Schedule_Date__c,
+					$Label.dmapp__tandi_rescheduled,
+					$Label.dmapp__tandi_deferred
+				)
+			)
+		)
+	)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Status Label</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

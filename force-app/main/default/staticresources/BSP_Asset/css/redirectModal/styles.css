@@ -1,0 +1,189 @@
+/* Modal dialog specific styles */
+#redirectDialog, #redirectDialogSuccessMessage
+{
+	display: none;
+}
+
+.redButton
+{
+	background :#dc1928;
+	padding: 5px 20px;
+}
+
+input#redirectButton.disabledButton, input#recallButton.disabledButton
+{
+	background: #F3F1EE;
+	border: solid 2px #F3F1EE;
+	color: #807370 !important;
+}
+
+div#termsAndConditionsButton
+{
+	color: #444;
+	font-size: 10px;
+	text-decoration: underline;
+}
+
+div#termsAndConditionsText
+{
+	font-size: 10px;
+}
+
+/******************************
+Roll back jQuery UI styles
+*******************************/
+/* Remove the background and border on the dialog's title */
+.ui-dialog .ui-dialog-titlebar
+{
+	border: none;
+	background: none;
+}
+
+/* Remove margins from the first input */
+.input-group .input:first-child
+{
+	margin: 0 0 0 10px;
+}
+
+/* Text color inside the dialog. Should match the body styles */
+div.ui-widget-content
+{
+	color: #807370;
+}
+
+/* Text styles inside the dialog. Should match the body styles */
+div.ui-widget
+{
+	font-size: 1em;
+	font-family: Verdana,Arial,sans-serif;
+}
+
+/* QAS autocomplete popup (address selection) autocomplete */
+.ui-autocomplete
+{
+	z-index: 9999;
+}
+
+/* Dialog buttons - roll back to 'primary-cta button-submit redButton dialogTrigger redButton' */
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .custom
+{
+	background: #dc1928;
+	padding: 0px 20px;
+	display: block;
+	margin: 5px;
+	float: right;
+	border-color: #bc111e;
+	text-decoration: none;
+	font: 700 13px "letter_one",Arial,sans-serif;
+	border: solid 2px #dc1928;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-transition-duration: .3s;
+	-moz-transition-duration: .3s;
+	-o-transition-duration: .3s;
+	transition-duration: .3s;
+	-webkit-transition-property: background-color,border-color;
+	-moz-transition-property: background-color,border-color;
+	-o-transition-property: background-color,border-color;
+	transition-property: background-color,border-color;
+	cursor: pointer;
+	color: #FFF !important;
+	height: auto;
+	vertical-align: baseline;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	word-wrap: break-word;
+	height: 30px;
+}
+
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .custom:hover
+{
+	background-color: #bc111e;
+	border-color: #bc111e;
+}
+
+/* Fix for the close button (X) in the dialog - misaligned */
+.ui-dialog .ui-dialog-titlebar .ui-icon-closethick
+{
+	left: 0px;
+	top: 0px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close span
+{
+	margin: 0px;
+}
+
+/* Extend the overlay all the way across the page (not just the window) */
+.ui-widget-overlay
+{
+	position: fixed !important;
+}
+
+/* Hide the X button (image load delay). There's a Cancel button as well as esc-to-close, so this is not necessary */
+button.ui-dialog-titlebar-close
+{
+	display: none;
+}
+
+/******************************
+Tooltip CSS
+*******************************/
+
+.ui-tooltip, .arrow:after
+{
+	background: #F3F1EE;
+	border: 2px solid #F3F1EE;
+}
+
+.ui-tooltip
+{
+	color: #807370;
+	padding: 5px 10px;
+	border-radius: 10px;
+	box-shadow: 0 0 7px black;
+	max-width: 250px;
+}
+
+.arrow
+{
+	width: 70px;
+	height: 16px;
+	overflow: hidden;
+	position: absolute;
+	left: 50%;
+	margin-left: -35px;
+	bottom: -16px;
+}
+
+.arrow.top
+{
+	top: -16px;
+	bottom: auto;
+}
+
+.arrow.left
+{
+	left: 20%;
+}
+
+.arrow:after
+{
+	content: "";
+	position: absolute;
+	left: 20px;
+	top: -20px;
+	width: 25px;
+	height: 25px;
+	box-shadow: 6px 5px 9px -9px black;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.arrow.top:after
+{
+	bottom: -20px;
+	top: auto;
+}

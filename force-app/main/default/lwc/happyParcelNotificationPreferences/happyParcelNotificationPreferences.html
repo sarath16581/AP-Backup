@@ -1,0 +1,132 @@
+<!--
+ - Created by disha.kariya on 3/05/2021.
+ -->
+<template>
+	<template if:false={waiting}>
+	<div class="slds-notify_container" style="position: relative; text-align: left;">
+		<div class="slds-notify slds-notify_toast slds-m-top_none slds-m-bottom_none slds-p-left_x-small slds-p-vertical_x-small slds-theme_shade" role="status" style="width: 100%; margin:0px; background-color: #D6EBF2;">
+			<div class="slds-notify__content" style="font-weight: 500;">
+				{blueBoxText}
+			</div>
+		</div>
+	</div>
+	</template>
+	<article class="slds-card slds-card_boundary">
+		<div class="slds-card__body slds-m-top_none slds-m-bottom_none">
+			<template if:true={showToastBar}>
+				<div class="slds-notify_container">
+					<div class={outerClass} role="status">
+						<span class="slds-assistive-text">{messageType}</span>
+						<span class={innerClass} title={NotificationPreferenceStatusMessage}>
+                            <lightning-icon icon-name={getIconName} alternative-text="icon"
+                                            styleclass="slds-icon slds-icon_small" variant="inverse"
+                                            size="small"></lightning-icon>
+                        </span>
+						<div class="slds-notify__content">
+							<h2 class="slds-text-heading_small">{NotificationPreferenceStatusMessage}</h2>
+						</div>
+					</div>
+				</div>
+			</template>
+			<template if:false={waiting}>
+				<div class="slds-grid slds-wrap">
+				<div class={divClass}>
+					<template if:true={hasHigherPreferences}>
+						<div class=" " style="width:100%">
+							<table class="slds-table slds-table_bordered slds-table_striped slds-border_right no_border">
+<!--								<template if:false={isDisabled}>-->
+									<thead class="slds-line-height_reset">
+										<th class="" scope="col">
+											<div>{higherPrefsString}</div>
+										</th>
+										<th class="" scope="col">
+											<div>On/Off</div>
+										</th>
+									</thead>
+									<tbody>
+									<template for:each={higherPrefs} for:item="pref">
+										<tr key={pref.searchString}>
+											<td>
+											<span class="slds-form-element__label slds-m-bottom_none slds-p-right_none"
+										        data-searchid={pref.searchString}>{pref.searchString}</span>
+												<template if:true={pref.foundByAPCN}>
+													<lightning-icon icon-name="utility:info" size="xx-small"
+													                title={higherHelpText} class="slds-m-horizontal_xx-small"
+													                style="position:relative;top:-1px;"></lightning-icon>
+												</template>
+											</td>
+											<td>
+												<lightning-input type="toggle" message-toggle-active=""
+												                 message-toggle-inactive="" variant="label-hidden"
+												                 onchange={handleToggleChange}
+												                 checked={pref.optedIn}
+												                 data-searchid={pref.searchString}
+												                 disabled={isDisabled}
+												                 style="width: fit-content;">
+												</lightning-input>
+											</td>
+										</tr>
+									</template>
+									</tbody>
+							</table>
+						</div>
+					</template>
+				</div>
+				<div class={divClass}>
+					<template if:true={hasLowerPreferences}>
+						<div class=" " style="width:100%">
+							<table class={tableClass}>
+<!--								<template if:false={isDisabled}>-->
+									<thead class="slds-line-height_reset">
+									<th class="" scope="col">
+										<div>{lowerPrefsString}</div>
+									</th>
+									<th class="" scope="col">
+										<div>On/Off</div>
+									</th>
+									</thead>
+									<tbody>
+									<template for:each={lowerPrefs} for:item="pref">
+										<tr key={pref.searchString}>
+											<td>
+											<span class="slds-form-element__label slds-m-bottom_none slds-p-right_none"
+										        data-searchid={pref.searchString}>{pref.searchString}</span>
+												<template if:true={pref.foundByAPCN}>
+													<lightning-icon icon-name="utility:info" size="xx-small"
+													                title={lowerHelpText} class="slds-m-horizontal_xx-small"
+													                style="position:relative;top:-1px;"></lightning-icon>
+												</template>
+											</td>
+											<td>
+												<lightning-input type="toggle" message-toggle-active=""
+												                 message-toggle-inactive="" variant="label-hidden"
+												                 onchange={handleToggleChange}
+												                 checked={pref.optedIn}
+												                 data-searchid={pref.searchString}
+												                 disabled={isDisabled}
+												                 style="width: fit-content;">
+												</lightning-input>
+											</td>
+										</tr>
+									</template>
+									</tbody>
+							</table>
+						</div>
+					</template>
+					<template if:false={hasPreferences}>
+						<div class="slds-text-heading_small slds-p-around_medium" style="width:100%">
+						No notification preferences found.
+						</div>
+					</template>
+				</div>
+				</div>
+			</template>
+			<template if:true={waiting}>
+				<div class="slds-p-around_medium slds-is-relative slds-align_absolute-center">
+					<lightning-spinner variant="brand" size="small"
+					                   alternative-text="Loading search results..."></lightning-spinner>
+				</div>
+			</template>
+		</div>
+	</article>
+</template>

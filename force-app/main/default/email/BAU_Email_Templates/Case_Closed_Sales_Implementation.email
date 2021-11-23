@@ -1,0 +1,14 @@
+Hi
+
+This case below has been closed by {!Case.OwnerFullName}.
+
+Case Number: {!Case.CaseNumber} 
+
+Subject: {!Case.Subject} 
+
+
+Please review via {!Case.URL_Link__c}
+
+Regards,
+
+Salesforce Support Team

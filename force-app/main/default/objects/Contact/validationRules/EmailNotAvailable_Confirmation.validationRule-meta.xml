@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EmailNotAvailable_Confirmation</fullName>
+    <active>true</active>
+    <description>SSSW Agent required to confirm contact with no email before save/creation.</description>
+    <errorConditionFormula>AND(
+$Profile.Name = &quot;SSSW - Service Agent&quot;,
+ISBLANK( Email ),
+NOT( EmailNotAvailable__c )
+)</errorConditionFormula>
+    <errorMessage>Please confirm that the customer does not have or wish to provide an email address by checking &apos;I requested an email address&apos;</errorMessage>
+</ValidationRule>

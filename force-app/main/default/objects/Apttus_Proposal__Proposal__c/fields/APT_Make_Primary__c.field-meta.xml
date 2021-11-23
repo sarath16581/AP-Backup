@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Make_Primary__c</fullName>
+    <description>/* Shashwat.Nath@Auspost.com has updated the formula to make sure the Active Proposal Button is displayed whenever a new Proposal is created and the Primary Checkbox is false for that proposal . This would only happen if there are multiple proposals linked to same Opportunity and a new proposal would always be created as non Primary . With this change user would have to first make the proposal Active before they can ADD Products to it */</description>
+    <externalId>false</externalId>
+    <formula>/*IF (AND(LEN(Apttus_Proposal__Opportunity__c ) &gt; 0, NOT(Apttus_Proposal__Primary__c),OR( ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &apos;Accepted&apos;),ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &apos;Presented&apos;),ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &apos;Generated&apos;))), HYPERLINK(&quot;/apex/Apttus_Proposal__ProposalMakePrimary?id=&quot;&amp;Id, IMAGE(&quot;/resource/APT_Active1&quot;, &quot;Active&quot;),&quot;_self&quot;), NULL)*/
+
+IF (AND(LEN(Apttus_Proposal__Opportunity__c ) &gt; 0, NOT(Apttus_Proposal__Primary__c)),HYPERLINK(&quot;/apex/Apttus_Proposal__ProposalMakePrimary?id=&quot;&amp;Id, IMAGE(&quot;/resource/APT_Active1&quot;, &quot;Active&quot;),&quot;_self&quot;), NULL)</formula>
+    <label>Active Proposal</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

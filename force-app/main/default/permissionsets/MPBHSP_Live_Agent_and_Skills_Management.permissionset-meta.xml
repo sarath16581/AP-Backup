@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This permission set includes the &quot;Assign Live Agent Skills to Users&quot; permission to allow designated personnel in CCC to self-manage User to Live Agent Skills associations.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>MPBHSP Live Agent and Skills Management</label>
+    <license>Salesforce</license>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>AssignUserToSkill</name>
+    </userPermissions>
+</PermissionSet>

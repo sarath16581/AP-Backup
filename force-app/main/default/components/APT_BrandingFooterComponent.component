@@ -1,0 +1,4 @@
+<apex:component controller="APT_URLimagesHeaderFooter" access="global">
+  <img src="{!footerURL}" />
+<br/><br/>
+</apex:component>

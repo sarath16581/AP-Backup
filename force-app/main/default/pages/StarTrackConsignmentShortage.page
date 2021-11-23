@@ -1,0 +1,9 @@
+<!--
+    Description: This page is used in consignment shortage publisher action.
+    History:
+    Nov 11, 2015 David Catindoy(CloudSherpas) Created
+    NOV.25.2015 Patrick James Franco - Content replaced by StarTrackConsignmentShortage component
+    -->
+<apex:page standardController="Case" standardStylesheets="false" showHeader="false" sidebar="false" docType="html-5.0">
+    <c:StarTrackConsignmentShortage caseRec="{!Case}"/>
+</apex:page>

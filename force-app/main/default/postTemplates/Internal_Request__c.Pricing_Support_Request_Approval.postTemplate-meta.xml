@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PostTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <default>false</default>
+    <description>For posting when the deal support request has been sent for approval</description>
+    <fields>Name</fields>
+    <fields>Approver_Name__c</fields>
+    <fields>Pricing_Analyst_Manager__c</fields>
+    <label>Pricing Support Request Approval</label>
+</PostTemplate>

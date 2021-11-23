@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_ContractStatusMustBeInEffect</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(ISPICKVAL(APT_Contract__r.Apttus__Status_Category__c ,  &quot;In Effect&quot;))</errorConditionFormula>
+    <errorMessage>You can only request contract extension for contracts that has status &quot;In Effect&quot;</errorMessage>
+</ValidationRule>

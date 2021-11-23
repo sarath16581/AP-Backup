@@ -1,0 +1,28 @@
+<!--VF Component used in PUD_JobExceptionsPrintfromListView page to retrieve No Pickup Data for all routes of a depot.-->  
+<!--Created 25-05-20 Dheeraj Mandavilli -->
+<!--Updated 22-07-20 Dheeraj Mandavilli Added Booking Type Feild Under Locations details--> 
+
+<apex:component >
+    
+    <apex:attribute name="Route" type="String" description="Key: RouteName"/>
+    <apex:attribute name="Jobs" type="PUD_Booking_Exception__c[]" description="Key: RouteName"/>
+    
+    <apex:pageBlock >  
+        <apex:pageBlockTable value="{!Jobs}" var="jt" border="1">
+            <apex:column headerValue="Location Details" style="vertical-align:Top" width="450px">
+                <apex:outputField value="{! jt.Booking__r.Location__c}"/><b style="color:red">-Cancelled Booking</b><br/>
+                <apex:outputField value="{! jt.Booking__r.Booking_Location_Address__c}"/><br/><br/>
+                Booking Type: <b><apex:outputField value="{! jt.Booking__r.Booking_Type__c}"/></b>
+            </apex:column>
+            <apex:column headerValue="Start Date" style="vertical-align:Top" width="100px">
+                <apex:outputField value="{! jt.Start_Date__c}"/>
+            </apex:column>
+            <apex:column headerValue="End Date" style="vertical-align:Top" width="100px">
+                <apex:outputField value="{! jt.End_Date__c}"/>
+            </apex:column>
+            <apex:column headerValue="Booking Comments" style="vertical-align:Top" width="220px">
+                <apex:outputField value="{!jt.Booking__r.Booking_Comments__c}" />
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:component>

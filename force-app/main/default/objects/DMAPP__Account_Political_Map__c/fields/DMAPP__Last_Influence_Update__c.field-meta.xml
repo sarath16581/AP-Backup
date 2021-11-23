@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Last_Influence_Update__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Last Influence Update</label>
+    <summarizedField>DMAPP__Account_Political_Map_Influence__c.LastModifiedDate</summarizedField>
+    <summaryForeignKey>DMAPP__Account_Political_Map_Influence__c.DMAPP__Political_Map__c</summaryForeignKey>
+    <summaryOperation>max</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

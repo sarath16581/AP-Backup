@@ -1,0 +1,12 @@
+<!--
+ * @description Wrapper component so that the lpoCreateNewDealSupportRequest can be used in a Quick action
+ * @date 03/11/2020
+ * @group Deal Support Request
+ * @changelog
+ * 2020-11-03 - Mav3rik - Created
+ -->
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global">
+  <div class="slds-is-relative">
+    <c:lpoCreateNewDealSupportRequest recordId="{!v.recordId}" onclose="{!c.closeQA}" />
+  </div>
+</aura:component>

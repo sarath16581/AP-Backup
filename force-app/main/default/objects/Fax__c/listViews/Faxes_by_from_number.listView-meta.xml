@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Faxes_by_from_number</fullName>
+    <columns>NAME</columns>
+    <columns>Subject__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Fax__c.Outbound</value>
+    </filters>
+    <filters>
+        <field>Subject__c</field>
+        <operation>contains</operation>
+    </filters>
+    <label>Search for incoming fax by number &amp; date</label>
+</ListView>

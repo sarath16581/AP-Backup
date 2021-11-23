@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_Category__c</fullName>
+    <externalId>false</externalId>
+    <label>Product Category</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Domestic Parcels</fullName>
+                <default>false</default>
+                <label>Domestic Parcels</label>
+            </value>
+            <value>
+                <fullName>Post Office Products &amp; Services</fullName>
+                <default>false</default>
+                <label>Post Office Products &amp; Services</label>
+            </value>
+            <value>
+                <fullName>Letter &amp; Parcel Delivery Services</fullName>
+                <default>false</default>
+                <label>Letter &amp; Parcel Delivery Services</label>
+            </value>
+            <value>
+                <fullName>International Parcels</fullName>
+                <default>false</default>
+                <label>International Parcels</label>
+            </value>
+            <value>
+                <fullName>Financial Products &amp; Services</fullName>
+                <default>false</default>
+                <label>Financial Products &amp; Services</label>
+            </value>
+            <value>
+                <fullName>Domestic Letters</fullName>
+                <default>false</default>
+                <label>Domestic Letters</label>
+            </value>
+            <value>
+                <fullName>International Letters</fullName>
+                <default>false</default>
+                <label>International Letters</label>
+            </value>
+            <value>
+                <fullName>Digital Products &amp; Services</fullName>
+                <default>false</default>
+                <label>Digital Products &amp; Services</label>
+            </value>
+            <value>
+                <fullName>Courier Products &amp; Services</fullName>
+                <default>false</default>
+                <label>Courier Products &amp; Services</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

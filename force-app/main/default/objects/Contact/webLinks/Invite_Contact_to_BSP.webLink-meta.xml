@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invite_Contact_to_BSP</fullName>
+    <availability>online</availability>
+    <description>StarTrack - It will mimic the same behavior as &quot;Enable Customer User&quot; button. Adds .bsp suffix to username field.</description>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Invite Contact to BSP</masterLabel>
+    <openType>replace</openType>
+    <page>InviteContactToBSP</page>
+    <protected>false</protected>
+</WebLink>

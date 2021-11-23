@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Milestone_Question__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Milestone Question</label>
+    <referenceTo>DMAPP__DM_Milestone_Question__c</referenceTo>
+    <relationshipLabel>Milestone Question Quicklinks</relationshipLabel>
+    <relationshipName>Milestone_Question_Quicklinks</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

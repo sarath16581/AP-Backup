@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Coverage__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Coverage</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>true</default>
+                <label>Unknown</label>
+            </value>
+            <value>
+                <fullName>No Contact</fullName>
+                <default>false</default>
+                <label>No Contact</label>
+            </value>
+            <value>
+                <fullName>Brief contact</fullName>
+                <default>false</default>
+                <label>Brief contact</label>
+            </value>
+            <value>
+                <fullName>Multiple contacts</fullName>
+                <default>false</default>
+                <label>Multiple contacts</label>
+            </value>
+            <value>
+                <fullName>In-depth</fullName>
+                <default>false</default>
+                <label>In-depth</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_BA_Specified</fullName>
+    <active>true</active>
+    <description>If StarTrack BA is specified, then Access Role can be StarTrack Case Administrator only.</description>
+    <errorConditionFormula>if( RecordType.DeveloperName != &apos;Cognition_Rules&apos;, ((ISPICKVAL(Billing_Account__r.Source_System__c, &apos;TEAM&apos;) || ISPICKVAL(Billing_Account__r.Source_System__c, &apos;PeopleSoft&apos;)) &amp;&amp; ISBLANK(Account__c) &amp;&amp; !(ISPICKVAL( AccessRole__c, &apos;StarTrack Case Administrator&apos;) || ISPICKVAL( AccessRole__c, &apos;Contract UI User&apos;))),false)</errorConditionFormula>
+    <errorMessage>This Access Role is not valid for this Billing Account</errorMessage>
+</ValidationRule>

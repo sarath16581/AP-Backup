@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Status_Going_To_A_Previous_Valu</fullName>
+    <active>true</active>
+    <description>This validation rule will not allow users to set the status to a previous value.</description>
+    <errorConditionFormula>IF ( ($Profile.Name &lt;&gt; &quot;System Administrator&quot; &amp;&amp; $Permission.LCM_Support=FALSE &amp;&amp; $Permission.LCM_Admin = FALSE &amp;&amp; $Permission.Lodgement_Migration_Data_Permission = FALSE) &amp;&amp; Status_Number__c &lt; PRIORVALUE(Status_Number__c ), true, false)</errorConditionFormula>
+    <errorMessage>You are not allowed to go back in the LCM Process.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,7 @@
+{
+    "error": {
+        "message": "Requested URI does not represent any resource: /sn_customerservice/salesforce_lightning_connect/create_case",
+        "detail": null
+    },
+    "status": "Failure"
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invoice_No_or_Period_Date_Required__c</fullName>
+    <description>The field is capturing the date of the document provided or Invoice Number for &apos;copy of invoice/statement&apos; credit management deal support request.</description>
+    <externalId>false</externalId>
+    <label>Invoice No or Period/Date Required</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email notification template sent to an outlet on submission of their case by the Retail Fulfilment Call Centre (RFCC)</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>ExternalContactEmail</letterhead>
+    <name>RFCC Escalation Email to Team Leader</name>
+    <style>freeForm</style>
+    <subject>{!Case.CaseNumber} Action Required – SLA has been breached</subject>
+    <textOnly>Hello Team Leader,
+
+Action Required – SLA has been breached
+
+
+Attention Retail Fulfilment Call Centre Team Leader
+
+Salesforce case reference number {!Case.CaseNumber} has passed its SLA of 48 hours since creation and immediate action is required to resolve this query.
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

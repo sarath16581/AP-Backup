@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Event_Date__c</fullName>
+    <externalId>false</externalId>
+    <formula>Text(day(datevalue(Event__r.Event_Date_Time__c))) &amp; &quot;/&quot; &amp; Text(month(datevalue(Event__r.Event_Date_Time__c))) &amp;&quot;/&quot;&amp;text(year(datevalue(Event__r.Event_Date_Time__c)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Event Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <allowRecall>true</allowRecall>
+    <allowedSubmitters>
+        <submitter>Credit_Officer</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Credit_Team_Lead</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Name</field>
+        <field>Case__c</field>
+        <field>Owner</field>
+        <field>Account_Manager__c</field>
+        <field>Credit_Amount__c</field>
+        <field>Amount_Charged__c</field>
+        <field>Amount_Claimed__c</field>
+        <field>Product_Family__c</field>
+        <field>Actual_Amount__c</field>
+        <field>Case_Summary__c</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <approvalActions>
+            <action>
+                <name>Date_Submitted_to_Approver</name>
+                <type>FieldUpdate</type>
+            </action>
+        </approvalActions>
+        <assignedApprover>
+            <approver>
+                <type>userHierarchyField</type>
+            </approver>
+        </assignedApprover>
+        <entryCriteria>
+            <formula>CreditAmountExclusiveGST__c &gt;20 &amp;&amp;
+$UserRole.Name = &apos;Credit Officer&apos;</formula>
+        </entryCriteria>
+        <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
+        <label>Credit Team Lead</label>
+        <name>Credit_Team_Lead</name>
+    </approvalStep>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <approvalActions>
+            <action>
+                <name>Date_Submitted_to_Approver</name>
+                <type>FieldUpdate</type>
+            </action>
+        </approvalActions>
+        <assignedApprover>
+            <approver>
+                <name>Approver_1__c</name>
+                <type>relatedUserField</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <entryCriteria>
+            <formula>CreditAmountExclusiveGST__c &gt;500</formula>
+        </entryCriteria>
+        <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
+        <label>National Credit Manager</label>
+        <name>National_Credit_Manager</name>
+        <rejectBehavior>
+            <type>RejectRequest</type>
+        </rejectBehavior>
+    </approvalStep>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <approvalActions>
+            <action>
+                <name>Date_Submitted_to_Approver</name>
+                <type>FieldUpdate</type>
+            </action>
+        </approvalActions>
+        <assignedApprover>
+            <approver>
+                <name>Approver_2__c</name>
+                <type>relatedUserField</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <entryCriteria>
+            <formula>CreditAmountExclusiveGST__c &gt;1000</formula>
+        </entryCriteria>
+        <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
+        <label>Head of Revenue Services</label>
+        <name>Head_of_Revenue_Services</name>
+        <rejectBehavior>
+            <type>RejectRequest</type>
+        </rejectBehavior>
+    </approvalStep>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <approvalActions>
+            <action>
+                <name>Date_Submitted_to_Approver</name>
+                <type>FieldUpdate</type>
+            </action>
+        </approvalActions>
+        <assignedApprover>
+            <approver>
+                <name>Approver_3__c</name>
+                <type>relatedUserField</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <entryCriteria>
+            <formula>CreditAmountExclusiveGST__c &gt;5000</formula>
+        </entryCriteria>
+        <label>GM Shared Services</label>
+        <name>GM_Shared_Services</name>
+        <rejectBehavior>
+            <type>RejectRequest</type>
+        </rejectBehavior>
+    </approvalStep>
+    <description>Late Payment Charges (LPC) approval process</description>
+    <emailTemplate>All_Email_Templates/Credit_Approval_Request</emailTemplate>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <entryCriteria>
+        <formula>AND ( 
+				CreditAmountExclusiveGST__c &gt; 20,
+    NOT(ISPICKVAL( Status__c, &apos;Approved&apos;)), 
+	   Ready_For_Approval__c = TRUE,
+   	RejectionFinal__c != TRUE,
+   	NOT(ISPICKVAL(Case__r.Status ,&apos;Closed&apos;)),
+	   NOT(ISPICKVAL(Case__r.Status ,&apos;Invalid&apos;)),
+    ISPICKVAL(Product_Family__c , &apos;Business Credit Account Facilities&apos;), 
+    ISPICKVAL(Product_Sub_Category__c , &apos;Late Payment Charge&apos;)
+
+)</formula>
+    </entryCriteria>
+    <finalApprovalActions>
+        <action>
+            <name>CreditApprovedNotetoOwner</name>
+            <type>Alert</type>
+        </action>
+        <action>
+            <name>Update_Status_Approved</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalApprovalActions>
+    <finalApprovalRecordLock>true</finalApprovalRecordLock>
+    <finalRejectionActions>
+        <action>
+            <name>Credit_Approval_Rejection_Note_to_Record_Owner</name>
+            <type>Alert</type>
+        </action>
+        <action>
+            <name>Uncheck_Ready_For_Approval</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Update_Status_To_Rejected</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalRejectionActions>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <initialSubmissionActions>
+        <action>
+            <name>Date_Submitted_for_Approval</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Date_Submitted_to_Approver</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Update_Status_to_Pending_Approval</name>
+            <type>FieldUpdate</type>
+        </action>
+    </initialSubmissionActions>
+    <label>LPC Disputesv1.0</label>
+    <nextAutomatedApprover>
+        <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
+        <userHierarchyField>Manager</userHierarchyField>
+    </nextAutomatedApprover>
+    <processOrder>1</processOrder>
+    <recallActions>
+        <action>
+            <name>Blank_Current_Approver</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Uncheck_Ready_For_Approval</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Update_Status_to_New</name>
+            <type>FieldUpdate</type>
+        </action>
+    </recallActions>
+    <recordEditability>AdminOrCurrentApprover</recordEditability>
+    <showApprovalHistory>true</showApprovalHistory>
+</ApprovalProcess>

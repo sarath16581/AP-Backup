@@ -1,0 +1,316 @@
+<apex:component controller="AddressComponentController" allowDML="true">
+<style type="text/css">
+.ui-state-active, 
+.ui-widget-content .ui-state-active, 
+.ui-state-hover a,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-hover a:hover,
+.ui-state-hover a:link,
+.ui-state-hover a:visited{
+    background: #E4F3F7;
+    color: #015BBA;
+    border-color: #E4F3F7;
+}
+input[id$='dPid'] {
+    background: rgb(238, 238, 238);
+    cursor: not-allowed;
+}
+/* Code to remove styling of the address component
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active, 
+.ui-autocomplete, .ui-autocomplete:hover, 
+.ui-menu-item, .ui-menu-item:hover,
+.ui-menu-item a, .ui-menu-item a:hover,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-menu .ui-menu-item a.ui-state-focus,
+.ui-menu .ui-menu-item a.ui-state-active,
+.ui-menu .ui-menu-item a
+{ background: #ffffff none no-repeat; 
+padding:0;
+margin:0;
+display:block;
+border:0;border-collapse:collapse;
+}*/
+</style>
+<apex:includeScript value="{!URLFOR($Resource.Spinner, '/Spinner/Spinner.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.Spinner, '/Spinner/minSpinner.js')}"/>
+    <script src="/soap/ajax/15.0/connection.js" type="text/javascript"></script>
+    <script src="/soap/ajax/15.0/apex.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+var $jq = jQuery.noConflict();
+var opts = {
+	lines : 7, // The number of lines to draw
+	length : 1, // The length of each line
+	width : 3, // The line thickness
+	radius : 5, // The radius of the inner circle
+	corners : 0.7, // Corner roundness (0..1)
+	rotate : 13, // The rotation offset
+	direction : 1, // 1: clockwise, -1: counterclockwise
+	color : '#000', // #rgb or #rrggbb or array of colors
+	speed : 2.1, // Rounds per second
+	trail : 54, // Afterglow percentage
+	shadow : false, // Whether to render a shadow
+	hwaccel : false, // Whether to use hardware acceleration
+	className : 'spinner', // The CSS class to assign to the spinner
+	zIndex : 2e9, // The z-index (defaults to 2000000000)
+	top : '-25%', // Top position relative to parent in px
+	left: 'auto' // Left position relative to parent in px
+};
+sforce.connection.sessionId = "{!$Api.Session_ID}";
+function CLEAR_DPID(obj) {
+    var myId = $jq(obj).closest('div').attr('id');
+    $jq("[id$='dPid']").val(function(index,value) {
+        if($jq(this).hasClass(myId))
+            return "";
+        else
+            return $jq(this).val();
+    });
+}
+
+var QAS_AUTOCOMPLETE = {
+        sz_QasDataUrl : 'https://test.haitd.oss-server.com/token.json',
+        sz_AddressUrl : sforce.apex.execute("AddressValidationService","getAddressURL",{}),
+        sz_DetailsUrl : sforce.apex.execute("AddressValidationService","getDetailsURL",{}),
+        sz_token : $jq("[id$='token']").val(),
+        sz_star : 'true', // This value should receive from STS service
+        minLength : 4,
+        focus : function(event,ui) {
+            return false;
+        },
+        source : function(request, response) {
+            var myId = this.element;
+            window.console&&console.log(myId);
+            var target = $jq(myId).next().attr('id');
+            window.console&&console.log(document.getElementById(target));
+			var spinner = new Spinner(opts).spin(document.getElementById(target));
+			
+            var token = sforce.apex.execute("AddressValidationService","getToken",{});
+            //var token = '07df4371-acf1-41db-b57d-5785ceb42062';
+            window.console&&console.log(token);
+            $jq.ajax({
+                beforeSend: function(req) {
+                    req.setRequestHeader("auspost-access-token", token);
+                },
+                url : QAS_AUTOCOMPLETE.sz_AddressUrl,
+                crossDomain : true,
+                traditional: true,
+                dataType : "jsonp",
+                data : {
+                    term : request.term,
+                    aat : token
+                },
+                jsonp : "jsonp",
+                success : function(data, textStatus) {
+                	spinner.stop();
+                    if(data == null || typeof data == 'undefined'){
+                        // Token is wrong or expired
+                        window.console&&console.log('null');
+                        QAS_AUTOCOMPLETE.v_fGetQasData(QAS_AUTOCOMPLETE.source, [request, response], me);
+                    } else {
+                        response($jq.map(data, function(item) {
+                            if(item.address == '' && item.moniker == '')
+                            {
+                                return false;
+                            }
+                            return {
+                                label : item.address,
+                                value : item.address,
+                                moniker : item.moniker
+                            };
+                        }));
+                    }
+                }
+            });
+        },
+        select : function(event, ui) {
+            var token = sforce.apex.execute("AddressValidationService","getToken",{});
+            me = this;
+            var appendId = $jq(this).parents("div").attr('id');
+            window.console&&console.log(appendId);
+            if (ui.item.label == 'Address not found') {
+                // The end user has indicated that none of the options are correct - do something 
+                return false;
+            } else if (ui.item.moniker == '') {
+                // There were no items returned by QAS.
+                return false;
+            }
+            $jq.ajax({
+                beforeSend: function(req) {
+                    req.setRequestHeader("auspost-access-token", token);
+                },
+                traditional: true,
+                url : QAS_AUTOCOMPLETE.sz_DetailsUrl,
+                crossDomain : true,
+                dataType : "jsonp",
+                data : {
+                    'address' : ui.item.value,
+                    aat : token
+                },
+                jsonp : "jsonp",
+                success : function(data) {
+                    window.console&&console.log(data);
+                    if(data == null || typeof data == 'undefined'){
+                        // Token is wrong or expired
+                        QAS_AUTOCOMPLETE.v_fGetQasData(QAS_AUTOCOMPLETE.select, [event, ui], me);
+                    } else {
+                        if(data.addressLine2 != null && data.addressLine2 != '') {
+                            $jq("[id$='toAddressLineOne']").val(function(index,value) {
+                            if($jq(this).hasClass(appendId))
+                                return data.addressLine1+', '+data.addressLine2;
+                            else
+                                return $jq(this).val();
+                            });
+                        } else {
+                            $jq("[id$='toAddressLineOne']").val(function(index,value) {
+                            if($jq(this).hasClass(appendId))
+                                return data.addressLine1;
+                            else
+                                return $jq(this).val();
+                            });
+                        }
+                        $jq("[id$='toSuburb']").val(function(index,value) {
+                            if($jq(this).hasClass(appendId))
+                                return data.city;
+                            else
+                                return $jq(this).val();
+                        });
+                        $jq("[id$='toState']").val(function(index,value) {
+                            if($jq(this).hasClass(appendId))
+                                return data.state;
+                            else
+                                return $jq(this).val();
+                        });
+                        $jq("[id$='toPostcode']").val(function(index,value) {
+                            if($jq(this).hasClass(appendId))
+                                return data.postcode;
+                            else
+                                return $jq(this).val();
+                        });
+                        $jq("[id$='dPid']").val(function(index,value) {
+                            if($jq(this).hasClass(appendId))
+                                return data.dpid;
+                            else
+                                return $jq(this).val();
+                        });
+                    }
+                },
+                error: function(){
+                    // There some problems with connection or parsing data here
+                }
+            });
+        },
+        v_fGetQasData : function (the_fn_Callback, the_a_Arguments, the_o_This){
+            $jq.ajax({
+                url : QAS_AUTOCOMPLETE.sz_QasDataUrl,
+                crossDomain : true,
+                dataType : "jsonp",
+                data : {},
+                success : function(data) {
+                    // Update token and then callback 
+                    window.console&&console.log(data);
+                    if(typeof the_fn_Callback == 'function'){
+                        the_fn_Callback.apply(the_o_This, the_a_Arguments);
+                    }
+                },
+                error: function(){
+                    // There some problems with connection or parsing data here
+                }
+            });
+        }
+};
+
+$jq(function(){
+	
+    $jq("[id$='toAddressLineOne']").autocomplete(QAS_AUTOCOMPLETE);
+    $jq("[id$='theAddress']").autocomplete(QAS_AUTOCOMPLETE);
+    $jq("[id$='dPid']").attr("readOnly",true);
+});
+
+</script>
+<apex:attribute name="Object" type="sObject" description="Object from VF page" required="false" assignTo="{!sObj}"/>
+<apex:attribute name="FieldSet" type="FieldSetMemberWrapper[]" description="FieldSetMemberWrapper List" required="false" assignTo="{!fs}"/>
+<apex:attribute name="Fields" type="Schema.FieldSetMember[]" description="FieldSetMember List" required="false" assignTo="{!fm}"/>
+<apex:attribute name="HideAddressComp" type="Boolean" description="Hide Address Elements" required="false" assignTo="{!hiddenAddressComp}"/>
+<apex:attribute name="Id" type="String" description="Unique Id from VF page" required="true" assignTo="{!suffixClass}"/>
+<!-- <apex:outputPanel id="tokenPanel"><apex:inputHidden value="{!token}" id="token" /></apex:outputPanel><br/>
+<apex:actionFunction name="refreshToken" action="{!refreshToken}" rerender="tokenPanel"/>
+<apex:actionPoller action="{!refreshToken}" reRender="token" /> -->  
+      <!--  TO WORK WITH FIELDSETMEMBERWRAPPER FIELDS -->
+      <apex:outputPanel rendered="{!IF(AND(fs!=null,fs.size>0,NOT(hiddenAddressComp)),'true','false')}" >
+          <apex:pageBlock >
+              <apex:pageBlockSection columns="1">
+                  <apex:inputField onkeydown="CLEAR_DPID(this);" onchange="CLEAR_DPID(this);" value="{!sObj[fs[0].fieldSetMem]}" id="toAddressLineOne" />
+                  <apex:outputLabel value="{!fs[1].fieldSetMem.Label}"/> 
+                  <apex:inputField onkeydown="CLEAR_DPID(this);" onchange="CLEAR_DPID(this);" value="{!sObj[fs[1].fieldSetMem]}" id="toSuburb" />
+                  <apex:inputField onkeydown="CLEAR_DPID(this);" onchange="CLEAR_DPID(this);" value="{!sObj[fs[2].fieldSetMem]}" id="toState" />
+                  <apex:inputField onkeydown="CLEAR_DPID(this);" onchange="CLEAR_DPID(this);" value="{!sObj[fs[3].fieldSetMem]}" id="toPostcode" />
+                  <apex:inputField onkeydown="CLEAR_DPID(this);" onchange="CLEAR_DPID(this);" value="{!sObj[fs[4].fieldSetMem]}" id="dPid" />
+              </apex:pageBlockSection>
+          </apex:pageBlock>
+      </apex:outputPanel>
+      <!--  TO WORK WITH FIELDSETMEMBER FIELDS AND HIDE THE DIFFERENT PARTS OF ADDRESS FIELD -->
+      <apex:outputPanel rendered="{!IF(AND(fm!=null,fm.size>0,hiddenAddressComp),'true','false')}">
+           
+              <table class="address-table">
+              <!-- <tr>
+                 <apex:outputLabel value="{!fm[0].Label}" for="theAddress"/> 
+              <tr>
+              </tr>
+                 <apex:inputField value="{!sObj[fm[0]]}" id="theAddress" styleClass="form-control input-sm addressInput {!suffixClass}" label=""/>
+              </tr>-->
+              <tr>
+                <th class="address-label"><apex:outputLabel value="{!fm[0].Label}" for="toAddressLineOne"/></th>
+                <td class="address-field"><apex:inputField value="{!sObj[fm[0].FieldPath]}" onkeydown="CLEAR_DPID(this);" onchange="CLEAR_DPID(this);" id="theAddress" styleClass="form-control input-sm addressInput {!suffixClass}" label="" />
+              	<div id="progress{!suffixClass}"></div>
+              	</td>
+              </tr>
+              <apex:inputHidden value="{!sObj[fm[1]]}" id="hide_toAddressLineOne" html-class="{!suffixClass}" />
+              <apex:inputHidden value="{!sObj[fm[2]]}" id="hide_toSuburb" html-class="{!suffixClass}"  />
+              <apex:inputHidden value="{!sObj[fm[3]]}" id="hide_toState" html-class="{!suffixClass}"  />
+              <apex:inputHidden value="{!sObj[fm[4]]}" id="hide_toPostcode" html-class="{!suffixClass}"  />
+              <apex:inputHidden value="{!sObj[fm[5]]}" id="hide_dPid" html-class="{!suffixClass}"  />
+              </table>
+      </apex:outputPanel>
+      <!--  TO WORK WITH FIELDSETMEMBER FIELDS BY ALSO FILLING THE DIFFERENT PARTS OF ADDRESS FIELD -->
+      <apex:outputPanel rendered="{!IF(AND(fm!=null,fm.size>0,NOT(hiddenAddressComp)),'true','false')}">
+           <table class="address-table">
+              <!-- <tr>
+                 <th class="address-label"><apex:outputLabel value="{!fm[0].Label}" for="toAddressLineOne"/></th>
+              </tr>
+              <tr>
+                 <td><apex:inputField value="{!sObj[fm[0].FieldPath]}" onkeydown="CLEAR_DPID(this);" onchange="CLEAR_DPID(this);" id="toAddressLineOne" styleClass="form-control input-sm addressInput {!suffixClass}" label="" style="margin-bottom: 5px; width:340%"/>
+                 </td>
+              </tr> -->
+              <tr>
+                 <th class="address-label"><apex:outputLabel value="{!fm[0].Label}" for="toAddressLineOne"/></th>
+                 <td class="address-field"><apex:inputField value="{!sObj[fm[0].FieldPath]}" onkeydown="CLEAR_DPID(this);" onchange="CLEAR_DPID(this);" id="toAddressLineOne" styleClass="form-control input-sm addressInput {!suffixClass}" label="" />
+              	 <div id="progress{!suffixClass}"></div>
+              	 </td>
+              </tr>
+              <tr>
+                 <th class="address-label"><apex:outputLabel value="{!fm[1].Label}" for="toAddressLineOne"/> </th>
+                 <td class="address-field"><apex:inputField onkeydown="CLEAR_DPID(this);" onchange="CLEAR_DPID(this);" value="{!sObj[fm[1].FieldPath]}" id="toSuburb" styleClass="form-control input-sm addressInput {!suffixClass}" label=""/></td>
+              </tr>
+              <tr>
+                 <th class="address-label"><apex:outputLabel value="{!fm[2].Label}" for="toAddressLineOne"/> </th>
+                 <td class="address-field"><apex:inputField onkeydown="CLEAR_DPID(this);" onchange="CLEAR_DPID(this);" value="{!sObj[fm[2].FieldPath]}" id="toState" styleClass="form-control input-sm addressInput {!suffixClass}" label=""/></td>
+              </tr>
+              <tr>
+                 <th class="address-label"><apex:outputLabel value="{!fm[3].Label}" for="toAddressLineOne"/> </th>
+                 <td class="address-field"><apex:inputField onkeydown="CLEAR_DPID(this);" onchange="CLEAR_DPID(this);" value="{!sObj[fm[3].FieldPath]}" id="toPostcode" styleClass="form-control input-sm addressInput {!suffixClass}" label=""/></td>
+              </tr>
+              <tr>
+                 <th class="address-label"><apex:outputLabel value="{!fm[4].Label}" for="toAddressLineOne"/> </th>
+                 <td class="address-field"><apex:inputField onkeydown="CLEAR_DPID(this);" onchange="CLEAR_DPID(this);" value="{!sObj[fm[4].FieldPath]}" id="dPid" styleClass="form-control input-sm addressInput {!suffixClass}" label=""/></td>
+              </tr>
+          </table>
+      </apex:outputPanel>
+</apex:component>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Large_Account_Management_for_Field_of_Play</fullName>
+    <availability>online</availability>
+    <description>SAM Integration FOP Gold Sheet for Professional Edition.</description>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>false</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>674</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>Large Account Management for Field of Play</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>https://www.saleswebserver.net/sfdc/MillerHeiman/showgoldsheet.asp?ID={!Field_of_Play__c.Id}&amp;SessionID={!API.Session_ID}&amp;EndPoint={!API.Partner_Server_URL_90}&amp;ReturnURL={!Field_of_Play__c.Link}&amp;AccountID={!Field_of_Play__c.AccountId__c}&amp;AccountName={!Field_of_Play__c.Name}</url>
+    <width>1074</width>
+</WebLink>

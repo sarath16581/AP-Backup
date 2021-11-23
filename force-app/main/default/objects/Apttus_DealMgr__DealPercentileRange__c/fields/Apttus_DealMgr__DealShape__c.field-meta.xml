@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealMgr__DealShape__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The shape associated with the band</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The shape associated with the band</inlineHelpText>
+    <label>Deal Shape</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Circle</fullName>
+                <default>true</default>
+                <label>Circle</label>
+            </value>
+            <value>
+                <fullName>Triangle</fullName>
+                <default>false</default>
+                <label>Triangle</label>
+            </value>
+            <value>
+                <fullName>Diamond</fullName>
+                <default>false</default>
+                <label>Diamond</label>
+            </value>
+            <value>
+                <fullName>Square</fullName>
+                <default>false</default>
+                <label>Square</label>
+            </value>
+            <value>
+                <fullName>Pentagon</fullName>
+                <default>false</default>
+                <label>Pentagon</label>
+            </value>
+            <value>
+                <fullName>Star</fullName>
+                <default>false</default>
+                <label>Star</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

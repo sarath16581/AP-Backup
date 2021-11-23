@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Duty_SR__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>AJ TDF Enhance: Created to replace Duty Assignment relationship.
+The Duty Service Resource this Duty Template is assigned to.
+Work generated will be assigned to this Service Resource if specified</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The Operational Duty this Duty Template is assigned to. 
+Work generated will be assigned to this Duty, unless the Operational Duty Override is set against the Job Template.</inlineHelpText>
+    <label>Operational Duty</label>
+    <referenceTo>ServiceResource</referenceTo>
+    <relationshipLabel>Duty Templates</relationshipLabel>
+    <relationshipName>Duty_Templates</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,1180 @@
+<!--
+* @author Gaurav
+* @date 2017-?-?
+* @domain Field Service 
+* @description  Legacy Dispatch Board page available from TDF Dispatch Board tab
+*
+* @changelog 
+* 2020-08-19 - Andrew Judd - Changed Duty label to Duty Tempate  
+-->
+<apex:page controller="TDF_DispatchBoardController" docType="html-5.0" sidebar="false">
+    
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <apex:stylesheet value="{!URLFOR($Resource.TDFLightningCSS, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <script>    
+        var j$ = jQuery.noConflict();   
+
+        j$(document).ready(function(){
+            UncheckAll();
+        });
+
+        function UncheckAll(){          
+            var w = document.getElementsByTagName('input'); 
+            for(var i = 0; i < w.length; i++){ 
+                if(w[i].type=='checkbox'){ 
+                    w[i].checked = false; 
+                }
+            }
+         }
+
+        /*Select the checkbox of a selected group Begin*/
+        function checkAllInGroup(bx, cls){
+            var form = bx.form;
+            var ischecked = bx.checked;
+            for (var i = 0; i < form.length; ++i) {
+                if (form[i].type == 'checkbox') {
+                    if(form[i].classList.contains(cls)){
+                        form[i].checked = ischecked;
+                    }
+                }
+            }
+        }
+        /*Select the checkbox of a selected group End*/
+
+        /*Select all the checkboxes of Service Appointment List Begin*/
+        function checkAll(bx){
+            var form = bx.form;
+            var ischecked = bx.checked;
+            for (var i = 0; i < form.length; ++i) {
+                if (form[i].type == 'checkbox') {
+                    form[i].checked = ischecked;
+                }
+            }
+        }       
+        /*Select all the checkboxes of Service Appointment List End*/
+
+        /* Function to toggle Expand/Collapse Sections Begin*/
+        function toggle_visibility(id) {           
+            j$('#'+id).toggle(function () {
+                j$('#'+id).addClass("slds-hide");
+                j$('#'+id).removeClass("slds-show");
+            }, function () {
+                j$('#'+id).addClass("slds-show");
+                j$('#'+id).removeClass("slds-hide");
+            });
+        }   
+        /* Function to toggle Expand/Collapse Sections End*/        
+
+        /*Function to call action function to fetch Duty Boards and other filter criteria based on selected Service Territory*/
+        function fetchDutyTemplateJSFunc(){         
+            fetchDutyTemplateActionFunction();          
+        }
+
+        function closeModal(){
+            j$('#myModal').hide();                  
+        }
+
+        /*JS function to get Service Resource Id and Vehicle(Location) Id and pass it to Controller*/
+        function Callmefunc(serRes, vLoc){          
+            //serRes += '_lkid';
+            vLoc += '_lkid'; 
+            var type2 = document.getElementById(vLoc).value;
+            var type1 = document.getElementById(serRes).value;
+                                
+            check(type1, type2);
+        } 
+
+
+        //Custom lookup Begin
+        function openLookup(baseURL, width, modified, searchParam){         
+            var originalbaseURL = baseURL;
+            var originalwidth = width;
+            var originalmodified = modified;
+            var originalsearchParam = searchParam;
+            var serviceTerrirtoyId;
+            var lookupType = baseURL.substr(baseURL.length-3, 3);
+            
+            if (modified == '1') baseURL = baseURL + searchParam;
+
+            var isCustomLookup = false;
+
+            //Following "131" is the lookup type for Location object
+            if(lookupType == "131"){
+
+                var urlArr = baseURL.split("&");
+                var txtId = '';
+                if(urlArr.length > 2) {
+                    urlArr = urlArr[1].split('=');
+                    txtId = urlArr[1];
+                }
+
+                //Following is the url of Custom Lookup page.
+                baseURL = "/apex/TDF_CustomLocationLookup?txt=" + txtId;
+
+                //Following is the id of apex:form control "frmOne"
+                baseURL = baseURL + "&frm=" + escapeUTF("{!$Component.frmOne}");
+                if (modified == '1') {
+                    baseURL = baseURL + "&lksearch=" + searchParam;
+                }
+
+                //Following is the ID of inputField that is the lookup to be customized as custom lookup
+                if(txtId.indexOf('vehicleLoc') > -1 ){
+                    serviceTerrirtoyId = document.getElementById('j_id0:frm:serviceTerritory_lkid').value;
+                    baseURL = baseURL + "&serviceTerritory=" + serviceTerrirtoyId;
+                    isCustomLookup = true;
+                }
+            }
+
+            //Following "0Hn" is the lookup type for Service Resource object
+            else if(lookupType == "0Hn"){
+
+                var urlArr = baseURL.split("&");
+                var txtId = '';
+                if(urlArr.length > 2) {
+                    urlArr = urlArr[1].split('=');
+                    txtId = urlArr[1];
+                }
+
+                //Following is the url of Custom Lookup page
+                baseURL = "/apex/TDF_CustomServiceResourceLookup?txt=" + txtId;
+
+                //Following is the id of apex:form control "frmOne"
+                baseURL = baseURL + "&frm=" + escapeUTF("{!$Component.frmOne}");
+                if (modified == '1') {
+                    baseURL = baseURL + "&lksearch=" + searchParam;
+                }
+
+                //Following is the ID of inputField that is the lookup to be customized as custom lookup
+                if(txtId.indexOf('serviceResource') > -1 ){
+                    serviceTerrirtoyId = document.getElementById('j_id0:frm:serviceTerritory_lkid').value;
+                    baseURL = baseURL + "&serviceTerritory=" + serviceTerrirtoyId;
+                    isCustomLookup = true;
+                }
+            }
+
+
+            if(isCustomLookup == true){             
+                openPopup(baseURL, "lookup", 350, 480, "width=800,height=580,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+            }
+            else{
+                if(modified == '1') originalbaseURL = originalbaseURL + originalsearchParam;
+                openPopup(originalbaseURL, "lookup", 350, 480, "width="+originalwidth+",height=580,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+            } 
+        }       
+        //Custom Lookup Ends
+
+        function removeDirecetion(ele){
+            ele.style.removeProperty('direction');
+        }
+    </script>
+
+
+    <!--Generate Work Modal Begin -->
+    <div class="modal fade" id="createAdhocJob" role="dialog">
+        <div class="modal-dialog" style="width:75%;">
+
+            <apex:form id="createTemplateForm">
+            <apex:actionFunction name="addTaskTemplate" action="{!addTaskTemplate}" reRender="createTemplateForm" status="statusOne"/>
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <!-- Modal Header Begin -->
+                <div class="modal-header">
+                    <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                    <h1 class="modal-title"><b>Create Adhoc Job</b></h1>
+                </div>
+                <!-- Modal Header End -->
+
+                <!-- Modal Body Begin -->
+                <div class="modal-body">
+
+                    <apex:actionStatus id="statusOne">
+                        <apex:facet name="start">
+                        <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; z-index: 1000; background-color: black;">
+                            &nbsp;
+                        </div>
+                        <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 15% 50%">
+                            <div style="display: inline-block; padding: 2px; background-color: #fff; width: 125px; margin-left: -60px;">
+                                <img src="/img/loading.gif" /><!--style="float: left; margin: 8px;" /-->
+                                <span>Please Wait...</span>
+                            </div>
+                        </div>
+                        </apex:facet>
+                    </apex:actionStatus>
+                    
+                    <!-- Create Job Template Section Begin-->                                                       
+                    <div class="slds-form slds-form_compound">
+                        
+                        <div class="slds-tree__item" id="divOne" style="background-color: #cfe1f1;">
+                            <button class="slds-button slds-button--icon slds-m-right--x-small" type="button" role="presentation" onclick="toggle_visibility('createJobTemplateSection');" title="Toggle" style="margin-left: -1%;">
+                              <div class="sdls-icon_container">
+                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--small">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.TDFLightningCSS, "/assets/icons/utility-sprite/svg/symbols.svg#chevronright")}" />
+                                </svg>                                
+                              </div>
+                            </button>
+                            <a id="tree0-node1__label" href="javascript:void(0);" role="presentation" onclick="toggle_visibility('createJobTemplateSection');" class="slds-truncate" title="Tree Branch"><b>Create Job Template</b></a>
+                        </div><br/>
+
+                        <div id="createJobTemplateSection">
+                            <fieldset class="slds-form-element">
+                                <div class="slds-form-element__group">
+                                    <div class="slds-form-element__row">                                    
+                                        <div class="slds-form-element slds-size_1-of-1">
+                                            <label class="slds-form-element__label" for="dutyTemplate"><b>Duty Template</b></label>
+                                            <apex:inputField value="{!objJobTemplate.Route_Template__c}" styleClass="slds-lookup__search-input slds-input" style="width: 75%" id="dutyTemplate" required="true"/>
+                                        </div>
+                                        <div class="slds-form-element slds-size_1-of-2">
+                                            <label class="slds-form-element__label" for="activityType"><b>Activity Type</b></label><br/>
+                                            <apex:inputField value="{!objJobTemplate.Activity_Type__c}" styleClass="slds-input" style="width: 75%" id="activityType" required="true"/>
+                                        </div>
+                                        <div class="slds-form-element slds-size_1-of-3">
+                                            <label class="slds-form-element__label" for="site"><b>Site</b></label>                                                                          
+                                            <apex:inputField value="{!objJobTemplate.Location__c}" styleClass="slds-lookup__search-input slds-input" style="width: 75%" id="site"/>
+                                        </div>                                                                                                                                              
+                                    </div>
+
+                                    <div class="slds-form-element__row">                                    
+                                        <div class="slds-form-element slds-size_1-of-1">
+                                            <label class="slds-form-element__label" for="startTime"><b>Start Time</b></label><br/>                                                                          
+                                            <apex:inputField value="{!objJobTemplate.Start_Time__c}" styleClass="slds-input" style="width: 75%" id="startTime" required="true"/>
+                                        </div>
+                                        <div class="slds-form-element slds-size_1-of-2">
+                                            <label class="slds-form-element__label" for="duration"><b>Duration</b></label><br/>
+                                            <apex:inputField value="{!objJobTemplate.Duration__c}" styleClass="slds-input" style="width: 75%" id="duration" required="true"/>
+                                        </div>
+                                        <div class="slds-form-element slds-size_1-of-3">
+                                            <label class="slds-form-element__label" for="nextDayJob"><b>Next Day Job</b></label><br/>                                                                       
+                                            <apex:inputField value="{!objJobTemplate.Next_Day_Job__c}" styleClass="slds-input" style="width: 7%" id="nextDayJob"/>
+                                        </div>                                                                                                                                              
+                                    </div>
+
+                                    <div class="slds-form-element__row">                                    
+                                        <div class="slds-form-element slds-size_1-of-1">
+                                            <label class="slds-form-element__label" for="earliestStartTime"><b>Earliest Start Time</b></label><br/>                                                                         
+                                            <apex:inputField value="{!objJobTemplate.Earliest_Start_Time__c}" styleClass="slds-input" style="width: 75%" id="earliestStartTime"/>
+                                        </div>
+                                        <div class="slds-form-element slds-size_1-of-2">
+                                            <label class="slds-form-element__label" for="latestStartTime"><b>Latest Start Time</b></label><br/>
+                                            <apex:inputField value="{!objJobTemplate.Latest_Start_Time__c}" styleClass="slds-input" style="width: 75%" id="latestStartTime"/>
+                                        </div>
+                                        <div class="slds-form-element slds-size_1-of-3">
+                                            <label class="slds-form-element__label" for="dockNumber"><b>Dock Number</b></label><br/>                                                                        
+                                            <apex:inputField value="{!objJobTemplate.Dock_Number__c}" styleClass="slds-input" style="width: 75%" id="dockNumber"/>
+                                        </div>                                                                                                                                              
+                                    </div>
+                                    <div class="slds-form-element__row">                                    
+                                        <div class="slds-form-element slds-size_1-of-1">
+                                            <label class="slds-form-element__label" for="jobInstruction"><b>Job Instruction</b></label><br/>                                                                            
+                                            <apex:inputField value="{!objJobTemplate.Job_Instructions__c}" styleClass="slds-input" style="width: 92%" id="jobInstruction"/>
+                                        </div>                                                                                                                                  
+                                    </div>                                                                  
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <!-- Create Job Template Section End-->
+
+                    <!-- Create Task Template Section Begin-->
+                    <div class="slds-form slds-form_compound">
+                        <div class="slds-tree__item" id="divOne" style="background-color: #cfe1f1;">
+                            <button class="slds-button slds-button--icon slds-m-right--x-small" type="button" role="presentation" onclick="toggle_visibility('createTaskTemplateSection');" title="Toggle" style="margin-left: -0.5%;">
+                              <div class="sdls-icon_container">
+                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--small">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.TDFLightningCSS, "/assets/icons/utility-sprite/svg/symbols.svg#chevronright")}" />
+                                </svg>                                
+                              </div>
+                            </button>
+                            <a id="tree0-node1__label" href="javascript:void(0);" role="presentation" onclick="toggle_visibility('createTaskTemplateSection');" class="slds-truncate" title="Tree Branch"><b>Create Task Template</b></a>
+                        </div><br/>
+                        <div id="createTaskTemplateSection">
+                            <fieldset class="slds-form-element">
+                                <div class="slds-form-element__group">
+                                    <div class="slds-form-element__row">                                    
+                                        <div class="slds-form-element slds-size_1-of-1">
+                                            <table style="width:100%;">    
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 9%">Action</th>
+                                                        <th style="width: 16%">Product</th>
+                                                        <th style="width: 12%">Task</th>
+                                                        <th style="width: 9%">Monday</th>
+                                                        <th style="width: 9%">Tuesday</th>
+                                                        <th style="width: 9%">Wednesday</th>
+                                                        <th style="width: 9%">Thursday</th>
+                                                        <th style="width: 9%">Friday</th>
+                                                        <th style="width: 9%">Saturday</th>
+                                                        <th style="width: 9%">Sunday</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>                                                 
+                                                    <apex:variable var="i" value="{!0}"/>
+                                                    <apex:repeat value="{!taskTemplateList}" var="taskTemplate">                                                                                            
+                                                        <tr style="">
+                                                            <td>
+                                                                <apex:commandLink value="Delete" action="{!deleteTaskTemplate}" rendered="{!taskTemplateList.size>1}" reRender="createTemplateForm" status="statusOne">
+                                                                    <apex:param name="index" assignTo="{!selectedTaskTemplateIndex}" value="{!i}"/>
+                                                                </apex:commandLink>
+                                                            </td>
+                                                            <td>                                       
+                                                                <apex:inputField value="{!taskTemplate.Product__c}" styleClass="slds-lookup__search-input slds-input" style="width: 75%" id="TTProduct"/>
+                                                            </td>
+                                                            <td>                                        
+                                                                <apex:inputField value="{!taskTemplate.Task__c}" styleClass="slds-input" style="width: 92%" id="TTTask"/>
+                                                            </td>
+                                                            <td>
+                                                                <apex:inputField value="{!taskTemplate.Monday__c}" styleClass="slds-input" style="width: 92%" id="TTMonday"/>
+                                                            </td>
+                                                            <td>
+                                                                <apex:inputField value="{!taskTemplate.Tuesday__c}" styleClass="slds-input" style="width: 92%" id="TTTuesday"/>
+                                                            </td>
+                                                            <td>
+                                                                <apex:inputField value="{!taskTemplate.Wednesday__c}" styleClass="slds-input" style="width: 92%" id="TTWednesday"/>
+                                                            </td>
+                                                            <td>
+                                                                <apex:inputField value="{!taskTemplate.Thursday__c}" styleClass="slds-input" style="width: 92%" id="TTThursday"/>
+                                                            </td>
+                                                            <td>
+                                                                <apex:inputField value="{!taskTemplate.Friday__c}" styleClass="slds-input" style="width: 92%" id="TTFriday"/>
+                                                            </td>
+                                                            <td>
+                                                                <apex:inputField value="{!taskTemplate.Saturday__c}" styleClass="slds-input" style="width: 92%" id="TTSaturday"/>
+                                                            </td>
+                                                            <td>
+                                                                <apex:inputField value="{!taskTemplate.Sunday__c}" styleClass="slds-input" style="width: 92%" id="TTSunday"/>
+                                                            </td>
+                                                        </tr>
+                                                        <apex:variable var="i" value="{!i+1}"/>
+                                                    </apex:repeat>
+                                                
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td class="dataCell" colspan="4" style="text-align:left; font-size:20px;">
+                                                            <a href="javascript:addTaskTemplate();" title="Add Task Template"><i class="fa fa-plus-circle" aria-hidden="true"/></a>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>                                                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>                                                          
+                    </div>
+                    <!-- Create Task Template Section End-->
+
+                    <!-- command button section Begin -->
+                    <div id="commandButtonSection">
+                        <fieldset class="slds-form-element">
+                            <div class="slds-form-element__group">
+                                <div class="slds-form-element__row">                                                                        
+                                    <!-- <div class="slds-form-element slds-size_1-of-1" align="center"></div> -->
+                                    <div class="slds-form-element slds-size_1-of-1" align="center">
+                                        <apex:commandButton value="Save" action="{!saveTemplates}" styleClass="slds-button slds-button_brand" status="statusOne"/>
+                                        <apex:commandButton value="Save & Generate" action="{!saveAndGenerateWork}" styleClass="slds-button slds-button_brand" status="statusOne"/>
+                                        <button type="button" class="slds-button slds-button_brand" data-dismiss="modal">Cancel</button>
+                                    </div>      
+                                    <!-- <div class="slds-form-element slds-size_1-of-3" align="center"></div> -->
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>                          
+                    <!-- command button section End -->
+                </div>
+                <!-- Modal Body End -->
+            </div>
+            </apex:form>                                      
+        </div>
+    </div>
+    <!--Generate Work Modal End -->
+
+
+    <apex:form styleClass="slds-form" id="frm"> 
+    <apex:pageMessages id="pgMsg"></apex:pageMessages>
+    <apex:slds />   
+        
+    <apex:actionFunction name="fetchDutyTemplateActionFunction" action="{!fetchDutyTemplates}" reRender="frm"/> 
+
+    <apex:actionStatus id="status">
+        <apex:facet name="start">
+        <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; z-index: 1000; background-color: black;">
+            &nbsp;
+        </div>
+        <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 15% 50%">
+            <div style="display: inline-block; padding: 2px; background-color: #fff; width: 125px; margin-left: -60px;">
+                <img src="/img/loading.gif" /><!--style="float: left; margin: 8px;" /-->
+                <span>Please Wait...</span>
+            </div>
+        </div>
+        </apex:facet>
+    </apex:actionStatus>
+
+    <!-- Search Criteria Fields Begins-->
+        <div style="width: 100%">
+            <div class="slds-form slds-form_compound">
+
+                <div class="slds-tree__item" id="divOne" style="background-color: #cfe1f1;">
+                    <button class="slds-button slds-button--icon slds-m-right--x-small" type="button" role="presentation" onclick="toggle_visibility('divTwo');" title="Toggle" style="margin-left: -0.5%;">
+                      <div class="sdls-icon_container">
+                        <svg aria-hidden="true" class="slds-button__icon slds-button__icon--small">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.TDFLightningCSS, "/assets/icons/utility-sprite/svg/symbols.svg#chevronright")}" />
+                        </svg>                                
+                      </div>
+                    </button>
+                    <a id="tree0-node1__label" href="javascript:void(0);" role="presentation" onclick="toggle_visibility('divTwo');" class="slds-truncate" title="Tree Branch"><b>Select Filter Criteria</b></a>
+                </div><br/>
+
+                <div id="divTwo" style="width:99%; margin-left: 1%">                    
+                    <fieldset class="slds-form-element">                        
+                        <div class="slds-form-element__group">
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size_1-of-2">
+                                    <label class="slds-form-element__label" for="startDate"><b>Start DateTime</b></label>            
+                                    <apex:input id="startDate" type="datetime-local" value="{!startDatetime}" styleClass="datetimeclass"/>
+                                </div>
+                                <div class="slds-form-element slds-size_1-of-2">
+                                    <label class="slds-form-element__label" for="endDate"><b>End DateTime</b></label>
+                                    <apex:input id="endDate" type="datetime-local" value="{!endDateTime}" styleClass="datetimeclass"/>
+                                </div>
+                                <div class="slds-form-element slds-size_1-of-3">
+                                    <label class="slds-form-element__label" for="serviceTerritory"><b>Service Territory</b></label>
+                                    <apex:inputField id="serviceTerritory" value="{!objServiceAppointment.ServiceTerritoryId}" styleClass="slds-lookup__search-input slds-input" style="width: 88%" onchange="fetchDutyTemplateJSFunc();"/>
+                                </div>                                        
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Other Filter criteria to show based on Territory Selection Begin -->
+                    <apex:outputPanel rendered="{!renderFilterCriteria}">
+
+                        <fieldset class="slds-form-element">
+                            <div class="slds-form-element__group">
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size_1-of-1">
+                                        <label class="slds-form-element__label"><b>Duty Template</b></label><br/>            
+                                        <div class="slds-select_container">
+                                            <apex:selectList size="3" value="{!selectedDutyTemplateList}" styleClass="slds-select" multiselect="true">
+                                                <apex:selectOptions value="{!dutyTemplateSelectList}" />
+                                            </apex:selectList>
+                                        </div>                                  
+                                    </div>
+
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <label class="slds-form-element__label"><b>Work Order Type</b></label><br/>            
+                                        <div class="slds-select_container">
+                                            <apex:selectList size="3" value="{!selectedWorkOrderRecordTypesList}" styleClass="slds-select" multiselect="true">
+                                                <apex:selectOptions value="{!workOrderRecordTypeList}" />
+                                            </apex:selectList>
+                                        </div>                                  
+                                    </div>
+                                    <div class="slds-form-element slds-size_1-of-3">
+                                        <label class="slds-form-element__label"><b>Driver</b></label><br/>            
+                                        <div class="slds-select_container">
+                                            <apex:selectList size="3" value="{!selectedServiceResourceList}" styleClass="slds-select" multiselect="true">
+                                                <apex:selectOptions value="{!serviceResourceSelectList}" />
+                                            </apex:selectList>
+                                        </div>                                  
+                                    </div>                                  
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <!-- Command Buttons Begin -->
+                        <fieldset class="slds-form-element">
+                            <div class="slds-form-element__group">
+                                <div class="slds-form-element__row">
+
+                                    <!-- Column 1 Begin -->
+                                    <div class="slds-form-element slds-size_1-of-1">
+                                        
+                                        <!-- Trigger the Generate Work modal with a button -->
+
+                                        <!--TDF Enhance: 18.08.20 Commented out as Adhoc Job now performed from the Gantt Chart-->
+                                        <button type="button" class="slds-button slds-button_brand" data-toggle="modal" data-target="#createAdhocJob">Create Adhoc Job</button>             
+
+                                        <apex:commandButton value="Assign Vehicle" action="{!assignvehicle}" styleClass="slds-button slds-button_brand" reRender="pgMsg, frmOne, frm" status="status"/>                                                     
+                                        <!-- Trigger the modal with a button -->
+                                        <button type="button" class="slds-button slds-button_brand" data-toggle="modal" data-target="#assignDriver">Assign Driver</button>
+
+                                        <!--Assign Driver Modal Begin -->
+                                        <div class="modal fade" id="assignDriver" role="dialog">
+                                            <div class="modal-dialog">
+                                        
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+
+                                                    <!-- Modal Header Begin -->
+                                                    <div class="modal-header">
+                                                        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                                                        <h1 class="modal-title"><b>Select Driver</b></h1>
+                                                    </div>
+                                                    <!-- Modal Header End -->
+     
+                                                    <!-- Modal Body Begin -->
+                                                    <div class="modal-body">                                                    
+                                                        <div class="slds-form slds-form_compound">  
+                                                            <fieldset class="slds-form-element">
+                                                                <div class="slds-form-element__group">
+                                                                    <div class="slds-form-element__row">                                    
+                                                                        <div class="slds-form-element slds-size_1-of-1">                                                                        
+                                                                            <div class="slds-select_container">
+                                                                                
+                                                                                <!-- <label class="slds-form-element__label"><b>Select Driver</b></label><br/> -->
+                                                                                <apex:selectList size="1" value="{!selectedDriverForAssignment}" styleClass="slds-select">
+                                                                                    <apex:selectOptions value="{!driverToAssignSelectList}" />
+                                                                                </apex:selectList>
+                                                                            </div>                                  
+                                                                        </div>
+                                                                    </div><br/>
+
+                                                                    <div class="slds-form-element__row">
+                                                                        <div class="slds-form-element slds-size_1-of-1" align="right">
+                                                                            <apex:commandButton value="Assign Driver" action="{!saveSearchResult}" styleClass="slds-button slds-button_brand" />
+                                                                        </div>
+                                                                        <div class="slds-form-element slds-size_1-of-2" align="left">
+                                                                            <button type="button" class="slds-button slds-button_brand" data-dismiss="modal">Close</button>
+                                                                        </div>
+                                                                    </div>                                                              
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>                                                  
+                                                    </div>
+                                                    <!-- Modal Body End -->
+
+                                                </div>                                    
+                                            </div>
+                                        </div>
+                                        <!--Assign Driver Modal End -->
+
+                                        <!-- Save Button -->
+                                        <apex:commandButton value="Save" action="{!saveSearchResult}" styleClass="slds-button slds-button_brand"/>
+                                    </div>
+                                    <!-- Column 1 End -->
+
+                                    <!-- Column 2 Begin -->
+                                    <div class="slds-form-element slds-size_1-of-2">
+
+                                        <!-- Refresh Territories Button -->
+                                        <apex:commandButton value="Refresh Territories" action="{!refreshTerritories}" styleClass="slds-button slds-button_brand"/>
+
+                                    </div>
+                                    
+                                    <!-- Column 2 End -->
+
+                                    <!-- Column 3 Begin -->
+                                    <div class="slds-form-element slds-size_1-of-3" align="right">
+                                        <!-- Reset Button -->
+                                        <apex:commandButton value="Reset" action="{!resetPage}" styleClass="slds-button slds-button_brand" reRender="pgMsg, frmOne, frm"/>
+
+                                        <!-- Search Button -->
+                                        <apex:commandButton value="Search" action="{!searchServiceAppointments}" styleClass="slds-button slds-button_brand" reRender="pgMsg, frmOne, frm" status="status"/>
+                                    </div>                  
+                                    <!-- Column 3 End -->               
+                                </div>
+                            </div>
+                        </fieldset>
+                        <!-- Command Buttons End -->
+
+
+                    </apex:outputPanel>
+                    <!-- Other Filter criteria to show based on Territory Selection End -->
+                    
+                </div>
+            </div>
+        </div><br/>     
+    <!-- Search Criteria Fields Ends -->
+    <!--</apex:form>     -->
+
+    <!-- Search Result Begins -->
+    <!--<apex:form id="frmOne"> -->
+
+        <apex:outputPanel rendered="{!renderList}" id="outputPanelOne">
+
+            <div style="width: 100%">
+                <div class="slds-form slds-form_compound">
+
+                    <!-- Expand/Collapse Begin -->
+                    <div class="slds-tree__item" id="divOne" style="background-color: #cfe1f1;">
+                        <button class="slds-button slds-button--icon slds-m-right--x-small" type="button" role="presentation" onclick="toggle_visibility('divThree');" title="Toggle" style="margin-left: -0.5%;">
+                          <div class="sdls-icon_container">
+                            <svg aria-hidden="true" class="slds-button__icon slds-button__icon--small">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.TDFLightningCSS, "/assets/icons/utility-sprite/svg/symbols.svg#chevronright")}" />
+                            </svg>                                
+                          </div>
+                        </button>
+                        <a id="tree0-node1__label" href="javascript:void(0);" role="presentation" onclick="toggle_visibility('divThree');" class="slds-truncate" title="Tree Branch"><b>List of Service Appointment</b></a>
+                    </div><br/>
+                    <!-- Expand/Collapse End -->
+
+                    <div id="divThree" style="width:99%; margin-left: 1%"> 
+
+                        <!-- Picklist for List view options to show Filtered Service Appointments based on selected view Begin -->
+                        <div>
+                            <fieldset class="slds-form-element">
+                                    <div class="slds-form-element__group">
+                                    <div class="slds-form-element__row">
+                                            <div class="slds-form-element slds-size_1-of-1">
+                                            <label class="slds-form-element__label"><b>Select List View</b></label><br/>            
+                                            <div class="slds-select_container">
+                                                <apex:selectList size="1" value="{!selectedView}" styleClass="slds-select">
+                                                    <apex:selectOptions value="{!searchResultListViewSelectList}"/>
+                                                    <apex:actionSupport event="onchange" reRender="frm" status="status"/>
+                                                </apex:selectList>
+                                            </div>                                  
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div><br/>
+                        <!-- Picklist for List view options to show Filtered Service Appointments based on selected view End -->
+
+                        <!-- Panel to show All Service Appointments Begin-->
+                        <apex:outputPanel rendered="{!IF(selectedView=='completeList',true, false)}" id="opOne">
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer tablesorter" id="completeTable">
+                                <thead>
+                                    <tr class="slds-text-title_caps">
+                                        <th scope="col" width="5%">
+                                                <div class="slds-truncate">
+                                            <div class="slds-form-element__row">
+                                                <div class="slds-form-element">
+                                                      <label class="slds-checkbox">
+                                                        <apex:inputcheckbox id="isinstance" styleclass="slds-input" onclick="checkAll(this)"/>
+                                                        <span class="slds-checkbox--faux"></span>
+                                                        <span class="slds-form-element__label"></span>
+                                                      </label>
+                                                </div>
+                                            </div>                                              
+                                                </div>
+                                        </th>                       
+                                        <th scope="col" width="10%">
+                                            <div class="slds-truncate">Start Time</div>
+                                        </th>
+                                        <th scope="col" width="10%">
+                                            <div class="slds-truncate">Duty</div>
+                                        </th>
+                                        <th scope="col" width="5%">
+                                            <div class="slds-truncate">Work Order</div>
+                                        </th>
+                                        <th scope="col" width="5%">
+                                            <div class="slds-truncate">Work Order Status</div>
+                                        </th>                                       
+                                        <th scope="col" width="10%">
+                                            <div class="slds-truncate">Location</div>
+                                        </th>
+                                        <th scope="col" width="10%">
+                                            <div class="slds-truncate">Subject</div>
+                                        </th>
+                                        <th scope="col" width="10%">
+                                            <div class="slds-truncate">Driver</div>
+                                        </th>
+                                        <th scope="col" width="10%">
+                                            <div class="slds-truncate">Vehicle</div>
+                                        </th>                                       
+                                        <th scope="col" width="10%">
+                                            <div class="slds-truncate">Vehicle Status</div>
+                                        </th>
+                                        <th scope="col" width="10%">
+                                            <div class="slds-truncate">Parking Bay</div>
+                                        </th>                                       
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <apex:repeat value="{!serviceAppointmentWrapperList}" var="serviceAppointment">
+                                            <tr>
+                                                <th scope="row">
+                                                    <div class="slds-truncate">
+                                                        <div class="slds-form-element__row">
+                                                            <div class="slds-form-element">
+                                                                  <label class="slds-checkbox">
+                                                                    <apex:inputcheckbox id="isinstance" styleclass="slds-input" value="{!serviceAppointment.isSelected}"/>
+                                                                    <span class="slds-checkbox--faux"></span>
+                                                                    <span class="slds-form-element__label"></span>
+                                                                  </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </th>                               
+                                                <td>
+                                                    <div class="slds-truncate"><apex:inputField value="{!serviceAppointment.objSA.SchedStartTime}" styleClass="slds-input"/></div>
+                                                </td>
+                                                <td>
+                                                    <div class="slds-truncate"><apex:inputField value="{!serviceAppointment.objSA.Duty_Board__c}" styleClass="slds-lookup__search-input slds-input" style="width: 75%"/></div>
+                                                </td>                                               
+                                                <td>
+                                                    <div class="slds-truncate">                                         
+                                                        <apex:outputLink target="_blank" value="/{!serviceAppointment.objSA.ParentRecordId}">{!serviceAppointment.objSA.ParentRecord.Name}</apex:outputLink>                                                        
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="slds-truncate">                                         
+                                                        <apex:inputField value="{!serviceAppointment.objWorkOrder.Status}" styleClass="slds-select"/>
+                                                    </div>
+                                                </td>                                               
+                                                <td>
+                                                    <div class="slds-truncate">                                         
+                                                        <apex:outputLink target="_blank" value="/{!serviceAppointment.objWorkOrder.LocationId}">{!serviceAppointment.objWorkOrder.Location.Name}</apex:outputLink>
+                                                    </div>
+                                                </td>                                           
+                                                <td>
+                                                    <div class="slds-truncate"><apex:inputField value="{!serviceAppointment.objWorkOrder.Subject}" styleClass="slds-input" style="width: 75%;direction: rtl;" onfocus="removeDirecetion(this);"/></div>
+                                                </td>
+                                                <td>
+                                                    <div class="slds-truncate">
+                                                        <apex:inputField value="{!serviceAppointment.objSA.Service_Resource__c}" styleClass="slds-lookup__search-input slds-input" style="width: 75%" id="serviceResource"/>
+                                                    </div>
+                                                </td>
+                                                <td>                                                                                                        
+                                                    <div class="slds-truncate"><apex:inputField value="{!serviceAppointment.objWorkOrder.Vehicle__c}"  styleClass="slds-lookup__search-input slds-input" style="width: 75%" id="vehicleLoc"/></div>
+                                                </td>                                               
+                                                <td>
+                                                    <div class="slds-truncate">                                         
+                                                        <apex:outputField value="{!serviceAppointment.objWorkOrder.Vehicle__r.Status__c}" styleClass="slds-select"/>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="slds-truncate">
+                                                        <apex:outputField value="{!serviceAppointment.objWorkOrder.Vehicle__r.ParkingBay__c}" styleClass="slds-input" style="width: 75%"/>
+                                                    </div>
+                                                </td>                                               
+                                            </tr>
+                                        </apex:repeat>
+                                </tbody>
+                            </table>
+                        </apex:outputPanel>
+                        <!-- Panel to show All Service Appointments End-->
+
+                        <!-- Panel to show Service Appointment in group by Driver Begin -->
+                        <apex:outputPanel rendered="{!IF(selectedView=='groupByDriverList',true, false)}">
+                            <apex:variable value="{!1}" var="rowNum"/>
+                            <ul class="slds-tree" role="tree" aria-labelledby="treeheading" aria-activedescendant="tree0-node1{!rowNum}">                        
+                                <apex:repeat value="{!driverGroupServiceWrapperList}" var="driverSAWrap">
+                                    <li id="tree0-node1{!rowNum}" role="treeitem" aria-level="1" aria-expanded="true" >
+                                        <div class="slds-tree__item" id="divOne">
+                                            <button class="slds-button slds-button--icon slds-m-right--x-small" type="button" role="presentation" onclick="toggle_visibility('plusimageInt{!rowNum}');" title="Toggle" style="margin-left: -0.5%;">
+                                              <div class="sdls-icon_container">
+                                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--small">
+                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.TDFLightningCSS, "/assets/icons/utility-sprite/svg/symbols.svg#chevronright")}" />
+                                                </svg>                                
+                                              </div>
+                                            </button>
+                                            <apex:outputPanel rendered="{!If(driverSAWrap.unassignedName=='', true, false)}">
+                                                <a id="tree0-node1__label" href="javascript:void(0);" role="presentation" onclick="toggle_visibility('plusimageInt{!rowNum}');" class="slds-truncate" title="Tree Branch"><b>{!driverSAWrap.objServiceResource.Name} {!driverSAWrap.dutyTemplatesName}</b></a>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel rendered="{!If(driverSAWrap.unassignedName!='', true, false)}">
+                                                <a id="tree0-node1__label" href="javascript:void(0);" role="presentation" onclick="toggle_visibility('plusimageInt{!rowNum}');" class="slds-truncate" title="Tree Branch"><b>{!driverSAWrap.unassignedName}</b></a>
+                                            </apex:outputPanel>
+                                        </div><br/>                         
+
+                                        <div class="slds-tree__item slds-hide" id="plusimageInt{!rowNum}">                                      
+                                            <table class="slds-table slds-table_bordered slds-table_cell-buffer tablesorter">
+                                                <thead>
+                                                    <tr class="slds-text-title_caps">
+                                                        <th scope="col" width="5%">
+                                                            <div class="slds-truncate">
+                                                                <div class="slds-form-element__row">
+                                                                    <div class="slds-form-element">
+                                                                          <label class="slds-checkbox">
+                                                                            <apex:inputcheckbox id="isinstance" styleclass="slds-input" onclick="checkAllInGroup(this, '{!rowNum}')"/>
+                                                                            <span class="slds-checkbox--faux"></span>
+                                                                            <span class="slds-form-element__label"></span>
+                                                                          </label>
+                                                                    </div>
+                                                                </div>                                              
+                                                            </div>
+                                                        </th>                           
+                                                        <th scope="col" width="15%">
+                                                            <div class="slds-truncate">Start Time</div>
+                                                        </th>
+                                                        <th scope="col" width="15%">
+                                                            <div class="slds-truncate">Duty</div>
+                                                        </th>
+                                                        <th scope="col" width="5%">
+                                                            <div class="slds-truncate">Work Order</div>
+                                                        </th>
+                                                        <th scope="col" width="5%">
+                                                            <div class="slds-truncate">Work Order Status</div>
+                                                        </th>                                                       
+                                                        <th scope="col" width="15%">
+                                                            <div class="slds-truncate">Location</div>
+                                                        </th>
+                                                        <th scope="col" width="15%">
+                                                            <div class="slds-truncate">Subject</div>
+                                                        </th>
+                                                        <th scope="col" width="15%">
+                                                            <div class="slds-truncate">Driver</div>
+                                                        </th>
+                                                        <th scope="col" width="15%">
+                                                            <div class="slds-truncate">Vehicle</div>
+                                                        </th>    
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <apex:variable value="{!1}" var="sa"/>
+                                                    <apex:repeat value="{!driverSAWrap.serviceAppointmentWrapperList}" var="serviceAppointment">
+                                                        <tr>
+                                                            <th scope="row">
+                                                                <div class="slds-truncate">
+                                                                    <div class="slds-form-element__row">
+                                                                        <div class="slds-form-element">
+                                                                        <label class="slds-checkbox">
+                                                                            <apex:inputcheckbox styleclass="slds-input {!rowNum}" value="{!serviceAppointment.isSelected}"/>
+                                                                            <span class="slds-checkbox--faux"></span>
+                                                                            <span class="slds-form-element__label"></span>
+                                                                        </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </th>                           
+                                                            <td>
+                                                                <div class="slds-truncate"><apex:inputField value="{!serviceAppointment.objSA.SchedStartTime}" styleClass="slds-input"/></div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="slds-truncate"><apex:inputField value="{!serviceAppointment.objSA.Duty_Board__c}" styleClass="slds-lookup__search-input slds-input" style="width: 75%"/></div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="slds-truncate">                                         
+                                                                    <apex:outputLink target="_blank" value="/{!serviceAppointment.objSA.ParentRecordId}">{!serviceAppointment.objSA.ParentRecord.Name}</apex:outputLink>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="slds-truncate">                                         
+                                                                    <apex:inputField value="{!serviceAppointment.objWorkOrder.Status}" styleClass="slds-select"/>
+                                                                </div>
+                                                            </td>                                                           
+                                                            <td>
+                                                                <div class="slds-truncate">                                         
+                                                                    <apex:outputLink target="_blank" value="/{!serviceAppointment.objWorkOrder.LocationId}">{!serviceAppointment.objWorkOrder.Location.Name}</apex:outputLink>
+                                                                </div>
+                                                            </td>                                           
+                                                            <td>
+                                                                <div class="slds-truncate">
+                                                                    <apex:inputField value="{!serviceAppointment.objWorkOrder.Subject}" styleClass="slds-input" style="width: 75%; direction: rtl;" onfocus="removeDirecetion(this);"/>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="slds-truncate">
+                                                                    <apex:inputField value="{!serviceAppointment.objSA.Service_Resource__c}" styleClass="slds-lookup__search-input slds-input" style="width: 75%"  id="serviceResource"/>
+                                                                </div>
+                                                            </td>
+                                                            <td>                                                                                                        
+                                                                <div class="slds-truncate"><apex:inputField value="{!serviceAppointment.objWorkOrder.Vehicle__c}"  styleClass="slds-lookup__search-input slds-input" style="width: 75%" id="vehicleLoc"/></div>
+                                                            </td>                                                           
+                                                        </tr>
+                                                    <apex:variable var="sa" value="{!sa + 1}"/>
+                                                    </apex:repeat>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <apex:variable var="rowNum" value="{!rowNum + 1}"/>                             
+                                    </li>
+                                </apex:repeat>
+                            </ul>                           
+                        </apex:outputPanel>
+                        <!-- Panel to show Service Appointment in group by Driver End -->
+
+
+                        <!-- Panel to show Service Appointment in group by Duty Board Begin -->
+                        <apex:outputPanel rendered="{!IF(selectedView=='groupByDutyList',true, false)}">
+                            <apex:variable value="{!1}" var="rowNum"/>
+                                <ul class="slds-tree" role="tree" aria-labelledby="treeheading" aria-activedescendant="tree0-node1{!rowNum}">
+                         
+                                <apex:repeat value="{!dutyGroupServiceWrapperList}" var="dutySAWrap">
+                                    <li id="tree0-node1{!rowNum}" role="treeitem" aria-level="1" aria-expanded="true" >
+                                    <div class="slds-tree__item" id="divOne">
+                                        <button class="slds-button slds-button--icon slds-m-right--x-small" type="button" role="presentation" onclick="toggle_visibility('plusimageInt{!rowNum}');" title="Toggle" style="margin-left: -0.5%;">
+                                          <div class="sdls-icon_container">
+                                            <svg aria-hidden="true" class="slds-button__icon slds-button__icon--small">
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Resource.TDFLightningCSS, "/assets/icons/utility-sprite/svg/symbols.svg#chevronright")}" />
+                                            </svg>                                
+                                          </div>
+                                        </button>
+                                        <apex:outputPanel rendered="{!If(dutySAWrap.unassignedName=='', true, false)}">
+                                            <a id="tree0-node1__label" href="javascript:void(0);" role="presentation" onclick="toggle_visibility('plusimageInt{!rowNum}');" class="slds-truncate" title="Tree Branch"><b>{!dutySAWrap.objDutyBoard.Name}</b></a>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!If(dutySAWrap.unassignedName!='', true, false)}">                                 
+                                            <a id="tree0-node1__label" href="javascript:void(0);" role="presentation" onclick="toggle_visibility('plusimageInt{!rowNum}');" class="slds-truncate" title="Tree Branch"><b>{!dutySAWrap.unassignedName}</b></a>
+                                        </apex:outputPanel>
+                                    </div><br/>                         
+
+                                    <div class="slds-tree__item slds-hide" id="plusimageInt{!rowNum}">                                      
+                                        <table class="slds-table slds-table_bordered slds-table_cell-buffer tablesorter">
+                                            <thead>
+                                                <tr class="slds-text-title_caps">
+                                                    <th scope="col" width="5%">
+                                                        <div class="slds-truncate">
+                                                            <div class="slds-form-element__row">
+                                                                <div class="slds-form-element">
+                                                                      <label class="slds-checkbox">
+                                                                        <apex:inputcheckbox id="isinstance" styleclass="slds-input" onclick="checkAllInGroup(this, '{!rowNum}')"/>
+                                                                        <span class="slds-checkbox--faux"></span>
+                                                                        <span class="slds-form-element__label"></span>
+                                                                      </label>
+                                                                </div>
+                                                            </div>                                              
+                                                        </div>
+                                                    </th>                           
+                                                    <th scope="col" width="15%">
+                                                        <div class="slds-truncate">Start Time</div>
+                                                    </th>
+                                                    <th scope="col" width="15%">
+                                                        <div class="slds-truncate">Duty</div>
+                                                    </th>
+                                                    <th scope="col" width="5%">
+                                                        <div class="slds-truncate">Work Order</div>
+                                                    </th>
+                                                    <th scope="col" width="5%">
+                                                        <div class="slds-truncate">Work Order Status</div>
+                                                    </th>                                                       
+                                                    <th scope="col" width="15%">
+                                                        <div class="slds-truncate">Location</div>
+                                                    </th>
+                                                    <th scope="col" width="15%">
+                                                        <div class="slds-truncate">Subject</div>
+                                                    </th>
+                                                    <th scope="col" width="15%">
+                                                        <div class="slds-truncate">Driver</div>
+                                                    </th>                                                   
+                                                    <th scope="col" width="15%">
+                                                        <div class="slds-truncate">Vehicle</div>
+                                                    </th>    
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <apex:variable value="{!1}" var="sa"/>
+                                                <apex:repeat value="{!dutySAWrap.serviceAppointmentWrapperList}" var="serviceAppointment">
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <div class="slds-truncate">
+                                                                <div class="slds-form-element__row">
+                                                                    <div class="slds-form-element">
+                                                                    <label class="slds-checkbox">
+                                                                        <apex:inputcheckbox styleclass="slds-input {!rowNum}" value="{!serviceAppointment.isSelected}"/>
+                                                                        <span class="slds-checkbox--faux"></span>
+                                                                        <span class="slds-form-element__label"></span>
+                                                                    </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </th>                           
+                                                        <td>
+                                                            <div class="slds-truncate"><apex:inputField value="{!serviceAppointment.objSA.SchedStartTime}" styleClass="slds-input"/></div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="slds-truncate"><apex:inputField value="{!serviceAppointment.objSA.Duty_Board__c}" styleClass="slds-lookup__search-input slds-input" style="width: 75%"/></div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="slds-truncate">                                         
+                                                                <apex:outputLink target="_blank" value="/{!serviceAppointment.objSA.ParentRecordId}">{!serviceAppointment.objSA.ParentRecord.Name}</apex:outputLink>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="slds-truncate">                                         
+                                                                <apex:inputField value="{!serviceAppointment.objWorkOrder.Status}" styleClass="slds-select"/>
+                                                            </div>
+                                                        </td>                                                           
+                                                        <td>
+                                                            <div class="slds-truncate">                                         
+                                                                <apex:outputLink target="_blank" value="/{!serviceAppointment.objWorkOrder.LocationId}">{!serviceAppointment.objWorkOrder.Location.Name}</apex:outputLink>
+                                                            </div>
+                                                        </td>                                           
+                                                        <td>
+                                                            <div class="slds-truncate">
+                                                                <apex:inputField value="{!serviceAppointment.objWorkOrder.Subject}" onfocus="removeDirecetion(this);" styleClass="slds-lookup__search-input slds-input" style="width: 75%; direction: rtl;"/>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="slds-truncate">
+                                                                <apex:inputField value="{!serviceAppointment.objSA.Service_Resource__c}" styleClass="slds-lookup__search-input slds-input" style="width: 75%" id="serviceResource"/>
+                                                            </div>
+                                                        </td>                                                                                                               
+                                                        <td>                                                                                                        
+                                                            <div class="slds-truncate"><apex:inputField value="{!serviceAppointment.objWorkOrder.Vehicle__c}"  styleClass="slds-lookup__search-input slds-input" style="width: 75%" id="vehicleLoc"/></div>
+                                                        </td>                       
+                                                    </tr>
+                                                <apex:variable var="sa" value="{!sa + 1}"/>
+                                                </apex:repeat>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <apex:variable var="rowNum" value="{!rowNum + 1}"/>                             
+                                </li>
+                                </apex:repeat>
+                            </ul>                           
+                        </apex:outputPanel>
+                        <!-- Panel to show Service Appointment in group by Duty Board End -->
+                        <br/>
+
+                    </div>
+                    <br/>
+
+                </div>
+            </div>
+        </apex:outputPanel>     
+    </apex:form>
+    <!-- Search Result Ends -->
+
+    <style>
+        .lookupInput a{
+            position: absolute;
+            width: 33px !important; 
+            margin-left: 5px;
+            background-image: url(/img/setup/search-icon.png) !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+            display: inline-flex !important;
+        }
+        .lookupInput a img{
+            display:none !important;
+        }
+        .datetimeclass{
+            width: 100%;
+            background-color: #fff;
+            color: #16325c;
+            border: 1px solid #d8dde6;
+            border-radius: .25rem;
+            transition: border .1s linear,background-color .1s linear;
+            display: inline-block;
+            padding: 0 1rem 0 .75rem;
+            line-height: 1.875rem;
+            min-height: calc(1.875rem + (1px * 2));     
+        }
+        .container-fluid {
+            margin-top: 10px;
+        }
+
+        .modal-open {
+            overflow: hidden
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1050;
+            display: none;
+            overflow: hidden;
+            -webkit-overflow-scrolling: touch;
+            outline: 0
+        }
+        .modal.fade .modal-dialog {
+            -webkit-transition: -webkit-transform .3s ease-out;
+            -o-transition: -o-transform .3s ease-out;
+            transition: transform .3s ease-out;
+            -webkit-transform: translate(0, -25%);
+            -ms-transform: translate(0, -25%);
+            -o-transform: translate(0, -25%);
+            transform: translate(0, -25%)
+        }
+        .modal.in .modal-dialog {
+            -webkit-transform: translate(0, 0);
+            -ms-transform: translate(0, 0);
+            -o-transform: translate(0, 0);
+            transform: translate(0, 0)
+        }
+        .modal-open .modal {
+            overflow-x: hidden;
+            overflow-y: auto
+        }
+        .modal-dialog {
+            position: relative;
+            width: auto;
+            margin: 10px
+        }
+        .modal-content {
+            position: relative;
+            background-color: #fff;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+            border: 1px solid #999;
+            border: 1px solid rgba(0, 0, 0, .2);
+            border-radius: 6px;
+            outline: 0;
+            -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+            box-shadow: 0 3px 9px rgba(0, 0, 0, .5)
+        }
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1040;
+            background-color: #000
+        }
+        .modal-backdrop.fade {
+            filter: alpha(opacity=0);
+            opacity: 0
+        }
+        .modal-backdrop.in {
+            filter: alpha(opacity=50);
+            opacity: .5
+        }
+        .modal-header {
+            padding: 15px;
+            border-bottom: 1px solid #e5e5e5
+        }
+        .modal-header .close {
+            margin-top: -2px
+        }
+        .modal-title {
+            margin: 0;
+            line-height: 1.42857143
+        }
+        .modal-body {
+            position: relative;
+            padding: 15px
+        }
+        .modal-footer {
+            padding: 15px;
+            text-align: right;
+            border-top: 1px solid #e5e5e5
+        }
+        .modal-footer .btn+.btn {
+            margin-bottom: 0;
+            margin-left: 5px
+        }
+        .modal-footer .btn-group .btn+.btn {
+            margin-left: -1px
+        }
+        .modal-footer .btn-block+.btn-block {
+            margin-left: 0
+        }
+        .modal-scrollbar-measure {
+            position: absolute;
+            top: -9999px;
+            width: 50px;
+            height: 50px;
+            overflow: scroll
+        }
+        @media (min-width: 768px) {
+            .modal-dialog {
+                width: 600px;
+                margin: 30px auto
+            }
+            .modal-content {
+                -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, .5)
+            }
+            .modal-sm {
+                width: 300px
+            }
+        }
+        @media (min-width: 992px) {
+            .modal-lg {
+                width: 900px
+            }
+        }
+
+    </style>
+    </html>
+</apex:page>

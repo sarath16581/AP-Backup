@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Startrack</fullName>
+    <active>true</active>
+    <description>Operational schedule records to create for contracts under Startrack product</description>
+    <label>Startrack</label>
+    <picklistValues>
+        <picklist>APT_LPD_Frequency__c</picklist>
+        <values>
+            <fullName>Ad hoc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Monday%2C Tuesday%2C Wednesday%2C Thursday %26 Friday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Monday%2C Wednesday %26 Friday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tuesday %26 Thursday</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_LPD_Multiple_Frequency__c</picklist>
+        <values>
+            <fullName>Ad hoc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Friday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Monday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thursday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tuesday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wednesday</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_LPD_Service_Type__c</picklist>
+        <values>
+            <fullName>Combined Pickup %26 Delivery Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consolidated Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivery Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pickup Service</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Payment_Terms__c</picklist>
+        <values>
+            <fullName>14 days</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>21 days</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Premium__c</picklist>
+        <values>
+            <fullName>Fixed Price Premium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Premium %28Priority Air Services%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Sortation_Requirements__c</picklist>
+        <values>
+            <fullName>Sorted by Country</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sorted by Zone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unsorted</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Transit_Warranty_Cover__c</picklist>
+        <values>
+            <fullName>Automatic Transit Warranty %28Maximum of %245%2C000%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Automatic Transit Warranty of up to %24300</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Cover</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_UMS_Mode_of_Booking__c</picklist>
+        <values>
+            <fullName>Australia Post Unaddressed Mail Service Team %28booking office%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Online System</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

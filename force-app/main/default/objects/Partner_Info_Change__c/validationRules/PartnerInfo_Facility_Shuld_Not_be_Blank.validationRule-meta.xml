@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfo_Facility_Shuld_Not_be_Blank</fullName>
+    <active>true</active>
+    <description>if Facility fields are changed, then licence should NOT be blank.</description>
+    <errorConditionFormula>OR( 
+NOT(ISBLANK(Total_Eq_Business_Delivery_Points__c)), 
+NOT(ISBLANK(Business_Delivery_Points_Excess_Rate__c)), 
+NOT(ISBLANK(Business_Transit_Mail_Agreed_Amount__c)), 
+NOT(ISBLANK(Business_Transit_Points_Excess_Rate__c)), 
+NOT(ISBLANK(Equivalent_Points_Description__c)), 
+NOT(ISBLANK(Total_Eq_Private_Delivery_Points__c)), 
+NOT(ISBLANK(Total_Eq_Private_Transit_Mail_Points__c)), 
+NOT(ISBLANK(TEXT(Equipment_Fee_Exemption_Reason_Code__c))), 
+NOT(ISBLANK(Private_Delivery_Points_Excess_Rate__c)), 
+NOT(ISBLANK(Private_Transit_Mail_Agreed_Amount__c)), 
+NOT(ISBLANK(Private_Transit_Points_Excess_Rate__c))
+) &amp;&amp; ISBLANK(Facility__c)</errorConditionFormula>
+    <errorMessage>Facility should NOT be blank.</errorMessage>
+</ValidationRule>

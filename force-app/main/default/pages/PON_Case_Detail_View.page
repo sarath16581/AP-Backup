@@ -1,0 +1,32 @@
+<apex:page standardController="Case" renderAs="pdf" applyBodyTag="false" extensions="PON_CaseDetailViewCtrl" action="{!updatePrintFlag}">
+    
+      <apex:stylesheet value="{!$Resource.SSSWEmailTemplatesCSS}" />
+    <html>
+    <head>
+        <style>
+            @page {
+                size: letter;
+                margin: 25mm;
+                @top-center {
+                    content: "Sample";
+                }
+                @bottom-center {
+                    content: "Page " counter(page) " of " counter(pages);
+                }
+            }
+            .page-break {
+                display:block;
+                page-break-after:always;
+            }
+            body {
+                font-family: Arial Unicode MS;
+            }
+        </style>
+    </head>
+    <body>
+    
+<!-- <apex:detail subject="{!case.ID}" relatedList="False" title="false"/> -->
+<c:DISEmailTemplatePON compId="{!Case.Id}"/>
+</body>
+   </html>
+</apex:page>

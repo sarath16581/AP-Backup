@@ -1,0 +1,275 @@
+<apex:page showHeader="false" standardStylesheets="false" applyHtmlTag="false">
+<link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/fonts/stylesheet.css')}" />
+<!-- <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/style.css')}" /> -->
+
+    <html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="DC.Creator" scheme="AglsAgent" content="Australia Post" />
+        <meta name="DC.Title" content="Australia Post - Home" />
+        <link rel="apple-touch-icon" sizes="144x144" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-144x144.png')}" />
+        <link rel="apple-touch-icon" sizes="114x114" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-114x114.png')}" />
+        <link rel="apple-touch-icon" sizes="72x72" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-72x72.png')}" />
+        <link rel="apple-touch-icon" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon.png')}" />
+        <link rel="shortcut icon" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/favicon.ico')}" />
+    </head>
+    </html>
+
+<style>
+body { 
+    overflow: hidden; 
+    width: 100%; 
+    height: 100%; 
+    padding: 0; 
+    margin: 0;
+    background-color: #ece9e4;
+    color: #fff; 
+    font-family: Arial,sans-serif;
+    font-size: 1em;
+    scrollbar-face-color: #655C5A;
+}
+
+.system {
+    margin: 15px;
+    color: #382f2d;
+}
+
+#waitingMessage { 
+    height: 100%; 
+    width: 100%; 
+    vertical-align: middle; 
+    text-align: center; 
+    display: none; 
+}
+
+#liveAgentClientChat.liveAgentStateWaiting #waitingMessage { display: block; }
+
+#liveAgentChatLogText .name {
+    display: block;
+    white-space: normal;
+}
+
+body button, body .x-btn, body .btn, body .btnDisabled, body .btnCancel, body .menuButton .menuButtonButton {
+    color: #333;
+    margin: 1px;
+    padding: 2px 3px;
+    border: 1px solid #b5b5b5;
+    border-bottom-color: #7f7f7f;
+    font-family: "letter_one",Arial,sans-serif;
+    font-weight: bold;
+    font-size: 1em;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    float: right;
+    padding: 5px 20px;
+    margin: 10px;
+}
+#liveAgentSaveButton, #liveAgentEndButton { z-index: 2; }
+.liveAgentSendButton {
+    display: block;
+    width: 60px;
+    height: 40px;
+    padding: 10px;
+    position: absolute;
+    top: -10px;
+    right: -70px;
+}
+.liveAgentEndButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 1.95em;
+}
+
+.liveAgentChatInput {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+#liveAgentClientChat textarea#liveAgentChatTextArea {
+    max-height: 18px;
+    background: #DAD0CA;
+    display: block;
+    border-radius: 5px;
+    font-size: 1em;
+    border: none;
+    width: 88%;
+    margin: auto;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+#liveAgentChatLog {
+    border: none;
+    width: auto;
+    height: auto;
+    top: 0px;
+    position: absolute;
+    overflow-y: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#liveAgentClientChat form {
+    width: 100%;
+}
+
+#liveAgentChatLogText strong {
+    font-family: "letter_one",Arial,sans-serif;
+    display: block;
+    padding-bottom: 10px;
+}
+
+.operator, .client {
+    margin: 10px 15px 20px;
+    padding: 10px;
+    border-radius: 5px;
+    color: #382F2D;
+}
+.operator {
+    background-color: #CDD3D8;
+}
+.operator:after {
+    width: 0; height: 0; 
+    border-left: 10px solid transparent; 
+    border-right: 10px solid transparent; 
+    border-top: 15px solid #CDD3D8;
+    position: relative;
+    content: '';
+    float: right;
+    top: 1.7em;
+    right: 20px;
+    margin: 0 -10px;
+}
+
+.client {
+    background-color: #D7D2CB; 
+}
+.client:after {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent; 
+    border-right: 10px solid transparent; 
+    border-top: 15px solid #D7D2CB; 
+    position: relative;
+    content: '';
+    top: 1.7em;
+    float: left;
+    left: 20px;
+    margin: 0 -10px;
+}
+
+#liveAgentChatLogTyping {
+    display: inline-block;
+    float: right;
+}
+
+#waitingMessage {
+    margin: auto;
+    background-color: #fff;
+    color: #382F2D;
+    width: 90%;
+    border-radius: 5px;
+    position: relative;
+    top: 1.5em;
+    padding: 2em 10px;
+    height: 100px;
+    font-family: "letter_one",Arial,sans-serif;
+    font-size: 1.3em;
+}
+.bw-spinner {
+    background-image: url("{!URLFOR($Resource.BSP_Asset,'css/images/auspost-loading.gif')}");
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+    position: relative;
+    left: 48%;
+    margin-top: 20px;
+}
+
+.chat-header {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 10px;
+    font-family: "letter_one",Arial,sans-serif;
+    color: #382f2d;
+    float:left;
+    cursor: default;
+}
+.bw-chatIcon {
+    background-image:   url("{!URLFOR($Resource.BSP_Asset, 'css/images/auspost.png')}");
+    background-repeat: no-repeat;
+    height: 60px;
+    width: 60px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: -20px;
+    display: inline-block;
+    position: relative;
+    top: 0.2em;
+}
+.bw-chatIcon-old {
+    background-image: url("{!URLFOR($Resource.BSP_Custom,'images/chat-icon-grey.png')}");
+    background-repeat: no-repeat;
+    height: 19px;
+    width: 19px;
+    margin-right: 5px;
+    margin-left: 5px;
+    display: inline-block;
+    position: relative;
+    top: 0.2em;
+}
+
+.liveAgentMessage, .liveAgentAlert {
+    position: absolute;
+    bottom: 40px;
+    width: 95%;
+    margin: auto;
+    padding: 15px;
+}
+
+#liveAgentChatLog::-webkit-scrollbar {
+      width: 10px;
+}
+#liveAgentChatLog::-webkit-scrollbar-track {
+      background-color: transparent;
+}
+ 
+#liveAgentChatLog::-webkit-scrollbar-thumb {
+      background-color: #655C5A; 
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+}
+</style>
+
+<div style="top: 0; left: 0; right: 0; bottom: 0; position: absolute;">
+    <div class="chat-header">
+        <div class="bw-chatIcon"></div>
+        Live chat
+    </div>
+    <liveAgent:clientchat >
+        <liveAgent:clientChatEndButton label="Leave Chat" />
+        <div style="top: 80px; left: 0; right: 0; bottom: 0; position: absolute; z-index: 0;">
+        <div id="waitingMessage">
+            Connecting to a Business Support representative.
+             <div>
+               <p>
+                <liveAgent:clientChatQueuePosition label="Queue Position: " id="QueuePosition" />
+               </p>
+             </div>
+            <div class="bw-spinner"></div>
+        </div>
+        <div style="top: 0; right: 0; bottom: 56px; left: 0; padding: 0; position: absolute; word-wrap: break-word; z-index: 0;">
+        <liveAgent:clientChatLog />
+        </div>
+        <liveAgent:clientChatAlertMessage />
+        <liveAgent:clientChatStatusMessage />
+        <div style="position: absolute; height: auto; right: 0; bottom: 0; left: 0; margin-right: 75px;">
+            <liveagent:clientChatInput useMultiline="true"/><liveAgent:clientChatSendButton label="Send"/>
+        </div>
+        </div>
+    </liveAgent:clientchat>
+</div>
+</apex:page>

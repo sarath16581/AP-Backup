@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NameOnCCStatement__c</fullName>
+    <description>User to input - only 22 characters allowed</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Business name to appear on your customer&apos;s credit card statement</inlineHelpText>
+    <label>Name On Credit Card Statement</label>
+    <length>22</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

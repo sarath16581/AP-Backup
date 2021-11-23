@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Invalid_Resolution_Code</fullName>
+    <active>true</active>
+    <description>The following resolution codes cannot be selected if the Case did not successfully get approved: Paid, One Off, Paid - Salvage</description>
+    <errorConditionFormula>AND(
+    NOT(ISPICKVAL(Approval_Status__c, &apos;Approved&apos;)),
+    OR(    
+       AND(
+        OR(ISPICKVAL(ResolutionCode__c , &apos;Request Actioned&apos;),
+           ISPICKVAL(ResolutionCode__c , &apos;One Off&apos;)),
+        RecordType.Name = &apos;Credit Dispute Claim&apos;),
+       AND(
+        OR(ISPICKVAL(ResolutionCode__c , &apos;Paid&apos;),
+           ISPICKVAL(ResolutionCode__c , &apos;Paid - Salvage&apos;)),
+        RecordType.Name = &apos;Transit Warranty Claim&apos;))
+)</errorConditionFormula>
+    <errorDisplayField>ResolutionCode__c</errorDisplayField>
+    <errorMessage>Invalid Resolution Code. You cannot select this value as your case resolution when approval status is not yet approved.</errorMessage>
+</ValidationRule>

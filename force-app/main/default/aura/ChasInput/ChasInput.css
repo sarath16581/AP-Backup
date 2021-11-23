@@ -1,0 +1,18 @@
+.THIS .chas-input-field-container {
+	position: relative;
+}
+
+.THIS .prefix {
+    position: absolute;
+    top: 11px;
+    left: 11px;
+}
+
+.THIS .prefix + .chas-input-field {
+    padding-left: 25px;
+}
+
+.THIS .chas-below-input {
+    font-size: small;
+    color: gray
+}

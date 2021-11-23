@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NoChangeToNewAccountTypeOnceCASubmitted</fullName>
+    <active>true</active>
+    <description>REQ2479333- Once a Credit Assessment has been submitted, you can not set the New Account Type to null</description>
+    <errorConditionFormula>AND(
+	(ISPICKVAL(APT_Method_of_Payment__c,&quot;&quot;)),
+	(NOT(ISPICKVAL(APT_Credit_Assessment_Status__c ,&quot;&quot;))),
+	$Profile.Name &lt;&gt; &quot;System Administrator&quot;
+)</errorConditionFormula>
+    <errorDisplayField>APT_Method_of_Payment__c</errorDisplayField>
+    <errorMessage>Once a Credit Assessment has been submitted, you can not set the New Account Type to null</errorMessage>
+</ValidationRule>

@@ -1,0 +1,8 @@
+Hi!
+
+An opportunity that meets the criteria for an Implementation Project has reached stage four. The Opportunity is being driven by {!Opportunity.OwnerFullName}, the customer is {!Opportunity.Account} located in {!Organization.State} and the Opportunity is flagged to close on {!Opportunity.CloseDate}
+
+You can view the opportunity here:
+{!Opportunity.Link}
+
+Please note that this is a system generated email.

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>SSSW_Always_Shown</fullName>
+        <field>AlwaysShown__c</field>
+        <literalValue>1</literalValue>
+        <name>SSSW - Always Shown</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Manual_Contact_Method_for_Int</fullName>
+        <description>SSSW - Manual Contact Method for International</description>
+        <field>Contact_Facility__c</field>
+        <literalValue>Manually</literalValue>
+        <name>SSSW - Manual Contact Method for Int</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Set_Network_Type_to_Business_Hub</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Business_Hub_3</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>SSSW - Set Network Type to Business Hub</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Set_Network_Type_to_Delivery</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Delivery_1</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>SSSW - Set Network Type to Delivery</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Set_Network_Type_to_Retail</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Retail_2</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>SSSW - Set Network Type to Retail</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Set_Postcode_to_4_Digits</fullName>
+        <description>Issue with ongoing data load - this will correct the value of the Postcode field.
+If the Postcode has a &quot;.&quot; it is removed, then if it is 4 or more characters, no changes are made.
+If after removing the dot it is &lt; 4, 0&apos;s are padded as a prefix.</description>
+        <field>Post_Code__c</field>
+        <formula>IF(LEN(IF(CONTAINS(Post_Code__c,&apos;.&apos;),LEFT(Post_Code__c,FIND(&apos;.&apos;,Post_Code__c,1)-1),LEFT(Post_Code__c,LEN(Post_Code__c))))&gt;4,
+IF(CONTAINS(Post_Code__c,&apos;.&apos;),LEFT(Post_Code__c,FIND(&apos;.&apos;,Post_Code__c,1)-1),LEFT(Post_Code__c,LEN(Post_Code__c))),
+LPAD(IF(CONTAINS(Post_Code__c,&apos;.&apos;),LEFT(Post_Code__c,FIND(&apos;.&apos;,Post_Code__c,1)-1),LEFT(Post_Code__c,LEN(Post_Code__c))),4,&apos;0&apos;))</formula>
+        <name>SSSW - SPB Set Postcode to 4 Digits</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Set_SPB_Record_Type</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Street_Posting_Box_6</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>SSSW - Set SPB Record Type</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Set_as_International_Type</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>International_4</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>SSSW - Set as International Type</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Set_as_Parcel_Locker_Type</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Lockers_5</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>SSSW - Set as Parcel Locker Type</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Uncheck_Always_Shown</fullName>
+        <field>AlwaysShown__c</field>
+        <literalValue>0</literalValue>
+        <name>SSSW - Uncheck Always Shown</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Update_SPB_Name</fullName>
+        <field>Name</field>
+        <formula>IF(Box__c == &apos;R&apos;,&quot;Red Box&quot; + &quot; - &quot; + ORG_UNIT_ADDR_2__c, 
+IF(Box__c == &apos;G&apos;,&quot;Green Depo Bag&quot; + &quot; – &quot; + ORG_UNIT_ADDR_2__c,
+&quot;Red and Express Box&quot; + &quot; – &quot; + ORG_UNIT_ADDR_2__c
+))</formula>
+        <name>SSSW - Update SPB Name</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>SSSW - Other%2FDigital always shown</fullName>
+        <actions>
+            <name>SSSW_Always_Shown</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Network__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Other,Digital,International</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Remove Always Shown</fullName>
+        <actions>
+            <name>SSSW_Uncheck_Always_Shown</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Network__c.RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>Other,Digital,International</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Set International%2FOther%2FDigital Always Shown</fullName>
+        <actions>
+            <name>SSSW_Always_Shown</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Network__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Other,Digital,International</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Set Parcel Locker Type</fullName>
+        <actions>
+            <name>SSSW_Set_as_Parcel_Locker_Type</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>Network__c.Name</field>
+            <operation>contains</operation>
+            <value>locker</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Network__c.Name</field>
+            <operation>contains</operation>
+            <value>pcl lkr</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Set Postcode to 4 Digits</fullName>
+        <actions>
+            <name>SSSW_Set_Postcode_to_4_Digits</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Fix the issue that leading zero removed from post code information via data load</description>
+        <formula>Len(Post_Code__c)&lt;4</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Set SPB Name</fullName>
+        <actions>
+            <name>SSSW_Set_Postcode_to_4_Digits</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SSSW_Set_SPB_Record_Type</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SSSW_Update_SPB_Name</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>NOT(ISBLANK(Box__c))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Set as Business Hub Type</fullName>
+        <actions>
+            <name>SSSW_Set_Network_Type_to_Business_Hub</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>BC</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>HUB</value>
+        </criteriaItems>
+        <description>SSSW - Workflow Maps incoming &quot;Type Codes&quot; to the Salesforce Record Type.</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Set as Delivery Type</fullName>
+        <actions>
+            <name>SSSW_Set_Network_Type_to_Delivery</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR (7 and 8)</booleanFilter>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>TDEP</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>CDC</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>PC</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>DC</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>MC</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>MSC</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>PDEP</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Network__c.Name</field>
+            <operation>notContain</operation>
+            <value>locker,pcl lkr</value>
+        </criteriaItems>
+        <description>SSSW - Workflow Maps incoming &quot;Type Codes&quot; to the Salesforce Record Type.
+PRB0050619 - update to exclude network names that contain &quot;locker&quot;</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Set as International Type</fullName>
+        <actions>
+            <name>SSSW_Manual_Contact_Method_for_Int</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SSSW_Set_as_International_Type</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>CSS</value>
+        </criteriaItems>
+        <description>SSSW - Workflow Maps incoming &quot;Type Codes&quot; to the Salesforce Record Type.</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Set as Retail Type</fullName>
+        <actions>
+            <name>SSSW_Set_Network_Type_to_Retail</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>CPA</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>FP</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>LPO</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>PO</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>POA</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>RP</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Network__c.Org_Unit_Type__c</field>
+            <operation>equals</operation>
+            <value>CMA</value>
+        </criteriaItems>
+        <description>SSSW - Workflow Maps incoming &quot;Type Codes&quot; to the Salesforce Record Type.</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

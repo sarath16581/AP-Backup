@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <interviewLabel>Update Business Hours {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>StarTrack Update Business Hours</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Lookup_247_Business_Hours_ID</name>
+        <label>Lookup 247 Business Hours ID</label>
+        <locationX>270</locationX>
+        <locationY>170</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Case_Business_Hours</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varBusinessHoursName</elementReference>
+            </value>
+        </filters>
+        <object>BusinessHours</object>
+        <outputAssignments>
+            <assignToReference>varBusinessHoursID</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Case_Business_Hours</name>
+        <label>Update Case Business Hours</label>
+        <locationX>269</locationX>
+        <locationY>302</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varCaseID</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>BusinessHoursId</field>
+            <value>
+                <elementReference>varBusinessHoursID</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <startElementReference>Lookup_247_Business_Hours_ID</startElementReference>
+    <status>Active</status>
+    <variables>
+        <name>varBusinessHoursID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>varBusinessHoursName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>StarTrack247</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>StarTrack Id of the case</description>
+        <name>varCaseID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

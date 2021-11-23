@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Volume_Thresholds__c</fullName>
+    <externalId>false</externalId>
+    <label>Volume Thresholds</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>100K - 174K</fullName>
+                <default>false</default>
+                <label>100K - 174K</label>
+            </value>
+            <value>
+                <fullName>175K - 249K</fullName>
+                <default>false</default>
+                <label>175K - 249K</label>
+            </value>
+            <value>
+                <fullName>250K - 499K</fullName>
+                <default>false</default>
+                <label>250K - 499K</label>
+            </value>
+            <value>
+                <fullName>500K - 999K</fullName>
+                <default>false</default>
+                <label>500K - 999K</label>
+            </value>
+            <value>
+                <fullName>1M - 2.5M</fullName>
+                <default>false</default>
+                <label>1M - 2.5M</label>
+            </value>
+            <value>
+                <fullName>Above 2.5M</fullName>
+                <default>false</default>
+                <label>Above 2.5M</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

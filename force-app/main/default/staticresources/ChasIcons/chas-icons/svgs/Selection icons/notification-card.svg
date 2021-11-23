@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons / Notification card</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="20" cy="20" r="20"></circle>
+    </defs>
+    <g id="Icons-/-Notification-card" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-14">
+            <g id="Group">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#CC4D6A" xlink:href="#path-1"></use>
+            </g>
+            <g id="Group-15" transform="translate(7.000000, 11.000000)">
+                <rect id="Rectangle-10" fill="#FFFFFF" x="0" y="0" width="24.8888889" height="17.7777778" rx="3"></rect>
+                <path d="M3,0 L21.8888889,0 C23.5457431,-3.04359188e-16 24.8888889,1.34314575 24.8888889,3 L24.8888889,3.41880342 L0,3.41880342 L0,3 C-2.02906125e-16,1.34314575 1.34314575,3.04359188e-16 3,0 Z" id="Rectangle-11" fill="#CDC4C2"></path>
+                <rect id="Rectangle-13" fill="#CDC4C2" x="11.7894737" y="14.3589744" width="11.7894737" height="2.05128205"></rect>
+                <rect id="Rectangle-13-Copy" fill="#CDC4C2" x="11.7894737" y="8.20512821" width="11.7894737" height="2.05128205"></rect>
+                <rect id="Rectangle-13-Copy-2" fill="#DC1928" x="11.7894737" y="4.78632479" width="11.7894737" height="2.05128205"></rect>
+                <rect id="Rectangle-13-Copy-6" fill="#CDC4C2" x="3.2748538" y="12.991453" width="5.89473684" height="1.36752137"></rect>
+                <rect id="Rectangle-13-Copy-7" fill="#DC1928" x="3.2748538" y="10.2564103" width="5.89473684" height="1.36752137"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

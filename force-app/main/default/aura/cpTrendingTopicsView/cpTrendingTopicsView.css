@@ -1,0 +1,44 @@
+/*  **********************************************
+   @import 'variables';
+   Sass Variables
+   Are
+   Here
+   ***********************************************
+*/
+
+.THIS.cp-hot-topics-container {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -24px;
+    padding-bottom: 30px;
+    text-align: center;
+    background: #F9F8F7;
+}
+
+.THIS.cp-hot-topics-container h2 {
+    padding: 60px 0 12px;
+    font-size: 36px;
+    line-height: 125%;
+    margin-bottom: 60px;
+}
+
+.THIS.cp-hot-topics-container .cp-hot-topic-iterations a {
+    font-family: 'lettermedium' !important;
+    font-size: 16px;
+}
+
+.THIS .cp-hot-topics-box {
+    max-width: 1140px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 60px;
+}
+
+.THIS .cp-hot-topics-box .cp-hot-topic-iterations {
+    padding: 20px 60px;
+    min-width: 135px;
+}

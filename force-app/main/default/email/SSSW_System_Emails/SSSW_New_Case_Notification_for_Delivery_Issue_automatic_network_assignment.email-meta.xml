@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SSSW - Used to notify the Customer when the Case has been created for delivery issue on automatic network assignment</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW New Case Notification for Delivery Issue automatic network assignment</name>
+    <style>none</style>
+    <subject>Confirming your feedback enquiry</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference number {!Case.CaseNumber}
+
+
+Hi {!Contact.FirstName},
+
+
+Thanks for submitting feedback on your recent delivery, here&apos;s your reference number: {!Case.CaseNumber}.
+
+Your feedback has been sent to the Delivery Centre. Next, the local delivery team will review your feedback, check-in with the Postie, and make a note on your account for the next time we deliver to your address.
+
+If there is a specific reason for the way delivery was attempted, we&apos;ll call or email you within 48 hours.
+
+
+Otherwise, thank you for taking the time to let us know how we can improve our delivery services. This enquiry can be found by visiting your MyPost dashboard.
+
+
+
+Kind regards,
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

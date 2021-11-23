@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <businessHours>Service Delivery SA</businessHours>
+    <description>Standard entitlement process for BGS Service Delivery for Adelaide SA Time Zone</description>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaFilterItems>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>true</value>
+    </exitCriteriaFilterItems>
+    <exitCriteriaFilterItems>
+        <field>Case.RecordTypeId</field>
+        <operation>equals</operation>
+        <value>Service Delivery</value>
+    </exitCriteriaFilterItems>
+    <isVersionDefault>false</isVersionDefault>
+    <milestones>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Service Delivery</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Response Time BGS</milestoneName>
+        <minutesToComplete>240</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Service Delivery</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Resolution Time BGS</milestoneName>
+        <minutesToComplete>1920</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>Create_Task_for_Mgr_BGS</name>
+                <type>FlowAction</type>
+            </actions>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <name>Standard Entitlement BGS - SA</name>
+    <versionMaster>5520l0000008PSB</versionMaster>
+    <versionNotes>1</versionNotes>
+    <versionNumber>1</versionNumber>
+</EntitlementProcess>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsAlertSupervisor__c</fullName>
+    <description>TDF Enhance: Added to display on SA. Initially for Gantt Filter field set</description>
+    <externalId>false</externalId>
+    <formula>Work_Order__r.IsAlertSupervisor__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>IsAlertSupervisor</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Unit_Solution_Opp__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Unit Solution Opp</label>
+    <referenceTo>DMAPP__Unit_Solution_Opp__c</referenceTo>
+    <relationshipLabel>Value Map Opportunity Answers</relationshipLabel>
+    <relationshipName>Value_Map_Opportunity_Answers</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Re_Submit_Request</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Re-Submit Request</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>{!URLFOR(&quot;/apex/ContractAssistanceFormButtons&quot;,null,  [id=ContractAssistanceForm__c.Id,opt=&quot;resub&quot;] )}</url>
+</WebLink>

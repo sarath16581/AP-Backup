@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Organisation_Name__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>.</description>
+    <externalId>false</externalId>
+    <label>Organisation Name</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Credit Assessments</relationshipLabel>
+    <relationshipName>Credit_Assessments</relationshipName>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

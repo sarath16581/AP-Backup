@@ -1,0 +1,5 @@
+<apex:page standardController="ContractAssistanceForm__c" extensions="ContractAssistanceFormController" action="{!autoRun}" >
+    <apex:pageMessages /> 
+    <br/>
+    <apex:outputLink value="/{!sObjectId}">Back</apex:outputLink>
+</apex:page>

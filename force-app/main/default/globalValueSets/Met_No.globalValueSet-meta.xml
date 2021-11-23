@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Met</fullName>
+        <default>false</default>
+        <label>Met</label>
+    </customValue>
+    <customValue>
+        <fullName>No</fullName>
+        <default>false</default>
+        <label>No</label>
+    </customValue>
+    <description>A pick list with Met and No</description>
+    <masterLabel>Met/No</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

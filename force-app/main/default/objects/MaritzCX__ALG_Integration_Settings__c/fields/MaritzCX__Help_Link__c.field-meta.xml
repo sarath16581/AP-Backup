@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaritzCX__Help_Link__c</fullName>
+    <defaultValue>&apos;https://help.allegiancetech.com/webhelp/Allegiance_V7.htm&apos;</defaultValue>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Help Link</label>
+    <length>255</length>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,73 @@
+<!--
+    Main component in Direct to Network Case creation flow. Defines the wizard together with wizard steps.
+
+    Changelog:
+    2020-10-05 - Ranjeewa Silva - Created.
+    2021-10-10 - Nathan Franklin - Changed safe drop to delivery proof
+-->
+<template>
+
+    <c-wizard header={title} variant="base" current-step="step-1" oncomplete={handleCreateCase} finish-label={finishLabel}>
+
+        <!-- Wizard header with the title -->
+        <div slot="header" class="slds-text-align_center slds-p-around_small slds-text-title slds-text-title">
+            {title}
+        </div>
+
+        <template if:true={errorMessage}>
+            <!-- Error messages -->
+            <div slot="error" class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-m-top_medium">
+                <div>
+                    <p>{errorMessage}&nbsp;</p>
+                        <template if:true={canIgnoreDuplicates}>
+                            <p><a onclick={ignoreDuplicatesAndProceed}>Ignore Duplicates</a></p>
+                        </template>
+                    </p>
+                </div>
+            </div>
+        </template>
+
+        <c-wizard-step label="Enquiry" name="step-1" before-change={step1Validate}>
+            <c-dtn-case-wizard-enquiry-details-step
+                    case-default-values={caseDefaultValues}
+                    case-record-type-name={caseRecordTypeName}
+                    case-restricted-picklist-values={caseRestrictedPicklistValues}>
+            </c-dtn-case-wizard-enquiry-details-step>
+            <lightning-button label="Cancel" variant="neutral" class="slds-m-right_xx-small" slot="actions" onclick={closeWizard}></lightning-button>
+        </c-wizard-step>
+
+        <c-wizard-step label="Customer" name="step-2" before-change={step2Validate}>
+            <c-dtn-case-wizard-customer-details-step article={article}></c-dtn-case-wizard-customer-details-step>
+            <lightning-button label="Cancel" variant="neutral" class="slds-m-right_xx-small" slot="actions" onclick={closeWizard}></lightning-button>
+        </c-wizard-step>
+
+        <c-wizard-step label="Article" name="step-3" before-change={step3Validate}>
+            <c-dtn-case-wizard-article-details-step
+                    article={article}
+                    message-to-network-default-value={messageToNetworkDefaultValue}>
+            </c-dtn-case-wizard-article-details-step>
+            <div class="slds-button-group-item" slot="actions">
+                <lightning-button label="Cancel" variant="neutral" class="slds-m-right_xx-small" onclick={closeWizard}></lightning-button>
+            </div>
+        </c-wizard-step>
+
+        <c-wizard-step label="Summary" name="step-4" >
+            <c-dtn-case-wizard-summary-step
+                    article={article}
+                    network={network}
+                    enquiry-input={enquiryInput}
+                    customer-input={customerInput}
+                    article-input={articleInput}>
+            </c-dtn-case-wizard-summary-step>
+            <lightning-button label="Cancel" variant="neutral" class="slds-m-right_xx-small" slot="actions" onclick={closeWizard}></lightning-button>
+        </c-wizard-step>
+    </c-wizard>
+
+    <template if:true={loading}>
+        <div class="slds-text-align_center slds-grow">
+            <lightning-spinner variant="brand" size="small" alternative-text="Loading..">
+            </lightning-spinner>
+        </div>
+    </template>
+
+</template>

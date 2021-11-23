@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TotalBusinessDurationMilliseconds__c</fullName>
+    <description>Business Total Duration from Case CreatedDate against contact (Email, Case Comment, Outbound/Inbound Call Log)</description>
+    <externalId>false</externalId>
+    <label>Total Business Duration (milliseconds)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

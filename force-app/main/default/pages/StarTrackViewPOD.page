@@ -1,0 +1,44 @@
+<apex:page standardController="Article__c" showHeader="false" sidebar="false">
+
+<style type="text/css">
+    * {
+        margin:0;
+        padding:0;
+    }
+
+    body {
+        text-align:center;
+    }
+
+    #scroll {
+        width:800px; /* adjust this size for width */
+        height:225px;
+        margin:0px auto;
+        border:1px solid #000;
+        overflow-x:auto;
+        overflow-y:hidden;
+        white-space:nowrap;
+    }
+
+    #scroll img
+    {
+        margin:5px 10px 0 10px;
+    }
+
+</style>
+
+<div id="scroll">
+
+    <apex:repeat value="{!Article__c.Attachments}" var="a">
+
+        <apex:variable value="dummy" var="dummy" rendered="{!CONTAINS(a.Name, '.jpg') || CONTAINS(a.Name, '.gif') || CONTAINS(a.Name, '.png') || CONTAINS(a.Name, '.jpeg')}">
+           <a href="/servlet/servlet.FileDownload?file={!a.Id}&?isdtp=vw">
+            <img  src="/servlet/servlet.FileDownload?file={!a.Id}" title="{!a.Name}" style="max-height: 100%" /></a>
+
+        </apex:variable>
+
+    </apex:repeat>
+</div>
+
+
+</apex:page>

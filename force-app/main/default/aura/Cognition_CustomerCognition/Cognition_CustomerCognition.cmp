@@ -1,0 +1,506 @@
+<!--
+ - Cognition_CustomerCognition lightning component.
+ - History:
+ 	 12-09-2018: Modified - H Liyanage : Cognition Phase 2 changes
+-->
+<aura:component controller="Cognition_Controller" implements="forceCommunity:availableForAllPageTypes" access="global">
+     
+    <ltng:require styles="{!$Resource.Cognition_StaticRes + '/css/Cognition_BootStrap.css'}"/>
+
+	<aura:registerEvent name="refreshEvent" type="c:Cognition_RefreshEvent" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="vfHost" type="String" default="" />
+    <aura:attribute name="mapOptions" type="Object" default='{"zoom": 2}' />
+    <aura:attribute name="mapOptionsCenter" type="Object" />
+    <aura:attribute name="mapData" type="Object[]" />
+    <aura:attribute name="loadMap" type="Boolean" default="true" />        
+    <aura:attribute name="lcHost" type="String" />
+    
+    <aura:attribute name="options" type="List" />
+    <aura:attribute name="selectedCustomer" type="String"/>
+    <aura:attribute name="objClassController" type="Cognition_Controller.CustomerControllerInnerClass"/>
+    <aura:attribute name="selectedDepot" type="String"/>
+    <aura:attribute name="spinner" type="Boolean"/>
+    <aura:attribute name="accountMap" type="Map" default="{}"/>
+    <aura:attribute name="selectedCustomerName" type="String" default=""/>
+    <aura:attribute name="displayCustomerLogo" type="Boolean" default="false" />
+    <aura:attribute name="queryPercentage" type="Integer" />
+    <aura:attribute name="queryMessage" type="String" />
+    <aura:attribute name="displayProgressBar" type="Boolean" default="false" />
+    <aura:attribute name="showStatsBlock" type="Boolean" default="true" />
+    <aura:attribute name="errorMessage" type="String" />
+    <aura:attribute name="displayError" type="Boolean" default="false" />
+    <aura:attribute name="depotListOptions" type="List" />
+    <aura:attribute name="displayMapProgress" type="Boolean" default="false" />
+    <aura:attribute name="showGoogleMap" type="Boolean" default="false" />
+    <aura:attribute name="showReport" type="Boolean" default="true" />
+    <aura:attribute name="totalNumberOfCons" type="Integer" />
+    <aura:attribute name="currentNumberOfCons" type="Integer" default="0"/>
+    <aura:attribute name="mapSource" type="String" />
+    <aura:attribute name="mapPage" type="String" default="{!'/apex/Cognition_GoogleMap?lcHost=' + v.lcHost}"/>     
+	<aura:attribute name="reportSource" type="String" />
+    <aura:attribute name="reportPage" type="String" default="{!'/apex/Cognition_ReportData?lcHost=' + v.lcHost}"/>
+    <aura:attribute name="conNumber" type="String" />
+    <aura:attribute name="bookingNbr" type="String" />
+    <aura:attribute name="conSummary" type="Object" />
+    <aura:attribute name="lastRefresh" type="String" />
+    <aura:attribute name="nextRefresh" type="String" />
+	<aura:attribute name="disableUI" type="Boolean" default="false" />
+    <aura:attribute name="baseUrl" type="String" default="" />
+    <aura:attribute name="isInternalUser" type="Boolean" default="" />
+    <aura:attribute name="refreshInterval" type="Integer" />
+    <aura:handler name="refreshEvent" event="c:Cognition_RefreshEvent"  action="{!c.handleRefreshEvent}"/>
+    <aura:registerEvent name="appEventContinuation" type="c:AsynchApexContinuationRequest"/>
+    <aura:attribute name="selectedSearchType" type="String"/>
+
+<!-- Header Start -->
+    <div>
+    <div class="slds-page-header slds-box page-header" style="background-color: #eef2f6;">
+        <div class="slds-media">
+            <div class="slds-media__body">
+                <h1 class="slds-page-header__title slds-align-middle">
+                    <img src="{!$Resource.Cognition_StaticRes + '/images/auspost_logo.jpeg'}"  style="vertical-align:left;position:absolute; margin-left: 2px;"/>
+                    <h1 class="slds-page-header__title slds-align-middle slds-align_absolute-center page-heading" style="color:black;font-size:20px;" >{!$Label.c.Cognition_Title}
+                        <aura:if isTrue="{!v.selectedCustomerName!=''}"> - {!v.selectedCustomerName } </aura:if>
+                    </h1>
+                </h1>         
+            </div>
+            <aura:if isTrue="{!v.displayCustomerLogo}">
+                <img src="{!'data:image/png;base64, ' + v.objClassController.customer_logo}"  style="vertical-align:right;margin-top: 4px;" height="130" width="130"/>
+            </aura:if> 
+        </div>
+    </div>
+    <!-- Header End -->
+    <br/>
+    
+    <aura:if isTrue="{!v.spinner}">
+        <lightning:spinner aura:id="mySpinner" variant="brand" size="large" alternativeText="Loading..." title="Loading..."/>     
+    </aura:if>
+    
+    <!-- Mid Section Start - User Input, Progress bar, Summary Bar and Map -->
+    	<!-- font-size style is added to make font bigger in VF page. 
+			It can be removed if rendered in Lightning.-->
+        <div class="slds-grid slds-gutters " style="margin-left:2px; margin-right:2px; font-size: 1rem;">
+
+            <!-- User Input & Summary Table Start -->
+            <div class="slds-col slds-size_2-of-12 slds-box">
+    			<div class="slds-align-middle" style="margin-top:.75rem;">
+    				<lightning:select name="customerSelect" 
+                                      disabled="{!v.disableUI}"
+                                      label="{!$Label.c.Cognition_CustomerLabel}" 
+                                      aura:id="customer" 
+                                      onchange="{!c.submitQueryWithoutDepot}" 
+                                      value="{!v.selectedCustomer}" >
+    					<aura:iteration items="{!v.options}" var="item">
+    						<option text="{!item.label}" value="{!item.value}"  selected="{!item.selected}"/>
+    					</aura:iteration>
+    				</lightning:select><br/> 
+    				
+                    <aura:if isTrue="{!v.selectedCustomer!=''}">
+                        <div aura:id="summarySection">
+                            <aura:if isTrue="{!!empty(v.depotListOptions)}">
+                                <lightning:select name="depotSelect" 
+                                                  disabled="{!v.disableUI}"
+                                                  label="{!$Label.c.Cognition_DepotLabel}" 
+                                                  aura:id="depotSelect" 
+                                                  onchange="{!c.submitQueryWithDepot}" 
+                                                  value="{!v.selectedDepot}" >
+                                    <aura:iteration items="{!v.depotListOptions}" var="depot">
+                                        <option text="{!depot.DepotName}" value="{!depot.Depot}" />
+                                    </aura:iteration>
+                                </lightning:select><br/> 
+                            </aura:if>
+							<div aura:id="conSearch" class="slds-box">
+                                <!-- Consignment search input field -->
+                            	<lightning:select name="searchTypeSelect"
+                                                  disabled="{!v.disableUI}"
+                                                  label="Search Type" 
+                                                  aura:id="SearchTypeSelect" 
+                                                  value="{!v.selectedSearchType}"
+                                                  onchange="{!c.changeSearchType}">
+                                    <option text="{!$Label.c.Cognition_ConsLabel}" value="{!$Label.c.Cognition_ConsLabel}" />
+                                    <option text="{!$Label.c.Cognition_PickupLabel}" value="{!$Label.c.Cognition_PickupLabel}"/>
+                                </lightning:select>
+                                <br/>
+                                <lightning:input type="text" disabled="{!v.disableUI}" label="{!v.searchTitle}" value="{!v.conNumber}" class="" />
+
+                                <div class="search-result-box">
+                                    <aura:if isTrue="{! v.conSummary.isFound == 1}" >
+                                        <lightning:card title="{!v.conSummary.title}" >
+                                            <p class="slds-p-horizontal_small">
+                                            <ui:outputText value="{!v.conSummary.status}" class="summaryStyle" /><br/>
+                                            <aura:if isTrue="{!v.selectedSearchType == $Label.c.Cognition_ConsLabel}" >
+                                                <ui:outputText value="Receiver Name" />
+                                                <ui:outputText value="{!v.conSummary.ReceiverName}" class="rightFloat" /><br/>
+                                                <ui:outputText value="ETA Date" />
+                                                <ui:outputText value="{!v.conSummary.etaData}" class="rightFloat" /><br/>
+                                                <ui:outputText value="Last Event Time" />
+                                                <ui:outputText value="{!v.conSummary.EventDateTime}" class="rightFloat" /><br/>
+                                                <ui:outputText value="Event Description" />
+                                                <ui:outputText value="{!v.conSummary.EventDesc}" class="rightFloat" /><br/>
+                                                <ui:outputText value="Despatch Date" />
+                                                <ui:outputText value="{!v.conSummary.despDateData}" class="rightFloat" /><br/>
+                                                <ui:outputText value="Depot" />
+                                                <ui:outputText value="{!v.conSummary.depot}" class="rightFloat" /><br/>
+                                            </aura:if>
+                                            <aura:if isTrue="{!v.selectedSearchType == $Label.c.Cognition_PickupLabel}" >
+                                                <ui:outputText value="Booking #" />
+                                                <ui:outputText value="{!v.conNumber}" class="rightFloat" /><br/>
+                                                <ui:outputText value="Event Date/Time:" />
+                                                <ui:outputText value="{!v.conSummary.EventDateTime}" class="rightFloat" /><br/>
+                                                <ui:outputText value="Depot:" />
+                                                <ui:outputText value="{!v.conSummary.depot}" class="rightFloat" /><br/>
+                                                <ui:outputText value="Service:" />
+                                                <ui:outputText value="{!v.conSummary.ServiceCode}" class="rightFloat" /><br/>
+                                                <ui:outputText value="Ready Time:" />
+                                                <ui:outputText value="{!v.conSummary.ReadyTime}" class="rightFloat" /><br/>
+                                                <ui:outputText value="Close Time:" />
+                                                <ui:outputText value="{!v.conSummary.CloseTime}" class="rightFloat" /><br/>
+                                                <ui:outputText value="Quantity:" />
+                                                <ui:outputText value="{!v.conSummary.Quantity}" class="rightFloat" /><br/>
+                                                <ui:outputText value="Booking Instructions:" />
+                                                <ui:outputText value="{!v.conSummary.BookingInstructions}" class="rightFloat" /><br/>
+                                            </aura:if>    
+                                            
+                                            </p>
+                                        </lightning:card>
+                                    </aura:if>
+                                    <aura:if isTrue="{! v.conSummary.isFound == 2}">
+                                        <lightning:card title="">
+                                            <p class="slds-p-horizontal_small">
+                                                <ui:outputText value="{!v.conSummary.title}" class="summaryStyle" /><br/>
+                                                <aura:if isTrue="{!v.selectedSearchType == $Label.c.Cognition_ConsLabel}">
+                                                    <a href="{!$Label.c.Cognition_ConSearchErrorLink}" target="_blank" style="color: black; font-size: 1.2rem;" >
+                                                        {!$Label.c.Cognition_ConSearchErrorLinkLabel}
+                                                    </a>
+                                                </aura:if>
+                                            </p>
+                                        </lightning:card>
+                                    </aura:if>
+                                </div>
+
+                                <div>
+                                    <!-- Consignment search button field -->
+                                    <lightning:button variant="brand" disabled="{!v.disableUI}" iconName="utility:search" iconPosition="left" label="{!$Label.c.Cognition_SearchButtonLabel}" class="buttonWidthConSearch" onclick="{!c.getConSummary}" />
+                                    <lightning:button variant="brand" disabled="{!v.disableUI}" iconName="utility:clear" iconPosition="left" label="{!$Label.c.Cognition_ClearButtonLabel}" class="buttonWidthConSearch rightFloat" onclick="{!c.clearSearch}" />
+                                </div>
+							</div>
+                            <div>
+                                <br/>
+                                <lightning:button iconName="utility:refresh" iconPosition="left"  variant="brand"
+                                                  disabled="{!v.disableUI}"
+                                                  label="{!$Label.c.Cognition_RefreshButtonLabel}"
+                                                  class="buttonWidth"
+                                                  onclick="{!c.refreshInformation}" /><br/><br/>
+                            </div>
+                            <aura:if isTrue="{!!empty(v.objClassController.displayStatsList)}">
+
+                                <section id="accordion">
+                                    <div class="slowdown">
+                                        <input type="radio" checked="checked" name="accordion-role" id="{!$Label.c.Cognition_SummTableSection1}" />
+                                        <label for="{!$Label.c.Cognition_SummTableSection1}">{!$Label.c.Cognition_SummTableSection1}</label>
+                                        <article>
+                                            <div class="slds-p-around--medium">
+                                                <aura:iteration items="{!v.objClassController.displayStatsDelivering}" var="objStats">
+
+                                                    <a href="javascript:void(0)" style="color: black; font-size: 1.2rem;" title="{!objStats.Description}">
+                                                        <span onclick="{!c.openActionWindow}" data-category="{!objStats.Category}" data-categoryname="{!objStats.Name}" data-seqvalue="{!objStats.Value}" >{!objStats.Name}</span>
+                                                    </a>
+                                                    <ui:outputText value="{!objStats.Value}" class="rightFloat"/>
+                                                    <br/><br/>
+                                                </aura:iteration>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div class="slowdown">
+                                        <input type="radio" name="accordion-role" id="{!$Label.c.Cognition_SummTableSection2}" />
+                                        <label for="{!$Label.c.Cognition_SummTableSection2}">{!$Label.c.Cognition_SummTableSection2}</label>
+                                        <article>
+                                            <div class="slds-p-around--medium">
+                                                <aura:iteration items="{!v.objClassController.displayStatsPending}" var="objStats">
+                                                    <a href="javascript:void(0)" style="color: black; font-size: 1.2rem;" title="{!objStats.Description}">
+                                                        <span onclick="{!c.openActionWindow}" data-category="{!objStats.Category}" data-categoryname="{!objStats.Name}" data-seqvalue="{!objStats.Value}" >{!objStats.Name}</span>
+                                                    </a>
+                                                    <ui:outputText value="{!objStats.Value}" class="rightFloat"/>
+                                                    <br/><br/>
+                                                </aura:iteration>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="accordion-role" id="{!$Label.c.Cognition_SummTableSection3}" />
+                                        <label for="{!$Label.c.Cognition_SummTableSection3}">{!$Label.c.Cognition_SummTableSection3}</label>
+                                        <article>
+                                            <div class="slds-p-around--medium">
+                                                <aura:iteration items="{!v.objClassController.displayStatsExceptions}" var="objStats">
+                                                    <a href="javascript:void(0)" style="color: black; font-size: 1.2rem;" title="{!objStats.Description}">
+                                                        <span onclick="{!c.openActionWindow}" data-category="{!objStats.Category}" data-categoryname="{!objStats.Name}" data-seqvalue="{!objStats.Value}" >{!objStats.Name}</span>
+                                                    </a>
+                                                    <ui:outputText value="{!objStats.Value}" class="rightFloat"/>
+                                                    <br/><br/>
+                                                </aura:iteration>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="accordion-role" id="{!$Label.c.Cognition_SummTableSection4}" />
+                                        <label for="{!$Label.c.Cognition_SummTableSection4}">{!$Label.c.Cognition_SummTableSection4}</label>
+                                        <article>
+                                            <div class="slds-p-around--medium">
+                                                <aura:iteration items="{!v.objClassController.displayStillOutstanding}" var="objStats">
+                                                    <a href="javascript:void(0)" style="color: black; font-size: 1.2rem;" title="{!objStats.Description}">
+                                                        <span onclick="{!c.openActionWindow}" data-category="{!objStats.Category}" data-categoryname="{!objStats.Name}" data-seqvalue="{!objStats.Value}" >{!objStats.Name}</span>
+                                                    </a>
+                                                    <ui:outputText value="{!objStats.Value}" class="rightFloat"/>
+                                                    <br/><br/>
+                                                </aura:iteration>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="accordion-role" id="{!$Label.c.Cognition_SummTableSection5}" />
+                                        <label for="{!$Label.c.Cognition_SummTableSection5}">{!$Label.c.Cognition_SummTableSection5}</label>
+                                        <article>
+                                            <div class="slds-p-around--medium">
+                                                <aura:iteration items="{!v.objClassController.displayPickupBookings}" var="objStats">
+                                                    <a href="javascript:void(0)" style="color: black; font-size: 1.2rem;" title="{!objStats.Description}">
+                                                        <span onclick="{!c.openActionWindow}" data-category="{!objStats.Category}" data-categoryname="{!objStats.Name}" data-seqvalue="{!objStats.Value}" >{!objStats.Name}</span>
+                                                    </a>
+                                                    <ui:outputText value="{!objStats.Value}" class="rightFloat"/>
+                                                    <br/><br/>
+                                                </aura:iteration>
+                                            </div>
+                                        </article>
+                                    </div>
+
+                                </section>
+                            </aura:if>            
+                        </div>
+                    </aura:if>
+    			</div>
+            </div>
+			<!-- User Input & Summary Table End -->
+
+            
+            <div class="slds-col slds-size_10-of-12 slds-box" style="margin-left: 2px;">
+                <div class="" >
+
+                    <!-- Progress Bar & Summary Start -->
+    				<aura:if isTrue="{!v.displayProgressBar}">
+
+                              <div class="table-responsive">
+                                  <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td width="20%">
+                                                <p class="summaryStyle" >{!$Label.c.Cognition_Progress_Percent}</p>
+                                            </td>
+                                            <td width="10%">
+                                                <p>{!v.queryPercentage}%</p>
+                                            </td>
+                                            <td width="20%">
+                                                <p class="summaryStyle" >{!$Label.c.Cognition_Progress_State}</p>
+                                            </td>
+                                            <td width="50%">
+                                                <p>{!v.queryMessage}</p>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                  </table>
+      							</div>
+
+
+                        <div class="progress" style="width: 100%;" >
+    							<div class="progress-bar progress-bar-ad"
+                                     role="progressbar"
+                                     style="{!'width:' + v.queryPercentage + '%'}" >
+                                    	{!v.queryPercentage}%  {!v.queryMessage}
+      		  					</div>
+    				       	</div>
+                    </aura:if>
+
+                    <aura:if isTrue="{!v.displayError}">
+    						<div class="progress" style="width: 100%;" >
+    							<div class="progress-bar progress-bar-err"
+                                     role="progressbar"
+                                     style="width: 100%" >
+                                    	{!v.errorMessage}
+      		  					</div>
+    				       	</div>
+                    </aura:if>
+
+                    <div aura:id="showstatsblock" >
+                        <aura:if isTrue="{!!empty(v.objClassController.displayStatsList) }">
+
+                              <div class=" legend-table">
+                                  <table class="slds-box table">
+                                    <tbody>
+                                        <tr>
+                                            <td width="11.11%">
+                                                <p class="paraClass" >
+                                                    <span class="delv-early-green delv-common"></span><br/>
+                                                    <img src="{!$Resource.Cognition_StaticRes + '/images/cognitionType6.png'}" class="imageClass" />
+                                                </p>
+                                                <p class="nameClass" >{!$Label.c.Cognition_Legend_DelvEarly}</p>
+                                            </td>
+                                            <td width="11.11%">
+                                                <p class="paraClass" >
+                                                    <span class="delv-today-lime delv-common"></span><br/>
+                                                    <img src="{!$Resource.Cognition_StaticRes + '/images/cognitionType4.png'}" class="imageClass" />
+                                                </p>
+                                                <p class="nameClass" >{!$Label.c.Cognition_Legend_DelvToday}</p>
+                                            </td>
+                                            <td width="11.11%">
+                                                <p class="paraClass" >
+                                                    <span class="carded-pink delv-common"></span><br/>
+                                                    <img src="{!$Resource.Cognition_StaticRes + '/images/cognitionType7.png'}" class="imageClass" />
+                                                </p>
+                                                <p class="nameClass" >{!$Label.c.Cognition_Legend_Carded}</p>
+                                            </td>
+                                            <td width="11.11%">
+                                                <p class="paraClass" >
+                                                    <span class="delv-unsuccess-purple delv-common"></span><br/>
+                                                    <img src="{!$Resource.Cognition_StaticRes + '/images/cognitionType5.png'}" class="imageClass" />
+                                                </p>
+                                                <p class="nameClass" >{!$Label.c.Cognition_Legend_DelvFail}</p>
+                                            </td>
+                                            <td width="11.11%">
+                                                <p class="paraClass" >
+                                                    <span class="onboard-delv-yellow delv-common"></span><br/>
+                                                    <img src="{!$Resource.Cognition_StaticRes + '/images/cognitionType3.png'}" class="imageClass" />
+                                                </p>
+                                                <p class="nameClass" >{!$Label.c.Cognition_Legend_Onboard}</p>
+                                            </td>
+                                            <td width="11.11%">
+                                                <p class="paraClass" >
+                                                    <span class="not-onboard-red delv-common"></span><br/>
+                                                    <img src="{!$Resource.Cognition_StaticRes + '/images/cognitionType2.png'}" class="imageClass" />
+                                                </p>
+                                                <p class="nameClass" >{!$Label.c.Cognition_Legend_NotOnboard}</p>
+                                            </td>
+                                            <td width="11.11%">
+                                                <p class="paraClass" >
+                                                    <span class="not-collected-blue delv-common"></span><br/>
+                                                    <img src="{!$Resource.Cognition_StaticRes + '/images/cognitionType13.png'}" class="imageClass" />
+                                                </p>
+                                                <p class="nameClass" >{!$Label.c.Cognition_Legend_Not_Collected}</p>
+                                            </td>
+                                            <td width="11.11%">
+                                                <p class="paraClass" >
+                                                    <span class="collected-blue delv-common"></span><br/>
+                                                    <img src="{!$Resource.Cognition_StaticRes + '/images/cognitionType11.png'}" class="imageClass" />
+                                                </p>
+                                                <p class="nameClass" >{!$Label.c.Cognition_Legend_Collected}</p>
+                                            </td>
+                                            <td width="11.11%">
+                                                <p class="paraClass" >
+                                                    <span class="still-outstanding delv-common"></span><br/>
+                                                    <img src="{!$Resource.Cognition_StaticRes + '/images/cognitionType14.png'}" class="imageClass" />
+                                                </p>
+                                                <p class="nameClass" >{!$Label.c.Cognition_Legend_Still_outstanding}</p>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                  </table>
+      							</div>
+
+    						<div class="progress" style="width: 100%;" >
+    							<div class="progress-bar progress-bar-ad"
+                                     role="progressbar"
+                                     style="{!'width:' + v.objClassController.DueNotOnboardAlreadyDelivered + '%'}"
+                                     title="{! $Label.c.Cognition_Legend_DelvEarly + ' - '+ v.objClassController.deliveredEarly+' ('+v.objClassController.DueNotOnboardAlreadyDelivered+'%)'}">
+                                    {!v.objClassController.deliveredEarly} ({!v.objClassController.DueNotOnboardAlreadyDelivered}%)
+      		  					</div>
+    							<div class="progress-bar progress-bar-ds"
+                                     role="progressbar"
+                                     style="{!'width:' + v.objClassController.DueOnboardDeliverySuccess + '%'}"
+                                     title="{! $Label.c.Cognition_Legend_DelvToday + ' - '+ v.objClassController.deliveredToday+' ('+v.objClassController.DueOnboardDeliverySuccess+'%)'}">
+                                    {!v.objClassController.deliveredToday} ({!v.objClassController.DueOnboardDeliverySuccess}%)
+                                 </div>
+    							<div class="progress-bar progress-bar-dfcard"
+                                     role="progressbar"
+                                     style="{!'width:' + v.objClassController.DueOnboardDeliveryFailureCarded + '%'}"
+                                     title="{! $Label.c.Cognition_Legend_Carded + ' - '+ v.objClassController.delvFailCarded+' ('+v.objClassController.DueOnboardDeliveryFailureCarded+'%)'}">
+                                    {!v.objClassController.delvFailCarded} ({!v.objClassController.DueOnboardDeliveryFailureCarded}%)
+                                 </div>
+    							<div class="progress-bar progress-bar-df"
+                                     role="progressbar"
+                                     style="{!'width:' + v.objClassController.DueOnboardDeliveryFailed + '%'}"
+                                     title="{! $Label.c.Cognition_Legend_DelvFail + ' - '+ v.objClassController.deliveredUnsuccessful+' ('+v.objClassController.DueOnboardDeliveryFailed+'%)'}">
+                                    {!v.objClassController.deliveredUnsuccessful} ({!v.objClassController.DueOnboardDeliveryFailed}%)
+                                 </div>
+    							<div class="progress-bar progress-bar-onboard"
+                                     role="progressbar"
+                                     style="{!'width:' + v.objClassController.DueOnboardStillOutstanding + '%'}"
+                                     title="{! $Label.c.Cognition_Legend_Onboard + ' - ' + v.objClassController.onboardForDelivery+' ('+v.objClassController.DueOnboardStillOutstanding+'%)'}">
+                                    {!v.objClassController.onboardForDelivery} ({!v.objClassController.DueOnboardStillOutstanding}%)
+      		  					</div>
+    							<div class="progress-bar progress-bar-due"
+                                     role="progressbar"
+                                     style="{!'width:' + v.objClassController.notOnboardPer + '%'}"
+                                     title="{! $Label.c.Cognition_Legend_NotOnboard + ' - '+v.objClassController.notOnboardForDelivery+' ('+v.objClassController.notOnboardPer+'%)'}">
+                                    {!v.objClassController.notOnboardForDelivery} ({!v.objClassController.notOnboardPer}%)
+      		  					</div>
+      						</div>
+
+                    </aura:if>
+                    </div>
+
+                    <aura:if isTrue="{!v.displayMapProgress}">
+                        <aura:if isTrue="{! v.currentNumberOfCons != v.totalNumberOfCons }" >
+                        	<div id="mapProgress">
+                        		<p class="summaryStyle" >Loaded the Data for {!v.currentNumberOfCons} out of {!v.totalNumberOfCons} Consignments</p>
+                        	</div>
+                        </aura:if>
+                        <aura:if isTrue="{! v.currentNumberOfCons == v.totalNumberOfCons }" >
+                            <ui:outputText class="summaryStyle" value="{! 'Last Refreshed : ' + v.lastRefresh}" />
+                        </aura:if>
+                    </aura:if>
+			<!-- Progress Bar & Summary Bar End -->
+
+            <!-- Google Map Start -->
+            <div aura:id="googleMapPage" >
+					<aura:if isTrue="{!v.showGoogleMap}">
+                    <iframe aura:id="vfFrame" src="{!v.mapSource}" style="border:0; height: 120vh;" scrolling="no" height="50%" width="100%" frameborder="0" />
+				   </aura:if>
+			</div>
+			<!-- Google Map End -->
+
+            <!-- Report Start -->
+			<div aura:id="reportPage" class="slds-box">
+					<aura:if isTrue="{!v.showReport}">
+                         <lightning:buttonIcon iconName="utility:close" variant="bare" size="large"  class="closeButtoncss rightFloat" onclick="{!c.handleCloseReportVFClick}" alternativeText="Close report." />
+                         <iframe aura:id="reportVfFrame" src="{!v.reportSource}" style="height: 260vh;border:1;width:100%;" scrolling="no" height="100%" width="100%" frameborder="0"  />
+				   </aura:if>
+			</div>
+            <!-- Report Start -->
+
+                </div>
+            </div>        
+        </div>            
+  <!-- Mid Section End -->
+  <!-- Footer Start -->
+  
+	<footer role="contentinfo" class="slds-p-around--large">
+  	<!-- LAYOUT GRID -->
+  		<div class="slds-grid slds-grid--align-spread">
+    		<p class="slds-col">
+                <a href="http://auspost.com.au/sitemap.html" 
+                   class="summaryStyle">Sitemap</a></p>
+    		<p class="slds-col">
+                <a href="http://auspost.com.au/about-us/about-our-site.html" 
+                   class="summaryStyle">About our site</a></p>
+    		<p class="slds-col">
+                <a href="http://auspost.com.au/terms-conditions.html" 
+                   class="summaryStyle">Terms &amp; Conditions</a></p>
+    		<p class="slds-col">
+                <a href="http://auspost.com.au/privacy.html" 
+                   class="summaryStyle">Privacy policy</a></p>            
+        </div>
+  	<!-- / LAYOUT GRID -->
+	</footer>
+    </div>
+<!-- / FOOTER -->
+    
+</aura:component>

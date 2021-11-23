@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Deal_Support_Request_Requestor</fullName>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>Stage__c</columns>
+    <columns>RECORDTYPE</columns>
+    <columns>Organisation__c</columns>
+    <columns>Opportunity__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>OWNER.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RequestCreatedbyId__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>My Deal Support Requests (Created)</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>BSC_Consultants</group>
+        <group>Deal_Enablement_Centre_Team</group>
+        <group>Sales</group>
+    </sharedTo>
+</ListView>

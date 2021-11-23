@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Submit_for_Approval</fullName>
+    <availability>online</availability>
+    <description>Call flow that submits Agreement Document record for approval</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Validate and Submit for Approval</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/flow/Agree_Mgt_Submit_Approval?AgreementDocumentId={!Agreement_Document__c.Id}&amp;retURL=/{!Agreement_Document__c.Id}</url>
+</WebLink>

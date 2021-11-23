@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Fax Error Notification</name>
+    <style>none</style>
+    <subject>A Fax has not been sent for Case: {!Fax__c.Case__c}</subject>
+    <textOnly>View Case Record:
+https://auspost.my.salesforce.com/console#{!Fax__c.CaseId__c}  
+
+Fax Receipt 
+{!Fax__c.FaxReceipt__c}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

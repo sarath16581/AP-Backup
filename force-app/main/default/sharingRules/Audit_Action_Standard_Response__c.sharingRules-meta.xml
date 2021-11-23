@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Standard_Response</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Standard Response</label>
+        <sharedTo>
+            <group>AMLCTF_All_Retail_Audit_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Standardised_Response__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

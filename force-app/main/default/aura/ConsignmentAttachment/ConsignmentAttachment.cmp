@@ -1,0 +1,190 @@
+<!-- 2018-06-01 clint.dsilva@auspost.com.au created -->
+<aura:component description="ConsignmentAttachment" controller="ImageUtility">
+    <aura:attribute name="caseID" type="string" default = "" />
+    <aura:attribute name="caseNumber" type="string" default = "" />
+    <aura:attribute name="caseArticleTest" type="string" default = "" />
+    <aura:attribute  name="GUIDs" type="String[]" />
+    <aura:attribute  name="connoteInputValues" type="String[]" default = "" />
+    <aura:attribute  name="conNotesDispObj" type="Object[]" />
+    <aura:attribute  name="bttnLoadImgNotPressed" type="boolean"  default ="false" access="private"/>
+    <aura:attribute  name="mode" type="String"  default ="" access="private"/>
+    <aura:attribute  name="modes" type="String[]"  default ="['Case','ConNote']" access="private"/>
+    <aura:attribute  name="disputes" type="Object[]"  access="private"/>
+    <aura:attribute  name="compDispTbl" type="Object[]"  access="private"/>
+    <aura:attribute  name="compDispImgByGuid" type="Map"  access="private"/>
+    <aura:attribute  name="disableLoadImgBtn" type="boolean"  default="false" access="private"/>
+    <aura:attribute  name="disableLoadAttachToCase" type="boolean"  default="true" access="private"/>
+    <aura:attribute  name="disableSelectAllChkBx" type="boolean"  default="true" access="private"/>
+    <aura:attribute name="vfHost" type="String" default=""/>
+    <aura:attribute name="msgOrErrors" type="Object[]"  />
+    <aura:attribute  name="selFilesIDsObj" type="Object[]"  access="private"/>
+    <ltng:require scripts="{!join(',',$Resource.GlobalAssets + '/js/lightning/utils.js')}" afterScriptsLoaded="{!c.handleInit}"/>
+    <c:waitingQueueComponent aura:id="loader" />
+    <aura:handler name="ImageLoadedEvent" event="c:eComponentLoaded" action="{!c.handleImageLoaded}"/>
+    <aura:registerEvent name="appEventContinuation" type="c:AsynchApexContinuationRequest"/>
+    <aura:registerEvent  name="AsyncAPIPayloadReturned"  type="c:eAPIPayloadReturned"   />
+    <aura:handler event="c:eAPIPayloadReturned" action="{!c.handleAPIReturned}"/>
+    <div class="slds-p-top_small"></div>
+    <article class="slds-card">
+        <div class="slds-card__header  slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <lightning:icon iconName="utility:image" size="small" alternativeText="Connote Image Heading"/>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span class="slds-text-heading_small">Images for Connotes</span>
+                    </h2>
+                </div>
+                <div class="slds-no-flex">
+                    <lightning:buttonGroup>
+                        <aura:if isTrue="{!v.caseID != ''  }">
+                            <lightning:button aura:id="AttachToCase"  variant="brand"  label="Attach To Case" iconName="utility:attach"  iconPosition="right"   onclick="{! c.onAttachToCase }" disabled="true" />
+                        </aura:if>
+                        <lightning:button aura:id="loadImgBtn"  variant="brand" label="Load Images" iconName="utility:image"  iconPosition="right" onclick="{!c.onLoadImages}" disabled="{! v.disableLoadImgBtn}" />
+                    </lightning:buttonGroup>
+                </div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <ul class="slds-grid slds-wrap slds-grid_pull-padded">
+                <li class="slds-p-horizontal_small slds-size_1-of-1 slds-medium-size_2-of-3">
+                    <article class="slds-tile slds-media slds-card__tile slds-hint-parent">
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer ">
+                            <thead>
+                            <tr class="slds-text-title_caps">
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Connote#">Connnote#</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Connote#">Getting Details From API</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Connote#">Getting Images From API</div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <aura:iteration  items="{!v.conNotesDispObj}" var="conval">
+                                <tr>
+                                    <td >
+                                        <div class="slds-truncate" title="Connnote#">{!conval.connote}</div>
+                                    </td>
+                                    <td >
+                                        <div class="slds-truncate" title="Connnote Details">
+                                            <aura:if isTrue="{!conval.hideSpinnerConNote}">
+
+                                                <aura:set attribute="else">
+                                                    <lightning:spinner alternativeText="Loading" aura:id="imgSpinner"  size="small"  />
+                                                </aura:set>
+                                            </aura:if>
+                                            <lightning:icon iconName="{!conval.icon}" size="x-small" title="" />&nbsp;<span>{!conval.dotNetApiLoaded}</span>
+                                        </div>
+                                    </td>
+                                    <td >
+                                        <div class="slds-truncate" title="Get Images">{!conval.imgApiLoadedCount}</div>
+                                    </td>
+                                </tr>
+                            </aura:iteration>
+                            </tbody>
+                        </table>
+                    </article>
+                </li>
+                <li class="slds-p-horizontal_small slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <article class="slds-tile slds-media slds-card_boundary slds-card__tile slds-hint-parent">
+                        <div class="slds-card__header slds-grid">
+                            <h3 class="slds-card__header-title">
+                                <span class="slds-text-heading_small">Messages or Errors</span>
+                            </h3>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <div class="slds-illustration slds-illustration_small">
+                                <ul class="slds-list--vertical">
+                                    <aura:iteration  items="{!v.msgOrErrors}" var="err" >
+                                        <li class="{!err.type == 'MSG'?'slds-list__item slds-has-divider--top-space slds-text-color_success':'slds-list__item slds-has-divider--top-space  slds-text-color_error'}">{!err.error}</li>
+                                    </aura:iteration>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                </li>
+            </ul>
+        </div>
+    </article>
+    <aura:if isTrue="{!v.bttnLoadImgNotPressed}">
+        <div class="slds-col slds-size_1-of-1">
+            <div class="slds-m-top--xx-small"></div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 ">
+            <table class="slds-table slds-table_bordered slds-table_striped ">
+                <thead>
+                <tr class="slds-text-title_caps" style="background-color:#ccf2ff;">
+                    <aura:if isTrue="{!v.caseID != ''}">
+                        <th class="slds-text-align_right" scope="col" style="width: 3.25rem;">
+                                    <span class="slds-checkbox">
+                                         <lightning:input aura:id="chkBoxSelAll" type="checkbox"  disabled="{!v.disableSelectAllChkBx}" value="All"  onclick="{!c.checkBoxAllClicked}"/>
+                                    </span>
+                        </th>
+                    </aura:if>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Connote">Connote#</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Article">Article</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Image Source">Image Source</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Dimensions">Dimensions</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Image">Image</div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <aura:iteration items="{!v.compDispTbl}" var="dispObj"   >
+                    <tr class="slds-hint-parent">
+                        <aura:if isTrue="{!v.caseID != ''}">
+                            <td class="slds-text-align_right" role="gridcell">
+                                    <span class="slds-checkbox"><!-- dispObj.preSelected || dispObj.attachToCaseProcessed-->
+                                         <lightning:input aura:id="chkBoxSel" type="checkbox" checked="{!dispObj.isSelected}"  disabled="{!dispObj.disableCheckbox}" value="{!dispObj.rowNum}" onchange="{!c.checkBoxClicked}" />
+                                    </span>
+                            </td>
+                        </aura:if>
+                        <td  data-label="Connote#">
+                            <div class="slds-truncate" title="Connote#">{!dispObj.consignmentNum}</div>
+                        </td>
+                        <td  data-label="Article">
+                            <div class="slds-truncate" title="Article">{!dispObj.articleNum}</div>
+                        </td>
+                        <td  data-label="GUID">
+                            <div class="slds-truncate" title="Image Source">{!dispObj.imgSrc}</div>
+                        </td>
+                        <td  data-label="Dimensions">
+                            <div class="slds-truncate" title="Dimensions">
+                                <dl class="slds-list_horizontal slds-wrap">
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Length">L:</dt>
+                                    <dd class="slds-item_detail slds-truncate " title="Length">{!dispObj.length}</dd>
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Width">W:</dt>
+                                    <dd class="slds-item_detail slds-truncate" title="Width">{!dispObj.width}</dd>
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Height">H:</dt>
+                                    <dd class="slds-item_detail slds-truncate" title="Height">{!dispObj.height}</dd>
+                                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Weight">Wt:</dt>
+                                    <dd class="slds-item_detail slds-truncate" title="Weight">{!dispObj.weight}</dd>
+                                </dl>
+                            </div>
+                        </td>
+                        <td  class="slds-show_medium"  data-label="Image">
+                            <div class="slds-truncate" title="Image" style="overflow:visible;">
+                                <c:ImageContainer  aura:id="imgCont"  guid="{!dispObj.guid}" iterationIdx="{!dispObj.rowNum}" source="{!dispObj}" />
+                            </div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+    </aura:if>
+</aura:component>

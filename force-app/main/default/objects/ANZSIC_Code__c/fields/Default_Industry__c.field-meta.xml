@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Default_Industry__c</fullName>
+    <externalId>false</externalId>
+    <label>Default Industry</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Agriculture, Forestry and Fishing</fullName>
+                <default>false</default>
+                <label>Agriculture, Forestry and Fishing</label>
+            </value>
+            <value>
+                <fullName>Construction Services</fullName>
+                <default>false</default>
+                <label>Construction Services</label>
+            </value>
+            <value>
+                <fullName>Financial and Insurance Services</fullName>
+                <default>false</default>
+                <label>Financial and Insurance Services</label>
+            </value>
+            <value>
+                <fullName>Government and Community</fullName>
+                <default>false</default>
+                <label>Government and Community</label>
+            </value>
+            <value>
+                <fullName>Health Care and Social Assistance</fullName>
+                <default>false</default>
+                <label>Health Care and Social Assistance</label>
+            </value>
+            <value>
+                <fullName>Manufacturing</fullName>
+                <default>false</default>
+                <label>Manufacturing</label>
+            </value>
+            <value>
+                <fullName>Mining</fullName>
+                <default>false</default>
+                <label>Mining</label>
+            </value>
+            <value>
+                <fullName>Professional and Administrative Services</fullName>
+                <default>false</default>
+                <label>Professional and Administrative Services</label>
+            </value>
+            <value>
+                <fullName>Recreation and Entertainment</fullName>
+                <default>false</default>
+                <label>Recreation and Entertainment</label>
+            </value>
+            <value>
+                <fullName>Retail Trade</fullName>
+                <default>false</default>
+                <label>Retail Trade</label>
+            </value>
+            <value>
+                <fullName>Telecommunications and Media</fullName>
+                <default>false</default>
+                <label>Telecommunications and Media</label>
+            </value>
+            <value>
+                <fullName>Transport, Logistics and Warehousing</fullName>
+                <default>false</default>
+                <label>Transport, Logistics and Warehousing</label>
+            </value>
+            <value>
+                <fullName>Utilities</fullName>
+                <default>false</default>
+                <label>Utilities</label>
+            </value>
+            <value>
+                <fullName>Wholesale</fullName>
+                <default>false</default>
+                <label>Wholesale</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

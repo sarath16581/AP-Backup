@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Plan_Type_Name_Maximum_Length_is_40_char</fullName>
+    <active>true</active>
+    <description>Plan Type Name Maximum Length is 40 chars</description>
+    <errorConditionFormula>LEN(Name) &gt; 40</errorConditionFormula>
+    <errorMessage>Plan Type Name Maximum Length is 40 chars</errorMessage>
+</ValidationRule>

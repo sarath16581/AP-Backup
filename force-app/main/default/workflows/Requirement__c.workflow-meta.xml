@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Requirement_Deployed_Email</fullName>
+        <description>Requirement Deployed Email</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BAU_Email_Templates/Requirement_Deployed</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Requirement_Approval_Email</fullName>
+        <description>Send Requirement Approval Email</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BAU_Email_Templates/Requirement_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Requirement_Rejection_Email</fullName>
+        <description>Send Requirement Rejection Email</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BAU_Email_Templates/Requirement_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Requirement_Submission_Email</fullName>
+        <description>Send Requirement Submission Email</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>BAU_Email_Templates/Requirement_Submitted</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Update_Approved_for_Backlog_Checkbox</fullName>
+        <description>This update will check the Approved for Backlog field when a requirement has been approved by BAU</description>
+        <field>Approved_for_Backlog__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Approved for Backlog Checkbox</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Build_Date</fullName>
+        <field>Build_Date__c</field>
+        <formula>TODAY()</formula>
+        <name>Update Build Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Deploy_Date</fullName>
+        <field>Deploy_Date__c</field>
+        <formula>TODAY()</formula>
+        <name>Update Deploy Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Design_Date</fullName>
+        <field>Design_Date__c</field>
+        <formula>TODAY()</formula>
+        <name>Update Design Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Investigate_Date</fullName>
+        <description>This workflow will update the Investigate Stage Date</description>
+        <field>Investigate_Date__c</field>
+        <formula>TODAY()</formula>
+        <name>Update Investigate Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Requirement_Close_Date_with_Today</fullName>
+        <description>This field update will update the Date Requirement was closed.</description>
+        <field>Requirement_Close_Date__c</field>
+        <formula>Today()</formula>
+        <name>Update Requirement Close Date with Today</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Stage_Investigate</fullName>
+        <field>Stage__c</field>
+        <literalValue>Investigate</literalValue>
+        <name>Update Stage - Investigate</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_In_Progress</fullName>
+        <field>Status__c</field>
+        <literalValue>Not Started</literalValue>
+        <name>Update Status - In Progress</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Test_Date</fullName>
+        <field>Test_Date__c</field>
+        <formula>TODAY()</formula>
+        <name>Update Test Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Requirement Deployed</fullName>
+        <actions>
+            <name>Requirement_Deployed_Email</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Requirement__c.Closed_Reason__c</field>
+            <operation>equals</operation>
+            <value>Deployed successfully</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Requirement__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <description>This rule will ensure an email is sent to the requestor of a Requirement.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Build Date</fullName>
+        <actions>
+            <name>Update_Build_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This rule will capture the date the Stage was changed to Build</description>
+        <formula>ISCHANGED( Stage__c ) &amp;&amp; ISPICKVAL(Stage__c, &quot;Build&quot;)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Deploy Date</fullName>
+        <actions>
+            <name>Update_Deploy_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This rule will capture the date the Stage was changed to Deploy</description>
+        <formula>ISCHANGED( Stage__c ) &amp;&amp; ISPICKVAL(Stage__c, &quot;Deploy&quot;)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Design Date</fullName>
+        <actions>
+            <name>Update_Design_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This rule will capture the date the Stage was changed to Design</description>
+        <formula>ISCHANGED( Stage__c ) &amp;&amp; ISPICKVAL(Stage__c, &quot;Design&quot;)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Investigate Date</fullName>
+        <actions>
+            <name>Update_Investigate_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This rule will capture the date the Stage was changed to Investigate</description>
+        <formula>ISCHANGED( Stage__c ) &amp;&amp; ISPICKVAL(Stage__c, &quot;Investigate&quot;)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Requirement Close Date</fullName>
+        <actions>
+            <name>Update_Requirement_Close_Date_with_Today</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Requirement__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <description>This workflow will give the date stamp of when the requirement was closed.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Test Date</fullName>
+        <actions>
+            <name>Update_Test_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This rule will capture the date the Stage was changed to Test</description>
+        <formula>ISCHANGED( Stage__c ) &amp;&amp; ISPICKVAL(Stage__c, &quot;Test&quot;)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

@@ -1,0 +1,40 @@
+<apex:page standardController="Opportunity">
+
+<style type="text/css">
+
+.pbHeader {
+     display: none;
+}   
+
+.pbTitle {
+     display: none;
+}   
+
+.pbButton {
+     display: none;
+}   
+
+.labelCol
+{
+    width:34%;
+}
+
+.dataCol.col02{
+    width:64%;
+}
+
+.labelCol.empty.last {
+    width: 1%;
+}
+
+.dataCol.empty.last {
+    width: 1%;
+}
+
+</style>
+
+<flow:interview name="SalesImplementationRequest" finishLocation="{!URLFOR('/' + Opportunity.Id)}">
+<apex:param name="varOpptyId" value="{!Opportunity.Id}"/>
+</flow:interview>
+
+</apex:page>

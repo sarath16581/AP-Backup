@@ -1,0 +1,138 @@
+<apex:page docType="html-5.0" standardController="AMLCTF_Audit_Action_Statement__c" extensions="AMLCTFViewActionStatementExt" >
+    <!------------------------------------------------------------
+Author:        Deepu Chacko
+Company:       Salesforce
+Description:   Displays Action Statement with editable list of actions
+History
+<Date>          <Authors Name>      <Brief Description of Change>
+15.Sep.2016     Deepu Chacko        Initial Version
+------------------------------------------------------------>
+    <style>
+        textArea {
+        width: 99%;                     /* To prevent the border of textarea to overflow to the next cell */
+        border: 1px solid lightgray;    /* I prefer the mild color scheme and not the default black */
+        }
+        
+        /* 
+        Restrict the standard response drop down in the UI to a certain width so that irrespective of the number of characters
+        shown, it will not extend beyond the assigned width. Since the 'select' is embedded in a column, it is required to set
+        a max width for the column and then set a max width for dropdown. Note that you have to use both width and max-width for
+        the drop down for this to work.
+        http://stackoverflow.com/questions/10672586/how-to-make-select-elements-shrink-to-max-width-percent-style-within-fieldset 
+        */
+        .stdResponse {
+        max-width: 5%;
+        }
+        .stdResponse select {
+        width:100%; 
+        max-width:90%;
+        }
+    </style>
+    
+    <apex:form >
+        <apex:detail /> 
+        <br/>
+        
+        <apex:pageBlock title="{!$ObjectType.AMLCTF_Audit_Action__c.labelPlural}" id="pgActions">
+            <apex:pageMessages id="pgMsg"/>
+            
+            <!-- Command buttons representing Clone and Conga Composer -->
+            <apex:pageBlockButtons location="top">
+                <apex:actionStatus id="pgStatus">
+                    <apex:facet name="start">
+                        <img src="/img/loading.gif" /><span>Saving, please wait ...</span>
+                    </apex:facet>       
+                    <apex:facet name="stop">
+                        <apex:outputPanel layout="block">
+                            <apex:commandButton immediate="true" onclick="warnDelete(); return false;" value="Save" />
+                            <apex:commandButton immediate="true" action="/{!AMLCTF_Audit_Action_Statement__c.AMLCTF_Audit_Case__c}"  value="Cancel"/>
+                        </apex:outputPanel>
+                    </apex:facet>       
+                </apex:actionStatus>    
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockTable value="{!actions}" var="action" id="pgTable">
+                <apex:column width="1%" headerValue="Delete">
+                    <apex:inputCheckbox value="{!action.isUpdated}" style="display: none"/>
+                    <apex:inputCheckbox value="{!action.markedForDelete}" styleClass="chkDelete"
+                                        title="Select the checkbox to mark {!action.record.Name} for deletion."/>
+                </apex:column>
+                <apex:column width="4%" value="{!action.record.Name}"/>
+                <apex:column width="10%" value="{!action.record.AMLCTF_Task_Name__c}"/>
+                <apex:column headerValue="Standard Response" styleClass="stdResponse">
+                    <span   style="display: {!IF(action.stdResponses == null,'block','none')}">Not Available</span>
+                    <select style="display: {!IF(action.stdResponses != null,'block','none')}">
+                        <option value='0'>Select...</option>
+                        <apex:repeat value="{!action.stdResponses}" var="response">
+                            <option data-id='{!response.Id}'>{!response.Name}</option>
+                        </apex:repeat>
+                    </select>
+                </apex:column>
+                <apex:column width="40%" headerValue="{!$ObjectType.AMLCTF_Audit_Action__c.fields.AMLCTF_Comments_or_Findings__c.Label}">
+                    <apex:inputTextarea rows="3" value="{!action.record.AMLCTF_Comments_or_Findings__c}"/>
+                </apex:column>
+                <apex:column width="40%" headerValue="{!$ObjectType.AMLCTF_Audit_Action__c.fields.AMLCTF_Corrective_Action__c.Label}">
+                    <apex:inputTextarea rows="3" value="{!action.record.AMLCTF_Corrective_Action__c}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <!-- 
+        Findings and Corrective Action fields can have new line breaks and during unit testing it was observed that when 
+        the pageblocktable was rerendered, the formatting was lost. So the formatted text on the data bindings were lost.
+        To persist the formatting, we need to keep this in a section that is not rerendered after save. It is important
+        to rerender coz the table should not display actions that are deleted.
+        -->
+        <div id="stdResponses" style="display: none">
+            <apex:repeat value="{!actions}" var="action">
+                <apex:repeat value="{!action.stdResponses}" var="response">
+                    <span id="{!response.id}"  
+                          data-finding='{!HTMLENCODE(response.AMLCTF_Comments_or_Findings__c)}'
+                          data-correction='{!HTMLENCODE(response.AMLCTF_Corrective_Action__c)}'></span>
+                </apex:repeat>
+            </apex:repeat>            
+        </div>
+        
+        <!-- For referencing case id in Cancel button -->
+        <apex:outputText value="{!AMLCTF_Audit_Action_Statement__c.AMLCTF_Audit_Case__c}" style="display: none"></apex:outputText>
+        
+        <apex:actionFunction action="{!saveActions}" name="saveActions" status="pgStatus" reRender="pgTable, pgMsg" />
+    </apex:form>
+    
+    <apex:includeScript value="{!URLFOR($Resource.jquery_3_1_0, '/jquery-3.1.0.min.js')}"/>
+    
+    <script type="text/javascript">
+    $j = jQuery.noConflict();
+    
+    // When a standard Response is selected, populate the textareas on that row
+    $j('table').on('change', 'select', function(){
+        // Check if an option other than 'Select...' is selected
+        var selOpt = $j(this).find('option:selected');
+        if(selOpt.val() != '0'){
+            // Get the id of the selected standard response
+            var stdResponseId   = $j(selOpt).data('id');
+            var stdResponseNode = $j('span[id=' + stdResponseId + ']');
+            // find the textarea fields on that row by using the closest 'tr'
+            $j(this).closest('tr').find('textarea:first').val($j(stdResponseNode).data('finding'));
+            $j(this).closest('tr').find('textarea:last').val($j(stdResponseNode).data('correction'));
+            $j(this).closest('tr').find('input:first').prop('checked', true);   // Mark this flag so apex class knows to update just these records
+        }
+    });
+    
+    // If textarea is edited then mark the checkbox isUpdated so apex class can update just these records
+    $j('table').on('change', 'textarea', function(){
+        $j(this).closest('tr').find('input:first').prop('checked', true);
+    });
+    
+    function warnDelete(){
+        var cntDelete = $j('input.chkDelete:checked').length;
+        if(cntDelete > 0){
+            var msg = confirm('You have selected ' + cntDelete + ' record(s) to delete. Are you sure?');
+            if(!msg) return false;  // Cancel, Esc will return false
+        }
+        // Call the apex method to save changes
+        saveActions();
+    }
+    </script>
+    
+</apex:page>

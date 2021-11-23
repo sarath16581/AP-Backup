@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IndustryType__c</fullName>
+    <description>Drop down box to select - 17 types to select e.g. Retail, Agriculture</description>
+    <externalId>false</externalId>
+    <label>Industry</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Agriculture, Forestry, Fishing</fullName>
+                <default>false</default>
+                <label>Agriculture, Forestry, Fishing</label>
+            </value>
+            <value>
+                <fullName>Mining</fullName>
+                <default>false</default>
+                <label>Mining</label>
+            </value>
+            <value>
+                <fullName>Manufacturing</fullName>
+                <default>false</default>
+                <label>Manufacturing</label>
+            </value>
+            <value>
+                <fullName>Electricity, Gas, Water</fullName>
+                <default>false</default>
+                <label>Electricity, Gas, Water</label>
+            </value>
+            <value>
+                <fullName>Construction</fullName>
+                <default>false</default>
+                <label>Construction</label>
+            </value>
+            <value>
+                <fullName>Wholesale Trade</fullName>
+                <default>false</default>
+                <label>Wholesale Trade</label>
+            </value>
+            <value>
+                <fullName>Retail Trade</fullName>
+                <default>false</default>
+                <label>Retail Trade</label>
+            </value>
+            <value>
+                <fullName>Accommodation, Restaurant</fullName>
+                <default>false</default>
+                <label>Accommodation, Restaurant</label>
+            </value>
+            <value>
+                <fullName>Transport, Storage</fullName>
+                <default>false</default>
+                <label>Transport, Storage</label>
+            </value>
+            <value>
+                <fullName>Communication</fullName>
+                <default>false</default>
+                <label>Communication</label>
+            </value>
+            <value>
+                <fullName>Finance, Insurance</fullName>
+                <default>false</default>
+                <label>Finance, Insurance</label>
+            </value>
+            <value>
+                <fullName>Property, Business Services</fullName>
+                <default>false</default>
+                <label>Property, Business Services</label>
+            </value>
+            <value>
+                <fullName>Government</fullName>
+                <default>false</default>
+                <label>Government</label>
+            </value>
+            <value>
+                <fullName>Education</fullName>
+                <default>false</default>
+                <label>Education</label>
+            </value>
+            <value>
+                <fullName>Health and Community Services</fullName>
+                <default>false</default>
+                <label>Health and Community Services</label>
+            </value>
+            <value>
+                <fullName>Cultural, Recreation Services</fullName>
+                <default>false</default>
+                <label>Cultural, Recreation Services</label>
+            </value>
+            <value>
+                <fullName>Personal, Other Services</fullName>
+                <default>false</default>
+                <label>Personal, Other Services</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

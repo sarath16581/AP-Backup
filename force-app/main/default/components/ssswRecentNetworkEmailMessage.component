@@ -1,0 +1,34 @@
+<apex:component controller="ssswRecentNetworkEmailMessage" access="global">
+    
+    <apex:attribute type="string" name="EnquiryId"  assignTo="{!caseId}" description="Case Id"/>
+
+    <hr/>
+    <apex:outputText rendered="{!contactType == 'Email'}">
+    <div style="border-left: thick solid gray;padding-left:20px;margin-left:5px;">        
+        <div style="background: #ffedba;">
+            <div style="font-family: Arial,sans-serif; font-size:13px;padding-top:10px;padding-left:40px;">
+                --------------- Original Message ---------------
+                <br/>
+                <b>From:</b> {!em.FromAddress}
+                <br/>
+                <b>Sent:</b>&nbsp;<apex:outputField value="{!em.CreatedDate}" />
+                <br/>
+                <b>To:</b> {!em.ToAddress}
+                <br/>
+                <b>Subject:</b> {!em.Subject}
+            </div>
+
+            <apex:outputText value="{!em.HtmlBody}" escape="false" />
+        </div>    
+    </div>        
+    </apex:outputText>
+    
+    <apex:outputText rendered="{!contactType != 'Email'}">
+    <div style="border-left: thick solid gray;padding-left:20px;margin-left:5px;">        
+        <div style="background: #ffedba;">
+            <apex:outputText value="{!newEmail}" escape="false" />
+        </div>    
+    </div>  
+    </apex:outputText>
+
+</apex:component>

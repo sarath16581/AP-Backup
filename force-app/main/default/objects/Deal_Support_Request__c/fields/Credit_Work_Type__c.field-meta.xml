@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_Work_Type__c</fullName>
+    <description>Work Type selection for Credit Management Deal Support Request. 
+The field is a dependent picklist field of &apos;Pay Account Type&apos; picklist controlling field.</description>
+    <externalId>false</externalId>
+    <label>Credit Work Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Pay_Account_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Add lodgement point</fullName>
+                <default>false</default>
+                <label>Add lodgement point</label>
+            </value>
+            <value>
+                <fullName>Change billing account details</fullName>
+                <default>false</default>
+                <label>Change billing account details</label>
+            </value>
+            <value>
+                <fullName>Close billing account</fullName>
+                <default>false</default>
+                <label>Close billing account</label>
+            </value>
+            <value>
+                <fullName>Credit assessment query</fullName>
+                <default>false</default>
+                <label>Credit assessment query</label>
+            </value>
+            <value>
+                <fullName>Credit limit review</fullName>
+                <default>false</default>
+                <label>Credit limit review</label>
+            </value>
+            <value>
+                <fullName>Copy of invoice/statement</fullName>
+                <default>false</default>
+                <label>Copy of invoice/statement</label>
+            </value>
+            <value>
+                <fullName>Payment related query</fullName>
+                <default>false</default>
+                <label>Payment related query</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Billing Account</controllingFieldValue>
+            <controllingFieldValue>Sub Account</controllingFieldValue>
+            <valueName>Add lodgement point</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Account</controllingFieldValue>
+            <controllingFieldValue>Sub Account</controllingFieldValue>
+            <controllingFieldValue>StarTrack Account</controllingFieldValue>
+            <valueName>Change billing account details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Account</controllingFieldValue>
+            <controllingFieldValue>Sub Account</controllingFieldValue>
+            <valueName>Close billing account</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Account</controllingFieldValue>
+            <controllingFieldValue>StarTrack Account</controllingFieldValue>
+            <valueName>Credit assessment query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Account</controllingFieldValue>
+            <controllingFieldValue>StarTrack Account</controllingFieldValue>
+            <valueName>Credit limit review</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Account</controllingFieldValue>
+            <controllingFieldValue>Sub Account</controllingFieldValue>
+            <controllingFieldValue>StarTrack Account</controllingFieldValue>
+            <valueName>Copy of invoice/statement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Account</controllingFieldValue>
+            <controllingFieldValue>StarTrack Account</controllingFieldValue>
+            <valueName>Payment related query</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

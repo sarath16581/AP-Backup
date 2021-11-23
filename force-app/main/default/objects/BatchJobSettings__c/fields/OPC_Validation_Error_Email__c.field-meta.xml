@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OPC_Validation_Error_Email__c</fullName>
+    <defaultValue>&quot;sales.incentives@auspost.com.au&quot;</defaultValue>
+    <description>Email address to send OPC validation errors</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Email address to send OPC validation errors</inlineHelpText>
+    <label>OPC Validation Error Email</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Email</type>
+    <unique>false</unique>
+</CustomField>

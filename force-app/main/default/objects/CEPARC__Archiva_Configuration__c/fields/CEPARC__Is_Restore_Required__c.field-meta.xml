@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEPARC__Is_Restore_Required__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Restore is required for this object.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Restore is required for this object.</inlineHelpText>
+    <label>Is Restore Required?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

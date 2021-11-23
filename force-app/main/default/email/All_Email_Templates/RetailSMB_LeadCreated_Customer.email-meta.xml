@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email sent to Customer when Lead is created</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>RetailSMB_LeadCreated_Customer</name>
+    <style>none</style>
+    <subject>Thank you for Contacting Australia Post</subject>
+    <textOnly>Dear {!Lead.FirstName}  {!Lead.LastName},
+
+Thank you for your interest in our products and services.
+
+An enquiry has been raised on your behalf. Your reference number is {!Lead.Lead_Number__c}.
+
+We will respond to your enquiry shortly.
+
+
+Thank you,
+
+Australia Post</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

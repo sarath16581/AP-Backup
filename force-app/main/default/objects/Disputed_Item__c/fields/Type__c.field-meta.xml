@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <description>Pick list to distinguish whether the credit is discretionary or not</description>
+    <externalId>false</externalId>
+    <label>Credit Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Non-Discretionary</fullName>
+                <default>false</default>
+                <label>Non-Discretionary</label>
+            </value>
+            <value>
+                <fullName>Discretionary Credit</fullName>
+                <default>false</default>
+                <label>Discretionary Credit</label>
+            </value>
+            <value>
+                <fullName>Adjustment</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Adjustment</label>
+            </value>
+            <value>
+                <fullName>Ex Gratia</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Ex Gratia</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

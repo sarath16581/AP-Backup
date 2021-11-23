@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Resource_Type__c</fullName>
+    <description>TDF Enhance 18.09.20: Added to determine if assignment relates to a driver or a duty in trigger TDF_SetServiceAppointmentPrimarySR</description>
+    <externalId>false</externalId>
+    <formula>TEXT(ServiceResource.ResourceType)</formula>
+    <label>Service Resource Type</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

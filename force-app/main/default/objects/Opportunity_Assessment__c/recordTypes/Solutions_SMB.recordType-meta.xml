@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Solutions_SMB</fullName>
+    <active>true</active>
+    <description>SMB Customer for Solutions Opportunity</description>
+    <label>Solutions - SMB</label>
+    <picklistValues>
+        <picklist>Opportunity_Validation_Driver__c</picklist>
+        <values>
+            <fullName>Bids and Tenders</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solutions Sales</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

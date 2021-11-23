@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Is_Overdue__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>AND(NOT(ISNULL(DMAPP__Due_Date__c)), DMAPP__Due_Date__c &lt; TODAY(), DMAPP__Open__c == True)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is Overdue</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

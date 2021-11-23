@@ -1,0 +1,419 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <title>Australia Post</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <style type="text/css">
+            * {
+                -ms-text-size-adjust: 100%;
+                -webkit-text-size-adjust: none;
+                -webkit-text-resize: 100%;
+                text-resize: 100%;
+            }
+
+            table {
+                color: #4D4D54;
+            }
+
+            .header-bottom-border {
+                border-bottom: solid rgb(27, 150, 255);
+                margin-bottom: 2em;
+            }
+
+            .main-container {
+                padding:1em 2em 0 2em;
+            }
+
+            .link-no-decoration {
+                color: black;
+                text-decoration: none
+            }
+
+            .rear-column {
+                width: 15%;
+            }
+
+            .main-column {
+                width: 70%;
+            }
+
+            .traditional-rear-column {
+                width: 5%;
+            }
+
+            .traditional-main-column {
+                width: 90%;
+            }
+
+            .button-left-column {
+                /* white-space: nowrap; */
+                width: 65%;
+            }
+
+            .button-right-column {
+                width: 35%;
+            }
+
+            .tc-column {
+                width: 25%;
+            }
+
+            .tc-column-last {
+                width: 49%;
+            }
+            
+            /* Mobile Phone */
+            @media only screen and (max-width: 480px) {
+                .rear-column {
+                    width: 5%;
+                }
+
+                .main-column {
+                    width: 90%;
+                }
+
+                .button-left-column {
+                    width: 90%
+                }
+
+                .button-right-column {
+                    width: 10%
+                }
+
+                .traditional-rear-column {
+                    width: 5%;
+                }
+
+                .traditional-main-column {
+                    width: 90%;
+                }
+
+                .tc-column {
+                    width: 33%;
+                }
+
+                .tc-column-last {
+                    width: 33%;
+                }
+            }
+
+            /* desktop view */
+            @media only screen and (min-width: 481px) {
+                .rear-column {
+                    width: 15%;
+                }
+
+                .main-column {
+                    width: 70%;
+                }
+
+                .traditional-rear-column {
+                    width: 5%;
+                }
+
+                .traditional-main-column {
+                    width: 90%;
+                }
+
+                .button-left-column {
+                    /* white-space: nowrap; */
+                    width: 65%;
+                }
+
+                .button-right-column {
+                    width: 35%;
+                }
+
+                .tc-column {
+                    width: 25%;
+                }
+
+                .tc-column-last {
+                    width: 49%;
+                }
+            }
+
+            
+        </style>
+    </head>
+
+    <body style="margin: 0; padding: 0;" link="#dc1928" bgcolor="#F5F5F5" style="font-family: APTypeProText,-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif">
+        <!-- background color for Gmail -->
+        <center style="margin:0; padding:0; width: 100%; background-color: #F5F5F5;">
+        <!-- header -->
+        <div class="header-bottom-border">
+            <table width="100%" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+                <tr>
+                    <td width="3%"><div style="height: 0.5em">&nbsp;</div></td>
+                    <td width="77%"><div style="height: 0.5em">&nbsp;</div></td>
+                    <td width="20%"><div style="height: 0.5em">&nbsp;</div></td>
+                </tr>
+                <tr>
+                    <td width="3%">&nbsp;</td>
+                    <td width="77%">
+                        <img src="{!$Label.CHAS_ApLogoWithText}">
+                    </td>
+                    <td width="20%">
+                        <!-- <a href="https://auspost.com.au/auth/login" style="color: #4D4D54">VIEW ONLINE</a> -->
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td width="3%"><div style="height: 0.5em">&nbsp;</div></td>
+                    <td width="77%"><div style="height: 0.5em">&nbsp;</div></td>
+                    <td width="20%"><div style="height: 0.5em">&nbsp;</div></td>
+                </tr>
+            </table>
+        </div>
+
+
+        <!-- main -->
+        <table width="100%">
+            <tr>
+                <td class="rear-column">&nbsp;</td>
+                <td class="main-column">
+                    <table width="100%">
+                        <tr>
+                            <td width="80%" bgcolor="#FFFFFF" class="main-container">
+                                <table width="100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="padding:1em 0 0 0;">
+                                            <h1 style="font-weight: bold; color: black; font-size: xx-large">
+                                                We've received your payment details
+                                            </h1>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <br/>
+                                            <p style="color: black">Hi {!Compensation__c.ContactFirstName__c},</p>
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p style="color: black">
+                                                Thanks for providing your payment details for case number: <b>{!Compensation__c.Case_Number__c}</b>
+                                            </p>
+                                            <p
+                                             style="color: black" style="display: {!IF(ISNULL(Compensation__c.Tracking_Number__c), 'inherit', 'none')}">
+                                                We're sending compensation for the value of <b>{!Compensation__c.Total_Compensation_Amount__c}</b>.
+                                            </p>
+                                            <p style="color: black" style="display: {!IF(ISNULL(Compensation__c.Tracking_Number__c), 'none', 'inherit')}">
+                                                We're sending compensation for the value of <b>{!Compensation__c.Total_Compensation_Amount__c}</b> for your item with tracking number <b>{!Compensation__c.Tracking_Number__c}</b>.
+                                            </p>
+                                            <p>
+                                                <strong>What happens from here?</strong>
+                                            </p>
+                                            <p>
+                                                We'll process the compensation payment. Once the process is complete, we'll close your enquiry.
+                                            </p>
+                                            <p>
+                                                You'll receive the payment within 5 business days, depending on the destination bank's processing times.
+                                            </p>
+                                            <p>
+                                                If this compensation is for a late or missing item, it's possible that your item may still show up.
+                                                If the item gets delivered after the compensation has been paid, it can be kept.
+                                                No need to pay us back or open another case.
+                                            </p>
+                                            <p>
+                                                Thanks,
+                                                <br/>
+                                                AusPost Customer Services
+                                            </p>
+                                            <br/>
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="rear-column">&nbsp;</td>
+            </tr>
+        </table>
+
+        <!-- footer -->
+        <br/>
+        <table width="100%" >
+            <tr>
+                <td class="rear-column">&nbsp;</td>
+                <td class="main-column">
+                    <table width="100%" bgcolor="#EEEEEE">
+                        <tr>
+                            <td width="2%"><div style="min-height: 0.2em">&nbsp;</div></td>
+                            <td width="5%"><div style="min-height: 0.2em">&nbsp;</div></td>
+                            <td width="3%"><div style="min-height: 0.2em">&nbsp;</div></td>
+                            <td width="85%"><div style="min-height: 0.2em">&nbsp;</div></td>
+                            <td width="5%"><div style="min-height: 0.2em">&nbsp;</div></td>
+                        </tr>
+                        <tr>
+                            <td width="2%">&nbsp;</td>
+                            <td width="5%">
+                                <img src="{!$Label.CHAS_LockIcon}">
+                            </td>
+                            <td width="3%">
+                                &nbsp;
+                            </td>
+                            <td width="85%" style="border-left: 1px solid #808080">
+                                <div>
+                                    <p style="margin-left: 0.5em">
+                                        Australia Post will never send you an unsolicited email asking for your password, credit card details or account information
+                                    </p>
+                                </div>
+                            </td>
+                            <td width="5%">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="2%"><div style="min-height: 0.2em">&nbsp;</div></td>
+                            <td width="5%"><div style="min-height: 0.2em">&nbsp;</div></td>
+                            <td width="3%"><div style="min-height: 0.2em">&nbsp;</div></td>
+                            <td width="85%"><div style="min-height: 0.2em">&nbsp;</div></td>
+                            <td width="5%"><div style="min-height: 0.2em">&nbsp;</div></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="rear-column">&nbsp;</td>
+            </tr>
+        </table>
+
+        <!-- T&C -->
+        <br/>
+        <table width="100%">
+            <tr>
+                <td class="rear-column">&nbsp;</td>
+                <td class="main-column" style="border-top: 1px solid #E7E7E7; border-bottom: 1px solid #E7E7E7">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <table width="100%" style="font-weight: bold; color: black">
+                                    <colgroup>
+                                        <col style="width: 1%"/>
+                                        <col class="tc-column"/>
+                                        <col class="tc-column"/>
+                                        <col class="tc-column-last"/>
+                                    </colgroup>
+                                    <tr>
+                                        <td ><div style="height: 0.5em;"></div></td>
+                                        <td><div style="height: 0.5em;"></div></td>
+                                        <td><div style="height: 0.5em;"></div></td>
+                                        <td><div style="height: 0.5em;"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img width="40" height="40" src="{!$Label.CHAS_ApLogo}"/>
+                                        </td>
+                                        <td>
+                                            <a href="https://auspost.com.au/terms-conditions" class="link-no-decoration">Terms &amp; conditions</a>
+                                        </td>
+                                        <td>
+                                            <a href="https://auspost.com.au/help-and-support" class="link-no-decoration">Help &amp; support</a>
+                                        </td>
+                                        <td>
+                                            <a href="https://auspost.com.au/privacy" class="link-no-decoration">Privacy policy</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><div style="height: 0.5em;"></div></td>
+                                        <td><div style="height: 0.5em;"></div></td>
+                                        <td><div style="height: 0.5em;"></div></td>
+                                        <td><div style="height: 0.5em;"></div></td>
+                                    </tr>
+                                </table>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td width="100%">
+                                <p>
+                                    Nothing in this email is intended to exclude or limit any rights or remedies that you may have under the Australian Consumer Law.
+                                </p>
+                                <p>
+                                    This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don't think
+                                    you should have received this email, please call us on 13 13 18. Visit auspost.com.au for further information on our online
+                                    security.
+                                </p>
+                                <p>
+                                    Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that
+                                    the communication is free from errors, viruses, or inteference.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
+                <td class="rear-column">&nbsp;</td>
+            </tr>
+        </table>
+
+        <!-- Copyrights -->
+        <table width="100%">
+            <tr>
+                <td class="rear-column">&nbsp;</td>
+                <td class="main-column">
+                    <table width="100%">
+                        <col style="width: 50%"/>
+                        <col style="width: 50%"/>
+                        <col style="width: 1%"/>
+                        <col style="width: 1%"/>
+                        <tr>
+                            <td>
+                                @ 2020 Australia Post. All Rights Reserved.
+                            </td>
+                            <td style="text-align: right">
+                                <p style="padding-right: 1em">
+                                    Connect with Australia Post
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <a href="https://www.instagram.com/auspost/?hl=en">
+                                        <img width="24" height="24" src="{!$Label.CHAS_Insta_Icon}"/>
+                                    </a>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <a href="https://www.facebook.com/australiapost">
+                                        <img width="24" height="24" src="{!$Label.CHAS_FB_Icon}"/>
+                                    </a>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="rear-column">&nbsp;</td>
+            </tr>
+            
+        </table>
+
+        <!-- traditional custodians -->
+        <table width="100%" style="background-color: #31313D;">
+            <tr>
+                <td class="traditional-rear-column">&nbsp;</td>
+                <td class="traditional-main-column">
+                    <table style="width: 100%; color: white">
+                        <tr>
+                            <td>
+                                <img width="110" height="50px" src="{!$Label.CHAS_TraditionalCustodians}"/>
+                            </td>
+                            <td>
+                                <p>
+                                    Australia Post acknowledges the Traditional Custodians of the land on which we operate, live and gather as employees, and recognize their
+                                    continuing connection to land, water and community. We pay respect to Elders past, present and emerging.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="traditional-rear-column">&nbsp;</td>
+            </tr>
+        </table>
+        <br/>
+        <br/>
+    </body>
+</html>

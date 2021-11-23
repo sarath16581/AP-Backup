@@ -1,0 +1,110 @@
+<!--
+	Integrates with AME address validation API and provides address lookup and validation behaviour. Also allows
+    capturing the address manually.
+
+    Changelog:
+    2020-10-27 - Ranjeewa Silva - Created.
+ -->
+<template>
+
+    <div class="slds-form-element slds-lookup slds-is-open">
+        <!-- Search Box -->
+        <div class="search-container">
+            <lightning-layout-item size="12">
+                <lightning-input class="address-input"
+                                 type="search"
+                                 label={label}
+                                 placeholder={addressSearchPlaceholder}
+                                 value={searchTerm}
+                                 autocomplete="off"
+                                 onkeyup={handleSearchAddress}
+                                 onfocus={openSearchResultsList}
+                                 onblur={closeSearchResultsList}
+                                 field-level-help={helpText}
+                                 disabled={isAddressSearchDisabled}
+                                 required={required}></lightning-input>
+            </lightning-layout-item>
+            <template if:true={isLoadingAddressDetails}>
+                <lightning-spinner size="small" alternative-text="Loading"></lightning-spinner>
+            </template>
+        </div>
+        <template if:true={showSearchResults}>
+            <div class="slds-lookup__menu slds">
+                <template if:true={isLoadingSearchResults}>
+                    <div class="slds-p-horizontal_large slds-text-body_small">searching...</div>
+                </template>
+                <ul class="slds-lookup__list" role="listbox">
+                    <template for:each={searchResults} for:item="result">
+                        <c-search-result key={result.dpid} record={result} icon-name="standard:address"
+                                         search-term={searchTerm} onselected={handleSearchResultSelect}>
+                        </c-search-result>
+                    </template>
+                </ul>
+            </div>
+        </template>
+        <!-- Address Details -->
+        <template if:true={showDetails}>
+            <lightning-layout class="slds-box slds-m-top_small" multiple-rows>
+                <template if:true={errorMessage}>
+                    <div class="slds-text-color_error">{errorMessage}</div>
+                </template>
+                <lightning-layout-item size="12">
+                    <lightning-input class="address-input" required={required} disabled={isAddressInputDisabled} type="text" name="addressLine1" label="Address Line 1" onchange={handleAddressChange} value={address.addressLine1} autocomplete="off">
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="12">
+                    <lightning-input class="address-input" disabled={isAddressInputDisabled} type="text" name="addressLine2" label="Address Line 2" onchange={handleAddressChange} value={address.addressLine2} autocomplete="off">
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="12">
+                    <lightning-input class="address-input" required={required} disabled={isAddressInputDisabled} type="text" name="city" label="Suburb" onchange={handleAddressChange} value={address.city} autocomplete="off">
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input class="address-input" required={required} disabled={isAddressInputDisabled} type="text" name="state" label="State" onchange={handleAddressChange} value={address.state} autocomplete="off">
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input required={required} class="slds-m-left_small address-input"  disabled={isAddressInputDisabled} type="text" name="postcode" label="Postcode" value={address.postcode}
+                                     onchange={handleAddressChange} autocomplete="off"></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <div class="slds-form slds-form_stacked">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">{overrideLabel}</label>
+                            <lightning-input type="toggle"
+                                             label=""
+                                             variant="label-hidden"
+                                             message-toggle-active=""
+                                             message-toggle-inactive=""
+                                             checked={overrideAddress}
+                                             onchange={handleOverrideCheckboxChange}
+                                             name="senderAddressToggle"
+                                             class="address-override-toggle"
+                                             disabled={isConfirmed}>
+                            </lightning-input>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <template if:true={confirmationRequired}>
+                    <lightning-layout-item size="6">
+                        <div class="slds-m-top_medium">
+                            <div class="slds-float_right">
+                                <lightning-button-stateful
+                                        label-when-off="Confirm"
+                                        label-when-on="Confirmed"
+                                        label-when-hover="Cancel"
+                                        icon-name-when-off="utility:add"
+                                        icon-name-when-on="utility:check"
+                                        icon-name-when-hover="utility:close"
+                                        selected={isConfirmed}
+                                        onclick={handleConfirmSelectedAddress}>
+                                </lightning-button-stateful>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+                </template>
+            </lightning-layout>
+        </template>
+    </div>
+</template>

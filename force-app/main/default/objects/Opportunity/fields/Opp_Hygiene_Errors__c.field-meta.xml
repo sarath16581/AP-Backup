@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opp_Hygiene_Errors__c</fullName>
+    <description>Returns hygiene errors for missing opportunity information</description>
+    <externalId>false</externalId>
+    <formula>/* No Errors */
+IF(Opp_Hygiene_Rating__c =IMAGE(&quot;/img/samples/flag_green.gif&quot;,&quot;Opportunity Data Good&quot;),&quot;Opportunity Hygiene Good&quot;,
+
+/* No Product */
+IF(Product_Count__c  &lt; 1, &quot;No Product Entered, &quot;,&quot;&quot;) &amp; &quot;&quot; &amp;
+
+/* No Amount */
+IF(Amount  &lt;= 0,  &quot;Zero Amount Entered, &quot;,&quot;&quot;) &amp; &quot;&quot; &amp;
+
+/* No Type */
+IF(ISPICKVAL(Type, &quot;&quot;),&quot;No Type entered, &quot;, &quot;&quot;) &amp; &quot;&quot; &amp;
+
+/* Not Closed but Closed Date in the Past */
+IF(
+OR(ISPICKVAL(StageName, &quot;Noticed&quot;),  ISPICKVAL(StageName, &quot;Identified&quot;), ISPICKVAL(StageName, &quot;Validated&quot;),  ISPICKVAL(StageName, &quot;Qualified&quot;),  ISPICKVAL(StageName, &quot;Conditional Agreement&quot;)) &amp;&amp; (CloseDate  &lt;=    TODAY()),  &quot;Closed Date today or in the past, &quot;,&quot;&quot;) &amp; &quot;&quot; &amp;
+
+/* Closed but Closed Date in the Future*/
+ IF(
+OR(ISPICKVAL(StageName, &quot;Closed Won&quot;),  ISPICKVAL(StageName, &quot;Closed Lost&quot;), ISPICKVAL(StageName, &quot;Closed Disqualified&quot;)) &amp;&amp; (CloseDate  &gt; TODAY()),&quot;Closed Date in the future, &quot;,&quot;&quot;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Review these hygiene errors to improve your hygiene errors</inlineHelpText>
+    <label>Hygiene Errors</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

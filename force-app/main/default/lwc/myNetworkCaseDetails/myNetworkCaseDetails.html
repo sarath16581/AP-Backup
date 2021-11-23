@@ -1,0 +1,33 @@
+<!--
+  * @author       : arjun.singh@auspost.com.au
+  * @date         : 23/03/2020
+  * @description  : Component for Case Detail page
+--------------------------------------- History --------------------------------------------------
+2020-03-23 - Arjun Singh - Created
+2021-06-15 - Ranjeewa Silva - Embedded Happy Parcels into Case Details accordion
+-->
+<template>
+    <lightning-accordion allow-multiple-sections-open onsectiontoggle={handleSectionToggle}
+        active-section-name={activeSections}>
+        <lightning-card>
+            <lightning-accordion-section name="A" label="Case Details">
+                <div class="slds-m-around_medium">
+                    <lightning-record-form record-id={recordId} object-api-name={objectApiName} fields={fields}
+                        columns="3" mode="readonly" density="comfy">
+                    </lightning-record-form>
+                </div>
+            </lightning-accordion-section>
+            <lightning-accordion-section name="B" label="More Details">
+                <lightning-record-form record-id={recordId} object-api-name={objectApiName} layout-type="Full"
+                    columns="3" mode="readonly" density="comfy">
+                </lightning-record-form>
+            </lightning-accordion-section>
+            <lightning-accordion-section name="happyparcles" label="Happy Parcels">
+                <template if:true={recordFound}>
+                    <c-happy-parcel tracking-id={selectedCaseRecordWrapper.ReferenceID__c} read-only={recordFound}>
+                    </c-happy-parcel>
+                </template>
+            </lightning-accordion-section>
+        </lightning-card>
+    </lightning-accordion>
+</template>

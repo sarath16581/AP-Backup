@@ -1,0 +1,27 @@
+<!--
+    Lookup customer address in AME and populate booking location address. Also supports manual address override.
+	Changelog:
+	2019-10-07 - Dheeraj Mandavilli - Created
+    2021-08-27 - Ranjeewa Silva - Updated to use the new version of ame address lookup LWC - c-ame-address-validation2.
+ -->
+<template>
+    <lightning-card  variant="narrow"  title="Enter Customer Address Details" icon-name="standard:record">
+
+        <div class="slds-card__body slds-card__body_inner">
+            <template if:true={errorMessage}>
+                <div class="slds-text-color_destructive">{errorMessage}</div>
+            </template>
+            <c-ame-address-validation2
+                    label="Customer Address"
+                    help-text="If address not found, please expand and manually enter address."
+                    required="true"
+                    variant="show-detail-onsearch"
+                    oneditaddress={handleAddressUpdated}
+                    onselectaddress={handleAddressSelected}></c-ame-address-validation2>
+        </div>
+
+        <lightning-button class="slds-p-top_small slds-m-horizontal_medium" variant="brand" type="submit" name="update" label="Save" onclick={updateBookingLocationAddress}>
+        </lightning-button>
+
+    </lightning-card>
+</template>

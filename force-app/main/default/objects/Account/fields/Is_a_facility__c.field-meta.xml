@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_a_facility__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Determine if this account is an Australia Post retail outlet</description>
+    <externalId>false</externalId>
+    <label>Is a facility?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

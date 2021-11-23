@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_RestrictOwnerChange</fullName>
+    <active>true</active>
+    <description>This Validation rule will restrict the other users to modify proposal owner other than System Admin and DES Profile</description>
+    <errorConditionFormula>NOT(ISNEW()) &amp;&amp;
+ISCHANGED(OwnerId) &amp;&amp;
+$Profile.Name != &apos;System Administrator&apos; &amp;&amp;
+$Profile.Name != &apos;Enterprise Onboarding&apos;</errorConditionFormula>
+    <errorMessage>You are not authorized to change proposal owner, please contact Express Customer Onboarding team for support via Deal Support Request</errorMessage>
+</ValidationRule>

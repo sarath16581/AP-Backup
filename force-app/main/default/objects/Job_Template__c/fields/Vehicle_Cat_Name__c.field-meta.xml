@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vehicle_Cat_Name__c</fullName>
+    <externalId>false</externalId>
+    <label>Vehicle Cat Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>4 ULD Truck</fullName>
+                <default>false</default>
+                <label>4 ULD Truck</label>
+            </value>
+            <value>
+                <fullName>4 ULDs</fullName>
+                <default>false</default>
+                <label>4 ULDs</label>
+            </value>
+            <value>
+                <fullName>8 ULD Gated Truck</fullName>
+                <default>false</default>
+                <label>8 ULD Gated Truck</label>
+            </value>
+            <value>
+                <fullName>8 ULD Tailgate Truck</fullName>
+                <default>false</default>
+                <label>8 ULD Tailgate Truck</label>
+            </value>
+            <value>
+                <fullName>8 ULD Truck</fullName>
+                <default>false</default>
+                <label>8 ULD Truck</label>
+            </value>
+            <value>
+                <fullName>10 ULD Tailgate Truck</fullName>
+                <default>false</default>
+                <label>10 ULD Tailgate Truck</label>
+            </value>
+            <value>
+                <fullName>10 ULD Truck</fullName>
+                <default>false</default>
+                <label>10 ULD Truck</label>
+            </value>
+            <value>
+                <fullName>20 ULD Tailgate Truck</fullName>
+                <default>false</default>
+                <label>20 ULD Tailgate Truck</label>
+            </value>
+            <value>
+                <fullName>20 ULD Truck</fullName>
+                <default>false</default>
+                <label>20 ULD Truck</label>
+            </value>
+            <value>
+                <fullName>20 ULD Truck (Tailgate)</fullName>
+                <default>false</default>
+                <label>20 ULD Truck (Tailgate)</label>
+            </value>
+            <value>
+                <fullName>20 ULD Truck Aircan Equipped</fullName>
+                <default>false</default>
+                <label>20 ULD Truck Aircan Equipped</label>
+            </value>
+            <value>
+                <fullName>20 ULD Truck No tail gate lifter</fullName>
+                <default>false</default>
+                <label>20 ULD Truck No tail gate lifter</label>
+            </value>
+            <value>
+                <fullName>28 ULD Tailgate Truck</fullName>
+                <default>false</default>
+                <label>28 ULD Tailgate Truck</label>
+            </value>
+            <value>
+                <fullName>28 ULD Truck</fullName>
+                <default>false</default>
+                <label>28 ULD Truck</label>
+            </value>
+            <value>
+                <fullName>30 ULD Trailer</fullName>
+                <default>false</default>
+                <label>30 ULD Trailer</label>
+            </value>
+            <value>
+                <fullName>40/44 ULD Trailer</fullName>
+                <default>false</default>
+                <label>40/44 ULD Trailer</label>
+            </value>
+            <value>
+                <fullName>60 ULD Trailer</fullName>
+                <default>false</default>
+                <label>60 ULD Trailer</label>
+            </value>
+            <value>
+                <fullName>90 ULD Trailer</fullName>
+                <default>false</default>
+                <label>90 ULD Trailer</label>
+            </value>
+            <value>
+                <fullName>1-3T Enclosed Truck</fullName>
+                <default>false</default>
+                <label>1-3T Enclosed Truck</label>
+            </value>
+            <value>
+                <fullName>1-3T Open Truck</fullName>
+                <default>false</default>
+                <label>1-3T Open Truck</label>
+            </value>
+            <value>
+                <fullName>5T Enclosed Truck</fullName>
+                <default>false</default>
+                <label>5T Enclosed Truck</label>
+            </value>
+            <value>
+                <fullName>5T Open Tailgate Truck</fullName>
+                <default>false</default>
+                <label>5T Open Tailgate Truck</label>
+            </value>
+            <value>
+                <fullName>5T Open Truck</fullName>
+                <default>false</default>
+                <label>5T Open Truck</label>
+            </value>
+            <value>
+                <fullName>7T Enclosed Truck</fullName>
+                <default>false</default>
+                <label>7T Enclosed Truck</label>
+            </value>
+            <value>
+                <fullName>7T Open Truck</fullName>
+                <default>false</default>
+                <label>7T Open Truck</label>
+            </value>
+            <value>
+                <fullName>6 Metre Skel Trailer</fullName>
+                <default>false</default>
+                <label>6 Metre Skel Trailer</label>
+            </value>
+            <value>
+                <fullName>12 Metre Skel Trailer</fullName>
+                <default>false</default>
+                <label>12 Metre Skel Trailer</label>
+            </value>
+            <value>
+                <fullName>B Double</fullName>
+                <default>false</default>
+                <label>B Double</label>
+            </value>
+            <value>
+                <fullName>Dual Cab Ute</fullName>
+                <default>false</default>
+                <label>Dual Cab Ute</label>
+            </value>
+            <value>
+                <fullName>Dual Seat Van</fullName>
+                <default>false</default>
+                <label>Dual Seat Van</label>
+            </value>
+            <value>
+                <fullName>L/WBase Van</fullName>
+                <default>false</default>
+                <label>L/WBase Van</label>
+            </value>
+            <value>
+                <fullName>Long WB / High Roof Transit</fullName>
+                <default>false</default>
+                <label>Long WB / High Roof Transit</label>
+            </value>
+            <value>
+                <fullName>Prime Mover</fullName>
+                <default>false</default>
+                <label>Prime Mover</label>
+            </value>
+            <value>
+                <fullName>Utility</fullName>
+                <default>false</default>
+                <label>Utility</label>
+            </value>
+            <value>
+                <fullName>Van</fullName>
+                <default>false</default>
+                <label>Van</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

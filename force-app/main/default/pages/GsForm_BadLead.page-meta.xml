@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>26.0</apiVersion>
+    <availableInTouch>true</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Page shown to users when a bad Lead ID is provided (does not exist or has been converted or Lead ID does not match Lead Number)</description>
+    <label>GsForm_BadLead</label>
+</ApexPage>

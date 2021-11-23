@@ -1,0 +1,919 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>REQ_BAU_Requirement</fullName>
+    <active>true</active>
+    <description>Business As Usual Requirement - Considered for Minor Deployment</description>
+    <label>BAU Requirement</label>
+    <picklistValues>
+        <picklist>As_a__c</picklist>
+        <values>
+            <fullName>Coverage Sales User</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Data Team User</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finance Team User</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inside Sales User</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing User</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Sales User</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Leader</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>System Administrator</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>System User</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>BPMN_Required__c</picklist>
+        <values>
+            <fullName>Awaiting Sign Off</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Required</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Business_benefit__c</picklist>
+        <values>
+            <fullName>Efficiency Improvement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Improved Data Hygiene</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Improved Useability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Support job function</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Supports Process</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Capability_Streams__c</picklist>
+        <values>
+            <fullName>Key Account Planning and Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lead Generation Management and Distribution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Out of Scope</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pipeline Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product and Solution  Offer Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reporting and Analysis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Approach and Process</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Call Planning and Execution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Channel Planning and Budgeting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales and Channel Resource Optimisation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Territory Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>na</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Closed_Reason__c</picklist>
+        <values>
+            <fullName>Deployed successfully</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Downstream impacts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplicate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moved to project</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No business need</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No business rules</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No system capability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Upstream impacts</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>External_Vendor_Required__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Functional_Groups__c</picklist>
+        <values>
+            <fullName>Address Validation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Billing Account Data</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Call Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Campaign Reporting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Collateral Submission</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Collateral Visibility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Assignment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Maps</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Notification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Segmentation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Survey</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Integrity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplicate Detection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expenses</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incident Detail Visibility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incident Summary Visibility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Meeting Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunity Reporting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Organisation Data</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Organisation Structure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Out of Scope</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Point in Time Reporting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Selection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Updates</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Revenue Data</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Revenue Reporting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Team Optimisation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>User Notification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>na</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IT_CR_required__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority__c</picklist>
+        <values>
+            <fullName>Emergency Update</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Prototyped__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Related_Object__c</picklist>
+        <values>
+            <fullName>ANZSIC Code</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Account Plan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Activity - Event</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Activity - Task</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Address</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bid Internal Contacts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bid or Tender</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Billing Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Billing Account Staging</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Budget and Revenue by Months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Campaign</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cases</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Collateral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Competitor and Incumbent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Configuration update</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Level 5 Map</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customised Pricing Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dashboard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decision Criterion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deleted Record</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Document</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Drop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Drop Run List</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Field Analysis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Field Trip</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Forecast</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Geocode</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hub Catchment Reference</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Implementation Project</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Individuals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Individuals and Organisations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internal Contact</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Keyword</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Leads</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mass Reassign Opportunity Helper</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunity Assessment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunity Product Classification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Organisations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pain Chain</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product History</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Relationship Power Map</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Report</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Report Aggregate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Revenue Schedule</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Revenue by Billing Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Role</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Coach</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Coverage Change Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Team Reference</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salesforce for Outlook</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Search Phrase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service History</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Share of Wallet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Target and Revenue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Territory Assignment Reference</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>User Story</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Users</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Solution_Complexity__c</picklist>
+        <values>
+            <fullName>1 - Basic SFDC Functionality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 - Complex SFDC Functionality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3 - Coding Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4 - Integration Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5 - Coding %26 Integration Change</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Stage__c</picklist>
+        <values>
+            <fullName>Build</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deploy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Design</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Investigate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Launch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Test</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Validate</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Awaiting business rules</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awaiting information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Started</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>User_Impact_Rating__c</picklist>
+        <values>
+            <fullName>1 - No impact to end users</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 - Comms required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3 - Comms %26 QRG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4 - Comms%2C QRG %26 Briefing pack</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5 - Formal Training %26 support materials</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Validation_Status__c</picklist>
+        <values>
+            <fullName>Duplicate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Follow-up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OOS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refer to Jason</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Validated</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Work_Stream__c</picklist>
+        <values>
+            <fullName>DATA QUALITY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SALES EXECUTION</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SALES FINANCE</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Workshop_Group__c</picklist>
+        <values>
+            <fullName>Customer Maps</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Quality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Organisation Data</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pipeline Reporting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Revenue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Process</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Segmentation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Workshop_Topic_ID__c</picklist>
+        <values>
+            <fullName>1B</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1C</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1D</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1F</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1G</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1H</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2A</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2B</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2C</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2D</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2F</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3A</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3B</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Workshop_Topic__c</picklist>
+        <values>
+            <fullName>Analytic snapshots for historical data</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Billed Revenue Aggregate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Call route planning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Care Incidents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Quality Workshop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Heirarchy%2C Budgeting %26 Forecasting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hierarchy and Budgeting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Process Automation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Mapping</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product and Competitor Collateral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Operations - User Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Team Skills Matrix</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales expense tracking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard pricing %26 discount calculations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Territory management</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEPARC__Big_Object_Deployment_Status__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Big object deployment Status.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Big object deployment Status.</inlineHelpText>
+    <label>Big Object Deployment Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Submitted</fullName>
+                <default>false</default>
+                <label>Submitted</label>
+            </value>
+            <value>
+                <fullName>Succeeded</fullName>
+                <default>false</default>
+                <label>Succeeded</label>
+            </value>
+            <value>
+                <fullName>Failed</fullName>
+                <default>false</default>
+                <label>Failed</label>
+            </value>
+            <value>
+                <fullName>Submission Failed</fullName>
+                <default>false</default>
+                <label>Submission Failed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,1262 @@
+<!--
+    Interaction Workspace Connector implementation Visual Force page
+    Genesys Telecommunication Labs, Inc, Professional Services
+-->
+
+<apex:page docType="html-5.0" controller="WorkspaceConnectorBAController" showHeader="false" title="WorkspaceConnector Page">
+    <apex:includeScript value="/support/console/27.0/integration.js"/>
+    <script type="text/javascript" src="{!URLFOR($Resource.jquery, 'jquery-1.10.2.min.js')}"></script>
+    <apex:includeScript value="/support/api/27.0/interaction.js"/> 
+   
+<style>
+td img { 
+  vertical-align: top;
+}
+</style>
+   
+    <script type="text/javascript">
+    
+        var version = "01.07 02032014"
+       // set defaults                              
+        var requestTimeout = 5000; 
+        var pollQueueTimeout = 100;    
+        var pollQueueTimeoutError = 500;
+        var pollURL = "http://localhost";             
+        var url127 = "http://127.0.0.1";
+        var useLocalHost = true;
+        var pollPort = 0;
+        var requestPort = 0;
+        
+        var hideLog = true;
+        var statusConnected = false;
+        
+        var ixnWindows = [];
+        var clickToDialNum = "";
+                
+        var inServiceCloudConsole = false;
+    
+        j$ = jQuery.noConflict();
+        
+        j$(document).ready(function () {
+            logToConsole("Version = " + version);
+            sforce.interaction.isInConsole(function(isCon) {
+                if (isCon.result) {
+                    inServiceCloudConsole=true; 
+                    logToConsole('In Console');
+                } 
+                else {                    
+                    logToConsole('Not in console');
+                    //return;
+                } 
+                //var serviceCloudConsoleOnly = getURLParam("servicecloudconsoleonly","true");
+                //logToConsole('serviceCloudConsoleOnly = '+serviceCloudConsoleOnly);
+                var serviceCloudConsoleOnly = getURLParam("servicecloudconsoleonly","notPresent");
+                logToConsole("serviceCloudConsoleOnly from url = "+serviceCloudConsoleOnly);
+                    if(serviceCloudConsoleOnly == "notPresent")
+                    {
+                        serviceCloudConsoleOnly = readCookie("wsc_serviceCloudConsoleOnly");
+                        logToConsole("serviceCloudConsoleOnly from cookie = "+serviceCloudConsoleOnly);
+                        //TODO need to make default behavior part of call center definition
+                        if(serviceCloudConsoleOnly == 0)
+                            serviceCloudConsoleOnly = "false";
+                    }
+                    else
+                    {
+                        createCookie("wsc_serviceCloudConsoleOnly",serviceCloudConsoleOnly,1);
+                    }                   
+                    logToConsole('serviceCloudConsoleOnly = '+serviceCloudConsoleOnly);
+                    if((serviceCloudConsoleOnly == "false") || (serviceCloudConsoleOnly && inServiceCloudConsole))
+                    {
+                        initLogo();
+                        initCallCenter();
+                        logToConsole('Start polling');
+                        poll(100); 
+                        logToConsole('Polling started');
+                        CanCommunicate();
+                    }
+                    else
+                    {
+                        sforce.interaction.cti.setSoftphoneHeight(0);
+                        sforce.interaction.cti.setSoftphoneWidth(0);
+                    }
+            });
+        });
+        
+        function initLogo() {
+            var imgUrl = j$('#logo').html();
+            j$('#logoTd').html('<img src="' + imgUrl  + '">');
+            sforce.interaction.cti.setSoftphoneHeight(28);
+            sforce.interaction.cti.setSoftphoneWidth(200);
+        }
+
+        function initCallCenter()             
+        {        
+          pollPort = getURLParam("pollport",pollPort);
+            requestPort = getURLParam("requestport",requestPort);
+          logToConsole('pollPort from URL - ' + pollPort);
+          logToConsole('requestPort from URL - ' + requestPort);
+                
+            //if no port from url, get them from the cookie
+            if(pollPort == 0) {
+                    pollPort=readCookie("wsc_pollPort");
+                requestPort=readCookie("wsc_requestPort");
+                logToConsole('pollPort from cookie - ' + pollPort);
+                logToConsole('requestPort from cookie - ' + requestPort);
+            }
+
+            
+                sforce.interaction.cti.getCallCenterSettings(function(response)
+                {
+                logToConsole('getCallCenterSettings - ' + response.result);
+                var callCenterDefinition = j$.parseJSON(response.result); 
+                           
+               if(callCenterDefinition['/WorkspaceOptions/RequestTimeout'] != undefined && callCenterDefinition['/WorkspaceOptions/RequestTimeout'] != null) {
+                   requestTimeout = callCenterDefinition['/WorkspaceOptions/RequestTimeout'];              
+                   logToConsole('getCallCenterSettings: requestTimeout - ' + requestTimeout);
+               }
+           
+               if(callCenterDefinition['/WorkspaceOptions/PollQueueTimeout'] != undefined && callCenterDefinition['/WorkspaceOptions/PollQueueTimeout'] != null) {
+                   pollQueueTimeout= callCenterDefinition['/WorkspaceOptions/PollQueueTimeout'];              
+                   logToConsole('getCallCenterSettings: pollQueueTimeout - ' + pollQueueTimeout);
+               }
+           
+               if(callCenterDefinition['/WorkspaceOptions/PollQueueTimeoutError'] != undefined && callCenterDefinition['/WorkspaceOptions/PollQueueTimeoutError'] != null) {
+                   pollQueueTimeoutError= callCenterDefinition['/WorkspaceOptions/PollQueueTimeoutError'];              
+                   logToConsole('getCallCenterSettings: pollQueueTimeoutError - ' + pollQueueTimeoutError);
+               }                                  
+                    
+               if(callCenterDefinition['/WorkspaceOptions/UseLocalHost'] != undefined && callCenterDefinition['/WorkspaceOptions/UseLocalHost'] != null) {
+                   useLocalHost= callCenterDefinition['/WorkspaceOptions/UseLocalHost'];              
+                   logToConsole('getCallCenterSettings: UseLocalHost - ' + useLocalHost);
+                   if(useLocalHost === 'false')
+                       pollURL = url127;
+                   logToConsole('getCallCenterSettings: pollURL - ' + pollURL);
+               } 
+                    
+               if(pollPort == 0){
+                if(callCenterDefinition['/WorkspaceOptions/PollPort'] != undefined && callCenterDefinition['/WorkspaceOptions/PollPort'] != null && callCenterDefinition['/WorkspaceOptions/PollPort'] != '') {
+                   pollPort = callCenterDefinition['/WorkspaceOptions/PollPort'];              
+                   logToConsole('getCallCenterSettings: pollPort - ' + pollPort);
+                }
+                else{
+                    pollPort = 5050;
+                    logToConsole('pollPort default - ' + pollPort);
+                }
+               }        
+               
+               if(requestPort == 0){
+                if(callCenterDefinition['/WorkspaceOptions/RequestPort'] != undefined && callCenterDefinition['/WorkspaceOptions/RequestPort'] != null && callCenterDefinition['/WorkspaceOptions/RequestPort'] != '') {
+                   requestPort = callCenterDefinition['/WorkspaceOptions/RequestPort'];  
+                   logToConsole('getCallCenterSettings: requestPort - ' + requestPort);
+                                }
+                else{
+                    requestPort = 5051;
+                    logToConsole('requestPort default - ' + requestPort);
+                }
+                       }
+                    // if the port value is valid store the port information into a cookie
+                    if(pollPort!=0){
+                    createCookie("wsc_pollPort",pollPort,1);         
+                    createCookie("wsc_requestPort",requestPort,1);
+                }   
+                                                                            
+            });                        
+        }       
+        
+        // connection is made, enable features
+        function CanCommunicate() 
+        {                           
+            var dialListener = function (response) 
+            {
+                if (response.result == null) 
+                { 
+                    return;
+                }
+                
+                var result = JSON.parse(response.result);                
+                var numberToCall = result.number;
+                
+                // Remove any formatting, so it's just numbers.
+                numberToCall = numberToCall.replace(/\D/g,'');                
+
+                var msg = {
+                    action : 'Dial',
+                    actionData : { number : numberToCall }                    
+                };
+                clickToDialNum = numberToCall;
+                log("clickToDialNum = "+clickToDialNum);
+                Send(JSON.stringify(msg));
+            };           
+          sforce.interaction.cti.onClickToDial(dialListener);   
+            
+           
+            sforce.interaction.cti.enableClickToDial(function (response) {
+                if (response.result) {
+                    log("ClickToDial result was true");
+                } else {
+                    log("ClickToDial result was false");
+                }
+                logToConsole("ClickToDial = " + response.result);
+            });
+            
+            var subEventHandler = function (result) {
+                log("Focus changed to a different subtab. ID is:"
+                + result.id + "and object Id is:" + result.objectId);
+                // determine if we are going to send to Workspace
+                checkSubTab(result.objectId,"opened");                
+            }; 
+            var primaryEventHandler = function (result) {
+                log("Focus changed to a different primary tab. ID is:" + result.id + "and the object Id is:" + result.objectId);                                
+                // determine if we are going to send to Workspace
+                checkPrimarytab(result.objectId,"opened");
+                };           
+                         
+            if(inServiceCloudConsole)
+            {
+                //Add a listener for the 'CTIEvent' event type
+                sforce.console.addEventListener('CTIEvent', receiveSFMessage);
+                sforce.console.onFocusedPrimaryTab(primaryEventHandler);
+                //this does not work - get this error message
+                //"onFocusedSubtab: Cannot get workspace from frameId: SoftphoneIframe"
+                sforce.console.onFocusedSubtab(subEventHandler);
+             }                                             
+            
+            
+            if(!inServiceCloudConsole)
+            {
+                window.addEventListener('message', receiveWindowMessage, false);
+                
+                //If not in service cloud console, the search function must store the
+                //agent selection in the WorkspaceConnectorInfo becasue when the agent
+                //selects an entry from the search, it causes a refresh and the Connector
+                //is re-initialized. The Connector needs to check if there is anything
+                //in the WorkspaceConnectorInfo to send it to workspace
+                WorkspaceConnectorBAController.retrieveWorkspaceConnectorInfo("init",
+                        function(info){ 
+                    logToConsole("retrieveWorkspaceConnectorInfo = "+info);
+                    if(info != "none")
+                    {
+                        info = info.replace(/&(l|g|quo)t;/g, function(a,b){
+                            return {
+                               l   : '<',
+                               g   : '>',
+                               quo : '"'
+                              }[b];
+                        });
+                        logToConsole("retrieveWorkspaceConnectorInfo returns " + info);
+                        var infoEval = eval('(' + info + ')');
+                        if(infoEval.id != "null" && infoEval.sfdcObjectId != "null")
+                            sendAttachData(info);
+                        //reset the object/interaction id 
+                        WorkspaceConnectorBAController.setWorkspaceConnectorInfo("null","null",function(result){
+                            logToConsole("setWorkspaceConnectorInfo to null returns " + result);
+                        });                 
+                    }
+                });
+            }
+        };
+                          
+                           
+ ////////////////////////////////////////////////////////////////////////////////////////        
+ 
+        // *** Send to iWS *** //
+        
+ ////////////////////////////////////////////////////////////////////////////////////////        
+            
+                             
+        //inform workspace of navigation to Account primary tab
+        function checkPrimarytab(objID,actionPerformed)
+        {
+            log('checkPrimarytab: find associated inx Id for sfObject - ' + objID + 'action - ' + actionPerformed);
+            if(objID != null)
+            {
+                log("checkPrimarytab not null");                                                      
+                var test = j$.inArray(objID,ixnWindows);                
+                if(test != -1){
+                    log('checkPrimarytab: found match, sending to IWS');
+                    Send('{"action":"ShowInteraction","actionData":{"interactionId":"' + ixnWindows[test] + '"}');
+                }
+                else
+                  log('checkPrimarytab: could not find match');  
+            }
+            else
+                log('checkPrimarytab: objID is null');  
+        }
+    
+        //inform workspace of navigation to Contact sub tab
+        function checkSubTab(objID)
+        {
+            log('checkSubTab: find associated inx Id for sfObject - ' + objID );
+                        if(objID != null)
+            {
+                log("checkSubTab not null");                                                      
+                var test = j$.inArray(objID,ixnWindows);                
+                if(test != -1){
+                    log('checkSubTab: found match, sending to IWS');
+                    Send('{"action":"ShowInteraction","actionData":{"interactionId":"' + ixnWindows[test] + '"}');
+                }
+                else
+                  log('checkSubTab: could not find match');  
+            }
+            
+            log.debug('checkSubTab: objID is null');            
+        }    
+
+        
+          //inform workspace so it can attach data  
+          //input must be in JSON format
+          function sendAttachData(newData)
+          {
+            log("sendAttachData - " + newData);
+            processAttachData('{"action":"AttachData","actionData":' + newData + '}' );          
+          }
+    
+          function processAttachData(objToProcess) {
+                window.console&&console.log("processAttachData");
+                Send(objToProcess);
+          }
+          
+        
+////////////////////////////////////////////////////////////////////////////////////////        
+// event processing
+//
+// processMessage is called for all received communications from Interaction Workspace
+// that contains valid work to be performed.
+////////////////////////////////////////////////////////////////////////////////////////        
+        
+        function processMessage(obj)
+        {
+            //calculate date time
+            var date = new Date();
+            var displayDate = (date.getMonth()+1) + '/' + (date.getDate()) + '/' + date.getFullYear() 
+                    + " " + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(); 
+            
+            if(obj.action== "OpenObject"){
+                log("in OpenObject");  
+                // open based on type attribute                
+                if(obj.type=="Voice") {
+                    // if we have a userData attribute of MainMenu, then go to case processing
+                    if(obj.userData.MainMenu != null) {
+                        log("processMessage: Voice Case handling for menu = " + obj.userData.MainMenu);                           
+                        performCaseAction(obj); 
+                    } else {
+                        // Inbound or internal voice
+                        if(obj.calltype=="Inbound"||obj.calltype=="Internal") {
+                            log("processMessage: Inbound Voice handling for caller ID = " + obj.source);                           
+                            performInboundVoiceAction(obj); 
+                        }              
+
+                        // Outbound voice                        
+                        if(obj.calltype=="Outbound") {
+                            // attempt to open on outbound
+                            log("processMessage: Outbound Voice handling for party = " + obj.destination);                           
+                            performOutboundVoiceAction(obj); 
+                        } 
+                        if(obj.calltype == "Unknown") {
+                            log("processMessage: Unknown, clickToDialNum = " + clickToDialNum + ", destination = " + obj.destination);                            
+                                    clickToDialNum = "";
+                            //performOutboundVoiceAction(obj);
+                        }                         
+                    }                    
+                }
+                else if(obj.type=="Email") {
+                    log("processMessage: Email pop action for address: " + obj.source);                           
+                    performEmailAction(obj);        
+                }
+                else if(obj.type=="Chat") {
+                    log("processMessage: Chat pop action for address: " + obj.source);                           
+                    performChatAction(obj);        
+                }
+                else if(obj.type=="InteractionWorkItem") {
+                    log("processMessage: Workitem pop action for mediaType: " + obj.mediaType);                           
+                    performWorkItemAction(obj);                
+                }
+                else if(obj.type=="OpenMedia") {
+                        log("processMessage: OpenMedia pop action for mediaType: " + obj.mediaType + " for address: " + obj.source);
+                        performOpenMediaAction(obj);
+                }
+                else if(obj.type=="InteractionSms") {
+                    log("processMessage: Sms pop action for address: " + obj.source);                           
+                    performSmsAction(obj);                
+                }
+           }
+           else if(obj.action== "CreateActivity"){ 
+               log("CreateActivity for connID "+ obj.id + " delete Windows - " + ixnWindows[obj.id]);              
+               delete ixnWindows[obj.id];
+               
+               var objectIdForActivity = "";
+               //check for attached data sfdcObjectId - if it is there, then use that
+               if(obj.userData.sfdcObjectId != null)
+                   objectIdForActivity = obj.userData.sfdcObjectId;
+
+               log("CreateActivity for connID "+ obj.id + " using object " + objectIdForActivity);
+               
+               // create the task                
+               createTask(obj,objectIdForActivity);
+            }
+            else if(obj.action== "MarkedDone"){
+               log("MarkedDone for connID "+ obj.id +" delete Windows - " + ixnWindows[obj.id]);
+               delete ixnWindows[obj.id];
+            }
+            else if(obj.action == "FocusTab"){
+                 log("FocusTab for " + obj.id);
+                 processFocusTab(obj.id);
+            }
+            clickToDialNum = "";
+        }
+
+        // bring a primary tab to front  
+        function processFocusTab(connId)
+        {
+            log("processFocusTab for "+ connId);
+            var objId = ixnWindows[connId];
+            if(objId != null)
+            {
+                    if(inServiceCloudConsole)
+                    force.console.openPrimaryTab(null,'/' + objId, true); 
+            }
+        }
+  
+        // refresh a primary tab  
+        var processTabID = function processTabID(result) {
+            if(result.id != null)
+            {
+                log("processTabID result.id = " +result.id);
+                sforce.console.refreshPrimaryTabById(result.id, false);
+            }
+        };              
+        
+////////////////////////////////////////////////////////////////////////////////////////        
+// Inbound and Outbound Voice handling
+////////////////////////////////////////////////////////////////////////////////////////
+
+        // screen pop for inbound voice. If role is RoleDestination, then this is inbound, if
+        // RoleOrigination, then it is an manual outbound dial        
+        function performInboundVoiceAction(obj)
+        {        
+            log("in performInboundVoiceAction()");
+            
+            // determine number to use based on role
+            log("Role is " + obj.role);
+            var lookupNumber=obj.source;
+            if(obj.role=='RoleOrigination')
+                lookupNumber=obj.destination;
+            
+            // if contains a CaseNumber attached data, pop on it
+            if(obj.userData.CaseNumber!==undefined) {
+                WorkspaceConnectorBAController.findCaseFromNumber(obj.userData.CaseNumber,function(o) {
+                    if(o!=null) {
+                        log("Screen popping CASE record: " + o.Name);
+                        if(inServiceCloudConsole){                
+                            sforce.console.openPrimaryTab(null,'/' + o.Id,true);
+                        }
+                        else{
+                            sforce.interaction.screenPop('/'+o.Id, function(response) {});
+                        }   
+                    } else {
+                        log("No records found with Case Number containing: " + lookupNumber);                
+                    }         
+                });        
+            } else {
+                    // check for attached data sfdcObjectId - if it is already there, then use that 
+                    if(obj.userData.sfdcObjectId !== undefined){
+                        log("sfdcObjectId = " + obj.userData.sfdcObjectId);
+                        if(inServiceCloudConsole){
+                            sforce.console.openPrimaryTab(null,'/' + obj.userData.sfdcObjectId,true);
+                        }
+                        else{
+                            sforce.interaction.screenPop('/'+ obj.userData.sfdcObjectId, function(response) {});
+                        }
+                        return;
+                    }
+                                               
+                // using the source attribute locate the contact
+                WorkspaceConnectorBAController.findObjectFromANI(lookupNumber,function(o) {
+                //WorkspaceConnectorBAController.findContactFromANI(lookupNumber,function(o) {
+                    if(o!=null) {
+                            if(o == 'multiple found' || o == 'not found')
+                                {
+                                openSearch(lookupNumber,obj.id);
+                                return;
+                                }
+                        log("Screen popping record: " + o.FirstName);  
+                        if(inServiceCloudConsole){             
+                            sforce.console.openPrimaryTab(null,'/' + o.Id,true);
+                        }
+                        else {
+                            sforce.interaction.screenPop('/'+o.Id, function(response) {});
+                        }
+                        //inform workspace of SFobject id for subsequent use in activity creation and transfer
+                        var newData = '{"sfdcObjectId":"' + o.Id + '","id":"' + obj.id + '"}';
+                        ixnWindows[obj.id] =  o.id;
+                        sendAttachData(newData);
+                    } else {
+                        log("No records found with phone field containing: " + lookupNumber);                
+                    }         
+                });        
+            }
+        }
+                
+        // screen pop for outbound voice
+        function performOutboundVoiceAction(obj)
+        {        
+            log("in performOutboundVoiceAction()");
+            // check for attached data sfdcObjectId - if it is already there, then pop that 
+            if(obj.userData.sfdcObjectId !== undefined){
+                log("sfdcObjectId = " + obj.userData.sfdcObjectId);
+                if(inServiceCloudConsole){
+                    sforce.console.openPrimaryTab(null,'/' + obj.userData.sfdcObjectId,true);
+                }   
+                else
+                {
+                    sforce.interaction.screenPop('/'+ obj.userData.sfdcObjectId,function(response) {});
+                }
+                return;
+            }            
+            
+            // using the destination attribute locate the contact
+            WorkspaceConnectorBAController.findObjectFromANI(obj.destination,function(o) {
+            //WorkspaceConnectorBAController.findContactFromANI(obj.destination,function(o) {
+                if(o!=null) {
+                    log("Screen popping record: " + o.Name);
+                    if(inServiceCloudConsole){                
+                        sforce.console.openPrimaryTab(null,'/' + o.Id,true);
+                    }
+                    else
+                            {
+                                sforce.interaction.screenPop('/'+ o.Id,function(response) {});
+                            }
+                                        //inform workspace of SFobject id for subsequent use in activity creation and transfer
+                    var newData = '{"sfdcObjectId":"' + o.Id + '","id":"' + obj.id + '"}';
+                    sendAttachData(newData);                    
+                } else {
+                    log("No records found with phone field containing: " + obj.destination);                
+                }         
+            });        
+        }
+
+////////////////////////////////////////////////////////////////////////////////////////        
+// Email handling
+////////////////////////////////////////////////////////////////////////////////////////
+
+        // screen pop for email
+              
+        function performEmailAction(obj)
+        {        
+            log("in performEmailAction()");
+            // check for attached data sfdcObjectId - if it is already there, then pop that 
+            if(obj.userData.sfdcObjectId !== undefined){
+                log("sfdcObjectId = " + obj.userData.sfdcObjectId);
+                if(inServiceCloudConsole){
+                    sforce.console.openPrimaryTab(null,'/' + obj.userData.sfdcObjectId,true);
+                }
+                else
+                {
+                    sforce.interaction.screenPop('/'+ obj.userData.sfdcObjectId,function(response) {});
+                }
+                return;
+            }                           
+            // using the source attribute locate the contact
+            WorkspaceConnectorBAController.findContactFromEmailAddress(obj.source,function(o) {
+                if(o!=null) {
+                    log("Screen popping record: " + o.Name);
+                    if(inServiceCloudConsole){                                
+                        sforce.console.openPrimaryTab(null,'/' + o.Id,true);
+                    }
+                    else
+                            {
+                                sforce.interaction.screenPop('/'+ o.Id,function(response) {});
+                            }
+                                        //inform workspace of SFobject id for subsequent use in activity creation and transfer
+                    var newData = '{"sfdcObjectId":"' + o.Id + '","id":"' + obj.id + '"}';
+                    sendAttachData(newData);                    
+                } else {
+                    log("No records found with email address containing: " + obj.source);                
+                }         
+            });        
+        }
+
+////////////////////////////////////////////////////////////////////////////////////////        
+// Chat handling
+////////////////////////////////////////////////////////////////////////////////////////
+
+        // screen pop for chat
+        function performChatAction(obj)
+        {        
+            log("in performChatAction()");
+            // check for attached data sfdcObjectId - if it is already there, then pop that 
+            if(obj.userData.sfdcObjectId !== undefined){
+                log("sfdcObjectId = " + obj.userData.sfdcObjectId);
+                if(inServiceCloudConsole){              
+                    sforce.console.openPrimaryTab(null,'/' + obj.userData.sfdcObjectId,true);
+                }
+                else
+                {
+                    sforce.interaction.screenPop('/'+ obj.userData.sfdcObjectId,function(response) {});
+                }               
+                return;
+            }            
+            
+            var name=obj.source;
+                           
+            // using the source attribute locate the contact
+            WorkspaceConnectorBAController.findContactFromChatAddress(name,function(o) {
+                if(o!=null) {
+                    log("Screen popping record: " + o.Name);
+                    if(inServiceCloudConsole){                                                                    
+                        sforce.console.openPrimaryTab(null,'/' + o.Id,true);
+                    }
+                    else
+                            {
+                                sforce.interaction.screenPop('/'+ o.Id,function(response) {});
+                            }                    
+                                        //inform workspace of SFobject id for subsequent use in activity creation and transfer
+                    var newData = '{"sfdcObjectId":"' + o.Id + '","id":"' + obj.id + '"}';
+                    sendAttachData(newData);                    
+                } else {
+                    log("performChatAction: No records found with Name containing: " + name);                
+                }         
+            });        
+        }
+    
+   
+////////////////////////////////////////////////////////////////////////////////////////        
+// WorkItem handling
+////////////////////////////////////////////////////////////////////////////////////////
+
+        // screen pop for WorkItem
+        function performWorkItemAction(obj)
+        {  
+            log("in performWorkItemAction()");
+            // check for attached data sfdcObjectId - if it is already there, then pop that 
+            if(obj.userData.sfdcObjectId !== undefined){
+                log("sfdcObjectId = " + obj.userData.sfdcObjectId);
+                if(inServiceCloudConsole){                              
+                    sforce.console.openPrimaryTab(null,'/' + obj.userData.sfdcObjectId,true);
+                }
+                else
+                {
+                    sforce.interaction.screenPop('/'+ obj.userData.sfdcObjectId,function(response) {});
+                }               
+                return;
+            }
+                  var name=obj.source;
+                           
+            // using the source attribute locate the contact
+            WorkspaceConnectorBAController.findContactFromWorkItemAddress(name,function(o) {
+                if(o!=null) {
+                    log("Screen popping record: " + o.Name);
+                    if(inServiceCloudConsole){                                                                                                        
+                        sforce.console.openPrimaryTab(null,'/' + o.Id,true);
+                    }
+                    else
+                            {
+                                sforce.interaction.screenPop('/'+ o.Id,function(response) {});
+                            }                      
+                                        //inform workspace of SFobject id for subsequent use in activity creation and transfer
+                    var newData = '{"sfdcObjectId":"' + o.Id + '","id":"' + obj.id + '"}';
+                    sendAttachData(newData);                    
+                } else {
+                    log("performWorkItemAction: No records found with Name containing: " + name);                
+                }         
+            });            
+        }         
+
+
+////////////////////////////////////////////////////////////////////////////////////////        
+// Open Media handling
+////////////////////////////////////////////////////////////////////////////////////////
+
+        // screen pop for OpenMedia
+        function performOpenMediaAction(obj)
+        { 
+            log("in performOpenMediaAction()");
+            // check for attached data sfdcObjectId - if it is already there, then pop that 
+            if(obj.userData.sfdcObjectId !== undefined){
+                log("sfdcObjectId = " + obj.userData.sfdcObjectId);
+                if(inServiceCloudConsole){                                              
+                    sforce.console.openPrimaryTab(null,'/' + obj.userData.sfdcObjectId,true);
+                }
+                else
+                {
+                    sforce.interaction.screenPop('/'+ obj.userData.sfdcObjectId,function(response) {});
+                } 
+                return;
+            }
+                        var name=obj.source;
+
+            // using the source attribute locate the contact
+            WorkspaceConnectorBAController.findContactFromOpenMediaAddress(name,function(o) {
+                if(o!=null) {
+                    log("Screen popping record: " + o.Name);
+                    if(inServiceCloudConsole){                                    
+                        sforce.console.openPrimaryTab(null,'/' + o.Id,true);
+                    }
+                    else
+                            {
+                                sforce.interaction.screenPop('/'+ o.Id,function(response) {});
+                            }
+                                        //inform workspace of SFobject id for subsequent use in activity creation and transfer
+                    var newData = '{"sfdcObjectId":"' + o.Id + '","id":"' + obj.id + '"}';
+                    sendAttachData(newData);                    
+                } else {
+                    log("performOpenMediaAction: No records found with Name containing: " + name);                
+                }         
+            }); 
+        }
+    
+    
+////////////////////////////////////////////////////////////////////////////////////////        
+// Case handling
+////////////////////////////////////////////////////////////////////////////////////////
+
+        /* 
+        Opens an existing Case if MainMenu = 'Existing Ticket'
+        or creates a new Case if MainMenu = 'New Ticket'
+        */
+        function performCaseAction(openObj)
+        {        
+            log("in performCaseAction() with main menu=" + openObj.userData.MainMenu);
+
+            // Existing Ticket
+            if(openObj.userData.MainMenu == 'Existing Ticket') {
+                log("Opening an Existing CASE with number: " + openObj.userData.TicketNumber);
+                WorkspaceConnectorBAController.findCaseFromNumber(openObj.userData.TicketNumber, 
+                function(result,event)
+                {
+                    if(result != null) {
+                        log("found Case.Id=" + result.Id + " (CaseNumber " + result.CaseNumber + ")");
+                        if(inServiceCloudConsole){
+                            sforce.console.openPrimaryTab(null,'/' + result.Id,true,result.CaseNumber);                                        
+                        }
+                        else
+                        {
+                            sforce.interaction.screenPop('/'+result.Id,function(response) {});
+                        }
+                    }                        
+                    else {
+                        log('No case found, defaulting to navigator tab for user search');  
+                        try {
+                            // display the CaseNotFound page allowing the user to correct
+                            // correct the input case and re-pop.
+                            if(inServiceCloudConsole)
+                                sforce.console.openPrimaryTab(null,'/apex/WSC_CaseNotFound?CaseNumber=' + openObj.userData.TicketNumber,true,'Case Not Found');                      
+                        } catch(e) {
+                            //alert("Error=" + e);                       
+                        }                         
+                    }                        
+                });
+            }
+
+            // New Ticket            
+            if(openObj.userData.MainMenu == 'New Ticket') {
+                log("New Ticket requested");    
+                 
+                // fetch the product line and product IDs
+                var canPop=false;            // indicates if all data attributes available to pop form                
+                WorkspaceConnectorBAController.getProductFromName(openObj.userData.FunctionalGroup, function(pl) {
+                    if(pl!=null) {
+                        WorkspaceConnectorBAController.getProductFromName(openObj.userData.ProductGroup, function(sp) {
+                            if(sp!=null) {
+                                log("Opening new Product Case for " + openObj.userData.Employer + " using product line: " + openObj.userData.FunctionalGroup + " and product: " + openObj.userData.ProductGroup);    
+                                // open the New Case page forcing bypass of first two forms with prefilled contacts and products
+                                if(inServiceCloudConsole)
+                                    sforce.console.openPrimaryTab(null,'/apex/Portal_Select_Case_Type?isSaas=true&RecordType=012J0000000CsVB&sto=' + openObj.userData.SoldToSFDCId + '&eu=' + openObj.userData.EndUserSFDCId + '&pl=' + pl.Id + '&sp=' + sp.Id + '&conid=' + openObj.userData.ContactSFDCId,true,'New Case');
+                                canPop=true;        // we have popped                                    
+                            }                                   
+                        });
+                    }
+                });
+            }                
+             
+            // Something Else             
+            if(openObj.userData.MainMenu == 'Something Else') {
+                log("Something else requested");             
+                // do nothing
+            }                
+        }          
+
+////////////////////////////////////////////////////////////////////////////////////////        
+// Task handling
+//
+// Writes a simple task from provided disposition information
+////////////////////////////////////////////////////////////////////////////////////////
+
+       function createTask(createObj,objIdForActivity) {
+            log("createTask");
+            //calculate date time
+            var date = new Date();
+            var displayDate = (date.getMonth()+1) + '/' + (date.getDate()) + '/' + date.getFullYear() 
+                    + " " + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(); 
+            
+            var lookupSource = "";
+            var ixnType = "";
+            var mediaType = "";
+            log("createTask for " + createObj.type);
+            switch(createObj.type) {
+                case "Voice":
+                   // if outbound then use destination as source
+                   if(createObj.calltype == "Outbound") {
+                        lookupSource = createObj.destination;
+                        ixnType="Outbound";
+                   }
+                   else {
+                       if(createObj.role=='RoleOrigination') {
+                            lookupSource = createObj.destination;
+                            ixnType="Voice-Outbound Dial";
+                        }
+                        else {
+                            lookupSource=createObj.source;
+                            ixnType="Voice-Inbound";
+                        }
+                   }
+                    break;
+                case "Email":
+                    lookupSource=createObj.source; 
+                    ixnType=createObj.type;       
+                    break;
+                case "Chat":
+                    //lookupSource=createObj.userData.FirstName + ' ' + createObj.userData.LastName
+                    lookupSource=createObj.source;
+                    ixnType=createObj.type;       
+                    break;
+                case "InteractionWorkItem": 
+                    //lookupSource=createObj.userData.FirstName + ' ' + createObj.userData.LastName
+                    lookupSource=createObj.source;
+                    ixnType=createObj.type;
+                    mediaType=createObj.mediaType;        
+                    break;
+                case "OpenMedia":
+                    //lookupSource=createObj.userData.FirstName + ' ' + createObj.userData.LastName
+                    lookupSource=createObj.source;                     
+                    ixnType=createObj.type;  
+                    mediaType=createObj.mediaType;     
+                    break;
+                case "Social":
+                    lookupSource=createObj.source; 
+                    ixnType=createObj.type;       
+                    break; 
+                default:
+                    log("activity not created for " + createObj.type);
+                    return;
+            }            
+                
+            if(objIdForActivity != "")    
+                log("createTask: " + ixnType + " using objIdForActivity " + objIdForActivity + ", not lookupSource "+lookupSource);  
+            else
+              log("createTask: " + ixnType + " using lookupSource "     + lookupSource     + ", not objIdForActivity");
+           
+            var _CALL_DURATION = (createObj.duration === undefined)? "" : createObj.duration;
+            var _IXNTYPE = ixnType;
+            var _COMMENTS = (createObj.notes === undefined)? "" : createObj.notes;
+            var _DISP = (createObj.userData.DispositionCode=== undefined)? "" : createObj.userData.DispositionCode;
+            var _DNIS = (createObj.destination === undefined)? "" : createObj.destination ;
+            var _GENESYSID = (createObj.id === undefined)? "" : createObj.id;
+            var _ANI = (createObj.source === undefined)? "" : createObj.source ;
+            var _SFDC_OBJECT_ID = objIdForActivity;
+            var _SFDC1value = (createObj.SFDC1value === undefined) ? "" : createObj.SFDC1value;
+            var _SFDC2value = (createObj.SFDC2value === undefined) ? "" : createObj.SFDC2value;
+            var _SFDC3value = (createObj.SFDC3value === undefined) ? "" : createObj.SFDC3value;
+            var _SFDC4value = (createObj.SFDC4value === undefined) ? "" : createObj.SFDC4value;
+            var _SFDC5value = (createObj.SFDC5value === undefined) ? "" : createObj.SFDC5value;
+            var _SFDC1field = (createObj.SFDC1field === undefined) ? "" : createObj.SFDC1field;
+            var _SFDC2field = (createObj.SFDC2field === undefined) ? "" : createObj.SFDC2field;
+            var _SFDC3field = (createObj.SFDC3field === undefined) ? "" : createObj.SFDC3field;
+            var _SFDC4field = (createObj.SFDC4field === undefined) ? "" : createObj.SFDC4field;
+            var _SFDC5field = (createObj.SFDC5field === undefined) ? "" : createObj.SFDC5field;
+             
+            log("creating task map");
+            var mapActivity = {"Call Duration":_CALL_DURATION,
+                               "IXN Type":_IXNTYPE,
+                               "Comments":_COMMENTS,                               
+                               "Disposition":_DISP,"DNIS":_DNIS,
+                               "GenesysId":_GENESYSID,"ANI":_ANI,
+                               "sfdc Object Id":_SFDC_OBJECT_ID,
+                               "SFDC1value":_SFDC1value,"SFDC2value":_SFDC2value,"SFDC3value":_SFDC3value,"SFDC4value":_SFDC4value,"SFDC5value":_SFDC5value,
+                               "SFDC1field":_SFDC1field,"SFDC2field":_SFDC2field,"SFDC3field":_SFDC3field,"SFDC4field":_SFDC4field,"SFDC5field":_SFDC5field,
+                               "Media Type":mediaType,
+                               "DATE":displayDate,"LOOKUP":lookupSource};
+
+            WorkspaceConnectorBAController.createActivity(mapActivity,function(result,event) {
+                log("createActivity RESULT = "+ result);
+                    
+                if(result != null && result != "not found") {                       
+                    log("redirect to new activity - " + result);
+                    if(inServiceCloudConsole){
+                        sforce.console.openPrimaryTab(null,'/' + result, true);
+                        
+                        log("getTabID for refresh");
+                        sforce.console.getFocusedPrimaryTabId(processTabID); 
+                    }                                                       
+                    else
+                    {
+                    sforce.interaction.screenPop('/'+result, function(response) {});
+                    }
+                }   
+                else
+                    log("Could not create task for");
+            });     
+        }
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////        
+        
+        // *** Search Handling **** //
+        
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+        function openSearch(searchField,ixnId)
+        {
+            log("openSearch for "+searchField);
+            //var urlString = "/apex/CustomContactLookupBA?lksrch="+searchField + "&ixnId=" + ixnId;
+            var urlString = "/apex/CustomContactLookupBA?lksrch="+searchField + "&ixnId=" + ixnId + "&inServiceCloudConsole=" + inServiceCloudConsole;
+            log("url = " + urlString);
+            if(inServiceCloudConsole){ 
+                sforce.console.openPrimaryTab(null,urlString,true,'Search'); 
+            }                         
+            else{
+                sforce.interaction.screenPop(urlString, function(response) {});
+            }
+        }
+        
+        
+        
+       function processObjectSelected(result){                    
+            //  Search page returns the following:
+            var objSelected = eval('(' + result + ')');
+            log("processObjectSelected for "+ objSelected.id);
+            if(objSelected.id != ''){
+                //inform workspace of SFobject id for subsequent use in activity creation and transfer
+                var newData = '{"sfdcObjectId":"' + objSelected.id + '","id":"' + objSelected.interactionId + '"}';
+              sendAttachData(newData);
+              ixnWindows[objSelected.interactionId] =  objSelected.id;
+            }
+       }
+        
+                
+        
+        
+////////////////////////////////////////////////////////////////////////////////////////        
+        
+        // *** Request received from other VF pages **** //
+        
+////////////////////////////////////////////////////////////////////////////////////////
+
+        var receiveSFMessage = function (result) {
+               //receive message from Salesforce fireEvent
+               var myObj = eval('(' + result.message+ ')');
+                window.console&&console.log("receiveSFMessage CTIEvent = "+ myObj.action); 
+                if(myObj.action == "ObjectSelected")              
+                   processObjectSelected(result.message);
+                if(myObj.action == "AttachData")
+                     processAttachData(result.message);
+        }; 
+        
+        function receiveWindowMessage(event)  {
+            //receive message from window listener
+            window.console&&console.log("receiveWindowMessage = "+event.data);
+            var s = event.data;
+            //The only message to process is AttachData
+            var n = s.indexOf("AttachData"); 
+            if(n  > -1)
+            {    
+                processAttachData(s);
+            }
+            else
+                window.console&&console.log("receiveWindowMessage no processing");
+        }
+        
+       
+////////////////////////////////////////////////////////////////////////////////////////        
+       
+        // *** AJAX Functions **** //
+        
+////////////////////////////////////////////////////////////////////////////////////////           
+
+        function poll(timeout){ 
+        
+            //log('Poll in ' + timeout);
+            setTimeout(function(){          
+                j$.ajax({
+                    url: pollURL + ":" + pollPort + "/poll",       
+                    timeout: requestTimeout,    
+                    async:true,
+                    crossDomain:true,
+                    cache: false,
+                    dataType: 'jsonp',                  
+                    success: function(data){                    
+                          
+    
+                        if(data.action != 'NoWork') {
+                            log('JSON Received- ' + j$.param(data));
+                            processMessage(data);    
+                        }                                        
+    
+                        poll(pollQueueTimeout);
+                        changeDisplayStatus(true);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {               
+                        log('work request error (' + pollPort + ') ' + xhr.status + ' ' + thrownError);    
+
+                        changeDisplayStatus(false);
+
+                        if(thrownError == 'timeout')
+                            poll(pollQueueTimeoutError);
+                        else
+                            poll(pollQueueTimeout);
+                    }           
+                });
+                
+            }, timeout);        
+        }   
+             
+        function Send(message) {
+            log("Sending:" + message);
+            j$.ajax({
+                url: pollURL + ":" + requestPort + "/request=" + message,       
+                timeout: requestTimeout,     
+                async:false,
+                crossDomain:true,
+                cache: false,
+                dataType: 'jsonp',      
+                success: function(data){                    
+                    log('Request sent ' + data.response);                                 
+                },
+                error: function (xhr, ajaxOptions, thrownError) {                               
+                    log('Request sent error (' + requestPort + ') ' + xhr.status + ' ' + thrownError);                                      
+                } 
+            });      
+        }
+        
+////////////////////////////////////////////////////////////////////////////////////////        
+       
+        // *** MISC Functions **** //
+        
+////////////////////////////////////////////////////////////////////////////////////////        
+        
+        
+        function timestamp() {
+            var dd = new Date();
+            var hh = dd.getHours();
+            var mm = dd.getMinutes();
+            var ss = dd.getSeconds();
+            return "<span style='color: blue;'>" + ((hh>9)?hh: "0" + hh) + ":" + ((mm>9)?mm: "0" + mm) + ":" + ((ss>9)?ss: "0" + ss) + "</span>";
+        };             
+                
+        //Valid values in Salesforce = between 30 minutes and 8 hours.
+        function testResetSessionTimeOut() {
+            sforce.console.resetSessionTimeOut();
+            log("reset timeout");
+        };   
+        
+        
+        /// logs a line to the console component visual log
+        function log(message) {
+            
+            if(hideLog)  //do not show anything if log is switched off
+                return;
+            
+            var id=document.getElementById("log");
+            if(id.innerHTML.length>0)
+                id.innerHTML=id.innerHTML+"<br>" + timestamp() + " " + message;
+            else
+                id.innerHTML=timestamp()+ " " + message;
+        }
+        
+        
+        /// clears the log in the console
+        function clearLog() {
+            j$('#log').html('');
+        }           
+        
+        
+        function changeDisplayStatus(connected){
+            //logToConsole("changeDisplayStatus statusConnected = " + statusConnected);
+            //logToConsole("changeDisplayStatus hideLog = " + hideLog);
+            //logToConsole("changeDisplayStatus request = " + connected);
+
+          var imgURL;
+          if(connected){
+            statusConnected = true;
+            if(hideLog){
+                imgUrl = j$('#plus_green').html();
+            }
+            else{
+                imgUrl = j$('#minus_green').html();
+            }  
+            
+                
+          }
+          else{
+            statusConnected = false;
+            if(hideLog){
+                imgUrl = j$('#plus_red').html();
+            }
+            else{
+                imgUrl = j$('#minus_red').html();
+            }                 
+          }     
+          j$('#statusTd').html('<img id="logButton" src="' + imgUrl  + '">');            
+          j$('#logButton').click(function() {
+                changeLogStatus(!hideLog);
+          });
+        }
+                       
+
+        
+        function changeLogStatus(log){
+            logToConsole("changeLogStatus statusConnected = " + statusConnected);
+            logToConsole("changeLogStatus hideLog = " + hideLog);
+            logToConsole("changeLogStatus log request = " + log);
+          
+          if(log){                  
+              //hiding log              
+              if(statusConnected){
+                    var imgUrl = j$('#plus_green').html();
+                }
+                else{
+                    var imgUrl = j$('#plus_red').html();
+                }   
+            j$('#statusTd').html('<img id="logButton" src="' + imgUrl  + '">');
+                                       
+            j$('#logButton').click(function() {
+                changeLogStatus(false);
+            });
+            
+            sforce.interaction.cti.setSoftphoneHeight(28);
+            sforce.interaction.cti.setSoftphoneWidth(200);       
+            
+            j$('#debug').hide();
+          }
+          else{
+          //showing log
+              j$('#portStatus').html("<span style='fontSize=8pt;'><b>Version: </b>" + version + "<br>Poll Port:" + pollPort + ", Request Port:" + requestPort + "</style>");
+
+              if(statusConnected){
+                    var imgUrl = j$('#minus_green').html();
+                }
+                else{
+                    var imgUrl = j$('#minus_red').html()
+                }
+
+            j$('#statusTd').html('<img id="logButton" src="' + imgUrl  + '">');
+            
+            j$('#logButton').click(function() {
+                changeLogStatus(true);
+            });
+            
+            sforce.interaction.cti.setSoftphoneHeight(330);
+            sforce.interaction.cti.setSoftphoneWidth(300);        
+            j$('#debug').show();
+          }  
+          
+          hideLog = log;           
+        }
+        
+        function getURLParam(strParamName, strDefault){
+          logToConsole('getURLParam');
+          var strReturn = strDefault;
+          var strHref = document.referrer;
+          if ( strHref.indexOf("?") > -1 ){
+            var strQueryString = strHref.substr(strHref.indexOf("?")).toLowerCase();
+            var aQueryString = strQueryString.split("&");
+            for ( var iParam = 0; iParam < aQueryString.length; iParam++ ){
+              if (aQueryString[iParam].indexOf(strParamName + "=") > -1 ){
+                var aParam = aQueryString[iParam].split("=");
+                strReturn = aParam[1];
+                break; 
+              }
+            }
+          }
+          return strReturn;
+        } 
+        
+        function logToConsole(message) {
+            if (typeof console!="undefined") {
+                if (typeof console.log != "undefined") {
+                    console.log(message);
+                }
+            }
+        }    
+        
+////////////////////////////////////////////////////////////////////////////////////////        
+// Cookie Operations
+////////////////////////////////////////////////////////////////////////////////////////        
+
+        function createCookie(name,value,days) {
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime()+(days*24*60*60*1000));
+                var expires = "; expires="+date.toGMTString();
+            }
+            else var expires = "";
+            document.cookie = name+"="+value+expires+"; path=/";
+        }
+        
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            //return null;
+            return 0;
+        }
+        
+        function eraseCookie(name) {
+            createCookie(name,"",-1);
+        }
+                
+////////////////////////////////////////////////////////////////////////////////////////        
+////////////////////////////////////////////////////////////////////////////////////////        
+////////////////////////////////////////////////////////////////////////////////////////        
+        
+ 
+        
+    </script>
+        <div style="background-color: #DCF3FA; width:100%">
+
+            <!-- these divs will store paths to images that will be manipulated by jquery-->
+            <div id="logo" style="display:none;">{!URLFOR($Resource.wsc_icons, 'wsc_icons/wsc_logo.png')}</div>
+            <div id="minus_green" style="display:none;">{!URLFOR($Resource.wsc_icons, 'wsc_icons/wsc_green_minus.png')}</div>
+            <div id="minus_red" style="display:none;">{!URLFOR($Resource.wsc_icons, 'wsc_icons/wsc_red_minus.png')}</div>
+            <div id="plus_green" style="display:none;">{!URLFOR($Resource.wsc_icons, 'wsc_icons/wsc_green_plus.png')}</div>
+            <div id="plus_red" style="display:none;">{!URLFOR($Resource.wsc_icons, 'wsc_icons/wsc_red_plus.png')}</div> 
+            <!-- end of divs -->            
+            
+            <div>
+                <table>
+                    <tr>
+                        <td id="logoTd" vertical-align="top" >
+                            <!-- these cells witll be filled by jquery -->                        
+                        </td>                    
+                        <td id="statusTd" vertical-align="top" >
+                            <!-- these cells witll be filled by jquery -->                        
+                        </td>
+                    </tr>
+                </table>
+            </div> 
+            <div id="debug" style="display:none; width:100%;">
+                <div id="portStatus" style="margin: 5px"></div>
+                <table width="97%" id="commStatus" cellspacing="0" cellpadding="0" style="margin: 5px" border="0">
+                    <tr align="left">
+                        <td>Diagnostic Log:</td>
+                        <td align="right"><div align="right"><button onClick="clearLog();">Clear</button></div></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table width="100%" height="98%" style="border: 1px solid dimgray; background-color: white; ">
+                                <tr>
+                                    <td><div height="100%" id="log" style="overflow: auto;"></div></td>
+                                </tr>
+                            </table> 
+                        </td>
+                    </tr>
+                </table> 
+            </div>
+        </div>         
+</apex:page>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SopPhone__c</fullName>
+    <description>2014-10 APMS</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This param sets the SOP Phone on the Acknowledgement page of APMS Application.</inlineHelpText>
+    <label>SOP Phone</label>
+    <length>20</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

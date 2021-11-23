@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Related_Object__c</fullName>
+    <description>To be used to isolate which object the requirement is based on.</description>
+    <externalId>false</externalId>
+    <label>Related Object</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Account Plan</fullName>
+                <default>false</default>
+                <label>Account Plan</label>
+            </value>
+            <value>
+                <fullName>Activity - Event</fullName>
+                <default>false</default>
+                <label>Activity - Event</label>
+            </value>
+            <value>
+                <fullName>Activity - Task</fullName>
+                <default>false</default>
+                <label>Activity - Task</label>
+            </value>
+            <value>
+                <fullName>Address</fullName>
+                <default>false</default>
+                <label>Address</label>
+            </value>
+            <value>
+                <fullName>ANZSIC Code</fullName>
+                <default>false</default>
+                <label>ANZSIC Code</label>
+            </value>
+            <value>
+                <fullName>Bid Internal Contacts</fullName>
+                <default>false</default>
+                <label>Bid Internal Contacts</label>
+            </value>
+            <value>
+                <fullName>Bid or Tender</fullName>
+                <default>false</default>
+                <label>Bid or Tender</label>
+            </value>
+            <value>
+                <fullName>Billing Account</fullName>
+                <default>false</default>
+                <label>Billing Account</label>
+            </value>
+            <value>
+                <fullName>Billing Account Staging</fullName>
+                <default>false</default>
+                <label>Billing Account Staging</label>
+            </value>
+            <value>
+                <fullName>Budget and Revenue by Months</fullName>
+                <default>false</default>
+                <label>Budget and Revenue by Months</label>
+            </value>
+            <value>
+                <fullName>Campaign</fullName>
+                <default>false</default>
+                <label>Campaign</label>
+            </value>
+            <value>
+                <fullName>Cases</fullName>
+                <default>false</default>
+                <label>Cases</label>
+            </value>
+            <value>
+                <fullName>Collateral</fullName>
+                <default>false</default>
+                <label>Collateral</label>
+            </value>
+            <value>
+                <fullName>Competitor and Incumbent</fullName>
+                <default>false</default>
+                <label>Competitor and Incumbent</label>
+            </value>
+            <value>
+                <fullName>Configuration update</fullName>
+                <default>false</default>
+                <label>Configuration update</label>
+            </value>
+            <value>
+                <fullName>Customer Level 5 Map</fullName>
+                <default>false</default>
+                <label>Customer Level 5 Map</label>
+            </value>
+            <value>
+                <fullName>Customised Pricing Request</fullName>
+                <default>false</default>
+                <label>Customised Pricing Request</label>
+            </value>
+            <value>
+                <fullName>Dashboard</fullName>
+                <default>false</default>
+                <label>Dashboard</label>
+            </value>
+            <value>
+                <fullName>Decision Criterion</fullName>
+                <default>false</default>
+                <label>Decision Criterion</label>
+            </value>
+            <value>
+                <fullName>Deleted Record</fullName>
+                <default>false</default>
+                <label>Deleted Record</label>
+            </value>
+            <value>
+                <fullName>Document</fullName>
+                <default>false</default>
+                <label>Document</label>
+            </value>
+            <value>
+                <fullName>Drop</fullName>
+                <default>false</default>
+                <label>Drop</label>
+            </value>
+            <value>
+                <fullName>Drop Run List</fullName>
+                <default>false</default>
+                <label>Drop Run List</label>
+            </value>
+            <value>
+                <fullName>Field Analysis</fullName>
+                <default>false</default>
+                <label>Field Analysis</label>
+            </value>
+            <value>
+                <fullName>Field Trip</fullName>
+                <default>false</default>
+                <label>Field Trip</label>
+            </value>
+            <value>
+                <fullName>Forecast</fullName>
+                <default>false</default>
+                <label>Forecast</label>
+            </value>
+            <value>
+                <fullName>Geocode</fullName>
+                <default>false</default>
+                <label>Geocode</label>
+            </value>
+            <value>
+                <fullName>Hub Catchment Reference</fullName>
+                <default>false</default>
+                <label>Hub Catchment Reference</label>
+            </value>
+            <value>
+                <fullName>Implementation Project</fullName>
+                <default>false</default>
+                <label>Implementation Project</label>
+            </value>
+            <value>
+                <fullName>Individuals</fullName>
+                <default>false</default>
+                <label>Individuals</label>
+            </value>
+            <value>
+                <fullName>Individuals and Organisations</fullName>
+                <default>false</default>
+                <label>Individuals and Organisations</label>
+            </value>
+            <value>
+                <fullName>Internal Contact</fullName>
+                <default>false</default>
+                <label>Internal Contact</label>
+            </value>
+            <value>
+                <fullName>Keyword</fullName>
+                <default>false</default>
+                <label>Keyword</label>
+            </value>
+            <value>
+                <fullName>Leads</fullName>
+                <default>false</default>
+                <label>Leads</label>
+            </value>
+            <value>
+                <fullName>Mass Reassign Opportunity Helper</fullName>
+                <default>false</default>
+                <label>Mass Reassign Opportunity Helper</label>
+            </value>
+            <value>
+                <fullName>Opportunities</fullName>
+                <default>false</default>
+                <label>Opportunities</label>
+            </value>
+            <value>
+                <fullName>Opportunity Assessment</fullName>
+                <default>false</default>
+                <label>Opportunity Assessment</label>
+            </value>
+            <value>
+                <fullName>Opportunity Product Classification</fullName>
+                <default>false</default>
+                <label>Opportunity Product Classification</label>
+            </value>
+            <value>
+                <fullName>Organisations</fullName>
+                <default>false</default>
+                <label>Organisations</label>
+            </value>
+            <value>
+                <fullName>Pain Chain</fullName>
+                <default>false</default>
+                <label>Pain Chain</label>
+            </value>
+            <value>
+                <fullName>Product</fullName>
+                <default>false</default>
+                <label>Product</label>
+            </value>
+            <value>
+                <fullName>Product History</fullName>
+                <default>false</default>
+                <label>Product History</label>
+            </value>
+            <value>
+                <fullName>Relationship Power Map</fullName>
+                <default>false</default>
+                <label>Relationship Power Map</label>
+            </value>
+            <value>
+                <fullName>Report</fullName>
+                <default>false</default>
+                <label>Report</label>
+            </value>
+            <value>
+                <fullName>Report Aggregate</fullName>
+                <default>false</default>
+                <label>Report Aggregate</label>
+            </value>
+            <value>
+                <fullName>Requirement</fullName>
+                <default>false</default>
+                <label>Requirement</label>
+            </value>
+            <value>
+                <fullName>Revenue by Billing Account</fullName>
+                <default>false</default>
+                <label>Revenue by Billing Account</label>
+            </value>
+            <value>
+                <fullName>Revenue Schedule</fullName>
+                <default>false</default>
+                <label>Revenue Schedule</label>
+            </value>
+            <value>
+                <fullName>Role</fullName>
+                <default>false</default>
+                <label>Role</label>
+            </value>
+            <value>
+                <fullName>Sales Coach</fullName>
+                <default>false</default>
+                <label>Sales Coach</label>
+            </value>
+            <value>
+                <fullName>Sales Coverage Change Request</fullName>
+                <default>false</default>
+                <label>Sales Coverage Change Request</label>
+            </value>
+            <value>
+                <fullName>Salesforce for Outlook</fullName>
+                <default>false</default>
+                <label>Salesforce for Outlook</label>
+            </value>
+            <value>
+                <fullName>Sales Team Reference</fullName>
+                <default>false</default>
+                <label>Sales Team Reference</label>
+            </value>
+            <value>
+                <fullName>Search Phrase</fullName>
+                <default>false</default>
+                <label>Search Phrase</label>
+            </value>
+            <value>
+                <fullName>Service History</fullName>
+                <default>false</default>
+                <label>Service History</label>
+            </value>
+            <value>
+                <fullName>Share of Wallet</fullName>
+                <default>false</default>
+                <label>Share of Wallet</label>
+            </value>
+            <value>
+                <fullName>Solution</fullName>
+                <default>false</default>
+                <label>Solution</label>
+            </value>
+            <value>
+                <fullName>Target and Revenue</fullName>
+                <default>false</default>
+                <label>Target and Revenue</label>
+            </value>
+            <value>
+                <fullName>Territory Assignment Reference</fullName>
+                <default>false</default>
+                <label>Territory Assignment Reference</label>
+            </value>
+            <value>
+                <fullName>Users</fullName>
+                <default>false</default>
+                <label>Users</label>
+            </value>
+            <value>
+                <fullName>User Story</fullName>
+                <default>false</default>
+                <label>User Story</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

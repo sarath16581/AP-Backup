@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Status colors</label>
+    <protected>false</protected>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Mapping colors for status</value>
+    </values>
+    <values>
+        <field>Value__c</field>
+        <value xsi:type="xsd:string">{&quot;Under review&quot;:&quot;#0000CC&quot;,&quot;Tested&quot;:&quot;#000000&quot;,&quot;New&quot;:&quot;#aa55FF&quot;,&quot;Existing&quot;:&quot;#000000&quot;,&quot;Delivered&quot;:&quot;#44AA00&quot;,&quot;Declined&quot;:&quot;#000000&quot;,&quot;Active&quot;:&quot;#000000&quot;}</value>
+    </values>
+</CustomMetadata>

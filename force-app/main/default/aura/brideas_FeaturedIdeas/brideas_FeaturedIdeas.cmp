@@ -1,0 +1,28 @@
+<aura:component controller="brideas_FeatureIdeasCtrl" implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="ideasNumber" type="Integer" default="3" description="the number of ideas" />
+    <aura:attribute name="wrapper" type="brideas_IdeaWrapper[]" />
+    <aura:attribute name="title" type="String" />
+    <aura:attribute name="pageName" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="ideas-featured-wrapper">
+        <div class="ideas-featured-inner">
+            <h2 class="title">{!v.title}</h2>
+
+            <div class="{!'featured-list ideas-' + v.ideasNumber}">
+                <aura:iteration items="{!v.wrapper}" var="wrap" indexVar="ideaN">
+                    <div class="{!'featured-idea idea-' + (ideaN+1)}">
+                        <img src="{!$Resource.AusPostCommunity + '/images/idea-ico-1.png'}" alt="" />
+                        <h3><a href="{!'idea/' + wrap.item.Id}">{!wrap.item.Title}</a></h3>
+                        <div class="featured-vote">{!wrap.votesNum}&nbsp;{!equals(wrap.votesNum,1)?$Label.c.VoteLabel:$Label.c.VotesLabel}</div>
+                    </div>
+                </aura:iteration>
+            </div>
+
+            <div class="button-block">
+                <a href="ideas-list">{!$Label.c.ViewMoreIdeasBtn}</a>
+            </div>
+        </div>
+    </div>
+</aura:component>

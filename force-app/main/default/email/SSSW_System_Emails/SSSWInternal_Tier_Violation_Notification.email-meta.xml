@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>New Internal Tier violation email</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Internal Tier Violation Notification</name>
+    <style>none</style>
+    <subject>Case: {!Case.CaseNumber} has been escalated and needs your attention.</subject>
+    <textOnly>The following Case has been escalated:
+Case: {!Case.CaseNumber}
+Case: {!Case.CaseNumber} requires your attention. Reference ID: {!Case.ReferenceID__c}
+{!Case.ProductCategory__c}, {!Case.ProductSubCategory__c}
+Case Link: {!Case.Link}
+Milestone violated: {!Case.Internal_Milestones_Violated__c-1}
+
+Regards,
+Australia Post Customer Services
+{!Case.EmailThreadID__c}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BG_Qualified_Lead_PrimaryService_Req</fullName>
+    <active>true</active>
+    <description>Do not qualify till primary service is selected for BG_Standard Lead</description>
+    <errorConditionFormula>AND(
+ISCHANGED(Status),
+RecordType.DeveloperName = &apos;BG_Standard&apos;,
+ISPICKVAL(Status, &quot;Qualified&quot;),
+ISPICKVAL(Product__c, &quot;&quot;) 
+)</errorConditionFormula>
+    <errorMessage>Primary service should be selected</errorMessage>
+</ValidationRule>

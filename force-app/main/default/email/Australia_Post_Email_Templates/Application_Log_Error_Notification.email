@@ -1,0 +1,7 @@
+Source: {!Application_Log__c.Reference_Information__c}
+
+Reference Id: {!Application_Log__c.Reference_Id__c}
+Reference Info: {!Application_Log__c.Reference_Information__c}
+
+Log Message:
+{!Application_Log__c.Message__c}

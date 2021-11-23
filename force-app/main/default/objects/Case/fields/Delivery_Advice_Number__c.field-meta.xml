@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Delivery_Advice_Number__c</fullName>
+    <description>Used for Retail Fulfillment Team. Values of this field is populated via Postlink web form or Retail Support team enter.</description>
+    <externalId>false</externalId>
+    <label>Delivery Advice Number</label>
+    <length>10</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

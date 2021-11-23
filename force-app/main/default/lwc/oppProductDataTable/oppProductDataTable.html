@@ -1,0 +1,54 @@
+<!--
+    2021-04-09 mathew.jose@auspost.com.au Created
+-->
+<template>
+    <template if:true={data}>
+        <div>
+            <div class="slds-p-around_medium lgc-bg">
+                    <lightning-breadcrumbs>
+                        <lightning-breadcrumb
+                            label="Opportunities"
+                            href="/lightning/o/Opportunity/list?filterName=Recent">
+                        </lightning-breadcrumb>
+                        <lightning-breadcrumb
+                            label={oppName}
+                            name={oppName}
+                            onclick={handleNavigateToOpp}>
+                        </lightning-breadcrumb>
+                        <lightning-breadcrumb
+                            label="Products"
+                            name="Products"
+                            onclick={handleNavigateToOppProducts}>
+                        </lightning-breadcrumb>                    
+                    </lightning-breadcrumbs>                        
+                    <div class="slds-page-header__title slds-truncate">Edit Products</div>
+                    <div>
+                        <ul class="slds-list_dotted slds-m-top_large">
+                            <li>Required columns are highlighted with the icon <lightning-icon icon-name="utility:stop" size="x-small"></lightning-icon></li>
+                            <li>For Growth? and Contract Product, ✓ represents ‘Yes’ and blanks represent ‘No’</li>                            
+                        </ul>
+                    </div>                   
+            </div>
+            <div class="slds-p-around_medium table">                
+                <lightning-datatable
+                        key-field="Id"
+                        data={data}
+                        columns={columns}
+                        draft-values={draftValues}
+                        onsave={handleSave}
+                        errors={tableErrors}
+                        min-column-width="100"
+                        class="slds-table_header-fixed_container slds-border_top"
+                        >
+                </lightning-datatable>
+            </div>
+            <div if:true={isSpinning} class="slds-spinner_inline spinner-padding">
+                <lightning-spinner variant="brand" 
+                                alternative-text="Saving.."     
+                                size="medium">
+                </lightning-spinner>
+            </div>
+        </div>
+                         
+    </template>
+</template>

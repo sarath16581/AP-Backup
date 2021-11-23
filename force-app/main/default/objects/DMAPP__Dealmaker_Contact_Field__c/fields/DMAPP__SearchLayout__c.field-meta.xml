@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__SearchLayout__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>Check this box if you want the field to appear as a column in the search results.</inlineHelpText>
+    <label>SearchLayout</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

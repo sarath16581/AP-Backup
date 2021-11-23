@@ -1,0 +1,79 @@
+<apex:page docType="html-5.0" standardController="Route_Template__c" extensions="TDF_DutyTemplatePrintControllerX" renderAs="pdf" applyBodyTag="false" >
+<!--Page to allow printing of Duty for driver a backup to the mobile device -->
+<!--Uses controller extension to retreive data. Controller required to retreive long field and allow sort on Day Start Time-->  
+<!--Created 08-10-18 Andrew Judd-->  
+    <head>
+        <style type="text/css" media="print">
+            @page {
+                @top-center {
+                    content: element(header);
+                }       
+                @bottom-center {
+                    content: element(footer);
+                }
+            }
+            div.header {
+                padding: 5px;
+                position: running(header);
+            }
+            div.footer {
+                display: block;
+                padding: 5px;
+                position: running(footer);
+            }
+            .pagenumber:before {
+                content: counter(page);
+            }
+            .pagecount:before {
+                content: counter(pages);
+            }
+        </style>
+    </head>
+    <div class="header">
+        <center>
+            <img src="{!$Resource.auspost_logo}" width="15%"/>
+        </center> 
+  	</div>
+    <div class="footer">
+        <div>
+            <center>
+                Page <span class="pagenumber"/> of <span class="pagecount"/>
+                (
+                <apex:outputText value="{0, date, d MMM yyyy}">
+                    <apex:param value="{!NOW()}" />
+                </apex:outputText>
+                )
+            </center>
+        </div>
+    </div>
+    <div class="content">  
+        
+        <!--DT Block-->
+        <apex:pageBlock title="Duty {! Route_Template__c.Name}"  id="dt-list"  >
+            Effective Date: &nbsp; <apex:outputField value="{! Route_Template__c.Effective_Date__c}"/> &nbsp; &nbsp;
+            Active Days: &nbsp; <apex:outputField value="{! Route_Template__c.Active_Route_Days__c}"/>
+        </apex:pageBlock>    
+        <!--DT Block End-->     
+        
+        <!--JT Block--> 
+        <apex:pageBlock >  
+           <apex:pageBlockTable value="{! jobTemplateList }" var="jt" border="1">
+                <apex:column value="{! jt.Start_Time__c}" style="vertical-align:Top" width="50px" />
+                <apex:column headerValue="Dur (mins)" style="vertical-align:Top" width="50px">
+                	<apex:outputField value="{! jt.Duration__c}"/>
+                </apex:column>   
+                <apex:column value="{! jt.Activity_Type__c }" style="vertical-align:Top" width="80px"/>
+                <apex:column value="{! jt.Location_Details__c }" style="vertical-align:Top" width="120px"/>
+                <apex:column value="{! jt.Dock_Number__c }" style="vertical-align:Top" width="25px"/>
+               
+                <apex:column headerValue="Job and Site Instructions" style="vertical-align:Top" width="150px">
+                    <apex:outputField value="{!jt.Job_Instructions__c}" /> <br></br><br></br>
+                    <apex:outputField value="{!jt.Location__r.Site_Instruction_Notes__c}" /> <br></br><br></br>
+                    <apex:outputField value="{!jt.Location__r.Site_Instructions__c}" />
+                </apex:column>        
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        <!--JT Block End-->
+
+	</div>
+</apex:page>

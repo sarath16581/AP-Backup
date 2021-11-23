@@ -1,0 +1,20 @@
+<!--
+ - Created by Nathan on 2019-06-08.
+ -->
+
+<!-- Custom Drop Down Menu -->
+<template>
+    <div class={menuCss}>
+            <lightning-button label={label} icon-name="utility:chevrondown" icon-position="right" variant="base" onclick={toggleMenu}></lightning-button>
+            <!-- Workaround to render the svg utility for IE11, since it didn't render with the above lightning-button -->
+            <template if:true={ie11}>
+                <img src={iconForIE11} style="width:0.875rem; height:0.875rem;" onclick={toggleMenu} alt="Menu dropdown">
+            </template>
+        <div class={dropDownCss}>
+            <ul class="slds-dropdown__list" role="menu" aria-label="Show More">
+                <slot></slot>
+            </ul>
+        </div>
+    </div>
+
+</template>

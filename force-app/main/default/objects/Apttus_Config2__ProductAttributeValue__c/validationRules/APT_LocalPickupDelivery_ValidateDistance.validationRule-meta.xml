@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_LocalPickupDelivery_ValidateDistance</fullName>
+    <active>true</active>
+    <description>Distance can&apos;t be 0 or negative value.</description>
+    <errorConditionFormula>APT_LPD_Distance_Facility_Provided_In_Km__c &lt;= 0</errorConditionFormula>
+    <errorDisplayField>APT_LPD_Distance_Facility_Provided_In_Km__c</errorDisplayField>
+    <errorMessage>Distance can&apos;t be 0 or negative value.</errorMessage>
+</ValidationRule>

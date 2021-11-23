@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__MAX_SOM_URL__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The URL for Max insights in Smart Opportunity Manager. It must include the parameters {{objectId}} and {{insightType}} as shown here:
+
+/apex/insights?objectid={{objectId}}#/view/{{insightType}}</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The URL for Max insights in Smart Opportunity Manager. It must include the parameters {{objectId}} and {{insightType}} as shown here:
+
+/apex/insights?objectid={{objectId}}#/view/{{insightType}}</inlineHelpText>
+    <label>Max URL</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

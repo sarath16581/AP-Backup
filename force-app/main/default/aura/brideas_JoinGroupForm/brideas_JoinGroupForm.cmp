@@ -1,0 +1,23 @@
+<aura:component controller="brideas_CommunityCtrl" description="brideas_JoinGroupForm">
+    <aura:attribute name="isVisible" type="Boolean" />
+    <aura:attribute name="targetURL" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    <aura:if isTrue="{!v.isVisible}">
+        <div class="slds-modal slds-fade-in-open idea-join-group-form">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <h2>{!$Label.c.JoinGroupTitle}</h2>
+                    <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.cancel}">
+                        <img src="{!$Resource.BrIdeas + '/images/close-btn.png'}" alt="Close" />
+                    </button>
+                </div>
+                <div class="slds-modal__content slds-p-around--small">
+                    <iframe src="{!v.targetURL}" style="width: 615px; height: 600px; border: none;"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open"></div>
+    </aura:if>
+</aura:component>

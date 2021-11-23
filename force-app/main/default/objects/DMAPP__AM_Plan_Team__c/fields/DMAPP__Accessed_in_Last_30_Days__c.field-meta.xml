@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Accessed_in_Last_30_Days__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>TODAY() &lt; DMAPP__Last_Accessed_Date__c + 30</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Accessed in Last 30 Days</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

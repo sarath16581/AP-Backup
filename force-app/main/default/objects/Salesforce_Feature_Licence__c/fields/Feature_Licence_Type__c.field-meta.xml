@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Feature_Licence_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Feature Licence Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Altify Relationship Map</fullName>
+                <default>false</default>
+                <label>Altify Relationship Map</label>
+            </value>
+            <value>
+                <fullName>Apttus</fullName>
+                <default>true</default>
+                <label>Apttus</label>
+            </value>
+            <value>
+                <fullName>Conga</fullName>
+                <default>false</default>
+                <label>Conga</label>
+            </value>
+            <value>
+                <fullName>Knowledge User</fullName>
+                <default>false</default>
+                <label>Knowledge User</label>
+            </value>
+            <value>
+                <fullName>Live Agent User</fullName>
+                <default>false</default>
+                <label>Live Agent User</label>
+            </value>
+            <value>
+                <fullName>Wave Analytics Platform</fullName>
+                <default>false</default>
+                <label>Wave Analytics Platform</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

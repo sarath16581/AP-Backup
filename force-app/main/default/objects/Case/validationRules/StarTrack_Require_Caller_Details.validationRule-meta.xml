@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Require_Caller_Details</fullName>
+    <active>true</active>
+    <description>StarTrack  - Require Contact Name when Origin is Phone for Sales Enquiry Case</description>
+    <errorConditionFormula>AND( 
+RecordType.Name = &apos;Sales Enquiry&apos;, ISBLANK(Related_Billing_Account__c),AND(ISPICKVAL(Call_Purpose__c,&apos;Quoting/Pricing&apos;),ISPICKVAL(Enquiry_Type__c,&apos;Quote&apos;)))</errorConditionFormula>
+    <errorMessage>Please provide Billing Account.</errorMessage>
+</ValidationRule>

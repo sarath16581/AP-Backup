@@ -1,0 +1,5 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:isUrlAddressable">
+
+   <c:pudJobDatePicker recordId="{!v.recordId}"/>
+    
+</aura:component>

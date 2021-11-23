@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Gippsland</fullName>
+    <columns>NAME</columns>
+    <columns>Active_Route_Days__c</columns>
+    <columns>Status__c</columns>
+    <columns>Effective_Date__c</columns>
+    <columns>Expiry_Date__c</columns>
+    <columns>Service_Territory__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Service_Territory__c</field>
+        <operation>equals</operation>
+        <value>Gippsland</value>
+    </filters>
+    <filters>
+        <field>First_Job_Start_Time_Number__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>12</value>
+    </filters>
+    <label>Gippsland</label>
+</ListView>

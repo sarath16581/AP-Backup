@@ -1,0 +1,24 @@
+<aura:component implements="forceCommunity:layout" access="global" description="Content Layout for Ideas User profile page">
+    <aura:attribute name="ContentHeader" type="Aura.Component[]" required="false" />
+    <aura:attribute name="Content" type="Aura.Component[]" required="false" />
+    <aura:attribute name="Sidebar" type="Aura.Component[]" required="false" />
+    <aura:attribute name="ContentFooter" type="Aura.Component[]" required="false" />
+
+        {!v.ContentHeader}
+
+    <div class="content-header">
+        <div class="title"><h1>Profile</h1></div>
+    </div>
+
+    <div class="container">
+        <div class="slds-grid slds-wrap container-inner">
+            <div class="slds-col slds-size--1-of-1 slds-large-size--2-of-3">
+                    {!v.Content}
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-large-size--1-of-3 slds-p-left--medium">
+                    {!v.Sidebar}
+            </div>
+        </div>
+    </div>
+        {!v.ContentFooter}
+</aura:component>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SAPReasonCode__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE (
+ Reason__c ,				
+&apos;Customer Account Transfer&apos;,&apos;K02&apos;,
+&apos;Refund credit balance&apos;,&apos;K01&apos;,
+&apos;Internal Post transfer&apos;,&apos;K03&apos;,
+&apos;Credit2&apos;,&apos;K04&apos;,
+&apos;Data Entry Error&apos;,&apos;K05&apos;,
+&apos;Duplicate Billing&apos;,&apos;K06&apos;,
+&apos;Incorrect Bill&apos;,&apos;K07&apos;,
+&apos;Contract Expired - Charged Full Rate&apos;,&apos;K08&apos;,
+&apos;Incorrect Pricing Profile Applied&apos;,&apos;K09&apos;,
+&apos;Incorrect Product Data Provided&apos;,&apos;K10&apos;,
+&apos;Un-manifested Fee Refund&apos;,&apos;K11&apos;,
+&apos;Delivery Error&apos;,&apos;K12&apos;,
+&apos;Late Delivery Claim&apos;,&apos;K13&apos;,
+&apos;Manifest Not Posted&apos;,&apos;K14&apos;,
+&apos;No Proof Of Delivery&apos;,&apos;K15&apos;,
+&apos;Customer Claim Met&apos;,&apos;K16&apos;,
+&apos;Fee Refund Applied&apos;,&apos;K18&apos;,
+&apos;Minimum Value - Shortfall Fee&apos;,&apos;K19&apos;,
+&apos;Incorrect Cubic Data&apos;,&apos;K23&apos;,
+&apos;Incorrect Cubic Data(Customer)&apos;,&apos;K23&apos;,
+&apos;Incorrect Weight&apos;,&apos;K21&apos;,
+&apos;Product Return&apos;,&apos;K22&apos;,
+&apos;Early Payment Rebate&apos;,&apos;K17&apos;,
+&apos;Rebate&apos;,&apos;K20&apos;,
+&apos;Write Off&apos;,&apos;K24&apos;,
+&apos;Operator Error&apos;,&apos;A28&apos;,
+&apos;BML - Operator Error&apos;,&apos;BM1&apos;,
+&apos;BML - Mailing Statement&apos;,&apos;BM2&apos;,
+&apos;BML - Overcharged&apos;,&apos;BM3&apos;,
+&apos;BML - Undercharged&apos;,&apos;BM4&apos;,
+&apos;BML - Wrong Account&apos;,&apos;BM5&apos;,
+&apos;BML - Duplicate Mail&apos;,&apos;BM6&apos;,
+&apos;CCM -Sales Director&apos;,&apos;K16&apos;,				
+&apos;eLMS Mailing Stateme&apos;,&apos;MS1&apos;,
+&apos;International Linehaul Surcharge&apos;,&apos;K18&apos;,&apos; &apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>SAP Reason Code</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

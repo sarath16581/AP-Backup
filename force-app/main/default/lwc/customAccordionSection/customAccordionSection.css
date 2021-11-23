@@ -1,0 +1,8 @@
+.slds-accordion__summary {
+    cursor: pointer;
+}
+
+.slds-accordion__section {
+    padding-left: 0;
+    padding-right: 0;
+}

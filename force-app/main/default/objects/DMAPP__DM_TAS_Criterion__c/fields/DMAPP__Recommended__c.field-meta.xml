@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Recommended__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Assessment Criterion marked as &apos;Comments Recommended&apos; will be checked for comments when calculating the Assessment Completeness level. If the user does not have comments included against &apos;Comments Recommended&apos; criterion, full marks will not be awarded for completeness on the Assessment. Details for how the Assessment Completeness is marked can be found in the online help.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Assessment Criterion marked as &apos;Comments Recommended&apos; will be checked for comments when calculating the Assessment Completeness level. Details for how the Assessment Completeness is marked can be found in the online help.</inlineHelpText>
+    <label>Comments Recommended</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

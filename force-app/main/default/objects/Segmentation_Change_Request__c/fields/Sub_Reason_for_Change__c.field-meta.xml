@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Reason_for_Change__c</fullName>
+    <description>.</description>
+    <externalId>false</externalId>
+    <label>Sub Reason for Change</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Reasonforchange__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ABN/Name Change</fullName>
+                <default>false</default>
+                <label>ABN/Name Change</label>
+            </value>
+            <value>
+                <fullName>BMS to Business Sales</fullName>
+                <default>false</default>
+                <label>BMS to Business Sales</label>
+            </value>
+            <value>
+                <fullName>Channel Promotion (80/20)</fullName>
+                <default>false</default>
+                <label>Channel Promotion (80/20)</label>
+            </value>
+            <value>
+                <fullName>Customer Hierarchy Changes</fullName>
+                <default>false</default>
+                <label>Customer Hierarchy Changes</label>
+            </value>
+            <value>
+                <fullName>Customer Relocation</fullName>
+                <default>false</default>
+                <label>Customer Relocation</label>
+            </value>
+            <value>
+                <fullName>Customer Request</fullName>
+                <default>false</default>
+                <label>Customer Request</label>
+            </value>
+            <value>
+                <fullName>New Customer</fullName>
+                <default>false</default>
+                <label>New Customer</label>
+            </value>
+            <value>
+                <fullName>Potential for Growth</fullName>
+                <default>false</default>
+                <label>Potential for Growth</label>
+            </value>
+            <value>
+                <fullName>Rebalancing Portfolios</fullName>
+                <default>false</default>
+                <label>Rebalancing Portfolios</label>
+            </value>
+            <value>
+                <fullName>Spend level Decreased</fullName>
+                <default>false</default>
+                <label>Spend level Decreased</label>
+            </value>
+            <value>
+                <fullName>Spend Level Increased</fullName>
+                <default>false</default>
+                <label>Spend Level Increased</label>
+            </value>
+            <value>
+                <fullName>TSA to Business Sales</fullName>
+                <default>false</default>
+                <label>TSA to Business Sales</label>
+            </value>
+            <value>
+                <fullName>Spreading Bases</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Spreading Bases</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

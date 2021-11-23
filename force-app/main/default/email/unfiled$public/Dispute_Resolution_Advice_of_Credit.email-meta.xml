@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Dispute Resolution – Advice of Credit</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Dispute Resolution – Advice of Credit</name>
+    <relatedEntityType>Case</relatedEntityType>
+    <style>none</style>
+    <subject>Dispute Resolution – Advice of Credit</subject>
+    <type>custom</type>
+    <uiType>SFX</uiType>
+</EmailTemplate>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_Session_Violation__c</fullName>
+    <description>If any active session is greater than 5 hrs, then in violation</description>
+    <externalId>false</externalId>
+    <formula>IF( OR( Active_Session_1_Duration__c &gt; 5, 
+        Active_Session_2_Duration__c &gt; 5, 
+        Active_Session_3_Duration__c &gt; 5 
+      ),
+    TRUE,
+    FALSE)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>True if any Active Session is longer than 5 hours.</inlineHelpText>
+    <label>Active Session Violation</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

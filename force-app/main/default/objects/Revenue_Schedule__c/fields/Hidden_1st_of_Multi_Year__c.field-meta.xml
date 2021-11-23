@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hidden_1st_of_Multi_Year__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Hidden_Contract_Start_FY__c =  Financial_Year__c &amp;&amp;  Multi_Year__c = &apos;YES&apos;, &apos;YES&apos;, &apos;NO&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Hidden 1st of Multi-Year</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

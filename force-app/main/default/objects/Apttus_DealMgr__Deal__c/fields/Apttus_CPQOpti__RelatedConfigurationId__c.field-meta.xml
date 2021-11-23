@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_CPQOpti__RelatedConfigurationId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>ID of the product configuration associated with the deal. Only valid for product configuration context</description>
+    <externalId>false</externalId>
+    <label>Related Configuration</label>
+    <referenceTo>Apttus_Config2__ProductConfiguration__c</referenceTo>
+    <relationshipLabel>Deals</relationshipLabel>
+    <relationshipName>Deals</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

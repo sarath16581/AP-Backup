@@ -1,0 +1,49 @@
+<!--
+Author:        Patrick James Franco
+Company:       Cloud Sherpas
+Description:   Custom StarTrack Quick Links
+History
+November 17, 2015 - Patrick James Franco - Created
+-->
+<apex:page showHeader="false" sidebar="false">
+<apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+
+<apex:remoteObjects >
+    <apex:remoteObjectModel name="StarTrack_Quick_Links__c"
+        fields="Name,URL__c">
+    </apex:remoteObjectModel>
+</apex:remoteObjects>
+
+<div class="slds">
+    <table id="thisTable" class="slds-table slds-table--bordered">
+        <script type="text/javascript">
+        var thisTable = document.getElementById("thisTable");
+
+        var ql = new SObjectModel.StarTrack_Quick_Links__c();
+        ql.retrieve({
+            limit: 100
+        },
+        function(err, records, event){
+            if(err){
+                alert(err.message);
+            }
+            else{
+                records.forEach(function(record){
+                    var tRow = document.createElement("tr");
+                    var tColumn = document.createElement("td");
+                    var aText = document.createTextNode(record.get("Name"));
+                    var aLink = document.createElement("a");
+                    aLink.title = record.get("Name");
+                    aLink.href = "javascript:window.open('" + record.get("URL__c") + "','" + record.get("Name") + "','width=800,height=600')";
+
+                    aLink.appendChild(aText);
+                    tColumn.appendChild(aLink);
+                    tRow.appendChild(tColumn);
+                    thisTable.appendChild(tRow);
+                });
+            }
+        });
+        </script>
+    </table>
+</div>
+</apex:page>

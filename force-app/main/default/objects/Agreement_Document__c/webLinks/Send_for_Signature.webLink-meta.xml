@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_for_Signature</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Send to Partner</masterLabel>
+    <openType>replace</openType>
+    <page>SendToPartnerPage</page>
+    <protected>false</protected>
+</WebLink>

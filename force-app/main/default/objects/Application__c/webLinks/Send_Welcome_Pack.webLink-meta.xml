@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_Welcome_Pack</fullName>
+    <availability>online</availability>
+    <description>2014 07 APMS</description>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Send Welcome Pack</masterLabel>
+    <openType>replace</openType>
+    <page>SendWelcomePack</page>
+    <protected>false</protected>
+</WebLink>

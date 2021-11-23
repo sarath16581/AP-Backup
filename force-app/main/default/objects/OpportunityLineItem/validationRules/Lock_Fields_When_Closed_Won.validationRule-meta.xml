@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_Fields_When_Closed_Won</fullName>
+    <active>true</active>
+    <description>As a Sales User, only the Revenue Start Date and Revenue End Date can be changed when the Opportunity associated with the Product is Closed Won.
+Also as per new changed validation rule - Sales users can change Quantity</description>
+    <errorConditionFormula>AND(
+ISPICKVAL(Opportunity.StageName, &quot;Closed Won&quot;),
+OR(
+$Profile.Name = &apos;Coverage Sales&apos;,
+$Profile.Name = &apos;BG Base&apos;,
+$Profile.Name = &apos;Hub Users&apos;,
+$Profile.Name = &apos;Product Sales&apos;,
+$Profile.Name = &apos;Sales 3rd Party&apos;,
+$Profile.Name = &apos;SecurePay Super User&apos;,
+$Profile.Name = &apos;Solution Sales&apos;,
+$Profile.Name = &apos;Enterprise Onboarding&apos;,
+$Profile.Name = &apos;Customer Team&apos;,
+$Profile.Name = &apos;Sales Operations&apos;,
+$Profile.Name = &apos;Sales Operations Super User&apos;),
+OR(
+ISCHANGED(UnitPrice),
+ISCHANGED(Quantity),
+ISCHANGED(Change_Classification__c),
+ISCHANGED(Contract_Product__c),
+ISCHANGED(Contract_Number__c),
+ISCHANGED(Off_the_shelf_check__c),
+ISCHANGED(Description))
+)</errorConditionFormula>
+    <errorMessage>You cannot change details of products when the opportunity has been closed-won</errorMessage>
+</ValidationRule>

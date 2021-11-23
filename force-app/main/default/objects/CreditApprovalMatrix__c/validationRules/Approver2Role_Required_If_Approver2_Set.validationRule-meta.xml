@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approver2Role_Required_If_Approver2_Set</fullName>
+    <active>true</active>
+    <description>Ensure Approver 2 Role is populated when Approver 2 is specified.</description>
+    <errorConditionFormula>AND( NOT(AutoApprove__c) , NOT( ISBLANK(Approver_2__c) ) ,
+ ISBLANK(TEXT( Approver2Role__c )) )</errorConditionFormula>
+    <errorDisplayField>Approver2Role__c</errorDisplayField>
+    <errorMessage>The Approver 2 Role cannot be left empty if the Approver 2 user has been specified.</errorMessage>
+</ValidationRule>

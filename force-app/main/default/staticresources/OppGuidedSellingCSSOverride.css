@@ -1,0 +1,44 @@
+/*       ---------------- Custom Guided Panel CSS Theme override --------------         */
+/*       ---- Override the Overall colour Appearance of CPQ Guided Selling ----         */
+
+/* 
+	I have used two color properties for CSS color theme modification, so just need to change the color code by replacing entire color code by your own	
+	MainColor:-- #1797c0   |-- For Main color theme change that is used in buttons, flow bars, main overlay top bar, section headers and text panel.	
+	
+*/
+
+/* 
+		--------------- CSS override section start here ------------		
+*/
+
+/* top bar CSS background Change CSS */
+.top-bar{
+	background-color: #1797c0 !important;
+}
+
+/* Change the Company Logo CSS override */
+.top-bar a .logo{
+	border-radius: 5px !important;
+}
+
+/* Flow button hover background color CSS override */
+.FlowPreviousBtn:hover, .FlowNextBtn:hover{
+	border: 1px solid #1797c0 !important;
+	background: #1797c0 !important;
+	background-color: #1797c0 !important;
+} 
+
+/* Custom Button Style color CSS override */
+.customButtonStyle:hover{
+	border: 1px solid #1797c0 !important;
+	background: #1797c0 !important;
+	background-color: #1797c0 !important;
+}
+
+/* List button hover override CSS */
+.aptProductRow .aptListButton:hover {
+	border: 1px solid #1797c0 !important;
+    background: #1797c0 !important;
+    background-color: #1797c0 !important;
+}
+

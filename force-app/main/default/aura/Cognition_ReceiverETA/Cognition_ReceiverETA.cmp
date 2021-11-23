@@ -1,0 +1,47 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" 
+                controller="Cognition_Controller">
+
+    <aura:attribute name="ETAMsg" type="Object" />
+    <aura:attribute name="ETAInputs" type="String" default="" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="slds-page-header" style="background-color:#D0D5D8;">
+        <div class="slds-media">
+            <div class="slds-media__body">
+                <h1 class="slds-page-header__title">
+                    <img src="{!$Resource.Cognition_StaticRes + '/images/auspost_logo.jpeg'}"  
+                         style="vertical-align:left;height:8vh;"/>&nbsp;&nbsp;{!$Label.c.Cognition_ReceiverETATitle} 
+                </h1>
+            </div>
+        </div>
+    </div>
+    <aura:if isTrue="{!!empty(v.ETAMsg.ContextualParagraghs)}">
+       <h2> Consignment - {!v.ETAMsg.Consignment} </h2>
+        <aura:iteration items="{!v.ETAMsg.ContextualParagraghs}" var="item">
+            <p>{!item}</p>
+        </aura:iteration>
+   </aura:if>
+  <!-- Footer Start -->
+  
+	<footer role="contentinfo" class="slds-p-around--large">
+  	<!-- LAYOUT GRID -->
+  		<div class="slds-grid slds-grid--align-spread">
+    		<p class="slds-col">
+                <a href="http://auspost.com.au/sitemap.html" 
+                   class="summaryStyle">Sitemap</a></p>
+    		<p class="slds-col">
+                <a href="http://auspost.com.au/about-us/about-our-site.html" 
+                   class="summaryStyle">About our site</a></p>
+    		<p class="slds-col">
+                <a href="http://auspost.com.au/terms-conditions.html" 
+                   class="summaryStyle">Terms &amp; Conditions</a></p>
+    		<p class="slds-col">
+                <a href="http://auspost.com.au/privacy.html" 
+                   class="summaryStyle">Privacy policy</a></p>            
+        </div>
+  	<!-- / LAYOUT GRID -->
+	</footer>
+<!-- / FOOTER -->
+    
+
+</aura:component>

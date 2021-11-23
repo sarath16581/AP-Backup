@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>MasterLabel</columns>
+    <columns>DeveloperName</columns>
+    <columns>Category__c</columns>
+    <columns>IsSafeDrop__c</columns>
+    <columns>IsEnquiryLodged__c</columns>
+    <columns>IsSignatureOnDelivery__c</columns>
+    <columns>IsFeatured__c</columns>
+    <columns>ColourCode__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+    <language>en_US</language>
+</ListView>

@@ -1,0 +1,369 @@
+/* Colors */
+/* Sizing */
+/*  **********************************************
+Begin wizard buttons section
+***********************************************
+@changelog
+@date : 23-07-2020 hara.sahoo@auspost.com.au Changed the padding for class wizard-body-with-nav-inner mobile devices
+@date : 16-08-2020 hara.sahoo@auspost.com.au Changed the styling for neutral buttons
+*/
+.THIS .chas-button-box {
+  border-top: 1px solid #e2dfda;
+  padding-top: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; }
+
+.THIS .chas-button {
+  padding: 0 35px;
+  height: 45px; }
+
+.THIS .chas-prev-button {
+  text-decoration: underline;
+  color: #382F2D;
+  margin-top: 10px;
+  margin-left: 0; }
+
+.THIS .chas-button.slds-button--brand,
+.THIS .chas-button.slds-button_brand {
+  width: 100%; }
+/*changed on 16-08-2020*/
+.THIS .chas-button.slds-button_neutral{
+  font-weight: 500;
+  border-radius: 8px;
+  color:#212129;
+  background-color:#FFFFFF;
+  
+}
+
+.THIS .slds-button--brand,
+.THIS .slds-button_brand,
+.THIS .slds-button--icon-brand,
+.THIS .slds-button_icon-brand {
+  background-color: #dc1928;
+  font-family: APTypeText, sans-serif;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px; }
+
+.THIS .slds-button_brand:focus,
+.THIS .slds-button--brand:focus,
+.THIS .slds-button_brand:active,
+.THIS .slds-button--brand:active,
+.THIS .slds-button_icon-brand:focus,
+.THIS .slds-button--icon-brand:focus,
+.THIS .slds-button_icon-brand:active,
+.THIS .slds-button--icon-brand:active {
+  background-color: #BF1926; }
+
+.THIS .slds-button_brand:hover,
+.THIS .slds-button--brand:hover,
+.THIS .slds-button_icon-brand:hover,
+.THIS .slds-button--icon-brand:hover {
+  background-color: #BF1926; }
+
+.THIS .chas-button-disabled,
+.THIS .chas-button.disabled-true {
+  border: 2px solid rgba(49, 49, 61, 0.52) !important;
+  background: rgba(49, 49, 61, 0.1) !important;
+  color: #6D6D72 !important;
+  cursor: not-allowed;
+  pointer-events: none; }
+
+@media (min-width: 480px) {
+  .THIS .chas-button-box {
+      padding-top: 32px;
+      flex-direction: row-reverse; }
+  .THIS .chas-prev-button {
+      margin-top: 0; }
+  .THIS .chas-button.slds-button--brand,
+  .THIS .chas-button.slds-button_brand {
+      width: auto;
+      min-width: 165px; }  
+}
+@media (max-width: 480px) {
+  .THIS .chas-button.slds-button--neutral,
+  .THIS .chas-button.slds-button_neutral {
+      width: 100%; } 
+}
+
+
+/*  **********************************************
+End wizard buttons section
+***********************************************
+*/
+/*  **********************************************
+Begin wizard inputs
+***********************************************
+*/
+.THIS .form-input-container {
+  max-width: 450px; }
+
+.THIS .chas-input,
+.THIS .chas-output {
+  margin-bottom: 25px; }
+
+.THIS .form-input-container .slds-form-element__label {
+  font-size: 16px;
+  font-weight: bold;
+  display: block; }
+
+.THIS .form-input-container .slds-form-element__label .chas-body_small {
+  margin-left: 10px; }
+/* 23-07-2020 Added padding-bottom */
+.THIS .slds-form-element__label {
+  padding-bottom: 8px;
+  margin:0;
+  }
+
+.THIS .slds-form-element__control {
+  margin-top: 0.25rem; }
+
+.THIS .slds-form-element__help {
+  margin: 0; }
+
+@media (min-width: 480px) {
+  .THIS .chas-input,
+  .THIS .chas-textarea-container {
+      margin-bottom: 32px; }
+  .THIS .form-input-container {
+      margin-bottom: 20px; }
+  .THIS .chas-input .short-true {
+      max-width: 200px; } }
+
+/*  **********************************************
+End wizard inputs
+***********************************************
+*/
+/*  **********************************************
+Begin review / submit section
+***********************************************
+*/
+.THIS .review-container {
+  margin-bottom: 27px; }
+@media (max-width: 480px) {
+  .THIS .review-container {
+      margin-bottom: 25px; }
+}
+
+
+.THIS .review-container dl div {
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column; }
+
+.THIS dt {
+  width: 100%;
+  font-weight: bold; }
+
+.THIS dd {
+  width: 100%;
+  word-wrap: break-word; }
+
+@media (min-width: 480px) {
+  .THIS .review-container dl div {
+      display: flex;
+      flex-direction: row; }
+  /*Increased the width as per the new */
+  .THIS dt {
+      width: 40%; }
+  .THIS dd {
+      width: 60%; } }
+
+/*  **********************************************
+End review / submit section
+***********************************************
+*/
+/*  **********************************************
+Begin thanks section
+***********************************************
+*/
+/*  **********************************************
+End thanks section
+***********************************************
+*/
+/*  **********************************************
+Begin SSuiWizardPage component level declarations
+***********************************************
+*/
+.THIS .wizard-body-with-nav-outer {
+  background: #F5F5F5;
+  /*margin-top: 20px;*/ }
+@media (max-width: 1140px) {
+  .THIS .wizard-body-with-nav-outer {
+      width: 100vw;
+      margin-left: calc(-50vw + 50%); } }
+@media (min-width: 680px) {
+  .THIS .wizard-body-with-nav-outer {
+      margin-top: 1px; } }
+/*Added max-width and padding, as per the new designs for help and support form uplift*/
+.THIS .wizard-body-with-nav-inner {
+  max-width:656px;
+  padding: 40px 0px 50px;
+  margin-left: auto;
+  margin-right: auto; }
+/* Old styling can be deleted after 30-10-2020*/
+/*@media (min-width: 480px) {
+.THIS .wizard-body-with-nav-inner {
+max-width: 555px;
+padding-top: 40px;
+padding-bottom: 60px; } 
+}*/
+/*Changed the padding for mobile devices*/
+@media (max-width: 480px) {
+  .THIS .wizard-body-with-nav-inner {
+      padding: 40px 8px 50px;
+  }
+}
+
+.THIS .slds-spinner_container {
+  position: fixed; }
+
+.THIS .info-box {
+  border-left: 3px solid #009ed9;
+  border-radius: 3px;
+  background: white;
+  padding: 16px 15px 19px;
+  position: relative;
+  font-size: 0.875rem;
+  /*margin-bottom: 24px; */
+}
+
+/*  **********************************************
+End SSuiWizardPage component level declarations
+***********************************************
+*/
+
+@media (min-width: 680px) {
+  .THIS .desktop-progress {
+      display:block;
+  }
+  .THIS .mobile-progress {
+      display:none;
+  }
+}
+@media (max-width: 680px) {
+  .THIS .desktop-progress {
+      display:none;
+  }
+  .THIS .mobile-progress {
+      display:block;
+  }
+}
+
+.THIS .goBack{
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #DC1928;
+  padding-bottom:24px;
+}
+@media (max-width: 680px) {
+  .THIS .goBack{
+      padding-bottom:22px;
+  }
+}
+/* Extra left padding for mobile devices for elements above the card layout*/
+@media (max-width: 680px) {
+  .THIS .left-padding{
+      padding-left:24px;
+  }
+}
+@media (min-width: 680px) {
+  .THIS .outer-box { 
+      padding:32px 176px 32px 32px;
+      width: 656px;
+      background-color: #ffffff;
+      box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+      border-radius: 3px;
+  }
+}
+
+@media (max-width: 680px) {
+  .THIS .outer-box {
+      background-color: #ffffff;
+      padding: 32px 16px 32px 16px;
+      box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+      border-radius: 3px;
+  }
+}
+
+.THIS hr {
+  margin: 0.5rem 0px;
+  border-top: 1px solid #e2dfda;
+}
+.THIS .separator-gap{
+  padding-top: 13px; 
+  padding-bottom: 40px;
+}
+@media (max-width: 480px) {
+  .THIS .separator-gap{
+      padding-top: 7px; 
+      padding-bottom: 32px;
+  }
+}
+/* Styling for the guest login options*/
+.THIS .login-block{
+    background-color: #FFFFFF;
+    padding:32px 16px 32px 16px;
+    margin-bottom:32px;
+}
+.THIS .slds-grid-address-login{
+    display:flex;
+}
+@media (min-width: 480px) {
+    .THIS .separator-vertical{
+        border-left: 1px solid #E2E2E2;
+        height: 65px;	
+        margin: 14px 41px 0 41px;
+    }
+}
+@media (max-width: 480px) {
+    /*.THIS .login-block{
+        margin-top:-24px;
+    }*/
+    .THIS .slds-grid-address-login{
+        display:block;
+    }
+    .THIS .separator-horizontal{
+        padding: 41px 16px 41px 16px;
+    }
+}
+/*AME Styling*/
+.THIS .searchbox input {
+    box-sizing: border-box;
+    border: 2px solid #919194;
+    border-radius: 6px;
+    height: 44px;
+}
+
+.THIS .searchbox-err input {
+    box-sizing: border-box;
+    border: solid 2px #BD152E;
+    border-radius: 6px;
+    height: 44px;
+}
+.THIS .slds-has-error .slds-input {
+    border: solid 2px #BD152E;
+    border-radius: 6px;
+    box-shadow:none;
+}
+.THIS .slds-required{
+    display: none;
+}
+.THIS .slds-input{
+    line-height: 44px;
+    border: 2px solid #919194;
+    border-radius: 6px;
+}
+.THIS .AMEAddress{
+    margin-bottom:32px;
+}
+/* Mobile view*/
+@media (max-width: 480px) {
+    .THIS .AMEAddress{
+    margin-bottom:25px;
+}
+}

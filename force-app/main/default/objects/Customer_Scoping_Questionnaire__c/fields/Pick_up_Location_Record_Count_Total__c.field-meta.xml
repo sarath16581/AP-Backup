@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pick_up_Location_Record_Count_Total__c</fullName>
+    <externalId>false</externalId>
+    <label>Pick-up Location Record Count Total</label>
+    <summaryForeignKey>Pick_Up_Location__c.CSQ__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

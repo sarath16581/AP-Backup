@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+	<title>Next Steps in the SecurePay Application</title>
+</head>
+<body>
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Hi {!Application__c.ContactFirstName__c},</span></i></span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Thank you for applying for a SecurePay Online Payments account (powered by Australia Post).</span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">To proceed with your application we ask that you provide 100 Points of Documentation from the list below.</span></p>
+
+<ul>
+<li type="disc" style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">100 Points - Bank statement (Must display account name and number and that it is a Business bank Account) </li>
+<li type="disc" style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">100 Points - Signed and Stamped Letter for Bank Manager</li>
+<li type="disc" style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">60 Points - Transaction Listing</li>
+<li type="disc" style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">50 Points - Welcome Letter/Confirmation of Account</li>
+<li type="disc" style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">50 Points - Screenshot of Internet Banking</li>
+<li type="disc" style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">40 Points - Cheque</li>
+</ul>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Please scan and email your documentation to&nbsp;<a href="mailto:onlinepayments@securepay.com.au">onlinepayments@securepay.com.au</a>&nbsp;<span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">and quote your application number - {!Application__c.Name}.</p></span>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"><o:p></o:p></span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">If you need help with this task, our team is on hand to help guide you. Please call us on 1300 656 372 (option 1), we&rsquo;re here to&nbsp;help.&nbsp;</span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"><o:p></o:p></span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">If you require any technical support including integrating with your eCommerce software, please contact our support team on 1300 656 372 (option 2) or email&nbsp;<a href="mailto:support@securepay.com.au">support@securepay.com.au</a><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">, don’t forget to quote your application number - {!Application__c.Name}. </span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"><o:p></o:p></span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Regards,<o:p></o:p></span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">The SecurePay Team<br />
+SecurePay Pty Ltd &ndash; A business of Australia Post<br />
+Level 8, 222 Exhibition St, Melbourne, VIC 3000<br />
+<strong>P</strong> 1300 656 372 (option 1)&nbsp;<br />
+<strong>E</strong> <a href="mailto:onlinepayments@securepay.com.au"><span style="color:windowtext">onlinepayments@securepay.com.au</span></a>&nbsp;<br />
+<strong>W</strong> securepay.com.au<o:p></o:p></span></p>
+</body>
+</html>

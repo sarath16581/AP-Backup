@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Stage_Probability</fullName>
+    <active>true</active>
+    <description>This Validation rules enforces users enter the correct Probability % based on the Opportunity Stage.</description>
+    <errorConditionFormula>IF((ISPICKVAL( StageName, &quot;Identify&quot;) &amp;&amp; OR( Probability &gt; 0.1, Probability &lt; 0.01)) , True,
+IF((ISPICKVAL( StageName, &quot;Qualify&quot;) &amp;&amp; OR( Probability &gt; 0.4, Probability &lt; 0.1)) , True,
+IF((ISPICKVAL( StageName, &quot;Propose&quot;) &amp;&amp; OR( Probability &gt; 0.7, Probability &lt; 0.4)) , True,
+IF((ISPICKVAL( StageName, &quot;Negotiate&quot;) &amp;&amp; OR( Probability &gt; 0.9, Probability &lt; 0.6)) , True,
+IF((ISPICKVAL( StageName, &quot;Closed Won&quot;) &amp;&amp; Probability &lt;&gt; 1.0) , True,
+IF((ISPICKVAL( StageName, &quot;Closed Lost&quot;) &amp;&amp; Probability != 0.0), True,
+IF((ISPICKVAL( StageName, &quot;Closed Disqualified&quot;) &amp;&amp; Probability != 0.0), True,
+False)))))))</errorConditionFormula>
+    <errorDisplayField>Probability</errorDisplayField>
+    <errorMessage>Probability (%) is outside the range for this Opportunity Stage.</errorMessage>
+</ValidationRule>

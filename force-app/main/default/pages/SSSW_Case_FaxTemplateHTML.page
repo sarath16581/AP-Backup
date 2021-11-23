@@ -1,0 +1,36 @@
+<apex:page standardController="Case" applyHtmlTag="false" 
+    showHeader="false"
+    standardStylesheets="false" sidebar="false"
+    applyBodyTag="false" >
+
+<head>
+    <style>
+        div h3[style] {
+            color:black!important;
+            display: inline;
+        }
+        
+        .event-message-section {
+            border:1px solid black;
+        }
+        
+        .event-message-section th, .event-message-section td {
+            border:1px solid black;
+        } 
+        h1 {
+        display: inline;
+        font-weight: bold;
+    }
+    h3 {
+        display: inline;
+        font-weight: bold;
+    }
+   
+    
+</style>
+</head>
+    
+  <!--  <c:SSSWFaxContent faxCaseId="{!Id}" /> -->
+  <c:RetailFaxTemplate compId="{!Id}"/>
+
+</apex:page>

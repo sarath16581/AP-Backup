@@ -1,0 +1,906 @@
+<apex:page id="pageId" standardController="Account" extensions="Apt_CreditAssessmentController" action="{!init}"  sidebar="false">
+  
+    <script type="text/javascript"> 
+        function showAsicReportsDetail(reportId, showButton, hideButton)
+        {
+            document.getElementById(reportId).style.display= 'table-row';
+            document.getElementById(showButton).style.display= 'none';
+            document.getElementById(hideButton).style.display= 'block';
+        }
+        
+        function hideAsicReportsDetail(reportId, showButton)
+        {
+            document.getElementById(reportId).style.display= 'none';
+            document.getElementById(showButton).style.display= 'block';
+        }
+                        
+        function checkCreditAssessmentJS() {
+            checkCreditAssessmentAF();
+        }
+
+        function finishUpdateAccount() {
+            updateCompleted();
+        }
+        
+        <!-- 1551 -->
+        function noEnter(ev)  {
+            if (window.event && window.event.keyCode == 13 || ev.which == 13) {         
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+    <style>    
+        .customTable th,.customTable td{
+            font-size:14px;
+            width:15%;
+        }
+        
+        .customTable {
+            width:100%;
+        }
+        table.bottom-underline td {
+            border-bottom : 1px dotted #d8d8d8 !important;
+        }
+        
+        table.bottom-underline {
+            border-collapse:collapse;
+        }
+        
+        .bold {
+            font-weight:bold;   
+        }
+        
+        .businessName{
+            width:30% !important;
+        }
+        
+        .headingTD {
+        
+            font-weight:bold; 
+            font-size:14px;
+        }
+        
+        .aptRequiredBlock {
+            background-color: #c00;
+            font-weight: bold;
+            height: 100%;           
+        }
+        
+        .customPopup {
+            background-color: white;
+            border-style: solid;
+            border-width: 2px;
+            left: 25%;
+            padding: 10px;
+            position: absolute;
+            z-index: 9999;
+            width: 500px;
+            top: 20%;
+        }
+        
+        .popupBackground
+        {
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+        
+        .customerAgreed td{
+            padding-right:20px;
+        }
+
+        .message .messageText {
+            font-size: 16px;
+        }
+
+    </style>
+      <script>
+            
+            
+     </script>
+    <c:APT_WaitComponent />
+    
+        
+    <apex:actionStatus id="ajaxStatus" onstart="wait(true)" onstop="wait(false)" />
+    <apex:form id="apxForm">
+        
+        <apex:actionFunction name="checkCreditAssessmentAF" action="{!checkCreditAssessment}" oncomplete="wait(false)" rerender="apxForm" />
+        <apex:actionFunction name="updateCompleted" oncomplete="wait(false)" />
+
+        <apex:sectionHeader title="{!strGetValTitle}" />
+        <apex:pageMessages id="errorMessageSection"/>
+        
+        <!-- show warning popup for Hotlist -->
+        <apex:outputPanel id="hotlistWarningPopup" rendered="{!displayHotlistPopup}">
+            <apex:outputPanel styleClass="popupBackground" layout="block" />
+            <apex:outputPanel id="hotlistWarningPopupInner" styleClass="customPopup" layout="block">
+            <apex:pageBlock >
+                <apex:pageBlockSection title="{!strGetValHotlistWarning}" collapsible="false" columns="1">
+                    <apex:outputPanel >
+                        <apex:pageMessages id="warningHotlistMessage"/>
+                        <br/>
+                        <apex:outputText value="{!$Label.L2C_Hotlist_Customer_CreditTeam_Message}" />
+                        <br/><br/>
+                        <apex:outputPanel >
+                            <apex:selectRadio value="{!proceedHotlistCreditAssessment}" styleClass="customerAgreed">
+                                <apex:selectOption itemLabel="Override Hotlisting Restriction" itemValue="true"/>
+                            </apex:selectRadio>  
+                        </apex:outputPanel>
+
+                        <apex:outputPanel >
+                        <center>
+                            <apex:actionStatus id="backStatus">
+                                <apex:facet name="start">
+                                    <apex:commandButton disabled="true" value="{!strGetValProcessing}" action="{!goBack}" status="backStatus" reRender="hotlistWarningPopup" />
+                                </apex:facet>
+                                <apex:facet name="stop">
+                                    <apex:commandButton disabled="false" value="{!strGetValContinue}" action="{!goBack}" status="backStatus" reRender="hotlistWarningPopup,apxForm" />
+                                </apex:facet>
+                            </apex:actionStatus>
+                            
+                            <apex:commandButton value="Cancel" action="{!redirectToHomePage}" immediate="true"/>
+
+                        </center>
+                        </apex:outputPanel>
+
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        
+        <apex:outputPanel rendered="{!showChargeAccount}">
+            <apex:pageBlock >
+                <apex:pageBlockSection title="{!strGetValTitleBusiness}" columns="1"  collapsible="false">
+                       <apex:inputField id="input1" value="{!chargeAccount.AP_Proposed_Credit_Limit__c}" styleClass="column1"  rendered="{!isAnonymousFlow}" onchange="calculate()" />
+                        <apex:outputField id="apProposedLimit" value="{!chargeAccount.AP_Proposed_Credit_Limit__c}" styleClass="column2" rendered="{!NOT(isAnonymousFlow)}" />
+                        <apex:inputField id="input2" value="{!chargeAccount.Star_Track_Proposed_Credit_Limit__c}" styleClass="column2" rendered="{!isAnonymousFlow}" onchange="calculate()"/>
+                        <apex:outputField id="StarTrackProposedLimit" value="{!chargeAccount.Star_Track_Proposed_Credit_Limit__c}" styleClass="column1" rendered="{!NOT(isAnonymousFlow)}"/>
+                        <apex:pageBlockSectionItem helptext="{!$Label.L2C_Help_Text_for_Total_Proposed_Credit}"  rendered="{!isAnonymousFlow}">
+                            <apex:outputLabel value="{!$Label.L2C_Total_Proposed_Credit}"></apex:outputLabel>
+                            <apex:inputText id="result" value="{!chargeAccount.L2C_Total_Proposed_Credit__c}" disabled="true" rendered="{!isAnonymousFlow}"/>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem helptext="{!$Label.L2C_Help_Text_for_Total_Proposed_Credit}" rendered="{!NOT(isAnonymousFlow)}">
+                            <apex:outputLabel value="{!$Label.L2C_Total_Proposed_Credit}"></apex:outputLabel>
+                            <apex:outputText id="result1" value="{!totalProposedLimit}" rendered="{!NOT(isAnonymousFlow)}" />
+                        </apex:pageBlockSectionItem>
+                         
+                        <apex:inputField value="{!chargeAccount.APT_Company_Name__c}" onkeypress="return noEnter(event);" rendered="{!NOT(isAnonymousFlow)}"/>
+                         
+                </apex:pageBlockSection>
+                
+                
+                
+                
+                <!--<apex:pageBlockSection collapsible="false">
+                    <apex:facet name="header"> Contact Details (Street / Physical Address)</apex:facet>
+                    
+                    <apex:pageBlockSectionItem >
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <c:APT_AddressComponent address="{!mailingAddress}"  legend="" />
+                    </apex:pageBlockSectionItem>
+                    
+                
+                </apex:pageBlockSection> -->
+                
+                <apex:pageBlockSection title="{!strGetValTitleMktOptOut}" collapsible="false">
+                    <apex:pageBlockSectionItem >
+                        <apex:inputCheckbox value="{! chargeAccount.APT_Marketing_Opt_Out__c}" onkeypress="return noEnter(event);"/>
+                        <apex:outputtext Style="width:400px;">Tick here if you do NOT wish to receive information about our products and services</apex:outputtext>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>  
+                
+            </apex:pageBlock>
+            
+            
+            
+            <apex:outputPanel id="privacyStatementPopup"  >
+                <apex:outputPanel styleClass="popupBackground"  layout="block" rendered="{!displayPopUp}"/>
+                    <apex:outputPanel id="privacyStatementPopupInner" styleClass="customPopup" layout="block" rendered="{!displayPopUp}">
+                    <apex:pageBlock rendered="{!displayPopUp}">
+                        <apex:pageBlockSection title="{!strGetValTitlePrivacy}" collapsible="false" columns="1">
+                            <apex:outputPanel >
+                                <apex:pageMessages id="errorMessagePopupSection"/>
+                                <br/>
+                                <!--<apex:outputText value="{!admin.Apttus__Code__c}" escape="false" />-->
+                                 <apex:outputText value="{!$Label.Privacy_Statement_for_Credit_Assessment}" escape="false" />
+                                <br/><br/>
+                                <apex:outputPanel >
+                                    <apex:selectRadio value="{!chargeAccount.APT_CustomerAgreementToPrivacyStatement__c}" styleClass="customerAgreed">
+                                        <apex:selectOption itemLabel="Customer Agreed " itemValue="true"/>
+                                        <apex:selectOption itemLabel="Customer Disagreed" itemValue="false"/>
+                                    </apex:selectRadio>                                
+                                    
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel >
+                                    <center>
+                                        <apex:actionStatus id="continueStatus">
+                                            <apex:facet name="start">
+                                                <apex:commandButton disabled="true" value="{!strGetValProcessing}" action="{!doContinue}" status="continueStatus" reRender="errorMessagePopupSection"/>
+                                            </apex:facet>
+                                            <apex:facet name="stop">
+                                                <apex:commandButton disabled="false" value="{!strGetValContinue}" action="{!doContinue}" status="continueStatus" reRender="errorMessagePopupSection,apxForm"/>
+                                            </apex:facet>
+                                        </apex:actionStatus>  
+                                        
+                                        <apex:actionStatus id="backStatus">
+                                            <apex:facet name="start">
+                                                <apex:commandButton disabled="true" value="{!strGetValWait}" action="{!goBack}" status="backStatus" reRender="errorMessagePopupSection"/>
+                                            </apex:facet>
+                                            <apex:facet name="stop">
+                                                <apex:commandButton disabled="false" value="{!strGetValBack}" action="{!goBack}" status="backStatus" reRender="errorMessagePopupSection,apxForm"/>
+                                            </apex:facet>
+                                        </apex:actionStatus> &nbsp;
+                                                                                                                      
+                                    </center>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                        </apex:pageBlockSection>
+                    </apex:pageBlock>
+                </apex:outputPanel>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        
+        <apex:outputPanel rendered="{!showSearchCreditAssessment}">
+            <!--Search and Select Section-->
+            
+            <apex:pageBlock title="{!strGetValTitleSearchOrg}" id="OrgDetailSection">
+               
+                <apex:outputPanel >
+                    <apex:selectRadio styleClass="assessmentTypeClass" value="{!assesmentType}" id="assessmentTypeId" >
+                        <apex:selectOptions value="{!CompanyBusinessType}"/>
+                    </apex:selectRadio>                   
+                </apex:outputPanel>
+                
+                <apex:outputPanel >
+                    <apex:inputText value="{!userinput}"  style="height: 24px;width: 360px;" id="OrganisationDetails"  onkeypress="return noEnter(event);"/>
+                    </apex:outputPanel>
+                <br/>
+                <apex:outputPanel >
+                    <apex:outputLabel id="OrgDetialsError" style="color:red;"></apex:outputLabel>
+                </apex:outputPanel>
+                       
+            </apex:pageBlock>
+             <br/>
+            <!--Search Results Section-->
+            <apex:pageBlock title="{!strGetValSearchResults}"  rendered="{!showSearchResults}">
+                <apex:pageBlockSection collapsible="true" columns="1">
+                 <apex:variable value="{!0}" var="rowNum"/>
+                    <table class="customTable">
+                        <tr>
+                        <th style="width:40% !important">Business Name</th>
+                        <th >Location</th>
+                        <th >Status</th>
+                        <th >ABN</th>
+                        <th ></th>
+                            </tr>
+                        
+                        <apex:repeat value="{!orgIdResultList}" var="report">
+                            <tr>
+                            <td width="40%">{!report.MatchName}</td>
+                            <td>{!report.State}</td>
+                            <td>{!report.StatusString}</td>
+                            <td>{!report.AustralianBusinessNumber}</td>
+                            <td>
+                                <a href="" style="width:30px;" onclick="showAsicReportsDetail('asicReportDetails{!rowNum}','showButton{!rowNum}', 'hideButton{!rowNum}')" id="showButton{!rowNum}" class="button">
+                                    View
+                                </a>                                
+                            </td>
+                            
+                            
+                            </tr>
+                            
+                            <tr style="display:none;" id="asicReportDetails{!rowNum}">
+                                <td colspan="5">
+                                <table class="customTable bottom-underline">
+                                    <tr>
+                                        <td class="bold">ASIC Information</td>
+                                        <td> </td>                                 
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>Organisation Name: </td>
+                                        <td> {!report.ASICReport.ASICName}  </td>                
+                                    </tr>
+                                    <tr>
+                                        <td>Organisation Type: </td>
+                                        <td> {!report.ASICReport.ASICType}  </td>                
+                                    </tr>
+                                    <tr>
+                                        <td>ACN/ARBN/ARSN: </td>
+                                        <td> {!report.ASICReport.ASICOrganisationNumber}   </td>  
+                                    </tr>
+                                    <tr>
+                                        <td>Status: </td>
+                                        <td> {!report.ASICReport.ASICStatus}   </td>             
+                                    </tr>
+                                    <tr>
+                                        <td>Locality of Registered Office: </td>
+                                        <td> {!report.ASICReport.ASICLocality}  </td>             
+                                    </tr>
+                                    <tr>
+                                        <td>ABN: </td>
+                                        <td> {!report.ASICReport.ASICABN}   </td>                
+                                    </tr>
+                                    
+                                    <tr>
+                                           <td colspan="2">&nbsp;</td>                            
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="bold">Australia Business Register Information</td>
+                                        <td> </td> 
+                                    </tr>
+                                    <tr>
+                                        <td>Legal Name: </td>
+                                        <td> {!report.AustralianBusinessRegisterReport.NonIndividualName } </td>             
+                                    </tr>
+                                    <tr>
+                                        <td>ABN: </td>
+                                        <td> {!report.AustralianBusinessRegisterReport.ABN} </td>             
+                                    </tr>
+                                    <tr>
+                                        <td>ABN Status: </td>
+                                        <td> {!report.AustralianBusinessRegisterReport.ABNStatus } </td>             
+                                    </tr>
+                                    <tr>
+                                        <td>Entity Type: </td>
+                                        <td> {!report.AustralianBusinessRegisterReport.EntityTypeText  + report.AustralianBusinessRegisterReport.EntityTypeInd  }  </td>             
+                                    </tr>
+                                    <tr>
+                                        <td>Main Business Location / Postcode: </td>
+                                        <td> {!report.AustralianBusinessRegisterReport.BusinessAddressPostcode } </td>             
+                                    </tr>                                
+                                    <tr>
+                                        <td>Trading Name: </td>
+                                        <td> {!report.AustralianBusinessRegisterReport.TradingName } </td>             
+                                    </tr>
+                                    <tr>
+                                        <td>ASIC Organisation Number: </td>
+                                        <td> {!report.AustralianBusinessRegisterReport.ASICNumber } </td>             
+                                    </tr>
+                                     <tr>
+                                        <td colspan="2">&nbsp;</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                                <apex:commandButton value="Select" action="{!selectReport}" rerender="apxForm,errorMessageSection" rendered="{!report.ShowSelect}">
+                                                
+                                                
+                                                <!--<apex:commandButton value="Select" action="{!selectReport}" rerender="apxForm">-->
+                                                <apex:param name="orgIDReport" value="{!report.OrgIdResultUniqueNumber}" assignTo="{!selectedOrgIdUniqueNumber}"/>
+                                                
+                                            </apex:commandButton>
+                                            <apex:commandButton value="Refer to Credit Team" action="{!doRefer}" status="ajaxStatus" rendered="{!NOT(report.ShowSelect)}" reRender="apxForm"/>
+                                            <apex:commandButton value="Close" onclick="hideAsicReportsDetail('asicReportDetails{!rowNum}','showButton{!rowNum}')" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">&nbsp;</td>
+                                    </tr>
+                                    
+                                </table>
+                                </td>
+                            </tr>
+                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                            
+                            
+                        </apex:repeat>
+                    </table>
+                    
+                    
+                    
+                </apex:pageBlockSection>
+               
+            </apex:pageBlock>
+            
+            
+            <table>
+                <tr>
+                    <td>
+                    
+                    </td>
+                </tr>
+            </table>
+            
+        </apex:outputPanel>
+        <br/>
+        
+        <!-- Company Business -->
+        <apex:outputPanel id="companyBusinessPanel" rendered="{!showCompanyBusiness}">            
+            <!--Selected Organisation Details Section-->
+            <apex:pageBlock title="{!$Label.APT_Selected_Organisation_Details}" Rendered="{!showCompanyBusiness}">
+                
+                <!--<apex:pageMessage severity="INFO" strength="1" summary="Credit Assessment Team will be referred as total proposed credit amount is greater than 100k." rendered="{!IF(sum > 100000, true, false)}"></apex:pageMessage>-->
+               
+                <!-- Charge Account -->
+                <apex:pageBlockSection id="BusinessDetailsSection" collapsible="false" title="Business Details" rendered="{!showCompanyBusiness || accountIsUpdated}">
+                    <apex:pageBlockSectionItem rendered="{!NOT(isAnonymousFlow)}">
+                        <apex:outputLabel value="{!$Label.APT_Business_Name}"></apex:outputLabel>
+                        <apex:inputField value="{!account.Name}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!(isAnonymousFlow)}" >
+                        <apex:outputLabel value="{!$Label.APT_Business_Name}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Company_Name__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!NOT(isAnonymousFlow)}">
+                        <apex:outputLabel value="{!$Label.APT_ABN}"></apex:outputLabel>
+                        <apex:inputField value="{!account.ABN__c}" onkeypress="return noEnter(event);" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!(isAnonymousFlow)}">
+                        <apex:outputLabel value="{!$Label.APT_ABN}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_ABN__c}" onkeypress="return noEnter(event);" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem rendered="{!NOT(isAnonymousFlow)}">
+                        <apex:outputLabel value="{!$Label.APT_ACN}"></apex:outputLabel>
+                        <apex:inputField value="{!account.ACN__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!(isAnonymousFlow)}">
+                        <apex:outputLabel value="{!$Label.APT_ACN}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_ACN__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <!--<apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_Credit_Limit_Required}"></apex:outputLabel>
+                        <apex:outputField value="{!chargeAccount.APT_Credit_Limit_Required__c}"/>
+                    </apex:pageBlockSectionItem>-->
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.L2C_Total_Proposed_Limit_AP_StarTrack}"></apex:outputLabel>
+                        <apex:outputField value="{!chargeAccount.L2C_Total_Proposed_Credit__c}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_Industry}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Industry_Type__c}" required="true" onkeypress="return noEnter(event);" />
+                    </apex:pageBlockSectionItem>  
+                    
+                   
+                                      
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection collapsible="false" title="Trustee Information">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_Trustee_Name}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Trustee_Name__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_Trustee_ABN}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Trustee_ABN__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_Trustee_ACN}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Trustee_ACN__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                   
+                                      
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection title="" collapsible="false">
+                    <apex:facet name="header"> Postal Address of Business (Billing Address)</apex:facet>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_Contact_Name}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Contact_Name__c}" required="True" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_Position_Title}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Position_Title__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_Contact_Telephone}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Contact_Telephone__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    
+                    <apex:pageBlockSectionItem helpText="Address information is populated from the Organisation Record �re-enter values in correct fields">
+                        <apex:outputLabel value="{!$Label.APT_Contact_Email_Address}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Contact_Email_Address__c}" required="True" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Unit Number"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Billing_Address_Unit_Number__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    </apex:pageblocksectionItem>
+                    <apex:pageBlockSectionItem helptext="{!$Label.L2C_Help_Text_For_Street_Number}">
+                        <apex:outputLabel value="Street Number"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Billing_Address_Street_Number__c}" required="true" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    </apex:pageblocksectionItem>
+                    
+                    <apex:pageblocksectionItem >
+                       <c:APT_AddressComponent address="{!mailingAddress}"  legend="" />
+        
+
+                    </apex:pageblocksectionItem> 
+                    
+                    <apex:pageBlockSectionItem >
+                    </apex:pageblocksectionItem> 
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_Telephone}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Billing_Address_Telephone__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>  
+                
+                <apex:pageBlockSection collapsible="false">
+                    <apex:facet name="header"> Contact Details (Street / Physical Address)</apex:facet>
+                     
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Unit Number"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Street_Address_Unit_Number__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    </apex:pageblocksectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Street Number"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Street_Address_Street_Number__c}" required="true" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    </apex:pageblocksectionItem>
+                     
+                    <apex:pageBlockSectionItem >
+                        <c:APT_AddressComponent address="{!physicalAddress}"  legend="" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                
+            </apex:pageBlock>           
+        </apex:outputPanel>
+        
+        <!-- Sole Trader -->
+        <apex:outputPanel id="soleTraderPanel" rendered="{!showSoleTrader}">            
+            <!--Selected Organisation Details Section-->
+            <apex:pageBlock title="Selected Organisation Details" Rendered="{!showSoleTrader}"> 
+                <!--<apex:pageMessage severity="INFO" strength="1" summary="Credit Assessment Team will be referred as total proposed credit limit is greater than 100k." rendered="{!IF(sum > 100000, true, false)}"></apex:pageMessage>-->
+                
+                
+                <apex:pageBlockSection id="soleTraderDetails" collapsible="false" title="Individual/Sole Trader Details" rendered="{!showSoleTrader || accountIsUpdated}">
+                    <apex:pageBlockSectionItem rendered="{!NOT(isAnonymousFlow)}">
+                        <apex:outputLabel value="{!$Label.APT_Business_Name}"></apex:outputLabel>
+                        <apex:inputField value="{!account.Name}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!(isAnonymousFlow)}" >
+                        <apex:outputLabel value="{!$Label.APT_Business_Name}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Company_Name__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem rendered="{!NOT(isAnonymousFlow)}">
+                        <apex:outputLabel value="{!$Label.APT_ABN}"></apex:outputLabel>
+                        <apex:inputField value="{!account.ABN__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!(isAnonymousFlow)}">
+                        <apex:outputLabel value="{!$Label.APT_ABN}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_ABN__c}" onkeypress="return noEnter(event);" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!NOT(isAnonymousFlow)}">
+                        <apex:outputLabel value="{!$Label.APT_ACN}"></apex:outputLabel>
+                        <apex:inputField value="{!account.ACN__c}" onkeypress="return noEnter(event);" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!(isAnonymousFlow)}">
+                        <apex:outputLabel value="{!$Label.APT_ACN}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_ACN__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <!--<apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_Credit_Limit_Required}"></apex:outputLabel>
+                        <apex:outputField value="{!chargeAccount.APT_Credit_Limit_Required__c}"/>
+                    </apex:pageBlockSectionItem>-->
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.L2C_Total_Proposed_Limit_AP_StarTrack}"></apex:outputLabel>
+                        <apex:outputField value="{!chargeAccount.L2C_Total_Proposed_Credit__c}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                                                  
+                </apex:pageBlockSection>
+                <apex:pageBlockSection collapsible="false" title="Trustee Information">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_Trustee_Name}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Trustee_Name__c}" required="{!isTrustFlag}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_Trustee_ABN}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Trustee_ABN__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.APT_Trustee_ACN}"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Trustee_ACN__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                   
+                                      
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection collapsible="false" title="{!$Label.APT_Contact_Details}">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputlabel >Name of Contact Person</apex:outputlabel>
+                        <apex:inputField value="{!chargeAccount.APT_Name_of_Contact_Person__c}" onkeypress="return noEnter(event);" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputlabel >Phone Number</apex:outputlabel>
+                        <apex:inputField value="{!chargeAccount.APT_Phone_Number__c}" onkeypress="return noEnter(event);" />
+                    </apex:pageBlockSectionItem>                    
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection >
+                    <apex:pageBlockSectionItem >
+                        <apex:outputlabel >First Name</apex:outputlabel>
+                        <apex:inputField value="{!chargeAccount.APT_First_Name__c}" required="true" onkeypress="return noEnter(event);" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputlabel >Last Name</apex:outputlabel>
+                        <apex:inputField value="{!chargeAccount.APT_Last_Name__c}" required="true" onkeypress="return noEnter(event);" />
+                    </apex:pageBlockSectionItem>  
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputlabel >DoB</apex:outputlabel>
+                        <apex:inputField value="{!chargeAccount.APT_Applicant1_Date_of_Birth__c}" required="true" onkeypress="return noEnter(event);" />
+                    </apex:pageBlockSectionItem> 
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputlabel >Drivers Licence</apex:outputlabel>
+                        <apex:inputField value="{!creditAssesment.APT_Applicant_1_Drivers_Licence_Number__c}" onkeypress="return noEnter(event);" />
+                    </apex:pageBlockSectionItem>                 
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection title="{!$Label.APT_Postal_Address_of_Business_Billing_Address_for_Applicant_1}" collapsible="false">
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Unit Number"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Applicant1_BA_Unit_Number__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    </apex:pageblocksectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Street Number"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Applicant1_BA_Street_Number__c}"  required="true" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    </apex:pageblocksectionItem>
+                    
+                    <apex:pageblocksectionItem >
+                        <c:APT_AddressComponent address="{!soleTraderAddrress}" legend="" />
+                    </apex:pageblocksectionItem>
+                    <apex:pageBlockSectionItem >
+                        
+                    </apex:pageblocksectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputlabel >Telephone</apex:outputlabel>
+                        <apex:inputField value="{!chargeAccount.APT_Applicant1_BA_Telephone__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>                                         
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection title="{!$Label.APT_Physical_Residential_Address}" collapsible="false">
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Unit Number"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Applicant1_SA_Unit_Number__c}" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    </apex:pageblocksectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Street Number"></apex:outputLabel>
+                        <apex:inputField value="{!chargeAccount.APT_Applicant1_SA_Street_Number__c}" required="true" onkeypress="return noEnter(event);"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                    </apex:pageblocksectionItem>
+                    
+                    <apex:pageblocksectionItem >
+                                
+                        <c:APT_AddressComponent address="{!residentialAddress}" legend="" />
+                    </apex:pageblocksectionItem>
+                    <apex:pageBlockSectionItem >
+                        
+                    </apex:pageblocksectionItem>
+                    <apex:pageBlockSectionItem >
+                        
+                    </apex:pageblocksectionItem>
+                </apex:pageBlockSection>
+                
+                
+            </apex:pageBlock>
+            <br/>
+        </apex:outputPanel>
+        <!--
+        <apex:outputPanel id="companyCreditAssessmentResponsePanel" rendered="{!showCompanyBusinessResponse}">
+            <apex:pageBlock title="Company Credit Assessment" >
+            <apex:pageBlockSection collapsible="false">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Company Business Decision</apex:outputLabel>
+                    <apex:outputLabel >{!responseWrapper.companyBusinessDecision}</apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                <br/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Status</apex:outputLabel>
+                    <apex:outputLabel >{!responseWrapper.status}</apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                <br/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Credit Amount Required</apex:outputLabel>
+                    <apex:outputLabel >{!responseWrapper.response.commercialApplication.creditAmountRequired}</apex:outputLabel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+                    
+        </apex:pageBlock>
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="soleTraderCreditAssessmentResponsePanel" rendered="{!showSoleTraderResponse}">
+        <apex:pageBlock title="Individual Credit Assessment" >
+            <apex:pageBlockSection collapsible="false">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Individual Decision</apex:outputLabel>
+                    <apex:outputLabel >{!individualResponseWrapper.individualDecision}</apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                <br/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Status</apex:outputLabel>
+                    <apex:outputLabel >{!individualResponseWrapper.status}</apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                <br/>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Credit Amount Required</apex:outputLabel>
+                    <apex:outputLabel >{!individualResponseWrapper.response.commercialApplication.creditAmountRequired}</apex:outputLabel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="showApprovedPagePanel" rendered="{!showApprovedPage}">
+        <apex:pageBlock title="Credit Assessment Status less then 5k">
+            <apex:pageBlockSection collapsible="false">
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Status</apex:outputLabel>
+                    <apex:outputLabel >{!OrgIdAssessmentStatusLT5K}</apex:outputLabel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:outputPanel>
+        -->
+    <apex:outputPanel id="CreditAssessmentResponsePanel" rendered="{!showCreditAssesssmentResults}">
+        <apex:pageBlock title="{!ResultPageTitle}" >
+            <apex:pageBlockSection collapsible="false" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Credit Assessment Decision</apex:outputLabel>
+                    <apex:outputLabel >{!CreditAssessmentFinalOutcome}</apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!(AssessmentOutComeReason != null) && (AssessmentOutComeReason!= '')}">
+                    <apex:outputLabel >Credit Assessment Reason</apex:outputLabel>
+                    <apex:outputLabel >{!AssessmentOutComeReason}</apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Credit Amount Required</apex:outputLabel>
+                    <apex:outputLabel >{!chargeAccount.L2C_Total_Proposed_Credit__c}</apex:outputLabel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:outputPanel>
+        
+        
+    
+     
+    <script>
+    var j$ = jQuery.noConflict();
+    
+    function closeAndRefresh(){
+        var alertMessage = j$('.alert');
+        if(!alertMessage && alertMessage.is(':hidden')){
+            sforce.console.getEnclosingPrimaryTabId(function(result){sforce.console.refreshPrimaryTabById(result.id, true);});
+        }
+    }
+    sforce.connection.sessionId = "{!$Api.Session_ID}";
+        
+    function setFocusOnLoad() {} //prevents focus to this component when inline on the standard page layout
+    
+  
+    function calculate() {
+            var $ =  jQuery.noConflict();
+            var val1 = $('[id$=input1]').val();
+            if(val1 === "" || val1 === null){
+                val1 = 0;
+            }
+            var val2 = $('[id$=input2]').val();
+            if(val2 === "" || val2 === null){
+                val2 = 0;
+           }
+           
+           var total = parseFloat( val1 ) + parseFloat( val2 );
+           //The isNaN() function determines whether a value is an illegal number (Not-a-Number)
+            if( !isNaN( total ) ) {
+                $( "[id$=result]" ).val( total );
+            }
+        }
+    
+    </script>
+       
+ 
+  <br/>        
+       
+        
+        <center>
+            
+            <apex:commandButton value="Update" onClick="wait(true)" action="{!updateAccount}" immediate="true"
+                oncomplete="finishUpdateAccount();" rendered="{!((showCompanyBusiness || showSoleTrader) && !isAnonymousFlow && NOT(hideUpdateBtn))}" reRender="BusinessDetailsSection,soleTraderDetails,errorMessageSection,apxForm"/>
+            
+            <apex:commandButton value="Search" action="{!requestOrgIDDetails}" rendered="{!showSearchCreditAssessment}" 
+                status="ajaxStatus" rerender="apxForm"/>
+            <!--<apex:commandButton value="Refer to Credit Team" action="{!doRefer}" status="ajaxStatus" 
+                rendered="{!showSearchResults}" reRender="apxForm"/>-->
+
+            <!-- 1550 -->
+            <apex:commandButton value="SAVE" action="{!redirectToNextPage}" rendered="{!(((showCreditAssesssmentResults && !isEntityTypePartnership) || (showCreditAssesssmentResults && isEntityTypePartnership && creditAssessmentRecordCount != 0 && creditAssessmentRecordCount == 3)) && !isAnonymousFlow )}"/>
+
+            <apex:commandButton value="OK" onclick="return confirm('Do you want to proceed with less than 4 partners?');" action="{!redirectToNextPage}" rendered="{!showCreditAssesssmentResults && isEntityTypePartnership && creditAssessmentRecordCount >= 1 && creditAssessmentRecordCount < 3 && !isAnonymousFlow}"/>
+
+            <apex:commandButton value="OK" action="{!redirectToCreditAssessmentRecord}" rendered="{!(showCreditAssesssmentResults && isAnonymousFlow)}"/>
+
+            <apex:commandButton value="Add Partner" action="{!addPartner}" rendered="{!isEntityTypePartnership && creditAssessmentRecordCount < 3 && showCreditAssesssmentResults}"/>
+            <!-- 1550 -->
+
+            <apex:commandButton value="Next"  action="{!doNextForChargeAccount}" rendered="{!showChargeAccount}" 
+                reRender="privacyStatementPopup,errorMessageSection" status="ajaxStatus"/>
+            <apex:commandButton value="Credit Assessment" onClick="wait(true)" action="{!doCreditCheck}"  
+                oncomplete="checkCreditAssessmentJS();" rendered="{! (showCompanyBusiness || showSoleTrader) }" disabled="{!disableCreditAssessmentBtn}"
+                reRender="apxForm" />
+            
+            <apex:commandButton value="Back" immediate="true" action="{!backToSearch}" 
+                rendered="{!(showCompanyBusiness || showSoleTrader)}" />
+
+             <!-- LJ 16/09/2020 To hide Cancel button from the Credit Assessment Outcome page -->
+            <apex:commandButton value="Cancel" action="{!back}" immediate="true" rendered="{!NOT(isAnonymousFlow || showCreditAssesssmentResults) }" />
+            <apex:commandButton value="Cancel" action="{!redirectToHomePage}" immediate="true" rendered="{!isAnonymousFlow}"/>
+        </center>
+        
+        
+        <div>
+        </div>
+<apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+        <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+        <apex:stylesheet value="{!$Resource.jQueryLayoutCSS}" />
+        <apex:stylesheet value="{!$Resource.jQueryUI1_10_3_Css}" />
+        <script src="{!URLFOR($Resource.jQuery111)}" />
+        <script src="{!URLFOR($Resource.bootstrapJS)}" />
+        <script src="{!URLFOR($Resource.jQueryUI1_10_3)}" />
+        <script src="{!URLFOR($Resource.jQueryLayout)}" />
+        <script src="/support/console/28.0/integration.js" />
+        <script src="/support/api/28.0/interaction.js" />
+        
+        <Style>
+            body{
+                font-size:   12px !important;
+                
+            }
+            .customerAgreed{
+                margin-right:10px;
+            }
+            .btn{
+                margin:5px !important;
+            }
+        </Style>
+ 
+ 
+ </apex:form>
+ 
+</apex:page>

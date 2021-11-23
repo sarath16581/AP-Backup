@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DelegateGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <groups>CET Heads</groups>
+    <groups>Business CC Management</groups>
+    <groups>CET CC Management</groups>
+    <groups>CET Support</groups>
+    <groups>SSSW Agents</groups>
+    <groups>SSSW PON</groups>
+    <groups>Customer Service Senior Management Team</groups>
+    <groups>Customer Service Reporting</groups>
+    <groups>Customer Service Operations</groups>
+    <groups>SSSW Customer Service Reporting</groups>
+    <groups>SSSW Social Media Mgt</groups>
+    <groups>SSSW Knowledge Publish Articles</groups>
+    <groups>Community Agents</groups>
+    <groups>SSSW BO Admin</groups>
+    <label>AP CCC Admin</label>
+    <loginAccess>false</loginAccess>
+    <permissionSets>SSSW - CTI Overflow Experience</permissionSets>
+    <permissionSets>SSSW Omni Supervisor PermSet</permissionSets>
+    <permissionSets>SSSW Allow Quick Text</permissionSets>
+    <permissionSets>SSSW Callback Reminder Manager</permissionSets>
+    <permissionSets>SSSW Callback Reminder</permissionSets>
+    <permissionSets>Chatter Moderator</permissionSets>
+    <permissionSets>SSSW Knowledge Management</permissionSets>
+    <permissionSets>SSSW Team Lead/Manager</permissionSets>
+    <permissionSets>SSSW Administrator</permissionSets>
+    <permissionSets>Queue Management Page</permissionSets>
+    <permissionSets>MPBHSP Live Agent and Skills Management</permissionSets>
+    <permissionSets>SSSW Team Lead/Manager Create Reports</permissionSets>
+    <permissionSets>SSSW Create Report Type</permissionSets>
+    <permissionSets>SSSW WorkForce Management</permissionSets>
+    <permissionSets>SSSW Social Media Permissions</permissionSets>
+    <permissionSets>SSSW Social Media Management Permissions</permissionSets>
+    <permissionSets>SSSW Live Agent Management</permissionSets>
+    <permissionSets>SSSW_Knowledge_Management FAQ</permissionSets>
+    <profiles>MyNetwork Portal</profiles>
+    <profiles>SSSW Read Only</profiles>
+    <profiles>SSSW - Service Agent</profiles>
+    <roles>SSSW Management</roles>
+</DelegateGroup>

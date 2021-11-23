@@ -1,0 +1,83 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 23/08/2020
+  * @description  : Component for Tracking Number Search.
+--------------------------------------- History --------------------------------------------------
+23.08.2020    Jansi Rani   Created
+-->
+<template>
+    <div class="">
+
+         <!-- Error messages-->
+         <template if:true={errorMessage}>
+            <c-bsp-error error-message={errorMessage}></c-bsp-error>
+        </template>
+
+        <div class="slds-grid slds-wrap slds-p-around_large tracking-bar slds-m-bottom_large">
+
+            <!-- Home tracking search bar -->
+            <template if:false={slimTrackingBar}>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_8-of-12">
+                    <h2 class="slds-p-bottom_large"> Manage your delivery</h2>
+                    <div class="search-wrap">
+                        <form class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread" onsubmit={handleGo}>
+                        <div style="width: 83%;">
+                            <lightning-input class="tracking-bar-input" 
+                                variant="label-hidden" required
+                                type="text" data-id='trackingNumber' label="" max-length='40' 
+                                onchange={handleChange} value={consignmentNumber}
+                                message-when-value-missing={requiredValMissingErrorMsg} 
+                                placeholder={placeHolderText}>
+                            </lightning-input>
+                        </div>
+                        <div style="width: 15%;">
+                            <lightning-button variant="brand" label="Go" title="go" onclick={handleGo}
+                                class="tracking-bar-button"></lightning-button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_4-of-12 manage-tasks">
+                    <p class="slds-p-bottom_medium">Start with a Tracking number to</p>
+                    <ul>
+                        <li>
+                            <c-bsp-custom-icons icon="track" size="medium" iconclass="icon-inline"></c-bsp-custom-icons>&nbsp;<b>Track</b> a delivery
+                        </li>
+                        <li>
+                            <c-bsp-custom-icons icon="redirect" size="medium" iconclass="icon-inline"></c-bsp-custom-icons>&nbsp;<b>Recall</b> or <b>redirect</b> parcels
+                        </li>
+                        <li>
+                            <c-bsp-custom-icons icon="register" size="medium" iconclass="icon-inline"></c-bsp-custom-icons>&nbsp;<b>Download</b> a proof of delivery
+                        </li>
+                    </ul>
+                </div>
+                
+            </template>
+
+            <template if:true={slimTrackingBar}>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 slds-m-bottom_medium">
+                    <div class="slds-grid slds-wrap slds-p-bottom_small slds-grid_vertical-align-center"> <h2 class="slds-p-right_small">Manage your delivery</h2> Track your item, recall or redirect parcels or download a proof of delivery</div>
+                    <div class="search-wrap" style="margin: 0;">
+                        <form class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread" onsubmit={handleGo}>
+                        <div style="width: 83%;">
+                            <lightning-input class="slim-tracking-bar-input" 
+                                variant="label-hidden" required
+                                type="text" data-id='trackingNumber' label="" max-length='40' 
+                                onchange={handleChange} value={consignmentNumber} 
+                                message-when-value-missing={requiredValMissingErrorMsg}
+                                placeholder="Enter tracking number here">
+                            </lightning-input>
+                        </div>
+                        <div style="width: 15%;">
+                            <lightning-button variant="brand" label="Go" title="go" onclick={handleGo}
+                                class="slim-tracking-bar-button" ></lightning-button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                
+            </template>
+        </div>
+    </div>
+</template>

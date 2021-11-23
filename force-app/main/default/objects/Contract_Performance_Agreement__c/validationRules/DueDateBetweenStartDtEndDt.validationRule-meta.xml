@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DueDateBetweenStartDtEndDt</fullName>
+    <active>true</active>
+    <errorConditionFormula>!ISNULL( Due_Date__c ) &amp;&amp; ( 
+!ISNULL(Start_Date__c) &amp;&amp; Due_Date__c &lt; Start_Date__c 
+||( 
+!ISNULL(End_Date__c) &amp;&amp; 
+Due_Date__c &gt; End_Date__c 
+) 
+)</errorConditionFormula>
+    <errorMessage>Due Date needs to be between Start date and End Date</errorMessage>
+</ValidationRule>

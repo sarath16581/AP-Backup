@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Metric__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Metric</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The measurable metric(s) that will indicate you have achieved the Objective or the measurable results of achieving the Objective. For example, &quot;$5M in pipeline&quot;, or &quot;unlimited access to the SVP(include the names)&quot;, or &quot;$2M in revenue&quot;.</inlineHelpText>
+    <label>Metric</label>
+    <length>8192</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

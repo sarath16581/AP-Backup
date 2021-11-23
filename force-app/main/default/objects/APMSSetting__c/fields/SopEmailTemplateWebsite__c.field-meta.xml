@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SopEmailTemplateWebsite__c</fullName>
+    <description>2014-09 APMS</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This param sets the SOP Website Address for end user enquiries on email template.</inlineHelpText>
+    <label>Website Contact Detail</label>
+    <length>50</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

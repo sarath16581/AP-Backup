@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Depot_Role__c</fullName>
+    <description>StarTrack: Capture depot role for depot role person</description>
+    <externalId>false</externalId>
+    <label>Depot Area</label>
+    <referenceTo>Depot_Area__c</referenceTo>
+    <relationshipLabel>Depot Area User</relationshipLabel>
+    <relationshipName>Depot_Role_Persons</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

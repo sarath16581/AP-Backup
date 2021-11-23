@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>Australia Post</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style type="text/css">
+		* {
+			-ms-text-size-adjust: 100%;
+			-webkit-text-size-adjust: none;
+			-webkit-text-resize: 100%;
+			text-resize: 100%;
+		}
+
+		/* Desktop */
+		.rear-column {
+			width: 15%;
+		}
+
+		.main-column {
+			width: 70%;
+		}
+
+		.button-rear-column {
+			width: 30%
+		}
+
+		.button-main-column {
+			width: 40%
+		}
+
+		/* Mobile Phone */
+		@media only screen and (max-width: 768px) {
+			.rear-column {
+				width: 5%;
+			}
+
+			.main-column {
+				width: 90%;
+			}
+
+			.button-rear-column {
+				width: 10%
+			}
+
+			.button-main-column {
+				width: 80%
+			}
+		}
+
+		.header-bottom-border {
+			border-bottom: solid rgb(27, 150, 255);
+			margin-bottom: 2em;
+		}
+
+		.main-container {
+			padding:1em 4em 0 4em;
+		}
+
+		
+	</style>
+</head>
+
+<body style="margin: 0; padding: 0;" link="#dc1928" bgcolor="#e3e5ed" style="font-family: Arial, Helvetica, sans-serif;">
+	<!-- background color for Gmail -->
+	<center style="margin:0; padding:0; width: 100%; background-color: #e3e5ed;">
+	<!-- header -->
+	<div class="header-bottom-border">
+		<table width="100%" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
+			<tr>
+				<td width="3%"><div style="height: 0.5em">&nbsp;</div></td>
+				<td width="97%"><div style="height: 0.5em">&nbsp;</div></td>
+			</tr>
+			<tr>
+				<td width="3%">&nbsp;</td>
+				<td width="97%">
+					<img src="{!$Label.CHAS_ApLogoWithText}">
+				</td>
+			</tr>
+			<tr>
+				<td width="3%"><div style="height: 0.5em">&nbsp;</div></td>
+				<td width="97%"><div style="height: 0.5em">&nbsp;</div></td>
+			</tr>
+		</table>
+	</div>
+
+
+	<!-- main -->
+	<table width="100%">
+		<tr>
+			<td class="rear-column">&nbsp;</td>
+			<td class="main-column">
+				<table width="100%" style="color: #807370">
+					<tr>
+						<td width="80%" bgcolor="#FFFFFF" class="main-container">
+							<table width="100%" cellpadding="0" cellspacing="0">
+								<tr>
+									<td style="padding:1em 0 0 0;">
+										<h1 style="font-weight: bold; color: black">
+											Thanks, we've received your enquiry
+										</h1>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<br/>
+										<p>Hi {!Contact.FirstName},</p>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<br/>
+										<span>
+                                            Thanks for your enquiry{!IF(ISNULL(Case.ReferenceID__c), '.', ' about item ')}
+                                        </span>
+                                        <span >
+                                            <b>
+                                                {!IF(ISNULL(Case.ReferenceID__c), '', Case.ReferenceID__c + '.')}
+                                            </b>
+                                        </span>
+                                        <span>
+                                            Your reference number is <b>{!Case.CaseNumber}.</b>
+                                        </span>
+										<p>
+											<b>What happens next?</b>
+										</p>
+										<p>
+                                            Most late items arrive within 5 business days of the expected delivery date. If your parcel is delivered, we’ll let you know
+                                            and close your enquiry.
+                                        </p>
+										<p>
+											We’ll monitor this delivery until 
+											<b>
+												{!CASE(WEEKDAY(DATEVALUE(Case.Case_Reopen_Date__c)), 1, "Sun", 2, "Mon", 3, "Tue", 4, "Wed", 5, "Thu", 6, "Fri", "Sat")} 
+												{!DAY(DATEVALUE(Case.Case_Reopen_Date__c))} 
+												{!CASE(MONTH(DATEVALUE(Case.Case_Reopen_Date__c)), 1, "Jan", 2, "Feb", 3, "Mar", 4, "Apr", 5, "May", 6, "Jun", 7, "Jul", 8, "Aug", 9, "Sep", 10, "Oct", 11, "Nov", "Dec")}
+											</b>
+											. If it doesn’t arrive by then, we’ll begin investigating. No need to submit another enquiry.
+										</p>
+										<p>
+											You'll hear back from us when we review your enquiry or if your item arrives.
+										</p>
+                                        <p>
+                                            To allow for delayed delivery caused by COVID-19 disruptions, we’ll start our late item investigation 15 business days
+                                            after the estimated delivery date.
+                                        </p>
+                                        <p>
+                                            We're currently experiencing high volumes of enquiries and will be in touch as soon as we can.
+                                        </p>
+										<p>
+											If you no longer need us to manage your enquiry, you can cancel it easily by closing your case. 
+										</p>
+										<table border="0" width="100%" cellspacing="0" cellpadding="0">
+											<tbody>
+												<tr>
+													<td class="button-rear-column"><div style="height: 1em">&nbsp;</div></td>
+													<td class="button-main-column"><div style="height: 1em">&nbsp;</div></td>
+													<td class="button-rear-column"><div style="height: 1em">&nbsp;</div></td>
+												</tr>
+												<tr>
+													<td class="button-rear-column">&nbsp;</td>
+													<td class="button-main-column" align="center">
+														<table border="0" cellspacing="0" cellpadding="0">
+															<tbody>
+																<tr>
+																	<td style="border-radius: 8px; -moz-border-radius: 8px; -webkit-border-radius: 8px; background-color: #DC1928;">
+																		<a style="font-size: 16px; font-family: APTypeText,sans-serif;font-weight: 500; color: #FFFFFF; text-align: center; text-decoration: none; display: block; background-color: #DC1928; border: 1px solid #DC1928; padding: 10px 30px; border-radius: 8px; -moz-border-radius: 8px; -webkit-border-radius: 8px;"
+																		title="" href="mailto:customerservice@auspost.com.au?subject=My%20case%20can%20be%20closed&amp;body=By%20sending%20this%20email%20your%20case%20will%20be%20closed.%20%20Please%20do%20not%20add%20or%20modify%20any%20text%20in%20the%20email.%20%20{!Case.CaseNumber}%20can%20be%20closed%20{!Case.Thread_Id}"
+																		target="_blank" data-linkto="other">CLOSE MY CASE</a>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+													<td class="button-rear-column">&nbsp;</td>
+												</tr>
+												<tr>
+													<td class="button-rear-column"><div style="height: 1em">&nbsp;</div></td>
+													<td class="button-main-column"><div style="height: 1em">&nbsp;</div></td>
+													<td class="button-rear-column"><div style="height: 1em">&nbsp;</div></td>
+												</tr>
+											</tbody>
+											<br/>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td class="rear-column">&nbsp;</td>
+		</tr>
+	</table>
+
+	<!-- footer -->
+	<table width="100%">
+		<tr>
+			<td class="rear-column">&nbsp;</td>
+			<td class="main-column">
+				<table width="100%" bgcolor="#f3f2f2">
+					<tr>
+						<td width="2%">&nbsp;</td>
+						<td width="5%" >
+							<img src="{!$Label.CHAS_LockIcon}">
+						</td>
+						<td width="3%">&nbsp;</td>
+						<td width="85%">
+							<p>
+								Australia Post will never send you an unsolicited email asking for your password, credit card details or account information
+							</p>
+						</td>
+						<td width="5%">
+							&nbsp;
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td class="rear-column">&nbsp;</td>
+		</tr>
+	</table>
+</body>
+
+</html>

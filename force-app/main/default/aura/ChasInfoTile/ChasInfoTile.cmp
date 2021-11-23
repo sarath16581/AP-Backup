@@ -1,0 +1,12 @@
+<aura:component description="Styled card to display some infomation. Used in the Missing Item Wizard">
+    <aura:attribute name="heading" type="String" />
+    <aura:attribute name="image" type="String" />
+	
+	<div>
+		<img src="{! $Resource.ChasIcons + v.image }" class="chas-info-tile-img" alt="error-page"/>
+
+		<h3 class="chas-info-tile-heading">{! v.heading }</h3>
+
+		<div class="chas-info-tile-body">{! v.body }</div>
+	</div>
+</aura:component>

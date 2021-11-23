@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Jul_Adjusted_Work_Days__c</fullName>
+    <description>Jul Work Days – Jul Leave Adjustment</description>
+    <externalId>false</externalId>
+    <formula>FiscalYear__r.July_Work_Days_Value__c  - (Jul_Leave_Adjustment__c +  Holiday__r.July__c )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Jul Work Days – Jul Leave Adjustment</inlineHelpText>
+    <label>Jul Adjusted Work Days</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

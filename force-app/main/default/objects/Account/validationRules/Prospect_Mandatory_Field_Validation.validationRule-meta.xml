@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prospect_Mandatory_Field_Validation</fullName>
+    <active>true</active>
+    <description>Check to ensure that at least 2 fields are completed when creating a new prospect.
+BG 26/11: Validation Rule turned on</description>
+    <errorConditionFormula>IF(IF(ISPICKVAL(Type, &apos;Prospect&apos;),(IF(ISBLANK(ABN__c), 0, 1) + IF(ISBLANK(Email__c), 0,1)+ IF(ISBLANK( Phone ), 0 ,1) + IF(ISBLANK( Website ), 0,1)),2) &gt; 1, false, true)</errorConditionFormula>
+    <errorMessage>2 of the following fields must be populated: ABN, Phone Number, Company Email and Website.</errorMessage>
+</ValidationRule>

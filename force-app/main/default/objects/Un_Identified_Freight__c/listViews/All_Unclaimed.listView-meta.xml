@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Unclaimed</fullName>
+    <columns>NAME</columns>
+    <columns>Title__c</columns>
+    <columns>Unit_Type__c</columns>
+    <columns>Dimension__c</columns>
+    <columns>Date_Found__c</columns>
+    <columns>Freight_Location__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Unclaimed</value>
+    </filters>
+    <label>All Unclaimed</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>All_StarTrack_Users</group>
+        <group>Sales</group>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Capability_Streams__c</fullName>
+    <externalId>false</externalId>
+    <label>Capability Streams</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Opportunity</fullName>
+                <default>false</default>
+                <label>Opportunity</label>
+            </value>
+            <value>
+                <fullName>Key Account Planning and Management</fullName>
+                <default>false</default>
+                <label>Key Account Planning and Management</label>
+            </value>
+            <value>
+                <fullName>Lead Generation Management and Distribution</fullName>
+                <default>false</default>
+                <label>Lead Generation Management and Distribution</label>
+            </value>
+            <value>
+                <fullName>Marketing</fullName>
+                <default>false</default>
+                <label>Marketing</label>
+            </value>
+            <value>
+                <fullName>na</fullName>
+                <default>false</default>
+                <label>na</label>
+            </value>
+            <value>
+                <fullName>Out of Scope</fullName>
+                <default>false</default>
+                <label>Out of Scope</label>
+            </value>
+            <value>
+                <fullName>Pipeline Management</fullName>
+                <default>false</default>
+                <label>Pipeline Management</label>
+            </value>
+            <value>
+                <fullName>Product and Solution  Offer Development</fullName>
+                <default>false</default>
+                <label>Product and Solution  Offer Development</label>
+            </value>
+            <value>
+                <fullName>Reporting and Analysis</fullName>
+                <default>false</default>
+                <label>Reporting and Analysis</label>
+            </value>
+            <value>
+                <fullName>Sales and Channel Resource Optimisation</fullName>
+                <default>false</default>
+                <label>Sales and Channel Resource Optimisation</label>
+            </value>
+            <value>
+                <fullName>Sales Approach and Process</fullName>
+                <default>false</default>
+                <label>Sales Approach and Process</label>
+            </value>
+            <value>
+                <fullName>Sales Call Planning and Execution</fullName>
+                <default>false</default>
+                <label>Sales Call Planning and Execution</label>
+            </value>
+            <value>
+                <fullName>Sales Channel Planning and Budgeting</fullName>
+                <default>false</default>
+                <label>Sales Channel Planning and Budgeting</label>
+            </value>
+            <value>
+                <fullName>Territory Management</fullName>
+                <default>false</default>
+                <label>Territory Management</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

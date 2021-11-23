@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Who_pays_for_the_background_checks__c</fullName>
+    <description>Solution profiling; is it user pays or merchant pays?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Solution profiling; is it user pays or merchant pays?</inlineHelpText>
+    <label>Who pays for the background checks?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Is_there_a_need_for_background_checks__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Consumer initiated and consumer pays</fullName>
+                <default>false</default>
+                <label>Consumer initiated and consumer pays</label>
+            </value>
+            <value>
+                <fullName>Employer initiatied and consumer pays</fullName>
+                <default>false</default>
+                <label>Employer initiatied and consumer pays</label>
+            </value>
+            <value>
+                <fullName>Employer initiated and employer pays</fullName>
+                <default>false</default>
+                <label>Employer initiated and employer pays</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Consumer initiated and consumer pays</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Employer initiatied and consumer pays</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Employer initiated and employer pays</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

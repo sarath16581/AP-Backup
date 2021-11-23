@@ -1,0 +1,14 @@
+Dear Approver
+
+Request your approval for Deal Support Request {!Deal_Support_Request__c.Name} 
+
+Kindly  approve or reject request by clicking below link 
+{!ApprovalRequest.Internal_URL}
+
+Alternatively request can be approved by replying to this email with one of these words in the first line of the email message: APPROVE, APPROVED, YES, REJECT, REJECTED, NO
+
+If replying via email, you can also add comments on the second line. Comments will be stored with the approval request.
+
+
+Regards
+{!Deal_Support_Request__c.OwnerFullName}

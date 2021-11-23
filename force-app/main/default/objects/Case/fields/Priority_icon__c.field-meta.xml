@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Priority_icon__c</fullName>
+    <description>.</description>
+    <externalId>false</externalId>
+    <formula>IMAGE( 
+CASE(Priority, 
+&apos;Critical&apos;, &apos;/resource/StarTrackCaseIcons/Critical.png&apos;, 
+&apos;Urgent&apos;, &apos;/resource/StarTrackCaseIcons/Urgent.png&apos;, 
+&apos;High&apos;, &apos;/resource/StarTrackCaseIcons/High.png&apos;,
+&apos;Medium&apos;, &apos;/resource/StarTrackCaseIcons/Medium.png&apos;,&apos;/resource/StarTrackCaseIcons/Medium.png&apos;),&apos;No Image&apos;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Priority icon</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

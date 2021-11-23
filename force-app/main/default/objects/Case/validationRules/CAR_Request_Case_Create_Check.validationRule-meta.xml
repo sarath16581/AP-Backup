@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CAR_Request_Case_Create_Check</fullName>
+    <active>true</active>
+    <description>CAR Request validation rule to check ensure minimum requester details are captured during case creation</description>
+    <errorConditionFormula>AND( 
+RecordType.Name = &apos;CAR Request&apos;, 
+NOT(ISPICKVAL(Origin,&apos;Email&apos;)), 
+NOT(ISPICKVAL(Request_Origin__c, &apos;Scheduled&apos;)), 
+OR(AND
+	(ISBLANK(Requestor__c), 
+	ISBLANK(Recent_Caller_First_Name__c),
+	ISBLANK(Recent_Caller_Last_Name__c)),
+	AND(NOT(ISBLANK(Recent_Caller_First_Name__c)),
+	ISBLANK(Recent_Caller_Last_Name__c)
+	)
+)
+)</errorConditionFormula>
+    <errorMessage>Please enter a &quot;Requestor&quot; or if the user cannot be found, enter a contact first name and last name manually in the Requester Details section</errorMessage>
+</ValidationRule>

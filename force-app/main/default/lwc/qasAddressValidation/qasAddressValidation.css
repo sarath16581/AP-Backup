@@ -1,0 +1,9 @@
+.search-container {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+}
+
+.lookup {
+  flex:1;
+}

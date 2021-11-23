@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ItemLink__c</fullName>
+    <description>Banned Idea or Idea Comment item</description>
+    <externalId>false</externalId>
+    <formula>IF(Type__c==&quot;IdeaComment&quot;, HYPERLINK(&quot;/ideas/editComment.apexp?id=&quot;+IdeaId__c, &quot;Idea Comment&quot;, &quot;_blank&quot;), HYPERLINK(&quot;/ideas/viewIdea.apexp?id=&quot;+IdeaId__c, &quot;Idea&quot;, &quot;_blank&quot;)) + &quot; (&quot;+IdeaId__c+&quot;)&quot;</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Item</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

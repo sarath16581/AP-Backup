@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Link_Account</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <height>600</height>
+    <linkType>page</linkType>
+    <masterLabel>Link Account</masterLabel>
+    <openType>sidebar</openType>
+    <page>LinkAccount</page>
+    <protected>false</protected>
+</WebLink>

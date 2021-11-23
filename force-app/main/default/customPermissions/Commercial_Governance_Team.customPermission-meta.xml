@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>list of users to bypass Request_cant_be_done_from_Closed_Opp	rule</description>
+    <isLicensed>false</isLicensed>
+    <label>Commercial Governance Team</label>
+</CustomPermission>

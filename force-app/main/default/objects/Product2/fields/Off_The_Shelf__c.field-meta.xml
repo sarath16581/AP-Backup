@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Off_The_Shelf__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Phase 1 - flag to denote that the product is an &quot;off the shelf&quot; product.</description>
+    <externalId>false</externalId>
+    <label>Off The Shelf</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

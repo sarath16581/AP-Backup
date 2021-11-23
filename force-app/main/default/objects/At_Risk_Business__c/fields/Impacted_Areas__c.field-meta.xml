@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Impacted_Areas__c</fullName>
+    <description>Identify the key geographical areas that are impacted by the Business AT Risk/Lost Business.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Identify the key geographical areas that are impacted by the Business AT Risk/Lost Business.</inlineHelpText>
+    <label>Impacted Areas</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>National - All Areas</fullName>
+                <default>false</default>
+                <label>National - All Areas</label>
+            </value>
+            <value>
+                <fullName>NSW - Metro</fullName>
+                <default>false</default>
+                <label>NSW - Metro</label>
+            </value>
+            <value>
+                <fullName>NSW - Regional</fullName>
+                <default>false</default>
+                <label>NSW - Regional</label>
+            </value>
+            <value>
+                <fullName>VIC - Metro</fullName>
+                <default>false</default>
+                <label>VIC - Metro</label>
+            </value>
+            <value>
+                <fullName>VIC - Regional</fullName>
+                <default>false</default>
+                <label>VIC - Regional</label>
+            </value>
+            <value>
+                <fullName>QLD - Metro</fullName>
+                <default>false</default>
+                <label>QLD - Metro</label>
+            </value>
+            <value>
+                <fullName>QLD - Regional</fullName>
+                <default>false</default>
+                <label>QLD - Regional</label>
+            </value>
+            <value>
+                <fullName>SA - Metro</fullName>
+                <default>false</default>
+                <label>SA - Metro</label>
+            </value>
+            <value>
+                <fullName>SA - Regional</fullName>
+                <default>false</default>
+                <label>SA - Regional</label>
+            </value>
+            <value>
+                <fullName>WA - Metro</fullName>
+                <default>false</default>
+                <label>WA - Metro</label>
+            </value>
+            <value>
+                <fullName>WA - Regional</fullName>
+                <default>false</default>
+                <label>WA - Regional</label>
+            </value>
+            <value>
+                <fullName>TAS</fullName>
+                <default>false</default>
+                <label>TAS</label>
+            </value>
+            <value>
+                <fullName>NT</fullName>
+                <default>false</default>
+                <label>NT</label>
+            </value>
+            <value>
+                <fullName>ACT</fullName>
+                <default>false</default>
+                <label>ACT</label>
+            </value>
+            <value>
+                <fullName>International - ASIA</fullName>
+                <default>false</default>
+                <label>International - ASIA</label>
+            </value>
+            <value>
+                <fullName>International - NZ</fullName>
+                <default>false</default>
+                <label>International - NZ</label>
+            </value>
+            <value>
+                <fullName>International - Other</fullName>
+                <default>false</default>
+                <label>International - Other</label>
+            </value>
+            <value>
+                <fullName>International - USA</fullName>
+                <default>false</default>
+                <label>International - USA</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>10</visibleLines>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEPARC__Related_List_Query_Limit__c</fullName>
+    <defaultValue>1000</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Number of records to query in a related list.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Number of records to query in a related list.</inlineHelpText>
+    <label>Related List Query Limit</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

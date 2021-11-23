@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Submit_for_Approval</fullName>
+    <active>true</active>
+    <description>Validates minimun infomration neeed to submit the record for approval.</description>
+    <errorConditionFormula>AND (OR( 
+
+ISBLANK(BillingAccountNumber__c), 
+
+ISBLANK(CreditAmountInclusiveGST__c ), 
+
+ISBLANK( Billing_Account__c), 
+
+ISBLANK( TEXT(Product_Family__c) ), 
+
+ISBLANK( Organisation__c), 
+
+ISBLANK(Account_Manager__c) 
+
+
+), Ready_For_Approval__c = true)</errorConditionFormula>
+    <errorMessage>Mandatory fields are not completed, please check the following fields: Case level (Billing Account , Legal Entity), Disputed Item level (Product Family), Credit Approval level (Ready for Approval, Credit Amount).</errorMessage>
+</ValidationRule>

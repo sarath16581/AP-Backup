@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_LDC_Approval_Step_2_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>StarTrack LDC Approval Step 2</label>
+    <queue>StarTrack_LDC_Approval_Step_2</queue>
+    <sharedTo>
+        <group>StarTrack_LDC_Approval_Step_2</group>
+    </sharedTo>
+</ListView>

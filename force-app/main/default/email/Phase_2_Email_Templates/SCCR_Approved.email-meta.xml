@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This email will be sent to proposed account manager when a SCCR is approved both by outgoing as well as Incoming Approvers</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SCCR Approved</name>
+    <style>none</style>
+    <subject>Sales Coverage Request – Request Approved</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

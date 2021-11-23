@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Document_Preview</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Document Preview</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/28.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/support/console/28.0/integration.js&quot;)}
+
+var url = &apos;/apex/DocumentPreview?Id={! Credit_Approval__c.Id }&amp;isdtp=vw&apos;;
+
+if (sforce.console.isInConsole()) {
+ srcUp(url);
+} else {
+ window.open(url,&apos;_blank&apos;);
+}</url>
+</WebLink>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Show_Suburb_Field__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>StarTrack: Show Suburb field to capture information related to show/hide suburb field</description>
+    <externalId>false</externalId>
+    <label>Show Suburb Field</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

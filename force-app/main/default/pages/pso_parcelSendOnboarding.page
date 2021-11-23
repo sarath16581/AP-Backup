@@ -1,0 +1,47 @@
+<!--
+ - Created by hasantha on 19/3/19.
+ -->
+
+<apex:page id="parcelSendOnboarding" standardStylesheets="true" standardController="Contact" extensions="pso_ParcelSendOnboardingController" showHeader="true"  sidebar="true" applyHtmlTag="true" applyBodyTag="false" docType="html-5.0">
+    <apex:includeLightning />
+    <div id="content">
+        <div id="lightningComponent"/>
+        <div id="broker" />
+    </div>
+
+    <script>
+
+        // create the lightning component
+        window.onload = function () {
+            $Lightning.use("c:pso_parcelSendApp", function () {
+                $Lightning.createComponent("c:AsynchApexContinuationBroker",
+                    {},
+                    "broker",
+                    function(cmp) {
+                        console.log('Broker Component created');
+                        console.log(cmp);
+                    });
+
+                $Lightning.createComponent(
+                    "c:pso_parcelSendOnboarding",
+                    {
+                        "contactId": '{!contact.Id}'
+                    },
+                    "lightningComponent",
+                    function (component, status, errorMessage){
+                        //Add the new button to the body array
+                        if (status === "SUCCESS") {
+
+                        } else if (status === "INCOMPLETE") {
+                            console.log("No response from server or client is offline.")
+                            // Show offline error
+                        } else if (status === "ERROR") {
+                            console.log("Error: " + errorMessage);
+                            // Show error message
+                        }
+                    });
+            });
+        }
+
+    </script>
+</apex:page>

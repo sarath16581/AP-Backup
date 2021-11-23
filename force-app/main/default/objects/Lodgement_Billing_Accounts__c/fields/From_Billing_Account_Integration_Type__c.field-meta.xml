@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>From_Billing_Account_Integration_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>From Billing Account Lodgement</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>3rd Party Integrator (PeopleSoft)</fullName>
+                <default>false</default>
+                <label>3rd Party Integrator (PeopleSoft)</label>
+            </value>
+            <value>
+                <fullName>3rd Party Integrator (SAP)</fullName>
+                <default>false</default>
+                <label>3rd Party Integrator (SAP)</label>
+            </value>
+            <value>
+                <fullName>3rd Party Integrator (TEAM)</fullName>
+                <default>false</default>
+                <label>3rd Party Integrator (TEAM)</label>
+            </value>
+            <value>
+                <fullName>BulkShipper</fullName>
+                <default>false</default>
+                <label>BulkShipper</label>
+            </value>
+            <value>
+                <fullName>Despatcher</fullName>
+                <default>false</default>
+                <label>Despatcher</label>
+            </value>
+            <value>
+                <fullName>eParcel (Integrated)</fullName>
+                <default>false</default>
+                <label>eParcel (Integrated)</label>
+            </value>
+            <value>
+                <fullName>eParcel (Unmanifested)</fullName>
+                <default>false</default>
+                <label>eParcel (Unmanifested)</label>
+            </value>
+            <value>
+                <fullName>eParcel Web</fullName>
+                <default>false</default>
+                <label>eParcel Web</label>
+            </value>
+            <value>
+                <fullName>FMU (Online)</fullName>
+                <default>false</default>
+                <label>FMU (Online)</label>
+            </value>
+            <value>
+                <fullName>Freight Master</fullName>
+                <default>false</default>
+                <label>Freight Master</label>
+            </value>
+            <value>
+                <fullName>Manual</fullName>
+                <default>false</default>
+                <label>Manual</label>
+            </value>
+            <value>
+                <fullName>MOS</fullName>
+                <default>false</default>
+                <label>MOS</label>
+            </value>
+            <value>
+                <fullName>MyStarTrack</fullName>
+                <default>false</default>
+                <label>MyStarTrack</label>
+            </value>
+            <value>
+                <fullName>MyStarTrack Online</fullName>
+                <default>false</default>
+                <label>MyStarTrack Online</label>
+            </value>
+            <value>
+                <fullName>Send a Parcel</fullName>
+                <default>false</default>
+                <label>Send a Parcel</label>
+            </value>
+            <value>
+                <fullName>Unknown (Peoplesoft)</fullName>
+                <default>false</default>
+                <label>Unknown (Peoplesoft)</label>
+            </value>
+            <value>
+                <fullName>Unknown (TEAM)</fullName>
+                <default>false</default>
+                <label>Unknown (TEAM)</label>
+            </value>
+            <value>
+                <fullName>Web Despatch</fullName>
+                <default>false</default>
+                <label>Web Despatch</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

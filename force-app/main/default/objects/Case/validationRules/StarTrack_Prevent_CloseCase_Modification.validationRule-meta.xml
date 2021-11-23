@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Prevent_CloseCase_Modification</fullName>
+    <active>true</active>
+    <description>This validation rule will prevent the user from editing the case when it is closed. The only exclusion is setting the case status to &quot;Reopened&quot;.</description>
+    <errorConditionFormula>AND(
+  NOT(ISCHANGED(FCR__c)),
+  NOT(ISCHANGED(First_Email_Response__c)),
+  NOT(ISCHANGED(Case_Resolution_Time_in_Min__c)),
+  NOT(ISCHANGED(Updated_Case_Comments__c)),
+  OR(
+  RecordType.Name = &apos;Transit Warranty Claim&apos;,
+  RecordType.Name = &apos;Credit Dispute Claim&apos;),
+  OR(
+  AND(    
+      ISPICKVAL(Status, &apos;Closed&apos;),
+      NOT(ISCHANGED(Status))),
+  AND(
+      NOT(ISPICKVAL(Status, &apos;Reopened&apos;)),
+      ISPICKVAL(PRIORVALUE(Status), &apos;Closed&apos;))),
+  NOT(AND(ISCHANGED( Is_Published__c ), 
+      ISPICKVAL(Status, &apos;Closed&apos;))))</errorConditionFormula>
+    <errorMessage>Case record cannot be modified when status is &quot;Closed&quot;, change the status to &quot;Reopened&quot; instead before editing the record.</errorMessage>
+</ValidationRule>

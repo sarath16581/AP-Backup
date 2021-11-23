@@ -1,0 +1,144 @@
+<!--
+	2020-04-01 nathan.franklin@auspost.com.au Created
+	2020-09-03 - Ranjeewa Silva - Removed the highlighted text - event type as this is not relevant.
+	2020-09-18 - Disha Kariya - Display network details if present based on Network Org ID (WCC)
+	2020-09-18 - Ranjeewa Silva - Updated to show "Featured Scans".
+	2020-09-21 - Ranjeewa Silva - Improved responsiveness on smaller screen sizes.
+	2020-09-24 - Ranjeewa Silva - Implemented colour coding for featured scan events.
+	2021-05-05 - Ranjeewa Silva - Expose event message attachment(image), if an attachment is available.
+	2021-07-12 - Nathan Franklin - Added temporary Google Maps link (to be implemented correctly in future piece of work)
+	2021-10-01 - Nathan Franklin - Add event reason (with transient attributes) + uplift to version 52
+	2021-10-19 - Mathew Jose - Added the pop up for more event message details.
+-->
+<template>
+	<c-happy-parcel-card title="Latest Featured Scans" icon-name="utility:high_velocity_sales" loading={loading} variant="stretch" help-text={helpText}>
+		<template if:true={eventsExist}>
+			<ul class="slds-timeline">
+				<template for:each={featuredScanEvents} for:item="eventMessage">
+					<li key={eventMessage.event.EventID__c} class={eventMessage.cssClass} style={eventMessage.animationCssStyle}>
+						<div class="slds-timeline__item_expandable timeline__item_event_message">
+							<div class="slds-media">
+								<div class="slds-media__figure">
+									<button class="slds-button slds-button_icon">
+										<lightning-icon icon-name="utility:switch" size="xx-small"></lightning-icon>
+									</button>
+									<c-happy-parcel-custom-icon icon="event-message" size="x-small" class="slds-icon_container slds-timeline__icon icon-event-message" colour="#ffffff"></c-happy-parcel-custom-icon>
+
+								</div>
+								<div class="slds-media__body">
+									<div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+										<div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+											<template if:true={eventMessage.isLock}>
+												<lightning-icon icon-name="utility:lock" size="x-small" variant="error" class="slds-m-right_xx-small" style="position:relative;top:-3px;" title="DO NOT DISCUSS SCAN WITH CUSTOMER, REFER TO KNOWLEDGE"></lightning-icon>
+											</template>
+											<span class="slds-m-right_xx-small" title={eventMessage.event.EventDescription__c}>
+												<strong>
+													{eventMessage.eventDescriptionCombined}
+													<!--<template if:true={eventMessage.transientAttributes.eventReason}>
+														<span class="slds-show_inline-block slds-m-horizontal_xx-small slds-text-body_small">({eventMessage.transientAttributes.eventReason})</span>
+													</template>-->
+												</strong>
+											</span>
+											<template if:true={eventMessage.event.AttachmentGUID__c}>
+												<lightning-button-icon data-id = {eventMessage.event.EventID__c}
+																	   icon-name="utility:attach"
+																	   size="medium"
+																	   variant="bare"
+																	   class="icon-style slds-m-right_xx-small"
+																	   onclick={handleShowAttachment}
+																	   alternative-text="Attachment">
+												</lightning-button-icon>
+											</template>
+											<!--Event details expander button-->
+											<template if:true={eventMessage.eventDetailsRequired}>
+												<lightning-button-icon onclick={handleShowEventDetails} 
+														data-event-id = {eventMessage.event.EventID__c}
+														icon-name="utility:zoomin"
+														size="small"
+														variant="bare"
+														class="slds-m-right_xx-small"
+														alternative-text="Click for more details">
+												</lightning-button-icon>
+											</template>
+											<!--Event details expander button-->											
+											<template if:true={eventMessage.hasGeoCoordinates}>
+												<a href={eventMessage.googleMapLink} target="_blank" title="View Location in Google Maps">
+													<lightning-icon icon-name="action:map"
+																	size="xx-small"
+																	class="slds-m-right_xx-small map-icon"
+																	alternative-text="View Location in Google Maps">
+													</lightning-icon>
+												</a>
+											</template>
+										</div>
+										<div class="slds-timeline__actions slds-timeline__actions_inline">
+											<p class="slds-badge slds-timeline__date">
+												<lightning-relative-date-time value={eventMessage.parsedDateTime}></lightning-relative-date-time></p>
+										</div>
+									</div>
+									<div class="slds-m-horizontal_xx-small">
+										<template if:true={eventMessage.event.ActualLocation__c}>
+											{eventMessage.event.ActualLocation__c}
+										</template>
+										<template if:true={eventMessage.event.Facility__c}>
+											<lightning-button-icon data-id={eventMessage.event.EventID__c}
+																   class="btn-x-large slds-m-horizontal_x-small"
+																   icon-name="utility:preview"
+																   alternative-text="Network Info"
+																   size="medium"
+																   variant="bare"
+																   onclick={handleNetworkInfo}
+																   style="position:relative;top:-3px;"
+											>
+											</lightning-button-icon>
+										</template><br/>
+
+										<lightning-formatted-date-time value={eventMessage.parsedDateTime} year="numeric" month="2-digit" day="2-digit" weekday="long"></lightning-formatted-date-time> @&nbsp;
+										<lightning-formatted-date-time value={eventMessage.parsedDateTime} hour="2-digit" minute="2-digit"></lightning-formatted-date-time>
+
+										<!-- Network details popover -->
+										<template if:true={eventMessage.showNetworkDetails}>
+											<div class="slds-m-top_medium slds-medium-size_4-of-5 slds-small-size_1-of-1">
+												<c-happy-parcel-network-popup onclosepopup= {closePopupHandler} event-id= {eventMessage.event.EventID__c} wcc={eventMessage.event.FacilityOrganisationID__c} variant=""></c-happy-parcel-network-popup>
+											</div>
+										</template>
+										<!-- end Network details popover -->
+
+										<!-- Attachment popover -->
+										<template if:true={eventMessage.showAttachment}>
+											<div class="slds-m-top_medium slds-medium-size_4-of-5 slds-small-size_1-of-1">
+												<c-happy-parcel-event-message-attachment event-id={eventMessage.event.EventID__c} guid={eventMessage.event.AttachmentGUID__c} attachment-type={eventMessage.event.AttachmentType__c} oncloseattachmentview={handleCloseAttachment}></c-happy-parcel-event-message-attachment>
+											</div>
+										</template>
+										<!-- end Attachment popover -->
+
+										<!-- Event Details popover -->
+										<template if:true={eventMessage.showEventDetails}>
+											<div class="slds-m-top_medium slds-medium-size_4-of-5 slds-small-size_1-of-1">
+													<c-happy-parcel-event-detail event-id={eventMessage.event.EventID__c}
+														fields={eventMessage._eventColumns}
+														loading={loading}
+														oncloseoverflowview={handleCloseEventDetails}
+														variant="">
+													</c-happy-parcel-event-detail>											
+											</div>
+										</template>
+										<!-- Event Details popover-->
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</template>
+			</ul>
+		</template>
+		<template if:false={eventsExist}>
+			<div class="slds-p-around_medium slds-text-align_center slds-align_absolute-center animated bounceIn">
+				<c-happy-parcel-custom-icon icon="not-found" size="small" class="slds-show_inline-block"></c-happy-parcel-custom-icon>
+				&nbsp;No Tracking History
+			</div>
+		</template>
+	</c-happy-parcel-card>
+
+</template>

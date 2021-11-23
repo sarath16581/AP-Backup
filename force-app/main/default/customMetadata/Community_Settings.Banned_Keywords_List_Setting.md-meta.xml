@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Banned Keywords List Setting</label>
+    <protected>false</protected>
+    <values>
+        <field>Entity_Name__c</field>
+        <value xsi:type="xsd:string">Banned Keywords List Full Name</value>
+    </values>
+    <values>
+        <field>Entity_Value__c</field>
+        <value xsi:type="xsd:string">Australia Post Community.Banned</value>
+    </values>
+</CustomMetadata>

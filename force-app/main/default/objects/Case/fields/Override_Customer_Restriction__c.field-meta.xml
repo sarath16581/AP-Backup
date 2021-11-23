@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Override_Customer_Restriction__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>StarTrack Override Customer Restriction field will be used to determine if the team leader wants to override the customer restriction.</description>
+    <externalId>false</externalId>
+    <label>Override Customer Restriction</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

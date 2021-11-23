@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>SetArticleIDToName</fullName>
+        <description>SSSW</description>
+        <field>ArticleID__c</field>
+        <formula>Name</formula>
+        <name>SSSW - Set Article ID to Name</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Article_with_Remediation_DateTime</fullName>
+        <field>Remediation_TimeStamp__c</field>
+        <formula>NOW()</formula>
+        <name>Update Article with Remediation DateTime</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <outboundMessages>
+        <fullName>Article_Remediation_Event</fullName>
+        <apiVersion>39.0</apiVersion>
+        <description>Sends a remediation event to SAP in the event a parcel is missorting or looping. Triggered by inout of remediation information by Call Centre staff</description>
+        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/Services/CustomerCommunicationsManagement_v1/RemediationRequestEventPortEndpoint</endpointUrl>
+        <fields>CCCAgentId__c</fields>
+        <fields>EventCode__c</fields>
+        <fields>FacilityOrOutletWCC__c</fields>
+        <fields>Id</fields>
+        <fields>ReferenceID__c</fields>
+        <fields>RequestorName__c</fields>
+        <fields>mls_AddressLine1__c</fields>
+        <fields>mls_AddressLine2__c</fields>
+        <fields>mls_DPID__c</fields>
+        <fields>mls_Description__c</fields>
+        <fields>mls_Instructions__c</fields>
+        <fields>mls_Postcode__c</fields>
+        <fields>mls_State__c</fields>
+        <fields>mls_Suburb__c</fields>
+        <includeSessionId>true</includeSessionId>
+        <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
+        <name>Article Remediation Event</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>true</useDeadLetterQueue>
+    </outboundMessages>
+    <rules>
+        <fullName>SSSW - Set Article ID</fullName>
+        <actions>
+            <name>SetArticleIDToName</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>SSSW - Copies the &quot;Name&quot; field to the &quot;Article ID&quot; field to allow for External ID &quot;Upserts&quot; for child Event Messages</description>
+        <formula>AND((ISNEW() || ISCHANGED(Name)), NOT( ISPICKVAL(Source_System__c , &apos;TEAM&apos;)),NOT( ISPICKVAL(Source_System__c , &apos;TRACK &amp; TRACE&apos;))  )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Send Remediation Event to SAP</fullName>
+        <actions>
+            <name>Update_Article_with_Remediation_DateTime</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Article_Remediation_Event</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <formula>mls_Remediate_Article__c &amp;&amp; RecordType.DeveloperName == &apos;Article&apos; &amp;&amp; OR(ISCHANGED(mls_AddressLine1__c),ISCHANGED(mls_AddressLine2__c),ISCHANGED(mls_Suburb__c),ISCHANGED(mls_State__c),ISCHANGED( mls_Postcode__c),ISCHANGED(mls_DPID__c),ISCHANGED(mls_Description__c),ISCHANGED(mls_Instructions__c),ISCHANGED(CCCAgentId__c),ISCHANGED(RequestorName__c))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

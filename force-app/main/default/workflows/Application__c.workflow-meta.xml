@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>APMS_SecurePay_DCC_Welcome_Email</fullName>
+        <description>APMS - SecurePay DCC Welcome Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>WelcomePackBCC__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>no-reply-sop@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>APMS_email_templates/SOP_DCC_Application_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>APMS_Send_Welcome_Pack_BCC</fullName>
+        <description>APMS - Send Welcome Pack - BCC</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>WelcomePackBCC__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>no-reply-sop@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>APMS_email_templates/SOP_Welcome_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>APMS_Send_Welcome_Pack_Merchant</fullName>
+        <description>APMS - Send Welcome Pack - Merchant</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>WelcomePackBCC__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>no-reply-sop@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>APMS_email_templates/SOP_Welcome_Email_Shopping_Cart</template>
+    </alerts>
+    <outboundMessages>
+        <fullName>APMS_Credit_Team_for_Multicurrency</fullName>
+        <apiVersion>50.0</apiVersion>
+        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/APMSCreditCheck/v1/ExistingMerchant/Notification</endpointUrl>
+        <fields>Id</fields>
+        <fields>Opportunity__c</fields>
+        <includeSessionId>true</includeSessionId>
+        <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
+        <name>APMS Credit Team for Multicurrency</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>true</useDeadLetterQueue>
+    </outboundMessages>
+    <outboundMessages>
+        <fullName>APMS_SecurePay_for_Multicurrency</fullName>
+        <apiVersion>50.0</apiVersion>
+        <description>APMS Securepay Multicurrency</description>
+        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/APMSOrder/v1/ExistingMerchant/Notification</endpointUrl>
+        <fields>Id</fields>
+        <fields>Opportunity__c</fields>
+        <includeSessionId>true</includeSessionId>
+        <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
+        <name>APMS SecurePay for Multicurrency</name>
+        <protected>false</protected>
+        <useDeadLetterQueue>true</useDeadLetterQueue>
+    </outboundMessages>
+    <rules>
+        <fullName>APMS - SecurePay Integration for Multicurrency</fullName>
+        <actions>
+            <name>APMS_SecurePay_for_Multicurrency</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <description>This workflow fires an outbound Message to Tibco when existing secure pay customer opts for multi currency option in the APMS Application and fills up the Multicurrency Risk Fields.</description>
+        <formula>Existing_Customer_Adding_Multicurrency__c = True &amp;&amp; 
+Multicurrency_Risk_Assessment_Complete__c = True &amp;&amp;
+NOT(ISNULL(Multicurrency_EBT_Name__c)) &amp;&amp; 
+NOT(ISNULL(TEXT(Multicurrency_Risk_Category__c))) &amp;&amp; NOT(ISNULL(TEXT(Multicurrency_Settlement_Profile__c)))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>APMS - Tibco Integration for Multicurrency</fullName>
+        <actions>
+            <name>APMS_Credit_Team_for_Multicurrency</name>
+            <type>OutboundMessage</type>
+        </actions>
+        <active>true</active>
+        <description>This workflow fires an outbound Message to Tibco when existing secure pay customer opts for multi currency option in the APMS Application Record.</description>
+        <formula>Existing_Customer_Adding_Multicurrency__c = True &amp;&amp; NOT(ISNULL(Avg_Foreign_Currency_Transaction_Value__c )) &amp;&amp; NOT(ISNULL(Avg_Foreign_Currency_Transactions_Mthly__c)) &amp;&amp; NOT(ISNULL(Annual_Foreign_Currency_Turnover__c))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>APMS_workflow_email_to_Existing_Customer_Opting_for_Multicurrency</fullName>
+        <actions>
+            <name>APMS_SecurePay_DCC_Welcome_Email</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Application__c.Existing_Customer_Adding_Multicurrency__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Application__c.ShoppingCart__c</field>
+            <operation>notEqual</operation>
+            <value>Other</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Application__c.Are_Multicurrency_Details_Sent__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>This workflow rule sends an email alert when an existing secure pay customer opts for multi currency feature.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>APMS_workflow_email_to_merchant_applicant</fullName>
+        <actions>
+            <name>APMS_Send_Welcome_Pack_BCC</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Application__c.IsWelcomePackSent__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Application__c.ShoppingCart__c</field>
+            <operation>notEqual</operation>
+            <value>Other</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Application__c.Existing_Customer_Adding_Multicurrency__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <description>2019-07 Workflow rule updated to only send to Non-Shopping Cart / SecurePay API Customers
+2014-07 APMS</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>APMS_workflow_email_to_shopping_cart_users</fullName>
+        <actions>
+            <name>APMS_Send_Welcome_Pack_Merchant</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Application__c.IsWelcomePackSent__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Application__c.ShoppingCart__c</field>
+            <operation>equals</operation>
+            <value>Other</value>
+        </criteriaItems>
+        <description>2019-07 New workflow rule to send welcome pack to shopping cart users / Non-SecurePay API users</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

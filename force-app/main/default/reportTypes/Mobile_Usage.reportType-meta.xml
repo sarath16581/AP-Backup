@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject/>
+    <category>other</category>
+    <deployed>false</deployed>
+    <description>Base report for Salesforce mobile app usage</description>
+    <label>Mobile Usage</label>
+    <sections>
+        <masterLabel>Mobile Session</masterLabel>
+    </sections>
+</ReportType>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons / Mail redirection</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="20" cy="20" r="20"></circle>
+    </defs>
+    <g id="Icons-/-Mail-redirection" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <g id="Icon---500g">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#324B81" xlink:href="#path-1"></use>
+            </g>
+            <g id="Group-8" transform="translate(9.333333, 4.666667)" fill-rule="nonzero">
+                <g id="Group-11" transform="translate(0.000000, 6.666667)">
+                    <path d="M20.7882445,0.332100507 L0,0.332100507 L0,19.5672781 C0,20.2090851 0.54275192,20.7295198 1.21208087,20.7295198 L20.7882445,20.7295198 C21.4575735,20.7295198 22,20.2090851 22,19.5672781 L22,1.49434218 C22,0.852535166 21.4575735,0.332100507 20.7882445,0.332100507" id="Fill-8" fill="#CA8768"></path>
+                    <g id="Group-15" transform="translate(0.147303, 9.461937)">
+                        <g id="Rectangle-24-Copy-2-+-Imported-Layers-Copy-9" transform="translate(0.016009, 0.024746)">
+                            <g id="Imported-Layers-Copy-9" transform="translate(0.000000, 0.000000)">
+                                <g id="Imported-Layers-Copy-5" transform="translate(7.371199, 6.303764) rotate(10.000000) translate(-7.371199, -6.303764) translate(1.371199, 1.637098)">
+                                    <polyline id="Fill-7" fill="#FFFFFF" points="11.843803 7.00927787 1.31995006 8.75528007 0.0152372463 1.78788133 10.5380522 0.0409020886 11.843803 7.00927787"></polyline>
+                                    <polyline id="Fill-8" fill="#D0D5D8" points="10.1207933 2.22853437 1.20162288 3.70877684 0.994031343 2.59786219 9.91320172 1.11664266 10.1207933 2.22853437"></polyline>
+                                    <polyline id="Fill-9" fill="#D0D5D8" points="10.5048376 4.27547033 1.58566722 5.75571281 1.37703773 4.64479815 10.2962081 3.16455568 10.5048376 4.27547033"></polyline>
+                                    <polyline id="Fill-10" fill="#D0D5D8" points="10.887844 6.32338337 1.96867361 7.80362581 1.76108207 6.69271115 10.6802525 5.21246872 10.887844 6.32338337"></polyline>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <path d="M16.41164,5.66083344 C16.41164,4.88137867 15.7482989,4.33512742 14.9633576,4.33512742 L7.56517895,4.33512742 L8.5374861,5.30063849 L7.29276191,6.53666252 L5.24472418,4.50577076 L4,3.26691578 L5.24614962,2.03230724 L7.29276191,0 L8.5374861,1.23618132 L7.55425059,2.21238707 L14.9633576,2.21238707 C16.9271361,2.21238707 18.6062581,3.71078103 18.6062581,5.66083344 L18.6062581,19.577885 L16.41164,19.577885 L16.41164,5.66083344 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,11 @@
+Dear Customer,
+
+Thank you for contacting our Sales Co-ordinator team. 
+
+Your case number is {!Case.CaseNumber}
+
+A member from our team will be in contact shortly to assist with you enquiry.
+
+Thank you,
+
+Sales Co-ordinator Team

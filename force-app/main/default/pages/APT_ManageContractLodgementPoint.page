@@ -1,0 +1,310 @@
+<!--
+Description: This visula force page is being called from 'Manage Lodgement Point' button on Quote Lodgement Point Ralated list of Agreement. This page will allow user 
+to select lodgement Point based on filter criteria and to insert Quote Lodgement Point.
+Created By - Raviteja Epuri
+Created Date - 26th Nov, 2015
+Last Modified By -
+Last Modified Date -
+
+04-06-2021 : madhuri.awasthi@auspost.com.au
+            REQ2527341  Adding Lodgement Zone - Making PostCode field mandatory to make sure it is selected before Search
+-->
+
+<apex:page controller="APT_ManageContractLPController" tabStyle="product2" sidebar="false" > 
+
+         <script>
+         var newWin=null;
+         function openLookupPopup(name, id, quoteId, accountId, source)
+         {        
+          var inputval = document.getElementById(name).value;          
+          var url="/apex/C__APT_ManageLodgementPointLookup?namefield=" + name + "&idfield=" + id +"&enteredAccVal=" + inputval + "&quoteId=" + quoteId + "&accountId=" + accountId + "&source=" + source;
+          newWin=window.open(url, 'Popup','height=500,width=600,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+          if (window.focus) 
+          {
+           newWin.focus();          
+            }
+            
+             return false;
+            }               
+         function closeLookupPopup()
+         {
+            if (null!=newWin)
+            {
+               newWin.close();
+            }  
+         }     
+    </script>    
+    
+    <apex:form id="formId">
+        
+        <!-- Action funtion to make IsSelectedLI TRUE for selected Agreement Line Item -->
+        <apex:actionFunction action="{!doSelectALIMthd}" name="selectAgreementLP1" reRender="panelId,pgMsgs,pbSec,searchResultSection" status="pageStatus" oncomplete="hidePickListVals()">
+            <apex:param name="selectedALIId" value=""/>
+        </apex:actionFunction> 
+        <apex:actionFunction action="{!showPopup}" name="showPopupJS" reRender="popup" status="pageStatus">
+            <apex:param name="redirectALIId" value=""/>
+        </apex:actionFunction>
+        
+        <!-- Action funtion to deactivate selected Lodgement point -->
+        <apex:actionFunction action="{!deactivateLP}" name="deactivateLodgementPoint1" reRender="selectedLPSesction" status="pageStatus">
+            <apex:param name="deactivateALIId" value="{0}"/>
+        </apex:actionFunction>       
+    
+    <apex:pageBlock title="{!strGetValTitle}" id="aLITable">
+        <b style='Margin-left:37%;'>Please select one of the options below </b> <br/><br/>
+        <center>  <apex:commandButton value="{!$Label.APT_Add_Product_Specific_Lodgement_Point}" action="{!addProdSpecificLP}" reRender="aLITable" status="pageStatus"/> &nbsp;&nbsp;
+        <apex:commandButton value="{!$Label.APT_Add_Generic_Lodgement_Point}" action="{!addGenericLP}" reRender="aLITable" status="pageStatus"/>&nbsp;&nbsp;
+        </center>         
+         <apex:outputPanel rendered="{!listAgreementLineItemWrap.size >0}" >
+          <apex:pageBlockSection title="{!$Label.APT_Select_Product_for_which_you_want_to_add_Lodgement_Point}" >             
+              <!--Table to show resulted Agreement line Item records  -->
+            <apex:pageBlockTable value="{!listAgreementLineItemWrap}" var="aLI" width="100%"  >                
+                <apex:column >
+                    <input type="radio" name="selectLodgementPoint" value="{!aLI.IsSelectedLI}" onclick="selectAgreementLP1('{!aLI.AgLI.Id}');"/>
+                </apex:column>                             
+                <apex:column value="{!aLI.AgLI.Apttus__ProductId__r.name}"/>                                                               
+            </apex:pageBlockTable><br/>            
+            </apex:pageBlockSection>        
+           </apex:outputPanel>  
+         <apex:outputPanel id="pbSec">     
+         <apex:pageBlockSection title="{!$Label.APT_Enter_Billing_Account_Details}" columns="1" rendered="{!source = 'ProdSpecific'}">                           
+                 <apex:OutputField value="{!aLP.APT_Product__c}" /> 
+                 <apex:OutputField value="{!aLP.APT_Lodgement_Zone__c}" /> 
+                                 
+              </apex:pageBlockSection>  
+               <!-- Defect 1568 -->
+                 <!--<apex:outputPanel rendered="{!source = 'ProdSpecific' || source = 'generic'}"> 
+                 <apex:pageBlockSection title="{!$Label.APT_Enter_Billing_Account_Details}"  rendered="{!source = 'generic'}"></apex:pageBlockSection>         
+                 <br/>
+                 
+                  <apex:InputHidden value="{!aLP.APT_Billing_Account__c}" id="bAccId"/>   
+                  <b style="Margin-Left:12%;"> Billing Account </b><img style="opacity: 0.8" src="/resource/APT_HelpTextIcon" title="{!$Label.APT_Use_this_lookup_to_select_Existing_Account}" height="13" width="13"/> &nbsp;&nbsp; <apex:inputText value="{!billingAcc}" id="bAccName" disabled="false" label="{!$Label.APT_Billing_Account}"/> <a href="#" onclick="openLookupPopup('{!$Component.bAccName}', '{!$Component.bAccId}', '{!quoteId}', '{!accountId}' ,'billingAccountCLM'); return false"><img src="/s.gif"  class="lookupIcon" onmouseout="this.className='lookupIcon';" alt="Account Name Lookup (New Window)" onmouseover="this.className='lookupIconOn';"/></a>         
+                  <br/>
+                  <apex:outputPanel rendered="{!cashAccCount>0}"><br/>
+                  <apex:InputHidden value="{!aLP.APT_Cash_Account__c}" id="cashAccId"/>   
+                  <b style="Margin-Left:12%;"> New Cash Account </b> <img style="opacity: 0.8" src="/resource/APT_HelpTextIcon" title="{!$Label.APT_Use_this_lookup_to_select_the_Cash_Account}" height="13" width="13"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputText value="{!cashAcc}" id="cashAccName" disabled="false"/> <a href="#" onclick="openLookupPopup('{!$Component.cashAccName}', '{!$Component.cashAccId}', '{!quoteId}', '{!accountId}' ,'cashAccountCLM'); return false"><img src="/s.gif"  class="lookupIcon" onmouseout="this.className='lookupIcon';" alt="Account Name Lookup (New Window)" onmouseover="this.className='lookupIconOn';"/></a>         
+                  </apex:outputPanel>
+                   
+                  <apex:outputPanel rendered="{!chargeAccCount>0}"><br/>
+                  <apex:InputHidden value="{!aLP.APT_Charge_Account__c}" id="chargeAccId"/>   
+                  <b style="Margin-Left:12%;"> New Charge Account </b><img style="opacity: 0.8" src="/resource/APT_HelpTextIcon" title="{!$Label.APT_Use_this_lookup_to_select_the_New_Account}" height="13" width="13"/> &nbsp;<apex:inputText value="{!chargeAcc}" id="chargeAccName" disabled="false"/> <a href="#" onclick="openLookupPopup('{!$Component.chargeAccName}', '{!$Component.chargeAccId}', '{!quoteId}' , '{!accountId}' ,'chargeAccountCLM'); return false"><img src="/s.gif"  class="lookupIcon" onmouseout="this.className='lookupIcon';" alt="Account Name Lookup (New Window)" onmouseover="this.className='lookupIconOn';"/></a>         
+                  </apex:outputPanel>
+                  
+                  <apex:outputPanel rendered="{!subAccCount>0}" ><br/>
+                  <apex:InputHidden value="{!aLP.APT_Sub_Account__c}" id="subAccId"/>   
+                  <b style="Margin-Left:12%;"> New Sub Account </b><img  style="opacity: 0.8" src="/resource/APT_HelpTextIcon" title="{!$Label.APT_Use_this_lookup_to_select_the_Sub_Account}" height="13" width="13"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputText value="{!subAcc}" id="subAccName" disabled="false"/> <a href="#" onclick="openLookupPopup('{!$Component.subAccName}', '{!$Component.subAccId}', '{!quoteId}' , '{!accountId}' ,'subAccountCLM'); return false"><img src="/s.gif"  class="lookupIcon" onmouseout="this.className='lookupIcon';" alt="Account Name Lookup (New Window)" onmouseover="this.className='lookupIconOn';"/></a>         
+                  </apex:outputPanel>
+                  </apex:outputPanel>  -->                
+                  
+                 <br/> <br/>                 
+                 </apex:outputPanel>  
+   
+                <apex:outputPanel id="searchResultSection" >
+                <apex:outputPanel rendered="{!source = 'ProdSpecific' || source = 'generic'}"> 
+               
+                <apex:pageBlockSection title="{!$Label.APT_Search_for_Lodgement_Point}"></apex:pageBlockSection>  <br/>             
+                <Table width="95%" align="center"> <tr>
+                <td width="200px"><b> Post Code </b> <br/><apex:InputField value="{!lodgementPoint.Post_Code__c}" style="width:100px" required="true"/> </td>
+                <!--td width="15%"><b> State </b> &nbsp;&nbsp;<apex:inputfield value="{!Network.State__c}" id="statefield"/></td
+                -->
+                <td width="150px"><b> State </b>  <br/><apex:selectList value="{!stateVal}" size="1">
+                                                         <apex:selectOptions value="{!statePickval}"/>
+                                                         </apex:selectList> </td>                
+                <td width="250px"><b> Transport Capability </b> <br/><apex:inputfield value="{!lodgementPoint.APT_Transport_Capability__c}"/></td>
+                <td width="210px"><b> Outlet Type </b>  <br/><apex:selectList value="{!bussinessUnit}" size="1">
+                                                         <apex:selectOptions value="{!bussinessPickval}"/>
+                                                         </apex:selectList> </td>
+                <td width="230px"><b> eParcel Enabled </b> <br/><apex:inputfield value="{!lodgementPoint.APT_eParcel_Enabled__c}"/></td>
+                
+                <apex:outputPanel layout="none" rendered="{!source = 'generic'}" style="width:500px"> <td ><b> Domestic Lodgement Zone </b> <br/><apex:selectList value="{!domesticLodgementZone}" size="1" ><apex:selectOptions value="{!domesticLodgementZoneVal}"/>
+                                                         </apex:selectList> </td> </apex:outputPanel>
+                </tr></Table><br/><br/>
+            
+            <center>       
+            <apex:commandButton value="{!$Label.APT_Search_LP}" action="{!searchLPButton}" reRender="searchResultSection,pgMsgs,aLITable" status="pageStatus" /> &nbsp;&nbsp;
+            <apex:commandButton value="{!$Label.APT_Display_all_Lodgement_Points_for_this_Lodgement_Zone}" action="{!showallLodgementpoints}" reRender="searchResultSection,searchResultSection" status="pageStatus" rendered="{!aLP.APT_Lodgement_Zone__c != null && source = 'ProdSpecific'}"/> &nbsp;&nbsp;         
+            <apex:commandButton value="{!$Label.APT_Add_LP}" action="{!AddLP}"  reRender="selectedLPSesction,searchResultSection" status="pageStatus"/>              
+            </center>
+             </apex:outputPanel>
+                <apex:pagemessages rendered="{!haserrorMessages}" id="pgMsgs"/> <br/>           
+                <apex:actionStatus id="pageStatus" >
+                    <apex:facet name="start"> 
+                    <apex:outputPanel >           
+                    <img src="{!$Resource.Apttus_DocuApi__Image_LoadingPage}" width="20" height="20" />
+                    <b><apex:outputLabel value="Please wait.."/></b>
+                    </apex:outputPanel>                        
+                    </apex:facet>
+                </apex:actionStatus>           
+             <apex:outputPanel rendered="{!listLodgementPointWrapper.size >0}">  
+             <div style="overflow: scroll; height: 300px"> 
+             
+              <!--Table to show resulted Lodgement point records  -->
+            <apex:pageBlockTable value="{!listLodgementPointWrapper}" var="lp" width="100%"  >                
+                <apex:column >
+                    <apex:inputCheckbox value="{!lp.IsSelected}"  />                   
+                </apex:column>
+                <apex:column >                 
+                <apex:facet name="header">LP Name</apex:facet>
+                       {!lp.lodgementPoint.Name}
+                </apex:column>
+                <apex:column value="{!lp.lodgementPoint.Org_ID__c}"/>
+                <apex:column value="{!lp.lodgementPoint.APT_DWS_ID__c}"/>
+                <apex:column value="{!lp.lodgementPoint.Post_Code__c}"/>
+                <apex:column >                 
+                <apex:facet name="header">Address</apex:facet>
+                       {!lp.lodgementPoint.Network_Address__c}
+                </apex:column>
+                <apex:column >                 
+                <apex:facet name="header">Outlet Type</apex:facet>
+                       {!lp.lodgementPoint.APT_Business_Unit__c }
+                </apex:column>                
+                <apex:column value="{!lp.lodgementPoint.APT_Transport_Capability__c}"/>
+                <apex:column value="{!lp.lodgementPoint.APT_MCAT__c}"/>
+                <apex:column value="{!lp.lodgementPoint.APT_Threshold_Categories__c}"/>                 
+                <apex:column value="{!lp.lodgementPoint.APT_eParcel_Enabled__c}"/>                                
+            </apex:pageBlockTable> 
+            </div> <br/>
+            
+             <div style="float:Right;">
+             <apex:outputText value="{!$Label.APT_Total_Lodgement_Points} {!searchRecCount}"  style="color:#969696"/> &nbsp;&nbsp;&nbsp;&nbsp;              
+             <b><apex:commandLink value="<<" action="{!searchLPButton}"  rendered="{!offSetVal>0}" reRender="searchResultSection,pgMsgs" status="pageStatus" title="First" /> 
+             <apex:outputText value="<<" style="color:#969696" rendered="{!offSetVal==0}" title="First"/> &nbsp;
+             <span> || </span> </b>&nbsp;
+             <b><apex:commandLink value="{!$Label.APT_Previous}" action="{!goPrevious}"  rendered="{!offSetVal>0}" reRender="searchResultSection,pgMsgs" status="pageStatus" title="Previous"/> 
+             <apex:outputText value="{!$Label.APT_Previous}" style="color:#969696" rendered="{!offSetVal==0}" title="{!$Label.APT_Previous}"/>&nbsp;
+             <span> || </span> </b>  &nbsp;            
+             <b><apex:commandLink value="{!$Label.APT_Next}" action="{!goNext}" rendered="{!(searchRecCount - offSetVal)>100}" reRender="searchResultSection,pgMsgs" status="pageStatus" title="Next"/>
+             <apex:outputText value="{!$Label.APT_Next}" style="color:#969696" rendered="{!(searchRecCount - offSetVal)<100}" title="{!$Label.APT_Next}"/>&nbsp;
+             <span> || </span> </b>&nbsp;
+             <b><apex:commandLink value=">>" action="{!goLast}"  rendered="{!(searchRecCount - offSetVal)>100}" reRender="searchResultSection,pgMsgs" status="pageStatus" title="Last"/> 
+             <apex:outputText value=">>" style="color:#969696" rendered="{!(searchRecCount - offSetVal)<100}" title="{!$Label.APT_Last}"/>   &nbsp;&nbsp;&nbsp;&nbsp;             
+             </b></div> <br/>
+                    
+            </apex:outputPanel>             
+            </apex:outputPanel><br/>
+            
+             <!--Table to show added Agreement Lodgement point records  -->
+         
+          
+        
+         <apex:outputPanel id="selectedLPSesction">         
+         <apex:pageBlockTable value="{!listAgreementLPLodgementPointSelected}" var="lps" width="80%"  rendered="{!listAgreementLPLodgementPointSelected.size >0}"  >
+                
+                <apex:column > <apex:facet name="header">Request new Site Inspection</apex:facet>               
+                 <b><apex:commandlink action="{!redirectSite}" value="New Site Inspection"> <apex:param name="redirectALIId" value="{!lps.Id}"/> </apex:commandLink></b>
+                </apex:column>
+                <apex:column ><apex:facet name="header">Deactivate Agreement LP</apex:facet>
+                  <apex:outputPanel rendered="{!lps.APT_Status__c== 'Active'}"><u><a style="cursor: pointer;" onclick="deactivateLodgementPoint1('{!lps.Id}');"> <b>Deactivate</b> </a></u></apex:outputPanel>
+                </apex:column>
+                
+                
+                <apex:column ><apex:facet name="header">Manage Account Number</apex:facet>
+                  <apex:outputPanel ><u>
+                        <a style="cursor: pointer;" onclick="showPopupJS('{!lps.Id}');"> 
+                            <b>Manage Account Number</b> 
+                        </a></u>
+                    </apex:outputPanel>
+                </apex:column>
+                
+                <apex:column value="{!lps.APT_Billing_Account_Flag__c}">
+                        <apex:facet name="header">Account Added</apex:facet>
+                </apex:column> 
+                <apex:column value="{!lps.APT_Status__c}" />
+                <apex:column value="{!lps.APT_Product__c}" />
+                <apex:column value="{!lps.APT_Lodgement_Point_Name__c}"/>
+                <apex:column value="{!lps.APT_Lodgement_Zone__c}" />
+                <apex:column value="{!lps.APT_Address__c}"/>
+                <apex:column value="{!lps.APT_LP_Post_Code__c}"/>
+                <apex:column value="{!lps.APT_Outlet_Type__c}"/>
+                <apex:column value="{!lps.APT_eParcel_Enabled__c}"/> 
+                <apex:column value="{!lps.APT_Transport_Capability__c}"/> 
+                <apex:column value="{!lps.APT_Organisation_ID__c}"/>
+                <apex:column value="{!lps.APT_DWS_ID__c}"/>                                                            
+            </apex:pageBlockTable><br/>
+            <center>
+            <apex:commandButton value="{!$Label.APT_Back_to_Contract}" action="{!backToContract}"/>&nbsp;&nbsp;
+        </center>
+         </apex:outputPanel>          
+       </apex:pageBlock>
+       
+       
+            <apex:pageBlock id="popup">
+                <apex:outputPanel id="popInnerOutputPnl" styleClass="customPopup" layout="block" rendered="{!displayPopUp}">
+                     <apex:commandButton value="{!$Label.APT_X}" title="{!$Label.APT_Close_the_popup}" action="{!closePopup}" styleClass="closeButton" rerender="popup">
+                            </apex:commandButton>
+                     <apex:pageblockSection title="{!$Label.APT_Edit_Lodgement_Point}" columns="1"> 
+                     <apex:pageblockSectionItem >
+                             <apex:outputPanel >
+                                 <apex:outputText ><b>Lodgement Point Name: </b></apex:outputText>
+                                 <apex:outputField value="{!alpSelectedForupdate.APT_Lodgement_Point_Name__c}"></apex:outputField>
+                             </apex:outputPanel>
+                          </apex:pageblockSectionItem>
+                         <apex:pageblockSectionItem >
+                             <apex:outputPanel >
+                             <apex:InputHidden value="{!alpSelectedForupdate.APT_Billing_Account__c}" id="bAccId1"/>   
+                              <b style="Margin-Left:12%;"> Billing Account </b>
+                              <img style="opacity: 0.8" src="/resource/APT_HelpTextIcon" title="{!$Label.APT_Use_this_lookup_to_select_Existing_Account}" height="13" width="13"/> &nbsp;&nbsp; 
+                              <apex:inputText value="{!billingAcc}" id="bAccName1" disabled="false" label="Billing Account"/> 
+                              <a href="#" onclick="openLookupPopup('{!$Component.bAccName1}', '{!$Component.bAccId1}', '{!quoteId}', '{!accountId}' ,'billingAccountCLM'); return false">
+                                  <img src="/s.gif"  class="lookupIcon" onmouseout="this.className='lookupIcon';" alt="Account Name Lookup (New Window)" onmouseover="this.className='lookupIconOn';"/></a>         
+                              </apex:outputPanel>
+                          </apex:pageblockSectionItem>
+                          <apex:pageblockSectionItem rendered="{!cashAccCount>0}">
+                              <apex:outputPanel >
+                              <apex:InputHidden value="{!alpSelectedForupdate.APT_Cash_Account__c}" id="cashAccId1"/>   
+                              <b style="Margin-Left:12%;"> New Cash Account </b> <img style="opacity: 0.8" src="/resource/APT_HelpTextIcon" title="{!$Label.APT_Use_this_lookup_to_select_the_Cash_Account}" height="13" width="13"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputText value="{!cashAcc}" id="cashAccName1" disabled="false"/> <a href="#" onclick="openLookupPopup('{!$Component.cashAccName1}', '{!$Component.cashAccId1}', '{!quoteId}' , '{!accountId}' ,'cashAccountCLM'); return false"><img src="/s.gif"  class="lookupIcon" onmouseout="this.className='lookupIcon';" alt="Account Name Lookup (New Window)" onmouseover="this.className='lookupIconOn';"/></a>         
+                              </apex:outputPanel>
+                           </apex:pageblockSectionItem>
+                          <apex:pageblockSectionItem rendered="{!chargeAccCount>0}">
+                              <apex:outputPanel >
+                              <apex:InputHidden value="{!alpSelectedForupdate.APT_Charge_Account__c}" id="chargeAccId1"/>   
+                              <b style="Margin-Left:12%;"> New Charge Account </b><img style="opacity: 0.8" src="/resource/APT_HelpTextIcon" title="{!$Label.APT_Use_this_lookup_to_select_the_New_Account}" height="13" width="13"/> &nbsp;<apex:inputText value="{!chargeAcc}" id="chargeAccName1" disabled="false"/> <a href="#" onclick="openLookupPopup('{!$Component.chargeAccName1}', '{!$Component.chargeAccId1}', '{!quoteId}' , '{!accountId}' ,'chargeAccountCLM'); return false"><img src="/s.gif"  class="lookupIcon" onmouseout="this.className='lookupIcon';" alt="Account Name Lookup (New Window)" onmouseover="this.className='lookupIconOn';"/></a>         
+                              </apex:outputPanel>
+                          </apex:pageblockSectionItem>
+                          <apex:pageblockSectionItem rendered="{!subAccCount>0}">
+                              <apex:outputPanel >
+                              <apex:InputHidden value="{!alpSelectedForupdate.APT_Sub_Account__c}" id="subAccId1"/>   
+                              <b style="Margin-Left:12%;"> New Sub Account </b><img  style="opacity: 0.8" src="/resource/APT_HelpTextIcon" title="{!$Label.APT_Use_this_lookup_to_select_the_Sub_Account}" height="13" width="13"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputText value="{!subAcc}" id="subAccName1" disabled="false"/> <a href="#" onclick="openLookupPopup('{!$Component.subAccName1}', '{!$Component.subAccId1}', '{!quoteId}' , '{!accountId}' ,'subAccountCLM'); return false"><img src="/s.gif"  class="lookupIcon" onmouseout="this.className='lookupIcon';" alt="Account Name Lookup (New Window)" onmouseover="this.className='lookupIconOn';"/></a>         
+                              </apex:outputPanel>
+                          </apex:pageblockSectionItem>
+                          
+                     </apex:pageblockSection>
+                     <apex:commandButton value="Ok" action="{!redirectPopup}" styleClass="closeButton" rerender="popup,formId">
+                     </apex:commandButton>
+                </apex:outputPanel>
+            
+            </apex:pageBlock>
+            
+              
+                  <style type="text/css">
+                    .customPopup {
+                        background-color: white;
+                        border-style: solid;
+                        border-width: 2px;
+                        left: 15%;
+                        padding: 10px;
+                        position: fixed;
+                        z-index: 9999;
+                        width: 500px;
+                        top: 30%;
+                    }
+                    
+                    .disabledTextBox {
+                        background-color: white;
+                        border: 1px solid;
+                        color: black;
+                        cursor: default;
+                        width: 90px;
+                        display: table;
+                        padding: 2px 1px;
+                        text-align:right;
+                    }   
+                    
+                    .closeButton {
+                        float: right;
+                    }
+                </style>
+
+
+    </apex:form> 
+</apex:page>

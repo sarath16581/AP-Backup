@@ -1,0 +1,47 @@
+<apex:page standardController="Opportunity" showHeader="false">
+<style type="text/css">
+    .bPageBlock 
+    {
+        background-color:#FFF !important;
+        border:none !important;
+    }
+</style>
+<script type="text/JavaScript">
+    function getReturnURL() {
+        return '{!IF(ISBLANK(opportunity.id), '', URLFOR($Action.Opportunity.View, opportunity.id))}';
+    }
+    function MM_refreshParent(evt) {
+        if(evt.data == 'MM_refreshPage')
+        {
+            refreshParentPage();
+        }      
+    }    
+    function refreshParentPage() {
+        if((typeof sforce != 'undefined') && sforce && (!!sforce.one))
+        {
+            sforce.one.navigateToSObject('{!opportunity.id}', 'detail');
+        }
+        else
+        {
+            window.top.location.href = getReturnURL();
+        }  
+    }    
+    if (window.addEventListener){
+          window.addEventListener('message', MM_refreshParent, false);
+    } else if (window.attachEvent){
+          window.attachEvent('message', MM_refreshParent);
+    }  
+</script>
+    <div id="mm_bluesheet_disabled" style="float:left;width:100%;text-align:center;display:none;">
+        <div style="color:#54698D;">Save CRM item for MHI applet links to become available.</div>
+    </div>
+    <apex:iframe id="mm_bluesheet" width="100%" height="420" src="https://www.saleswebserver.net/sfdc/MillerHeiman6/dashboard.aspx?ShowBlue=Y&SessionID={!$Api.Session_ID}&EndPoint=https://auspost--ptest.my.salesforce.com/services/Soap/u/24.0/}&ID={!Opportunity.Id}&ReturnURL={!IF(ISBLANK(opportunity.id), '', URLFOR($Action.Opportunity.View, opportunity.id))}"/>
+
+<script type="text/JavaScript">        
+    if (!getReturnURL()) 
+    {
+        document.getElementById("mm_bluesheet").style.display = 'none';
+        document.getElementById("mm_bluesheet_disabled").style.display = 'block';
+    }
+</script>
+</apex:page>

@@ -1,0 +1,17 @@
+/**
+ * 2021-01-22 - Ranjeewa Silva - Created.
+ */
+.bulk-load-badge_mapped {
+    --sds-c-badge-line-height: 70%;
+    --sds-c-badge-icon-color-foreground: #ffffff;
+}
+
+.bulk-load-badge_unmapped {
+  --sds-c-badge-line-height: 70%;
+  --sds-c-badge-icon-color-foreground: #ffffff;
+}
+
+.bulk-load-badge_missing {
+    --sds-c-badge-line-height: 70%;
+    --sds-c-badge-icon-color-foreground: #ffffff;
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Weight_Code_and_Price_Type__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Apttus_Config2__LineItemId__r.APT_Pricing_Structure__c = &quot;BANDED SPECIAL EXPRESS {Z40}&quot;, IF(CONTAINS(Apttus_Config2__Dimension2Value__c ,&quot;0.5&quot;) , &quot;up to 500g&quot;   ,IF(Apttus_Config2__Dimension2Value__c == &quot;1.00&quot; , &quot;501g–1kg&quot;   ,IF(Apttus_Config2__Dimension2Value__c == &quot;3.00&quot; , &quot;1.01kg–3kg&quot;   ,IF(Apttus_Config2__Dimension2Value__c == &quot;5.00&quot; , &quot;3.01kg–5g&quot;   ,Apttus_Config2__Dimension3Value__c )))),
+IF(CONTAINS(Apttus_Config2__Dimension2Value__c , &quot;0.5&quot; ), &quot;up to 500g&quot; ,Apttus_Config2__Dimension3Value__c)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Weight Code and Price Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

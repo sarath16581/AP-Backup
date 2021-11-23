@@ -1,0 +1,14 @@
+<!--
+This page will refresh pricing and remove contract pricing.
+Created By - Mausam Padhiyar
+Created Date - 21st Sept, 2016
+Last Modified By -
+Last Modified Date -
+-->
+<apex:page controller="APT_RefreshPricingController" action="{!refreshPrice}">
+<apex:form >
+    <apex:pageBlock >
+        <apex:pagemessages rendered="{!haserrorMessages}" />
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

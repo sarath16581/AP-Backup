@@ -1,0 +1,16 @@
+<template>
+    <div class="container">
+        <c-lookup 
+            class="lookup"
+            field-list="Id, Name"
+            sobject-name="Network__c"
+            fields-to-search="Name"
+            icon-name="standard:Network__c"
+            placeholder="Search for Network by name"  
+            network-search-result-select-handler={networkSearchResultSelectHandler}
+            label={label}
+            field-level-help={fieldLevelHelp}
+            required={required}>
+        </c-lookup>
+    </div>
+</template>

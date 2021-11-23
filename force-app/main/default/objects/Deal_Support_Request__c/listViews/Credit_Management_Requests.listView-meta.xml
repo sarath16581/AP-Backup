@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_Management_Requests</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>Credit_Work_Type__c</columns>
+    <columns>Stage__c</columns>
+    <columns>Status__c</columns>
+    <columns>Credit_Representative__c</columns>
+    <columns>Credit_Person_Code__c</columns>
+    <columns>KPI_SLA__c</columns>
+    <columns>Has_Closure_SLA_been_exceeded__c</columns>
+    <columns>Sub_Account_Checkbox__c</columns>
+    <columns>Billing_Account__c</columns>
+    <columns>Organisation__c</columns>
+    <columns>Requestor__c</columns>
+    <columns>Priority__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Deal_Support_Request__c.Credit_Management_Request</value>
+    </filters>
+    <label>Credit Management Requests</label>
+    <sharedTo>
+        <group>Credit_DSR_Management_Request_Team</group>
+        <group>Deal_Enablement_Centre_Team</group>
+    </sharedTo>
+</ListView>

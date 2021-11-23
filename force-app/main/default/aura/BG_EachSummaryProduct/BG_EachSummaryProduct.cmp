@@ -1,0 +1,89 @@
+<!-- STP:20/02/2020: 
+    Display a summary of a single product details-->
+<aura:component >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:attribute name="selectedProductsQuestions" type="map"/>
+    <aura:attribute name="key" type="string"/>
+    <aura:attribute name="productQuestions" type="List"/>
+    <aura:attribute name="revenue" type="Decimal"/>
+    <aura:attribute name="notes" type="String"/>
+    <aura:attribute name="isManualOpp" type="String"/>
+    
+    
+        <aura:iteration items="{!v.productQuestions}" var="p1" indexVar="i">
+            
+                <dl>
+                    <div class="slds-grid slds-wrap slds-p-vertical_x-small">
+                        <div class="slds-size_1-of-2">
+                            <dt>{!i + 1}. {!p1.questionName}</dt>
+                        </div>
+                        <div class="slds-size_1-of-2">
+                            <dd>
+                                <aura:if isTrue='{!p1.selectedAnswerLabel != null}'>
+                                {!p1.selectedAnswerLabel}
+                                <aura:set attribute='else'>
+                                    {!p1.selectedAnswer}
+                                    &nbsp;
+                                </aura:set>
+                                </aura:if>
+                            </dd>
+                        </div>
+                    </div>
+                </dl>
+            
+            <!--<tr class='outputText'>{!p1.questionName}</tr>
+            <tr class='outputValue'>&nbsp; &nbsp; - &nbsp; <ui:outputText value="{!p1.selectedAnswer}"></ui:outputText></tr>
+            <tr>&nbsp;</tr> -->
+        </aura:iteration>
+        <dl>
+            <aura:if isTrue='{!!v.isManualOpp}'>
+            <div class="slds-grid slds-wrap slds-p-vertical_x-small">
+                <div class="slds-size_1-of-2">
+                    <dt>Estimated Revenue</dt>
+                </div>
+                <div class="slds-size_1-of-2">
+                    <dd>
+                        <ui:outputCurrency value="{!v.revenue}"/>
+                        <aura:set attribute='else'>
+                            &nbsp;
+                        </aura:set>
+                    </dd>
+                </div>
+            </div>
+            </aura:if>
+        </dl>
+        
+       <!-- <tr class='outputText'>Estimated Revenue</tr>
+        <tr class='outputValue'>&nbsp; &nbsp; - &nbsp; <ui:outputText value="{!v.revenue}"></ui:outputText></tr>
+        <tr>&nbsp;</tr> -->
+        
+        <aura:if isTrue="{!v.isManualOpp}">
+            <!-- Do Not Display "Notes" Section for Manually Created Opportunity -->
+            <aura:set attribute="else">
+                <!-- Display "Notes" Section for Lead or Converted Opportunity -->
+            <dl>
+                <div class="slds-grid slds-wrap slds-p-vertical_x-small">
+                    <div class="slds-size_1-of-2">
+                        <dt>Notes</dt>
+                    </div>
+                    <div class="slds-size_1-of-2">
+                        <dd><aura:if isTrue='{!v.notes != null}'>
+                            {!v.notes}
+                            <aura:set attribute='else'>
+                                &nbsp;
+                            </aura:set>
+                            </aura:if>
+                        </dd>
+                    </div>
+                </div>
+            </dl>
+            </aura:set>
+        </aura:if>
+        
+        <!--<tr class='outputText'>Notes</tr>
+        <tr class='outputValue'>&nbsp; &nbsp; - &nbsp; <ui:outputText value="{!v.notes}"></ui:outputText></tr>
+        <tr>&nbsp;</tr> -->
+
+    
+</aura:component>

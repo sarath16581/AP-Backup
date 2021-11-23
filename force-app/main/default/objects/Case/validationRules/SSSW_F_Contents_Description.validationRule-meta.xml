@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_F_Contents_Description</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( DescriptionofContents__c = NULL,
+     NOT(ISPICKVAL( Origin , &quot;Web&quot;)),
+     NOT ( AND
+      (
+      ISPICKVAL( EnquirySubType__c , &quot;Missing Item&quot;),
+      ISPICKVAL( Origin , &quot;MyPost Business&quot;),
+      $User.ProfileId =&apos;00e90000001PfHp&apos;)),
+     NOT(ISPICKVAL( Origin , &quot;Portal&quot;)),
+     NOT(ISPICKVAL( Origin , &quot;Internal form&quot;)),
+     ISBLANK(TEXT(CCUEnquiryType__c)),
+     NOT(ISNEW()),
+     CONTAINS( RecordType.DeveloperName, &quot;SSSWDelivery&quot;),
+     Bypass_Data_enforcement__c = FALSE,
+     Email_Bypass_Data_enforcement__c = FALSE,
+     $Profile.Name &lt;&gt; &apos;SNNAP Integration&apos;, 
+OR(
+AND ( ISPICKVAL (ProductCategory__c, &quot;Domestic Parcels&quot;),
+OR(
+ISPICKVAL( EnquirySubType__c , &quot;Missing Item&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;Damaged/Missing contents&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;Remittance not received&quot;),
+AND($User.ProfileId =&apos;00e90000001eeTk&apos;,ISPICKVAL( EnquirySubType__c , &quot;Disputed delivery scan&quot;)))),
+AND ( ISPICKVAL (ProductCategory__c, &quot;Domestic Letters&quot;),OR(ISPICKVAL( EnquirySubType__c , &quot;Missing Item&quot;),AND($User.ProfileId =&apos;00e90000001eeTk&apos;,ISPICKVAL( EnquirySubType__c , &quot;Disputed delivery scan&quot;)))),
+AND(OR(ISPICKVAL (ProductCategory__c, &quot;International Parcels&quot;),ISPICKVAL (ProductCategory__c, &quot;International Letters&quot;)),
+OR(
+ISPICKVAL( EnquirySubType__c , &quot;Missing Item&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;Damaged/Missing contents&quot;),
+AND($User.ProfileId =&apos;00e90000001eeTk&apos;,ISPICKVAL( EnquirySubType__c , &quot;Disputed delivery scan&quot;)))))) &amp;&amp; $User.IsExcludedFromValidationRules__c =false</errorConditionFormula>
+    <errorDisplayField>DescriptionofContents__c</errorDisplayField>
+    <errorMessage>You must populate the field &apos;Description of Contents&apos;</errorMessage>
+</ValidationRule>

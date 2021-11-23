@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_How_many_parcels_a_year_do_you_send__c</fullName>
+    <externalId>false</externalId>
+    <label>How many parcels a year do you send?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Less than 1000</fullName>
+                <default>false</default>
+                <label>Less than 1000</label>
+            </value>
+            <value>
+                <fullName>Over 1000</fullName>
+                <default>false</default>
+                <label>Over 1000</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

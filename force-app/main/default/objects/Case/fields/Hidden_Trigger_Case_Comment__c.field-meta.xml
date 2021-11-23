@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hidden_Trigger_Case_Comment__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>StarTrack Case Comment Trigger</description>
+    <externalId>false</externalId>
+    <label>Hidden Trigger Case Comment</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

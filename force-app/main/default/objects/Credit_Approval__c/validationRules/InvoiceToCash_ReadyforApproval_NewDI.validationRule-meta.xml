@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InvoiceToCash_ReadyforApproval_NewDI</fullName>
+    <active>true</active>
+    <description>Restrict update of Credit Approval if there is at least 1 child DI with status of new</description>
+    <errorConditionFormula>AND( Ready_For_Approval__c == true ,Number_Of_Items_Pending__c &gt;0)</errorConditionFormula>
+    <errorDisplayField>Ready_For_Approval__c</errorDisplayField>
+    <errorMessage>Please update all disputed item statuses before submitting for approval</errorMessage>
+</ValidationRule>

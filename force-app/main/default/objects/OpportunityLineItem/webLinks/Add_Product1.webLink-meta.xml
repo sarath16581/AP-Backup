@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Add_Product1</fullName>
+    <availability>online</availability>
+    <description>Add Product button for Apttus User</description>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Add Product</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/37.0/connection.js&quot;)} 
+
+
+if(&apos;{!User.ApttusReady__c}&apos;== &apos;1&apos;) { 
+window.alert (&apos;You have been identified as Apttus Trained, please use apttus proposal record to add Product&apos;); 
+} 
+else{window.open(&apos;/p/opp/SelectSearch?addTo={!Opportunity.Id}&amp;retURL=%2F{!Opportunity.Id}&apos;,&quot;_self&quot;) 
+}</url>
+</WebLink>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Hours__c</fullName>
+    <externalId>false</externalId>
+    <formula>VALUE(LEFT(Finish_Time__c, 2))+ VALUE( Right( Finish_Time__c,2 ) )/60 -(VALUE(LEFT(Start_Time__c, 2))+ VALUE( Right( Start_Time__c,2 ) )/60) - Lunch_Time_Mins__c /60
++Extra_Work_Hours__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Total Work Hours</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

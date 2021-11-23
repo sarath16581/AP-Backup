@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Payment_opt_inperson_phone_internet__c</fullName>
+    <externalId>false</externalId>
+    <label>Payment options inperson,phone,internet?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>OTC</fullName>
+                <default>false</default>
+                <label>OTC</label>
+            </value>
+            <value>
+                <fullName>OTC &amp; or Phone &amp; Internet</fullName>
+                <default>false</default>
+                <label>OTC &amp; or Phone &amp; Internet</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_DOV_Reason__c</fullName>
+    <externalId>false</externalId>
+    <label>DOV Reason</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Update products/rates</fullName>
+                <default>false</default>
+                <label>Update products/rates</label>
+            </value>
+            <value>
+                <fullName>Add new products</fullName>
+                <default>false</default>
+                <label>Add new products</label>
+            </value>
+            <value>
+                <fullName>Update Collection Point (Local Pud)</fullName>
+                <default>false</default>
+                <label>Update Collection Point (Local Pud)</label>
+            </value>
+            <value>
+                <fullName>Migration request (ie. PPS to TEAM)</fullName>
+                <default>false</default>
+                <label>Migration request (ie. PPS to TEAM)</label>
+            </value>
+            <value>
+                <fullName>Update lanes to existing zones</fullName>
+                <default>false</default>
+                <label>Update lanes to existing zones</label>
+            </value>
+            <value>
+                <fullName>Replace lanes</fullName>
+                <default>false</default>
+                <label>Replace lanes</label>
+            </value>
+            <value>
+                <fullName>Remove Product</fullName>
+                <default>false</default>
+                <label>Remove Product</label>
+            </value>
+            <value>
+                <fullName>Multi-year Contract Review/Price Change</fullName>
+                <default>false</default>
+                <label>Multi-year Contract Review/Price Change</label>
+            </value>
+            <value>
+                <fullName>APR Contract Review/Price Change</fullName>
+                <default>false</default>
+                <label>APR Contract Review/Price Change</label>
+            </value>
+            <value>
+                <fullName>Contract Review or Price Change</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Contract Review or Price Change</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

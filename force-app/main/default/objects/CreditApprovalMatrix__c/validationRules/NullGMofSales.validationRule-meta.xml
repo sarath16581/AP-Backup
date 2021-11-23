@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NullGMofSales</fullName>
+    <active>false</active>
+    <description>This validation for if Product Family and Product Sub Category field value is default and GM of Sales field value is mandatory.</description>
+    <errorConditionFormula>AND(ISPICKVAL(Product_Family__c, &apos;default&apos;),
+ISPICKVAL(Product_Sub_Category__c, &apos;default&apos;),
+ISBLANK(GMOfSales__c))</errorConditionFormula>
+    <errorDisplayField>GMOfSales__c</errorDisplayField>
+    <errorMessage>Please provide a GM of Sales</errorMessage>
+</ValidationRule>

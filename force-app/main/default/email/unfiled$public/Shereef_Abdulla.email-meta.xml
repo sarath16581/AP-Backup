@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Shereef Abdulla Manager, Operational Accounting Group Finance Level 24, 180 Lonsdale St Melbourne VIC 3000   T  0436 653 682  M 0436 653 682  E  Shereef.Abdulla@auspost.com.au</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Shereef Abdulla</name>
+    <relatedEntityType>Case</relatedEntityType>
+    <style>none</style>
+    <subject>RE: RTRA RULES - FULL REFUND NOTIFICATION - AU445 - AUSTRALIA</subject>
+    <type>custom</type>
+    <uiType>SFX</uiType>
+</EmailTemplate>

@@ -1,0 +1,7 @@
+<!-- 2018-06-01 clint.dsilva@auspost.com.au created -->
+<aura:event type="APPLICATION" description="Trigger When API returns a value">
+    <aura:attribute name="idx" type="boolean" default = "0"/>
+    <aura:attribute name="apiName" type="string" default = ""/>
+    <aura:attribute name="apiParams" type="Object[]" />
+    <aura:attribute name="payload" type="Object" default ="{}" />
+</aura:event>

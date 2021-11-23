@@ -1,0 +1,7 @@
+<p>New idea comment has been created which requires moderation</p>
+<p>Idea: <a href="https://auspost--ptest.cs6.my.salesforce.com/ideas/viewIdea.apexp?id={!ideaId}">{!ideaTitle}</a>
+<hr />
+<p>Comment body:</p>
+<p>{!ideaCommentBody}</p>
+<hr />
+<p><a href="https://auspost--ptest--c.cs6.visual.force.com/apex/brideas_Moderation">Ideas Moderation</a></p>

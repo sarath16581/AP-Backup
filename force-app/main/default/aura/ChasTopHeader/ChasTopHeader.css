@@ -1,0 +1,375 @@
+.THIS {
+  /*
+  background: #292f33;
+
+   */
+  background: #FFFFFF;
+}
+
+.THIS .inner {
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.THIS .menu-button {
+  padding: 15px;
+  color: #4D4D54;
+}
+
+.THIS .mobile-nav {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  left: -100%;
+  position: fixed;
+  top: 0;
+  transition: left .5s ease;
+  width: 100%;
+  z-index: 10;
+}
+
+.THIS .mobile-nav.is-active {
+  left: 0;
+}
+
+.THIS .primary-nav {
+  background-color: #f9f8f7;
+  height: 100%;
+  min-height: 100%;
+  min-width: 80%;
+  outline: 0;
+  overflow-x: hidden;
+  position: relative;
+  width: 80%;
+  z-index: 11;
+}
+
+.THIS .mobile-nav-links {
+  align-items: center;
+  color: #382f2d;
+  display: flex;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  min-height: 40px;
+  padding: 4px 10px;
+  text-decoration: none;
+  position: relative;
+}
+
+.THIS #mobileLoginButton {
+  height: 60px;
+  line-height: 16px;
+  padding: 19px 20px 18px 8px;
+}
+
+.THIS .mobile-login {
+  background-color: #343b40;
+  display: none;
+}
+
+.THIS .mobile-login.is-open {
+  animation: mobile-login-animation ease .3s both;
+  display: block;
+}
+
+@keyframes mobile-login-animation {
+  0% {
+    max-height: 0;
+  }
+
+  100% {
+    max-height: 100vmax;
+  }
+}
+
+.THIS .desktop-login.is-open {
+  display: block;
+}
+
+.THIS .desktop-login {
+  display: none;
+  background-color: transparent;
+  bottom: 0;
+  height: auto;
+  left: auto;
+  padding-top: 15px;
+  position: absolute;
+  right: 0;
+  text-align: left;
+  top: 100%;
+  width: 230px;
+  z-index: 12;
+}
+
+.THIS .desktop-login:after {
+  border-color: transparent transparent #fff;
+  border-style: solid;
+  border-width: 0 10px 10px;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 0;
+  left: 80%;
+  position: absolute;
+  transform: translate(-50%);
+  width: 0;
+  z-index: 10;
+}
+
+.THIS .desktop-login-inner {
+  border-radius: 3px;
+  box-shadow: 0 10px 30px 0 rgba(0,0,0,.3);
+  height: auto;
+  overflow: auto;
+}
+
+.THIS .mobile-login-links {
+  font-family: APTypeText,helvetica,arial,sans-serif;
+  align-items: center;
+  color: white;
+  display: flex;
+  font-size: 14px;
+  line-height: 16px;
+  min-height: 50px;
+  padding: 10px 20px 10px 15px;
+  text-decoration: none;
+  position: relative;
+}
+
+.THIS .desktop-login-links {
+  color: #382f2d;
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 34px;
+  padding: 0 16px;
+  text-decoration: none;
+  position: relative;
+}
+
+.THIS a.desktop-login-links:hover,
+.THIS a.desktop-login-links:focus {
+  color: #fff !important;
+  background-color: #dc1928;
+  border-radius: 3px;
+}
+
+.THIS .desktop-account {
+  background-color: white;
+  border-bottom: .5px solid #e2dfda;
+  padding: 24px 16px;
+}
+
+.THIS .desktop-products {
+  background-color: #f9f8f7;
+  padding: 24px 16px;
+}
+
+.THIS .mobile-nav .login {
+  background-color: #292f33;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.THIS .desktop-nav .login {
+  color: #dc1928;
+}
+
+.THIS .close-button {
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  min-height: 100%;
+  opacity: .75;
+  position: relative;
+  width: 100%;
+}
+
+.THIS .is-active .close-button {
+  background-color: #000;
+  transition: background-color .5s linear;
+  transition-delay: .3s;
+}
+
+.THIS .close-button .slds-button__icon {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+}
+
+.THIS .desktop-nav {
+  flex: 1;
+}
+
+.THIS .desktop-nav li {
+  position: relative;
+}
+
+.THIS .outer-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.THIS .nav-links {
+  display: block;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 10px;
+  /*color: white;*/
+  color:#4D4D54;
+  border-radius: 3px;
+  font-size: 12px;
+  /*text-decoration: none;*/
+}
+
+.THIS .nav-links .slds-icon_container {
+  margin-right: 4px;
+}
+
+.THIS .nav-links:hover, .THIS .nav-links:focus, .THIS .nav-links:active {
+  /*background: #535f67;*/
+}
+
+.THIS a.nav-links:hover>span {
+
+  text-decoration-color: #4D4D54;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+}
+
+.THIS .mobile-login-button {
+  color: #4D4D54;
+  padding: 0.5rem 1rem;
+  margin: 0 25px 0 auto;
+}
+
+.THIS .mobile-login-button .slds-button__icon {
+  height: 18px;
+  width: 18px;
+}
+
+.THIS .desktop-nav .slds-icon {
+  margin-right: 5px;
+}
+
+.THIS .mobile-nav .slds-icon {
+  margin: 0.5rem;
+  /*margin-right: 10px;*/
+}
+
+.THIS .desktop-nav .chevron.slds-icon {
+  margin-right: 0;
+  margin-left: 5px;
+  height: 0.5rem;
+  width: 0.5rem;
+  transform: rotate(90deg);
+}
+
+.THIS .mobile-nav .chevron.slds-icon {
+  transform: rotate(90deg);
+  transition: transform .3s;
+}
+
+.THIS .mobile-nav .chevron.is-open.slds-icon {
+  transform: rotate(270deg);
+}
+
+.THIS .hide-small {
+  display: none;
+}
+
+.THIS .hide-large {
+  display: block;
+}
+
+@media (min-width: 480px) {
+  .THIS .primary-nav {
+    min-width: 350px;
+    width: 350px;
+  }
+}
+
+@media (min-width: 680px) {
+  .THIS .inner {
+    padding: 0 12px;
+  }
+
+  .THIS .hide-small {
+    display: block;
+  }
+
+  .THIS .hide-large,
+  .THIS .mobile-nav {
+    display: none;
+  }
+}
+
+.THIS a span {
+  pointer-events: none;
+  display: inline-block;
+}
+
+.THIS a:focus {
+  outline: none;
+  box-shadow: none;  
+}
+
+.THIS .nav-links:focus:after {
+  border: 1px dotted currentColor;
+  border-radius: 3px;
+  content: "";
+  display: block;
+  height: calc(100% - 2px);
+  left: 1px;
+  pointer-events: none;
+  position: absolute;
+  top: 1px;
+  width: calc(100% - 2px);
+}
+
+.THIS #mobileLoginButton:focus {
+  background-color: #292f33;
+}
+
+.THIS .mobile-nav-links:focus {
+  background-color: #fff;
+}
+
+.THIS .mobile-login-links:focus {
+  background-color: #3e474d;
+}
+
+.THIS .mobile-nav-links:focus:after,
+.THIS .mobile-login-links:focus:after {
+  border: 1px dotted currentColor;
+  border-radius: 3px;
+  content: "";
+  display: block;
+  height: calc(100% - 4px);
+  left: 2px;
+  pointer-events: none;
+  position: absolute;
+  top: 2px;
+  width: calc(100% - 4px);
+}
+
+.THIS .slds-button:focus:after {
+    border: 1px dotted currentColor;
+    border-radius: 3px;
+    content: "";
+    display: block;
+    height: calc(100% - 10px);
+    left: 5px;
+    pointer-events: none;
+    position: absolute;
+    top: 5px;
+    width: calc(100% - 10px);
+}

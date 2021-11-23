@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Total_Potential_Opps_Change__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The change in the total value of Potential opportunities this month.</description>
+    <externalId>false</externalId>
+    <formula>DMAPP__Potential_Opportunities_Score_Amount__c - DMAPP__Previous_Score__r.DMAPP__Potential_Opportunities_Score_Amount__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Total Potential Opps Change</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

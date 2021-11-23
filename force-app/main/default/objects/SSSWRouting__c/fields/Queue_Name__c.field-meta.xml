@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Queue_Name__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE( Queue_ID__c 
+,&quot;00G90000002FjlXEAS&quot;,&quot;Business BO&quot;
+,&quot;00G90000002FjlkEAC&quot;,&quot;Business Inb&quot;
+,&quot;00G90000002FjlhEAC&quot;,&quot;Cons BO Fin &amp; Travel&quot;
+,&quot;00G90000002Qw6rEAC&quot;,&quot;Cons BO Other&quot;
+,&quot;00G90000002FjlrEAC&quot;,&quot;Cons BO Post Info&quot;
+,&quot;00G90000002Gg12EAC&quot;,&quot;Cons BO Premium&quot;
+,&quot;00G90000002HBsUEAW&quot;,&quot;Cons BO Spec Del&quot;
+,&quot;00G90000002FjlaEAC&quot;,&quot;Cons BO Std&quot;
+,&quot;00G90000002FjllEAC&quot;,&quot;Cons Inb&quot;
+,&quot;00G90000002Qnz2EAC&quot;,&quot;Cons Inb Spec Del&quot;
+,&quot;00G90000002R04WEAS&quot;,&quot;Customer Recovery&quot;
+,&quot;00G90000002G3fgEAC&quot;,&quot;E-Parcel Damages&quot;
+,&quot;00G90000002FjlbEAC&quot;,&quot;Enterprise BO&quot;
+,&quot;00G90000002FjlmEAC&quot;,&quot;Enterprise Inb&quot;
+,&quot;00G90000002FjlnEAC&quot;,&quot;HLC&quot;
+,&quot;00G90000002FjlcEAC&quot;,&quot;Intl BO&quot;
+,&quot;00G90000002FjloEAC&quot;,&quot;Intl ECI BO&quot;
+,&quot;00G90000002FjlpEAC&quot;,&quot;Intl Inb&quot;
+,&quot;00G90000002FjldEAC&quot;,&quot;Load&amp;Go&quot;
+,&quot;00G90000002FjleEAC&quot;,&quot;MyPost&quot;
+,&quot;00G90000002FjlfEAC&quot;,&quot;Network Queue&quot;
+,&quot;00G90000002FjlqEAC&quot;,&quot;Online Shop BO&quot;
+,&quot;00G90000002FjlgEAC&quot;,&quot;Online Shop Inb&quot;
+,&quot;00G90000002G3fhEAC&quot;,&quot;PBD Orders&quot;
+,&quot;00G90000002R5fGEAS&quot;,&quot;Social Media&quot;
+,&quot;00G90000002R8H8EAK&quot;,&quot;Test Lab&quot;
+,&quot;00G90000002FjluEAC&quot;,&quot;UMS BO&quot;
+,&quot;00G90000002FjlvEAC&quot;,&quot;UMS Inb&quot;
+,&quot;00G90000002XkZOEA0&quot;,&quot;Cons Inb Del Supp Prem&quot;
+,&quot;00G90000002XkZLEA0&quot;,&quot; Cons Inb Del Supp Stand&quot;
+,&quot;00G90000002GfWGEA0&quot;,&quot;Cons Inb Fin &amp; Travel&quot;
+,&quot;00G90000002XkZMEA0&quot;,&quot;Cons Inb Local Track&quot;
+,&quot;00G90000002XkZPEA0&quot;,&quot;Cons Inb Track Help&quot;
+,&quot;00G90000002XkZNEA0&quot;,&quot;Cons Inb Post Info&quot;
+,&quot;00G90000001ptGzEAI&quot;,&quot;MyPost Bus Inb&quot;
+,&quot;00G90000001ptGyEAI&quot;,&quot;MyPost Bus BO&quot;
+,&quot;00G90000002Gd6GEAS&quot;,&quot;Intl Inbound Std Track&quot;
+,&quot;00G90000002wL1SEAU&quot;,&quot;SnapIt Inb&quot;
+,&quot;00G90000002wL1REAU&quot;,&quot;SnapIt BO&quot;
+,&quot;00G90000002V5Y8EAK&quot;,&quot;Community&quot;
+,&quot;New Queue - Update Formula&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Queue Name</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

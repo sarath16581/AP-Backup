@@ -1,0 +1,792 @@
+<!--
+History
+
+7/12/2015   kalpita.talwadekar@auspost.com.au	updated the page for adding UPU form tab to merge CN08 and CN18 forms.
+9/12/2015   kalpita.talwadekar@auspost.com.au	updated the page for Network Response tab to include service now responses
+03.05.2016  kalpita.talwadekar@auspost.com.au	Updated code for adding the security message for hiding article information on event message related list
+21/02/2017  nathan.franklin@auspost.com.au	   Adding Safe Drop Attach image functionality.
+2017-10-01  nathan.franklin@auspost.com.au	   Added ScriptLoader component to manage frontend scripts
+26/11/2018  saiswetha.pingali@auspost.com.au	 Added new field container_Id__c for REQ1469903
+12/07/2019  ronnie.yang@sodastrategic.com.au	 Rearranged the order of elements the Network Response tab REQ1850466
+2021-10-06 - Nathan Franklin - Changed Safe Drop capability to Delivery Proof (with a PDF)
+-->
+<apex:page standardController="Case" extensions="CaseRelatedListPanelContExt" standardStylesheets="false" showHeader="false" sidebar="false">
+
+	<c:ScriptLoader jsLibraries="jquery,jqueryui,jquery.layout,ssswconsole,interaction,integration,bootstrap"
+					cssLibraries="jqueryui,bootstrap,jquery.layout,ssswconsole" />
+
+	<style>
+		.nav-tabs>li>a {
+			line-height:0.3!important;
+		}
+		.pbHeader>table {
+			width: 100%;
+		}
+		.pbHeader .pbTitle, #RelatedCases .pbButton {
+			display: none;
+		}
+		.pbHeader td.pbButton {
+			text-align: center;
+		}
+		.pbHeader td.pbButton input.btn,
+		.pbHeader td.pbButton button.btn {
+			background: #eaebed;
+			border: 1px solid #c5c6c8;
+			-webkit-border-radius: 3px;
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+			color: #404c5b;
+			font-size: 1.1em;
+			font-weight: bold;
+			padding: 0 20px;
+			-moz-box-shadow: none;
+			-webkit-box-shadow: none;
+			box-shadow: none;
+			height: 25px;
+			margin-bottom: 5px;
+			line-height: 0;
+		}
+		.pbHeader td.pbButton button.btn.dropdown-toggle {
+			padding: 0 10px;
+		}
+		.customButton {
+			text-align: center;
+			background: #eaebed;
+			border: 1px solid #c5c6c8;
+			-webkit-border-radius: 3px;
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+			color: #404c5b;
+			font-size: 1.1em;
+			padding: 0 20px;
+			-moz-box-shadow: none;
+			-webkit-box-shadow: none;
+			box-shadow: none;
+			height: 25px;
+			margin-bottom: 5px;
+			line-height: 0;
+		}
+
+		.actionColumn {
+			display: none;
+		}
+		.noRowsHeader {
+			background-color: #F2F3F3;
+		}
+
+		#Emails table, #Attachments table, #EventMessages table {
+			margin-top: 16px;
+		}
+		.bold {
+			font-weight: bold;
+		}
+
+		/* Fix for TIBCO Panel (Article tab) */
+	   /* #Articles h4 {
+			margin: 0;
+			display: inline;
+		}
+		#Articles input[type="checkbox"],
+		#Articles thead>tr>th:first-child,
+		#Articles td.articleTicks {
+			display: none;
+		}*/
+	</style>
+
+	<script type="text/javascript">
+		var j$ = jQuery.noConflict();
+
+		j$(document).ready(function() {
+			countItems();
+		});
+
+		function initialiseAll() {
+			changePageBlockButtonStyles();
+			initActionLinks();
+			initRecordLinks();
+			initTables();
+		}
+
+		function countItems() {
+			j$('a[data-toggle="tab"]').each(function() {
+				var count = '';
+				var elName = j$(this).attr('href');
+				var showMoreEl = j$(elName).find("div.pShowMore") || null;
+
+				if (showMoreEl && showMoreEl.length > 0) {
+					var numPattern = new RegExp(/(?:Go to list \()(\d+\+?)/);
+					var matches = numPattern.exec(showMoreEl.html()) || [];
+
+					if (matches && matches.length > 0) {
+						count = matches[1];
+					} else {
+						j$(this).find('span').remove();
+						var newText = j$(this).text();
+						j$(this).html(newText + ' <span>(5+)</span>');
+						return;
+					}
+				} else {
+					count = j$(elName).find("tr.dataRow").length;
+				}
+
+				if (count != 0) {
+					j$(this).find('span').remove();
+					var newText = j$(this).text();
+					j$(this).html(newText + ' <span>(' + count + ')</span>');
+				}
+			});
+		}
+
+		function initActionLinks() {
+			// Handle Related List ACTION LINKS
+			j$("td.actionColumn").each(function() {
+
+				j$(this).children("a").each(function() {
+					if (j$(this).text().indexOf("Edit") != -1) {
+						j$(this).click(function() {
+							var decodedUri = decodeURIComponent(j$(this).attr("href"));
+
+							var linkPattern = new RegExp(/(?:force.com)(.+)(?:'\))/);
+							var items = linkPattern.exec(decodedUri) || [];
+
+							window.console&&console.log('[Action] url: ' + items[1]);
+							onclickFunction = openSubTab(items[1]);
+						});
+					}
+				});
+
+				//j$(this).html('<a href="#">Edit</a>');
+			});
+		}
+
+		function initRecordLinks() {
+			// Handle Related List SHOW LIST LINKS
+			j$(".pShowMore a").each(function() {
+				if (j$(this).text().indexOf("Go to list") != -1) {
+					j$(this).click(function() {
+						var decodedUri = decodeURIComponent(j$(this).attr("href"));
+						var linkPattern = new RegExp(/(?:force.com)(.+)(?:')/);
+						var items = linkPattern.exec(decodedUri);
+
+						window.console&&console.log('[Link] url: ' + items[1]);
+						openSubTab(items[1]);
+					});
+				}
+			});
+
+			// Handle Related List LINKS
+			j$(".dataCell a").each(function() {
+				j$(this).click(function() {
+					var decodedUri = decodeURIComponent(j$(this).attr("href"));
+
+					var objectPattern = new RegExp(/([A-Za-z0-9]{15})/);
+					var itemIds = objectPattern.exec(decodedUri);
+
+					// prevent redirect of this page
+					//event.preventDefault();
+					window.console&&console.log('[Link] url: ' + itemIds[0]);
+					openSubTab('/' + itemIds[0]);
+				});
+			});
+
+			// Handle Related List BUTTONS
+			j$(".pbButton input").each(function() {
+				if (j$(this).attr("name") != 'newComment') {
+					var buttonLink = j$(this).attr("onclick");
+					j$(this).removeAttr("onclick");
+					j$(this).click(function() {
+						var linkPattern = new RegExp(/(?:force.com)(.+)(?:','RELATED_LIST')/);
+						var items = linkPattern.exec(buttonLink) || [];
+
+						window.console&&console.log('[Button] url: ' + items[1]);
+						openSubTab(items[1]);
+					});
+				}
+			});
+		}
+
+		function openSubTab(url, tabName) {
+			tabName = tabName == 'undefined' ? '' : tabName;
+			sforce.console.getEnclosingPrimaryTabId(function(result) {
+				sforce.console.openSubtab(result.id, url, true, tabName, null);
+			});
+		}
+
+		function initTables() {
+			j$("table.list")
+				.addClass("table table-bordered table-hover");
+		}
+
+		function changePageBlockButtonStyles() {
+			j$("td.pbButton input[type='button']")
+				.addClass("btn-sm btn-default");
+
+			j$(".menuButton").addClass("btn-group")
+				.each(function() {
+					var labelText = j$(this).find(".menuButtonLabel").text();
+					buttonHtml = '<button type="button" class="btn btn-default">'+ labelText +'</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>';
+
+					buttonHtml += '<ul class="dropdown-menu" role="menu">';
+					j$(this).find(".menuButtonMenu>a").each(function() {
+						var href = j$(this).attr("href");
+						var aText = j$(this).text();
+						buttonHtml += '<li><a class="linkButton" href="'+ href +'">'+ aText +'</a></li>';
+					});
+					buttonHtml += '</ul>';
+
+					j$(this).html(buttonHtml);
+				});
+		}
+
+		sforce.console.addEventListener('CaseRelatedListPanelDefaultTab_{!$CurrentPage.parameters.id}', function(result){
+			j$('#tab'+result.message).click();
+		});
+
+		function apshowHtmlEmail(htmlValue, textValue)
+		{
+			w=window.open('', '_blank', 'width=1000,height=600,scrollbars=yes,resizable=yes');
+			d=w.document;d.open('text/html');
+			if (htmlValue && htmlValue.trim() != '')
+			{
+				d.write(unescape(htmlValue));
+			}
+			else
+			{
+				d.write(unescape(textValue));
+			}
+			d.close();return false;
+		}
+
+		/**
+		 * If a safe drop image is available for download, an Attach button appears.
+		 * When clicked, this function is called to handle the remote action to the server to download and attach the image
+		 */
+		function attachDeliveryProof() {
+			// show waiting wheel courtesy of LoadingSpinnerComponent
+			showAttachmentsLoading();
+
+			// use Apex to get the image from the Safe Drop API using remote actions
+			CaseRelatedListPanelContExt.attachDeliveryProof(
+				'{!Case.Id}',
+				function(result, event) {
+					console.log(result);
+					console.log(event);
+
+					if(event.type === 'exception') {
+						setDeliveryProofResponse('danger', 'ERROR: ' + event.statusCode + ': ' + JSON.stringify(event));
+					} else if (event.status) {
+						if(result.success === true) {
+							setDeliveryProofResponse('success', 'Delivery proof attached successfully');
+						} else {
+							setDeliveryProofResponse('danger', result.error);
+						}
+					} else {
+						console.log('SAFEDROP IMAGE ROUTING ERROR:', event);
+						setDeliveryProofResponse('danger', 'An error occurred');
+					}
+
+					// trigger a reload of attachments after safe drop image has been processed.
+					reloadAttachments(); // apex:actionFunction
+				}
+			);
+		}
+
+		function setDeliveryProofResponse(type, message) {
+			$wrapper = jQuery('<div class="alert alert-' + type + '" />').text(message);
+			jQuery('#wrapper-safedrop-messages').empty().append($wrapper);
+		}
+
+		function doReload() {
+			// show waiting wheel courtesy of LoadingSpinnerComponent
+			showAttachmentsLoading();
+
+			// trigger a reload of attachments after safe drop image has been processed.
+			reloadAttachments(); // apex:actionFunction
+		}
+
+	</script>
+
+	<ul class="nav nav-tabs">
+		<!--		<li class="active"><a id="tabArticle"  href="#Article" data-toggle="tab">Article </a></li> -->
+		<!--		 <li ><a id="tabEventMessages" href="#EventMessages" data-toggle="tab">Event Messages </a></li> -->
+
+		<li class="active"><a id="tabCaseComments" href="#CaseComments" data-toggle="tab">Case Comments </a></li>
+		<li >
+			<a id="tabNetworkResp" href="#NetworkResponse" data-toggle="tab">Network Response
+				<apex:outputtext rendered="{!IF(NetworkResponseSize > 0, true, false)}">({!NetworkResponseSize})</apex:outputtext>
+			</a>
+		</li>
+		<apex:outputtext rendered="{!IF(NOT(isConsignmentCase) && NOT(ISBLANK(Case.ArticleTest__c)),true,false)}"><li ><a id="tabEventMessages" href="#EventMessages" data-toggle="tab">Event Messages </a></li></apex:outputtext>
+		<apex:outputtext rendered="{!IF(isConsignmentCase,true,false)}"><li ><a id="tabArticles" href="#Articles" data-toggle="tab">Articles </a></li></apex:outputtext>
+		<li ><a id="tabAttachments" href="#Attachments" data-toggle="tab">Attachments </a></li>
+		<li ><a id="tabActivities" href="#Activities" data-toggle="tab">Activities </a></li>
+		<li ><a id="tabEmails" href="#Emails" data-toggle="tab">Emails </a></li>
+		<li ><a id="tabFaxes" href="#Faxes" data-toggle="tab">Faxes </a></li>
+		<li ><a id="tabTracking" href="#Tracking" data-toggle="tab">Case Lifecycle </a></li>
+		<li ><a id="tabCaseMilestones" href="#CaseMilestones" data-toggle="tab">Case Milestones </a></li>
+		<apex:outputtext rendered="{!IF((Case.CaseLocality__c = 'International' || CONTAINS(Case.ProductCategory__c,'International')),true,false)}">
+			<li ><a id="tabCN08" href="#CN08" data-toggle="tab">UPU Forms </a></li></apex:outputtext>
+		<li ><a id="tabCompensation" href="#Compensation" data-toggle="tab">Compensation </a></li>
+		<li ><a id="tabAuthorisedContacts" href="#AuthorisedContacts" data-toggle="tab">Related Contacts </a></li>
+		<li ><a id="tabRelatedCases" href="#RelatedCases" data-toggle="tab">Related Cases </a></li>
+	</ul>
+
+	<div class="tab-content case-related-list">
+
+		<div class="tab-pane fade in active" id="CaseComments">
+			<div class="pbHeader"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="pbButton">
+				<input value="New Comment" class="btn btn-sm btn-default" name="newComment" onclick="openSubTab('/apex/CaseCommentCustom?id={!Case.id}','New Comment');" title="New Case Comments" type="button"/>
+			</td></tr></tbody></table></div>
+			<apex:dataTable value="{!caseComments}" var="comment" styleClass="list table table-bordered table-hover" rowClasses="dataRow" rendered="{!NOT(caseComments == null)}">
+				<apex:column value="{!comment.IsPublished}" headerValue="Public"/>
+				<apex:column styleClass="dataCell" headerValue="Comment">
+					<b>Created By:
+						<a href="javascript:srcUp('/{!comment.CreatedById}?isdtp=vw');">{!comment.CreatedBy.Name}</a>
+						<apex:outputText value=" ({!comment.CreatedDate})"/>
+					</b><br/>
+					<apex:outputField value="{!comment.CommentBody}"/>
+				</apex:column>
+			</apex:dataTable>
+
+			<apex:outputText rendered="{!caseComments == null}">
+				<table class="list table table-bordered"><tr><th class="noRowsHeader">
+					No records to display
+				</th></tr></table>
+			</apex:outputText>
+		</div>
+		<!-- REQ1850466 Re-ordered the elements under the Network Response tab -->
+		<div class="tab-pane fade" id="NetworkResponse">
+			<span style="color: #000;font-size: 1.3em;font-weight: bold;">Network Response</span>
+			<apex:relatedList list="Network_Responses1__r" > <!-- updated by Kalpita for myNetwork Portal relation change from MD to lookup -->
+				<apex:facet name="footer"><script>initialiseAll();</script></apex:facet>
+			</apex:relatedList>
+			<!--apex:dataTable value="{!fieldTrackingHistory}" var="fldTH" styleClass="list table table-bordered table-hover"
+				rendered="{!NOT(fieldTrackingHistory == null || fieldTrackingHistory.size ==0)}">
+
+				<apex:column styleClass="dataCell bold" headerValue="Change Date/Time">
+					<a href="#" onclick="openSubTab('/{!fldTH.Id}','{!fldTH.Name}');">{!fldTH.Name}</a>
+				</apex:column>
+				<apex:column value="{!fldTH.FieldsChanged__c}" headerValue="Fields Changed"/>
+				<apex:column value="{!fldTH.NetworkResponseValue__c}" headerValue="Network Response"/>
+				<apex:column value="{!fldTH.NetworkCommentsValue__c}" headerValue="Network Comments"/>
+				<apex:column value="{!fldTH.CreatedById}" headerValue="Created By"/>
+				<!--apex:column value="{!fldTH.Agent__c}" headerValue="Agent"/>
+			</apex:dataTable>
+			<apex:outputText rendered="{!fieldTrackingHistory == null || fieldTrackingHistory.size ==0}">
+				<br/>
+				<table class="list table table-bordered"><tr><th class="noRowsHeader">
+							No records to display
+				</th></tr></table>
+			</apex:outputText-->
+
+			<span style="color: #000;font-size: 1.3em;font-weight: bold;">Emails</span>
+			<apex:dataTable value="{!emailsNetworkResp}" var="emailNR" styleClass="list table table-bordered table-hover">
+				rowClasses="dataRow" rendered="{!NOT(emailsNetworkResp == null)}">
+				<apex:column styleClass="dataCell bold" headerValue="Subject">
+					<a href="javascript:srcUp('/{!emailNR.Id}?isdtp=vw');">{!IF(ISBLANK(emailNR.Subject),'_',emailNR.Subject)}</a>
+				</apex:column>
+				<apex:column styleClass="dataCell bold" headerValue="View">
+					<apex:outputtext style="width:100%;text-align:center;" rendered="{!NOT(emailNR.incoming)}">
+						<img style="cursor:pointer;" src="/img/emailOutbound.gif" alt="Outbound" width="16" height="13"
+							 title="Outbound" onclick="apshowHtmlEmail('{!jsencode(emailNR.HtmlBody)}','{!jsencode(emailNR.textBody)}');"/>
+					</apex:outputtext>
+					<apex:outputtext style="width:100%;text-align:center;" rendered="{!emailNR.incoming}">
+						<img style="cursor:pointer;" src="/img/emailInbound.gif" alt="Inbound" width="16" height="13"
+							 title="Inbound" onclick="apshowHtmlEmail('{!jsencode(emailNR.HtmlBody)}', '{!jsencode(emailNR.textBody)}');"/>
+					</apex:outputtext>
+				</apex:column>
+				<apex:column value="{!emailNR.Status}" headerValue="Status"/>
+				<apex:column value="{!emailNR.ToAddress}" headerValue="To Address"/>
+				<apex:column value="{!emailNR.FromAddress}" headerValue="From Address"/>
+				<apex:column value="{!emailNR.MessageDate}" headerValue="Message Date"/>
+			</apex:dataTable>
+
+			<apex:outputText rendered="{!emailsNetworkResp == null}">
+				<br/>
+				<table class="list table table-bordered"><tr><th class="noRowsHeader">
+					No records to display
+				</th></tr></table>
+			</apex:outputText>
+
+			<span style="color: #000;font-size: 1.3em;font-weight: bold;">Faxes</span>
+			<apex:dataTable value="{!faxesNetworkResp}" var="faxNR" styleClass="list table table-bordered table-hover"
+							rendered="{!NOT(faxesNetworkResp == null || faxesNetworkResp.size == 0)}">
+
+				<apex:column styleClass="dataCell bold" headerValue="View">
+					<a href="#" onclick="openSubTab('/{!faxNR.Id}','{!faxNR.Name}');">{!faxNR.Name}</a>
+				</apex:column>
+				<apex:column value="{!faxNR.Subject__c}" headerValue="Status"/>
+				<apex:column value="{!faxNR.To__c}" headerValue="To Address"/>
+				<apex:column value="{!faxNR.From__c}" headerValue="From Address"/>
+			</apex:dataTable>
+			<apex:outputText rendered="{!faxesNetworkResp == null || faxesNetworkResp.size == 0}">
+				<br/>
+				<table class="list table table-bordered"><tr><th class="noRowsHeader">
+					No records to display
+				</th></tr></table>
+			</apex:outputText>
+
+			<!-- case comments via Service now -->
+			<span style="color: #000;font-size: 1.3em;font-weight: bold;">ServiceNow Response</span>
+			<apex:dataTable value="{!serviceNowResp}" var="comment" styleClass="list table table-bordered table-hover"
+							rendered="{!NOT(serviceNowResp== null)}">
+				<apex:column value="{!comment.IsPublished}" headerValue="Public"/>
+				<apex:column styleClass="dataCell" headerValue="Comment">
+					<b>Created By:
+						<a href="javascript:srcUp('/{!comment.CreatedById}?isdtp=vw');">{!comment.CreatedBy.Name}</a>
+						<apex:outputText value=" ({!comment.CreatedDate})"/>
+					</b><br/>
+					<apex:outputField value="{!comment.CommentBody}"/>
+				</apex:column>
+			</apex:dataTable>
+
+			<apex:outputText rendered="{!serviceNowResp == null}">
+				<table class="list table table-bordered"><tr><th class="noRowsHeader">
+					No records to display
+				</th></tr></table>
+			</apex:outputText>
+
+		</div>
+		<div class="tab-pane fade" id="EventMessages">
+			<center><h4 ><apex:outputText value=" {!disclaimer}" escape="false" style="color:red;"/></h4></center>
+			<apex:dataTable value="{!eventMessages}" var="em" styleClass="list table table-bordered table-hover" rowClasses="dataRow" rendered="{!NOT(eventMessages == null)}">
+				<!--<apex:column styleClass="dataCell bold" headerValue="Article">
+					<a href="javascript:srcUp('/{!em.Article__c}?isdtp=vw');">{!em.Article__r.Name}</a>
+				</apex:column>-->
+				<apex:column value="{!em.Status__c}" headerValue="Status"/>
+				<apex:column value="{!em.EventDescription__c}" headerValue="Event Description"/>
+				<apex:column value=" {!em.ActualDateTime__c}" headerValue="Actual Time"/>
+				<!--<apex:column styleClass="dataCell bold" headerValue="Network">
+					<a href="javascript:srcUp('/{!em.Facility__c}?isdtp=vw');">{!em.Facility__r.Name}</a>
+				</apex:column>-->
+
+				<apex:column styleClass="dataCell bold" headerValue="Event Location">
+					<apex:outputLink value="javascript:srcUp('/{!em.Facility__c}?isdtp=vw');" id="theLink" rendered="{!em.Facility__c<>''}">{!em.Facility__r.Name}</apex:outputLink>
+					<apex:outputText rendered="{!em.Facility__c==''}">{!em.ActualLocation__c}</apex:outputText>
+				</apex:column>
+				<apex:column value=" {!em.PlannedDateTime__c}" headerValue="Planned Time"/>
+				<apex:column value=" {!em.PlannedLocation__c}" headerValue="Planned Location"/>
+				<apex:column value="{!em.CommentText__c}" headerValue="Comment"/>
+				<apex:column value="{!em.SignatoryName__c}" headerValue="Signatory Name"/>
+				<apex:column value="{!em.EventSource__c}" headerValue="Event Source"/>
+				<apex:column value="{!em.SenderID__c}" headerValue="Sender ID"/>
+				<apex:column value="{!em.EventType__c}" headerValue="Event Type"/>
+				<apex:column value="{!em.Container_ID__c}" headerValue="Container ID"/>
+			</apex:dataTable>
+
+			<apex:outputText rendered="{!eventMessages == null}">
+				<table class="list table table-bordered"><tr><th class="noRowsHeader">
+					No records to display
+				</th></tr></table>
+			</apex:outputText>
+		</div>
+
+		<div class="tab-pane fade" id="Articles">
+			<apex:outputPanel rendered="{!NOT(articleSearchResult == null)}">
+				<b>Articles</b>
+				<br />
+				<table id="report" class="list table table-bordered table-hover">
+					<thead>
+					<tr>
+						<th>ID</th>
+						<th>Lodgement Date</th>
+						<th>Delivered</th>
+						<th>Product Category</th>
+						<th>Sub Product</th>
+						<th>Transit Amount</th>
+						<th>Weight</th>
+						<th>Receiver</th>
+						<th>Sender</th>
+					</tr>
+					</thead>
+					<tbody>
+					<apex:repeat value="{!articleSearchResult.trackResults}" var="tr">
+						<tr class="dataRow">
+							<td>{!tr.articleDetails.proxyArticle.ArticleID__c}</td>
+							<td>
+								<apex:outputText value="{0,date,d/MM/yyyy}">
+									<apex:param value="{!tr.articleDetails.proxyArticle.ArticleLodgementDate__c}" />
+								</apex:outputText>
+							</td>
+							<td>{!tr.articleDetails.proxyArticle.Delivered__c}</td>
+							<td>{!tr.articleDetails.proxyArticle.ProductCategory__c}</td>
+							<td>{!tr.articleDetails.proxyArticle.SubProduct__c}</td>
+							<td>{!tr.articleDetails.proxyArticle.ArticleTransitAmountValue__c}</td>
+							<td>{!tr.articleDetails.proxyArticle.ActualWeight__c}</td>
+							<td>{!tr.articleDetails.proxyArticle.ReceiverName__c}</td>
+							<td>{!tr.articleDetails.proxyArticle.SenderName__c}</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td colspan="8">
+								<br/>
+								<b>Event Messages</b>
+								<br />
+								<apex:dataTable value="{!tr.articleDetails.eventMessages}" var="em" styleClass="list table table-bordered table-hover">
+									<apex:column value="{!em.proxyEM.Status__c}" headerValue="Status"/>
+									<apex:column value="{!em.proxyEM.EventDescription__c}" headerValue="Event Description"/>
+									<apex:column value=" {!em.proxyEM.ActualDateTime__c}" headerValue="Actual Time"/>
+
+									<apex:column styleClass="dataCell bold" headerValue="Event Location">
+										<apex:outputLink value="javascript:srcUp('/{!em.proxyEM.Facility__c}?isdtp=vw');" id="theLink" rendered="{!em.proxyEM.Facility__c<>''}">{!em.proxyEM.Facility__r.Name}</apex:outputLink>
+										<apex:outputText rendered="{!em.proxyEM.Facility__c==''}">{!em.proxyEM.ActualLocation__c}</apex:outputText>
+									</apex:column>
+									<apex:column value=" {!em.proxyEM.PlannedDateTime__c}" headerValue="Planned Time"/>
+									<apex:column value=" {!em.proxyEM.PlannedLocation__c}" headerValue="Planned Location"/>
+									<apex:column value="{!em.proxyEM.CommentText__c}" headerValue="Comment"/>
+									<apex:column value=" {!em.proxyEM.State_Territory_Province__c}" headerValue="State"/>
+									<apex:column value="{!em.proxyEM.SignatoryName__c}" headerValue="Signatory Name"/>
+									<apex:column value="{!em.proxyEM.EventSource__c}" headerValue="Event Source"/>
+									<apex:column value="{!em.proxyEM.SenderID__c}" headerValue="Sender ID"/>
+									<apex:column value="{!em.proxyEM.EventType__c}" headerValue="Event Type"/>
+								</apex:dataTable>
+							</td>
+						</tr>
+					</apex:repeat>
+					</tbody>
+				</table>
+			</apex:outputPanel>
+			<!-- apex:form >
+				<c:TIBCODataVisualizerComponent searchResult="{!articles}" enableCreateCase="false"/>
+			</apex:form-->
+		</div>
+
+		<div class="tab-pane fade" id="Activities">
+			<apex:relatedList list="ActivityHistories" >
+				<apex:facet name="footer"><script>initialiseAll();</script></apex:facet>
+			</apex:relatedList>
+		</div>
+
+		<div class="tab-pane fade" id="Emails">
+			<apex:dataTable value="{!emails}" var="email" styleClass="list table table-bordered table-hover" rowClasses="dataRow" rendered="{!NOT(emails == null)}">
+				<apex:column styleClass="dataCell bold" headerValue="Subject">
+					<a href="javascript:srcUp('/{!email.Id}?isdtp=vw');">{!IF(ISBLANK(email.Subject),'_',email.Subject)}</a>
+				</apex:column>
+				<apex:column styleClass="dataCell bold" headerValue="View">
+					<apex:outputtext style="width:100%;text-align:center;" rendered="{!NOT(email.incoming)}"><img style="cursor:pointer;" src="/img/emailOutbound.gif" alt="Outbound" width="16" height="13" title="Outbound" onclick="apshowHtmlEmail('{!jsencode(email.HtmlBody)}','{!jsencode(email.textBody)}');"/></apex:outputtext>
+					<apex:outputtext style="width:100%;text-align:center;" rendered="{!email.incoming}"><img style="cursor:pointer;" src="/img/emailInbound.gif" alt="Inbound" width="16" height="13" title="Inbound" onclick="apshowHtmlEmail('{!jsencode(email.HtmlBody)}', '{!jsencode(email.textBody)}');"/></apex:outputtext>
+				</apex:column>
+				<apex:column value="{!email.Status}" headerValue="Status"/>
+				<apex:column value="{!email.ToAddress}" headerValue="To Address"/>
+				<apex:column value="{!email.FromAddress}" headerValue="From Address"/>
+				<apex:column value="{!email.MessageDate}" headerValue="Message Date"/>
+			</apex:dataTable>
+
+			<apex:outputText rendered="{!emails == null}">
+				<table class="list table table-bordered"><tr><th class="noRowsHeader">
+					No records to display
+				</th></tr></table>
+			</apex:outputText>
+		</div>
+
+		<div class="tab-pane fade" id="Faxes">
+			<apex:relatedList list="Faxes__r" >
+				<apex:facet name="footer"><script>initialiseAll();</script></apex:facet>
+			</apex:relatedList>
+		</div>
+
+		<div class="tab-pane fade" id="Attachments">
+
+			<div id="wrapper-safedrop-messages"></div>
+
+			<apex:form >
+				<apex:actionFunction name="reloadAttachments" action="{!reloadAttachments}" rerender="attachmentsPanel,attachmentsNoRecordWrapper,safeDropButtonWrapper" status="attachmentsStatus" oncomplete="hideSafeDropLoading();countItems();" />
+				<apex:actionStatus startText="" stopText="" id="attachmentsStatus"/>
+			</apex:form>
+
+			<apex:outputPanel layout="none" id="attachmentsPanel">
+
+				<div class="pbHeader">
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tbody>
+						<tr>
+							<td style="text-align: center;">
+								<input value="New Public Attachment" class="btn btn-sm btn-default" name="newPublicAttachment" onclick="openSubTab('/p/attach/NoteAttach?pid={!case.Id}&parentname={!case.caseNumber}','New Public Attachment');" title="New Public Attachment" type="button"/>
+
+								<apex:outputPanel id="safeDropButtonWrapper">
+									<apex:outputPanel id="safeDropButton" layout="none" rendered="{!showAttachDeliveryProof}">
+										<input value="Attach Delivery Proof" class="btn btn-sm btn-default" style="margin-left:5px;" onclick="attachDeliveryProof();" name="attachDeliveryProof" />
+									</apex:outputPanel>
+								</apex:outputPanel>
+
+								<input value="Reload" class="btn btn-sm btn-default" style="margin-left:5px;" onclick="doReload();" title="Reload" type="button"/>
+
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<apex:dataTable value="{!attachments}" var="attachment" styleClass="list table table-bordered table-hover" rowClasses="dataRow" rendered="{!NOT(attachments == null)}">
+					<apex:column headerValue="Action">
+						<a href="#" onclick="openSubTab('{!attachment.fileUrl}', '{!attachment.fileName}');">View</a>
+					</apex:column>
+					<apex:column styleClass="dataCell bold" headerValue="File Name">
+						<a href="{!attachment.detailUrl}">{!attachment.fileName}</a>
+					</apex:column>
+					<apex:column styleClass="dataCell" headerValue="File Type">
+						<apex:outputText value="{!attachment.fileType}" rendered="{!NOT(BEGINS(attachment.fileType, 'Email'))}"/>
+						<apex:outputPanel rendered="{!BEGINS(attachment.fileType, 'Email')}">
+							<a href="{!attachment.parentUrl}">{!attachment.fileType}</a>
+						</apex:outputPanel>
+					</apex:column>
+					<apex:column headerValue="Size">
+						<!--apex:outputText value="{!IF(ROUND(attachment.fileSize/1024, 0) = 0, attachment.fileSize, ROUND(attachment.fileSize/1024, 0))}{!IF(ROUND(attachment.fileSize/1024, 0)=0, ' bytes', 'KB')}"/-->
+						<apex:outputText value="{!attachment.fileSize} bytes"/>
+					</apex:column>
+					<apex:column headerValue="Is Public?">
+						<img src="{!IF(attachment.ispublic,'/img/checkbox_checked.gif','/img/checkbox_unchecked.gif')}" alt="Not Checked" width="21" height="16" class="checkImg" title="Not Checked"/>
+					</apex:column>
+					<apex:column headerValue="Last Modified">
+						<apex:outputText value=" {!attachment.lastModified}"/><!-- Please leave the leading space in the value, its needed to show the time in local time -->
+					</apex:column>
+					<apex:column styleClass="dataCell" headerValue="Created By">
+						<a href="javascript:srcUp('/{!attachment.createdById}?isdtp=vw');">{!attachment.createByName}</a>
+					</apex:column>
+				</apex:dataTable>
+
+				<!--div style="padding:20px">
+				<support:caseUnifiedFiles id="myCaseFiles" entityId="{!case.id}"/>
+			</div-->
+
+				<apex:outputPanel id="attachmentsNoRecordWrapper">
+					<apex:outputText rendered="{!attachments == null}" id="attachmentsNoRecords">
+						<table class="list table table-bordered"><tr><th class="noRowsHeader">
+							No records to display
+						</th></tr></table>
+					</apex:outputText>
+				</apex:outputPanel>
+
+			</apex:outputPanel>
+		</div>
+
+
+		<div class="tab-pane fade" id="Compensation">
+			<apex:relatedList list="Compensation__r" >
+				<apex:facet name="footer"><script>initialiseAll();</script></apex:facet>
+			</apex:relatedList>
+		</div>
+
+		<div class="tab-pane fade" id="CN08">
+			<center>
+				<input value="New CN 18" class="btn btn-sm btn-default" name="newcn18"
+					   onclick="openSubTab('/apex/SSSWCN18Form?id={!Case.id}&create=true','CN 18 Form');" oncomplete="RefreshPrimaryTabById();"
+					   title="Send delivery confirmation letter to Addressee" type="button"/>
+				&nbsp;&nbsp;
+				<input value="New CN 08" class="btn btn-sm btn-default" name="newcn08"
+					   onclick="openSubTab('/apex/EditCN08?caseId={!Case.id}','CN 08 form');" oncomplete="RefreshPrimaryTabById();"
+					   title="Send enquiry to Office of Exchange" type="button"/>
+			</center>
+			<br/>
+			<span style="color: #000;font-size: 1.3em;font-weight: bold;">CN 08 Forms</span>
+			<apex:relatedList list="CN08__r" >
+				<apex:facet name="footer"><script>initialiseAll();</script></apex:facet>
+			</apex:relatedList>
+			<br/><br/>
+			<span style="color: #000;font-size: 1.3em;font-weight: bold;">CN 18 Forms</span>
+			<apex:dataTable value="{!cn18Attachments}" var="comment" styleClass="list table table-bordered table-hover"
+							rowClasses="dataRow"  rendered="{!NOT(cn18Attachments== null)}">
+				<apex:column headerValue="File Name">
+					<a href="#" onclick="openSubTab('/servlet/servlet.FileDownload?file={!comment.Id}', '{!comment.Name}');"><b>{!comment.Name}</b></a>
+				</apex:column>
+				<apex:column headerValue="File Type">
+					Attachment
+				</apex:column>
+				<apex:column headerValue="Sender Name" value="{!case.Primary_Name__c}" />
+				<apex:column value="{!comment.CreatedDate}" headerValue="Created Date"/>
+
+				<!--  <img src="{!IF(NOT(comment.isPrivate),'/img/checkbox_checked.gif','/img/checkbox_unchecked.gif')}"
+								alt="Not Checked" width="21" height="16" class="checkImg" title="Not Checked"/>
+				</apex:column-->
+				<apex:column styleClass="dataCell" headerValue="Created By">
+					<b>
+						<a href="javascript:srcUp('/{!comment.CreatedById}?isdtp=vw');">{!comment.CreatedBy.Name}</a>
+					</b><br/>
+				</apex:column>
+			</apex:dataTable>
+			<apex:outputText rendered="{!cn18Attachments == null}">
+				<table class="list table table-bordered"><tr><th class="noRowsHeader">
+					No records to display
+				</th></tr></table>
+			</apex:outputText>
+		</div>
+
+		<div class="tab-pane fade" id="CaseMilestones">
+			<apex:relatedList list="CaseMilestones" >
+				<apex:facet name="footer"><script>initialiseAll();</script></apex:facet>
+			</apex:relatedList>
+		</div>
+
+		<div class="tab-pane fade" id="Tracking">
+			<div class="pbHeader"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="pbButton">
+				<input value="View Case History" class="btn btn-sm btn-default" name="newComment" onclick="openSubTab('/_ui/common/history/ui/EntityHistoryFilterPage?id={!Case.id}&isdtp=vw','Case History');" title="Case History" type="button"/>
+			</td></tr></tbody></table></div>
+			<apex:dataTable value="{!statusTrackingHistory}" var="stsTrck" styleClass="list table table-bordered table-hover">
+				rowClasses="dataRow" rendered="{!NOT(statusTrackingHistory == null)}">
+
+				<apex:column styleClass="dataCell bold" headerValue="Change Date/Time">
+					<a href="#" onclick="openSubTab('/{!stsTrck.Id}','{!stsTrck.Name}');">{!stsTrck.Name}</a>
+				</apex:column>
+				<apex:column value="{!stsTrck.FieldsChanged__c}" headerValue="Fields Changed"/>
+				<apex:column value="{!stsTrck.OwnerValue__c}" headerValue="Owner Value"/>
+				<apex:column value="{!stsTrck.Status__c}" headerValue="Status"/>
+				<apex:column value="{!stsTrck.Network__c}" headerValue="Network"/>
+				<apex:column value="{!stsTrck.EscalationTier__c}" headerValue="Escalation Tier"/>
+				<apex:column value="{!stsTrck.StartDate__c}" headerValue="Start Date"/>
+				<apex:column value="{!stsTrck.EndDate__c}" headerValue="End Date"/>
+				<apex:column value="{!stsTrck.BusinessTime__c}" headerValue="Business Time"/>
+				<apex:column value="{!stsTrck.CreatedDateList__c}" headerValue="Created Date"/>
+			</apex:dataTable>
+
+			<!--<apex:relatedList list="Status_Tracking__r">
+				<apex:facet name="footer"><script>initialiseAll();</script></apex:facet>
+			</apex:relatedList>-->
+		</div>
+
+		<div class="tab-pane fade" id="AuthorisedContacts">
+			<apex:relatedList list="Authorised_Contacts__r" >
+				<apex:facet name="footer"><script>initialiseAll();</script></apex:facet>
+			</apex:relatedList>
+		</div>
+
+		<div class="tab-pane fade" id="RelatedCases">
+			<span style="color: #000;font-size: 1.3em;font-weight: bold;">Child Cases</span>
+			<apex:outputtext rendered="{!IF(NOT(ISBLANK(Case.Parentid)),true,false)}">
+				(Parent Case - <a href="javascript:sforce.console.openPrimaryTab(null,'/{!Case.ParentID}',true);">{!Case.Parent.CaseNumber}</a>)
+			</apex:outputtext>
+			<apex:relatedList list="Cases" >
+				<apex:facet name="footer"><script>initialiseAll();</script></apex:facet>
+			</apex:relatedList>
+
+			<span style="color: #000;font-size: 1.3em;font-weight: bold;">Cloned or Manually Related Cases</span>
+			<apex:outputtext rendered="{!IF(NOT(ISBLANK(Case.RelatedCase__c)),true,false)}">
+				(Related From - <a href="javascript:sforce.console.openPrimaryTab(null,'/{!Case.RelatedCase__c}',true);">{!Case.RelatedCase__r.CaseNumber}</a>)
+			</apex:outputtext>
+			<apex:relatedList list="RelatedCases__r" >
+				<apex:facet name="footer"><script>initialiseAll();</script></apex:facet>
+			</apex:relatedList>
+
+			<!-- added by kalpita for duplicate case related list -->
+			<span style="color: #000;font-size: 1.3em;font-weight: bold;">Duplicate Cases</span>
+			<apex:dataTable value="{!duplicateCases}" var="comment" styleClass="list table table-bordered table-hover"
+							rendered="{!NOT(duplicateCases== null)}">
+				<apex:column headerValue="Case Number">
+					<a href="javascript:sforce.console.openPrimaryTab(null,'/{!comment.Id}',true);">{!comment.CaseNumber}</a>
+				</apex:column>
+				<apex:column value="{!comment.ReferenceID__c}" headerValue="Reference Number"/>
+				<apex:column value="{!comment.Contact.Name}" headerValue="Contact"/>
+				<apex:column value="{!comment.Status}" headerValue="Status"/>
+				<apex:column value="{!comment.origin}" headerValue="Origin"/>
+				<apex:column value="{!comment.CreatedDate}" headerValue="Open Date"/>
+			</apex:dataTable>
+			<apex:outputText rendered="{!duplicateCases == null}">
+				<table class="list table table-bordered"><tr><th class="noRowsHeader">
+					No records to display
+				</th></tr></table>
+			</apex:outputText>
+
+		</div>
+
+	</div>
+
+	<c:LoadingSpinnerComponent showFunctionName="showAttachmentsLoading" hideFunctionName="hideSafeDropLoading"  />
+</apex:page>

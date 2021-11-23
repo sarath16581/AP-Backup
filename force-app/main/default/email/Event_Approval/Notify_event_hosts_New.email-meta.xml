@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Event hosts are notified for the events they&apos;ll organise</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>SFDC_Blank</letterhead>
+    <name>Notify event hosts New</name>
+    <style>freeForm</style>
+    <subject>Client Entertainment:{!SFL1_Entertainment_Event__c.Name} - {!SFL1_Entertainment_Event__c.Event_Date_Time__c}</subject>
+    <textOnly>Potential Guest List: {!SFL1_Entertainment_Event__c.Name} - {!SFL1_Entertainment_Event__c.Event_Date_Time__c}.
+
+You have been allocated the following Client Entertainment Event.
+
+Details Of The {!SFL1_Entertainment_Event__c.RecordType} Event
+
+Event: {!SFL1_Entertainment_Event__c.Name}
+Venue: {!SFL1_Entertainment_Event__c.Entertainment_Venue__c}
+Date/Time:{!SFL1_Entertainment_Event__c.Event_Date_Time__c}
+Event Type: {!SFL1_Entertainment_Event__c.Event_Type__c}
+
+Owner: {!SFL1_Entertainment_Event__c.OwnerFullName}
+Co-Host: {!SFL1_Entertainment_Event__c.Owner_2__c}
+
+Steps:
+
+Add prospective guests to the event at https://auspost.my.salesforce.com/{!SFL1_Entertainment_Event__c.Id}.
+Add Line Manager and General Manager details for approval.
+If it is a Joint Hosts event, check with the Co-Host before you submit it for approval.
+The Owner submits the potential guest list for approval.
+You can track the progress in the Approval History list on the Entertainment Event.
+
+If you have any questions, please contact Corporate Hospitality and Events.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

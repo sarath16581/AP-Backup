@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Supply_Chain_Team__c</fullName>
+    <description>Reflects the Sales team that the Parcel Customer Solutions Consultant is in.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field indicates the Team that the Parcel Customer Solutions Consultant is part of.</inlineHelpText>
+    <label>Parcel Customer Solutions Team</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Advertising and Media Agencies</fullName>
+                <default>false</default>
+                <label>Advertising and Media Agencies</label>
+            </value>
+            <value>
+                <fullName>Banking, Finance &amp; Professional Services</fullName>
+                <default>false</default>
+                <label>Banking, Finance &amp; Professional Services</label>
+            </value>
+            <value>
+                <fullName>Business Development</fullName>
+                <default>false</default>
+                <label>Business Development</label>
+            </value>
+            <value>
+                <fullName>Business Hubs</fullName>
+                <default>false</default>
+                <label>Business Hubs</label>
+            </value>
+            <value>
+                <fullName>Business North NSW 1</fullName>
+                <default>false</default>
+                <label>Business North NSW 1</label>
+            </value>
+            <value>
+                <fullName>Business North NSW 2</fullName>
+                <default>false</default>
+                <label>Business North NSW 2</label>
+            </value>
+            <value>
+                <fullName>Business North NSW 3</fullName>
+                <default>false</default>
+                <label>Business North NSW 3</label>
+            </value>
+            <value>
+                <fullName>Business North QLD</fullName>
+                <default>false</default>
+                <label>Business North QLD</label>
+            </value>
+            <value>
+                <fullName>Business South SA/NT</fullName>
+                <default>false</default>
+                <label>Business South SA/NT</label>
+            </value>
+            <value>
+                <fullName>Business South VIC 1</fullName>
+                <default>false</default>
+                <label>Business South VIC 1</label>
+            </value>
+            <value>
+                <fullName>Business South VIC 2</fullName>
+                <default>false</default>
+                <label>Business South VIC 2</label>
+            </value>
+            <value>
+                <fullName>Business South VIC 3</fullName>
+                <default>false</default>
+                <label>Business South VIC 3</label>
+            </value>
+            <value>
+                <fullName>Business South WA</fullName>
+                <default>false</default>
+                <label>Business South WA</label>
+            </value>
+            <value>
+                <fullName>Communications</fullName>
+                <default>false</default>
+                <label>Communications</label>
+            </value>
+            <value>
+                <fullName>Federal Government</fullName>
+                <default>false</default>
+                <label>Federal Government</label>
+            </value>
+            <value>
+                <fullName>Health &amp; Energy</fullName>
+                <default>false</default>
+                <label>Health &amp; Energy</label>
+            </value>
+            <value>
+                <fullName>Holding Sales Team</fullName>
+                <default>false</default>
+                <label>Holding Sales Team</label>
+            </value>
+            <value>
+                <fullName>Inside Sales North 1</fullName>
+                <default>false</default>
+                <label>Inside Sales North 1</label>
+            </value>
+            <value>
+                <fullName>Inside Sales North 2</fullName>
+                <default>false</default>
+                <label>Inside Sales North 2</label>
+            </value>
+            <value>
+                <fullName>Inside Sales North 3</fullName>
+                <default>false</default>
+                <label>Inside Sales North 3</label>
+            </value>
+            <value>
+                <fullName>Inside Sales South 1</fullName>
+                <default>false</default>
+                <label>Inside Sales South 1</label>
+            </value>
+            <value>
+                <fullName>Inside Sales South 2</fullName>
+                <default>false</default>
+                <label>Inside Sales South 2</label>
+            </value>
+            <value>
+                <fullName>Integrated Accounts</fullName>
+                <default>false</default>
+                <label>Integrated Accounts</label>
+            </value>
+            <value>
+                <fullName>Local Govt, NFP &amp; Education</fullName>
+                <default>false</default>
+                <label>Local Govt, NFP &amp; Education</label>
+            </value>
+            <value>
+                <fullName>NSW State Government</fullName>
+                <default>false</default>
+                <label>NSW State Government</label>
+            </value>
+            <value>
+                <fullName>Parcel Key Accounts North</fullName>
+                <default>false</default>
+                <label>Parcel Key Accounts North</label>
+            </value>
+            <value>
+                <fullName>Parcel Key Accounts South</fullName>
+                <default>false</default>
+                <label>Parcel Key Accounts South</label>
+            </value>
+            <value>
+                <fullName>Parcel Partner Sales</fullName>
+                <default>false</default>
+                <label>Parcel Partner Sales</label>
+            </value>
+            <value>
+                <fullName>Postal Partners</fullName>
+                <default>false</default>
+                <label>Postal Partners</label>
+            </value>
+            <value>
+                <fullName>QLD Commercial</fullName>
+                <default>false</default>
+                <label>QLD Commercial</label>
+            </value>
+            <value>
+                <fullName>Retail Services</fullName>
+                <default>false</default>
+                <label>Retail Services</label>
+            </value>
+            <value>
+                <fullName>Supply Chain Optimisation Central</fullName>
+                <default>false</default>
+                <label>Supply Chain Optimisation Central</label>
+            </value>
+            <value>
+                <fullName>Supply Chain Optimisation North</fullName>
+                <default>false</default>
+                <label>Supply Chain Optimisation North</label>
+            </value>
+            <value>
+                <fullName>Supply Chain Optimisation South</fullName>
+                <default>false</default>
+                <label>Supply Chain Optimisation South</label>
+            </value>
+            <value>
+                <fullName>VIC State Government</fullName>
+                <default>false</default>
+                <label>VIC State Government</label>
+            </value>
+            <value>
+                <fullName>WA/NT Commercial</fullName>
+                <default>false</default>
+                <label>WA/NT Commercial</label>
+            </value>
+            <value>
+                <fullName>Parcel Customer Solutions NSW</fullName>
+                <default>false</default>
+                <label>Parcel Customer Solutions NSW</label>
+            </value>
+            <value>
+                <fullName>Parcel Customer Solutions QLD/SA/WA</fullName>
+                <default>false</default>
+                <label>Parcel Customer Solutions QLD/SA/WA</label>
+            </value>
+            <value>
+                <fullName>Parcel Customer Solutions VIC</fullName>
+                <default>false</default>
+                <label>Parcel Customer Solutions VIC</label>
+            </value>
+            <value>
+                <fullName>Parcel Customer Solutions VIC/WA</fullName>
+                <default>false</default>
+                <label>Parcel Customer Solutions VIC/WA</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

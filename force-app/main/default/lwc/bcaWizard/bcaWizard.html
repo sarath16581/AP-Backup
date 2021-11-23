@@ -1,0 +1,92 @@
+<!--
+ /*
+* @author Victor.Cheng@auspost.com.au
+* @date 2021-02-05
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Modified wizard framework
+* @changelog
+* 2020-12-10 Victor.Cheng@auspost.com.au  Created
+*
+*/
+ -->
+
+<!-- Bca Wizard -->
+<template>
+    <div>
+        <div class="form-full-width">            
+            <template if:true={showSteps}>
+                <div class="form-progress">
+                    <lightning-progress-indicator type={progressIndicatorType} has-error={hasError}
+                                                  variant={progressIndicatorVariant} current-step={currentStep}>
+                        <template for:each={flow} for:item="step">
+                            <lightning-progress-step key={step.name} label={step.label} value={step.name}></lightning-progress-step>
+                        </template>
+                    </lightning-progress-indicator>
+                </div>
+            </template>
+            <template if:true={sectionsProgressBarVisible}>
+                <div class="form-progress">
+                    <div id="menu-outer">
+                        <!-- can replace this with just a div which only shows when mobile -->
+                        
+                        <div onclick={toggleSections} class="form-progress-section-label">
+                            <span class="form-progress-section-name">{currentSection.name}</span>
+                            <span class="form-progress-section-total">Section {currentSectionIndex} of {totalSections}</span>
+                                <lightning-button-icon icon-name={showSectionsIcon} class="accordion-button"></lightning-button-icon>
+                        </div>
+                        
+                        
+                        <div class={mystepperClass}>
+                            <ul id="horizontal-list">
+                                <template iterator:it={sections}>
+                                    <template if:true={it.value.isActive}>
+                                        <!-- if current section -->
+                                        <li key={it.value.name} value={it.value.name} class="slds-text-color_error" onclick={clickSection} data-id={it.index}>
+                                            <c-bsp-custom-icons icon="stepper-current" size="small" iconclass="form-progress-icon"></c-bsp-custom-icons>
+                                            <p>{it.value.name}</p>
+                                        </li>
+                                    </template>
+                                    <template if:false={it.value.isActive}>
+                                        <!-- else -->
+                                        <template if:true={it.value.isPassed}>
+                                            <!-- if passed section -->
+                                            <li key={it.value.name} value={it.value.name} onclick={clickSection} data-id={it.index} >
+                                                <c-bsp-custom-icons icon="stepper-past" size="small" iconclass="form-progress-icon"></c-bsp-custom-icons>
+                                                <p>{it.value.name}</p>
+                                            </li>
+                                        </template>
+                                        <template if:false={it.value.isPassed}>
+                                            <!-- if not passed section -->
+                                            <li key={it.value.name} value={it.value.name} onclick={clickSection} data-id={it.index} >
+                                                <c-bsp-custom-icons icon="stepper-future" size="small" iconclass="form-progress-icon"></c-bsp-custom-icons>
+                                                <p>{it.value.name}</p>
+                                            </li>
+                                        </template>
+                                    </template>
+                                    <template if:false={it.last}>
+                                        <!-- incomplete line -->
+                                        <li if:false={it.value.isPassed} key={it.value.name} class="form-progress-line"><div class="dotted-line"></div></li>
+                                        <!-- completed line -->
+                                        <li if:true={it.value.isPassed} key={it.value.name} class="form-progress-line"><div class="solid-line"></div></li>
+                                    </template>
+                                </template>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            </template>
+
+            <slot name="error">
+                <template if:true={hasError}>
+                    <div class="slds-container_fluid slds-theme_error">
+                        <span>{_errorMessages}</span>
+                    </div>
+                </template>
+            </slot>
+        </div>
+
+        <slot onslotchange={slotChange} onstepregistered={registerStep}></slot>
+    </div>
+</template>

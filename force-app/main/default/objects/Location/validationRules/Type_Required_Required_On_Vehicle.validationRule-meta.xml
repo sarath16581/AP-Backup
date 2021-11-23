@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_Required_Required_On_Vehicle</fullName>
+    <active>true</active>
+    <description>Type must be set on a Vehicle record</description>
+    <errorConditionFormula>ISPICKVAL(LocationType , &apos;Vehicle&apos;) 
+&amp;&amp; ( TEXT(Type__c)  = null)</errorConditionFormula>
+    <errorMessage>Type must be set on a Vehicle</errorMessage>
+</ValidationRule>

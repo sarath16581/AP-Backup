@@ -1,0 +1,24 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 09-07-2020
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   09-04-2020   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+-->
+<template>
+  <template if:true={con}>
+    <td class="table-first-cell">
+      <lightning-button class="brand-link-button underline-dec" variant="base" label={name} name='retrieve' onclick={retriveConsignmentTracking}></lightning-button>
+    </td>
+    <td> {dispatchDate} </td>
+    <!--  <td> {expectedDeliveryDateStr}</td>
+    <td> {seviceType}</td>
+    <td> {consignSummayStatus} </td> -->
+    <td> {receiverSubrub} </td>
+
+  </template>
+
+</template>

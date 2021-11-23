@@ -1,0 +1,12 @@
+<html><head>
+	<title></title>
+</head>
+<body style="height: auto; min-height: auto;"><p><span style="font-family:Arial,Helvetica,sans-serif;"><span style="font-size:11pt"><span style="line-height:107%">Dear {{{Recipient.Name}}},<br />
+<br />
+Thank you for contacting Australia Post. I have tried to contact you over the last few days to discuss your enquiry in more detail but have not been able to reach you on the number provided.<br />
+<br />
+Please feel free to contact me on {{{Sender.MobilePhone}}} or {{{Sender.Email}}} to discuss how we can help you and your business.&nbsp;<br />
+I look forward to hearing from you.<br />
+<br />
+Kind regards,<br />
+{{{Sender.Name}}}</span></span></span></p></body></html>

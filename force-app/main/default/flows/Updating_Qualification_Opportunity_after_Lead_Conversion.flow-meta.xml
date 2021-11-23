@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <decisions>
+        <name>check_if_Qualification_list_is_not_empty</name>
+        <label>Check if Qualification list is not empty</label>
+        <locationX>329</locationX>
+        <locationY>74</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Success_Case</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>QualificationList</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Success Case</label>
+        </rules>
+    </decisions>
+    <description>Updating the converted Lead related Qualification records with Opportunity Id</description>
+    <interviewLabel>Updating Qualification Opportunity after Lead Conversion {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Updating Qualification Opportunity after Lead Conversion</label>
+    <loops>
+        <name>Iterate_all_Qualifications</name>
+        <label>Iterate all Qualifications</label>
+        <locationX>503</locationX>
+        <locationY>73</locationY>
+        <assignNextValueToReference>Qualification</assignNextValueToReference>
+        <collectionReference>QualificationList</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Update_Qualification_OpportunityId</targetReference>
+        </nextValueConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get all Qualification records of converted Lead</description>
+        <name>Get_Qualification_Records</name>
+        <label>Get Qualification Records</label>
+        <locationX>190</locationX>
+        <locationY>73</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Iterate_all_Qualifications</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Lead__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>convertedLeadId</elementReference>
+            </value>
+        </filters>
+        <object>Qualification__c</object>
+        <outputReference>QualificationList</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Lead__c</queriedFields>
+        <queriedFields>Opportunity__c</queriedFields>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Qualification_OpportunityId</name>
+        <label>Update Qualification OpportunityId</label>
+        <locationX>732</locationX>
+        <locationY>73</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Lead__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>convertedLeadId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Opportunity__c</field>
+            <value>
+                <elementReference>opportunityId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Qualification__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>42</locationX>
+        <locationY>73</locationY>
+        <connector>
+            <targetReference>Get_Qualification_Records</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>convertedLeadId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>opportunityId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Qualification</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Qualification__c</objectType>
+    </variables>
+    <variables>
+        <name>QualificationList</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Qualification__c</objectType>
+    </variables>
+</Flow>

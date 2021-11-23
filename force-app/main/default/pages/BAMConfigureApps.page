@@ -1,0 +1,54 @@
+<!--
+2019-06-01  vcheng@salesforce.com  Created
+-->
+<apex:page title="BAM Configure Applications">
+    <apex:includeLightning />
+    <div>
+        <div id="BAM_accountsContainer"></div>
+    </div>
+	
+    <style>
+        table#bodyTable {
+        table-layout: fixed;
+        }
+    </style>
+     
+    <script>
+        var accountId = '{!$CurrentPage.parameters.accountId}';
+        // TODO - remove after testing
+    
+    	if(!accountId)
+        	accountId = '001p000000kvxJaAAI';
+        console.log('VF Page begin');
+
+        var onLightningEvent = function (event) {
+
+            var className = event.getParam('className');
+            var methodName = event.getParam('methodName');
+            var sPayload = event.getParam('methodParams');
+            var useAsynchCallout = event.getParam('useAsynchCallout');
+
+            window.open(sPayload, '_blank');
+
+
+        };
+	    	
+        // asset creation component
+
+        $Lightning.use("c:BAMInternalWrapper", function () {
+            $Lightning.createComponent("c:BAMConfigureApplicationsCmp",
+                {'accountId': accountId},
+
+                "BAM_accountsContainer",
+                function (cmp) {
+                    console.log('BAM Configure Apps Component created');
+
+                    $A.eventService.addHandler({
+                        "event": "c:AsynchApexContinuationRequest",
+                        "handler": onLightningEvent
+                    });
+
+                });
+        });
+    </script>
+</apex:page>

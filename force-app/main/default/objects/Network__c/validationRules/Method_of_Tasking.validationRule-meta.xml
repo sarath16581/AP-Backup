@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Method_of_Tasking</fullName>
+    <active>true</active>
+    <description>Rule used to enforce valid data is available before selcted it as a StarTrack Tasking method</description>
+    <errorConditionFormula>(System__c= TRUE &amp;&amp; Depot_Area_User_Count__c = 0)||
+(ST_Email__c=TRUE &amp;&amp; isblank(Email__c))||
+(Parent_Depot__c=TRUE &amp;&amp; isblank(Parent_Network__c))||
+(Phone__c=TRUE &amp;&amp; isblank(Depot_contact_number__c))</errorConditionFormula>
+    <errorMessage>1 or many tasking methods is selected without a corresponding value</errorMessage>
+</ValidationRule>

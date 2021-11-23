@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Oversize_Qty_Items__c</fullName>
+    <description>Qty Items - Incompatible Freight  (per month)-Oversize</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Tall/Heavy/Flat packs/Tubes/Fragile/Drums</inlineHelpText>
+    <label>Oversize - Qty Items</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

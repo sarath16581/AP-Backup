@@ -1,0 +1,18 @@
+<table height="400" width="550" cellpadding="5" border="0" cellspacing="5" >
+<tr height="400" valign="top" >
+<td style=" color:#000000; font-size:12pt; background-color:#FFFFFF; font-family:arial; bLabel:main; bEditID:r3st1;" tEditID="c1r1" locked="0" aEditID="c1r1" >
+<![CDATA[<p><span style="font-size: 12pt;">Hi All</span></p><p>
+</p><p class="p1">&nbsp;</p>
+<p class="p1">Please see attached application form for new customer {!Lead.Company}.</p>
+<p class="p1">&nbsp;</p>
+<p class="p1">Steps:</p>
+<ol class="ol1">
+<li class="li1">Credit management = &nbsp;create customer account/send welcome pack. then notify Customer Data team (DL HQ CDM Credit Updates)</li>
+<li class="li1">Customer Data team = create customer hierarchy and update Sales force, then notify Contract management in the relevant state</li>
+<li class="li1">Contract management = create contract for customer and notify eParcel Team in the relevant state</li>
+<li class="li1">eParcel team= Setup customer to use eParcel system. Email customer with their login details/reference materials and notify Account Manager and CC&nbsp;<a href="mailto:eParcelcustomercreation@auspost.com.au"><span class="s1">eParcelcustomercreation@auspost.com.au</span></a>&nbsp;once completed.</li>
+</ol>
+<p class="p2">&nbsp;</p>
+<p class="p3"><b>Note: Please CC&nbsp;</b><a href="mailto:eParcelcustomercreation@auspost.com.au"><span class="s1"><b>eParcelcustomercreation@auspost.com.au</b></span></a><b>&nbsp;in all emails as setup time for each customer&nbsp;needs to be tracked.</b></p><p></p>]]></td>
+</tr>
+</table>

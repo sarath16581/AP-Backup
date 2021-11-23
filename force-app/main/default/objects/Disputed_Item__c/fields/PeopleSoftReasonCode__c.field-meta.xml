@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PeopleSoftReasonCode__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE (
+				Reason__c ,
+&apos;Cash Transfer&apos;,&apos;A42&apos;,
+&apos;Data Entry Error&apos;,&apos;A08&apos;,
+&apos;Duplicate Billing&apos;,&apos;A52&apos;,
+&apos;CWC Recovery&apos;,&apos;A21&apos;,
+&apos;Unable to supply consignment note copy&apos;,&apos;A51&apos;,
+&apos;Consignment note Transfer&apos;,&apos;C44&apos;,
+&apos;Prepaids Additional Prepaid Weight&apos;,&apos;S27&apos;,
+&apos;Invalid Original Billing Details&apos;,&apos;A24&apos;,
+&apos;Manual Connote Surcharge&apos;,&apos;S01&apos;,
+&apos;Incorrect Pricing&apos;,&apos;S30&apos;,
+&apos;Incorrect Handrate / Missed Quote&apos;,&apos;S17&apos;,
+&apos;Miscellaneous Charge&apos;,&apos;A99&apos;,
+&apos;Incorrect Cube Data&apos;,&apos;C06&apos;,
+&apos;Cubic Negotiated Settlement&apos;,&apos;C04&apos;,
+&apos;Incorrect Weight (Customer)&apos;,&apos;C11&apos;,
+&apos;Incorrect service&apos;,&apos;C40&apos;,
+&apos;Incorrect Origin/Destination&apos;,&apos;C19&apos;,
+&apos;Second Delivery Charge&apos;,&apos;S02&apos;,
+&apos;Returns Charge&apos;,&apos;O54&apos;,
+&apos;Late Delivery Claim&apos;,&apos;O23&apos;,
+&apos;Performance Failure (Fleet)&apos;,&apos;O59&apos;,
+&apos;Consignment Raised not Sent&apos;,&apos;C15&apos;,
+&apos;CCM ExGratia&apos;,&apos;S22&apos;,
+&apos;CCM Late Delivery Claim&apos;,&apos;S50&apos;,
+&apos;CCM Damages&apos;,&apos;S07&apos;,
+&apos;Cubic Leopard scan&apos;,&apos;O60&apos;,
+&apos;Incorrect Cubic Data(Operations)&apos;,&apos;O06&apos;,
+&apos;Incorrect Cubic Data(Customer)&apos;,&apos;C06&apos;,				
+&apos;Cubic Negotiated Settlement&apos;,&apos;O04&apos;,
+&apos;Incorrect Weight (Operations)&apos;,&apos;O11&apos;,
+&apos;Product Return (Commercial)&apos;,&apos;C24&apos;,
+&apos;Product Return (Customer)&apos;,&apos;C50&apos;,
+&apos;Write Off&apos;,&apos;A22&apos;,
+&apos;Small Debt Write Off&apos;,&apos;A50&apos;,
+&apos;Bad Debt Write Off&apos;,&apos;A60&apos;,
+&apos;Additional Charges&apos;,&apos;A23&apos;,
+				&apos;Fee Refund Applied&apos;,&apos;A80&apos;,
+&apos;CHQ Handling Fee Reversal&apos;,&apos;A81&apos;,
+&apos;Un-manifested Fee Refund&apos;,&apos;A83&apos;,
+&apos;Manifest Correction Fee Credit&apos;,&apos;A82&apos;,
+&apos; &apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>PeopleSoft Reason Code</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

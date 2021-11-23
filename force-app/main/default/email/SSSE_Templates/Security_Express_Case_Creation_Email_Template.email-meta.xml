@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Template used to send case creation emails to customers for Security Express</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>StarTrack_SE_LetterHead</letterhead>
+    <name>Security Express Case Creation Email Template</name>
+    <style>freeForm</style>
+    <subject>New Case: Salesforce Case number {!Case.Thread_Id}</subject>
+    <textOnly>Thanks for submitting the Security Express Request through the Startrack Website. A new case number has been generated in our system.
+
+The reference Case number is: {!Case.CaseNumber}
+
+You may also reply to this email with attachements if any further communications is required for this request.
+
+Alternatively, you may also contact the Security Express team on below contact details by quoting your case number.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

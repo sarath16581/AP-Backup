@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Qualification__c</fullName>
+    <defaultValue>0.8</defaultValue>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>The percentage score that must be achieved on the stage before the opportunity can move to the next stage. 
+
+Note that all &quot;mandatory&quot; qualifiers must also be achieved before the opportunity can move.</inlineHelpText>
+    <label>Qualification Threshold</label>
+    <precision>3</precision>
+    <required>true</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

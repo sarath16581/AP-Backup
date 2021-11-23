@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Custom setting is used when tagging Cases for NPS in the SSSW space. Email settings can be either the email address of the contact on the case or the source email of where the case came from (using email to case)</description>
+    <enableFeeds>false</enableFeeds>
+    <label>NPS Case Email Exclusion</label>
+    <visibility>Public</visibility>
+</CustomObject>

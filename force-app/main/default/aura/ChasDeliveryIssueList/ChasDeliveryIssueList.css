@@ -1,0 +1,107 @@
+.THIS .chas-section-header {
+    border: solid 1px #f3f1ee;
+    padding:40px 32px 40px 40px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.THIS .chas-section-body {
+    border: solid 2px #f3f1ee;
+    border-top: none;
+}
+.THIS.grouped-true .chas-section-header {
+    border-top: none;
+}
+
+.THIS .chas-section-header:focus {
+    border: solid 2px #382F2D;
+}
+
+.THIS .open-true .chas-section-header:focus {
+    border-bottom: none;
+}
+
+.THIS .chas-section-header:focus + .chas-section-body {
+    border: solid 2px #382F2D;
+    border-top: none;
+}
+
+.THIS.dark-theme-false label {
+    font-size: 1.125rem;
+    font-weight:500;
+    color: #212129;
+}
+@media (max-width: 812px) {
+    .THIS.dark-theme-false label {
+        font-size: 1rem;
+        font-weight:500;
+        color: #212129;
+    }
+    
+    .THIS .chas-section-header {
+        padding:24px 24px 24px 24px;
+    }
+}
+
+.THIS .open-true .chas-section-header {
+    border-bottom: 1px solid #E2E2E2;
+}
+
+
+.THIS.dark-theme-false {
+    background-color: #FFFFFF;
+    color: white;
+}
+
+
+
+.THIS a.chas-section-header {
+    color: inherit;
+    outline: none;
+}
+
+.THIS a.chas-section-header:hover,
+.THIS a.chas-section-header:focus {
+    text-decoration: none;
+}
+
+.THIS .chas-section-header,
+.THIS .chas-section-header label {
+    cursor: pointer;
+}
+
+.THIS .chas-section-body {
+    padding: 0 20px 20px 20px;
+}
+
+.THIS .open-false .chas-section-body {
+    display: none;
+}
+
+.THIS .chas-section-header {
+    font-family: APTypeText, helvetica, arial, sans-serif;
+    display: block;
+}
+
+.THIS .chas-section-icon {
+    font-size: 1rem;
+    
+}
+.THIS .arrow {
+    border: solid #DC1928;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 4px;
+}
+.THIS .down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+.THIS .right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.THIS .wizard-body-with-nav-outer{
+    background: #F5F5F5;
+}

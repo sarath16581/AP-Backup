@@ -1,0 +1,33 @@
+<!--
+	Single step of a guided flow consisting multiple steps. Contents displayed inside the step is passed in by the parent
+	via a slot.
+	Based on the components published in https://github.com/jmpisson/lightning-wizard.
+
+    Changelog:
+    2020-10-05 - Ranjeewa Silva - Created.
+-->
+<template>
+    <template if:true={isInit}>
+        <div class="slds-card__body slds-p-around_medium">
+            <slot></slot>
+        </div>
+
+        <div class="slds-card__footer slds-grid">
+            <template if:false={shouldHidePreviousButton}>
+                <lightning-button class="slds-text-align_left" label={labels.previous}
+                                  variant="neutral" onclick={previousStep}></lightning-button>
+            </template>
+            <div class="slds-col slds-col_bump-left slds-text-align_right">
+<!--                <div class="slds-button-group">-->
+                <div class="slds-button-group-row">
+                    <slot name="actions"></slot>
+                    <template if:false={hideNextButton}>
+                        <div class="slds-button-group-item">
+                            <lightning-button label={nextLabel} variant="brand" onclick={nextStep}></lightning-button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </template>
+</template>

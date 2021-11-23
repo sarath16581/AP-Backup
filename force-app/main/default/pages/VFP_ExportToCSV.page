@@ -1,0 +1,26 @@
+<!-- Author       : Accenture IDC Team -->
+<!-- Created Date : 15/10/2013 -->
+<!-- Description  : This VisualForce Page is used to export the data in a list in the form of an excel -->
+<!--
+  * This software and all content is the property of ACCENTURE or its licensors, 
+  * and is for the internal and confidential use of employees and authorized agents 
+  * of ACCENTURE solely for the benefit of ACCENTURE and its affiliates.  
+  * The software and contents are protected by copyright, trade secret and patent laws, 
+  * and other local and international laws and treaties.  
+  * Unauthorized use may subject the user to civil and criminal penalties.  
+  * The software contains confidential information of ACCENTURE and its affiliates.  
+  * You may not access, use, copy, install, modify, transfer, or distribute this software 
+  * (electronically or otherwise), or create any copy, adaptation, transcription, or 
+  * derivative thereof, except as expressly authorized by ACCENTURE.  
+  * You may not divulge, disclose or communicate to any other third party, any of the 
+  * confidential information contained in the software, including the software itself.  
+  * ACCENTURE maintains full and exclusive right, title and ownership interest in and 
+  * to the software and all copyright, patent, trade secret, trademark and other intellectual 
+  * property rights therein.
+-->
+
+<apex:page controller="VFC_ExceptionSearch" cache="true" readOnly="true" contentType="application/vnd.ms-excel#ExceptionList.csv" id="csvPage">{!header}
+    <apex:repeat value="{!exportExceptions}" var="excLst" id="csvVals">
+       {!excLst.Name},{!excLst.ExceptionType__c},{!excLst.ExceptionCode__c},{!excLst.ClassName__c},{!excLst.MethodName__c},{!excLst.ApexTrigger__c},{!excLst.isHandled__c},{!excLst.NumberOfTimesOccured__c},{!excLst.ConvertedToDefect__c},{!excLst.Severity__c},{!excLst.ContextUser__c}
+    </apex:repeat>
+</apex:page>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Stop_Credit__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field will be driving the logic to prevent new Bookings to happen and future jobs to get marked with Stop Credit</description>
+    <externalId>false</externalId>
+    <label>Stop Credit</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

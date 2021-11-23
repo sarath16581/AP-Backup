@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rest_Break_Due__c</fullName>
+    <description>Calculate the Rest Break Start Time based on current Fit for Duty Passed and Rest Break 1 end times (set on the SR).  
+If within -4 to 14 hr window from FFD passed time, then treat as upcoming rest breaks.
+If Rest Break 1 End is null then due date is 5 hrs from FFD,  else 5 hrs from Rest Break 1 End.
+Null if a rest break is in progress
+This field is referenced in apex class TDF_SchedulerUtility.restBreakNotifications.
+TDF Enhance 29.09.20: Changed lookup from Primary_SR__r to Service_Resource__r</description>
+    <externalId>false</externalId>
+    <formula>IF( IsRestBreak__c ,
+  IF( Primary_SA__r.Service_Resource__r.Rest_Break_In_Progress__c = false,
+    IF( AND( (Primary_SA__r.SchedStartTime - Primary_SA__r.Service_Resource__r.Fit_For_Duty_Passed__c)*24 &gt; -4,
+             (Primary_SA__r.SchedStartTime - Primary_SA__r.Service_Resource__r.Fit_For_Duty_Passed__c)*24 &lt; 14 ),
+       IF( ISNULL(Primary_SA__r.Service_Resource__r.Rest_Break_1_End__c),
+           Primary_SA__r.Service_Resource__r.Fit_For_Duty_Passed__c + 5/24,
+           Primary_SA__r.Service_Resource__r.Rest_Break_1_End__c + 5/24),
+       NULL),
+    NULL),
+  NULL)</formula>
+    <label>Rest Break Due</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

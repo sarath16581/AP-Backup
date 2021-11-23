@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Leap_Year_Calc__c</fullName>
+    <externalId>false</externalId>
+    <formula>if(OR(
+
+AND(
+MOD(VALUE(Name),4)==0,MOD(VALUE(Name),100)!=0
+)      
+,MOD(VALUE(Name),400)==0
+
+),true, false)</formula>
+    <label>Is Leap Year Calc</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

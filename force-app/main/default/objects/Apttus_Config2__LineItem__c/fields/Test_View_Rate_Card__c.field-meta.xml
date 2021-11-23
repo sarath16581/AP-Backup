@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Test_View_Rate_Card__c</fullName>
+    <externalId>false</externalId>
+    <formula>/**HYPERLINK(&quot;/apex/c__APTS_TestViewRateCard?selectedRecordID=&quot;&amp;Id&amp;&quot;&amp;appName=DRC&amp;mode=touchless&amp;outputType=PDF&quot;, IMAGE(&quot;/resource/APT_View_Rate_Card&quot;, &quot;APT_View_Rate_Card&quot;),&quot;_blank&quot;)**/
+
+
+HYPERLINK(&apos;javascript:document.domain = &quot;force.com&quot;; var popup; popup = window.open(&quot;/apex/Apttus_XApps__EditInExcelLaunch?selectedRecordID=&apos;+Id+&apos;&amp;appName=Domestic Base per Kg 1016&amp;mode=touchless&amp;outputType=PDF&quot;, &quot;Popup&quot;, &quot;toolbar=yes,scrollbars=yes,location=no,statusbar=yes,menubar=yes,resizable=0,width=1000,height=600,left=100,top=100&quot;);popup.focus();popup.onblur=function(){popup.close();}&apos;,IMAGE(&quot;/resource/APT_View_Rate_Card&quot;, &quot;APT_View_Rate_Card&quot;),&apos;_top&apos;)
+
+/**
+HYPERLINK(&apos;javascript:document.domain = &quot;force.com&quot;; var popup; popup = window.open(&quot;/apex/c__APTS_TestViewRateCard?selectedRecordID=&apos;+Id+&apos;&amp;appName=Domestic Base per Kg 1016&amp;mode=touchless&amp;outputType=PDF&quot;, &quot;Popup&quot;, &quot;toolbar=yes,scrollbars=yes,location=no,statusbar=yes,menubar=yes,resizable=0,width=1000,height=600,left=100,top=100&quot;);popup.focus();popup.onblur=function(){popup.close()}&apos;,IMAGE(&quot;/resource/APT_View_Rate_Card&quot;, &quot;APT_View_Rate_Card&quot;),&apos;_top&apos;)**/</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Test View Rate Card</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

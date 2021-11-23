@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bid_Activities__c</fullName>
+    <description>Number of documents generated- eg when a tender has other components such as capability statement, revised submissions etc.</description>
+    <externalId>false</externalId>
+    <label>Bid Activities</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pre tender development</fullName>
+                <default>false</default>
+                <label>Pre tender development</label>
+            </value>
+            <value>
+                <fullName>Tender response development</fullName>
+                <default>false</default>
+                <label>Tender response development</label>
+            </value>
+            <value>
+                <fullName>Clarification response</fullName>
+                <default>false</default>
+                <label>Clarification response</label>
+            </value>
+            <value>
+                <fullName>Presentation development</fullName>
+                <default>false</default>
+                <label>Presentation development</label>
+            </value>
+            <value>
+                <fullName>Negotiation coordination</fullName>
+                <default>false</default>
+                <label>Negotiation coordination</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Seeker_MyPost_Business_Is_Selected</fullName>
+    <active>true</active>
+    <description>This validates if Email is populated when MyPost Business is selected in Product Interested field</description>
+    <errorConditionFormula>AND(
+ INCLUDES( Products__c ,&quot;MyPost Business&quot;) ,
+ ISBLANK( Email ) 
+)</errorConditionFormula>
+    <errorDisplayField>Email</errorDisplayField>
+    <errorMessage>Email is required if MyPost Business is included on Product Interested.</errorMessage>
+</ValidationRule>

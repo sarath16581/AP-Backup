@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>The trigger for this email is any new lead that is submitted under the program will get this initial email</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Lead Seeker - New Lead received MPB</name>
+    <style>none</style>
+    <subject>Seeker Rewards Program – New lead received! {!Lead.Lead_Number__c} for {!Lead.Company}</subject>
+    <textOnly>Dear {!Lead.First_Name_Formula__c},
+
+Thank you for submitting a MyPost Business lead.
+
+Please note that MyPost Business leads will not be called, instead an automated email with information on MyPost Business has been sent to the customer.
+
+You will be awarded points if the customer registers for MyPost Business AND sends 5 parcels within the first month.
+
+For more information about MyPost Business leads and rewards please see the Seeker FAQs.
+
+Thanks again and keep those great leads coming.
+
+Regards,
+The Seeker Team
+
+
+
+Terms &amp; conditions | Privacy policy | Security
+
+
+
+
+
+Contact us: If this email has been incorrectly sent to you or the information contained within isn’t correct, please let us know at seekerrewards@auspost.com.au
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

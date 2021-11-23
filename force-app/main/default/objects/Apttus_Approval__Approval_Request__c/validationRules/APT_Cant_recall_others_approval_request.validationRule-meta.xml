@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Cant_recall_others_approval_request</fullName>
+    <active>true</active>
+    <description>This validation is to restrict users to recall approval requests if they are not the submitter or DES support user.</description>
+    <errorConditionFormula>AND($User.Profile_Name_in_Text__c &lt;&gt; &apos;Enterprise Onboarding&apos;, ISPICKVAL(Apttus_Approval__Approval_Status__c ,&apos;Cancelled&apos;), CreatedById &lt;&gt; $User.Id)</errorConditionFormula>
+    <errorMessage>You do not have access to recall this approval request as you are not the owner of this request. Please contact Customer Onboarding via Deal Support Request for further assistance.</errorMessage>
+</ValidationRule>

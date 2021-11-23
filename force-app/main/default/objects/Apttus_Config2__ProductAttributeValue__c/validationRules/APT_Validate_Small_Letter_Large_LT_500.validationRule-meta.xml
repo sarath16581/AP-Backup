@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Validate_Small_Letter_Large_LT_500</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+Apttus_Config2__LineItemId__r.Apttus_Config2__ProductId__r.Name == &apos;Print Post&apos; , 
+INCLUDES( APT_Weight__c , &apos;Small Letter&apos;)  , 
+INCLUDES( APT_Weight__c , &apos;Large&lt; 500&apos;) ,
+NOT(INCLUDES( APT_Weight__c , &apos;Large &gt;500&apos;)) , 
+OR(INCLUDES(APT_Weight_Break_Up__c, &apos;501g-600g&apos;), 
+INCLUDES(APT_Weight_Break_Up__c, &apos;601g-700g&apos;), INCLUDES(APT_Weight_Break_Up__c, &apos;701g-800g&apos;), INCLUDES(APT_Weight_Break_Up__c, &apos;801g-900g&apos;), INCLUDES(APT_Weight_Break_Up__c, &apos;901g-1000g&apos;)))</errorConditionFormula>
+    <errorMessage>Invalid Weight. Weight has to be less than 500g.</errorMessage>
+</ValidationRule>

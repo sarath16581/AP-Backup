@@ -1,0 +1,23 @@
+/**
+ * Modified by hara sahoo on 27/07/2020 
+               1. Removed the image height, instead used an image with appropriate height in the static resource
+               2. Changed background color to #f5f5f5, previous #f9f8f7
+ */
+ .THIS {
+	background-color: #f5f5f5;
+  	box-shadow: 0 2px 0 0 #f3f1ee;
+  	padding: 30px 15px 20px;
+  	text-align: center;
+}
+
+.THIS .chas-info-tile-img {
+	margin-bottom: 25px;
+}
+/* Can be removed after 30-10-2020*/
+/*.THIS img.chas-info-tile-img {
+	height: 100px;
+}*/
+
+.THIS .chas-info-tile-heading {
+	margin-bottom: 10px;
+}

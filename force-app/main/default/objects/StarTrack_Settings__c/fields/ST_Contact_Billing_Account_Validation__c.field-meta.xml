@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ST_Contact_Billing_Account_Validation__c</fullName>
+    <description>A startrack field to store error message to be displayed when a user clicks &apos;Invite Contact to BSP&apos; button while contact doesn&apos;t have any associated billing account.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>A startrack field to store error message to be displayed when a user clicks &apos;Invite Contact to BSP&apos; button while contact doesn&apos;t have any associated billing account.</inlineHelpText>
+    <label>ST Contact Billing Account Validation</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

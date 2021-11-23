@@ -1,0 +1,101 @@
+<!--
+  * @changeLog :
+  * @date         : 19/06/2020
+  * Modified by   : Hara Sahoo
+  * @description  : 1. Added a card layout outer-box
+  * @Modifield by Hara Sahoo - 11/01/2020 - Changes made as part of enquiry submission in an unauthenticated user context 
+  * Modifield by Hara Sahoo - 09/03/2021 - Changes made as part of tracking id and dpid url paramteres and auto-progression
+  * Modified by Phap Mai - 10/05/2021 - DDS-5488: When consignment API returns 404, route the cases to domestic queue
+-->
+<aura:component extends="c:SS_uiWizardPage" implements="forceCommunity:searchInterface" controller='ChasApexController' description="Missing Items wizard page 1: Item details (API call)">
+    <aura:attribute name="error500" type="Boolean" default="false"/>
+    <aura:attribute name="error400" type="Boolean" default="false"/>
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+    <aura:attribute name="isFromBackButton"  type="Boolean" default="false" />
+    <aura:attribute name="dpidFromUrl"  type="String" default="" />
+    <aura:attribute name="trackingIdFromUrl"  type="String" default="" />
+    <aura:attribute name="displaySpinner" type="Boolean" default="false"/>
+    <!-- Guest login attributes-->
+    <aura:attribute name="displaymyPostLoginForm" type="Boolean" default="false" />
+    <aura:handler name="chasmyPostLogin" event="c:ChasMyPostLogin" action="{!c.displaymyPostLoginForm}"/>
+    <aura:attribute name="authenticatedURL" type="String" />
+    <!-- Added below code on 24/10/2018 for parsing and setting the Tracking Id passed from App view to the Missing Items form. -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="chasGenComponentEvent" event="c:chasGenComponentEvent" action="{!c.onchange}"/>
+
+    <!--Autoprogress this form if the url parameters are passed, for rest of every other scenario continue allow user to enter the tracking id-->
+    <aura:if isTrue="{!or(v.isFromBackButton, or(empty(v.dpidFromUrl) ,and(not(empty(v.dpidFromUrl)),empty(v.trackingIdFromUrl))))}">
+    <legend class="chas-header left-padding">
+        <h2>Enter your tracking number</h2>
+    </legend>
+    <c:ChasForm customStyle="left-padding">
+        <!-- Login was successful, user authenticated -->
+        <aura:if isTrue="{!v.authUserData.isUserAuthenticated == true}">
+            <!-- Dont present the login options-->
+            <aura:set attribute="else">
+                <!-- User is un-authenticated/guest -->
+                <!-- Present user with login options authenticated/ un-authenticated-->
+                <div class="slds-grid-address-login login-block">
+                    <div class="slds-col state-col-width">
+                        <c:ChasLoginOptions label="Continue with MyPost" myPostLogin="true" subLabel="to pre-fill some details. You'll also be able track your enquiry online."/>
+                    </div>
+                    <div class="slds-col separator-vertical separator-horizontal">
+                        <hr/>
+                    </div>
+                    <div class="slds-col state-col-width">
+                        <c:ChasLoginOptions label="Continue as a guest" subLabel="Enter all your details, then get updates on your enquiry via email or phone."/>
+                    </div>
+                </div>  
+            </aura:set>
+        </aura:if>
+        <div class="outer-box">
+            <!-- Tracking Number -->
+            <div class="form-input-container">
+                <c:ChasInputSearch
+                                   aura:id='ChasTrackingId'
+                                   name='ChasTrackingId'
+                                   required="true"
+                                   label='Tracking number'
+                                   value='{! v.wizardData.trackingId }'
+                                   onclick='{! c.searchTrackingNumberService}'
+                                   maxlength='50'
+                                   isLoading="{! v.isLoading }"
+                                   />
+            </div>
+            <aura:if isTrue="{!(v.error400)}">
+                <div class="slds-p-bottom_medium">
+                    <p>Not sure what this means? <a onclick='{!c.navToLearnMore}'><u>Learn more</u></a></p>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{! not(v.error500) }">
+                <div class="faq-section">
+                    <c:ChasExpandableSection label="Where can I find my tracking number?" >
+                        <h3 class="chas-body_regular slds-m-bottom_xx-small">Sender</h3>
+                        <p class="slds-m-bottom_small">Your tracking number will be on:
+                            <ul>
+                                <li>your Post Office receipt </li>
+                                <li>the barcode or removable sticker of your pre-paid satchel. </li>
+                            </ul>
+                        </p>
+                        <h3 class="chas-body_regular slds-m-bottom_xx-small">Recipient</h3>
+                        <p>Check your order confirmation, invoice or emails from your sender to find your tracking number.</p>
+                    </c:ChasExpandableSection>
+                    
+                    <c:ChasExpandableSection label="Can I track an item without the tracking ID?" darkTheme="false" grouped="true" >
+                        <h3 class="chas-body_regular slds-m-bottom_xx-small">Don't have a tracking number?</h3>
+                        <p>We deliver so many items every day that, without knowing your tracking number, unfortunately there's not a great deal we can do to locate it.</p>
+                    </c:ChasExpandableSection>
+                </div>
+                <aura:set attribute="else">
+                    <c:ChasInfoTile heading="Whoops, something's gone wrong." image="/chas-icons/pngs/UI/icons/it_error.png">
+                        <p>Please try again in a few minutes.</p>
+                    </c:ChasInfoTile>
+                </aura:set>
+            </aura:if>
+        </div>
+    </c:ChasForm>
+    <aura:set attribute="else">
+            <lightning:spinner class="{!if(v.displaySpinner, '', 'slds-hidden')}"/>
+        </aura:set>
+    </aura:if>
+</aura:component>

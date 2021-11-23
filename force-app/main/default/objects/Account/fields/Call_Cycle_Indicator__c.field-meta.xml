@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Call_Cycle_Indicator__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(NextActivityDueinDays__c &lt;=-1, IMAGE(&quot;/img/samples/flag_red.gif&quot;, &quot;red flag&quot;), 
+IF( AND(NextActivityDueinDays__c &gt;=0,NextActivityDueinDays__c &lt;=5) , IMAGE(&quot;/img/samples/flag_yellow.gif&quot;, &quot;yellow flag&quot;), 
+IMAGE(&quot;/img/samples/flag_green.gif&quot;, &quot;green flag&quot;) ))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Red/Amber/Green flag status based on when the next activity is due</inlineHelpText>
+    <label>Coverage Indicator</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

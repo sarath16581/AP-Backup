@@ -1,0 +1,40 @@
+<!--
+	Step capturing customer address details in Direct to Network Case creation flow.
+
+    Changelog:
+    2020-10-05 - Ranjeewa Silva - Created.
+    2020-11-06 - Ranjeewa Silva - Make sender address optional when sender address not available on article.
+ -->
+<template>
+
+    <div class="slds-grid slds-wrap slds-gutters">
+        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2">
+            <c-ame-address-validation2
+                    label="Sender Address"
+                    search-term={senderAddressText}
+                    onconfirmaddress={handleConfirmedSenderAddress}
+                    help-text={addressHelpText}
+                    override-label="Edit Address"
+                    supports-auto-search-on-load={isLocalSenderAddress}
+                    default-address={overseasSenderAddress}
+                    confirmation-required
+                    required={isSenderAddressRequired}>
+            </c-ame-address-validation2>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2">
+            <c-ame-address-validation2
+                label="Addressee Address"
+                search-term={receiverAddressText}
+                onconfirmaddress={handleConfirmedReceiverAddress}
+                help-text={addressHelpText}
+                override-label="Edit Address"
+                supports-auto-search-on-load={isLocalReceiverAddress}
+                default-address={overseasReceiverAddress}
+                confirmation-required
+                required>
+            </c-ame-address-validation2>
+        </div>
+    </div>
+
+</template>

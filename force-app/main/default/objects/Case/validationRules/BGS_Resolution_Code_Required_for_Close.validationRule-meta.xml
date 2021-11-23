@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BGS_Resolution_Code_Required_for_Close</fullName>
+    <active>true</active>
+    <description>Service Delivery - Resolution code required if case is closed.</description>
+    <errorConditionFormula>AND ( 
+RecordType.DeveloperName = &apos;Sales_Ops_Delivery&apos;, 
+TEXT(Status) = &apos;Closed&apos;, 
+isblank(TEXT( ResolutionCode__c )) 
+
+)</errorConditionFormula>
+    <errorDisplayField>ResolutionCode__c</errorDisplayField>
+    <errorMessage>Please provide Resolution Code if case is Closed.</errorMessage>
+</ValidationRule>

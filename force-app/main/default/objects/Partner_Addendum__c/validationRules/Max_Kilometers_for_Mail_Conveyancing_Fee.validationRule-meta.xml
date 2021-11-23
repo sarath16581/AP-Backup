@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Max_Kilometers_for_Mail_Conveyancing_Fee</fullName>
+    <active>true</active>
+    <description>Maximum allowed value for Kilometers is 100 and maximum value for Hours is 8</description>
+    <errorConditionFormula>AND( RecordType.DeveloperName = &apos;Negotiated_Payment_Type_L3&apos;,  OR(  Kilometers__c &gt; 100, Hours__c &gt; 8 ))</errorConditionFormula>
+    <errorMessage>Maximum allowed value for Kilometers is 100 and maximum allowed value for Hours is 8</errorMessage>
+</ValidationRule>

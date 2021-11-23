@@ -1,0 +1,14 @@
+<font size="2" font face="ap letter">
+
+Hello {!Case.OwnerFirstName}
+<br/><br/>
+An incoming email has been received for: <b/>{!Case.CaseNumber}</b>
+<br/><br/>
+{!Case.Link}
+<br/><br/>
+Cheers
+<br/><br/>
+The Salesforce User Support Team
+<br/>
+Australia Post 
+<font size="2" color="white">  {!Case.Thread_Id}</font>

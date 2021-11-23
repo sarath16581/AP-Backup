@@ -1,0 +1,35 @@
+<!--
+2018-06-01      clint.dsilva@auspost.com.au         created
+2020-01-24       lija.jawahar@auspost.com.au         modified        New option : Finished Task and UI update
+-->
+<aura:component description="stp_taskSearch" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global"
+                controller="stp_TaskSearch">
+    <ltng:require scripts="{!join(',',$Resource.GlobalAssets + '/js/lightning/utils.js')}" afterScriptsLoaded="{!c.onInit}" />
+    <aura:attribute name="consignmentNumber" type="String" default=""/>
+    <aura:attribute name="loadingSpinner" type="Object"/>
+
+    <aura:registerEvent name="notifyCompEvent" type="c:eNotificationComp" />
+    <aura:method access="public" action="{!c.onSearchRefresh}" description="on search button click" name="refreshSearch" />
+
+    <div class="paper-card" style="background:#CFD4D7; ">
+        <div class="slds-p-around_small slds-text-heading_small ">
+            <span >Task Search</span>
+        </div>
+
+        <div class="slds-grid slds-gutters slds-p-around_small">
+            <div class="slds-col slds-size_1-of-3 ">
+                <ui:inputSelect aura:id="optionSelect" label="Filter By"  >
+                    <ui:inputSelectOption text="My Team’s Tasks" />
+                    <ui:inputSelectOption text="My Acknowledged" />
+                    <ui:inputSelectOption text="My Finished Tasks" />
+                </ui:inputSelect>
+            </div>
+            <div class="slds-col slds-size_1-of-3">
+                <ui:inputText aura:id="consignmentNumber" value="{!v.consignmentNumber}" label="Consignment Number"  placeholder="Enter Consignment No ..." class="filter" />
+            </div>
+            <div class="slds-col slds-size_1-of-3">
+                <lightning:button variant="brand" label="Search" title="Search" class="slds-m-around_small search" onclick="{!c.onSearchBttnClick}" />
+            </div>
+        </div>
+    </div>
+</aura:component>

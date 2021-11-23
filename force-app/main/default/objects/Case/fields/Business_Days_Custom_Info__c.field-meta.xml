@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Days_Custom_Info__c</fullName>
+    <description>This field calculates passed business days since case is open. If closed, it shows the difference between start date and closed date, otherwise it shows the difference between start date and the present day.</description>
+    <externalId>false</externalId>
+    <formula>If( IsClosed, 1+(5 * ( FLOOR( (  Closed_Date__c - DATE( 1900, 1, 8) ) / 7 ) ) + MIN( 5, MOD(  Closed_Date__c - DATE( 1900, 1, 8), 7 ) ) ) - (5 * ( FLOOR( (  Start_Date__c  - DATE( 1900, 1, 8) ) / 7 ) ) + MIN( 5, MOD(  Start_Date__c - DATE( 1900, 1, 8), 7 ) )), 1+ (5 * ( FLOOR( ( today() - DATE( 1900, 1, 8) ) / 7 ) ) + MIN( 5, MOD( today()- DATE( 1900, 1, 8), 7 ) ) ) - (5 * ( FLOOR( (  Start_Date__c  - DATE( 1900, 1, 8) ) / 7 ) ) + MIN( 5, MOD(  Start_Date__c - DATE( 1900, 1, 8), 7 ) ) ))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Business Days Custom Info</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

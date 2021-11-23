@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_Green_Shoots_Invitation_Email</fullName>
+    <availability>online</availability>
+    <displayType>link</displayType>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>false</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>300</height>
+    <isResizable>true</isResizable>
+    <linkType>page</linkType>
+    <masterLabel>Send Green Shoots Invitation Email</masterLabel>
+    <openType>newWindow</openType>
+    <page>GsSendEmail</page>
+    <position>topLeft</position>
+    <protected>false</protected>
+    <showsLocation>true</showsLocation>
+    <showsStatus>true</showsStatus>
+    <width>500</width>
+</WebLink>

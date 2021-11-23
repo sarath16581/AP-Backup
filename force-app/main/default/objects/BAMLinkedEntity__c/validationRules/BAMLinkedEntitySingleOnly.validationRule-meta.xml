@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAMLinkedEntitySingleOnly</fullName>
+    <active>true</active>
+    <description>Make sure only Billing Account, Group OR Organisation is entered.</description>
+    <errorConditionFormula>(!ISBLANK(BillingAccount__c) &amp;&amp; (!ISBLANK(Organisation__c) || !ISBLANK(Group__c))) ||
+(!ISBLANK(Organisation__c) &amp;&amp; (!ISBLANK(BillingAccount__c) || !ISBLANK(Group__c))) ||
+(!ISBLANK(Group__c) &amp;&amp; (!ISBLANK(Organisation__c) || !ISBLANK(BillingAccount__c)))</errorConditionFormula>
+    <errorMessage>Only a single entity may be applied to this record. (Either a Billing Account, a Group, OR, an Organisation)</errorMessage>
+</ValidationRule>

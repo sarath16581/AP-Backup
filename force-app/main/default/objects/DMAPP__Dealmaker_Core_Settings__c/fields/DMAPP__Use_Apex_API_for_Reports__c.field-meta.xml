@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Use_Apex_API_for_Reports__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This setting uses Apex Controllers to invoke the Reports / Analytics API rather than REST API calls.  In professional edition orgs the REST API is not accessible.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This setting uses Apex Controllers to invoke the Reports / Analytics API rather than REST API calls.  In professional edition orgs the REST API is not accessible.</inlineHelpText>
+    <label>Use Apex API for Reports</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

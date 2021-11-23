@@ -1,0 +1,11 @@
+<!--
+ - Created by clint on 5/16/2018.
+ -->
+
+<aura:event type="APPLICATION" description="AsynchApexContinuationRequest">
+    <aura:attribute name="className" type="String"/>
+    <aura:attribute name="methodName" type="String"/>
+    <aura:attribute name="methodParams" type="Object[]"/>
+    <aura:attribute name="callback" type="String"/>
+    <aura:attribute name="useAsynchCallout" type="boolean"/>
+</aura:event>

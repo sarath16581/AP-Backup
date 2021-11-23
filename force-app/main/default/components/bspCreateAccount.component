@@ -1,0 +1,76 @@
+<apex:component >
+
+<style>
+.login-create-account 
+{
+    background-image: url("{!URLFOR($Resource.bsp_Custom,'images/Login3.png')}");        
+    height: 320px;
+    padding: 20px 0px 10px 20px;
+    margin-left: 8px;
+    line-height: 10px;
+    margin-top: 20px;
+    background-position: left top;
+    background-size: 452px 320px;
+    background-repeat: no-repeat;
+}
+.red-font
+{
+    color:#dc1928; 
+}
+
+.login-create-accont-point
+{
+    background-image: url("{!URLFOR($Resource.bsp_Custom,'images/LoginTick.png')}");   
+    padding-left:22px; 
+    height:20px;
+    line-height:20px;
+    background-repeat: no-repeat;
+    display:block;
+}
+
+.secondary-button
+{
+    border: solid 2px #5e514d;
+    background-color: #5e514d;
+}
+
+.create-account-button {
+    padding: 5px 26px;
+    font: bold 13px "letter_one",Arial,sans-serif;
+    color: rgb(255, 255, 255) !important;
+    background-color: #5e514d;
+    border-color: rgb(72, 62, 59);
+    border-radius: 3px;
+    display: inline-block;
+    text-decoration: none !important;
+    font-family: 'letter_one',Arial,sans-serif;
+    font-weight: bold;
+}
+
+</style>
+
+
+    <div class="login-create-account">
+        <h2>Don't have a login?</h2>
+        <h2 class="red-font">Create one now</h2>
+        
+        <p>With the <b>Australia Post Business Support Portal</b> you can:</p>
+    
+        <br/>    
+        <ul style="background-image: none;" >
+            <li class="login-create-accont-point"> Receive priority responses and resolutions to your enquiries</li>
+            <li class="login-create-accont-point"> Streamline your enquiries with us</li>
+            <li class="login-create-accont-point"> Manage all your enquiries and questions in one place 24/7</li>
+            <li class="login-create-accont-point"> Let us help you and your customers as quickly as possible</li>
+        </ul>
+    
+        <br/>
+ 		
+        <!-- Change of wording requested for REQ1087689 -->
+        <!-- <a class="create-account-button" href="{!$Site.CurrentSiteUrl}bspRegistration">Create a new account</a> --> 
+        <a class="create-account-button" href="{!$Site.CurrentSiteUrl}bspRegistration">Create a new login</a>  
+
+        <br/>
+        <br/>
+    </div>
+</apex:component>

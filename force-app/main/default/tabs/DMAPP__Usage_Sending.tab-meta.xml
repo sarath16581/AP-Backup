@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Admin page for the sending of DM usage stats</description>
+    <label>Usage Sending</label>
+    <motif>Custom58: Caduceus</motif>
+    <page>DMAPP__DM_Send_Usage_Details_Admin</page>
+</CustomTab>

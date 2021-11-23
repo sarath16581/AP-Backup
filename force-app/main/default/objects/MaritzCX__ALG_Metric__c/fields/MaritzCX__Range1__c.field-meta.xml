@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaritzCX__Range1__c</fullName>
+    <defaultValue>60</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field is used to determine the color on charts &amp; bar fields on response.</description>
+    <externalId>false</externalId>
+    <label>Range1</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

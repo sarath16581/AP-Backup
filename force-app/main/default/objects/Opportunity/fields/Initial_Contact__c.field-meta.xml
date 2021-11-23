@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Initial_Contact__c</fullName>
+    <description>Requested by MK for LPO lodgement</description>
+    <externalId>false</externalId>
+    <inlineHelpText>How was the initial conversation with Customer initiated?
+Select Customer approached Account Manager or Account Manager approached the customer (incs LPO or Hub referred the customer to AM, Outbound Marketing activity asked customer to engage)</inlineHelpText>
+    <label>Initial Contact</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Lodge_At_LPO__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer approached sales rep</fullName>
+                <default>false</default>
+                <label>Customer approached sales rep</label>
+            </value>
+            <value>
+                <fullName>Sales Rep approached customer</fullName>
+                <default>false</default>
+                <label>Sales Rep approached customer</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Customer approached sales rep</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Sales Rep approached customer</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

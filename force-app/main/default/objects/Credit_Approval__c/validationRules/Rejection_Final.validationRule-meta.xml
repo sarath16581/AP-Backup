@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rejection_Final</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+				NOT(ISPICKVAL(Status__c,&apos;Rejected&apos;)) ,
+				RejectionFinal__c = TRUE
+				)</errorConditionFormula>
+    <errorDisplayField>RejectionFinal__c</errorDisplayField>
+    <errorMessage>You can not mark as rejection final when approval has not been rejected.</errorMessage>
+</ValidationRule>

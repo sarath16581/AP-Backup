@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Print_All_No_Pickups</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <height>1000</height>
+    <linkType>page</linkType>
+    <masterLabel>Print All No-Pickups</masterLabel>
+    <openType>sidebar</openType>
+    <page>PUD_JobExceptionsPrintfromListView</page>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+</WebLink>

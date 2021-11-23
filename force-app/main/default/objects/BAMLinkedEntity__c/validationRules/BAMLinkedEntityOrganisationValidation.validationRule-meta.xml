@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAMLinkedEntityOrganisationValidation</fullName>
+    <active>true</active>
+    <description>Rule validates Organisation to ensure they can be populated based on the config in Application Role record.</description>
+    <errorConditionFormula>!ISBLANK(Organisation__c) &amp;&amp; ! ContactRole__r.ApplicationRole__r.ShowOrganisation__c</errorConditionFormula>
+    <errorDisplayField>Organisation__c</errorDisplayField>
+    <errorMessage>An Organisation can not be assigned to the current role.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,3 @@
+<apex:component controller="APT_URLimagesHeaderFooter" access="global">
+  <img src="{!headerURL}" />
+</apex:component>

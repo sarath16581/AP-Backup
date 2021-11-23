@@ -1,0 +1,11 @@
+There has been an update to Case No. Case {!Case.CaseNumber} 
+
+Case Comment update: 
+{!Case.Updated_Case_Comments__c}
+
+Case Subject: {!Case.Subject}
+Case Description: 
+{!Case.Description}
+
+To view this Case in full or add a new Comment follow this link
+{!Case.Link}

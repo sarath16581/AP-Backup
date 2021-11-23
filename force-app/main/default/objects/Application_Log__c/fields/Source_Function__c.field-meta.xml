@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Source_Function__c</fullName>
+    <description>The source function name of the error (e.g. getContactInformation)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The source function name of the error (e.g. getContactInformation)</inlineHelpText>
+    <label>Source Function</label>
+    <length>200</length>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

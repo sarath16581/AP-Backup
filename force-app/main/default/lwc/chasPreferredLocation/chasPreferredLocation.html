@@ -1,0 +1,143 @@
+<!--
+  * @author       : arjun.singh@auspost.com.au
+  * @date         : 19/06/2020
+  * @description  : Component used for PO tansfer request. It has following features
+  *                 1. Search feature by postcode to get the near by PO locations return from a service
+  *                 2. Display the list of PO location in a table format.
+  *                 3. Display the distance between user and PO location
+  *                 4. Display the business hour details
+--------------------------------------- History --------------------------------------------------
+19.06.2020    Arjun Singh    Created : Change made for roll out of Transfer to another PO
+-->
+<template>
+    <legend class="slds-form-element__label">
+        <div class="slds-m-bottom_medium">
+            <label class="label-style">Preferred post office for collection</label>
+        </div>
+    </legend>
+    <template if:true={showSelectedPostOffice}>
+        <div>
+            <c-chas-selected-post-office-address  office={selectedPostOffice}></c-chas-selected-post-office-address>
+        </div>
+    </template>
+    <template if:true={showSelectedPostOffice}>
+        <div class="slds-m-top_medium">
+            <lightning-button variant="Neutral" label="Change location" onclick={changelocationhandler}
+                title="Change location" class=""></lightning-button>
+        </div>
+    </template>
+    <template if:false={showSelectedPostOffice}>
+        <div class="">
+            <lightning-button variant="Neutral" label="Search & select" onclick={openModal}
+                title="Search & select" class="buttnClass"></lightning-button>
+        </div>
+    </template>
+<template if:true={bShowModal}>
+    <div style="height:auto">
+        <section role="dialog" tabindex="-1" onkeyup={handleKeyPress} aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="modal-styling">
+               <!-- modal header start -->
+               <header class="slds-modal__header">
+                  <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                     <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small" ></lightning-icon>
+                     <span class="slds-assistive-text">Close</span>
+                  </button>
+                  <!--<h2 id="modal-heading-01" class="headerClass slds-hyphenate">Select your preferred post office location</h2>-->
+                  <span class="headerClass slds-hyphenate">Select your preferred post office location</span>
+               </header>
+               <!-- modal body start -->
+               <div class="slds-modal__content padding-content" id="modal-content-id-1" >                  
+                <div class="slds-grid slds-grid_align-end bottom-padding">
+                    <div class="chas-input-field-container slds-form-element__control slds-grow">
+                        <input type="text" id="input-search" name="" class="slds-input chas-input-field"
+                        placeholder="Enter postcode" onchange={handleInputValueChange}/>
+                        <button type="button" onclick={searchHandler} class="slds-button slds-button_brand chas-input-search-button">Search</button>
+                      </div>                                      
+                </div>
+                <div class="">
+                    <template if:true={searchingFlag}>
+                        <div class="slds-spinner slds-spinner--medium" aria-hidden="false" role="alert">
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
+                    </template>  
+                </div>   
+                <div>
+                    <template if:true={showAddress}>
+                        <c-chas-address-detail location-details={recordsToDisplay} showkilometres={showKmAway}
+                        onselectedlocation={selectedlocationHandler} onexpandworkinghr={expandworkinghrhandler}></c-chas-address-detail>
+                </template>
+
+                </div>             
+                
+                <template if:true={noResultFound}>
+                    <p class="chas-error-message slds-m-left_medium">{noResultMsg}</p>
+                </template>
+                </div>
+            </div>
+             
+               <!-- modal footer start-->
+               <div class="desktop-view">
+               <template if:true={showAddress}>   
+                
+               <footer class="slds-modal__footer">
+                <hr class="hr-class">
+                <div class={controlPagination}>
+                    <div class="slds-grid footer-margin">
+                        <!--PAGE NAVIGATION-->                        
+                            <div>
+                                <button title="Prev" type="button" onclick={previousPage} class="slds-button slds-button_neutral" disabled={disablePrevButton}>
+                                            <lightning-button-icon icon-name=utility:chevronleft variant="bare" class="iconClass"></lightning-button-icon>
+                                            Prev
+                                        </button>
+                            </div>
+                            <div style="width:67%;line-height:35px;text-align:center;">
+                                <label class="labelClass" for="Results">{startSequence}-{endsequence} of {totalRecords} results</label>  
+                            </div>
+                            <div>
+                                <button title="Next" type="button" onclick={nextPage} class="slds-button slds-button_neutral" disabled={disableNextButton}>
+                                                Next
+                                                <lightning-button-icon icon-name=utility:chevronright variant="bare" class="iconClass"></lightning-button-icon>
+                                                </button>
+                            </div>
+                    </div>
+                </div>
+               </footer>
+            </template>
+        </div>
+            <div class="footer-mobile-view">
+                <template if:true={showAddress}>  
+                    <footer class="slds-modal__footer">
+                        <hr class="hr-class">
+                     <div class={controlPagination}>
+                        <div class="top-margin">
+                            <label  class="labelClass" for="Results">{startSequence}-{endsequence} of {totalRecords} results</label>  
+                        </div> 
+                         <div class="slds-grid footer-margin"> 
+                                 <div style="width:45%;margin-right:16px">
+                                        <button title="Prev" type="button" onclick={previousPage} class="slds-button slds-button_neutral" disabled={disablePrevButton}>
+                                                <lightning-button-icon icon-name=utility:chevronleft variant="bare" class="iconClass"></lightning-button-icon>
+                                                Prev
+                                            </button>
+                                 </div>
+                                 <div>
+                                     <button title="Next" type="button" onclick={nextPage} class="slds-button slds-button_neutral" disabled={disableNextButton}>
+                                                    Next
+                                                    <lightning-button-icon icon-name=utility:chevronright variant="bare" class="iconClass" ></lightning-button-icon>
+                                                    </button>
+                                 </div>
+                         </div>
+                     </div>
+                    </footer>
+                 </template>
+            </div>
+            </div>
+         </section>   
+         <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </template>
+</template>

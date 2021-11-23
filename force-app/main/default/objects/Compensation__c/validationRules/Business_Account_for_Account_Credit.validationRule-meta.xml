@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Account_for_Account_Credit</fullName>
+    <active>true</active>
+    <description>For record type Account Credit, Business Account cannot be less that 4 characters for submission of compensation</description>
+    <errorConditionFormula>AND ( 
+RecordType.DeveloperName = &apos;Account_Credit&apos;,
+(LEN(Business_Account_Number__c) &lt; 4) 
+)</errorConditionFormula>
+    <errorDisplayField>Business_Account_Number__c</errorDisplayField>
+    <errorMessage>Please enter a valid Business Account Number</errorMessage>
+</ValidationRule>

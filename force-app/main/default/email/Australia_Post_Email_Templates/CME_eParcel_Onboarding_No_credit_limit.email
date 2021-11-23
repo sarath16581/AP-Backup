@@ -1,0 +1,34 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="color: rgb(0, 0, 0); font-family: 'AP Letter'; font-size: 12pt; line-height: 107%;">Hi&nbsp;</span><font face="AP Letter"><span style="line-height: 17.1199989318848px;">{!Case.Requestor__c}</span></font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="mso-bidi-font-size:10.0pt;line-height:107%;font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:Calibri;mso-fareast-language:EN-AU;mso-no-proof:yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="mso-bidi-font-size:10.0pt;line-height:107%;font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:Calibri;mso-fareast-language:EN-AU;mso-no-proof:yes">The
+customer has not specified a credit limit on the onboarding form. <o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="mso-bidi-font-size:10.0pt;line-height:107%;font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:Calibri;mso-fareast-language:EN-AU;mso-no-proof:yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="mso-bidi-font-size:10.0pt;line-height:107%;font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:Calibri;mso-fareast-language:EN-AU;mso-no-proof:yes">We
+<b><span style="color:red">need a dollar
+figure</span></b><span style="color:red"> </span>to satisfy the external
+auditors.<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="mso-bidi-font-size:10.0pt;line-height:107%;font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:Calibri;mso-fareast-language:EN-AU;mso-no-proof:yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="mso-bidi-font-size:10.0pt;line-height:107%;font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:Calibri;mso-fareast-language:EN-AU;mso-no-proof:yes">Please
+reattach when amended, </span><span style="font-size: 12pt; font-family: 'AP Letter'; background-color: rgb(255, 255, 255);">add a new case comment advising of this,&nbsp;</span><b style="font-size: 12pt; font-family: 'AP Letter'; background-color: rgb(255, 255, 255);"><span style="color: red;">tick “Public”</span></b><span style="font-size: 12pt; font-family: 'AP Letter'; background-color: rgb(255, 255, 255);">, and save the comment.</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-size: 12pt; font-family: 'AP Letter'; background-color: rgb(255, 255, 255);"><br></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family: 'AP Letter'; background-color: rgb(255, 255, 255);">Access your case online by following the link below:</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family: 'AP Letter'; background-color: rgb(255, 255, 255);"><br></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="background-color: rgb(255, 255, 255);"><font face="AP Letter">{!Case.Link}</font></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><br></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="mso-bidi-font-size:10.0pt;line-height:107%;font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:Calibri;mso-fareast-language:EN-AU;mso-no-proof:yes">Regards<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><font face="AP Letter"><span style="line-height: 17.1199989318848px;">{!Case.OwnerFullName}</span></font></p>]]></td>
+</tr>
+</table>

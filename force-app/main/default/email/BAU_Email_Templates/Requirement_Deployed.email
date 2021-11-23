@@ -1,0 +1,9 @@
+Dear User,
+
+Your Requirement Request {!Requirement__c.Name} has been deployed successfully into Salesforce.
+
+If you wish to view this record - click this link: {!Requirement__c.Link}
+
+Regards,
+
+BAU Team @ Australia Post

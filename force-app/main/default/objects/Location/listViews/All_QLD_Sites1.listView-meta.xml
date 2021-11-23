@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_QLD_Sites1</fullName>
+    <columns>Name</columns>
+    <columns>LocationType</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>State__c</field>
+        <operation>equals</operation>
+        <value>QLD</value>
+    </filters>
+    <label>All QLD Sites</label>
+</ListView>

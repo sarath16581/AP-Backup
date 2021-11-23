@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Start_Date_Day__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(
+MOD(DATEVALUE(StartDate) - DATE(1900, 1, 7), 7), 
+0, &quot;Sun&quot;, 
+1, &quot;Mon&quot;, 
+2, &quot;Tue&quot;, 
+3, &quot;Wed&quot;, 
+4, &quot;Thu&quot;, 
+5, &quot;Fri&quot;, 
+6, &quot;Sat&quot;, &quot;Error&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Start Date Day</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

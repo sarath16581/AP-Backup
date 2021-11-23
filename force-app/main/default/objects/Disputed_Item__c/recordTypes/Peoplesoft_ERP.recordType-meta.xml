@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Peoplesoft_ERP</fullName>
+    <active>true</active>
+    <description>Record Type for Peoplesoft ERP</description>
+    <label>Peoplesoft ERP</label>
+    <picklistValues>
+        <picklist>Business_Segment__c</picklist>
+        <values>
+            <fullName>Commercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operations</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DisputeCurrency__c</picklist>
+        <values>
+            <fullName>AUD</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>EUR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Disputed_Reason__c</picklist>
+        <values>
+            <fullName>Duplicate Billing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Charge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Weight</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quantity Incorrect</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ERP_Status__c</picklist>
+        <values>
+            <fullName>Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Processed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Submitted</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Product_Sub_Category__c</picklist>
+        <values>
+            <fullName>Direct Entry Letters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Intermediaries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International Outward Letters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Late Payment Charge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ordinary %26 Other Letters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Premium%2C Next Flight</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Presort Letters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Print Post</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ST Express Product %28ST%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Product__c</picklist>
+        <values>
+            <fullName>Business Credit Account Facilities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcels</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_Category__c</picklist>
+        <values>
+            <fullName>Accounting adjustment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Billing Processing error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Data Issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivery Issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Discretionary Settlement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International Surcharge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Order Processing Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Write off</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason__c</picklist>
+        <values>
+            <fullName>Additional Charges</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bad Debt Write Off</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CCM -Sales Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CCM Damages</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CCM ExGratia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CCM Late Delivery Claim</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CHQ Handling Fee Reversal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CWC Recovery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cash Transfer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consignment Raised not Sent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consignment note Transfer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cubic Leopard scan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cubic Negotiated Settlement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data Entry Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplicate Billing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fee Refund Applied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Cube Data</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Cubic Data%28Customer%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Cubic Data%28Operations%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Handrate %2F Missed Quote</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Origin%2FDestination</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Pricing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Weight %28Customer%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Weight %28Operations%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International Linehaul Surcharge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Invalid Original Billing Details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Late Delivery Claim</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manifest Correction Fee Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manual Connote Surcharge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Miscellaneous Charge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Performance Failure %28Fleet%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prepaids Additional Prepaid Weight</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Return %28Commercial%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Return %28Customer%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Returns Charge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Second Delivery Charge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Debt Write Off</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Un-manifested Fee Refund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unable to supply consignment note copy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Write Off</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Service_Type__c</picklist>
+        <values>
+            <fullName>APW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ARL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ASK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CHF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DPP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DTP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ECO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EXP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EXS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FPP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GEN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ITL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LO2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LOC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LOT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LSK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MCF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NXF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>O%2FN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ODS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OFP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OPS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PAC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PRM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PRS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RE2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RET</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SDA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SE1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SE2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SE3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SE4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TSE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UDF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>XDC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>XDP</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Invalid Claim</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Verified Claim</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>Discretionary Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-Discretionary</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

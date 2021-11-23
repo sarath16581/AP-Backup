@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>APT_Category__c</columns>
+    <columns>APT_Lodgement_Zone__c</columns>
+    <columns>APT_Network_Type__c</columns>
+    <columns>APT_Product_Type__c</columns>
+    <columns>APT_Flag_Fall_Rate__c</columns>
+    <columns>APT_Per_Kg_Rate__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

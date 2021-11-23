@@ -1,0 +1,97 @@
+/* 
+2020-07-06 Hara Sahoo:  Added styling for help and support form uplift as per the new designs
+*/
+.THIS .chas-section-header {
+	border: solid 2px #f3f1ee;
+}
+.THIS .slds-gutters {
+    margin-right: -0.75rem;
+    margin-left: -0.75rem;
+}
+.THIS .chas-section-body {
+	border: solid 2px #f3f1ee;
+	border-top: none;
+}
+
+.THIS.dark-theme-true .chas-section-header,
+.THIS.dark-theme-true .chas-section-body {
+	border-color: #3e474d;
+}
+
+.THIS.grouped-true .chas-section-header {
+	border-top: none;
+}
+
+.THIS .chas-section-header:focus {
+	border: solid 2px #382F2D;
+}
+
+.THIS .open-true .chas-section-header:focus {
+	border-bottom: none;
+}
+
+.THIS .chas-section-header:focus + .chas-section-body {
+	border: solid 2px #382F2D;
+	border-top: none;
+}
+
+.THIS.dark-theme-true .chas-section-header:focus,
+.THIS.dark-theme-true .chas-section-header:focus + .chas-section-body {
+	border-color: white;
+}
+
+.THIS.dark-theme-false label {
+	font-size: 1.125rem;
+}
+.THIS.dark-theme-false {
+    background-color: #FFFFFF;
+}
+
+.THIS .open-true .chas-section-header {
+	border-bottom: none;
+}
+
+.THIS.dark-theme-true {
+	background-color: #3e474d;
+	color: white;
+}
+
+.THIS.dark-theme-true label {
+	font-size: 1.25rem;	
+}
+
+.THIS a.chas-section-header {
+	color: inherit;
+	outline: none;
+}
+
+.THIS a.chas-section-header:hover,
+.THIS a.chas-section-header:focus {
+	text-decoration: none;
+}
+
+.THIS .chas-section-header {
+	padding: 25px 32px 24px 32px;
+}
+
+.THIS .chas-section-header,
+.THIS .chas-section-header label {
+	cursor: pointer;
+}
+
+.THIS .chas-section-body {
+	padding: 0 20px 20px 20px;
+}
+
+.THIS .open-false .chas-section-body {
+	display: none;
+}
+
+.THIS .chas-section-header {
+	font-family: APTypeText, helvetica, arial, sans-serif;
+	display: block;
+}
+
+.THIS .icon-class {
+    min-width:16px;
+}

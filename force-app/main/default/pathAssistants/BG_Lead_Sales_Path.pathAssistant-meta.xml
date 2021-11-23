@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Lead</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>BG_Lead_Sales_Path</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>Company</fieldNames>
+        <fieldNames>Products__c</fieldNames>
+        <fieldNames>Disqualified_Lead_Reason__c</fieldNames>
+        <fieldNames>Contact_A__c</fieldNames>
+        <fieldNames>Customer_Type__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;Lead verification teams:&lt;/b&gt; There are a few reasons to disqualify a Lead, including if the customer needs have been captured and the customer does not meet the contract criteria.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;To disqualify a Lead:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Change the lead status to “disqualified” (you this &lt;a href=&quot;https://auspost.my.salesforce.com/articles/How_To/Duplicate-Disqualified-and-Closed-Leads-Queue?popup=false&amp;amp;id=kA32v000000DAel&quot; target=&quot;_blank&quot;&gt;guide&lt;/a&gt; for additional help)&lt;/li&gt;&lt;li&gt;Select the closest option for the disqualified reason&lt;/li&gt;&lt;li&gt;Change the owner of the Lead to “Closed leads”&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Sales teams: &lt;/b&gt;Before you disqualify a Lead:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Try to contact the customer 3 times over 2 separate days within 48 h you receive the Lead&lt;/li&gt;&lt;li&gt;If you cannot contact the customer, please send them an email with your contact details &lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Disqualified</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Company</fieldNames>
+        <fieldNames>Phone</fieldNames>
+        <fieldNames>Email</fieldNames>
+        <fieldNames>Contact_A__c</fieldNames>
+        <fieldNames>Customer_Type__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;Lead verification teams: &lt;/b&gt;Use the Customer Needs feature to capture:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;How we can help the customer and their specific needs&lt;/li&gt;&lt;li&gt;Our categories of services and products that may address the customer’s needs (use this &lt;a href=&quot;https://auspost.my.salesforce.com/articles/How_To/Leads-Articles-Index&quot; target=&quot;_blank&quot;&gt;guide&lt;/a&gt; for product information)&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Advise the customer that an account manager will contact them within 48 h&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Sales teams&lt;/b&gt;: If this lead is from a customer you already manage:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Try to contact them 3 times over 2 days within 48 h you receive the lead&lt;/li&gt;&lt;li&gt;If you cannot contact the customer, send them an email with your contact details and disqualify the Lead&lt;/li&gt;&lt;li&gt;If the Lead contains products you are not familiar with, convert the Lead to an Opportunity and contact the Product Specialists team for assistance&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>In progress</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Company</fieldNames>
+        <fieldNames>Address</fieldNames>
+        <fieldNames>Phone</fieldNames>
+        <fieldNames>Email</fieldNames>
+        <fieldNames>ABN__c</fieldNames>
+        <info>&lt;p&gt;The following information should be captured about the customer:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Name, phone number, email, address and preferred contact method&lt;/li&gt;&lt;li&gt;Organisation name, ABN, website address&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Based on your conversation with the customer, use the guided qualification process to capture:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;The customer&amp;#39;s current business operations&lt;/li&gt;&lt;li&gt;How Australia Post can help them&lt;/li&gt;&lt;li&gt;Products that may address the customer’s needs (use this &lt;a href=&quot;https://auspost.my.salesforce.com/articles/How_To/Leads-Articles-Index&quot; target=&quot;_blank&quot;&gt;guide&lt;/a&gt; for product information)&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>New</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Company</fieldNames>
+        <fieldNames>Phone</fieldNames>
+        <fieldNames>Products__c</fieldNames>
+        <fieldNames>Opportunity_Initial_Estimate__c</fieldNames>
+        <fieldNames>Customer_Type__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li&gt;Before contacting the customer, check the information already captured in the Customer Needs section of the Lead&lt;/li&gt;&lt;li&gt;Try to contact the customer 3 times over 2 separate days within 48 h you received the Lead&lt;/li&gt;&lt;li&gt;If you cannot contact the customer, please send the customer an email with your details before you disqualify the Lead&lt;/li&gt;&lt;li&gt;If the Lead contains niche products you may not be familiar with, convert the Lead to an Opportunity and reach out to the Product Specialists team for assistance&lt;/li&gt;&lt;li&gt;Before you convert the Lead to an Opportunity, make sure the Lead record contains accurate data&lt;/li&gt;&lt;li&gt;If the Lead is for a customer we already have a record for, make sure you select “Choose Existing” in the “Convert Lead” window to select an existing Organisation and/or Contact record to avoid the creation of duplicate records&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Qualified</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Name</fieldNames>
+        <fieldNames>Opportunity_Initial_Estimate__c</fieldNames>
+        <fieldNames>LeadSource</fieldNames>
+        <fieldNames>Products__c</fieldNames>
+        <picklistValueName>Verified</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>BG_Standard</recordTypeName>
+</PathAssistant>

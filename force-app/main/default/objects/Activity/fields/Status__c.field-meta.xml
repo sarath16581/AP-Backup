@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <description>Manually completed by the owner/acct mgr/seller once the event is ACTUALLY completed. This drives the completion count for &quot;Event&quot; type activities</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Manually completed by the owner/acct mgr/seller once the event is ACTUALLY completed. This drives the completion count for &quot;Event&quot; type activities</inlineHelpText>
+    <label>Status</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Completed</fullName>
+                <default>false</default>
+                <label>Completed</label>
+            </value>
+            <value>
+                <fullName>Deferred</fullName>
+                <default>false</default>
+                <label>Deferred</label>
+            </value>
+            <value>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+                <label>In Progress</label>
+            </value>
+            <value>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+                <label>Not Started</label>
+            </value>
+            <value>
+                <fullName>Waiting on someone else</fullName>
+                <default>false</default>
+                <label>Waiting on someone else</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Domestics_Parcels_p_a_and_how_fast__c</fullName>
+    <externalId>false</externalId>
+    <label>How quickly do you need retail Parcels?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>2+ Days</fullName>
+                <default>false</default>
+                <label>2+ Days</label>
+            </value>
+            <value>
+                <fullName>Next Day</fullName>
+                <default>false</default>
+                <label>Next Day</label>
+            </value>
+            <value>
+                <fullName>Next Day &amp; 2+ Days</fullName>
+                <default>false</default>
+                <label>Next Day &amp; 2+ Days</label>
+            </value>
+            <value>
+                <fullName>Same Day &amp; Next Day</fullName>
+                <default>false</default>
+                <label>Same Day &amp; Next Day</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

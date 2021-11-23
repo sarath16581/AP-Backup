@@ -1,0 +1,42 @@
+<!--
+ * @description Help and support : Generic component to surface errors on the compensation form
+ * @date 2021-07-04
+ * @group Error Message
+ * @tags Chas, H&S, Compensation
+ * @domain Help and Support
+ * @changelog
+ * 2021-07-04 hara.sahoo@auspost.com.au Created
+ -->
+ <aura:component description="Displays errors on the compensation page for H&amp;S community" >
+    <!-- error attributes -->
+    <aura:attribute name="warningIcon"  type="String" default="/chas-icons/svgs/UI/icons/chas-warning.svg"/>
+    <aura:attribute name="errorType" type="String" default=""/>
+    <!-- handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <div class="white-card">
+        <div class="warning-icon-class">
+            <img src="{! $Resource.ChasIcons + v.warningIcon}" alt="warning-image"/>
+        </div>
+        <legend class="label-style">{! v.errorType != 'generic' ? $Label.c.CompensationSystemErrorLabel :$Label.c.CompensationErrorLabel }</legend><br/>
+        <div class="sublabel-style">
+            <aura:if isTrue="{!v.errorType != 'generic'}">
+                <div class="container-outer">
+                    <div class="container-inner">
+                        <lightning:formattedRichText aura:id="nextSteps"/>
+                    </div>
+                </div>
+                <p style="padding-top:16px;">
+                    <lightning:button label="Back to Help &amp; Support" variant="neutral" class="chas-button" onclick="{!c.backtoHome}"/>
+                </p>
+                <aura:set attribute="else">
+                    <div class="container-outer">
+                        <div class="container-inner">
+                            <lightning:formattedRichText aura:id="nextSteps"/>
+                        </div>
+                    </div>
+                </aura:set>
+            </aura:if>
+        </div>        
+    </div>
+    
+</aura:component>

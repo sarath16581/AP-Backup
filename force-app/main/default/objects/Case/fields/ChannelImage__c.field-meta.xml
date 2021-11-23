@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ChannelImage__c</fullName>
+    <externalId>false</externalId>
+    <formula>IMAGE( 
+CASE(Origin, 
+&apos;Email&apos;, &apos;/resource/CaseListIcons/Email.png&apos;, 
+&apos;Phone&apos;, &apos;/resource/CaseListIcons/Phone.png&apos;,
+&apos;Web&apos;, &apos;/resource/CaseListIcons/Web.png&apos;,  
+&apos;Chat&apos;, &apos;/resource/CaseListIcons/Chat.png&apos;, 
+&apos;AP Retail (PM26)&apos;,&apos;/resource/CaseListIcons/APRetailPM26.png&apos;,	
+&apos;Bulk Upload&apos;,	&apos;/resource/CaseListIcons/BulkUpload.png&apos;,
+&apos;Int Post (CN08)&apos;, &apos;/resource/CaseListIcons/IntPostCN08.png&apos;,
+&apos;CCU&apos;, &apos;/resource/CaseListIcons/CCU.png&apos;,
+&apos;CCU Bulk Upload&apos;, &apos;/resource/CaseListIcons/CCU.png&apos;,
+&apos;Portal&apos;, &apos;/resource/CaseListIcons/Portal.png&apos;,
+&apos;Social&apos;, &apos;/resource/CaseListIcons/Social.png&apos;,
+&apos;IBIS&apos;, &apos;/resource/CaseListIcons/IBIS.png&apos;,
+&apos;Prime&apos;, &apos;/resource/CaseListIcons/Prime.png&apos;,
+&apos;Apple GCRM&apos;, &apos;/resource/CaseListIcons/AppleGCRM.png&apos;,
+&apos;/resource/CaseListIcons/Other.png&apos;),&apos;No Image&apos; 
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Channel Image</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,122 @@
+.THIS .item-label{
+    font-size: 20px;
+    letter-spacing: 0.8px;
+    border-bottom: 1px solid #e2dfda;
+    padding-bottom: 8px;
+    margin-bottom:32px
+}
+@media (min-width: 480px) {
+    .THIS .item-label{
+        width:592px;
+    }
+}
+.THIS .image-div{
+    padding-bottom:35px;
+    padding-top:12px;
+    font-size:14px;
+    line-height:20px;
+}
+
+@media (max-width: 480px) {
+    .THIS .image-div{
+        padding-bottom:25px;
+    }
+}
+@media (max-width: 480px) {
+    .THIS .radio-align
+    {
+        align-items: baseline !important;
+    }
+}
+.THIS .form-input-container{
+    margin-bottom:0
+}
+
+.THIS .box-seperator-gap {
+    margin-top: 32px;
+}
+@media (max-width: 480px) {
+    .THIS .box-seperator-gap {
+        margin-top: 24px;
+    }
+}
+
+.THIS .slds-button_icon-inverse{
+    color : #212129;
+    background: #FFFFFF;
+}  
+.THIS .slds-modal__content
+{
+    height: 493px;
+    width:370px;
+}
+.THIS .slds-modal__header
+{  
+    border-bottom:none;
+    width:374px;
+    padding: 0rem;
+}
+
+@media (min-width: 480px) {
+.THIS .slds-modal__container
+{
+    margin:0 40%;
+}
+}
+@media (max-width: 480px) {	
+    .THIS .slds-modal__header
+    {  
+        border-bottom:none;
+        width:326px;
+        padding: 0rem;
+    }
+    .THIS .slds-modal__content
+    {
+        height: 430px;
+        width:323px;
+    }
+}
+.THIS .slds-modal__close {
+    top: 0.05rem;
+    border-radius:0;
+}
+.THIS .chas-button-box {
+    border-top: none;
+    padding-top:0px !important;
+    flex-direction: row;
+}
+@media (min-width: 680px) {
+    .THIS .chas-label-text.slds-form-element__label {
+        width: 448px;
+    }
+}
+.THIS .chas-header_small
+{
+    padding-bottom: 0;
+}
+.THIS .chas-button.slds-button_neutral
+{
+box-shadow: 0px 0px 0.5px rgba(0, 0, 0, 0.08), 0px 1px 1.5px rgba(0, 0, 0, 0.106);
+}
+.THIS .slds-grid-address{
+    display:flex;
+}
+.THIS .state-col-width,.THIS .postcode-col-width
+{
+    width:50%;
+}
+@media (min-width: 480px) {
+    .THIS .col-separator{
+        padding-left:16px;
+    }
+}
+/* Mobile view*/
+@media (max-width: 480px) {
+    .THIS .state-col-width , .THIS .postcode-col-width
+    {
+        width:100%;
+    }
+    .THIS .slds-grid-address{
+        display:block;
+    }
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Parcels_Technology_Support</fullName>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Sales_Solution_Request__c.Parcels_Technology_Support</value>
+    </filters>
+    <label>Parcels Technology Support</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>Parcels_Technology_Support</group>
+    </sharedTo>
+</ListView>

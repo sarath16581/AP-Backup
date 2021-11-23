@@ -1,0 +1,1453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Letter_of_Intent</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>Agreement_Lightning_Compact_Layout</compactLayoutAssignment>
+    <description>Letter of Intent – Postbillpay</description>
+    <label>Letter of Intent</label>
+    <picklistValues>
+        <picklist>APT_Barcoded__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Cancellation_Reason__c</picklist>
+        <values>
+            <fullName>Capability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Channel Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial or Legal terms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Application unsuccessful</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Functionality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Implementation lead time</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrectly Qualified</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Network</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-conforming Bid%2Ftender</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Price</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RFI %2F Tender withdrawn</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strategic Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unable to Contact</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Cancellation_Type__c</picklist>
+        <values>
+            <fullName>Disqualified</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Closed_Won_Reason__c</picklist>
+        <values>
+            <fullName>Capability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Channel Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Functionality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Implementation lead time</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Network</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Price</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strategic Decision</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Contract_Type__c</picklist>
+        <values>
+            <fullName>DoV Contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Migrated Contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Contract</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Renewal Contract</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Contracting_Entity1__c</picklist>
+        <values>
+            <fullName>Australia Post Services Pty Ltd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australian Postal Corporation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decipha Pty Ltd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>POLi Payments Pty Ltd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Logistics %28Hong Kong%29 Pty Ltd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SecurePay Pty Ltd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Star Track Express Pty Ltd</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Cubing__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes - With Cubic Factor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes - without Cubic Factor %28commercial decision%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes - without Cubic Factor %28non-Cubic product%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Current_Quote_Indicator__c</picklist>
+        <values>
+            <fullName>N</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Y</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Customer_Initiated_Termination__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_DOV_Language__c</picklist>
+        <values>
+            <fullName>Courier - Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Courier - Add New Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Courier - Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Courier - Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express eParcel - Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express eParcel - Add New Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express eParcel - Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express eParcel - Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International - Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International - Add New Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International - Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International - Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Letters - Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Letters - Add New Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Letters - Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Letters - Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Local Pickup and Delivery Services - Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Local Pickup and Delivery Services - Add New Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Local Pickup and Delivery Services - Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Local Pickup and Delivery Services - Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other product - Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other product - Add New Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other product - Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other product - Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Post - Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Post - Add New Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Post - Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Post - Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Billpay - Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Billpay - Add New Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Billpay - Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Billpay - Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Print Post - Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Print Post - Add New Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Print Post - Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Print Post - Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Returns - Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Returns - Add New Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Returns - Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Returns - Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SecurePay Online Payments - Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SecurePay Online Payments - Add New Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SecurePay Online Payments - Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SecurePay Online Payments - Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack - Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack - Add New Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack - Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack - Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UMS - Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UMS - Add New Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UMS - Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UMS - Replace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel - Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel - Add New Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel - Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel - Replace</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Domestic_Indicator__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Extension_Approval_Status__c</picklist>
+        <values>
+            <fullName>Approval Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Submitted</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Pending Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Gov_or_Tender_Response__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_International_Indicator__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Next_Steps__c</picklist>
+        <values>
+            <fullName>Commence implementation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirm agreement with final contract terms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finalise contract terms %26 conditions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Negotiate to achieve alignment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prepare contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Present final contract to customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Review outcome and lessons%27s learnt</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seek assistance to close the deal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sign contract</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Price_Plan__c</picklist>
+        <values>
+            <fullName>0%2E60%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>0%2E65%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>0%2E70%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>0%2E75%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>0%2E80%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>0%2E85%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>0%2E90%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>0%2E95%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E00%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E05%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E10%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E15%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E20%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E25%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E30%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E35%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E40%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E45%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E50%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E55%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E60%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E65%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E70%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E75%25</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Pricing_Category__c</picklist>
+        <values>
+            <fullName>Customised</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Standard</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Print_Post_Rebate_Type__c</picklist>
+        <values>
+            <fullName>Rebate Pricing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Special Pricing</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Product_Type__c</picklist>
+        <values>
+            <fullName>APMS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agency Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail%2C Letters or Parcel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PostConnect</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Rebate_Eligible_for_Customers__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Rebate_Form_For__c</picklist>
+        <values>
+            <fullName>Print Post</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Rebate_Status__c</picklist>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Choice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Won</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Revenue_Category__c</picklist>
+        <values>
+            <fullName>Enterprise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Large</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Termination_Reasons__c</picklist>
+        <values>
+            <fullName>Ceased trade %28no trade over 12 months%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ceased trade %28no trade over 6 months%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Change of business name</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Change of business ownership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moving to another AP service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not performing to contracted min volume</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rights to terminate a Service Schedule</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rights to terminate the General Terms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Terminate General Terms for breach</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Terminate General Terms for convenience</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Terminate a Service Schedule for breach</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Transaction_Fees_basis__c</picklist>
+        <values>
+            <fullName>annual</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>biannual</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_Approval__Approval_Status__c</picklist>
+        <values>
+            <fullName>Approval Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Not Submitted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_Approval__LineItem_Approval_Status__c</picklist>
+        <values>
+            <fullName>Approval Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Submitted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_Approval__Term_Exception_Approval_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Not Submitted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_CMConfig__ABOType__c</picklist>
+        <values>
+            <fullName>Add-on</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Renewal</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_CMConfig__IncentivePeriodStatus__c</picklist>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Open</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_CMConfig__Intent__c</picklist>
+        <values>
+            <fullName>Contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Order</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Price Agreement</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_CMConfig__PayoutFrequency__c</picklist>
+        <values>
+            <fullName>Half Yearly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Monthly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>One Time</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Quarterly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yearly</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_CMConfig__QTCProfile__c</picklist>
+        <values>
+            <fullName>Regular</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Split</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_CMConfig__SourceChannel__c</picklist>
+        <values>
+            <fullName>Direct</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>E-Commerce</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EDI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partner</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_CMConfig__UseType__c</picklist>
+        <values>
+            <fullName>Config</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Main</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Pricing</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus__Agreement_Category__c</picklist>
+        <values>
+            <fullName>Customised</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus__AllowableOutputFormats__c</picklist>
+        <values>
+            <fullName>DOC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DOCX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PDF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RTF</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus__Initiation_Type__c</picklist>
+        <values>
+            <fullName>Migrated Contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Negotiate Contract</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Store Executed Contract</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus__Owner_Expiration_Notice__c</picklist>
+        <values>
+            <fullName>120 Days</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15 Days</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>30 Days</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>45 Days</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>60 Days</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>90 Days</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus__Source__c</picklist>
+        <values>
+            <fullName>Ariba Migrated Contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internal Paper</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Other Party Paper</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus__Status_Category__c</picklist>
+        <values>
+            <fullName>Amended</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Authoring</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Effect</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Filing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Signatures</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inactive - **Data Integrity Only**</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renewed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Terminated</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus__Status__c</picklist>
+        <values>
+            <fullName>Activated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Author Contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Being Amended</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Being Renewed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Being Terminated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fully Signed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Amendment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Reconciliation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Renewal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internal Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internal Signatures</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Language Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Language Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Party Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Party Signatures</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ready for Signatures</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reconciled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Returned to Requestor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SFDC Case Created</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Signature Declined</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Signed by Customer Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Submitted Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Superseded</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Terminated</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus__Submit_Request_Mode__c</picklist>
+        <values>
+            <fullName>Auto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manual</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus__Subtype__c</picklist>
+        <values>
+            <fullName>Letter of Intent</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Contract_Schedule__c</picklist>
+        <values>
+            <fullName>Fixed Term</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Open Ended</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Domestic_Parcel_Category__c</picklist>
+        <values>
+            <fullName>CAT0</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAT1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAT2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAT3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAT4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAT5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAT6</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Included_Product_Lines__c</picklist>
+        <values>
+            <fullName>Post Billpay OTC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Billpay Scan %26 Pay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Billpay by Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Billpay on the Internet</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>International_Merchant_Service_Fee__c</picklist>
+        <values>
+            <fullName>1%2E90%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%2E95%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E00%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E05%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E10%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E15%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E20%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E25%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E30%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E35%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E40%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E45%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E50%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E55%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E60%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E65%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E70%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E75%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E80%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E85%25</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%2E90%25</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Term__c</picklist>
+        <values>
+            <fullName>Fixed Term</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Termination_Notice_Period__c</picklist>
+        <values>
+            <fullName>30</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>60</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>90</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Transaction_fee__c</picklist>
+        <values>
+            <fullName>%240%2E00</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>%240%2E10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>%240%2E20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>%240%2E30</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

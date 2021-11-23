@@ -1,0 +1,9 @@
+<aura:component controller="brideas_IdeasCtrl" description="brideas_Unsubscribe" implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="token" type="String" />
+    <aura:attribute name="msg" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    <h1>Ideas unsubscribe</h1>
+    <p>{!v.msg}</p>
+</aura:component>

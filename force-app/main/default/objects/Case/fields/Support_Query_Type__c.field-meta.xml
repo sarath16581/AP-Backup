@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Support_Query_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Support Query Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Access Change</fullName>
+                <default>false</default>
+                <label>Access Change</label>
+            </value>
+            <value>
+                <fullName>Password Reset</fullName>
+                <default>false</default>
+                <label>Password Reset</label>
+            </value>
+            <value>
+                <fullName>Process Query</fullName>
+                <default>false</default>
+                <label>Process Query</label>
+            </value>
+            <value>
+                <fullName>Useability Query</fullName>
+                <default>false</default>
+                <label>Useability Query</label>
+            </value>
+            <value>
+                <fullName>Training</fullName>
+                <default>false</default>
+                <label>Training</label>
+            </value>
+            <value>
+                <fullName>Collateral Review</fullName>
+                <default>false</default>
+                <label>Collateral Review</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,5 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" >
+
+   <c:updatePrimaryPickupLocation recordId="{!v.recordId}" onclose="{!c.closePopUp}"/>
+    
+</aura:component>

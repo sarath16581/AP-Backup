@@ -1,0 +1,83 @@
+<!--
+Author:        Patrick James Franco
+Company:       Cloud Sherpas
+Description:   Customer and Account Summary page for StarStrack Cases
+History
+August 10, 2015 - Patrick James Franco - Created
+March 28, 2016 - David Catindoy - Refactored to become a lightning compatible
+-->
+<apex:page standardController="Case" showHeader="false" standardStylesheets="true" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+<apex:includeScript value="/support/console/25.0/integration.js"/>
+<style>
+
+    thead th {
+        font-size: 80%;
+    }
+
+    tbody td {
+        font-size: 80%;
+    }
+    
+    .bPageBlock .detailList .dataCol{
+        width: 25%;
+    }
+
+    .bPageBlock .detailList .labelCol{
+        width: 0px;
+    }
+
+    </style>
+<script type="text/javascript">
+    function openSubTabDetail(fieldName, objId){
+        if(sforce && sforce.console && sforce.console.isInConsole()){
+            sforce.console.getFocusedPrimaryTabId(function(primaryTab){
+                sforce.console.openSubtab(primaryTab.id, '/' + objId, true, fieldName, null);
+            });
+        }
+    }
+</script>
+<apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <div class="slds" style="padding-left: 5px; padding-right: 5px;">
+        <apex:form >
+        <br/>
+        <apex:pageBlock mode="maindetail">
+            <apex:outputLabel value="Customer Summary" style="font-weight: bold;"/>
+            <apex:pageBlockSection columns="4">
+                <apex:repeat value="{!$ObjectType.Case.FieldSets.Customer_Summary}" var="nd">
+                    <apex:outputPanel >
+                        <b>
+                            <apex:outputLabel value="{!nd.Label}" style="color: #8392aa;"/>
+                        </b>
+                    </apex:outputPanel>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!Case[nd]}" rendered="{!(NOT(OR(nd == 'AccountId', nd == 'Related_Billing_Account__c', nd == 'Account.OwnerId')))}"/>
+                        <apex:outputLink id="complink" onclick="openSubTabDetail('{!CASE(nd, 'AccountId', Case.Account.Name, 'Related_Billing_Account__c', Case.Related_Billing_Account__r.Name, Case.Account.Owner.Name)}','{!Case[nd]}'); return false;" style="display: {!IF(OR(nd == 'AccountId', nd == 'Related_Billing_Account__c', nd == 'Account.OwnerId'), 'block', 'none')}"
+                                        onblur="LookupHoverDetail.getHover(this.id).hide();"
+                                        onmouseout="LookupHoverDetail.getHover(this.id).hide();"
+                                        onfocus="LookupHoverDetail.getHover(this.id, '/{!Case[nd]}/m?retURL=%2F{!Case[nd]}&isAjaxRequest=1').show();"
+                                        onmouseover="LookupHoverDetail.getHover(this.id, '/{!Case[nd]}/m?retURL=%2F{!Case[nd]}&isAjaxRequest=1').show();"
+                                        value="{!Case[nd]}">
+                            <apex:outputText value="{!CASE(nd, 'AccountId', Case.Account.Name, 'Related_Billing_Account__c', Case.Related_Billing_Account__r.Name, Case.Account.Owner.Name)}"/>
+                        </apex:outputLink>
+                    </apex:outputPanel>
+                </apex:repeat>
+            </apex:pageBlockSection>
+            <apex:outputLabel value="Customer Restrictions" style="font-weight: bold;"/>
+            <apex:pageBlockSection columns="4">
+                <apex:repeat value="{!$ObjectType.Case.FieldSets.Customer_Restriction}" var="cr">
+                    <apex:outputPanel >
+                        <b>
+                            <apex:outputLabel value="{!cr.Label}" style="color: #8392aa;"/>
+                        </b>
+                    </apex:outputPanel>
+                    <apex:outputPanel >
+                        <apex:outputField value="{!Case[cr]}"/>
+                    </apex:outputPanel>
+                </apex:repeat>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        </apex:form>
+    </div>
+</html>
+</apex:page>

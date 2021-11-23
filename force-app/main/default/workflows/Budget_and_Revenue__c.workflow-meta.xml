@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Uncheck_Current_Year</fullName>
+        <field>Current_Year__c</field>
+        <literalValue>0</literalValue>
+        <name>Uncheck Current Year</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Budget_and_Revenue_Name</fullName>
+        <description>This workflow rule will update the Budget and Revenue name field.</description>
+        <field>Name</field>
+        <formula>Product__r.Name + &quot; - &quot; +  Budget_and_Revenue_Auto_No__c</formula>
+        <name>Update Budget and Revenue Name</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Current_Year</fullName>
+        <field>Current_Year__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Current Year</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Phase 2 - Check Current Year for roll up purpose</fullName>
+        <actions>
+            <name>Update_Current_Year</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Budget_and_Revenue__c.CreatedById</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Budget_and_Revenue__c.Current_Last_Year__c</field>
+            <operation>equals</operation>
+            <value>This Year</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2 - Uncheck Current Year for roll up purpose</fullName>
+        <actions>
+            <name>Uncheck_Current_Year</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Budget_and_Revenue__c.Current_Last_Year__c</field>
+            <operation>notEqual</operation>
+            <value>THIS YEAR</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Phase 2-Update Budget and Revenue Name</fullName>
+        <actions>
+            <name>Update_Budget_and_Revenue_Name</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Budget_and_Revenue__c.CreatedDate</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>This rule will update the Name field on the Budget and Revenue.</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

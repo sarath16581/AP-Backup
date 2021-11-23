@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Eq_Private_Transit_Mail_Points__c</fullName>
+    <description>The total number of equivalent private transit mail points</description>
+    <externalId>false</externalId>
+    <label>Total Eq Private Transit Mail Points</label>
+    <precision>6</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

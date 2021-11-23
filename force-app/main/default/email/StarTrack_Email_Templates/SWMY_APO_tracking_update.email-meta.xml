@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SWMY - APO tracking update</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SWMY - APO tracking update</name>
+    <style>none</style>
+    <subject>SWMY - APO tracking update</subject>
+    <textOnly>Hi Team,
+Thank you for your enquiry regarding consignment:
+
+Article
+
+{!Case.ArticleTest__c}
+
+Receiver Name
+
+{!Case.Receiver_Name__c}
+
+Address
+
+{!Case.Address4__c}, {!Case.Address4Suburb__c},{!Case.Address4Postcode__c}
+
+Your consignment is with Australia Post and will be taken to your local post office for you to collect later today or tomorrow.
+
+To check the location of your item, please track it at:
+
+https://auspost.com.au/mypost/track/#/search  
+ 
+If you have any other queries please call Startrack on 13 23 45.
+
+Kind regards,
+
+{!User.Name}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

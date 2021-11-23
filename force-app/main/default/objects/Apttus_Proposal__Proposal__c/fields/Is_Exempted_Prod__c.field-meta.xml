@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Exempted_Prod__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This is the backend field used for identifying the products for which we need to create proposal document without pricing</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is the backend field used for identifying the products for which we need to create proposal document without pricing</inlineHelpText>
+    <label>Is Exempted Prod</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

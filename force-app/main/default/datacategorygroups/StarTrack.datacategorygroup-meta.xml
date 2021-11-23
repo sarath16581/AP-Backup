@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataCategoryGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <dataCategory>
+        <dataCategory>
+            <label>Pickup</label>
+            <name>Pickup</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Track &amp; Trace</label>
+            <name>Track_Trace</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Next Flight</label>
+            <name>Next_Flight</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Voice Of Customer</label>
+            <name>Voice_Of_Customer</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Business Solutions</label>
+            <name>Business_Solutions</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Australia Post</label>
+            <name>Australia_Post</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Controlled Returns</label>
+            <name>Controlled_Returns</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Credit</label>
+            <name>Credit</name>
+        </dataCategory>
+        <label>All</label>
+        <name>All</name>
+    </dataCategory>
+    <label>StarTrack</label>
+    <objectUsage>
+        <object>KnowledgeArticleVersion</object>
+    </objectUsage>
+</DataCategoryGroup>

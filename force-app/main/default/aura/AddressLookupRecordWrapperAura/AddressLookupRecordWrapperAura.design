@@ -1,0 +1,8 @@
+<!--
+ - Created by alexvolkov on 5/2/20.
+ -->
+
+<design:component>
+    <design:attribute name="addressType" label="Address Type" dataSource="apex://AddressTypePicklist" required="true"/>
+    <design:attribute name="cardTitle" label="Component Title" required="true"/>
+</design:component>

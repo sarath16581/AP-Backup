@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LPC_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+	OR($UserRole.Name =&apos;Credit Team Lead&apos;, 
+	   $UserRole.Name =&apos;Credit Officer&apos;),
+ RecordType.Name = &apos;Enterprise Credit Dispute Claim&apos;, 
+ NOT(ISPICKVAL(Enquiry_Type__c, &apos;Billing Dispute&apos;)), 
+	NOT(ISPICKVAL(ReasonforCreditClaim__c, &apos;Late payment&apos;)) 
+	)</errorConditionFormula>
+    <errorMessage>You are not allowed to modify cases different from &apos;Late payment&apos; disputes</errorMessage>
+</ValidationRule>

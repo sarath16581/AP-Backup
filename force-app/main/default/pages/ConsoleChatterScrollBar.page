@@ -1,0 +1,38 @@
+<apex:page controller="ConsoleChatterScrollBarController" showHeader="false" sidebar="true" showChat="false">
+    <apex:includeScript value="/support/console/50.0/integration.js"/>
+    <!--<chatter:feed entityId="0F990000000CJ4y" rendered="true"/> -->
+    <chatter:feed entityId="{!chatterGroupId}" rendered="true"/>
+    <script>
+        function srcUp(url) {
+            sforce.console.openPrimaryTab(null, url, true);
+        }
+        
+        setInterval(function(){window.location.href = window.location.href;},60000);
+         
+        function getFeedItemBody() {
+            var feeds = '';
+            var elements = document.getElementsByClassName('feeditemtext');
+         //   for (var i=0; i<elements.length-1; i++) {               
+            
+                     
+         //       feeds += elements[i].innerText + "    |     ";
+   
+          //  }
+          //   feeds += elements[i].innerText;
+          
+          feeds = elements[0].innerText;
+            
+            return feeds;
+        }        
+        
+        var feedItems = getFeedItemBody();
+
+               
+    sforce.console.setCustomConsoleComponentButtonText(feedItems, scrollButtonText);
+    
+    function scrollButtonText() {                   
+         sforce.console.scrollCustomConsoleComponentButtonText(150, 5, true, function(result){});
+     }
+       
+    </script>
+</apex:page>

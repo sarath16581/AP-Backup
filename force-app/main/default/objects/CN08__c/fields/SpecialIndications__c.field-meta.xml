@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SpecialIndications__c</fullName>
+    <externalId>false</externalId>
+    <label>Special Indications</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>By airmail</fullName>
+                <default>false</default>
+                <label>By airmail</label>
+            </value>
+            <value>
+                <fullName>S.A.L.</fullName>
+                <default>false</default>
+                <label>S.A.L.</label>
+            </value>
+            <value>
+                <fullName>Express</fullName>
+                <default>false</default>
+                <label>Express</label>
+            </value>
+            <value>
+                <fullName>Advice of receipt</fullName>
+                <default>false</default>
+                <label>Advice of receipt</label>
+            </value>
+            <value>
+                <fullName>COD</fullName>
+                <default>false</default>
+                <label>COD</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

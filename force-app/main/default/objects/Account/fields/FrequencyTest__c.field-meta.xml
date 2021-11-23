@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FrequencyTest__c</fullName>
+    <description>Populated by Workflow Field Update &quot;Update Frequency&quot;</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The minimum frequency the customer should be contacted/visited, in days</inlineHelpText>
+    <label>Coverage Frequency in Days</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

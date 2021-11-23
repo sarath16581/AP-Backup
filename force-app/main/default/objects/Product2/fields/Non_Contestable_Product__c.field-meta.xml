@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Non_Contestable_Product__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If ticked, this indicates the product is not offered by any competitor (previously known as Reserved Services)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If ticked, this indicates the product is not offered by any competitor (previously known as Reserved Services)</inlineHelpText>
+    <label>Non-Contestable Product</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,8 @@
+The archive contains a combination of the generic Genesys CTI adapter files with minor customisations and a number of additional files.
+
+Additional Files to support customisation
+AP/*.js
+controller/controller.js
+
+Customisation to the core framework (1 file)
+- SFDC.tracking.js: Addition of 4 methods: setCallType, getCallType, setCustom, getCustom

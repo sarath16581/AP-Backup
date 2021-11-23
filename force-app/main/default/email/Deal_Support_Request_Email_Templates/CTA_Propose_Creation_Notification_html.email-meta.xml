@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>The email template is used to notify user once the CTA Propose is created.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>CTA Propose Creation Notification</name>
+    <style>none</style>
+    <subject>A Commit to Action - Propose DSR has been created for your Opportunity</subject>
+    <textOnly>Hi {!Deal_Support_Request__c.Requestor__c},
+
+You have a fantastic opportunity that has been flagged as Major or Complex in the Propose Stage and as such, Salesforce has automatically created a Deal Support Request – Commit to Propose: {!Deal_Support_Request__c.Name}.
+A Commit to Propose is a function within BG&amp;I to ensure that our commercial proposal to your customer is understood and agreed to by all key stakeholders in Australia Post. You can click on the link above and add any comments about the commercials of your deal, and someone from the Deal Desk will be contact with you shortly.
+
+Kind Regards,
+Deal Support Team</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

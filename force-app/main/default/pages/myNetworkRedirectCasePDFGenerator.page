@@ -1,0 +1,22 @@
+<!-- Description:    VF page to generate the case detail print out single/multi
+History:
+--------------------------------------------------
+12/05/2020 - Hara Sahoo Created
+01/10/2021 - Seth Heang Uplift the SP API version to 52
+--->
+<apex:page controller="CasePDFContentGenerator" standardStylesheets="false" showHeader="false" applyBodyTag="false" action="{!updatePrintFlag}" renderAs="pdf">
+    
+    <apex:stylesheet value="{!$Resource.SSSWEmailTemplatesCSS}" />
+    <style>
+    </style>
+    <html> <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        </head></html>
+    <!-- Visualforce component to generate the print-->
+    <body>
+        <c:PDFContentGenerator conObj="{!printInstance}"></c:PDFContentGenerator>
+        
+    </body>
+   
+    
+</apex:page>

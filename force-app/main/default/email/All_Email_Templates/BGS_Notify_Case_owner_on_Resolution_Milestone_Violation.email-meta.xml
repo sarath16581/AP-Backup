@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notify Case owner on Resolution Milestone Violation</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>BGS Notify Case owner on Resolution Milestone Violation</name>
+    <style>none</style>
+    <subject>Case Has Exceeded Resolution Time: {!Case.CaseNumber} - {!Case.OwnerFullName}</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

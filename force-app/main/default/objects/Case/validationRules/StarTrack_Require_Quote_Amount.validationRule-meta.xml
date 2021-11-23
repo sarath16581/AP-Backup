@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Require_Quote_Amount</fullName>
+    <active>true</active>
+    <description>StarTrack - Require a Quote Amount value on Sales Enquiry Case Close</description>
+    <errorConditionFormula>AND(
+    RecordType.Name = &apos;Sales Enquiry&apos;,
+    ISPICKVAL(Call_Purpose__c, &apos;Quoting/Pricing&apos;),
+    OR(
+        ISPICKVAL(Enquiry_Type__c, &apos;Confirm Rates&apos;),
+        ISPICKVAL(Enquiry_Type__c, &apos;One Off Quote&apos;),
+        ISPICKVAL(Enquiry_Type__c, &apos;Quote Based On Rates&apos;)
+    ),
+    ISBLANK(Quote_Amount__c),
+    ISPICKVAL(Status, &apos;Closed&apos;)
+)</errorConditionFormula>
+    <errorDisplayField>Quote_Amount__c</errorDisplayField>
+    <errorMessage>Please provide a value</errorMessage>
+</ValidationRule>

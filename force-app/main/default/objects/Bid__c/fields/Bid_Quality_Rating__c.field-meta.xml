@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bid_Quality_Rating__c</fullName>
+    <description>Assign a graphic rating [stars] based on Bid Quality Score</description>
+    <externalId>false</externalId>
+    <formula>IMAGE( 
+IF( Hidden_Bid_Quality_Score__c &gt;=95, &quot;/img/samples/stars_500.gif&quot;,
+IF( Hidden_Bid_Quality_Score__c  &gt;=85, &quot;/img/samples/stars_400.gif&quot;,
+IF( Hidden_Bid_Quality_Score__c &gt;=65, &quot;/img/samples/stars_300.gif&quot;,
+IF( Hidden_Bid_Quality_Score__c &gt;=45, &quot;/img/samples/stars_200.gif&quot;,
+IF( Hidden_Bid_Quality_Score__c &gt;=30, &quot;/img/samples/stars_100.gif&quot;,
+&quot;/img/samples/stars_000.gif&quot;))))),&quot;Bid Quality Rating&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Based on Bid Quality Score:
+5 stars = 95 or greater
+4 stars = 85 or greater
+3 stars = 65 or greater
+2 stars = 45 or greater
+1 star = 30 or greater</inlineHelpText>
+    <label>Bid Quality Rating</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

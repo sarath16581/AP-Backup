@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Send email to opportunity owner when Customised Contract assistance owner has changed</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Opportunity Owner On Change of Owner</name>
+    <style>none</style>
+    <subject>Commercial Team Request sent to Commercial Team</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

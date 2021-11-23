@@ -1,0 +1,40 @@
+<apex:page Controller="RunBatchJobs" title="Run Batch Jobs" id="RBJPage">
+<!-- 
+    Type:       VF page
+    Purpose:    Enable admins to schedule batch jobs using Custom Setting values
+    ---------------------------------------------------------------
+    History:
+    27-Feb-2013 Manu Erwin (Salesforce.com)     ECLM: Phase 3: Updated to include Schedule OFTR batch functionality
+    12-09-2013 Clinton McIntyre (Salesforce.com)    OPC Validation Rebuild - added OPC Validation Schedule Button
+ -->
+
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock id="RBJPageBlock">
+            <apex:pageBlockSection title="Opportunity Product Classification" columns="1" collapsible="false">
+                <apex:commandButton action="{!executeOPCBatchableSchedulable}" value="Execute OPC"></apex:commandButton>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Budget and Revenue" columns="1" collapsible="false">
+                <apex:commandButton action="{!executeBudgetRevenueBatchable}" value="Execute BAR"></apex:commandButton>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Segmentation Change Request" columns="1" collapsible="false">
+                <apex:commandButton action="{!executeSegmentationChangeRequest}" value="Execute SCR"></apex:commandButton>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Schedule Opportunity Fixed Term Renewal Batch with Custom Setting values" columns="1" collapsible="false">
+                <apex:commandButton action="{!scheduleOpportunityFixedTermRenewal}" value="Schedule OFTR"></apex:commandButton>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Schedule Opportunity Open Ended Review Batch with Custom Setting values" columns="1" collapsible="false">
+                <apex:commandButton action="{!scheduleOpportunityOpenEndedReview}" value="Schedule OOER"></apex:commandButton>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Schedule OPC Validation Batch with with Custom Setting values" columns="1" collapsible="false">
+                <apex:commandButton action="{!scheduleOPCValidationService}" value="Schedule OPC Validation"></apex:commandButton>
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

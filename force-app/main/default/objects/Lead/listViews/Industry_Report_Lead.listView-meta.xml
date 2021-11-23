@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Industry_Report_Lead</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Industry Report</label>
+    <queue>Industry_Report</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

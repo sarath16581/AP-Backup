@@ -1,0 +1,13 @@
+<messaging:emailTemplate subject="{!RelatedTo.Type} - {!RelatedTo.NetworkName__c} - Case: {!RelatedTo.CaseNumber}" recipientType="Contact" relatedToType="Case">
+
+<messaging:htmlEmailBody >
+<html>
+    <body>
+        <c:DISEmailTemplate compId="{!RelatedTo.Id}"/>
+    
+        <br/><br/>
+    </body>
+</html>
+</messaging:htmlEmailBody>
+
+</messaging:emailTemplate>

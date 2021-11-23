@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Information Only Lead: (to be used for lead status – Information only)</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Lead Seeker - Information Only Lead</name>
+    <style>none</style>
+    <subject>Seeker Rewards Program – Update on {!Lead.Lead_Number__c} for {!Lead.Company}</subject>
+    <textOnly>Dear {!Lead.First_Name_Formula__c},
+
+Thank you for submitting a new business lead.
+
+We have been in touch with the potential customer and, at this stage they are only interested in receiving information on our products / services. Because they don’t want to progress any further for now, we’ll ‘close’ the lead. This means that we cannot award you points at this time.
+
+However, we’re keeping your lead on file. So if the customer contacts us in the future to progress with the sales process, you would then be awarded the appropriate value of points.
+
+There’s nothing further you need to do; we’ll be in touch if anything changes.
+
+In the meantime, please remember that every lead is valuable (and could earn you points!). So please keep them coming!
+
+Regards,
+The Seeker Team
+
+
+
+Terms &amp; conditions | Privacy policy | Security
+
+
+
+
+
+Contact us: If this email has been incorrectly sent to you or the information contained within isn’t correct, please let us know at seekerrewards@auspost.com.au
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

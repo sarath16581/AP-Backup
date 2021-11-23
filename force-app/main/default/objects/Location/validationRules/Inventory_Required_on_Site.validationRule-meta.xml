@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Inventory_Required_on_Site</fullName>
+    <active>true</active>
+    <description>Indicates whether the location stores product.  Transport records product against site, so this field must be checked to associated product items with the location.</description>
+    <errorConditionFormula>ISPICKVAL(LocationType , &apos;Site&apos;) 
+&amp;&amp; (IsInventoryLocation = false)</errorConditionFormula>
+    <errorMessage>Inventory Location is required for Site.</errorMessage>
+</ValidationRule>

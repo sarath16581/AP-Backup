@@ -1,0 +1,53 @@
+<!--
+ - Created by shashwat.a.nath on 17/09/2019.
+ - This VF page is invoked from the Delete Button on Event Record Detail Page
+ - Visualforce Remote Action call to "deleteEvent" when user clicks on the Delete Button and user is redirected to the Home Page
+ -->
+
+<apex:page standardController="Event"
+           id="EventDeletePage"
+           extensions="EventDeletePageController">
+
+    <!--Included required scripts-->
+    <apex:includeScript value="/soap/ajax/36.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/36.0/apex.js"/>
+    <apex:includeScript value="/support/console/46.0/integration.js"/>
+    <!-- Script starts -->
+    <script type="text/javascript">
+        if("{!Event.Work_Day_Adjustments__c }" !== "" &&
+            "{!Event.Work_Day_Adjustments__c }" !== null &&
+            "{!$Profile.Name}"!=="System Administrator" &&
+            "{!$Profile.Name}"!=="Sales Admin"){
+            alert( "This activity has been linked to a SIS activity metric and as such cannot be deleted. Please contact your Sales Effectiveness contact should you need this record removed." );
+            window.location = '/{!Event.id}';
+        }
+        else {
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.EventDeletePageController.deleteEvent}', '{!Event.id}',
+                function (result, event) {
+                    if (event.status) {
+                        // On Success
+                        console.log('Success');
+                        if (UITheme.getUITheme() === 'Theme4d' || UITheme.getUITheme() === 'Theme4u'){
+                            sforce.one.navigateToURL('/lightning/page/home',true);
+                        }
+                        else{
+                            window.location = '/home/home.jsp';
+                        }
+
+                    } else {
+                        // On Failure or Exception
+                        alert('You don\'t have access to delete this record.');
+                        if (UITheme.getUITheme() === 'Theme4d' || UITheme.getUITheme() === 'Theme4u'){
+                            sforce.one.navigateToURL('/{!Event.id}');
+                        }
+                        else{
+                            window.location = '/{!Event.id}';
+                        }
+                    }
+                },
+                {escape: true}
+            );
+        }
+    </script>
+</apex:page>

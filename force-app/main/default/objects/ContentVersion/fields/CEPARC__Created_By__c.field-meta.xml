@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEPARC__Created_By__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Created By when picked up by the DataArchiva App</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Created By when picked up by the DataArchiva App</inlineHelpText>
+    <label>Created By (Before Archival)</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Content_Versions_Created</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

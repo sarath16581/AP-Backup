@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_AIRPTI_AVG_Weight</fullName>
+    <active>true</active>
+    <description>Pack &amp; Track International AVG Weight (KG) must be less than 2 kg.</description>
+    <errorConditionFormula>ISPICKVAL(APT_Volume_Data__c, &apos;Yes&apos;) &amp;&amp; 
+((APT_PackNTrackInternationalAnnualVolume__c != 0 
+&amp;&amp; (NOT(  APT_PackNTrackInternationalAVGWeightKG__c &gt;= 0.001) || NOT(  APT_PackNTrackInternationalAVGWeightKG__c &lt;= 2))) 
+|| (APT_PackNTrackInternationalAnnualVolume__c != 0 &amp;&amp; APT_PackNTrackInternationalAVGWeightKG__c = 0)) &amp;&amp; NOT( Apttus_Config2__IsTransient__c)</errorConditionFormula>
+    <errorDisplayField>APT_PackNTrackInternationalAVGWeightKG__c</errorDisplayField>
+    <errorMessage>Invalid value for Pack and Track International AVG Weight (KG).</errorMessage>
+</ValidationRule>

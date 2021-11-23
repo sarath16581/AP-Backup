@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Disable_Max_On_Plan_Overview_Page__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This setting controls whether the Max panel is included on the Plan Overview page.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This setting controls whether the Max panel is included on the Plan Overview page.</inlineHelpText>
+    <label>Disable Max On Plan Overview Page</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RegisteredBusinessTradingAs__c</fullName>
+    <description>User to input - no punctuation or special characters (e g. / ) up to 40 characters</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Business name / Trading name</inlineHelpText>
+    <label>Trading Name</label>
+    <length>40</length>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

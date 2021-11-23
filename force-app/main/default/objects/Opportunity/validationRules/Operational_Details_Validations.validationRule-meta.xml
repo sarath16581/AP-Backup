@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Operational_Details_Validations</fullName>
+    <active>true</active>
+    <description>Billing Account related validation</description>
+    <errorConditionFormula>AND(
+ISPICKVAL(Type_of_billing_account_required__c ,&quot;Existing Billing Account&quot;),
+ISBLANK(Billing_Account__c)
+)</errorConditionFormula>
+    <errorMessage>If existing billing account is required, an existing billing account must be nominated</errorMessage>
+</ValidationRule>

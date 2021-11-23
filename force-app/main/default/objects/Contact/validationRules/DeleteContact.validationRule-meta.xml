@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DeleteContact</fullName>
+    <active>true</active>
+    <errorConditionFormula>Delete_Locked__c == true &amp;&amp;   ISPICKVAL( Delete_Locked_Reason__c , &quot;&quot;)</errorConditionFormula>
+    <errorDisplayField>Delete_Locked_Reason__c</errorDisplayField>
+    <errorMessage>Delete Locked Reason is required when Delete Locked is checked</errorMessage>
+</ValidationRule>

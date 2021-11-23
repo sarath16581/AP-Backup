@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@auspost.com.au</email>
+    <name>SSSW Customer Recovery</name>
+    <queueMembers>
+        <users>
+            <user>daniel.mundy@auspost.com.au</user>
+            <user>darryl.forday@auspost.com.au</user>
+            <user>kristian.brooks@auspost.com.au</user>
+            <user>leah.hogg@auspost.com.au</user>
+            <user>melissa.krapez@auspost.com.au</user>
+            <user>michael.key@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

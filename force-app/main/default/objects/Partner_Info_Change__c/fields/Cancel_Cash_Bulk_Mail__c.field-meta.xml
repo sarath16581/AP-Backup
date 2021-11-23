@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cancel_Cash_Bulk_Mail__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Flag indicating whether LPO cancelled bulk mail.</description>
+    <externalId>false</externalId>
+    <label>Cancel Cash Bulk Mail</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

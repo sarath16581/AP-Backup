@@ -1,0 +1,20 @@
+<messaging:emailTemplate renderUsingSystemContextWithoutSharing="true" subject="New Credit Management Request submitted : {!relatedTo.Name}" recipientType="User" relatedToType="Deal_Support_Request__c">
+<messaging:htmlEmailBody >
+
+<p>Hello,</p>
+<p>A new support request has been submitted : {!relatedTo.Name} </p>
+
+<p>Request can be reviewed by following the below link:<br/>
+<apex:outputlink value="{!LEFT($Api.Partner_Server_URL_140,FIND('.com',$Api.Partner_Server_URL_140)+4)+relatedTo.Id}">{!relatedTo.Name}</apex:outputlink> 
+<br/>
+or by entering support request number in global search within Salesforce.</p>
+
+
+<p>Regards <br/>
+Salesforce</p>
+
+
+</messaging:htmlEmailBody>
+
+
+</messaging:emailTemplate>

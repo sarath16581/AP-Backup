@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Type__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (NOT(ISBLANK(TEXT(Contact__r.Account.ServiceSLA__c))), TEXT(Contact__r.Account.ServiceSLA__c),
+IF (Contact__r.Account.Role_Type_Roll_Up__c==&quot;Customer&quot;, &quot;Silver&quot;,
+&quot;Consumer&quot;))</formula>
+    <label>Customer Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

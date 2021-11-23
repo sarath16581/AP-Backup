@@ -1,0 +1,171 @@
+<!--
+	Review bulk upload request that is currently being uploaded.
+
+    Changelog:
+    2021-01-22 - Ranjeewa Silva - Created.
+ -->
+<template>
+
+    <template if:true={errorMessage}>
+        <!-- Status messages -->
+        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-m-top_mediumxx">
+            <div>
+                <p>{errorMessage}</p>
+            </div>
+        </div>
+    </template>
+
+    <div class="slds-grid slds-gutters slds-m-top_medium slds-m-bottom_medium slds-wrap slds-grow slds-grid_vertical-stretch">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+            <article class="slds-card slds-card_boundary" style="height:100%">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="utility:preview" title="Preview File" size="small"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <span>Preview File - {fileName}</span>
+                            </h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_innerXXX slds-scrollable" style="max-height:300px;">
+                    <table class="slds-table slds-table_bordered" role="grid">
+                        <thead>
+                        <tr class="slds-line-height_reset">
+                            <!-- Iterating columns-->
+                            <template for:each={filePreview.columns} for:item="column">
+                                <th key={column} data-id={column}>
+                                    <div class="slds-truncate slds-text-align--left">
+                                        {column}
+                                    </div>
+                                </th>
+                            </template>
+                        </tr>
+                        </thead>
+                        <tbody class="brand-table">
+                        <!-- Iterating requests-->
+                        <template for:each={filePreview.data} for:item="lineItem">
+                            <tr class="slds-hint-parent" key={lineItem.key}>
+                                <template for:each={lineItem._columns} for:item="column">
+                                    <td class="slds-cell-wrap" key={column.key}>
+                                        <c-formatted-text-label type={column.fieldType} value={column.fieldValue}>
+                                        </c-formatted-text-label>
+                                    </td>
+                                </template>
+                            </tr>
+                        </template>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+            <article class="slds-card slds-card_boundary" style="height:100%">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="utility:data_mapping" title="Data Mapping" size="small"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <span>Mapping</span>
+                            </h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-3 slds-p-bottom_small" style="border-right:1px solid lightgray; padding-left:0px">
+                            <article class="slds-tile slds-tile_board">
+                                <h3 class="slds-tile__title slds-truncate" title="Mapped Fields">Mapped Fields</h3>
+                                <div class="slds-tile__detail">
+                                    <p class="slds-text-heading_large">{fieldMapping.mappedFieldsCount}</p>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3 slds-p-bottom_small" style="border-right:1px solid lightgray;">
+                            <article class="slds-tile slds-tile_board">
+                                <h3 class="slds-tile__title slds-truncate" title="Unmapped Fields">Unmapped Fields</h3>
+                                <div class="slds-tile__detail">
+                                    <p class="slds-text-heading_large">{fieldMapping.unmappedFieldsCount}</p>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3 slds-p-bottom_small">
+                            <article class="slds-tile slds-tile_board">
+                                <h3 class="slds-tile__title slds-truncate" title="Missing Fields">Missing Fields</h3>
+                                <div class="slds-tile__detail">
+                                    <p class="slds-text-heading_large">{fieldMapping.missingFieldsCount}</p>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-scrollable_y slds-p-left_none" style="max-height:230px">
+                            <table class="slds-table slds-table_bordered slds-m-top_medium" role="grid">
+                                <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th data-id="field">
+                                        <a class="slds-th__action slds-text-link_reset"  data-id="field" >
+                                            <div class="slds-truncate slds-text-align--left" data-id="field">Field</div>
+                                        </a>
+                                    </th>
+                                    <th data-id="status">
+                                        <a class="slds-th__action slds-text-link_reset"  data-id="status" >
+                                            <div class="slds-truncate slds-text-align--left" data-id="status">Status</div>
+                                        </a>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <template for:each={fieldMapping.missingFields} for:item="missingField">
+                                    <tr class="slds-hint-parent" key={missingField.fieldName}>
+                                        <td class="slds-cell-wrap">
+                                            <c-formatted-text-label type="STRING" value={missingField.fieldName}>
+                                            </c-formatted-text-label>
+                                        </td>
+                                        <td class="slds-cell-wrap">
+                                            <lightning-badge label="Missing" icon-name="utility:error" class="slds-theme_error bulk-load-badge_missing">
+                                            </lightning-badge>
+                                        </td>
+                                    </tr>
+                                </template>
+                                <template for:each={fieldMapping.mapping} for:item="mapping">
+                                    <tr class="slds-hint-parent" key={mapping.fieldName}>
+                                        <td class="slds-cell-wrap">
+                                            <c-formatted-text-label type="STRING" value={mapping.fieldName}>
+                                            </c-formatted-text-label>
+                                        </td>
+                                        <td class="slds-cell-wrap">
+                                            <template if:true={mapping.isMapped}>
+                                                <lightning-badge label="Mapped" icon-name="utility:success" class="slds-theme_success bulk-load-badge_mapped">
+                                                </lightning-badge>
+                                            </template>
+                                            <template if:false={mapping.isMapped}>
+                                                <lightning-badge label="Unmapped" icon-name="utility:warning" class="slds-theme_warning bulk-load-badge_unmapped">
+                                                </lightning-badge>
+                                            </template>
+                                        </td>
+                                    </tr>
+                                </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <div class="slds-clearfix">
+        <div class="slds-button-group-row slds-float_right">
+            <div class="slds-button-group-item">
+                <lightning-button label="Cancel" variant="neutral" onclick={handleCancelUpload}></lightning-button>
+            </div>
+            <div class="slds-button-group-item">
+                <lightning-button label="Confirm" variant="brand" onclick={handleConfirmUpload} disabled={hasErrors}></lightning-button>
+            </div>
+        </div>
+    </div>
+
+</template>

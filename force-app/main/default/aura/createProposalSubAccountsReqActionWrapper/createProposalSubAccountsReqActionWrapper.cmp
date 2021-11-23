@@ -1,0 +1,17 @@
+<!--
+  * @author       : Dheeraj Mandavilli. dheeraj.mandavilli@auspost.com.au
+  * @date         : 14/05/2021
+  * @description  : Component used as wrapper for Sub Account Request Quick Action Button. It has following features
+  *                 1. It invokes createSubAccountsFromProposal LWC component.
+*********************************History*******************************************************************
+14.05.2021    Dheeraj Mandavilli   Created
+-->
+
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" controller="CreateSubAccountsController">
+
+    <aura:attribute name="initialLoad" type="Boolean" default='true'/>
+    <aura:attribute name="recordId" type="String" />
+
+    <aura:handler name="init" action="{!c.navigateToCreateSubAccountCmp}"  value="{!this}" />
+
+</aura:component>

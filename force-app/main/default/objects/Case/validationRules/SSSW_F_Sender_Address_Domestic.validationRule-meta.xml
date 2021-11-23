@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_F_Sender_Address_Domestic</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND((Address1__c=NULL||Address1__c=&quot;,,AU&quot;||Address1__c=&quot;,,Australia&quot;||LEN(Address1__c)&lt;4),
+NOT(ISPICKVAL(Origin,&quot;Web&quot;)),
+NOT(ISPICKVAL(Origin,&quot;Portal&quot;)),NOT(ISPICKVAL( Origin , &quot;Internal form&quot;)), 
+NOT(ISNEW()),
+ISBLANK(TEXT(CCUEnquiryType__c)),
+CONTAINS(RecordType.DeveloperName,&quot;SSSWDelivery&quot;),
+Bypass_Data_enforcement__c=FALSE,
+Email_Bypass_Data_enforcement__c=FALSE,
+OR(
+AND(ISPICKVAL(ProductCategory__c,&quot;Domestic Parcels&quot;),
+OR(
+ISPICKVAL(EnquirySubType__c,&quot;Delayed - inside network&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;Delayed - outside network&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;RTS request&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;Withdrawal from post&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;Mail not being redirected/held&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;Incorrect mail being redirected/held&quot;),	
+ISPICKVAL(EnquirySubType__c,&quot;Express guarantee failure&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;Delayed delivery&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;Facility reported damages&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;Redirection failure&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;Remittance not received&quot;))),
+
+AND (ISPICKVAL (ProductCategory__c,&quot;Domestic Letters&quot;), 
+OR(
+ISPICKVAL(EnquirySubType__c,&quot;Delayed - inside network&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;Delayed - outside network&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;RTS request&quot;), 
+ISPICKVAL(EnquirySubType__c,&quot;Withdrawal from post&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;Mail not being redirected/held&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;Incorrect mail being redirected/held&quot;),	
+ISPICKVAL(EnquirySubType__c,&quot;Express guarantee failure&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;Delayed delivery&quot;),	
+ISPICKVAL(EnquirySubType__c,&quot;Facility reported damages&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;Redirection failure&quot;),
+ISPICKVAL(EnquirySubType__c,&quot;Remittance not received&quot;)))
+
+)
+)</errorConditionFormula>
+    <errorMessage>You must populate the &apos;Sender Address&apos; field before you can save the record</errorMessage>
+</ValidationRule>

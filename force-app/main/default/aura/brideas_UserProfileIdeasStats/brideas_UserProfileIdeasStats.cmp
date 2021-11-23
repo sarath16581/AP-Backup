@@ -1,0 +1,47 @@
+<aura:component description="brideas_UserProfileIdeasStats" controller="brideas_UserProfileIdeasStatsCtrl"
+                implements="forceCommunity:availableForAllPageTypes,force:hasRecordId" access="global">
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="ideasNumber" type="Integer" default="0" />
+    <aura:attribute name="ideaCommentsNumber" type="Integer" default="0" />
+    <aura:attribute name="votesNumber" type="Integer" default="0" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="ideas-stats">
+        <div class="slds-p-left--medium slds-p-right--medium">
+            <div class="slds-p-left--x-small slds-p-top--small">
+                <h2 class="header-label slds-text-body--large"><span>Ideas</span></h2>
+            </div>
+            <div class="slds-p-left--x-small slds-p-bottom--x-small slds-p-top--x-small">
+                <table class="slds-tableslds-table_cell-buffer">
+                    <thead>
+                    <tr>
+                        <th scope="col">
+                            <div class="slds-truncate statDesc" title="Submitted">Submitted</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate statDesc" title="Comments">Comments</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate statDesc" title="Votes given">Votes given</div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td data-label="Submitted">
+                            <div class="slds-truncate">{!v.ideasNumber}</div>
+                        </td>
+                        <td data-label="Comments">
+                            <div class="slds-truncate">{!v.ideaCommentsNumber}</div>
+                        </td>
+                        <td data-label="Votes given">
+                            <div class="slds-truncate">{!v.votesNumber}</div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Partnership_Team__c</fullName>
+    <externalId>false</externalId>
+    <label>Service Partner Team</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Business North</fullName>
+                <default>false</default>
+                <label>Business North</label>
+            </value>
+            <value>
+                <fullName>Business South</fullName>
+                <default>false</default>
+                <label>Business South</label>
+            </value>
+            <value>
+                <fullName>Intermediaries</fullName>
+                <default>false</default>
+                <label>Intermediaries</label>
+            </value>
+            <value>
+                <fullName>Key &amp; Strategic North</fullName>
+                <default>false</default>
+                <label>Key &amp; Strategic North</label>
+            </value>
+            <value>
+                <fullName>Key &amp; Strategic South</fullName>
+                <default>false</default>
+                <label>Key &amp; Strategic South</label>
+            </value>
+            <value>
+                <fullName>Enterprise</fullName>
+                <default>false</default>
+                <label>Enterprise</label>
+            </value>
+            <value>
+                <fullName>Government South</fullName>
+                <default>false</default>
+                <label>Government South</label>
+            </value>
+            <value>
+                <fullName>Government North</fullName>
+                <default>false</default>
+                <label>Government North</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

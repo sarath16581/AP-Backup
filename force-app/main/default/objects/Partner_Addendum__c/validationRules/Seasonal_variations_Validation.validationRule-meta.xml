@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Seasonal_variations_Validation</fullName>
+    <active>true</active>
+    <description>Seasonal variations from and to dates need to be validated to ensure that the max period is no more than 3 months</description>
+    <errorConditionFormula>AND((RecordType.DeveloperName = &apos;Seasonal_Variation&apos;), 
+ IF( End_Date__c -  Start_Date__c &gt; 93, true, false) )</errorConditionFormula>
+    <errorMessage>Seasonal variations from and to dates need to be validated to ensure that the max period is no more than 3 months</errorMessage>
+</ValidationRule>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assignment_Confirmed__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>To display confirmation that the Assignment has been confirmed and Switch On process can occur</description>
+    <externalId>false</externalId>
+    <inlineHelpText>To display confirmation that the Assignment has been confirmed and Switch-On process can occur</inlineHelpText>
+    <label>Assignment Confirmed</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

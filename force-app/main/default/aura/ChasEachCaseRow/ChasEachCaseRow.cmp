@@ -1,0 +1,25 @@
+<aura:component controller='ChasCustomCaseListAndDetailController' description="Displays a single case record in the ChasCaseList component. Desktop view">
+    <aura:attribute name="caseObj" type="Case"/>
+    <aura:attribute name="statusColour" type="String"/>
+    <aura:attribute name="colourMap" type="Map" default="{
+          'Closed' : 'black',
+          'Resolved' : 'green',
+          'Action required' : 'red',
+          'In progress' : 'blue'
+          }"/>
+
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }"/>
+
+    <tr class="chas-table-row" onclick='{!c.navigateTorecordDetail}'>
+        <td scope="row">
+            <a onclick='{!c.navigateTorecordDetail}'>{!v.caseObj.CHASEnquiryType__c}</a>
+        </td>
+        <td scope="row">
+            {!v.caseObj.CaseNumber}
+        </td>
+        <td scope="row">
+            <ui:outputDate value='{!v.caseObj.LastModifiedDate}'></ui:outputDate>
+        </td>
+        <td scope="row" class="{! 'status ' + v.statusColour }">{!v.caseObj.Enquiry_Status__c}</td>
+    </tr>
+</aura:component>

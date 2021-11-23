@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>icons / ic_search</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M20.4182719,34.5282754 C12.3084945,34.5282754 5.74783808,28.0776783 5.74783808,20.1234002 C5.74783808,12.1660318 12.3116159,5.70440297 20.4182719,5.70440297 C28.5252348,5.70440297 35.0901178,12.1663359 35.0901178,20.1234002 C35.0901178,28.0773745 28.5283565,34.5282754 20.4182719,34.5282754 Z M40.8365438,20.1234002 C40.8365438,9.00234763 31.6913632,0 20.4182719,0 C9.14518055,0 0,9.00234763 0,20.1234002 C0,31.232682 9.14756128,40.2326784 20.4182719,40.2326784 C24.7273849,40.2326784 28.8326825,38.9088484 32.2566748,36.498823 L43.1001152,47.1705709 C44.2202539,48.2769797 46.0304662,48.2769797 47.1508954,47.1675478 C48.2832416,46.0772351 48.2832416,44.2460613 47.1496547,43.1263724 L36.4260396,32.5693365 C39.2579451,29.0498319 40.8365438,24.7101769 40.8365438,20.1234002 Z" id="path-1"></path>
+    </defs>
+    <g id="icons-/-ic_search" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="ic_search" fill="#DC192D" fill-rule="nonzero" xlink:href="#path-1"></use>
+        <g id="↳-colour-/-dark" mask="url(#mask-2)" fill="#FFFFFF">
+            <rect x="0" y="0" width="48" height="48"></rect>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,21 @@
+<aura:component description="Styled heading used in wizard pages">
+    <!-- Attributes -->
+    <aura:attribute name='superMsg' type='String' description='message that goes above the main heading label'/>
+    <aura:attribute name='headingLabel' type='String'/>
+    <aura:attribute name='small' type='Boolean'/>
+
+    <fieldset class="slds-form-element">
+        <legend class="slds-form-element__label slds-form-element__legend">
+            <aura:if isTrue='{!v.superMsg}'>
+                <div class="chas-body_small">
+                    <aside>{! v.superMsg }</aside>
+                </div>
+            </aura:if>
+
+            <div class="{! 'chas-legend-title small-' + v.small }">
+                <h2>{! v.headingLabel }</h2>
+            </div>
+        </legend>
+    </fieldset>
+
+</aura:component>

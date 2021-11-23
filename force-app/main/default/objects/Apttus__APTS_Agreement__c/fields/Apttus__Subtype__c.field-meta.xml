@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus__Subtype__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The subtype of the agreement for a given agreement type</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Depending on selection in this field, appropriate set of templates will be visible upon clicking &apos;Generate&apos;/&apos;Regenerate&apos; button.
+
+Note - this field is not used by StarTrack</inlineHelpText>
+    <label>Subtype</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Long Form</fullName>
+                <default>true</default>
+                <label>Long Form</label>
+            </value>
+            <value>
+                <fullName>Letter of Intent</fullName>
+                <default>false</default>
+                <label>Letter of Intent</label>
+            </value>
+            <value>
+                <fullName>Applications and Questionnaire</fullName>
+                <default>false</default>
+                <label>Applications and Questionnaire</label>
+            </value>
+            <value>
+                <fullName>Rebate</fullName>
+                <default>false</default>
+                <label>Rebate</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

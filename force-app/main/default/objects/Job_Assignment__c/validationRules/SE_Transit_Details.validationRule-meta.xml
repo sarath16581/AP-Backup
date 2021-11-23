@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SE_Transit_Details</fullName>
+    <active>true</active>
+    <description>AWB number. If AWB number not available , user to capture Trailer number in AWB number field.</description>
+    <errorConditionFormula>AND
+(
+RecordType.DeveloperName = &apos;Security_Express&apos;,
+ISPICKVAL(Status__c,&apos;Closed&apos;),
+OR(ISPICKVAL(Type__c,&apos;Pick Up&apos;),ISPICKVAL(Type__c,&apos;Trans-shipment 1&apos;),ISPICKVAL(Type__c,&apos;Trans-shipment 2&apos;)),
+Skip__c = False,
+ISBLANK(Airway_Bill_Number__c)
+)</errorConditionFormula>
+    <errorMessage>Please provide Airway Bill Number</errorMessage>
+</ValidationRule>

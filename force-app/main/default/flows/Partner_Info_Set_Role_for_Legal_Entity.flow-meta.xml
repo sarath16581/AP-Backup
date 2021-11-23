@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <description>If the Org Role of Legal Entity is Prospect, then this Flow changes it to Partner.</description>
+    <interviewLabel>Partner Info - Set Role for Legal Entity {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Partner Info - Set Role for Legal Entity</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Role</name>
+        <label>Update Role</label>
+        <locationX>341</locationX>
+        <locationY>173</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Organisation__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>LegalEntity.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Role_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Prospect</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Role_Type__c</field>
+            <value>
+                <stringValue>Partner</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Organisation_Role__c</object>
+    </recordUpdates>
+    <startElementReference>Update_Role</startElementReference>
+    <status>Active</status>
+    <variables>
+        <description>Legal Entity related to the Licence i.e. Parent of the Licence</description>
+        <name>LegalEntity</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+</Flow>

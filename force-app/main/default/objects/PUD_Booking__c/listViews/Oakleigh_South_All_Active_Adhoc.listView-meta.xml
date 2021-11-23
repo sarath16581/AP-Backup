@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Oakleigh_South_All_Active_Adhoc</fullName>
+    <columns>NAME</columns>
+    <columns>Route_Lookup__c</columns>
+    <columns>Job_Type__c</columns>
+    <columns>Location__c</columns>
+    <columns>Booking_Location__c</columns>
+    <columns>Street__c</columns>
+    <columns>City__c</columns>
+    <columns>Post_Code__c</columns>
+    <columns>Effective_Date__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>PUD_Booking__c.AP_Adhoc_Pickup</value>
+    </filters>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>oak</value>
+    </filters>
+    <filters>
+        <field>Effective_Date__c</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>Oakleigh South - All Active - Adhoc</label>
+</ListView>

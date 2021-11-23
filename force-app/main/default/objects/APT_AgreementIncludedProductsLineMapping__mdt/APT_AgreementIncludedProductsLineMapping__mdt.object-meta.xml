@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Agreement Included Products Line Mapping</label>
+    <pluralLabel>Agreement Included Products Line Mapping</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

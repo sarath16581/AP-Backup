@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact_A__c</fullName>
+    <description>REQ1943772 created so the lead verifcation team know how many contact attempts a lead has had</description>
+    <externalId>false</externalId>
+    <inlineHelpText>How many times the lead has tried to be contacted</inlineHelpText>
+    <label>Contact Attempts</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1st Contact Attempt</fullName>
+                <default>false</default>
+                <label>1st Contact Attempt</label>
+            </value>
+            <value>
+                <fullName>2nd Contact Attempt</fullName>
+                <default>false</default>
+                <label>2nd Contact Attempt</label>
+            </value>
+            <value>
+                <fullName>3rd Contact Attempt</fullName>
+                <default>false</default>
+                <label>3rd Contact Attempt</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

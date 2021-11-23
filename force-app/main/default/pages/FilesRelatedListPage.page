@@ -1,0 +1,78 @@
+<apex:page standardController="Apttus__APTS_Agreement__c" extensions="FilesRelatedListExtension" showHeader="false" sidebar="false">
+    <apex:form id="form1">
+        <apex:pageBlock >
+            <!--
+            <apex:inputFile value="{!file}" fileName="{!fileName}"/>
+            <apex:commandbutton action="{!uploadFile}" value="Upload Files" status="status"/>
+            -->
+            <apex:actionStatus id="status">
+                <apex:facet name="start">
+                    <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; z-index: 1000; background-color: black;"/>
+                    <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 15% 50%">
+                        <div style="display: inline-block; padding: 2px; background-color: #fff; width: 125px;">
+                            <img src="/img/loading.gif" style="float: left; margin: 8px;" />
+                            <span style="display: inline-block; padding: 10px 0px;">Please Wait...</span>
+                        </div>
+                    </div>
+                </apex:facet>
+            </apex:actionStatus>
+            <script>
+                function redirectEditPage(){
+                    window.top.location.href = '/apex/FilesEditPage?Id=' + "{!Apttus__APTS_Agreement__c.Id}";
+                }
+            </script>
+            <apex:commandbutton action="{!goToFilesEditPage}" value="Mass Update Files" onclick="redirectEditPage();"/>
+            &nbsp; Select Signature Type: 
+            <apex:selectList size="1" value="{!selectedType}">
+                <apex:actionSupport event="onchange" action="{!setStatus}" rerender="filestable"/>
+                <apex:selectOptions value="{!optionsSignatureType}"></apex:selectOptions>
+            </apex:selectList>
+            &nbsp; Select if signed:
+            <apex:selectList size="1" value="{!ifSigned}">
+                <apex:actionSupport event="onchange" action="{!setIsSigned}" rerender="filestable"/>
+                <apex:selectOptions value="{!optionsIfSigned}"></apex:selectOptions>
+            </apex:selectList>
+            &nbsp; Select Document Type:
+            <apex:selectList size="1" value="{!docuType}">
+                <apex:actionSupport event="onchange" action="{!setDocType}" rerender="filestable"/>
+                <apex:selectOptions value="{!optionsDocumentType}"></apex:selectOptions>
+            </apex:selectList>
+            <apex:pageBlockTable value="{!cvList}" var="cVersion" styleClass="tableClass" id="filestable">
+                <apex:column >
+                    <apex:facet name="header">Actions</apex:facet>
+                    <apex:outputLink value="/{!cVersion.ContentDocumentID}" target="_blank"> Preview </apex:outputLink> |
+                    <apex:outputLink value="{!URLFOR('/sfc/servlet.shepherd/version/download/' & cVersion.ID &'?')}"> Download </apex:outputLink>
+                    <!--
+                    <apex:commandLink value=" Del" onclick="return confirm('Are you sure?')" action="{!deleteFile}" >
+                        <apex:param name="deleteContentDocumentID" value="{!cVersion.ContentDocumentID}" assignTo="{!cdID}" />
+                    </apex:commandLink>
+                    -->
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Title</apex:facet>
+                    <apex:outputLink value="/{!cVersion.ContentDocumentID}" target="_blank"> {!cVersion.Title} </apex:outputLink>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Document Type</apex:facet>
+                    <apex:outputField value="{!cVersion.Document_Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Is Document Signed</apex:facet>
+                    <apex:outputField value="{!cVersion.Is_Signed__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Signature Type</apex:facet>
+                    <apex:outputField value="{!cVersion.Signature_Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Last Modified</apex:facet>
+                    <apex:outputField value="{!cVersion.LastModifiedDate}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Created By</apex:facet>
+                    <apex:outputField value="{!cVersion.CreatedByID}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

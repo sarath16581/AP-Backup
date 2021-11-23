@@ -1,0 +1,45 @@
+<!--
+Description: This will create case of Contract Management Enquiry.
+Created By - Mausam Padhiyar
+Created Date - 19th Nov, 2015
+Last Modified By -
+Last Modified Date -
+-->
+<apex:page controller="APT_CreateCaseController" tabStyle="Case">
+<apex:form >
+
+    <apex:pageBlock title="{!PAGEBLOCK_TITLE}">
+        <apex:pageBlockSection id="errorMessageSection">
+            <apex:pagemessages rendered="{!haserrorMessages}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection id="caseDetailSection">
+            <apex:inputField value="{!caseRecord.Product_Type__c}"/>
+            <apex:outputField value="{!caseRecord.APT_Contract__c}"/>
+            <apex:inputField value="{!caseRecord.Billing_Number__c}"/>
+            <apex:inputField value="{!caseRecord.ContactId}"/>
+            <apex:inputField value="{!caseRecord.Priority}"/>            
+            <apex:inputField value="{!caseRecord.Work_Type__c}"/>
+          </apex:pageBlockSection>
+            
+            <apex:pageBlockSection id="subject_desc">
+                <apex:inputField value="{!caseRecord.Subject}" required="true" style="width:325px;"/>                
+            </apex:pageBlockSection>
+                <apex:pageBlockSection >
+                  <apex:inputField value="{!caseRecord.Description}" required="true"  style="width:325px;height:200px;"/>  
+                </apex:pageBlockSection>
+           
+           <center>
+                <apex:actionStatus id="saveStatus">
+                <apex:facet name="start">
+                    <apex:commandButton disabled="true" value="{!processing}" action="{!doSave}" status="saveStatus" reRender="errorMessageSection,caseDetailSection,subject_desc"/>
+                </apex:facet>
+                <apex:facet name="stop">
+                    <apex:commandButton disabled="false" value="{!Save_Text}"    onclick="if(!confirm('{!$Label.APT_Case_DoV_PopUp_message}'))return;"     action="{!doSave}" status="saveStatus" reRender="errorMessageSection,caseDetailSection,subject_desc"/>
+                </apex:facet>
+            </apex:actionStatus>
+            
+            <apex:commandButton value="{!Cancel_Text}"    action="{!doCancel}" immediate="true"/>
+        </center>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

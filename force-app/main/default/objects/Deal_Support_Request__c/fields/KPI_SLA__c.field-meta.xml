@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KPI_SLA__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( !ISBLANK(Submitted_Date__c) , ROUND( 24 * (
+    ( 
+        5 * FLOOR( ( DATEVALUE( IF( ISBLANK(Status_Closed_Date_Time__c), NOW(), Status_Closed_Date_Time__c) ) - DATE( 1900, 1, 8) ) / 7) +
+    MIN(5,
+        MOD( DATEVALUE( IF( ISBLANK(Status_Closed_Date_Time__c), NOW(), Status_Closed_Date_Time__c ) ) - DATE( 1900, 1, 8), 7) +
+        MIN( 1, MOD( IF(ISBLANK (Status_Closed_Date_Time__c), NOW(), Status_Closed_Date_Time__c ) - DATETIMEVALUE( &apos;1900-01-07 13:00:00&apos;), 1 )  )
+    )
+)
+- 
+(
+    5 * FLOOR( ( DATEVALUE(Submitted_Date__c)  - DATE( 1900, 1, 8) ) / 7) +
+     MIN( 5,
+      MOD( DATEVALUE(Submitted_Date__c) - DATE( 1996, 1, 1), 7 ) +
+      MIN( 1, MOD( Submitted_Date__c - DATETIMEVALUE(&apos;1900-01-07 13:00:00&apos;), 1)  )
+   ) 
+  )), 2 )- In_Pending_Information_Status__c, 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>KPI/SLA</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

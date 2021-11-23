@@ -1,0 +1,39 @@
+/**
+ * Created by hasantha on 7/5/19.
+ */
+.THIS .font-colour-error{
+    color: red;
+}
+
+.THIS .word-break{
+    overflow-wrap: break-word;
+    white-space:normal !important;
+}
+
+.THIS .tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.THIS .tooltip .tooltiptext {
+    visibility: hidden;
+    background-color: #bfbfbf;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    padding: 5px;
+    overflow-wrap: break-word;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.THIS .tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.THIS .info-icon-size svg {
+    width: 0.5rem;
+    height: 0.5rem;
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SchedStartHrsFromNow__c</fullName>
+    <description>The number of hours the Scheduled Start Time is from now.  To be used in the FieldServiceMobile List View to filter what appointments are displayed on the mobile device</description>
+    <externalId>false</externalId>
+    <formula>FLOOR(( SchedStartTime   - NOW()) * 24)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>SchedStartHrsFromNow</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

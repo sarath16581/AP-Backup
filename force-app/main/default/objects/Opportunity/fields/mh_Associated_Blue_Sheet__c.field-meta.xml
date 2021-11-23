@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mh_Associated_Blue_Sheet__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>SAM Integration</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This box will be checked if a Miller Heiman Blue Sheet has been created for this opportunity</inlineHelpText>
+    <label>Associated Blue Sheet</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

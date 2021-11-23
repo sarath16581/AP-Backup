@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Competitors__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Name of Competitors is used by the Lead Legends from when capturing leads. When creating Leads directly in the Salesforce.com system please use the &quot;New&quot; option on the Competitors Related List below.</inlineHelpText>
+    <label>Competitors</label>
+    <length>100</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

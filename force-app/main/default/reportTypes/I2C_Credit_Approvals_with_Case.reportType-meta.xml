@@ -1,0 +1,964 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Case</baseObject>
+    <category>admin</category>
+    <deployed>true</deployed>
+    <description>Cases with Credit Approvals. With lookup to Sales Org and Adjustment. For Enterprise Credit Disputes relating to number of Credit Approvals.</description>
+    <join>
+        <outerJoin>false</outerJoin>
+        <relationship>Credit_Adjustments__r</relationship>
+    </join>
+    <label>I2C Credit Approvals with Case</label>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Account Manager</displayNameOverride>
+            <field>Account_Manager__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Adjustment</displayNameOverride>
+            <field>Adjustment__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Amount Charged</displayNameOverride>
+            <field>Amount_Charged__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Amount Claimed</displayNameOverride>
+            <field>Amount_Claimed__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approval Level</displayNameOverride>
+            <field>Approval_Level__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approvals Attached</displayNameOverride>
+            <field>ApprovalsAttached__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approval Workflow</displayNameOverride>
+            <field>ApprovalWorkflow__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approved Amount</displayNameOverride>
+            <field>Actual_Amount__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Attention</displayNameOverride>
+            <field>Attention__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Billing Account</displayNameOverride>
+            <field>Billing_Account__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Billing Account Number</displayNameOverride>
+            <field>BillingAccountNumber__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Business Days</displayNameOverride>
+            <field>BusinessDays__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: CEO</displayNameOverride>
+            <field>CEO__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Created By</displayNameOverride>
+            <field>CreatedBy</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Created Date</displayNameOverride>
+            <field>CreatedDate</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Credit Amount</displayNameOverride>
+            <field>Credit_Amount__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Credit Amount Exclusive GST</displayNameOverride>
+            <field>CreditAmountExclusiveGST__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Credit Amount Inclusive GST</displayNameOverride>
+            <field>CreditAmountInclusiveGST__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Credit Type</displayNameOverride>
+            <field>Type__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Credit Approval ID</displayNameOverride>
+            <field>Id</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <displayNameOverride>CA: Credit Approval Name</displayNameOverride>
+            <field>Name</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Current Approver</displayNameOverride>
+            <field>Current_Approver_Name__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Current Approver Step</displayNameOverride>
+            <field>Current_Approver__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Current submission age</displayNameOverride>
+            <field>Current_submission_age__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Date  Approved</displayNameOverride>
+            <field>DateApproved__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Date Submitted to Current Approver</displayNameOverride>
+            <field>Date_Submitted_to_Current_Approver__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: EGM</displayNameOverride>
+            <field>EGM__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: GCFO</displayNameOverride>
+            <field>GCFO__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: GM Of Finance</displayNameOverride>
+            <field>GMOfFinance__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: GM Of Product</displayNameOverride>
+            <field>GMOfProduct__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: GM Of Sales</displayNameOverride>
+            <field>GMOfSales__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: GST Amount</displayNameOverride>
+            <field>GSTAmount__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Head Of Finance</displayNameOverride>
+            <field>HeadOfFinance__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Head Of Product</displayNameOverride>
+            <field>HeadOfProduct__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Is Owner Queue</displayNameOverride>
+            <field>Is_Owner_Queue__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Last Modified By</displayNameOverride>
+            <field>LastModifiedBy</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Last Modified Date</displayNameOverride>
+            <field>LastModifiedDate</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Last Updated Product Sub Category Time</displayNameOverride>
+            <field>Last_Updated_Product_Sub_Category_Time__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Legal Entity Name</displayNameOverride>
+            <field>Organisation__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Logged in User is Current Approver</displayNameOverride>
+            <field>LoggedinUserisCurrentApprover__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Next Approver</displayNameOverride>
+            <field>NextApprover__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Number Of Credit Approval Requests</displayNameOverride>
+            <field>NumberOfCreditApprovalRequests__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Number of Days With Approver</displayNameOverride>
+            <field>NumberofDaysWithApprover__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Number of Items</displayNameOverride>
+            <field>NumberofItems__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Number Of Items Pending</displayNameOverride>
+            <field>Number_Of_Items_Pending__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Number of Rejected Items</displayNameOverride>
+            <field>NumberofRejectedItems__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Outright Rejection</displayNameOverride>
+            <field>RejectionFinal__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Owner</displayNameOverride>
+            <field>Owner</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Owner&apos;s role</displayNameOverride>
+            <field>Owner_s_role__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Parcels COO</displayNameOverride>
+            <field>ParcelsCOO__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Pending Dispute Count</displayNameOverride>
+            <field>Pending_Dispute_Count__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Product Family</displayNameOverride>
+            <field>Product_Family__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Product Sub Category</displayNameOverride>
+            <field>Product_Sub_Category__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Ready For Approval</displayNameOverride>
+            <field>Ready_For_Approval__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Sales Director</displayNameOverride>
+            <field>SalesDirector__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Status</displayNameOverride>
+            <field>Status__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Submitted for Approval Date</displayNameOverride>
+            <field>Submitted_for_Approval_Date__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Total Claim Amount</displayNameOverride>
+            <field>Total_Claim_Amount__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Total Number of Items Claimed</displayNameOverride>
+            <field>TotalNumberofItemsClaimed__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approver 1</displayNameOverride>
+            <field>Approver_1__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approver 2</displayNameOverride>
+            <field>Approver_2__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approver 3</displayNameOverride>
+            <field>Approver_3__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approver 4</displayNameOverride>
+            <field>Approver_4__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approver 5</displayNameOverride>
+            <field>Approver_5__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approver 6</displayNameOverride>
+            <field>Approver_6__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approver 7</displayNameOverride>
+            <field>Approver_7__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approver 8</displayNameOverride>
+            <field>Approver_8__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approver 9</displayNameOverride>
+            <field>Approver_9__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approver 10</displayNameOverride>
+            <field>Approver_10__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approver 11</displayNameOverride>
+            <field>Approver_11__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CA: Approver 12</displayNameOverride>
+            <field>Approver_12__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <masterLabel>Credit Approval</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Account Manager</displayNameOverride>
+            <field>Account_Manager_formula__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Account Name </displayNameOverride>
+            <field>Account</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Account type</displayNameOverride>
+            <field>APT_Cash_Account__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Adjustment Note Number</displayNameOverride>
+            <field>AdjustmentNoteNumber__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Amount Claimed</displayNameOverride>
+            <field>Amount_Claimed__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Billing Account Number</displayNameOverride>
+            <field>Billing_Number__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Billing Account Parent Id</displayNameOverride>
+            <field>Billing_Account_Parent_Id__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Business Days</displayNameOverride>
+            <field>Business_Days__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Business Days Custom Info</displayNameOverride>
+            <field>Business_Days_Custom_Info__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Business Hours </displayNameOverride>
+            <field>BusinessHours</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Business Name</displayNameOverride>
+            <field>Business_Name__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Business Unit</displayNameOverride>
+            <field>Business_Unit__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Case Age Business Hours</displayNameOverride>
+            <field>Case_Age_In_Business_Hours__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Case Age Total Hours</displayNameOverride>
+            <field>Case_Age_Total_Hours__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Case Details</displayNameOverride>
+            <field>CaseDetails__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Case ID</displayNameOverride>
+            <field>Id</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <displayNameOverride>Case: Case Number</displayNameOverride>
+            <field>CaseNumber</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Case Number</displayNameOverride>
+            <field>Calc_Link_Case_Number__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Case Origin</displayNameOverride>
+            <field>Origin</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Case Owner </displayNameOverride>
+            <field>Owner</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Case Reason</displayNameOverride>
+            <field>Reason</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Case Record Type</displayNameOverride>
+            <field>RecordType</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Case Type</displayNameOverride>
+            <field>Enquiry_Type__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Case Update</displayNameOverride>
+            <field>Case_Update__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Case_Update_Time__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Channel</displayNameOverride>
+            <field>Origin__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Closed</displayNameOverride>
+            <field>IsClosed</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Closed Date</displayNameOverride>
+            <field>Closed_Date__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: CNC Peoplesoft</displayNameOverride>
+            <field>CNC_Peoplesoft__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: CNC Team</displayNameOverride>
+            <field>CNC_Team__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Contact Name</displayNameOverride>
+            <field>Contact</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Created By </displayNameOverride>
+            <field>CreatedBy</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Credit Amount</displayNameOverride>
+            <field>Credit_Amount__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Credit Person Name</displayNameOverride>
+            <field>Credit_Person_Code__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Credit Representative</displayNameOverride>
+            <field>CreditRepresentative__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Customer Number</displayNameOverride>
+            <field>Customer_Number__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Customer Stream</displayNameOverride>
+            <field>Customer_Stream__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Date/Time Closed</displayNameOverride>
+            <field>ClosedDate</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Date/Time Opened</displayNameOverride>
+            <field>CreatedDate</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Description</displayNameOverride>
+            <field>Description</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Email Address</displayNameOverride>
+            <field>Email_Address__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Last Modified By </displayNameOverride>
+            <field>LastModifiedBy</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Last Modified Date</displayNameOverride>
+            <field>LastModifiedDate</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Legal Entity Name</displayNameOverride>
+            <field>Calc_Link_Account__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Name</displayNameOverride>
+            <field>Name__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Number of Cases</displayNameOverride>
+            <field>Number_of_Cases__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Number Of Items</displayNameOverride>
+            <field>Number_of_Items__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Number of Items</displayNameOverride>
+            <field>CalculatedNumberofItems__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Parent Case</displayNameOverride>
+            <field>Parent</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Priority</displayNameOverride>
+            <field>Priority</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Priority icon</displayNameOverride>
+            <field>Priority_icon__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Purpose</displayNameOverride>
+            <field>Call_Purpose__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Reason for Credit Claim</displayNameOverride>
+            <field>ReasonforCreditClaim__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Record Type</displayNameOverride>
+            <field>Case_Type__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Rel Billing Account</displayNameOverride>
+            <field>Related_Billing_Account__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Resolution Note</displayNameOverride>
+            <field>ResolutionNote__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Sales Team</displayNameOverride>
+            <field>Sales_Team__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Service SLA</displayNameOverride>
+            <field>Service_SLA__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Status</displayNameOverride>
+            <field>Status</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Subject</displayNameOverride>
+            <field>Subject</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case: Total Number of Items Claimed</displayNameOverride>
+            <field>Total_Number_of_Items_Claimed__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>HeldToOpenOn__c</field>
+            <table>Case</table>
+        </columns>
+        <masterLabel>Cases</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account: Account Name</displayNameOverride>
+            <field>Account.Name</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account: Account Number</displayNameOverride>
+            <field>Account.AccountNumber</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account: Account Owner</displayNameOverride>
+            <field>Account.Owner</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account: Account Owner Role Group</displayNameOverride>
+            <field>Account.Account_Owner_Role_Group__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account: Account Record Type</displayNameOverride>
+            <field>Account.RecordType</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account: Created By</displayNameOverride>
+            <field>Account.CreatedBy</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account: Created Date</displayNameOverride>
+            <field>Account.CreatedDate</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account: Last Modified By</displayNameOverride>
+            <field>Account.LastModifiedBy</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account: Last Modified Date</displayNameOverride>
+            <field>Account.LastModifiedDate</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account: Legal Name</displayNameOverride>
+            <field>Account.Legal_Name__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account: Sales Org</displayNameOverride>
+            <field>Account.Sales_Org__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account: Sales Team</displayNameOverride>
+            <field>Account.Sales_Segment__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account: Sales Team Owner</displayNameOverride>
+            <field>Account.Sales_Director__c</field>
+            <table>Case</table>
+        </columns>
+        <masterLabel>Case Org</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Adj: Adjustment Amount</displayNameOverride>
+            <field>Adjustment__c.Adjustment_Amount__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Adj: Adjustment ID</displayNameOverride>
+            <field>Adjustment__c.Id</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Adj: Adjustment Name</displayNameOverride>
+            <field>Adjustment__c.Adjustment_Name__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Adj: Adjustment Note Number</displayNameOverride>
+            <field>Adjustment__c.Adjustment_Note_Number__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Adj: Adjustment Number</displayNameOverride>
+            <field>Adjustment__c.Name</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Adj: Adjustment Type</displayNameOverride>
+            <field>Adjustment__c.Adjustment_Type__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Adj: Created By</displayNameOverride>
+            <field>Adjustment__c.CreatedBy</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Adj: Created Date</displayNameOverride>
+            <field>Adjustment__c.CreatedDate</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Adj: Adjustment: Last Modified By</displayNameOverride>
+            <field>Adjustment__c.LastModifiedBy</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Adj: Adjustment: Last Modified Date</displayNameOverride>
+            <field>Adjustment__c.LastModifiedDate</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Adj: Status</displayNameOverride>
+            <field>Adjustment__c.Status__c</field>
+            <table>Case.Credit_Adjustments__r</table>
+        </columns>
+        <masterLabel>Adjustment</masterLabel>
+    </sections>
+</ReportType>

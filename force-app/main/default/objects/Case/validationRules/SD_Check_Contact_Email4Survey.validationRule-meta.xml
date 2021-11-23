@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SD_Check_Contact_Email4Survey</fullName>
+    <active>true</active>
+    <description>This is to check that the attached contact has an email address when closed on origins containing &apos;customer&apos;. This should stop the process builder failing if there is no email.</description>
+    <errorConditionFormula>AND( 
+RecordType.Name = &apos;Service Delivery&apos;, 
+(TEXT(Status) = &apos;Closed&apos;), 
+ISBLANK(Contact.Email), 
+( (TEXT(ResolutionCode__c) = &apos;Assistance provided&apos;) || (TEXT(ResolutionCode__c) = &apos;FCR&apos;) || (TEXT(ResolutionCode__c) = &apos;Customer – Self service&apos;) || (TEXT(ResolutionCode__c) = &apos;Customer – response, no further action&apos;) ||
+(TEXT(ResolutionCode__c) = &apos;Feedback (Issue captured and logged)&apos;) || (TEXT(ResolutionCode__c) = &apos;Other&apos;) 
+|| (TEXT(ResolutionCode__c) = &apos;Customer– no response&apos;) ), 
+((ISPICKVAL(Origin, &apos;Customer - Phone&apos;) || (ISPICKVAL(Origin, &apos;Customer - Email&apos;) || (ISPICKVAL(Origin, &apos;Customer - In Person&apos;))))))</errorConditionFormula>
+    <errorMessage>Check that the contact on this case has a valid email address, so an NPS Survey can be sent.</errorMessage>
+</ValidationRule>

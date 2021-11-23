@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Skip_Validation__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>A checkbox field to capture if the user has moved the Job in the Gantt Chat.
+If the user does not move the Gantt Chat, they will see the error message when they dispatch the jobs from a job duties. 
+Once they have moved the job from the Gantt Chat, that means the job is not following any of the validation rules for the Dispatch job dependencies any more.</description>
+    <externalId>false</externalId>
+    <label>Skip Validation</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

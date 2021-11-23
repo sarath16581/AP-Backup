@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bulk_SMS__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This will determine if SMS task was created in bulk or not.</description>
+    <externalId>false</externalId>
+    <label>Bulk SMS?</label>
+    <type>Checkbox</type>
+</CustomField>

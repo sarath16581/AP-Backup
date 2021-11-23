@@ -1,0 +1,19 @@
+<!--
+ - Created by alexvolkov on 5/2/20.
+ - Updated by Mav3rik 
+ -->
+
+<!-- Usability as a Quick Action is currently limited due to inability to set design attributes-->
+<aura:component description="AddressLookupRecordWrapperAura" implements="forceCommunity:availableForAllPageTypes,force:lightningQuickAction,force:hasRecordId">
+    <aura:attribute name="addressType" type="String" access="public" default="Lead_Physical"/>
+    <aura:attribute name="cardTitle" type="String" access="public" default="Enter Address"/>
+    <aura:attribute name="containerContext" type="String" access="public"/>
+    <c:addressLookupRecordWrapper recordId="{!v.recordId}"
+                                  addressType="{!v.addressType}"
+                                  cardTitle="{!v.cardTitle}"
+                                  containerContext="{!v.containerContext}"
+    />
+    <div class="slds-float_right">
+	    <lightning:button variant="brand" label="Close" onclick="{! c.closeQA }" />
+    </div>
+</aura:component>

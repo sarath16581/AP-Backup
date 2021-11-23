@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PAYER_ACCOUNT_ID__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <inlineHelpText>Identify the SAP ERP Head Office (Payer) Account number.</inlineHelpText>
+    <label>Payer Account ID</label>
+    <lookupFilter>
+        <active>false</active>
+        <filterItems>
+            <field>Billing_Account__c.Organisation__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Organisation__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Billing_Account__c</referenceTo>
+    <relationshipLabel>Sub Accounts</relationshipLabel>
+    <relationshipName>Billing_Accounts</relationshipName>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <type>Lookup</type>
+</CustomField>

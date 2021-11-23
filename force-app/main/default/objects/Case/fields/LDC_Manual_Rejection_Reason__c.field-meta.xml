@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LDC_Manual_Rejection_Reason__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Reject reason will be sent to the customer</inlineHelpText>
+    <label>LDC Manual Reject Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Booked In Delivery</fullName>
+                <default>false</default>
+                <label>Booked In Delivery</label>
+            </value>
+            <value>
+                <fullName>Circumstance Beyond StarTrack&apos;s Control</fullName>
+                <default>false</default>
+                <label>Circumstance Beyond StarTrack&apos;s Control</label>
+            </value>
+            <value>
+                <fullName>Customer Despatch Error</fullName>
+                <default>false</default>
+                <label>Customer Despatch Error</label>
+            </value>
+            <value>
+                <fullName>Customer Not Available for Delivery on Due Date/Not Home Card Left</fullName>
+                <default>false</default>
+                <label>Customer Not Available for Delivery on Due Date/Not Home Card Left</label>
+            </value>
+            <value>
+                <fullName>Dangerous Goods</fullName>
+                <default>false</default>
+                <label>Dangerous Goods</label>
+            </value>
+            <value>
+                <fullName>Delivered on Due ETA</fullName>
+                <default>false</default>
+                <label>Delivered on Due ETA</label>
+            </value>
+            <value>
+                <fullName>Electronic Data Does Not Match Items Sent</fullName>
+                <default>false</default>
+                <label>Electronic Data Does Not Match Items Sent</label>
+            </value>
+            <value>
+                <fullName>Not an Express Service</fullName>
+                <default>false</default>
+                <label>Not an Express Service</label>
+            </value>
+            <value>
+                <fullName>Handwritten or Pre-Printed Consignments</fullName>
+                <default>false</default>
+                <label>Handwritten or Pre-Printed Consignments</label>
+            </value>
+            <value>
+                <fullName>Incorrect/Insufficient Delivery Details</fullName>
+                <default>false</default>
+                <label>Incorrect/Insufficient Delivery Details</label>
+            </value>
+            <value>
+                <fullName>International Delivery</fullName>
+                <default>false</default>
+                <label>International Delivery</label>
+            </value>
+            <value>
+                <fullName>Late Electronic Data</fullName>
+                <default>false</default>
+                <label>Late Electronic Data</label>
+            </value>
+            <value>
+                <fullName>Not Claimed Within 7 Days</fullName>
+                <default>false</default>
+                <label>Not Claimed Within 7 Days</label>
+            </value>
+            <value>
+                <fullName>Quarantine</fullName>
+                <default>false</default>
+                <label>Quarantine</label>
+            </value>
+            <value>
+                <fullName>Receiver Collected Consignment from Delivery Depot</fullName>
+                <default>false</default>
+                <label>Receiver Collected Consignment from Delivery Depot</label>
+            </value>
+            <value>
+                <fullName>Returned To Sender</fullName>
+                <default>false</default>
+                <label>Returned To Sender</label>
+            </value>
+            <value>
+                <fullName>Short Delivery</fullName>
+                <default>false</default>
+                <label>Short Delivery</label>
+            </value>
+            <value>
+                <fullName>Tailgate Truck Delivery Required</fullName>
+                <default>false</default>
+                <label>Tailgate Truck Delivery Required</label>
+            </value>
+            <value>
+                <fullName>Unserviceable Delivery Conditions</fullName>
+                <default>false</default>
+                <label>Unserviceable Delivery Conditions</label>
+            </value>
+            <value>
+                <fullName>Air Schedule</fullName>
+                <default>false</default>
+                <label>Air Schedule</label>
+            </value>
+            <value>
+                <fullName>Per Delivery Instructions</fullName>
+                <default>false</default>
+                <label>Per Delivery Instructions</label>
+            </value>
+            <value>
+                <fullName>Not Eligible for Money Back Guarantee</fullName>
+                <default>false</default>
+                <label>Not Eligible for Money Back Guarantee</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Oakleigh_South_All_Active_Perm</fullName>
+    <columns>NAME</columns>
+    <columns>Route_Start_Time__c</columns>
+    <columns>Route_Lookup__c</columns>
+    <columns>Start_Time__c</columns>
+    <columns>Booking_Location__c</columns>
+    <columns>Street__c</columns>
+    <columns>City__c</columns>
+    <columns>Post_Code__c</columns>
+    <columns>Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>PUD_Booking__c.AP_Permanent_Pickup</value>
+    </filters>
+    <label>Oakleigh South - All Active - Perm</label>
+</ListView>

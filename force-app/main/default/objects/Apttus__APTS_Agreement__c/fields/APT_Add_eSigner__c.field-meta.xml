@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Add_eSigner__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (OR(
+ISPICKVAL(Apttus__Status_Category__c,&quot;Request&quot;), 
+ISPICKVAL(Apttus__Status_Category__c,&quot;In Authoring&quot;),
+AND(ISPICKVAL(Apttus__Status_Category__c,&quot;In Signatures&quot;),
+NOT(ISPICKVAL(Apttus__Status__c,&quot;Fully Signed&quot;)),
+NOT(ISPICKVAL(Apttus__Status__c,&quot;Signed by Customer Only&quot;)),
+NOT(ISPICKVAL(Apttus__Status__c,&quot;Other Party Signatures&quot;)))
+),
+HYPERLINK(&quot;/apex/Apttus_DocuApi__DefaultRecipient?id=&quot;&amp;Id, IMAGE(&quot;/resource/APT_Add_eSigner&quot;, &quot;Add eSigners&quot;), &quot;_self&quot;), NULL)</formula>
+    <inlineHelpText>Add eSigners for eSignature Process. Signers can be reviewed under DocuSign Recipients related list.</inlineHelpText>
+    <label>Add eSigner</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

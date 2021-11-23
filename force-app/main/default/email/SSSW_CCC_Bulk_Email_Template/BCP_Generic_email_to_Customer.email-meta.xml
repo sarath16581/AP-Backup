@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Australia Post - Update on your Australia Post enquiry Case: {!Case.CaseNumber}</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>BCP - Generic email to Customer</name>
+    <style>none</style>
+    <subject>Australia Post - Update on your Australia Post enquiry Case: {!Case.CaseNumber}</subject>
+    <textOnly>Help &amp; Support
+
+Reference number {!Case.CaseNumber}
+
+
+Hi {!Contact.FirstName},
+
+
+Thanks for getting in touch.
+
+Due to the impact of COVID-19, we are experiencing a delay in providing a response to you.
+
+Rest assured we are working hard to restore our customer service operations and will provide you with an update as soon as possible.
+
+In the meantime, you may be able to find the information you need at http://auspost.com.au.
+
+Information about the impact of COVID-19 on Australia Post’s operations is available at https://auspost.com.au/about-us/news-media/important-updates.
+
+
+
+Kind regards,
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,42 @@
+<template>
+
+    <h1 class="slds-text-heading_large">{pageHeader}</h1>
+
+    <template if:true={contactApplications}>
+
+        <div class="slds-grid slds-gutters slds-gutters_medium slds-grid_pull-padded-medium slds-wrap">
+            <template iterator:it={contactApplications}>
+                <div class="slds-col slds-p-around_medium slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12" key={it.value.applicationId}>
+                    <c-custom-card class={it.value.cssClass}>
+                        <div class="slds-align_absolute-center slds-p-around_xx-large">
+                            <div>
+                                <template if:false={ie11}>
+                                   <lightning-icon src={it.value.iconUrl} alternative-text={it.value.applicationName} size="large" class="app-launcher-icon"></lightning-icon>
+                                </template>
+                                <template if:true={ie11}>
+                                    <!-- Render SVGs for IE11 using the img tag, intended as a workaround -->
+                                    <img src={it.value.iconUrl_IE11} style="width:4rem; height:4rem;" alt={it.value.applicationName}>
+                                </template>
+                                <h3 class="slds-text-heading_medium slds-m-top_medium slds-m-bottom_none" title={it.value.shortDescription}>{it.value.applicationName}</h3>
+                            </div>
+                        </div>
+                        <p slot="footer" class="slds-align_absolute-center slds-p-around_x-small">
+                            <template if:true={it.value.isPending}>
+                                <lightning-button variant="brand" label="Pending" title={it.value.shortDescription} disabled></lightning-button>
+                            </template>
+                            <template if:false={it.value.isPending}>
+                                <lightning-button variant="brand" label="Launch app" title={it.value.shortDescription} data-id={it.value.applicationId} onclick={launchApp}></lightning-button>
+                            </template>
+                        </p>
+                    </c-custom-card>
+                </div>
+            </template>
+
+        </div>
+    </template>
+
+    <template if:false={contactApplications}>
+        <c-community-custom-error error-message="You do not have access to any applications."></c-community-custom-error>
+    </template>
+    
+</template>

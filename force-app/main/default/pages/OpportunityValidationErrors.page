@@ -1,0 +1,54 @@
+<!--
+/* @author 
+ * @date 2020-09-07
+ * @group Opportunities
+ * @tag Opportunity
+ * @description OpportunityValidationErrors capture all the possible validation messages for Opportunity
+ *              which is in stage Negotiate and ready for CloseWon.User will be able to use to this information
+ *              to close Won an Opportunity .
+ * @changelog
+ * 2020-08-16 - arjun.singh@auspost.com.au - Created
+ */
+ -->  
+ <apex:page standardController="Opportunity" extensions="OpportunityCloseErrorsController" showHeader="false">
+    <script>
+    window.onload=function()
+    {
+        getValidationMsgs();
+    };
+    var lexOrigin = '{!lexUrl}';
+    /*
+        Event Listner to Capture refresh message from parent lwc component and will be used to refresh the 
+        parent component automatically  when user edit/save opportunity record detail page.
+    */
+    window.addEventListener("message", function(event) {
+        console.log('Origin '+ event.origin);
+        console.log('lexOrigin '+ lexOrigin);
+        if (event.origin !== lexOrigin.toLowerCase()) {
+            // Not the expected origin: reject message!
+            return;
+        }
+        getValidationMsgs();
+    });   
+    /*
+    @description: Method used for perform Dummy update DML for an Opportunity to simulate opportunity closure . It captures all the possible code and UI based validation errors and pass
+    this information back to parent lwc compoenent. Parent lwc component will capture these validation messages and will display to end user in Opprotunity tracker component
+    */
+    function getValidationMsgs() {
+        var recordId = '{!oppId}'; 
+         Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.OpportunityCloseErrorsController.getCloseOpportunityErrors}',
+            recordId, 
+            function(result, event){
+                if (event.status) {
+                    parent.postMessage(result, lexOrigin);
+
+                }  else {
+                   console.log('Error>>>>>');
+                }
+            }, 
+            {escape: true}
+        );      
+    } 
+    </script>
+</apex:page>

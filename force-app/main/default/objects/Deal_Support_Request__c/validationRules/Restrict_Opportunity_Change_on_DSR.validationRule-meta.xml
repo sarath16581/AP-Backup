@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Opportunity_Change_on_DSR</fullName>
+    <active>true</active>
+    <description>This rule will stop users from changing the opportunity if DSR is created from Opportunity itself.</description>
+    <errorConditionFormula>AND( ISPICKVAL(Request_type__c,&quot;Opportunity&quot;),
+ISCHANGED(Opportunity__c)
+)</errorConditionFormula>
+    <errorDisplayField>Opportunity__c</errorDisplayField>
+    <errorMessage>Opportunity cannot be changed since Request has been created for a specific Opportunity</errorMessage>
+</ValidationRule>

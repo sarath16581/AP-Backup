@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_F_Value_of_contents</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( ISBLANK(ValueofContents__c), 
+NOT(ISPICKVAL( Origin , &quot;Web&quot;)),
+NOT(ISPICKVAL( Origin , &quot;Portal&quot;)),
+      NOT(ISPICKVAL( Origin , &quot;Internal form&quot;)),
+NOT(ISNEW()),
+ISBLANK(TEXT(CCUEnquiryType__c)),
+CONTAINS( RecordType.DeveloperName, &quot;SSSWDelivery&quot;),
+ArticleRecordType__c &lt;&gt; &quot;Consignment&quot;,
+Bypass_Data_enforcement__c = FALSE,
+Email_Bypass_Data_enforcement__c = FALSE,
+
+
+OR (
+AND ( ISPICKVAL (ProductCategory__c, &quot;Domestic Parcels&quot;),
+OR(
+ISPICKVAL( EnquirySubType__c , &quot;Delayed - inside network&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;Delayed - outside network&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;Delayed delivery&quot;),
+
+ISPICKVAL( EnquirySubType__c , &quot;Damaged/Missing contents&quot;),
+ISPICKVAL( EnquirySubType__c , &quot;Remittance not received&quot;),
+AND($User.ProfileId =&apos;00e90000001eeTk&apos;,ISPICKVAL( EnquirySubType__c , &quot;Disputed delivery scan&quot;)))),
+
+AND ( ISPICKVAL (ProductCategory__c, &quot;Domestic Letters&quot;),
+OR(
+ISPICKVAL( EnquirySubType__c , &quot;Remittance not received&quot;),AND($User.ProfileId =&apos;00e90000001eeTk&apos;,ISPICKVAL( EnquirySubType__c , &quot;Disputed delivery scan&quot;)))),
+
+AND ( OR (ISPICKVAL (ProductCategory__c, &quot;International Parcels&quot;),ISPICKVAL (ProductCategory__c, &quot;International Letters&quot;)),
+
+OR(ISPICKVAL( EnquirySubType__c , &quot;Damaged/Missing contents&quot;),AND($User.ProfileId =&apos;00e90000001eeTk&apos;,ISPICKVAL( EnquirySubType__c , &quot;Disputed delivery scan&quot;)))
+)))</errorConditionFormula>
+    <errorDisplayField>ValueofContents__c</errorDisplayField>
+    <errorMessage>You must populate the field &apos;Value of Contents&apos;</errorMessage>
+</ValidationRule>

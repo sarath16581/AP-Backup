@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_Case_for_DQM</fullName>
+    <active>true</active>
+    <description>Lock the case for data quality management team after case is closed</description>
+    <errorConditionFormula>AND(
+$Profile.Name &lt;&gt; &quot;System Administrator&quot;,
+OR(
+NOT($Permission.CaseLockDQM)),
+TEXT(PRIORVALUE(Status)) = &quot;Closed&quot;,
+RecordType.Name = &apos;Data Quality Management&apos;
+)</errorConditionFormula>
+    <errorMessage>Case cannot be edited as it is closed. Please raise a new case.</errorMessage>
+</ValidationRule>

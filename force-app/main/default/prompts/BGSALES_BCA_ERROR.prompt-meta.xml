@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>BGSALES_BCA_ERROR</masterLabel>
+    <promptVersions>
+        <actionButtonLabel>Click here for more info!</actionButtonLabel>
+        <actionButtonLink>https://auspost.sharepoint.com/:b:/r/sites/SPBG/Sales-support-site/Shared%20Documents/Customer%20Simplification%20Program/FY2021%20Q4/Onboarding/Salesforce%20Lightning%20QRG%20-%20BCA%20SAP%20Account%20Creation%20Error%20Handling%20Process%20-%20Credit%20Risk%20Team.pdf?csf=1&amp;web=1&amp;e=CrB4kd</actionButtonLink>
+        <body>&lt;p&gt;Non-Contracted customers now have the ability to complete their Business Credit Account Application (BCA) online and submit this&amp;nbsp;information directly to Salesforce. This will enable automation of Credit Assessments and SAP Charge and Salesforce Billing Accounts to be created in real-time, pending Credit Approval.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Online BCA Charge Account creation integration issues may occur and can be accessed via the new ‘Credit Assessments – Integration Failed’ list view under the Salesforce Credit Assessment object. This list view must be regularly monitored by the Credit Risk team, to ensure BCA Charge Account creation integration issues are remediated as soon as possible.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Please refer to attached video and quick reference guide for more information on what to do if you receive an Integration Error!&lt;/p&gt;</body>
+        <customApplication>BG_Sales</customApplication>
+        <delayDays>1</delayDays>
+        <displayType>DockedComposer</displayType>
+        <endDate>2021-08-13</endDate>
+        <header>Online Business Credit Applications</header>
+        <isPublished>true</isPublished>
+        <masterLabel>BGSALES_BCA_ERROR</masterLabel>
+        <publishedDate>2021-06-08</publishedDate>
+        <shouldDisplayActionButton>true</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
+        <startDate>2021-07-16</startDate>
+        <targetPageKey1>APT_Credit_Assessment__c</targetPageKey1>
+        <targetPageKey2>list</targetPageKey2>
+        <targetPageType>standard__objectPage</targetPageType>
+        <timesToDisplay>3</timesToDisplay>
+        <title>BCA Charge Account Error Handling</title>
+        <uiFormulaRule>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_credit management</rightValue>
+            </criteria>
+        </uiFormulaRule>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>SpecificProfiles</userProfileAccess>
+        <versionNumber>1</versionNumber>
+        <videoLink>https://web.microsoftstream.com/embed/video/964c84c0-f5f1-429a-8c55-b3561369a7eb?autoplay=false&amp;showinfo=true</videoLink>
+    </promptVersions>
+</Prompt>

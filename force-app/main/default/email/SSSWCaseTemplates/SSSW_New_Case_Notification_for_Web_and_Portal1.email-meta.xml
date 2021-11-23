@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <description>SSSW - Used to notify the Customer when the Case has been created.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW New Case Notification for Web and Portal</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference number {!Case.CaseNumber}
+
+
+Hi {!Contact.FirstName},
+
+
+Thanks for contacting us{!IF(ISNULL(Case.ReferenceID__c), &apos;.&apos;, &apos; regarding &apos; + IF(LEN(Case.ReferenceID__c)&gt;9, &apos;article &apos;, &apos;customer reference &apos;) + Case.ReferenceID__c + &apos;.&apos;)} The reference number for your case is {!Case.CaseNumber}.
+
+We’ll be in touch via phone or email as soon as we can.
+
+In the meantime you may like to visit Help &amp; support where you can log in for an update on your enquiry, or to find answers to any other questions you may have.
+
+If your enquiry is urgent, please call us on 1800 817 538.
+
+
+
+Kind regards,
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

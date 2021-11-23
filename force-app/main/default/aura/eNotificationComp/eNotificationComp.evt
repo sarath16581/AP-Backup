@@ -1,0 +1,5 @@
+<!-- 2018-09-13 clint.dsilva@auspost.com.au created -->
+<aura:event type="COMPONENT" description="Send a notification event when a action occurs">
+    <aura:attribute name="notification" type="string"/>
+    <aura:attribute name="payload" type="Object" />
+</aura:event>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Competitor__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Where the risk type is Streaming or Lost to Customer, please identify the primary competitor.</inlineHelpText>
+    <label>Competitor</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Border Express</fullName>
+                <default>false</default>
+                <label>Border Express</label>
+            </value>
+            <value>
+                <fullName>Broker/3PL/FF (please specify)</fullName>
+                <default>false</default>
+                <label>Broker/3PL/FF (please specify)</label>
+            </value>
+            <value>
+                <fullName>Couriers Please</fullName>
+                <default>false</default>
+                <label>Couriers Please</label>
+            </value>
+            <value>
+                <fullName>DHL</fullName>
+                <default>false</default>
+                <label>DHL</label>
+            </value>
+            <value>
+                <fullName>Direct Freight</fullName>
+                <default>false</default>
+                <label>Direct Freight</label>
+            </value>
+            <value>
+                <fullName>Fastway</fullName>
+                <default>false</default>
+                <label>Fastway</label>
+            </value>
+            <value>
+                <fullName>FedEx</fullName>
+                <default>false</default>
+                <label>FedEx</label>
+            </value>
+            <value>
+                <fullName>Other (please specify)</fullName>
+                <default>false</default>
+                <label>Other (please specify)</label>
+            </value>
+            <value>
+                <fullName>TNT</fullName>
+                <default>false</default>
+                <label>TNT</label>
+            </value>
+            <value>
+                <fullName>Toll Express</fullName>
+                <default>false</default>
+                <label>Toll Express</label>
+            </value>
+            <value>
+                <fullName>Toll Group</fullName>
+                <default>false</default>
+                <label>Toll Group</label>
+            </value>
+            <value>
+                <fullName>Toll IPEC</fullName>
+                <default>false</default>
+                <label>Toll IPEC</label>
+            </value>
+            <value>
+                <fullName>Toll Priority</fullName>
+                <default>false</default>
+                <label>Toll Priority</label>
+            </value>
+            <value>
+                <fullName>UPS</fullName>
+                <default>false</default>
+                <label>UPS</label>
+            </value>
+            <value>
+                <fullName>Not Disclosed</fullName>
+                <default>false</default>
+                <label>Not Disclosed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

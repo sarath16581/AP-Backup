@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disputed_Item_Status_RequiredFields</fullName>
+    <active>true</active>
+    <description>Enforces  a value must be allocated for Product Family and Credit Type when status is not &apos;New&apos;</description>
+    <errorConditionFormula>IF ( 
+AND ( 
+NOT( ISPICKVAL( Status__c, &apos;New&apos;)), 
+NOT(TEXT(Credit_Approval__r.Status__c) = &apos;Approved&apos;), 
+
+OR( 
+ISPICKVAL(Product__c, &apos;&apos;), 
+ISPICKVAL(Product_Sub_Category__c, &apos;&apos;), 
+ISPICKVAL(Type__c, &apos;&apos;) 
+) 
+
+
+), 
+
+TRUE, FALSE 
+
+)</errorConditionFormula>
+    <errorMessage>Please check that Credit Type , Product Family and Sub product  are populated.</errorMessage>
+</ValidationRule>

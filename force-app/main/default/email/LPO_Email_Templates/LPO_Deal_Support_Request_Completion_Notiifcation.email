@@ -1,0 +1,10 @@
+Hi {!Deal_Support_Request__c.Requestor__c}
+
+This is to notify that the Deal Support Request created by you has been marked as Completed by the Deal Support Team.
+
+Request can be viewed by clicking on below link:
+{!$Setup.Base_URLs__c.LPO_Partner_Site_URL__c}/{!Deal_Support_Request__c.Id}
+
+
+Regards
+Deal Support Team

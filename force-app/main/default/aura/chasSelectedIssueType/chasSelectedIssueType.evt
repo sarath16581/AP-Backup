@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="Selected Issue Type">
+    <aura:attribute name="selectedIssue" type="String"/>
+ </aura:event>

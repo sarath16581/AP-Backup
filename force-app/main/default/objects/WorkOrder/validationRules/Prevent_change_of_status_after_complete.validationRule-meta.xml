@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_change_of_status_after_complete</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( 
+ISCHANGED(Status), 
+OR( 
+ISPICKVAL(PRIORVALUE(Status), &apos;Completed&apos;), 
+ISPICKVAL(PRIORVALUE(Status), &apos;Cannot Complete&apos;) 
+), 
+AND( 
+NOT(ISPICKVAL(Status, &apos;Completed&apos;)), 
+NOT(ISPICKVAL(Status, &apos;Cannot Complete&apos;)) 
+) 
+)</errorConditionFormula>
+    <errorMessage>You can not update the status of a Completed job.
+
+If you are on the mobile device, click on this error then select &apos;Undo&apos; to cancel this change.</errorMessage>
+</ValidationRule>

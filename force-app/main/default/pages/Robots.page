@@ -1,0 +1,10 @@
+<apex:page contentType="text/plain">
+#
+# robots.txt for Australia Post Communities
+#
+User-agent: * # applies to all robots
+Disallow: */secur/forgotpassword.jsp?*
+Disallow: */s/feed/ # hides all pages within the "Feed" directory
+Allow: /      # allow all
+Sitemap: https://community.auspost.com.au/s/sitemap.xml
+</apex:page>

@@ -1,0 +1,52 @@
+<!--
+	2017-10-01 nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
+-->
+<apex:page id="pageId" standardController="Account"
+    Extensions="AccountAddressInformationAccExt">
+
+	<c:ScriptLoader jsLibraries="jquery,jqueryui,jquery.layout,ssswconsole,interaction,integration,bootstrap"
+					cssLibraries="jqueryui,ssswconsole,jquery.layout,bootstrap" />
+    
+    <script>
+    var j$ = jQuery.noConflict();
+    
+    function closeAndRefresh(){
+        var alertMessage = j$('.alert');
+        if(!alertMessage && alertMessage.is(':hidden')){
+            sforce.console.getEnclosingPrimaryTabId(function(result){sforce.console.refreshPrimaryTabById(result.id, true);});
+        }
+    }
+    sforce.connection.sessionId = "{!$Api.Session_ID}";
+        
+    function setFocusOnLoad() {} //prevents focus to this component when inline on the standard page layout
+    </script>
+        <apex:stylesheet value="{!URLFOR($Resource.AddressValidation, '/AddressValidationScript/AddressValidationStylesheet.css')}" />
+    <apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+    <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+    <apex:stylesheet value="{!$Resource.SSSWCSS}" />
+    <apex:form id="formId">
+    <c:LoadingSpinnerComponent showFunctionName="showProgress" hideFunctionName="hideProgress" />
+        <apex:messages styleClass="alert alert-danger" />
+        <div id="saved-dialog" class="hide">
+            <img src="/img/msg_icons/confirm24.png" class="saved-img" />
+            <div class="saved-msg-content">
+                <div class="saved-msg-title">Success!</div>
+                <div class="saved-msg-text">Record has been successfully
+                    updated.</div>
+            </div>
+        </div>
+        <div style="margin-left: 49%; width: 20%">
+            <apex:commandButton value="Save" action="{!saveAccount}" onclick="showProgress()"
+                reRender="formId"
+                oncomplete="closeAndRefresh();" />
+        </div>
+        <div id="test" style="float: left; width: 40%; margin-left: 5%;">
+            <c:AddressComponentV1 address="{!mailingAddress}"
+                legend="Mailing Address" />
+        </div>
+        <div id="real" style="float: right; width: 40%; margin-left: 5%;">
+            <c:AddressComponentV1 address="{!otherAddress}"
+                legend="Residential Address" />
+        </div>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,29 @@
+<apex:page docType="html-5.0" showHeader="false" sidebar="false">
+
+  <head>
+    <style>
+      .slds-form-element__icon {
+        /* Replace this class name "slds-form-element__icon" by your finding. */
+        display: none !important;
+      }
+    </style>
+  </head>
+  <apex:includeLightning />
+
+  <div id="lightning" />
+
+  <script>
+    $Lightning.use("c:tdf_fsl_app", function () {
+      $Lightning.createComponent("c:tdf_serviceAppointments",
+        {
+          recordId: "{!JSENCODE($CurrentPage.parameters.id)}", endDate: "{!JSENCODE($CurrentPage.parameters.end)}",
+          startDate: "{!JSENCODE($CurrentPage.parameters.start)}"
+        },
+        "lightning",
+        function (cmp) {
+
+        }
+      );
+    });
+  </script>
+</apex:page>

@@ -1,0 +1,31 @@
+<!-- Description:    VF page to generate POD document for Event messages which has an Attachment GUID
+History:
+--------------------------------------------------
+2020-05-12 - Hara Sahoo Created
+2021-06-22 - Ranjeewa Silva - Updated to pass event messages with attachments into 'SafeDropVisualforceComponent' to retrieve
+                              event message images and generate the PDF.
+--->
+<apex:page controller="MyNetworkCasePDFController" standardStylesheets="false" applyHtmlTag="false" showHeader="false" applyBodyTag="false">
+
+    <html> <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        <style>
+        .myCustomMessage .message { font-weight:bold; }
+        </style>
+    </head></html>
+    <body>
+        <!-- Call the Safe drop GUID component if GUID ids are present-->
+        <apex:outputText rendered="{!caseCount <= $Setup.myNetworkCommunityCS__c.CaseCount__c}">
+            <!-- Retrieve event message attachment (including safedrop image) if the guid is available  -->
+            <c:SafeDropVisualforceComponent messageIds="{!eventMessagesWithAttachments}" selectedIds="{!caseIds}"></c:SafeDropVisualforceComponent>
+        </apex:outputText>
+        
+        <!--Error Message for count more than the defined value in the custom settings-->
+        <apex:outputPanel rendered="{!caseCount > $Setup.myNetworkCommunityCS__c.CaseCount__c}" styleClass="myCustomMessage">
+            <apex:pageMessage severity="error" strength="1" summary="You can select maximum of 30 cases. Please retry and submit." />
+        </apex:outputPanel>
+       
+    </body>
+   
+    
+</apex:page>

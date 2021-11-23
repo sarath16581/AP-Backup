@@ -1,0 +1,12 @@
+Hello {!Case.CreatedBy}
+
+Your Sales Implementation Request Case {!Case.CaseNumber} has not been approved at this time based on your details in the request. 
+
+You can review feedback and business recommendations in the "Case Comment" section via the link below. 
+
+{!Case.Link}
+
+
+Regards 
+
+{!Case.RecordType} Team

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notification to management when Credit Approval Matrix records are updated.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Credit Approval Matrix Updated</name>
+    <style>none</style>
+    <subject>ATTENTION: Credit Approval Matrix record changed today</subject>
+    <textOnly>The following Credit Approval Matrix record was changed today by {!CreditApprovalMatrix__c.LastModifiedBy}.  Details are as follows:
+
+Product Family: {!CreditApprovalMatrix__c.Product_Family__c}
+Product Sub Category: {!CreditApprovalMatrix__c.Product_Sub_Category__c}
+Credit Type: {!CreditApprovalMatrix__c.CreditType__c}
+From Credit Amount: {!CreditApprovalMatrix__c.FromCreditAmount__c}
+To Credit Amount: {!CreditApprovalMatrix__c.ToCreditAmount__c}
+Auto Approve: {!IF(CreditApprovalMatrix__c.AutoApprove__c, &quot;Yes&quot;, &quot;No&quot;)}
+Approver 1:  {!CreditApprovalMatrix__c.Approver_1__c}
+Approver 1 Role:  {!CreditApprovalMatrix__c.Approver1Role__c}
+Approver 2:  {!CreditApprovalMatrix__c.Approver_2__c}
+Approver 2 Role:  {!CreditApprovalMatrix__c.Approver2Role__c}
+Approver 3:  {!CreditApprovalMatrix__c.Approver_3__c}
+Approver 3 Role:  {!CreditApprovalMatrix__c.Approver3Role__c}
+Approver 4:  {!CreditApprovalMatrix__c.Approver_4__c}
+Approver 4 Role:  {!CreditApprovalMatrix__c.Approver4Role__c}
+Approver 5:  {!CreditApprovalMatrix__c.Approver_5__c}
+Approver 5 Role:  {!CreditApprovalMatrix__c.Approver5Role__c}
+Approver 6:  {!CreditApprovalMatrix__c.Approver_6__c}
+Approver 6 Role:  {!CreditApprovalMatrix__c.Approver1Role__c}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

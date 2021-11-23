@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>StarTrack PA that contains the consolidated process of Update/Add Delivery PA and ATL PA.</description>
+    <height>75</height>
+    <icon>Sorry_We_Missed_You</icon>
+    <label>Manage Delivery</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <page>StarTrackCardLeftPA</page>
+    <type>VisualforcePage</type>
+    <width>-100</width>
+</QuickAction>

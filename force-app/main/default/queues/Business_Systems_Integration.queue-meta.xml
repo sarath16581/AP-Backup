@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Business Systems Integration</name>
+    <queueMembers>
+        <users>
+            <user>botwks01@auspost.com.au</user>
+            <user>christian.aparici@auspost.com.au</user>
+            <user>sam.brookes@auspost.com.au</user>
+            <user>satishbsitest1@auspost.com.au</user>
+            <user>surd.bouphasavanh@auspost.com.au</user>
+            <user>vikas.malhotra@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Roll_up_Billing_Accounts__c</fullName>
+    <description>This field is used in the Organisations without Billing Accounts report for the Customer Data Team</description>
+    <externalId>false</externalId>
+    <label>Roll up Billing Accounts</label>
+    <summaryForeignKey>Billing_Account__c.Organisation__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

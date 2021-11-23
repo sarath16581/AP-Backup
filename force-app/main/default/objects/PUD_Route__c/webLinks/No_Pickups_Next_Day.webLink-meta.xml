@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_Pickups_Next_Day</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <height>600</height>
+    <linkType>page</linkType>
+    <masterLabel>No Pickups - Next Day</masterLabel>
+    <openType>sidebar</openType>
+    <page>PUD_NoPickupNextDayPrint</page>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+</WebLink>

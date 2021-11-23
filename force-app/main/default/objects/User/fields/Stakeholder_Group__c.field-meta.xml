@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Stakeholder_Group__c</fullName>
+    <externalId>false</externalId>
+    <label>License Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Services</fullName>
+                <default>false</default>
+                <label>Services</label>
+            </value>
+            <value>
+                <fullName>Sales</fullName>
+                <default>false</default>
+                <label>Sales</label>
+            </value>
+            <value>
+                <fullName>Restricted Use</fullName>
+                <default>false</default>
+                <label>Restricted Use</label>
+            </value>
+            <value>
+                <fullName>Chatter Only</fullName>
+                <default>false</default>
+                <label>Chatter Only</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email sent to PostalManager when Lead is Closed Lost</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>RetailSMB_LeadClosedLost_PostalManager</name>
+    <style>none</style>
+    <subject>Thank you for Contacting Australia Post</subject>
+    <textOnly>Dear {!Lead.Name_of_lead_creator__c}
+
+We are pleased to inform you that the new lead you raised ({!Lead.Lead_Number__c}) has now been verified and the customer has been contacted.
+
+Thank you for taking part in the Small Business Engagement Program.
+
+
+Thank you,
+
+Australia Post</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

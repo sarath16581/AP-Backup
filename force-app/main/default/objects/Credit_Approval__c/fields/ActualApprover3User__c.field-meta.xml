@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ActualApprover3User__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The user who provided approval 3 for this credit approval.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The user who provided approval 3 for this credit approval.</inlineHelpText>
+    <label>Actual Approver 3 User</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Approver3_CreditApprovals</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

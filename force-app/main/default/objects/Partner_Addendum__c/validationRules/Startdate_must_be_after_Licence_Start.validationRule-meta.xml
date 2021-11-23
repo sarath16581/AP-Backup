@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Startdate_must_be_after_Licence_Start</fullName>
+    <active>true</active>
+    <description>Addendum start date can not be earlier than Licence start date for Licence related Addendums. AJ 27/06/16 added Facility condition so only Licence related Addendums included</description>
+    <errorConditionFormula>AND( ISBLANK(Facility__c),
+ NOT(ISBLANK(Licence__c)), 
+ Start_Date__c &lt;  Licence__r.Assignment_Effective_From_Date__c )</errorConditionFormula>
+    <errorMessage>Addendum start date must be equal to or greater than Licence start date</errorMessage>
+</ValidationRule>

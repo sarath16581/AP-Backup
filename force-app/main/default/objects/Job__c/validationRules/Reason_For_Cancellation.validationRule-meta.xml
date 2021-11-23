@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_For_Cancellation</fullName>
+    <active>true</active>
+    <description>Rule used to ensure a reason is provided when cancelling a job</description>
+    <errorConditionFormula>And( ISBLANK(ReasonForCancellation__c) , ISPICKVAL( Status__c ,&apos;Cancelled&apos;))</errorConditionFormula>
+    <errorDisplayField>ReasonForCancellation__c</errorDisplayField>
+    <errorMessage>Please provide a reason to inform the customer for cancelling the Job.</errorMessage>
+</ValidationRule>

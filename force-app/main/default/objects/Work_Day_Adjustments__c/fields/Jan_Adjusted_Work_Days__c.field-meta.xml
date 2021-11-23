@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Jan_Adjusted_Work_Days__c</fullName>
+    <description>Jan Work Days – Jan Leave Adjustment</description>
+    <externalId>false</externalId>
+    <formula>FiscalYear__r.Jan_Work_Days_Value__c  - (Jan_Leave_Adjustment__c +  Holiday__r.January__c )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Jan Work Days – Jan Leave Adjustment</inlineHelpText>
+    <label>Jan Adjusted Work Days</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

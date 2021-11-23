@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Fast_r_u_needing_ur_parcel_to_arrive__c</fullName>
+    <externalId>false</externalId>
+    <label>Fast r u needing ur parcel to arrive</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>- - Select Option - -</fullName>
+                <default>false</default>
+                <label>- - Select Option - -</label>
+            </value>
+            <value>
+                <fullName>2+ days</fullName>
+                <default>false</default>
+                <label>2+ days</label>
+            </value>
+            <value>
+                <fullName>Next Day &amp; 2+</fullName>
+                <default>false</default>
+                <label>Next Day &amp; 2+</label>
+            </value>
+            <value>
+                <fullName>Next Day</fullName>
+                <default>false</default>
+                <label>Next Day</label>
+            </value>
+            <value>
+                <fullName>Same Day &amp; Next Day</fullName>
+                <default>false</default>
+                <label>Same Day &amp; Next Day</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

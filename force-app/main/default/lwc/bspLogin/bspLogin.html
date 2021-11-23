@@ -1,0 +1,73 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 13/07/2020
+  * @description  : Component for Login Screen.
+--------------------------------------- History --------------------------------------------------
+13.07.2020    Jansi Rani   Created
+-->
+<template>
+    <div class="mainBody center-card slds-grid slds-wrap slds-align_absolute-center">
+        <!-- 1. LOGIN & Create 'Registartion' SECTION - START-->
+        <template if:true={showLoginSec}>
+            <div class="slds-col slds-size_1-of-1">
+                <div
+                    class="headline-box slds-m-vertical_x-large">
+                    <h1>Log in to the Business Support Portal</h1>
+                    <p>We're here to help manage your deliveries and enable you to deliver the best service to your customers. Enter your details to log in to your account</p>
+
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-1">
+                <!-- 1.1. Login elements section-->
+                <div class="slds-m-bottom_x-large outer-box  slds-is-relative">
+                    <lightning-card title="">
+                        <div class='slds-p-horizontal_x-large'>
+
+                            <!-- Error messages-->
+                            <template if:true={errorMessage}>
+                                <c-bsp-error error-message={errorMessage}></c-bsp-error>
+                            </template>
+
+                            <form onsubmit={handleLogin}>
+                                <!--User Name-->
+                                <lightning-input type="email" data-id='userName' label="Email Address"
+                                    data-validate='doValidate' onchange={handleChange} onfocusout={handleFocusOut} required
+                                    class="brand-form-input slds-p-bottom_x-large"></lightning-input>
+
+                                <!--Password-->
+                                <lightning-input type="password" data-id='password' label="Password" name="password"
+                                    data-validate='doValidate' onchange={handleChange} onfocusout={handleFocusOut} required
+                                    class="brand-form-input slds-p-bottom_small"></lightning-input>
+
+                                <!-- Forgor PWD Link-->
+                                <p class="slds-p-bottom_xx-large"><a onclick={handleForgotPWD}
+                                        title="Forgot Password">Forgot your password?</a></p>
+
+                                <!--Login Button-->
+                                <lightning-button type="submit" variant="brand" label="Log in" title="Login"
+                                    onclick={handleLogin} press={handleLogin}
+                                    class="brand-primary-button slds-align_absolute-center slds-p-bottom_x-large">
+                                </lightning-button>
+                            </form>
+
+                            <!--Create New Login-->
+                            <p class="slds-p-vertical_medium text-centered">Don't have an account? &nbsp;<b><a
+                                    onclick={handleCreateNewLogin} title="Create a new login">Create a new login</a></b></p>
+                        </div>
+                    </lightning-card>
+                    <div if:true={loginButtonClicked}>
+                        <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <!--  LOGIN & Create 'Registartion' SECTION - END-->
+
+        <!-- 2. RESET PASSWORD SECTION - START-->
+        <template if:false={showLoginSec}>
+            <c-bsp-forgot-password onhanldlesecdisplay={handleSecDisplay}></c-bsp-forgot-password>
+            <!--<c-bsp-reset-password onhanldlesecdisplay={handleSecDisplay}></c-bsp-reset-password>-->
+        </template>
+        <!--  RESET PASSWORD SECTION - END-->
+    </div>
+</template>

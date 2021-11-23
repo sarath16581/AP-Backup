@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Startrack</fullName>
+        <default>false</default>
+        <label>Startrack</label>
+    </customValue>
+    <customValue>
+        <fullName>Australia Post - Parcel Services</fullName>
+        <default>false</default>
+        <label>Australia Post - Parcel Services</label>
+    </customValue>
+    <customValue>
+        <fullName>Australia Post - Trusted Services</fullName>
+        <default>false</default>
+        <label>Australia Post - Trusted Services</label>
+    </customValue>
+    <customValue>
+        <fullName>Australia Post - Mail Services</fullName>
+        <default>false</default>
+        <label>Australia Post - Mail Services</label>
+    </customValue>
+    <customValue>
+        <fullName>MyPost Business</fullName>
+        <default>false</default>
+        <label>MyPost Business</label>
+    </customValue>
+    <masterLabel>Product</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

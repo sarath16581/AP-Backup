@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>From_and_To_Credit_Amount_Check</fullName>
+    <active>true</active>
+    <description>Ensure From Credit Amount is less than To Credit Amoint.</description>
+    <errorConditionFormula>FromCreditAmount__c  &gt;  ToCreditAmount__c</errorConditionFormula>
+    <errorMessage>The From Credit Amount must be less than the To Credit Amount.</errorMessage>
+</ValidationRule>

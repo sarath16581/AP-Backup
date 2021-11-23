@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_In_Date__c</fullName>
+    <externalId>false</externalId>
+    <formula>Case(Month( Datevalue( CreatedDate ) ),
+1, IF(DAY(Datevalue( CreatedDate) )&gt;=23, Date( YEAR( Datevalue( CreatedDate) ) , 04, 23), Date( YEAR( Datevalue( CreatedDate) ) , 01, 23)),
+2, Date( YEAR( Datevalue( CreatedDate) ), 04, 23),
+3, Date( YEAR(Datevalue( CreatedDate)), 04, 23),
+4,  IF(DAY(Datevalue( CreatedDate))&gt;=23, Date( YEAR(Datevalue( CreatedDate) ) , 07, 23), Date( YEAR( Datevalue( CreatedDate)) , 04, 23)),
+5, Date( YEAR( Datevalue( CreatedDate) ), 07, 23),
+6, Date( YEAR( Datevalue( CreatedDate) ) , 07, 23),
+7,  IF(DAY(Datevalue( CreatedDate))&gt;=15, Date( YEAR( Datevalue( CreatedDate) ) , 10, 23), Date( YEAR(Datevalue( CreatedDate)) , 07, 23)),
+8, Date( YEAR(Datevalue( CreatedDate)) , 10, 23),
+9, Date( YEAR(Datevalue( CreatedDate)) , 10, 23),
+10,  IF(DAY(Datevalue( CreatedDate))&gt;=15, Date( YEAR(Datevalue( CreatedDate))+1 , 01, 23), Date( YEAR( Datevalue( CreatedDate)) , 10, 23)),
+11, Date( YEAR( Datevalue( CreatedDate))+1 , 01, 23),
+12, Date( YEAR( Datevalue( CreatedDate))+1, 01, 23), today())</formula>
+    <inlineHelpText>The date the change happens.</inlineHelpText>
+    <label>Effective Date of Change</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

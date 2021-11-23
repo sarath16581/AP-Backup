@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Incumbent_Reason__c</fullName>
+    <description>Phase 1 - Opportunity Assessment (PWC)
+
+Identifying why the customer has chosen to use this supplier in the past</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Why does the customer use this supplier?</inlineHelpText>
+    <label>Incumbent Reason</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

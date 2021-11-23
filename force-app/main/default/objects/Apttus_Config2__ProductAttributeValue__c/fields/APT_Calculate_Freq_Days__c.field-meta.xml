@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Calculate_Freq_Days__c</fullName>
+    <description>Calculates the Frequency Days for Local Pick up and Delivery product used in the Constraint Rule</description>
+    <externalId>false</externalId>
+    <label>Calculate Freq Days</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

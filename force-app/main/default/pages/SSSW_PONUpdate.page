@@ -1,0 +1,199 @@
+<!--
+    @Author      :  kalpita.talwadekar@auspost.com.au
+    @Date        :  25/07/2016
+    @Description :  Visualforce page for network users to update the network comments/resolution
+-->
+<apex:page standardController="Case" extensions="SSSW_PON_UpdateController" action="{!initialize}">
+    <apex:includeScript value="{!$Resource.bootstrapJS}" />
+    <apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+    <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+    <apex:stylesheet value="{!$Resource.SSSWCSS}" />
+    <apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-1.10.2.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-ui-1.10.3.custom.min.js')}" />
+    <apex:includeScript value="{!$Resource.SSSWJS}" />
+    <apex:includeScript value="/support/console/31.0/integration.js" />
+    <apex:includeScript value="/canvas/sdk/js/publisher.js" />
+    <apex:includeScript value="/jslibrary/1440733404000/sfdc/main.js"/>
+    <apex:includeScript value="/soap/ajax/26.0/connection.js"/> 
+    <apex:pageBlock id="pbl" >
+    <apex:outputPanel id="jsFunctions">
+        <script type="text/javascript">
+        
+            function checkOnComplete() {
+                if(({!nresp.Request_Hold_Case__c} || {!nResp.Send_Case_To_Customer_Service__c} || 
+                        {!refreshPage}) && {!NOT(hasCaseStatusChanged)}){
+                        RefreshPrimaryTabById();
+                 }
+                 else {
+                     if({!hasCaseStatusChanged}) { 
+                        if(confirm('The status of this case has changed, please refresh the case to review the changes')) {
+                             RefreshPrimaryTabById();
+                         }
+                     }
+                 }
+            }
+        
+            function RefreshPrimaryTabById() { 
+                refreshCurrentTab();               
+            }
+            
+            function refreshIfReq() {
+                var bool = '{!nResp.Send_Case_To_Customer_Service__c}';
+                var bool2 = '{!nresp.Request_Hold_Case__c}';
+                if(bool == true) {
+                    refreshCurrentTab();               
+                }
+               
+            }
+            
+            var refreshCurrentTab = function refreshCurrentTab() {
+                alert('Record Saved Successully!');
+                sforce.console.getEnclosingPrimaryTabId(function(result){
+                    sforce.console.getFocusedPrimaryTabObjectId(function(res) {
+                        if ('{!cseId}'.indexOf(res.id) == 0) {
+                            //case is opened in primary tab
+                            sforce.console.openPrimaryTab(result.id, '/{!cseId}', true, '', refreshSuccess);
+                        } else {
+                            //case is opened in sub tab
+                            sforce.console.getFocusedSubtabId(function(r){
+                                sforce.console.openSubtab(result.id, '/{!cseId}', true, '', r.id, refreshSuccess);
+                            });                                 
+                        }
+                    });
+                });
+            }
+            
+            var refreshSuccess = function refreshSuccess(result) {
+                if (result.success == true) {
+                    sforce.console.fireEvent('CaseID', '{"objectId":"{!cseId}", "objectName":""}');
+                    window.console&&console.log('Primary tab refreshed successfully');
+                    alert('Record Saved Successfully!');
+                } else {
+                    window.console&&console.log('Primary tab did not refresh');
+                    alert('Something went wrong!');
+                }
+            };
+            
+            function updateRecords() {
+                updateRecs();
+            }
+            
+        </script>
+    </apex:outputPanel>
+    <style type="text/css">
+       body input.btn {
+            font-family: Arial;
+            font-size: 1.08em;
+            background-color: #8ab529;
+            border: 1px solid #6c8049;
+            background-image: -ms-linear-gradient(top,#8AB529 0,#87AC31 100%);
+            background-image: -moz-linear-gradient(top,#8AB529 0,#87AC31 100%);
+            background-image: -webkit-linear-gradient(top,#8AB529 0,#87AC31 100%);
+            background-image: linear-gradient(top,#8AB529 0,#87AC31 100%);
+            display: inline-block;
+            padding-top: 0;
+            padding-bottom: 1px;
+            padding-left: 10px;
+            padding-right: 10px;
+            height: 30px;
+            color: #fff;
+            -moz-border-radius: 3px;
+            border-radius: 2px;
+            -moz-box-shadow: 0 1px 2px 0 #adadad;
+            -webkit-box-shadow: 0 1px 2px 0 #adadad;
+            box-shadow: 0 1px 2px 0 #adadad;
+            margin: 0;
+        }
+    </style>
+    <apex:form id="pg">
+    
+    <apex:outputPanel layout="block" style="overflow:scroll;height:500px" id="PONPanel" >
+        
+        <apex:outputPanel rendered="{!doNotShowEmail}">
+        <table width="100%">
+            <tr>
+                <th ><center> Network Response <br/><br/> </center></th>
+                <th ><center> Agent Comments <br/><br/></center></th>            
+            </tr>
+            <tr valign="top">
+                <td  width="60%">
+                
+                       <apex:pageBlockSection columns="1" showHeader="false" id="PONPanel1" >
+                            <apex:repeat value="{!fieldMap}" var="field" >
+                                <apex:pageBlockSectionItem helpText="{!$ObjectType.Network_Response__c.fields[field].inlineHelpText}">
+                                    <apex:outputLabel value="{!fieldMap[field]}"  rendered="{!field!='DeliveryOptions__c'}"/>
+                                    <apex:outputPanel >    
+                                        <apex:inputField value="{!nresp[field]}"  style="width:90%;" label="{!fieldMap[field]}"
+                                               rendered="{!NOT(field=='DeliveryOptions__c' || field=='Delivery_officer_knowledge__c')}" >
+                                               <apex:actionSupport event="onchange" action="{!setDeliveryOptions}" status="showload" 
+                                                        reRender="PONPanel1,delOpt,PONPanel"/>
+                                        </apex:inputField>
+                                                             
+                                      
+                                        <apex:inputField value="{!nresp.Delivery_officer_knowledge__c}" label="{!fieldMap[field]}"  
+                                                        style="width:90%" rendered="{!field=='Delivery_officer_knowledge__c'}">
+                                            <apex:actionSupport event="onchange" action="{!setDeliveryOptions}" status="showload" 
+                                                        reRender="PONPanel1,delOpt,PONPanel"/>
+                                        </apex:inputField>
+                                        <apex:inputField value="{!nresp.DeliveryOptions__c}" label="{!fieldMap[field]}" id="delOpt" 
+                                                        style="display:none;" rendered="{!field=='DeliveryOptions__c'}" />
+                                        <apex:outputText rendered="{!field == 'Network_Comments__c' && relatedCse.EnquirySubType__c !='Disputed delivery scan'}"><font color="red" size="4px;">&nbsp;*</font></apex:outputText>            
+                                        <apex:outputText rendered="{!field == 'Network_Comments__c' && relatedCse.EnquirySubType__c =='Disputed delivery scan'}"/>
+                                    </apex:outputPanel>
+                                </apex:pageBlockSectionItem>
+                            </apex:repeat>
+                      </apex:pageBlockSection>  
+                      
+                </td>
+                
+                <td style="padding-left:10px; border-left:1px dashed grey;width:40%">
+                    <apex:outputPanel >
+                        <apex:outputLabel value="Case Description"/><br/>
+                        <apex:inputtextarea value="{!relatedCse.Description}" disabled="true"
+                                             readonly="true" style="width:90%;height:300px"/>
+                    </apex:outputPanel><br/><br/>
+                </td>
+            </tr>
+        </table>
+        </apex:outputPanel>
+        <br/>
+        <!-- button onclick checks enquiry sub type and decides on action to continue or send email and close case -->
+        <center>
+            <apex:commandButton value="Save Update" action="{!showEmailTemplate}"
+                        rendered="{!doNotShowEmail && NOT(refreshPage)}" id="btn1" styleClass="btn" 
+                        status="showload" rerender="pbl,PONPanel,emailPanel,PONPanel2,PONPanel3" 
+                        oncomplete="if({!nresp.Request_Hold_Case__c} || {!nResp.Send_Case_To_Customer_Service__c} || {!refreshPage}){if({!hasCaseStatusChanged}){ if(confirm('The status of this case has changed, please refresh the case to review the changes')) RefreshPrimaryTabById(); } RefreshPrimaryTabById();}return false;"/>
+                        
+                         <apex:commandButton value="Save Update" action="{!showEmailTemplate}" rendered="{!refreshPage && doNotShowEmail}"
+                        id="bt" styleClass="btn" 
+                        status="showload" rerender="pbl,PONPanel,emailPanel,PONPanel2,PONPanel3" 
+                        onClick="if(confirm('This case has been closed. Your comments have been recorded and the case will remain closed')) { updateRecs(); } return false;"/>
+        </center>
+        <apex:outputPanel id="emailPanel" rendered="{!NOT(doNotShowEmail)}">
+              <br/>
+               <div style="border:1px solid #000;align-text:10px;height:400px"><b/>
+                  <font color="red"> <i><h5>NOTE: Email in below format will be sent to Customer</h5></i> </font> <br/><br/>
+                  <apex:outputText > <b>To: &nbsp;&nbsp;&nbsp; {!relatedCse.Contact.email} </b> </apex:outputText><br/><br/>
+                  <apex:inputTextArea value="{!templateBody2}" disabled="true" readonly="true" style="width:100%;height:350px;" /><br/>
+              </div>
+              <br/>
+              <apex:commandButton value="Change Selections" action="{!goBack}" id="btn2" 
+                                                           styleClass="btn"
+                        status="showload" rerender="pbl,PONPanel,emailPanel,myEmailPublisher,pg"/> &nbsp;&nbsp;&nbsp;&nbsp;
+              <apex:commandButton value="Send Email and Update Response" action="{!updateRespoTemp}" id="btn3"                          rendered="{!NOT(doNotShowEmail)}"
+                        styleClass="btn"
+                        status="showload" onclick="if(confirm('Email will be sent to customer. Are you sure?')) { updateRecs();} return false;" 
+                        rerender="pbl,pg,PONPanel,emailPanel,myEmailPublisher,pg" oncomplete="if({!hasCaseStatusChanged}){ if(confirm('The status of this case has changed, please refresh the case to review the changes')) { RefreshPrimaryTabById();} }RefreshPrimaryTabById();"/>   
+        </apex:outputPanel>
+     <center>   <apex:actionStatus id="showload" style="align:center;">
+                  <apex:facet name="start" >
+                      <img src="/img/loading.gif"  height="20" width="20"/> 
+                  </apex:facet>
+             </apex:actionStatus>   
+        </center>
+    </apex:outputPanel>
+    <apex:actionFunction name="updateRecs" action="{!updateRespoTemp}" id="updateRecs" oncomplete="if({!hasCaseStatusChanged}){ if(confirm('The status of this case has changed, please refresh the case to review the changes')) RefreshPrimaryTabById(); }RefreshPrimaryTabById();"/>
+    
+    </apex:form>
+      </apex:pageBlock>
+</apex:page>

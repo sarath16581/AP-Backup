@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PlannedMigrationCompletionDateCannotChan</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ISBLANK(Planned_Migration_Completion__c ),
+ISCHANGED(Planned_Migration_Completion__c ),
+$Profile.Name &lt;&gt; &quot;System Administrator&quot;,
+$Permission.LCM_Support = FALSE,
+$Permission.Lodgement_Migration_Data_Permission = FALSE  
+)</errorConditionFormula>
+    <errorMessage>Once the Planned Migration Completion Date is entered it can not be changed.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>BGSALES_Leads_CNA</masterLabel>
+    <promptVersions>
+        <body>&lt;p&gt;&lt;span style=&quot;font-size: 15.9833px; font-family: &amp;quot;AP Letter&amp;quot;, &amp;quot;AP Letter_EmbeddedFont&amp;quot;, &amp;quot;AP Letter_MSFontService&amp;quot;, &amp;quot;AP Letter_MSFontService&amp;quot;, sans-serif;&quot;&gt;Customer Needs replaces Guided Qualification and is now editable.​&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 15.9833px; font-family: &amp;quot;AP Letter&amp;quot;, &amp;quot;AP Letter_EmbeddedFont&amp;quot;, &amp;quot;AP Letter_MSFontService&amp;quot;, &amp;quot;AP Letter_MSFontService&amp;quot;, sans-serif;&quot;&gt;​&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Customer Needs replaces Guided Qualification and is now editable (i.e., you can update the information captured later if it changes).​&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;​Select the “Start” button in the “Customer Needs” section to capture the customer needs or &quot;View&quot; to view and edit the single record containing all information about the customer needs, which will be shared across the Lead and the Opportunity records​. Note that the list of “Customer Needs Categories” (previously called “Products &amp;amp; Services”) along with some questions to ask customers have changed.&lt;/p&gt;&lt;p&gt;​&lt;/p&gt;&lt;p&gt;Also remember to select the &quot;Interested Services&quot; before you qualify the Lead​.&lt;/p&gt;</body>
+        <customApplication>BG_Sales</customApplication>
+        <delayDays>1</delayDays>
+        <displayType>DockedComposer</displayType>
+        <endDate>2021-08-15</endDate>
+        <header>Customer Needs enhancement!​</header>
+        <isPublished>true</isPublished>
+        <masterLabel>BGSALES_Leads_CNA</masterLabel>
+        <publishedDate>2021-06-21</publishedDate>
+        <shouldDisplayActionButton>false</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>false</shouldIgnoreGlobalDelay>
+        <startDate>2021-07-15</startDate>
+        <targetPageKey1>Lead</targetPageKey1>
+        <targetPageKey2>view</targetPageKey2>
+        <targetPageType>standard__recordPage</targetPageType>
+        <timesToDisplay>3</timesToDisplay>
+        <title>Customer Needs</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

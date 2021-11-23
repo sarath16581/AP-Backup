@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_All_Open_VOC_Enquiries</fullName>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>Classification__c</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>Recent_Caller_Type__c</columns>
+    <columns>Priority_icon__c</columns>
+    <columns>Origin__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.StarTrack_Voice_of_Customer</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>VOC - All Open Enquiries</label>
+    <sharedTo>
+        <group>All_VOC</group>
+    </sharedTo>
+</ListView>

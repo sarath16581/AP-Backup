@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_Queue_Routing__c</fullName>
+    <description>Routing Logic used in Submission of Credit Support Request, to determine if the routing will be based on Credit Person Code or Work Type.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(Credit_Work_Type__c, &quot;Credit assessment query&quot;),&quot;Credit Assessment Query&quot;,
+IF(ISPICKVAL(Credit_Work_Type__c, &quot;Credit limit review&quot;),&quot;Credit Limit Review&quot;,
+IF(
+   AND(ISPICKVAL(Credit_Work_Type__c, &quot;Change billing account details&quot;), 
+        ISPICKVAL(Billing_Account_Change_of_Details_Type__c,&quot;Company Structure Details&quot;)
+   ), 
+   &quot;Change Billing Account Details&quot;,
+IF(ISBLANK( Credit_Person_Code__c ), &quot;Unassigned Credit Management Requests&quot;,
+IF(
+   AND(
+     ISPICKVAL(Credit_Work_Type__c, &quot;Add lodgement point&quot;), 
+     Lodgement_Point_Counter__c &gt; 4
+   ),
+   &quot;Credit Risk Team&quot;,
+&quot;Credit Person Code&quot;)))))</formula>
+    <label>Credit Queue Routing</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

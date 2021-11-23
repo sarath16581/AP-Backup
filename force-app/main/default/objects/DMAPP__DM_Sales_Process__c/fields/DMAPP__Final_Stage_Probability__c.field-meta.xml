@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Final_Stage_Probability__c</fullName>
+    <defaultValue>1</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Probability of the opportunity closing after all qualifiers have been checked positively.
+
+Even after all the qualifiers have been successfully completed, some opportunities may be lost.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is the probability of the opportunity closing after all steps have been completed.  This is usually 100%</inlineHelpText>
+    <label>Final Stage Probability %</label>
+    <precision>3</precision>
+    <required>true</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

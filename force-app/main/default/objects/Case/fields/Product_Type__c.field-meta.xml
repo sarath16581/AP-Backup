@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_Type__c</fullName>
+    <description>product type for non-compliance issue lodgement.</description>
+    <externalId>false</externalId>
+    <label>Product Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Access issues</fullName>
+                <default>false</default>
+                <label>Access issues</label>
+            </value>
+            <value>
+                <fullName>Account Issues</fullName>
+                <default>false</default>
+                <label>Account Issues</label>
+            </value>
+            <value>
+                <fullName>Addressed Mail</fullName>
+                <default>false</default>
+                <label>Addressed Mail</label>
+            </value>
+            <value>
+                <fullName>Advice emails</fullName>
+                <default>false</default>
+                <label>Advice emails</label>
+            </value>
+            <value>
+                <fullName>Australian Air Express</fullName>
+                <default>false</default>
+                <label>Australian Air Express</label>
+            </value>
+            <value>
+                <fullName>Australia Post</fullName>
+                <default>false</default>
+                <label>Australia Post</label>
+            </value>
+            <value>
+                <fullName>Bank@Post</fullName>
+                <default>false</default>
+                <label>Bank@Post</label>
+            </value>
+            <value>
+                <fullName>Business &amp; Payment Services</fullName>
+                <default>false</default>
+                <label>Business &amp; Payment Services</label>
+            </value>
+            <value>
+                <fullName>Charges</fullName>
+                <default>false</default>
+                <label>Charges</label>
+            </value>
+            <value>
+                <fullName>Community Update</fullName>
+                <default>false</default>
+                <label>Community Update</label>
+            </value>
+            <value>
+                <fullName>Consignment Cancellation</fullName>
+                <default>false</default>
+                <label>Consignment Cancellation</label>
+            </value>
+            <value>
+                <fullName>Consumer and Financial Products</fullName>
+                <default>false</default>
+                <label>Consumer and Financial Products</label>
+            </value>
+            <value>
+                <fullName>Contact Detail Updates</fullName>
+                <default>false</default>
+                <label>Contact Detail Updates</label>
+            </value>
+            <value>
+                <fullName>Contact Updates</fullName>
+                <default>false</default>
+                <label>Contact Updates</label>
+            </value>
+            <value>
+                <fullName>Contract Issue</fullName>
+                <default>false</default>
+                <label>Contract Issue</label>
+            </value>
+            <value>
+                <fullName>Courier</fullName>
+                <default>false</default>
+                <label>Courier</label>
+            </value>
+            <value>
+                <fullName>Credit Issues</fullName>
+                <default>false</default>
+                <label>Credit Issues</label>
+            </value>
+            <value>
+                <fullName>Customers</fullName>
+                <default>false</default>
+                <label>Customers</label>
+            </value>
+            <value>
+                <fullName>Digital Services</fullName>
+                <default>false</default>
+                <label>Digital Services</label>
+            </value>
+            <value>
+                <fullName>Direct Access</fullName>
+                <default>false</default>
+                <label>Direct Access</label>
+            </value>
+            <value>
+                <fullName>Domestic Letters</fullName>
+                <default>false</default>
+                <label>Domestic Letters</label>
+            </value>
+            <value>
+                <fullName>Domestic Parcels</fullName>
+                <default>false</default>
+                <label>Domestic Parcels</label>
+            </value>
+            <value>
+                <fullName>eParcel</fullName>
+                <default>false</default>
+                <label>eParcel</label>
+            </value>
+            <value>
+                <fullName>Error message clarifications</fullName>
+                <default>false</default>
+                <label>Error message clarifications</label>
+            </value>
+            <value>
+                <fullName>Error notifications</fullName>
+                <default>false</default>
+                <label>Error notifications</label>
+            </value>
+            <value>
+                <fullName>Express</fullName>
+                <default>false</default>
+                <label>Express</label>
+            </value>
+            <value>
+                <fullName>Express Post</fullName>
+                <default>false</default>
+                <label>Express Post</label>
+            </value>
+            <value>
+                <fullName>Fulfilio</fullName>
+                <default>false</default>
+                <label>Fulfilio</label>
+            </value>
+            <value>
+                <fullName>Generating Mailing Statements</fullName>
+                <default>false</default>
+                <label>Generating Mailing Statements</label>
+            </value>
+            <value>
+                <fullName>Government &amp; Agency Services</fullName>
+                <default>false</default>
+                <label>Government &amp; Agency Services</label>
+            </value>
+            <value>
+                <fullName>How to re-manifest</fullName>
+                <default>false</default>
+                <label>How to re-manifest</label>
+            </value>
+            <value>
+                <fullName>Identity Services</fullName>
+                <default>false</default>
+                <label>Identity Services</label>
+            </value>
+            <value>
+                <fullName>Importing</fullName>
+                <default>false</default>
+                <label>Importing</label>
+            </value>
+            <value>
+                <fullName>International</fullName>
+                <default>false</default>
+                <label>International</label>
+            </value>
+            <value>
+                <fullName>International Inward</fullName>
+                <default>false</default>
+                <label>International Inward</label>
+            </value>
+            <value>
+                <fullName>International Outward</fullName>
+                <default>false</default>
+                <label>International Outward</label>
+            </value>
+            <value>
+                <fullName>Key Issues</fullName>
+                <default>false</default>
+                <label>Key Issues</label>
+            </value>
+            <value>
+                <fullName>Labels</fullName>
+                <default>false</default>
+                <label>Labels</label>
+            </value>
+            <value>
+                <fullName>Letter Rebate Collection Program</fullName>
+                <default>false</default>
+                <label>Letter Rebate Collection Program</label>
+            </value>
+            <value>
+                <fullName>Letters</fullName>
+                <default>false</default>
+                <label>Letters</label>
+            </value>
+            <value>
+                <fullName>Local Pickup and Delivery Services</fullName>
+                <default>false</default>
+                <label>Local Pickup and Delivery Services</label>
+            </value>
+            <value>
+                <fullName>Mail Collection</fullName>
+                <default>false</default>
+                <label>Mail Collection</label>
+            </value>
+            <value>
+                <fullName>Mailing Statement Search</fullName>
+                <default>false</default>
+                <label>Mailing Statement Search</label>
+            </value>
+            <value>
+                <fullName>Mailing Statement Status Issues (Pricing Check, SSF, CCF)</fullName>
+                <default>false</default>
+                <label>Mailing Statement Status Issues (Pricing Check, SSF, CCF)</label>
+            </value>
+            <value>
+                <fullName>Manifest Issues</fullName>
+                <default>false</default>
+                <label>Manifest Issues</label>
+            </value>
+            <value>
+                <fullName>Manifest Line Item Reports</fullName>
+                <default>false</default>
+                <label>Manifest Line Item Reports</label>
+            </value>
+            <value>
+                <fullName>Manifests</fullName>
+                <default>false</default>
+                <label>Manifests</label>
+            </value>
+            <value>
+                <fullName>Master Service Agreement</fullName>
+                <default>false</default>
+                <label>Master Service Agreement</label>
+            </value>
+            <value>
+                <fullName>Missing Lodgement Point</fullName>
+                <default>false</default>
+                <label>Missing Lodgement Point</label>
+            </value>
+            <value>
+                <fullName>New Setups</fullName>
+                <default>false</default>
+                <label>New Setups</label>
+            </value>
+            <value>
+                <fullName>Next Flight</fullName>
+                <default>false</default>
+                <label>Next Flight</label>
+            </value>
+            <value>
+                <fullName>On Demand</fullName>
+                <default>false</default>
+                <label>On Demand</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Other Postal Services</fullName>
+                <default>false</default>
+                <label>Other Postal Services</label>
+            </value>
+            <value>
+                <fullName>Others</fullName>
+                <default>false</default>
+                <label>Others</label>
+            </value>
+            <value>
+                <fullName>Parcel</fullName>
+                <default>false</default>
+                <label>Parcel</label>
+            </value>
+            <value>
+                <fullName>Parcels</fullName>
+                <default>false</default>
+                <label>Parcels</label>
+            </value>
+            <value>
+                <fullName>Parcels – BPA</fullName>
+                <default>false</default>
+                <label>Parcels – BPA</label>
+            </value>
+            <value>
+                <fullName>Parcels – eParcels</fullName>
+                <default>false</default>
+                <label>Parcels – eParcels</label>
+            </value>
+            <value>
+                <fullName>Parcels – Full Rate</fullName>
+                <default>false</default>
+                <label>Parcels – Full Rate</label>
+            </value>
+            <value>
+                <fullName>Parcels – Startrack</fullName>
+                <default>false</default>
+                <label>Parcels – Startrack</label>
+            </value>
+            <value>
+                <fullName>Password</fullName>
+                <default>false</default>
+                <label>Password</label>
+            </value>
+            <value>
+                <fullName>Platforms</fullName>
+                <default>false</default>
+                <label>Platforms</label>
+            </value>
+            <value>
+                <fullName>Post Logistics</fullName>
+                <default>false</default>
+                <label>Post Logistics</label>
+            </value>
+            <value>
+                <fullName>Premium</fullName>
+                <default>false</default>
+                <label>Premium</label>
+            </value>
+            <value>
+                <fullName>PrintPost</fullName>
+                <default>false</default>
+                <label>PrintPost</label>
+            </value>
+            <value>
+                <fullName>Production - Customer Query</fullName>
+                <default>false</default>
+                <label>Production - Customer Query</label>
+            </value>
+            <value>
+                <fullName>Production - Platform Query</fullName>
+                <default>false</default>
+                <label>Production - Platform Query</label>
+            </value>
+            <value>
+                <fullName>Products</fullName>
+                <default>false</default>
+                <label>Products</label>
+            </value>
+            <value>
+                <fullName>Receiver Services</fullName>
+                <default>false</default>
+                <label>Receiver Services</label>
+            </value>
+            <value>
+                <fullName>Registration</fullName>
+                <default>false</default>
+                <label>Registration</label>
+            </value>
+            <value>
+                <fullName>Reports</fullName>
+                <default>false</default>
+                <label>Reports</label>
+            </value>
+            <value>
+                <fullName>Returns Reporting</fullName>
+                <default>false</default>
+                <label>Returns Reporting</label>
+            </value>
+            <value>
+                <fullName>SecurePost</fullName>
+                <default>false</default>
+                <label>SecurePost</label>
+            </value>
+            <value>
+                <fullName>Send A Parcel-Card</fullName>
+                <default>false</default>
+                <label>Send A Parcel-Card</label>
+            </value>
+            <value>
+                <fullName>StarTrack</fullName>
+                <default>false</default>
+                <label>StarTrack</label>
+            </value>
+            <value>
+                <fullName>StarTrack Courier</fullName>
+                <default>false</default>
+                <label>StarTrack Courier</label>
+            </value>
+            <value>
+                <fullName>StarTrack Express</fullName>
+                <default>false</default>
+                <label>StarTrack Express</label>
+            </value>
+            <value>
+                <fullName>StarTrack International</fullName>
+                <default>false</default>
+                <label>StarTrack International</label>
+            </value>
+            <value>
+                <fullName>Summary Lodgement Reports</fullName>
+                <default>false</default>
+                <label>Summary Lodgement Reports</label>
+            </value>
+            <value>
+                <fullName>Test - Customer Query</fullName>
+                <default>false</default>
+                <label>Test - Customer Query</label>
+            </value>
+            <value>
+                <fullName>Test - Platform Query</fullName>
+                <default>false</default>
+                <label>Test - Platform Query</label>
+            </value>
+            <value>
+                <fullName>Tests</fullName>
+                <default>false</default>
+                <label>Tests</label>
+            </value>
+            <value>
+                <fullName>Tracking Applications</fullName>
+                <default>false</default>
+                <label>Tracking Applications</label>
+            </value>
+            <value>
+                <fullName>Tracking Parcels</fullName>
+                <default>false</default>
+                <label>Tracking Parcels</label>
+            </value>
+            <value>
+                <fullName>UMS</fullName>
+                <default>false</default>
+                <label>UMS</label>
+            </value>
+            <value>
+                <fullName>Unaddressed Mail</fullName>
+                <default>false</default>
+                <label>Unaddressed Mail</label>
+            </value>
+            <value>
+                <fullName>Unmanifested Queries</fullName>
+                <default>false</default>
+                <label>Unmanifested Queries</label>
+            </value>
+            <value>
+                <fullName>Workforce Verification</fullName>
+                <default>false</default>
+                <label>Workforce Verification</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

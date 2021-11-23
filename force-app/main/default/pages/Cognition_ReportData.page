@@ -1,0 +1,403 @@
+<apex:page id="reportPageId" controller="Cognition_Controller" showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false">
+
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <apex:stylesheet value="{!URLFOR($Resource.Cognition_StaticRes, '/css/CognitionDataTable.css')}" />
+        <apex:includeScript value="{!$Resource.Cognition_JQuery1102}" />
+        <apex:includeScript value="{!URLFOR($Resource.Cognition_DataTables, '/DataTables-1.10.16/js/jquery.dataTables.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.Cognition_StaticRes, '/js/CognitionUtility.js')}" />
+
+        <script type="text/javascript">
+            var $j = jQuery.noConflict();
+            var lexOrigin = 'https://{!$CurrentPage.parameters.lcHost}';
+            var oTable;
+            var data;
+            var reportData = [];
+            var primaryResult = new Array();
+            var reportCategory = '';
+            var baseUrl = '';
+            var isInternalUser = '';
+
+
+
+            function downloadCSV() {
+                var csvString = '';
+                if (CognitionUtil.isPickupCategory(reportCategory)) {
+                    csvString += "{!$Label.Cognition_Report_Column1 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column8 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column12 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column13 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column14 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column15 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column16 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column17 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column18 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column19 + ',\n'}";
+                } else {
+                    csvString += "{!$Label.Cognition_Report_Column1 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column2 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column3 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column4 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column5 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column6 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column7 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column8 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column9 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column10 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column11 + ','}";
+                    csvString += "{!$Label.Cognition_Report_Column20 + ',\n'}";
+                }
+
+                for (var i = 0; i < reportData.length; i++) {
+                    if (CognitionUtil.isPickupCategory(reportCategory)){
+                        csvString += cleanseText(reportData[i].Depot) + ",";
+                        csvString += cleanseText(reportData[i].Category) + ",";
+                        csvString += cleanseText(reportData[i].BookingNbr) + ",";
+                        csvString += cleanseText(reportData[i].BookingType) + ",";
+                        csvString += cleanseText(reportData[i].PickupAddress) + ",";
+                        csvString += cleanseText(reportData[i].ReadyTime) + ",";
+                        csvString += cleanseText(reportData[i].CloseTime) + ",";
+                        csvString += cleanseText(reportData[i].ContactArea) + ",";
+                        csvString += cleanseText(reportData[i].Contact) + ",";
+                        csvString += cleanseText(reportData[i].BookingInstructions) + ",\n";
+                    } else {
+                        csvString += cleanseText(reportData[i].Depot) + ",";
+                        csvString += cleanseText(reportData[i].Consignment) + ",";
+                        csvString += cleanseText(reportData[i].Product) + ",";
+                        csvString += cleanseText(reportData[i].SenderName) + ",";
+                        csvString += cleanseText(reportData[i].ReceiverName) + ",";
+                        csvString += cleanseText(CognitionUtil.getReceiverSuburb(reportData[i])) + ",";
+                        csvString += cleanseText(reportData[i].NbrOfItems) + ",";
+                        csvString += cleanseText(reportData[i].Category) + ",";
+                        csvString += cleanseText(CognitionUtil.getLPOWithLastEvent(reportData[i])) + ",";
+                        csvString += cleanseText(reportData[i].LastEventDateTime) + ",";
+                        csvString += cleanseText(reportData[i].SendersReference) + ",";
+                        csvString += cleanseText(reportData[i].SFCaseNumber) + ",\n";
+                    }
+                }
+                var downloadElement = document.createElement('a');
+                downloadElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvString);
+                downloadElement.target = '_self'; //
+                var currTime = new Date();
+                var tStamp = ((currTime.toString()).replace(/[\s:]/g, '')).substr(3, 13);
+                downloadElement.download = 'CognitionReport_' + reportCategory + '_' + tStamp + '.csv';
+                document.body.appendChild(downloadElement);
+                downloadElement.click();
+            }
+
+            /**
+             * generate reports based on specific categories, the report columns will be changed
+             * @param reportList
+             */
+            function genReport(reportList) {
+                reportData = reportList;
+                console.log('reportList reportList ', reportList);
+                var myTable = "<table id='reportTable' class='display compact' style='width:100%; font-size: 0.75rem;'> <thead><tr>";
+                // table for pickup booking reports
+                if(CognitionUtil.isPickupCategory(reportCategory)){
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column1}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column8}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column12}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column13}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column22}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column14}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column15}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column16}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column17}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column18}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column19}" + "</td>";
+                } else if(CognitionUtil.isOutstandingCategory(reportCategory)){
+                    // table for still outstanding report
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column1}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column2}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column3}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column4}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column5}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column6}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column7}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column8}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column9}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column10}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column11}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column20}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column21}" + "</td>";
+                } else if(CognitionUtil.isExceptionCategory(reportCategory)){
+                    // table for exceptions report
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column1}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column2}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column3}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column4}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column5}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column6}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column7}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column8}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column9}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column10}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column11}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column20}" + "</td>";
+                } else {
+                    // table for all the other reports
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column1}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column2}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column3}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column4}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column5}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column6}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column7}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column8}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column9}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column10}" + "</td>";
+                    myTable += "<td style='font-weight:bold;'>" + "{!$Label.Cognition_Report_Column11}" + "</td>";
+                }
+                myTable += "</tr></thead>";
+
+                if (reportList) {
+                    myTable += "<tbody>";
+                    for (var i = 0; i < reportList.length; i++) {
+                        myTable += "<tr>";
+                        if(CognitionUtil.isPickupCategory(reportCategory)) {
+                            myTable += "<td>" + cleanseText(reportList[i].Depot) + "</td>";
+                            myTable += "<td>" + cleanseText(reportList[i].Category) + "</td>";
+                            myTable += "<td >" + cleanseText(reportList[i].BookingNbr) + "</td>";
+                            myTable += "<td>" + cleanseText(reportList[i].BookingType) + "</td>";
+                            myTable += "<td>" + CognitionUtil.getReceiverSuburb(reportData[i])  + "</td>";
+                            myTable += "<td>" + cleanseText(reportList[i].PickupAddress) + "</td>";
+                            myTable += "<td>" + cleanseText(reportList[i].ReadyTime) + "</td>";
+                            myTable += "<td>" + cleanseText(reportList[i].CloseTime) + "</td>";
+                            myTable += "<td>" + cleanseText(reportList[i].ContactArea) + "</td>";
+                            myTable += "<td>" + cleanseText(reportList[i].Contact) + "</td>";
+                            myTable += "<td>" + cleanseText(reportList[i].BookingInstructions) + "</td>";
+                        } else if(CognitionUtil.isOutstandingCategory(reportCategory)){
+                            myTable +="<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].Depot) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].Consignment)+ "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].Product) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].SenderName) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].ReceiverName) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + CognitionUtil.getReceiverSuburb(reportData[i]) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].NbrOfItems) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].Category) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + CognitionUtil.getLPOWithLastEvent(reportData[i]) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].LastEventDateTime) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].SendersReference) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].SFCaseNumber) +"</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].ETADate) +"</td>";
+                        } else if(CognitionUtil.isExceptionCategory(reportCategory)){
+                            myTable +="<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].Depot) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].Consignment)+ "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].Product) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].SenderName) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].ReceiverName) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + CognitionUtil.getReceiverSuburb(reportData[i]) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].NbrOfItems) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].Category) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + CognitionUtil.getLPOWithLastEvent(reportData[i]) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].LastEventDateTime) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].SendersReference) + "</td>";
+                            myTable += "<td class='"+CognitionUtil.highlightCaseRecord(reportList[i])+"'>" + cleanseText(reportList[i].SFCaseNumber) +"</td>";
+                        } else {
+                            myTable +="<td>" + cleanseText(reportList[i].Depot) + "</td>";
+                            myTable += "<td>" +  cleanseText(reportList[i].Consignment) + "</td>";
+                            myTable += "<td>" + cleanseText(reportList[i].Product) + "</td>";
+                            myTable += "<td>" + cleanseText(reportList[i].SenderName) + "</td>";
+                            myTable += "<td>" + cleanseText(reportList[i].ReceiverName) + "</td>";
+                            myTable += "<td>" + CognitionUtil.getReceiverSuburb(reportData[i]) + "</td>";
+                            myTable += "<td>" + cleanseText(reportList[i].NbrOfItems) + "</td>";
+                            myTable += "<td>" + cleanseText(reportList[i].Category) + "</td>";
+                            myTable += "<td>" + CognitionUtil.getLPOWithLastEvent(reportData[i]) + "</td>";
+                            myTable += "<td>" + cleanseText(reportList[i].LastEventDateTime) + "</td>";
+                            myTable += "<td>" + cleanseText(reportList[i].SendersReference) + "</td>";
+                        }
+                        myTable += "</tr>";
+                    }
+                    myTable += "</tbody>";
+                }
+                myTable += "</table>";
+                document.getElementById('reportTableDiv').innerHTML = myTable;
+                oTable = $j('[id$=reportTable]').dataTable({
+                    "iDisplayLength": 20,
+                    "sort": true,
+                    "lengthMenu": [10, 20, 30]
+                });
+            }
+
+            var totalNumberOfRecs = 0;
+            var nextRecordPointer = 0;
+            var recordPointer = 0;
+            var paginationSize = {!$Setup.CustomerCognitionSettings__c.ReportsLoadMoreLimit__c};
+            var timeOut = {!$Setup.CustomerCognitionSettings__c.ReportJSRemoteTimeout__c};
+            var reqGuid;
+            var categoryName;
+            function loadmore() {
+                nextRecordPointer = (paginationSize + recordPointer) - 1; // adjustment to not take duplicates
+                console.log('REPORTS MORE TWO'+ recordPointer+' to '+ nextRecordPointer+' totalNumberOfRecs = '+totalNumberOfRecs);
+                if (totalNumberOfRecs >= recordPointer) {
+
+                    console.log('REPORTS MORE TWO IN'+ recordPointer);
+                    $j('[id$=spinnerDiv]').show();
+                    Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.Cognition_Controller.getReportInfoRemotingAsync}',
+                        reqGuid, reportCategory,
+                        categoryName, nextRecordPointer, recordPointer,
+                        function (result, event) {
+
+                            $j('[id$=spinnerDiv]').hide();
+                            if (event.status) {
+                                document.getElementById('reportTableDiv').innerHTML = "";
+
+                                // if loading fr the firsst time
+                                if(recordPointer===0){
+                                    reportData = result.ReportData;
+                                    this.primaryResult = result;
+                                    genReport(reportData);
+                                } else {
+                                    // any following loads will be load more button clicks
+                                    this.primaryResult.ReportData = result.ReportData.concat(this.primaryResult.ReportData);
+                                    // append loaded report data to exisiting rep data
+                                    reportData.push(result.ReportData);
+                                    // tehn lets re-draw the report
+                                    genReport(this.primaryResult.ReportData);
+                                }
+                                // move the record pointer to support pagination
+                                recordPointer = recordPointer + paginationSize;
+
+                                if (totalNumberOfRecs <= recordPointer) {
+                                    $j('[id$=loadmore]').hide();
+                                }
+                            } else {
+                                this.primaryResult = null;
+                                console.error('JS remoting error!!' + event.message);
+                                document.getElementById('reportTableDiv').innerHTML = "{!$Label.Cognition_ReportError}";
+                            }
+                        }, {
+                            buffer: false,
+                            escape: true,
+                            timeout: timeOut
+                        }
+                    );
+                }
+            }
+
+            window.addEventListener("message", function(event) {
+
+                console.log('Data Sent to reportVF: ', JSON.stringify(event.data));
+                if (event.origin !== lexOrigin) {
+                    // Not the expected origin: reject message!
+                    return;
+                }
+                // Handle message
+
+                reqGuid = event.data.reqGUID;
+                reportCategory = event.data.category;
+                baseUrl = event.data.baseUrl;
+                isInternalUser =  event.data.isInternalUser;
+                CognitionUtil.refreshInterval = event.data.refreshInterval;
+
+                // initialising the timer to refresh the data from API on mouse over of the report
+                CognitionUtil.origin = lexOrigin;
+                CognitionUtil.enableTimer(lexOrigin);
+
+                totalNumberOfRecs = event.data.seqValue;
+
+                categoryName = event.data.categoryName;
+                var toSeq = paginationSize - 1;// -1 due to 0 start
+                var fromSeq = 0;
+
+                // reset the pagination loadmore functionality
+                this.primaryResult = null;
+                this.nextRecordPointer = 0;
+                this.recordPointer = 0;
+
+                // if theere are more records to be loaded, show the load more button
+                if(totalNumberOfRecs > paginationSize){
+                    $j('[id$=loadmore]').show();
+                } else {
+                    $j('[id$=loadmore]').hide();
+                }
+
+                document.getElementById('reportNameHeader').innerHTML = "{!$Label.Cognition_ReportTitle}" + ' - ' + categoryName;
+                document.getElementById('reportTableDiv').innerHTML = "";
+                $j('[id$=spinnerDiv]').show();
+                // load the report data with calling remote action, this is seperte as the same functionality
+                // used by the load more button
+                loadmore()
+
+            }, false);
+
+            // Adds escape quotes for strings that have comma and double quote
+            function cleanseText(inStr) {
+
+                if(typeof inStr === 'undefined' || inStr === null ) {
+                    inStr = '-';
+                }
+
+                var txt = '' + inStr;
+                if (txt.search(/[,"]/) != -1) {
+                    console.log('--here--' + txt);
+                    return "\"" + txt + "\"";
+                } else {
+                    return txt;
+                }
+            }
+        </script>
+        <!-- Import the Design System style sheet -->
+        <apex:slds />
+
+        <style>
+            table.dataTable tr {
+                background-color: white;
+            }
+
+            table tbody tr td div.slds-truncate {
+                white-space: normal !important;
+            }
+
+            .slds-scope .slds-truncate {}
+        </style>
+    </head>
+
+    <body>
+    <!-- REQUIRED SLDS WRAPPER -->
+    <div class="slds-scope slds-scrollable" style="height: 95vh;">
+        <apex:form styleClass="slds-form-element" id="frm">
+
+
+            <div id="spinnerDiv" style="display:none">
+                <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; z-index: 1000; background-color: black;">
+                    &nbsp;
+                </div>
+                <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 15% 50%">
+                    <div style="display: inline-block; padding: 2px; background-color: #fff; width: 250px;">
+                        <img src="/img/loading.gif" style="float: left; margin: 8px;" />
+                        <span style="display: inline-block; padding: 10px 0px;">{!$Label.Cognition_ReportGenerate}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-page-header slds-box">
+                <div class="slds-media">
+                    <div class="slds-media__body">
+                        <h1 class="slds-page-header__title slds-align-middle">
+
+                            <h1 id="reportNameHeader" class="slds-page-header__title slds-align-middle slds-align_absolute-center page-heading" style="color:black;font-size:20px;line-height: 2.5;">
+                                {!$Label.Cognition_ReportTitle}
+                            </h1>
+                        </h1>
+                    </div>
+                    <apex:commandButton id="loadmore"  styleClass="slds-button slds-button--brand slds-not-selected" style="background-color : #E51100; border-color: #E51100;margin-top: 17px;" value="Loard more..." onclick="loadmore();return false" />
+                    <apex:commandButton rendered="{!$Setup.CustomerCognitionSettings__c.EnableReportDownload__c}" styleClass="slds-button slds-button--brand slds-not-selected" style="background-color : #E51100; border-color: #E51100;margin-top: 17px;" value="{!$Label.Cognition_DownloadReport}" onclick="downloadCSV();return false" />
+                </div>
+            </div>
+            <br />
+            <div id="reportTableDiv" style="height:100vh;">
+            </div>
+        </apex:form>
+    </div>
+    <!-- / REQUIRED SLDS WRAPPER -->
+    </body>
+
+    </html>
+
+</apex:page>

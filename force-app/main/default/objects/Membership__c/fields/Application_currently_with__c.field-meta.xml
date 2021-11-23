@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Application_currently_with__c</fullName>
+    <description>To show where the registration is currently siting</description>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(Status__c, &quot;New&quot;), &quot;With Aus Post&quot;, 
+IF(ISPICKVAL(Status__c, &quot;Pack Sent to LPO&quot;), &quot;With LPO&quot;, 
+IF(ISPICKVAL(Status__c, &quot;Received from LPO&quot;), &quot;With Aus Post&quot;, 
+IF(ISPICKVAL(Status__c, &quot;Awaiting Workforce Verification&quot;), &quot;With LPO&quot;,
+IF(ISPICKVAL(Status__c, &quot;Missing Information&quot;), &quot;With LPO&quot;,
+IF(ISPICKVAL(Status__c, &quot;Received Missing Info Back&quot;), &quot;With Aus Post&quot;,
+IF(ISPICKVAL(Status__c, &quot;Submitted to WU&quot;), &quot;With Western Union&quot;, 
+IF(ISPICKVAL(Status__c, &quot;Review WU Return&quot;), &quot;With Aus Post&quot;,
+IF(ISPICKVAL(Status__c, &quot;Return from WU&quot;), &quot;With LPO&quot;, 
+IF(ISPICKVAL(Status__c, &quot;Resubmitted to WU&quot;), &quot;With Western Union&quot;,
+&quot;Completed&quot;))))))))))</formula>
+    <label>Application currently with</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

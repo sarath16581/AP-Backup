@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCUAuthorisedAllOrgCases__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>2014-07 SSSW - CCU portal access to all cases.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If checked, the contact can view cases belong to the organisation from the CCU portal.</inlineHelpText>
+    <label>(NOT IN USE)Authorised to View Org Cases</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

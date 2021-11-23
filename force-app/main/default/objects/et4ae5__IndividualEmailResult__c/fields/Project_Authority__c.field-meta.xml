@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Project_Authority__c</fullName>
+    <description>Response to the role profiling question for the tactical email stream</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Response to the role profiling question for the tactical email stream</inlineHelpText>
+    <label>Project Authority</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>The Decision Maker</fullName>
+                <default>false</default>
+                <label>The Decision Maker</label>
+            </value>
+            <value>
+                <fullName>A Decision Maker</fullName>
+                <default>false</default>
+                <label>A Decision Maker</label>
+            </value>
+            <value>
+                <fullName>A Recommender</fullName>
+                <default>false</default>
+                <label>A Recommender</label>
+            </value>
+            <value>
+                <fullName>A Stakeholder</fullName>
+                <default>false</default>
+                <label>A Stakeholder</label>
+            </value>
+            <value>
+                <fullName>Not directly involved</fullName>
+                <default>false</default>
+                <label>Not directly involved</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>StarTrack_Create_Consignment</name>
+    </customPermissions>
+    <description>Can create Consignment without creating Case</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>StarTrack Create Consignment</label>
+    <license>Salesforce</license>
+</PermissionSet>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CNA_Duration__c</fullName>
+    <description>Used for Customer Needs Analysis reporting purpose</description>
+    <externalId>false</externalId>
+    <formula>(CNA_Complete_Date__c - CNA_Start_Date__c)*24</formula>
+    <label>CNA Draft to Completion Duration(Hr)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Request_cant_be_done_from_Closed_Opp</fullName>
+    <active>true</active>
+    <description>To stop requests being pushed through from a Closed Opportunity</description>
+    <errorConditionFormula>$Profile.Name &lt;&gt; &apos;System Administrator&apos; &amp;&amp; $Permission.Commercial_Governance_Team = false &amp;&amp; BEGINS( TEXT(Opportunity__r.StageName), &apos;Closed&apos;)</errorConditionFormula>
+    <errorMessage>A Pricing Support Request cannot be updated against a Closed Opportunity. Please contact commercial governance team for further details.</errorMessage>
+</ValidationRule>

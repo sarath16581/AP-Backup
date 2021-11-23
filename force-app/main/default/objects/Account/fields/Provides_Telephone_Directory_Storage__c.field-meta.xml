@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Provides_Telephone_Directory_Storage__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Does this site provide storage for telephone directories?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Does this site provide storage for telephone directories?</inlineHelpText>
+    <label>Provides Telephone Directory Storage</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

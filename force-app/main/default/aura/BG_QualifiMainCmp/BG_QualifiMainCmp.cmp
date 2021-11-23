@@ -1,0 +1,53 @@
+<!--
+    STP:20/02/2020: 
+    This is the main component using in 'Initiate Qualification' Flow.
+    Which will load the subsequent lightning components to follow the qualification steps.
+    The parameter for this component is Lead 'recordId'
+    
+                        History:
+    20.02.2020      Jansi (CRMIT Solutions)             created
+    12.01.2020      arjun.singh@auspost.com.au          Modified to have qualification available for Lead and Opportunity
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader,lightning:availableForFlowScreens" access="global"
+                controller='BG_QualificationApex'>
+    
+    <!-- Attributes -->
+    
+    <aura:attribute name="hasBgSalesPermissionSet" type="Boolean" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="initCmp" type="String" default='c:BG_qualifiInitCmp' />
+    <aura:attribute name="discoveryCmpName" type="String" default='c:BG_DiscoveryCmp' />
+    <aura:attribute name="productsSelectionCmpName" type="String" default='c:BG_QualifyProdSelectionCmp' />
+    <aura:attribute name="productDetailsCmpName" type="String" default='c:BG_ProductDetailsCmp'/>
+    <aura:attribute name="operationalDetailsCmpName" type="String" default='c:BG_OperationalDetailsCmp'/>
+    <aura:attribute name="reviewAndSummaryCmpName" type="String" default='c:BG_ReviewAndSummaryCmp' />
+    <aura:attribute name="ReadOnlySummaryCmpName" type="String" default='c:BG_ReadOnlySummaryCmp'/>
+    
+    <aura:attribute name="discoveryCategoryQuestions" type="Object"/>
+    <aura:attribute name="operationalCategoryQuestions" type="Object"/>
+    <aura:attribute name="selectedProducts" type="List"/>
+    <aura:attribute name="productAndServicesList" type="List"/>
+    <aura:attribute name="selectedProductsQuestions" type="Map" default='{}'/>
+    <aura:attribute name="selectedProductRelatedQuestions" type="Map" default='{}'/>
+    <aura:attribute name="summaryProducts" type="List" />
+    <aura:attribute name="totalEstimatedRevenue" type="Decimal" default=''/>
+    <aura:attribute name="summaryNotes" type="String" default=''/>
+    <aura:attribute name="selectedPrimaryProduct" type="String"/>
+    <aura:attribute name="productNotesMap" type="Map" default='{}'/>
+    <aura:attribute name="productEstimateMap" type="Map" default='{}' />
+    <aura:attribute name="qualId" type="String" />
+    
+    <aura:attribute name="initialLoad" type="Boolean" default= 'false' />
+    <aura:attribute name="qualificationRecordId" type="String" />
+    <aura:attribute name="existingQualification" type="Object"/>
+    <aura:attribute name="editFlow" type="Boolean" default= 'false' />    
+    <aura:attribute name="isManualOpp" type="Boolean" />
+    <!-- Handler -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!-- Cmp Event Handler -->
+    <aura:registerEvent name="genCmpEvent" type="c:BG_GenericComponentEvent"/>
+    <aura:handler name="genCmpEvent" event="c:BG_GenericComponentEvent" action="{!c.handleComponentEvent}"/>
+    <div>        
+        {!v.body}
+    </div>    
+</aura:component>

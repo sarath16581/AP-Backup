@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Queue_Assignment</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (APT_Submit_to_Legal__c= TRUE, APT_Submit_to_Product__c= TRUE)</errorConditionFormula>
+    <errorMessage>Please Note that you can only submit to one Team at a time.</errorMessage>
+</ValidationRule>

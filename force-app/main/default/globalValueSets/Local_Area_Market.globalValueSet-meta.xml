@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>ADELAIDE</fullName>
+        <default>false</default>
+        <label>ADELAIDE</label>
+    </customValue>
+    <customValue>
+        <fullName>ALBURY</fullName>
+        <default>false</default>
+        <label>ALBURY</label>
+    </customValue>
+    <customValue>
+        <fullName>ALEXANDRIA</fullName>
+        <default>false</default>
+        <label>ALEXANDRIA</label>
+    </customValue>
+    <customValue>
+        <fullName>ARCHERFIELD</fullName>
+        <default>false</default>
+        <label>ARCHERFIELD</label>
+    </customValue>
+    <customValue>
+        <fullName>BALLARAT</fullName>
+        <default>false</default>
+        <label>BALLARAT</label>
+    </customValue>
+    <customValue>
+        <fullName>BALLINA</fullName>
+        <default>false</default>
+        <label>BALLINA</label>
+    </customValue>
+    <customValue>
+        <fullName>BATHURST</fullName>
+        <default>false</default>
+        <label>BATHURST</label>
+    </customValue>
+    <customValue>
+        <fullName>BAYSWATER</fullName>
+        <default>false</default>
+        <label>BAYSWATER</label>
+    </customValue>
+    <customValue>
+        <fullName>BENDIGO</fullName>
+        <default>false</default>
+        <label>BENDIGO</label>
+    </customValue>
+    <customValue>
+        <fullName>BIBRA LAKE</fullName>
+        <default>false</default>
+        <label>BIBRA LAKE</label>
+    </customValue>
+    <customValue>
+        <fullName>BRISBANE CENTRAL</fullName>
+        <default>false</default>
+        <label>BRISBANE CENTRAL</label>
+    </customValue>
+    <customValue>
+        <fullName>BUNDALL</fullName>
+        <default>false</default>
+        <label>BUNDALL</label>
+    </customValue>
+    <customValue>
+        <fullName>CAIRNS</fullName>
+        <default>false</default>
+        <label>CAIRNS</label>
+    </customValue>
+    <customValue>
+        <fullName>CANBERRA</fullName>
+        <default>false</default>
+        <label>CANBERRA</label>
+    </customValue>
+    <customValue>
+        <fullName>CARINGBAH</fullName>
+        <default>false</default>
+        <label>CARINGBAH</label>
+    </customValue>
+    <customValue>
+        <fullName>COFFS HARBOUR</fullName>
+        <default>false</default>
+        <label>COFFS HARBOUR</label>
+    </customValue>
+    <customValue>
+        <fullName>DANDENONG</fullName>
+        <default>false</default>
+        <label>DANDENONG</label>
+    </customValue>
+    <customValue>
+        <fullName>FRENCHS FOREST</fullName>
+        <default>false</default>
+        <label>FRENCHS FOREST</label>
+    </customValue>
+    <customValue>
+        <fullName>GEELONG</fullName>
+        <default>false</default>
+        <label>GEELONG</label>
+    </customValue>
+    <customValue>
+        <fullName>HOBART</fullName>
+        <default>false</default>
+        <label>HOBART</label>
+    </customValue>
+    <customValue>
+        <fullName>HOPPERS CROSSING</fullName>
+        <default>false</default>
+        <label>HOPPERS CROSSING</label>
+    </customValue>
+    <customValue>
+        <fullName>HUNTER</fullName>
+        <default>false</default>
+        <label>HUNTER</label>
+    </customValue>
+    <customValue>
+        <fullName>KINGSGROVE</fullName>
+        <default>false</default>
+        <label>KINGSGROVE</label>
+    </customValue>
+    <customValue>
+        <fullName>LAUNCESTON</fullName>
+        <default>false</default>
+        <label>LAUNCESTON</label>
+    </customValue>
+    <customValue>
+        <fullName>LONSDALE</fullName>
+        <default>false</default>
+        <label>LONSDALE</label>
+    </customValue>
+    <customValue>
+        <fullName>MACKAY</fullName>
+        <default>false</default>
+        <label>MACKAY</label>
+    </customValue>
+    <customValue>
+        <fullName>MACQUARIE PARK</fullName>
+        <default>false</default>
+        <label>MACQUARIE PARK</label>
+    </customValue>
+    <customValue>
+        <fullName>MANSFIELD</fullName>
+        <default>false</default>
+        <label>MANSFIELD</label>
+    </customValue>
+    <customValue>
+        <fullName>MOORABBIN</fullName>
+        <default>false</default>
+        <label>MOORABBIN</label>
+    </customValue>
+    <customValue>
+        <fullName>MORETON BAY</fullName>
+        <default>false</default>
+        <label>MORETON BAY</label>
+    </customValue>
+    <customValue>
+        <fullName>MOUNT WAVERLEY</fullName>
+        <default>false</default>
+        <label>MOUNT WAVERLEY</label>
+    </customValue>
+    <customValue>
+        <fullName>NAMBOUR</fullName>
+        <default>false</default>
+        <label>NAMBOUR</label>
+    </customValue>
+    <customValue>
+        <fullName>NEPEAN</fullName>
+        <default>false</default>
+        <label>NEPEAN</label>
+    </customValue>
+    <customValue>
+        <fullName>OSBORNE PARK</fullName>
+        <default>false</default>
+        <label>OSBORNE PARK</label>
+    </customValue>
+    <customValue>
+        <fullName>PERTH</fullName>
+        <default>false</default>
+        <label>PERTH</label>
+    </customValue>
+    <customValue>
+        <fullName>PORT MELBOURNE</fullName>
+        <default>false</default>
+        <label>PORT MELBOURNE</label>
+    </customValue>
+    <customValue>
+        <fullName>ROCKHAMPTON</fullName>
+        <default>false</default>
+        <label>ROCKHAMPTON</label>
+    </customValue>
+    <customValue>
+        <fullName>SALISBURY SOUTH</fullName>
+        <default>false</default>
+        <label>SALISBURY SOUTH</label>
+    </customValue>
+    <customValue>
+        <fullName>SA Rural and Remote</fullName>
+        <default>false</default>
+        <label>SA Rural and Remote</label>
+    </customValue>
+    <customValue>
+        <fullName>SEAFORD</fullName>
+        <default>false</default>
+        <label>SEAFORD</label>
+    </customValue>
+    <customValue>
+        <fullName>SEVEN HILLS</fullName>
+        <default>false</default>
+        <label>SEVEN HILLS</label>
+    </customValue>
+    <customValue>
+        <fullName>SHEPPARTON</fullName>
+        <default>false</default>
+        <label>SHEPPARTON</label>
+    </customValue>
+    <customValue>
+        <fullName>SILVERWATER</fullName>
+        <default>false</default>
+        <label>SILVERWATER</label>
+    </customValue>
+    <customValue>
+        <fullName>SMEATON GRANGE</fullName>
+        <default>false</default>
+        <label>SMEATON GRANGE</label>
+    </customValue>
+    <customValue>
+        <fullName>SOMERTON</fullName>
+        <default>false</default>
+        <label>SOMERTON</label>
+    </customValue>
+    <customValue>
+        <fullName>ST LEONARDS</fullName>
+        <default>false</default>
+        <label>ST LEONARDS</label>
+    </customValue>
+    <customValue>
+        <fullName>TAMWORTH</fullName>
+        <default>false</default>
+        <label>TAMWORTH</label>
+    </customValue>
+    <customValue>
+        <fullName>TOOWOOMBA</fullName>
+        <default>false</default>
+        <label>TOOWOOMBA</label>
+    </customValue>
+    <customValue>
+        <fullName>TOWNSVILLE</fullName>
+        <default>false</default>
+        <label>TOWNSVILLE</label>
+    </customValue>
+    <customValue>
+        <fullName>TUGGERAH</fullName>
+        <default>false</default>
+        <label>TUGGERAH</label>
+    </customValue>
+    <customValue>
+        <fullName>VIRGINIA</fullName>
+        <default>false</default>
+        <label>VIRGINIA</label>
+    </customValue>
+    <customValue>
+        <fullName>WANGARA</fullName>
+        <default>false</default>
+        <label>WANGARA</label>
+    </customValue>
+    <customValue>
+        <fullName>Warrnambool</fullName>
+        <default>false</default>
+        <label>Warrnambool</label>
+    </customValue>
+    <customValue>
+        <fullName>WA Rural and Remote</fullName>
+        <default>false</default>
+        <label>WA Rural and Remote</label>
+    </customValue>
+    <customValue>
+        <fullName>WELSHPOOL</fullName>
+        <default>false</default>
+        <label>WELSHPOOL</label>
+    </customValue>
+    <customValue>
+        <fullName>WETHERILL PARK</fullName>
+        <default>false</default>
+        <label>WETHERILL PARK</label>
+    </customValue>
+    <customValue>
+        <fullName>WINNELLIE</fullName>
+        <default>false</default>
+        <label>WINNELLIE</label>
+    </customValue>
+    <customValue>
+        <fullName>WOLLONGONG</fullName>
+        <default>false</default>
+        <label>WOLLONGONG</label>
+    </customValue>
+    <customValue>
+        <fullName>YATALA</fullName>
+        <default>false</default>
+        <label>YATALA</label>
+    </customValue>
+    <masterLabel>Local Area Market</masterLabel>
+    <sorted>true</sorted>
+</GlobalValueSet>

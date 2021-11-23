@@ -1,0 +1,63 @@
+<apex:page >
+  <html>
+  <div>
+      <apex:image value="../servlet/servlet.FileDownload?file=01590000000RPNV"/>
+  </div><br/>
+  <div><span style="font-weight: bold; font-family: Arial; font-size: 18pt; " >Click on any of the following links for Australia Post specific help documentation</span></div>
+<div><span style="font-family: Arial; " ><br />
+    </span></div>
+<div><span style="font-family: Arial; font-style: italic; font-size: 12pt; " >** Don't forget you can also search for commonly asked questions and their answers in the 'Find Answers to Questions' search bar at left of screen.</span></div>
+<div><span style="font-family: Arial; " ><br />
+    </span></div>
+<div><span style="font-weight: bold; font-family: Arial; font-size: 14pt; " >General</span></div>
+<div><span style="font-weight: bold; font-family: Arial; " ><br />
+    </span></div><span style="font-family: Arial; " >   <a href="../servlet/servlet.FileDownload?file=01590000000RPMD" target="_blank" title="QRG 1: Introduction to Salesforce">Introduction to Salesforce</a>
+    <br></br><a href="../servlet/servlet.FileDownload?file=01590000000RlDA" target="_blank" title="Salesforce Product Hierarchy v3.0">Salesforce Product Hierarchy v3.0</a>
+    </span>
+<div><font face="Arial"><br />
+    </font>
+  <div><span style="font-family: Arial; " ><br />
+      </span></div>
+  <div><span style="font-weight: bold; font-family: Arial; font-size: 14pt; " >Organisations and Individuals</span></div>
+  <div><span style="font-weight: bold; font-family: Arial; " ><br />
+      </span></div>
+  <div><span style="font-family: Arial; " ><a href="/servlet/servlet.FileDownload?file=01590000000RPMS" target="_blank" title="QRG 2: Creating New Organisations">  Creating New Organisations</a></span></div>
+  <div><span style="font-family: Arial; " ><br />
+      </span></div>
+  <div><span style="font-family: Arial; " ><a href="/servlet/servlet.FileDownload?file=01590000000RPMY" target="_blank" title="QRG 3: Creating New Individuals">   Creating New Individuals</a></span></div>
+  <div><span style="font-family: Arial; " ><br />
+      </span></div>
+  <div><span style="font-family: Arial; " ><a href="/servlet/servlet.FileDownload?file=01590000000RPMc" target="_blank" title="QRG 4: Editing Individuals and Organisations">   Editing Organisations and Individuals</a></span></div>
+  <div><span style="font-family: Arial; " ><br />
+      </span></div>
+  <div><span style="font-family: Arial; " ><br />
+      </span></div>
+  <div><span style="font-weight: bold; font-family: Arial; font-size: 14pt; " >Activity Management</span></div>
+  <div><span style="font-weight: bold; font-family: Arial; " ><br />
+      </span></div>
+  <div><span style="font-family: Arial; " ><a href="/servlet/servlet.FileDownload?file=01590000000RPMh" target="_blank" title="QRG 5: Working with Activities">   Working with Activities</a></span></div>
+  <div><span style="font-family: Arial; " ><br />
+      </span></div>
+  <div><span style="font-family: Arial; " ><a href="/servlet/servlet.FileDownload?file=01590000000RPMm" target="_blank" title="QRG 6: Working with Events">   Working with Events</a></span></div>
+  <div><span style="font-family: Arial; " ><br />
+      </span></div>
+  <div><span style="font-family: Arial; " ><br />
+      </span></div>
+  <div><span style="font-weight: bold; font-family: Arial; font-size: 14pt; " >Opportunities</span></div>
+  <div><span style="font-weight: bold; font-family: Arial; " ><br />
+      </span></div>
+  <div><span style="font-family: Arial; " ><a href="/servlet/servlet.FileDownload?file=01590000000RPMw" target="_blank" title="QRG 7: Creating New Opportunities">   Creating new Opportunities</a></span></div>
+  <div><span style="font-family: Arial; " >
+      </span></div>
+  <div><br />
+    </div>
+    <div><span style="font-family: Arial; " ><a href="/servlet/servlet.FileDownload?file=01590000000RPME" target="_blank" title="QRG 8: Working with Opportunities">   Working with Opportunities</a></span></div>
+  <div><span style="font-family: Arial; " ><br />
+      </span></div>
+  <div>
+    <div><br />
+      </div>
+    <div><br />
+      </div></div></div>
+  </html>
+</apex:page>

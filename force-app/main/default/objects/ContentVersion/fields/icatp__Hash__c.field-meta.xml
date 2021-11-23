@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>icatp__Hash__c</fullName>
+    <deprecated>false</deprecated>
+    <description>For use with Signature Slayer, used to store a hash representation of this file.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>For use with Signature Slayer, used to store a hash representation of this file.</inlineHelpText>
+    <label>Signature Slayer Hash</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

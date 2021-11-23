@@ -1,0 +1,259 @@
+<!--
+26-03-2018 nanda.kothamasu@auspost.com.au - Make "Cover Type" field mandatory on all Compensation record types - REQ1344454 
+12-06-2018 nanda.kothamasu@auspost.com.au - Added new field Fulfillment_Ordered_Date__c as per REQ1437906
+22-10-2018 swati.mogadala@auspost.com.au - Moved the provacy consent question to the top under bank details header -REQ1583695
+06-08-2020 dheeraj.mandavilli@auspost.com.au - Added Logic to accomodate "Load & Go" new record type as part of Load  & Go Project
+21-08-2020 dheeraj.mandavilli@auspost.com.au - Modified Logic to use "Load & Go" new record type using Custom Label for Load  & Go Project
+25-08-2021 phap.mai@auspost.com.au - Added the checkbox for sending compensation email and logic to disable bank details input if this checkbox is ticked
+-->
+<apex:page standardController="Compensation__c" extensions="EFTBankDetailsController" doctype="html-5.0">
+    <apex:includeScript value="/support/console/32.0/integration.js" />
+    <script>
+    var refreshPrimaryTab = function showTabId(result) {
+        var tabId = result.id;
+        sforce.console.refreshPrimaryTabById(tabId, true);
+    };
+    
+    function doPrimaryTabRefresh() {
+        sforce.console.getEnclosingPrimaryTabId(refreshPrimaryTab);            
+    }
+    
+    doPrimaryTabRefresh();
+    function closeTab() {
+        //First find the ID of the current tab to close it
+        sforce.console.getEnclosingTabId(closeSubtab);
+    }
+    
+    var closeSubtab = function closeSubtab(result) {
+        //Now that we have the tab ID, we can close it
+        var tabId = result.id;
+        sforce.console.closeTab(tabId);
+    };
+    </script>  
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pagemessages id="errors" />
+            <apex:pageBlockButtons >
+                <apex:actionStatus id="processing" startText="Processing.. Please wait..">
+                    <apex:facet name="stop">
+                        <apex:commandButton status="processing" value="save" action="{!save}" rerender="errors" oncomplete="doPrimaryTabRefresh();" rendered="{!(Compensation__c.RecordTypeId!=$Label.EFTRecordTypeID) && (Compensation__c.RecordTypeId!=$Label.CompensationLoadGoRecordTypeId)}"/>
+                    </apex:facet>
+                    <apex:facet name="start">
+                        <apex:commandButton value="Processing.. Please wait." disabled="true"/>
+                    </apex:facet>
+                </apex:actionStatus>
+                <apex:actionStatus id="processing2" startText="Processing.. Please wait..">
+                    <apex:facet name="stop">
+                        <apex:commandButton status="processing2" value="save" action="{!insertMethod}" rerender="errors" oncomplete="doPrimaryTabRefresh();" rendered="{!(Compensation__c.RecordTypeId==$Label.EFTRecordTypeID) || (Compensation__c.RecordTypeId==$Label.CompensationLoadGoRecordTypeId)}"/>
+                    </apex:facet>
+                    <apex:facet name="start">
+                        <apex:commandButton value="Processing.. Please wait." disabled="true"/>
+                    </apex:facet>
+                </apex:actionStatus>
+                <apex:commandButton value="cancel" onclick="closeTab();"/>
+                
+            </apex:pageBlockButtons>
+            <apex:outputPanel title="Money Order" rendered="{!Compensation__c.RecordTypeId=='012900000015ftv'}">
+                <apex:pageBlockSection title="Information">
+                    <apex:inputField value="{!Compensation__c.Case__c}"/>
+                    <apex:inputField value="{!Compensation__c.CostCentreCode__c}"/>
+                    <apex:pageBlockSectionItem />
+                    <apex:inputField value="{!Compensation__c.Fulfillment_Ordered_Date__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Compensation Details">
+                    <apex:inputField value="{!Compensation__c.Compensation_Amount__c}"/>
+                    <apex:inputField value="{!Compensation__c.Proof_of_Value__c}"/>
+                    <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
+                    <apex:inputField value="{!Compensation__c.Other__c}"/>
+                  <!--  <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/> -->  
+                    <apex:inputField required="true" value="{!Compensation__c.Cover_Type__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Customer Details">
+                    <apex:inputField value="{!Compensation__c.Contact__c}"/>
+                    <apex:inputField value="{!Compensation__c.Legal_Entity_Name__c}"/>
+                    <apex:inputField value="{!Compensation__c.Business_Account_Number__c}"/>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            <apex:outputPanel title="EFT" rendered="{!Compensation__c.RecordTypeId==$Label.EFTRecordTypeID}">
+                <apex:pageBlockSection title="Information">
+                    <apex:inputField value="{!Compensation__c.Case__c}"/>
+                    <apex:inputField value="{!Compensation__c.CostCentreCode__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Compensation Details">
+                    <apex:inputField value="{!Compensation__c.Compensation_Amount__c}"/>
+                    <apex:inputField value="{!Compensation__c.Proof_of_Value__c}"/>
+                    <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
+                    <apex:inputField value="{!Compensation__c.Other__c}"/>
+                  <!--  <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/>  -->
+                    <apex:inputField required="true" value="{!Compensation__c.Cover_Type__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Customer Details">
+                    <apex:inputField value="{!Compensation__c.Contact__c}"/>
+                    <apex:inputField value="{!Compensation__c.Legal_Entity_Name__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Bank Details" columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:inputCheckbox id="compensationEmail" label="Send email to customer" value="{!compensationEmail}" onchange="bankDetailsEnabling()"></apex:inputCheckbox>
+                        <apex:outputLabel style="font-weight: bold" escape="false" value="Send email to customer"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:inputCheckbox styleClass="bankDetailsField" id="privacyCheck" label="Privacy Statement Read to the Customer" value="{!privacyCheck}"/>
+                        <apex:outputLabel escape="false" value="I have advised the customer: &quot;For us to process this, we will need to capture some personal information, including your bank details. This information will be used to process the transfer,is that ok?&quot;"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSection columns="2">
+                        <apex:inputText styleClass="bankDetailsField" Id="accName" label="Account Name" size="50" value="{!accountName}"/>
+                        <br/>
+                        <apex:inputText styleClass="bankDetailsField" Id="accBSB" label="Account BSB" size="6" value="{!accountBSB}"/>
+                        <apex:inputText styleClass="bankDetailsField" Id="accNumber" label="Account Number" value="{!accountNumber}"/>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSectionItem >
+                        <apex:inputCheckbox styleClass="bankDetailsField" id="confirmDetails" value="{!confirmDetails}"/>
+                        <apex:outputLabel value=" I have confirmed with the customer the bank details I entered are correct"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            <apex:outputPanel title="Account Credit" rendered="{!Compensation__c.RecordTypeId=='012900000015ftt'}">
+                <apex:pageBlockSection title="Information">
+                    <apex:inputField value="{!Compensation__c.Case__c}"/>
+                    <apex:inputField value="{!Compensation__c.CostCentreCode__c}"/>
+                    <apex:pageBlockSectionItem />
+                    <apex:inputField value="{!Compensation__c.Fulfillment_Ordered_Date__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Compensation Details">
+                    <apex:inputField value="{!Compensation__c.Compensation_Amount__c}"/>
+                    <apex:inputField value="{!Compensation__c.Proof_of_Value__c}"/>
+                    <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
+                    <apex:inputField value="{!Compensation__c.Other__c}"/>
+                   <!-- <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/> --> 
+                    <apex:inputField required="true" value="{!Compensation__c.Cover_Type__c}"/> 
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Customer Details">
+                    <apex:inputField value="{!Compensation__c.Contact__c}"/>
+                    <apex:inputField value="{!Compensation__c.Legal_Entity_Name__c}"/>
+                    <apex:inputField value="{!Compensation__c.Business_Account_Number__c}"/>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            <apex:outputPanel title="International Accounting" rendered="{!Compensation__c.RecordTypeId=='012900000015ftu'}">
+                <apex:pageBlockSection title="Information">
+                    <apex:inputField value="{!Compensation__c.Case__c}"/>
+                    <apex:inputField value="{!Compensation__c.CostCentreCode__c}"/>
+                    <apex:pageBlockSectionItem />
+                    <apex:inputField value="{!Compensation__c.Fulfillment_Ordered_Date__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Compensation Details">
+                    <apex:inputField value="{!Compensation__c.Compensation_Amount__c}"/>
+                    <apex:inputField value="{!Compensation__c.Proof_of_Value__c}"/>
+                    <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
+                    <apex:inputField value="{!Compensation__c.Other__c}"/>
+                  <!--  <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/>  -->
+                    <apex:inputField required="true" value="{!Compensation__c.Cover_Type__c}"/>
+                    <apex:inputField value="{!Compensation__c.SDR_Value__c}"/>
+                    
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Compensation Additional Details">
+                    <apex:inputField value="{!Compensation__c.Destination__c}"/>
+                    <apex:inputField value="{!Compensation__c.OfficeOfOrigin__c}"/>
+                    <apex:inputField value="{!Compensation__c.Article_Status__c}"/>
+                    <apex:inputField value="{!Compensation__c.Lost_Codes__c}"/>
+                    <apex:inputField value="{!Compensation__c.Authorisation_Code__c}"/>            
+                    
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Customer Details">
+                    <apex:inputField value="{!Compensation__c.Contact__c}"/>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            
+            <apex:outputPanel title="Replacement Product" rendered="{!Compensation__c.RecordTypeId=='012900000015ftx'}">
+                <apex:pageBlockSection title="Information">
+                    <apex:inputField value="{!Compensation__c.Case__c}"/>
+                    <apex:inputField value="{!Compensation__c.CostCentreCode__c}"/>
+                    <apex:pageBlockSectionItem />
+                    <apex:inputField value="{!Compensation__c.Fulfillment_Ordered_Date__c}"/>
+                    
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Compensation Details">
+                    <apex:inputField value="{!Compensation__c.Replacement_Products__c}"/>
+                    <apex:inputField value="{!Compensation__c.Replacement_Product_Quantity__c}"/>
+                    <apex:inputField value="{!Compensation__c.Proof_of_Value__c}"/>
+                    <!-- <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/>  -->
+                    <apex:inputField required="true" value="{!Compensation__c.Cover_Type__c}"/> 
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Customer Details">
+                    <apex:inputField value="{!Compensation__c.Contact__c}"/>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            <apex:outputPanel title="Money Order Number Required" rendered="{!Compensation__c.RecordTypeId=='012900000015ftw'}">
+                <apex:pageBlockSection title="Information" columns="2">
+                    <apex:inputField value="{!Compensation__c.Case__c}"/>
+                    <apex:inputField value="{!Compensation__c.MoneyOrderNumber__c}"/>
+                    <apex:inputField value="{!Compensation__c.CostCentreCode__c}"/>
+                    <apex:inputField value="{!Compensation__c.Fulfillment_Ordered_Date__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Compensation Details" columns="2"> 
+                    <apex:inputField value="{!Compensation__c.Service_Value__c}"/>
+                  <!--  <apex:inputField value="{!Compensation__c.Discretionary_Compensation__c}"/> -->
+                    <apex:inputField value="{!Compensation__c.Other__c}"/>
+                    <apex:inputField id="CoverTypeID" required="true" value="{!Compensation__c.Cover_Type__c}"/>   
+                </apex:pageBlockSection>    
+            </apex:outputPanel>
+            <apex:outputPanel title="Load and Go" rendered="{!Compensation__c.RecordTypeId==$Label.CompensationLoadGoRecordTypeId}">
+                <apex:pageBlockSection title="Information">
+                    <apex:inputField value="{!Compensation__c.Case__c}"/>
+                    <apex:inputField required="true" value="{!Compensation__c.Load_and_Go_Card_Number__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Customer Details">
+                    <apex:inputField value="{!Compensation__c.Contact__c}"/>
+                    <apex:inputField value="{!Compensation__c.Legal_Entity_Name__c}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Bank Details" columns="1" >
+                    <apex:pageBlockSectionItem >
+                        <apex:inputCheckbox id="privacyCheck" label="Privacy Statement Read to the Customer" value="{!privacyCheck}"/>
+                        <apex:outputLabel escape="false" value="I have advised the customer: &quot;For us to process this, we will need to capture some personal information, including your bank details. This information will be used to process the transfer,is that ok?&quot;"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSection columns="2">
+                        <apex:inputText Id="accName" label="Account Name" size="50" value="{!accountName}"/>
+                        <br/>
+                        <apex:inputText Id="accBSB" label="Account BSB" size="6" value="{!accountBSB}"/>
+                        <apex:inputText Id="accNumber" label="Account Number" value="{!accountNumber}"/>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSectionItem >
+                        <apex:inputCheckbox id="confirmDetails" value="{!confirmDetails}"/>
+                        <apex:outputLabel value=" I have confirmed with the customer the bank details I entered are correct"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            
+        </apex:pageBlock>
+        
+    </apex:form>
+    <!-- DDS-6866: method to disable bank details input if send compensation email checkbox is ticked -->
+    <script type="text/javascript">
+        
+        var enableBankDetails = true;
+
+        function bankDetailsEnabling()
+        {
+            let bankDetailFields = document.getElementsByClassName('bankDetailsField');
+
+            enableBankDetails = !enableBankDetails;
+
+            for (let field of bankDetailFields)
+            {
+                if (enableBankDetails)
+                {
+                    field.disabled = false;
+                } else
+                {
+                    if (field.type === 'checkbox')
+                    {
+                        field.checked = false;
+                    } else
+                    {
+                        field.value = '';
+                    }
+                    field.disabled = true;
+                }
+            }
+        }
+    </script>
+</apex:page>

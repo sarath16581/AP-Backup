@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>International Charge Type Criteria1</label>
+    <protected>false</protected>
+    <values>
+        <field>Apttus_PLI_Config__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Apttus_Pricing_Data_Config__c</field>
+        <value xsi:type="xsd:string">International</value>
+    </values>
+    <values>
+        <field>Field_Expression__c</field>
+        <value xsi:type="xsd:string">Apttus_Config2__AttributeValueId__r.APT_Band__c</value>
+    </values>
+    <values>
+        <field>Field_Label__c</field>
+        <value xsi:type="xsd:string">Band</value>
+    </values>
+    <values>
+        <field>Field_Name__c</field>
+        <value xsi:type="xsd:string">APT_Band__c</value>
+    </values>
+    <values>
+        <field>Field_Type__c</field>
+        <value xsi:type="xsd:string">String</value>
+    </values>
+</CustomMetadata>

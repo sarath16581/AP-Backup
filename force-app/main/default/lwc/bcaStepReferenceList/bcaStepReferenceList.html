@@ -1,0 +1,29 @@
+<!--
+ - Created by vcheng on 4/03/2021.
+ -->
+
+<!-- Bca Step Reference List -->
+<template>
+    <template for:each={references} for:item="reference">
+        <div key={reference.index} class="form-summary-box">
+            <div class="slds-p-horizontal_large">
+                <template if:true={reference.businessName}>
+                    <h3>{reference.businessName}</h3>
+                </template>
+                <template if:false={reference.businessName}>
+                    <h3>Untitled</h3>
+                </template>
+                <span>
+                <!-- LIGHTNING BUTTON STYLE
+                <lightning-button-icon icon-name="action:edit" class="accordion-button"
+                data-id={reference.index} onclick={editReference}></lightning-button-icon>-->
+                                                                        
+                <button class="slds-button slds-button_icon slds-button_icon-border no-border" title="Edit Details"
+                        data-id={reference.index} onclick={editReference}>
+                    <c-bsp-custom-icons icon="edit-pencil" size="small"></c-bsp-custom-icons>
+                </button>
+                </span>
+            </div>
+        </div>
+    </template>
+</template>

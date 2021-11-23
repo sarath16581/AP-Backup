@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>isOrgModified__c</fullName>
+    <description>Check if the Related Organisation was edited in last 1 days</description>
+    <externalId>false</externalId>
+    <formula>TODAY() - DATEVALUE(Organisation__r.LastModifiedDate) &lt;= 1</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>isOrgModified</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

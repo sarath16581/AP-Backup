@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Default Template loaded for SSSW Case Types</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Default</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference {!Case.CaseNumber}
+
+Update for {!Case.Type} - {!Case.CaseNumber}
+
+Need help or have an enquiry?
+
+Please visit Help &amp; Support to:
+
+contact our support team directly
+find answers to many commonly asked questions
+
+
+Sometimes enquiries can be resolved before we&apos;ve completed our investigation. If that happens, let us know here:
+
+CLOSE MY CASE
+
+However, if receiving a response takes longer than usual, please know we haven’t forgotten about you, it is just taking us a little longer to get to your enquiry as we are continuing to manage higher than normal enquiry volumes.
+
+
+Regards,
+
+{!User.FirstName} {!LEFT(User.LastName,1)}
+Australia Post
+{!Case.Thread_Id}
+
+Australia Post acknowledges the Traditional Custodians of the land on which we operate, live and gather as employees and recognise their continuing connection to land, water and community. We pay respect to Elders past, present and emerging.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

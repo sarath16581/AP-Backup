@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Marketing_Comms_Type__c</fullName>
+    <description>Created to identify Orgs to receive comms for the Lead Nurture Program March 2015 by ECG Marketing</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Identifies the audience type for marketing communications (Marketing use only)</inlineHelpText>
+    <label>Marketing Comms Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Corporate</fullName>
+                <default>false</default>
+                <label>Corporate</label>
+            </value>
+            <value>
+                <fullName>Government</fullName>
+                <default>false</default>
+                <label>Government</label>
+            </value>
+            <value>
+                <fullName>Agencies</fullName>
+                <default>false</default>
+                <label>Agencies</label>
+            </value>
+            <value>
+                <fullName>Postal Partners</fullName>
+                <default>false</default>
+                <label>Postal Partners</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

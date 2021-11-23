@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@auspost.com.au</email>
+    <name>SSSW MyPost Business Inbound</name>
+    <queueMembers>
+        <users>
+            <user>aditya.chakranarayan@auspost.com.au</user>
+            <user>benjamin.robinson@auspost.com.au</user>
+            <user>cayl.mccarron@auspost.com.au</user>
+            <user>christopher.christensen@auspost.com.au</user>
+            <user>darian.law2@auspost.com.au</user>
+            <user>kaveri.sharma@auspost.com.au</user>
+            <user>keira.geraghty@auspost.com.au</user>
+            <user>kristian.banfield@auspost.com.au</user>
+            <user>kristy.clancy@auspost.com.au</user>
+            <user>mary.cunningham@auspost.com.au</user>
+            <user>matthew.middleton@auspost.com.au</user>
+            <user>mercedes.carter@auspost.com.au</user>
+            <user>morgan.blomfield@auspost.com.au</user>
+            <user>nisa.buzetzky2@auspost.com.au</user>
+            <user>nisha.roy@auspost.com.au</user>
+            <user>sandeep.jaswal@auspost.com.au</user>
+            <user>sean.rowbottom@auspost.com.au</user>
+            <user>taron.knight3@auspost.com.au</user>
+            <user>teagan.skelton@auspost.com.au</user>
+            <user>tracey.kirrane@auspost.com.au</user>
+            <user>uinise.taufa2@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

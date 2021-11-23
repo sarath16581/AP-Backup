@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Track Mail Included LPs</label>
+    <protected>false</protected>
+    <values>
+        <field>APT_Inc_Exc__c</field>
+        <value xsi:type="xsd:string">Include</value>
+    </values>
+    <values>
+        <field>APT_LP1__c</field>
+        <value xsi:type="xsd:string">270051, 428533, 272786, 510545, 703531, 352583, 612007</value>
+    </values>
+    <values>
+        <field>APT_Product_ID__c</field>
+        <value xsi:type="xsd:string">01t90000007BTm0AAG</value>
+    </values>
+    <values>
+        <field>APT_Product_Name__c</field>
+        <value xsi:type="xsd:string">Track Mail</value>
+    </values>
+</CustomMetadata>

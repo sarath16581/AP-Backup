@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_SubType__c</fullName>
+    <description>It determines if the Opportunity is created as New, Re-contract (Renewal) or DoV (Deed of Variation)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Modify this field if this Opportunity is a Renewal or Deed of Variation</inlineHelpText>
+    <label>Opportunity SubType</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New</fullName>
+                <default>true</default>
+                <label>New</label>
+            </value>
+            <value>
+                <fullName>Re-Contract</fullName>
+                <default>false</default>
+                <label>Renewal</label>
+            </value>
+            <value>
+                <fullName>DoV Increase</fullName>
+                <default>false</default>
+                <label>DoV Increase</label>
+            </value>
+            <value>
+                <fullName>DoV Decrease</fullName>
+                <default>false</default>
+                <label>DoV Decrease</label>
+            </value>
+            <value>
+                <fullName>Deed of Variation</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Deed of Variation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

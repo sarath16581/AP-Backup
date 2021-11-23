@@ -1,0 +1,76 @@
+<!--
+- Created by alexvolkov on 6/2/20.
+-->
+
+<!-- Th Group Assignment -->
+<template>
+    <template if:true={showSpinner}>
+        <lightning-spinner size="small" alternative-text="Loading..."></lightning-spinner>
+    </template>
+    <div class="slds-align--absolute-center">
+        <h4>Please select a group</h4>
+    </div>
+    <br/>
+    <div class="slds-align--absolute-center">
+        <c-lookup sobject-name="Group" field-list="Id,DeveloperName,Name" num-chars-to-search="5" filter-map={filterMap}
+                  icon-name="standard:groups" search-result-select-handler={handleGroupSelection} placeholder="Search Groups" search-delay="400">
+        </c-lookup>
+    </div>
+    <br/><br/>
+    <div class="slds-align--absolute-center">
+        <h4>Please select training</h4>
+    </div>
+    <br/>
+        <lightning-layout horizontal-align="spread">
+            <lightning-layout-item padding="around-medium" size="6">
+                <div class="slds-box">
+                <template if:true={showAddBadge}>
+                <div class="slds-align--absolute-center">
+                    <h4>Find a badge</h4>
+                </div>
+                    <div class="slds-align--absolute-center">
+                    <c-lookup sobject-name="trailheadapp__Badge__c" field-list="Id,Name" num-chars-to-search="5"
+                              icon-name="custom:custom48" search-result-select-handler={handleBadgeSelection} data-id="badgelookup"
+                    placeholder="Search Badges" search-delay="400">
+                    </c-lookup>
+                    </div>
+                    <br/>
+                    <div class="slds-align--absolute-center">
+                    <lightning-button onclick={handleAddBadge} label="Add Selection"></lightning-button>
+                    </div>
+                </template>
+                <div class="slds-align--absolute-center">
+                <h4>Selected Badges</h4>
+                </div>
+                <lightning-pill-container items={badges} onitemremove={handleRemoveBadge}></lightning-pill-container>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-medium" size="6">
+            <div class="slds-box">
+                <template if:true={showAddMix}>
+                <div class="slds-align--absolute-center">
+                    <h4>Find a trailmix</h4>
+                </div>
+                    <div class="slds-align--absolute-center">
+                    <c-lookup sobject-name="trailheadapp__Trailmix__c" field-list="Id,Name" num-chars-to-search="5" icon-name="custom:custom78" data-id="mixlookup" search-result-select-handler={handleMixSelection} placeholder="Search Trailmixes" search-delay="400">
+                    </c-lookup>
+                    </div>
+                    <br/>
+                    <div class="slds-align--absolute-center">
+                    <lightning-button onclick={handleAddMix} label="Add Selection"></lightning-button>
+                    </div>
+                </template>
+                <div class="slds-align--absolute-center">
+                <h4>Selected Trailmixes</h4>
+                </div>
+                <lightning-pill-container items={mixes} onitemremove={handleRemoveMix} single-line="false"></lightning-pill-container>
+            </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    <div class="slds-align--absolute-center">
+        <lightning-input type="datetime" name="duedate" label="Due Date" required value={dueDate} onchange={updateDate} min={minDueDate}></lightning-input>
+    </div>
+    <div class="slds-align--absolute-center">
+    <lightning-button onclick={handleAssign} label="Submit" variant="brand"></lightning-button>
+    </div>
+</template>

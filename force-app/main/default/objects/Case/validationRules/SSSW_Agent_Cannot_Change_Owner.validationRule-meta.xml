@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Agent_Cannot_Change_Owner</fullName>
+    <active>true</active>
+    <description>SSSW Prevent Agent from changing the Case Owner, unless the Status has also been changed (as completed by System Changes)</description>
+    <errorConditionFormula>CONTAINS($UserRole.DeveloperName, &apos;Service_Agent&apos;)
+&amp;&amp;
+ISCHANGED(OwnerId) 
+&amp;&amp;  
+(PRIORVALUE(OwnerId) = $User.Id  &amp;&amp; (IsHLC__c || IsCR__c ) &amp;&amp; NOT(CONTAINS(OwnerId,&quot;00G&quot;)))
+&amp;&amp;
+NOT(ISCHANGED(Status))
+&amp;&amp;
+NOT(Bypass_Data_enforcement__c)</errorConditionFormula>
+    <errorMessage>Your Role does not allow you to reassign the Case Owner. Please talk to your manager to reassign this Case.</errorMessage>
+</ValidationRule>

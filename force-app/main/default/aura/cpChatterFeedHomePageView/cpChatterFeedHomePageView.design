@@ -1,0 +1,4 @@
+<design:component label="cpChatterFeedHomePageView">
+    <design:attribute label="Number of feed Item" name="cppageSize" description="No. of Records per page"/> 
+	
+</design:component>

@@ -1,0 +1,15 @@
+<aura:component description="Popup window which asks for confirmation on closing a Case">
+    <aura:attribute name="closeCaseAction" type="Aura.Action"/>
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+	<div>
+		<h2 class="slds-p-bottom_small">Are you sure?</h2>
+    	<p class="slds-p-bottom_medium"> Once you confirm that your enquiry has been resolved, your case will be closed and cannot be reopened.</p>
+    	<div class="buttons">
+            <lightning:button aura:id="submitButton" label="Yes, confirm" variant="brand" onclick="{! c.closeCase }" class="{! 'loading-' + v.isLoading }"/>
+            <lightning:button label="No, cancel" variant="base" onclick="{! c.hideModal }"/>
+    	</div>
+	</div>
+</aura:component>

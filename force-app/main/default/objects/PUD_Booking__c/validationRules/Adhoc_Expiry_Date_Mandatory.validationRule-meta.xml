@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Adhoc_Expiry_Date_Mandatory</fullName>
+    <active>true</active>
+    <description>This validation rule gets fired if Expiry date is not filled in for Adhoc Pickup Booking records.</description>
+    <errorConditionFormula>AND( RecordType.DeveloperName = &apos;AP_Adhoc_Pickup&apos;, 
+ISBLANK(Expiry_Date__c ))</errorConditionFormula>
+    <errorMessage>Expiry Date is mandatory for Adhoc Pickup Bookings.</errorMessage>
+</ValidationRule>

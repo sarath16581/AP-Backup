@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Local_Member_of_Parliament__c</fullName>
+    <description>Local Parliament Member of LPO</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Local Parliament Member of LPO</inlineHelpText>
+    <label>MHR Electorate</label>
+    <length>80</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

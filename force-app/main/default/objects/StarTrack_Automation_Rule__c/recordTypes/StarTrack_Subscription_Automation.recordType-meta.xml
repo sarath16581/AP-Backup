@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Subscription_Automation</fullName>
+    <active>true</active>
+    <description>This rule will be used for subscription automation.</description>
+    <label>StarTrack Subscription Automation</label>
+    <picklistValues>
+        <picklist>Case_Action__c</picklist>
+        <values>
+            <fullName>Close Case</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Create Case Comment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reject Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Send Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Update Status</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Consignment_Summary_Status__c</picklist>
+        <values>
+            <fullName>Delivered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Transit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Notified</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>On Forwarded</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partially Delivered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partially On Forwarded</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partially Picked Up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Picked Up</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Task_Action__c</picklist>
+        <values>
+            <fullName>Close Task</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>WE_Action__c</picklist>
+        <values>
+            <fullName>Close WF Email</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

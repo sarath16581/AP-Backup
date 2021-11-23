@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Melb_Semi_Group</fullName>
+    <columns>Name</columns>
+    <columns>LastModifiedDate</columns>
+    <columns>LastModifiedBy</columns>
+    <columns>RelatedRecord</columns>
+    <columns>ResourceType</columns>
+    <columns>IsActive</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>IsActive</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>ServiceCrew</field>
+        <operation>equals</operation>
+        <value>Melb SEMI Group</value>
+    </filters>
+    <label>Melb Semi Group</label>
+</ListView>

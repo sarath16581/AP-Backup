@@ -1,0 +1,11 @@
+<!--
+Author:        Patrick James Franco
+Company:       Cloud Sherpas
+Description:   Custom publisher action for StarTrack Cases to add Case Comments
+History
+October 23, 2015 - Patrick James Franco - Created
+November 26, 2015 - Patrick James Franco - Content replaced by StarTrackCreateCaseComment component
+-->
+<apex:page standardController="Case" standardStylesheets="false" showHeader="false" sidebar="false" docType="html-5.0">
+    <c:StarTrackCreateCaseComment case="{!Case}"/>
+</apex:page>

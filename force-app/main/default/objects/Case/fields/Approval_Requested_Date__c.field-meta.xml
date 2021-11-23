@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approval_Requested_Date__c</fullName>
+    <description>Used by CDMT team to note the date email sent to sales director for Acc Restructure/Merger</description>
+    <externalId>false</externalId>
+    <label>Approval Requested Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

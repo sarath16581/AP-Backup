@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>kfsell__Gold_Sheet_Compact_Layout</fullName>
+    <fields>kfsell__FOP_Name__c</fields>
+    <fields>kfsell__Account__c</fields>
+    <fields>kfsell__Owner__c</fields>
+    <fields>kfsell__Last_Updated__c</fields>
+    <label>Gold Sheet Compact Layout</label>
+</CompactLayout>

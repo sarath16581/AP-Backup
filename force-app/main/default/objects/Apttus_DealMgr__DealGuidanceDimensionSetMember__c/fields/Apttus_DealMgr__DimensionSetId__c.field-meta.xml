@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealMgr__DimensionSetId__c</fullName>
+    <deprecated>false</deprecated>
+    <description>ID of the associated dimension set</description>
+    <externalId>false</externalId>
+    <label>Dimension Set</label>
+    <referenceTo>Apttus_DealMgr__DealGuidanceDimensionSet__c</referenceTo>
+    <relationshipLabel>Dimensions</relationshipLabel>
+    <relationshipName>Dimensions</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

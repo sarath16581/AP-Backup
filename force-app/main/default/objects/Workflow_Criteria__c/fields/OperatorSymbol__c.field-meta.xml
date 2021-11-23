@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OperatorSymbol__c</fullName>
+    <externalId>false</externalId>
+    <formula>Case( Operator__c ,
+&quot;equal to&quot;,&quot;=&quot;,
+&quot;not equal to&quot; ,&quot;!=&quot;,
+&quot;greater than&quot;,&quot;&gt;&quot;,
+&quot;less than&quot;, &quot;&lt;&quot;,
+&quot;less than or equal to&quot;, &quot;&lt;=&quot;,
+&quot;greater than or equal to&quot;, &quot;&gt;=&quot;,
+&quot;&quot;)</formula>
+    <inlineHelpText>c</inlineHelpText>
+    <label>Operator Symbol</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

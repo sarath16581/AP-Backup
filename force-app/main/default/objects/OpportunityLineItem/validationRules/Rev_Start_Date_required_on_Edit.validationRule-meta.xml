@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rev_Start_Date_required_on_Edit</fullName>
+    <active>true</active>
+    <description>This rule is to ensure users have added a Revenue Start for all products before you save and exit this page.</description>
+    <errorConditionFormula>/*IF( AND( NOT( ISNEW() ) ,ISBLANK( Contract_Start_Date__c )) , true, false)*/
+IF( AND( NOT( ISNEW() ) ,
+NOT( APT_Apttus_Delete_Override__c ),
+ISBLANK( Contract_Start_Date__c )) , true, false)</errorConditionFormula>
+    <errorDisplayField>Contract_Start_Date__c</errorDisplayField>
+    <errorMessage>Please ensure you have added a Revenue Start Date for all products before you save and exit this page</errorMessage>
+</ValidationRule>

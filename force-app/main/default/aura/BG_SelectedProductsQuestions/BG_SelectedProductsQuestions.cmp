@@ -1,0 +1,38 @@
+<!--
+    STP:20/02/2020: 
+    This component display the tabs for each selected product.
+    The 'selectedProducts' contains the selected product names 
+-->
+<aura:component >
+    <aura:attribute name="selectedProducts" type="List" />
+    <aura:attribute name="selectedProductsQuestions" type="Map" />
+    <aura:attribute name="selectedProductRelatedQuestions" type="Map"/>
+    <aura:attribute name="qualId" type="String" />
+    <aura:attribute name="existingQualification" type="Object"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="isManualOpp" type="Boolean" />
+
+    <!-- validation methods -->
+    <aura:method name="reportValidity" action="{! c.reportValidity }" />
+    <aura:method name="checkValidity" action="{! c.checkValidity }" />
+    
+    <div style='center;width:100%' >
+        <lightning:card title="" >
+            <lightning:tabset  variant="scoped">
+                
+                <aura:iteration items="{!v.selectedProducts}" var="item" indexVar="indx">
+                    
+                    <lightning:tab  label="{!item}" id="{!item}" >
+                        <c:BG_ProductQuestions aura:id='field' product='{!item}' selectedProductsQuestions="{!v.selectedProductsQuestions}"
+                                                qualId='{!v.qualId}'
+                                                existingQualification='{!v.existingQualification}'
+                                                selectedProductRelatedQuestions='{!v.selectedProductRelatedQuestions}'
+                                                recordId='{!v.recordId}'
+                                                isManualOpp='{!v.isManualOpp}'/>
+                    </lightning:tab>
+                </aura:iteration>
+            </lightning:tabset>
+        </lightning:card>
+    </div>
+    
+</aura:component>

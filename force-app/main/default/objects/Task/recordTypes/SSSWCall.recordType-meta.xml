@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSWCall</fullName>
+    <active>true</active>
+    <label>SSSW Call</label>
+    <picklistValues>
+        <picklist>Call_Disposition__c</picklist>
+        <values>
+            <fullName>Call Back Later</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Left Voicemail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Meaningful Connect</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Interested</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unqualified</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Category__c</picklist>
+        <values>
+            <fullName>Internal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Enquiry_Type__c</picklist>
+        <values>
+            <fullName>All other enquiries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Feedback %26 complaints</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Online application support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment enquiries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Office Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales enquiries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service requests</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tracking enquiries</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>Critical</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Normal</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Regular</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Urgent</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Product_Category__c</picklist>
+        <values>
+            <fullName>Courier Products %26 Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Products %26 Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Domestic Letters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Domestic Parcels</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Products %26 Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International Letters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International Parcels</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Letter %26 Parcel Delivery Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Office Products %26 Services</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Product_Sub_Category__c</picklist>
+        <values>
+            <fullName>AMEX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AirMail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AirMail Parcels</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>All other Delivery Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australian Air Express</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bank at Post</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bulk Mail Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Carded Parcels %28Collection Cards%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cash on Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Change of Address Notification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Click %26 Send</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Click %26 Send Domestic Parcels</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Click %26 Send International</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivery Choice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Mailbox</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Domestic Letter Insurance %28Extra Cover%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Domestic Parcel Insurance %28Extra Cover%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Courier International</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Courier International Platinum</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post International</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Parcels</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Platinum</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Platinum Parcels</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Farmhouse Direct</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Merchandise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gift cards</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Identity Services - All other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International Letter Insurance %28Extra Cover%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International Parcel Insurance %28Extra Cover%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Letter Collections</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Load %26 Go Cards</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Locations %26 Hours of Operation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail Hold %26 Redirections</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail Redirections %26 Mail Holding online</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Messenger Post Courier</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile Apps</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile devices</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Money Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>My Deliveries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Address Listings</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ordinary Mail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Bulk Mail Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Courier Products %26 Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Digital Products %26 Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Domestic Letter Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Domestic Parcel Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Financial Products %26 Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other International Letter services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other International Parcel Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Post Office Products %26 Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PO Boxes %26 Bags</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pack %26 Track International</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Packaging</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Collections</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Lockers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Post</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Post Plus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Passport - Australian</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Passport - British</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Philatelic %28stamps%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post BillPay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proof of International Letter Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proof of International Parcel Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proof of Letter Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proof of Parcel Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Registered Post</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Registered Post Parcels</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SeaMail Parcels</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shop online</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Star Track Express</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stationery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Street Letter Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Street Parcel Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Street Post Boxes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology - All other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Travelex</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unaddressed Mail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Western Union</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>Acknowledged</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deferred</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finished</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Started</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Waiting for Operations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Waiting on someone else</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Subject</picklist>
+        <values>
+            <fullName>Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Data Change Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Send Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Send Quote</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Meeting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operations Task</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reminder</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Social Media</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tibco_process_is_not_completed</fullName>
+    <active>true</active>
+    <description>2014 07 APMS - Camunda (Tibco order fulfilment process) needs to update credential information before Welcome Pack can be sent.</description>
+    <errorConditionFormula>AND(
+  IsWelcomePackSent__c = true,
+  ISBLANK(SecurePayMerchantID5__c)
+)</errorConditionFormula>
+    <errorMessage>The Welcome Pack cannot be activated. Customer credential information is not available.</errorMessage>
+</ValidationRule>

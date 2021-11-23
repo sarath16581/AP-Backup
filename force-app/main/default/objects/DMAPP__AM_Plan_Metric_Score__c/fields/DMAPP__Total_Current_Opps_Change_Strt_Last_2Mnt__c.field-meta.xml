@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Total_Current_Opps_Change_Strt_Last_2Mnt__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The change in the total value of Current opportunities in the last three months. (That is, the period spanning this month back to the start of the previous two months.)</description>
+    <externalId>false</externalId>
+    <formula>DMAPP__Current_Opportunities_Score_Amount__c - DMAPP__Previous_score_2_months__r.DMAPP__Previous_Score__r.DMAPP__Current_Opportunities_Score_Amount__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Total Current Opps Change Strt Last 2Mnt</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

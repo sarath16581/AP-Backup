@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SAPProductCategory__c</fullName>
+    <externalId>false</externalId>
+    <label>SAP Product Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AaE</fullName>
+                <default>false</default>
+                <label>AaE</label>
+            </value>
+            <value>
+                <fullName>Carded Item</fullName>
+                <default>false</default>
+                <label>Carded Item</label>
+            </value>
+            <value>
+                <fullName>Cash To Collect</fullName>
+                <default>false</default>
+                <label>Cash To Collect</label>
+            </value>
+            <value>
+                <fullName>EMS</fullName>
+                <default>false</default>
+                <label>EMS</label>
+            </value>
+            <value>
+                <fullName>eParcel</fullName>
+                <default>false</default>
+                <label>eParcel</label>
+            </value>
+            <value>
+                <fullName>Express Post</fullName>
+                <default>false</default>
+                <label>Express Post</label>
+            </value>
+            <value>
+                <fullName>Express Post Platinum</fullName>
+                <default>false</default>
+                <label>Express Post Platinum</label>
+            </value>
+            <value>
+                <fullName>International</fullName>
+                <default>false</default>
+                <label>International</label>
+            </value>
+            <value>
+                <fullName>Messenger Post</fullName>
+                <default>false</default>
+                <label>Messenger Post</label>
+            </value>
+            <value>
+                <fullName>NSW Education Board Returns</fullName>
+                <default>false</default>
+                <label>NSW Education Board Returns</label>
+            </value>
+            <value>
+                <fullName>Ordinary Parcel</fullName>
+                <default>false</default>
+                <label>Ordinary Parcel</label>
+            </value>
+            <value>
+                <fullName>Parcel Post</fullName>
+                <default>false</default>
+                <label>Parcel Post</label>
+            </value>
+            <value>
+                <fullName>Parcel Track</fullName>
+                <default>false</default>
+                <label>Parcel Track</label>
+            </value>
+            <value>
+                <fullName>Receipted Delivery</fullName>
+                <default>false</default>
+                <label>Receipted Delivery</label>
+            </value>
+            <value>
+                <fullName>Registered Post</fullName>
+                <default>false</default>
+                <label>Registered Post</label>
+            </value>
+            <value>
+                <fullName>Star Track Express</fullName>
+                <default>false</default>
+                <label>Star Track Express</label>
+            </value>
+            <value>
+                <fullName>SWADS</fullName>
+                <default>false</default>
+                <label>SWADS</label>
+            </value>
+            <value>
+                <fullName>TOPS End</fullName>
+                <default>false</default>
+                <label>TOPS End</label>
+            </value>
+            <value>
+                <fullName>TOPS Node</fullName>
+                <default>false</default>
+                <label>TOPS Node</label>
+            </value>
+            <value>
+                <fullName>Parcel Domestic</fullName>
+                <default>false</default>
+                <label>Parcel Domestic</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

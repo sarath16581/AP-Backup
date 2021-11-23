@@ -1,0 +1,1104 @@
+<!--
+    NF 2018/11: SPECIAL NOTE: AdvancedSearchContactComponent shares some of the same method names defined here which could conflict or overwrite the methods here.
+                    TODO Refactor this component & AdvancedSearchContactComponent
+
+
+    2017-09-17 nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
+    2018-01-18 nanda.kothamasu@auspost.com.au - INC0904758 - fixed search functionality if phone no exclude tick.
+    2018-10-29 Xiang.Zheng@auspost.com.au - added support for opening links in a subtab if search component is loaded in Live Agent
+    2018-11-06 nathan.franklin@auspost.com.au - rewrote searchContactOpenTab to allow both subtab and primary tab context
+    2019-12-06 Shashwat.Nath@auspost.com.au - added getsessionid() in relation to MW0003688  to aloo session id to be passed during API calls
+    2020-07-20 swati.mogadala@auspost.com.au - Add EmailNotAvailable checkbox for Contacts (REQ2065161)
+	2021-05-10 madhuri.awasthi@auspost.com.au - Add a preferred name field in contact areas of Salesforce (REQ2476162)
+	2021-06-08 madhuri.awasthi@auspost.com.au  - Adding onKeypress attribute on Phone number field (REQ2513857)
+-->
+<apex:component controller="SearchContactComponentController">
+
+    <c:ScriptLoader jsLibraries="jquery,jquery.json,integration" />
+
+    <c:LoadingSpinnerComponent showFunctionName="searchContactShowProgress" hideFunctionName="searchContactHideProgress"  />
+
+    <script type="text/javascript">
+
+        var j$ = jQuery.noConflict();
+        var startSearchTime;
+
+        //avoid some block down on IE8 and below
+        if(!window.console) {
+            var console = {};
+            console.log = function () {};
+        }
+
+        var contactLoadingInfo = {
+            showLoading : function(){
+                j$('#' + this.waitDivId).show();
+                j$('#' + this.bgId).height(100 + j$('#searchPanel').height()).show();
+            },
+            hideLoading : function(){
+                j$('#' + this.waitDivId).hide();
+                j$('#' + this.bgId).hide();
+            }
+        };
+
+        function enableAddConsumer() {
+            j$('[id$="btnAddCustomer"]').prop( 'disabled', false );
+        }
+
+        function initLoadingElements () {
+            var $elem = j$('#searchPanel');
+            var waitDiv = $elem.find('[id*="_WaitingDiv"]');
+            waitDiv.children('[class*="WaitingBackground"]').attr('id','loading__bg_div').attr('class','WaitingBackground').appendTo($elem);
+            waitDiv.appendTo($elem);
+            contactLoadingInfo.waitDivId = waitDiv.attr('id');
+            contactLoadingInfo.bgId = 'loading__bg_div';
+            contactLoadingInfo.init = true;
+        }
+
+        function searchContactShowProgress() {
+            j$('[id$="results"]').find('.mainTitle').text('');
+            if(!contactLoadingInfo.init){
+                initLoadingElements ();
+            }
+            contactLoadingInfo.showLoading();
+            startSearchTime = Date.now();
+        }
+
+        function searchContactHideProgress() {
+            if(!contactLoadingInfo.init){
+                initLoadingElements ();
+            }
+            contactLoadingInfo.hideLoading();
+            //var text = j$('[id$="results"]').find('.mainTitle').text();
+            //j$('[id$="results"]').find('.mainTitle').text(text + ' [in ' + (Date.now()-startSearchTime) / 1000 + ' s]');
+        }
+
+        function searchContacts() {
+            searchContactShowProgress();
+
+            var txtFirstName = j$('[id$="txtFirstName"]');
+            var txtLastName = j$('[id$="txtLastName"]');
+            var txtPreferredName = j$('[id$="txtPreferredName"]');
+            var txtAccountNo = j$('[id$="txtAccountNo"]');
+            var txtAccountName = j$('[id$="txtAccountName"]');
+            var txtEmail = j$('[id$="txtEmail"]');
+            var txtPhone = j$('[id$="txtPhone"]');
+            var txtSocialKeys = j$('[id$="txtSocialKeys"]');
+            var ddlCustomerTypes = j$('[id$="ddlCustomerTypes"]');
+            var addressString = '';
+
+            if(typeof {!id}_getAddress == 'undefined'){
+
+                var txtAddress = j$('[id$="txtAddress"]');
+                addressString = txtAddress.val().trim();
+                //console.log('####txtAddress: ' + txtAddress);
+            } else {
+                var addressObj = {!id}_getAddress();
+                //console.log(addressObj);
+                addressString = addressObj.addressLine1 + addressObj.addressLine2 + addressObj.city + addressObj.state + addressObj.postcode;
+            }
+
+            var combinedString = txtAccountNo.val().trim()
+                    + txtFirstName.val().trim()
+                    + txtLastName.val().trim()
+            		+ txtPreferredName.val.trim()
+                    + addressString
+                    + txtEmail.val().trim()
+                    + txtPhone.val().trim()
+                    + txtSocialKeys.val().trim()
+                    + txtAccountName.val().trim();
+
+            /*
+            console.log('####txtAccountNo.val: ' + txtAccountNo.val().trim());
+            console.log('####txtFirstName.val().trim()  ' + txtFirstName.val().trim() );
+            console.log('####txtLastName.val().trim() ' + txtLastName.val().trim());
+            console.log('####addressString: ' + addressString);
+            console.log('####txtEmail.val().trim() ' + txtEmail.val().trim());
+            console.log('####txtPhone.val().trim()  ' + txtPhone.val().trim() );
+            console.log('####txtSocialKeys.val().trim() ' + txtSocialKeys.val().trim());
+            console.log('####txtAccountName.val().trim() ' + txtAccountName.val().trim());
+
+            console.log('####id: ' + '{!id}');
+            console.log('####combinedString: ' + combinedString);
+            */
+            if (combinedString.length >= 2 && (txtAccountNo.val().trim() != ''
+                    || txtFirstName.val().trim() != ''
+                    || txtLastName.val().trim() != ''
+                    || txtPreferredName.val().trim() != ''
+                    || addressString != ''
+                    || txtEmail.val().trim() != ''
+                    || txtPhone.val().trim() != ''
+                    || txtSocialKeys.val().trim() != ''
+                    || txtAccountName.val().trim() != '')) {
+
+                searchContactHideMessage();
+                j$('#pnlResults').show();
+                jSearchContacts();
+            } else {
+                searchContactShowMessage("Please enter at least one contact search criteria.");
+                searchContactHideProgress();
+            }
+        }
+
+        function appendContent( result ){
+            var tBody = j$('[id$="pnlResults"]').find('.list').find('tbody');
+
+            tBody.empty();
+            for( i=0; i < result.length; i++){
+                var recContact = result[i];
+                var classDefintion = 'dataRow';
+                classDefintion += (i == 0 ? ' first' : '');
+                classDefintion += (i == result.length-1 ? ' last' : '');
+                classDefintion += (i % 2 == 0 ? ' even' : ' odd');
+                var checked = ( recContact.contact.IsDuplicate__c == true ? "Checked" : '' );
+                var decodedText = j$("<p/>").html(recContact.contact.ServiceType__c).text();
+
+                var BillingAcc = (recContact.contact.billingAccount__c != null ? '<a href="#" onclick="searchContactOpenTab(\''+recContact.contact.billingAccount__r.id+'\'); return false;">'+recContact.contact.billingAccount__r.name+'</a> '+(recContact.contact.billingAccount__r.LEGACY_ID__c != null ? recContact.contact.billingAccount__r.LEGACY_ID__c : '' ) +' <br />' : '');
+
+                //Table row with matching Contact Id does not exist
+                console.log('recContact.contact.ServiceType__c : '+recContact.contact.ServiceType__c);
+                tBody.append(j$("<tr class='" + classDefintion + "' onmouseover='if (window.hiOn){hiOn(this);}' onmouseout='if (window.hiOff){hiOff(this);}' onblur='if (window.hiOff){hiOff(this);}' onfocus='if (window.hiOn){hiOn(this);}' id='" + recContact.contact.Id + "'>").append([
+                            j$('<td class="dataCell">').append(decodedText),
+                            j$('<td class="dataCell">').append('<a href="#" onclick="searchContactOpenTab(\'' + (recContact.contact.Account != null && recContact.contact.Account.IsPersonAccount ? recContact.contact.Account.Id : recContact.contact.Id) + '\'); return false;">'+recContact.contact.Name+'</a>'),
+                            j$('<td class="dataCell">').append((recContact.contact.CRMCSSOID__c != null ? '<img src="/img/icon/custom51_100/keys16.png" /></br>' : '')+
+                                    (recContact.contact.LevelOfAssurance__c != null && recContact.contact.LevelOfAssurance__c >= '{!minLOA}' ? '<img src="/img/func_icons/util/lock12.gif"/>' : '')),
+                            j$('<td class="dataCell">').append((recContact.contact.Account != null ? (recContact.contact.Account.IsPersonAccount == true ? recContact.contact.Account.RecordType.Name : '<a href="#" onclick="searchContactOpenTab(\''+recContact.contact.Account.Id+'\'); return false;">'+recContact.contact.Account.Name+'</a> '+(recContact.contact.Account.ABN__c != null ? recContact.contact.Account.ABN__c : '' )+' <br/>'+BillingAcc) : '')),
+                            j$('<td class="dataCell">').append((recContact.contact.Phone == null ? '' : 'Phone: ' + recContact.contact.Phone +' </br>') +
+                                    (recContact.contact.HomePhone == null ? '' : 'Home: ' + recContact.contact.HomePhone +' </br>') +
+                                    (recContact.contact.VerifiedMobile__c == null ? '' : 'Verified Mobile: ' + recContact.contact.VerifiedMobile__c +' </br>') +
+                                    (recContact.contact.MobilePhone == null ? '' : 'Mobile: ' + recContact.contact.MobilePhone +' </br>') +
+                                    (recContact.contact.Email == null ? '' : 'Email: ' + recContact.contact.Email +' </br>') ),
+                            j$('<td class="dataCell">').append('<span>' + (recContact.contact.MailingStreet == null ? '' : recContact.contact.MailingStreet + '&nbsp') + (recContact.contact.MailingStreet2__c == null ? '' : recContact.contact.MailingStreet2__c + '&nbsp </br>') + (recContact.contact.MailingCity == null ? '' : recContact.contact.MailingCity + '&nbsp') +
+                                    (recContact.contact.MailingState == null ? '' : recContact.contact.MailingState + '&nbsp') + (recContact.contact.MailingPostalCode == null ? '' : recContact.contact.MailingPostalCode + '&nbsp </br>') +
+                                    (recContact.contact.MailingCountry == null ? '' : recContact.contact.MailingCountry) + '</span>'),
+                            j$('<td class="dataCell">').append('<span style='+(parseInt(recContact.numberOfOpenCases) > 0 ? "font-weight:bold;margin-top:5px;" : "margin-top:5px;" )+'>Open: ' + recContact.numberOfOpenCases +' / Total: ' + (parseInt(recContact.numberOfOpenCases) + parseInt(recContact.numberOfClosedCases)) + '<br></span>'),
+                            j$('<td class="dataCell">').append('<input type="checkbox" '+checked+' onchange="changeIsDuplicate(this,\''+recContact.contact.Id+'\');return false;" />'),
+                        ])
+                );
+            }
+        }
+
+
+        function rSearchContacts(){
+            searchContactShowProgress();
+
+            var txtFirstName = j$('[id$="txtFirstName"]');
+            var txtLastName = j$('[id$="txtLastName"]');
+            var txtPreferredName = j$('[id$="txtPreferredName"]');
+            var txtAccountNo = j$('[id$="txtAccountNo"]');
+            var txtAccountName = j$('[id$="txtAccountName"]');
+            var txtEmail = j$('[id$="txtEmail"]');
+            var txtPhone = j$('[id$="txtPhone"]');
+            var txtSocialKeys = j$('[id$="txtSocialKeys"]');
+            var ddlCustomerTypes = j$('[id$="ddlCustomerTypes"]');
+            var boolIgnorePhoneNumber = j$('[id$="txtExcludePhoneFromSearch"]');
+            var addressString = '';
+            //03/07/2017 Added by Maumita to resolve the address search issue in MyCustomers Starts
+            var addressString_line = '';
+            var addressString_city = '';
+            var addressString_state = '';
+            var addressString_pc = '';
+            var addressString_country = '';
+            //03/07/2017 Added by Maumita to resolve the address search issue in MyCustomers Ends
+
+            if(typeof {!id}_getAddress == 'undefined'){
+
+                var txtAddress = j$('[id$="txtAddress"]');
+                addressString = txtAddress.val().trim();
+                //addressString = '';
+                console.log('####txtAddress: ' + addressString);
+                //console.log('####txtAddress: ' + {!id}_getAddress());
+            } else {
+                var addressObj = {!id}_getAddress();
+                console.log('addressObj :'+addressObj);
+                //03/07/2017 Added by Maumita to resolve the address search issue in MyCustomers Starts
+                //addressString = addressObj.addressLine1 + addressObj.addressLine2 + addressObj.city + addressObj.state + addressObj.postcode;
+                addressString_line = (addressObj.addressLine1.trim() + " " + addressObj.addressLine2.trim()).trim();
+                addressString_city = addressObj.city.trim();
+                addressString_state = addressObj.state.trim();
+                addressString_pc = addressObj.postcode.trim();
+                addressString_country = addressObj.country.trim();
+                //03/07/2017 Added by Maumita to resolve the address search issue in MyCustomers Ends
+            }
+
+            var combinedString = txtAccountNo.val().trim()
+                    + txtFirstName.val().trim()
+                    + txtLastName.val().trim()
+                    + txtPreferredName.val().trim()
+                    + addressString
+                    //03/07/2017 Added by Maumita to resolve the address search issue in MyCustomers Starts
+                    + addressString_line
+                    + addressString_city
+                    + addressString_state
+                    + addressString_pc
+                    + addressString_country
+                    //03/07/2017 Added by Maumita to resolve the address search issue in MyCustomers Starts
+                    + txtEmail.val().trim()
+                    + txtPhone.val().trim()
+                    + txtSocialKeys.val().trim()
+                    + txtAccountName.val().trim();
+
+            if (combinedString.length >= 2 && (txtAccountNo.val().trim() != ''
+                    || txtFirstName.val().trim() != ''
+                    || txtLastName.val().trim() != ''
+                    || txtPreferredName.val().trim() != ''
+                    || addressString != ''
+                    //03/07/2017 Added by Maumita to resolve the address search issue in MyCustomers Starts
+                    || addressString_line != ''
+                    || addressString_city != ''
+                    || addressString_state != ''
+                    || addressString_pc != ''
+                    || addressString_country != ''
+                    //03/07/2017 Added by Maumita to resolve the address search issue in MyCustomers Ends
+                    || txtEmail.val().trim() != ''
+                    || txtPhone.val().trim() != ''
+                    || txtSocialKeys.val().trim() != ''
+                    || txtAccountName.val().trim() != '')) {
+
+                searchContactHideMessage();
+                j$('#pnlResults').show();
+                Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.SearchContactComponentController.searchCustomer}',
+                        ddlCustomerTypes.val().trim(),
+                        txtEmail.val().trim(),
+                        txtFirstName.val().trim(),
+                        txtLastName.val().trim(),
+                    	txtPreferredName.val().trim(),
+                        txtPhone.val().trim(),
+                        txtAccountNo.val().trim(),
+                        txtAccountName.val().trim(),
+                        txtSocialKeys.val().trim(),
+                        addressString,
+                        //03/07/2017 Added by Maumita to resolve the address search issue in MyCustomers Starts
+                        addressString_line,
+                        addressString_city,
+                        addressString_state,
+                        addressString_pc,
+                        addressString_country,
+                        //03/07/2017 Added by Maumita to resolve the address search issue in MyCustomers Ends
+                        //  boolIgnorePhoneNumber.val().trim(), // Nanda K Commented to fix INC0904758 on 07/12/2017
+                        boolIgnorePhoneNumber.prop('checked'),  // Nanda K added this line of code to fix INC0904758 on 07/12/2017
+                        function(result, event){
+                            if(event.type === 'exception') {
+                                searchContactShowMessage(event.message);
+                            } else {
+                                //Dion Gunn 23/05/2017 Splitting some of this callback function out
+                                // so it can be re-used for displaying duplicates
+                                displaySearchResults(result);
+                            }
+                            searchContactHideProgress();
+                        });
+            } else {
+                searchContactShowMessage("Please enter at least one contact search criteria.");
+                searchContactHideProgress();
+            }
+        }
+
+        function displaySearchResults(result) {
+            if( result === null || result.length == 0){
+                j$('[id$="results"]').find('.mainTitle').text('Found 0 Contact Record(s)');
+                var tBody = j$('[id$="pnlResults"]').find('.list').find('tbody');
+                tBody.empty();
+            } else {
+                j$('[id$="results"]').find('.mainTitle').text( 'Found ' + result.length + ' Contact Record(s)');
+                appendContent( result );
+            }
+        }
+
+        function searchContactShowMessage(msg) {
+            j$("#pnlSearchContactMessage .messageText").html(msg);
+            j$('#pnlSearchContactMessage .message').show();
+            j$('#pnlSearchContactMessage').show();
+        }
+
+        function searchContactHideMessage() {
+            j$("#pnlSearchContactMessage .messageText").html("");
+            j$('#pnlSearchContactMessage').hide();
+        }
+
+        function setAccountNumber(value) {
+            var txtAccountNo = j$('[id$="txtAccountNo"]');
+            txtAccountNo.val(value);
+        }
+
+        function setAccountName(value) {
+            var txtAccountName = j$('[id$="txtAccountName"]');
+            txtAccountName.val(value);
+        }
+
+        function jClearSearch() {
+            j$('#pnlResults').hide();
+            searchContactHideMessage();
+
+            var txtFirstName = j$('[id$="txtFirstName"]');
+            var txtLastName = j$('[id$="txtLastName"]');
+            var txtPreferredName = j$('[id$="txtPreferredName"]');
+            var txtAddress = j$('[id$="txtAddress"]');
+            var txtAccountNo = j$('[id$="txtAccountNo"]');
+            var txtAccountName = j$('[id$="txtAccountName"]');
+            var txtEmail = j$('[id$="txtEmail"]');
+            var txtPhone = j$('[id$="txtPhone"]');
+            var txtSocialKeys = j$('[id$="txtSocialKeys"]');
+            var ddlCustomerTypes = j$('[id$="ddlCustomerTypes"]');
+
+            txtFirstName.val('');
+            txtLastName.val('');
+            txtPreferredName.val('');
+            txtAddress.val('');
+            txtAccountNo.val('');
+            txtEmail.val('');
+            txtPhone.val('');
+            txtSocialKeys.val('');
+            ddlCustomerTypes.val('');
+            txtAccountName.val('');
+
+            {!id}_addressChanged();
+            //added by yuanyuan zhang for clear when expand situation
+            //var addressPanel = j$('.{!id}_addressPanel');
+            var txtLine1 = j$('[id$="txtLine1"]');
+            var txtLine2 = j$('[id$="txtLine2"]');
+            var txtCity = j$('[id$="txtCity"]');
+            var txtState = j$('[id$="txtState"]');
+            var txtPostcode = j$('[id$="txtPostcode"]');
+            var txtDPID = j$('[id$="txtDPID"]');
+            var hfDPID = j$('[id$="hfDPID"]');
+            var txtCountry = j$('[id$="txtCountry"]');
+
+            console.log('###txtLine1: ' + txtLine1.val());
+
+            txtLine1.val('');
+            txtLine2.val('');
+            txtCity.val('');
+            txtState.val('');
+            txtPostcode.val('');
+            txtDPID.val('');
+            hfDPID.val('');
+            txtCountry.val('');
+        }
+
+        function onChangeCustomerType(sel) {
+            searchContactHideMessage();
+
+            var lblAccountNo = j$('[id$="lblAccountNo"]');
+            var lblAccountName = j$('[id$="lblAccountName"]');
+            var txtAccountName = j$('[id$="txtAccountName"]');
+            var ddlCustomerTypes = j$('[id$="ddlCustomerTypes"]');
+
+            var value = sel.options[sel.selectedIndex].value;
+
+            if (ddlCustomerTypes.val() == 'Consumer') {
+                lblAccountNo.text('APCN');
+                lblAccountName.hide();
+                txtAccountName.hide();
+                txtAccountName.val('');
+
+                if (cptAccountLookupByNumber_enable)
+                    cptAccountLookupByNumber_enable(false);
+
+            } else {
+                lblAccountNo.text('Account No. / ABN / APCN');
+                lblAccountName.show();
+                txtAccountName.show();
+
+                if (cptAccountLookupByNumber_enable)
+                    cptAccountLookupByNumber_enable(true);
+
+            }
+        }
+
+        function {!id}_addressChanged() {
+            //console.log('## clearing hidden address fields...');
+            var hfAddressLine1 = j$('[id$="hfAddressLine1"]');
+            var hfAddressLine2 = j$('[id$="hfAddressLine2"]');
+            var hfCity = j$('[id$="hfCity"]');
+            var hfState = j$('[id$="hfState"]');
+            var hfPostcode = j$('[id$="hfPostcode"]');
+            var hfPDID = j$('[id$="hfPDID"]');
+            var hfCountry = j$('[id$="hfCountry"]');
+
+            hfAddressLine1.val("");
+            hfAddressLine2.val("");
+            hfCity.val("");
+            hfState.val("");
+            hfPostcode.val("");
+            hfPDID.val("");
+            hfCountry.val("");
+        }
+
+        function isCharacterKeyPress(event) {
+            /*
+            console.log('key code = ' + event.keyCode);
+            console.log('char code = ' + event.charCode);
+            console.log('which code = ' + event.which);
+            */
+            var result = event.keyCode == 8 || (!event.ctrlKey && !event.metaKey && !event.altKey && event.which !== 0 && event.charCode !== 0);
+            //console.log('result from keydown = ' + result);
+            return result;
+        }
+
+        function {!id}_addressSelected(data) {
+            var hfAddressLine1 = j$('[id$="hfAddressLine1"]');
+            var hfAddressLine2 = j$('[id$="hfAddressLine2"]');
+            var hfCity = j$('[id$="hfCity"]');
+            var hfState = j$('[id$="hfState"]');
+            var hfPostcode = j$('[id$="hfPostcode"]');
+            var hfPDID = j$('[id$="hfPDID"]');
+            var hfCountry = j$('[id$="hfCountry"]');
+            var hfFullAddress = j$('[id$="hfFullAddress"]');
+
+            hfAddressLine1.val(data.addressLine1);
+            hfAddressLine2.val(data.addressLine2);
+            hfCity.val(data.city);
+            hfState.val(data.state);
+            hfPostcode.val(data.postcode);
+            hfPDID.val(data.dpid);
+            hfCountry.val("AU");
+        }
+
+        function changeIsDuplicate(el, contactId) {
+            sforce.connection.sessionId='{!GETSESSIONID()}';
+            var ct = new sforce.SObject('Contact');
+            ct.id = contactId;
+            ct.IsDuplicate__c = el.checked;
+            sforce.connection.update([ ct ]);
+        }
+    
+        function searchContactOpenTab(rId) {
+
+            var def = j$.Deferred();
+
+            // grab the top level primary tab id
+            sforce.console.getEnclosingPrimaryTabId(function(primaryTabResult) {
+                def.resolve(primaryTabResult);
+            });
+
+            // use promises since there is alot of asyn activity
+            def.then(function(result) {
+                var def = j$.Deferred();
+                // retrieved the top level primary tab id now we grab a list of the subtabs associated with the primary tab
+                // we use this to determine whether or not to open the link in a subtab or a primary tab.
+                // is there are multiple subtabs open, then we continue the trend and open another subtub, or else we open link in a primary tab.
+                sforce.console.getSubtabIds(result.id, function (subTabCountResult) {
+                    def.resolve(result.id, subTabCountResult.success, (subTabCountResult.success ? subTabCountResult.ids : []));
+                });
+
+                return def;
+            }).then(function(primaryTabId, subTabSearchSuccessful, subTabIds) {
+                var def = j$.Deferred();
+
+                // now we have a list of subtabs we can do comparisons and figure out whether to open the window in a subtab or primary tab
+                // depending on whether we are in a subtab context or primary tab context we use a specific method set.
+                var openTabMethod = null;
+                var refreshTabMethod = null;
+                var focusTabMethod = null;
+                var isSubtabMethod = false;
+                if (subTabSearchSuccessful && subTabIds.length > 1) {
+                    console.log('>> searchContactOpenTab: Using Subtabs to open links');
+                    openTabMethod = sforce.console.openSubtab;
+                    refreshTabMethod = sforce.console.refreshSubtabById;
+                    focusTabMethod = sforce.console.focusSubtabById;
+                    isSubtabMethod = true;
+
+                    def.resolve(primaryTabId, subTabIds, openTabMethod, refreshTabMethod, focusTabMethod, isSubtabMethod);
+                } else {
+                    console.log('>> searchContactOpenTab: Using Primary Tabs to open links');
+                    openTabMethod = sforce.console.openPrimaryTab;
+                    refreshTabMethod = sforce.console.refreshPrimaryTabById;
+                    focusTabMethod = sforce.console.focusPrimaryTabById;
+                    isSubtabMethod = false;
+
+                    // grab a list of all the primary tabs the app has loaded
+                    sforce.console.getPrimaryTabIds(function (result) {
+                        def.resolve(primaryTabId, result.ids, openTabMethod, refreshTabMethod, focusTabMethod, isSubtabMethod);
+                    });
+                }
+
+                return def;
+            }).then(function(primaryTabId, tabIds, openTabMethod, refreshTabMethod, focusTabMethod, isSubtabMethod) {
+                var def = j$.Deferred();
+
+                // now we have retrieved a list of tab ids to get some more info about
+                // if we find an object, we check to see if it matches the object id that has been passed in and if it does, we focus on it and refresh it.
+                // if not we reject the promise and then the rejection will cause a new tab to open.
+                var refreshedTab = false;
+                var processableIds = {};
+                for (var i = 0; i < tabIds.length; i++) {
+                    processableIds[tabIds[i]] = true;
+                }
+
+                for(var i=0;i<tabIds.length;i++) {
+                    var tabId = tabIds[i];
+                    (function(tabId) {
+                        sforce.console.getPageInfo(tabId, function (pageInfoResult) {
+                            // remove this item from the tabs still left to process
+                            // once we get to no more tabs, we reject the promise if no action has occured
+                            delete processableIds[tabId];
+
+                            var pageInfo = j$.evalJSON(pageInfoResult.pageInfo);
+                            if (pageInfo != null && pageInfo.objectId !== '' && pageInfo.objectId !== null && rId.indexOf(pageInfo.objectId) > -1) {
+                                console.log('>> searchContactOpenTab: found a match');
+                                // we found a match
+                                // the object that was originally passed in matches the object loaded in this tab
+                                refreshedTab = true;
+                                def.resolve(tabId, refreshTabMethod, focusTabMethod);
+                            }
+
+                            if(!refreshedTab && Object.keys(processableIds).length === 0) {
+                                console.log('>> searchContactOpenTab: no match found');
+                                // this is the last tab to be processed and no match has been found
+                                def.reject(primaryTabId, openTabMethod, isSubtabMethod);
+                            }
+                        });
+                    })(tabId);
+                }
+
+                if(tabIds.length === 0) {
+                    // because no tabs exist, then no async methods will be fired, so we reject the promise here
+                    console.log('>> searchContactOpenTab: no match found');
+                    def.reject(primaryTabId, openTabMethod, isSubtabMethod);
+                }
+
+                return def;
+            }).then(function(tabId, refreshTabMethod, focusTabMethod) {
+                // the tab was found so we refresh and focus it since opening it again isnt allowed
+                focusTabMethod(tabId);
+                refreshTabMethod(tabId, true);
+            }, function(primaryTabId, openTabMethod, isSubtabMethod) { // either openPrimaryTab or openSubTab
+                console.log('isSubtabMethod: ', isSubtabMethod);
+                // rejected
+                // since no tab was found, we need to create a new instance
+                // these will either be as a subtab or primary tab depending on which method we are using
+                // NOTE: if we are opening in primary tab, we need ensure that primaryTabId is null, since openPrimaryTab has a different definition than openSubtab
+                if(!isSubtabMethod)
+                    primaryTabId = null;
+
+                openTabMethod(primaryTabId, '/' + rId, true);
+            });
+        }
+
+        function {!id}_checkInput(){
+            var key = event.keyCode || event.charCode;
+            if( key == 8 || key == 46 ) {
+                {!id}_addressChanged();
+            }
+        }
+
+        function setFlag(flag) {
+            j$('#isNewSearchFlag').find('input').val(flag);
+        }
+
+        var itsMe = false;
+
+        sforce.console.addEventListener('CTI_ANI', function(result){
+            if(result.message && result.message != 'undefined') {
+                j$('[id$="txtPhone"]').val(result.message);
+            }
+            if(!itsMe) {
+                rSearchContacts();
+            }
+            itsMe = false;
+        });
+
+        function updatePhone(){
+            itsMe = true;
+            sforce.console.fireEvent('CTI_ANI', j$('[id$="txtPhone"]').val(), function(result) {});
+        }
+
+        sforce.console.addEventListener('Clear_CTIPhoneCallback', function(result){
+            jClearSearch();
+        });
+
+        j$(function(){
+            searchContactHideMessage();
+            sforce.console.fireEvent('CTIPhone_Callback', '{!id}_CTIPhoneCallback');
+        });
+
+        sforce.console.addEventListener('{!id}_CTIPhoneCallback', function(result){
+            if(result.message != '') {
+                j$('[id$="txtPhone"]').val(result.message);
+                rSearchContacts();
+            }
+        });
+
+        sforce.console.addEventListener('Clear_CTIPhoneCallback', function(result){
+            jClearSearch();
+        });
+
+        j$(function(){
+            searchContactHideMessage();
+            sforce.console.fireEvent('CTIPhone_Callback', '{!id}_CTIPhoneCallback');
+        });
+
+    </script>
+    <style>
+        .searchPanel .bPageBlock .pbBody .dataCol {vertical-align:top;}
+
+        .addressButtonExpanded {
+            background: url("/img/support/caseinteraction/pluses_sprite.png") no-repeat 0 -32px;
+        }
+
+        .addressButtonExpanded:hover {
+            background: url("/img/support/caseinteraction/pluses_sprite.png") no-repeat 0 -48px;
+        }
+
+        .addressButtonCollapsed {
+            background: url("/img/support/caseinteraction/pluses_sprite.png") no-repeat 0 0px;
+        }
+
+        .addressButtonCollapsed:hover {
+            background: url("/img/support/caseinteraction/pluses_sprite.png") no-repeat 0 -16px;
+        }
+
+        .addressButton {
+            cursor: pointer;
+            float: right;
+            width: 65px;
+            margin-right: 0;
+            height: 15.5px;
+        }
+
+        .icon {
+            margin-right: 5px;
+            display: inline-block;
+            vertical-align : middle;
+            width: 16px;
+            height: 16px;
+        }
+        .icon-med {
+            width: 16px;
+            height: 16px;
+            background-size: 16px;
+        }
+
+        .contactIcon {
+            background-image: url(/img/icon/profile24.png);
+            margin-right: 5px;
+            display: inline-block;
+            vertical-align : middle;
+            width: 16px;
+            height: 16px;
+        }
+        .consumerIcon {
+            background-image: url(/resource/SSSWIcons/icon-segment_consumer_24px.png);
+        }
+        .enterpriseIcon {
+            background-image: url(/resource/SSSWIcons/icon-segment_enterprise_24px.png);
+        }
+        .smbIcon {
+            background-image: url(/resource/SSSWIcons/icon-segment_smb_24px.png);
+        }
+        .consumerSMBIcon {
+            background-image: url(/resource/SSSWIcons/icon-segment_smb_consumer_24px.png);
+        }
+        .consumerSocialIcon {
+            background-image: url(/resource/SSSWIcons/icon-segment_smb_social_24px.png);
+        }
+        .vipIcon {
+            background-image: url(/resource/SSSWIcons/vip.png);
+        }
+
+        .contact-pagination{margin-bottom: 10px;}
+        .contact-pagination td{height:30px;vertical-align:middle;}
+        .pagination-label{width:200px;text-align:right;font-weight:bold;}
+        .pagination-pageindex-td{width:300px;text-align:right;font-weight:bold;}
+        .pagination-input{width:80px;text-align:left;}
+        .pagination-input input{width:80px;}
+        .pagination-input select{width:80px;}
+        .page_num {font-size:14px; cursor:pointer;}
+        .activeIndex{text-decoration:underline;color:blue;}
+        .inactiveIndex{color:#ccc;}
+        .hidden{display:none;}
+        #loading__bg_div{background-color: black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;}
+    </style>
+    <div id="pnlSearchContactMessage" >
+        <apex:pagemessage severity="error" strength="3"
+                          summary="There is an error" />
+    </div>
+    <div class="searchPanel">
+
+        <apex:pageBlock title="Filters" mode="edit" id="pbSearchPanel" >
+            <apex:pageBlockButtons location="bottom" id="pbbButtons">
+                <apex:actionfunction action="{!expandCollapseAddress}" name="expandCollapseAddress" rerender="pbSearchPanel" />
+                <apex:actionfunction name="doPaginationFn"
+                                     action="{!doPagination}" immediate="false" rerender="results" oncomplete="searchContactHideProgress();"  />
+
+                <apex:actionfunction id="jSearchContacts" name="jSearchContacts"
+                                     action="{!searchForContact}" immediate="false" rerender="results" oncomplete="searchContactHideProgress();"  />
+                <input type="button" id="btnSearch" value="Search" class="btn"
+                       onclick="setFlag(true);rSearchContacts();enableAddConsumer();return false;" />
+                <!-- <input type="button" id="btnRemoteSearch" value="Remote" class="btn"
+                    onclick="setFlag(true);rSearchContacts();return false;" />  -->
+                <apex:commandButton id="btnClearSearch" value="Clear" oncomplete="searchContactHideProgress();"
+                                    onclick="jClearSearch();searchContactShowProgress();" immediate="false"
+                                    rerender="results" action="{!clearSearch}" />&nbsp;
+                <span class="hidden" id="isNewSearchFlag">
+                <apex:inputHidden value="{!isNewSearch}"/>
+            </span>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="2">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Customer Type" for="customer__type" />
+                    <apex:selectList value="{!strCustomerType}" size="1" tabindex="10"
+                                     styleClass="form-control input-sm picklist maxWidth"
+                                     multiselect="false" id="ddlCustomerTypes"
+                                     onkeydown="searchContactHideMessage();"
+                                     onchange="onChangeCustomerType(this);">
+                        <apex:selectOptions value="{!customerTypes}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Email Address" for="txtEmail" />
+                    <apex:outputPanel >
+                        <apex:inputText value="{!strEmail}" id="txtEmail" tabindex="60"
+                                        onkeydown="searchContactHideMessage();"
+                                        styleClass="form-control input-sm string" />
+
+                        <apex:inputcheckbox value="{!ckbEmailNotAvailable}" style="float:right;vertical-align:middle;" id="ckbEmailNotAvailable" tabindex="61">
+                            <span style="float:left;vertical-align:middle;"> I requested an email address :</span></apex:inputcheckbox>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="First Name" for="txtFirstName" />
+                    <apex:inputText value="{!strFirstname}" id="txtFirstName"
+                                    tabindex="20" onkeydown="searchContactHideMessage();"
+                                    styleClass="form-control input-sm string" />
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Phone Number" for="txtPhone" />
+                    <apex:inputText value="{!strPhone}" id="txtPhone" tabindex="70" onkeypress="return (event.charCode >= 48 && event.charCode <= 57);"
+                                    onkeydown="searchContactHideMessage();" onchange="updatePhone();"
+                                    styleClass="form-control input-sm string" />
+
+
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Last Name" for="txtLastName" />
+                    <apex:inputText value="{!strLastname}" id="txtLastName"
+                                    tabindex="30" onkeydown="searchContactHideMessage();"
+                                    styleClass="form-control input-sm string" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="" for="txtExcludePhoneFromSearch" />
+                    <apex:inputcheckbox value="{!ckbExcludePhoneFromSearch}" style="float:right;vertical-align:middle;" id="txtExcludePhoneFromSearch" tabindex="31"
+                                        onkeydown="searchContactHideMessage();"><span style="float:left;vertical-align:middle;"> Tick to ignore the Phone Number from Search:</span></apex:inputcheckbox>
+                </apex:pageBlockSectionItem>
+                <!-- Adding Preferred Name changes -->                 
+                <apex:pageBlockSectionItem >                    
+                    <apex:outputLabel value="Preferred Name" for="txtPreferredName" />                    
+                    <apex:inputText value="{!strPreferredName}" id="txtPreferredName"                                    
+                                    tabindex="30" onkeydown="searchContactHideMessage();"                                    
+                                    styleClass="form-control input-sm string" />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Account No. / ABN / APCN" id="lblAccountNo"
+                                      for="txtAccountNo" />
+                    <apex:inputText value="{!strAccountNumber}" id="txtAccountNo"
+                                    tabindex="40" onkeydown="searchContactHideMessage();"
+                                    styleClass="form-control input-sm string" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Social Key" for="txtSocialKeys" />
+                    <apex:inputText value="{!strSocialKeys}" id="txtSocialKeys"
+                                    tabindex="80" onkeydown="searchContactHideMessage();"
+                                    styleClass="form-control input-sm string" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Account Name" for="txtAccountName"
+                                      id="lblAccountName" />
+                    <apex:inputtext value="{!strAccountName}" id="txtAccountName"
+                                    tabindex="50" onkeydown="searchContactHideMessage();"
+                                    styleClass="form-control input-sm string" />
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem rendered="{!!expandAddress}" >
+                    <div class="addressButton addressButtonCollapsed" onclick="expandCollapseAddress();">Address</div>
+                    <apex:inputText value="{!strAddress}" id="txtAddress" tabindex="90"
+                                    onkeydown="searchContactHideMessage();{!id}_checkInput();" onchange="copyToHiddenAddressLine1(this);"
+                                    styleClass="form-control input-sm string {!id}_addressValidation" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!expandAddress}">
+                    <div class="addressButton addressButtonExpanded" onclick="expandCollapseAddress();">Address</div>
+                    <c:AddressComponentV1 tabIndex="90" address="{!proxyAddress}" onselected="{!id}_addressSelected" onchange="{!id}_addressChanged" getAddress="{!id}_getAddress"/>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <script>
+
+                        function copyToHiddenAddressLine1(el){
+                            if({!!expandAddress}){
+                                j$('[id$="hfAddressLine1"]').val(j$(el).val());
+                            }
+                        }
+
+                        function jAddCustomer() {
+                            searchContactShowProgress();
+                            var txtFirstName = j$('[id$="txtFirstName"]');
+                            var txtLastName = j$('[id$="txtLastName"]');
+                            var txtPreferredName = j$('[id$="txtPreferredName"]');
+                            var txtAccountNo = j$('[id$="txtAccountNo"]');
+                            var txtAccountName = j$('[id$="txtAccountName"]');
+                            var txtEmail = j$('[id$="txtEmail"]');
+                            var txtPhone = j$('[id$="txtPhone"]');
+                            var txtSocialKeys = j$('[id$="txtSocialKeys"]');
+                            var ddlCustomerTypes = j$('[id$="ddlCustomerTypes"]');
+			    var ckbEmailNotAvailable = j$('[id$="ckbEmailNotAvailable"]');
+                            var fullAddress = '';
+                            var addressLine1 = '';
+                            var addressLine2 = '';
+                            var city = '';
+                            var state = '';
+                            var postcode = '';
+                            var country = '';
+                            var dpid = '';
+
+                            if({!!expandAddress}){
+                                var txtAddress = j$('[id$="txtAddress"]');
+                                var hfAddressLine1 = j$('[id$="hfAddressLine1"]');
+                                var hfAddressLine2 = j$('[id$="hfAddressLine2"]');
+                                var hfCity = j$('[id$="hfCity"]');
+                                var hfState = j$('[id$="hfState"]');
+                                var hfPostcode = j$('[id$="hfPostcode"]');
+                                var hfCountry = j$('[id$="hfCountry"]');
+                                var hfPDID = j$('[id$="hfPDID"]');
+
+                                fullAddress = txtAddress.val();
+                                addressLine1 = hfAddressLine1.val().trim();
+                                addressLine2 = hfAddressLine2.val().trim();
+                                city = hfCity.val().trim();
+                                state = hfState.val().trim();
+                                postcode = hfPostcode.val().trim();
+                                country = hfCountry.val().trim();
+                                dpid = hfPDID.val().trim();
+
+                            } else {
+                                var addressObj = {!id}_getAddress();
+                                //console.log(addressObj);
+                                addressLine1 = addressObj.addressLine1;
+                                addressLine2 = addressObj.addressLine2;
+                                city = addressObj.city;
+                                state = addressObj.state;
+                                postcode = addressObj.postcode;
+                                country = addressObj.country;
+                                dpid = addressObj.dpid;
+                            }
+
+                            SearchContactComponentController.addCustomer(
+                                    txtAccountName.val(),
+                                    txtAccountNo.val(),
+                                    txtFirstName.val(),
+                                    txtLastName.val(),
+                                	txtPreferredName.val(),
+                                    fullAddress,
+                                    txtEmail.val(),
+                                    txtPhone.val(),
+                                    txtSocialKeys.val(),
+                                    ddlCustomerTypes.val(),
+                                    dpid,
+                                    addressLine1,
+                                    addressLine2,
+                                    city,
+                                    state,
+                                    postcode,
+                                    country,
+                                    ckbEmailNotAvailable.prop('checked'),
+                                    function(result,event) {
+                                        if ((event.status && result != null && result.length > 0)) {
+                                            if(result[0].result.indexOf("Error: DUPLICATES_DETECTED") == 0) {
+                                                searchContactShowMessage(result[0].result);
+                                                displaySearchResults(result);
+
+                                            }
+                                            else if (result[0].result.indexOf("Error:") == 0) {
+                                                searchContactShowMessage(result[0].result);
+
+                                            } else {
+                                                rSearchContacts();
+                                                searchContactOpenTab(result[0].result);
+                                            }
+                                        }
+                                        searchContactHideProgress();
+                                    });
+                        }
+                        function goToPage(pageDiff){
+                            if(pageDiff !=1 && pageDiff != -1) {
+                                return false;
+                            }
+                            var $elem, $val;
+                            $elem = j$('#currentpageindex').find('input');
+                            $val = $elem.val();
+                            $val = parseInt($val,10);
+
+                            if($val != 0 && isNaN($val)){
+                                return false;
+                            }
+                            setFlag(false);
+                            $val += pageDiff;
+                            $elem.val($val);
+                            furtherSearch();
+                        }
+                        function goToPageIndex(pageIndex) {
+                            if(pageIndex == 0) return false;
+                            setFlag(false);
+                            j$('#currentpageindex').find('input').val(pageIndex);
+                            furtherSearch();
+                        }
+                        function furtherSearch() {
+                            searchContactShowProgress();
+                            doPaginationFn();
+                        }
+
+                    </script>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageblocksection rendered="{!!expandAddress}">
+                <apex:inputhidden id="hfAddressLine1" value="{!proxyAddress.line1}" />
+                <apex:inputhidden id="hfAddressLine2" value="{!proxyAddress.line2}" />
+                <apex:inputhidden id="hfCity" value="{!proxyAddress.city}" />
+                <apex:inputhidden id="hfState" value="{!proxyAddress.state}" />
+                <apex:inputhidden id="hfPostcode" value="{!proxyAddress.postcode}" />
+                <apex:inputhidden id="hfPDID" value="{!proxyAddress.dpid}" />
+                <apex:inputhidden id="hfCountry" value="{!proxyAddress.country}" />
+            </apex:pageblocksection>
+            <apex:pageblocksection rendered="{!expandAddress}">
+                <input type="hidden"  id="hfAddressLine1" value="{!proxyAddress.line1}" disabled="true" />
+                <input type="hidden"  id="hfAddressLine2" value="{!proxyAddress.line2}" disabled="true" />
+                <input type="hidden"  id="hfCity" value="{!proxyAddress.city}" disabled="true" />
+                <input type="hidden"  id="hfState" value="{!proxyAddress.state}" disabled="true" />
+                <input type="hidden"  id="hfPostcode" value="{!proxyAddress.postcode}" disabled="true" />
+                <input type="hidden"  id="hfPDID" value="{!proxyAddress.dpid}" disabled="true" />
+                <input type="hidden"  id="hfCountry" value="{!proxyAddress.country}" disabled="true" />
+            </apex:pageblocksection>
+
+
+            <c:AddressValidation styleClass="{!id}_addressValidation" onInit="{!id}_addressChanged"
+                                 onselect="{!id}_addressSelected" />
+            <c:AccountLookupComponent id="cptAccountLookupByNumber"
+                                      assignTo="txtAccountNo" displayAccountNumber="true"
+                                      onselect="setAccountName" />
+            <c:AccountLookupComponent id="cptAccountLookupByName"
+                                      assignTo="txtAccountName" onselect="setAccountNumber" />
+        </apex:pageBlock>
+    </div>
+
+    <div id="pnlResults">
+        <apex:pageBlock mode="maindetail" id="results"
+                        title="Found {!totalRecordsNum} Contact record(s)">
+
+            <apex:outputPanel rendered="{!showList}">
+                <table class="contact-pagination">
+                    <tbody><tr>
+                        <td class="pagination-label"></td>
+
+                        <td class="pagination-label"><input type="button" value="< Prev Page" class="btn {!IF(currentPageNum==1,'hidden','')}" onclick="goToPage(-1);"/></td>
+                        <td class="pagination-label"><input type="button" value="Next Page >" class="btn {!IF(currentPageNum==totalPageNum,'hidden','')}" onclick="goToPage(1);"/></td>
+
+                        <td class="pagination-pageindex-td">
+                            <span class="page_num">Page:</span>
+                            <apex:repeat value="{!list_pageNo}" var="pageNum">
+                                <span class="page_num {!IF(pageNum == currentPageNum,'inactiveIndex','activeIndex')}" onclick="goToPageIndex({!IF(pageNum == currentPageNum,0,pageNum)});">{!pageNum}</span>
+                            </apex:repeat>
+                        </td>
+                        <td id="currentpageindex"><apex:inputHidden value="{!currentPageNum}"/></td>
+                    </tr></tbody>
+                </table>
+            </apex:outputPanel>
+
+            <apex:pageBlockTable value="{!contacts4Page}" var="o">
+                <apex:column >
+                    <apex:outputpanel >
+                        <apex:facet name="header">Service Type</apex:facet>
+                        <!-- Nandan N - 22/07/2015 : Added image field for contact icon -->
+                        <apex:outputField value="{!o.contact.ServiceType__c}" id="serviceTypeIcon"/>
+                        <!--<div class="{!IF(o.contact.Account.IsVIP__c , 'vipIcon',IF(o.contact.Account.IsPersonAccount,'consumerIcon',IF(o.contact.Account.Role_Type_Roll_Up__c=='Customer',IF(o.contact.Account.ServiceSLA__c=='Enterprise','enterpriseIcon', 'smbIcon'),'consumerSMBIcon')))} icon icon-med"></div> -->
+                    </apex:outputpanel>
+                </apex:column>
+                <apex:column style="vertical-align:top;">
+                    <apex:facet name="header">Contact Name</apex:facet>
+                    <a href="#" onclick="searchContactOpenTab('{!IF(o.contact.account.IsPersonAccount, o.contact.account.id, o.contact.id)}'); return false;"><apex:outputtext rendered="{!IF(ISBLANK(o.contact.salutation),false,true)}" value="{!o.contact.salutation} "/><apex:outputtext value="{!o.contact.name}" /></a>
+                    <br />
+                </apex:column>
+                <apex:column >
+                    <apex:outputpanel rendered="{!IF(o.contact.CRMCSSOID__c != null, 'true', 'false')}">
+                        <img src="/img/icon/custom51_100/keys16.png" />
+                    </apex:outputpanel>
+                </apex:column>
+                <apex:column style="vertical-align:top;">
+                    <apex:facet name="header">Account Name</apex:facet>
+
+                    <apex:outputpanel rendered="{!IF(o.contact.account.IsPersonAccount, 'true','false')}">{!HtmlEncode(o.contact.account.RecordType.Name)}</apex:outputpanel>
+                    <apex:outputpanel rendered="{!IF(o.contact.account.IsPersonAccount, 'false','true')}">
+                        <a href="#"
+                           onclick="searchContactOpenTab('{!o.contact.accountid}'); return false;">{!o.contact.account.name}</a>
+                            {!IF(o.contact.account.ABN__c != null,' (' + HtmlEncode(o.contact.account.ABN__c) + ')','')}
+                        <br />
+                        <a href="#"
+                           onclick="searchContactOpenTab('{!o.contact.billingAccount__r.id}'); return false;">{!o.contact.billingAccount__r.name}</a>
+                            {!IF(o.contact.billingAccount__r.LEGACY_ID__c != null,' (' + HtmlEncode(o.contact.billingAccount__r.LEGACY_ID__c) + ')','')}
+                        <br />
+                    </apex:outputpanel>
+                </apex:column>
+                <apex:column style="vertical-align:top;">
+                    <apex:facet name="header">Contact Details</apex:facet>
+                    <apex:outputText rendered="{!IF(ISBLANK(o.contact.Phone), false, true)}"
+                                     value="Phone: {!HTMLENCODE(o.contact.Phone)}<br />"
+                                     escape="false">
+                    </apex:outputText>
+                    <apex:outputText rendered="{!IF(ISBLANK(o.contact.HomePhone), false, true)}"
+                                     value="Home: {!HTMLENCODE(o.contact.HomePhone)}<br />"
+                                     escape="false">
+                    </apex:outputText>
+                    <apex:outputText rendered="{!IF(ISBLANK(o.contact.OtherPhone), false, true)}"
+                                     value="Other: {!HTMLENCODE(o.contact.OtherPhone)}<br />"
+                                     escape="false">
+                    </apex:outputText>
+                    <apex:outputText rendered="{!IF(ISBLANK(o.contact.MobilePhone), false, true)}"
+                                     value="Mobile: {!HTMLENCODE(o.contact.MobilePhone)}<br />"
+                                     escape="false">
+                    </apex:outputText>
+                    <apex:outputText rendered="{!IF(ISBLANK(o.contact.Email), false, true)}"
+                                     value="Email: {!HTMLENCODE(o.contact.Email)}<br />"
+                                     escape="false" />
+                </apex:column>
+                <apex:column style="vertical-align:top;">
+                    <apex:facet name="header">Mailing Address</apex:facet>
+                    <apex:outputText value="{!HTMLENCODE(o.contact.MailingStreet)} {!HTMLENCODE(o.contact.MailingStreet2__c)}<br />"
+                                     escape="false" />
+                    <apex:outputText value="{!HTMLENCODE(o.contact.MailingCity)} {!HTMLENCODE(o.contact.MailingState)} {!HTMLENCODE(o.contact.MailingPostalCode)}<br />"
+                                     escape="false" />
+                    <apex:outputText value="{!HTMLENCODE(o.contact.MailingCountry)}<br />"
+                                     escape="false" />
+                </apex:column>
+                <apex:column style="vertical-align:top;">
+                    <apex:facet name="header">Case History</apex:facet>
+                    <!-- Removing Last Activity Date - REQ0460192 / CR169
+                        <apex:outputText value="Last Activity: {0,date,dd/MM/yyyy}<br /><br />"
+                        escape="false"
+                        rendered="{!NOT(ISBLANK(o.contact.lastActivityDate))}">
+                        <apex:param value="{!o.contact.lastActivityDate}" />
+                    </apex:outputText>
+                    -->
+                    <apex:outputText rendered="{!o.numberOfOpenCases > 0}" style="font-weight:bold;margin-top:5px;" value="Open: {!o.numberOfOpenCases} / Total: {!o.numberOfOpenCases + o.numberOfClosedCases}<br />" escape="false" />
+                    <apex:outputText rendered="{!o.numberOfOpenCases = 0}" style="margin-top:5px;" value="Open: {!o.numberOfOpenCases} / Total: {!o.numberOfOpenCases + o.numberOfClosedCases}<br />" escape="false" />
+                </apex:column>
+                <apex:column style="vertical-align:top;">
+                    <apex:facet name="header">Is duplicate</apex:facet>
+                    <apex:inputcheckbox value="{!o.contact.IsDuplicate__c}"
+                                        onchange="changeIsDuplicate(this, '{!o.contact.id}');return false;" />
+                </apex:column>
+            </apex:pageBlockTable>
+            <br />
+            <input type="button" disabled="true" class="btn" id="btnAddCustomer" value="Add as New Contact" onclick="jAddCustomer();"  />
+        </apex:pageBlock>
+    </div>
+    <c:DefaultSubmitButton targetId="btnSearch"/>
+</apex:component>

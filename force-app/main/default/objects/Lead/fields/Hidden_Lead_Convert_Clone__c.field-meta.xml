@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hidden_Lead_Convert_Clone__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Phase 2 - Field to indicate that the record is a clone produced from the Lead Conversion process</description>
+    <externalId>false</externalId>
+    <label>{Hidden} Lead Convert Clone</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

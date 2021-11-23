@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>LCM_Read_write_access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This is to give read adn write to anyone in the LCM group to all of the records under this object</description>
+        <label>LCM Read &amp; write access</label>
+        <sharedTo>
+            <group>Lodgement_Customer_Migration_Support</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>notEqual</operation>
+            <value>1</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Service_Partners_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provide Read/Write Access on lodgement customer migration records to all Service Partners Users</description>
+        <label>Service Partners Sharing Rule</label>
+        <sharedTo>
+            <group>Service_Partners_LCM</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>notEqual</operation>
+            <value>1</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

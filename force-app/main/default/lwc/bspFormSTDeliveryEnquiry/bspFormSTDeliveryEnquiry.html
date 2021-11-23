@@ -1,0 +1,140 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 21/08/2020
+  * @description  : Component for StarTrack delivery enquiry creation.
+--------------------------------------- History --------------------------------------------------
+21.08.2020    Jansi Rani   Created
+-->
+<template>
+    <!-- Navigation links-->
+    <c-bsp-breadcrumb bread-crumb-text="Create a StarTrack delivery enquiry"></c-bsp-breadcrumb>
+
+    <!-- Heading-->
+    <div class="slds-grid slds-grid_align-center">
+        <div
+            class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_7-of-12 slds-m-bottom_x-large outer-box slds-is-relative">
+            <template if:false={successCreation}>
+                <lightning-card title="">
+                    <div class="slds-p-horizontal_x-large slds-p-bottom_large long-form-right-pad">
+                        <div class="slds-col slds-size_1-of-1 slds-p-bottom_x-large">
+                            <h2>Create a StarTrack delivery enquiry</h2>
+                        </div>
+                        <!-- Error messages-->
+                        <template if:true={errorMessage}>
+                            <c-bsp-error data-id="error" error-message={errorMessage}></c-bsp-error>
+                        </template>
+                        <template if:true={STDeliveryEnquiryResultsWapper}>
+
+                            <!-- message  for multiple consignments-->
+                            <template if:true={STDeliveryEnquiryResultsWapper.errorMessage}>
+                                <c-bsp-error data-id="error" error-message={STDeliveryEnquiryResultsWapper.errorMessage}></c-bsp-error>
+                            </template>
+
+                            <!-- message  for multiple consignments-->
+                            <template if:true={STDeliveryEnquiryResultsWapper.confirmCreation}>
+                                <c-bsp-error data-id="error" error-message='If you need to raise enquiry against this consignment,
+                                                    please proceed with entering necessary details and submit.'>
+                                </c-bsp-error>
+                            </template>
+
+                            <!-- message for multiple cases(not closed) Scenario -->
+                            <template if:true={STDeliveryEnquiryResultsWapper.multipleCaseError}>
+                                <c-bsp-error data-id="error" html-format=true
+                                    error-message={existingCasesErrorMsg}></c-bsp-error>
+                            </template>
+
+                            <!-- Put in separate cmp, so that can get Id and key and allow to navigate to detail
+                            <template for:each={STDeliveryEnquiryResultsWapper.caseNumbersStrList} for:item="caseNum">
+                                <a href='#' key={caseNum} onclick={navigateToCaseDetail} class='slds-text-color_error'>
+                                    {caseNum}</a>
+                                &nbsp;&nbsp;
+                            </template> -->
+
+                            <!-- message for multiple cases(not closed) Scenario -->
+                            <!-- <template if:true={STDeliveryEnquiryResultsWapper.multipleCaseError}>
+                                <c-bsp-error
+                                    error-message='If you need to raise another enquiry against this consignment,
+                                                                                please proceed with entering necessary details and submit.'>
+                                </c-bsp-error>
+                            </template> -->
+                        </template>
+
+                        <!--Consignment number -->
+                        <div class="slds-grid slds-grid_vertical-align-start slds-is-relative">
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning-input label="Consignment number" data-id="consignmentNumber" type="text"
+                                    max-length="40" placeholder="Enter consignment number here"
+                                    message-when-value-missing={requiredValMissingErrorMsg} onchange={handleChange}
+                                    value={consignmentNumber} required class="brand-form-input slds-p-bottom_x-large">
+                                </lightning-input> <!-- onfocusout={handleFocusOut}-->
+                            </div>
+                            <div class="slds-is-absolute form-search-button">
+                                <lightning-button label="" icon-name="utility:search" onclick={handleSeach}
+                                    class="brand-primary-button icon-button">
+                                </lightning-button>
+                            </div>
+                        </div>
+
+                        <!-- information messages-->
+                        <template if:true={displayDeliveryStatus}>
+                            <!--Consignment number Delivery Status-->
+                            <c-bsp-delivery-status consignment-type="Startrack"
+                                st-expected-delivery-date-str={STDeliveryEnquiryResultsWapper.expectedDeliveryDate}
+                                latest-event={STDeliveryEnquiryResultsWapper.latestEvent}
+                                consignment-number={consignmentNumber}></c-bsp-delivery-status>
+                        </template>
+
+                        <!--Subject -->
+                        <lightning-input label="Subject" data-id="subject" type="text" vale={enquiry.Subject}
+                            message-when-value-missing={requiredValMissingErrorMsg} max-length="255"
+                            onchange={handleChange} required class="brand-form-input slds-p-bottom_x-large">
+                        </lightning-input>
+
+                        <!-- Purpose combobox-->
+                        <lightning-combobox data-id="purpose" label="Purpose"
+                            message-when-value-missing={requiredValMissingErrorMsg} vale={enquiry.Call_Purpose__c}
+                            options={purposePicklistVales} onchange={handleChange} required
+                            class="brand-form-input slds-p-bottom_x-large">
+                        </lightning-combobox>
+
+                        <!--Description -->
+                        <lightning-textarea label="Description" data-id="description" max-length="32000"
+                            vale={enquiry.Description} message-when-value-missing={requiredValMissingErrorMsg}
+                            onchange={handleChange} required class="brand-form-input slds-p-bottom_x-large">
+                        </lightning-textarea>
+
+                        <!--Attach File -->
+                        <c-bsp-upload-files onfileupload={onFileUploadHandler}></c-bsp-upload-files>
+
+                        <!--Required info text -->
+                        <div class="slds-p-top_x-large">
+                            <span class="slds-text-color_error">*</span>&nbsp;Required information
+                        </div>
+
+                        <!--  Buttons -->
+                        <div class="slds-p-top_x-large">
+                            <lightning-button label="Cancel" title="Cancel" class="brand-tertiary-button slds-p-right_medium" 
+                                variant="Neutral" onclick={handleCancel}>
+                            </lightning-button>
+                            <lightning-button label="Submit Enquiry" title="Submit Enquiry" class="brand-primary-button"
+                                variant="destructive" onclick={handleSubmit}>
+                            </lightning-button>
+                        </div>
+
+                    </div>
+                </lightning-card>
+                <!-- spinner-->
+                <div if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+
+            <!--Case creation Success-->
+            <template if:true={successCreation}>
+                <c-bsp-enquiry-creation-success enquiy-type='Startrack' case-number={caseNumber}>
+                </c-bsp-enquiry-creation-success>
+            </template>
+        </div>
+    </div>
+</template>

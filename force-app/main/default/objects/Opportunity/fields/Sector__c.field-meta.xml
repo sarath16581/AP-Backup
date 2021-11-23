@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sector__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(CONTAINS(Closing_Owner_Role__c, &quot;Retail &amp; Merchant Services&quot;), &quot;Retail &amp; Merchant Services&quot;,
+IF(CONTAINS(Closing_Owner_Role__c, &quot;CS Local Government&quot;),&quot;CS Local Government&quot;,
+IF(CONTAINS(Closing_Owner_Role__c,&quot;CS Aquisition Sales&quot;),&quot;CS Acquisition Sales&quot;,
+IF(CONTAINS(Closing_Owner_Role__c, &quot;ES Communications&quot;), &quot;ES Communications&quot;,
+IF(CONTAINS(Closing_Owner_Role__c, &quot;CS Health and Utilities&quot;), &quot;CS Health &amp; Utilities&quot;,
+IF(CONTAINS(Closing_Owner_Role__c, &quot;CS Fin &amp; Prof Services&quot;), &quot;CS Financial &amp; Professional Services&quot;, 
+IF(CONTAINS(Closing_Owner_Role__c, &quot;CS SMB QLD Territory Sales&quot;), &quot;CS SMB Territory Sales QLD&quot;, 
+IF(CONTAINS(Closing_Owner_Role__c, &quot;CS SMB Inside Sales North&quot;), &quot;CS SMB Inside Sales North&quot;,
+IF(CONTAINS(Closing_Owner_Role__c, &quot;ES Federal Government&quot;), &quot;ES Federal Government&quot;,
+IF(CONTAINS(Closing_Owner_Role__c, &quot;CS SMB NSW Territory Sales&quot;), &quot;CS SMB NSW Territory Sales&quot;,
+IF(CONTAINS(Closing_Owner_Role__c, &quot;CS SMB ACT Territory Sales&quot;), &quot;CS SMB NSW ACT Territory Sales&quot;,
+IF(CONTAINS(Closing_Owner_Role__c, &quot;CS SMB VIC TAS Territory Sales&quot;), &quot;CS SMB VIC TAS Territory Sales&quot;,
+IF(CONTAINS(Closing_Owner_Role__c, &quot;CS SMB Inside Sales South&quot;), &quot;CS SMB Inside Sales South&quot;,
+IF(CONTAINS(Closing_Owner_Role__c, &quot;CS SMB VIC Territory Sales&quot;), &quot;CS SMB VIC Territory Sales&quot;,
+IF(CONTAINS(Closing_Owner_Role__c, &quot;ES State Government &quot;), &quot;ES State Government&quot;,
+IF(CONTAINS(Closing_Owner_Role__c, &quot;CS SMB WA SA NT Territory Sales&quot;),&quot; CS SMB WA SA NT Territory Sales&quot;, 
+IF(CONTAINS(Closing_Owner_Role__c, &quot;R&amp;MS Sector Sales NSW&quot;), &quot;R&amp;MS Sector Sales NSW&quot;,
+IF(CONTAINS(Closing_Owner_Role__c, &quot;CS Business Partnership&quot;), &quot;CS Business Partnership&quot;,
+IF(CONTAINS(Closing_Owner_Role__c, &quot;ES Financial and Professional Services&quot;), &quot;ES Financial and Professional Services&quot;,
+IF(CONTAINS(Closing_Owner_Role__c, &quot;ES Utilities&quot;), &quot;ES Utilities&quot;,
+&quot;Other&quot;))))))))))))))))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Sector</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

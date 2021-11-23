@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Intermediary_End_Client_when_checked</fullName>
+    <active>true</active>
+    <description>Intermediary&apos;s End Client must be completed when the Intermediary box is checked</description>
+    <errorConditionFormula>(BEGINS(RecordType.DeveloperName, &apos;Pricing_Request_International&apos;) || 
+ BEGINS(RecordType.DeveloperName, &apos;Pricing_Request_StarTrack&apos;)) &amp;&amp;
+ Intermediary__c = TRUE &amp;&amp;
+ ISBLANK( Name_of_Intermediary_s_Client__c )</errorConditionFormula>
+    <errorDisplayField>Name_of_Intermediary_s_Client__c</errorDisplayField>
+    <errorMessage>Where the request has an Intermediary, the intermediary&apos;s Client field must be completed</errorMessage>
+</ValidationRule>

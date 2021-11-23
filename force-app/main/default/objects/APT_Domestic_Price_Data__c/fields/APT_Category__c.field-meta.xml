@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Category__c</fullName>
+    <externalId>false</externalId>
+    <label>Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CAT1</fullName>
+                <default>false</default>
+                <label>CAT1</label>
+            </value>
+            <value>
+                <fullName>CAT2</fullName>
+                <default>false</default>
+                <label>CAT2</label>
+            </value>
+            <value>
+                <fullName>CAT3</fullName>
+                <default>false</default>
+                <label>CAT3</label>
+            </value>
+            <value>
+                <fullName>CAT4</fullName>
+                <default>false</default>
+                <label>CAT4</label>
+            </value>
+            <value>
+                <fullName>CAT5</fullName>
+                <default>false</default>
+                <label>CAT5</label>
+            </value>
+            <value>
+                <fullName>CAT6</fullName>
+                <default>false</default>
+                <label>CAT6</label>
+            </value>
+            <value>
+                <fullName>Tier 1</fullName>
+                <default>false</default>
+                <label>Tier 1</label>
+            </value>
+            <value>
+                <fullName>Tier 2</fullName>
+                <default>false</default>
+                <label>Tier 2</label>
+            </value>
+            <value>
+                <fullName>Tier 3</fullName>
+                <default>false</default>
+                <label>Tier 3</label>
+            </value>
+            <value>
+                <fullName>Tier 4</fullName>
+                <default>false</default>
+                <label>Tier 4</label>
+            </value>
+            <value>
+                <fullName>Tier 5</fullName>
+                <default>false</default>
+                <label>Tier 5</label>
+            </value>
+            <value>
+                <fullName>Tier 6</fullName>
+                <default>false</default>
+                <label>Tier 6</label>
+            </value>
+            <value>
+                <fullName>Tier 0</fullName>
+                <default>false</default>
+                <label>Tier 0</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

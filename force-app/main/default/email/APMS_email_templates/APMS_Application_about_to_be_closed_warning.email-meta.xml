@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>APMS Application about to be closed - warning</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>APMS Application about to be closed - warning</name>
+    <style>none</style>
+    <subject>SecurePay Online Processing Application Number: {!Application__c.Name}</subject>
+    <textOnly>Hi {!Application__c.ContactFirstName__c},
+
+We have tried calling and emailing you a few times but haven’t had any luck so far.
+
+We noticed you set up a SecurePay Online Credit Card Processing account on {!Application__c.CreatedDate} and whilst everything has been approved and set-up information has been sent to you, you are yet to activate your Account.
+
+Can you please call or email us to advise if you still require this service.
+
+If we haven’t heard from you by {!TODAY() + 7} we will assume you no longer need this account and will close it on your behalf.
+
+Regards,
+
+The SecurePay Team
+SecurePay Pty Ltd – A business of Australia Post
+Level 8, 222 Exhibition St, Melbourne, VIC 3000
+P 1300 656 372 (option 1)
+E onlinepayments@securepay.com.au
+W securepay.com.au</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

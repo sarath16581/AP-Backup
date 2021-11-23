@@ -1,0 +1,27 @@
+/*.THIS .top-div{
+    margin-left: 5px;
+    margin-top: 10px;
+}
+
+.THIS .inner-div{
+    margin-left: 5px;
+}*/
+
+.THIS.cp-top-div, .THIS.cp-social-heading {
+    margin-left: 12px;
+}
+
+.THIS .cp-inner-div {
+    padding: 0px 6px 0 0;
+}
+
+.THIS.cp-social-heading {
+    margin-bottom: 12px;
+}
+
+.THIS.cp-hr-Line {
+    /*background: lightgray;*/
+    height: 2px;
+    margin-top: 36px;
+    margin-bottom: 0px;
+}

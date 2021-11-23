@@ -1,0 +1,51 @@
+<!--
+ - Created by shashwat.a.nath on 25/09/2019.
+ - This VF page is invoked from the Delete Button on Task Record Detail Page
+ - Visualforce Remote Action call to "deleteTask" when user clicks on the Delete Button and user is redirected to the Home Page
+ -->
+
+<apex:page standardController="Task"
+           id="TaskDeletePage"
+            extensions="TaskDeletePageController">
+    <!--Included required scripts-->
+    <apex:includeScript value="/soap/ajax/36.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/36.0/apex.js"/>
+    <apex:includeScript value="/support/console/46.0/integration.js"/>
+    <!-- Script starts -->
+    <script type="text/javascript">
+        if("{!Task.Work_Day_Adjustments__c }" !== "" &&
+            "{!Task.Work_Day_Adjustments__c }" !== null &&
+            "{!$Profile.Name}"!=="System Administrator" &&
+            "{!$Profile.Name}"!=="Sales Admin"){
+            alert( "This activity has been linked to a SIS activity metric and as such cannot be deleted. Please contact your Sales Effectiveness contact should you need this record removed." );
+            window.location = '/{!Task.id}';
+        }
+        else {
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.TaskDeletePageController.deleteTask}', '{!Task.id}',
+                function (result, event) {
+                    if (event.status) {
+                        // On Success
+                        console.log('Success');
+                        if (UITheme.getUITheme() === 'Theme4d' || UITheme.getUITheme() === 'Theme4u'){
+                            sforce.one.navigateToURL('/lightning/page/home',true);
+                        }
+                        else{
+                            window.location = '/home/home.jsp';
+                        }
+                    } else {
+                        // On Failure or Exception
+                        alert('You don\'t have access to delete this record.');
+                        if (UITheme.getUITheme() === 'Theme4d' || UITheme.getUITheme() === 'Theme4u'){
+                            sforce.one.navigateToURL('/{!Task.id}',true);
+                        }
+                        else{
+                            window.location = '/{!Task.id}';
+                        }
+                    }
+                },
+                {escape: true}
+            );
+        }
+    </script>
+</apex:page>

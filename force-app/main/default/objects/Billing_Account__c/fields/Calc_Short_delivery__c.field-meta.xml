@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Calc_Short_delivery__c</fullName>
+    <description>StarTrack formula to evaluate Short Delivery restriction</description>
+    <externalId>false</externalId>
+    <formula>IF(NOT(ISBLANK(TEXT(Short_Delivery__c))), TEXT(Short_Delivery__c), TEXT(Organisation__r.Short_Delivery__c))</formula>
+    <label>Allow short delivery?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

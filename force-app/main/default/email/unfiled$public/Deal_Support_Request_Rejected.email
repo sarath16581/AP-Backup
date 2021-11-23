@@ -1,0 +1,10 @@
+{!Today}
+
+Dear {!Deal_Support_Request__c.OwnerFullName},
+
+Your Deal Support Request {!Deal_Support_Request__c.Link}  has been Rejected
+
+Regards,
+
+{!User.FullName}
+{!User.Email}

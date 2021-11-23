@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KeyName__c</fullName>
+    <description>Enter a name to be used for the key. Must be A-Z, a-z, 0-9. No special chars.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Enter a name to be used for the key. Must be A-Z, a-z, 0-9. No special chars.</inlineHelpText>
+    <label>Key Name</label>
+    <length>100</length>
+    <required>true</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

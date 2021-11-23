@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsDuplicate__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>SSSW - Used to identify a contact as a duplicate so automated merging can be done later</description>
+    <externalId>false</externalId>
+    <label>Is Duplicate</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,52 @@
+.THIS .vPolHelptext {
+    top:30px;
+    
+}
+/*.THIS .labelFont {
+font-size: 0.875rem !important;
+}*/
+
+
+.THIS .input 
+{
+    font-family: sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    color: #3E3E3C;
+    max-width: 600px;
+}
+.THIS .slds-checkbox .slds-checkbox__label .slds-form-element__label
+{
+    /* font-size:medium !important;  */
+    font-family: sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    color: #3E3E3C;
+    
+}
+.THIS .slds-form-element__label 
+{
+    font-family: sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    color: #3E3E3C;
+}
+
+.THIS .slds-form-element__control
+{
+    font-family: sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    color: #3E3E3C;
+}
+
+.THIS .labelClss{
+    font-family: sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    color: #3E3E3C;
+}
+.THIS .slds-icon-text-default
+{
+    fill: unset !important;
+}

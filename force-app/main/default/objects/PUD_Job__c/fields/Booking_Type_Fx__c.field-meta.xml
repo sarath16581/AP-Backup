@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Booking_Type_Fx__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Booking_Record_Type__c == &quot;Permanent Pickup/Delivery&quot;,&quot;Permanent&quot;,
+IF(Booking_Record_Type__c  == &quot;Adhoc Pickup/Delivery&quot;,&quot;Adhoc&quot;,
+IF(Booking_Record_Type__c  == &quot;MPB Pickup&quot;,&quot;Adhoc(MPB)&quot;,
+IF(Booking_Record_Type__c == &quot;Other&quot;,Booking_Record_Type__c,
+IF(Booking_Record_Type__c == &quot;Dependent Delivery&quot; &amp;&amp;  Booking__r.Parent_Booking__r.RecordType.Name  == &quot;Permanent Pickup/Delivery&quot;,&quot;Permanent&quot;,&quot;Adhoc&quot;)))))
++&quot; - &quot;+Booking_Type__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Booking Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

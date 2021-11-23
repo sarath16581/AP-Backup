@@ -1,0 +1,5 @@
+<!-- 2018-06-01 clint.dsilva@auspost.com.au created -->
+<aura:component description="AsynchApexContinuationBroker" controller="AsynchApexContinuationController" implements="flexipage:availableForAllPageTypes" access="global">
+    <aura:handler event="c:AsynchApexContinuationRequest" action="{!c.onContinuationRequest}"/>
+    <c:AsynchApexContinuationProxy aura:id="proxy" />
+</aura:component>

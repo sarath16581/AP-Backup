@@ -1,0 +1,1827 @@
+/* ***********************************************
+* 16-03-2020 rufus.solomon@auspost.com.au Changes related to 2019 brand refresh - Phase 1
+* 06-05-2020 rufus.solomon@auspost.com.au Changes related to 2019 brand refresh - Phase 2
+* 21-05-2020 rufus.solomon@auspost.com.au Updated background colors - #f3f1ee replaced with #f5f5f5
+*/
+
+/* RSolomon 16th Mar 2020 - Referencing existing fonts resource to include latest fonts */
+/*
+@font-face {
+    font-family: 'letterbold';
+    src: url("sfsites/c/resource/cpApFonts/letter-bold-webfont.woff2") format("woff2"), url("sfsites/c/resource/cpApFonts/letter-bold-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'letterbold_italic';
+    src: url("sfsites/c/resource/cpApFonts/letter-bolditalic-webfont.woff2") format("woff2"), url("sfsites/c/resource/cpApFonts/letter-bolditalic-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'letterlight';
+    src: url("sfsites/c/resource/cpApFonts/letter-light-webfont.woff2") format("woff2"), url("sfsites/c/resource/cpApFonts/letter-light-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'letterlight_italic';
+    src: url("sfsites/c/resource/cpApFonts/letter-lightitalic-webfont.woff2") format("woff2"), url("sfsites/c/resource/cpApFonts/letter-lightitalic-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'lettermedium';
+    src: url("sfsites/c/resource/cpApFonts/letter-medium-webfont.woff2") format("woff2"), url("sfsites/c/resource/cpApFonts/letter-medium-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'lettermedium_italic';
+    src: url("sfsites/c/resource/cpApFonts/letter-mediumitalic-webfont.woff2") format("woff2"), url("sfsites/c/resource/cpApFonts/letter-mediumitalic-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'letterregular';
+    src: url("sfsites/c/resource/cpApFonts/letter-regular-webfont.woff2") format("woff2"), url("sfsites/c/resource/cpApFonts/letter-regular-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'letteritalic';
+    src: url("sfsites/c/resource/cpApFonts/letter-regularitalic-webfont.woff2") format("woff2"), url("sfsites/c/resource/cpApFonts/letter-regularitalic-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+} */
+
+/* Page level styling */
+.THIS.outer {
+    /*width: 100vw;
+    margin-left: calc(-50vw + 50%); */
+    background: #f5f5f5;
+    padding: 20px 0;
+}
+
+.THIS.cp-background {
+   background-color:#f5f5f5; 
+}
+
+.THIS p.titleContainer.forceChatterCompactFeedItemBody {
+   /* font-family: 'letterregular'; */
+}
+/*YongLing - START*/
+.THIS .forceChatterSimpleFeedItemTopics--pill ul.topic-commaSeparatedList li a:hover {
+    display: block;
+    /* color: #008575; */
+    color: #dc1928;
+    padding: .25rem .75rem;
+    /*  border: 1px solid #008575; */
+    border: 1px solid #dc1928;
+    border-radius: 40px;
+}
+.THIS [class="cuf-entityLinkId forceChatterEntityLink entityLinkHover"] .uiOutputText:hover{
+    /* border-bottom: 1px dotted #008575;*/
+    border-bottom: 1px dotted #dc1928;
+    /* color: #008575;*/
+    color: #dc1928;
+}
+/*@mentioned (Australia Post Community)*/
+.THIS span.cuf-entityAdditionalLabel.uiOutputText {
+   /* color: #008575; */
+    text-decoration: none;
+}
+/*User Nickname on Post*/
+.THIS [class="cuf-entityLinkId forceChatterEntityLink entityLinkHover"] .forceChatterStyle .entityLinkHover .uiOutputText {
+    /* color: #008575; */
+    color: #dc1928;
+}
+/*Best answer by nick name*/
+/*.THIS .forceChatterEntityLink.entityLinkHover .uiOutputText:hover{
+    color: #008575;
+}*/
+.THIS .cuf-entityLink:hover{
+    /* color: #008575; */
+    color: #dc1928;       
+}
+/*Comment Buttons*/
+.THIS .forceChatterComment .comment__footer .slds-button:hover{
+    /* color: #008575; */
+    color: #dc1928;        
+}
+/*Like button within feed*/
+.THIS button.slds-button.slds-button_stateful.vote-button.likeIconAnchor.slds-post__footer-action.like-target:hover,              
+.THIS button.slds-button.slds-button_stateful.vote-button.likeIconAnchor.slds-post__footer-action.slds-is-active.unlike-target:hover,
+.THIS li:hover .cuf-likeIcon.slds-icon.slds-icon-text-default.slds-icon--x-small.slds-align-middle.selected,
+.THIS li:hover .cuf-likeIcon.slds-icon.slds-icon-text-default.slds-icon--x-small.slds-align-middle {
+    /* color: #008575; */
+    color: #dc1928;
+   /*  fill: #008575; */  
+    fill: #dc1928;          
+}
+/*Comment/Answer button within feed*/
+.THIS button.cuf-commentTrigger.drillInTarget.slds-button.slds-post__footer-action:hover{
+    /* color: #008575; */
+     color: #dc1928;               
+}
+/*Comment/Answer button within feed*/
+.THIS button.cuf-commentTrigger.cuf-focusCommentInput.slds-button.slds-post__footer-action:hover{
+    /* color: #008575; */
+     color: #dc1928;        
+}
+/*Share button within feed*/
+.THIS li:hover .shareIconAnchor.shareIconAnchor.slds-post__footer-action.share-target,
+.THIS li:hover .cuf-shareIcon.slds-icon.slds-icon-text-default.slds-icon--x-small.slds-align-middle,
+.THIS li:hover .slds-icon.slds-icon-text-default.slds-icon_x-small,
+.THIS li:hover .shareMenuTrigger.slds-post__footer-action.slds-button {
+    /* color: #008575; */
+    color: #dc1928;
+   /* fill: #008575; */  
+    fill: #dc1928;  
+}
+/*Hyperlink within Feed*/       
+.THIS .cuf-auxBody.cuf-auxBodyLinkPost a:hover, 
+.THIS .forceChatterMessageSegments.forceChatterFeedBodyText a:hover{
+    /* color: #008575; */
+    color: #dc1928;
+    text-decoration: underline;
+}
+.THIS .forceChatterMessageSegments.forceChatterFeedBodyText a,
+.THIS span.cuf-entityLinkId.forceChatterEntityLink.entityLinkHover{
+    /* color: #008575; */
+    color: #dc1928;
+}
+.THIS .forceCommunityReputationLeaderboard42 a:hover {
+    /* color: #008575; */
+    color: #dc1928;
+}
+/*Popup Modal for User Name*/
+.THIS a:hover .forceOutputLookupWithPreview .textUnderline{
+    /* color: #008575; */
+    color: #dc1928;
+   /* fill: #008575; */  
+    fill: #dc1928;  
+} 
+/*Need Help, Tracking a Parcel*/
+.THIS [class="collapsibleCTA slds-grid slds-wrap cCollapsibleCTA"] a:hover{
+   /* color: #008575; */
+}
+/*
+.THIS [data-item-id="594f1119-fc6a-458e-83a5-db23c9fab4ec"] .forceCommunityRichText.forceCommunityHtmlBlock a:hover{
+    color: #008575;
+} 
+*/
+/*Show more link*/
+.THIS .cuf-more.fadeOut{
+    text-decoration: underline;        
+}
+.THIS .cuf-more.fadeOut:hover{
+    /*  color: #008575; */
+    color: #dc1928;     
+}
+
+/*CTA Contact Help Support and Login Buttons*/
+.THIS .maincontent-help-CTA-button:hover{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid #008575;
+    border-radius: 3px;
+    width: 220px;
+    height: 40px;
+    text-align: center;
+    align-items: center;
+    color: #008575;
+    background-color: transparent;
+    padding-bottom: 10px;
+}
+.THIS .maincontent-help-CTA-button a:hover{    
+    color: #008575;    
+}
+.THIS .maincontent-CTA-button a:hover{    
+   /* color: #008575; */
+   color: #ffffff;
+}
+/*
+.THIS .maincontent-CTA-button:hover{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid #008575;
+    border-radius: 3px;
+    width: 220px;
+    height: 40px;
+    text-align: center;
+    align-items: center;
+    color: #008575;
+    background-color: transparent;
+}
+*/
+.THIS .header-featured-block3 h1:hover{
+    text-decoration: underline;
+}
+
+/* RSolomon 6th May 2020 Included highlight color on the Featured Header section on the Home page */
+.THIS .header-featured-block1 {
+    border-left: 3px solid #DC1928;
+}
+
+.THIS .header-featured-block1 a:hover{
+   /* color: #008575; */
+}
+.THIS .header-announcement{
+	padding: 8px;
+	display: flex;
+	flex-direction: column;
+	background: #6FEBD2;
+	border-radius: 3px;
+}
+/*.THIS .featured-header-caret a:hover{
+    color: #008575;
+    fill: #008575;
+}*/
+/*
+.THIS .forceCommunityTabset .uiTabBar .uiTabItem .tabHeader:hover{
+    background: #D0D5D8;
+}*/
+.THIS [class=topicHierarchy-top] span.uiOutputText:hover{
+    /* color: #008575; */
+    color: #dc1928;
+}
+.THIS [class="seenby-card-target"] a:hover{
+    /* color: #008575; */
+    color: #dc1928;
+}
+.THIS [class=topicHierarchy-top] span.uiOutputText:hover{
+    /* color: #008575; */
+    color: #dc1928;
+}
+/*Seen by within Feed*/
+.THIS [class="slds-item cuf-seenBy qe-seenBy"] a:hover{
+    /* color: #008575; */
+    color: #dc1928;
+}
+/*Need Help, Tracking a Parcel*/
+.THIS [class="collapsibleCTA slds-grid slds-wrap cCollapsibleCTA"] a:hover{
+    /* color: #008575; */
+    color: #dc1928;
+}
+/*YongLing - END*/
+/* removed .THIS li span.uiOutputText from the below to meet design considerations */
+.THIS .feedBodyInner .uiOutputText, .THIS a, .THIS li, .THIS p, .THIS p.uiOutputText, .THIS li span.uiOutputText {
+  /*  font-family: 'arial' !important; */
+}
+
+.THIS div.topicLabel, .THIS h1, .THIS h2, .THIS h3, .THIS h4, .THIS h5, .THIS span.title, .THIS span.uiOutputText {
+  /*  font-family: 'letterbold' !important; */
+}
+
+
+/* ***********************************************   
+   Icon Fill
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS button.slds-button.slds-button--neutral.search-button.uiButton {
+    background-color: #dc1928;
+    /*background-color: #6eebd2;*/
+}
+
+.THIS button.slds-button.slds-button--neutral.search-button.uiButton:active, .THIS button.slds-button.slds-button--neutral.search-button.uiButton:focus, .THIS button.slds-button.slds-button--neutral.search-button.uiButton:hover {
+    background-color: #dc1928;
+   /* background-color: #6eebd2;*/
+}
+
+.THIS a:hover {
+    opacity: 0.8;
+}
+
+.THIS a:active, .THIS a:focus, .THIS a:visited {
+    text-decoration: none;
+}
+
+.THIS svg.slds-icon.slds-icon-text-default.slds-icon {
+    /*fill: #8177E7; */
+    fill: #292f33;
+}
+
+.THIS svg.cuf-likeIcon.slds-icon.slds-icon-text-default.slds-icon--x-small.slds-align-middle, .THIS svg.slds-icon--small.slds-icon {
+    /*fill: #8177E7; */
+    fill: #292f33;
+}
+
+.THIS svg.slds-icon.slds-icon-text-default.slds-icon--x-small.slds-align-middle {
+    /*fill: #8177E7; */
+    fill: #292f33;
+}
+
+.THIS .forceEntityIcon {
+    /*background: #8177E7 !important; */
+    background: #292f33 !important;
+}
+
+.THIS .cuf-roundBorder {
+    /*background: #8177E7 !important; */
+    background: #292f33 !important;
+}
+
+.THIS svg.slds-icon.slds-icon-text-default.slds-icon--small.slds-icon {
+    /*fill: #8177E7; */
+    background: #292f33 !important;
+}
+
+
+.THIS .slds-icon_container slds-icon-utility-success .bestAnswerIcon .slds-button__icon .forceIcon .cuf-bestAnswerContainer.uiBlock svg.slds-icon--small.slds-icon {
+    /*fill: green !important;*/
+    fill: #6eebd2 !important;
+}
+
+/* Best Answer icon on the Feed component */
+.THIS .forceChatterFeedAuxBodyQuestionPostInner .questionWithBestAnswerIcon {
+    /* color: #6eebd2 !important; */
+    color: #158744 !important;
+}
+
+/* Company verified icon on the Feed component */
+.THIS .forceChatterFeedItem .solved-icon {
+    fill: #6eebd2;
+}
+
+.THIS .forceChatterFeedItem .solved-text {
+    color: #292f33;
+}
+
+.THIS * {
+    text-transform: none;
+}
+
+.THIS .forceCommunityOmniBox .no-assigned-image .default-bg-overlay {
+    background: transparent none repeat scroll 0 0 !important;
+}
+
+.THIS .cp-nowrap {
+    white-space: nowrap; 
+}
+
+/* ***********************************************
+   @import 'cp-ap-nav';
+   Australia Post Navbar
+   Is
+   Here
+   ***********************************************
+*/
+
+.THIS section.ap-nav {
+    height: 55px;
+    /*background-color: #343b40;*/
+    /* RSolomon 16th Mar 2020 - 2019 Brand Refresh exercise */
+    /* background-color: #292F33;*/
+    background-color: #ffffff;
+}
+
+.THIS section.ap-nav div {
+    height: inherit;
+    max-width: 1140px;
+    margin: 0 auto;
+    display: flex;
+    
+}
+
+/* Styling for the links on the GlobalNav */
+.THIS section.ap-nav div ul {
+    height: inherit;
+    list-style-type: none;
+    display: flex;
+    /*justify-content: flex-end;*/
+    align-items: center;
+    flex-direction: row;
+    /*justify-content: space-between;*/
+}
+
+.THIS section.ap-nav div ul a {
+    display: flex;
+    position: relative;
+    /* RSolomon 16th Mar 2020 - 2019 Brand Refresh exercise */
+    /*color: #ffffff;*/
+    color: #343b40;
+    font-size: 12px;
+  /*  font-family: 'helvetica' !important; */
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    text-decoration: none;
+    /*width: 35%; */ /* commented to simplify rendering */
+
+}
+
+.THIS section.ap-nav div ul li {
+    margin: 0 12px;
+}
+
+.THIS section.ap-nav div ul li:hover, .THIS section.ap-nav div ul li:focus, .THIS section.ap-nav div ul li:active {
+    /* RSolomon 16th Mar 2020 - 2019 Brand Refresh exercise */
+    /*background: #535f67;*/
+    background-color: #f5f5f5 !important;
+    border-radius: 3px;
+  }
+
+.THIS section.ap-nav .cp-logo-div {
+    margin-left: 20px;
+   /* width: 65%;*/
+
+}
+
+/* Styling for the AusPost logo in the GlobalNav */
+.THIS img.auspost-navlogo {
+   /* min-width: 40px;
+    min-height: 40px;
+    width: 40px;
+    height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    margin-top: 7px; */  
+    /* RSolomon 16th Mar 2020 - 2019 Brand Refresh exercise */
+    height: 30px;
+    margin-top: 14px;
+    width: 135px;   
+}
+
+/* Stlying for images in the GlobalNav */
+.THIS img.auspost-navlinks {
+    min-width: 20px;
+    min-height: 20px;
+    width: 20px;
+    height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    margin-right: 4px;
+    /*opacity: 0.4;*/
+    
+}
+
+.THIS .nav-icons {
+    fill: #8a939d;
+}
+
+/* ***********************************************
+   @import 'cp-new-navbar';
+   New custom navbar
+   Is
+   Here
+   ***********************************************
+*/
+
+.THIS .profileName {
+    /* RSolomon 16th Mar 2020 - 2019 Brand Refresh exercise */
+    font-size: 12px !important;
+    color: #ffffff;
+}
+
+.THIS .selfServiceUserProfileMenu .down-arrow {
+    display: none;
+}
+
+.THIS .selfServiceUserProfileMenu {
+    margin-left: -22px;
+}
+
+.THIS .cp-nav-full-width {
+    /*background: #3e474d;*/
+    /*background: #343B40;*/
+    background: #31313d;
+} 
+
+.THIS .cp-nav-container {
+    display: flex;
+    max-width: 1154px;
+    /*min-width: 550px; */ /* commented to bring the profileicon in focus on mobile view */
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .THIS .cp-navbar {
+        min-width: 550px;
+    }
+}
+
+.THIS .cp-burger-and-logo {
+    display: flex;
+    align-items: center;
+}
+
+.THIS button.cp-burger {
+    color: #ffffff !important;
+    border: none;
+    background: none;
+}
+
+@media (min-width: 768px) {
+    .THIS button.cp-burger {
+        display: none;
+    }
+}
+
+.THIS button.cp-burger:active, .THIS button.cp-burger:focus, .THIS button.cp-burger:hover, .THIS button.cp-burger:selection, .THIS button.cp-burger:visited {
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.THIS nav.cp-nav {
+    display: flex;
+    padding: 8px;
+    max-width: 1154px;
+}
+
+@media (max-width: 767px) {
+    .THIS nav.cp-nav {
+        padding-top: 12px;
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-bottom: 0px;
+    }
+}
+
+.THIS nav.cp-nav .cp-navbar {
+    display: flex;
+}
+
+@media (max-width: 767px) {
+    .THIS nav.cp-nav ul li:not(:nth-child(-n+2)) {
+        display: none !important;
+    }
+    .THIS nav.cp-nav ul.cp-mobile-show-menu li:not(:nth-child(-n+2)) {
+        display: flex !important;
+    }
+    .THIS nav.cp-nav ul li:nth-child(2) {
+        /*margin-top: -63px; */
+        margin-top: -50px;
+    }
+    .THIS nav.cp-nav ul li:nth-child(n+2) {
+        /*margin-left: 125px; */
+        margin-left: 40px;
+    }
+    .THIS nav.cp-nav ul li span {
+        padding: 0 8px;
+    }
+}
+
+.THIS nav.cp-nav ul.cp-nav-ul {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 767px) {
+    .THIS nav.cp-nav ul.cp-nav-ul {
+        flex-direction: column;
+    }
+}
+
+.THIS nav.cp-nav ul.cp-nav-ul li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.THIS nav.cp-nav ul.cp-nav-ul li a {
+  /*  font-family: 'lettermedium' !important; */
+    padding: 0 20px;
+    color: #ffffff;
+}
+
+@media (max-width: 767px) {
+    .THIS nav.cp-nav ul.cp-nav-ul li a {
+        padding: 3px 5px;
+    }
+}
+
+@media (max-width: 767px) {
+    .THIS nav.cp-nav ul.cp-nav-ul li {
+        padding: 12px 0;
+        transform: translateY(-8px); 
+    }
+}
+
+.THIS nav.cp-profile-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2px 0px;
+}
+
+@media (max-width: 767px) {
+    .THIS nav.cp-profile-nav {
+        justify-content: flex-start;
+        padding: 8px 15px; /* added to position the Profile Icon */
+    }
+}
+
+@media (max-width: 767px) {
+    .THIS .login {
+        position: relative;
+        /*right: -20px; */
+        top: 3px;
+    }
+}
+
+/* Mobile Search Icon */
+.THIS .forceCommunitySearchBox .mobile-search-icon .slds-button__icon {
+    color: #ffffff;
+}
+
+.THIS .selfServiceUserProfileMenu .login .linkLabel {
+    color: #ffffff;
+  /*  font-family: 'lettermedium' !important; */
+    font-style: normal;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    display: inline;
+}
+
+.THIS [class="cuf-loginLinkContainer"] .uiButton--brand {
+    background-color: transparent !important;
+    border: 2px solid #292f33;
+    color: #292f33;
+    font-weight: bold;
+}
+
+.THIS .menuList.popupTargetContainer.uiPopupTarget.uiMenuList.uiMenuList--default.visible {
+    margin-top: 10px;
+}
+
+@media (max-width: 767px) {
+    .THIS .menuList.popupTargetContainer.uiPopupTarget.uiMenuList.uiMenuList--default.visible {
+        width: 275px;
+        margin-top: 16px;
+    }
+    .THIS .selfServiceProfileMenu .login .profileIcon {
+        background: #736d6c;
+    }
+    .THIS .menuList.popupTargetContainer.uiPopupTarget.uiMenuList.uiMenuList--default.visible a:focus {
+        background: #dc1928;
+        background-color: #dc1928;
+        color: #ffffff;
+        opacity: 1;
+}        
+}
+
+@media (min-width: 768px) {
+    .THIS .menuList.popupTargetContainer.uiPopupTarget.uiMenuList.uiMenuList--default.visible {
+        right: 8px;
+    }
+    .THIS .cp-profile {
+        justify-content: flex-end;
+        display: flex;
+    }
+    .THIS .cp-profile-box {
+        width: 300px;
+    }
+    /* copied from inner theme */
+    .THIS .cp-profile-box span.slds-icon_container.slds-icon-utility-user.profileIcon.slds-button__icon.forceIcon {
+        background: #736d6c;
+    }
+    .THIS .menuList.popupTargetContainer.uiPopupTarget.uiMenuList.uiMenuList--default.visible a:focus {
+        background: #dc1928;
+        background-color: #dc1928;
+        color: #ffffff;
+        opacity: 1;
+}        
+}
+
+@media (max-width: 767px) {
+    .THIS .cp-profile-box {
+        width: 110px;
+    }
+}
+
+/*Added to adjust the profile box and menu for tablet*/        
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+    .THIS .cp-profile-box {
+        width: 190px;
+    }
+    .THIS .menuList.popupTargetContainer.uiPopupTarget.uiMenuList.uiMenuList--default.visible {
+        width: 300px;
+        margin-top: 16px;
+    }
+    .THIS .selfServiceProfileMenu .login .profileIcon {
+        background: #736d6c;
+    }
+    .THIS .menuList.popupTargetContainer.uiPopupTarget.uiMenuList.uiMenuList--default.visible a:focus {
+        background: #dc1928;
+        background-color: #dc1928;
+        color: #ffffff;
+        opacity: 1;
+}        
+}        
+
+.THIS .selfServiceProfileMenuTrigger .trigger-link:focus {
+    box-shadow: none;
+}
+
+.THIS span.triggerDownArrow.down-arrow {
+    color: #292f33;
+}
+
+/* Styling for Notifications */
+.THIS .cp-notifications {
+    display: flex;
+    position: relative;
+    padding-top: 20px;
+    height: 50px;
+    width: 30px;
+
+}
+
+.THIS .headerButtonBody {
+    color: #ffffff;
+}
+
+.THIS .big-search-container.selfServiceSearchWrapper.forceCommunityOmniBox {
+    height: inherit;
+}
+
+.THIS button.slds-button.slds-button--neutral.communityBtn.uiButton.selfServiceContactSupport {
+    color: #ffffff;
+}
+
+/* ***********************************************
+   @import 'cp-home-search';
+   ***********************************************
+*/
+
+@media (max-width: 767px) {
+    .THIS .cp-search-is-here {
+       display :block;
+       width: 0px !important;
+       padding: 9px 7px;
+			 
+    }
+
+    /* Let's show the v.search here, since v.search component cannot be duplicated
+     * we need to show/hide the component and sdjust the size of it based on the
+     * view mode mobile or desktop etc
+     */
+    .THIS [class="cp-search-is-here slds-hide"] {
+        display :block !important;
+				 
+    }
+
+    /* hiding the search magnifier for mobile*/
+    .THIS .slds-button slds-icon_small {
+         display: none;
+     }
+
+    /* hiding the first cell of the desktop search view */
+    .THIS [class="Cell one"] {
+        display :none !important;
+    }
+
+    /* hiding the third cell of the desktop search view */
+    .THIS [class="Cell three"] {
+        display :none !important;
+    }
+
+    /* adjust the cell where the standard search component contains */
+    .THIS [class="Cell two"] {
+        width: inherit;
+    }
+
+    .THIS [class="cp-search-icon-container"] {
+            display :none !important;
+    }
+
+    .THIS .forceCommunitySearchBox .mobile-search-icon {
+        padding: 0px;
+        margin-top: -3px;
+    }
+
+    .THIS .forceCommunitySearchBox .search-field {
+        height: 48px;
+        border-radius: 5px;
+    }
+
+    .THIS .forceCommunitySearchBox.focused .search-field {
+        border: 1px solid rgb(21, 137, 238);
+    }
+				   
+}
+
+.THIS .Table {
+    display: table;
+    /* width: 500px; */
+    width: 100%;
+    padding: 8px 6px;
+    float: right;
+}
+
+.THIS .Row {
+    display: table-row;
+}
+
+.THIS .Cell {
+    display: table-cell;
+    align-content: center;
+}
+
+.THIS .cp-search-is-here {
+    width: 100%;
+    display: block;
+}
+
+.THIS cp-search-is-here-icon {
+    padding: 8px 6px;
+}
+
+.THIS .collapsed-search {
+    color: #ffffff;
+}
+        
+/* Override .search-field to adjust the height*/
+@media (min-width: 768px) {
+    .THIS .forceCommunitySearchBox .search-field {
+        background-color: none;
+        /*height: inherit;*/
+        height: 36px;
+        border-radius: 5px;
+    }
+}
+
+/* Button styling for the Search component */
+.THIS [data-region-name="search"] .slds-button_brand {
+    background-color:#dc1928 !important;
+    color: #ffffff;
+    font-family: 'lettermedium' !important;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    /*Search button icon styling on the menu*/
+    background-image: url("sfsites/c/resource/AusPostCommunity/images/menu_search_button.png");
+    background-repeat: no-repeat;
+    background-position: 15px 6px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-indent: -9999px;
+    width: 50px;
+}
+
+/* ***********************************************
+   @import 'cp-headings';
+   Heading styles for the community
+   Are
+   Here
+   ***********************************************
+*/
+
+.THIS .cp-home-page-heading-outer {
+    margin-bottom: -37px;
+}
+
+.THIS .cp-home-page-heading-box {
+    text-align: center;
+    padding: 0 20px;
+    max-width: 600px;
+    min-height: 150px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.THIS .cp-home-page-heading-box h2 {
+    max-width: 600px;
+    padding: 60px 0 12px;
+    font-size: 36px;
+    line-height: 125%;
+}
+
+.THIS .cp-home-page-heading-box p {
+    max-width: 600px;
+    padding: 0 0 32px;
+    font-size: 16px;
+    opacity: 1;
+}
+
+.THIS .cp-not-first {
+    margin-top: -73px;
+}
+
+.THIS .cp-home-discussions-heading-outer {
+    background: #CBEEEA;
+}
+
+.THIS .cp-home-groups-heading-outer {
+    background: #feeee9;
+}
+
+.THIS .cp-home-articles-heading-outer {
+    background: #ECEBFF;
+}
+
+.THIS .cp-home-survey-heading-outer {
+    background: #e4e4e4;
+    margin-top: -65px;
+}
+
+.THIS .cp-inner-page-heading-outer {
+    background: #F9F8F7;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-top: -35px;
+}
+
+.THIS .cp-inner-page-heading-box {
+    background: #F9F8F7;
+    max-width: 600px;
+    padding: 0 20px;
+    min-height: 110px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.THIS .cp-inner-page-heading-box h1 {
+    padding: 12px;
+    font-size: 36px;
+    line-height: 125%;
+}
+
+.THIS .cp-inner-page-heading-box p {
+    padding: 0 12px 12px;
+    font-size: 16px;
+    opacity: 0.6;
+}
+
+.THIS .cp-heading-box-with-p {
+    min-height: 150px;
+}
+
+.THIS .cp-heading-box-with-p h1 {
+    padding-top: 32px;
+    margin-bottom: 12px;
+    padding-bottom: 0;
+}
+
+.THIS .cp-heading-box-with-p p {
+    padding-bottom: 32px;
+}
+
+.THIS .cp-video-button-box {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.THIS .cp-video-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid #292f33;
+    border-radius: 3px;
+    width: 200px;
+    height: 50px;
+    margin: 50px 0 70px;
+    text-align: center;
+    align-items: center;
+    
+}
+
+.THIS .cp-video-button a {
+   /* font-family: 'letterbold'; */
+}
+
+.THIS .cp-home-page-video-heading-outer {
+    margin-bottom: -60px;
+}
+
+.THIS .cp-home-page-video-heading-box {
+    padding: 0 20px;
+    max-width: 600px;
+    min-height: 150px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  /*  font-family: 'letterbold' !important; */
+
+}
+
+.THIS .cp-home-video-heading-outer-above {
+    background: #ECEBFF;
+    min-height: 550px;
+    margin-top: -10px;
+    margin-bottom: -400px;  
+}
+
+.THIS .cp-home-video-heading-outer-below {
+    background: #ECEBFF;
+    margin-top: -50px;
+    margin-bottom: -10px;  
+}
+
+/* ***********************************************
+   Footer
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS section.footer {
+    /* RSolomon 16th Mar 2020 - 2019 Brand Refresh exercise */
+    /* background-color: #3E474D; */
+    background-color: #ffffff;       
+}
+
+.THIS section.footer div.footer-inner {
+    text-align: center;
+    padding: 6px 0;
+    max-width: 1140px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .THIS section.footer div.footer-inner {
+        text-align: left;
+        flex-flow: row;
+        justify-content: space-between;
+    }
+}
+
+.THIS section.footer div.footer-inner ul.cp-footer-links {
+    /* RSolomon 16th Mar 2020 - 2019 Brand Refresh exercise */
+    /*max-width: 492px;*/
+}
+
+.THIS section.footer div.footer-inner ul.cp-footer-social {
+    max-width: 268px;
+}
+
+.THIS section.footer div.footer-inner ul {
+    height: 60px;
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+@media (max-width: 767px) {
+    .THIS section.footer div.footer-inner ul {
+        justify-content: center;
+    }
+}
+
+.THIS section.footer div.footer-inner ul li {
+    margin: 0 12px;
+}
+
+.THIS section.footer div.footer-inner ul a {
+    /* RSolomon 16th Mar 2020 - 2019 Brand Refresh exercise */
+    /*color: #ffffff; */
+    color: #212129;
+    font-size: 14px;
+}
+
+.THIS .big-search-container.selfServiceSearchWrapper.forceCommunityOmniBox {
+    background-color: transparent;
+}
+
+/* Tab styling */
+.THIS span.title {
+ /*   font-family: 'letterbold' !important; */
+    font-size: 14px !important;
+    font-weight: bold !important;
+    font-style: normal !important;
+    font-stretch: normal !important;
+    line-height: normal !important;
+    letter-spacing: normal !important;
+    text-align: center !important;
+}
+
+.THIS .forceCommunityTabset .uiTabBar .uiTabItem .tabHeader {
+    padding: 8px 6px;
+    text-align: center;
+}
+
+.THIS .uiTabBar {
+    background-color: #f9f8f7;
+}
+
+.THIS .uiTabset--default .tabs__item a, .THIS .uiTabset--default .tabs__item a:hover, .THIS .uiTabset--default .tabs__item a:focus {
+    border-bottom: none;
+    box-shadow: none; /* to remove bottom line on Tabs component */
+}
+
+.THIS .uiTabset--default .tabs__item.active a {
+    background-color: #f5f5f5;
+    border-top: 3px solid #292f33;
+    opacity: 0.8;
+    color: #292f33;
+}
+
+.THIS .uiTabset--default .tabs__nav {
+    border-bottom: 10px solid #f5f5f5;
+}
+
+@media (max-width: 767px) {
+    .THIS .forceCommunityTabset.uiTabset .uiTabBar .uiTabItem {
+        max-width: 50%;
+    }
+}
+
+/* Topic Catalog styling */
+.THIS .forceCommunityTopicCatalog .topicHierarchy-topBox {
+    /*
+    border-left: 3px solid #6eebd2;
+    border-top: 5px solid #f3f1ee;
+    border-bottom: 1px solid #d4d4d4;
+    border-right: 1px solid #d4d4d4;
+    margin-bottom: 0px;*/
+    border-top: 10px solid #f5f5f5;
+}
+
+.THIS .forceCommunityTopicCatalog .topicHierarchy-top {
+    display: inline-block;
+    margin-left: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    /*font-family: 'letterbold' !important; */
+}
+
+.THIS .forceCommunityTopicCatalog .topicHierarchy-child {
+    display: inline-block;
+    margin-left: 28px;
+    text-decoration: none;
+    font-size: 15px;
+
+}
+
+/* To set the parent Topic font - currently overriden by li span.uiOutputText */
+.THIS [class="topicHierarchy-top"] span.uiOutputText {
+    /* RSolomon 16th Mar 2020 - 2019 Brand Refresh exercise */
+    /* font-family: 'letterbold' !important; */
+}
+
+.THIS .forceCommunityTopicCatalog .topicHierarchy-childrenList .topicHierarchy-entry {
+    display: inline-block;
+}
+
+/* Reputation Leaderboard styling */
+.THIS .forceCommunityReputationLeaderboard42 {
+    margin-top: 20px;    
+}
+
+.THIS .forceCommunityReputationLeaderboard42 h2 {
+    /* RSolomon 16th Mar 2020 - 2019 Brand Refresh exercise */
+    /* font-weight: normal !important; */
+    padding-bottom: 20px;
+    padding-right: 5px;
+}
+
+.THIS .forceCommunityReputationLeaderboard42 a {
+    font-weight: bold !important;
+}
+
+.THIS .forceCommunityReputationLeaderboard42 .leaderboardRowWrapper {
+    border-bottom: none;
+    padding-right: 5px;
+}
+
+.THIS .forceCommunityReputationLeaderboard42 .leaderboardRowWrapper .rank {
+    display: none;
+}
+
+/* override slds grid size for Mobile */
+.THIS .forceCommunityReputationLeaderboard42 .leaderboardRowWrapper .slds-size_5-of-8 {
+    width: 80%;
+}
+
+.THIS .forceCommunityReputationLeaderboard42 .leaderboardRowWrapper .comm-leaderboard__points-column {
+    width: 20%;
+    font-weight: bold !important;
+}
+
+.THIS .comm-leaderboard__points-column .slds-text-heading_small {
+    font-size: 16px !important;
+}
+
+.THIS [class="comm-leaderboard"] .slds-text-align_center {
+    text-align: right !important;
+}
+
+@media (max-width: 767px) {
+    /* To hide user rank on the Leaderboard */
+    .THIS .forceCommunityReputationLeaderboard42 .leaderboardRowWrapper .rank {
+        display: none;
+    }
+    .THIS .forceCommunityReputationLeaderboard42 .leaderboardRowWrapper .slds-media__figure {
+        /*margin-left: 10px;*/
+        margin-right: 10px;
+    }
+    .THIS .forceCommunityReputationLeaderboard42 .leaderboardRowWrapper .comm-leaderboard__points-column {
+        width: 20%;
+    }
+    /* override slds grid size for Mobile */
+    .THIS .forceCommunityReputationLeaderboard42 .leaderboardRowWrapper .slds-size_5-of-8 {
+        width: 80%;
+    }
+    .THIS .forceCommunityReputationLeaderboard42 a {
+        font-weight: bold !important;
+    }
+}
+
+/* AC Polls - styling */
+.THIS [class="slds-page-header acpollVoting"]  {
+    border-top: 16px solid #f5f5f5;
+    border-left: 0px;
+    border-right: 0px;
+}
+        
+.THIS .slds-p-top--small.acpollVoting{
+    /*border-bottom: 16px solid #f3f1ee;*//*Added to fix spacing issue*/
+}
+
+.THIS .progressbar {
+    background-color: #6eebd2 !important;
+}
+
+/* Feed component styling */
+.THIS .slds-feed__item {
+    background-color: #f5f5f5;
+
+}
+
+.THIS .forceChatterStyle--default .slds-feed__item:first-child {
+    padding-bottom: 16px;/*Added to fix spacing issue*/
+    padding-top: 16px;
+}
+        
+.THIS .forceChatterStyle--default .slds-feed__item {
+    padding-top: 0px;/*Added to fix spacing issue*/
+    padding-bottom: 16px;/*Added to fix spacing issue*/
+}
+
+@media screen and (max-width: 768px) {        
+.THIS .forceChatterStyle--default .slds-feed__item {
+    padding-bottom: 16px;
+}
+}
+
+.THIS .forceChatterScroller .cuf-showMoreContainer {
+    background-color: #f5f5f5;
+    padding-bottom: 10px;
+}
+
+.THIS [class="cuf-showMoreContainer"] .slds-button_brand {
+    background-color: transparent !important;
+    border: 2px solid #292f33;
+    font-weight: bold;
+}
+
+.THIS .forceChatterStyle .cuf-preamble {
+    font-size: 15px !important;
+}
+
+/* Question title */
+.THIS .forceCommunityForceCommunityFeed .cuf-feedElement .cuf-questionTitle {
+    font-size: 18px !important;
+}
+
+.THIS .forceChatterFeedBodyText.cuf-feedBodyText {
+    font-size: 15px !important;
+}
+
+/* text within the topic pill */
+.THIS .forceChatterSimpleFeedItemTopics--pill ul.topic-commaSeparatedList li {
+    font-size: 12px !important;
+}
+
+/* line at the end of the Feed */
+.THIS .forceChatterFeedInner .feed-end {
+    display: none;
+}
+        
+/* To hide the filter dropdown on the Feed Item component */
+.THIS .forceChatterFeedInner .feedActions {
+    display: none;
+}     
+
+/* To hide the empty feed illustration */
+.THIS .slds-illustration {
+ 	display: none;           
+}
+
+/* To hide View More on the Chatter Feed scroller */
+.THIS [data-item-id="7c67c67e-85c7-440f-af4f-62568f6e2e9b"] .forceChatterScroller .cuf-showMoreContainer {
+    display: none;
+}
+
+/* Production data item for the View More container */
+.THIS [data-item-id="efa63fb4-c346-41f2-944c-36f2cdb9910f"] .forceChatterScroller .cuf-showMoreContainer {
+    display: none;
+}
+
+/* Styling for the text in Best Answer */
+.THIS .forceChatterFeedAuxBodyQuestionPostInner .bestAnswerHeaderText {
+    color: #292F33;
+}
+
+/* Button-brand styling - post SF update */
+.THIS .slds-button_brand {
+    background-color: #6eebd2;
+    color: #292f33;
+}
+
+.THIS .slds-button_brand:focus {
+    background-color: #6eebd2;
+    color: #292f33;
+}
+
+/* Tracking component styling */
+/*.THIS div [data-item-id="6757b3e0-8d0b-48ff-ab65-1ee9c556e882"] {
+    transform: translateY(84px);
+}*/
+
+/* Main content area - CTA */
+.THIS .maincontent-CTA {
+    background-color: #ffffff;
+    /*padding: 10px 20px;*/
+    padding-left: 20px;
+    /*padding-bottom: 10px;*/
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    /* RSolomon 6th May 2020 Replaced highlight color on the CTA component */
+    /*border-left: 5px solid #6eebd2;*/       
+    border-left: 5px solid #DC1928;
+    /*border-bottom: 16px solid #f3f1ee;*/
+    /*border-top: 16px solid #f3f1ee;*//*Added to fix spacing issue*/
+    /*height:178px;*/
+}
+        
+/* Styling for Help and Login HTML CTA component */        
+.THIS .filters-block h1{
+padding-top: 7px;
+
+}
+        
+.THIS .filters-block p{
+height: 50%;
+
+}
+        
+.THIS .mobile-filters-block {
+        display: none;
+}
+
+/* Styling for Help and Login HTML CTA component for mobile view */        
+@media screen and (max-width: 767px) {
+.THIS .filters-block {
+        display: none;
+}
+    
+.THIS .mobile-filters-block {
+        display: block;
+        max-width: 100%;
+}
+
+.THIS .help-image{
+        padding-top: 20px;
+}
+}
+
+@media (max-width: 767px) {
+    .THIS .maincontent-CTA {
+        /* RSolomon 6th May 2020 Replaced highlight color on the CTA component */
+    	/*border-top: 5px solid #6eebd2;*/       
+    	border-top: 5px solid #DC1928;
+        border-left: none;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        padding-right: 10px;
+        padding-left: 10px;
+        height: auto;
+    }
+            
+}
+
+/* RSolomon Updated styling on the CTA component */
+.THIS .maincontent-CTA-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*border: 2px solid #292f33;*/
+    border: 2px solid #dc1928;
+    border-radius: 6px;
+    width: 220px;
+    height: 40px;
+    /*margin: 50px 0 70px;*/
+    text-align: center; 
+    align-items: center;
+    /*color: #1f1f1f;*/
+    /*color: #212129; */
+    /*background-color: transparent;*/
+    background-color: #dc1928;
+    color: #FFFFFF; 
+}
+        
+.THIS .maincontent-help-CTA-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid #292f33;
+    border-radius: 3px;
+    width: 220px;
+    height: 40px;
+    /*margin: 50px 0 70px;*/
+    text-align: center; 
+    align-items: center;
+    color: #1f1f1f;
+    background-color: transparent;
+    padding-bottom: 10px; 
+}
+
+@media (max-width: 767px) {
+    .THIS .maincontent-CTA-button {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /*border: 2px solid #292f33;*/
+    	border: 2px solid #dc1928;
+        border-radius: 3px;
+        width: 100%;
+        height: 40px;
+        /*margin: 50px 0 70px;*/
+        text-align: center; 
+        align-items: center;
+        /*color: #1f1f1f;
+        background-color: transparent;*/
+        color: #ffffff;
+        background-color: #dc1928;
+    }
+            
+.THIS .maincontent-help-CTA-button {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border: 2px solid #292f33;
+        border-radius: 3px;
+        width: 100%;
+        height: 40px;
+        /*margin: 50px 0 70px;*/
+        text-align: center; 
+        align-items: center;
+        /*color: #1f1f1f;*/
+    	color: #212129;
+        background-color: transparent;
+        padding-bottom: 0px;
+    }
+}
+
+.THIS .maincontent-CTA-button a {
+  /*  font-family: 'letterbold' !important; */
+    color: #ffffff;
+}
+
+.THIS .maincontent-CTA-button:hover {
+    /*background-color: #292f33; */
+    color: #ffffff;
+    opacity: 1;
+    border-radius: 6px;
+    background-color: #BF1926;
+}
+
+.THIS .maincontent-CTA-button:focus {
+    /*background-color: #292f33;*/
+    opacity: 1;
+    color: #ffffff;
+}
+        
+.THIS .maincontent-help-CTA-button a {
+   /* font-family: 'letterbold' !important; */
+}
+
+.THIS .maincontent-help-CTA-button:hover {
+    /*background-color: #292f33; */
+    opacity: 1;
+    color: #ffffff;
+}
+
+.THIS .maincontent-help-CTA-button:focus {
+    /*background-color: #292f33;*/
+    opacity: 1;
+    color: #ffffff;
+}
+
+.THIS .maincontent-CTA {
+    display: flex;
+    flex-direction: column;
+}
+
+.THIS .maincontent-CTA h1 {
+    font-size: 20px;
+    /*opacity: 0.6; */
+}
+
+.THIS .maincontent-CTA p {
+    font-size: 16px;
+    /*opacity: 0.6; */
+}
+
+/* HTML editor in the Header Featured Block */
+.THIS .header-featured-block3 {
+    display: flex;
+    flex-direction: column;
+}
+
+.THIS .header-featured-block3 h1 {
+    font-size: 16px;
+}
+
+.THIS .header-featured-block3 p {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Native CMS component text styling - Header Featured Block */
+.THIS [class="js-content-title slds-text-heading_medium"] {
+  /*  font-family: 'letterbold' !important; */
+    font-size: 18px;
+} 
+
+.THIS [class="js-content-subtitle slds-m-top_small slds-text-body_medium"] {
+  /*  font-family: 'arial' !important; */
+    font-size: 16px;
+} 
+
+/* Caret in the Featured header section - HTML editor */
+.THIS .featured-header-caret {
+    width: 10px;
+    height: 6px;
+    /*transform: rotate(-90deg);*/
+    color: #292f33;
+    padding-right: 4px;
+   
+}
+
+/* Styling for the Bookmarks on the Home Page */        
+.THIS .isBookmarked{
+     border-top: 25px solid #FFDB76 !important; 
+}
+
+@media (min-width: 768px) {
+	.THIS [data-feed-type="Bookmarks"] .slds-post__footer-action{
+      	margin-right:0rem;
+    }
+}     
+
+/* Video Banner styling */
+.THIS [data-aura-class="cloudx_cmsSS_uiVideoBanner"] p {
+  /*  font-family: 'letterbold' !important; */
+    font-size: 16px !important;
+}
+        
+.THIS [data-aura-class="cloudx_cmsSS_uiVideoBanner"] {
+    border-radius: 3px;
+    border: 1px solid #f5f5f5;
+}
+
+/* Styling for on focus of the profile icon menu options */        
+.THIS .menuList.popupTargetContainer.uiPopupTarget.uiMenuList.uiMenuList--default.visible a:focus {
+    background: #dc1928;
+    background-color: #dc1928;
+    color: #ffffff;
+    opacity: 1;
+}        
+        
+/* Styling for hiding the empty bookmarks section */
+.THIS [data-aura-class="forceChatterEmptyFeed"]{
+	display: none;
+}
+        
+/* Styling for header and body in bookmarks text section */        
+.THIS .bookmarks{
+	background: #ffffff;
+	padding-left: 30px;
+	padding-bottom: 15px;
+	/*margin-top: 16px;*/ /* Commented to avoid extra spacing between Tracking and Bookmarks */
+    /*margin-bottom: 16px;*//*Added to fix spacing issue*/
+}
+        
+.THIS .bookmarks h1{
+      font-size: 1.25rem !important;
+      padding-top: 10px;
+}
+        
+/* Styling to hide seen by on bookmarks*/        
+.THIS [data-feed-type="Bookmarks"] .seenby-card-target{
+            display: none;
+}
+        
+.THIS [data-feed-type="Bookmarks"] .qe-viewCount{
+            display: none;
+}
+        
+/* Styling to remove dot after comments/answers on bookmarks*/ 
+.THIS [data-feed-type="Bookmarks"] .qe-commentCount::after{
+      background-color: #ffffff;
+}
+
+/* Styling to correct wrapping up of comments count on Bookmarks */        
+.THIS [data-feed-type="Bookmarks"] .qe-commentCount{
+      width: 108px;
+}
+        
+.THIS [data-feed-type="Bookmarks"] .forceChatterToggleLike{
+            width: 56px;
+}
+
+.THIS [data-feed-type="Bookmarks"] .forceChatterShareButton{
+            width: 48px;
+}        
+/* Styling to round the member leaderboard image icons*/        
+.THIS .forceCommunityReputationLeaderboard42 .slds-media__body .slds-icon_small {
+      border-radius: 3px;
+      margin-right: 3px;  
+}
+        
+/* Styling for the global search image icon on navigation menu bar */        
+.THIS .cp-search-icon-container .slds-icon_small{
+      width: 20px;
+      height: 20px;
+}
+
+/* Styling for IE 11 spacing issues */        
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {        
+/* Styling for Help and Login HTML CTA component */        
+.THIS .filters-block h1{
+     padding-top: 10px;
+}
+        
+.THIS .filters-block p{
+    height: auto;
+}
+        
+.THIS .maincontent-help-CTA-button {
+    padding-bottom: 0px;
+}
+            
+.THIS .maincontent-CTA {
+    height:178px;
+}
+}        
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) and (max-width: 767px) {       
+    .THIS .maincontent-CTA {
+    height:auto;
+}
+}
+
+/*Styling for the Vote button on Home Page */        
+.THIS .acpollVoting .slds-grid--align-center{
+     justify-content: left;     
+}
+
+/*Styling for the Vote button on Home Page */        
+.THIS .acpollVoting .slds-button--brand{
+    background-color: transparent!important;
+    border: 2px solid #292f33;
+    font-weight: bold;
+    color: #292f33;
+}
+        
+/* Styling for showing the topic as card for mobile view */        
+@media (max-width: 767px) {
+.THIS .topicHierarchy-childrenList li{
+    border-top: 1px solid #f5f5f5;
+    /*border-bottom: 5px solid #f3f1ee;*/
+}
+
+/* Topic Catalog styling */
+.THIS .forceCommunityTopicCatalog .topicHierarchy-topBox {
+    margin-bottom: 0px;
+}            
+}
+
+/* Styling for the Poll answers radio buttons */        
+.THIS .acpollVoting .question-radio .question-btn .slds-radio--faux {
+    background: #ffffff;
+    border: 2px solid #C7C5C5;
+}
+        
+/* Styling to remove the sort filter header from feed component*/        
+.THIS .sort-filter-header{
+    display: none;
+}
+        
+/* Styling for the User Recognitions section on Home Page */        
+.THIS [data-aura-class="forceCommunityUserRecognitions"]{
+     margin-bottom: 16px;
+}
+        
+.THIS .communitySetupThanksButton.buttonWidth {
+    width: 6rem;
+}
+
+/* Styling for the CMS native content section on Home Page */        
+.THIS [data-aura-class="forceCommunityDynamicCollectionGrid"]{
+    margin-bottom: 16px;     
+}
+
+/* Styling for Chatter Poll - Bar percentage */
+.THIS .forceChatterFeedAuxBodyPollPostResults .bar-pct {
+    background-color: #6eebd2;
+}
+
+/* Styling for Chatter Poll - Vote button */
+.THIS .forceChatterFeedAuxBodyPollPostResults .slds-button_brand {
+    background-color: transparent !important;
+    border: 2px solid #292f33 !important;
+    font-weight: bold !important;
+    color: #292f33;
+}
+
+/* Styling for Chatter Poll - Change Vote button */
+.THIS .forceChatterFeedAuxBodyPollPostVote .slds-button_brand {
+    background-color: transparent !important;
+    border: 2px solid #292f33 !important;
+    font-weight: bold !important;
+    color: #292f33;
+}
+        
+/* To style the Pinned Post section */
+.THIS .forceChatterFeedInner .skip-feed-wrapper .cuf-pinnedFeedItemHeader {
+    background-color: #6eebd2;
+   /* font-family: 'letterbold' !important;*/
+    font-size: 15px !important;
+    font-weight: normal;
+    border: 0px;
+    border-top: 16px solid #f5f5f5;
+}
+
+.THIS .forceChatterFeedItem.pinned.cuf-element {
+    background-color: #ffffff;
+}
+
+.THIS .slds-m-bottom_large{
+    margin-bottom: 0px;
+}
+
+/* To resolve spacing issue after Pinned header is removed in Winter'19 release */
+.THIS .cuf-element.inFeed.pinned.forceChatterFeedItem--default.forceChatterAbstractFeedItem.forceChatterFeedItem{
+    border-top: 16px solid #f5f5f5;        
+}
+        
+/* Add spacing after the Need Help - CTA component on Home page */
+/* The below data item ID is valid only on Production, so please be careful when making changes to it */ 
+.THIS [data-item-id="da98b152-eb03-44e4-bd55-e67b836d9f68"] {
+    border-bottom: 16px solid #f5f5f5;
+}
+        
+/* Set the default text color to below */
+.THIS .slds-icon-text-default {
+    fill: #292f33;
+}
+        
+/* Fix for Video Banner rendering */
+.THIS .slds-image:hover .slds-file:hover {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	transition: box-shadow 0.2s ease-in-out;
+	}
+
+.THIS .slds-image:focus .slds-file:focus {
+	border: 1px solid #0070d2;
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.16); 
+	}
+
+.THIS .slds-image:not(.slds-file_loading) a:hover:before, 
+.THIS .slds-image:not(.slds-file_loading) a:focus:before,
+.THIS .slds-file:not(.slds-file_loading) a:hover:before,
+.THIS .slds-file:not(.slds-file_loading) a:focus:before, 
+.THIS .slds-image:not(.slds-file_loading) a:hover:after,
+.THIS .slds-image:not(.slds-file_loading) a:focus:after,
+.THIS .slds-file:not(.slds-file_loading) a:hover:after,
+.THIS .slds-file:not(.slds-file_loading) a:focus:after {
+	display: none;
+}

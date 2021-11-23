@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <allowRecall>false</allowRecall>
+    <allowedSubmitters>
+        <submitter>Credit_Officer</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Name</field>
+        <field>Owner</field>
+        <field>Account_Manager__c</field>
+        <field>Amount_Charged__c</field>
+        <field>Amount_Claimed__c</field>
+        <field>Approval_Level__c</field>
+        <field>Actual_Amount__c</field>
+        <field>Case__c</field>
+        <field>CreatedBy</field>
+        <field>LastModifiedBy</field>
+        <field>Product_Family__c</field>
+        <field>Credit_Amount__c</field>
+        <field>Ready_For_Approval__c</field>
+        <field>Status__c</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <name>Owner</name>
+                <type>relatedUserField</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <entryCriteria>
+            <formula>CreditAmountExclusiveGST__c &gt;20</formula>
+        </entryCriteria>
+        <ifCriteriaNotMet>ApproveRecord</ifCriteriaNotMet>
+        <label>Credit Officer</label>
+        <name>Credit_Officer</name>
+    </approvalStep>
+    <description>Auto approve amounts for Credit Officers up to $20</description>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <entryCriteria>
+        <formula>And( Ready_For_Approval__c = TRUE, 
+			 	NOT(ISPICKVAL( Status__c, &apos;Approved&apos;)),
+				 CreditAmountExclusiveGST__c &lt;=20,
+				 CreditAmountExclusiveGST__c &gt;0,
+				 ISPICKVAL(Product_Family__c , &apos;Business Credit Account Facilities&apos;),
+				 ISPICKVAL(Product_Sub_Category__c , &apos;Late Payment Charge&apos;),
+				 $UserRole.Name = &apos;Credit Officer&apos;
+			)</formula>
+    </entryCriteria>
+    <finalApprovalActions>
+        <action>
+            <name>Update_Status_Approved</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalApprovalActions>
+    <finalApprovalRecordLock>true</finalApprovalRecordLock>
+    <finalRejectionActions>
+        <action>
+            <name>Update_Status_Rejected</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalRejectionActions>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <label>LPC Auto approve Dispute Amounts</label>
+    <processOrder>1</processOrder>
+    <recordEditability>AdminOnly</recordEditability>
+    <showApprovalHistory>true</showApprovalHistory>
+</ApprovalProcess>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>XAE_Prime_Line_Item__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>XAE Prime Line Item</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Apttus_Config2__LineItem__c.APT_Product_Name__c</field>
+            <operation>contains</operation>
+            <value>CAT</value>
+        </filterItems>
+        <filterItems>
+            <field>Apttus_Config2__LineItem__c.Apttus_Config2__ConfigurationId__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Apttus_Config2__ConfigurationId__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Apttus_Config2__LineItem__c</referenceTo>
+    <relationshipLabel>Line Items (XAE Prime Line Item)</relationshipLabel>
+    <relationshipName>Line_Items</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

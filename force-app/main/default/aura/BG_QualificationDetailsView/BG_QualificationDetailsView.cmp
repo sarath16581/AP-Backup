@@ -1,0 +1,199 @@
+<!--
+    STP:20/02/2020: 
+    This componet query the qualification details with all discovery, products questions, Primary Procuct and Total Estimate values and display
+    in a summary(readonly) format.
+-->
+
+<aura:component controller="BG_QualificationSummary" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="qualification" type="Object" />
+    <aura:attribute name="editFlow" type="Boolean" default='false' />
+    <aura:attribute name="editAvailable" type="Boolean" default='false' />
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="qualificationRecordId" type="String" /> 
+    <aura:attribute name="hasBgSalesPermissionSet" type="Boolean" />
+    <aura:attribute name="isManualOpp" type="Boolean" />
+    <!--Handlers  -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:registerEvent name="genCmpEvent" type="c:BG_GenericComponentEvent"/>
+    <div style='background:#16325c;font-weight: bold; font-size: 0.99rem;' 
+         class='slds-text-color_inverse slds-page-header slds-align_absolute-center' >
+        Customer Needs Details
+    </div>
+    
+    
+    <div class="review-submit slds-p-horizontal_small" style='padding-top: 15px;'>
+        <!--Qualification Categories --> 
+        <aura:iteration items="{!v.qualification.qualifCatList}" var="qualCat" indexVar="index1">
+         
+            <aura:if isTrue="{!qualCat.categoryName == 'Discovery'}">
+                <lightning:accordion allowMultipleSectionsOpen="true"
+                                     activeSectionName="d" class='mainAccordianSection' >
+                    <lightning:accordionSection name="d" label="{!qualCat.categoryName}">
+                            <aura:iteration items="{!qualCat.catResList}" var="qualCatRes" indexVar="index2">
+                                <dl>
+                                    <div class="slds-grid slds-wrap slds-p-vertical_x-small">
+                                        <div class="slds-size_1-of-2">
+                                            <dt style='font-size:14px'>{!index2+1}. {!qualCatRes.question}</dt>
+                                        </div>
+                                        <div class="slds-size_1-of-2">
+                                            <dd style='padding-bottom: 1rem;padding-left: 0.5rem;font-weight: bold;font-size:14px;'><aura:if isTrue='{!qualCatRes.response != null}'>
+                                                {!qualCatRes.response}
+                                               <aura:set attribute='else'>
+                                                   &nbsp;
+                                               </aura:set>
+                                               </aura:if></dd>
+                                        </div>
+                                    </div>
+                                </dl> 
+                            </aura:iteration>
+
+                    </lightning:accordionSection>
+                </lightning:accordion>
+
+            </aura:if>
+            
+        </aura:iteration>
+        
+        <div class='review-submit-product'>
+            <lightning:accordion allowMultipleSectionsOpen="true"
+                                 activeSectionName="prodservices" class='mainAccordianSection' >
+                <lightning:accordionSection name="prodservices" label="Customer Needs Categories">
+                    <!--Qualification Categories --> 
+                    <aura:iteration items="{!v.qualification.qualifCatList}" var="qualCat" indexVar="index1">
+                        <aura:if isTrue="{!and (qualCat.categoryName != 'Discovery', qualCat.categoryName != 'Operational Details')}">
+                            <lightning:accordion allowMultipleSectionsOpen="true"
+                                                 activeSectionName="prod" class='subAccordianSection' >
+                                <lightning:accordionSection name="prod" label="{!qualCat.categoryName}">
+                                
+                                        <aura:iteration items="{!qualCat.catResList}" var="qualCatRes" indexVar="index2">
+                                            <dl>
+                                                <div class="slds-grid slds-wrap slds-p-vertical_x-small">
+                                                    <div class="slds-size_1-of-2">
+                                                        <dt style='font-size:14px'>{!index2+1}. {!qualCatRes.question}</dt>
+                                                    </div>
+                                                    <div class="slds-size_1-of-2">
+                                                        <dd style='padding-bottom: 1rem;padding-left: 0.5rem;font-weight: bold;font-size:14px;'><aura:if isTrue='{!qualCatRes.response != null}'>
+                                                            {!qualCatRes.response}
+                                                            <aura:set attribute='else'>
+                                                                &nbsp;
+                                                            </aura:set>
+                                                            </aura:if>
+                                                        </dd>
+                                                    </div>
+                                                </div>
+                                            </dl> 
+                                            <!-- <tr >{!catQuestion.questionName}</tr>
+                            <tr >&nbsp; &nbsp; - &nbsp; <ui:outputText value="{!qualCatRes.response}"></ui:outputText></tr>
+                            <tr>&nbsp;</tr> -->
+                                        </aura:iteration>
+                                        <aura:if  isTrue="{!and(qualCat.categoryName != 'Discovery', !v.isManualOpp)}">
+                                            <dl>
+                                                <div class="slds-grid slds-wrap slds-p-vertical_x-small">
+                                                    <div class="slds-size_1-of-2">
+                                                        <dt style='font-size:14px'>Category Estimate</dt>
+                                                    </div>
+                                                    <div class="slds-size_1-of-2">
+                                                        <dd style='padding-bottom: 1rem;padding-left: 0.5rem;font-weight: bold;font-size:14px;'>
+                                                            <aura:if isTrue='{!qualCat.estimate != null}'>
+                                                                <ui:outputCurrency value="{!qualCat.estimate}"/> 
+                                                                <aura:set attribute='else'>
+                                                                    &nbsp;
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </dd>
+                                                    </div>
+                                                </div>
+                                            </dl>
+                                            <aura:if isTrue="{!v.isManualOpp}">
+                                                <!-- Do Not Display "Notes" Section for Manually Created Opportunity -->
+                                                <aura:set attribute="else">
+                                                        <!-- Display "Notes" Section for Lead or Converted Opportunity -->
+                                                        <dl>
+                                                            <div class="slds-grid slds-wrap slds-p-vertical_x-small">
+                                                                <div class="slds-size_1-of-2">
+                                                                    <dt style='font-size:14px'>Notes</dt>
+                                                                </div>
+                                                                <div class="slds-size_1-of-2">
+                                                                    <dd style='padding-bottom: 1rem;padding-left: 0.5rem;font-weight: bold;font-size:14px;'>
+                                                                        <aura:if isTrue='{!qualCat.notes != null}'>
+                                                                            {!qualCat.notes}
+                                                                            <aura:set attribute='else'>
+                                                                                &nbsp;
+                                                                            </aura:set>
+                                                                        </aura:if>
+                                                                    </dd>
+                                                                </div>
+                                                            </div>
+                                                        </dl>
+                                                </aura:set>
+                                            </aura:if>
+                                        </aura:if>
+                                        <br/>
+                                </lightning:accordionSection>
+                            </lightning:accordion>
+                        </aura:if>
+                    </aura:iteration>
+                    
+                </lightning:accordionSection>
+            </lightning:accordion>
+        </div>
+        <div style='width:100%' class='review-submit-product'>
+            <aura:if isTrue="{!v.qualification.oppfromLead}">
+            <lightning:accordion allowMultipleSectionsOpen="true"
+                                 activeSectionName="summaryNotes" class='mainAccordianSection' >
+                <lightning:accordionSection name="summaryNotes" label="Qualification Summary">
+                    <dl>
+                        <dt style='font-size:14px;'>Primary Service</dt>
+                        <dd style='padding-bottom: 1rem;padding-left: 0.5rem;font-weight: bold;font-size:14px;'>
+                            <aura:if isTrue='{!v.qualification.primaryProduct != null}'>
+                                {!v.qualification.primaryProduct}
+                                <aura:set attribute='else'>
+                                    &nbsp;
+                                </aura:set>
+                            </aura:if>
+                            </dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt style='font-size:14px'>Total Estimate</dt>
+                        <dd style='padding-bottom: 1rem;padding-left: 0.5rem;font-weight: bold;font-size:14px;'>
+                            <aura:if isTrue='{!v.qualification.totalEsimate != null}'>
+                                <ui:outputCurrency value="{!v.qualification.totalEsimate}"/> 
+                                <aura:set attribute='else'>
+                                    &nbsp;
+                                </aura:set>
+                            </aura:if>
+                            </dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt style='font-size:14px'>Notes</dt>
+                        <dd style='padding-bottom: 1rem;padding-left: 0.5rem;font-weight: bold;font-size:14px;'>
+                            <aura:if isTrue='{!v.qualification.notes != null}'>
+                                {!v.qualification.notes}
+                                <aura:set attribute='else'>
+                                    &nbsp;
+                                </aura:set>
+                            </aura:if>
+                        </dd>
+                    </dl>
+                </lightning:accordionSection>
+            </lightning:accordion>
+            </aura:if>
+        </div>
+        
+
+        <div class="slds-text-align_center">
+        <aura:if isTrue="{!v.editFlow}">
+            <aura:if isTrue="{!v.editAvailable}">
+                <lightning:button aura:Id='edit' onclick="{!c.editQualification}" label="Edit" variant="brand" />
+            </aura:if>
+            <lightning:button aura:Id='Close' onclick="{!c.closeQualification}" label="Close" variant="brand" />
+        </aura:if>
+    </div>
+    </div>
+    
+    
+    
+</aura:component>

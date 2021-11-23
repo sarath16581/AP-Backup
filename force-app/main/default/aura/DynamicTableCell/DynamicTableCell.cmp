@@ -1,0 +1,41 @@
+<!-- 2018-06-01 clint.dsilva@auspost.com.au created -->
+<aura:component implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" description="Cell for dynamic table">
+    <aura:attribute name="record" type="Object" description="record which is being displayed"/>
+    <aura:attribute name="field" type="Object" description="field object which is being rendered"/>
+    <aura:attribute name="cellValue" type="Object"/>
+    <aura:attribute name="cellLabel" type="String"/>
+    <aura:attribute name="isTextField" type="boolean" default="false"/>
+    <aura:attribute name="isPicklistField" type="boolean" default="false"/>
+    <aura:attribute name="isReferenceField" type="boolean" default="false"/>
+    <aura:attribute name="isDateField" type="boolean" default="false"/>
+    <aura:attribute name="isDateTimeField" type="boolean" default="false"/>
+    <aura:attribute name="isCurrencyField" type="boolean" default="false"/>
+    <aura:attribute name="isTextArea" type="boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+        <aura:if isTrue="{!v.isPicklistField}">
+            <!-- <ui:outputText value="{!v.cellValue}"/> -->
+            <ui:inputSelect aura:id="InputSelectSingle" change="{!c.onSingleSelectChange}">
+                    <ui:inputSelectOption text="{!v.cellValue}" value="true"/>
+            </ui:inputSelect>
+        </aura:if>
+        <aura:if isTrue="{!v.isTextField}">
+            <ui:outputText value="{!v.cellValue}"/>
+        </aura:if>
+        <aura:if isTrue="{!v.isDateField}">
+            <ui:outputDate value="{!v.cellValue}"/>
+        </aura:if>
+        <aura:if isTrue="{!v.isDateTimeField}">
+            <ui:outputDateTime value="{!v.cellValue}"/>
+        </aura:if>
+        <aura:if isTrue="{!v.isCurrencyField}">
+            <ui:outputCurrency value="{!v.cellValue}"/>
+        </aura:if>
+        <aura:if isTrue="{!v.isReferenceField}">
+            <ui:outputURL value="{!'/one/one.app?#/sObject/'+ v.cellValue + '/view'}" target="_blank" label="{!v.cellLabel}"/>
+        </aura:if>
+        <aura:if isTrue="{!v.isTextArea}">
+            <ui:outputTextArea value="{!v.cellValue}"/>
+        </aura:if>
+
+</aura:component>

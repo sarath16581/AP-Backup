@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approved_Requirements_Cannot_be_Edited</fullName>
+    <active>true</active>
+    <description>This rule will stop any other user apart from System Admin to make changes to Requirements after they have been Approved by BAU</description>
+    <errorConditionFormula>AND(NOT( $Profile.Id = &quot;00e30000001jG0I&quot; ),  Approved_for_Backlog__c  = True)</errorConditionFormula>
+    <errorMessage>This request has been approved and is awaiting design and build, no more edits can be made.  If you need to change the requirement, contact the BAU team directly.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,11 @@
+<template>
+  <template for:each={_datatables} for:item="item" for:index="index">
+    <div class="slds-m-bottom_large" key={item.index}>
+      <c-lpo-selector-list
+        table-data={item.data}
+        column-label={item.label}
+        onchildselected={handleRowSelection}
+      ></c-lpo-selector-list>
+    </div>
+  </template>
+</template>

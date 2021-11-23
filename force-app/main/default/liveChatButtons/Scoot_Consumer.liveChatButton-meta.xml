@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LiveChatButton xmlns="http://soap.sforce.com/2006/04/metadata">
+    <autoGreeting>Hello, my name is {!User_FirstName}. I’m catching up on your conversation with Scoot now. With you in a sec…</autoGreeting>
+    <customAgentName>{!User_FirstName}</customAgentName>
+    <deployments/>
+    <enableQueue>true</enableQueue>
+    <isActive>true</isActive>
+    <label>Scoot (Consumer) - Obsolete</label>
+    <optionsCustomRoutingIsEnabled>false</optionsCustomRoutingIsEnabled>
+    <optionsHasChasitorIdleTimeout>false</optionsHasChasitorIdleTimeout>
+    <optionsHasInviteAfterAccept>false</optionsHasInviteAfterAccept>
+    <optionsHasInviteAfterReject>false</optionsHasInviteAfterReject>
+    <optionsHasRerouteDeclinedRequest>false</optionsHasRerouteDeclinedRequest>
+    <optionsIsAutoAccept>false</optionsIsAutoAccept>
+    <optionsIsInviteAutoRemove>false</optionsIsInviteAutoRemove>
+    <perAgentQueueLength>1</perAgentQueueLength>
+    <routingType>Choice</routingType>
+    <skills>
+        <skill>Scoot_Consumer</skill>
+    </skills>
+    <type>Standard</type>
+    <windowLanguage>en_US</windowLanguage>
+</LiveChatButton>

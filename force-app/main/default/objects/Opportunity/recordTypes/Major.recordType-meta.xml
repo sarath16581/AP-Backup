@@ -1,0 +1,1136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Major</fullName>
+    <active>true</active>
+    <businessProcess>BG Sales Process</businessProcess>
+    <compactLayoutAssignment>BG_Opportunity_Compact_Layout</compactLayoutAssignment>
+    <label>Major</label>
+    <picklistValues>
+        <picklist>Approval_Status__c</picklist>
+        <values>
+            <fullName>Commercial Negotiation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunity Handover</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_Approval__Approval_Status__c</picklist>
+        <values>
+            <fullName>Approval Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Not Submitted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Bank_statements__c</picklist>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Received</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Validated</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Bid_Tenders_Involvement__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Business_Lifecycle__c</picklist>
+        <values>
+            <fullName>Commercialise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expand%2FDiversify</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Growth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mature</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Startup</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transition</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CNA_Status__c</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Started</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Closed_Reason__c</picklist>
+        <values>
+            <fullName>Capability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Channel Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial or Legal terms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Application unsuccessful</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplicate Opportunity Exists</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Functionality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Implementation lead time</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrectly Qualified</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Network</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-conforming Bid%2Ftender</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Price</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product%2FService - Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RFI %2F Tender withdrawn</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strategic Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unable to Contact</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_Size__c</picklist>
+        <values>
+            <fullName>Business Partner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Acquisition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enterprise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Large Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mid Market</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mid Market Acquisition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_requires_proposal_document__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DB_Competitor__c</picklist>
+        <values>
+            <fullName>Competitor A</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Competitor B</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Competitor C</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DOV_Reason__c</picklist>
+        <values>
+            <fullName>Add new products</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contract Review or Price Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Migration request %28ie%2E PPS to TEAM%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Replace lanes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Update Collection Point %28Local Pud%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Update lanes to existing zones</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Update products%2Frates</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Distribution_Type__c</picklist>
+        <values>
+            <fullName>B2B</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>B2C</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ECLM_Contract_Status__c</picklist>
+        <values>
+            <fullName>Published</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ECLM_Contract_Type__c</picklist>
+        <values>
+            <fullName>Fixed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Perpetual</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ECLM_Opportunity_Type__c</picklist>
+        <values>
+            <fullName>APMS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agency Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail%2C Letters or Parcel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PostConnect</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ECLM_Questionnaire_Status__c</picklist>
+        <values>
+            <fullName>Contract Not Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contract Required</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ECLM_Revenue_Category__c</picklist>
+        <values>
+            <fullName>Enterprise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Large</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ECLM_STND_NSTND__c</picklist>
+        <values>
+            <fullName>Non-Standard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Expected_Benefits__c</picklist>
+        <values>
+            <fullName>Compliance with Regulations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Efficiency Gains</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enhance Customer Experience</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grow Revenue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reduce Costs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reduce Risk</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ForecastCategoryName</picklist>
+        <values>
+            <fullName>Best Case</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Omitted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pipeline</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Gov_Solutions_Category__c</picklist>
+        <values>
+            <fullName>Citizen Engagement Platform</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketplaces</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Gov Solutions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment Disbursement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Registry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eLicencing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eVoting</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Implementation_or_Onboarding_Complexity__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Initial_Contact__c</picklist>
+        <values>
+            <fullName>Customer approached sales rep</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Rep approached customer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Key_Drivers__c</picklist>
+        <values>
+            <fullName>Ability to deliver anywhere in Australia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Competitive Price</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deliver within expected timeframe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Easy to use supplier</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flexibility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Goods handled with care</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Integrated addressing %26 management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Range of Options</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reliability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolution of problems quickly</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LeadSource</picklist>
+        <values>
+            <fullName>3rd Party List</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Account Executive - Self</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Affiliate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Auspost website</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cold Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>National Contact Centre %E2%80%93 Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Newsletter Subscription</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Over The counter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Procurement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SBSub_Online</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SBSub_Retail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SBSub_Upload</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ST Website</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Social</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Lodge_At_LPO__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Marketing_Focus_Aligned__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Migration_result__c</picklist>
+        <values>
+            <fullName>BAU%3A Not in migration list</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BPI%3A BPA Integrated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BPN%3A BPA no barcode</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BPP%3A BPA barcoded</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BPS%3A BPA self generated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAS%3A Click %26 Send</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EPA%3A eParcel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EPS%3A eParcel - ex SoD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NAT%3A No Action Taken</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NOC%3A No change%3A No Barcode %26 remain on old BPA rate card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RET%3A Retail</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Next_Step__c</picklist>
+        <values>
+            <fullName>Commence implementation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirm agreement with final contract terms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirm issues%2C needs and desired outcomes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contact internal resources to determine capabilities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Determine Go%2FNo Go decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Develop proposal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Engage internal resources to develop solution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finalise contract terms %26 conditions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Identify and engage Specialist resources</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Identify opportunity risks and competitors</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Negotiate to achieve alignment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No further action</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Obtain verbal agreement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prepare contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prepare for initial customer meeting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Present final contract to customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Present the proposal to the customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refine proposal with internal stakeholders</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Review outcome and lesson%27s learnt</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Revisit opportunity in 12 months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Revisit opportunity in 6 months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seek assistance to close the deal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sign contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Update opportunity details</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Offering_Type__c</picklist>
+        <values>
+            <fullName>Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solutions</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Opportunity_Group__c</picklist>
+        <values>
+            <fullName>Non Standard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not assigned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Opportunity_Impact__c</picklist>
+        <values>
+            <fullName>Damage to Existing Relationship</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Loss of Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Loss of Existing Revenue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Loss of New Revenue</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Opportunity_Risk_Status__c</picklist>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Opportunity_SubType__c</picklist>
+        <values>
+            <fullName>DoV Decrease</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DoV Increase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Re-Contract</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Opportunity_Validation_Driver__c</picklist>
+        <values>
+            <fullName>Bids and Tenders</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solutions Sales</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Pending_Credit__c</picklist>
+        <values>
+            <fullName>Additional info requested</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bank guarantee requested</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Website details requested</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Previous_Delivery__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Pricing_Governance_Forum_Approval__c</picklist>
+        <values>
+            <fullName>Approval Requested</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Approval</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority__c</picklist>
+        <values>
+            <fullName>New</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New - One Off</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not assigned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renewed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Product__c</picklist>
+        <values>
+            <fullName>Australia Post - Mail Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia Post - Parcel Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia Post - Trusted Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MyPost Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Startrack</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Service_Interested__c</picklist>
+        <values>
+            <fullName>Change of Address Notification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Data and Insights</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Identity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Domestic Freight %28B2B%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Domestic Parcels %28B2C%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fulfilment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Information and Mailroom Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International Parcels</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Physical Mail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Verification of Identity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workforce Verification</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Standard_Australia_Post_Contract__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Standard_Operational_Requirements__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Standard_Product_Features__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Standard_Rate_Cards__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Existing Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Customer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_of_billing_account_required__c</picklist>
+        <values>
+            <fullName>Charge account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Charge account and sub-account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing Billing Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sub-account for an existing credit account</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Value_Proposition__c</picklist>
+        <values>
+            <fullName>Ability to deliver anywhere in Australia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Competitive Price</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deliver within expected timeframe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Easy to use supplier</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flexibility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Goods handled with care</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Integrated addressing %26 management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Range of Options</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reliability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolution of problems quickly</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

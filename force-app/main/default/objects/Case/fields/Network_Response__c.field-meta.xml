@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Network_Response__c</fullName>
+    <externalId>false</externalId>
+    <label>Network Response</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>No trace</fullName>
+                <default>false</default>
+                <label>No trace</label>
+            </value>
+            <value>
+                <fullName>Delivered as addressed to letterbox</fullName>
+                <default>false</default>
+                <label>Delivered as addressed to letterbox</label>
+            </value>
+            <value>
+                <fullName>Delivered as address safe dropped</fullName>
+                <default>false</default>
+                <label>Delivered as address safe dropped</label>
+            </value>
+            <value>
+                <fullName>Carded to local collection facility</fullName>
+                <default>false</default>
+                <label>Carded to local collection facility</label>
+            </value>
+            <value>
+                <fullName>No further record of item</fullName>
+                <default>false</default>
+                <label>No further record of item</label>
+            </value>
+            <value>
+                <fullName>Proof of delivery provided</fullName>
+                <default>false</default>
+                <label>Proof of delivery provided</label>
+            </value>
+            <value>
+                <fullName>Addressed with staff</fullName>
+                <default>false</default>
+                <label>Addressed with staff</label>
+            </value>
+            <value>
+                <fullName>Mail monitor in place</fullName>
+                <default>false</default>
+                <label>Mail monitor in place</label>
+            </value>
+            <value>
+                <fullName>MRS application rejected</fullName>
+                <default>false</default>
+                <label>MRS application rejected</label>
+            </value>
+            <value>
+                <fullName>Mail being redirected/held</fullName>
+                <default>false</default>
+                <label>Mail being redirected/held</label>
+            </value>
+            <value>
+                <fullName>No such address</fullName>
+                <default>false</default>
+                <label>No such address</label>
+            </value>
+            <value>
+                <fullName>Looping Parcel</fullName>
+                <default>false</default>
+                <label>Looping Parcel</label>
+            </value>
+            <value>
+                <fullName>Delivered to occupant/member of household</fullName>
+                <default>false</default>
+                <label>Delivered to occupant/member of household</label>
+            </value>
+            <value>
+                <fullName>Unable to isolate mail - Hotel</fullName>
+                <default>false</default>
+                <label>Unable to isolate mail - Hotel</label>
+            </value>
+            <value>
+                <fullName>Unable to isolate mail - Common mailbox</fullName>
+                <default>false</default>
+                <label>Unable to isolate mail - Common mailbox</label>
+            </value>
+            <value>
+                <fullName>Unable to isolate mail - Caravan park</fullName>
+                <default>false</default>
+                <label>Unable to isolate mail - Caravan park</label>
+            </value>
+            <value>
+                <fullName>Unable to isolate mail - Other (list reason in notes)</fullName>
+                <default>false</default>
+                <label>Unable to isolate mail - Other (list reason in notes)</label>
+            </value>
+            <value>
+                <fullName>Rejected - Other (list reason in notes)</fullName>
+                <default>false</default>
+                <label>Rejected - Other (list reason in notes)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,42 @@
+<aura:component access="global"
+                controller="stp_CreateCase"
+                implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" >
+
+    <aura:attribute name="loadingSpinner" type="Object"/>
+    <aura:attribute name="caseRecordTypeId" type="String" />
+    <aura:attribute name="caseNumber" type="String" default=""/>
+    <aura:attribute name="showForm" type="Boolean" default="false" />
+    <aura:attribute name="saved" type="Boolean" default="false" />
+    <aura:attribute name="refreshFlag" type="Boolean" default="false" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:if isTrue="{!v.saved}">
+        <div class="slds-text-align_center slds-text-body_regular" style="height:400px">
+            <div style=" position: relative; top: 30%;" >
+                <span class="  slds-text-heading_large slds-text-color_success ">Thank you, successfully created a new case!</span><br/>
+                <span class=" slds-text-heading_medium">Your case reference number is {!v.caseNumber}.Please use this for any future reference.</span>
+            </div>
+        </div>
+        <aura:set attribute="else">
+            <aura:if isTrue="{!v.showForm}">
+            <lightning:input aura:id="consignmentNumber"  label="Consignment" placeholder="Enter Consignment No ..." />
+            <lightning:recordEditForm aura:id="caseCreateForm" recordtypeId="{!v.caseRecordTypeId}" objectApiName="Case"
+                                      onload="{!c.handleCreateLoad}"
+                                      onsubmit="{!c.handleSubmit}">
+                <lightning:messages />
+                <lightning:inputField aura:id="caseStatus" disabled="true" fieldName="Status"/>
+                <lightning:inputField aura:id="casePurpose" disabled="true"  fieldName="Call_Purpose__c"  required="true"/>
+                <aura:if isTrue="{!v.refreshFlag}">
+                    <lightning:inputField aura:id="caseType"  fieldName="Enquiry_Type__c" required="true"/>
+                </aura:if>
+                <lightning:inputField fieldName="Subject" required="true"/>
+                <lightning:inputField fieldName="Description" required="true"/>
+                <div class="slds-align_absolute-center">
+                    <lightning:button class="slds-m-top_small"  aura:id="caseBtn" type="submit" label="Create Case" />
+                </div>
+            </lightning:recordEditForm>
+            </aura:if>
+        </aura:set>
+    </aura:if>
+</aura:component>

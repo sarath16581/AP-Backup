@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Task</fullName>
+    <fields>Network__c</fields>
+    <fields>Depot_Role__c</fields>
+    <label>StarTrack Task</label>
+</CompactLayout>

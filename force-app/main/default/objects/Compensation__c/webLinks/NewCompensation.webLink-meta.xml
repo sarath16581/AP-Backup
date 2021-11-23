@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NewCompensation</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>New Compensation</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>/setup/ui/recordtypeselect.jsp?ent=01I90000001aIor&amp;
+save_new_url=%2Fa1u%2Fe%3F&amp;retURL=%2F{!Case.Id}&amp;
+CF00N9000000BdmAx={!Case.CaseNumber}&amp;
+CF00N9000000BdmAx_lkid={!Case.Id}&amp;
+CF00N9000000BdmHk={!Case.Contact}&amp;
+CF00N9000000BdmHk_lkid={!Case.ContactId}&amp;
+00N9000000BdmHi={!Case.ValueofContents__c}&amp;
+00N9000000BdmHx={!Case.Service_Value__c}&amp;
+CF00N9000000BdmHq={!Case.Account}&amp;
+CF00N9000000BdmHq_lkid={!Case.AccountId}</url>
+</WebLink>

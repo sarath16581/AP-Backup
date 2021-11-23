@@ -1,0 +1,5 @@
+<p>{!authorName} submitted a new Idea in your category. Check it out!</p>
+<hr />
+<p><a href="https://auspost.my.salesforce.com/ideas/viewIdea.apexp?id={!ideaId}">{!ideaTitle}</a></p>
+{!ideaBody}
+<p><a href="https://community.auspost.com.au/s/idea/{!ideaId}/detail"><em>Post a comment to the Idea owner</em></a> and offer some encouragement.</p>

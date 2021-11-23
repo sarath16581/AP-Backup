@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TransactionSecurityPolicy xmlns="http://soap.sforce.com/2006/04/metadata">
+    <action>
+        <block>false</block>
+        <endSession>false</endSession>
+        <freezeUser>false</freezeUser>
+        <notifications>
+            <inApp>false</inApp>
+            <sendEmail>true</sendEmail>
+            <user>naseer.abbasi@auspost.com.au</user>
+        </notifications>
+        <twoFactorAuthentication>false</twoFactorAuthentication>
+    </action>
+    <active>true</active>
+    <description>Test description..</description>
+    <developerName>TestPolicy</developerName>
+    <eventName>ReportAnomalyEventStore</eventName>
+    <flow>PolicyCondition_OwSzluDBWqcDtiFnclhb</flow>
+    <masterLabel>Test Policy</masterLabel>
+    <type>CustomConditionBuilderPolicy</type>
+</TransactionSecurityPolicy>

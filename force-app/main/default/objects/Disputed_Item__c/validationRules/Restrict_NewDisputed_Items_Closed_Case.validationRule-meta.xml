@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_NewDisputed_Items_Closed_Case</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISNEW(),
+ISPICKVAL(Case__r.Status ,&apos;Closed&apos;))</errorConditionFormula>
+    <errorMessage>You can not add new disputed items to a closed case. Please create a new related case and add them there.</errorMessage>
+</ValidationRule>

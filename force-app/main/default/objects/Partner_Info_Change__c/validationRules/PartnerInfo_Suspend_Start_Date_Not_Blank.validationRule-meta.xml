@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfo_Suspend_Start_Date_Not_Blank</fullName>
+    <active>true</active>
+    <description>if Suspend Start Date is specified, then verify that Licence is in Active status</description>
+    <errorConditionFormula>AND( 
+NOT(ISBLANK(Interrupted_Start_Date__c)), 
+NOT(ISPICKVAL(Licence__r.Licence_Status__c , &apos;Active&apos;)) 
+)</errorConditionFormula>
+    <errorMessage>Licence status should be Active before suspending it.</errorMessage>
+</ValidationRule>

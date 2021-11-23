@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Salesforce_Shield_Enabled__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Indicates that Salesforce Shield-Enabled is enabled on the Org so that Altify Apps can take the appropriate action for queries that are broken by Shield.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This makes Altify software compatible with a Salesforce Shield-enabled org. However, it affects certain Altify querying operations, so the setting should only be enabled on the advice of Altify.</inlineHelpText>
+    <label>Salesforce Shield-Enabled</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

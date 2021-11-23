@@ -1,0 +1,24 @@
+<apex:page standardController="Case"
+	showHeader="false"
+	standardStylesheets="false" renderAs="pdf" sidebar="false"
+	applyBodyTag="false" >
+
+
+	<style>
+	    div h3[style] {
+	        color:black!important;
+	    }
+	    
+	    .event-message-section {
+	        border:1px solid black;
+	        border-collapse: collapse;
+	    }
+	    
+	    .event-message-section th, .event-message-section td {
+	        border:1px solid black;
+	    }   
+	</style>    	
+	
+	<c:SSSWFaxContent faxCaseId="{!Id}" />
+
+</apex:page>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Credit_Assessment_Link__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(RecordType.DeveloperName=&apos;APT_Renewal_Quote&apos;, IF(AND(APT_Postbillpay_Included__c == 0 , ISPICKVAL(APT_Credit_Assessment_Status__c, &quot;&quot;) ,(ISPICKVAL(APT_Method_of_Payment__c, &quot;Charge Account&quot;)) || ISPICKVAL(APT_Method_of_Payment__c, &quot;Charge Account + Sub Account&quot;)), HYPERLINK(&quot;/apex/Apt_CreditAssessment?proposalId=&quot;&amp;Id, IMAGE(&quot;/resource/APT_IntiateCreditCheck&quot;, &quot;Account Assessment&quot;),&quot;_self&quot;), 
+
+IF (AND(APT_Postbillpay_Included__c == 0, ISPICKVAL(APT_Credit_Assessment_Status__c, &quot;&quot;), ISPICKVAL(APT_Method_of_Payment__c, &quot;Sub Account&quot;)), HYPERLINK(&quot;/apex/APT_SubAccountAssessment?proposalId=&quot;&amp;Id&amp;&quot;&amp;isExistingCustomer=true&quot;, IMAGE(&quot;/resource/APT_IntiateCreditCheck&quot;, &quot;Account Assessment&quot;),&quot;_self&quot;),NULL)),
+
+IF(AND(ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted&quot;), ISPICKVAL(APT_Credit_Assessment_Status__c, &quot;&quot;), (ISPICKVAL(APT_Method_of_Payment__c, &quot;Charge Account&quot;) || ISPICKVAL(APT_Method_of_Payment__c, &quot;Charge Account + Sub Account&quot;)),  Apttus_Proposal__Opportunity__r.Count_of_Contract_Start_Dates__c  = 0 , Apttus_Proposal__Opportunity__r.Count_of_Contract_End_Dates__c = 0 , Apttus_Proposal__Opportunity__r.Count_of_Opportunity_Line_Items__c &gt; 0 ),  HYPERLINK(&quot;/apex/Apt_CreditAssessment?proposalId=&quot;&amp;Id, IMAGE(&quot;/resource/APT_IntiateCreditCheck&quot;, &quot;Account Assessment&quot;),&quot;_self&quot;), 
+
+IF(AND(ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted&quot;), ISPICKVAL(APT_Credit_Assessment_Status__c, &quot;&quot;), ISPICKVAL(APT_Method_of_Payment__c, &quot;Sub Account&quot;)), HYPERLINK(&quot;/apex/APT_SubAccountAssessment?proposalId=&quot;&amp;Id&amp;&quot;&amp;isExistingCustomer=true&quot;, IMAGE(&quot;/resource/APT_IntiateCreditCheck&quot;, &quot;Account Assessment&quot;),&quot;_self&quot;),NULL)))</formula>
+    <label>Account Assessment</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

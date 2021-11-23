@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rest_Break_1_Start__c</fullName>
+    <description>Start date time of the first rest break for the duty. Set on the FFD work order by flow TDF_Preform_Job. Used to calculate Active Session 1.</description>
+    <externalId>false</externalId>
+    <label>Rest Break 1 Start</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

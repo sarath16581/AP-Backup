@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_CreditDispute_EnqType</fullName>
+    <active>true</active>
+    <description>If the Case Type is Copy of POD or Copy of Connote then Article (Consignment record) cannot be blank.</description>
+    <errorConditionFormula>AND(RecordType.Name = &apos;Credit Dispute Claim&apos;,   OR(ISPICKVAL(Enquiry_Type__c , &apos;Copy of POD&apos;),
+ISPICKVAL(Enquiry_Type__c , &apos;Copy of Connote&apos;)),
+ISBLANK(ArticleTest__c),$Profile.Name != &apos;AusPost Integration&apos;)</errorConditionFormula>
+    <errorMessage>Article is required if Case Type is &quot;Copy of POD&quot; or &quot;Copy of Connote&quot;.</errorMessage>
+</ValidationRule>

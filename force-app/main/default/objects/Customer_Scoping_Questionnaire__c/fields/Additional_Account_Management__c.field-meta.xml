@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Additional_Account_Management__c</fullName>
+    <externalId>false</externalId>
+    <label>Additional Account Management</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer Solutions Partner (CSP)</fullName>
+                <default>false</default>
+                <label>Customer Solutions Partner (CSP)</label>
+            </value>
+            <value>
+                <fullName>Business Solutions Partner (BSP)</fullName>
+                <default>false</default>
+                <label>Business Solutions Partner (BSP)</label>
+            </value>
+            <value>
+                <fullName>Implant on site (Operations)</fullName>
+                <default>false</default>
+                <label>Implant on site (Operations)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>3</visibleLines>
+</CustomField>

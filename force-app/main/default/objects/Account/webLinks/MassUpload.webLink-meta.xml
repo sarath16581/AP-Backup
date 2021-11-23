@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MassUpload</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Mass Upload</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/support/console/30.0/integration.js&quot;)} 
+
+if(sforce.console.isInConsole()) 
+{ 
+sforce.console.openPrimaryTab(null, &apos;/apex/CaseMassUpload?j_id0:theForm:j_id1:j_id4:j_id5={!Account.Id}&amp;isdtp=vw&apos;, true, &apos;Account Upload&apos;); 
+} 
+else 
+{ 
+window.open(&quot;/apex/pushedm?j_id0:theForm:j_id1:j_id4:j_id5={!Account.Id}&quot;); 
+}</url>
+</WebLink>

@@ -1,0 +1,14 @@
+<aura:component description="Reuseable component for displaying an error message">
+    <aura:attribute name="id" type="String" />
+    <aura:attribute name="error" type="String" />
+    <aura:attribute name="showError" type="Boolean" />
+	
+		<div class="slds-form-element__help" id="{! v.id + '-error' }">
+			<aura:if isTrue="{! and(v.showError, v.error) }">
+				<div class="chas-error-message">
+					<img src="{!$Resource.ChasIcons + '/chas-icons/pngs/UI/icons/ic_warning.png'}" alt="Input error"/>
+					<span>{! v.error }</span>
+				</div>
+			</aura:if>
+		</div>
+</aura:component>

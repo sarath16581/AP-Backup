@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_Status_Changed_Complete__c</fullName>
+    <description>A workflow updates this to today&apos;s date when the status is changed to &apos;Complete&apos;</description>
+    <externalId>false</externalId>
+    <label>Date Status Changed - Complete</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

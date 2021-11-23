@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_INDV_Credit_Assessment_End_Point_URL__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Individual Credit Assessment End Point URL</inlineHelpText>
+    <label>Individual CreditAssessment EndPoint URL</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

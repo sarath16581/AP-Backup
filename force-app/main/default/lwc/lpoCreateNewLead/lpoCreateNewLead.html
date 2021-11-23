@@ -1,0 +1,267 @@
+<template><div class="slds-col slds-medium-size_2-of-3" style="margin: 0 auto">
+  <lightning-accordion onsectiontoggle={handleToggleSection}
+                        active-section-name="A">
+      <lightning-accordion-section name="A" label="Contact Information">
+        <lightning-input 
+          class="form-input"
+          type="text" 
+          label="First Name" 
+          name="firstName"
+          placeholder="First Name"
+          onfocusout={handleTouched}
+          onchange={handleValueChange}
+          required>
+        </lightning-input>
+
+        <lightning-input 
+          class="form-input"
+          type="text" 
+          label="Last Name" 
+          name="lastName"
+          placeholder="Last Name"
+          onfocusout={handleTouched}
+          onchange={handleValueChange}
+          required>
+        </lightning-input>
+
+        <lightning-input 
+          class="form-input"
+          type="email" 
+          label="Email" 
+          name="email"
+          placeholder="you@example.com"
+          onfocusout={handleTouched}
+          onchange={handleValueChange}
+          required>
+        </lightning-input>
+
+        <lightning-input 
+          class="form-input"
+          type="tel" 
+          label="Phone" 
+          name="phone"
+          onfocusout={handleTouched}
+          onchange={handleValueChange}
+          required>
+        </lightning-input>
+
+        <lightning-input 
+          class="form-input"
+          type="text" 
+          label="Business Name" 
+          name="businessName"
+          onfocusout={handleTouched}
+          onchange={handleValueChange}
+          required>
+        </lightning-input>
+
+        <lightning-input 
+          class="form-input"
+          type="text" 
+          label="ABN Number" 
+          name="abnNumber"
+          value={abnNumber}
+          onfocusout={handleTouched}
+          onchange={handleValueChange}>
+        </lightning-input>
+
+        <lightning-input 
+          class="form-input"
+          type="text" 
+          label="Website" 
+          name="website"
+          placeholder="http://"
+          onfocusout={handleTouched}
+          onchange={handleValueChange}>
+        </lightning-input>
+
+        <div class="slds-p-vertical_small">
+          <template if:true={saveState}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+          </template>
+          <template if:false={saveState}>
+            <div class="slds-text-color_destructive">
+              {errorMessage}
+              <template if:true={duplicatesDetected}>
+                <template if:true={hasDuplicateRecordData}>
+                  <ul class="slds-list_dotted">
+                    <template for:each={errorDuplicateList} for:item="record">
+                      <li key={record.Id}>
+                        <span class="slds-text-link" data-id={record.id} data-type={record.type} onclick={navToDuplicateRecord}>{record.name}, {record.address}</span>
+                      </li>
+                    </template>
+                  </ul>
+                </template>
+                <lightning-checkbox-group name="Checkbox Group"
+                                          options={options}
+                                          value={value}
+                                          onchange={handleCheckOverride}></lightning-checkbox-group>
+              </template>
+            </div>
+            <div class="slds-text-color_success">
+              {saveMessage}
+            </div>
+            <template if:false={isLeadRecordCreated}>
+              <lightning-button label="Save" variant="brand" onclick={handleInsert}></lightning-button>
+            </template>
+            <template if:true={isLeadRecordCreated}>
+              <lightning-button label="Update" variant="brand" onclick={handleUpdate} class="slds-m-right_small"></lightning-button>
+              <lightning-button label="Go to Lead Record" variant="brand" onclick={handleRecordNavigation}></lightning-button>
+            </template>
+          </template>
+        </div>
+      </lightning-accordion-section>
+
+      <template if:true={isLeadRecordCreated}>
+        <lightning-accordion-section name="B" label="Address">
+          <c-address-lookup-record-wrapper
+            alt-record-id={leadRecordId}
+            address-type="Lead_Physical"
+            card-title="Enter Address"
+            no-refresh-after-save
+          ></c-address-lookup-record-wrapper>
+        </lightning-accordion-section>
+
+        <lightning-accordion-section name="C" label="Additional Details">
+          <lightning-input 
+            class="form-input"
+            type="text" 
+            label="Existing Business credit account number?" 
+            name="existingBusinessCreditAccountNumber"
+            onfocusout={handleTouched}
+            onchange={handleValueChange}>
+          </lightning-input>
+
+          <lightning-input 
+            class="form-input"
+            type="text" 
+            label="Existing Mypost business QR barcode number?" 
+            name="existingMypostBusinessQRBarcodeNumber"
+            onfocusout={handleTouched}
+            onchange={handleValueChange}>
+          </lightning-input>
+
+          <lightning-input 
+            class="form-input"
+            type="text" 
+            label="ABN Number" 
+            name="abnNumber"
+            value={abnNumber}
+            onfocusout={handleTouched}
+            onchange={handleValueChange}>
+          </lightning-input>
+
+          <div class="slds-p-vertical_small">
+            <template if:true={saveState}>
+              <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+            <template if:false={saveState}>
+              <div class="slds-text-color_destructive">
+                {errorMessageOnAdditionalDetails}
+              </div>
+              <div class="slds-text-color_success">
+                {saveMessageOnAdditionalDetails}
+              </div>
+              <lightning-button label="Save" variant="brand" onclick={handleUpdateAdditionalDetails} class="slds-m-right_small"></lightning-button>
+              <lightning-button label="Go to Lead Record" variant="brand" onclick={handleRecordNavigation}></lightning-button>
+            </template>
+          </div>
+        </lightning-accordion-section>
+
+        <lightning-accordion-section name="D" label="Revenue Information">
+          <!-- The dual-listbox and the card will stack in smaller screens -->
+          <div class="slds-grid slds-gutters slds-wrap">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+              <lightning-dual-listbox class="form-input"
+                label="Products interested in"
+                name="productsInterestedIn"
+                options={ProductsPicklistValues.data.values}
+                onfocusout={handleTouched}
+                onchange={handleValueChange}>
+              </lightning-dual-listbox>
+
+              <lightning-dual-listbox class="form-input"
+                label="Other Competitors customer is currently using"
+                name="otherCompetitorsCustomerIsCurrentlyUsing"
+                options={CompetitorPicklistValues.data.values}
+                onfocusout={handleTouched}
+                onchange={handleValueChange}>
+              </lightning-dual-listbox>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-p-top_small">
+              <lightning-card>
+                  <ul class="slds-p-horizontal_medium slds-has-dividers_bottom-space">
+                      <template for:each={productDescriptions} for:item="product">
+                        <li key={product.title} class="slds-item">
+                          <p style="line-height: 1.25rem"><span class="slds-text-title_bold">{product.title}</span> - {product.desc}</p>
+                        </li>
+                      </template>
+                  </ul>
+              </lightning-card>
+            </div>
+          </div>
+
+          <lightning-input 
+            class="form-input"
+            type="text" 
+            label="Describe the type of items customer is sending (ie fashion, wine, homewares, DG's)" 
+            name="describeTheTypeOfItemsCustomerIsSending"
+            onfocusout={handleTouched}
+            onchange={handleValueChange}>
+          </lightning-input>
+
+          <lightning-input 
+            class="form-input"
+            type="text" 
+            label="Volume / Spend per month"
+            name="volumeSpendPerMonth"
+            onfocusout={handleTouched}
+            onchange={handleValueChange}>
+          </lightning-input>
+
+          <lightning-input 
+            class="form-input"
+            type="text" 
+            label="Current packaging used"
+            name="currentPackagingUsed"
+            onfocusout={handleTouched}
+            onchange={handleValueChange}>
+          </lightning-input>
+
+          <lightning-input 
+            class="form-input"
+            type="text" 
+            label="Sending Domestic or International"
+            name="sendingDomesticOrInternational"
+            onfocusout={handleTouched}
+            onchange={handleValueChange}>
+          </lightning-input>
+
+          <lightning-input 
+            class="form-input"
+            type="text" 
+            label="Other details of conversation with customer"
+            name="otherDetailsOfConversationWithCustomer"
+            onfocusout={handleTouched}
+            onchange={handleValueChange}>
+          </lightning-input>
+
+          <div class="slds-p-vertical_small">
+            <template if:true={saveState}>
+              <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+            <template if:false={saveState}>
+              <div class="slds-text-color_destructive">
+                {errorMessageOnRevenueInfo}
+              </div>
+              <div class="slds-text-color_success">
+                {saveMessageOnRevenueInfo}
+              </div>
+              <lightning-button label="Save" variant="brand" onclick={handleUpdateRevenueInfo} class="slds-m-right_small"></lightning-button>
+              <lightning-button label="Go to Lead Record" variant="brand" onclick={handleRecordNavigation}></lightning-button>
+            </template>
+          </div>
+        </lightning-accordion-section>  
+      </template>
+  </lightning-accordion>
+</div></template>

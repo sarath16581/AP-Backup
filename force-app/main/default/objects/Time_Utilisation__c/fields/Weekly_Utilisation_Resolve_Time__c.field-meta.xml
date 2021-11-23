@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Weekly_Utilisation_Resolve_Time__c</fullName>
+    <externalId>false</externalId>
+    <formula>if(Week_Off__c, null, if(Total_Weekly_Working_Hours__c=0,null,
+
+ Weekly_Total_Resolve_Hours__c /Total_Weekly_Working_Hours__c))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Weekly Utilisation - Resolve Time</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

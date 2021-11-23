@@ -1,0 +1,8 @@
+This is a system generated email to confirm that your request has been registered successfully. One of our Product Support Team will respond to your enquiry. 
+
+Your case reference number is: {!Case.CaseNumber}. 
+
+
+Kind Regards 
+Australia Post 
+{!Case.Thread_Id}

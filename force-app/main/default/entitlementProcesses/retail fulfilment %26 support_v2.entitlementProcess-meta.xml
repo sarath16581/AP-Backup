@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <description>Service Level Tracking for Retail Fulfilment &amp; Support cases raised by Retail Outlets</description>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaFilterItems>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>true</value>
+    </exitCriteriaFilterItems>
+    <isVersionDefault>false</isVersionDefault>
+    <milestones>
+        <criteriaBooleanFilter>1 AND ((2 AND 3) OR (4 AND 5))</criteriaBooleanFilter>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Retail Fulfilment &amp; Support</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Order Enquiry</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Problem_Type_Retail__c</field>
+            <operation>contains</operation>
+            <value>Backorder, Order Status</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Product Information</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Problem_Type_Retail__c</field>
+            <operation>contains</operation>
+            <value>Pricing/Discounts, Promotion, Technical Information</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>RFCC Resolution Time</milestoneName>
+        <minutesToComplete>1440</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Retail Fulfilment &amp; Support</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Order Enquiry</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Problem_Type_Retail__c</field>
+            <operation>contains</operation>
+            <value>Credit Hold, No eParcel Labels Printed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>RFCC Resolution Time</milestoneName>
+        <minutesToComplete>1440</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>RFCC_Set_Escalated_to_Yes</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>RFCC_Set_Status_to_Escalated</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-12</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <criteriaBooleanFilter>1 AND ((2 AND 3) OR (4 AND 5))</criteriaBooleanFilter>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Retail Fulfilment &amp; Support</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Order Enquiry</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Problem_Type_Retail__c</field>
+            <operation>contains</operation>
+            <value>No EPOS DA, No Paper DA, No Picking List</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Product Information</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Problem_Type_Retail__c</field>
+            <operation>equals</operation>
+            <value>Stock Availability</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>RFCC Resolution Time</milestoneName>
+        <minutesToComplete>1440</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>RFCC_Set_Escalated_to_Yes</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>RFCC_Set_Status_to_Escalated</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-4</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <criteriaBooleanFilter>1 AND ((2 AND 3) OR (4 AND 5))</criteriaBooleanFilter>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Retail Fulfilment &amp; Support</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Parcel Enquiry</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Problem_Type_Retail__c</field>
+            <operation>contains</operation>
+            <value>Missing In Transit, Poor Packing Quality</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Order Discrepancy</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Problem_Type_Retail__c</field>
+            <operation>equals</operation>
+            <value>Vendor Shortfall</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>RFCC Resolution Time</milestoneName>
+        <minutesToComplete>4320</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <criteriaBooleanFilter>1 AND ((2 AND 3) OR (4 AND 5))</criteriaBooleanFilter>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Retail Fulfilment &amp; Support</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Order Discrepancy</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Problem_Type_Retail__c</field>
+            <operation>contains</operation>
+            <value>Multiple Discrepancies, Oversupply - Retain, Shortfall, Wrong Product - Retain</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Returns</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Problem_Type_Retail__c</field>
+            <operation>equals</operation>
+            <value>Outstanding Credit</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>RFCC Resolution Time</milestoneName>
+        <minutesToComplete>4320</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>RFCC_Set_Escalated_to_Yes</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>RFCC_Set_Status_to_Escalated</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Retail Fulfilment &amp; Support</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Standing Order Query - Philatelic</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>RFCC Resolution Time</milestoneName>
+        <minutesToComplete>10080</minutesToComplete>
+        <timeTriggers>
+            <timeLength>-1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Retail Fulfilment &amp; Support</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Parcel Enquiry</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Problem_Type_Retail__c</field>
+            <operation>contains</operation>
+            <value>Damaged In Transit, Delayed Parcel, Delivered to Wrong Address, Missing Contents</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>RFCC Resolution Time</milestoneName>
+        <minutesToComplete>14400</minutesToComplete>
+        <timeTriggers>
+            <timeLength>-2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <criteriaBooleanFilter>1 AND ((2 AND 3) OR (4 AND 5))</criteriaBooleanFilter>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Retail Fulfilment &amp; Support</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Returns</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Problem_Type_Retail__c</field>
+            <operation>notEqual</operation>
+            <value>Outstanding Credit</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Order Discrepancy</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Problem_Type_Retail__c</field>
+            <operation>contains</operation>
+            <value>Oversupply - Return, Wrong Product - Return</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>RFCC Resolution Time</milestoneName>
+        <minutesToComplete>21600</minutesToComplete>
+        <timeTriggers>
+            <timeLength>-3</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <name>Retail Fulfilment &amp; Support</name>
+    <versionMaster>552O00000004Ceu</versionMaster>
+    <versionNumber>2</versionNumber>
+</EntitlementProcess>

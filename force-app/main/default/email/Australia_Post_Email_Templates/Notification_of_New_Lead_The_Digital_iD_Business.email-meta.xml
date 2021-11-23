@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notification of New Lead -The Digital iD – Business</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Notification of New Lead -The Digital iD – Business</name>
+    <style>none</style>
+    <subject>New Digital iD - {!Lead.Company} - Business Lead for your action</subject>
+    <textOnly>https://auspost.my.salesforce.com/70190000001imSi</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

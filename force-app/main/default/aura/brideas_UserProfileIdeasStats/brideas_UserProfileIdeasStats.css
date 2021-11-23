@@ -1,0 +1,11 @@
+.THIS {
+    background-color: #fff;
+    /*  border: 1px solid #d4d4d4; */
+    border-bottom: 16px solid #f3f1ee !important;
+    border-radius: 3px;
+}
+
+.THIS .statDesc {
+    font-weight: 300;
+    font-size: 14px;
+}

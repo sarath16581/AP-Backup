@@ -1,0 +1,93 @@
+/*
+@changelog: 23-07-2010 hara.sahoo@auspost.com.au Added new styling as per the Help and Support form uplift 
+*/
+.THIS {
+  background: #FFFFFF;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+  margin-top: 1px;
+}
+
+.THIS ol {
+outline: none;
+box-shadow: none;
+}
+
+
+.THIS {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+/*Old styling, not relevant, can be removed after 30-10-2020*/
+/*.THIS .progress-inner {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+}*/
+
+/* Reduced the max-width to align it with the form content*/
+.THIS .progress-inner {
+padding: 10px 15px;
+max-width: 750px;
+margin-left: auto;
+margin-right: auto;
+}
+
+.THIS img {
+width: 20px;
+min-width: 20px;
+max-width: 20px;
+height: 20px;
+min-height: 20px;
+max-height: 20px;
+}
+
+.THIS ol {
+display: flex;
+flex-direction: column;
+}
+
+.THIS li {
+display: flex;
+padding: 4px 0;
+}
+
+@media (min-width: 680px) {
+.THIS .progress-icon {
+  margin-bottom: 15px;
+}
+.THIS ol {
+  flex-direction: row;
+  justify-content: space-between;
+}
+.THIS li {
+  flex-direction: column;
+  align-items: center;
+}
+}
+
+.THIS .line-li {
+flex: 1;
+}
+
+.THIS .dotted-line {
+border-bottom: 1px dashed #d0d5d8;
+width: 100%;
+margin-top: 13px;
+}
+
+@media (max-width: 679px) {
+.THIS .chas-show-medium {
+  display: none;
+}
+}
+
+.THIS p {
+font-family: APTypeText, sans-serif;
+font-size: 13px;
+}
+
+@media (max-width: 679px) {
+.THIS p {
+  padding-left: 15px;
+}
+}

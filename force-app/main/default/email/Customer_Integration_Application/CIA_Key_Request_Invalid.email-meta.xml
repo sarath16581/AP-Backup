@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Invalid Email notification template by CIA Team</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>CIA_Lodgement</letterhead>
+    <name>CIA - Key Request Invalid</name>
+    <style>freeForm</style>
+    <subject>API Key Request Invalid</subject>
+    <textOnly>Hello,
+
+Thank you for your interest in the Digital Shipping and Tracking API suite.
+
+We have reviewed your API Key registration and wish to advise the account number provided – ********* – is invalid due to the following reason(s):
+
+It is listed under a different company name.
+
+The account and/or contract is pending activation.
+
+The account is pending rates and/or service code update.
+
+Please contact your Australia Post or StarTrack Sales/Accounts Representative to ensure your account details are valid.  Once resolved, please resubmit the API Key Registration via the Developer Centre.
+
+Alternatively, for any other sales or account management assistance, please contact Customer Service on:
+
+
+Australia Post
+
+13 11 18
+
+StarTrack
+
+13 23 45
+
+
+Regards,
+
+Lodgement &amp; APIs Team
+
+Parcels, eCommerce and Digital
+
+Tel: 1800 028 361 (option 1)
+
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

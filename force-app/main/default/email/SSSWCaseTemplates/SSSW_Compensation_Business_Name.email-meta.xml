@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SSSW - Used to render a PDF letter for compensation.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Compensation with Business Name</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
+    <textOnly>{!Compensation__c.LastModifiedDate}
+
+
+
+
+{!Compensation__c.Contact__c}
+{!IF(Compensation__c.Customer_Type__c=&quot;Consumer&quot;,&quot;&quot;, Compensation__c.Legal_Entity_Name__c)}
+{!Compensation__c.Address__c}
+
+
+
+
+Dear {!Compensation__c.ContactFirstName__c},
+
+Compensation for Case {!Compensation__c.Case__c}
+
+Thank you for your enquiry with Australia Post. Please find enclosed a money order for the amount of {!Compensation__c.Total_Compensation_Amount__c} in relation to your case.
+
+We apologise for any inconvenience caused as a result of your experience with Australia Post.  We value your business and will use this information to improve our products and services.
+
+For any future support, visit our Help and Support page at auspost.com.au/help or call us on 13 7678.
+
+Yours sincerely,
+
+
+
+
+
+{!User.FirstName} {!LEFT(User.LastName,1)}
+Customer Sales &amp; Service
+Australia Post</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

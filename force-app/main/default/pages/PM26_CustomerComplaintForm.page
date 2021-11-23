@@ -1,0 +1,555 @@
+<!--
+@Author      :  kalpita.talwadekar@auspost.com.au    
+@Date        :  09/05/2016
+@Description :  Visualforce page to display the pm26 form and do data entry on same
+--------------------------------- HISTORY ----------------------------------------------
+15.07.18    kalpita.talwadekar@auspost.com.au   updated the form for upgrading to other enquiry types
+10.02.19    gunith.devasurendra@auspost.com.au  Changed Extra Cover field to a Hidden field
+
+----------------------------------------------------------------------------------------->
+<apex:page lightningStylesheets="true" sidebar="false" showHeader="false" id="page" standardController="Case" extensions="PM26_CustomerComplaintFormContrExt" >
+    <apex:includeLightning />
+    <div id="lightning" />
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <title>Forms</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <!-- Import the Design System style sheet -->
+        <apex:includeScript value="{!$Resource.jQuery111}" />
+        <apex:includeScript value="{!$Resource.jQuery111}" />
+        <apex:includeScript value="{!$Resource.bootstrapJS}" />
+        <apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+        <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+        <apex:includeScript value="/support/console/31.0/integration.js" />
+        <apex:includeScript value="/canvas/sdk/js/publisher.js" />
+        <apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-1.10.2.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-ui-1.10.3.custom.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.JQueryUI, '/css/ui-lightness/jquery-ui-1.10.3.custom.min.css')}" />
+        <apex:slds />
+    </head>
+    <br/>
+    
+    <body>
+    <!-- REQUIRED SLDS WRAPPER -->
+    <div class="slds-scope">
+        <!-- MASTHEAD -->
+        <center>
+            <apex:outputpanel id="CCF">
+                <apex:outputPanel rendered="{!complaintType='PM26'}">
+                    <p class="slds-text-heading_label" style="font-family: Arial;font-size: 14px;"> {!$Label.CL_PM26Header}  </p>
+                </apex:outputpanel>
+                <apex:outputpanel rendered="{!complaintType='Other'}">
+                    <p class="slds-text-heading_label" style="font-family: Arial;font-size: 14px;"> Other Enquiry  </p>
+                </apex:outputpanel>        
+            </apex:outputPanel>
+        </center>
+        <!-- / MASTHEAD -->
+        
+        <!-- PAGE HEADER -->
+        <style>
+            .control-label {
+                margin-top: 6px;
+            }
+            .requiredBlock{
+                background-color:#c00;
+                height: 25px;
+                width: 3px;
+                display: inline;
+                position: absolute;
+                margin-top: 2px;
+            }
+        </style>
+        <!-- / PAGE HEADER -->
+        
+        <!-- PRIMARY CONTENT WRAPPER -->
+        <div class="myapp slds-p-horizontal_medium" >
+            <ul id="contact-list" class="slds-has-dividers_bottom-space"></ul>
+        </div>
+        <br/>
+        
+        <apex:form >
+            <!-- panel for selection of type of form -->
+            <apex:outputPanel id="comptype" >
+                <apex:outputPanel rendered="{!NOT(complaintSelected)}" >
+                    <center>
+                        <div style="border:2px solid black;width:60%;border-radius:8px;font-family: Arial;font-size: 11px;text-align:center" >
+                            <apex:panelGrid columns="1" width="100%" >
+                                <label for="inputMyPostCardNo" class="control-label slds-align_absolute-center">Select your enquiry</label>
+                                <apex:selectList id="cType" value="{!complaintType}" size="1" styleClass="form-control slds-align_absolute-center" style="width:50%">
+                                    <apex:selectOptions value="{!complaintTypes}"></apex:selectOptions>
+                                    <apex:actionSupport action="{!renderForm}" status="rotateoverlay"  event="onchange" reRender="comptype,form,CCF,refreshComp" />
+                                </apex:selectList> <br/> 
+                            </apex:panelGrid>
+                        </div>
+                    </center>
+                </apex:outputPanel>
+            </apex:outputPanel>
+            <!-- end of panel for selection of type of form -->
+            
+            <!-- spinner for page load and page actions -->
+            <div id="overlay" class="slds-spinner_container" style="min-height: 170vh;display:none">
+                <div class="slds-spinner--brand slds-spinner slds-spinner--large" aria-hidden="true" role="alert">
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+            <!-- end of spinner for page load and page actions -->
+            
+            
+            <apex:outputPanel id="form">
+                <apex:outputPanel rendered="{!complaintSelected}" style="font-size: 11px;" >
+                    <apex:panelGrid columns="1"> 
+                        <!-- panel for selection of network which the user is part of -->
+                        <apex:outputPanel id="network">
+                            <center>
+                                <div style="border:2px solid black;width:60%;border-radius:8px;font-family: Arial;font-size: 11px;text-align:center" >
+                                    <apex:panelGrid columns="1" width="100%" >
+                                        <label for="inputMyPostCardNo" class="control-label slds-align_absolute-center">{!$Label.CL_PM26AusPost}</label>
+                                        <div class="requiredInput" style="margin-left:24.5%" >
+                                            <div class="requiredBlock"></div>
+                                            <apex:selectList value="{!pm26Case.Network__c}"  size="1" 
+                                                    styleClass="form-control slds-align_absolute-center" style="width:50%">
+                                                <apex:selectOptions value="{!networks}"></apex:selectOptions>
+                                            </apex:selectList>
+                                        </div>
+                                        <br/> 
+                                    </apex:panelGrid>
+                                </div>
+                            </center>
+                        </apex:outputPanel>
+                        <!-- end of panel for selection of network which the user is part of -->
+
+                        <!-- panel to display logged in mynetwork user/requestor -->
+                        <apex:outputPanel >
+                            <div class="form-group">
+                                <div class="col-xs-offset-1 col-xs-4">
+                                    <label for="phone1" class="control-label">{!$ObjectType.Case.fields.Requestor__c.Label}: &nbsp; &nbsp;</label>
+                                    <apex:outputField style="text-decoration:underline;cursor:pointer;
+                                                        display: inline-block;padding-bottom: 1px;" 
+                                                        id="inputReqLodgBy" html-placeholder="Request Lodged By" 
+                                                        value="{!pm26Case.Requestor__c}" />
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        <!-- end of panel to display logged in mynetwork user/requestor -->
+                        
+                        <!-- panel for tracking number details -->
+                        <apex:actionRegion id="trackingreigion" rendered="{!complaintType == 'PM26'}">
+                            <div class="form-group">
+                                <apex:outputPanel id="trackingNoPanelMandatory" >
+                                    <div class=" col-xs-offset-1 col-xs-4">
+                                        <label for="inputTrackNo" class="control-label">{!$Label.CL_PM26TrackNo}</label>
+                                        <div class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                            <!-- input field for tracking number details -->
+                                            <apex:inputText styleClass="form-control" id="inputTrackNo" html-placeholder="{!$Label.CL_PM26TrackNo}"
+                                                             value="{!trackId}" >
+                                                <apex:actionSupport event="onchange" reRender="noArticlemsg,inputTrackNo" 
+                                                            status="rotateoverlay" action="{!getArticleDetails}" immediate="false">
+                                                    <apex:param assignTo="{!pm26Case.ReferenceID__c}" value="{!trackId}" name="refId" />
+                                                </apex:actionSupport>
+                                            </apex:inputText>
+                                            <!-- end of input field for tracking number details -->
+                                            <apex:message for="inputTrackNo" styleClass="errorMsg" />
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                                <br/><br/>
+                                <!-- in case no tracking number then check the box -->
+                                <div class="col-xs-offset-1 col-xs-4">
+                                    <label for="phone1" class="control-label">No Tracking Number &nbsp; &nbsp;</label>
+                                    <apex:inputCheckbox id="notrackcb" label="YES" value="{!noTrackId}" onclick="selectTrackFields();"  />
+                                </div>
+                            </div>
+                            <br/>
+                            <!-- if no article details from SAP EM then display error, so user knows that checkbox is to be checked -->
+                            <apex:outputPanel id="noArticlemsg">
+                                <apex:outputPanel rendered="{!noArticle}">
+                                    <center>
+                                        <apex:outputText style="color:red;font-weight:bold;text-align:center;" 
+                                                         value="{!$Label.CL_PM26NoArticle}" />
+                                    </center>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                            <br/>
+                            <!-- once article is retrieved from SAP EM or existing from SF, then auto - populate the transit details on the article -->
+                            <div class="form-group">
+                                <div class=" col-xs-offset-1 col-xs-4">
+                                    <apex:inputHidden id="inputInsDetails" 
+                                                    html-placeholder="{!$Label.CL_PM26TransitExtraCover}" 
+                                                    value="{!pm26Case.ExtraCover__c}" />
+                                </div>
+                                <label/>
+                            </div>
+                            <apex:actionFunction name="selectTrackFields" oncomplete="closeOverlay();"
+                                                            reRender="noArticlemsg,inputTrackNo" 
+                                                            status="rotateoverlay" action="{!getArticleDetails}" immediate="false" />
+                        </apex:actionRegion>
+                        <!-- end of panel for tracking details -->
+                        
+                        <!-- product category and sub category details for the complaint -->
+                        <apex:actionRegion >
+                            <apex:outputpanel id="prodCat">
+                                <div class="form-group">
+                                    <div class=" col-xs-offset-1 col-xs-4">
+                                        <apex:inputfield value="{!pm26Case.Type_and_Product__c}" styleClass="form-control hidden" />
+                                        <div class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                            <apex:SelectList styleClass="form-control" size="1" id="inputPrdCat" value="{!field}">
+                                                <apex:selectOptions value="{!prodCat}" />
+                                                <apex:actionSupport rendered="true" action="{!initializeProdSubCat}" event="onchange" status="prodCatStat" immediate="false" rerender="prodCat,refresh,inputPrdSbubCat">
+                                                    <apex:param assignTo="{!pm26Case.ProductCategory__c}" value="{!field}" name="prdCat" />
+                                                </apex:actionSupport>
+                                            </apex:selectList>
+                                            <apex:message for="inputPrdCat" styleClass="errorMsg" />
+                                        </div>
+                                        <apex:actionStatus id="prodCatStat" style="align:center;" onstart="openOverlay();" onstop="refreshSubProdCat();" />
+                                    </div>
+                                    <apex:outputPanel id="inputPrdSbubCat">
+                                    <div class="col-xs-offset-1 col-xs-4">
+                                        <div class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                            <apex:selectList id="PrdSubCat" styleClass="form-control" size="1" value="{!pm26Case.ProductSubCategory__c}">
+                                                <apex:actionSupport event="onchange" status="prodCatStat" action="{!enableFields}" immediate="false" 
+                                                                    rerender="prodCat,refreshComp,typAndPrd,eType" />
+                                                <apex:selectOptions value="{!prodSubCat}" />
+                                            </apex:selectList>
+                                            <apex:message for="inputPrdSbubCat" styleClass="errorMsg" />
+                                        </div>
+                                    </div>
+                                    </apex:outputPanel>
+                                </div>
+                            </apex:outputpanel>
+                            <apex:actionFunction name="enableFields" action="{!enableFields}" immediate="false" rerender="refreshComp,typAndPrd,eType" />
+                        </apex:actionRegion>
+                        <!-- end of panel for product category and sub category details for the complaint -->
+                        
+                        <!-- panel for Name and Address details for both customer complaint and other enquiry forms -->
+                        <div class="form-group">
+                            <apex:repeat value="{!$ObjectType.Case.FieldSets.Address_details}" var="f">
+                                <div class=" col-xs-offset-1 col-xs-4" >
+                                    <apex:outputLabel styleClass="control-label" value="{!fieldValueLabelMap[f.label]}" 
+                                                        rendered="{!(complaintType=='Other' &&  f.label!= 'Description of Contents' && f.label!= 'Value of Contents'   ) ||
+                                                        (complaintType=='PM26' && ( f.label!= 'Reference ID' && f.label!= 'Case Number' && f.label!= 'Type and Product' && f.label!= 'Enquiry Sub Type'))}" />
+                                    <!--apex:outputPanel rendered="{!(f.label!= 'Addressee Email' && f.label!= 'Reference ID' && f.label!= 'Case Number' && f.label!= 'Phone' 
+                                                            && f.Label!='Addressee Address 2' && f.label != 'Last Name' && f.label != 'Charge Account(s)') && 
+                                                            ((complaintType=='Other' &&  f.label!= 'Description of Contents' && f.label!= 'Value of Contents' 
+                                                             && f.label!= 'Type and Product' && f.label!= 'Enquiry Sub Type' ) || 
+                                                            (complaintType=='PM26' &&  f.label!= 'Reference ID' && f.label!= 'Case Number') )}">
+                                        <div class="requiredInput">
+                                                <div class="requiredBlock"></div>
+                                        <apex:inputField styleClass="form-control CaseFieldSet_{!f.Label}" id="CaseFieldSet_" 
+                                                            
+                                                            html-placeholder="{!fieldValueLabelMap[f.Label]}" value="{!pm26Case[f]}" />
+                                        </div>
+                                    </apex:outputPanel>
+                                    <apex:inputField styleClass="form-control "  rendered="{!(f.label== 'Addressee Email' || f.label== 'Phone' || 
+                                                                                f.label== 'Last Name' || f.label== 'Charge Account(s)' || f.Label=='Addressee Address 2') || 
+                                                                                (complaintType == 'Other' && f.label == 'Reference ID') }"
+                                                        html-placeholder="{!fieldValueLabelMap[f.Label]}"  value="{!pm26Case[f]}" />               -->
+                                                        
+                                   <apex:outputPanel rendered="{!(f.label!= 'Addressee Email' && f.label!= 'Reference ID' && f.label!= 'Case Number' && f.label!= 'Phone' 
+                                                        && f.Label!='Addressee Address 2' && f.label != 'Last Name' && f.label != 'Charge Account(s)') && 
+                                                        ((complaintType=='Other' &&  f.label!= 'Description of Contents' && f.label!= 'Value of Contents' 
+                                                         && f.label!= 'Type and Product' && f.label!= 'Enquiry Sub Type' ) || 
+                                                        (complaintType=='PM26' &&  f.label!= 'Reference ID' && f.label!= 'Case Number') )}">
+                                     <div class="requiredInput">
+                                                <div class="requiredBlock"></div>                   
+                                    <apex:inputField styleClass="form-control CaseFieldSet_{!f.Label}" id="CaseFieldSet_"  
+                                                        html-placeholder="{!fieldValueLabelMap[f.Label]}" value="{!pm26Case[f]}" />
+                                       </div>
+                                   </apex:outputPanel>
+                                   <c:HoverText helpText="Enter in below format:<br/> Landline: 03 1111 2222 <br/> Mobile: 0400 111 222" rendered="{!f.label== 'Phone'}"/>
+                                    <apex:inputField styleClass="form-control " required="false" rendered="{!(f.label== 'Addressee Email' || f.label== 'Phone' || 
+                                                                                f.label== 'Last Name' || f.label== 'Charge Account(s)' || f.Label=='Addressee Address 2') || 
+                                                                                (complaintType == 'Other' && f.label == 'Reference ID') }"
+                                                        html-placeholder="{!fieldValueLabelMap[f.Label]}"  value="{!pm26Case[f]}" /> 
+                                    <apex:outputLabel rendered="{!f.label == 'Addressee Email'}" > 
+                                        <font color="red"> {!$Label.CL_PM26EmailPhoneReq} </font>   
+                                    </apex:outputLabel>                 
+                                    <apex:outputLabel rendered="{!f.label == 'Phone'}" > <br/>  </apex:outputLabel> 
+                                </div>
+                            </apex:repeat>
+                        </div>
+                        <!-- end of panel for Name and Address details for both customer complaint and other enquiry forms -->
+                        
+                        
+                        <apex:actionRegion >
+                            <!-- Panel for capture of Type of Damage and Adequately Packaged and compensation details-->
+                            <apex:outputPanel rendered="{!complaintType == 'PM26'}" >
+                                <div class="form-group">
+                                    <!-- panel for type of damage -->
+                                    <div class=" col-xs-offset-1 col-xs-4">
+                                        <label for="inputTrackNo" class="control-label">{!$ObjectType.Case.fields.TypeofDamage__c.Label}</label>
+                                        <div class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                            <!-- field for capture of damage type -->
+                                            <apex:selectList value="{!field2}" size="1" styleClass="form-control" id="typeOfDamage"  >
+                                                <apex:selectoptions value="{!damageType}" />
+                                                <apex:actionSupport action="{!checkComp}" event="onchange" status="rotateoverlay" 
+                                                                immediate="false" rerender="refreshComp">
+                                                    <apex:param assignTo="{!pm26Case.TypeofDamage__c}" value="{!field2}" name="field2" />
+                                                </apex:actionSupport>
+                                            </apex:selectList>
+                                            <apex:message for="typeOfDamage" styleClass="errorMsg" />
+                                        </div>
+                                    </div>
+                                    <!-- end of panel for type of damage -->
+                                    
+                                    <!-- panel for adequately packaging information -->
+                                    <div class="col-xs-offset-1 col-xs-4">
+                                        <label for="inputOtherInfo" class="control-label">{!$LABEL.CL_PM26AdqPck}</label>
+                                        <div class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                        <!-- field for capture of adequately packed information -->
+                                        <apex:selectList value="{!adqPck}" size="1" styleClass="form-control" id="adequatelyPackaged" >
+                                            <apex:SelectOption itemValue="" itemLabel="--None--" />
+                                            <apex:SelectOption itemValue="YES" itemLabel="YES" />
+                                            <apex:SelectOption itemValue="NO" itemLabel="NO" />
+                                        </apex:selectList>
+                                        <apex:message for="adequatelyPackaged" styleClass="errorMsg" />
+                                        </div>
+                                    </div>
+                                    <!-- end of panel for adequately packaging information -->
+                                    
+                                </div>
+                            </apex:outputPanel>
+                            
+                            <!-- panel for compensation details -->
+                            <apex:outputPanel id="refreshComp">
+                                <div class="form-group">
+                                    <div class=" col-xs-offset-1 col-xs-4">
+                                        <!-- check if compensation is paid or not -->
+                                        <label class="control-label" for="test">Compensation Paid</label>
+                                        
+                                        <br/> &nbsp;&nbsp;YES&nbsp;&nbsp;
+                                        <apex:inputCheckbox label="YES" value="{!compnsation}" disabled="{!NOT(yescompnsation) || nocompnsation}">
+                                            <apex:actionsupport action="{!enableFields}" event="onchange" status="rotateoverlay" 
+                                                    immediate="false" rerender="prodCat,refreshComp,compVal" />
+                                        </apex:inputCheckbox>
+                                        &nbsp;&nbsp;NO&nbsp;&nbsp;
+                                        <apex:inputCheckbox label="NO" value="{!nocompnsation}"  disabled="{!NOT(yescompnsation) || compnsation}"  >
+                                            <apex:actionsupport action="{!enableFields}" event="onchange" status="rotateoverlay" 
+                                                    immediate="false" rerender="prodCat,refreshComp,compVal" />
+                                        </apex:inputCheckbox>
+                                        <br/>
+                                        <apex:outputText value="Compensation is not payable by retail for this enquiry type" 
+                                                    rendered="{!NOT(yescompnsation) && (complaintType=='Other' || complaintType=='PM26') && ( pm26Case.productCategory__c!=null || pm26Case.productSubCategory__c!=null) }" style="color:red;"> </apex:outputText>
+                                    </div>
+
+                                    <!-- compensation amount and enquiry sub type details -->
+                                    <div class=" col-xs-offset-1 col-xs-4">
+                                        <!-- if compensation is paid then enter the value compensated -->
+                                        <label class="control-label" for="compVal">Amount Compensated ($)</label>
+                                        <c:HoverText helpText=" If the customer is receiving compensation update the amount here ($50 or under only)" /> <br/>
+                                        <div class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                            <apex:inputText styleClass="form-control" id="compVal" value="{!compensationValue}"
+                                                     disabled="{!NOT(compnsation)}" />
+
+                                            <apex:inputfield id="typAndPrd"  value="{!pm26Case.Type_and_Product__c}" style="display:none;"/>
+                                            <apex:outputPanel rendered="{!complaintType == 'Other'}">
+                                                <label class="control-label" for="test">Enquiry Sub Type</label>
+                                            
+                                            <div class="requiredInput">
+                                        <div class="requiredBlock"></div>
+                                            <apex:inputField styleClass="form-control" id="eType" value="{!pm26Case.EnquirySubType__c}"
+                                                     rendered="{!complaintType == 'Other'}" />
+                                                     </div>
+                                            </apex:outputPanel>
+                                            <apex:message for="compVal" styleClass="errorMsg" />
+                                        </div>
+                                    </div> 
+                                </div>
+                            </apex:outputPanel>
+                            <!-- end of panel for compensation details -->
+                            <!-- end of panel for compensation details -->
+                        </apex:actionRegion>
+                        
+                        <!-- for international articles, capture the quarantine and customs details -->
+                        <apex:outputPanel id="refresh" rendered="{!complaintType == 'PM26'}">
+                            <div class="form-group">
+                                <div class=" col-xs-offset-1 col-xs-4">
+                                    <label class="control-label" for="inputOtherInfo">{!$Label.CL_PM26Evidence}</label>
+                                    <c:HoverText helpText="Is the package marked by customs/quarantine? (International only)" /> &nbsp;&nbsp;YES&nbsp;&nbsp;
+                                    <apex:inputCheckbox label="YES" value="{!evidence}" disabled="{!NOT(yesInt)}" />
+                                    &nbsp;&nbsp;NO&nbsp;&nbsp;
+                                    <apex:inputCheckbox label="NO" value="{!noevidence}" disabled="{!NOT(yesInt)}" />
+                                </div>
+
+                                <div class=" col-xs-offset-1 col-xs-4">
+                                    <label class="control-label" for="inputOtherInfo">{!$Label.CL_PM26CustInpNo}</label><br/>
+                                    <apex:inputText styleClass="form-control" id="inspNo" html-placeholder="{!$Label.CL_PM26CustInpNo}" 
+                                                    value="{!inspNo}" disabled="{!NOT(yesInt)}" />
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        <!-- for international articles, capture the quarantine and customs details -->
+                        
+                        <!-- panel for capturing additional details on the case that is gt from customer -->
+                        <apex:outputPanel >
+                            <div class="form-group">
+                                <br/>
+                                <apex:outputLabel styleClass="col-xs-offset-1 control-label col-xs-2" 
+                                                    rendered="{!complaintType == 'PM26'}" value="{!$Label.CL_PM26AddInfo}"/>
+                                <apex:outputLabel styleClass="col-xs-offset-1 control-label col-xs-2" 
+                                                    rendered="{!complaintType == 'Other'}" value="Details of the enquiry"/>
+                                
+                                <c:HoverText helpText="Additional notes or information for the CCC to assist in reviewing and closing the enquiry" />
+                                <div class="col-xs-6">
+                                <div class="requiredInput">
+                                            <div class="requiredBlock"></div>
+                                    <apex:inputField styleClass="form-control" id="inputOtherInfo" value="{!pm26Case.Description}" />
+                                </div>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        <!-- end of panel for capturing additional details on the case that is gt from customer -->
+                        
+                        <div class="form-group">
+                            <center>
+                                <!-- panel for error messages displayed on the page for validations -->
+                                <apex:outputPanel style="color:red;font-weight:bold;margin-left:10%;text-align:center;" id="messages" rendered="{!isError}">
+                                    
+                                    <apex:outputPanel style="color:red;font-size:12px;margin-left:10%;text-align:center;list-style-position: inside;" 
+                                        id="messageList" rendered="{!isError}">
+                                        
+                                        <ul style="list-style-type:disc">
+                                            {!errString}
+                                            <apex:repeat value="{!errFields}" var="errorItem" id="fieldSpecificErrors">
+                                                <li>
+                                                    <apex:outputText value="{!errorItem}" id="errorField" style="" /><br/>
+                                                </li>
+                                            </apex:repeat>
+                                        </ul>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                                <!-- end of panel for error messages displayed on the page for validations -->
+                            </center>
+                            
+                            <!-- submit button for case creation of complaint -->
+                            <apex:outputPanel >
+                                <div class="form-group col-xs-offset-6">
+                                    <apex:commandButton id="btn1" styleclass="btn btn-lg btn detail" rerender="form,messages,btn2,msg1,network,prodCat" 
+                                                        value="Submit Form" action="{!createCase}" immediate="false" status="actStatusId" />
+                                    <apex:actionStatus id="actStatusId" style="align:center;" onstop="refreshContent();" onstart="openOverlay();" />
+                                </div>
+                            </apex:outputPanel>
+                            <!-- end of submit button for case creation of complaint -->
+                        </div>
+                        
+                        <!-- action functions for script method calls -->
+                        <apex:actionFunction name="refreshContent" oncomplete="closeOverlay();errorModifier();" reRender="" />
+                        <apex:actionFunction name="refreshSubProdCat" oncomplete="closeOverlay();" reRender="inputPrdSbubCat,refreshComp,typAndPrd,eType" />
+                        <apex:actionStatus id="rotateoverlay" style="align:center;" onstart="openOverlay();" onstop="closeOverlay();" />
+                       <apex:inputHidden value="{!complaintType}" id="cType2"/> 
+                    </apex:panelGrid>        
+                </apex:outputPanel>
+            </apex:outputPanel>
+
+        </apex:form>
+    </div>
+    <!-- / PRIMARY CONTENT WRAPPER -->
+    <!-- FOOTER -->
+    <!-- / FOOTER -->
+    
+    <!-- / REQUIRED SLDS WRAPPER -->
+    
+    <!-- JAVASCRIPT -->
+    <script>
+        j$ = jQuery. noConflict();
+        // TODO: change this to a jquery selector
+        // open and close overlay to prevent user to intefere with the screen while a request in progress
+        function openOverlay() {
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function closeOverlay() {
+            document.getElementById("overlay").style.display = "none";
+            hideProdSubCat();
+            hideEnqSubTypeVal();
+        }
+        // this focus will required by the validations to avoid focusing on the Tracking number, 
+        // since there is a logic on onchange event this could cause issues with validations on the page
+        j$("[id*='selectoutlet']").focus();
+        closeOverlay();
+        
+
+        function errorModifier() {
+            var curSpan = j$( ".errorMsg" ).parent().children(' span');
+                curSpan.each(function( index ) {
+            });
+        }
+        
+        
+        function hideProdSubCat() {
+            if( document.getElementById('page:j_id21:cType2').value  == 'Other' ) {
+                var optionDrop = document.getElementById('page:j_id21:PrdSubCat');
+                console.log('--'+optionDrop.options[1].value);
+                for (var i=1; i < optionDrop.options.length; i++){
+                    console.log('--'+optionDrop.options[i].value);
+                    if (optionDrop.options[i].value == "StarTrack (Next Flight Premium & Express)" || optionDrop.options[i].value == "StarTrack Courier" || 
+                        optionDrop.options[i].value == "Global Logistics" || optionDrop.options[i].value == "StarTrack International" ||
+                        optionDrop.options[i].value == "Unaddressed Mail" || optionDrop.options[i].value == "Car Insurance" || optionDrop.options[i].value == "Foreign Currency" || 
+                        optionDrop.options[i].value == "Home Insurance" || optionDrop.options[i].value == "Load & Go" || optionDrop.options[i].value == "Multi-Currency Cash Passport" ||
+                        optionDrop.options[i].value == "Multiple" || optionDrop.options[i].value == "Others" || optionDrop.options[i].value == "Superannuation" || optionDrop.options[i].value == "Travel Insurance" ||
+                        optionDrop.options[i].value == "Western Union" || optionDrop.options[i].value == "Mobile products" || optionDrop.options[i].value == "Post office locator" || 
+                        optionDrop.options[i].value == "Stationery and packaging" || optionDrop.options[i].value == "Identity & document services" || 
+                        optionDrop.options[i].value == "Click & Send" || optionDrop.options[i].value == "MyPost Digital Mailbox" || 
+                        optionDrop.options[i].value == "Online Returns Portal" || optionDrop.options[i].value == "UMCS"
+                        ){        
+                        optionDrop.options[i].style.display = "none";
+                    }
+                }
+            }
+            if( document.getElementById('page:j_id21:cType2').value  == 'PM26' ) {
+                var optionDrop = document.getElementById('page:j_id21:PrdSubCat');
+                console.log('--'+optionDrop.options[1].value);
+                for (var i=1; i < optionDrop.options.length; i++){
+                    console.log('--'+optionDrop.options[i].value);
+                    if (optionDrop.options[i].value == "Mail hold" || optionDrop.options[i].value == "Mail redirection"
+                    ){        
+                        optionDrop.options[i].style.display = "none";
+                    }
+                }
+            }
+        }
+        
+        function hideEnqSubTypeVal() {
+            
+                var optionDrop = document.getElementById('page:j_id21:eType');
+                console.log('enq--'+optionDrop.options[1].value);
+                for (var i=1; i < optionDrop.options.length; i++){
+                    console.log('--'+optionDrop.options[i].value);
+                    if (optionDrop.options[i].value == "Damaged/Missing contents"){        
+                        optionDrop.options[i].style.display = "none";
+                    }
+                }
+            
+        }
+        
+        function hideDropDownVal() {
+        
+            var optionDrop = document.getElementById('page:j_id21:j_id79:0:CaseFieldSet_');
+            console.log('--'+optionDrop.options[1].value);
+            for (var i=1; i < optionDrop.options.length; i++){
+                console.log('--'+optionDrop.options[i].value);
+                if (optionDrop.options[i].value == "Domestic Parcels" || optionDrop.options[i].value == "Domestic Letters" || 
+                                optionDrop.options[i].value == "International Parcels" || optionDrop.options[i].value == "International Letters"){
+                    optionDrop.options[i].style.display = "block";
+            
+                } else {         
+                    optionDrop.options[i].style.display = "none";
+                }
+            }
+        }
+        
+        
+    </script>
+    <!-- / JAVASCRIPT -->
+    
+    </body> 
+</apex:page>

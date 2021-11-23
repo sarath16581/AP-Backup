@@ -1,0 +1,62 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" extends="c:SS_uiWizard" access="global" description="Wizard navigation unique to Mail Redirection and Mail Hold">
+    
+    <aura:attribute name="name" type="String" default="MailRedirectAndHold" />
+    
+    <aura:attribute name="pageMap" type="Map"
+                    default="
+                             {'ChasMailRedirectAndHoldWPage01': 
+                             {'key': 'ChasMailRedirectAndHoldWPage01' 
+                             ,'name': 'c:ChasMailRedirectAndHoldWPage01'
+                             ,'next': 'ChasContactDetailsPage'        
+                             ,'step': '1'
+                             ,'currentStepName': 'Enquiry details'
+                             ,'stage': 'start'
+                             ,'attributes':
+                             {'authenticatedURL': '/mail-redirection-and-hold-authenticated'
+                             }
+                             }
+                             ,'ChasContactDetailsPage': 
+                             {'key': 'ChasContactDetailsPage'         
+                             ,'name': 'c:ChasContactDetailsPage'        
+                             ,'prev': 'ChasMailRedirectAndHoldWPage01'
+                             ,'next': 'ChasMailRedirectAndHoldWPage03'
+                             ,'step': '2'
+                             ,'currentStepName': 'Contact details'
+                             ,'stage': ''
+                             ,'attributes':
+                             {'authenticatedURL': '/mail-redirection-and-hold-authenticated'
+                             }
+                             }
+                             ,'ChasMailRedirectAndHoldWPage03':
+                             {'key': 'ChasMailRedirectAndHoldWPage03' 
+                             ,'name': 'c:ChasMailRedirectAndHoldWPage03'
+                             ,'prev': 'ChasContactDetailsPage'        
+                             ,'next': 'ChasThankYouWizardPage'
+                             ,'step': '3'
+                             ,'currentStepName': 'Review and submit'
+                             ,'stage': ''
+                             ,'attributes':
+                             {'apexCaseCreationFunction': 'c.createCaseFromMailRedirectAndHold'
+                             }
+                             }
+                             ,'ChasThankYouWizardPage': 
+                             {'key': 'ChasThankYouWizardPage'         
+                             ,'name': 'c:ChasThankYouWizardPage'        
+                             ,'step': '3'
+                             ,'currentStepName': 'thankyou'
+                             ,'stage': 'submit'
+                             ,'attributes':
+                             {'tiles': ['my-post', 'safe-drop', 'po-boxes']
+                             ,'header': 'Thanks, we’ve received the details about your mail redirection or hold issue'
+                             ,'isUrgent': 'false'
+                             }
+                             }
+                             }" />
+    
+    
+    <aura:attribute name="startPage" type="String" default="ChasMailRedirectAndHoldWPage01" />
+    <aura:attribute name="currentPage" type="String" default="ChasMailRedirectAndHoldWPage01" />
+    <aura:attribute name="firstWordInProgressBar" type="String" default="Enquiry" />
+    <aura:attribute name="pageTitle" type="String" default="Mail redirection &amp; hold"/>
+    
+</aura:component>

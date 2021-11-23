@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Template</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Partner Info Licence Reminders</name>
+    <style>none</style>
+    <subject>Assignment Effective Today - {!Account.Name}</subject>
+    <textOnly>Assignment Effective Today
+
+Good Morning
+
+Licence Record {!Account.Name} is due to assign today
+
+If this assignment has been delayed please update the Assignment Effective date immediately in Salesforce.
+
+Failure to do so will impact the current licensee payments.
+
+Click here to go to Licence.
+
+{!IF(ISBLANK(Account.SAP_Vendor_ID__c), &apos;The SAP vendor number has NOT been provided.
+Please update the details and ensure approval is finalised prior to COB
+This will ensure that licensee payments are not impacted.&apos; , &apos; &apos;)}
+
+Regards</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

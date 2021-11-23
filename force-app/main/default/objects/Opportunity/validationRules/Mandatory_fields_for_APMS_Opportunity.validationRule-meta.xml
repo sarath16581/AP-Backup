@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mandatory_fields_for_APMS_Opportunity</fullName>
+    <active>true</active>
+    <description>2014-06 APMS - Ensure 4 mandatory Application fields are filled before sending out to NAB Merchant Outbound Message.</description>
+    <errorConditionFormula>AND(
+   TEXT(StageName)=&apos;Propose&apos;,
+   IsAPMSApplication__c = true,
+   IsSettlementFieldsFilled__c = false
+)</errorConditionFormula>
+    <errorMessage>Please enter all 4 Settlement fields on the related APMS Application.</errorMessage>
+</ValidationRule>

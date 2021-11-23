@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>36.0</apiVersion>
+    <label>APT_TermAndConditionComponent</label>
+    <packageVersions>
+        <majorNumber>8</majorNumber>
+        <minorNumber>347</minorNumber>
+        <namespace>Apttus</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>8</majorNumber>
+        <minorNumber>384</minorNumber>
+        <namespace>Apttus_Approval</namespace>
+    </packageVersions>
+</ApexComponent>

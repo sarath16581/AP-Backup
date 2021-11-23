@@ -1,0 +1,35 @@
+<!-- 
+ * View Offline Rates.
+ * No Approval should  be required
+ * Finalize cart
+ * Finalize cart
+ * Save Proposal
+ * Created By - Mausam Padhiyar
+ * Created Date - 11th Jan, 2017
+ *
+ * 2021.06.30   Naveen Rajanna  REQ2514129 - Call LWC component from Visualforce page.
+-->
+<apex:page showHeader="false" sidebar="false" controller="APT_UseOfflineRatesController" >
+    <apex:includeLightning />     
+    <div id="UseOfflineRatesAppDivId">
+        <!-- Lightning Web Component will be included here. -->
+    </div>
+    <script>
+        $Lightning.use(
+            "c:APT_UseOfflineRatesApp", // Name of Aura Dependency app where c is namespace.
+            function() { // Callback function
+                $Lightning.createComponent(
+                    "c:apt_UseOfflineRatesLWC", // Name of Lightning Component where c is namespace.
+                    {
+                       proposalId: '{!$CurrentPage.parameters.businessObjectId}',
+                       configId: '{!$CurrentPage.parameters.id}',
+                       configRequestId: '{!$CurrentPage.parameters.configRequestId}',
+                       flow: '{!$CurrentPage.parameters.flow}',
+                       currentUrl : '{!$CurrentPage.URL}'
+                    }, // attribute parameters
+                    "UseOfflineRatesAppDivId" // Id of the element where Lightning Component will be rendered.
+                );
+            }
+        );
+    </script>
+</apex:page>

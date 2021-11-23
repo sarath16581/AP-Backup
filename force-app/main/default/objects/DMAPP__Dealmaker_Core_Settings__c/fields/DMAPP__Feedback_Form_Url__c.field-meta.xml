@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Feedback_Form_Url__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This settings contains a configurable url for the altify feedback form</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This settings contains a configurable url for the altify feedback form</inlineHelpText>
+    <label>Feedback Form Url</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

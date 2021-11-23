@@ -1,0 +1,36 @@
+<!--
+/* @author avula.jansirani@auspost.com.au
+* @date 2020-11-12
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Truestee summary details . Used for showing Truestee details entered in the input step
+                for review before submitting a credit form .
+* @changelog
+* 2020-01-20 avula.jansirani@auspost.com.au  Created
+*
+-->
+<template>
+    <div data-id='bcasummaryTrustDocs'>
+        <div class="slds-section slds-is-open">
+            <div aria-hidden="false" class="slds-section__content">
+
+                <!--Header-->
+                <c-bca-summary-step-header header-label='Trust details' step-name={stepName}>
+                </c-bca-summary-step-header>
+
+                <!--Body-->
+                <template iterator:it={files}>
+                    <template if:true={it.first}>
+                        <c-bca-summary-row key={it.value.index} label='Trust deed doc' value={it.value.Title}>
+                        </c-bca-summary-row>
+                    </template>
+                    <template if:false={it.first}>
+                        <c-bca-summary-row key={it.value.index} label='Additional doc' value={it.value.Title}>
+                        </c-bca-summary-row>
+                    </template>
+                </template>
+
+            </div>
+        </div>
+    </div>
+</template>

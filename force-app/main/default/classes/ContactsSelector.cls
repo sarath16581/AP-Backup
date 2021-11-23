@@ -1,0 +1,170 @@
+/**
+* @author Nathan Franklin
+* @date 2020-04-10
+* @group Selector
+* @tag Selector
+* @tag Contacts
+* @domain Core
+* @description A very simple selector class that sits in the base domain
+* @changelog
+* 2020-04-10 - Nathan Franklin - Created
+* 2020-04-30 - Dheeraj Mandavilli - Updated - QueryBuilder.InCondition to QueryBuilder.SimpleCondition in selectbyId Method
+* 2020-11-18 - shashwat.nath@auspost.com.au updated to include Phone and Fax fields in the query
+* 2021-08-06 - Seth Heang - Added selectByLikedNameOrderByConsumerAndNameNullFirst, selectByLikedAnyPhoneOrderByName
+* 2021-08-24 - Seth Heang - Uplift SF API Version to 52
+*/
+public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
+
+    public enum Options {
+        WITH_RECORDTYPE, WITH_OWNER, WITH_ACCOUNT
+    }
+
+    public static ContactsSelector newInstance() {
+        return (ContactsSelector)Application.Selectors.newInstance(ContactsSelector.class);
+    }
+    public static ContactsSelector newInstance(Integer recordLimit) {
+        return (ContactsSelector)Application.Selectors.newInstance(ContactsSelector.class).setLimit(recordLimit);
+    }
+
+    public override SObjectType getSObjectType() {
+        return Contact.getSObjectType();
+    }
+
+    public virtual override Set<SObjectField> getSObjectFieldList() {
+        return new Set<SObjectField> {
+                Contact.Id, Contact.AccountId, Contact.FirstName, Contact.LastName, Contact.OwnerId, Contact.Name, Contact.APCN__c,
+                Contact.Email, Contact.OID_ID__c, Contact.CRMCSSOID__c , Contact.Phone , Contact.Fax, Contact.MobilePhone, Contact.HomePhone, Contact.Salutation, Contact.Title
+        };
+    }
+
+    /**
+     * @description Run a simple query to get records based on Id's
+     */
+    public Map<Id, Contact> selectById(Set<Id> ids) {
+        return selectById(ids, new Set<Object>());
+    }
+
+    /**
+     * @description Run a simple query to get records based on Id's
+     */
+    public Map<Id, Contact> selectById(Set<Id> ids, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Contact.Id + ' in :ids')).endConditions();
+        return new Map<Id, Contact>((List<Contact>)Database.query(qb.toSoqlString()));
+    }
+
+    /**
+     * @description Run a simple query to get records based on account Id's
+     */
+    public Map<Id, Contact> selectByAccount(Set<Id> accountIds) {
+        return selectByAccount(accountIds, new Set<Object>());
+    }
+
+    /**
+     * @description Run a simple query to get records based on Account Id's
+     */
+    public Map<Id, Contact> selectByAccount(Set<Id> accountIds, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Contact.AccountId + ' in :accountIds')).endConditions();
+        return new Map<Id, Contact>((List<Contact>)Database.query(qb.toSoqlString()));
+        
+    }
+
+    /**
+     * @description Run a simple query to get records based on account Id's
+     */
+    public Map<Id, Contact> selectByLikedNameOrderByConsumerAndNameNullFirst(string name) {
+        return selectByLikedNameOrderByConsumerAndNameNullFirst(name, new Set<Object>());
+    }
+
+    /**
+     * @description Run a simple query to get records based on account Id's
+     */
+    public Map<Id, Contact> selectByLikedNameOrderByConsumerAndNameNullFirst(string name, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions)
+        .addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Account')
+        .addConditions()
+        .add(new QueryBuilder.LikeCondition(Contact.Name).likeAnyBoth(name))
+        .endConditions();
+        qb.addOrder(
+            new QueryBuilder.Order('Account.IsPersonAccount')
+            .setSortingOrderAsc()
+            .setNullsOrderFirst()
+        ).addOrder(
+            new QueryBuilder.Order(Contact.Name)
+            .setSortingOrderAsc()
+            .setNullsOrderFirst()
+        );
+        return new Map<Id, Contact>((List<Contact>)Database.query(qb.toSoqlString()));
+    }
+
+    /**
+     * @description Select Contact by checking 'Like' operator on MobilePhone OR  Phone OR HomePhone and order by Name
+     * @param string phone
+     * @return matching Contact records
+     */
+    public Map<Id, Contact> selectByLikedAnyPhoneOrderByName(string phone) {
+        return selectByLikedAnyPhoneOrderByName(phone, new Set<Object>());
+    }
+
+    /**
+     * @description Select Contact by checking 'Like' operator on MobilePhone OR  Phone OR HomePhone and order by Name
+     * @param string phone
+     * @return matching Contact records
+     */
+    public Map<Id, Contact> selectByLikedAnyPhoneOrderByName(string phone, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions)
+        .addConditions()
+        .add(new QueryBuilder.LikeCondition(Contact.MobilePhone).likeAnyBoth(phone))
+        .add(new QueryBuilder.LikeCondition(Contact.Phone).likeAnyBoth(phone))
+        .add(new QueryBuilder.LikeCondition(Contact.HomePhone).likeAnyBoth(phone))
+        .setConditionOrder('(1 OR 2 OR 3)')
+        .endConditions();
+		qb.addOrderAsc(Contact.Name);
+        return new Map<Id, Contact>((List<Contact>)Database.query(qb.toSoqlString()));
+    }
+
+    /**
+     * Grabs a new QueryBuilder
+     */
+    public virtual override QueryBuilder newQueryBuilder() {
+        return newQueryBuilder(new Set<Object>());
+    }
+
+    /**
+     * Grabs a new QueryBuilder based on the selector options passed in
+     */
+    public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+        QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+        if(selectorOptions.contains(Options.WITH_RECORDTYPE)) {
+            builder.addRelatedFields(RecordTypesSelector.newInstance().newQueryBuilder(), 'RecordType');
+        }
+
+        if(selectorOptions.contains(Options.WITH_OWNER)) {
+            builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'Owner');
+        }
+
+        if(selectorOptions.contains(Options.WITH_ACCOUNT)) {
+            builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Account');
+        }
+
+        return builder;
+    }
+
+    // TODO: Activate Cache
+    //  /**
+    //   * Builds a list of sobjects that were present in a query based on the selectorOptions.
+    //   * By tracking all sobjects used in a query, we can accurately purge any cache that may become stale after DML operations occur for those objects
+    //   * The purging is done as a part of the execution of the trigger
+    //   */
+    //  @TestVisible
+    //  protected override Set<String> getUsedCachedSObjects(Set<Object> selectorOptions) {
+    //      Set<String> output = super.getUsedCachedSObjects(selectorOptions);
+    //
+    //      if(((Integer)selectorOptions & SELECTOR_OPTION_WITH_OWNER) == SELECTOR_OPTION_WITH_OWNER) {
+    //          output.add('User');
+    //      }
+    //
+    //      return output;
+    //  }
+
+}

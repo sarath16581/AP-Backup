@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>kfsell__Gold_Sheet__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Gold Sheet</label>
+    <referenceTo>kfsell__Gold_Sheet__c</referenceTo>
+    <relationshipLabel>Strategic Players</relationshipLabel>
+    <relationshipName>Strategic_Players</relationshipName>
+    <required>true</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

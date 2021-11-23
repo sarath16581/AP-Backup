@@ -1,0 +1,19 @@
+<design:component label="Ideas List">
+    <design:attribute name="orderBy"
+                      label="Items order" 
+                      description="Which items to display first by default" 
+                      datasource="Popular,Trending,Recent,Oldest" />
+    <design:attribute name="itemsPerPage" 
+                      label="Items Per Page" 
+                      description="Items per page" />
+    <design:attribute name="categoriesSource" 
+                      label="Categories source" 
+                      description="Categories filter list source" 
+                      datasource="Ideas categories,Custom settings" />
+    <design:attribute name="loginPage" 
+                      label="Login Page" 
+                      description="Community Login Page URL" />
+    <design:attribute name="configFiltersCollapse"
+                      label="Collapse filters"
+                      description="Check if you want filters are collapsed by default" />
+</design:component>

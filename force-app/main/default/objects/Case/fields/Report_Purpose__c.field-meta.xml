@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Report_Purpose__c</fullName>
+    <description>used by reporting case type</description>
+    <externalId>false</externalId>
+    <label>Report Purpose</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer Review/visit preparation</fullName>
+                <default>false</default>
+                <label>Customer Review/visit preparation</label>
+            </value>
+            <value>
+                <fullName>Contract Renewal</fullName>
+                <default>false</default>
+                <label>Contract Renewal</label>
+            </value>
+            <value>
+                <fullName>Monitor Customer Performance</fullName>
+                <default>false</default>
+                <label>Monitor Customer Performance</label>
+            </value>
+            <value>
+                <fullName>Requested by Customer</fullName>
+                <default>false</default>
+                <label>Requested by Customer</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Implementation new business</fullName>
+                <default>false</default>
+                <label>Implementation new business</label>
+            </value>
+            <value>
+                <fullName>Existing Contract compliance</fullName>
+                <default>false</default>
+                <label>Existing Contract compliance</label>
+            </value>
+            <value>
+                <fullName>Internal Analysis</fullName>
+                <default>false</default>
+                <label>Internal Analysis</label>
+            </value>
+            <value>
+                <fullName>Scheduled Report Failed</fullName>
+                <default>false</default>
+                <label>Scheduled Report Failed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

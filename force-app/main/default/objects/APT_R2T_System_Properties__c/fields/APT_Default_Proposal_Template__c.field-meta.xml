@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Default_Proposal_Template__c</fullName>
+    <defaultValue>&quot;R2T Proposal Template&quot;</defaultValue>
+    <externalId>false</externalId>
+    <label>Default Proposal Template</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

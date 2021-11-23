@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Consignment_Summary_Status__c</fullName>
+    <description>Will capture the consignment summary status value.</description>
+    <externalId>false</externalId>
+    <label>Consignment Summary Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Notified</fullName>
+                <default>false</default>
+                <label>Notified</label>
+            </value>
+            <value>
+                <fullName>Picked Up</fullName>
+                <default>false</default>
+                <label>Picked Up</label>
+            </value>
+            <value>
+                <fullName>In Transit</fullName>
+                <default>false</default>
+                <label>In Transit</label>
+            </value>
+            <value>
+                <fullName>Delivered</fullName>
+                <default>false</default>
+                <label>Delivered</label>
+            </value>
+            <value>
+                <fullName>Partially Picked Up</fullName>
+                <default>false</default>
+                <label>Partially Picked Up</label>
+            </value>
+            <value>
+                <fullName>Partially Delivered</fullName>
+                <default>false</default>
+                <label>Partially Delivered</label>
+            </value>
+            <value>
+                <fullName>Partially On Forwarded</fullName>
+                <default>false</default>
+                <label>Partially On Forwarded</label>
+            </value>
+            <value>
+                <fullName>On Forwarded</fullName>
+                <default>false</default>
+                <label>On Forwarded</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

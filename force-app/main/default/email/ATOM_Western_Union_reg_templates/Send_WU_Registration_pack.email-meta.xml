@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Pack to send - send WU registration pack to LPO</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Western_Union_Registration</letterhead>
+    <name>Send WU Registration pack</name>
+    <style>freeForm</style>
+    <subject>{!Membership__c.Name} Western Union Licence Registration</subject>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

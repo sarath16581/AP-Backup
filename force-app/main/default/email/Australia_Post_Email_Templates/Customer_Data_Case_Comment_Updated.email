@@ -1,0 +1,21 @@
+Dear Colleague,
+
+There has been a comment update to your case
+
+Case Number: {!Case.CaseNumber}
+
+Legal Entity Name: {!Case.Account}
+
+Work Type: {!Case.Work_Type__c}
+
+Please don’t respond to this notification via reply e-mail. 
+
+You can track the progress of your case, view the comment, make further comments and add relevant attachments online by following the link below.
+
+{!Case.Link}
+
+
+
+Regards
+
+Customer Reporting & Data Quality Team

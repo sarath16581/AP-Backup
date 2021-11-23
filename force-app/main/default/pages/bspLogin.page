@@ -1,0 +1,241 @@
+<apex:page controller="bspLoginComponent"
+    cache="false"
+    contentType="text/html"
+    showHeader="false"
+    sidebar="false"
+    standardStylesheets="false"
+    title="Business Support Portal"
+    action="{!securePage}"
+    docType="html-5.0">
+
+    <html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="DC.Creator" scheme="AglsAgent" content="Australia Post" />
+        <meta name="DC.Title" content="Australia Post - Home" />
+        <title>Business Support Portal</title>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="apple-touch-icon" sizes="144x144" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-144x144.png')}" />
+        <link rel="apple-touch-icon" sizes="114x114" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-114x114.png')}" />
+        <link rel="apple-touch-icon" sizes="72x72" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-72x72.png')}" />
+        <link rel="apple-touch-icon" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon.png')}" />
+        <link rel="shortcut icon" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/favicon.ico')}" />
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/style.css')}" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/head.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/libs/jquery-1.8.2.min.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/csso-widget.js')}"></script>
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/cssolight.css')}" />
+        
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/style-icams-addons.css')}" />
+    
+        <!-- MRSO assets -->
+        <link href="{!URLFOR($Resource.BSP_Asset,'css/mrso/mrso-v2.css')}" rel="stylesheet" />
+        <link href="{!URLFOR($Resource.BSP_Asset,'css/mrso/lightbox.css')}" rel="stylesheet" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/mrso/application.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/mrso/lightbox.js')}"></script>
+      
+        <link href="{!URLFOR($Resource.BSP_Asset,'jquery-ui.css')}" rel="stylesheet" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'jquery-ui.js')}"></script>
+
+
+        <script src="{!URLFOR($Resource.BSP_Asset,'GsForm_Script.js')}"></script>
+
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_CSS)}"/>
+        <script src="{!URLFOR($Resource.BSP_JS)}"/> 
+    </head>
+ 
+    
+    <!--[if lt IE 7]> <body class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]>    <body class="lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]>    <body class="lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]><!--> <body> <!--<![endif]-->
+    
+    <!-- START Accessibility links -->
+    
+    <div class="accessibility-links"> <a href="#main" class="visuallyhidden focusable">Skip to content</a> <a href="#primary-nav" class="visuallyhidden focusable">Skip to primary navigation</a> </div>
+    <!-- END Accessibility links --> 
+    <!-- START GE01 Header -->
+    <div class="l-header">
+      <div id="header">
+        <header> 
+          
+          <!-- START top nav -->
+          <div class="top-nav clearfix">
+
+          </div>
+          <!-- END top nav --> 
+          
+          <!-- START logo --> 
+          <a href="#" class="main-logo"> <img src="{!URLFOR($Resource.BSP_Asset, 'css/images/logo-ap_st-2_h_1.png')}" alt="Australia Post logo" /> </a>
+          <!-- END logo --> 
+          
+          <!-- START primary nav -->
+          <div id="primary-nav" class="primary-nav clearfix">
+            <h3> Business Support Portal</h3>
+          </div>
+          <!-- END primary nav --> 
+          
+        </header>
+      </div>
+    </div>
+    <!-- END GE01 Header -->
+ 
+   <div class="l-container l-wide">
+        <div class="l-main clearfix" role="main" id="main">
+
+<style>
+.has-error .inline-error-symbol
+{
+    background:none !important;
+}
+</style>
+
+<!-- Login -->    
+            <!-- MAIN PANEL -->
+            <apex:outputPanel rendered="{!section=='login'}" >
+                <div class="content-panel">
+                    <div class='workarea'>
+    
+                        <div class="left" style="width:470px">
+                            <p class="value-proposition" >
+                                Welcome to the Australia Post Business Support Portal. 
+                                We are here to help resolve your support enquiries and 
+                                enable you to deliver the best service to your customers.
+                            </p>
+                        </div>
+                        
+                        <div class="left" style="width:20px">&nbsp;</div>
+                        
+                        <div class="left" style="width:470px">
+                            <center>
+                                <img src="{!URLFOR($Resource.BSP_Custom, 'images/computer.png')}" alt="Login" />
+                            </center>
+                        </div>
+                        
+                        <div class="clearfix" />
+    
+    
+                        <div class="left" style="width:470px;">                                       
+                            <c:bspLoginComponent />
+                        </div>
+                        
+                        <div class="left" style="width:20px">&nbsp;</div>
+                        
+                        <div class="left" style="width:470px">
+                            <c:bspCreateAccount />
+    
+                        </div>
+                        
+                        <div class="clearfix" />
+                        
+                        <div style="height:150px">&nbsp;</div>
+                        
+                        <div>
+                            <img src="{!URLFOR($Resource.BSP_Custom, 'images/footer-ap_st-2_1.png')}" alt="Login" class="right" />     
+                        </div>
+    
+    
+    
+                    </div> 
+                </div>
+            </apex:outputPanel>
+            <!-- END MAIN PANEL --> 
+            
+<!-- Forgot Password -->            
+            <apex:outputPanel rendered="{!section=='forgotPassword'}" >      
+                <apex:form styleClass="form fn-validation" >    
+    
+                     <apex:Messages styleclass="form-errors"/>
+                         <!-- START Error list
+                                 If there are serverside errors, include them as <li> elements
+                                 If there are no serverside errors, still include this DIV, but without any <li> elements. It will be used by JavaScript.
+                         -->
+                         <div class="form-errors hidden">
+                             <h3>Please enter the required information.</h3>
+                         </div>
+                         <!-- END Error list -->
+                         <p class="required-legend"><span class="symbol-req"> *</span> Required information</p>                            
+                         <h2>Reset your password</h2>      
+                         
+                         <br/>
+
+                         <div class="input required input-normal">
+                             <p>Email Address<span class="symbol-req"> *</span></p>
+                             <apex:inputText value="{!username}" size="50" />    
+                         </div> 
+    
+                         <hr/>
+                         <apex:outputPanel id="ButtonSection">        
+                             <div class="form-buttons clearfix">
+                                 <div class="right" style="width:250px;">
+                                     <a class="cancel-link left" href="{!$Site.CurrentSiteUrl}BSPLogin">Cancel</a> 
+                                     
+                                     <apex:actionStatus id="submit-btn-ajax">
+                                         <apex:facet name="start">
+                                             <apex:commandButton styleClass="primary-cta button-submit" value="Processing" />
+                                         </apex:facet>
+    
+                                         <apex:facet name="stop">
+                                             <apex:commandButton styleClass="primary-cta button-submit" value="Reset my password" id="submitButton" status="submit-btn-ajax" action="{!forgotPassword}" />
+                                         </apex:facet>
+                                     </apex:actionStatus>
+                                 </div>
+                             </div>
+                         </apex:outputPanel>    
+    
+             
+                 </apex:form>  
+             
+             </apex:outputPanel>                    
+
+<!-- Password Reset -->
+            <apex:outputPanel rendered="{!section=='passwordReset'}">
+                        
+                <h1 class="success">Your password has been reset.</h1>
+    
+                <h2 class="NormalWeight">You will receive an email shortly to reset your password. Please make sure to check your spam and junk folders. If you are still unable to login, please contact us.</h2>
+                <br/>
+    
+                <h4 class="NormalWeight"></h4>
+                <br/>
+    
+                <br/>
+                <br/>
+    
+                <div class="clearfix">
+                    <center>
+                        <img src="{!URLFOR($Resource.BSP_Asset, 'media/images/thank-you-img.png')}" alt="Thank you." />
+                    </center>
+                </div>
+    
+    
+    
+                <div style="height:50px">&nbsp;</div>
+    
+    
+    
+                <a class="clearfix secondary right" href="{!$Site.CurrentSiteUrl}BSPLogin">Back to Login</a> 
+    
+                <div style="height:50px">&nbsp;</div>
+            </apex:outputPanel>
+
+<!-- Setup Password from email hyperlink -->
+           
+
+            
+        </div>
+        
+    </div>
+
+    
+    <!-- START GE02 Footer -->
+    <c:bspFooter />
+    <!-- END GE02 Footer --> 
+
+
+
+    </body>
+    </html>
+
+</apex:page>

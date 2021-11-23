@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>CIA - Business Credit Account</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>CIA_Lodgement</letterhead>
+    <name>CIA - Business Credit Account</name>
+    <style>freeForm</style>
+    <subject>Business Credit Account</subject>
+    <textOnly>Thank you for your recent interest in Australia Post business services.
+
+
+
+To be eligible for access to our Shipping and Tracking APIs you are required to have either:
+
+
+
+1)     An Australia Post business credit account and parcel contract
+
+or
+
+2)     A StarTrack 8 digit account number.
+
+
+
+If you don’t have one of these you can contact our product support team on 13 11 18 to arrange an Australia Post business credit account or StarTrack 8 digit account number.
+
+
+
+Regards
+
+
+
+
+
+Lodgement &amp; APIs Team
+
+Parcels, eCommerce and Digital</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

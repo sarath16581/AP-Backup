@@ -1,0 +1,61 @@
+<!--
+    2021-03-09 Steve W Created
+-->
+<template>
+    <li key={task.id}>
+        <div class={taskExpanded}>
+            <span class="slds-assistive-text">task</span>
+            <div class="slds-media">
+                <div class="slds-media__figure">
+                    <a aria-controls={task.expandableSectionId}  onclick={handleTaskToggle} data-index={taskIndex}>
+                        <lightning-icon size="xx-small" class="slds-m-right_small" icon-name={taskIcon} alternative-text="Expand Task"></lightning-icon>
+                    </a>
+                    <div class="slds-icon_container slds-icon-standard-task slds-timeline__icon" title="task">
+                        <lightning-icon icon-name="standard:task" size="small" alternative-text="task" title="task"></lightning-icon>
+                    </div>
+                </div>
+            <div class="slds-media__body">
+                <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                    <div class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                        <h4 class="slds-truncate" title="task Subject">
+                            <a href="#" onclick={handleTaskToggle} data-index={taskIndex} aria-controls={task.expandableSectionId} aria-expanded="false">
+                                <p>{task.subject}</p>
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="slds-timeline__actions slds-timeline__actions_inline">
+                        <p class="slds-timeline__date">
+                            <span class={task.dueDateStyle}>
+                                {task.dueDate}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <p class="slds-m-horizontal_xx-small slds-truncate">
+                    <lightning-formatted-rich-text value={task.subHeading}></lightning-formatted-rich-text>
+                </p>
+                <article class="slds-timeline__item_details slds-box slds-theme_shade" id={task.expandableSectionId} aria-hidden="true">
+                    <ul class="slds-list_horizontal slds-wrap">
+                        <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                          <span class="slds-text-title slds-p-bottom_x-small">Type</span>
+                          <span class="slds-text-body_medium slds-truncate" title="task type">
+                            <p>{task.type}</p>
+                          </span>
+                        </li>
+                        <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                          <span class="slds-text-title slds-p-bottom_x-small">Category</span>
+                          <span class="slds-text-body_medium slds-truncate" title="task category">
+                            <p>{task.category}</p>
+                          </span>
+                        </li>
+                      </ul>
+                      <div>
+                        <span class="slds-text-title">Description</span>
+                        <p class="slds-p-top_x-small">{task.description}</p>
+                      </div>
+                </article>
+            </div>
+            </div>
+        </div>
+    </li>
+</template>

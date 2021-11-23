@@ -1,0 +1,33 @@
+.custom-post-button {
+    margin-bottom: .75rem;
+    margin-top: .75rem;
+}
+.spins::after {
+    position: absolute;
+    content: 'Saving...';
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 3em);
+    font-weight: bold;
+}
+
+.lwc-textarea{
+    opacity: 0.5;
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.lwc-card{
+    position: relative;
+    box-shadow: none;
+    padding: 0px;
+    background: padding-box rgb(255, 255, 255);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(212, 212, 212);
+    border-image: initial;
+    border-radius: 0.25rem;
+}
+.slds-card__header {
+    padding:none;
+}

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>CAFClosedNotifyOpptyOwner</fullName>
+        <description>CAF Closed - Notify Oppty Owner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ContractAssistanceForm/ContractAssistanceFormClosed</template>
+    </alerts>
+    <alerts>
+        <fullName>CAFRejectedNotifyOpptyOwner</fullName>
+        <description>CAF Rejected - Notify Oppty Owner</description>
+        <protected>false</protected>
+        <recipients>
+            <field>OpportunityOwner__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ContractAssistanceForm/RejectedForm</template>
+    </alerts>
+    <alerts>
+        <fullName>CAF_All_Tasks_Complete_Notify_CAS_Owner</fullName>
+        <description>CAF All Tasks Complete - Notify CAS Owner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ContractAssistanceForm/AllTasksComplete</template>
+    </alerts>
+    <alerts>
+        <fullName>CAF_Approved_Notify_Opportunity_Owner</fullName>
+        <description>CAF Approved, Notify Opportunity Owner</description>
+        <protected>false</protected>
+        <recipients>
+            <field>OpportunityOwner__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ContractAssistanceForm/ContractAssistanceFormApproved</template>
+    </alerts>
+    <alerts>
+        <fullName>Change_Owner_to_Queue</fullName>
+        <description>Change Owner to Queue</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ContractAssistanceForm/Change_Owner_to_Queue</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_email_to_opportunity_owner_when_Customised_Contract_assistance_owner_has_ch</fullName>
+        <description>Notify opportunity owner</description>
+        <protected>false</protected>
+        <recipients>
+            <field>OpportunityOwner__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>ContractAssistanceForm/Notify_Opportunity_Owner_Form_created</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>ChangeOwner</fullName>
+        <field>OwnerId</field>
+        <lookupValue>CommercialTeam</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>Change Owner to Queue</name>
+        <notifyAssignee>true</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>ChangeOwnertoQueue</fullName>
+        <field>OwnerId</field>
+        <lookupValue>CommercialTeam</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>Change Owner to Queue</name>
+        <notifyAssignee>true</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Change_Owner_to_Queue</fullName>
+        <field>OwnerId</field>
+        <lookupValue>CommercialTeam</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>Change Owner to Queue</name>
+        <notifyAssignee>true</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Reset_All_Tasks_Complete</fullName>
+        <description>Set the checkbox back to false to allow for recursion</description>
+        <field>AllTasksComplete__c</field>
+        <literalValue>0</literalValue>
+        <name>Reset All Tasks Complete</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateDateClosed</fullName>
+        <field>DateClosed__c</field>
+        <formula>Today()</formula>
+        <name>UpdateDateClosed</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>CAF - All Tasks Complete</fullName>
+        <actions>
+            <name>CAF_All_Tasks_Complete_Notify_CAS_Owner</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Reset_All_Tasks_Complete</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>ContractAssistanceForm__c.AllTasksComplete__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>All tasks related to the contract assistance form are complete</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CAF - Approved</fullName>
+        <actions>
+            <name>CAF_Approved_Notify_Opportunity_Owner</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>ContractAssistanceForm__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Approved for Signature (Pending CAF),Approved for Signature</value>
+        </criteriaItems>
+        <description>Contract Assistance Form is Approved</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CAF - Closed</fullName>
+        <actions>
+            <name>CAFClosedNotifyOpptyOwner</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>UpdateDateClosed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>ContractAssistanceForm__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <description>Contract Assistance Form is Closed</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>CAF - Rejected</fullName>
+        <actions>
+            <name>UpdateDateClosed</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>ContractAssistanceForm__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Rejected</value>
+        </criteriaItems>
+        <description>Rejected Contract Assistance Form</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Change Owner to Queue</fullName>
+        <actions>
+            <name>Change_Owner_to_Queue</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>ChangeOwner</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>ContractAssistanceForm__c.CreatedDate</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Change the owner to the Commercial Team Queue</description>
+        <triggerType>onCreateOnly</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Send_email_to_opportunity_owner_when_Customised_Contract_assistance_owner_has_ch</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>ContractAssistanceForm__c.CreatedDate</offsetFromField>
+            <timeLength>-1</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <tasks>
+        <fullName>Review_Required</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>All Tasks completed. Contract Assistance form requires review.</description>
+        <dueDateOffset>7</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>CAF Review Required</subject>
+    </tasks>
+</Workflow>

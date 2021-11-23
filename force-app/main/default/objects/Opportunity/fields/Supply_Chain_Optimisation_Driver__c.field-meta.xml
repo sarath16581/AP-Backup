@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Supply_Chain_Optimisation_Driver__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>requested by AVP for opportunity team reporting purpose</description>
+    <externalId>false</externalId>
+    <label>Parcel Customer Solutions Driver</label>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>You can only select a valid AusPost Salesforce user</errorMessage>
+        <filterItems>
+            <field>User.UserType</field>
+            <operation>equals</operation>
+            <value>Standard</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Opportunities_SC_Optimisation</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

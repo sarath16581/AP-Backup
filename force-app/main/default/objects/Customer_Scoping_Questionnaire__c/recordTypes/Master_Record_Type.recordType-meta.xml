@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Master_Record_Type</fullName>
+    <active>true</active>
+    <label>Master Record Type</label>
+    <picklistValues>
+        <picklist>Additional_Account_Management__c</picklist>
+        <values>
+            <fullName>Business Solutions Partner %28BSP%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Solutions Partner %28CSP%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Implant on site %28Operations%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Additional_Assets__c</picklist>
+        <values>
+            <fullName>Customer requesting cages</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer requesting plain pallets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Printers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scanners</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trailer on site</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trailer on site - direct dispatch interstate</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CSQ_Status__c</picklist>
+        <values>
+            <fullName>Approved_by_SM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Draft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Submitted for approval</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,26 @@
+<apex:component controller="bspComponent">
+    <style>
+        .button-margin
+        {
+        width:160px;
+        text-align: center;
+        padding:5px;
+        }
+        
+    </style>
+
+    <div class="right-panel">
+        <div class="l-sb-module">
+            <h2>Your details</h2>
+            
+            <div class="OutputReadOnly bw-detail-margin-top">
+                {!$User.FirstName} {!$User.LastName}
+            </div>
+            
+            <p>{!$User.Email}</p>
+            <p>{!businessName}</p>
+            
+            <br/>
+        </div>
+    </div>
+</apex:component>

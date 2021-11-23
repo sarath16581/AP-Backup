@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Temporary</fullName>
+    <active>true</active>
+    <label>Temporary</label>
+    <picklistValues>
+        <picklist>Bypass_Type__c</picklist>
+        <values>
+            <fullName>Adhoc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oversize</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Permanent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Temporary</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

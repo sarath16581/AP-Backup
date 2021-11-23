@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>nextStepsContainsPharma_2</label>
+    <protected>false</protected>
+    <values>
+        <field>Display_Order__c</field>
+        <value xsi:type="xsd:double">2.0</value>
+    </values>
+    <values>
+        <field>Group__c</field>
+        <value xsi:type="xsd:string">nextStepsContainsPharma</value>
+    </values>
+    <values>
+        <field>Image__c</field>
+        <value xsi:type="xsd:string">sfsites/c/resource/ChasIcons/chas-icons/svgs/UI/icons/chas-mail.svg</value>
+    </values>
+    <values>
+        <field>Label__c</field>
+        <value xsi:type="xsd:string">We&apos;ll contact you with the outcome</value>
+    </values>
+    <values>
+        <field>Step_ID__c</field>
+        <value xsi:type="xsd:string">getBack</value>
+    </values>
+    <values>
+        <field>Sub_Label__c</field>
+        <value xsi:type="xsd:string">We&apos;re currently experiencing a high volume of enquiries and will be in touch as soon as we can.</value>
+    </values>
+    <values>
+        <field>isActive__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+</CustomMetadata>

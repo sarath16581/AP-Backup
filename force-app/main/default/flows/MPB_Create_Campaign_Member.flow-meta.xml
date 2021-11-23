@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <description>This flow creates a new Campaign Member record against the &quot;MyPost Business&quot; Campaign, given a Lead record&apos;s Salesfiorce Id.</description>
+    <interviewLabel>MPB Create Campaign Member {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>MPB Create Campaign Member</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Campaign_Member_Record</name>
+        <label>Create Campaign Member Record</label>
+        <locationX>448</locationX>
+        <locationY>264</locationY>
+        <assignRecordIdToReference>CampaignMemberId</assignRecordIdToReference>
+        <connector>
+            <targetReference>Update_Lead_with_Campaign_Member_Id</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>CampaignId</field>
+            <value>
+                <elementReference>SBizCampaignObj.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LeadId</field>
+            <value>
+                <elementReference>LeadId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>New</stringValue>
+            </value>
+        </inputAssignments>
+        <object>CampaignMember</object>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_Small_Business_Newsletter_Campaign_Id</name>
+        <label>Get Small Business Newsletter Campaign Id</label>
+        <locationX>446</locationX>
+        <locationY>155</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Campaign_Member_Record</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>MyPost Business</stringValue>
+            </value>
+        </filters>
+        <object>Campaign</object>
+        <outputReference>SBizCampaignObj</outputReference>
+        <queriedFields>Id</queriedFields>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Lead_with_Campaign_Member_Id</name>
+        <label>Update Lead with Campaign Member Id</label>
+        <locationX>450</locationX>
+        <locationY>382</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>LeadId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>MPB_Campaign_Member_Id__c</field>
+            <value>
+                <elementReference>CampaignMemberId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <startElementReference>Get_Small_Business_Newsletter_Campaign_Id</startElementReference>
+    <status>Active</status>
+    <variables>
+        <description>The resulting Salesforce Id of the Campaign Member record</description>
+        <name>CampaignMemberId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>Id of Lead record being passed in to this flow, used to created Campaign Member record</description>
+        <name>LeadId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>This is the Small Business Newsletter Campaign object</description>
+        <name>SBizCampaignObj</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Campaign</objectType>
+    </variables>
+</Flow>

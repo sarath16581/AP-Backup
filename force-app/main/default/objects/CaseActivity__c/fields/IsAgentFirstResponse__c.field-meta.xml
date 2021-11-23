@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsAgentFirstResponse__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates that this is agent&apos;s first response on related case</description>
+    <externalId>false</externalId>
+    <label>Is Agent First Response</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

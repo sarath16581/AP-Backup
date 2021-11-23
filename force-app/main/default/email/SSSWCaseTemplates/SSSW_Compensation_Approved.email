@@ -1,0 +1,73 @@
+<style>
+	html {
+		font-family: Arial,Helvetica,sans-serif;
+		font-size: 12px;
+	}
+	h1 {
+		color: #111111;
+		font-weight: bold;
+		font-family: Arial,Helvetica,sans-serif;
+		font-size: 22px;
+		line-height: 30px;
+		text-align: left;
+		display: inline;
+		padding-left: 20px;
+	}
+	h3 {
+		font-family: Arial,Helvetica,sans-serif;
+		font-size: 14px;
+		line-height: 16px;
+		text-align: left;
+	}
+	.red {
+		color: #DF1027;
+	}
+	.bold {
+		font-weight: bold;
+	}
+	.outer {
+		background: #FFEDBA;
+		padding: 20px;
+	}
+	.header {
+		background: #FFFFFF;
+		padding: 20px;
+		margin: 20px;
+	}
+	.content {
+		background: #FFFFFF;
+		margin: 20px;
+		padding: 20px;
+	}
+	.footer {
+		margin: 20px;
+		padding: 20px;
+	}
+</style>
+
+<div class="outer">
+	<div class="header">
+		<img align="left" style="outline:none;background-color:#DE1730;" src="http://static.auspost.com.au/ap/css/images/auspost.png" alt="AusPost" title="AusPost">
+    <h1> Your compensation has been approved</h1><br/>
+		<h1 class="red">Case {!Case.CaseNumber}</h1>
+  </div>
+  
+	<div class="content">
+		Hi {!Contact.Name}
+
+		<br/><br/>A decision has been made about your case {!Case.CaseNumber}, and you qualify for compensation. You will receive your compensation shortly and the details for this compensation can be found below.<br/><br/> 
+		<b>Compensation Type: </b> {!Compensation__c.RecordType} <br/>
+		<b>Compensation Amount: </b> ${!IF(Compensation__c.RecordType="Replacement Product", Compensation__c.Replacement_Value__c, Compensation__c.Total_Compensation_Amount__c)}<br/>
+
+<br/><br/>
+We apologise for any inconvenience caused.
+<br/>
+ 
+	<div class="footer">
+		<div class="red bold">Thank you,</div>
+		<br/>
+		Australia Post<br/>
+<span class="red bold">W</span> auspost.com.au<br/>
+<span style="color:#FFFFFF;">{!Case.EmailThreadID__c}</span>
+  </div>
+</div>

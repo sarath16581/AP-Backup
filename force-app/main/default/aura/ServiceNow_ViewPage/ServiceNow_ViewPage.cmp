@@ -1,0 +1,122 @@
+<aura:component implements="lightning:actionOverride,flexipage:availableForAllPageTypes,force:hasRecordId" controller="ServiceNow_CreatePageApexController2">
+    <aura:attribute name='fieldValueMapping' type='LayoutAPIRoot.DetailLayoutSection[]' />
+    <aura:attribute name="objectName" type="String"/>
+    <aura:attribute name="RecordTypeId" type="String" default="" /><!-- 012900000015EObAAM -->
+    <aura:attribute name="serviceNowRecord" type="service_now_case__x" />
+    <aura:attribute name="thirdPartyReferenceRecordName" type="String" default="Record Name" />
+    <aura:attribute name="escapedValue" type="string" />
+    <aura:attribute name="instanceURL" type="string" />
+    <aura:attribute name="sys_id" type="string" />
+    <aura:dependency resource="markup://force:editRecord" type="EVENT" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.loadTemplate}" />
+
+    <lightning:card class="slds-m-bottom_large">
+        <aura:set attribute="title">
+            <lightning:icon iconName="standard:timesheet" size="small" /> &nbsp;&nbsp;Details
+        </aura:set>
+        <aura:set attribute="actions">
+            <!--<lightning:button onclick="{!c.edit}" label="Edit" iconName="utility:edit" />
+            <lightning:button onclick="{!c.cancel}" label="Cancel" iconName="utility:close" />-->
+            <aura:iteration items="{!v.fieldValueMapping}" var="field">
+                <aura:iteration items="{!field.layoutRows}" var="row">
+                    <aura:iteration items="{!row.layoutItems}" var="layoutItem">
+                        <aura:iteration items="{!layoutItem.layoutComponents}" var="LayoutComponent">
+                            <div class="slds-col slds-size_1-of-1">
+                                <div class="inputForminnerDiv slds-form-element">
+                                    <aura:if isTrue="{!not(empty(LayoutComponent.details.value))}">
+                                        <aura:if isTrue="{!and(LayoutComponent.details.name == 'ExternalId', v.objectName == 'service_now_case__x')}">
+                                            <!-- 10/5/19 hasantha : setting the value of the external id to sys_id attribute-->
+                                            <c:ServiceNow_SetInnerAttribute paramComponent="{!this}" value="{!LayoutComponent.details.value}" attributeName="sys_id"/>
+                                            <div class="slds-text-heading_small"><a href="{!v.instanceURL+'/sn_customerservice_case.do?sys_id='+LayoutComponent.details.value}" target="_blank">View Case in Service Now</a></div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!LayoutComponent.details.name == 'Third_Party_Reference__c'}">
+                                            <div class="slds-text-heading_small">Go to <aura:unescapedHtml value="{!LayoutComponent.details.value}" /></div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!LayoutComponent.details.name == 'Service_Now_Case__c'}">
+                                            <div class="slds-text-heading_small">Go to <a href="{!'/x/service_now_case__x/'+LayoutComponent.details.value}" target="_blank">{!LayoutComponent.details.value}</a></div>
+                                        </aura:if>
+                                    </aura:if>
+                                </div>
+                            </div>
+                        </aura:iteration>
+                    </aura:iteration>
+                </aura:iteration>
+            </aura:iteration>
+        </aura:set>
+        <aura:set attribute="footer">
+            <!--<lightning:button onclick="{!c.edit}" label="Edit" iconName="utility:edit" />
+            <lightning:button onclick="{!c.cancel}" label="Cancel" iconName="utility:close" />-->
+        </aura:set>
+        <div class="slds-p-horizontal_small">
+            <lightning:recordViewForm recordId="{!v.recordId}" objectApiName="{!v.objectName}">
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <aura:iteration items="{!v.fieldValueMapping}" var="field">
+                        <aura:if isTrue="{!field.useHeading}">
+                            <div class="slds-col slds-size_12-of-12">
+                                <br />
+                                <h3 class="slds-section__title slds-theme--shade">
+                                    <span class="slds-p-horizontal--small slds-truncate">{!field.heading}</span>
+                                </h3>
+                            </div>
+                        </aura:if>
+
+                        <aura:iteration items="{!field.layoutRows}" var="row">
+                            <aura:iteration items="{!row.layoutItems}" var="layoutItem">
+                                <aura:if isTrue="{!layoutItem.editable}">
+                                    <aura:iteration items="{!layoutItem.layoutComponents}" var="LayoutComponent">
+                                        <div class="slds-col slds-size_1-of-2">
+                                            <div class="inputForminnerDiv slds-form-element">
+                                                <!-- <aura:if aura:id="inputFields" isTrue="{!LayoutComponent.details.renderAs == 'Picklist'}">
+                                                    <aura:iteration items="{!LayoutComponent.details.pickListValues}" var="pick">
+                                                        <aura:if isTrue="{!LayoutComponent.details.value == pick.value || LayoutComponent.details.value == pick.label}">
+                                                            <label class="slds-form-element__label">{!LayoutComponent.details.label}</label><br></br>
+                                                            <div class="slds-form-element__static">{!pick.label}</div>
+                                                        </aura:if>
+                                                    </aura:iteration>
+                                                    <aura:set attribute="else">
+                                                        <aura:if isTrue="{!LayoutComponent.details.renderAs == 'Lookup'}">
+                                                            <aura:set attribute="else">
+                                                                <lightning:outputField fieldName="{!LayoutComponent.details.name}" />
+                                                            </aura:set>
+                                                            <label class="slds-form-element__label">{!LayoutComponent.details.label}</label><br></br>
+                                                            <aura:unescapedHtml value="{!LayoutComponent.details.value}" />
+                                                        </aura:if>
+                                                    </aura:set>
+                                                </aura:if> -->
+                                                <aura:if isTrue="{!LayoutComponent.details.renderAs == 'Lookup'}">
+                                                    <aura:set attribute="else">
+                                                        <lightning:outputField fieldName="{!LayoutComponent.details.name}" />
+                                                    </aura:set>
+                                                    <label class="slds-form-element__label">{!LayoutComponent.details.label}</label><br></br>
+                                                    <aura:unescapedHtml value="{!LayoutComponent.details.value}" />
+                                                </aura:if>
+                                            </div>
+                                        </div>
+                                    </aura:iteration>
+                                </aura:if>
+                            </aura:iteration>
+                        </aura:iteration>
+
+                        <!-- 10/5/13 hasantha : add VF pages on the layout to the lightning UI-->
+                        <aura:iteration items="{!field.layoutRows}" var="row">
+                            <aura:iteration items="{!row.layoutItems}" var="layoutItem">
+                                <aura:iteration items="{!layoutItem.layoutComponents}" var="LayoutComponent">
+                                    <aura:if isTrue="{!LayoutComponent.type == 'VisualforcePage'}">
+                                        <div class="slds-col slds-size_12-of-12">
+                                        <iframe src="{!LayoutComponent.url+'?sys_id='+v.sys_id}"
+                                                width="{!LayoutComponent.suggestedWidth}"
+                                                height="{!LayoutComponent.suggestedHeight}"
+                                                scrolling="{!LayoutComponent.showScrollbars}"
+                                                frameborder = "false"/>
+                                        </div>
+                                    </aura:if>
+                                </aura:iteration>
+                            </aura:iteration>
+                        </aura:iteration>
+                    </aura:iteration>
+                </div>
+            </lightning:recordViewForm>
+        </div>
+    </lightning:card>
+</aura:component>

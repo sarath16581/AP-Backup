@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APR_Admin_TEAM</fullName>
+    <columns>NAME</columns>
+    <columns>Legal_Entity_Name_LookUp__c</columns>
+    <columns>Billing_Account_Name__c</columns>
+    <columns>Billing_Account_No__c</columns>
+    <columns>Status__c</columns>
+    <columns>Sub_Status__c</columns>
+    <columns>Confirmed_Rate__c</columns>
+    <columns>Confirmed_Date__c</columns>
+    <columns>Conclusion_Date__c</columns>
+    <columns>MHS_Confirmed_Rate__c</columns>
+    <columns>Entered_in_Team_PeopleSoft__c</columns>
+    <columns>Processed_Date__c</columns>
+    <columns>Unresolved_Expected_Outcome_Date__c</columns>
+    <columns>Approval_Status__c</columns>
+    <columns>Comments__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Billing_Account_No__c</field>
+        <operation>contains</operation>
+        <value>T</value>
+    </filters>
+    <filters>
+        <field>Year__c</field>
+        <operation>equals</operation>
+        <value>2020</value>
+    </filters>
+    <filters>
+        <field>Entered_in_Team_PeopleSoft__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>xAPR Admin - Team</label>
+    <language>en_US</language>
+</ListView>

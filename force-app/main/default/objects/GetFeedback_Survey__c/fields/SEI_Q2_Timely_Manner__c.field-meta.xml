@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SEI_Q2_Timely_Manner__c</fullName>
+    <description>SEI Question 2 - Were all aspects of the implementation completed in as timely a manner as possible?</description>
+    <externalId>false</externalId>
+    <label>SEI - Q2 Timely Manner</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

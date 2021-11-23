@@ -1,0 +1,67 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="color: rgb(0, 0, 0); font-family: 'AP Letter'; font-size: 12pt;">Hi&nbsp;</span><font face="AP Letter">{!Case.Requestor__c}</font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family: 'AP Letter'; font-size: 12pt;">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-no-proof:yes">I can see that this
+contract has been signed, but unfortunately I cannot enter the rates into SAP.
+When you prepared this contract, you did not include a commencement date, which
+makes the contract invalid according to our legal department.<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-no-proof:yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><b><span style="font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+mso-no-proof:yes">To correct this error, please send the following paragraph to
+the customer</span></b><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:
+&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;mso-no-proof:yes">:<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-no-proof:yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin: 0in 0in 0.0001pt 0.5in;"><span style="font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+mso-no-proof:yes">It appears that in error, the contract that we recently
+signed did not include a commencement date in item 1 of the Details
+Schedule.&nbsp;<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin: 0in 0in 0.0001pt 0.5in;"><span style="font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+mso-no-proof:yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin: 0in 0in 0.0001pt 0.5in;"><span style="font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+mso-no-proof:yes">However, the date of the latest signature is recorded as DAY
+MONTH 2016.&nbsp; With your consent, I am proposing to insert DAY MONTH 2016 in
+item 1 of the Details Schedule.<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin: 0in 0in 0.0001pt 0.5in;"><span style="font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+mso-no-proof:yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin: 0in 0in 0.0001pt 0.5in;"><span style="font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+mso-no-proof:yes">Could you confirm you agree with this approach to correct
+this error?<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-no-proof:yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-no-proof:yes">Once you receive the
+customer’s response, please attach it to this case so that I can commence the
+entry of rates.<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-no-proof:yes">&nbsp;</span></p><p class="MsoNormal" style="margin-bottom: 0.0001pt;"><font face="AP Letter">You can access your case online by following the link below:</font></p><p class="MsoNormal" style="margin-bottom: 0.0001pt;"><font face="AP Letter"><br></font></p><p class="MsoNormal" style="margin-bottom: 0.0001pt;"><font face="AP Letter">{!Case.Link}</font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-no-proof:yes"><br></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">Regards<o:p></o:p></span></p><p class="MsoNormal" style="margin-bottom: 0.0001pt;"><font face="AP Letter">{!Case.OwnerFullName}</font></p>]]></td>
+</tr>
+</table>

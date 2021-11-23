@@ -1,0 +1,11 @@
+<!--
+ - Created by disha.kariya on 10/05/2021.
+ -->
+
+<apex:page id="NotificationPreferencesWrapper" standardController="Account" extensions="NotificationPreferencesController" >
+	
+	<div id="wrapper" style="overflow:auto;height:200px">
+		<c:LightningWrapper lightningApp="c:NotificationPreferencesWrapperApp" lightningComponent="c:happyParcelNotificationPreferences" componentAttributes="{!attributes}"/>
+	</div>
+	
+</apex:page>

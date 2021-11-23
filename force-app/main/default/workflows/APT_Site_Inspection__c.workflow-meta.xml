@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>APT_7_and_14_Days_reminder_to_DL_and_DL1Up</fullName>
+        <description>APT 7 and 14 Days reminder to DL and DL1Up</description>
+        <protected>false</protected>
+        <recipients>
+            <field>APT_DL_1_Up_Level_email_address__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>APT_DL_email_address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>APT_R2T_System_Email_Templates/APT_Site_Inspection_Reminder_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>APT_7_day_reminder_to_DL</fullName>
+        <description>APT 7 day reminder to DL</description>
+        <protected>false</protected>
+        <recipients>
+            <field>APT_DL_email_address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>APT_R2T_System_Email_Templates/APT_Site_Inspection_Reminder_Template</template>
+    </alerts>
+    <tasks>
+        <fullName>APT_It_s_been_14_days_since_Site_Inspection_Request_Follow_up_on_Approval_Status</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Follow Up on Site Inspection</description>
+        <dueDateOffset>2</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>High</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>It&apos;s been 14 days since Site Inspection Request. Follow up on Approval Status</subject>
+    </tasks>
+    <tasks>
+        <fullName>APT_It_s_been_7_days_since_Site_Inspection_Request_Follow_up_on_Approval_Status</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Follow Up on Site Inspection</description>
+        <dueDateOffset>2</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>High</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>It&apos;s been 7 days since Site Inspection Request. Follow up on Approval Status</subject>
+    </tasks>
+</Workflow>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrgRevCalcScopeSize__c</fullName>
+    <description>Stores the size of the scope for each batch execution of the Org Revenue Calculation process. Use this to tune the batch process.</description>
+    <externalId>false</externalId>
+    <label>OrgRevCalcScopeSize</label>
+    <precision>10</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

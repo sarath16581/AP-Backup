@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <name>SecurePay Lead</name>
+    <queueMembers>
+        <users>
+            <user>anthony.nguyen@auspost.com.au</user>
+            <user>jose.barroso@securepay.com.au</user>
+            <user>kim.barnett@auspost.com.au</user>
+            <user>peter.oconnell@securepay.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Lead</sobjectType>
+    </queueSobject>
+</Queue>

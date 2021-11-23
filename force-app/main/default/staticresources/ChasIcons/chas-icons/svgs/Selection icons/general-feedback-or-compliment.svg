@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons / General feedback or compliment</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="20" cy="20" r="20"></circle>
+    </defs>
+    <g id="Icons-/-General-feedback-or-compliment" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-3">
+            <g id="Icon---3kg">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#F7A600" xlink:href="#path-1"></use>
+            </g>
+            <g id="icon" transform="translate(10.000000, 9.333333)">
+                <g id="Fill-1-+-Fill-2-Copy" fill="#FFFFFF">
+                    <path d="M19.8054279,0 L0.861238746,0 C0.387616344,0 0,0.373940298 0,0.830624833 L0,19.1066443 C0,19.5635562 0.387616344,19.9374965 0.861238746,19.9374965 L10.9409131,19.9374965 L10.9409131,22.9599343 C10.9409131,23.3025045 11.1866784,23.4334405 11.4873461,23.2509031 L16.9417796,19.9374965 L19.8054279,19.9374965 C20.2790503,19.9374965 20.6666667,19.5635562 20.6666667,19.1066443 L20.6666667,0.830624833 C20.6666667,0.373940298 20.2790503,0 19.8054279,0" id="Fill-1"></path>
+                </g>
+                <circle id="Oval" fill="#324B81" cx="10.6666667" cy="10" r="1.33333333"></circle>
+                <circle id="Oval-Copy" fill="#324B81" cx="6" cy="10" r="1.33333333"></circle>
+                <circle id="Oval-Copy-2" fill="#324B81" cx="15.3333333" cy="10" r="1.33333333"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

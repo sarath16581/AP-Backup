@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Request_T_C_Changes__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (
+AND(
+NOT( ISPICKVAL( Apttus_Approval__Term_Exception_Approval_Status__c , &apos;Pending Approval&apos;) ),
+OR(
+ Apttus__Total_Contract_Value__c &gt;  $Setup.APT_R2T_System_Properties__c.APT_Non_Standard_Contract_Threshold__c ,
+ISBLANK(Apttus__Total_Contract_Value__c )
+),
+OR(
+ISPICKVAL(Apttus__Status_Category__c,&quot;In Authoring&quot;),
+ISPICKVAL(Apttus__Status_Category__c,&quot;Request&quot;)
+)), 
+HYPERLINK(&quot;/apex/Apttus__AgreementTermExAdd?agreementId=&quot;+Id+&quot;&amp;retURL=/&quot;+Id, IMAGE(&quot;/resource/APT_Request_TC_Changes&quot;, &quot;Request Nonstandard T&amp;C&quot;), &quot;_self&quot;), NULL)</formula>
+    <inlineHelpText>Total Contract Value must be above certain threshold set by Australia Post for this button to be available. Contract must be in &apos;Request&apos; or &apos;In Authoring&apos; Stage.</inlineHelpText>
+    <label>Request T&amp;C Changes</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

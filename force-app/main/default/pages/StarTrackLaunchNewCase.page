@@ -1,0 +1,23 @@
+<!--
+    Description: Refer to details in W-001068.  This VF page is associated to / triggered by the "New Case"
+    console component, launching the standard case creation page as a primary tab in Service Console.
+    Solution uses Salesforce Console Integration Toolkit.
+
+    History: @David Catindoy : V1 - as per desciption
+    MAY.5.2016 David Catindoy (Accenture) Created
+    -->
+
+<apex:page >
+        <apex:includeScript value="/support/console/35.0/integration.js"/>
+        
+        <script type="text/javascript">
+            var onButtonClicked = function(result)
+            {
+                sforce.console.openPrimaryTab(null, '/setup/ui/recordtypeselect.jsp?ent=Case&ekp=500&retURL=%2F500&save_new_url=%2F500%2Fe%3FretURL%3D%252F500', true);
+                sforce.console.setCustomConsoleComponentVisible(false);
+                
+            };
+                
+            sforce.console.onCustomConsoleComponentButtonClicked(onButtonClicked);  
+        </script>
+</apex:page>

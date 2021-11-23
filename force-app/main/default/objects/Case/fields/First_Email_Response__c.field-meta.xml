@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>First_Email_Response__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>StarTrack field used to flag that an Email has been sent outbound on a case indicating 1st customer response</description>
+    <externalId>false</externalId>
+    <label>First Email Response</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

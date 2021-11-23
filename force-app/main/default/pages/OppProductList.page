@@ -1,0 +1,34 @@
+<!--
+    /* @author 
+     * @date 2021-04-14
+     * @description OppProductList is used to launch lightning datatable 
+                    to enable mass editing of opportunity line items.
+     * @changelog
+     * 2021-04-14 - mathew.jose@auspost.com.au - Created
+     */
+-->  
+<apex:page showHeader="false" lightningStylesheets="true">
+    <apex:slds />
+    <apex:includeLightning />
+    <div id="container">
+    </div>
+    <script>        
+        document.addEventListener("navToRecord", function(event){
+            sforce.one.navigateToSObject(event.detail.recId, "detail")
+        });
+        document.addEventListener("navToRelated", function(event){
+            sforce.one.navigateToRelatedList(event.detail.relatedName, event.detail.recId);
+        });    
+        var oppId = "{!$CurrentPage.parameters.id}";
+        $Lightning.use("c:oppProductDataTableApp", function () {
+            $Lightning.createComponent(
+                "c:oppProductDataTable",
+                {"oppId" : oppId},
+                "container",
+                function (cmp) {
+                    console.log("component created");
+                });
+        });
+    </script>
+    
+</apex:page>

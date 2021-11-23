@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AIRSMPCL_BAND2</fullName>
+    <columns>NAME</columns>
+    <columns>APT_Product__c</columns>
+    <columns>APT_Industry__c</columns>
+    <columns>APT_Band__c</columns>
+    <columns>APT_Band_Range_Min__c</columns>
+    <columns>APT_Band_Range_Max__c</columns>
+    <columns>APT_Zone__c</columns>
+    <columns>APT_eParcel_Per_Item_Rate__c</columns>
+    <columns>APT_eParcel_Per_Kg_Rate__c</columns>
+    <columns>APT_CSP_Per_Item_Rate__c</columns>
+    <columns>APT_CSP_Per_Kg_Rate__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>APT_Band__c</field>
+        <operation>equals</operation>
+        <value>BAND 2</value>
+    </filters>
+    <filters>
+        <field>APT_Product__c</field>
+        <operation>equals</operation>
+        <value>AIRSMPCL</value>
+    </filters>
+    <filters>
+        <field>APT_Industry__c</field>
+        <operation>equals</operation>
+        <value>B Mining</value>
+    </filters>
+    <label>AIRSMPCL-BAND2</label>
+</ListView>

@@ -1,0 +1,7 @@
+<design:component label="Ideas Top Featured List">
+    <design:attribute name="ideasNumber" label="The number of ideas" description="the number of ideas" />
+    <design:attribute name="title" label="Title" default="Top Idea"/>
+    <design:attribute name="pageName" label="Page name" datasource="Home,Featured" default="Home"/>
+    <design:attribute name="orderBy" label="Items order" description="Which items to display first by default" 
+    datasource="Popular,Trending,Recent,Oldest"/>
+</design:component>

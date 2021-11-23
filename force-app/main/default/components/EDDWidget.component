@@ -1,0 +1,189 @@
+<!--
+      Date          Name                                Description
+    22/09/2016    nandan.narasappa@auspost.com.au     Commented line 120 & 189 due to too many API calls to EDD service for INC0804370 fix
+	2017-09-16    nathan.franklin@auspost.com.au     Minor JS tweak to remove non-native JSON functions
+	2019-12-09	  arjun.singh@auspost.com.au		 UI change based on EDD Integration response changes
+-->
+<apex:component controller="EDDWidgetController">
+	<apex:stylesheet value="{!$Resource.EDDWidgetStyle}"/>
+	<apex:attribute name="setEDDFunctionName" type="string" description="a function to set the values to calculate the edd" required="false"/>
+	<apex:actionfunction name="fetchEDD" action="{!fetchEDD}" rerender="pbEDD,pbEDDResult" oncomplete="eddHideProgress();"/>   
+	<c:LoadingSpinnerComponent showFunctionName="eddShowProgress" hideFunctionName="eddHideProgress"/>    
+	<div id="pbEDD_{!id}">
+		<apex:pageblock id="pbEDD">
+			<script>
+				j$(function() {
+					j$('[id$="txtArticleLodgementDate"]').datepicker( "option", "dateFormat", "dd/mm/yyyy" );
+				});
+
+				j$('.eddBinded').bind('keypress', function(e){
+					 var code = e.keyCode || e.which;
+					 if(code == 13) { //Enter keycode
+					   return false; //Do nothing
+					 }
+				});
+			</script>
+			<apex:pageblocksection columns="1">
+
+			</apex:pageblocksection>
+			<apex:pageblocksection columns="2">
+				<apex:pageblocksectionitem >
+					<apex:outputlabel value="Sender Postcode" for="txtSenderPostcode"/>
+					<apex:inputtext value="{!senderPostcode}" styleclass="form-control input-sm postcode-autocomplete eddBinded" id="txtSenderPostcode" onchange="{!id}_updateEDD(this);"/>
+				</apex:pageblocksectionitem>
+				<apex:pageblocksectionitem >
+					<apex:outputlabel value="Article Lodgement Date" for="txtArticleLodgementDate"/>
+					<apex:inputfield value="{!dummyCase.DatePosted__c}" styleclass="form-control datetime input-sm eddBinded" id="txtArticleLodgementDate" onchange="{!id}_updateEDD(this);"/>
+				</apex:pageblocksectionitem>
+				<apex:pageblocksectionitem >
+					<apex:outputlabel value="Receiver Postcode" for="txtReceiverPostcode"/>
+					<apex:inputtext value="{!ReceiverPostcode}"
+									styleclass="form-control input-sm  postcode-autocomplete eddBinded"
+									id="txtReceiverPostcode" onchange="{!id}_updateEDD(this);"/>
+				</apex:pageblocksectionitem>                
+			</apex:pageblocksection>		
+			<c:PostcodeSuburbLookup className="postcode-autocomplete" display="postcode" onselectFunctionName="eddSelect"/>
+       
+		<apex:outputPanel id="pbEDDResult">              
+			<apex:outputText rendered="{! !servicesFound}">
+				<p style="font-size:15px;color:red;">{!dateString}</p>
+			</apex:outputText>
+			<apex:outputPanel rendered="{!servicesFound}" >
+				<table id="tableId">
+					<apex:repeat value="{!Services}" var="item" >
+						<tr>
+							<td>
+								<div class="postage-service__section postage-service__section--name">
+									<span role="heading" aria-level="3" class="postage-service__section__name-label">{!item.serviceType}</span>
+									<apex:outputPanel rendered="{!item.isParcel}">
+										<span class="postage-service__section__weight">Max. weight 22kg</span>
+									</apex:outputPanel>
+								</div>
+							</td>
+							<td>
+								<div class="postage-service__section postage-service__section--deliverytime">
+									<span class="postage-service__section__delivery-time-label">Delivery time estimate</span>
+									<span class="postage-service__section__deliverytime">{!item.sla}</span>
+									<span class="postage-service__section__deliverytime">{!item.nextBusinessDate}</span>
+								</div>
+							</td>							
+							<apex:outputText rendered="{!datePostedFlag}">									
+							<td>
+								<apex:outputPanel rendered="{!item.missingItmCaseRequired}">
+									<div class="postage-service__section postage-service__section--deliverytime">	
+										<span class="postage-service__section__delivery-time-label">A missing item case can be logged on or after</span>
+										<span class="postage-service__section__deliverytime"><img src="{!URLFOR($Resource.EDDWidgetImages,'images/02.png')}" id="img" alt=""/>
+										{!item.missingItmLogDate}</span>
+									</div>											
+								</apex:outputPanel>
+								<apex:outputPanel rendered="{! !item.missingItmCaseRequired}">
+										<div class="postage-service__section postage-service__section--deliverytime">
+											<span class="postage-service__section__delivery-time-label">A missing item case can be logged for the sender</span>	
+											<span class="postage-service__section__deliverytime"><img src="{!URLFOR($Resource.EDDWidgetImages,'images/01.png')}" id="img"/></span>
+										</div>
+								</apex:outputPanel>	
+							</td>							
+							</apex:outputText>
+						</tr>
+					</apex:repeat>					
+				</table>
+			</apex:outputPanel>	
+		</apex:outputPanel>
+        </apex:pageblock>
+            
+	</div>	
+	<script>
+
+        function eddSelect(el, selected) {
+            {!id}_updateEDD(el);
+        }
+
+        function {!IF(setEDDFunctionName != null, setEDDFunctionName, id)}(fromPostcode, toPostcode, sentDate){
+            var txtArticleLodgementDate = j$('[id$="txtArticleLodgementDate"]');
+            var txtSenderPostcode = j$('[id$="txtSenderPostcode"]');
+            var txtReceiverPostcode = j$('[id$="txtReceiverPostcode"]');            
+			console.log('Here><>>>>>');
+			console.log('#' + sentDate);
+			console.log('Is this getting Called::');
+            txtArticleLodgementDate.val(sentDate);
+            txtSenderPostcode.val(fromPostcode);
+            txtReceiverPostcode.val(toPostcode);
+            //{!id}_updateEDD(txtArticleType);
+            //loadEDD(txtSenderPostcode, txtReceiverPostcode, txtArticleLodgementDate);
+            {!id}_updateEDD();
+        }
+
+        function {!id}_updateEDD(el) {
+            var txtArticleLodgementDate = j$('[id$="txtArticleLodgementDate"]');
+            var txtSenderPostcode = j$('[id$="txtSenderPostcode"]');
+            var txtReceiverPostcode = j$('[id$="txtReceiverPostcode"]');
+			console.log('updateEDD is called::::');
+
+            var edd = new Object();
+            edd.txtArticleLodgementDate = txtArticleLodgementDate.val();
+            edd.txtSenderPostcode = txtSenderPostcode.val();
+            edd.txtReceiverPostcode = txtReceiverPostcode.val();            
+            var json = JSON.stringify(edd);
+            window.console&&console.log(json);
+            sforce.console.fireEvent('UpdateEDD', json);
+
+			var that = j$(el);
+			
+            if (that.val() == '') {
+                window.console && console.log('sending to clear msg...');
+                fetchEDD();
+            } else {
+				console.log('Calling loadEDD Method ::');				
+				loadEDD(txtSenderPostcode, txtReceiverPostcode, txtArticleLodgementDate);
+            }
+        }
+
+        function loadEDD(txtSenderPostcode, txtReceiverPostcode, txtArticleLodgementDate){       
+			if (txtReceiverPostcode.val() != null
+                        && txtReceiverPostcode.val() != ''
+                        && txtSenderPostcode.val() != null
+                        && txtSenderPostcode.val() != ''
+                        ) {     
+				eddShowProgress();
+				window.console && console.log('sending to controller...');
+				fetchEDD();
+			}
+        }
+
+
+		// wrapper event as there were issues calling the setEddValues from the MiniCaseComponent js controller
+		// this should be refactored and fixed at some point
+		sforce.console.addEventListener('{!IF(setEDDFunctionName != null, setEDDFunctionName, "edd_" + id)}', function(result){
+			var values = JSON.parse(result.message);
+			console.log('listener1 is called:::');
+		    if(values == null)
+		    	return;
+
+			{!IF(setEDDFunctionName != null, setEDDFunctionName, "edd_" + id)}(values.fromPostcode, values.toPostcode, values.sentDate);
+			j$('#pbEDD_{!id}').find('input:first').focus(); // set the focus of the component to bring the page into view.
+		});
+
+        sforce.console.addEventListener('SynchEDD', function(result){
+            var edd = JSON.parse(result.message);
+            window.console&&console.log('Central synching is called with values: ' + result.message);
+            var txtArticleLodgementDate = j$('[id$="txtArticleLodgementDate"]');
+            var txtSenderPostcode = j$('[id$="txtSenderPostcode"]');
+            var txtReceiverPostcode = j$('[id$="txtReceiverPostcode"]');           
+
+            txtArticleLodgementDate.val(edd.txtArticleLodgementDate);
+            txtSenderPostcode.val(edd.txtSenderPostcode);
+            txtReceiverPostcode.val(edd.txtReceiverPostcode);
+            
+        });    
+    
+     sforce.console.addEventListener('ResetEvt', function(result){            
+        console.log('Refresh Event Called');
+        j$('[id$="textId"]').val(null) ;
+        j$('[id$="txtArticleLodgementDate"]').val(null);
+        j$('[id$="txtSenderPostcode"]').val(null) ;
+        j$('[id$="txtReceiverPostcode"]').val(null) ;        
+        j$('#tableId').remove();       
+        });
+
+	</script>
+</apex:component>

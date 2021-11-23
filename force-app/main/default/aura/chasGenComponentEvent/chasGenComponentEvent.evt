@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="Fired when the value of a Chas Input changes. Handled by Wizard Pages to check input validation">
+    <aura:attribute name="name" type="String"/>
+    <aura:attribute name="value" type="String"/>
+</aura:event>

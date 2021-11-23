@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Approved_Pricing_Support_Request</fullName>
+        <description>Approved Pricing Support Request</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Pricing_Analyst_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>All_Email_Templates/Approved_Pricing_Support_Request</template>
+    </alerts>
+    <alerts>
+        <fullName>License_Request_Created_Alert</fullName>
+        <ccEmails>licenserequests@auspost.com.au</ccEmails>
+        <description>License Request Created Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>License_Management_Templates/License_Request_Creation_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>License_Request_Expiry_Notification</fullName>
+        <description>License Request Expiry Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>licenserequests@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>License_Management_Templates/License_Expiry_Due</template>
+    </alerts>
+    <alerts>
+        <fullName>License_Request_Fulfilled_Alert</fullName>
+        <description>License Request Fulfilled Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>licenserequests@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>License_Management_Templates/License_Request_Status_Update</template>
+    </alerts>
+    <alerts>
+        <fullName>License_Request_Renewal_Due_Notification</fullName>
+        <description>License Request Renewal Due Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>licenserequests@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>License_Management_Templates/License_Renewal_Due</template>
+    </alerts>
+    <alerts>
+        <fullName>Rejected_Pricing_Support_Request</fullName>
+        <description>Rejected Pricing Support Request</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Pricing_Analyst_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>All_Email_Templates/Rejected_Pricing_Support_Request</template>
+    </alerts>
+    <alerts>
+        <fullName>Sandbox_Request_Expiry_Notification</fullName>
+        <description>Sandbox Request Expiry Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>licenserequests@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>License_Management_Templates/Sandbox_Expiry_Due</template>
+    </alerts>
+    <alerts>
+        <fullName>System_Training_new_request_created</fullName>
+        <description>System Training new request created</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Email_Templates/System_Training_new_request_created</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Update_Assigned_Team</fullName>
+        <field>Assigned_Team__c</field>
+        <literalValue>Product Specialist Team</literalValue>
+        <name>Update Assigned Team</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Further_Info_Count</fullName>
+        <description>To update the Further Information Required Count when Further Information Required is set as the status on a request</description>
+        <field>Further_Info_Required_Counter__c</field>
+        <formula>Further_Info_Required_Counter__c + 1</formula>
+        <name>Update Further Info Count</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Further Info Count</fullName>
+        <actions>
+            <name>Update_Further_Info_Count</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Internal_Request__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Further Information Required</value>
+        </criteriaItems>
+        <description>Update the further info count when sub-status is set to further info required</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>License End Date Due</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Internal_Request__c.Expiry_Date__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Internal_Request__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Salesforce License,Salesforce Sandbox,Other Salesforce Product</value>
+        </criteriaItems>
+        <description>Used to send notification when the license request end date is due in 30 days</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>License_Request_Expiry_Notification</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Internal_Request__c.Expiry_Date__c</offsetFromField>
+            <timeLength>-30</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>License Renewal Due</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Internal_Request__c.Annual_Renewal_Date__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Internal_Request__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Salesforce License,Salesforce Sandbox,Other Salesforce Product</value>
+        </criteriaItems>
+        <description>Used to send notification when the sandbox or license request annual renewal date is due in 30 days</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>License_Request_Renewal_Due_Notification</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Internal_Request__c.Annual_Renewal_Date__c</offsetFromField>
+            <timeLength>-30</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Notification Of License Ready To Use</fullName>
+        <actions>
+            <name>License_Request_Fulfilled_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <description>Used to send notification when the request status changes to fulfilled and the license/sandbox is ready to be use.</description>
+        <formula>AND(NOT(ISBLANK(Email__c)), ISPICKVAL(Status__c, &apos;Fulfilled&apos;), OR( RecordType.DeveloperName == &apos;Other_Salesforce_Product&apos;, RecordType.DeveloperName == &apos;Salesforce_License&apos;,RecordType.DeveloperName == &apos;Salesforce_Sandbox&apos;))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notification Of License Request Created</fullName>
+        <actions>
+            <name>License_Request_Created_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Internal_Request__c.Name</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Internal_Request__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Salesforce License,Salesforce Sandbox,Other Salesforce Product</value>
+        </criteriaItems>
+        <description>Used to send notification about the request creation</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Sandbox End Date Due</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Internal_Request__c.Sandbox_Expiry_Date__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Internal_Request__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Salesforce License,Salesforce Sandbox,Other Salesforce Product</value>
+        </criteriaItems>
+        <description>Used to send notification when the sandbox request end date is due in 30 days</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Sandbox_Request_Expiry_Notification</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Internal_Request__c.Sandbox_Expiry_Date__c</offsetFromField>
+            <timeLength>-30</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>System Training new request created</fullName>
+        <actions>
+            <name>System_Training_new_request_created</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Internal_Request__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>System Training</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Internal_Request__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Requested</value>
+        </criteriaItems>
+        <description>Send an email notification to record creator for new system training record created</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Owner to Product Specialist Queue</fullName>
+        <actions>
+            <name>Update_Assigned_Team</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Update the owner of the internal request to Product Specialist queue</description>
+        <formula>(RecordType.DeveloperName =&apos;Pricing_Request_Domestic_Parcels&apos;|| RecordType.DeveloperName = &apos;Pricing_Request_Domestic_Parcels_BAR&apos;|| RecordType.DeveloperName = &apos;Pricing_Request_Domestic_Parcels_gen_enq&apos;) &amp;&amp; Organisation__r.Is_Strategic_Account__c</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

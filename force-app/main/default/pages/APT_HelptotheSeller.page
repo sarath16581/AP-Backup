@@ -1,0 +1,22 @@
+<apex:page standardController="Apttus__APTS_Agreement__c" extensions="APT_HelptotheSellerController" action="{!donext}"  sidebar="false">
+ <apex:form >
+ <apex:outputPanel rendered="{!Message}" id="mainpanel" >
+           
+      <apex:pageBlock rendered="{!displayNextButton}">
+                  <apex:pagemessage summary="{!docusignRecipientErrorMessage}" severity="info" strength="3"></apex:pagemessage>
+            
+      </apex:pageBlock>
+     <apex:pageBlock rendered="{!displayHelpMessage}">
+                   <apex:pagemessage summary="Click next to confirm you have added the Authorised Delegate to sign this contract" severity="info" strength="3"></apex:pagemessage>
+      </apex:pageBlock>
+     <apex:image id="theImage" value="{!$Resource.APTSpendDelegationMatrix}" width="700" height="500" alt="Sales Instructions"/>
+  </apex:outputPanel>
+  <center>
+  <apex:commandButton value="{!nextValue}" action="{!Next}"  rendered="{!!displayNextButton}" />
+  <apex:commandButton value="{!$Label.APT_Add_Signers}" action="{!addDocusignRecipient}"  rendered="{!!displayAddSignerButton}" />
+    <apex:commandButton value="{!cancelValue}" action="{!docancel}"  />
+   
+  </center>
+      
+    </apex:form>
+</apex:page>

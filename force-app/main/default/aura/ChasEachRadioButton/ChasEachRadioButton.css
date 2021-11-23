@@ -1,0 +1,117 @@
+/*@changeLog: 20-07-2020 Modified the radio button styling as per the new designs, as part of the Help and support form uplifts
+*/
+/* Removed border attribute for mobile view*/
+.THIS {
+    height: 45px;	
+    border-radius: 4px;
+    border: solid 1px #c7c5c5;
+    margin-bottom: 10px;
+}
+
+.THIS.image-true {
+    height: 72px;	
+}
+
+.THIS label {
+    height: 100%;
+    padding: 0 15px;
+    display: inline-flex !important;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+}
+
+.THIS:hover,
+.THIS.selected-true {
+    background-color: #eef5fb;
+    border: solid 2px #7eafcb;
+}
+
+
+/* 20-07-2020 Removed padding for selected radio button*/
+/*.THIS.selected-false:hover label,
+.THIS.selected-true label {
+padding-left: 14px;
+}*/
+
+
+.THIS .chas-label-text.slds-form-element__label {
+    font-size: 16px;
+}
+
+.THIS.image-true .chas-label-text.slds-form-element__label {
+    font-family: APTypeText, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    padding-top: 0;
+}
+
+.THIS.image-false .chas-label-text.slds-form-element__label {
+    font-weight: normal;
+    padding-top: 0;
+}
+
+.THIS.slds-radio.selected-true .slds-radio_faux {
+    border: solid 2px #382f2d !important;
+}
+
+.THIS .slds-radio_faux:after {
+    background: #382f2d !important;
+}
+
+.THIS .chas-radio-image {
+    margin: 0 15px 0 10px;
+}
+
+.THIS .chas-radio-image img {
+    height: 40px;
+    min-height: 40px;
+    width: 40px;
+    min-width: 40px;
+}
+/*20-07-2020 Removed border attribute for mobile view*/
+@media (max-width: 480px) {
+.THIS.image-false {
+border: none;
+height: auto;
+margin-bottom: 8px;
+background-color: transparent;
+}
+.THIS.image-false label  {
+padding: 0;
+width: auto;
+}
+}
+
+@media (min-width: 480px) {
+    .THIS.image-false {
+        max-width: 240px;
+    }
+    
+}
+
+@media (min-width: 680px) {
+    .THIS.image-false {
+        border: none;
+        height: auto;
+        margin-bottom: 8px;
+        
+    }
+    
+    .THIS.image-false:hover,
+    .THIS.image-false.selected-true {
+        background-color: transparent;
+    }
+    
+    .THIS.image-false label,
+    .THIS.image-false:hover label,
+    .THIS.image-false.selected-true label  {
+        padding: 0;
+        width: auto;
+    }
+    
+    
+}
+.THIS .chas-label-text {
+    padding-bottom: 0px !important;
+}

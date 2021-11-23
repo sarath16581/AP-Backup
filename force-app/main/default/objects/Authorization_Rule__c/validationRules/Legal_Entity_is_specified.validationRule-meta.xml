@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Legal_Entity_is_specified</fullName>
+    <active>true</active>
+    <description>If Legal Entity is specified, then Access Role can be a Case Manager only</description>
+    <errorConditionFormula>if(contains(text(AccessRole__c),&apos; Case &apos;), 
+(!(ISBLANK(Account__c)) &amp;&amp; ISBLANK(Billing_Account__c) &amp;&amp; !(ISPICKVAL( AccessRole__c, &apos;StarTrack Case Manager&apos;)) &amp;&amp; !(ISPICKVAL( AccessRole__c, &apos;AusPost Case Manager&apos;)) &amp;&amp; !(ISPICKVAL( AccessRole__c, &apos;Enterprise Case Manager&apos;))),false)</errorConditionFormula>
+    <errorMessage>This Access Role is not valid for access at Legal Entity level</errorMessage>
+</ValidationRule>

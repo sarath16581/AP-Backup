@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category__c</fullName>
+    <description>Category includes the pre-defined list of Products and Services that the Customer may be interested in.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>List of Products &amp; Services + Discovery</inlineHelpText>
+    <label>Category</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Change of Address Notification</fullName>
+                <default>false</default>
+                <label>Change of Address Notification</label>
+            </value>
+            <value>
+                <fullName>Digital Identity</fullName>
+                <default>false</default>
+                <label>Digital Identity</label>
+            </value>
+            <value>
+                <fullName>Discovery</fullName>
+                <default>false</default>
+                <label>Discovery</label>
+            </value>
+            <value>
+                <fullName>Domestic Freight (B2B)</fullName>
+                <default>false</default>
+                <label>Domestic Freight (B2B)</label>
+            </value>
+            <value>
+                <fullName>Domestic Parcels (B2C)</fullName>
+                <default>false</default>
+                <label>Domestic Parcels (B2C)</label>
+            </value>
+            <value>
+                <fullName>Fulfilment</fullName>
+                <default>false</default>
+                <label>Fulfilment</label>
+            </value>
+            <value>
+                <fullName>Information and Mailroom Management</fullName>
+                <default>false</default>
+                <label>Information and Mailroom Management</label>
+            </value>
+            <value>
+                <fullName>International Parcels</fullName>
+                <default>false</default>
+                <label>International Parcels</label>
+            </value>
+            <value>
+                <fullName>Operational Details</fullName>
+                <default>false</default>
+                <label>Operational Details</label>
+            </value>
+            <value>
+                <fullName>Payment Services</fullName>
+                <default>false</default>
+                <label>Payment Services</label>
+            </value>
+            <value>
+                <fullName>Physical Mail</fullName>
+                <default>false</default>
+                <label>Physical Mail</label>
+            </value>
+            <value>
+                <fullName>Verification of Identity</fullName>
+                <default>false</default>
+                <label>Verification of Identity</label>
+            </value>
+            <value>
+                <fullName>Workforce Verification</fullName>
+                <default>false</default>
+                <label>Workforce Verification</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Quicklink_Rollup__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>Automatically calculated field identifying the number of content items under this curriculum. This is used for displaying the user&apos;s completion levels, e.g., viewed 49 of 62 items.</inlineHelpText>
+    <label>Content Item Rollup</label>
+    <summarizedField>DMAPP__DM_DVLS_Module__c.DMAPP__Quicklink_Rollup__c</summarizedField>
+    <summaryForeignKey>DMAPP__DM_DVLS_Module__c.DMAPP__DM_DVLS_Curriculum__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

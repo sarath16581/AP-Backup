@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_DOV_Language__c</fullName>
+    <externalId>false</externalId>
+    <label>DOV Language</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Express eParcel - Add</fullName>
+                <default>false</default>
+                <label>Express eParcel - Add</label>
+            </value>
+            <value>
+                <fullName>Express eParcel - Replace</fullName>
+                <default>false</default>
+                <label>Express eParcel - Replace</label>
+            </value>
+            <value>
+                <fullName>Express eParcel - Delete</fullName>
+                <default>false</default>
+                <label>Express eParcel - Delete</label>
+            </value>
+            <value>
+                <fullName>eParcel - Add</fullName>
+                <default>false</default>
+                <label>eParcel - Add</label>
+            </value>
+            <value>
+                <fullName>eParcel - Replace</fullName>
+                <default>false</default>
+                <label>eParcel - Replace</label>
+            </value>
+            <value>
+                <fullName>eParcel - Delete</fullName>
+                <default>false</default>
+                <label>eParcel - Delete</label>
+            </value>
+            <value>
+                <fullName>Parcel Post - Add</fullName>
+                <default>false</default>
+                <label>Parcel Post - Add</label>
+            </value>
+            <value>
+                <fullName>Parcel Post - Replace</fullName>
+                <default>false</default>
+                <label>Parcel Post - Replace</label>
+            </value>
+            <value>
+                <fullName>Parcel Post - Delete</fullName>
+                <default>false</default>
+                <label>Parcel Post - Delete</label>
+            </value>
+            <value>
+                <fullName>International - Add</fullName>
+                <default>false</default>
+                <label>International - Add</label>
+            </value>
+            <value>
+                <fullName>International - Replace</fullName>
+                <default>false</default>
+                <label>International - Replace</label>
+            </value>
+            <value>
+                <fullName>International - Delete</fullName>
+                <default>false</default>
+                <label>International - Delete</label>
+            </value>
+            <value>
+                <fullName>Letters - Add</fullName>
+                <default>false</default>
+                <label>Letters - Add</label>
+            </value>
+            <value>
+                <fullName>Letters - Replace</fullName>
+                <default>false</default>
+                <label>Letters - Replace</label>
+            </value>
+            <value>
+                <fullName>Letters - Delete</fullName>
+                <default>false</default>
+                <label>Letters - Delete</label>
+            </value>
+            <value>
+                <fullName>Returns - Add</fullName>
+                <default>false</default>
+                <label>Returns - Add</label>
+            </value>
+            <value>
+                <fullName>Returns - Replace</fullName>
+                <default>false</default>
+                <label>Returns - Replace</label>
+            </value>
+            <value>
+                <fullName>Returns - Delete</fullName>
+                <default>false</default>
+                <label>Returns - Delete</label>
+            </value>
+            <value>
+                <fullName>UMS - Add</fullName>
+                <default>false</default>
+                <label>UMS - Add</label>
+            </value>
+            <value>
+                <fullName>UMS - Replace</fullName>
+                <default>false</default>
+                <label>UMS - Replace</label>
+            </value>
+            <value>
+                <fullName>UMS - Delete</fullName>
+                <default>false</default>
+                <label>UMS - Delete</label>
+            </value>
+            <value>
+                <fullName>Print Post - Add</fullName>
+                <default>false</default>
+                <label>Print Post - Add</label>
+            </value>
+            <value>
+                <fullName>Print Post - Replace</fullName>
+                <default>false</default>
+                <label>Print Post - Replace</label>
+            </value>
+            <value>
+                <fullName>Print Post - Delete</fullName>
+                <default>false</default>
+                <label>Print Post - Delete</label>
+            </value>
+            <value>
+                <fullName>Post Billpay - Add</fullName>
+                <default>false</default>
+                <label>Post Billpay - Add</label>
+            </value>
+            <value>
+                <fullName>Post Billpay - Replace</fullName>
+                <default>false</default>
+                <label>Post Billpay - Replace</label>
+            </value>
+            <value>
+                <fullName>Post Billpay - Delete</fullName>
+                <default>false</default>
+                <label>Post Billpay - Delete</label>
+            </value>
+            <value>
+                <fullName>SecurePay Online Payments - Add</fullName>
+                <default>false</default>
+                <label>SecurePay Online Payments - Add</label>
+            </value>
+            <value>
+                <fullName>SecurePay Online Payments - Replace</fullName>
+                <default>false</default>
+                <label>SecurePay Online Payments - Replace</label>
+            </value>
+            <value>
+                <fullName>SecurePay Online Payments - Delete</fullName>
+                <default>false</default>
+                <label>SecurePay Online Payments - Delete</label>
+            </value>
+            <value>
+                <fullName>Other product - Add</fullName>
+                <default>false</default>
+                <label>Other product - Add</label>
+            </value>
+            <value>
+                <fullName>Other product - Replace</fullName>
+                <default>false</default>
+                <label>Other product - Replace</label>
+            </value>
+            <value>
+                <fullName>Other product - Delete</fullName>
+                <default>false</default>
+                <label>Other product - Delete</label>
+            </value>
+            <value>
+                <fullName>Courier - Add</fullName>
+                <default>false</default>
+                <label>Courier - Add</label>
+            </value>
+            <value>
+                <fullName>Courier - Replace</fullName>
+                <default>false</default>
+                <label>Courier - Replace</label>
+            </value>
+            <value>
+                <fullName>Courier - Delete</fullName>
+                <default>false</default>
+                <label>Courier - Delete</label>
+            </value>
+            <value>
+                <fullName>Local Pickup and Delivery Services - Add</fullName>
+                <default>false</default>
+                <label>Local Pickup and Delivery Services - Add</label>
+            </value>
+            <value>
+                <fullName>Local Pickup and Delivery Services - Replace</fullName>
+                <default>false</default>
+                <label>Local Pickup and Delivery Services - Replace</label>
+            </value>
+            <value>
+                <fullName>Local Pickup and Delivery Services - Delete</fullName>
+                <default>false</default>
+                <label>Local Pickup and Delivery Services - Delete</label>
+            </value>
+            <value>
+                <fullName>Express eParcel - Add New Product</fullName>
+                <default>false</default>
+                <label>Express eParcel - Add New Product</label>
+            </value>
+            <value>
+                <fullName>eParcel - Add New Product</fullName>
+                <default>false</default>
+                <label>eParcel - Add New Product</label>
+            </value>
+            <value>
+                <fullName>Parcel Post - Add New Product</fullName>
+                <default>false</default>
+                <label>Parcel Post - Add New Product</label>
+            </value>
+            <value>
+                <fullName>International - Add New Product</fullName>
+                <default>false</default>
+                <label>International - Add New Product</label>
+            </value>
+            <value>
+                <fullName>Letters - Add New Product</fullName>
+                <default>false</default>
+                <label>Letters - Add New Product</label>
+            </value>
+            <value>
+                <fullName>Returns - Add New Product</fullName>
+                <default>false</default>
+                <label>Returns - Add New Product</label>
+            </value>
+            <value>
+                <fullName>UMS - Add New Product</fullName>
+                <default>false</default>
+                <label>UMS - Add New Product</label>
+            </value>
+            <value>
+                <fullName>Print Post - Add New Product</fullName>
+                <default>false</default>
+                <label>Print Post - Add New Product</label>
+            </value>
+            <value>
+                <fullName>Post Billpay - Add New Product</fullName>
+                <default>false</default>
+                <label>Post Billpay - Add New Product</label>
+            </value>
+            <value>
+                <fullName>SecurePay Online Payments - Add New Product</fullName>
+                <default>false</default>
+                <label>SecurePay Online Payments - Add New Product</label>
+            </value>
+            <value>
+                <fullName>Other product - Add New Product</fullName>
+                <default>false</default>
+                <label>Other product - Add New Product</label>
+            </value>
+            <value>
+                <fullName>Courier - Add New Product</fullName>
+                <default>false</default>
+                <label>Courier - Add New Product</label>
+            </value>
+            <value>
+                <fullName>Local Pickup and Delivery Services - Add New Product</fullName>
+                <default>false</default>
+                <label>Local Pickup and Delivery Services - Add New Product</label>
+            </value>
+            <value>
+                <fullName>StarTrack - Add</fullName>
+                <default>false</default>
+                <label>StarTrack - Add</label>
+            </value>
+            <value>
+                <fullName>StarTrack - Replace</fullName>
+                <default>false</default>
+                <label>StarTrack - Replace</label>
+            </value>
+            <value>
+                <fullName>StarTrack - Delete</fullName>
+                <default>false</default>
+                <label>StarTrack - Delete</label>
+            </value>
+            <value>
+                <fullName>StarTrack - Add New Product</fullName>
+                <default>false</default>
+                <label>StarTrack - Add New Product</label>
+            </value>
+            <value>
+                <fullName>ST Additional Charges - Add</fullName>
+                <default>false</default>
+                <label>ST Additional Charges - Add</label>
+            </value>
+            <value>
+                <fullName>ST Additional Charges - Replace</fullName>
+                <default>false</default>
+                <label>ST Additional Charges - Replace</label>
+            </value>
+            <value>
+                <fullName>ST Additional Charges - Delete</fullName>
+                <default>false</default>
+                <label>ST Additional Charges - Delete</label>
+            </value>
+            <value>
+                <fullName>ST Additional Charges - Add New Product</fullName>
+                <default>false</default>
+                <label>ST Additional Charges - Add New Product</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

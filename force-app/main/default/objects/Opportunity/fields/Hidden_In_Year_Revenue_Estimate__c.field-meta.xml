@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hidden_In_Year_Revenue_Estimate__c</fullName>
+    <businessStatus>Hidden</businessStatus>
+    <description>Currency Field stamped to record the In Year Revenue whenever a record is saved. This is for the purposes of Field History Tracking to determine the changes to pipeline amounts over time</description>
+    <externalId>false</externalId>
+    <label>{Hidden} In Year Revenue Estimate</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Currency</type>
+</CustomField>

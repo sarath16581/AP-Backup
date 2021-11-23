@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
+    <cacheControl>Public</cacheControl>
+    <contentType>application/zip</contentType>
+    <description>2014-05 CCU - Copied from APMS_Asset so it is standalone asset for CCU / BSP project
+2016-04 BSP - Added images for BSP
+2017-10 BSP - Added Redirect Modal Dialog JS+CSS
+2017-12-11 BSP - Merchant Recall UI fixes</description>
+</StaticResource>

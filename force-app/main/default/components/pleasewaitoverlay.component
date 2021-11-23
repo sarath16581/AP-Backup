@@ -1,0 +1,99 @@
+<apex:component >
+    
+    <style>
+        #application {
+           font-size: 1.1em;
+           
+        }
+        
+        #application h1 {
+                font-size: 1.5em;
+        }
+        #application h2 {
+                font-style: italic;
+                font-size: 1.2em;
+        }
+        .app-tab {
+            font-size: inherit;
+        }
+        .app-activeTab {
+            background-color: #90D3EB; 
+            color: white; 
+            background-image: none;
+            font-size: inherit;
+        }           
+        .app-inactiveTab { 
+            background-color: rgb(241,241,241); 
+            color: black; 
+            background-image: none;
+            font-size: inherit;     
+        }
+        
+        .bPageBlock .detailList .labelCol {
+            width: 15%;
+        }
+        .page-icon {
+                float: left;
+                width: 55px;
+                height: 55px;
+                margin-right: 1.5em;                
+        }
+        
+                
+        .search-panel-background {
+            background: rgba( 255, 255, 255, .8);
+            width: 100%;
+            height:100%;
+            top: 0;
+            left: 0;
+            position:absolute;
+            z-index: 998;   
+            
+        }
+        .search-panel {
+            background: white;
+            z-index: 999;
+            position: fixed;
+            left: 45%;
+            top: 45%;
+        }
+        
+        #leftPanel {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 800px;
+        }       
+        #rightPanel {
+            padding-left: 800px;
+        }
+    </style>
+    
+    <!--[if IE 8]>
+    <style>
+    .search-panel-background {
+        background: white;
+         -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=79)";
+    }
+    </style>
+    <![endif]-->
+    
+
+    <apex:attribute name="message" type="String" description="message to display" required="false" />
+    
+    <apex:actionStatus id="pleaseWaitOverlay" stopText="">
+        <apex:facet name="start">
+            <div>
+                <div class="search-panel-background"></div>
+                <div class="search-panel">
+                    
+                    <!--<img src="{!URLFOR( $Resource.CTIScreenPopResources, 'ajax-loader-round.gif'  )}" width="70px" height="70px"/>-->
+                    <img src="{!URLFOR( $Resource.CTIScreenPopResources, 'red_loading.gif'  )}" width="70px" height="70px"/>
+                    {!message}
+                </div>
+            
+            </div>
+        </apex:facet>
+    </apex:actionStatus>
+
+</apex:component>

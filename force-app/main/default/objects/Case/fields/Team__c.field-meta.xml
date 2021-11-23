@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Team__c</fullName>
+    <externalId>false</externalId>
+    <label>Team</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Business_Unit__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Account Management</fullName>
+                <default>false</default>
+                <label>Account Management</label>
+            </value>
+            <value>
+                <fullName>Business Solutions</fullName>
+                <default>false</default>
+                <label>Business Solutions</label>
+            </value>
+            <value>
+                <fullName>Card Left</fullName>
+                <default>false</default>
+                <label>Card Left</label>
+            </value>
+            <value>
+                <fullName>Customer Care</fullName>
+                <default>false</default>
+                <label>Customer Care</label>
+            </value>
+            <value>
+                <fullName>Facility</fullName>
+                <default>false</default>
+                <label>Facility</label>
+            </value>
+            <value>
+                <fullName>Financial Services</fullName>
+                <default>false</default>
+                <label>Financial Services</label>
+            </value>
+            <value>
+                <fullName>General</fullName>
+                <default>false</default>
+                <label>General</label>
+            </value>
+            <value>
+                <fullName>Inbound Sales</fullName>
+                <default>false</default>
+                <label>Inbound Sales</label>
+            </value>
+            <value>
+                <fullName>Investigations</fullName>
+                <default>false</default>
+                <label>Investigations</label>
+            </value>
+            <value>
+                <fullName>IT</fullName>
+                <default>false</default>
+                <label>IT</label>
+            </value>
+            <value>
+                <fullName>Legal</fullName>
+                <default>false</default>
+                <label>Legal</label>
+            </value>
+            <value>
+                <fullName>Next Flight</fullName>
+                <default>false</default>
+                <label>Next Flight</label>
+            </value>
+            <value>
+                <fullName>Pickups</fullName>
+                <default>false</default>
+                <label>Pickups</label>
+            </value>
+            <value>
+                <fullName>Priority</fullName>
+                <default>false</default>
+                <label>Priority</label>
+            </value>
+            <value>
+                <fullName>PUD</fullName>
+                <default>false</default>
+                <label>PUD</label>
+            </value>
+            <value>
+                <fullName>Radio Room</fullName>
+                <default>false</default>
+                <label>Radio Room</label>
+            </value>
+            <value>
+                <fullName>Reverse Logistics</fullName>
+                <default>false</default>
+                <label>Reverse Logistics</label>
+            </value>
+            <value>
+                <fullName>Sales</fullName>
+                <default>false</default>
+                <label>Sales</label>
+            </value>
+            <value>
+                <fullName>SWMY Temp</fullName>
+                <default>false</default>
+                <label>SWMY Temp</label>
+            </value>
+            <value>
+                <fullName>Track &amp; Trace</fullName>
+                <default>false</default>
+                <label>Track &amp; Trace</label>
+            </value>
+            <value>
+                <fullName>Web Solutions</fullName>
+                <default>false</default>
+                <label>Web Solutions</label>
+            </value>
+            <value>
+                <fullName>Outside Hire</fullName>
+                <default>false</default>
+                <label>Outside Hire</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Commercial</controllingFieldValue>
+            <valueName>Account Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial</controllingFieldValue>
+            <valueName>Financial Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial</controllingFieldValue>
+            <valueName>Legal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial</controllingFieldValue>
+            <controllingFieldValue>CSC - Brisbane</controllingFieldValue>
+            <controllingFieldValue>CSC - Melbourne</controllingFieldValue>
+            <valueName>Sales</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSC - Aegis</controllingFieldValue>
+            <controllingFieldValue>CSC - Brisbane</controllingFieldValue>
+            <controllingFieldValue>CSC - Melbourne</controllingFieldValue>
+            <valueName>Card Left</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSC - Aegis</controllingFieldValue>
+            <controllingFieldValue>CSC - Brisbane</controllingFieldValue>
+            <controllingFieldValue>CSC - Melbourne</controllingFieldValue>
+            <valueName>Pickups</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSC - Aegis</controllingFieldValue>
+            <controllingFieldValue>CSC - Brisbane</controllingFieldValue>
+            <controllingFieldValue>CSC - Melbourne</controllingFieldValue>
+            <valueName>Track &amp; Trace</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSC - Brisbane</controllingFieldValue>
+            <controllingFieldValue>CSC - Melbourne</controllingFieldValue>
+            <valueName>Investigations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSC - Brisbane</controllingFieldValue>
+            <valueName>SWMY Temp</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSC - Melbourne</controllingFieldValue>
+            <valueName>Business Solutions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSC - Melbourne</controllingFieldValue>
+            <valueName>Customer Care</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSC - Melbourne</controllingFieldValue>
+            <valueName>General</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSC - Melbourne</controllingFieldValue>
+            <valueName>Next Flight</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSC - Melbourne</controllingFieldValue>
+            <valueName>Priority</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CSC - Melbourne</controllingFieldValue>
+            <valueName>Web Solutions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>I.T.</controllingFieldValue>
+            <valueName>IT</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Operations</controllingFieldValue>
+            <controllingFieldValue>Australia Post</controllingFieldValue>
+            <controllingFieldValue>StarTrack Courier</controllingFieldValue>
+            <valueName>Facility</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Operations</controllingFieldValue>
+            <controllingFieldValue>Australia Post</controllingFieldValue>
+            <controllingFieldValue>StarTrack Courier</controllingFieldValue>
+            <valueName>PUD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Operations</controllingFieldValue>
+            <controllingFieldValue>Australia Post</controllingFieldValue>
+            <controllingFieldValue>StarTrack Courier</controllingFieldValue>
+            <valueName>Radio Room</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Operations</controllingFieldValue>
+            <controllingFieldValue>Australia Post</controllingFieldValue>
+            <controllingFieldValue>StarTrack Courier</controllingFieldValue>
+            <valueName>Reverse Logistics</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Operations</controllingFieldValue>
+            <valueName>Outside Hire</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_BlockCreationOfNewExtensions</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(APT_Is_Extension_Pending_Approval__c,
+ISNEW())</errorConditionFormula>
+    <errorMessage>There are Contract Extensions in statuses &apos;Approval Required&apos; or &apos;Pending Approval&apos;. You cannot create new contract extensions until old ones are either &apos;Approved&apos;, &apos;Rejected&apos; or &apos;Cancelled&apos;</errorMessage>
+</ValidationRule>

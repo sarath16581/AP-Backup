@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Activate_Agreement__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(OR(ISPICKVAL(APT_Contract_Type__c,&apos;New Contract&apos;),ISPICKVAL(APT_Contract_Type__c,&apos;DoV Contract&apos;)),IF(AND(OR(ISPICKVAL(Apttus__Status_Category__c,&quot;In Signatures&quot;), ISPICKVAL(Apttus__Status_Category__c,&quot;In Filing&quot;), AND(ISPICKVAL(Apttus__Status_Category__c,&quot;In Authoring&quot;),ISPICKVAL(Apttus__Source__c,&quot;Other Party Paper&quot;))), APT_SAP_Contracts_Record_Count__c &gt; 0),HYPERLINK(&quot;/apex/Apttus__AgreementActivate?id=&quot; &amp;Id, IMAGE(&quot;/resource/Apttus__Button_Activate&quot;, &quot;Activate Agreement&quot;),&quot;_self&quot;),NULL),IF(APT_SAP_Contracts_Record_Count__c &gt; 0  &amp;&amp;  OR(ISPICKVAL(Apttus__Status_Category__c,&quot;In Signatures&quot;), ISPICKVAL(Apttus__Status_Category__c,&quot;In Filing&quot;), AND(ISPICKVAL(Apttus__Status_Category__c,&quot;In Authoring&quot;),ISPICKVAL(Apttus__Source__c,&quot;Other Party Paper&quot;))),HYPERLINK(&quot;/apex/Apttus__AgreementActivate?id=&quot; &amp;Id, IMAGE(&quot;/resource/Apttus__Button_Activate&quot;, &quot;Activate Agreement&quot;),&quot;_self&quot;),NULL))</formula>
+    <inlineHelpText>Please enter SAP Contract Number to make &apos;Activate&apos; button appear on the layout</inlineHelpText>
+    <label>Activate Contract</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

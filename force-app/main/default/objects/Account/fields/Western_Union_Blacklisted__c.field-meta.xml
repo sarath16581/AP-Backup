@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Western_Union_Blacklisted__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>To indicate where an organisation has been blacklisted by Western Union or the Workforce Integrity team</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Indicates where an organisation has been blacklisted by Western Union or the Workforce Integrity team</inlineHelpText>
+    <label>Western Union Blacklisted</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

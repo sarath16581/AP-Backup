@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BA_must_belong_to_Legal_Entity_in_tree</fullName>
+    <active>true</active>
+    <description>For Cognition access, Legal Entity and the Contact&apos;s Legal Entity must be in the same tree</description>
+    <errorConditionFormula>if( RecordType.DeveloperName != &apos;Cognition_Rules&apos;, false,
+(!(ISBLANK(Billing_Account__c)) &amp;&amp;  (Billing_Account__r.Organisation__r.Ultimate_Parent_Number__c !=  Contact__r.Account.Ultimate_Parent_Number__c)))</errorConditionFormula>
+    <errorMessage>For Cognition access, Legal Entity and the Contact&apos;s Legal Entity must be in the same tree</errorMessage>
+</ValidationRule>

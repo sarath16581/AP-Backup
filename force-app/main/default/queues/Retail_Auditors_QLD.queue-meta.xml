@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Retail Auditors - QLD</name>
+    <queueMembers>
+        <users>
+            <user>david.bell@auspost.com.au</user>
+            <user>dianne.adey@auspost.com.au</user>
+            <user>gina.marini@auspost.com.au</user>
+            <user>tina.tsafas@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

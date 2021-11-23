@@ -1,0 +1,113 @@
+/* Style Header section */
+.THIS.headerContainer{
+    background-color: #ffffff;
+}
+
+.THIS .header-content{
+    display: flex;
+    max-width: 1154px;
+    margin: 0 auto;
+    padding: 15px 15px;
+}
+
+.THIS .contentheader-block1 {
+    padding: 10px 10px;
+}
+
+.THIS .contentheader-block2 {
+    padding: 10px 10px;
+}
+
+/* Stlye main Content section, including the Sidebar */
+.THIS.mainContent {
+    padding: 16px 16px;
+    background: #f3f1ee; 
+    display: flex;
+    max-width: 1154px;
+    margin: 0 auto;
+    /*width: 1154px;*/
+}
+
+.THIS .ContentBlock1 {
+    padding-right: 24px;
+    /*max-height: 300px;*/
+    max-width: 33%;
+    margin: 0 auto;
+}
+
+.THIS .ContentBlock2 {
+    padding-right: 24px;
+    /*max-height: 300px;*/
+    max-width: 33%;
+    margin: 0 auto;
+}
+
+.THIS .ContentBlock3 {
+    /*padding-right: 16px;*/
+    /*max-height: 300px;*/
+    max-width: 33%;
+    margin: 0 auto;
+}
+
+/* Style Footer section */
+.THIS.contentfooter {
+    padding: 10px 10px;
+    max-width: 1154px;
+    margin: 0 auto;
+
+}
+
+.THIS .mobile-block {
+        display: none;
+}
+
+/* News component styling for mobile view */
+@media screen and (max-width: 768px) {
+    .THIS .desktop-block {
+        display: none;
+}
+    
+.THIS .mobile-block {
+        display: block;
+}
+    
+.THIS .contentheader-block1 {
+        text-align: center;
+}
+    
+.THIS .mainContent {
+        padding: 10px 10px;
+        background: #f3f1ee; 
+        display: flex;
+        max-width: 1154px;
+        margin: 0 auto;
+        width: 100%;
+}
+    
+.THIS .ContentBlock1 {
+    padding-right: 0px;
+    max-width: none;
+}
+
+.THIS .ContentBlock2 {
+    padding-right: 0px;
+    max-width: none;
+}
+
+.THIS .ContentBlock3 {
+    padding-right: 0px;
+    max-width: none;
+}
+}
+
+/* Styling to control the single word in content header block in inner pages */
+.THIS [data-region-name="ContentHeaderBlock1"]{
+    max-width: 450px;
+}
+
+@media screen and (max-width: 768px) {
+/* Styling to control the single word in content header block in inner pages */
+.THIS [data-region-name="ContentHeaderBlock1"]{
+    max-width: 100%;
+}    
+}

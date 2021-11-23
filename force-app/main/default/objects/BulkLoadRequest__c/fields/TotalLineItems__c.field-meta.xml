@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TotalLineItems__c</fullName>
+    <description>Number of line items included in this request. Note that the line items are purged after processing them successfully. This number includes the number of line items that was included in the original request.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Total number of line items included in request.</inlineHelpText>
+    <label>Total Line Items</label>
+    <precision>8</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

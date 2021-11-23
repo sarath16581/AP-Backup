@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AJ</fullName>
+    <columns>NAME</columns>
+    <columns>Job_Template_Name__c</columns>
+    <columns>Description__c</columns>
+    <columns>Activity_Type__c</columns>
+    <columns>Duration__c</columns>
+    <columns>Service_Territory__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATEDBY_USER</field>
+        <operation>equals</operation>
+        <value>Andrewx Judd</value>
+    </filters>
+    <label>AJ</label>
+</ListView>

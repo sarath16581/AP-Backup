@@ -1,0 +1,174 @@
+<!--
+    2020-04-01 nathan.franklin@auspost.com.au Created
+    2020-09-18 - Ranjeewa Silva - Improved responsiveness on smaller screen sizes.
+    2020-10-05 - Disha Kariya - Allow safe drop attachment for case creation
+    2020-10-12 - Ranjeewa Silva - Added support for Direct to Network case creation.
+    2021-10-01 - Nathan Franklin - Changed safe drop to delivery proof + uplift to v52
+-->
+<template>
+
+	<div class="article-document slds-grid slds-wrap slds-gutters_direct-x-small slds-grid_vertical-stretch">
+
+		<div class="slds-col slds-size_1-of-1">
+			<c-happy-parcel-milestone-path loading-tracking-api={loadingTrackingApi}
+			                               tracking-api-result={article.trackingResult}
+			                               animation-speed="500">
+			</c-happy-parcel-milestone-path>
+		</div>
+
+		<template if:true={supportsCaseCreation}>
+			<div class="slds-col slds-size_1-of-1">
+				<c-happy-parcel-last-mile-facility hp-host-context={hostContext}
+												   tracking-api-result={article.trackingResult}
+												   selected-customer-type={selectedCustomerType}
+												   attach-delivery-proof={attachDeliveryProof}
+												   loading={loadingTrackingApi}>
+				</c-happy-parcel-last-mile-facility>
+			</div>
+		</template>
+
+		<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-m-bottom_medium slds-wrap">
+			<c-happy-parcel-card title="EDD Summary" icon-name="utility:magicwand" variant="stretch">
+				<div class="slds-grid slds-grow slds-grid_vertical-stretch">
+					<div class="slds-col slds-grid slds-p-horizontal_medium slds-size_1-of-2 slds-is-relative">
+						<template if:true={loadingAnalyticsApi}>
+							<div class="slds-text-align_center slds-grow">
+								<lightning-spinner variant="brand" size="small" alternative-text="Loading search results...">
+								</lightning-spinner>
+							</div>
+						</template>
+						<template if:false={loadingAnalyticsApi}>
+							<div class="animated pulse slds-grow slds-align_absolute-center slds-show" style={emoticonAnimationCss}>
+								<div class="slds-text-align_center">
+									<c-happy-parcel-custom-icon size="large" icon={emoticonStatusIcon} class="slds-show_inline-block"></c-happy-parcel-custom-icon>
+								</div>
+								<template if:true={emoticonStatusText}>
+									<div class="slds-text-align_center">
+										<span class="slds-is-relative slds-show_inline-block">
+											<span class="slds-m-right_xxx-small">{emoticonStatusText}</span>
+											<template if:true={emoticonHelpText}>
+												<lightning-helptext content={emoticonHelpText} style="position:relative;top:-3px;"></lightning-helptext>
+											</template>
+										</span>
+									</div>
+								</template>
+							</div>
+						</template>
+
+					</div>
+					<div class="slds-col slds-grid slds-p-horizontal_medium slds-size_1-of-2 slds-is-relative">
+						<template if:true={loadingTrackingApi}>
+							<div class="slds-text-align_center slds-grow">
+								<lightning-spinner variant="brand" size="small" alternative-text="Loading search results...">
+								</lightning-spinner>
+							</div>
+						</template>
+						<template if:false={loadingTrackingApi}>
+							<template if:true={productTypeDisplay}>
+								<div class="slds-align_absolute-center slds-grid_vertical animated pulse article-badge" style={productTypeCss}>
+									<div class="slds-text-align_center">{productTypeDisplay}</div>
+								</div>
+							</template>
+						</template>
+					</div>
+				</div>
+			</c-happy-parcel-card>
+		</div>
+		<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-m-bottom_medium">
+			<c-happy-parcel-edd loading-tracking-api={loadingTrackingApi}
+			                    loading-analytics-api={loadingAnalyticsApi}
+			                    tracking-api-result={article.trackingResult}
+			                    analytics-api-result={article.analyticsResult}
+			                    supports-external-edd={supportsExternalEdd}
+			>
+			</c-happy-parcel-edd>
+		</div>
+
+		<!-- Sender / Receiver details -->
+		<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-m-bottom_medium slds-has-flexi-truncate">
+			<c-happy-parcel-customer-details detail-type="1" loading={loadingTrackingApi}
+	                                         contact={article.trackingResult.senderContact}
+		                                     tracking-api-result={article.trackingResult}
+		                                     supports-customer-selection={supportsCustomerSelection}
+			                                 selected={senderSelected}
+			                                 oncustomerselect={handleCustomerSelected}
+			                                 oncustomerdeselect={handleCustomerDeselected}>
+			</c-happy-parcel-customer-details>
+		</div>
+		<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-m-bottom_medium slds-has-flexi-truncate">
+			<c-happy-parcel-customer-details detail-type="2" loading={loadingTrackingApi}
+			                                 contact={article.trackingResult.receiverContact}
+			                                 tracking-api-result={article.trackingResult}
+			                                 supports-customer-selection={supportsCustomerSelection}
+			                                 selected={receiverSelected}
+			                                 oncustomerselect={handleCustomerSelected}
+			                                 oncustomerdeselect={handleCustomerDeselected}>
+			</c-happy-parcel-customer-details>
+		</div>
+
+		<!-- Latest Scans -->
+		<div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+			<c-happy-parcel-latest-scans loading={loadingTrackingApi}
+			                             tracking-api-result={article.trackingResult}>
+			</c-happy-parcel-latest-scans>
+		</div>
+
+		<!-- Article Details -->
+		<div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+			<c-happy-parcel-article-details loading={loadingTrackingApi}
+			                                tracking-api-result={article.trackingResult}>
+			</c-happy-parcel-article-details>
+		</div>
+
+
+		<!-- Looping / missorts -->
+		<div class="slds-col slds-wrap slds-size_1-of-1 slds-grid_vertical-stretch">
+
+			<!-- looping / missorts -->
+			<c-happy-parcel-looping-missorts-assessment loading={loadingAnalyticsApi}
+			                                            analytics-api-result={article.analyticsResult}>
+			</c-happy-parcel-looping-missorts-assessment>
+
+		</div>
+
+		<!-- delivery assessment -->
+		<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-medium-size_1-of-4 slds-m-bottom_medium">
+			<c-happy-parcel-delivery-assessment loading={loadingAnalyticsApi}
+			                                    analytics-api-result={article.analyticsResult}>
+			</c-happy-parcel-delivery-assessment>
+		</div>
+
+		<!-- Manifest assessment -->
+		<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-medium-size_1-of-4 slds-m-bottom_medium">
+			<c-happy-parcel-manifest-assessment loading={loadingAnalyticsApi}
+			                                    analytics-api-result={article.analyticsResult}>
+			</c-happy-parcel-manifest-assessment>
+		</div>
+
+		<!-- Intransit redirect assessment -->
+		<div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-4 slds-m-bottom_medium">
+			<c-happy-parcel-redirect-assessment loading={loadingAnalyticsApi}
+			                                    analytics-api-result={article.analyticsResult}>
+			</c-happy-parcel-redirect-assessment>
+		</div>
+
+		<!-- Delivery Proofs -->
+		<div class="slds-col slds-size_1-of-1">
+			<c-happy-parcel-delivery-proof loading={loadingTrackingApi}
+			                               article={article.trackingResult.article}
+			                               events={article.trackingResult.events}
+			                               parent-article-selected={isArticleSelected}
+										   supports-delivery-proof-attachment={supportsDeliveryProofAttachment}
+										   onattachdeliveryproof={handleAttachDeliveryProof}>
+			</c-happy-parcel-delivery-proof>
+		</div>
+
+		<!-- event messages -->
+		<div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+			<c-happy-parcel-event-messages loading={loadingTrackingApi}
+			                               event-messages={article.trackingResult.events}>
+			</c-happy-parcel-event-messages>
+		</div>
+	</div>
+
+</template>

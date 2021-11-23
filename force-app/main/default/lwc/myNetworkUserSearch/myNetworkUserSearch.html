@@ -1,0 +1,24 @@
+<!--
+  * @author       : arjun.singh@auspost.com.au
+  * @date         : 21/05/2020
+  * @description  : Related to Case Assign to feature in MyNetwork Community
+--------------------------------------- History --------------------------------------------------
+21.05.2020    Arjun Singh    Created
+-->
+<template>
+    <div class="container">        
+        <c-my-network-case-assign-to-look-up 
+            class="lookup"
+            field-list="Id, FirstName, LastName, Name"
+            sobject-name="User"
+            fields-to-search="FirstName, LastName, Name"
+            icon-name="standard:contact"
+            placeholder="Search for My Network User" 
+            search-result-title-formatter={titleFormatter} 
+            search-result-subtitle-formatter={subtitleFormatter} 
+            search-result-select-handler={searchResultSelectHandler}
+            field-level-help={fieldLevelHelp}
+            required={required}>
+        </c-my-network-case-assign-to-look-up>
+        </div>
+</template>

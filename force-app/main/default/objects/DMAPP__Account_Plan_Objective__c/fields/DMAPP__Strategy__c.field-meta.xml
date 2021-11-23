@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Strategy__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>How you plan to achieve the objective. A description of your high level approach to achieving the Objective. For example, &quot;by leveraging relationships and references in the industry&quot;</inlineHelpText>
+    <label>Strategy</label>
+    <length>8192</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>4</visibleLines>
+</CustomField>

@@ -1,0 +1,114 @@
+<!--
+    2017-09-17 nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
+    2019-09-24 saiswetha.pingali@auspost.com.au Modified showHeader to true for MW0003166
+    2020-03-06 gunith.devasurendra@auspost.com.au Changed the rendering from Jquery.layout to Flexbox to resolve INC1552792
+-->
+<apex:page showHeader="true" sidebar="false" cache="true">
+    <apex:form >
+
+        <c:ScriptLoader jsLibraries="jquery,jqueryui,ssswconsole,interaction,integration,bootstrap"
+                        cssLibraries="jqueryui,bootstrap,ssswconsole" />
+
+        <style type="text/css">
+
+            body {
+                background: #fff;
+            }
+
+            .hasMotif {
+                margin : 0px;
+            }
+
+            .search-row {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                width: 100%;
+            }
+
+            .search-column {
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+                width: 50%;
+            }
+            .search-column:last-child {
+                border-left: 2px solid #d8ddd6;
+            }
+
+            .pane {
+                display: none; /* will appear when layout inits */
+            }
+            
+            .rotated {
+                position: absolute;
+                white-space: nowrap;
+                width: 45px;
+                -webkit-transform: rotate(270deg);
+                -moz-transform: rotate(270deg);
+                -o-transform: rotate(270deg);
+                transform: rotate(270deg);
+            }
+            .detailPage .bPageBlock, .editPage .bPageBlock, .bPageBlock.apexDefaultPageBlock {
+                border-top: 4px solid #dc1928;
+            }
+
+        </style>
+
+        <div id="container">
+
+            <div class="search-row">
+                <div class="search-column">
+                    <apex:actionregion id="theForm">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#searchPanel" data-toggle="tab">Search</a></li>
+                            <li><a href="#ADVsearchPanelAdvanced" data-toggle="tab">Advanced Search</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="searchPanel">
+                                <c:SearchContactComponent />
+                            </div>
+                            <div class="tab-pane fade" id="ADVsearchPanelAdvanced">
+                                <c:AdvancedSearchContactComponent />
+                            </div>
+
+                        </div>
+                    </apex:actionregion>
+                </div>
+                <div class="search-column">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#MiniCase" data-toggle="tab">Enquiry</a></li>
+                        <li><a href="#Facilities"  data-toggle="tab" id="searchTab">Network Search</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="MiniCase">
+                            <apex:actionregion id="theForm2">
+                                <c:MiniCaseComponent showError="true" />
+                            </apex:actionregion>
+                        </div>
+                        <div class="tab-pane fade" id="Facilities">
+                            <iframe data-src="/apex/facilitysearch"  src="about:blank" scrolling="true"
+                                    height="1000px" id="theIframe" width="100%" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </apex:form> 
+    
+    <script type="text/javascript">
+    var j$ = jQuery.noConflict();
+        
+    // if the phone number is passed through URL param, execute the search on page load.
+    j$(function(){
+
+          //hide the Network Search until it is clicked on
+        j$('#searchTab').click(function(){
+            var iframe = j$('#theIframe');
+            iframe.attr('src', iframe.data('src'));
+            j$('#theIframe').show();
+        });
+    });
+    </script>
+</apex:page>

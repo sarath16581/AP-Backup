@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email notification template that can be used by Resolver Groups to generate an email body for manually communicating an update with an outlet on their case</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>ExternalContactEmail</letterhead>
+    <name>RFCC Outlet Notification – General Template</name>
+    <style>freeForm</style>
+    <subject>Case {!Case.CaseNumber} update</subject>
+    <textOnly>Hello {!Contact.FirstName},
+
+
+
+Here is an update on your open case with Retail Fulfilment:
+
+
+
+{!Case.Last_Case_Comment}
+
+
+Case: {!Case.CaseNumber}
+
+Type: {!Case.Type}
+
+Problem Type: {!Case.Problem_Type_Retail__c}
+
+Subject: {!Case.Subject}
+
+
+Thanks &amp; Regards,
+
+{!User.Name}
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

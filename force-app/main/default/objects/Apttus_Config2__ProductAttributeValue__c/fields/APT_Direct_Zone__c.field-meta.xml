@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Direct_Zone__c</fullName>
+    <description>direct zone for selected postcode-suburb for startrack</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Rate card that will be populated if pricing available for the zone</inlineHelpText>
+    <label>Direct Zone</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

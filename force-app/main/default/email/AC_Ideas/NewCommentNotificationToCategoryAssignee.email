@@ -1,0 +1,11 @@
+<p>{!authorName} has commented on an idea assigned to you - <a href="https://auspost.my.salesforce.com/ideas/viewIdea.apexp?id={!ideaId}">{!ideaTitle}</a>.</p>
+<hr />
+<p>Comment details:</p>
+{!commentBody}
+<hr />
+<p> Things you might want to do next:
+</p>
+<ul>
+<li><a href="https://community.auspost.com.au/s/idea/{!ideaId}/detail"><em>Post a reply</em></a> to the comment to keep the conversation flowing.</li>
+<li><a href="https://community.auspost.com.au/s/ideas-list"><em>Visit the Ideas community</em></a> and explore other Ideas</li>
+</ul>

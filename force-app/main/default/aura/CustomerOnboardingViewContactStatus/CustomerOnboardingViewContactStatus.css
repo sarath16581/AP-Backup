@@ -1,0 +1,17 @@
+.THIS .divMargin{
+    width : 95%;
+    margin-bottom:2%;
+}
+.THIS.mainDivStyle{
+    background: white;
+    height: auto;
+    max-height:240px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 0.25rem;
+}
+.THIS .innerDivStyles{
+    margin-left:1%;
+    margin-bottom: 1%;
+    margin-top: 1%;
+}

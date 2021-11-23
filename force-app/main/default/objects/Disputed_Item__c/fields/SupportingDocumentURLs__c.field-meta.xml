@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SupportingDocumentURLs__c</fullName>
+    <description>Public URL to access the supporting documents related to the disputed credit claim item.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Public URL to access the supporting documents related to the disputed credit claim item.</inlineHelpText>
+    <label>Supporting Document URLs</label>
+    <length>512</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

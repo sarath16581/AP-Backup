@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DivisionalCFO__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>DEPRECATED. DO NOT USE. Divisional CFO name</description>
+    <externalId>false</externalId>
+    <label>Divisional CFO (DEPRECATED)</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Credit_Approvals2FtZ</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,32 @@
+.THIS {
+    }
+    .THIS .slds-modal__header{
+        border-bottom: none;
+        }
+        .THIS .slds-modal__header h2{
+            text-align: left;
+            }
+    .THIS .slds-input{
+        border-color: #eaeaea;
+        }
+    .THIS .similar-ideas {
+        padding: 5px 15px;
+        background: #f9fbff;
+        }
+        .THIS .similar-ideas p {
+            font-size: 12px;
+            color: #888888;
+            }
+            .THIS .similar-ideas p span {
+                color: #bbbbbb;
+                }
+        .THIS .similar-ideas ul li {
+            font-size: 12px;
+            }
+    .THIS .slds-modal__footer{
+        border-top: solid 1px #eaeaea;
+        }
+
+    .THIS textarea {
+        min-height: 300px;
+    }

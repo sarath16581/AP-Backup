@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_DSR_Routing</fullName>
+    <active>true</active>
+    <label>Credit DSR Routing</label>
+    <picklistValues>
+        <picklist>Credit_DSR_Routing__c</picklist>
+        <values>
+            <fullName>Change Billing Account Details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Assessment Query</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Limit Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Person Code</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Risk Team</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unassigned Credit Management Requests</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Match_Rules_On__c</picklist>
+        <values>
+            <fullName>ALL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANY</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>NPS_criteria__c</picklist>
+        <values>
+            <fullName>Exclude</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Include</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

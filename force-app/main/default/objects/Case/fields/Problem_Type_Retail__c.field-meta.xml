@@ -1,0 +1,966 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Problem_Type_Retail__c</fullName>
+    <externalId>false</externalId>
+    <label>Problem Type</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Type</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Backorder</fullName>
+                <default>false</default>
+                <label>Backorder</label>
+            </value>
+            <value>
+                <fullName>Change/Update</fullName>
+                <default>false</default>
+                <label>Change/Update</label>
+            </value>
+            <value>
+                <fullName>Credit Hold</fullName>
+                <default>false</default>
+                <label>Credit Hold</label>
+            </value>
+            <value>
+                <fullName>Damaged/Faulty</fullName>
+                <default>false</default>
+                <label>Damaged/Faulty</label>
+            </value>
+            <value>
+                <fullName>Damaged In Transit</fullName>
+                <default>false</default>
+                <label>Damaged In Transit</label>
+            </value>
+            <value>
+                <fullName>Delayed Parcel</fullName>
+                <default>false</default>
+                <label>Delayed Parcel</label>
+            </value>
+            <value>
+                <fullName>Delivered to Wrong Address</fullName>
+                <default>false</default>
+                <label>Delivered to Wrong Address</label>
+            </value>
+            <value>
+                <fullName>Duplicate Order</fullName>
+                <default>false</default>
+                <label>Duplicate Order</label>
+            </value>
+            <value>
+                <fullName>Excess</fullName>
+                <default>false</default>
+                <label>Excess</label>
+            </value>
+            <value>
+                <fullName>Missing Contents</fullName>
+                <default>false</default>
+                <label>Missing Contents</label>
+            </value>
+            <value>
+                <fullName>Missing In Transit</fullName>
+                <default>false</default>
+                <label>Missing In Transit</label>
+            </value>
+            <value>
+                <fullName>Multiple Discrepancies</fullName>
+                <default>false</default>
+                <label>Multiple Discrepancies</label>
+            </value>
+            <value>
+                <fullName>No eParcel Labels Printed</fullName>
+                <default>false</default>
+                <label>No eParcel Labels Printed</label>
+            </value>
+            <value>
+                <fullName>No EPOS DA</fullName>
+                <default>false</default>
+                <label>No EPOS DA</label>
+            </value>
+            <value>
+                <fullName>No Paper DA</fullName>
+                <default>false</default>
+                <label>No Paper DA</label>
+            </value>
+            <value>
+                <fullName>No Picking List</fullName>
+                <default>false</default>
+                <label>No Picking List</label>
+            </value>
+            <value>
+                <fullName>Order Status</fullName>
+                <default>false</default>
+                <label>Order Status</label>
+            </value>
+            <value>
+                <fullName>Outstanding Credit</fullName>
+                <default>false</default>
+                <label>Outstanding Credit</label>
+            </value>
+            <value>
+                <fullName>Oversupply - Retain</fullName>
+                <default>false</default>
+                <label>Oversupply - Retain</label>
+            </value>
+            <value>
+                <fullName>Oversupply - Return</fullName>
+                <default>false</default>
+                <label>Oversupply - Return</label>
+            </value>
+            <value>
+                <fullName>Poor Packing Quality</fullName>
+                <default>false</default>
+                <label>Poor Packing Quality</label>
+            </value>
+            <value>
+                <fullName>Pricing/Discounts</fullName>
+                <default>false</default>
+                <label>Pricing/Discounts</label>
+            </value>
+            <value>
+                <fullName>Promotion</fullName>
+                <default>false</default>
+                <label>Promotion</label>
+            </value>
+            <value>
+                <fullName>Shortfall - Send Stock</fullName>
+                <default>false</default>
+                <label>Shortfall - Send Stock</label>
+            </value>
+            <value>
+                <fullName>Stock Availability</fullName>
+                <default>false</default>
+                <label>Stock Availability</label>
+            </value>
+            <value>
+                <fullName>Technical Information</fullName>
+                <default>false</default>
+                <label>Technical Information</label>
+            </value>
+            <value>
+                <fullName>Vendor Shortfall</fullName>
+                <default>false</default>
+                <label>Vendor Shortfall</label>
+            </value>
+            <value>
+                <fullName>Withdrawn</fullName>
+                <default>false</default>
+                <label>Withdrawn</label>
+            </value>
+            <value>
+                <fullName>Wrong Customer</fullName>
+                <default>false</default>
+                <label>Wrong Customer</label>
+            </value>
+            <value>
+                <fullName>Wrong Product - Retain</fullName>
+                <default>false</default>
+                <label>Wrong Product - Retain</label>
+            </value>
+            <value>
+                <fullName>Wrong Product - Return</fullName>
+                <default>false</default>
+                <label>Wrong Product - Return</label>
+            </value>
+            <value>
+                <fullName>Undelivered Parcel</fullName>
+                <default>false</default>
+                <label>Undelivered Parcel</label>
+            </value>
+            <value>
+                <fullName>Incorrectly Delivered Parcel</fullName>
+                <default>false</default>
+                <label>Incorrectly Delivered Parcel</label>
+            </value>
+            <value>
+                <fullName>Order not PGI&apos;d</fullName>
+                <default>false</default>
+                <label>Order not PGI&apos;d</label>
+            </value>
+            <value>
+                <fullName>Oversupply - Invoice</fullName>
+                <default>false</default>
+                <label>Oversupply - Invoice</label>
+            </value>
+            <value>
+                <fullName>Wrong Product - Invoice</fullName>
+                <default>false</default>
+                <label>Wrong Product - Invoice</label>
+            </value>
+            <value>
+                <fullName>Shortfall - Issue Credit</fullName>
+                <default>false</default>
+                <label>Shortfall - Issue Credit</label>
+            </value>
+            <value>
+                <fullName>Excess/Duplicate Order</fullName>
+                <default>false</default>
+                <label>Excess/Duplicate Order</label>
+            </value>
+            <value>
+                <fullName>Return To Sender</fullName>
+                <default>false</default>
+                <label>Return To Sender</label>
+            </value>
+            <value>
+                <fullName>Returned by Customer</fullName>
+                <default>false</default>
+                <label>Returned by Customer</label>
+            </value>
+            <value>
+                <fullName>Received Damaged</fullName>
+                <default>false</default>
+                <label>Received Damaged</label>
+            </value>
+            <value>
+                <fullName>Access Code Reminder</fullName>
+                <default>false</default>
+                <label>Access Code Reminder</label>
+            </value>
+            <value>
+                <fullName>Account Authentication</fullName>
+                <default>false</default>
+                <label>Account Authentication</label>
+            </value>
+            <value>
+                <fullName>Account Creation</fullName>
+                <default>false</default>
+                <label>Account Creation</label>
+            </value>
+            <value>
+                <fullName>Activation Failure</fullName>
+                <default>false</default>
+                <label>Activation Failure</label>
+            </value>
+            <value>
+                <fullName>All Cash Out</fullName>
+                <default>false</default>
+                <label>All Cash Out</label>
+            </value>
+            <value>
+                <fullName>Balance Inquiry</fullName>
+                <default>false</default>
+                <label>Balance Inquiry</label>
+            </value>
+            <value>
+                <fullName>Balance Redemption</fullName>
+                <default>false</default>
+                <label>Balance Redemption</label>
+            </value>
+            <value>
+                <fullName>Card No Longer Required</fullName>
+                <default>false</default>
+                <label>Card No Longer Required</label>
+            </value>
+            <value>
+                <fullName>Compromised</fullName>
+                <default>false</default>
+                <label>Compromised</label>
+            </value>
+            <value>
+                <fullName>CTM Monitoring</fullName>
+                <default>false</default>
+                <label>CTM Monitoring</label>
+            </value>
+            <value>
+                <fullName>Customer Requested</fullName>
+                <default>false</default>
+                <label>Customer Requested</label>
+            </value>
+            <value>
+                <fullName>Damaged</fullName>
+                <default>false</default>
+                <label>Damaged</label>
+            </value>
+            <value>
+                <fullName>Deceased Estates</fullName>
+                <default>false</default>
+                <label>Deceased Estates</label>
+            </value>
+            <value>
+                <fullName>Declined</fullName>
+                <default>false</default>
+                <label>Declined</label>
+            </value>
+            <value>
+                <fullName>Declined - $0.09 fee</fullName>
+                <default>false</default>
+                <label>Declined - $0.09 fee</label>
+            </value>
+            <value>
+                <fullName>Declined - Insuffient Funds</fullName>
+                <default>false</default>
+                <label>Declined - Insuffient Funds</label>
+            </value>
+            <value>
+                <fullName>Declined - Other</fullName>
+                <default>false</default>
+                <label>Declined - Other</label>
+            </value>
+            <value>
+                <fullName>Declined - VBV</fullName>
+                <default>false</default>
+                <label>Declined - VBV</label>
+            </value>
+            <value>
+                <fullName>Dispute/CHB Cancelled</fullName>
+                <default>false</default>
+                <label>Dispute/CHB Cancelled</label>
+            </value>
+            <value>
+                <fullName>Dispute/CHB Completed</fullName>
+                <default>false</default>
+                <label>Dispute/CHB Completed</label>
+            </value>
+            <value>
+                <fullName>Dispute/CHB Customer Lodgement</fullName>
+                <default>false</default>
+                <label>Dispute/CHB Customer Lodgement</label>
+            </value>
+            <value>
+                <fullName>Dispute/CHB Customer Submitted</fullName>
+                <default>false</default>
+                <label>Dispute/CHB Customer Submitted</label>
+            </value>
+            <value>
+                <fullName>Dispute/CHB In progress</fullName>
+                <default>false</default>
+                <label>Dispute/CHB In progress</label>
+            </value>
+            <value>
+                <fullName>Dispute/CHB Inquiry</fullName>
+                <default>false</default>
+                <label>Dispute/CHB Inquiry</label>
+            </value>
+            <value>
+                <fullName>Dispute/CHB Issuer Lodgement</fullName>
+                <default>false</default>
+                <label>Dispute/CHB Issuer Lodgement</label>
+            </value>
+            <value>
+                <fullName>Dispute/CHB Issuer Submitted</fullName>
+                <default>false</default>
+                <label>Dispute/CHB Issuer Submitted</label>
+            </value>
+            <value>
+                <fullName>Dissatisfied</fullName>
+                <default>false</default>
+                <label>Dissatisfied</label>
+            </value>
+            <value>
+                <fullName>Extension Request (Gift Card only)</fullName>
+                <default>false</default>
+                <label>Extension Request (Gift Card only)</label>
+            </value>
+            <value>
+                <fullName>Fee Reversal Request</fullName>
+                <default>false</default>
+                <label>Fee Reversal Request</label>
+            </value>
+            <value>
+                <fullName>Follow-up</fullName>
+                <default>false</default>
+                <label>Follow-up</label>
+            </value>
+            <value>
+                <fullName>Funds Forfeit</fullName>
+                <default>false</default>
+                <label>Funds Forfeit</label>
+            </value>
+            <value>
+                <fullName>General Information</fullName>
+                <default>false</default>
+                <label>General Information</label>
+            </value>
+            <value>
+                <fullName>General Inquiry</fullName>
+                <default>false</default>
+                <label>General Inquiry</label>
+            </value>
+            <value>
+                <fullName>Information</fullName>
+                <default>false</default>
+                <label>Information</label>
+            </value>
+            <value>
+                <fullName>Inquiry</fullName>
+                <default>false</default>
+                <label>Inquiry</label>
+            </value>
+            <value>
+                <fullName>Load not Reached Card</fullName>
+                <default>false</default>
+                <label>Load not Reached Card</label>
+            </value>
+            <value>
+                <fullName>Lost/Stolen</fullName>
+                <default>false</default>
+                <label>Lost/Stolen</label>
+            </value>
+            <value>
+                <fullName>Merchant Refund Request</fullName>
+                <default>false</default>
+                <label>Merchant Refund Request</label>
+            </value>
+            <value>
+                <fullName>MO Not Received</fullName>
+                <default>false</default>
+                <label>MO Not Received</label>
+            </value>
+            <value>
+                <fullName>New</fullName>
+                <default>false</default>
+                <label>New</label>
+            </value>
+            <value>
+                <fullName>Not Received</fullName>
+                <default>false</default>
+                <label>Not Received</label>
+            </value>
+            <value>
+                <fullName>Online Shop Refund</fullName>
+                <default>false</default>
+                <label>Online Shop Refund</label>
+            </value>
+            <value>
+                <fullName>Order Not Received</fullName>
+                <default>false</default>
+                <label>Order Not Received</label>
+            </value>
+            <value>
+                <fullName>Original</fullName>
+                <default>false</default>
+                <label>Original</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>PIN not working</fullName>
+                <default>false</default>
+                <label>PIN not working</label>
+            </value>
+            <value>
+                <fullName>PIN required</fullName>
+                <default>false</default>
+                <label>PIN required</label>
+            </value>
+            <value>
+                <fullName>PIN Tries</fullName>
+                <default>false</default>
+                <label>PIN Tries</label>
+            </value>
+            <value>
+                <fullName>Pre-Auth Extra Hold</fullName>
+                <default>false</default>
+                <label>Pre-Auth Extra Hold</label>
+            </value>
+            <value>
+                <fullName>Pre-Auth General</fullName>
+                <default>false</default>
+                <label>Pre-Auth General</label>
+            </value>
+            <value>
+                <fullName>Pre-Auth Release Request</fullName>
+                <default>false</default>
+                <label>Pre-Auth Release Request</label>
+            </value>
+            <value>
+                <fullName>Product</fullName>
+                <default>false</default>
+                <label>Product</label>
+            </value>
+            <value>
+                <fullName>Purchase Return</fullName>
+                <default>false</default>
+                <label>Purchase Return</label>
+            </value>
+            <value>
+                <fullName>Received by Non-CH</fullName>
+                <default>false</default>
+                <label>Received by Non-CH</label>
+            </value>
+            <value>
+                <fullName>Reclaim Funds</fullName>
+                <default>false</default>
+                <label>Reclaim Funds</label>
+            </value>
+            <value>
+                <fullName>Reissue</fullName>
+                <default>false</default>
+                <label>Reissue</label>
+            </value>
+            <value>
+                <fullName>Request</fullName>
+                <default>false</default>
+                <label>Request</label>
+            </value>
+            <value>
+                <fullName>Retail Error Reversal</fullName>
+                <default>false</default>
+                <label>Retail Error Reversal</label>
+            </value>
+            <value>
+                <fullName>Service</fullName>
+                <default>false</default>
+                <label>Service</label>
+            </value>
+            <value>
+                <fullName>SMS Edit</fullName>
+                <default>false</default>
+                <label>SMS Edit</label>
+            </value>
+            <value>
+                <fullName>SMS Not Received</fullName>
+                <default>false</default>
+                <label>SMS Not Received</label>
+            </value>
+            <value>
+                <fullName>SMS Set Up</fullName>
+                <default>false</default>
+                <label>SMS Set Up</label>
+            </value>
+            <value>
+                <fullName>Statement Request</fullName>
+                <default>false</default>
+                <label>Statement Request</label>
+            </value>
+            <value>
+                <fullName>Suspicious</fullName>
+                <default>false</default>
+                <label>Suspicious</label>
+            </value>
+            <value>
+                <fullName>System Triggers</fullName>
+                <default>false</default>
+                <label>System Triggers</label>
+            </value>
+            <value>
+                <fullName>Tech Concerns</fullName>
+                <default>false</default>
+                <label>Tech Concerns</label>
+            </value>
+            <value>
+                <fullName>Tech Issue</fullName>
+                <default>false</default>
+                <label>Tech Issue</label>
+            </value>
+            <value>
+                <fullName>Technical</fullName>
+                <default>false</default>
+                <label>Technical</label>
+            </value>
+            <value>
+                <fullName>Update Details</fullName>
+                <default>false</default>
+                <label>Update Details</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
+            <valueName>Damaged In Transit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Multiple Discrepancies</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Oversupply - Return</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Shortfall - Send Stock</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Vendor Shortfall</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Wrong Product - Return</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Oversupply - Invoice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Wrong Product - Invoice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Discrepancy</controllingFieldValue>
+            <valueName>Shortfall - Issue Credit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Standing Order Query - Philatelic</controllingFieldValue>
+            <valueName>Change/Update</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account Enquiry</controllingFieldValue>
+            <valueName>Access Code Reminder</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account Enquiry</controllingFieldValue>
+            <valueName>Account Authentication</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account Enquiry</controllingFieldValue>
+            <valueName>Balance Inquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account Enquiry</controllingFieldValue>
+            <valueName>Fee Reversal Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account Enquiry</controllingFieldValue>
+            <valueName>PIN not working</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account Enquiry</controllingFieldValue>
+            <valueName>PIN required</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Account Enquiry</controllingFieldValue>
+            <valueName>Update Details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>App Inquiries</controllingFieldValue>
+            <controllingFieldValue>Customer Portal Inquiry</controllingFieldValue>
+            <controllingFieldValue>Online Shop</controllingFieldValue>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>General Inquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>App Inquiries</controllingFieldValue>
+            <valueName>Tech Concerns</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Block Card</controllingFieldValue>
+            <valueName>Customer Requested</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Block Card</controllingFieldValue>
+            <controllingFieldValue>Reissue Card</controllingFieldValue>
+            <controllingFieldValue>Replacement or Reissue Card</controllingFieldValue>
+            <valueName>Lost/Stolen</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Block Card</controllingFieldValue>
+            <valueName>Received by Non-CH</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Block Card</controllingFieldValue>
+            <valueName>Suspicious</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Activation</controllingFieldValue>
+            <valueName>New</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Activation</controllingFieldValue>
+            <valueName>Reissue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Cancellation or Closure</controllingFieldValue>
+            <valueName>All Cash Out</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Cancellation or Closure</controllingFieldValue>
+            <valueName>Card No Longer Required</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Cancellation or Closure</controllingFieldValue>
+            <controllingFieldValue>Reissue Card</controllingFieldValue>
+            <controllingFieldValue>Replacement or Reissue Card</controllingFieldValue>
+            <valueName>Compromised</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Cancellation or Closure</controllingFieldValue>
+            <valueName>Deceased Estates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Cancellation or Closure</controllingFieldValue>
+            <valueName>Dissatisfied</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Cancellation or Closure</controllingFieldValue>
+            <valueName>MO Not Received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Cancellation or Closure</controllingFieldValue>
+            <valueName>Reclaim Funds</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Expiry</controllingFieldValue>
+            <valueName>Balance Redemption</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Expiry</controllingFieldValue>
+            <valueName>Extension Request (Gift Card only)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Card Expiry</controllingFieldValue>
+            <valueName>Funds Forfeit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LPO</controllingFieldValue>
+            <controllingFieldValue>Load Funds</controllingFieldValue>
+            <valueName>Declined</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LPO</controllingFieldValue>
+            <controllingFieldValue>Load Funds</controllingFieldValue>
+            <valueName>Information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LPO</controllingFieldValue>
+            <controllingFieldValue>Load Funds</controllingFieldValue>
+            <controllingFieldValue>Reissue Card</controllingFieldValue>
+            <controllingFieldValue>Replacement or Reissue Card</controllingFieldValue>
+            <valueName>Not Received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Portal Inquiry</controllingFieldValue>
+            <valueName>Account Creation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Portal Inquiry</controllingFieldValue>
+            <valueName>SMS Edit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Portal Inquiry</controllingFieldValue>
+            <valueName>SMS Not Received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Portal Inquiry</controllingFieldValue>
+            <valueName>SMS Set Up</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer Portal Inquiry</controllingFieldValue>
+            <valueName>Tech Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Emergency Cash</controllingFieldValue>
+            <controllingFieldValue>Funds Transfer</controllingFieldValue>
+            <valueName>Inquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Emergency Cash</controllingFieldValue>
+            <controllingFieldValue>Funds Transfer</controllingFieldValue>
+            <valueName>Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud Block</controllingFieldValue>
+            <valueName>CTM Monitoring</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud Block</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud Block</controllingFieldValue>
+            <valueName>PIN Tries</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud Block</controllingFieldValue>
+            <valueName>Purchase Return</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud Block</controllingFieldValue>
+            <valueName>System Triggers</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>EPOS reversal</controllingFieldValue>
+            <valueName>Activation Failure</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>EPOS reversal</controllingFieldValue>
+            <valueName>Load not Reached Card</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>EPOS reversal</controllingFieldValue>
+            <valueName>Retail Error Reversal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Online Shop</controllingFieldValue>
+            <valueName>Online Shop Refund</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Online Shop</controllingFieldValue>
+            <valueName>Order Not Received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Pricing/Discounts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Promotion</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Stock Availability</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Technical Information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>HLC</controllingFieldValue>
+            <valueName>Product</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>HLC</controllingFieldValue>
+            <valueName>Service</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>HLC</controllingFieldValue>
+            <valueName>Technical</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reissue Card</controllingFieldValue>
+            <controllingFieldValue>Replacement or Reissue Card</controllingFieldValue>
+            <valueName>Damaged</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Declined - $0.09 fee</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Declined - Insuffient Funds</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Declined - Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Declined - VBV</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Dispute/CHB Cancelled</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Dispute/CHB Completed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Dispute/CHB Customer Lodgement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Dispute/CHB Customer Submitted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Dispute/CHB In progress</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Dispute/CHB Inquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Dispute/CHB Issuer Lodgement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Dispute/CHB Issuer Submitted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Merchant Refund Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Pre-Auth Extra Hold</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Pre-Auth General</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Pre-Auth Release Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction</controllingFieldValue>
+            <valueName>Statement Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>FOS</controllingFieldValue>
+            <valueName>Follow-up</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>FOS</controllingFieldValue>
+            <valueName>Original</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Enquiry</controllingFieldValue>
+            <valueName>Order Status</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Enquiry</controllingFieldValue>
+            <valueName>Undelivered Parcel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Enquiry</controllingFieldValue>
+            <valueName>Incorrectly Delivered Parcel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Enquiry</controllingFieldValue>
+            <valueName>Order not PGI&apos;d</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Order Enquiry</controllingFieldValue>
+            <valueName>Return To Sender</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
+            <valueName>Delayed Parcel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
+            <valueName>Delivered to Wrong Address</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
+            <valueName>Missing Contents</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
+            <valueName>Missing In Transit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
+            <valueName>Poor Packing Quality</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcel Enquiry</controllingFieldValue>
+            <valueName>Wrong Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Returns</controllingFieldValue>
+            <valueName>Damaged/Faulty</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Returns</controllingFieldValue>
+            <valueName>Outstanding Credit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Returns</controllingFieldValue>
+            <valueName>Excess/Duplicate Order</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

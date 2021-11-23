@@ -1,0 +1,15 @@
+<aura:component implements="forceCommunity:layout" description="Sets some custom styles for the Case pages.">
+    <aura:attribute name="header" type="Aura.Component[]" required="false"></aura:attribute>
+    <aura:attribute name="content" type="Aura.Component[]" required="false"></aura:attribute>
+
+    <div class="container">
+        <div class="case-header outer">
+        	<div class="inner">
+            	{! v.header }
+            </div>
+        </div>
+        <div class="case-content">
+            {! v.content }
+        </div>
+    </div>
+</aura:component>

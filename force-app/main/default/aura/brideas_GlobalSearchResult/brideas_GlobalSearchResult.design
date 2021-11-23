@@ -1,0 +1,16 @@
+<design:component label="Ideas Global Search Result">
+    <design:attribute name="configPageUrl"
+                      label="Ideas Page URL"
+                      description="Relative URL to Community Page with Ideas list component (Example: /mycommunity/s/ideas)" />
+    <design:attribute name="orderBy"
+                      label="Items order"
+                      description="Which items to display first by default"
+                      datasource="Popular,Trending,Recent" />
+    <design:attribute name="itemsPerPage"
+                      label="Items Per Page"
+                      description="Items per page" />
+    <design:attribute name="configSearchString"
+                      label="Search String"
+                      description="System Param. Do not change if not sure. Default:{!searchString}"
+                      default="{!searchString}" />
+</design:component>

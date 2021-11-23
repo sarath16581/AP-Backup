@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CustomerPurchasingDrivers__c</fullName>
+    <description>Not related to notifications, what is key decision making factor for your customer</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Not related to notifications, what is key decision making factor for your customer</inlineHelpText>
+    <label>Customer Purchasing Drivers</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Competitive advantage</fullName>
+                <default>false</default>
+                <label>Competitive advantage</label>
+            </value>
+            <value>
+                <fullName>Increase basket size</fullName>
+                <default>false</default>
+                <label>Increase basket size</label>
+            </value>
+            <value>
+                <fullName>Best customer experience</fullName>
+                <default>false</default>
+                <label>Best customer experience</label>
+            </value>
+            <value>
+                <fullName>Reduced customer contact</fullName>
+                <default>false</default>
+                <label>Reduced customer contact</label>
+            </value>
+            <value>
+                <fullName>Reduction in costs</fullName>
+                <default>false</default>
+                <label>Reduction in costs</label>
+            </value>
+            <value>
+                <fullName>Retention of existing base</fullName>
+                <default>false</default>
+                <label>Retention of existing base</label>
+            </value>
+            <value>
+                <fullName>New customer acquisition</fullName>
+                <default>false</default>
+                <label>New customer acquisition</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>6</visibleLines>
+</CustomField>

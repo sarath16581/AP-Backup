@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>BAMContactRoleUpdateUniqueKeyField</fullName>
+        <description>Updates the Unique Key field with the Contact Application/Role values. This field is a unique key field to ensure duplicate records are prevented.</description>
+        <field>UniqueKey__c</field>
+        <formula>CASESAFEID(ContactApplication__c) &amp; CASESAFEID(ApplicationRole__c)</formula>
+        <name>BAM Update UniqueKey Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>BAMUniqueContactRole</fullName>
+        <actions>
+            <name>BAMContactRoleUpdateUniqueKeyField</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Rule to ensure that duplicate Contact Application/Role records can not be added</description>
+        <formula>ISNEW() || (ISCHANGED( ContactApplication__c ) || ISCHANGED ( ApplicationRole__c ))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

@@ -1,0 +1,6 @@
+{
+    "result": {
+        "status": "Failure",
+        "error_details": "Failed by Purpose"
+    }
+}

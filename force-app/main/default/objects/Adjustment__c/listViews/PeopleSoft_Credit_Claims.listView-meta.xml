@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PeopleSoft_Credit_Claims</fullName>
+    <columns>CREATED_DATE</columns>
+    <columns>Case__c</columns>
+    <columns>ERP_ID__c</columns>
+    <columns>Billing_Account_No__c</columns>
+    <columns>Billing_Account__c</columns>
+    <columns>CreditAmountExclusiveGST__c</columns>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>New</value>
+    </filters>
+    <filters>
+        <field>ERP__c</field>
+        <operation>equals</operation>
+        <value>Peoplesoft</value>
+    </filters>
+    <label>PeopleSoft Credit Claims</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>APG_Customer_Resolutions</group>
+        <group>ERP_SAP_Access</group>
+        <group>ERP_TEAM_Access</group>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Disable_Competitor_Creation__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If checked, prevent users from creating a new competitor</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If checked, prevents users from creating a new competitor. When adding a competitor to an opportunity (in the Competitive Strategy page) users will only be able to select from a pre-existing set of competitors.</inlineHelpText>
+    <label>Disable Competitor Creation</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

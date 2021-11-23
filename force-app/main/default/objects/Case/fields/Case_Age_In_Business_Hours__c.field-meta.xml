@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Age_In_Business_Hours__c</fullName>
+    <description>The total case age in business hours from open to close.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The total case age in business hours from open to close.</inlineHelpText>
+    <label>Case Age In Business Hours</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>3</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

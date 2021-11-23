@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AssignedByFillInbox__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field will be marked true when the agents click &quot;Fill Inbox&quot; a case is assigned to them. This flag will be used for reporting on number of cases assigned/closed by Fill Inbox.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Case assigned by Fill Inbox</inlineHelpText>
+    <label>Assigned by Fill Inbox</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

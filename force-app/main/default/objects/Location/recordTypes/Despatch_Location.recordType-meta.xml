@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Despatch_Location</fullName>
+    <active>true</active>
+    <description>Used to store location information for Contract Lodgement.  Contact: Clark, Michael (IT) &lt;Michael.Clark@auspost.com.au&gt;</description>
+    <label>Despatch Location</label>
+    <picklistValues>
+        <picklist>Capital_City__c</picklist>
+        <values>
+            <fullName>Australia%2FAdelaide</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia%2FBrisbane</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia%2FBroken_Hill</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia%2FDarwin</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia%2FHobart</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia%2FMelbourne</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia%2FPerth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia%2FSydney</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LocationType</picklist>
+        <values>
+            <fullName>Plant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Site</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Van</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vehicle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warehouse</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Max_Vehicle_Cat_Name__c</picklist>
+        <values>
+            <fullName>1-3T Enclosed Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1-3T Open Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10 ULD Tailgate Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10 ULD Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12 Metre Skel Trailer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20 ULD Tailgate Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20 ULD Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20 ULD Truck %28Tailgate%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20 ULD Truck Aircan Equipped</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20 ULD Truck No tail gate lifter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>28 ULD Tailgate Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>28 ULD Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>30 ULD Trailer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4 ULD Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4 ULDs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>40%2F44 ULD Trailer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5T Enclosed Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5T Open Tailgate Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5T Open Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6 Metre Skel Trailer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>60 ULD Trailer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7T Enclosed Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7T Open Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8 ULD Gated Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8 ULD Tailgate Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8 ULD Truck</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>90 ULD Trailer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>B Double</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dual Cab Ute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dual Seat Van</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>L%2FWBase Van</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Long WB %2F High Roof Transit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prime Mover</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Utility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Van</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Node_Type__c</picklist>
+        <values>
+            <fullName>Adhoc customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Airport</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Hubs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Country Mail Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivery Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivery Facility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Handover Point</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Licenced Post Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail Sorting Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Node</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Delivery Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pick Up %26 Deliver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Post</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SPB Gold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SPB Red</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SPB Street Post Box</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shipping Terminal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transport Depot</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Available</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decommissioned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fault</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Use</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scheduled Maintainance</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>Ad hoc customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Airport</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Annexe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Blue Depot Box</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Hubs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>City Delivery Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contractor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Country Mail Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivery Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivery Facility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Handover Point</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International Airport</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Licensed Post Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail Sorting Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Node</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Locker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Office Agency</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PostShop Franchise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prime Mover</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Post</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Returns</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Revenue Protection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rigid Vehicle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SPB Group Location</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SPB Location</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shipping Terminal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trailer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Train Terminal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transit Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transport Depot</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Van Operations</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

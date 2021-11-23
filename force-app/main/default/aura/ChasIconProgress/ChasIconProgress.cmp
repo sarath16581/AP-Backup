@@ -1,0 +1,8 @@
+<aura:component description="Displays icons in the CHAS_progress component">
+
+	<aura:attribute name="theStepIcon" type="String"/>
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<div class="component">
+		<img src="{!v.theStepIcon}" alt=""/>
+	</div>
+</aura:component>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <description>Dtn Case Wizard</description>
+    <isExposed>false</isExposed>
+    <masterLabel>Dtn Case Wizard</masterLabel>
+</LightningComponentBundle>

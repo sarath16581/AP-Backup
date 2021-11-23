@@ -1,0 +1,14 @@
+/**
+ *
+ * History :
+ * --------------------------------------------------
+ * 20-04-2020 rufus.solomon@auspost.com.au Modified: Added styling cues to position profile header section
+ */
+
+.THIS.positionHeader {
+    float: right;
+}
+
+.THIS.profileName {
+    font-weight:bold;
+}

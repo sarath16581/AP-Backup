@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MPB_Closed_Oppty_For_Known_Customer</fullName>
+    <active>true</active>
+    <description>MPB - Known Account Management - Associated Organisation is still a Known or an Individual.  Opportunity cannot be closed as won.</description>
+    <errorConditionFormula>AND(ISPICKVAL(StageName, &quot;Closed Won&quot;),
+OR(
+Account.Role_Type_Roll_Up__c = &quot;Known&quot;,
+Contact_del__r.RecordType.DeveloperName= &apos;Sales_Contact&apos;
+),
+ Opportunity_Annualised_Value__c &gt;VALUE($CustomMetadata.STP_Lead_Assignment_Settings__mdt.Opportunity_Annualised_Value.Attribute_Value__c ) 
+)</errorConditionFormula>
+    <errorDisplayField>AccountId</errorDisplayField>
+    <errorMessage>This opportunity is currently associated with a Known or a Sales Contact. Use the Name: field to assign it to the correct Customer.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealMgr__DimensionType__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The dimension type</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The dimension type</inlineHelpText>
+    <label>Dimension Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Field</fullName>
+                <default>true</default>
+                <label>Field</label>
+            </value>
+            <value>
+                <fullName>Formula</fullName>
+                <default>false</default>
+                <label>Formula</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

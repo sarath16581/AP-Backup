@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Report Case Response on Creation</name>
+    <style>none</style>
+    <subject>Case - {!Case.CaseNumber} is created.</subject>
+    <textOnly>Hello
+
+Thank you for your report request, which has reached our Reporting queue and will shortly be assigned to one of our team.
+
+Case Number: {!Case.CaseNumber}
+Legal Entity Name: {!Case.Account}
+
+The status of your case can be viewed via the following link:
+
+{!Case.Link}
+
+Our team will contact you directly if additional information is required or an unavoidable delay in completing your request is likely.
+
+Please do not reply to this email.
+
+Regards
+
+Customer Reporting Team</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

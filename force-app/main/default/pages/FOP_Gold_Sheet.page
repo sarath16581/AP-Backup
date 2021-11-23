@@ -1,0 +1,84 @@
+<apex:page standardController="Field_of_Play__c" showHeader="false" >
+<style type="text/css">
+    .bPageBlock 
+    {
+        background-color:#FFF !important;
+        border:none !important;
+    }
+</style>
+<script type="text/JavaScript">
+    function getReturnURL() {
+        return '{!IF(ISBLANK(Field_of_Play__c.id), '', URLFOR($Action.Field_of_Play__c.View, Field_of_Play__c.id))}';
+    }
+    function MM_openGoldSheet(theURL) {
+        window.open('https://www.saleswebserver.net/sfdc/MillerHeiman6/ShowGoldSheet.asp?ID={!Field_of_Play__c.Id}&SessionID={!$Api.Session_ID}&EndPoint={!$Api.Partner_Server_URL_240}&ReturnURL=' + getReturnURL() + '&AccountID={!Field_of_Play__c.Account__c}&AccountName={!Field_of_Play__c.Name}','newgold','toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=1000,height=600'); 
+    }
+    function MM_openSupport(theURL) { 
+        window.open('http://www.salesaccessmanager.com/website/support/index.php','newsupport','toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=300,height=300');
+    }
+    function MM_refreshParent(evt) {
+        if(evt.data == 'MM_refreshPage')
+        {
+            refreshParentPage();
+        }      
+    }    
+    function refreshParentPage() {
+        if((typeof sforce != 'undefined') && sforce && (!!sforce.one))
+        {
+            sforce.one.navigateToSObject('{!Field_of_Play__c.id}', 'detail');
+        }
+        else
+        {
+            window.top.location.href = getReturnURL();
+        }  
+    }    
+    if (window.addEventListener){
+          window.addEventListener('message', MM_refreshParent, false);
+    } else if (window.attachEvent){
+          window.attachEvent('message', MM_refreshParent);
+    }  
+</script>
+<apex:pageBlock >
+<div id="mm_goldsheet_fop_disabled" style="float:left;width:100%;text-align:center;display:none;">
+    <div style="color:#54698D;">Save CRM item for MHI applet link to become available.</div>
+</div>
+<table id="mm_goldsheet_fop" width="100%" border="0" cellpadding="2" cellspacing="2">
+    <tr>
+        <td width="276" valign="top" align='center'>
+            <a href="javascript:MM_openGoldSheet('x')"><img src="https://www.saleswebserver.net/sfdc/MillerHeiman6/Images/goldsheet.png" alt="MHI Global - Large Account Management Process"/></a>
+        </td>
+        <td valign="top" >
+            <apex:pageBlockSection columns="2">
+                <apex:outputField value="{!Field_of_Play__c.mh_Associated_Gold_Sheet__c}"/>
+            <apex:outputField value="{!Field_of_Play__c.mh_Last_Updated_Gold_Sheet__c}"/>
+            <apex:outputField value="{!Field_of_Play__c.mh_Managers_Notes_Exist__c}"/>
+            <apex:outputField value="{!Field_of_Play__c.mh_Additional_Notes_Exist__c}"/>
+            <apex:outputField value="{!Field_of_Play__c.mh_Managers_Review_Date__c}"/>
+            </apex:pageBlockSection>
+            <table border='0' width='100%'>
+                <tr>
+                    <td class="dataCol" width='25%' align='center'>
+                        <a href="http://www.mhiglobal.com" target="_blank">www.mhiglobal.com</a>
+                    </td> 
+                    <td class="dataCol" width='25%' align='center'>
+                        <a href="https://www.saleswebserver.net/sfdc/MillerHeiman6/sheethelp.asp?product=goldsheet" target="_blank">Help Files</a>
+                    </td> 
+                    <td class="dataCol" width='25%' align='center'>
+                        <a href="javascript:MM_openSupport('x')">Product Support</a>
+                    </td>                             
+                </tr>
+            </table>                
+        </td>
+    </tr>
+</table>
+</apex:pageBlock>
+
+<script type="text/JavaScript">       
+    if (!getReturnURL()) 
+    {
+        document.getElementById("mm_goldsheet_fop").style.display = 'none';
+        document.getElementById("mm_goldsheet_fop_disabled").style.display = 'block';
+    }
+</script>
+
+</apex:page>

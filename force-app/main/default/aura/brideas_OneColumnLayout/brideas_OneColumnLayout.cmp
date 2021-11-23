@@ -1,0 +1,10 @@
+<aura:component implements="forceCommunity:layout" access="global" description="Content Layout for Ideas List page">
+    <aura:attribute name="ContentHeader" type="Aura.Component[]" required="false" />
+    <aura:attribute name="Content" type="Aura.Component[]" required="false" />
+
+    {!v.ContentHeader}
+
+    <div class="ideas-outer">
+        {!v.Content}
+    </div>
+</aura:component>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>State_Code__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( ISPICKVAL(  State__c , &quot;VIC&quot;), &quot;3&quot;, 
+IF( ISPICKVAL( State__c , &quot;NSW&quot;), &quot;2&quot;, 
+IF( ISPICKVAL( State__c , &quot;QLD&quot;), &quot;4&quot;, 
+IF( ISPICKVAL( State__c , &quot;SA&quot;), &quot;5&quot;, 
+IF( ISPICKVAL( State__c , &quot;WA&quot;), &quot;6&quot;, 
+IF( ISPICKVAL( State__c , &quot;TAS&quot;), &quot;7&quot;,
+IF( ISPICKVAL( State__c , &quot;NT&quot;), &quot;8&quot;,
+IF( ISPICKVAL( State__c , &quot;ACT&quot;), &quot;2&quot;,
+&quot;NULL&quot; 
+) 
+) 
+)
+)
+)
+)
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>State Code</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

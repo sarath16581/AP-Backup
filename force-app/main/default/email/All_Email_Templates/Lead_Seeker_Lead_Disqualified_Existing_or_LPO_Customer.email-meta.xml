@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>The lead submitter receives an email indicating that the lead they referred has been disqualified due to it being an existing or LPO customer.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Lead Seeker - Lead Disqualified Existing or LPO Customer</name>
+    <style>none</style>
+    <subject>Seeker Rewards Program Update- unsuccessful lead {!Lead.Lead_Number__c} for {!Lead.Company}</subject>
+    <textOnly>Seeker Rewards Program Update - unsuccessful lead {!Lead.Lead_Number__c}
+
+Having trouble viewing this email? View online.
+
+Dear {!Lead.First_Name_Formula__c}
+
+Thanks again for taking part in our Seeker Rewards Program. Unfortunately the lead you submitted has not progressed to the opportunity stage due to it being an existing customer of Australia Post or an LPO. For more information please login and refer to our terms and conditions.
+
+That means we can&apos;t allocate you any reward points on this occasion, but please do try again. Login to find top tips on how you can seek out future leads and turn them into points to claim great rewards.
+
+We look forward to your participation in the Seeker Rewards Program again soon!
+
+Regards,
+The Seeker Team.
+
+Terms &amp; conditions | Privacy policy | Security
+
+
+Contact us: If this email has been incorrectly sent to you or the information contained within isn’t correct, please let us know at seekerrewards@auspost.com.au
+
+If you do not wish to receive such information you can unsubscribe at any time.
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

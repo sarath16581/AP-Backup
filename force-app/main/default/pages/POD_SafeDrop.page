@@ -1,0 +1,28 @@
+<!-- 
+	PDF for Proof of delivery details
+	Created: kalpita.talwadekar@auspost.com.au
+	Date: 9/11/2018
+
+	2019-04-28 nathan.franklin@auspost.com.au Updated to support new accessRules for BAM
+	2021-06-03 madhuri.awasthi@auspost.com.au  Changing the POD pdf Actual Date/Time from GMT to actual date time
+	2021-10-03 - Nathan Franklin - Refactored the html content to generate the pdf into an apex component (this is because it's reused across other components) + uplift to v52
+-->
+<apex:page standardController="EventMessage__c" applyBodyTag="false" renderAs="pdf"
+												extensions="POD_SafeDropController" action="{!init}" >
+
+	<apex:outputPanel rendered="{!NOT(isValidUser)}" layout="none">
+		<div id="errorWrapper" style="margin:20px;">
+			<apex:outputPanel rendered="{!not(isnull(pageError))}" layout="none">
+				<div class="alert alert-warning" role="alert">
+					{!pageError}
+				</div>
+			</apex:outputPanel>
+		</div>
+	</apex:outputPanel>
+
+	<!-- only render if the user has access to the article -->
+	<apex:outputPanel rendered="{!isValidUser}" layout="none">
+		<c:DeliveryProofPdfRenderer eventMessage="{!EventMessage__c}" safeDropAttachmentId="{!attSafeDrop}" signatureAttachmentId="{!attachIdSign}" />
+	</apex:outputPanel>
+
+</apex:page>

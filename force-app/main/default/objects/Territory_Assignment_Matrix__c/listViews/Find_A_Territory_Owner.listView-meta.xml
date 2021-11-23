@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Find_A_Territory_Owner</fullName>
+    <columns>NAME</columns>
+    <columns>Post_Code__c</columns>
+    <columns>Sales_Team_Member__c</columns>
+    <columns>Sales_Team__c</columns>
+    <columns>Territory_Owner__c</columns>
+    <columns>Low_Threshold_Amount__c</columns>
+    <columns>High_Threshold_amount__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Suburb__c</field>
+        <operation>contains</operation>
+        <value>preston</value>
+    </filters>
+    <label>Find A Territory Owner</label>
+</ListView>

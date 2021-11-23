@@ -1,0 +1,102 @@
+<!-- [if gte mso 12]>
+	<style type="text/css">
+		.button-outlook{padding:8px 14px 7px !important;}
+		.button-outlook a{padding:0 !important;}
+	</style>
+<![endif]-->
+<table class="wrapper" width="100%" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee">
+<tbody>
+<tr>
+<td style="padding: 19px 5px 30px;">
+<table class="flexible" width="510" cellspacing="0" cellpadding="0" align="center">
+<tbody>
+<tr>
+<td style="padding: 0 0 25px;">
+<table width="100%" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td valign="bottom" width="100%">
+<table width="100%" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td><a href="http://www.startrack.com.au/"><img style="vertical-align: top;" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000Aem3t&amp;oid=00D30000001GGce" alt="StarTrack" width="50%" height="50%" align="right" border="0" /></a></td>
+</tr>
+<tr>
+<td style="font-size: 0; line-height: 0;" height="5">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+<table width="100%" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td valign="top" width="33"><a href="#"><img style="vertical-align: top;" src="http://auspost.com.au/images/emails/track/bg-arrow.png" alt="" width="33" height="33" border="0" /></a></td>
+<td bgcolor="#ffffff" width="10">&nbsp;</td>
+<td style="border-radius: 0 2px 0 0;" align="right" valign="top" bgcolor="#ffffff">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="padding: 5px 7px 0 0; font: 11px/13px Arial, Helvetica, sans-serif; color: #807370;">Case No.: <strong>{!Case.CaseNumber}</strong></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td style="padding: 17px 10px 0 10px; border-radius: 0 0 2px 2px;" bgcolor="#ffffff">
+<table width="100%" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="padding: 0 0 0px; font: 12px/13px Arial, Helvetica, sans-serif; color: #807370;">
+<p>Dear {!Case.Employee_Lastname__c},<br /><br />Thank you for using our service.
+  <br /><br />
+  If you have any additional enquiries, please contact us at customerservice@startrack.com.au.
+  </p>
+<hr />
+
+<p>Thank you,</p>
+</td>
+</tr>
+<tr>
+<td style="padding: 5px 7px 0 0; font: 12px/13px Arial; color: #003359;"><strong> StarTrack Business Centre</strong></td>
+</tr>
+<tr>
+<td style="font: 2px/3px Arial; color: white;">{!Case.Thread_Id}</td>
+<td style="padding: 5px 7px 0 0; font: 12px/13px Arial; color: #009fda;">&nbsp;</td>
+</tr>
+<tr>
+<td class="flexible" style="padding: 0 13px 0 0;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td style="font-size: 0; line-height: 0;" height="14">&nbsp;</td>
+</tr>
+<tr>
+<td class="alignjustify" style="padding: 0 2px 12px; font: 11px/13px Arial, Helvetica, sans-serif; color: #444;">This email is sent by Star Track Express Pty Limited or one of its related entities (collectively referred to as &ldquo;STARTRACK&rdquo;). The information contained in this email is confidential and may contain legally privileged information. Confidentiality and legal privilege are not waived or lost by reason of mistaken delivery. The content of this email is the view or opinion of the stated author and does not necessarily reflect the view or opinion of STARTRACK. If you are not the intended recipient or the person responsible for the delivery of the message to the intended recipient, any dissemination of the information is strictly prohibited. If you have received this email in error, please contact the sender by return email and delete the email and any attachments from your computer. Although STARTRACK has taken care to ensure the attachments (if any) to this email are virus free, STARTRACK does not warrant that any such attachments are free of errors, viruses or other malicious codes and does not accept liability for any consequences to the recipient upon opening or using this email.</td>
+</tr>
+<tr>
+<td style="font-size: 0; line-height: 0;" bgcolor="#d7d2cb" height="1">&nbsp;</td>
+</tr>
+<tr>
+<td class="button" style="padding: 13px 2px 0; font: 11px/13px Arial, Helvetica, sans-serif; color: #444;"><a style="text-decoration: none; color: #444;" href="http://www.startrack.com.au/support/faqs/" target="_blank">Help &amp; Support</a> <span class="hide">&nbsp;&nbsp;|&nbsp;&nbsp;</span> <a style="text-decoration: none; color: #444;" href="http://www.startrack.com.au/terms-conditions" target="_blank">Terms &amp; Conditions</a> <span class="hide">&nbsp;&nbsp;|&nbsp;&nbsp;</span> <a style="text-decoration: none; color: #444;" href="http://www.startrack.com.au/privacy-policy" target="_blank">Privacy Policy</a></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>

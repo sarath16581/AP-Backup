@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>sandra.slater@auspost.com.au</email>
+    <name>BGS Business</name>
+    <queueMembers>
+        <users>
+            <user>alexander.heggie@auspost.com.au</user>
+            <user>andrew.crawford@auspost.com.au</user>
+            <user>anthony.hills@auspost.com.au</user>
+            <user>ashlinn.rodden@auspost.com.au</user>
+            <user>deanne.marshall@auspost.com.au</user>
+            <user>jason.till@auspost.com.au</user>
+            <user>john.mcmiles@auspost.com.au</user>
+            <user>morgan.hare@auspost.com.au</user>
+            <user>nathan.sutcliffe@auspost.com.au</user>
+            <user>pranev.pillay@auspost.com.au</user>
+            <user>rodolfo.parfan@auspost.com.au</user>
+            <user>samuel.horton@auspost.com.au</user>
+            <user>sandra.slater@auspost.com.au</user>
+            <user>stephanie.soiza@auspost.com.au</user>
+            <user>terri.ahmat@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

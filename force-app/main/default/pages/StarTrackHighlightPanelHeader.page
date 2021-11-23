@@ -1,0 +1,125 @@
+<!--
+    Description: This page is used for displaying the sender and receiver details in the console highlight panel header
+    History: @Fahad Akhtar : Added seven columns using fields sets and create HTML Table structure to show the data.
+    JULY.31.2015 DAVID CATINDOY(CloudSherpas) Created
+    
+    October 2015 - Wayne Helena: Removed Column 7, adjusted column %, applied CSS and other styling refresh
+    -->
+<apex:page standardstylesheets="false" showHeader="false"  standardController="Case">
+<Style type="text/css">
+        .Label1
+        {   
+            font-family:Helvetica;
+            font-size:12px;
+            font-weight:bold;
+            color:#8392A7;
+            align:right;
+            }
+
+</style>
+    <apex:includeScript value="/support/console/34.0/integration.js"/>    
+    <script type="text/javascript">
+        var eventHandler = function (result) {
+            window.location.reload();
+        };   
+
+        //Add a push notification listener for Case
+        sforce.console.addPushNotificationListener(['Case'], eventHandler);
+    </script>
+    <body style="background-color: #009fda;">
+    <table align="center"> 
+        <tr> 
+            <td width="16.6%" style="background: #F7F9FB;-moz-border-radius: 10px;  -khtml-border-radius: 10px;-webkit-border-radius: 10px;box-shadow: 4px 4px grey;">
+                <table  align="center">
+                    <apex:repeat value="{!$ObjectType.Case.FieldSets.Highlight_Panel_Column_1}" var="f"  >
+                        <tr align="top">
+                            <td align="right"> 
+                            <strong><apex:outputText styleclass="Label1" value="{!f.Label}" /><br/></strong>
+                            </td>
+                            <td> 
+                                <span style="font-family:Helvetica;color: #4C4444;font-size:12px;padding-left:10px"> <apex:outputField value="{!Case[f]}"  /> </span>
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+            </td>
+            <td width="16.6%" style="background: #F7F9FB;-moz-border-radius: 10px;  -khtml-border-radius: 10px;-webkit-border-radius: 10px;box-shadow: 4px 4px grey;">
+                <table align="center">
+                    <apex:repeat value="{!$ObjectType.Case.FieldSets.Highlight_Panel_Column_2}" var="f">
+                        <tr>
+                            <td align="right">
+                                <strong><apex:outputText styleclass="Label1" value="{!f.Label}" /><br/></strong>
+                            </td>
+                            <td>
+                                <span style="font-family:Helvetica;color: #4C4444;font-size:12px;padding-left: 10px"> <apex:outputField value="{!Case[f]}"  /> </span>
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+            </td>
+            <td width="16.6%" style="background: #F7F9FB;-moz-border-radius: 10px;  -khtml-border-radius: 10px;-webkit-border-radius: 10px;box-shadow: 4px 4px grey;">
+                <table align="center">
+                    <apex:repeat value="{!$ObjectType.Case.FieldSets.Highlight_Panel_Column_3}" var="f">
+                        <tr>
+                            <td align="right">
+                                <strong><apex:outputText styleclass="Label1" value="{!f.Label}" /><br/></strong>
+                            </td>
+                            <td>
+                                 <span style="font-family:Helvetica;color: #4C4444;font-size:12px;padding-left: 10px"> <apex:outputField value="{!Case[f]}"  /> </span>
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+            </td>
+            <td width="16.6%" style="background: #F7F9FB;-moz-border-radius: 10px;  -khtml-border-radius: 10px;-webkit-border-radius: 10px;box-shadow: 4px 4px grey;">
+                <table align="center">
+                    <apex:repeat value="{!$ObjectType.Case.FieldSets.Highlight_Panel_Column_4}" var="f">
+                        <tr>
+                            <td align="right">
+                                <strong><apex:outputText styleclass="Label1" value="{!f.Label}" /><br/></strong>
+                            </td>
+                            <td>
+                                 <span style="font-family:Helvetica;color: #4C4444;font-size:12px;padding-left: 10px"> <apex:outputField value="{!Case[f]}"  /> </span>
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+            </td>
+            <td width="16.6%" style="background: #F7F9FB;-moz-border-radius: 10px;  -khtml-border-radius: 10px;-webkit-border-radius: 10px;box-shadow: 4px 4px grey;">
+                <table align="center">
+                    <apex:repeat value="{!$ObjectType.Case.FieldSets.Highlight_Panel_Column_5}" var="f">
+                        <tr>
+                            <td align="right">
+                                <strong>
+                           
+                                <apex:outputText value="ETA" styleclass="Label1" rendered="{!(CONTAINS(f, 'ExpectedDeliveryDate__c'))}"/>
+                                <apex:outputText value="Consignment" styleclass="Label1" rendered="{!(CONTAINS(f, 'ArticleTest__c'))}"/>
+                                <apex:outputText value="{!f.Label}" styleclass="Label1" rendered="{!NOT(CONTAINS(f, 'ExpectedDeliveryDate__c') || CONTAINS(f, 'ArticleTest__c'))}"/><br/>
+                              
+                                </strong>
+                            </td>
+                            <td>
+                                 <span style="font-family:Helvetica;color: #4C4444;font-size:12px;padding-left: 10px"> <apex:outputField value="{!Case[f]}"  /> </span>
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+            </td>
+            <td width="16.6%" style="background: #F7F9FB;-moz-border-radius: 10px;  -khtml-border-radius: 10px;-webkit-border-radius: 10px;box-shadow: 4px 4px grey;">
+                <table align="center">
+                    <apex:repeat value="{!$ObjectType.Case.FieldSets.Highlight_Panel_Column_6}" var="f">
+                        <tr>
+                            <td align="right">
+                                <strong><apex:outputText styleclass="Label1" value="{!f.Label}" /><br/></strong>
+                            </td>
+                            <td>
+                                 <span style="font-family:Helvetica;color: #4C4444;font-size:12px;padding-left: 10px"> <apex:outputField value="{!Case[f]}"  /> </span>
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+            </td>                                                                 
+        </tr>
+    </table>
+    </body>
+</apex:page>

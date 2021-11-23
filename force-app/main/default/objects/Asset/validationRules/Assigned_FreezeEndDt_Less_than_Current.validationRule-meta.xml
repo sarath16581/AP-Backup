@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assigned_FreezeEndDt_Less_than_Current</fullName>
+    <active>true</active>
+    <description>Freeze Period End Date cannot be less than the current value.</description>
+    <errorConditionFormula>IF(ISNEW(),AND( 
+$RecordType.Name = &apos;PSR&apos;, 
+ISPICKVAL(Tier_Type__c , &apos;Assigned&apos;), 
+(Freeze_Period_End_Date__c &lt; TODAY() )
+
+), AND( 
+$RecordType.Name = &apos;PSR&apos;, 
+ISPICKVAL(Tier_Type__c , &apos;Assigned&apos;), 
+ISCHANGED(Freeze_Period_End_Date__c),
+(Freeze_Period_End_Date__c &lt; TODAY() )))</errorConditionFormula>
+    <errorDisplayField>Freeze_Period_End_Date__c</errorDisplayField>
+    <errorMessage>Freeze Period End Date cannot be less than TODAY</errorMessage>
+</ValidationRule>

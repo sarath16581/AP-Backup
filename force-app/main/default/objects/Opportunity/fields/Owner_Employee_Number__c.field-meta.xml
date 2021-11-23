@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Owner_Employee_Number__c</fullName>
+    <description>Phase 2 - Used for data mapping requirements. Will be populated via code based on the Owner.</description>
+    <externalId>false</externalId>
+    <label>Owner Employee Number</label>
+    <length>30</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,85 @@
+<!--
+	2017-09-17 nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
+-->
+<apex:page sidebar="false">
+
+	<c:ScriptLoader jsLibraries="jquery,jqueryui,ssswconsole,jquery.cookie,interaction,integration,bootstrap,webanalyser"
+					cssLibraries="jqueryui,bootstrap,ssswconsole" />
+
+    <style type="text/css">
+        .detailPage .bPageBlock, .editPage .bPageBlock, .bPageBlock.apexDefaultPageBlock {
+            border-top: 4px solid #dc1928;
+        }
+    </style>
+    
+    <script type="text/javascript">
+        var j$ = jQuery.noConflict();
+        
+        j$(document).ready(function() {
+            //initRecordLinks();
+        
+            var openTabFromFacilitySearchListener = function (result) {
+                var resIds = result.message.split('_');
+                if (resIds.length == 2 && resIds[0].substring(0, 15) == '{!$CurrentPage.parameters.id}'.substring(0, 15) ) {
+                    //sforce.console.openPrimaryTab(null, '/' + resIds[1], true, '');
+                    sforce.console.getEnclosingPrimaryTabId(function(result) {  
+                        sforce.console.openSubtab(result.id, '/' + resIds[1], true, '', null);
+                    });
+                }
+            };
+            
+            //Add a listener for the 'OpenTabFromFacilitySearch' event type
+            sforce.console.addEventListener('OpenTabFromFacilitySearch', openTabFromFacilitySearchListener);
+
+            var openFacilitiesListener = function (result) {
+                if (result.message == '{!$CurrentPage.parameters.id}'.substring(0, 15)) {
+                    j$("#MiniCase").removeClass("active");
+                    j$("#MiniCase").removeClass("in");
+                    j$("a[href='#MiniCase']").parent().removeClass("active");
+                    j$("#Facilities").addClass("active");
+                    j$("#Facilities").addClass("in");
+                    j$("a[href='#Facilities']").parent().addClass("active");
+                }
+            };
+            
+            sforce.console.addEventListener('OpenFacilities', openFacilitiesListener);
+            sforce.console.fireEvent('ContactLoaded', '{!$CurrentPage.parameters.id}'.substring(0, 15));
+            
+        });
+    </script>
+        
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#MiniCase" data-toggle="tab">Enquiry</a></li>
+        <li><a href="#Interactions" data-toggle="tab">Interactions</a></li>
+        <li><a href="#Facilities" data-toggle="tab">Network Search</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="MiniCase">
+            <apex:form >
+                <c:MiniCaseComponent recordId="{!$CurrentPage.parameters.id}"  showError="true" disableEnterKeyPress="true" />
+            </apex:form>
+        </div>
+        
+        <div class="tab-pane fade" id="Interactions">
+            <c:ContactInteractionViewComponent recordId="{!$CurrentPage.parameters.id}"/>
+        </div>
+        
+        <!-- just for fix bug, should delete after fix . Start-->
+        <div class="tab-pane fade" id="Facilities">
+            <!--apex:include pageName="FacilitySearch"/-->
+            <apex:iframe src="" scrolling="false" height="8000px" id="theIframe" width="100%"/>
+        </div>
+        <!-- just for fix bug, should delete after fix . End-->
+
+        <script type="text/javascript">
+            j$(function() {
+                j$('a[href="#Facilities"]').on('show.bs.tab', function (e) {
+                    if(j$('#theIframe').attr('src') == '') {
+                        j$('#theIframe').attr('src', '/apex/facilitysearch?contactId={!$CurrentPage.parameters.id}&address1Label=Primary Address&address2Label=Secondary Address');
+                    }
+                });
+            });
+        </script>
+    </div>
+</apex:page>

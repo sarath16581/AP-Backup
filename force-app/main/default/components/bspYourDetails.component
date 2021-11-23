@@ -1,0 +1,52 @@
+<!--
+2019-04-28 nathan.franklin@auspost.com.au Removed optional display logic for AP (SSCR5)
+2021-10-11 seth.heang@auspost.com.au Uplift SF API Version to 52
+-->
+<apex:component controller="bspComponent">
+<style>
+.button-margin
+{
+    width:160px;
+    text-align: center;
+    padding:5px;
+}
+
+</style>
+
+            <div class="right-panel">
+                <div class="l-sb-module">
+                    <h2>Your details</h2>
+                    
+                    <div class="OutputReadOnly bw-detail-margin-top">
+                        {!$User.FirstName} {!$User.LastName}
+                    </div>
+                    
+                    <p>{!$User.Email}</p>
+                    <p>{!businessName}</p>
+                    
+                    <br/>
+                    
+                    <p>Primary Billing Account</p>
+                    
+                    <div class="OutputReadOnly">
+                        <apex:outputText value="{!IF( OR( BEGINS(businessNumber, 'T'), BEGINS(businessNumber, 'P') ), RIGHT(businessNumber, LEN(businessNumber) - 1), businessNumber)}" />
+                    </div>
+
+                    <br/>
+
+<!--Links-->
+                    <div class="clearfix">
+                        <a href="{!$Site.CurrentSiteUrl}bspProfile" class="secondary-cta button-margin">Update details</a>
+
+                        <apex:outputPanel layout="none" rendered="{!not(isCSSOLogin)}">
+                            <br/>
+                            <br/>
+                            <a href="{!$Site.CurrentSiteUrl}bspProfile?section=password" class="secondary-cta button-margin">Change password</a>
+                        </apex:outputPanel>
+                    </div>
+
+
+
+                </div>
+            </div>
+</apex:component>

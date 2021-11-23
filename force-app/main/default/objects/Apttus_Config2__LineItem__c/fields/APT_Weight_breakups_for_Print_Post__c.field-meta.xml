@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Weight_breakups_for_Print_Post__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight_Break_Up__c, &quot;0-125g&quot; ), &quot;0-125g; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight_Break_Up__c, &quot;126g-175g&quot; ), &quot;126g-175g; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight_Break_Up__c, &quot;176g-250g&quot; ), &quot;176g-250g; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight_Break_Up__c, &quot;251g-300g&quot; ), &quot;251g-300g; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight_Break_Up__c, &quot;301g-350g&quot; ), &quot;301g-350g; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight_Break_Up__c, &quot;351g-400g&quot; ), &quot;351g-400g; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight_Break_Up__c, &quot;401g-450g&quot; ), &quot;401g-450g; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight_Break_Up__c, &quot;451g-500g&quot; ), &quot;451g-500g; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight_Break_Up__c, &quot;501g-600g&quot; ), &quot;501g-600g; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight_Break_Up__c, &quot;601g-700g&quot; ), &quot;601g-700g; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight_Break_Up__c, &quot;701g-800g&quot; ), &quot;701g-800g; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight_Break_Up__c, &quot;801g-900g&quot; ), &quot;801g-900g;&quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Weight_Break_Up__c, &quot;901g-1000g&quot; ), &quot;901g-1000g; &quot;,null )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Weight breakups for Print Post</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

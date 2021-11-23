@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>SAP_Contract_Status_Update</fullName>
+        <field>SAP_Contract_Status__c</field>
+        <literalValue>Active</literalValue>
+        <name>SAP Contract Status Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>SAP Contract Status Update</fullName>
+        <actions>
+            <name>SAP_Contract_Status_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>APT_SAP_Contracts__c.APT_SAP_Contract_Number__c</field>
+            <operation>notContain</operation>
+            <value>.</value>
+        </criteriaItems>
+        <description>Update the SAP Contract Status to Active as soon as the SAP Contract record is created</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

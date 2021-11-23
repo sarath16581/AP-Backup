@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Average_weight_for_Dom_articles__c</fullName>
+    <externalId>false</externalId>
+    <label>Average weight for Dom articles?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>&gt; 22 kg</fullName>
+                <default>false</default>
+                <label>&gt; 22 kg</label>
+            </value>
+            <value>
+                <fullName>&lt; 22 kg</fullName>
+                <default>false</default>
+                <label>&lt; 22 kg</label>
+            </value>
+            <value>
+                <fullName>- - Select Option - -</fullName>
+                <default>false</default>
+                <label>- - Select Option - -</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

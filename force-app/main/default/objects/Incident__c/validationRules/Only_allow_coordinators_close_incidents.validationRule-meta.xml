@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Only_allow_coordinators_close_incidents</fullName>
+    <active>true</active>
+    <description>Validation rule to ensure that only Coordinators close incidentsC</description>
+    <errorConditionFormula>AND(
+				ischanged(Status__c) , 
+				ISPICKVAL(Status__c,&apos;Closed&apos;),
+ NOT(CONTAINS($UserRole.Name, &apos;SSSE Co-Ordinator&apos;))
+				)</errorConditionFormula>
+    <errorMessage>You do not have permission to close this incident. Please contact your Co-Ordinator</errorMessage>
+</ValidationRule>

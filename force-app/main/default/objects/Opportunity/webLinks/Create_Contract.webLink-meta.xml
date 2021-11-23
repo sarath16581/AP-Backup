@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Create_Contract</fullName>
+    <availability>online</availability>
+    <description>Launch Create Contract Visual Workflow (via Visualforce page).  Created for ECLM Project Phase 1.</description>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Create ARIBA Contract</masterLabel>
+    <openType>replace</openType>
+    <page>ECLMCreateContractFlowPage</page>
+    <protected>false</protected>
+</WebLink>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Error messages when unauthorized users attempt to delete a Chatter Post or Comment.</description>
+    <enableFeeds>false</enableFeeds>
+    <label>Chatter Delete Error Message</label>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Intermediary_Engagement_Letter_Attached__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Field to indicate that the intermediary engagement letter has been attached</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Please check when intermediary engagement letter has been attached to the request (attach to Notes &amp; Attachments section on request)</inlineHelpText>
+    <label>Intermediary Engagement Letter Attached?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

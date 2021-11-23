@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>UniqueRespondent</fullName>
+        <field>UniqueRespondent__c</field>
+        <formula>Case__c + Contact__c</formula>
+        <name>SSSW - Unique Respondent</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>UniqueRespondent</fullName>
+        <actions>
+            <name>UniqueRespondent</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Populates the Unique Respondent field to ensure the same contact doesn&apos;t respond twice</description>
+        <formula>AND(NOT(ISBLANK( Case__c ) ||ISBLANK( Contact__c ) ),ISBLANK( UniqueRespondent__c ))</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

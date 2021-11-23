@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Issue_Resolution__c</fullName>
+    <externalId>false</externalId>
+    <label>Issue Resolution Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>64-bit windows 7</fullName>
+                <default>false</default>
+                <label>64-bit windows 7</label>
+            </value>
+            <value>
+                <fullName>Access control</fullName>
+                <default>false</default>
+                <label>Access control</label>
+            </value>
+            <value>
+                <fullName>Account/Organisation related</fullName>
+                <default>false</default>
+                <label>Account/Organisation related</label>
+            </value>
+            <value>
+                <fullName>Add as Project Team Member</fullName>
+                <default>false</default>
+                <label>Add as Project Team Member</label>
+            </value>
+            <value>
+                <fullName>Ariba - Docusign Issue</fullName>
+                <default>false</default>
+                <label>Ariba - Docusign Issue</label>
+            </value>
+            <value>
+                <fullName>Billing Account related</fullName>
+                <default>false</default>
+                <label>Billing Account related</label>
+            </value>
+            <value>
+                <fullName>Campaign related</fullName>
+                <default>false</default>
+                <label>Campaign related</label>
+            </value>
+            <value>
+                <fullName>Cannot Upload Document</fullName>
+                <default>false</default>
+                <label>Cannot Upload Document</label>
+            </value>
+            <value>
+                <fullName>Case related</fullName>
+                <default>false</default>
+                <label>Case related</label>
+            </value>
+            <value>
+                <fullName>Chatter related</fullName>
+                <default>false</default>
+                <label>Chatter related</label>
+            </value>
+            <value>
+                <fullName>Close Workspace</fullName>
+                <default>false</default>
+                <label>Close Workspace</label>
+            </value>
+            <value>
+                <fullName>Compact layout</fullName>
+                <default>false</default>
+                <label>Compact layout</label>
+            </value>
+            <value>
+                <fullName>Configuration Issue</fullName>
+                <default>false</default>
+                <label>Configuration Issue</label>
+            </value>
+            <value>
+                <fullName>Return To Sender</fullName>
+                <default>false</default>
+                <label>Return to sender</label>
+            </value>
+            <value>
+                <fullName>Deliver as Addressed</fullName>
+                <default>false</default>
+                <label>Deliver as addressed</label>
+            </value>
+            <value>
+                <fullName>Discard</fullName>
+                <default>false</default>
+                <label>Discard</label>
+            </value>
+            <value>
+                <fullName>Contact related</fullName>
+                <default>false</default>
+                <label>Contact related</label>
+            </value>
+            <value>
+                <fullName>Correct Customer Email in DocuSign</fullName>
+                <default>false</default>
+                <label>Correct Customer Email in DocuSign</label>
+            </value>
+            <value>
+                <fullName>Customer Data Change</fullName>
+                <default>false</default>
+                <label>Customer Data Change</label>
+            </value>
+            <value>
+                <fullName>Dataload request</fullName>
+                <default>false</default>
+                <label>Dataload request</label>
+            </value>
+            <value>
+                <fullName>Desktop File Sync (DFS)</fullName>
+                <default>false</default>
+                <label>Desktop File Sync (DFS)</label>
+            </value>
+            <value>
+                <fullName>Document Publish</fullName>
+                <default>false</default>
+                <label>Document Publish</label>
+            </value>
+            <value>
+                <fullName>Document upload issue</fullName>
+                <default>false</default>
+                <label>Document upload issue</label>
+            </value>
+            <value>
+                <fullName>Duplicate Recipient error</fullName>
+                <default>false</default>
+                <label>Duplicate Recipient error</label>
+            </value>
+            <value>
+                <fullName>Email template</fullName>
+                <default>false</default>
+                <label>Email template</label>
+            </value>
+            <value>
+                <fullName>Incorrect customer email</fullName>
+                <default>false</default>
+                <label>Incorrect customer email</label>
+            </value>
+            <value>
+                <fullName>Incorrect Data</fullName>
+                <default>false</default>
+                <label>Incorrect Data</label>
+            </value>
+            <value>
+                <fullName>Lead related</fullName>
+                <default>false</default>
+                <label>Lead related</label>
+            </value>
+            <value>
+                <fullName>Login Issue / Reset Password request</fullName>
+                <default>false</default>
+                <label>Login Issue / Reset Password request</label>
+            </value>
+            <value>
+                <fullName>Manual configuration required</fullName>
+                <default>false</default>
+                <label>Manual configuration required</label>
+            </value>
+            <value>
+                <fullName>Mass Data Management</fullName>
+                <default>false</default>
+                <label>Mass Data Management</label>
+            </value>
+            <value>
+                <fullName>Minor Configuration update</fullName>
+                <default>false</default>
+                <label>Minor Configuration update</label>
+            </value>
+            <value>
+                <fullName>Misunderstanding</fullName>
+                <default>false</default>
+                <label>Misunderstanding</label>
+            </value>
+            <value>
+                <fullName>Non-Production Related</fullName>
+                <default>false</default>
+                <label>Non-Production Related</label>
+            </value>
+            <value>
+                <fullName>Notification preferences</fullName>
+                <default>false</default>
+                <label>Notification preferences</label>
+            </value>
+            <value>
+                <fullName>OPC Exception Resolved</fullName>
+                <default>false</default>
+                <label>OPC Exception Resolved</label>
+            </value>
+            <value>
+                <fullName>OPC issue</fullName>
+                <default>false</default>
+                <label>OPC issue</label>
+            </value>
+            <value>
+                <fullName>OPC Sales Exception Resolved</fullName>
+                <default>false</default>
+                <label>OPC Sales Exception Resolved</label>
+            </value>
+            <value>
+                <fullName>Opportunity Related</fullName>
+                <default>false</default>
+                <label>Opportunity Related</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Outlook configuration</fullName>
+                <default>false</default>
+                <label>Outlook configuration</label>
+            </value>
+            <value>
+                <fullName>PDF Generation issue</fullName>
+                <default>false</default>
+                <label>PDF Generation issue</label>
+            </value>
+            <value>
+                <fullName>PDF generation stuck/slow</fullName>
+                <default>false</default>
+                <label>PDF generation stuck/slow</label>
+            </value>
+            <value>
+                <fullName>Picklist value change</fullName>
+                <default>false</default>
+                <label>Picklist value change</label>
+            </value>
+            <value>
+                <fullName>Profile and/or Role Change</fullName>
+                <default>false</default>
+                <label>Profile and/or Role Change</label>
+            </value>
+            <value>
+                <fullName>Reference table related</fullName>
+                <default>false</default>
+                <label>Reference table related</label>
+            </value>
+            <value>
+                <fullName>Report related issue</fullName>
+                <default>false</default>
+                <label>Report related issue</label>
+            </value>
+            <value>
+                <fullName>Reports and Dashboards</fullName>
+                <default>false</default>
+                <label>Reports and Dashboards</label>
+            </value>
+            <value>
+                <fullName>Salesforce1</fullName>
+                <default>false</default>
+                <label>Salesforce1</label>
+            </value>
+            <value>
+                <fullName>Salesforce - Ariba Issue</fullName>
+                <default>false</default>
+                <label>Salesforce - Ariba Issue</label>
+            </value>
+            <value>
+                <fullName>Salesforce for Outlook</fullName>
+                <default>false</default>
+                <label>Salesforce for Outlook</label>
+            </value>
+            <value>
+                <fullName>Salesforce - SAP Issue</fullName>
+                <default>false</default>
+                <label>Salesforce - SAP Issue</label>
+            </value>
+            <value>
+                <fullName>Sales team reference update</fullName>
+                <default>false</default>
+                <label>Sales team reference update</label>
+            </value>
+            <value>
+                <fullName>SAMS</fullName>
+                <default>false</default>
+                <label>SAMS</label>
+            </value>
+            <value>
+                <fullName>SCCR Related</fullName>
+                <default>false</default>
+                <label>SCCR Related</label>
+            </value>
+            <value>
+                <fullName>Signature Task Related Issue</fullName>
+                <default>false</default>
+                <label>Signature Task Related Issue</label>
+            </value>
+            <value>
+                <fullName>Site Maintenance</fullName>
+                <default>false</default>
+                <label>Site Maintenance</label>
+            </value>
+            <value>
+                <fullName>System Configuration</fullName>
+                <default>false</default>
+                <label>System Configuration</label>
+            </value>
+            <value>
+                <fullName>System Error Message</fullName>
+                <default>false</default>
+                <label>System Error Message</label>
+            </value>
+            <value>
+                <fullName>Target &amp; Revenue related</fullName>
+                <default>false</default>
+                <label>Target &amp; Revenue related</label>
+            </value>
+            <value>
+                <fullName>Upgrade equipment</fullName>
+                <default>false</default>
+                <label>Upgrade equipment</label>
+            </value>
+            <value>
+                <fullName>Upload QRG / SOPs</fullName>
+                <default>false</default>
+                <label>Upload QRG / SOPs</label>
+            </value>
+            <value>
+                <fullName>Usage query</fullName>
+                <default>false</default>
+                <label>Usage query</label>
+            </value>
+            <value>
+                <fullName>User training</fullName>
+                <default>false</default>
+                <label>User training</label>
+            </value>
+            <value>
+                <fullName>Verify Signature Task Status</fullName>
+                <default>false</default>
+                <label>Verify Signature Task Status</label>
+            </value>
+            <value>
+                <fullName>Web-To-Lead</fullName>
+                <default>false</default>
+                <label>Web-To-Lead</label>
+            </value>
+            <value>
+                <fullName>Workflow request</fullName>
+                <default>false</default>
+                <label>Workflow request</label>
+            </value>
+            <value>
+                <fullName>Workspace related issue</fullName>
+                <default>false</default>
+                <label>Workspace related issue</label>
+            </value>
+            <value>
+                <fullName>Third Party</fullName>
+                <default>false</default>
+                <label>Third Party</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

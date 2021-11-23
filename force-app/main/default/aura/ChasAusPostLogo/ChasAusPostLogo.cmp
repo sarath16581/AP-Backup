@@ -1,0 +1,3 @@
+<aura:component description="Display logo in header">
+	<a onclick="{!c.gotoApHome}"><img src="{!$Resource.cp_AusPost_Logo}" alt="Australia Post Home"/></a>
+</aura:component>

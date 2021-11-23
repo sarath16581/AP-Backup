@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Route_Start_Time__c</fullName>
+    <description>Concatenation of Route and Start Time for sort in Booking list views</description>
+    <externalId>false</externalId>
+    <formula>Route_Lookup__r.Name + &quot; - &quot; + LEFT(TEXT( Start_Time__c ),5)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Route &amp; Start Time</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

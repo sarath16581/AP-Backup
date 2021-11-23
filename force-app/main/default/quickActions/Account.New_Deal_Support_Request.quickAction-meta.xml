@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This button enables users to create</description>
+    <flowDefinition>STP_Deal_Support_Request_Creation_Organisation</flowDefinition>
+    <label>New Deal Support Request</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

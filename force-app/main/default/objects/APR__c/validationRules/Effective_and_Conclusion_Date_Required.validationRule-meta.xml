@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Effective_and_Conclusion_Date_Required</fullName>
+    <active>true</active>
+    <description>Validation required to ensure Effective and Conclusion Dates are not left blank</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;StarTrack&apos;,
+OR(
+ISPICKVAL(Status__c, &apos;Deferral&apos;), 
+ISPICKVAL(Status__c, &apos;Go early&apos;)
+),
+OR(
+ISNULL(Confirmed_Date__c),
+ISNULL(Conclusion_Date__c)
+)
+)</errorConditionFormula>
+    <errorMessage>Effective Date and/or Conclusion Date is required</errorMessage>
+</ValidationRule>

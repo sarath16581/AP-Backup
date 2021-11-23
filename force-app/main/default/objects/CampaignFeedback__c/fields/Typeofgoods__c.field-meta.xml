@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Typeofgoods__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Type of goods.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Type of goods</inlineHelpText>
+    <label>Type of goods</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,45 @@
+<!--
+2017-10-01 	nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
+-->
+<apex:page id="pageId" standardController="Contact" Extensions="ContactMarketingOptionsExt">
+	<c:ScriptLoader jsLibraries="jquery,jqueryui,ssswconsole,interaction,integration,bootstrap"
+					cssLibraries="jqueryui,bootstrap,ssswconsole" />
+    
+<script>
+    var j$ = jQuery.noConflict();
+    function closeAndRefresh(){
+          
+            sforce.console.getEnclosingPrimaryTabId(function(result)
+                {sforce.console.refreshPrimaryTabById(result.id, true);});
+    }    
+    sforce.connection.sessionId = "{!$Api.Session_ID}";
+    function setFocusOnLoad() {} //prevents focus to this component when inline on the standard page layout
+</script>   
+<apex:form id="formId">
+      <c:LoadingSpinnerComponent showFunctionName="showProgress" hideFunctionName="hideProgress" />
+      <apex:messages styleClass="alert alert-danger" />
+        <div id="saved-dialog" class="hide">
+            <img src="/img/msg_icons/confirm24.png" class="saved-img" />
+            <div class="saved-msg-content">
+                <div class="saved-msg-title">Success!</div>
+                <div class="saved-msg-text">Record has been successfully updated.</div>
+            </div>
+      </div>        
+      <apex:pageBlock >
+        <div style="margin-left: 49%; width: 20%">
+                <apex:commandButton value="Save" onclick="showProgress()" action="{!SaveMarketingOptions}"
+                 reRender="formId"
+                 oncomplete="closeAndRefresh();" />
+        </div>  
+        <apex:pageBlockSection columns="2">
+            <apex:outputText id="legalchecklabel" value="{!$Label.Legal_Marketing_Opt_In}"/>                          
+            <apex:inputField label="Legal Marketing Opt-In" id="legalcheck" value="{!contact.Legal_Marketing_Opt_In__c}"/>
+            <apex:inputField label="SMS Opt Out" id="mobileoptout" value="{!contact.et4ae5__HasOptedOutOfMobile__c}"/> 
+            <apex:inputField label="Email Opt Out" id="emailoptout" value="{!contact.HasOptedOutOfEmail}"/>              
+            <apex:inputField label="Do Not Call" id="donotcall" value="{!contact.DoNotCall}" />        
+            <apex:inputField label="Do Not Mail" id="donotmail" value="{!contact.Do_Not_Mail__c}" />
+        
+       </apex:pageBlockSection>
+      </apex:pageBlock>
+</apex:form>
+</apex:page>

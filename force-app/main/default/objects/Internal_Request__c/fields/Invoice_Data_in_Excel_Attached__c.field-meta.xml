@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invoice_Data_in_Excel_Attached__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Field to indicate that the invoice date in XL has been attached</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Please check when invoice data in Excel has been attached to the request (attach to Notes &amp; Attachments section on request). For StarTrack - please use template link in help documentation</inlineHelpText>
+    <label>Invoice Data in Excel Attached?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

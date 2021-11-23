@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Segmentation_Change</fullName>
+    <active>true</active>
+    <description>Request to change Sales Team &amp;/or Account Manager to another Sales Team</description>
+    <label>Sales Team Change</label>
+    <picklistValues>
+        <picklist>Approval_Comment_Check__c</picklist>
+        <values>
+            <fullName>Requested</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Required</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Approval_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplicate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Processed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recalled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Submitted</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Had_Handover_Conversation__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Proposed_Sales_Team__c</picklist>
+        <values>
+            <fullName>Business Sales NSW 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Sales NSW 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Sales NSW 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Sales NSW 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Sales QLD 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Sales QLD 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Sales SA%2FNT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Sales VIC 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Sales VIC 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Sales VIC 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Sales VIC 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Sales WA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Federal Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Federal Government Inside Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inside Sales NSW 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inside Sales NSW 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inside Sales QLD 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inside Sales QLD 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inside Sales QLD 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inside Sales QLD 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inside Sales VIC 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inside Sales VIC 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Intermediaries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Key Financial NSW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Key Financial VIC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Key Retail %26 Healthcare VIC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Key Retail NSW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Market Development Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Market Development Enterprise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State %26 Local Government NSW%2FQLD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State %26 Local Government NSW%2FQLD Inside Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State %26 Local Government VIC%2FTAS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State %26 Local Government VIC%2FTAS Inside  Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State %26 Local Government WA%2FSA%2FNT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>State %26 Local Government WA%2FSA%2FNT Inside Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strategic %26 Key QLD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strategic Financial %26 Healthcare NSW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strategic Financial %26 Utilities VIC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strategic Retail %26 Telco NSW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strategic Retail %26 Telco VIC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eCommerce Business Development</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_for_Change__c</picklist>
+        <values>
+            <fullName>Acc Mgr %E2%80%93 Director re-allocation of sales reps portfolio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BMS to Business Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Company Mergers or Acquisitions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Company administration or liquidation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Geographic %E2%80%93 Business relocation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost Customer%2FBusiness</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Market Segment change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunity level with customer decreased</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other %28Description must be added%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Profile %E2%80%93 business reasons for change of Sales Team</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spend %E2%80%93 above threshold for Sales Team</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spend %E2%80%93 below threshold  for Sales Team</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reasonforchange__c</picklist>
+        <values>
+            <fullName>ABN Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Anomaly Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Hierarchy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Specialist New Account Allocation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sales_Governance_Approval__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sub_Reason_for_Change__c</picklist>
+        <values>
+            <fullName>ABN%2FName Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BMS to Business Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Channel Promotion %2880%2F20%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Hierarchy Changes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Relocation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Potential for Growth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rebalancing Portfolios</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spend Level Increased</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spend level Decreased</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TSA to Business Sales</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

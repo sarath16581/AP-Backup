@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Default_B_Trailer__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The default B Trailer for this Truck. It&apos;s rego will be populated on the Work Order on selection of the Vehicle</description>
+    <externalId>false</externalId>
+    <label>Default B Trailer</label>
+    <referenceTo>Location</referenceTo>
+    <relationshipLabel>Locations (Default B Trailer)</relationshipLabel>
+    <relationshipName>ParentTruckToBTrailer</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

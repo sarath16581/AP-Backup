@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Revenue_Start_and_End_Date_Population</fullName>
+    <active>true</active>
+    <description>Validation Rule to restrict users to submit the dsr without completing the opportunity products</description>
+    <errorConditionFormula>AND(NOT(ISNEW()) , RecordType.DeveloperName =&apos;Deal_Enablement_Centre&apos; , TEXT(Work_Type__c) = &apos;New Agreement&apos;, OR(AND(Record_Submitted_Check__c = true , ISCHANGED(Stage__c),TEXT(Stage__c) = &apos;Submitted&apos;, ISCHANGED(Status__c),TEXT(Status__c) = &apos;Submitted&apos;),TEXT(Status__c) =&apos;Received Information&apos;),OR(Opportunity__r.Count_of_Contract_Start_Dates__c&gt;0 ,Opportunity__r.Count_of_Contract_End_Dates__c&gt;0,Opportunity__r.Count_of_Opportunity_Line_Items__c=0))</errorConditionFormula>
+    <errorMessage>Please add Opportunity Products and/or Revenue Start Dates and Revenue End Dates to the related Opportunity Products section.Once completed, please return to this Deal Support Request record to submit your request.</errorMessage>
+</ValidationRule>

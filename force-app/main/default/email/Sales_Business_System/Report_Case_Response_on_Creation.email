@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+	
+</head>
+<body>
+<p>Hello</p>
+
+<p>Thank you for your report request, which has reached our Reporting queue and will shortly be assigned to one of our team.</p>
+
+<p><strong>Case Number: </strong>{!Case.CaseNumber}<br />
+<strong>Legal Entity Name: </strong>{!Case.Account}</p>
+
+<p>The status of your case can be viewed via the following link:</p>
+
+<p><strong>{!Case.Link}</strong></p>
+
+
+<p>Our team will contact you directly if additional information is required or an unavoidable delay in completing your request is likely.</p>
+
+<p>Please do not reply to this email.</p>
+
+<p>Regards</p>
+
+<p>Customer Reporting Team</p>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Priority Database Update Required due to Unsubscribe</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>Green Shoots - Internal - Priority Database Update Required due to Unsubscribe</name>
+    <style>freeForm</style>
+    <subject>Salesforce Lead un-subscription request</subject>
+    <textOnly>Hi all
+
+Please action the request from the following lead to opt-out from further e-mail marketing communications from Australia Post:
+
+Name: {!Lead.Name}
+Email: {!Lead.Email}
+Organisation: {!Lead.Company}
+
+
+Click here to view the Lead record in Salesforce</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

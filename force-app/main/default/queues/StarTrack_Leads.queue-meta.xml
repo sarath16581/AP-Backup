@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@startrack.com.au</email>
+    <name>StarTrack Leads</name>
+    <queueMembers>
+        <users>
+            <user>anthony.ferguson2@auspost.com.au</user>
+            <user>ayse.ozturk@startrack.com.au</user>
+            <user>brent.walker@auspost.com.au</user>
+            <user>damian.coyle@startrack.com.au</user>
+            <user>dmullane@bmstelecorp.com.au</user>
+            <user>gellison@bmstelecorp.com.au</user>
+            <user>gmacintyre@bmstelecorp.com.au</user>
+            <user>ioday@bmstelecorp.com.au</user>
+            <user>jgunning@bmstelecorp.com</user>
+            <user>julie.pavlou@startrack.com.au</user>
+            <user>lshakir@bmstelecorp.com</user>
+            <user>manfred.granig@auspost.com.au</user>
+            <user>nick.garlaounis@startrack.com.au</user>
+            <user>richard.pilbrow@startrack.com.au</user>
+            <user>ryan.addison@startrack.com.au</user>
+            <user>sarah.little@startrack.com.au</user>
+            <user>stephanie.gray@startrack.com.au</user>
+            <user>spropos1@bmstelecorp.com</user>
+            <user>ted.butler@auspost.com.au</user>
+            <user>tracey.cassidy@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Lead</sobjectType>
+    </queueSobject>
+</Queue>

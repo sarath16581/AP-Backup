@@ -1,0 +1,10 @@
+.THIS .bodyDiv{
+    border:1px solid black; 
+    border-color:grey; 
+    border-radius: 5px; 
+    padding: 10px;
+}
+
+.THIS .commentDivStyle{
+    padding-left: 5%
+}

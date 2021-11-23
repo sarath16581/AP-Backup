@@ -1,0 +1,13 @@
+Your Case has been logged, please find below the case details.
+
+Case Number: {!Case.CaseNumber}
+
+Case Type: {!Case.Type}
+
+Subject: {!Case.Subject}
+
+Case Description:
+{!Case.Description}
+
+To view this Case in full or add a new Comment follow this link
+{!Case.Link}

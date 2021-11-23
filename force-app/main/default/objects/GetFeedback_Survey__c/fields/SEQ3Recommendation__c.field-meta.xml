@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SEQ3Recommendation__c</fullName>
+    <description>Please rate our performance: How likely are you to recommend our service to a colleague?</description>
+    <externalId>false</externalId>
+    <label>SE - Q3 Recommendation</label>
+    <length>2</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

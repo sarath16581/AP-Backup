@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Early_Cease_Date</fullName>
+    <active>true</active>
+    <description>If early cease is requested, then Date for Early Cease must be specified.</description>
+    <errorConditionFormula>AND(ISPICKVAL(Request_Change__c, &apos;Cease Early&apos;), 
+	OR(ISBLANK(Date_for_Earlier_Cease__c),  Date_for_Earlier_Cease__c &gt;= End_Date__c)
+	)</errorConditionFormula>
+    <errorDisplayField>Date_for_Earlier_Cease__c</errorDisplayField>
+    <errorMessage>Please specify new end date that is earlier than the current End Date</errorMessage>
+</ValidationRule>

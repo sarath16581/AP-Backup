@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Work_Centre_Code</fullName>
+    <active>true</active>
+    <description>Work Centre Code is mandatory if the request is not project related</description>
+    <errorConditionFormula>AND(ISPICKVAL(Project_Related_Request__c,&apos;No&apos;), ISBLANK(Work_Centre_Code__c), OR(  RecordType.DeveloperName == &apos;Other_Salesforce_Product&apos;, RecordType.DeveloperName == &apos;Salesforce_License&apos;,RecordType.DeveloperName == &apos;Salesforce_Sandbox&apos;))</errorConditionFormula>
+    <errorDisplayField>Work_Centre_Code__c</errorDisplayField>
+    <errorMessage>Please enter the work centre code for non project related request.</errorMessage>
+</ValidationRule>

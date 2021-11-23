@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaritzCX__All</fullName>
+    <columns>NAME</columns>
+    <columns>MaritzCX__Contact_Id__c</columns>
+    <columns>MaritzCX__Key_Metric_1_Bar__c</columns>
+    <columns>MaritzCX__Key_Metric_2_Bar__c</columns>
+    <columns>MaritzCX__Key_Metric_3_Bar__c</columns>
+    <columns>MaritzCX__Key_Metric_4_Bar__c</columns>
+    <columns>MaritzCX__Key_Metric_5_Bar__c</columns>
+    <columns>MaritzCX__Metric_1__c</columns>
+    <columns>MaritzCX__Metric_2__c</columns>
+    <columns>MaritzCX__Comments_1__c</columns>
+    <columns>MaritzCX__Comments_2__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

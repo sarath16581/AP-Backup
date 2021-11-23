@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PresenceUserConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignments>
+        <profiles>
+            <profile>StarTrack Support</profile>
+            <profile>StarTrack VOC</profile>
+        </profiles>
+    </assignments>
+    <capacity>1</capacity>
+    <declineReasons>End_of_shift</declineReasons>
+    <declineReasons>On_Break</declineReasons>
+    <enableAutoAccept>false</enableAutoAccept>
+    <enableDecline>true</enableDecline>
+    <enableDeclineReason>true</enableDeclineReason>
+    <enableDisconnectSound>true</enableDisconnectSound>
+    <enableRequestSound>true</enableRequestSound>
+    <label>Startrack Agent cases</label>
+    <presenceStatusOnDecline>Busy</presenceStatusOnDecline>
+</PresenceUserConfig>

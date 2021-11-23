@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__TargetedSolutionPotentialValidRange</fullName>
+    <active>true</active>
+    <errorConditionFormula>(DMAPP__Strategic_Potential_Green__c &lt; 0 || DMAPP__Strategic_Potential_Green__c &gt; 1) ||
+(DMAPP__Strategic_Potential_Amber__c  &lt; 0 ||  DMAPP__Strategic_Potential_Amber__c &gt; 1) ||
+(DMAPP__Strategic_Potential_Amber__c  &gt;  DMAPP__Strategic_Potential_Green__c)</errorConditionFormula>
+    <errorMessage>Targeted Solution Potential Green and Amber cannot be less than 0% or greater than 100% and Targeted Solution Potential Green cannot be less than Targeted Solution Potential Amber</errorMessage>
+</ValidationRule>

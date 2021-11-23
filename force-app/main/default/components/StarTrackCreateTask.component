@@ -1,0 +1,140 @@
+<!--
+Author:        Patrick James Franco
+Company:       Cloud Sherpas
+Description:   Create Task component for StarTrack Cases
+History
+November 23, 2015 - Patrick James Franco - Created
+March 15, 2016 - David Catindoy - Refactored
+-->
+
+<apex:component controller="StarTrackCreateTaskPAController" allowDML="true">
+<apex:attribute name="case" description="" type="Case" required="true"/>
+
+<apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}"/>
+<apex:pageMessages id="pageMessages"/>
+<apex:includeScript value="/support/api/34.0/interaction.js"/>
+<apex:includeScript value="/canvas/sdk/js/publisher.js" />
+<style type="text/css">
+    .dateFormat{
+       display:none;
+    }
+    .bPageBlock .detailList tr td.dataCol, 
+    .bPageBlock .detailList tr th.labelCol {
+        border-bottom:2px solid #FFFFFF;
+    }
+</style>
+<apex:outputPanel id="redirectPanel">
+<script type="text/javascript">
+    function publishandclose(){
+        if({!validation}){
+            sforce.interaction.entityFeed.refreshObject('{!Case.id}', true, true, true);
+            sforce.interaction.entityFeed.reloadFrame();
+            Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload :{feed: true, objectRelatedLists: {}}});
+            Sfdc.canvas.publisher.publish({name:"publisher.selectAction",payload:{actionName:"Case.Closed"}});
+            
+        }
+    }
+</script>
+</apex:outputPanel>
+
+<script type="text/javascript">
+    function resizePA(){
+        Sfdc.canvas.publisher.resize();
+    }
+</script>
+
+<div class="slds">
+    <apex:actionstatus id="counterStatus">
+    <apex:facet name="start">
+        <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb; height:100%; width:100%; opacity:0.65;">
+            <div class="waitingHolder" style="top: 40%; width: 50%;">
+                <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                <span class="waitingDescription">Loading...</span>
+            </div>
+        </div>
+    </apex:facet>
+</apex:actionstatus>
+<apex:form id="createTask">
+    <apex:actionFunction name="task" action="{!createTask}" rerender="pageMessages, redirectPanel" oncomplete="publishandclose(); resizePA();" status="counterStatus"/>
+    <apex:actionRegion id="thePanelActionRegion">
+        <apex:outputPanel id="out">
+            <apex:actionRegion >
+                <apex:actionFunction name="refresh" action="{!refreshRecord}" rerender="pageMessages, out" oncomplete="resizePA();" status="counterStatus"/>
+            </apex:actionRegion>
+            <apex:actionRegion id="theBlockActionRegion">
+                <apex:pageBlock tabStyle="Case" mode="maindetail" id="theBlock">
+                    <apex:actionRegion >
+                    <apex:pageBlockSection columns="2" id="mainSection">
+                        <apex:inputField id="type" value="{!newTask.Type}">
+                            <apex:actionSupport event="onchange" action="{!changeTaskField}" rerender="pageMessages,theBlock,searchIcon" oncomplete="resizePA();"/>
+                        </apex:inputField>
+                        <apex:inputField value="{!newTask.Is_Bulk_Task__c}" rendered="{!newTask.Type == 'Operations Task' && Case.RecordType.Name != 'Pickup Booking Enquiry' && createTaskAllowed}">
+                            <apex:actionSupport event="onchange" action="{!changeTaskField}" rerender="pageMessages,theBlock,searchIcon" oncomplete="resizePA();"/>
+                        </apex:inputField>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection columns="2" id="thereminderSection" rendered="{!newTask.Type != 'Operations Task' && createTaskAllowed}">
+                        <apex:pageBlockSectionItem rendered="{!newTask.Type == 'Operations Task'}" />
+                        <apex:inputField value="{!newTask.ReminderDateTime}" id="reminderDateTime"/>
+                        <apex:inputField value="{!newTask.ActivityDate}" id="activityDate"/>
+                        <apex:inputField value="{!newTask.OwnerId}" id="ownerId"/>
+                        <apex:inputField value="{!newTask.Subject}" id="subject"/>
+                        <apex:inputField Value="{!newTask.Description}" style="width:200px; height: 80px;"/>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection columns="2" id="theOptTaskSection1" rendered="{!newTask.Type == 'Operations Task' && createTaskAllowed}">
+                        <apex:inputField value="{!newTask.Depot_Filter__c}" rendered="{!newTask.Is_Bulk_Task__c}">
+                            <apex:actionSupport event="onchange" rerender="pageMessages, theBlock" oncomplete="resizePA();"/>
+                        </apex:inputField>
+                        <apex:pageBlockSectionItem rendered="{!newTask.Is_Bulk_Task__c && newTask.Depot_Filter__c != 'All by State'}"/>
+                        <apex:inputField value="{!newTask.State__c}" rendered="{!newTask.Is_Bulk_Task__c && newTask.Depot_Filter__c == 'All by State'}"/>
+                        <apex:inputField value="{!newTask.Network__c}" rendered="{!NOT(newTask.Is_Bulk_Task__c)}">
+                            <apex:actionSupport event="onchange" action="{!changeNetworkValue}" reRender="pageMessages, theBlock,cpbutton,calcButton,searchIcon" oncomplete="resizePA();"/>
+                        </apex:inputField>
+                        <apex:outputField value="{!networkRec.Preferred_Method_of_Tasking__c}" rendered="{!NOT(newTask.Is_Bulk_Task__c)}"/>
+                    </apex:pageBlockSection>
+                    </apex:actionRegion>
+                    
+                    <apex:pageBlockSection columns="2" id="theOptTaskSection2" rendered="{!newTask.Type == 'Operations Task' && createTaskAllowed}">
+                        <apex:pageBlockSectionItem rendered="{!(networkRec.Preferred_Method_of_Tasking__c  == 'System' || networkRec.Preferred_Method_of_Tasking__c == 'Parent Depot') && NOT(newTask.Is_Bulk_Task__c)}">
+                            <apex:outputLabel value="Depot Area"/>
+                            <apex:outputPanel >
+                                <div class="requiredInput">
+                                    <div class="requiredBlock"></div>
+                                    <apex:selectList id="selectList1" value="{!depotAreaId}" size="1">
+                                        <apex:selectOptions value="{!depotAreaRecords}"/>
+                                        <!--<apex:actionSupport event="onchange" action="{!changeDepotArea}" rerender="theOptTaskSection2"/>-->
+                                    </apex:selectList>
+                                </div>    
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:selectList id="selectList2" value="{!depotAreaId}" size="1" rendered="{!networkRec.Preferred_Method_of_Tasking__c  == 'Email' && NOT(newTask.Is_Bulk_Task__c)}" label="Depot Area">
+                            <apex:selectOptions value="{!depotAreaRecords}"/>
+                            <!--<apex:actionSupport event="onchange" action="{!changeDepotArea}" rerender="theOptTaskSection2"/>-->
+                        </apex:selectList>
+                        <apex:outputText value="Please call depot for tasking requests" rendered="{!networkRec.Preferred_Method_of_Tasking__c  == 'Phone' && NOT(newTask.Is_Bulk_Task__c)}"/>
+                        <apex:outputText value="Please send fax for tasking requests" rendered="{!networkRec.Preferred_Method_of_Tasking__c  == 'Fax' && NOT(newTask.Is_Bulk_Task__c)}"/>
+                        <apex:pageBlockSectionItem rendered="{!(networkRec.Preferred_Method_of_Tasking__c  == 'Phone' || networkRec.Preferred_Method_of_Tasking__c  == 'Fax') && NOT(newTask.Is_Bulk_Task__c)}"/>
+                        <apex:outputField value="{!networkRec.Depot_contact_number__c}" rendered="{!networkRec.Preferred_Method_of_Tasking__c  == 'Phone' && NOT(newTask.Is_Bulk_Task__c)}"/>
+                        <apex:outputField value="{!networkRec.Fax_Number__c}" rendered="{!networkRec.Preferred_Method_of_Tasking__c  == 'Fax' && NOT(newTask.Is_Bulk_Task__c)}"/>
+                        <apex:pageBlockSectionItem rendered="{!NOT(newTask.Is_Bulk_Task__c) && (networkRec.Preferred_Method_of_Tasking__c != 'Phone' || networkRec.Preferred_Method_of_Tasking__c != 'Fax')}"/>
+                        <apex:inputField value="{!newTask.Subject}" id="subject" rendered="{!(networkRec.Preferred_Method_of_Tasking__c  == 'System' || networkRec.Preferred_Method_of_Tasking__c == 'Parent Depot' || networkRec.Preferred_Method_of_Tasking__c  == 'Email' || newTask.Is_Bulk_Task__c)}"/>
+                        <apex:pageBlockSectionItem />
+                        <apex:inputField Value="{!newTask.Description}" style="width:200%; height: 100px;" rendered="{!(networkRec.Preferred_Method_of_Tasking__c  == 'System' || networkRec.Preferred_Method_of_Tasking__c == 'Parent Depot' || networkRec.Preferred_Method_of_Tasking__c  == 'Email' || newTask.Is_Bulk_Task__c)}"/>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:actionRegion>
+        </apex:outputPanel>
+    </apex:actionRegion>
+    <apex:outputPanel id="searchIcon" style="float: right; bottom:0px;">
+        <apex:commandButton id="calcButton" style="right: 10px;" styleClass="slds-button slds-button--brand slds-button--small" oncomplete="chatter.getPublisher().submit();" value="Calculate" onclick="refresh();" rendered="{!(newTask.Type == 'Operations Task' && createTaskAllowed && NOT(newTask.Is_Bulk_Task__c) && NOT(disabledButton) && (networkRec.Preferred_Method_of_Tasking__c == 'Parent Depot' || networkRec.Preferred_Method_of_Tasking__c == 'System' || networkRec.Preferred_Method_of_Tasking__c == 'Email'))}"/>
+        <apex:commandButton styleClass="slds-button slds-button--brand slds-button--small" onclick="task();" rendered="{!createTaskAllowed}" disabled="{!((networkRec.Preferred_Method_of_Tasking__c  == 'Phone' || networkRec.Preferred_Method_of_Tasking__c  == 'Fax') || disabledButton) && newTask.Type == 'Operations Task'}" id="cpbutton" oncomplete="chatter.getPublisher().submit();" value="Submit"/>
+        <apex:pageBlock mode="maindetail" rendered="{!(newTask.Type != 'Operations Task' && createTaskAllowed)}"/> 
+    </apex:outputPanel>
+</apex:form>
+</div>
+<script type="text/javascript">
+    Sfdc.canvas.publisher.resize();
+</script>
+</apex:component>

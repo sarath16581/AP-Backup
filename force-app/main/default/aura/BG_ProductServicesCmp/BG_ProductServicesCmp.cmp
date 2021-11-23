@@ -1,0 +1,22 @@
+<!--
+    STP:20/02/2020: 
+    The component get all the 'Category'(Qualification_Template_Questions__c.Category__c) picklist values and display here as a checkbox options.
+-->
+
+<aura:component controller="BG_QualificationApex" implements="force:appHostable,flexipage:availableForAllPageTypes">
+   <aura:attribute name="productAndServicesList" type="List"/>
+    <aura:attribute name="selectedProducts" type="List"/>
+    <aura:attribute name="qualId" type="String" />
+    <aura:attribute name="existingQualification" type="Object"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+        <c:BG_InfoInputWrap
+                            type='checkoxGroup'  
+                            aura:id='field' 
+                            name="{! 'pd' + v.index }"
+                            options='{! v.productAndServicesList}'
+                            label=''
+                            helptext='Please select Product and Services'  
+                            value='{!v.selectedProducts}' /> 
+
+</aura:component>

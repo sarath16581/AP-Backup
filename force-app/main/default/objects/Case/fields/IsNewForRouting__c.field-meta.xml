@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsNewForRouting__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Field used by WFR to be set to False &quot;SSSW - Update IsNewForRouting&quot;.
+Used by code to determine Routing assignment based of New/Updated.</description>
+    <externalId>false</externalId>
+    <label>IsNewForRouting?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

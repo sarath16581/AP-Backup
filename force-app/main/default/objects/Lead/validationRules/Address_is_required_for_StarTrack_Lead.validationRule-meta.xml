@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Address_is_required_for_StarTrack_Lead</fullName>
+    <active>true</active>
+    <description>StarTrack: Address is required for leads</description>
+    <errorConditionFormula>AND(
+$RecordType.DeveloperName = &quot;StarTrack_Lead&quot;,
+OR(
+ISBLANK(Street),
+ISBLANK(City),
+ISBLANK(PostalCode),
+ISBLANK(State)
+)
+)</errorConditionFormula>
+    <errorMessage>Please enter Street, City, Postal code and State</errorMessage>
+</ValidationRule>

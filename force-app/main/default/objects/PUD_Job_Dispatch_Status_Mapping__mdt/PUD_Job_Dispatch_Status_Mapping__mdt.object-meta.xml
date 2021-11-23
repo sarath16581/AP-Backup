@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Contains a list of status from dispatch system and mapping to Job status. This is used in processing Job dispatch platform events.</description>
+    <label>PUD Job Dispatch Status Mapping</label>
+    <pluralLabel>PUD Job Dispatch Status Mappings</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

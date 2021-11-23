@@ -1,0 +1,82 @@
+<apex:page standardController="Account" extensions="APT_AccountDetails">
+   <apex:form >
+       <apex:pageMessages /> 
+       <apex:pageBlock >
+            <apex:variable value="{!0}" var="index" /> 
+            <apex:pageBlockSection title="{!$Label.APT_Charge_Accounts}">
+                <apex:pageBlockTable value="{!chargeAccList}" var="chargeAcc" >
+                   <apex:column >
+                        <apex:facet name="header">{!$Label.APT_No}</apex:facet>
+                        <apex:outputText >
+                            <apex:variable value="{!index + 1}" var="index" />
+                            {!index}
+                        </apex:outputText>
+                    </apex:column>
+                    <apex:repeat value="{!chargeAccFieldList}" var="fields">
+                         <apex:column >
+                              <apex:facet name="header">{!fields.Label}</apex:facet>
+                             <apex:outputField value="{!chargeAcc[fields.fieldPath]}" />
+                         </apex:column>
+                    </apex:repeat>
+                    <apex:column >
+                        <apex:facet name="header">{!$Label.APT_Selected}</apex:facet>
+                        <apex:inputField value="{!chargeAcc.APT_Selected__c}"/>
+                    </apex:column> 
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+         
+            <apex:variable value="{!0}" var="index" />  
+            <apex:pageBlockSection title="{!$Label.APT_Sub_Accounts}">
+                
+                <apex:pageBlockTable value="{!subAccList}" var="subAcc">
+                    <apex:column >
+                        <apex:facet name="header">{!$Label.APT_No}</apex:facet>
+                        <apex:outputText >
+                            <apex:variable value="{!index + 1}" var="index" />
+                            {!index}
+                        </apex:outputText>
+                    </apex:column>
+                    <apex:repeat value="{!subAccFieldList}" var="fields">
+                         <apex:column >
+                              <apex:facet name="header">{!fields.Label}</apex:facet>
+                             <apex:outputField value="{!subAcc[fields.fieldPath]}" />
+                         </apex:column>
+                    </apex:repeat>
+                    <apex:column >
+                        <apex:facet name="header">{!$Label.APT_Selected}</apex:facet>
+                        <apex:inputField value="{!subAcc.APT_Selected__c}"/>
+                    </apex:column> 
+                </apex:pageBlockTable>
+             </apex:pageBlockSection>
+
+             <apex:variable value="{!0}" var="index" />
+             <apex:pageBlockSection title="{!$Label.APT_Cash_Accounts}"> 
+                <apex:pageBlockTable value="{!cashAccList}" var="cashAcc">                    
+                    <apex:column >
+                        <apex:facet name="header">{!$Label.APT_No}</apex:facet>
+                        <apex:outputText >
+                            <apex:variable value="{!index + 1}" var="index" />
+                            {!index}
+                        </apex:outputText>
+                    </apex:column> 
+                    <apex:repeat value="{!cashAccFieldList}" var="fields">
+                         <apex:column >
+                              <apex:facet name="header">{!fields.Label}</apex:facet>
+                             <apex:outputField value="{!cashAcc[fields.fieldPath]}" />
+                         </apex:column>
+                    </apex:repeat>
+                    <apex:column >
+                        <apex:facet name="header">{!$Label.APT_Selected}</apex:facet>
+                        <apex:inputField value="{!cashAcc.APT_Selected__c}"/>
+                    </apex:column>    
+                </apex:pageBlockTable>
+                </apex:pageBlockSection>
+     
+         <apex:pageblockButtons location="both">   
+            <apex:commandButton action="{!cancel}" value="{!$Label.APT_Cancel}"/> 
+            <apex:commandButton action="{!save}" value="{!$Label.APT_Save}"/>
+            <apex:commandButton action="{!export}" value="{!$Label.APT_export}" oncomplete="window.reload();"/>
+         </apex:pageblockButtons>
+         </apex:pageBlock>
+    </apex:form>  
+</apex:page>

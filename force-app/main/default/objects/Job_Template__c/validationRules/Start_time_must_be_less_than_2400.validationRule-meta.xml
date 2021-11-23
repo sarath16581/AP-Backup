@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Start_time_must_be_less_than_2400</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(
+     NOT(ISNUMBER(Start_Time__c)),
+     LEN(Start_Time__c) &lt; 3,
+     VALUE(Start_Time__c) &lt; 0,
+     VALUE(Start_Time__c) &gt; 2400,
+     VALUE(RIGHT(Start_Time__c,2)) &gt; 59 
+)</errorConditionFormula>
+    <errorDisplayField>Start_Time__c</errorDisplayField>
+    <errorMessage>Start Time must be number and between 0000 and 2400</errorMessage>
+</ValidationRule>

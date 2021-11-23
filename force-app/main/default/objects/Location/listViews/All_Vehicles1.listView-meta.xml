@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Vehicles1</fullName>
+    <columns>Name</columns>
+    <columns>LocationType</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Id</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Owner</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>LocationType</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Barcode_A__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>FleetNumber__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>All Vehicles</label>
+    <language>en_US</language>
+</ListView>

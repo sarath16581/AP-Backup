@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Non_Compliance_Issue__c</fullName>
+    <externalId>false</externalId>
+    <label>Non-Compliance Issue</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Addressing</fullName>
+                <default>false</default>
+                <label>Addressing</label>
+            </value>
+            <value>
+                <fullName>Category</fullName>
+                <default>false</default>
+                <label>Category</label>
+            </value>
+            <value>
+                <fullName>Documentation</fullName>
+                <default>false</default>
+                <label>Documentation</label>
+            </value>
+            <value>
+                <fullName>Presentation</fullName>
+                <default>false</default>
+                <label>Presentation</label>
+            </value>
+            <value>
+                <fullName>Sorting</fullName>
+                <default>false</default>
+                <label>Sorting</label>
+            </value>
+            <value>
+                <fullName>Volumes</fullName>
+                <default>false</default>
+                <label>Volumes</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

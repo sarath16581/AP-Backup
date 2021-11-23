@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Require_Internal_Reference_Num</fullName>
+    <active>true</active>
+    <description>StarTrack - Require Source System Reference Number if chosen Source System is Peoplesoft</description>
+    <errorConditionFormula>AND(
+    RecordType.Name = &apos;Sales Enquiry&apos;,
+    ISPICKVAL(Source_System__c, &apos;Peoplesoft&apos;),
+    ISBLANK(Source_System_Reference_Number__c)
+)</errorConditionFormula>
+    <errorDisplayField>Source_System_Reference_Number__c</errorDisplayField>
+    <errorMessage>Please provide a value</errorMessage>
+</ValidationRule>

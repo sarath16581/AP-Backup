@@ -1,0 +1,24 @@
+<apex:page controller="APT_SAPContractValidationController" action="{!executeSAPContractCheck}">
+    
+    <apex:form >
+        <apex:pageMessages ></apex:pageMessages>
+    	<apex:pageBlock rendered="{!showQuestion}">
+            <apex:pageBlockSection >
+                <apex:pageBlockSectionItem >
+                    <apex:outputlabel value="Has a new contract been created?"/>
+                    <apex:selectList id="chooseStatus" value="{!replyVal}" size="1">
+                        <apex:selectOption itemValue="" itemLabel="Please Select"/>
+                        <apex:selectOption itemValue="No" itemLabel="No"/>
+                        <apex:selectOption itemValue="Yes" itemLabel="Yes"/>
+                    </apex:selectList>    
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection> 
+            
+            <apex:pageBlockButtons location="bottom">
+            	<apex:commandButton value="Confirm" action="{!executeSAPContractCheck}"/>
+                <apex:commandButton value="Cancel" action="{!returnContract}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock> 
+    </apex:form>
+    
+</apex:page>

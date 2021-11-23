@@ -1,0 +1,41 @@
+<!--
+ * Date            Version          Owner               Desription
+ * 12-Feb-17        1.0             Bharat P            Initial Version - Enterprise Credit Claim Form Maintenance Error Page
+-->
+<apex:page sidebar="false" showHeader="false">
+    <html lang="en">
+        <head>
+			<meta charset="utf-8"/>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+            <title>Credit Claim Form Maintenance</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>            
+            <apex:stylesheet value="{!URLFOR($Resource.Enterprise_Credit_Claim_CSS,'css/Enterprise_Credit_Claim_CSS.css')}"/>
+            <apex:stylesheet value="{!$Resource.bootstrapCSS}"/>
+            <apex:stylesheet value="{!$Resource.bootstrapmin}"/>
+        </head>
+        <body>
+        	<div class="l-header">
+                <div class="top-nav"/>
+                <div class="container">
+                    <div class="main-logo">
+            			<!-- START logo --> 
+            			<img src="{!URLFOR($Resource.Enterprise_Credit_Claim_CSS, 'css/images/logo-ap_st-2_h_1.png')}" 
+                 			 alt="Australia Post logo" class="img-responsive"/>
+                	</div>
+                	</div>
+                  </div>
+        	<apex:pageBlock >
+                <div style="text-align:center;">
+                    <span style="top:70px; position:relative; color:red; font-size:30px; margin-right:10px;">OOPS!!! THE SITE IS DOWN FOR MAINTENANCE</span>
+                </div>
+                <div class="modal-dialog" >
+                    <div class="modal-content" style="top:70px; position:relative; color:#FFF; background:#2E9AFE; font-size:25px; text-align:center">
+                        <div class="modal-body">
+                			{!$Label.Credit_Claim_Form_Maintenance}                                                
+                		</div>                                                                  
+                    </div>
+                </div>
+            </apex:pageBlock>
+        </body>   
+    </html>
+</apex:page>

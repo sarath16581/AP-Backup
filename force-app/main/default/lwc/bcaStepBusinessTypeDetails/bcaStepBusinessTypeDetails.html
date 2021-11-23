@@ -1,0 +1,65 @@
+<!--
+* @author avula.jansirani@auspost.com.au
+* @date 2021-02-05
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Step in Credit Application Form to input Business Type details
+* @changelog
+* 2021-02-05 avula.jansirani@auspost.com.au  Created
+*
+-->
+
+<template>
+
+  <!-- Industry Division from object Records-->
+  <lightning-combobox data-id="industryDivision" 
+                      message-when-value-missing={industryDivisionValueMissing}
+                      name="industryDivision"
+                      label="Industry division"
+                      options={industryDivisionOptons}
+                      onchange={handleChange}
+                      onblur={handleFocusOut}
+                      placeholder="Select..."
+                      onkeydown={enforceFormat}
+                      required>
+  </lightning-combobox>
+
+  <!-- Industry Class from object Records-->
+  <lightning-combobox data-id="industryClass" 
+                      message-when-value-missing={industryClassValueMissing}
+                      name="industryClass"
+                      label="Industry class"
+                      class="slds-p-top_large"
+                      options={industryClassOptons}
+                      onchange={handleChange}
+                      onblur={handleFocusOut}
+                      placeholder="Select..."
+                      disabled={isIndustryClassDisabled}
+                      onkeydown={enforceFormat}
+                      required>
+  </lightning-combobox>
+
+  <template if:true={isDisplayNoOfDirectors}>
+
+    <!--<c-custom-combo-box  data-id="noOfDirectors1"
+                          name="noOfDirectors1" 
+                          label={noOfDirectorsLabel}
+                          options={numberOfDirOptons} 
+                          onblur={handleBlur}
+                          required></c-custom-combo-box> -->
+    <!-- Number of directors-->
+    <lightning-combobox data-id="noOfDirectors"
+                        name="noOfDirectors" 
+                        label={noOfDirectorsLabel}
+                        options={numberOfDirOptons} 
+                        onchange={handleChange} 
+                        onblur={handleFocusOut}
+                        placeholder="Select..."
+                        class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-p-top_large short-form-field" 
+                        required
+                        onkeydown={enforceFormat}>
+    </lightning-combobox>
+
+  </template>
+
+</template>

@@ -1,0 +1,28 @@
+<apex:page >
+  <html>
+      <div><font face="Arial" size="5" style="font-size: 18pt; ">Notes on managing data quality</font></div>
+<div><font face="Arial"><br />
+    </font></div>
+<div><font face="Arial" size="4" style="font-size: 14pt; "><b><br />
+      </b></font></div>
+<div><font face="Arial" size="4" style="font-size: 14pt; "><b>General data quality</b></font></div>
+<div><font face="Arial"><br />
+    </font></div>
+<div><font face="Arial" size="4">Occasionally a user may notice data that looks to be incorrect (such as address details and phone numbers). First check that this is not simply a difference between the old Level 5 Customer and the new Customer as these are not necessarily classified in the same way.  If the data is then found to be incorrect, report this to your Super User.</font></div>
+<div><font face="Arial"><br />
+    </font></div>
+<div><font face="Arial"> </font></div>
+<div><font face="Arial"><br />
+    </font></div>
+<div><font face="Arial" size="4" style="font-size: 14pt; "><b>Opportunities listed as ‘Temporary Customer’</b></font></div>
+<div><font face="Arial"><br />
+    </font></div>
+<div><font face="Arial" size="4">Due to the changes from Level 5 Customers to the new Customer Master Data structure, some opportunities may not have been assigned to the correct Customer.  In this case, they have been assigned as ‘Temporary Customers’.  If you notice an opportunity is assigned to ‘Temporary Customer’ and it belongs to you, you can assign it to the correct Customer.</font></div>
+<div><font face="Arial"> </font></div>
+<div><font face="Arial"><br />
+    </font></div>
+<div><font face="Arial" size="4"><b style="font-size: 14pt; ">Opportunities listed as ‘Holding User’</b></font></div>
+<div><font face="Arial"><br />
+    </font></div>
+<div><font face="Arial" size="4">Some opportunities have been assigned ‘Holding User’.  In most cases these opportunities belong to users who won’t be active in Salesforce.  If however, a user is missing an opportunity they should first check opportunities by viewing by ‘Holding User’.  Report this to your Super User who will log a case to correct this.  The remaining opportunities need to be assigned to the correct owner.</font></div></html>
+</apex:page>

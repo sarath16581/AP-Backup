@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Workshop_Topic__c</fullName>
+    <externalId>false</externalId>
+    <label>Workshop Topic</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Analytic snapshots for historical data</fullName>
+                <default>false</default>
+                <label>Analytic snapshots for historical data</label>
+            </value>
+            <value>
+                <fullName>Billed Revenue Aggregate</fullName>
+                <default>false</default>
+                <label>Billed Revenue Aggregate</label>
+            </value>
+            <value>
+                <fullName>Call route planning</fullName>
+                <default>false</default>
+                <label>Call route planning</label>
+            </value>
+            <value>
+                <fullName>Customer Care Incidents</fullName>
+                <default>false</default>
+                <label>Customer Care Incidents</label>
+            </value>
+            <value>
+                <fullName>Data Quality Workshop</fullName>
+                <default>false</default>
+                <label>Data Quality Workshop</label>
+            </value>
+            <value>
+                <fullName>Heirarchy, Budgeting &amp; Forecasting</fullName>
+                <default>false</default>
+                <label>Heirarchy, Budgeting &amp; Forecasting</label>
+            </value>
+            <value>
+                <fullName>Hierarchy and Budgeting</fullName>
+                <default>false</default>
+                <label>Hierarchy and Budgeting</label>
+            </value>
+            <value>
+                <fullName>Process Automation</fullName>
+                <default>false</default>
+                <label>Process Automation</label>
+            </value>
+            <value>
+                <fullName>Product and Competitor Collateral</fullName>
+                <default>false</default>
+                <label>Product and Competitor Collateral</label>
+            </value>
+            <value>
+                <fullName>Product Mapping</fullName>
+                <default>false</default>
+                <label>Product Mapping</label>
+            </value>
+            <value>
+                <fullName>Sales expense tracking</fullName>
+                <default>false</default>
+                <label>Sales expense tracking</label>
+            </value>
+            <value>
+                <fullName>Sales Operations - User Management</fullName>
+                <default>false</default>
+                <label>Sales Operations - User Management</label>
+            </value>
+            <value>
+                <fullName>Sales Team Skills Matrix</fullName>
+                <default>false</default>
+                <label>Sales Team Skills Matrix</label>
+            </value>
+            <value>
+                <fullName>Standard pricing &amp; discount calculations</fullName>
+                <default>false</default>
+                <label>Standard pricing &amp; discount calculations</label>
+            </value>
+            <value>
+                <fullName>Territory management</fullName>
+                <default>false</default>
+                <label>Territory management</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

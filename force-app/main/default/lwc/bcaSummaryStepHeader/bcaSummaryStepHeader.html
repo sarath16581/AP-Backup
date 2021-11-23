@@ -1,0 +1,36 @@
+<!--
+* @author avula.jansirani@auspost.com.au
+* @date 2020-11-12
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Reusable Summary header section(for each input step) display. Used in 'Review and submit' step of BCA form
+* @changelog
+* 2020-01-20 avula.jansirani@auspost.com.au  Created
+*
+-->
+<template>
+    <div data-id='bcasummarystepheader'>
+    <table class="slds-m-bottom_large">
+        <tr class="review-title">
+
+            <td class="slds-section__title"><b>
+                    <template if:true={stepName}> <h3>{headerLabel}</h3></template> <!-- TO DO: conditional css class add-->
+                    <template if:false={stepName}> <h4>{headerLabel}</h4></template> <!-- for sub headers like Director 1, Director1 etc-->
+                </b></td>
+
+            <td>
+                <template if:true={stepName}>
+                    <!--<button title="Edit" aria-label="Edit" class="icon-text-button" onclick={navigateToEditStep} data-id={stepName}>
+                        <c-bsp-custom-icons icon="edit-pencil" size="small"></c-bsp-custom-icons>
+                        <span>Edit</span>-->
+                        <button title="Edit" aria-label="Edit" class="slds-button slds-button_icon slds-button_icon-border no-border hide-print" onclick={navigateToEditStep} data-id={stepName}>
+                            <c-bsp-custom-icons icon="edit-pencil" size="small"></c-bsp-custom-icons>
+                    </button>
+                </template>
+
+            </td>
+
+        </tr>
+    </table>
+</div>
+</template>

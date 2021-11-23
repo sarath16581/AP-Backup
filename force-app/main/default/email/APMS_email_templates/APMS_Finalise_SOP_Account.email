@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+	<title>Finalise your SecurePay Application</title>
+</head>
+<body>
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Hi {!Application__c.ContactFirstName__c},</span><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"><o:p></o:p></span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">We can see that you have signed your SecurePay Online Payments agreement via DocuSign &ndash; you&rsquo;re almost done!<o:p></o:p></span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">You should have now received your Welcome Pack which has instructions to finalise your application and start taking payments online. The final step is to login to your account, complete the compliance checklist and then you&rsquo;re ready to go. You may also need to provide your gateway credentials (Merchant ID and Transaction Password) that we have included in the Welcome Pack to your web developer so they can connect your shopping cart and SecurePay account.<o:p></o:p></span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">If you need help with either of these tasks, our team is on hand to help guide you. Please call us on 1300 656 372 (option 1), we&rsquo;re here to help.<o:p></o:p></span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Regards,<o:p></o:p></span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">The SecurePay Team<br />
+SecurePay Pty Ltd &ndash; A business of Australia Post<br />
+Level 8, 222 Exhibition St, Melbourne, VIC 3000<br />
+<strong>P</strong> 1300 656 372 (option 1)&nbsp;<br />
+<strong>E</strong> <a href="mailto:onlinepayments@securepay.com.au"><span style="color:windowtext">onlinepayments@securepay.com.au</span></a>&nbsp;<br />
+<strong>W</strong> securepay.com.au<o:p></o:p></span></p>
+</body>
+</html>

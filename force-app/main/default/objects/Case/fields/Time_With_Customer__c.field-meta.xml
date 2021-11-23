@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Time_With_Customer__c</fullName>
+    <defaultValue>0</defaultValue>
+    <description>The time in business hours that this case spent in the hands of the customer.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The time in business hours that this case spent in the hands of the customer.</inlineHelpText>
+    <label>Time With Customer</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>3</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

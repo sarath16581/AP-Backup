@@ -1,0 +1,64 @@
+<!-- 
+/**
+Description - This Page will manage domestic and international rate card pricing creation batch.
+Created By - Mausam Padhiyar
+Created Date - 28th Sept, 2015
+**/
+ -->
+<apex:page controller="APT_ManageRateCardProductsController" tabStyle="APT_Manage_Rate_Card_Product_Pricing__tab" >
+<style>
+.aptOutputLabel {
+    color: #4a4a56;
+    font-size: 91%;
+    font-weight: bold;
+    text-align: right;
+}        
+</style> 
+  
+<apex:form >
+    <apex:pageBlock title="{!$Label.APT_Manage_Rate_Card}">
+        <apex:pageBlockSection columns="1" id="errorMessageSection" >
+            <apex:pageMessage severity="INFO" strength="3" detail="Select start time and date. Click on Calculate International Pricing or Calculate Domestic Pricing button. System will schedule job at provided time. The job will create pricing data i.e. price list item, price matrix and price matrix entry records for international and domestic based on international price data and domestic price data. Email notification will be sent once job is completed."></apex:pageMessage>
+            <apex:pagemessages rendered="{!haserrorMessages}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection >
+            <apex:outputPanel >
+            <table>
+                <tr>
+                    <td>
+                        <apex:outputLabel value="Start Date & Time:" styleClass="aptOutputLabel"></apex:outputLabel>
+                    </td>
+                    <td>
+                        <apex:selectList id="startDate" value="{!startDate}" size="1" title="{!$Label.APT_startDate}">
+                            <apex:selectOptions value="{!startDates}"></apex:selectOptions>
+                        </apex:selectList>
+                        &nbsp;&nbsp;&nbsp;
+                        <apex:selectList id="startHour" value="{!startHour}" size="1" title="{!$Label.APT_startHour}">
+                            <apex:selectOptions value="{!startHours}"></apex:selectOptions>
+                        </apex:selectList>
+                        :
+                        <apex:selectList id="startMin" value="{!startMin}" size="1" title="{!$Label.APT_startMin}">
+                            <apex:selectOptions value="{!startMins}"></apex:selectOptions>
+                        </apex:selectList>
+                    </td>
+                </tr>             
+            </table>
+            </apex:outputPanel>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection >
+            <apex:outputPanel >
+                <table>
+                    <tr>
+                        <td>
+                            <apex:commandButton value="{!$Label.APT_Calculate_International_Pricing}" action="{!calculateInternationalPricing}"/>
+                        </td>
+                        <td>
+                            <apex:commandButton value="{!$Label.APT_Calculate_Domestic_Pricing}" action="{!calculateDomesticPricing}" />
+                        </td>
+                    </tr>
+                </table>
+            </apex:outputPanel>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

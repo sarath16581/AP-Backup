@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SWMY – Customer Restrictions</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SWMY – Customer Restrictions</name>
+    <style>none</style>
+    <subject>SWMY – Customer Restrictions</subject>
+    <textOnly>Hi {!Case.Receiver_Contact_First_Name__c},
+
+Thank you for your enquiry regarding consignment:
+
+Article
+
+{!Case.ArticleTest__c}
+
+Receiver Name
+
+{!Case.Receiver_Name__c}
+
+Address
+
+{!Case.Address4__c}, {!Case.Address4Suburb__c},{!Case.Address4Postcode__c}
+
+Your supplier allows redirections, redeliveries and depot collection for their consignments, however we are not able to process requests to leave your freight unattended.  
+ 
+We will send your consignment out for redelivery as requested, and if you are not home the driver will leave a card. 
+
+Please call Startrack on 13 23 45 if you would like to make other arrangements. 
+
+Kind regards,
+
+{!User.Name}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

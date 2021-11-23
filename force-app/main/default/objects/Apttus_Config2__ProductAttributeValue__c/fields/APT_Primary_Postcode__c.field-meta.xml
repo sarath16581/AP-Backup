@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Primary_Postcode__c</fullName>
+    <description>Primary postcode for APPC</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The main Post Code where the customer will be lodging most of their parcels from.</inlineHelpText>
+    <label>Primary Postcode</label>
+    <length>10</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

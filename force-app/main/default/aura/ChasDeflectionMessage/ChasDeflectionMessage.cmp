@@ -1,0 +1,42 @@
+<!--
+    Display message in a box, passed in body text will be wrapped with we noticed message,
+    weNoticed : there is a small text displayed based on if a tracking update found from onetrack or not
+    History:
+
+    2019-08-30 hasantha.liyanage@auspost.com.au Created
+    2020-07-27 hara.sahoo@auspost.com.au Modified the styling of the chas output message to left aligned
+-->
+
+<aura:component description="Business Support Portal deflection message AND OTHER DEFLECTION MESSAGES">
+    <aura:attribute name="weNoticed" type="Boolean" default="true" />
+    <aura:attribute name="trackingId" type="String" default="" />
+    <aura:attribute name="customStyleBoxBottom" type="String" default="padding-bottom: 60px" />
+
+    <div aura:id="bspBox" class="{! 'animate-open-' + v.animate }">
+        <!--<legend class="chas-header">
+            <h2>Item details</h2>
+        </legend>-->
+        <div style="{!v.customStyleBoxBottom}">
+            <div class="chas-output">
+                
+                <aura:if isTrue="{!v.weNoticed == true}">
+                    <label for="trackingId" class="slds-form-element__label">We noticed a recent tracking update for item {!v.trackingId}.</label>
+                </aura:if>
+                <aura:if isTrue="{!v.weNoticed == false}">
+                    <label for="trackingId" class="slds-form-element__label">We don't have a tracking update for item {!v.trackingId}.</label>
+                </aura:if>
+            </div>
+            <aside>
+                <span class="text">
+                     <div class="bsp-body">
+                        {! v.body }
+                     </div>
+                </span>
+            </aside>
+            <div class="chas-output">
+                <div class="message-text-left" ><b>Still need to raise an enquiry? Let us investigate.</b></div>
+            </div>
+        </div>
+
+    </div>
+</aura:component>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mandatory_Rule_Credit_DSR_Description</fullName>
+    <active>true</active>
+    <description>Conditional mandatory validation for Description, corresponding to selected work type for Credit Management Request.</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName =&quot;Credit_Management_Request&quot;,
+ISBLANK(Description__c),
+OR(
+	AND(
+		ISPICKVAL(Credit_Work_Type__c, &quot;Credit limit review&quot;), 
+		ISPICKVAL(Credit_Limit_Review_Reason__c, &quot;Other&quot;)
+	),
+	ISPICKVAL(Credit_Work_Type__c, &quot;Payment related query&quot;),
+	AND(
+		ISPICKVAL(Credit_Work_Type__c, &quot;Copy of invoice/statement&quot;), 
+		ISPICKVAL(Document_Type__c, &quot;Other&quot;)
+	)
+)
+)</errorConditionFormula>
+    <errorMessage>&apos;Description&apos; is required. Please enter Description and save again.</errorMessage>
+</ValidationRule>

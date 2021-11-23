@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Update_Opportunity_Stage__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field allows an administrator to control whether or Dealmaker will write back the calculated Stage to the Opportunity Stage field</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field allows an administrator to control whether or Dealmaker will write back the calculated Stage to the Opportunity Stage field</inlineHelpText>
+    <label>Update Opportunity Stage</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

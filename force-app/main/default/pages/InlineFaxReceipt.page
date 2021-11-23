@@ -1,0 +1,3 @@
+<apex:page standardController="Fax__c" showHeader="false" applyHtmlTag="false" applyBodyTag="false">
+<apex:outputtext escape="false" value="{!Fax__c.FaxReceipt__c}"/>
+</apex:page>

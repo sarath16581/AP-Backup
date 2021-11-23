@@ -1,0 +1,356 @@
+<html>
+ 
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style> 
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+@font-face
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#954F72;
+	text-decoration:underline;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"Balloon Text Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:9.0pt;
+	font-family:"Segoe UI",sans-serif;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-link:"Balloon Text";
+	font-family:"Segoe UI",sans-serif;}
+.MsoChpDefault
+	{font-family:"Calibri",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:107%;}
+@page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+ 
+</head>
+ 
+<body lang=EN-AU link="#0563C1" vlink="#954F72">
+ 
+<div class=WordSection1 align=center>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="550px"
+ style='width:550px;background:white'>
+ <tr>
+  <td style='padding:0cm 0cm 0cm 0cm'>
+  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=550
+   style='width:412.5pt'>
+   <tr>
+    <td style='padding:0cm 0cm 3.0pt 0cm'>
+    <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=550>
+     <tr>
+      <td style='padding:0cm 0cm 12.0pt 0cm'>
+      <p class=MsoNormal><img width=144 height=68 id="Picture 30" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000AehBf&oid=00D30000001GGce"  alt="Australia Post"></p>
+      </td>
+     </tr>
+     <tr>
+      <td style='padding:0cm 0cm 9.75pt 0cm'>
+      <p class=MsoNormal style='line-height:22.5pt'><span style='font-size:
+      19.0pt;font-family:"Arial",sans-serif;color:black'>Congratulations, you
+      are now a <br>
+      </span><span style='font-size:19.0pt;font-family:"Arial",sans-serif;
+      color:#E31300'>Click and Send Business 250 member</span><span
+      style='font-size:19.0pt;font-family:"Arial",sans-serif;color:black'> </span></p>
+      </td>
+     </tr>
+     <tr>
+      <td style='padding:0cm 0cm 7.5pt 0cm'>
+      <p class=MsoNormal style='line-height:13.5pt'><span style='font-size:
+      9.0pt;font-family:"Arial",sans-serif;color:#595959'>Hi <strong><span
+      style='font-family:"Arial",sans-serif'>{!Contact.FirstName}</span></strong><br>
+      <br>
+      We’re pleased to advise that your application to become a Business 250
+      member has been successful and has now been <strong><span
+      style='font-family:"Arial",sans-serif'>applied to your Click and Send
+      account</span></strong>.</span></p>
+      <p class=MsoNormal style='line-height:13.5pt'><span style='font-size:
+      9.0pt;font-family:"Arial",sans-serif;color:#595959'>&nbsp;</span></p>
+      <p class=MsoNormal style='line-height:13.5pt'><span style='font-size:
+      9.0pt;font-family:"Arial",sans-serif;color:#595959'>Access your savings <b>through
+      Click and Send and in-store</b> when you present the barcode below. Both
+      your domestic and international parcel transactions count toward your
+      eligibility for a Business 250 membership<sup>1</sup>.</span></p>
+      <p class=MsoNormal style='line-height:13.5pt'><span style='font-size:
+      9.0pt;font-family:"Arial",sans-serif;color:#595959'>&nbsp;</span></p>
+      <p class=MsoNormal><span style='font-size:9.0pt;font-family:"Arial",sans-serif;
+      color:#595959'>Please let our friendly staff know that you’re a Business
+      250 Member up front, so they can ensure your transaction is linked to
+      your membership and, if applicable, any discounts are applied.</span></p>
+      <p class=MsoNormal style='line-height:13.5pt'><span style='font-size:
+      9.0pt;font-family:"Arial",sans-serif;color:#595959'>&nbsp;</span></p>
+      <p class=MsoNormal style='line-height:13.5pt'><span style='font-size:
+      9.0pt;font-family:"Arial",sans-serif;color:#595959'>For presentation at participating Post Offices, we recommend you save this email on your smart phone, print the attachment or save to an existing membership card App.</span></p>
+      </td>
+     </tr>
+    </table>
+    </td>
+   </tr>
+   <tr>
+    <td style='padding:0cm 0cm 2.25pt 0cm'>
+    <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=550>
+     <tr>
+      <td style='padding:0cm 0cm 0cm 0cm'>
+      <p class=MsoNormal style='line-height:0%'><img width=550 height=14 src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000AehCs&oid=00D30000001GGce" align=left alt="http://auspost.com.au/images/emails/cs/cs2014/img-block-t.png"></p>
+      </td>
+     </tr>
+     <tr>
+      <td style='padding:0cm 0cm 0cm 0cm'>
+      <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+       width="100%" style='width:100.0%'>
+       <tr>
+        <td width=1 style='width:.75pt;background:#FAFAFA;padding:0cm 0cm 0cm 0cm'></td>
+        <td width=1 style='width:.75pt;background:#EFEFEF;padding:0cm 0cm 0cm 0cm'></td>
+        <td width=1 style='width:.75pt;background:#E0E0E0;padding:0cm 0cm 0cm 0cm'></td>
+        <td width=1 style='width:.75pt;background:#CCCCCC;padding:0cm 0cm 0cm 0cm'></td>
+        <td width=1 style='width:.75pt;background:white;padding:0cm 0cm 0cm 0cm'></td>
+        <td valign=top style='background:#F2F2F2;padding:0cm 0cm 0cm 0cm'>
+        <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+         width=477 style='width:357.75pt'>
+         <tr>
+          <td style='padding:3.0pt 15.0pt 4.5pt 11.25pt'>
+          <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0>
+           <tr>
+            <td style='padding:0cm 0cm 3.0pt 0cm'>
+            <p class=MsoNormal style='line-height:16.5pt'><span
+            style='font-size:15.0pt;font-family:"Arial",sans-serif;color:black'>Benefits
+            of being a Business 250 member</span><sup>2,3</sup></p>
+            </td>
+           </tr>
+           <tr>
+            <td style='padding:0cm 0cm 7.5pt 0cm'>
+            <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0>
+             <tr>
+              <td width=20 valign=top style='width:15.0pt;padding:0cm 0cm 0cm 0cm'>
+              <p class=MsoNormal style='line-height:13.5pt'><b><span
+              style='font-size:13.5pt;font-family:"Arial",sans-serif;
+              color:#666666'>• </span></b></p>
+              </td>
+              <td valign=top style='padding:0cm 0cm 0cm 0cm'>
+              <p class=MsoNormal style='line-height:12.75pt'><span
+              style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#666666'>receive
+              up to 10% off selected domestic flat rate parcel postage for
+              Courier Post, Express Post and Parcel Post, in-store and through
+              Click and Send</span></p>
+              </td>
+             </tr>
+             <tr style='height:12.0pt'>
+              <td colspan=2 style='padding:0cm 0cm 0cm 0cm;height:12.0pt'>
+              <p class=MsoNormal style='line-height:0%'><span style='font-size:
+              1.0pt'>&nbsp;</span></p>
+              </td>
+             </tr>
+             <tr>
+              <td valign=top style='padding:0cm 0cm 0cm 0cm'>
+              <p class=MsoNormal style='line-height:15.0pt'><b><span
+              style='font-size:13.5pt;font-family:"Arial",sans-serif;
+              color:#666666'>• </span></b></p>
+              </td>
+              <td valign=top style='padding:0cm 0cm 0cm 0cm'>
+              <p class=MsoNormal style='line-height:12.75pt'><span
+              style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#666666'>receive
+              up to 10% off assessed postage for International Express & International Standard, in-store and through Click and Send</span></p>
+              </td>
+             </tr>
+             <tr style='height:12.0pt'>
+              <td colspan=2 style='padding:0cm 0cm 0cm 0cm;height:12.0pt'>
+              <p class=MsoNormal style='line-height:0%'><span style='font-size:
+              1.0pt'>&nbsp;</span></p>
+              </td>
+             </tr>
+             <tr>
+              <td valign=top style='padding:0cm 0cm 0cm 0cm'>
+              <p class=MsoNormal style='line-height:15.0pt'><b><span
+              style='font-size:13.5pt;font-family:"Arial",sans-serif;
+              color:#666666'>• </span></b></p>
+              </td>
+              <td valign=top style='padding:0cm 0cm 0cm 0cm'>
+              <p class=MsoNormal style='line-height:12.75pt'><span
+              style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#666666'>take
+              up Extra Cover at a special price of $1 per $100 of your item's
+              value (or part thereof) when using Click and Send.<sup>3</sup></span></p>
+              </td>
+             </tr>
+             <tr style='height:12.0pt'>
+              <td colspan=2 style='padding:0cm 0cm 0cm 0cm;height:12.0pt'>
+              <p class=MsoNormal style='line-height:0%'><span style='font-size:
+              1.0pt'>&nbsp;</span></p>
+              </td>
+             </tr>
+             <tr>
+              <td valign=top style='padding:0cm 0cm 0cm 0cm'>
+              <p class=MsoNormal style='line-height:15.0pt'><b><span
+              style='font-size:13.5pt;font-family:"Arial",sans-serif;
+              color:#666666'>• </span></b></p>
+              </td>
+              <td valign=top style='padding:0cm 0cm 0cm 0cm'>
+              <p class=MsoNormal style='line-height:12.75pt'><span
+              style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#666666'>link your eBay account to import your orders automatically</span></p>
+              </td>
+             </tr>
+            </table>
+            </td>
+           </tr>
+           <tr>
+            <td style='padding:0cm 0cm 0cm 0cm'>
+            <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0>
+             <tr>
+              <td valign=top style='padding:0cm 7.5pt 0cm 0cm'>
+              <p class=MsoNormal><a href="https://www.clickandsend.com.au/home/NISS_frm_home.php?sz_Client=AustraliaPost&amp;ilink=cs-edm-bus250-approved-login-btn" target="_blank"><span style='color:#666666;text-decoration:none'><img border=0 width=88 height=31 id="Picture 29" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000AehBz&oid=00D30000001GGce" alt=Login></span></a></p>
+              </td>
+             </tr>
+            </table>
+            </td>
+           </tr>
+          </table>
+          </td>
+         </tr>
+        </table>
+        </td>
+        <td width=1 style='width:.75pt;background:white;padding:0cm 0cm 0cm 0cm'></td>
+        <td width=1 style='width:.75pt;background:#CCCCCC;padding:0cm 0cm 0cm 0cm'></td>
+        <td width=1 style='width:.75pt;background:#E0E0E0;padding:0cm 0cm 0cm 0cm'></td>
+        <td width=1 style='width:.75pt;background:#EFEFEF;padding:0cm 0cm 0cm 0cm'></td>
+        <td width=1 style='width:.75pt;background:#FAFAFA;padding:0cm 0cm 0cm 0cm'></td>
+       </tr>
+      </table>
+      </td>
+     </tr>
+     <tr>
+      <td style='padding:0cm 0cm 0cm 0cm'>
+      <p class=MsoNormal style='line-height:0%'><img width=550 height=18 src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000AehCx&oid=00D30000001GGce" align=left alt="http://auspost.com.au/images/emails/cs/cs2014/img-block-b.png"></p>
+      </td>
+     </tr>
+    </table>
+    </td>
+   </tr>
+   <tr>
+    <td style='padding:0cm 0cm 18.75pt 0cm'>
+    <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=550>
+     <tr>
+      <td style='padding:0cm 0cm 9.0pt 0cm'>
+      <p class=MsoNormal style='line-height:13.5pt'><span style='font-size:
+      9.0pt;font-family:"Arial",sans-serif;color:#4D4D4F'>From time to time we
+      will email you with updates and other offers for you to take advantage
+      of.<br>
+      If you have any questions then please call <strong><span
+      style='font-family:"Arial",sans-serif'>1300 662 710</span></strong> or
+      email </span><a href="mailto:clickandsend@auspost.com.au"><span
+      style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#4D4D4F'>clickandsend@auspost.com.au</span></a><span
+      style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#4D4D4F'><sup>4</sup>.<br>
+      <br>
+      Kind regards, <br>
+      </span><strong><span style='font-size:9.0pt;font-family:"Arial",sans-serif;
+      color:#E31300'>The Click and Send team</span></strong><span
+      style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#4D4D4F'> </span></p>
+      </td>
+     </tr>
+     <tr>
+      <td style='border:none;border-top:solid #CDCDCD 1.0pt;padding:10.5pt 0cm 0cm 0cm'>
+      <p class=MsoNormal><span style='font-size:7.5pt;font-family:"Verdana",sans-serif;
+      color:#767171'><sup>1</sup></span><span style='font-size:7.5pt;font-family:"Verdana",sans-serif;
+      color:#767171'>Available at participating outlets only. Individual
+      parcels sent over the counter at participating Australia Post outlets and
+      ordered via Click and Send are included. Bulk parcels (parcels lodged via
+      bulk mailing statements), prepaid products and postage generated via
+      Postage Meters or eBay Label Print Service are excluded.</span><br />
+<span style='font-size:7.5pt;font-family:"Verdana",sans-serif;
+      color:#767171'><sup>2</sup>Eligibility criteria apply. </span><br>
+<span style='font-size:7.5pt;font-family:"Verdana",sans-serif;
+      color:#767171'><sup>3</sup>Terms and conditions apply. </span><br>
+<span style='font-size:7.5pt;font-family:"Verdana",sans-serif;
+      color:#767171'><sup>4</sup>The Click and Send contact centre is open 8am to 8pm
+      Monday to Friday.</span></p>
+      <p class=MsoNormal style='line-height:11.25pt'><span style='font-size:
+      7.5pt;font-family:"Verdana",sans-serif;color:#4D4E53'><br>
+      <br>
+      This email was sent by </span><a href="http://auspost.com.au"
+      target="_blank"><span style='font-size:7.5pt;font-family:"Verdana",sans-serif;
+      color:#E31300'>Australia Post</span></a><span style='font-size:7.5pt;
+      font-family:"Verdana",sans-serif;color:#4D4E53'>. Please do not reply to
+      this email as it is automatically generated. Australia Post does not
+      represent, warrant or guarantee that the integrity of this email
+      communication has been maintained nor that the communication is free of
+      errors, viruses or interference. </span></p>
+      </td>
+     </tr>
+    </table>
+    </td>
+   </tr>
+   <tr>
+    <td style='background:black;padding:7.5pt 3.75pt 7.5pt 3.75pt'>
+    <p class=MsoNormal align=center style='text-align:center'><a
+    href="http://auspost.com.au/business-solutions/terms-and-conditions-click-and-send.html?ilink=cs-edm-bus250-approved-terms"
+    target="_blank"><span style='font-size:9.0pt;font-family:"Arial",sans-serif;
+    color:#D4D4D4;text-decoration:none'>Terms &amp; conditions</span></a><span
+    style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#D4D4D4'>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span><a
+    href="http://auspost.com.au/privacy.html?ilink=cs-edm-bus250-approved-privacy"
+    target="_blank"><span style='font-size:9.0pt;font-family:"Arial",sans-serif;
+    color:#D4D4D4;text-decoration:none'>Privacy policy</span></a><span
+    style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#D4D4D4'>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span><a
+    href="http://auspost.com.au/help-and-support?ilink=ccc-edm-cases-help"
+    target="_blank"><span style='font-size:9.0pt;font-family:"Arial",sans-serif;
+    color:#D4D4D4;text-decoration:none'>Help &amp; support</span></a><span
+    style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#D4D4D4'>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span><a
+    href="http://australiapost.122.207.net/b/ss/auspost-prd/4/REDIR/?url=http://auspost.com.au/pdfs/click-and-send-user-guide-apr-2013.pdf&amp;pe=lnk_d&amp;pev1=http://auspost.com.au/pdfs/click-and-send-user-guide-apr-2013.pdf&amp;pev2=cs-edm-bus250-approved-user-guide"
+    target="_blank"><span style='font-size:9.0pt;font-family:"Arial",sans-serif;
+    color:#D4D4D4;text-decoration:none'>Click and Send user guide</span></a><span
+    style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#D4D4D4'> </span></p>
+    </td>
+   </tr>
+  </table>
+  </td>
+ </tr>
+</table>
+ 
+<p class=MsoNormal>&nbsp;</p>
+ 
+</div>
+ 
+</body>
+ 
+</html>

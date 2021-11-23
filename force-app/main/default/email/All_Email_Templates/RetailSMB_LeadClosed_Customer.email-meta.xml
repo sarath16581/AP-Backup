@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email sent to Customer when Lead is Closed</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>RetailSMB_LeadClosed_Customer</name>
+    <style>none</style>
+    <subject>Thank you for Contacting Australia Post</subject>
+    <textOnly>Dear {!Lead.FirstName} {!Lead.LastName},
+
+We are pleased to inform you that your enquiry has now been resolved.
+
+Your reference number is {!Lead.Lead_Number__c}.
+
+Thank you for using our service.
+
+If you have any additional enquiries, please contact us at customerservice@auspost.com.au or visit your local Post Office.
+
+
+Thank you,
+
+Australia Post</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

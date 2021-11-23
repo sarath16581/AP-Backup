@@ -1,0 +1,157 @@
+/***
+ * @author Nathan Franklin
+ * @date 2020-04-10
+ * @group Tests
+ * @description Test Class covering AccountsSelector
+ * @changelog
+ * 2020-04-10 - Nathan Franklin - Created
+ * 2020-04-30 - Dheeraj Mandavilli - Updated - QueryBuilder.InCondition to QueryBuilder.SimpleCondition in selectbyId Method
+ * 2020-05-14 - Disha Kariya - Updated to add sub query to get active memberships
+ * 2020-09-28 - Lija Jawahar - Updated - select by Account number
+ * 2021-01-12 - Arjun Singh - Updated to add code related to billing account creation in SAP feature
+ * 2020-12-18 - Jansi - Added - WITH_TYPE_CUST_ACTIVE_BILLING_ACCOUNTS
+ * 2021-03-22 - Jansi - Added 'WITH_RECENT_CREATED_CREDIT_ASSESMENT'
+ * 2021-08-06 - Seth Heang - Added selectByLikedNameAndPersonAccountOrderByName
+ * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
+*/
+public virtual inherited sharing class AccountsSelector extends ApplicationSelector {
+    public enum Options {
+        WITH_RECORDTYPE, WITH_OWNER, WITH_ACTIVE_MEMBERSHIPS , WITH_ORGANISATION_ROLES , WITH_ORGANISATION_ROLES_PROSPECT_KNOWN , WITH_HOLDINGROLE , 
+		WITH_TYPE_CUST_ACTIVE_BILLING_ACCOUNTS, WITH_RECENT_CREATED_CREDIT_ASSESMENT
+    }
+
+	public static AccountsSelector newInstance() {
+		return (AccountsSelector)Application.Selectors.newInstance(AccountsSelector.class);
+	}
+	public static AccountsSelector newInstance(Integer recordLimit) {
+		return (AccountsSelector)Application.Selectors.newInstance(AccountsSelector.class).setLimit(recordLimit);
+	}
+
+	/**
+	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 * This approach removes data consistency and prevents possible caching of results
+	 */
+	public static AccountsSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
+		AccountsSelector selector = (AccountsSelector)Application.Selectors.newInstance(AccountsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
+	/**
+	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 *                          This approach removes data consistency and prevents possible caching of results
+	 */
+	public static AccountsSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		AccountsSelector selector = (AccountsSelector)Application.Selectors.newInstance(AccountsSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
+	public override SObjectType getSObjectType() {
+		return Account.getSObjectType();
+	}
+
+    public virtual override Set<SObjectField> getSObjectFieldList() {
+        return new Set<SObjectField> {
+                Account.Id, Account.Name, Account.Type, Account.OwnerId, Account.APLAC_Member__c,Account.LEGACY_ID__c, Account.Customer_Account_Group__c, Account.Organisation_Trading_Name__c, 
+                Account.BillingStreet, Account.BillingCity, Account.BillingState, 
+                Account.BillingPostalCode, Account.Phone, Account.Email__c , Account.ABN__c,
+                Account.ACN__c , Account.Primary_Business_Solutions_Contact__c , Account.BillingCountry , Account.Role_Type_Roll_Up__c,
+				Account.ShippingStreet, Account.ShippingCity, Account.ShippingState,  Account.ShippingPostalCode, Account.ShippingCountry ,
+				Account.Holding_Role_Reference__c, Account.Is_Strategic_Account_StarTrack__c, Account.AccountNumber, Account.IsPersonAccount
+        };
+    }
+
+	/**
+	 * @description Run a simple query to get records based on Id's
+	 */
+	public Map<Id, Account> selectById(Set<Id> ids) {
+		return selectById(ids, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on Id's
+	 */
+	public Map<Id, Account> selectById(Set<Id> ids, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Account.Id + ' in :ids')).endConditions();
+		system.debug('** Account Query**'+qb.toSoqlString());
+		return new Map<Id, Account>((List<Account>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
+     * @description Run a simple query to get records based on Legacy Id's
+     */
+	public Map<Id, Account> selectByAccountNumber(Set<String> accountNumbers) {
+		return selectByAccountNumber(accountNumbers, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on Legacy Id's
+	 */
+	public Map<Id, Account> selectByAccountNumber(Set<String> accountNumbers, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Account.LEGACY_ID__c + ' in :accountNumbers')).endConditions();
+		return new Map<Id, Account>((List<Account>)Database.query(qb.toSoqlString()));
+	}
+
+	//  SELECT id ,name ,AccountNumber FROM Account WHERE (Name like '%1%' AND IsPersonAccount = false) ORDER BY Name LIMIT 10000
+			
+	/**
+     * @description Run a simple query to get records based on 
+     */
+	public Map<Id, Account> selectByLikedNameAndPersonAccountOrderByName(string name, boolean isPersonAccount) {
+		return selectByLikedNameAndPersonAccountOrderByName(name, isPersonAccount, new Set<Object>());
+	}
+
+	/**
+     * @description Run a simple query to get records based on
+     */
+	public Map<Id, Account> selectByLikedNameAndPersonAccountOrderByName(string name, boolean isPersonAccount, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
+		.add(new QueryBuilder.LikeCondition(Account.Name).likeAnyBoth(name))
+		.add(new QueryBuilder.CompareCondition(Account.isPersonAccount).eq(isPersonAccount))
+		.endConditions();
+		qb.addOrderAsc(Account.Name);
+		return new Map<Id, Account>((List<Account>)Database.query(qb.toSoqlString()));
+	}
+
+
+	/**
+	 * @description Grabs a new QueryBuilder based on the selector options passed in
+	 */
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+		if(selectorOptions.contains(Options.WITH_RECORDTYPE)) {
+			builder.addRelatedFields(RecordTypesSelector.newInstance().newQueryBuilder(), 'RecordType');
+		}
+
+		if(selectorOptions.contains(Options.WITH_OWNER)) {
+			builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'Owner');
+		}
+
+        if(selectorOptions.contains(Options.WITH_HOLDINGROLE)) {
+			builder.addRelatedFields(HoldingReferenceRoleSelector.newInstance().newQueryBuilder(), 'Holding_Role_Reference__r');
+		}
+
+		if(selectorOptions.contains(Options.WITH_ACTIVE_MEMBERSHIPS)) {
+            builder.addSubQuery(MembershipsSelector.newInstance().newQueryBuilder(new Set<Object>{MembershipsSelector.Options.FILTER_ACTIVE_STATUS}), 'Memberships__r');
+		}
+		
+		if(selectorOptions.contains(Options.WITH_TYPE_CUST_ACTIVE_BILLING_ACCOUNTS)) {
+			builder.addSubQuery(BillingAccountsSelector.newInstance().newQueryBuilder(new Set<Object>{BillingAccountsSelector.Options.FILTER_CUST_TYPE, BillingAccountsSelector.Options.FILTER_ACTIVE}), 'Billing_Accounts__r');
+		}
+        
+        if(selectorOptions.contains(Options.WITH_ORGANISATION_ROLES)) {
+            builder.addSubQuery(OrganisationRoleSelector.newInstance().newQueryBuilder(), 'Organisation_Roles__r');
+        }
+        
+        if(selectorOptions.contains(Options.WITH_ORGANISATION_ROLES_PROSPECT_KNOWN)) {
+            builder.addSubQuery(OrganisationRoleSelector.newInstance().newQueryBuilder(new Set<Object>{OrganisationRoleSelector.Options.FILTER_PROSPECT_KNOWN}), 'Organisation_Roles__r');
+        }
+
+		if(selectorOptions.contains(Options.WITH_RECENT_CREATED_CREDIT_ASSESMENT)) {
+			builder.addSubQuery(CreditsAssessmentSelector.newInstance('CreatedDate', 'Desc', 1).newQueryBuilder(new Set<Object>{}), 'Credit_Assessments__r');
+		}
+
+		return builder;
+	}
+
+}

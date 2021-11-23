@@ -1,0 +1,160 @@
+<!--
+	Display Bulk upload request line items in a table.
+
+    Changelog:
+    2021-02-12 - Ranjeewa Silva - Created.
+ -->
+<template>
+    <article class="slds-grid slds-grid_align-center slds-p-horizontal_medium slds-p-bottom_medium">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-6">
+            <article class="slds-card slds-card_boundary slds-m-bottom_medium">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="utility:attach" title="Attach Supporting Documents" size="medium"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body card__header-title">
+                            <h2 class="slds-card__header-title slds-truncate_container_75">
+                                <div class="slds-truncate" title="Attach Supporting Documents">Supporting Documents</div>
+                            </h2>
+                        </div>
+                        <div class="slds-no-flex">
+                            <lightning-input slot="actions"
+                                             type="file"
+                                             label="Attachment"
+                                             class="file-input"
+                                             onchange={handleSelectFilesToUpload}
+                                             variant="label-hidden"
+                                             disabled={hasSelectedFiles}
+                                             multiple>
+                            </lightning-input>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body">
+                    <template if:true={isLoading}>
+                        <div class="slds-text-align_center slds-grow">
+                            <lightning-spinner variant="brand" size="small" alternative-text="Loading search results...">
+                            </lightning-spinner>
+                        </div>
+                    </template>
+                    <template if:false={isLoading}>
+                        <template if:true={hasSelectedFiles}>
+                        <div class="slds-scrollablexx">
+                        <table class="slds-table slds-table_bordered" role="grid">
+                            <thead>
+                            <tr class="slds-line-height_reset">
+                                <th data-id="select">
+                                    <div class="slds-truncate slds-text-align--left"></div>
+                                </th>
+                                <th data-id="file">
+                                    <div class="slds-truncate slds-text-align--left" data-id="file">File</div>
+                                </th>
+                                <th data-id="case">
+                                    <div class="slds-truncate slds-text-align--left" data-id="case">Case</div>
+                                </th>
+                                <th data-id="status">
+                                    <div class="slds-truncate slds-text-align--left" data-id="status">Status</div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="brand-table">
+                            <!-- Iterating files -->
+                            <template for:each={supportingDocuments} for:item="supportingDoc">
+                                <tr class="slds-hint-parent" key={supportingDoc.documentIndex}>
+                                    <td class="slds-cell-wrap">
+                                        <lightning-input type="checkbox-button" name={supportingDoc.documentIndex} checked={supportingDoc.isSelected} disabled={supportingDoc.isDisabled} onchange={handleSelectSupportingDocument}></lightning-input>
+                                    </td>
+                                    <td class="slds-cell-wrap">
+                                        <lightning-tile label={supportingDoc.fileName} type="media" class="file">
+                                            <lightning-icon slot="media" icon-name={supportingDoc.file.docTypeIconName}></lightning-icon>
+                                            <ul class="slds-list_horizontal slds-has-dividers_right">
+                                                <li class="slds-item">{supportingDoc.file.sizeInKB}</li>
+                                                <li class="slds-item">
+                                                    <c-formatted-text-label type="DATE" value={supportingDoc.file.file.lastModified}>
+                                                    </c-formatted-text-label>
+                                                </li>
+                                            </ul>
+                                        </lightning-tile>
+                                    </td>
+                                    <td class="slds-cell-wrap">
+                                        <div class="case-lookup">
+                                            <template if:true={supportingDoc.showCaseLookup}>
+                                                <c-lookup
+                                                        class="lookup"
+                                                        field-list="Id, CaseNumber"
+                                                        sobject-name="Case"
+                                                        fields-to-search="CaseNumber"
+                                                        icon-name="standard:case"
+                                                        placeholder="Please enter case number"
+                                                        num-chars-to-search=6
+                                                        filter-map={caseLookupFilters}
+                                                        context={supportingDoc.documentIndex}
+                                                        onrecordselected={handleCaseSelected}>
+                                                </c-lookup>
+                                            </template>
+                                            <template if:false={supportingDoc.showCaseLookup}>
+                                                <template if:true={supportingDoc.case.Id}>
+                                                    <lightning-pill label={supportingDoc.case.CaseNumber} name={supportingDoc.documentIndex} onremove={handleRemoveSelectedCase}>
+                                                        <lightning-icon icon-name="standard:case" variant="plain"  alternative-text={supportingDoc.case.CaseNumber}></lightning-icon>
+                                                    </lightning-pill>
+                                                </template>
+                                                <template if:false={supportingDoc.case.Id}>
+                                                    <lightning-pill label={supportingDoc.case.errorMessage} name={supportingDoc.documentIndex} onremove={handleRemoveSelectedCase} has-error>
+                                                        <lightning-icon icon-name="utility:error" variant="error"  alternative-text={supportingDoc.caseReference}></lightning-icon>
+                                                    </lightning-pill>
+                                                </template>
+                                            </template>
+                                        </div>
+                                    </td>
+                                    <td class="slds-cell-wrap">
+                                        <template if:true={supportingDoc.uploadStatus}>
+                                            <lightning-icon icon-name={supportingDoc.uploadStatus.iconName} variant={supportingDoc.uploadStatus.iconVariant} size="small" class="slds-p-right_xx-small"></lightning-icon>
+                                            <span>{supportingDoc.uploadStatus.name}</span>
+                                            <template if:true={supportingDoc.uploadStatus.message}>
+                                                <span>&nbsp;-&nbsp;{supportingDoc.uploadStatus.message}</span>
+                                            </template>
+                                        </template>
+                                    </td>
+                                </tr>
+                            </template>
+                            </tbody>
+                        </table>
+                    </div>
+                    </template>
+                        <template if:false={hasSelectedFiles}>
+                        <div class="slds-p-around_large slds-align_absolute-center slds-border_top">
+                            <lightning-icon icon-name="utility:info_alt" size="x-small" alternative-text="Info" title="Info"></lightning-icon>
+                            <div class="slds-m-vertical_large slds-m-horizontal_x-small">
+                                <p class="slds-text-color_weak">Please select supporting documents to upload.</p>
+                            </div>
+                        </div>
+                    </template>
+                    </template>
+                </div>
+                <div class="slds-card__footer slds-grid">
+                    <template if:true={hasSelectedFiles}>
+                        <div class="slds-col slds-col_bump-left slds-text-align_right">
+                            <div class="slds-button-group-row">
+                                <template if:true={canUploadAndAttachSupportingDocuments}>
+                                    <div class="slds-button-group-item">
+                                        <lightning-button label="Cancel" variant="neutral" onclick={closeFileUpload}></lightning-button>
+                                    </div>
+                                    <div class="slds-button-group-item">
+                                        <lightning-button label="Attach" variant="brand" onclick={uploadAndAttachToCases} disabled={isUploadAndAttachDisabled}></lightning-button>
+                                    </div>
+                                </template>
+                                <template if:false={canUploadAndAttachSupportingDocuments}>
+                                    <div class="slds-button-group-item">
+                                        <lightning-button label="Close" variant="neutral" onclick={closeFileUpload}></lightning-button>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+            </article>
+        </div>
+    </article>
+</template>

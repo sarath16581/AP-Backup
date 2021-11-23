@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>QueriedEntities__c</fullName>
+    <description>The entities involved in a query (if it&apos;s a query)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The entities involved in a query (if it&apos;s a query)</inlineHelpText>
+    <label>Queried Entities</label>
+    <length>150</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

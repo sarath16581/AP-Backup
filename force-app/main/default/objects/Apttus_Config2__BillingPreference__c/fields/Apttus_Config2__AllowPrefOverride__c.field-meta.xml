@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_Config2__AllowPrefOverride__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Indicates whether preference may be overridden at lower levels</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Indicates whether preference may be overridden at lower levels</inlineHelpText>
+    <label>Allow Preference Override ?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

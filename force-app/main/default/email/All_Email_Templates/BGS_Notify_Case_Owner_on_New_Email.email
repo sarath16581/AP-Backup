@@ -1,0 +1,11 @@
+An Email has been received for the following case.
+
+Subject: {!Case.Subject}
+Contact Name: {!Case.Contact}
+Legal Entity: {!Case.Account}
+Detail Link: {!Case.Link}
+
+Please respond appropriately.
+
+
+This is a system generated email, please do not reply/forward.

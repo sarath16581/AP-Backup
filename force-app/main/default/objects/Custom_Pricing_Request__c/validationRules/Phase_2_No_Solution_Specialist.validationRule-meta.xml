@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phase_2_No_Solution_Specialist</fullName>
+    <active>true</active>
+    <description>Phase 2</description>
+    <errorConditionFormula>AND(ISPICKVAL(Solution_Specialist_Required__c , &quot;Yes&quot;) ,  Solution_Specialist__c = &quot;&quot;)</errorConditionFormula>
+    <errorDisplayField>Solution_Specialist__c</errorDisplayField>
+    <errorMessage>You must choose a Solution Specialist</errorMessage>
+</ValidationRule>

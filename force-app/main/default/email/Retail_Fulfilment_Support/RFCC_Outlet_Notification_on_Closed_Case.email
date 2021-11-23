@@ -1,0 +1,22 @@
+<table height="400" width="550" cellpadding="5" border="0" cellspacing="5" >
+<tr height="400" valign="top" >
+<td style=" color:#000000; font-size:12pt; background-color:#edeae6; font-family:arial; bLabel:main; bEditID:r3st1;" tEditID="c1r1" locked="0" aEditID="c1r1" >
+<![CDATA[<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0);"><font size="2" face="Arial, sans-serif">Hello&nbsp;{!Contact.FirstName},<o:p></o:p></font></p>
+
+<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0);"><o:p><font size="2" face="Arial, sans-serif">&nbsp;</font></o:p></p>
+
+<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0);"><font size="2" face="Arial, sans-serif"><font style="color: rgb(0, 0, 0);">This email is to advise that c</font><span style="color: rgb(0, 0, 0);">ase&nbsp;{!Case.CaseNumber} raised on the&nbsp;</span>{!Case.CreatedDate} has now been <b>closed</b>.</font></p>
+
+<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0);"><o:p><font size="2" face="Arial, sans-serif">&nbsp;</font></o:p></p>
+
+<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0);"><font size="2" face="Arial, sans-serif">Type:<span class="Apple-tab-span" style="white-space:pre">			</span>{!Case.Type}<o:p></o:p></font></p>
+
+<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0);"><font size="2" face="Arial, sans-serif">Problem Type:<span class="Apple-tab-span" style="white-space:pre">		</span>{!Case.Problem_Type_Retail__c}<o:p></o:p></font></p>
+
+<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0);"><font size="2" face="Arial, sans-serif">Subject:<span class="Apple-tab-span" style="white-space: pre;">			</span>{!Case.Subject}</font></p><p class="MsoNormal" align="left" style="color: rgb(0, 0, 0);"><font size="2" face="Arial, sans-serif">&nbsp;</font></p>
+
+<p class="MsoNormal" align="left" style="color: rgb(0, 0, 0);"><font size="2" face="Arial, sans-serif">Thanks &amp; Regards,<o:p></o:p></font></p>
+
+<font size="2" face="Arial, sans-serif">{!Case.OwnerFullName}</font><div><br></div><div><br></div><div><font size="2" face="Arial, sans-serif">{!Case.Thread_Id}</font></div><div><br></div><div><br></div><div><font face="arial" size="2"><br></font></div><div><font face="arial" size="2"><br></font></div>]]></td>
+</tr>
+</table>

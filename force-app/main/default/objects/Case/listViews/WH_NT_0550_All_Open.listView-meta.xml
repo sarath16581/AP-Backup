@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>WH_NT_0550_All_Open</fullName>
+    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+    <columns>ChannelImage__c</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.TYPE</columns>
+    <columns>Problem_Type_Retail__c</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>NAME</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>ProductSubCategory__c</columns>
+    <columns>CASES.LAST_UPDATE</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>Last_Assigned_Queue__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>OWNER_NAME</field>
+        <operation>equals</operation>
+        <value>Warehouse Processing – NT (0550)</value>
+    </filters>
+    <filters>
+        <field>Last_Assigned_Queue__c</field>
+        <operation>equals</operation>
+        <value>Warehouse Processing – NT (0550)</value>
+    </filters>
+    <label>WH NT(0550) - All Open</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>Warehouse_Processing_NT_0550</group>
+    </sharedTo>
+</ListView>

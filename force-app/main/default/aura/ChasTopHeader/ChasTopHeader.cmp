@@ -1,0 +1,153 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller='ChasApexController' description="Header links + Hamburger on mobile">
+    <aura:attribute name="loggedInUserName" type="String" default="Log in"/>
+	<aura:attribute name="communityUrl" type="String" default="https://helpandsupport.auspost.com.au"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <!-- added attribute to show/hide the mobile menu's close button -->
+    <aura:attribute name="mobileMenuVisible" type="Boolean" default="false"/>
+    
+    <!-- Added below code on 18/10/2018 for Header and Footer changes for mobile App. -->
+    <aura:attribute name="status" type="String" />
+    <!-- Added below if condition on 18/10/2018 to show or hide Header and Footer. -->
+    <aura:if isTrue="{!v.status == 'show' ? true : false}">
+	<div class="global-header-container">
+		<header class="outer">
+			<div class="inner">
+
+				<lightning:buttonIcon iconName="utility:rows" variant="bare" size="large" onclick="{! c.openMobileMenu }" alternativeText="Menu" class="menu-button hide-large"/>
+
+				<c:ChasAusPostLogo/>
+
+				<!-- MOBILE NAV -->
+				<div aura:id="mobileNav" class="mobile-nav">
+					<nav class="primary-nav" tabindex="-1" aria-label="Primary navigation" role="navigation">
+						<ul>
+							<li>
+								<a id="mobileLoginButton" class="mobile-nav-links login" onclick="{!c.toggleMobileLogin}" aria-expanded="false">
+									<span><img src="{! $Resource.ChasIcons + '/chas-icons/svgs/UI/icons/hf_user_white.svg' }" class="slds-icon slds-icon_x-small" alt="" />{! v.loggedInUserName }</span>
+									<span><img aura:id="mobileChevron" src="{! $Resource.ChasIcons + '/chas-icons/pngs/UI/icons/ic_chevron_white.png' }" alt="" class="chevron slds-icon slds-icon_x-small"/></span>
+								</a>
+								<div aura:id="mobileLogin" class="mobile-login">
+									<aura:if isTrue="{! v.loggedInUserName != 'Log in' }">
+										<a class="mobile-login-links login" data-url="https://ptest.npe.auspost.com.au/account-management/#/personal" onclick="{!c.gotoUrl}">
+											<span>Manage Account</span>
+										</a>
+										<a class="mobile-login-links login" onclick="{!c.logout}">
+											<span>Log out</span>
+										</a>
+									</aura:if>
+									<ul>
+										<li><span class="mobile-login-links"><strong>Accounts</strong></span></li>
+										<li><a class="mobile-login-links" data-url="https://ptest.npe.auspost.com.au/mypost/auth/#/login" onclick="{!c.gotoUrl}">
+											<span>MyPost</span>
+										</a></li>
+										<li><a class="mobile-login-links" data-url="https://auspost.com.au/mypost-business/login" onclick="{!c.gotoUrl}">
+											<span>MyPost Business</span>
+										</a></li>
+										<li><a class="mobile-login-links" data-url="https://eparceltrack.auspost.com.au/external/webui/" onclick="{!c.gotoUrl}">
+											<span>eParcel</span>
+										</a></li>
+										<li><a class="mobile-login-links" data-url="https://auspostbusiness.force.com/bsp/bsplogin" onclick="{!c.gotoUrl}">
+											<span>Business Support Portal</span>
+										</a></li>
+										<li><a class="mobile-login-links" data-url="https://shopmate.auspost.com.au/#login_panel" onclick="{!c.gotoUrl}">
+											<span>ShopMate</span>
+										</a></li>
+										<li><a class="mobile-login-links" data-url="https://myloadandgo.auspost.com.au/cholder/samlLogin" onclick="{!c.gotoUrl}">
+											<span>Load&amp;Go Online</span>
+										</a></li>
+									</ul>
+								</div>
+							</li>
+                            <!--Snigdha: 24/03/2020 : Ask the Community link commented for REQ2131338-->
+							<!--<li class="slds-m-top_small"><a class="mobile-nav-links" data-url="https://community.auspost.com.au/s/" onclick="{!c.gotoUrl}">
+								<span><img src="{! $Resource.ChasIcons + '/chas-icons/svgs/UI/icons/hf_info.svg' }" class="slds-icon slds-icon_x-small" alt="" /></span>
+								<span class="slds-p-left_xx-small">Ask the community</span>
+							</a></li>-->
+							<li><a class="mobile-nav-links" data-url="https://auspost.com.au/about-us" onclick="{!c.gotoUrl}">
+								<span><img src="{! $Resource.ChasIcons + '/chas-icons/svgs/UI/icons/hf_australia.svg' }" class="slds-icon slds-icon_x-small" alt="" /></span>
+								<span class="slds-p-left_xx-small">About us</span>
+							</a></li>
+							<li><a class="mobile-nav-links" data-url="https://auspost.com.au/help-and-support" onclick="{!c.gotoUrl}">
+								<span><img src="{! $Resource.ChasIcons + '/chas-icons/svgs/UI/icons/hf_help.svg' }" class="slds-icon slds-icon_x-small" alt="" /></span>
+								<span class="slds-p-left_xx-small">Help &amp; support</span>
+							</a></li>
+						</ul>
+					</nav>
+
+					<lightning:buttonIcon iconName="utility:close" variant="bare" size="large" onclick="{! c.closeMobileMenu }" alternativeText="Close" class="{!if(v.mobileMenuVisible, 'close-button', 'slds-hide')}"/>
+
+				</div>
+
+				<!-- DESKTOP NAV -->
+				<div class="desktop-nav hide-small">
+					<nav>
+						<ul class="outer-nav slds-p-vertical_medium">
+                            <!--Snigdha: 24/03/2020 : Ask the Community link commented for REQ2131338-->
+							<!--<li><a class="nav-links" data-url="https://community.auspost.com.au/s/" onclick="{!c.gotoUrl}">
+								<span><img src="{! $Resource.ChasIcons + '/chas-icons/svgs/UI/icons/hf_info.svg' }" class="slds-icon slds-icon_x-small" alt="" /></span>
+								<span>Ask the community</span>
+							</a></li>-->
+							<li><a class="nav-links" data-url="https://auspost.com.au/about-us" onclick="{!c.gotoUrl}">
+								<span><img src="{! $Resource.ChasIcons + '/chas-icons/svgs/UI/icons/hf_australia.svg' }" class="slds-icon slds-icon_x-small" alt="" /></span>
+								<span>About us</span>
+							</a></li>
+							<li><a class="nav-links" data-url="https://auspost.com.au/help-and-support" onclick="{!c.gotoUrl}">
+								<span><img src="{! $Resource.ChasIcons + '/chas-icons/svgs/UI/icons/hf_help.svg' }" class="slds-icon slds-icon_x-small" alt="" /></span>
+								<span>Help &amp; support</span>
+							</a></li>
+							<li onmouseenter="{!c.openDesktopLogin}" onmouseleave="{!c.closeDesktopLogin}">
+								<a id="desktopLoginButton" class="nav-links" onclick="{!c.toggleDesktopLogin}" aria-expanded="false">
+									<span><img src="{! $Resource.ChasIcons + '/chas-icons/svgs/UI/icons/hf_user.svg' }" class="slds-icon slds-icon_x-small" alt="" /></span>
+									<span>{! v.loggedInUserName }</span>
+									<span><img src="{! $Resource.ChasIcons + '/chas-icons/pngs/UI/icons/ic_chevron_light.png' }" alt="" class="chevron slds-icon slds-icon_xx-small"/></span>
+								</a>
+								<!-- <lightning:button aura:id="desktop-login-button" label="{! v.loggedInUserName }" iconName="utility:user" iconPosition="left" variant="base" onclick="{! c.toggleDesktopLogin }" class="nav-links desktop-login-button" ariaExpanded="false"/> -->
+								<div aura:id="desktopLogin" class="desktop-login">
+									<div class="desktop-login-inner">
+										<aura:if isTrue="{! v.loggedInUserName != 'Log in' }">
+											<div class="desktop-account">
+												<a class="desktop-login-links" data-url="https://auspost.com.au/account-management/#/personal" onclick="{!c.gotoUrl}">
+													<span>Manage Account</span>
+												</a>
+												<a class="desktop-login-links login" onclick="{!c.logout}">
+													<span>Log out</span>
+												</a>
+											</div>
+										</aura:if>
+										<div class="desktop-products">
+					   						<ul>
+												<li><span class="desktop-login-links"><strong>Accounts</strong></span></li>
+												<li><a class="desktop-login-links" data-url="https://ptest.npe.auspost.com.au/mypost/auth/#/login" onclick="{!c.gotoUrl}">
+													<span>MyPost</span>
+												</a></li>
+												<li><a class="desktop-login-links" data-url="https://auspost.com.au/mypost-business/login" onclick="{!c.gotoUrl}">
+													<span>MyPost Business</span>
+												</a></li>
+												<li><a class="desktop-login-links" data-url="https://eparceltrack.auspost.com.au/external/webui/" onclick="{!c.gotoUrl}">
+													<span>eParcel</span>
+												</a></li>
+												<li><a class="desktop-login-links" data-url="https://auspostbusiness.force.com/bsp/bsplogin" onclick="{!c.gotoUrl}">
+													<span>Business Support Portal</span>
+												</a></li>
+												<li><a class="desktop-login-links" data-url="https://shopmate.auspost.com.au/#login_panel" onclick="{!c.gotoUrl}">
+													<span>ShopMate</span>
+												</a></li>
+												<li><a class="desktop-login-links" data-url="https://myloadandgo.auspost.com.au/cholder/samlLogin" onclick="{!c.gotoUrl}">
+													<span>Load&amp;Go Online</span>
+												</a></li>
+					   						</ul>
+					   					</div>
+				   					</div>
+			   					</div>
+							</li>
+						</ul>
+					</nav>
+				</div>
+
+			    <lightning:button label="{! v.loggedInUserName }" iconName="utility:user" iconPosition="left" variant="base" onclick="{! c.openMobileLogin }" class="mobile-login-button hide-large"/>
+
+			</div>
+		</header>
+	</div>
+    </aura:if>
+</aura:component>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Disabled_Trigger_List__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This setting allows us to selective disable Dealmaker triggers should that be required. The value of this field should be a comma separated list of trigger names. This field should only be used by TAS group administrators</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This setting allows us to selective disable Dealmaker triggers should that be required. The value of this field should be a comma separated list of trigger names. This field should only be used by TAS group administrators</inlineHelpText>
+    <label>Disabled Trigger List</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

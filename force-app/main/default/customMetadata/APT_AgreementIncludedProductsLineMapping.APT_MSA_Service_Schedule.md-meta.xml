@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>APT_MSA_Service_Schedule</label>
+    <protected>false</protected>
+    <values>
+        <field>Product_Type__c</field>
+        <value xsi:type="xsd:string">eParcels Domestic,International,UMS,Courier,Print Post, Legacy Products, StarTrack, Unidentified, Securepay, On Demand,Local Pickup and Delivery Services,Track Mail, AP Global Solutions,Workforce Verification,Parcel Contract,Parcel Contract-Feature</value>
+    </values>
+</CustomMetadata>

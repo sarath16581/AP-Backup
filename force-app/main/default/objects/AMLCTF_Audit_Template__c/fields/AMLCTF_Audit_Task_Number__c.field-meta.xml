@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AMLCTF_Audit_Task_Number__c</fullName>
+    <description>The original Audit Task Number per FIC system, replicated as this number is heavily ingrained and used in Retail Audit&apos;s processes. Field added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The original Audit Task Number per FIC system, replicated as this number is heavily ingrained and used in Retail Audit&apos;s processes. Field added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
+    <label>Audit Task Number</label>
+    <length>15</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

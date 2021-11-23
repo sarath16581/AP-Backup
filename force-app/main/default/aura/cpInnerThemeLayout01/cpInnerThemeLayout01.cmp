@@ -1,0 +1,112 @@
+<aura:component implements="forceCommunity:themeLayout" access="global" description="Custom Theme Layout">
+	<aura:attribute name="search" type="Aura.Component[]" required="false"/>
+	<aura:attribute name="profileMenu" type="Aura.Component[]" required="false"/>
+	<aura:attribute name="navBar" type="Aura.Component[]" required="false"/>
+	<aura:attribute name="newHeader" type="Aura.Component[]" required="false"/>
+
+	<div class="cp-background">
+
+		<section class="ap-nav">
+			<div class="ap-navbar">
+				<ul>
+					<li>
+						<a href="http://auspost.com.au/pol/app/locate" target="blank">
+							Locations &amp; hours
+						</a>
+					</li>
+					<li>
+						<a href="https://auspost.com.au/help-and-support/answers?c=" target="blank">Help &amp; support</a>
+					</li>
+				</ul>
+			</div>
+
+		</section>
+
+		<div class="cp-nav-full-width">
+			<section class="cp-nav-container">
+				<nav class="cp-nav">
+					<!-- <div class="cp-logo-div">
+                  <a href="https://auspost.com.au/" target="blank" class="ap-logo">
+                      <img class="auspost-navlogo" src="/resource/cp_AusPost_Logo" alt="Australia Post logo link to Australia Post website home"/>
+                  </a>
+              </div> -->
+					<div class="cp-navbar">
+						<c:cpNavBar />
+					</div>
+				</nav>
+				<nav class="cp-profile-nav">
+					<div class="cp-profile">
+						<div class="cp-profile-box">{!v.profileMenu}</div>
+					</div>
+				</nav>
+
+			</section>
+		</div>
+
+		<header class="cp-inner-header">
+			<!-- <c:OmnitureHandler/> -->
+
+			<section class="cp-search">
+				<div class="cp-search-inner">
+					<div class="cp-inner-speech-bubble">
+						<div class="cp-three-circles">
+							<span class="cp-circle"></span>
+							<span class="cp-circle"></span>
+							<span class="cp-circle"></span>
+						</div>
+						<!-- <div class="cp-inner-speech-bubble-top">
+                        <h1>Inner page heading above search</h1>
+                    </div> -->
+						<div class="cp-search-is-here">
+							{!v.search}
+						</div>
+						<!-- <div class="cp-inner-speech-bubble-middle">
+                        <p>Inner page content below search box</p>
+                    </div> -->
+						<div class="cp-inner-speech-bubble-bottom"></div>
+					</div>
+				</div>
+			</section>
+		</header>
+		<div class="outer">
+			<div class="mainContentArea">
+				{!v.body}
+
+			</div>
+			<!--<div><c:cpTrendingTopicsView /></div>-->
+
+		</div>
+		<section class="footer">
+			<div class="footer-inner">
+				<ul class="cp-footer-links">
+					<li>
+						<a href="https://auspost.com.au/help-and-support/answers?c=" alt="link to Australia Post help &amp; support" target="blank">Help &amp; support</a>
+					</li>
+					<li>
+						<a href="https://community.auspost.com.au/s/news/about-our-online-community-20Y2v000000PlMSEA0" alt="link to about-the-community page">About this site</a>
+					</li>
+					<li>
+						<a href="https://auspost.com.au/terms-conditions/community-terms-of-use" alt="link to Australia Post terms and conditions" target="blank">Terms &amp; Conditions</a>
+					</li>
+					<li>
+						<a href="https://auspost.com.au/privacy" alt="link to Australia Post privacy policy" target="blank">Privacy Policy</a>
+					</li>
+				</ul>
+				<ul class="cp-footer-social">
+					<li>
+                        <a href="https://www.facebook.com/australiapost" target="_blank"><img src="{!$Resource.cp_ap_social_icons_png + '/facebook.png'}" alt="Facebook logo link to Australia Post facebook page"/></a>
+					</li>
+					<li>
+						<a href="https://twitter.com/auspost" target="_blank"><img src="{!$Resource.cp_ap_social_icons_png + '/twitter.png'}" alt="Twitter logo link to Australia Post twitter page"/></a>
+					</li>
+					<li>
+						<a href="https://plus.google.com/+australiapost" target="_blank"><img src="{!$Resource.cp_ap_social_icons_png + '/google.png'}" alt="Google plus logo link to Australia Post Google plus page"/></a>
+					</li>
+					<li>
+						<a href="https://www.linkedin.com/company/australia-post" target="_blank"><img src="{!$Resource.cp_ap_social_icons_png + '/linkedin.png'}" alt="LinkedIn logo link to Australia Post LinkedIn page"/></a>
+					</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+</aura:component>

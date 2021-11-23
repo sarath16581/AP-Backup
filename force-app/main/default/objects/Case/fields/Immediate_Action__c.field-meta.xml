@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Immediate_Action__c</fullName>
+    <externalId>false</externalId>
+    <label>Immediate Action</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Coaching</fullName>
+                <default>false</default>
+                <label>Coaching</label>
+            </value>
+            <value>
+                <fullName>Behavioral Meeting</fullName>
+                <default>false</default>
+                <label>Behavioral Meeting</label>
+            </value>
+            <value>
+                <fullName>Repair or Replace</fullName>
+                <default>false</default>
+                <label>Repair or Replace</label>
+            </value>
+            <value>
+                <fullName>Innovations/MVC</fullName>
+                <default>false</default>
+                <label>Innovations/MVC</label>
+            </value>
+            <value>
+                <fullName>HR</fullName>
+                <default>false</default>
+                <label>HR</label>
+            </value>
+            <value>
+                <fullName>Transfer to Legal</fullName>
+                <default>false</default>
+                <label>Transfer to Legal</label>
+            </value>
+            <value>
+                <fullName>Recognition/Reward</fullName>
+                <default>false</default>
+                <label>Recognition/Reward</label>
+            </value>
+            <value>
+                <fullName>Reward</fullName>
+                <default>false</default>
+                <label>Reward</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>No Action Required</fullName>
+                <default>false</default>
+                <label>No Action Required</label>
+            </value>
+            <value>
+                <fullName>Team Huddle</fullName>
+                <default>false</default>
+                <label>Team Huddle</label>
+            </value>
+            <value>
+                <fullName>Toolbox Talk</fullName>
+                <default>false</default>
+                <label>Toolbox Talk</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

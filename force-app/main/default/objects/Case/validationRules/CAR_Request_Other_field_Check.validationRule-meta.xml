@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CAR_Request_Other_field_Check</fullName>
+    <active>true</active>
+    <description>CAR Request validation rule to ensure that the &apos;Other&apos; field is filled when the user chooses the option as other in the &apos;Work Type&apos;.</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName =&apos;CAR_Request&apos;, ISPICKVAL(Work_Type__c,&apos;Other&apos;),ISBLANK(Other__c))</errorConditionFormula>
+    <errorDisplayField>Other__c</errorDisplayField>
+    <errorMessage>Please enter the value of Other Work Type.</errorMessage>
+</ValidationRule>

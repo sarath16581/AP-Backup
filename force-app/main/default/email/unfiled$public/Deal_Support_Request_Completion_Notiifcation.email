@@ -1,0 +1,9 @@
+Hi {!Deal_Support_Request__c.Requestor__c}
+
+This is to notify that the Deal Support Request created by you has been marked as Completed by the Deal Support Team.
+
+Request can be viewed by clicking on below link:
+{!Deal_Support_Request__c.Link}
+
+Regards
+Deal Support Team

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InboundQueryApiIncludedProfiles__c</fullName>
+    <description>List of profile ids to monitor for when processing query api events. Separate by a comma.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>List of profile ids to monitor for when processing query api events. Separate by a comma.</inlineHelpText>
+    <label>Inbound Query Api Included Profiles</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

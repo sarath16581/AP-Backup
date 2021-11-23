@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AMLCTF_Please_Explain_Type__c</fullName>
+    <description>Type of Please Explain audit request, similar to Report Name in FIC.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Type of Please Explain audit request, similar to Report Name in FIC.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
+    <label>Please Explain Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Type</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cash Threshold</fullName>
+                <default>false</default>
+                <label>Cash Threshold</label>
+            </value>
+            <value>
+                <fullName>Armaguard Collections</fullName>
+                <default>false</default>
+                <label>Armaguard Collections</label>
+            </value>
+            <value>
+                <fullName>Large Cash / Cheque Deposit</fullName>
+                <default>false</default>
+                <label>Large Cash / Cheque Deposit</label>
+            </value>
+            <value>
+                <fullName>Items Of Balance</fullName>
+                <default>false</default>
+                <label>Items Of Balance</label>
+            </value>
+            <value>
+                <fullName>Cash Adjustments</fullName>
+                <default>false</default>
+                <label>Cash Adjustments</label>
+            </value>
+            <value>
+                <fullName>FAP150 Cash Flow</fullName>
+                <default>false</default>
+                <label>FAP150 Cash Flow</label>
+            </value>
+            <value>
+                <fullName>FAP150 Items Of Balance</fullName>
+                <default>false</default>
+                <label>FAP150 Items Of Balance</label>
+            </value>
+            <value>
+                <fullName>Repeated Banking Transaction</fullName>
+                <default>false</default>
+                <label>Repeated Banking Transaction</label>
+            </value>
+            <value>
+                <fullName>FAP150 Office Processing</fullName>
+                <default>false</default>
+                <label>FAP150 Office Processing</label>
+            </value>
+            <value>
+                <fullName>Transaction Code 990 Data</fullName>
+                <default>false</default>
+                <label>Transaction Code 990 Data</label>
+            </value>
+            <value>
+                <fullName>Repeated Bill Pay Transactions</fullName>
+                <default>false</default>
+                <label>Repeated Bill Pay Transactions</label>
+            </value>
+            <value>
+                <fullName>Discounts (other than bulk)</fullName>
+                <default>false</default>
+                <label>Discounts (other than bulk)</label>
+            </value>
+            <value>
+                <fullName>AP Refunds</fullName>
+                <default>false</default>
+                <label>AP Refunds</label>
+            </value>
+            <value>
+                <fullName>Stock Returns / Refunds</fullName>
+                <default>false</default>
+                <label>Stock Returns / Refunds</label>
+            </value>
+            <value>
+                <fullName>Label Print Reversals</fullName>
+                <default>false</default>
+                <label>Label Print Reversals</label>
+            </value>
+            <value>
+                <fullName>Franking Machine Reversals</fullName>
+                <default>false</default>
+                <label>Franking Machine Reversals</label>
+            </value>
+            <value>
+                <fullName>H/O Remit Reversals</fullName>
+                <default>false</default>
+                <label>H/O Remit Reversals</label>
+            </value>
+            <value>
+                <fullName>RAF Reversals</fullName>
+                <default>false</default>
+                <label>RAF Reversals</label>
+            </value>
+            <value>
+                <fullName>Unmatched Reversals</fullName>
+                <default>false</default>
+                <label>Unmatched Reversals</label>
+            </value>
+            <value>
+                <fullName>Cheque Encashments</fullName>
+                <default>false</default>
+                <label>Cheque Encashments</label>
+            </value>
+            <value>
+                <fullName>Official Money Orders</fullName>
+                <default>false</default>
+                <label>Official Money Orders</label>
+            </value>
+            <value>
+                <fullName>Uncertified Expenditure</fullName>
+                <default>false</default>
+                <label>Uncertified Expenditure</label>
+            </value>
+            <value>
+                <fullName>Bad Debt Write Offs</fullName>
+                <default>false</default>
+                <label>Bad Debt Write Offs</label>
+            </value>
+            <value>
+                <fullName>Stock Adjustments</fullName>
+                <default>false</default>
+                <label>Stock Adjustments</label>
+            </value>
+            <value>
+                <fullName>All Reversals</fullName>
+                <default>false</default>
+                <label>All Reversals</label>
+            </value>
+            <value>
+                <fullName>Product Reversals</fullName>
+                <default>false</default>
+                <label>Product Reversals</label>
+            </value>
+            <value>
+                <fullName>Special Items</fullName>
+                <default>false</default>
+                <label>Special Items</label>
+            </value>
+            <value>
+                <fullName>Full Amount of Wallet Not Remitted</fullName>
+                <default>false</default>
+                <label>Full Amount of Wallet Not Remitted</label>
+            </value>
+            <value>
+                <fullName>Unmatched Remittances</fullName>
+                <default>false</default>
+                <label>Unmatched Remittances</label>
+            </value>
+            <value>
+                <fullName>Missed Balance Events</fullName>
+                <default>false</default>
+                <label>Missed Balance Events</label>
+            </value>
+            <value>
+                <fullName>Digital Receipts</fullName>
+                <default>false</default>
+                <label>Digital Receipts</label>
+            </value>
+            <value>
+                <fullName>Licensee Sales Redemptions</fullName>
+                <default>false</default>
+                <label>Licensee Sales Redemptions</label>
+            </value>
+            <value>
+                <fullName>Postage Stamps on Charge Accounts</fullName>
+                <default>false</default>
+                <label>Postage Stamps on Charge Accounts</label>
+            </value>
+            <value>
+                <fullName>Incorrect Method of Payment</fullName>
+                <default>false</default>
+                <label>Incorrect Method of Payment</label>
+            </value>
+            <value>
+                <fullName>BML Reversals</fullName>
+                <default>false</default>
+                <label>BML Reversals</label>
+            </value>
+            <value>
+                <fullName>Other Reversals</fullName>
+                <default>false</default>
+                <label>Other Reversals</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Cash Management</controllingFieldValue>
+            <valueName>Cash Threshold</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cash Management</controllingFieldValue>
+            <valueName>Armaguard Collections</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cash Management</controllingFieldValue>
+            <valueName>Large Cash / Cheque Deposit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cash Management</controllingFieldValue>
+            <valueName>Items Of Balance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cash Management</controllingFieldValue>
+            <valueName>Cash Adjustments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cash Management</controllingFieldValue>
+            <valueName>Special Items</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cash Management</controllingFieldValue>
+            <valueName>Full Amount of Wallet Not Remitted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cash Management</controllingFieldValue>
+            <valueName>Unmatched Remittances</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cash Management</controllingFieldValue>
+            <valueName>Missed Balance Events</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LPO</controllingFieldValue>
+            <valueName>Repeated Banking Transaction</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LPO</controllingFieldValue>
+            <valueName>Transaction Code 990 Data</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LPO</controllingFieldValue>
+            <valueName>Repeated Bill Pay Transactions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LPO</controllingFieldValue>
+            <valueName>Digital Receipts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LPO</controllingFieldValue>
+            <valueName>Licensee Sales Redemptions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LPO</controllingFieldValue>
+            <valueName>Postage Stamps on Charge Accounts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Revenue Protection</controllingFieldValue>
+            <valueName>Discounts (other than bulk)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Revenue Protection</controllingFieldValue>
+            <valueName>AP Refunds</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Revenue Protection</controllingFieldValue>
+            <valueName>Stock Returns / Refunds</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Revenue Protection</controllingFieldValue>
+            <valueName>BML Reversals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reversals</controllingFieldValue>
+            <valueName>Label Print Reversals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reversals</controllingFieldValue>
+            <valueName>H/O Remit Reversals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reversals</controllingFieldValue>
+            <valueName>RAF Reversals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reversals</controllingFieldValue>
+            <valueName>Unmatched Reversals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reversals</controllingFieldValue>
+            <valueName>All Reversals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reversals</controllingFieldValue>
+            <valueName>Product Reversals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reversals</controllingFieldValue>
+            <valueName>Other Reversals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Cheque Encashments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Official Money Orders</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Uncertified Expenditure</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Bad Debt Write Offs</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Stock Adjustments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Incorrect Method of Payment</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

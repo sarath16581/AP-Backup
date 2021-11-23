@@ -1,0 +1,31 @@
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Hi Team, <br /><br />Please arrange redelivery of the following consignment:</span></p>
+<table style="border-collapse: collapse; width: 64.4986%; height: 98px;" border="1">
+<tbody>
+<tr>
+<td style="width: 29.28%; padding: .75pt .75pt .75pt .75pt;" width="29%">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Article&nbsp;</span></p>
+</td>
+<td style="width: 70.6%; padding: .75pt .75pt .75pt .75pt;" width="70%">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!Case.ArticleTest__c}</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 29.28%; padding: .75pt .75pt .75pt .75pt;" width="29%">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Receiver Name&nbsp;</span></p>
+</td>
+<td style="width: 70.6%; padding: .75pt .75pt .75pt .75pt;" width="70%">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!Case.Receiver_Name__c}</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 29.28%; padding: .75pt .75pt .75pt .75pt;" width="29%">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Address&nbsp;</span></p>
+</td>
+<td style="width: 70.6%; padding: .75pt .75pt .75pt .75pt;" width="70%">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!Case.Address4__c}, {!Case.Address4Suburb__c},{!Case.Address4Postcode__c}</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';"><br />(COPY &amp; PASTE DELIVERY DETAILS FROM CASE) <br /><br />If you could advise when this has been actioned via return email it would be greatly appreciated. <br />Kind regards,</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!User.Name}</span></p>

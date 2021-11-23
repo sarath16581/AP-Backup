@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CampaignName__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Enter Campaign name or lookup an existing Campaign name</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enter Campaign name or lookup an existing Campaign name.</inlineHelpText>
+    <label>Campaign Name</label>
+    <referenceTo>Campaign</referenceTo>
+    <relationshipLabel>Campaign Feedback</relationshipLabel>
+    <relationshipName>Campaign_Feedback</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,30 @@
+<!-- 2021-08-30 naveen.rajanna@auspost.com.au RELEASE UPDATES Enable Aura Component Access Fix -->
+<aura:component access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="ChatterGroup" type="cpChatterGroupWrapper" access="public"/>
+    <aura:attribute name="GroupLink" type="map"/>
+    <forceCommunity:routeLink routeInput="{!v.GroupLink}">
+    <!--<a href="javascript:void(0);" onclick="{!c.redirectToDetailPage}">-->
+        <ul class="cp-group-box">
+            <li class="cp-group-name">
+                <h3>{!v.ChatterGroup.groupName}</h3>
+            </li>
+            <li class="cp-group-image-date">
+                <ul class="cp-group-card-lower">
+                    <li class="cp-group-image">
+                        <img src="{!v.ChatterGroup.smallPhotoUrl}" alt="group Image"/>
+                    </li>
+                    <li class="cp-group-date">
+                        <p>Latest activity
+                            <span class="cp-group-latest-ativity" title="relativeCreatedDate">
+                                {!v.ChatterGroup.lastFeedElementPostDate}
+                            </span>
+                        </p>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    <!--</a>-->
+    </forceCommunity:routeLink>
+    <!-- </div> -->
+</aura:component>

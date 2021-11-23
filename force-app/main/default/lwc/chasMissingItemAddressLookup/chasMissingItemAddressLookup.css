@@ -1,0 +1,30 @@
+.search-container {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+}
+
+.lookup {
+    flex:1;
+}
+.bottom-padding{
+    padding-bottom:32px;
+}
+.top-padding{
+    padding-top:32px;
+}
+.full-width{
+    width:100%
+}
+.half-width{
+    width:50%
+}
+
+@media (max-width: 480px) {
+    .half-width{
+        width:100%
+    }
+    .mobile-padding{
+        padding-bottom:32px;
+    }
+}

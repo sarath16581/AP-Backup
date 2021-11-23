@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RO_Pre_Draft_Checklist_Complete</fullName>
+    <active>true</active>
+    <description>Field is not editable when the Agreement Document is Approved, Awaiting Signature, Active, Ceased and Not Activated</description>
+    <errorConditionFormula>AND	(ISCHANGED(Pre_Draft_Checklist_Complete__c), 
+	OR	(ISPICKVAL(Status__c, &apos;Draft&apos;), 
+		ISPICKVAL(Status__c, &apos;Approved&apos;),
+		ISPICKVAL(Status__c, &apos;Awaiting Signature&apos;),
+		ISPICKVAL(Status__c, &apos;Active&apos;),
+		ISPICKVAL(Status__c, &apos;Ceased&apos;),
+		ISPICKVAL(Status__c, &apos;Not Activated&apos;)),
+	NOT(ISPICKVAL(PRIORVALUE(Status__c), &quot;New&quot;))
+	)</errorConditionFormula>
+    <errorMessage>The Pre Draft Checklist field is not editable when the Agreement Document status is Draft, Approved, Awaiting Signature, Active, Ceased and Not Activated</errorMessage>
+</ValidationRule>

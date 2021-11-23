@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Segmentation_Contact_State__c</fullName>
+    <description>Physical State of the Segmentation Contact record
+Populated by process builder when a Segmentation Contact checkbox is ticket on a related Contact record</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Physical State of the Segmentation Contact selected within the Contacts section of the Organisation</inlineHelpText>
+    <label>Segmentation Contact State</label>
+    <length>3</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

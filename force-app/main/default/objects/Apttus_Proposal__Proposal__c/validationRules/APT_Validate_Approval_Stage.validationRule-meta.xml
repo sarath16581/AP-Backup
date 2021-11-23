@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Validate_Approval_Stage</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(TEXT(Apttus_Proposal__Opportunity__r.StageName) = &apos;Identify&apos; ,OR(TEXT(APT_Next_Steps__c)= &apos;Confirm issues, needs and desired outcomes&apos;,TEXT(APT_Next_Steps__c)= &apos;Identify opportunity risks and competitors&apos;,TEXT(APT_Next_Steps__c)= &apos;Engage internal resources to develop solution&apos;,TEXT(APT_Next_Steps__c)= &apos;Determine Go/No Go decision&apos;))</errorConditionFormula>
+    <errorDisplayField>Apttus_Proposal__Approval_Stage__c</errorDisplayField>
+    <errorMessage>Opportunity Next Step is invalid for the opportunity in Identify stage</errorMessage>
+</ValidationRule>

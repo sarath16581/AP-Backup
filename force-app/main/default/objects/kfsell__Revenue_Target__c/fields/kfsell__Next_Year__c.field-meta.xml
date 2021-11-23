@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>kfsell__Next_Year__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Next Year</label>
+    <referenceTo>kfsell__Revenue_Target_Detail__c</referenceTo>
+    <relationshipLabel>Revenue Targets (Next Year)</relationshipLabel>
+    <relationshipName>Revenue_Targets1</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

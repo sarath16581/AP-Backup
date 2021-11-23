@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Delete_Attachment_Once_Converted__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>When checked then conversion process will delete the original Attachment once successfully converted to File. You may want to delete them to save storage space in your org.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>When checked then conversion process will delete the original Attachment once successfully converted to File. You may want to delete them to save storage space in your org.</inlineHelpText>
+    <label>Delete Attachment Once Converted?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

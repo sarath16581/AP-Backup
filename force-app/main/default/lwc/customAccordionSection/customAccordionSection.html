@@ -1,0 +1,20 @@
+<!-- this component was made to suport the styling on BAM UI in the event that salesforce 
+    implements their base lightning components with the shadow dom in a future release.
+    Since that could the styling on the theme to reach down and apply our css to the base components -->
+<template>
+    <li class="slds-accordion__section">
+        <div class={isOpenClass}>
+            <div class="slds-accordion__summary">
+                <div class="slds-accordion__summary-heading">
+                    <div onclick={toggleSection} class="slds-accordion__summary-action">
+                        <lightning-icon icon-name={iconName} class="slds-p-right_small"  size="x-small"></lightning-icon>
+                        <span class="slds-truncate" title={title}>{title}</span>
+                    </div>
+                </div>
+            </div>
+        <div class="slds-accordion__content">
+            <slot></slot>
+        </div>
+        </div>
+    </li>  
+</template>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_or_Entity_is_Required</fullName>
+    <active>true</active>
+    <description>User must provide either an Opportunity or a Legal Entity</description>
+    <errorConditionFormula>AND(ISBLANK( Opportunity__c ),ISBLANK( Legal_Entity__c ))</errorConditionFormula>
+    <errorMessage>Opportunity or Legal Entity must be provided</errorMessage>
+</ValidationRule>

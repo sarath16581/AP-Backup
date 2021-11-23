@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AusPost_BA_Specified</fullName>
+    <active>true</active>
+    <description>if AusPost BA is specified, then there are specific limitations when authorisation users. An AusPost BA can be used by the following roles:
+AusPost Case Administrator
+Send a Parcel UI User
+Contract UI User</description>
+    <errorConditionFormula>if(RecordType.DeveloperName != &apos;Cognition_Rules&apos;,
+     ISPICKVAL(Billing_Account__r.Source_System__c, &apos;SAP ERP&apos;) &amp;&amp; 
+     ISBLANK(Account__c) &amp;&amp; 
+     !(ISPICKVAL(AccessRole__c, &apos;AusPost Case Administrator&apos;) ||
+       ISPICKVAL(AccessRole__c, &apos;Send a Parcel UI User&apos;) ||
+       ISPICKVAL(AccessRole__c, &apos;Contract UI User&apos;)),
+false)</errorConditionFormula>
+    <errorMessage>This Access Role is not valid for this Billing Account</errorMessage>
+</ValidationRule>

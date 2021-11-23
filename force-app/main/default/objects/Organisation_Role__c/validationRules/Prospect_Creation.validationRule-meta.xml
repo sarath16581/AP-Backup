@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prospect_Creation</fullName>
+    <active>true</active>
+    <description>Phase 1 - Not allowed to add a propect if a customer already exists</description>
+    <errorConditionFormula>IF( Organisation__r.Customer_Party_Role_Count__c  &gt;= 1 &amp;&amp; ISPICKVAL(Role_Type__c,&apos;Prospect&apos;), true, false)</errorConditionFormula>
+    <errorMessage>You are unable to enter a prospect if a customer record already exists</errorMessage>
+</ValidationRule>

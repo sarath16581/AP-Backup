@@ -1,0 +1,315 @@
+<!-- 
+    kalpita.talwadekar@aupost.com.au updated code for pop-up handing
+    nanda.kothamasu@auspost.com.au (NK) fix the font issue on product sub category drop down list - INC0889366 - Imp Dt 08-May-2017
+    nanda.kothamasu@auspost.com.au (NK) Fix Enquiry Sub Type drop down issues. INC0950282
+    2017-09-17 nathan.franklin@auspost.com.au Major refactor, moved JS into controller file
+    2018-10-17 saiswetha.pingali@auspost.com.au - INC1226544 - EDDpanel to be rendered always and is not dependent on referenceId and Product Category
+    2018-11-05 nathan.franklin@auspost.com.au add a check for live agent user licence property
+    2019-09-24 saiswetha.pingali@auspost.com.au Added helptext for minicase fieldset as part of MW0003166 
+    2020-04-06 nathan.franklin@auspost.com.au Add pageMessages for visualforce sap-em errors and added Happy Parcel container
+    2020-04-06 nathan.franklin@auspost.com.au Removed code duplication in createCase
+    2020-09-07 swati.mogadala@auspost.com.au  REQ2202596 Added a confirm() message on the 'Clear' commandbutton 
+	2020-10-28 madhuri.awasthi@auspost.com.au  REQ2322551 Changed Close Enquiry button to Create Case button
+-->
+<apex:component controller="MiniCaseComponentController" allowDML="true">
+    <apex:attribute name="disableEnterKeyPress" description="disable the Enter key default pressed action" type="boolean" required="false" default="false" />
+    <apex:attribute name="recordId" description="the selected recordId" type="string" required="false" assignto="{!contactId}" />
+    <apex:attribute name="showError" description="Displays the error message at the top" type="boolean" required="false" />
+
+    <c:ScriptLoader jsLibraries="jquery,ssswconsole,jquery.cookie,interaction,integration,localState,bootstrap,corsmessenger"
+                    cssLibraries="bootstrap,ssswconsole" />
+
+    <apex:stylesheet value="{!URLFOR($Resource.MiniCaseComponentAssets, '/css/styles.css')}" />
+    <apex:includeScript value="{!URLFOR($Resource.MiniCaseComponentAssets, '/js/controller.js')}" />
+
+    <div class="minicase-wrapper" id="minicase-{!id}">
+
+        <c:LoadingSpinnerComponent showFunctionName="miniCaseShowProgressTop" hideFunctionName="miniCaseHideProgressTop" topMargin="15%" />
+
+        <!-- sets default focus -->
+        <apex:commandbutton id="btnDummyButton" styleClass="hidden" rendered="{!disableEnterKeyPress}" onclick="return false;" immediate="true"  />
+        <c:DefaultSubmitButton targetId="btnDummyButton" rendered="{!disableEnterKeyPress}" />
+
+        <apex:outputPanel layout="block" styleClass="hide" id="pnlMiniCaseMessage" rendered="{!showError}">
+            <apex:pageMessage severity="error" strength="3" summary="There is an error" />
+        </apex:outputPanel>
+
+        <!-- added by kalpita -- for duplicate case alert popup --->
+        <apex:outputPanel layout="block" styleClass="hide" id="popup" >
+            <apex:outputPanel styleclass="popupBackground" layout="block" />
+            <apex:outputPanel styleClass="customPopup"  layout="block" >
+                <p style="text-align:center;">
+                    An open case for this reference ID already exists, update or resolve the existing case. Do not create a duplicate case
+                    <br/><br/>
+                    <apex:commandButton onclick="miniCasePageController.closePopup()" value="OK" reRender="popup"/>
+                    <apex:commandButton value="Create New Case" rendered="{!isHLCUser}" onclick="miniCasePageController.createCaseWithoutDuplicateCheck(this, false);return false;" />
+                </p>
+            </apex:outputPanel>
+        </apex:outputPanel>
+
+        <apex:outputPanel layout="block" styleClass="hide" id="popup2" >
+            <apex:outputPanel styleclass="popupBackground" layout="block" />
+            <apex:outputPanel styleClass="customPopup"  layout="block" >
+                <p style="text-align:center;">
+                    An open case for this reference ID already exists, update or resolve the existing case. Do not create a duplicate case
+                    <br/><br/>
+                    <apex:commandButton onclick="miniCasePageController.closePopup()" value="Cancel" reRender="popup2"/>
+                    <apex:commandButton value="Create New Case" rendered="{!isHLCUser}" onclick="miniCasePageController.createCaseWithoutDuplicateCheck(this, true);return false;" />
+                </p>
+            </apex:outputPanel>
+        </apex:outputPanel>
+
+        <div class="MiniCase">
+            <apex:pageBlock title="Enquiry" mode="edit" id="pbMiniCase">
+                <input type="hidden" id="hfSynchronisedValues"  />
+                <input type="hidden" id="hfMiniCaseRecordTypeId"  />
+                <apex:inputhidden value="{!contactId}" id="hfContactId" />
+
+                <apex:pageBlockSection id="pbsCTI">
+                    <apex:repeat value="{!$ObjectType.Case.FieldSets.CTIFieldSet}" var="f">
+                        <apex:pageBlockSectionItem dataStyleClass="wrapper_MiniCaseFieldSet_{!f.fieldPath}">
+
+                            <apex:outputLabel value="{!f.Label}" />
+                            <apex:inputField value="{!proxyCase[f.fieldPath]}"
+                                             styleClass="MiniCaseFieldSet_{!f.fieldPath} form-control input-sm {!f.type} maxWidth {!IF(OR(f.required, f.dbRequired), 'flaggedAsRequired', '')}  {!IF(f.fieldPath=='Description', 'descriptionHeight', '')}"
+                                             required="{!OR(f.required, f.dbRequired)}" onkeydown="miniCasePageController.clearMiniCaseErrorPanel();" html-data-skipFocus="true"
+                                             onchange="(function(e, el){miniCasePageController.inputChangeHandler(e, '{!f.fieldPath}', el)})(event, this);" />
+
+                        </apex:pageBlockSectionItem>
+
+                        <input type="hidden" id="MiniCaseFieldSet_{!f.fieldPath}" value="synchData_MiniCaseFieldSet_{!f.fieldPath}(this);" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+                <div style="position:relative;">
+                    <!--    Hidden field INC0950282   -->   <input type="hidden" id="hfPSC" autocomplete="off"/>
+
+                    <apex:pageBlockSection id="pbsMiniCaseSet">
+                        <apex:repeat value="{!$ObjectType.Case.FieldSets.MiniCaseFieldSet}" var="f">
+
+                            <apex:pageBlockSectionItem dataStyleClass="wrapper_MiniCaseFieldSet_{!f.fieldPath}" helptext="{!$ObjectType.Case.Fields[f].inlineHelpText}">
+
+                                <apex:outputLabel value="{!f.Label}" />
+                                <apex:inputField value="{!proxyCase[f.fieldPath]}"
+                                                 styleClass="MiniCaseFieldSet_{!f.fieldPath} form-control input-sm {!f.type} maxWidth {!IF(OR(f.required, f.dbRequired), 'flaggedAsRequired', '')}"
+                                                 required="{!OR(f.required, f.dbRequired)}" onkeydown="miniCasePageController.clearMiniCaseErrorPanel();"
+                                                 onchange="(function(e, el){miniCasePageController.inputChangeHandler(e, '{!f.fieldPath}', el)})(event, this);" />
+                            </apex:pageBlockSectionItem>
+
+                            <input type="hidden" id="MiniCaseFieldSet_{!f.fieldPath}" class="{!IF(OR(f.required, f.dbRequired), 'flaggedAsRequired', '')}" value="synchData_MiniCaseFieldSet_{!f.fieldPath}(this);" />
+                        </apex:repeat>
+                    </apex:pageBlockSection>
+                </div>
+                <apex:pageBlockButtons location="top">
+                    <apex:outputPanel >
+                        <apex:commandButton id="btnClearMiniCase" value="Clear"  onclick="if(confirm('Are you sure you want to clear?')) { miniCasePageController.clearMiniCase();} return false;"   />
+                        <!--REQ2202596 Added confirm meesage for additional check before clearing field values -->
+                        <apex:commandButton id="btnCloseEnquiry" value="Create Case" style="display:none;" onclick="miniCasePageController.createCaseWithDuplicateCheck(this, true);return false;"  />
+                        <apex:commandButton id="btnCreateCase" value="Create Case" onclick="miniCasePageController.createCaseWithDuplicateCheck(this, false);return false;" style="display:none;" rendered="{!(contactId != '')}" rerender=""/>
+                    </apex:outputPanel>
+                </apex:pageBlockButtons>
+            </apex:pageBlock>
+
+
+            <div class="wrapper_MiniCaseFieldSet_Type_and_Product__c">
+                <apex:inputfield value="{!proxyCase.Type_and_Product__c}" styleClass="MiniCaseFieldSet_Type_and_Product__c hidden"
+                                 onchange="(function(e, el){miniCasePageController.inputChangeHandler(e, 'Type_and_Product__c', el)})(event, this);" />
+            </div>
+            <div class="wrapper_MiniCaseFieldSet1_ProductCategory__c">
+                <apex:inputfield value="{!proxyCase.DescriptionofContents__c}" styleClass="MiniCaseFieldSet1_ProductCategory__c hidden" />
+            </div>
+        </div>
+
+        <apex:outputPanel styleClass="pnlTabs tabs" layout="block">
+            <c:LoadingSpinnerComponent showFunctionName="miniCaseShowProgress" hideFunctionName="miniCaseHideProgress" topMargin="15%" />
+
+            <ul class="nav nav-tabs" id="miniCaseTabs">
+                <li class="active"><a href="#existingCases" data-toggle="tab"><apex:image url="/img/icon/cases24.png" height="20" alt="Cases"/>&nbsp;&nbsp;Cases</a></li>
+                <!--<li><a href="#sap" data-toggle="tab"><apex:image value="{!$Resource.SAPIcon}" height="20" alt="SAP-EM"/></a></li>-->
+                <li><a href="#happyparcel" data-toggle="tab"><apex:image value="{!$Resource.SAPIcon}" height="20" alt="Happy Parcel"/></a></li>
+                <li><a href="#track" data-toggle="tab" id="trackUrl"><apex:image url="{!URLFOR($Resource.SSSWIcons,'logo.png')}" height="20" alt="Tracking"/>&nbsp;&nbsp;Track</a></li>
+                <li><a href="#edd" data-toggle="tab"><apex:image url="{!URLFOR($Resource.SSSWIcons,'EDDIcon.png')}" height="20" alt="EDD"/>&nbsp;&nbsp;EDD</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="existingCases" class="tab-pane active existingCasesOrActivities">
+                    <apex:outputPanel id="panelExistingCasesWrapper" layout="block">
+                        <apex:outputPanel id="panelExistingCases" rendered="{!showExistingCaseOrActivities}">
+                            <apex:pageBlock title="Existing Cases" rendered="{!showExistingCaseOrActivities}">
+                                <apex:pageblocksection >
+                                    <apex:pageBlockTable value="{!existingCaseOrActivities}" styleclass="table table-bordered table-striped" var="exCaseOrActivity">
+                                        <apex:column >
+                                            <apex:facet name="header">ID</apex:facet>
+                                            <a href="#"
+                                               onclick="miniCasePageController.openPrimaryTab('{!exCaseOrActivity.id}'); return false;">{!exCaseOrActivity.RecordType}</a>
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">Reference ID</apex:facet>
+                                            <apex:outputtext value="{!exCaseOrActivity.RefID}" />
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">Customer</apex:facet>
+                                            <apex:outputtext value="{!exCaseOrActivity.ContactName}" />
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">Subject</apex:facet>
+                                            <apex:outputtext value="{!exCaseOrActivity.Subject}" />
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">Description</apex:facet>
+                                            <apex:outputtext value="{!exCaseOrActivity.Description}" />
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">Status</apex:facet>
+                                            <apex:outputtext value="{!exCaseOrActivity.Status}" />
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">Originator</apex:facet>
+                                            <apex:outputtext value="{!exCaseOrActivity.CaseOriginator}" />
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">Owner</apex:facet>
+                                            <apex:outputtext value="{!exCaseOrActivity.Owner}" />
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">Last Modified</apex:facet>
+                                            <apex:outputtext value=" {!exCaseOrActivity.LastModified}"/>
+                                        </apex:column>
+                                    </apex:pageBlockTable>
+                                </apex:pageblocksection>
+                            </apex:pageBlock>
+                        </apex:outputPanel>
+                        <apex:outputPanel id="panelExistingCasesEmpty" rendered="{!NOT(showExistingCaseOrActivities)}">
+                            <apex:pageBlock title="Existing Cases" mode="detail">
+                                <apex:outputText rendered="{!NOT(ISBLANK(proxyCase.ReferenceID__c))}">
+                                    There are no existing cases for the Reference ID specified.
+                                </apex:outputText>
+                                <apex:outputText rendered="{!ISBLANK(proxyCase.ReferenceID__c)}">
+                                    Please specify a Reference ID above.
+                                </apex:outputText>
+                            </apex:pageBlock>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </div>
+                <!--<div id="sap" class="tab-pane">
+                    <apex:outputPanel id="panelSAPEMWrapper" layout="block">
+                        <apex:outputPanel id="panelSAPEM" rendered="{!showSAPEMComponent}">
+                            <apex:pageMessages></apex:pageMessages>
+                            <c:TIBCODataVisualizerComponent searchResult="{!searchResult}" enableCreateCase="false" isReadOnly="true"/>
+                        </apex:outputPanel>
+                        <apex:outputPanel id="panelSAPEMEmpty" rendered="{!NOT(showSAPEMComponent)}">
+                            <apex:pageBlock title="SAP EM Search" mode="detail">
+                                Please specify a Reference ID above and a valid Product Category.
+                            </apex:pageBlock>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </div>-->
+                <div id="happyparcel" class="tab-pane">
+                    <!--<c:HappyParcelWrapper></c:HappyParcelWrapper>-->
+                    <iframe id="hpWindow" frameborder="0" scrolling="no" src="{!$Page.MyCustomerHappyParcelWrapper}" width="100%"></iframe>
+                </div>
+                <div id="track" style="overflow:hidden;" class="tab-pane">
+                    <apex:outputPanel id="panelTrackWrapper" layout="block">
+                        <apex:outputPanel id="panelTrack" rendered="{!(showSAPEMComponent && !isblank(trackingSettings.URL__c))}">
+                            <a href="{!trackingSettings.URL__c}{!proxyCase.ReferenceID__c}" id="trackOnlineLink">Track Online</a>
+                            <!--<iframe style="{!trackingSettings.AppKey__c}" data-src="{!trackingSettings.URL__c}{!proxyCase.referenceId__c}" scrolling="true" id="theIframe" height="2000px" width="100%"/>-->
+                        </apex:outputPanel>
+                        <apex:outputPanel id="panelTrackEmpty" rendered="{!NOT(showSAPEMComponent) || isblank(trackingSettings.URL__c)}">
+                            <apex:pageBlock title="Track" mode="detail">
+                                Please specify a Reference ID above and a valid Product Category.
+                            </apex:pageBlock>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </div>
+                <div id="edd" class="tab-pane">
+                    <apex:outputPanel id="panelEDDWrapper" layout="block">
+                        <apex:outputPanel id="panelEdd" >
+                            <apex:actionregion >
+                                <c:EDDWidget setEDDFunctionName="eddSetValues_{!id}" />
+                                <script type="text/javascript">
+                                sforce.console.fireEvent('ResetEvt', 'ResetEvt');
+                                </script>
+                            </apex:actionregion>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </div>
+            </div>
+        </apex:outputPanel>
+
+
+
+        <script type="text/javascript">
+            var j$ = jQuery.noConflict();
+
+            var miniCasePageController = new frontendMiniCaseComponentController();
+            miniCasePageController.model.set('fields', []);
+            miniCasePageController.model.set('pageId', '{!id}');
+            miniCasePageController.model.set('sapEMSearchTriggers', '{!sapEMSearchTriggers}');
+            miniCasePageController.model.set('eddTriggers', '{!eddTriggers}');
+            miniCasePageController.model.set('thisInstanceId', 'minicase-{!id}');
+            miniCasePageController.model.set('eddWidgitEventId', 'eddSetValues_{!id}');
+
+            <apex:repeat value="{!$ObjectType.Case.FieldSets.CTIFieldSet}" var="f">
+            // the the fields we are tracking into our field model.
+            // this is used to add monitoring
+            miniCasePageController.model.get('fields').push('{!f.fieldPath}');
+
+            // these have been recreated for legacy reason
+            function synchData_MiniCaseFieldSet_{!f.fieldPath}(element) {
+                // proxy data
+                miniCasePageController.fireSynchroniseEvent('{!f.fieldPath}', element);
+            }
+            </apex:repeat>
+
+            <apex:repeat value="{!$ObjectType.Case.FieldSets.MiniCaseFieldSet}" var="f">
+            // the the fields we are tracking into our field model.
+            // this is used to add monitoring
+            miniCasePageController.model.get('fields').push('{!f.fieldPath}');
+
+            // these have been recreated for legacy reason
+            function synchData_MiniCaseFieldSet_{!f.fieldPath}(element) {
+                // proxy data
+                miniCasePageController.fireSynchroniseEvent('{!f.fieldPath}', element);
+            }
+            </apex:repeat>
+
+            // the the fields we are tracking into our field model.
+            // this is used to add monitoring
+            miniCasePageController.model.get('fields').push('Type_and_Product__c');
+
+            // these have been recreated for legacy reason
+            function synchData_MiniCaseFieldSet_Type_and_Product__c(element) {
+                // proxy data
+                miniCasePageController.fireSynchroniseEvent('Type_and_Product__c', element);
+            }
+
+            // pass whether or not this user is a live agent user
+            // this is used when using contexts within mini case
+            miniCasePageController.model.set('isLiveAgentUser', {!if(currentUserIsLiveAgentUser,'true','false')});
+
+            j$(function() {
+                // initialize js controller
+                miniCasePageController.initialize();
+            });
+        </script>
+
+
+        <apex:actionfunction name="dummyRefresh" immediate="true" rerender="pbsMiniCaseSet" oncomplete="miniCaseHideProgressTop();"/>
+
+        <!-- used by CTIListener2.page when a record type ID is set.. maybe -->
+        <apex:actionfunction name="jrReloadPicklists" action="{!reloadPicklists}" immediate="true" rerender="pbsMiniCaseSet" oncomplete="miniCaseShowProgressTop();dummyRefresh();" >
+            <apex:param name="recordTypeId" assignTo="{!proxyCase.recordTypeId}" value="" />
+            <apex:param name="caseType" assignTo="{!proxyCase.Type}" value="" />
+            <apex:param name="productCategory" assignTo="{!proxyCase.ProductCategory__c}" value="" />
+            <apex:param name="productSubCategory" assignTo="{!proxyCase.ProductSubCategory__c}" value="" />
+            <apex:param name="productEnquirySubType" assignTo="{!proxyCase.EnquirySubType__c}" value="" />
+        </apex:actionfunction>
+
+        <apex:actionFunction name="loadSAPEM" action="{!loadSAPEM}" immediate="true" rerender="panelSAPEMWrapper,panelTrackWrapper,panelEDDWrapper" oncomplete="miniCasePageController.actionComplete();">
+            <apex:param name="referenceId" assignTo="{!proxyCase.ReferenceID__c}" value="" />
+        </apex:actionFunction>
+
+        <apex:actionFunction name="loadRelatedCases" action="{!loadRelatedCases}" immediate="true" rerender="panelExistingCasesWrapper" oncomplete="miniCasePageController.actionComplete();">
+            <apex:param name="referenceId" assignTo="{!proxyCase.ReferenceID__c}" value="" />
+        </apex:actionFunction>
+    </div>
+
+</apex:component>

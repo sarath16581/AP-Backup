@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>31.0</apiVersion>
+    <description>2014-07 APMS - This component implements QAS address validation.</description>
+    <label>APMS QAS Component</label>
+</ApexComponent>

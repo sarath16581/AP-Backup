@@ -1,0 +1,10 @@
+<!--	
+	@description This component is created as a work-around solution to close a blank popup after successful navigation(using 'navigateToRecord' aura component), 
+				 within a consoled-based app. This is called from a Flow component(e.g. 'STP_Deal_Support_Request_Creation_Organisation').
+				 The blank pop-up issue occurs after a release update 'Keep Working with Tab-Focused Dialogs' is enabled
+	@changelog
+	2021-08-24	seth.heang@auspost.com.au	created
+-->
+<aura:component implements="lightning:availableForFlowScreens,force:hasRecordId">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+</aura:component>

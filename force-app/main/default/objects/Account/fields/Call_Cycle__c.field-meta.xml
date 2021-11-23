@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Call_Cycle__c</fullName>
+    <description>Display the customer&apos;s call cycle value based on formula calculation that reads Targeted Revenue FY. 
+Used in reports</description>
+    <externalId>false</externalId>
+    <formula>CASE(Account_Owner_Role_Group__c , &quot;Key Accounts Partner&quot;, 
+IF(Total_Budget__c &gt;= 1, 4, 12), 
+
+CASE(Account_Owner_Role_Group__c , &quot;Medium&quot;, 
+IF(Total_Budget__c &gt;= 1000000, 4, 
+IF(AND(Total_Budget__c &gt;= 500000, Total_Budget__c &lt; 1000000), 4, 
+IF(AND(Total_Budget__c &gt;= 250000, Total_Budget__c &lt; 500000), 6, 
+IF(AND(Total_Budget__c &gt;= 72000, Total_Budget__c &lt; 250000), 8, 
+IF(AND(Total_Budget__c &gt;= 1, Total_Budget__c &lt; 72000), 10, 12))))), 
+
+
+CASE(Account_Owner_Role_Group__c , &quot;Small&quot;, 
+IF(Total_Budget__c &gt;= 60000, 4, 
+IF(AND(Total_Budget__c &gt;= 40000, Total_Budget__c &lt; 59999), 8, 
+IF(AND(Total_Budget__c &gt;= 30000, Total_Budget__c &lt; 39999), 10, 
+IF(AND(Total_Budget__c &gt;= 10000, Total_Budget__c &lt; 29999), 12, 26)))), 0)))</formula>
+    <inlineHelpText>The minimum frequency the customer should be contacted/visited, in weeks</inlineHelpText>
+    <label>Coverage Frequency</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

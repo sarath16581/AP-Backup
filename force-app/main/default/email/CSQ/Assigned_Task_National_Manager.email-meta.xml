@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>SFDC_Blank</letterhead>
+    <name>Assigned Task - National Manager</name>
+    <style>freeForm</style>
+    <subject>Task - Review {!Customer_Scoping_Questionnaire__c.Name}</subject>
+    <textOnly>Hello ,
+
+This task has been assigned to you.
+https://auspost.my.salesforce.com/{!Task.Id}
+
+Once you have completed the task, please update the task status to &quot;Finished&quot;.
+
+Thanks,
+
+Salesforce Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

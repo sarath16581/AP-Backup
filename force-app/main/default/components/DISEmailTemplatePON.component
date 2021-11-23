@@ -1,0 +1,127 @@
+<apex:component controller="EmailTemplateDISCompCont" access="global" >
+    <apex:attribute name="compId" type="Id" description="the case ID" assignTo="{!caseId}"/>
+
+            
+    <div style="background: #FFEDBA;padding: 5px;">
+        <div style="background: #FFFFFF;padding: 5px;margin: 5px;">
+            <div style="display:table">
+                <div style="display:table-row">
+                             <h1 style="padding: 0px; color: #DF1027">Case {!myCase.CaseNumber}</h1>
+                             <!-- Start by Snigdha for PON print -->
+                             <h3 style="padding: 0px; color: #DF1027">Type           : {!myCase.Type}</h3>
+                             <h3 style="padding: 0px; color: #DF1027">Created Date   : <apex:outputField value=" {!myCase.CreatedDate}"/></h3>
+                             <h3 style="padding: 0px; color: #DF1027">SLA Target Date   : <apex:outputField value=" {!myCase.SLATargetDate__c}"/></h3>     
+                             <!-- End by Snigdha for PON print -->
+                      </div>
+            </div>
+        </div>
+
+        <div style="background: #FFFFFF;margin: 5px;padding: 5px;">
+         <!--           <apex:outputText >
+                    <div style="font-weight: bold;">
+                    {!IF(CONTAINS(myCase.Type,"Investigation"),"Please review the following enquiry and respond via email with the required response time.", "Please review the following information and address as appropriate. Please do not reply, as any response to CS&S will not be monitored via email.")}
+                    </div>
+                </apex:outputText>  -->
+           
+                <h3 style="color: #DF1027;">Case</h3>
+                    <apex:repeat value="{!IF(myCase.Type == 'Investigation',$ObjectType.Case.FieldSets.PON_Investigation,IF(myCase.Type == 'Feedback',$ObjectType.Case.FieldSets.PON_Investigation,$ObjectType.Case.FieldSets.PON_Investigation))}" var="f" >
+                  
+                           <b><apex:outputText value="{!f.Label}: " /></b>
+                            <apex:outputText styleClass="form-control input-sm {!f.type}" value="{!myCase[f]}"/><br/>
+                    </apex:repeat>
+                    <table style="border-collapse: collapse;border: none;padding: 0;">
+                        <tr style="border: none;padding: 0;">
+                            <td style="border: none;width:85px;vertical-align: top;padding: 0;">
+                                <b><apex:outputText value="Description: " /></b>
+
+                             </td>
+                            <td style="border: none;padding: 0;">
+                                <apex:outputField styleClass="form-control input-sm TextArea" value=" {!myCase.Description}" />
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <!-- Snigdha: Start Change to add Instructions to PON Print -->
+                    <table style="border-collapse: collapse;border: none;padding: 0;">
+                        <tr style="border: none;padding: 0;">
+                            <td style="border: none;width:85px;vertical-align: top;padding: 0;">
+                                <b><apex:outputText value="Instructions: " /></b>
+
+                             </td>
+                            <td style="border: none;padding: 0;">
+                                <apex:outputField styleClass="form-control input-sm TextArea" value=" {!myCase.Instructions__c}" />
+                            </td>
+                        </tr>
+                    </table>
+                     <!-- Snigdha: End Change to add Instructions to PON Print -->
+                    
+        
+                <h3 style="color: #DF1027;">Contact</h3>
+                    <apex:repeat value="{!ItemSearchContactFields}" var="f" rendered="{!IF(myContact.DoNotDisclose__c,'false','true')}">
+                            <b><apex:outputText value="{!f.Label}: "/></b>
+                            <apex:outputText styleClass="form-control input-sm {!f.type}" value="{!myContact[f]}"/><br/>
+                    </apex:repeat>
+                    <!-- Do not display contact if DoNotDisclose__c is true -->
+                    <apex:repeat value="{!1}" rendered="{!IF(myContact.DoNotDisclose__c,'true','false')}">
+                            Cannot disclose contact
+                    </apex:repeat>
+                    
+<!--            <div class="section additional-info-section"> -->
+                <apex:repeat value="{!1}" rendered="{!NOT(ISBLANK(myCase.NetworkComments__c)) 
+                && (myCase.Network_Responses1__r == null || IF(myCase.Network_Responses1__r.size>0,myCase.Network_Responses1__r[0].to_Reassign_Network__c==null,true)
+                )}">
+                <!-- apex:repeat value="{!1}" rendered="{!NOT(ISBLANK(myCase.NetworkComments__c)) && myCase.Network_Responses1__r[0].to_Reassign_Network__c == null }" -->
+                    <h3 style="color: #DF1027;">Additional Information</h3>
+                    <table class="additional-info-section">
+
+
+                        <tr>
+                            <td>
+                                <apex:outputText value="{!myCase.NetworkComments__c}" />
+
+
+
+                            </td>
+                        </tr>
+                    </table>
+                </apex:repeat>
+
+<!--            </div> -->
+
+
+                <apex:outputText rendered="{!NOT(ISBLANK(consignmentDetails))}">
+                    <c:DISEmailTemplateArticle article="{!consignmentDetails.proxyConsignment}" 
+                            eventMessages="{!consignmentDetails.eventMessages}" 
+                            IsConsignment="true" 
+                            articleFields="{!ItemSearchArticleFields}" 
+                            eventMessageFields="{!ItemSearchEventMessagesFields}" />
+
+                    <apex:repeat value="{!consignmentDetails.articles}" var="a">
+                        <c:DISEmailTemplateArticle article="{!a.proxyArticle}" 
+                            eventMessages="{!a.eventMessages}" 
+                            IsConsignment="false" 
+                            articleFields="{!ItemSearchArticleFields}" 
+                            eventMessageFields="{!ItemSearchEventMessagesFields}" />
+                        <br/>
+                    </apex:repeat>
+
+                </apex:outputText>
+
+         
+                <apex:outputText rendered="{!NOT(ISBLANK(articleDetails))}">
+                    <c:DISEmailTemplateArticle article="{!articleDetails.proxyArticle}" 
+                            eventMessages="{!articleDetails.eventMessages}" 
+                            IsConsignment="false" 
+                            articleFields="{!ItemSearchArticleFields}" 
+                            eventMessageFields="{!ItemSearchEventMessagesFields}" />
+                </apex:outputText>
+           
+        </div>
+    
+       
+        
+    </div>
+    
+
+
+</apex:component>

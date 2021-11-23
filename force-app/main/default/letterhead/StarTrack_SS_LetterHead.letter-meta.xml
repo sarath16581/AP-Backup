@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Letterhead xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <backgroundColor>#C0C0C0</backgroundColor>
+    <bodyColor>#ebe6e1</bodyColor>
+    <bottomLine>
+        <color>#C0C0C0</color>
+        <height>0</height>
+    </bottomLine>
+    <footer>
+        <backgroundColor>#FFFFFF</backgroundColor>
+        <height>100</height>
+        <horizontalAlignment>Left</horizontalAlignment>
+        <logo>StarTrack_Documents/Special_Services_Email_To_Customer_Signature.png</logo>
+        <verticalAlignment>Top</verticalAlignment>
+    </footer>
+    <header>
+        <backgroundColor>#FFFFFF</backgroundColor>
+        <height>60</height>
+        <horizontalAlignment>Right</horizontalAlignment>
+        <logo>StarTrack_Documents/SSSE_Startrack_Logo.png</logo>
+        <verticalAlignment>Middle</verticalAlignment>
+    </header>
+    <middleLine>
+        <color>#C0C0C0</color>
+        <height>0</height>
+    </middleLine>
+    <name>StarTrack SS LetterHead</name>
+    <topLine>
+        <color>#FFFFFF</color>
+        <height>5</height>
+    </topLine>
+</Letterhead>

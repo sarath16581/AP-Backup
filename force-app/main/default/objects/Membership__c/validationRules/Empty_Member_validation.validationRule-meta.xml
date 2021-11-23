@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Empty_Member_validation</fullName>
+    <active>true</active>
+    <description>Status can’t be Active or Expired if Member Name is empty.</description>
+    <errorConditionFormula>AND(OR(RecordType.DeveloperName = &apos;APLAC_Membership&apos;,  RecordTypeId = null), ISBLANK(Contact__c), 
+OR((TEXT(Status__c) == &apos;Active&apos;), (TEXT(Status__c) == &apos;Expired&apos;)))</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>Status can’t be Active or Expired if Member Name is empty.</errorMessage>
+</ValidationRule>

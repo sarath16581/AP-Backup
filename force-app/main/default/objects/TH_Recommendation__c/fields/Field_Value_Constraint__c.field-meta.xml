@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Field_Value_Constraint__c</fullName>
+    <description>Field value restricting recommendations to show only on certain records</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Accepts a comma-separated list of case-sensitive values to restrict recommendations to certain records</inlineHelpText>
+    <label>Field Value Constraint</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

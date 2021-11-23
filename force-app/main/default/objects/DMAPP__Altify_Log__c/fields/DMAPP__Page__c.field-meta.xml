@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Page__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Page</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Process</fullName>
+                <default>false</default>
+                <label>Process</label>
+            </value>
+            <value>
+                <fullName>Assessment</fullName>
+                <default>false</default>
+                <label>Assessment</label>
+            </value>
+            <value>
+                <fullName>Opportunity Relationships</fullName>
+                <default>false</default>
+                <label>Opportunity Relationships</label>
+            </value>
+            <value>
+                <fullName>Criteria</fullName>
+                <default>false</default>
+                <label>Criteria</label>
+            </value>
+            <value>
+                <fullName>Opportunity Insight Map</fullName>
+                <default>false</default>
+                <label>Opportunity Insight Map</label>
+            </value>
+            <value>
+                <fullName>Strategy</fullName>
+                <default>false</default>
+                <label>Strategy</label>
+            </value>
+            <value>
+                <fullName>Actions</fullName>
+                <default>false</default>
+                <label>Actions</label>
+            </value>
+            <value>
+                <fullName>Call Plans</fullName>
+                <default>false</default>
+                <label>Call Plans</label>
+            </value>
+            <value>
+                <fullName>Test &amp; Improve</fullName>
+                <default>false</default>
+                <label>Test &amp; Improve</label>
+            </value>
+            <value>
+                <fullName>Plan Overview</fullName>
+                <default>false</default>
+                <label>Plan Overview</label>
+            </value>
+            <value>
+                <fullName>Plan Details</fullName>
+                <default>false</default>
+                <label>Plan Details</label>
+            </value>
+            <value>
+                <fullName>Segmentation</fullName>
+                <default>false</default>
+                <label>Segmentation</label>
+            </value>
+            <value>
+                <fullName>Opportunity Map</fullName>
+                <default>false</default>
+                <label>Opportunity Map</label>
+            </value>
+            <value>
+                <fullName>Value Map</fullName>
+                <default>false</default>
+                <label>Value Map</label>
+            </value>
+            <value>
+                <fullName>Objectives</fullName>
+                <default>false</default>
+                <label>Objectives</label>
+            </value>
+            <value>
+                <fullName>Scorecard</fullName>
+                <default>false</default>
+                <label>Scorecard</label>
+            </value>
+            <value>
+                <fullName>Completeness</fullName>
+                <default>false</default>
+                <label>Completeness</label>
+            </value>
+            <value>
+                <fullName>Account Relationships</fullName>
+                <default>false</default>
+                <label>Account Relationships</label>
+            </value>
+            <value>
+                <fullName>Account Insight Map</fullName>
+                <default>false</default>
+                <label>Account Insight Map</label>
+            </value>
+            <value>
+                <fullName>Quicklink</fullName>
+                <default>false</default>
+                <label>Quicklink</label>
+            </value>
+            <value>
+                <fullName>Milestones</fullName>
+                <default>false</default>
+                <label>Milestones</label>
+            </value>
+            <value>
+                <fullName>Smart Browser</fullName>
+                <default>false</default>
+                <label>Smart Browser</label>
+            </value>
+            <value>
+                <fullName>Team View</fullName>
+                <default>false</default>
+                <label>Team View</label>
+            </value>
+            <value>
+                <fullName>DVLS Quicklink</fullName>
+                <default>false</default>
+                <label>DVLS Quicklink</label>
+            </value>
+            <value>
+                <fullName>Market View</fullName>
+                <default>false</default>
+                <label>Market View</label>
+            </value>
+            <value>
+                <fullName>Plan Settings</fullName>
+                <default>false</default>
+                <label>Plan Settings</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ApproverEscalationNotifactionTemplate__c</fullName>
+    <description>Email template used to notify the previous approver that the approval request has been escalated to the next step.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Email template used to notify the previous approver that the approval request has been escalated to the next step.</inlineHelpText>
+    <label>Approver Escalation Notifaction Template</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

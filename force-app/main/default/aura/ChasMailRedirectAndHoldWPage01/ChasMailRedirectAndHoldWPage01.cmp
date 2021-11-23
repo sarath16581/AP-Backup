@@ -1,0 +1,309 @@
+<!--
+  * @changeLog :
+  * @date         : 19/06/2020
+  * Modified by   : Hara Sahoo
+  * @description  : 1. Added a card layout outer-box
+  * Modifield by Hara Sahoo - 11/01/2020 - Changes made as part of enquiry submission in an unauthenticated user context 
+  * Modifield by Hara Sahoo - 02/02/2021 - AME address validation for all address fields on the form
+  * Modifield by Phap Mai - 04/28/2021 - DDS-4885: Add "Both" option
+  * Modifield by Phap Mai - 04/29/2021 - DDS-5880: Handle error when Mail Redirect to Overseas address
+-->
+<aura:component extends="c:SS_uiWizardPage" controller='ChasApexController' description="Mail Redirection wizard page 1: Enquiry Details">
+    
+    <aura:attribute
+                    name="enquiryTypeRadioGroup"
+                    type="List"
+                    default="[
+                             {'label':'Mail redirection', image:'/chas-icons/pngs/Selection-icons/mail-redirection.png','id':'firstRadio'},
+                             {'label':'Mail hold', image:'/chas-icons/pngs/Selection-icons/mail-hold.png','id':'secondRadio'}
+                             ]"/>
+    <aura:attribute
+                    name="emailOrPhoneRadioGroup"
+                    type="List"
+                    default="[
+                             {'label':'Email address', 'id':'thirdRadio','boxed':true},
+                             {'label':'Phone number', 'id':'fourthRadio','boxed':true}
+                             ]"/>
+    <!-- DDS-4885: Add “Both” option on MRS form -->
+    <aura:attribute name="parcelsOrLettersRadioGroup" type="List" default="[
+                                                                           {'label':'Parcels', 'id':'fifthRadio','boxed':true},
+                                                                           {'label':'Letters', 'id':'sixthRadio','boxed':true},
+                                                                           {'label':'Both', 'id':'sixthPlusRadio','boxed':true}
+                                                                           ]"/>
+    <aura:attribute
+                    name="withinAusOrOverseasRadioGroup"
+                    type="List"
+                    default="[
+                             {'label':'Within Australia', 'id':'seventhRadio','boxed':true},
+                             {'label':'Overseas', 'id':'eigthRadio','boxed':true}
+                             ]"/>
+    
+    <aura:attribute name="checkInputsOnRender" type="Boolean" default="true"/>
+    <aura:attribute name="showErrorSummary" type="Boolean" default="false"/>
+    <!-- Guest login attributes-->
+    <aura:handler name="chasmyPostLogin" event="c:ChasMyPostLogin" action="{!c.displaymyPostLoginForm}"/>
+    <aura:attribute name="authenticatedURL" type="String" />
+    <!-- AME attributes-->
+    <aura:attribute name="showError" type="Boolean" />
+    <aura:attribute name="incorrectShowError" type="Boolean" default="false"/>
+    <aura:attribute name="error" type="String" default=''/>
+    <aura:attribute name="fieldError" type="String" default=''/>
+    <aura:attribute name="inputError" type="Boolean" default="false"/>
+    <aura:attribute name="inputFieldError" type="Boolean" default="false"/>
+    <aura:attribute name="isOverriden" type="Boolean" default="false"/>
+    
+    <aura:handler name="chasGenComponentEvent" event="c:chasGenComponentEvent" action="{!c.onchange}"/>
+    <aura:handler name="render" value="{!this}" action="{!c.onRender}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!-- Info message -->
+    <c:ChasBspDeflection>
+        <p>Details provided must match your original application.</p>
+    </c:ChasBspDeflection>
+    
+    <c:ChasForm showAllFieldRequiredMsg="false">
+        <c:ChasFieldset label="Enquiry details" customStyle="top-padding">
+            
+            <aside class="chas-body_small">All fields are required unless marked as (optional)</aside>
+            <!-- Login was successful, user authenticated -->
+            <aura:if isTrue="{!v.authUserData.isUserAuthenticated == true}">
+                <!-- Dont present the login options-->
+                <aura:set attribute="else">
+                    <!-- User is un-authenticated/guest -->
+                    <!-- Present user with login options authenticated/ un-authenticated-->
+                    <div class="slds-grid-address-login login-block">
+                        <div class="slds-col state-col-width">
+                            <c:ChasLoginOptions label="Continue with MyPost" myPostLogin="true" subLabel="to pre-fill some details. You'll also be able track your enquiry online."/>
+                        </div>
+                        <div class="slds-col separator-vertical separator-horizontal">
+                            <hr/>
+                        </div>
+                        <div class="slds-col state-col-width">
+                            <c:ChasLoginOptions label="Continue as a guest" subLabel="Enter all your details, then get updates on your enquiry via email or phone."/>
+                        </div>
+                    </div>  
+                </aura:set>
+            </aura:if>
+            <div class="outer-box">
+                <!--Error summary-->
+                <aura:if isTrue="{! v.showErrorSummary }">
+                    <c:ChasErrorSummary aura:id="chasErrorSummary" errors="{! v.errors }"/>
+                </aura:if>
+                <c:ChasRadioButtons aura:id="chasInput" name="enquiryTypeRadioButtons" required="true" label="Enquiry type" variant="label-hidden" options="{!v.enquiryTypeRadioGroup}" value="{!v.wizardData.selectedRadio1}"/>
+                
+                <aura:if isTrue="{!v.wizardData.selectedRadio1}">
+                    <!--<c:ChasFieldset label="Original application details" small="true">-->
+                    <legend class="sub-header">
+                        <h3>Original application details</h3>
+                    </legend>
+                    <!-- RSolomon 17th Mar 2020 MRS UI change Commented below line -->
+                    <!-- <p class="chas-output">If additional members of your household were included in your original application please provide details below.</p> -->
+                    <c:ChasFieldset>
+                        <!-- Customer reference number -->
+                        <c:ChasInput type='text' name='customerRefNumber' required="false" label='Customer reference number' subLabel='(optional)' value='{!v.wizardData.customerRefNumber}'/>
+                        
+                        <!-- Household members -->
+                        <aura:iteration indexVar="i" items="{! v.wizardData.household }" var="person">
+                            
+                            <aura:if isTrue="{! greaterthanorequal(i, 1) }">
+                                <div class="slds-grid slds-gutters additional-applicants-header">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <h3>Additional Applicant</h3>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 remove-person-box">
+                                        <a class="remove-person slds-m-left_medium" onclick='{! c.removePerson }'>Remove person</a>
+                                    </div>
+                                </div>
+                            </aura:if>
+                            
+                            <!-- Given name -->
+                            <c:ChasInput type='text' aura:id="chasInput" name="{! 'givenName' + i }" required="true" label='Given name' value='{! person.givenName }'/>
+                            
+                            <!-- Surname -->
+                            <c:ChasInput type='text' aura:id="chasInput" name="{! 'surname' + i }" required="true" label='Surname' value='{! person.surname }'/>
+                            
+                            <aura:if isTrue="{! i == 0 }">
+                                <!-- RSolomon 17th Mar 2020 MRS UI change Updated content and moved from below CRN -->
+                                <p class="chas-output"><strong>Any other applicants?</strong> If you named any family members or housemates in your application, please add their details now.</p>
+                            </aura:if>
+                            
+                        </aura:iteration>
+                        
+                        
+                        <div class="chas-output add-remove-person">
+                            <c:ChasErrorMessages aura:id="addPersonError" showError="true" id="addPerson" />
+                            <a class="chas-button slds-m-top_xx-small slds-button slds-button_neutral add-person" onclick='{! c.addPerson }' aria-describedby="addPerson-error">Add another person</a>
+                        </div>
+                        
+                        <!-- Email or phone Radio Buttons-->
+                        <c:ChasRadioButtons aura:id="chasInput" name="emailOrPhoneRadioButtons" required="true" label="Contact options" options="{!v.emailOrPhoneRadioGroup}" value="{!v.wizardData.selectedRadio2}"/>
+                        
+                        <!-- Email address -->
+                        <aura:if isTrue="{!v.wizardData.selectedRadio2Name == 'Email address'}">
+                            <c:ChasInput type='text' aura:id='chasInput' name='emailAddress' required="true" label='Email address' value='{!v.wizardData.emailAddress}'/>
+                        </aura:if>
+                        
+                        <!-- Phone number -->
+                        <aura:if isTrue="{!v.wizardData.selectedRadio2Name == 'Phone number'}">
+                            <c:ChasInput type='text' aura:id='chasInput' name='phoneNumber' required="true" label='Phone number' value='{!v.wizardData.phoneNumber}'/>
+                        </aura:if>
+                        
+                        <!-- Parcels or Letters -->
+                        <!-- DDS-4885: Change the question wording to “What items are you having issues with?” -->
+                        <c:ChasRadioButtons aura:id="chasInput" name="parcelsOrLettersRadioButtons" required="true" label="What items are you having issues with?" options="{!v.parcelsOrLettersRadioGroup}" value="{!v.wizardData.selectedRadio3}"/>
+                    </c:ChasFieldset>
+                    
+                    <!-- Section separator-->
+                    <div class="separator-gap">
+                        <hr/>
+                    </div>
+                    <!-- Your old address header -->
+                    <!--<c:ChasFieldset label="{! v.wizardData.selectedRadio1Name == 'Mail redirection' ? 'Your old address' : 'Your hold address' }" small="true">-->
+                    
+                    <!-- Address Line1-->
+                    <!--<c:ChasInput type='text' aura:id='chasInput' name='addressLine1' required="true" label='Address line 1' value='{!v.wizardData.oldAddressLine1}'/>-->
+                    
+                    <!-- Address Line2-->
+                    <!--<c:ChasInput type='text' name='addressLine2' required="false" label='Address line 2' subLabel='(optional)' value='{! v.wizardData.oldAddressLine2}'/>-->
+                    
+                    <!-- City-->
+                    <!--<c:ChasInput type='text' aura:id='chasInput' name='city' required="true" label='Suburb or city' value='{!v.wizardData.oldCity}'/>-->
+                    <!--<div class="desktop-view">
+                            <div class="slds-grid slds-gutters">-->
+                    <!-- State -->
+                    <!--<div class="slds-col slds-size_1-of-2">
+                                    <c:ChasSelect aura:id='chasInput' name='state' required="true" label='State' options="{!v.stateOptions}" value='{!v.wizardData.oldState}'/>
+                                </div>-->
+                    
+                    <!-- Postcode -->
+                    <!--<div class="slds-col slds-size_1-of-2">
+                                    <c:ChasInput type='text' aura:id='chasInput' name='postcode' required="true" label='Postcode' pattern="[0-9]*" value='{!v.wizardData.oldPostcode}'/>
+                                </div>
+                            </div>
+                        </div>-->
+                    <!--<div class="mobile-view">
+                            <c:ChasSelect aura:id='chasInput' name='state' required="true" label='State' options="{!v.stateOptions}" value='{!v.wizardData.oldState}'/>
+                            <c:ChasInput type='text' aura:id='chasInput' name='postcode' required="true" label='Postcode' pattern="[0-9]*" value='{!v.wizardData.oldPostcode}'/>
+                            
+                        </div>-->
+                    <!--</c:ChasFieldset>-->
+                    <div id="AMEOldDeliveryAddress" name="AMEOldDeliveryAddress" class="AMEAddress">
+                        <c:ChasErrorMessages error="{! v.fieldError }" showError="{! v.incorrectShowError }"/>
+                        <c:chasMissingItemAddressLookup aura:id="searchAddress" label="{! v.wizardData.selectedRadio1Name == 'Mail redirection' ? 'Your old address' : 'Your hold address' }" searchAddressTerm="{!v.wizardData.incorrectDeliveryAddress}"
+                                                        inputFieldError="{!v.inputFieldError}" inputError="{!v.inputError}" 
+                                                        errorMessage="{!v.errorMessage}" onshowError="{!c.getIncorrectShowError}" 
+                                                        onvaluechange="{!c.getIncorrectOverrideAddress}" onsearchtermchange="{!c.getIncorrectSelectedAddress}" 
+                                                        onaddressOverride="{!c.checkOverride}" onaddressTyped="{!c.getIncorrectAddressTyped}"/>
+                    </div>
+                    
+                    <!-- Your New Address-->
+                    <!-- DDS-4885: display this radio button group for selectedRadio3Name = "Both" also-->
+                    <aura:if isTrue="{!and(or(v.wizardData.selectedRadio3Name == 'Letters', v.wizardData.selectedRadio3Name == 'Both'), v.wizardData.selectedRadio1Name != 'Mail hold' )}">
+                        <!-- Parcels or Letters -->
+                        <c:ChasRadioButtons aura:id="chasInput" name="withinAusOrOverseasRadioButtons" required="true" label="Where is your mail being redirected to?" options="{!v.withinAusOrOverseasRadioGroup}" value="{!v.wizardData.selectedRadio4}"/>
+                    </aura:if>
+                    
+                    <!-- <aura:if isTrue="{!and(v.wizardData.selectedRadio1Name != 'Mail hold', or(v.wizardData.selectedRadio3Name == 'Parcels',v.wizardData.selectedRadio4Name!= null))}"> -->
+                    <aura:if isTrue="{! v.wizardData.selectedRadio1Name != 'Mail hold' }">
+                        <!-- Section separator-->
+                        <div class="separator-gap">
+                            <hr/>
+                        </div>
+                        <!--<c:ChasFieldset label="Your new address" small="true">-->
+                        
+                        <!-- New address : for overseas -->
+                        <aura:if isTrue="{!v.wizardData.selectedRadio4Name == 'Overseas'}">
+                            <c:ChasSelect aura:id='chasInput' name='newCountry' required="true" label='Country' options="{!v.countryOptions}" hasGroups="true" value='{! v.wizardData.newCountry}'/>
+                            <!-- New Address Line1-->
+                            <c:ChasInput type='text' aura:id='chasInput' name='newAddressLine1' required="true" label='Address line 1' value='{!v.wizardData.newAddressLine1}'/>
+                            <!-- New Address Line2-->
+                            <c:ChasInput type='text' name='newAddressLine2' required="false" label='Address line 2' subLabel='(optional)' value='{! v.wizardData.newAddressLine2}'/>
+                            <!-- New City : for overseas-->
+                            <c:ChasInput type='text' name='newCityOS' required="false" label='City or town' subLabel='(optional)' value='{!v.wizardData.newCity}'/>
+                            <!-- New State : for overseas-->
+                            <c:ChasInput type='text' name='newStateOS' required="false" label='Province/state/country' subLabel='(optional)' value='{! v.wizardData.newState}'/>
+                            <!-- New Postcode : for overseas-->
+                            <c:ChasInput type='text' aura:id='chasInput' name='newPostcodeOS' required="false" label='Postcode or ZIP' subLabel='(optional)' value='{! v.wizardData.newPostcode}'/>
+                            <aura:set attribute='else'>
+                                <!-- New delivery address-->
+                                <div id="AMENewDeliveryAddress" name="AMENewDeliveryAddress" class="AMEAddress">
+                                    <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }"/>
+                                    <c:chasMissingItemAddressLookup aura:id="searchAddress" label="Your new address" searchAddressTerm="{!v.wizardData.selectedDeliveryAddress}"
+                                                                    inputFieldError="{!v.inputFieldError}" inputError="{!v.inputError}" 
+                                                                    errorMessage="{!v.errorMessage}" onshowError="{!c.getShowError}" 
+                                                                    onvaluechange="{!c.getOverrideAddress}" onsearchtermchange="{!c.getSelectedAddress}" 
+                                                                    onaddressOverride="{!c.checkOverride}" onaddressTyped="{!c.getAddressTyped}"/>
+                                </div>
+                            </aura:set>    
+                        </aura:if>
+                        
+                        <!-- New Address Line1-->
+                            <!--<c:ChasInput type='text' aura:id='chasInput' name='newAddressLine1' required="true" label='Address line 1' value='{!v.wizardData.newAddressLine1}'/>-->
+                            
+                            <!-- New Address Line2-->
+                            <!--<c:ChasInput type='text' name='newAddressLine2' required="false" label='Address line 2' subLabel='(optional)' value='{! v.wizardData.newAddressLine2}'/>-->
+                            
+                            <!--<aura:if isTrue="{!v.wizardData.selectedRadio4Name == 'Overseas'}">-->
+                                <!-- New City : for overseas-->
+                                <!--<c:ChasInput type='text' name='newCityOS' required="false" label='City or town' subLabel='(optional)' value='{!v.wizardData.newCity}'/>-->
+                                
+                                <!--<aura:set attribute='else'>-->
+                                    <!-- New City : for within Australia-->
+                                    <!--<c:ChasInput type='text' aura:id='chasInput' name='newCityAU' required="true" label='Suburb or city' value='{!v.wizardData.newCity}'/>-->
+                                <!--</aura:set>-->
+                            <!--</aura:if>-->
+                            
+                            <!--<aura:if isTrue="{!v.wizardData.selectedRadio4Name == 'Overseas'}">-->
+                                <!-- New State : for overseas-->
+                                <!--<c:ChasInput type='text' name='newStateOS' required="false" label='Province/state/country' subLabel='(optional)' value='{! v.wizardData.newState}'/>-->
+                                
+                                <!-- New Postcode : for overseas-->
+                                <!--<c:ChasInput type='text' aura:id='chasInput' name='newPostcodeOS' required="false" label='Postcode or ZIP' subLabel='(optional)' value='{! v.wizardData.newPostcode}'/>-->
+                                
+                                <!--<aura:set attribute='else'>
+                                    <div class="desktop-view">
+                                        <div class="slds-grid slds-gutters">-->
+                                            <!-- New State : for within Australia-->
+                                            <!--<div class="slds-col slds-size_1-of-2">
+                                                <c:ChasSelect aura:id='chasInput' name='newStateAU' required="true" label='State' options="{!v.stateOptions}" value='{!v.wizardData.newState}'/>
+                                            </div>-->
+                                            
+                                            <!-- New Postcode : for within Australia-->
+                                            <!--<div class="slds-col slds-size_1-of-2">
+                                                <c:ChasInput type='text' aura:id='chasInput' name='newPostcodeAU' required="true" label='Postcode' pattern="[0-9]*" value='{!v.wizardData.newPostcode}'/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mobile-view">
+                                        <c:ChasSelect aura:id='chasInput' name='newStateAU' required="true" label='State' options="{!v.stateOptions}" value='{!v.wizardData.newState}'/>
+                                        <c:ChasInput type='text' aura:id='chasInput' name='newPostcodeAU' required="true" label='Postcode' pattern="[0-9]*" value='{!v.wizardData.newPostcode}'/>
+                                        
+                                    </div>
+                                </aura:set>
+                            </aura:if>-->
+                        <!--</c:ChasFieldset>-->
+                        
+                    </aura:if>
+                    <!-- Section separator-->
+                    <div class="separator-gap">
+                        <hr/>
+                    </div>
+                    
+                    <c:ChasFieldset label="Your enquiry" small="true">
+                        
+                        <!-- Enquiry details -->
+                        <c:chasTextArea aura:id="chasInput" name="enquiryDetails" required="true" label="Please provide details" value="{!v.wizardData.enquiryDetails}"/>
+                        
+                        <!--Checkbox -->
+                        <!-- <aura:if isTrue='{!v.wizardData.selectedRadio3 != null}'> -->
+                        <c:ChasInputCheckbox aura:id="chasInput" name="conditionCheckbox" required="true" label="I lodged the original application or was included as a member of the household in the original application." value="{!v.wizardData.conditionCheckbox}"/>
+                        <!-- </aura:if> -->
+                    </c:ChasFieldset>
+                </aura:if>
+                <c:ChasNavButtons nextLabel="Continue" disabled="false" nextAction="{! c.goForward }"/>
+            </div>
+        </c:ChasFieldset>
+        
+    </c:ChasForm>
+    
+</aura:component>

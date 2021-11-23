@@ -1,0 +1,37 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="color: rgb(0, 0, 0); font-family: 'AP Letter'; font-size: 12pt;">Hi&nbsp;<o:p></o:p></span><font face="AP Letter">{!Case.Requestor__c}</font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">There is no account number listed on this contract, and the rates cannot
+be entered into SAP without an account number.<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><font face="AP Letter"><span style="font-size: 12pt;">I think the account should&nbsp;</span></font><span style="font-family: 'AP Letter'; font-size: 11pt; line-height: 107%;">be xx.</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">Please advise. <o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">Regards<o:p></o:p></span></p><p class="MsoNormal" style="margin-bottom: 0.0001pt;"><font face="AP Letter">{!Case.OwnerFullName}</font></p>]]></td>
+</tr>
+</table>

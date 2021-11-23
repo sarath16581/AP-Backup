@@ -1,0 +1,20 @@
+<messaging:emailTemplate subject="Legal Support Request Approved" recipientType="User" relatedToType="ContractAssistanceForm__c">
+<messaging:plainTextEmailBody >
+Dear {!relatedTo.Owner.FirstName},
+
+The Legal Support Request {!relatedTo.Name} related to {!relatedTo.Opportunity__r.Name} has been approved.
+
+Please click on the link below to view the record. 
+
+{!LEFT($Api.Partner_Server_URL_140, FIND('.com', $Api.Partner_Server_URL_140) + 4) + relatedTo.Id}
+</messaging:plainTextEmailBody>
+<messaging:htmlEmailBody >
+Dear {!relatedTo.Opportunity__r.Owner.FirstName}   ,
+<br/><br/>
+The Legal Support Request {!relatedTo.Name} related to {!relatedTo.Opportunity__r.Name} has been approved.
+<br/><br/>
+Please click on the link below to view the record. 
+<br/><br/>
+{!LEFT($Api.Partner_Server_URL_140, FIND('.com', $Api.Partner_Server_URL_140) + 4) + relatedTo.Id}
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

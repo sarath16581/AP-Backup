@@ -1,0 +1,39 @@
+<aura:component controller='ChasCustomCaseListAndDetailController' description="Displays a single case record in the ChasCaseList component. Mobile view">
+	<aura:attribute name="caseObj" type="Case"/>
+	<aura:attribute name="statusColour" type="String"/>
+	<aura:attribute name="colourMap" type="Map" default="{
+				'Closed' : 'black',
+				'Resolved' : 'green',
+				'Action required' : 'red',
+				'In progress' : 'blue'
+				}"/>
+
+	<aura:handler name="init" value="{! this }" action="{! c.doInit }"/>
+
+	<a onclick='{!c.navigateTorecordDetail}'>
+		<div class="chas-case-tile">
+
+			<div class="chas-case-tile-inner">
+				<div class="chas-case-top">
+					<h2 class="chas-heading_small">{!v.caseObj.CHASEnquiryType__c}</h2><img src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/ic_chevron.png"/>
+				</div>
+				<dl>
+					<div>
+						<dt>Reference no.</dt>
+						<dd>{!v.caseObj.CaseNumber}</dd>
+					</div>
+					<div>
+						<dt>Last updated</dt>
+						<dd>
+							<ui:outputDate value='{!v.caseObj.LastModifiedDate}'></ui:outputDate>
+						</dd>
+					</div>
+					<div>
+						<dt>Status</dt>
+						<dd class="{! 'status ' + v.statusColour }">{!v.caseObj.Enquiry_Status__c}</dd>
+					</div>
+				</dl>
+			</div>
+		</div>
+	</a>
+</aura:component>

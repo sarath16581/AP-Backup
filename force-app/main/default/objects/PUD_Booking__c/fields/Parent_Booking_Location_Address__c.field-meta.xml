@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Parent_Booking_Location_Address__c</fullName>
+    <description>Formula field to display parent booking address in UI for Delivery</description>
+    <externalId>false</externalId>
+    <formula>Parent_Booking__r.Booking_Location__r.Address__c</formula>
+    <label>Parent Booking Location Address</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

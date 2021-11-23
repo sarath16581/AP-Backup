@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Future_Generation__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Generation of the Powerpoint is done asynchronous or synchronous process.  If selected then the asynchronous method is used and the Powerpoint file is stored in the Personal Folder of the user</description>
+    <externalId>false</externalId>
+    <label>Future Generation</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

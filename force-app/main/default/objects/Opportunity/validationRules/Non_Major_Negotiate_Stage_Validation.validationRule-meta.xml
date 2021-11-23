@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Non_Major_Negotiate_Stage_Validation</fullName>
+    <active>true</active>
+    <description>STP: Validation rule prior to stage updated to Negotiate.</description>
+    <errorConditionFormula>AND(
+$Permission.BG_Core,
+ISCHANGED(StageName),
+ISPICKVAL(StageName, &quot;Negotiate&quot;),
+ISBLANK( Text(Next_Step__c) )
+)</errorConditionFormula>
+    <errorMessage>Next Step must be completed before changing Opportunity stage to Negotiate.</errorMessage>
+</ValidationRule>

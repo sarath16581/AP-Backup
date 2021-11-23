@@ -1,0 +1,24 @@
+<!--
+ Created by: Raviteja Epuri* 
+* Date: 12th Jan 2016
+* Select Text Area Fields from product
+ -->
+<apex:page controller="APT_SelectFieldController" sidebar="true"
+         showHeader="true">
+         <apex:form id="idSelectField">
+                 <apex:sectionHeader title="{!$Label.APT_Upload_Image}" subtitle="{!$Label.APT_Select_Field}" />
+                 <apex:pageblock >
+                      <apex:pageblocksection columns="1">
+                            <span><b>Select Field</b></span> 
+                             <apex:selectList value="{!choice}" label="" size="1" id="values">
+                                 <apex:actionSupport event="onchange" reRender="newvalue" />
+                                 <apex:selectOptions value="{!fieldsForSelectedObject}" />
+                             </apex:selectList>                         
+                      </apex:pageblocksection>                 
+                 <apex:pageBlockButtons location="bottom">
+                     <apex:commandButton value="{!$Label.APT_Next}" action="{!next}" />       
+                     <apex:commandButton value="{!$Label.APT_Cancel}" action="{!cancel}" />
+                 </apex:pageBlockButtons>                
+           </apex:pageblock> 
+         </apex:form>
+</apex:page>

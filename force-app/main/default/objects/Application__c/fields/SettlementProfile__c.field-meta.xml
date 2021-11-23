@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SettlementProfile__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Settlement Profile (Payment Terms)</inlineHelpText>
+    <label>Settlement Profile</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>000 - Immediate Payment</fullName>
+                <default>false</default>
+                <label>000 - Immediate Payment</label>
+            </value>
+            <value>
+                <fullName>003 - 3 Days from Invoice</fullName>
+                <default>false</default>
+                <label>003 - 3 Days from Invoice</label>
+            </value>
+            <value>
+                <fullName>005 - 5 Days from Invoice</fullName>
+                <default>false</default>
+                <label>005 - 5 Days from Invoice</label>
+            </value>
+            <value>
+                <fullName>007 - 7 Days from Invoice</fullName>
+                <default>false</default>
+                <label>007 - 7 Days from Invoice</label>
+            </value>
+            <value>
+                <fullName>014 - 14 Days from Invoice</fullName>
+                <default>false</default>
+                <label>014 - 14 Days from Invoice</label>
+            </value>
+            <value>
+                <fullName>015 - 15 Days from Invoice</fullName>
+                <default>false</default>
+                <label>015 - 15 Days from Invoice</label>
+            </value>
+            <value>
+                <fullName>028 - 28 Days from Invoice</fullName>
+                <default>false</default>
+                <label>028 - 28 Days from Invoice</label>
+            </value>
+            <value>
+                <fullName>030 - 30 Days from Invoice</fullName>
+                <default>false</default>
+                <label>030 - 30 Days from Invoice</label>
+            </value>
+            <value>
+                <fullName>045 - 45 Days from Invoice</fullName>
+                <default>false</default>
+                <label>045 - 45 Days from Invoice</label>
+            </value>
+            <value>
+                <fullName>060 - 60 Days from Invoice</fullName>
+                <default>false</default>
+                <label>060 - 60 Days from Invoice</label>
+            </value>
+            <value>
+                <fullName>090 - 90 Days from Invoice</fullName>
+                <default>false</default>
+                <label>090 - 90 Days from Invoice</label>
+            </value>
+            <value>
+                <fullName>120 - 120 Days from Invoice</fullName>
+                <default>false</default>
+                <label>120 - 120 Days from Invoice</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

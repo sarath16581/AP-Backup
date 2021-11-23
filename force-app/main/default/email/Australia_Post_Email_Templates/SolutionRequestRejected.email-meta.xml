@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>An email to advise the Solution Request has been Rejected</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SolutionRequestRejected</name>
+    <style>none</style>
+    <subject>Sales Solution Requests - {!Sales_Solution_Request__c.Name}</subject>
+    <textOnly>Hello {!Sales_Solution_Request__c.CreatedBy}
+
+Your Sales Solution Request  {!Sales_Solution_Request__c.Name} has not been approved at this time based on your details in the request.
+
+You can review feedback and  business recommendations via the link below.
+
+{!Sales_Solution_Request__c.Link}
+
+Regards
+
+{!Sales_Solution_Request__c.RecordType} Team</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

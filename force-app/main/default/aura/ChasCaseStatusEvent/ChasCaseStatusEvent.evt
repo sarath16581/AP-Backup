@@ -1,0 +1,1 @@
+<aura:event type="APPLICATION" description="Fired when the case status has been updated to notify other components to update their Case status" />

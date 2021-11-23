@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>StarTrack Depot Created - Inv &amp; Priority</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>StarTrack_Depot_Created</publicGroup>
+        </publicGroups>
+    </queueMembers>
+    <queueRoutingConfig>StarTrack_Depot_Created_Routing_Configuration</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

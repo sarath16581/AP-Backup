@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaritzCX__Response_View_Link__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF(MaritzCX__Survey_Id__r.MaritzCX__Allegiance_Survey_Response_View_Link__c == true &amp;&amp; NOT(ISNULL(MaritzCX__ALG_Response_Id__c)),
+HYPERLINK(
+&quot;/apex/&quot; +
+$Setup.MaritzCX__AlPublic__c.MaritzCX__NamespacePrefix__c + 
+IF( ISBLANK($Setup.MaritzCX__AlPublic__c.MaritzCX__NamespacePrefix__c), &apos;&apos;, &apos;__&apos;) + 
+&quot;ViewResponsePage?Id=&quot; + TEXT(MaritzCX__ALG_Response_Id__c),
+&quot;View Response&quot;,
+&quot;_blank&quot;
+),&apos;&apos;)</formula>
+    <label>View Response</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Show_Political_Map__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field controls whether the Dealmaker Relationship Map screen is shown</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field controls whether the Dealmaker Political Map screen is shown</inlineHelpText>
+    <label>Show Relationship Map</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

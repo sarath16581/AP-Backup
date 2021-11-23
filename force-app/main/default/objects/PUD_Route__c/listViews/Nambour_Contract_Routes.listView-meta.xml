@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Nambour_Contract_Routes</fullName>
+    <columns>NAME</columns>
+    <columns>Depot__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>contains</operation>
+        <value>Nambour</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>NMB1529,NMB1540,NMB1549,NMB1564,NMB1565_1,NMB1565_2,NMB1600_1,NMB1600_2,NMB1600_3,NMB391,NMB753</value>
+    </filters>
+    <label>Nambour Contract Routes</label>
+</ListView>

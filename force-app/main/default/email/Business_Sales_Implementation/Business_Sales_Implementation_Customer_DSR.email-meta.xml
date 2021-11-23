@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>NPS survey for Implementation customer - DSR</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Business Sales Implementation Customer - DSR</name>
+    <style>none</style>
+    <subject>Your Implementation – Feedback is important to us</subject>
+    <textOnly>Australia Post
+
+Reference number {!Case.CaseNumber}
+
+Hi {!Contact.FirstName},
+
+Your feedback is important to us.
+
+{!Case.OwnerFullName} from our Sales Implementation team has been assisting you with implementation of Australia Post products &amp; services.
+
+So we can improve future implementation services we would like to capture your feedback about the service you have received so far.
+
+Please click below to provide your feedback with 4 simple questions.
+
+Thanks and we look forward to your response.
+
+
+{!Case.Thread_Id}
+
+Connect with Australia Post
+
+
+This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000.  If you have any concerns, or don&apos;t think you should have received this email, please call us on 13 13 18.  Visit auspost.com.au for further information on our online security.
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.
+Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

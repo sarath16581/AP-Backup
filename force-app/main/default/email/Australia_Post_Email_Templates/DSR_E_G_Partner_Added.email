@@ -1,0 +1,11 @@
+Hi {!Deal_Support_Request__c.Requestor_Name__c},
+
+Your request for Implementation support – {!Deal_Support_Request__c.Name} has been reviewed and pre-qualified to move into the scoping phase. 
+
+The assigned Implementation Partner {!Deal_Support_Request__c.OwnerFullName} will be in contact within 24 hours to discuss the next steps. 
+
+DSR link - {!Deal_Support_Request__c.Link}
+
+Kind regards, 
+
+Customer Implementation Team

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaritzCX__Configured_Columns_on_ResponseDetail__c</fullName>
+    <defaultValue>&apos;1;2;3;4;&apos;</defaultValue>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>This field is deprecated.</inlineHelpText>
+    <label>ConfiguredColumnsOnResponseDetail[DEP]</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

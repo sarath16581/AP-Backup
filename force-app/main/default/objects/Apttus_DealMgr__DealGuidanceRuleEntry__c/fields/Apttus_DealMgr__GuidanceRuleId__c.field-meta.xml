@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealMgr__GuidanceRuleId__c</fullName>
+    <deprecated>false</deprecated>
+    <description>ID of the associated rule</description>
+    <externalId>false</externalId>
+    <label>Guidance Rule</label>
+    <referenceTo>Apttus_DealMgr__DealGuidanceRule__c</referenceTo>
+    <relationshipLabel>Guidance Rule Entries</relationshipLabel>
+    <relationshipName>GuidanceRuleEntries</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

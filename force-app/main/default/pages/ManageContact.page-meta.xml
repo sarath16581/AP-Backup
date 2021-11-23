@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>37.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>&lt;apex:inputfield value=&quot;{!Contact.FirstName}&quot; /&gt;</description>
+    <label>ManageContact</label>
+    <packageVersions>
+        <majorNumber>5</majorNumber>
+        <minorNumber>496</minorNumber>
+        <namespace>et4ae5</namespace>
+    </packageVersions>
+</ApexPage>

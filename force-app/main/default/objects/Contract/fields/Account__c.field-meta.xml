@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The link to the account record to identify the external party to this agreement</description>
+    <externalId>false</externalId>
+    <label>Organisation</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Contracts (Account)</relationshipLabel>
+    <relationshipName>SFCon_R00N50000001Xl0UEAS</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <externalId>false</externalId>
+    <formula>IMAGE(
+CASE(EventType__c, 
+&apos;DOM-0034&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;DOM-0035&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-0004&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-0006&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-0007&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-0031&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-0034&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-0038&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-0065&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-2033&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-2034&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-2046&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-2049&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-2103&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-2104&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-2112&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-2113&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-2119&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;, 
+&apos;INT-2120&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;,
+&apos;INT-2146&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;,
+&apos;INT-2147&apos;,&apos;/resource/SSSWIcons/Lock.png&apos;,
+&apos;/img/func_icons/util/checkmark16.gif&apos;),&apos;No Image&apos;,16,16
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

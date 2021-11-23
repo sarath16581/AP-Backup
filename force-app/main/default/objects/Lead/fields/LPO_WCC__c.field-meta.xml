@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LPO_WCC__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The purpose of this field is to leverage a unique ID to clearly identify which LPO the lead originated from.</description>
+    <externalId>false</externalId>
+    <label>LPO WCC</label>
+    <referenceTo>Network__c</referenceTo>
+    <relationshipLabel>Leads</relationshipLabel>
+    <relationshipName>Leads</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Lookup</type>
+</CustomField>

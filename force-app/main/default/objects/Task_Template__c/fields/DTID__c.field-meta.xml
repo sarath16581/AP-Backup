@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DTID__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Direct lookup to the Duty Template to allow filter constraint on Collect From Job Template and Deliver To Job Template.  Also it provides the ability to view and edit tasks in the main Duty Template screen</description>
+    <externalId>false</externalId>
+    <label>Duty Template</label>
+    <referenceTo>Route_Template__c</referenceTo>
+    <relationshipLabel>Task Templates</relationshipLabel>
+    <relationshipName>Task_Templates</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

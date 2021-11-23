@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_QPConfig__AdjustmentAppliesTo__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Indicates the price field the price adjustment should be applied to.</description>
+    <externalId>false</externalId>
+    <label>Adjustment Applies To</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Starting Price</fullName>
+                <default>false</default>
+                <label>Starting Price</label>
+            </value>
+            <value>
+                <fullName>Previous Price</fullName>
+                <default>false</default>
+                <label>Previous Price</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

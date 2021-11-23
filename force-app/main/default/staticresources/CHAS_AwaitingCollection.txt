@@ -1,0 +1,131 @@
+{
+    "articles": [
+        {
+            "href": "/consignment/v2/articles/2JD280270301000935004",
+            "id": "2JD280270301000935004",
+            "code": "2JD280270301000935004",
+            "consignmentId": "nUBOMo5rQ1sAJsghY8b3H_wIuFjP6QretwsocBuWAOCGHzWOrTY=",
+            "consignmentCode": "2JD2802703",
+            "fullBarcode": "0199312650999998912JD280270301000935004|4206430|9256725916|8008200629111034",
+            "shortBarcode": "0199312650999998912JD280270301000935004",
+            "isRegisteredByAP": true,
+            "isReceivedByAP": false,
+            "lastModifiedOn": "2020-08-25T06:09:52+00:00",
+            "dispatchedOn": "2020-06-29T02:01:37+00:00",
+            "etag": "8e0f8da10997278530caf664ae059c79",
+            "expectedDelivery": {
+                "on": "2020-07-09T00:00:00+00:00",
+                "onChanged": false,
+                "between": {
+                    "from": "2020-07-01T00:00:00+00:00",
+                    "to": "2020-07-02T00:00:00+00:00"
+                }
+            },
+            "service": {
+                "productId": "146",
+                "productType": "Parcel Post",
+                "subProductId": "93",
+                "subProductType": "Parcel Post"
+            },
+            "milestone": {
+                "on": "2020-06-29T21:18:46+00:00",
+                "name": "It's on its way",
+                "description": null,
+                "progressPercentage": 45
+            },
+            "destinationAddress": {
+                "line1": "222 LONSDALE ST",
+                "line2": null,
+                "line3": null,
+                "suburb": "Dandenong",
+                "state": "VIC",
+                "postcode": "3175",
+                "countryCode": "AU",
+                "deliveryPoint": null
+            },
+            "deliveryInstructions": {
+                "signatureOnDelivery": {
+                    "required": true,
+                    "instruction": {
+                        "code": "SIG_REQUEST_ATL"
+                    }
+                },
+                "redirect": {
+                    "status": "RD_STATUS_REQUESTED",
+                    "redirectChange": {
+                        "allowed": true,
+                        "reasonCode": null
+                    }
+                },
+                "safeDrop": {
+                    "status": "SD_STATUS_ELIGIBLE",
+                    "location": null,
+                    "locationChange": {
+                        "allowed": true,
+                        "reasonCode": null
+                    }
+                }
+            },
+            "deliverySummary": null,
+            "returnInstructions": {
+                "returnToSender": false
+            },
+            "consignmentCount": 1,
+            "consignments": {
+                "items": [
+                    {
+                        "href": "/consignment/v2/consignments/@nUBOMo5rQ1sAJsghY8b3H_wIuFjP6QretwsocBuWAOCGHzWOrTY=",
+                        "id": "nUBOMo5rQ1sAJsghY8b3H_wIuFjP6QretwsocBuWAOCGHzWOrTY=",
+                        "code": "2JD2802703",
+                        "primary": true
+                    }
+                ]
+            },
+            "foundByTrackingReferences": [
+                {
+                    "id": "2JD280270301000935004",
+                    "type": "IDTYPE_ARTICLE_CODE"
+                }
+            ],
+            "eventCount": 4,
+            "trackingEvents": {
+                "href": "/consignment/v2/articles/2JD280270301000935004?expand=articles,events",
+                "items": [
+                    {
+                        "id": "2JD280270301000935004",
+                        "code": "ADMIN-ER44",
+                        "on": "2020-07-30T12:41:32+00:00",
+                        "message": "Customer enquiry lodged",
+                        "location": "MELBOURNE VIC, 3000",
+                        "workCentreId": "111931"
+                    },
+                    {
+                        "id": "2JD280270301000935004",
+                        "code": "ZPT_DEL_DELAY",
+                        "on": "2020-07-03T12:00:00+00:00",
+                        "message": "Delayed - waiting to be processed for delivery",
+                        "location": null,
+                        "workCentreId": null
+                    },
+                    {
+                        "id": "2JD280270301000935004",
+                        "code": "NSS-ER42",
+                        "on": "2020-06-29T21:18:46+00:00",
+                        "message": "Item processed at facility",
+                        "location": "GOSNELLS WA, 6110",
+                        "workCentreId": "634986"
+                    },
+                    {
+                        "id": "2JD280270301000935004",
+                        "code": "ADMIN-ER39",
+                        "on": "2020-06-29T11:10:55+00:00",
+                        "message": "Shipping information received by Australia Post",
+                        "location": null,
+                        "workCentreId": "285640"
+                    }
+                ]
+            }
+        }
+    ],
+    "errors": []
+}

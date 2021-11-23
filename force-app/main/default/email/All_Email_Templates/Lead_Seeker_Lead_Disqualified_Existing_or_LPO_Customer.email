@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Seeker Rewards Program Update - unsuccessful lead {!Lead.Lead_Number__c}</title>
+</head>
+
+<body style="text-align:center;">
+
+<p style="font-size: 11px; text-align: center; font-family: arial,sans-serif; color:#5E514D;">Having trouble viewing this email? <a href="%%view_email_url%%" style="color:#5E514D;text-decoration:underline;">View online.</a></p>
+
+<img border="0" align="center" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=01590000007Zass&oid=00D30000001GGce&lastMod=1428558776000" style="text-align: center; margin-top: 20px; width: 600px; height: 180px;" alt="Seeker" />
+
+<table bgcolor="#ebe5df" align="center" width="600" style="text-align: left; font-family: arial,sans-serif; font-size: 13px; color: #382F2D; line-height: 20px;">
+<tr><td>
+<p style="padding-left: 25px;padding-right:25px;text-align: left; font-family: arial,sans-serif; font-size: 14px; color: #382F2D; line-height: 28px;">Dear {!Lead.First_Name_Formula__c}</p>
+<p style="padding-left: 25px;padding-right:25px;text-align: left; font-family: arial,sans-serif; font-size: 14px; color: #382F2D; line-height: 28px;">Thanks again for taking part in our Seeker Rewards Program. Unfortunately the lead you submitted has not progressed to the opportunity stage due to it being an existing customer of Australia Post or an LPO. For more information please <a href="http://www.seekerrewards.com.au" style="font-family: arial,sans-serif; font-size: 14px; color: #382F2D; line-height: 28px;" target="_blank">login</a> and refer to our terms and conditions.</p>
+<p style="padding-left: 25px;padding-right:25px;text-align: left; font-family: arial,sans-serif; font-size: 14px; color: #382F2D; line-height: 28px;">That means we can't allocate you any reward points on this occasion, but <em>please</em> do try again. <a href="http://www.seekerrewards.com.au" style="font-family: arial,sans-serif; font-size: 14px; color: #382F2D; line-height: 28px;" target="_blank">Login</a> to find top tips on how you can seek out future leads and turn them into points to claim great rewards.</p>
+<p style="padding-left: 25px;padding-right:25px;text-align: left; font-family: arial,sans-serif; font-size: 14px; color: #382F2D; line-height: 28px;">We look forward to your participation in the Seeker Rewards Program again soon!</p>
+<p style="padding-left: 25px;padding-right:25px;text-align: left; font-family: arial,sans-serif; font-size: 14px; color: #382F2D; line-height: 28px;">Regards,<br /><strong>The Seeker Team.</strong></p>
+</td></tr>
+</table>
+
+<table bgcolor="#95cece" align="center" width="600" style="padding: 20px; text-align: left; font-family: arial,sans-serif; font-size: 13px; color: #382F2D; line-height: 20px;">
+    <tr>
+    <td width="270px" style="padding:0; text-align: left; font-family: arial,sans-serif; font-size: 11px;">
+    <p><a href="http://auspost.com.au/terms-conditions.html" target="_blank" style="text-decoration: none; color: #5E514D;">Terms & conditions</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://auspost.com.au/privacy.html" target="_blank" style="text-decoration: none; color: #5E514D;">Privacy policy</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://auspost.com.au/about-us/online-security-scams-and-frauds.html" target="_blank" style="text-decoration: none; color: #5E514D;">Security</a></p>
+    </td>
+    <td width="230px" style="text-align: right;">
+    <p>
+          <a href="https://www.facebook.com/australiapost" target="_blank"><img border="0" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=01590000007Zasx&oid=00D30000001GGce&lastMod=1428558762000" style="width: 30px; height: 30px;" alt="facebook" /></a>
+          &nbsp;
+          <a href="http://www.pinterest.com/austpost/" target="_blank"><img border="0" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=01590000007Zat7&oid=00D30000001GGce&lastMod=1428558789000" style="width: 30px; height: 30px;" alt="pinterest" /></a>
+          &nbsp;
+          <a href="https://twitter.com/auspost" target="_blank"><img border="0" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=01590000007ZatC&oid=00D30000001GGce&lastMod=1428558803000" style="width: 30px; height: 30px;" alt="twitter" /></a>
+          &nbsp;
+          <a href="http://www.youtube.com/user/auspost" target="_blank"><img border="0" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=01590000007ZatH&oid=00D30000001GGce&lastMod=1428558823000" style="width: 30px; height: 30px;" alt="youtube" /></a>
+          &nbsp;
+          <a href="https://plus.google.com/+australiapost" target="_blank"><img border="0" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=01590000007ZatW&oid=00D30000001GGce&lastMod=1428558833000" style="width: 30px; height: 30px;" alt="googleplus" /></a>
+          </p>
+          </td>
+          </tr>
+	<td colspan="2">
+<p style="padding:0; text-align: left; font-family: arial,sans-serif; font-size: 11px; color: #5E514D;">Contact us: If this email has been incorrectly sent to you or the information contained within isn’t correct, please let us know at <a href="mailto:seekerrewards@auspost.com.au?subject=Seeker New Lead Received Enquiry" style="font-family: arial,sans-serif; font-size: 11px; color: #5E514D;">seekerrewards@auspost.com.au</a><br /><br />If you do not wish to receive such information you can <unsubscribe style="font-family: arial,sans-serif; font-size: 11px; color: #5E514D; text-decoration: underline;">unsubscribe</unsubscribe> at any time.<br />Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.</p>
+    </td></tr>
+  </table>
+</td></tr>
+</table>
+
+</body>
+</html>

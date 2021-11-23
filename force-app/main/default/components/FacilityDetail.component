@@ -1,0 +1,22 @@
+<apex:component controller="FacilityDetail">
+    <apex:attribute name="facilityId_facilityRecordTypeDevName" description="" type="String" required="true" assignTo="{!Id_Name}" />
+    <apex:attribute name="network" description="" type="Network__c" required="true" />
+    <div id="fs-facilitydetail">
+        <div class="fs-header3">
+            <h3>Network Detail</h3>
+        </div>
+        <apex:repeat value="{!fields}" var="f">
+            <apex:outputtext rendered="{!if(OR(ISBLANK(network[f.fieldPath]),network[f.fieldPath]==false),false,true)}">
+                <apex:outputtext rendered="{!if(f.fieldPath<>'Display_Business_Hours__c',true,false)}">
+                    <div class="facility-detail-field-outer">
+                        <div class="facility-detail-field">
+                            <apex:outputLabel styleClass="fs-label" value="{!f.Label}" />
+                            <apex:outputField styleClass="form-control input-sm {!f.type}" value="{!network[f.fieldPath]}" />
+                        </div>
+                    </div>
+                </apex:outputtext>
+            </apex:outputtext>
+        </apex:repeat>
+        <c:Business_Hours facility="{!network}" rendered="{!if(displayBusinessHours,true,false)}"/>
+    </div>
+</apex:component>

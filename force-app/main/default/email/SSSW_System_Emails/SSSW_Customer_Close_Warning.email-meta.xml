@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SSSW - Used to warn the Customer of pending Closure</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Customer Close Warning</name>
+    <style>none</style>
+    <subject>Case: {!Case.CaseNumber} FINAL NOTICE</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference number {!Case.CaseNumber}
+
+
+Hi {!Contact.FirstName},
+
+Your enquiry requires your attention.
+
+We recently contacted you regarding your enquiry and need some additional information in order to proceed.
+
+Previous Comment: {!Case.Last_Case_Comment}
+
+Please respond as soon as possible to ensure that we can assist with your enquiry. 									If we do not receive a response from you within three business days we believe your enquiry may have been resolved and will close this case.
+
+
+Thank you,
+
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

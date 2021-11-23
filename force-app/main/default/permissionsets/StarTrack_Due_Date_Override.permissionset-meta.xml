@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This permission set gives any assigned user the ability to override the due date calculated by the system.</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Due_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>StarTrack Due Date Override</label>
+</PermissionSet>

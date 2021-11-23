@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OrgRevCalcWindowOffset__c</fullName>
+    <description>Holds the number of days from today (calculating backwards) for the Organisation Revenue Calculation window (specified by OrgRevCalcWindow) should start. For example, if the OrgRevCalcWindowOffset is set to 7 and OrgRevCalcWindow is set to 10, then the window will be from (today-7) to (today-17).
+
+This should be set to zero for normal weekly batch runs.</description>
+    <externalId>false</externalId>
+    <label>OrgRevCalcWindowOffset</label>
+    <precision>4</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

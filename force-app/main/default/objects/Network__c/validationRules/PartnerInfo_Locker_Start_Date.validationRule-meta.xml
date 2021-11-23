@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfo_Locker_Start_Date</fullName>
+    <active>true</active>
+    <description>Locker Start Date must be filled if Locker is linked to a Network Outlet.</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName = &apos;Lockers_5&apos;, NOT(ISBLANK(Parent_Network__c)),   ISBLANK(Locker_Start_Date__c))</errorConditionFormula>
+    <errorMessage>Locker Start Date must be filled.</errorMessage>
+</ValidationRule>

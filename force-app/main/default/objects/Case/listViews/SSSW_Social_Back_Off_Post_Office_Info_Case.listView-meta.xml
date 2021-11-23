@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Social_Back_Off_Post_Office_Info_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>SSSW Social Back Off Post Office Info</label>
+    <queue>SSSW_Social_Back_Off_Post_Office_Info</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

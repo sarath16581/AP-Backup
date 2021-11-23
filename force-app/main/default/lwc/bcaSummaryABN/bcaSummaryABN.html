@@ -1,0 +1,33 @@
+<!--
+/* @author avula.jansirani@auspost.com.au
+* @date 2020-11-12
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: ABN summary details . Used for showing a ABN details entered in the input step
+                for review before submitting a credit form.
+* @changelog
+* 2020-01-20 avula.jansirani@auspost.com.au
+*
+-->
+<template>
+<div data-id='bcasummaryabn'>
+    <template if:true={abnDetails}>
+        <div class="slds-section slds-is-open">
+            <div aria-hidden="false" class="slds-section__content">
+
+                <!--Header-->
+                <c-bca-summary-step-header header-label={headerName} step-name={stepName}>
+                </c-bca-summary-step-header>
+
+                <!--Body-->
+                <c-bca-summary-row label={AbnOrAcnLabel} value={abnDetails.formattedABN}></c-bca-summary-row>
+                <c-bca-summary-row label='Entity name' value={abnDetails.LegalEntityName}></c-bca-summary-row>
+                <c-bca-summary-row label={AbnOrAcnStatus} value={abnDetails.statusString} abn-status-date={abnDetails.ABNStatusFromDate} type='abnStatus'></c-bca-summary-row>
+                <c-bca-summary-row label='Entity type' value={abnDetails.EntityTypeText}></c-bca-summary-row>
+                <c-bca-summary-row label='Trading name' value={tradingName}></c-bca-summary-row>
+
+            </div>
+        </div>
+    </template>
+</div>
+</template>

@@ -1,0 +1,10 @@
+.THIS .chas-button-box {
+    border-top: none;
+    padding-top:0px !important;
+    flex-direction: row;
+}
+@media (min-width: 680px){
+.THIS .cChasBspDeflection {
+    width: 100%;
+}
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Carded_Case_Parcel</fullName>
+    <description>Used in visualforce email template to notify state managers when carded case is assigned to network 
+
+Email Template : Home_when_carded_notification 
+Visualforce Component : VE_CardedCase</description>
+    <displayedFields>
+        <field>DeviceUser__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>DriverContract__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>WorkCentreText__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>ActualDateTime__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <label>Carded_Case_Parcel</label>
+</FieldSet>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_Status_Image__c</fullName>
+    <externalId>false</externalId>
+    <formula>IMAGE(IF( Credit_Status__c  = True, &quot;/img/samples/flag_red.gif&quot;,&quot;/img/samples/flag_green.gif&quot;),&quot;NA&quot;)</formula>
+    <inlineHelpText>If flag is red then credit is blocked, please contact Credit team. If the flag is green, customer credit status is good.</inlineHelpText>
+    <label>Credit Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

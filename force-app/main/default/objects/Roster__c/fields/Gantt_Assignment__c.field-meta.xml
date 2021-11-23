@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Gantt_Assignment__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>TDF Enhance 2020: Indicates the roster record was created from the Assign Driver action in the gantt chart</description>
+    <externalId>false</externalId>
+    <label>Gantt Assignment</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

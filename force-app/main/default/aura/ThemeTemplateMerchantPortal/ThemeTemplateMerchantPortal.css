@@ -1,0 +1,942 @@
+.THIS #mainBody {
+    
+}
+
+.THIS {
+    margin: 0px;
+    padding: 0px;
+}
+
+.THIS#content-wrapper {
+    flex: 1 0 0;
+}
+
+/**************************************************
+ * HEADER
+ **************************************************/
+.THIS #header {
+    background: #fff;
+    box-shadow: 0px 2px 3px rgba(21, 24, 26, 0.1);
+    margin-bottom: 60px;
+}
+
+.THIS #header .content {
+    position: relative;
+    /* display: flow-root; <-- no support for IE11 */
+}
+
+.THIS #header .content > a {
+    display: inline-block;
+}
+
+.THIS #header .content h1 {
+    font-family: AP Letter, sans-serif;
+    display: inline-block;
+    font-size: 1.4rem;
+    line-height: 1.4rem;
+    margin-bottom: 0;
+}
+
+.THIS #header h1 a {
+    color: #535F67 !important;
+    text-decoration: none !important;
+}
+
+.THIS #header .content .slds-grid div.left {
+    display: flex;
+    align-items: center;
+}
+
+.THIS #header .content .slds-grid div.right {
+    display: flex;
+    align-items: center;
+}
+
+
+.THIS #header .login {
+    line-height: 1;
+}
+
+/**************************************************
+ * Custom error page
+ **************************************************/
+
+.THIS c-community-custom-error {
+    display: block;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.THIS c-community-custom-error .slds-notify {
+    font-size: 1rem;
+}
+
+.THIS c-community-custom-error .slds-notify:before,
+.THIS c-community-custom-error .slds-notify:before {
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    position: absolute;
+    content: "";
+    z-index:20;
+}
+
+.THIS c-community-custom-error .slds-theme_error,
+.THIS c-community-custom-error .slds-theme--error {
+    background-image: none;
+    background-color: #F8E7E8;
+}
+.THIS c-community-custom-error .slds-theme_error:before,
+.THIS c-community-custom-error .slds-theme--error:before {
+    background-image: none;
+    background-color: #BC111E;
+}
+.THIS c-community-custom-error .slds-theme_error h2,
+.THIS c-community-custom-error .slds-theme--error h2 {
+    color: #BC111E;
+}
+
+.THIS c-community-custom-error .slds-theme_error svg,
+.THIS c-community-custom-error .slds-theme--error svg {
+    fill: #BC111E;
+    color: #BC111E;
+}
+
+
+/**************************************************
+ * DROP DOWN
+ **************************************************/
+.THIS .slds-dropdown {
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: 0px 1px 12px rgba(83, 95, 103, 0.3);
+}
+
+.THIS .slds-dropdown-trigger .slds-button {
+    font-size: 1rem;
+    color: #292F33;
+}
+
+.THIS .slds-dropdown-trigger .slds-button:hover, .THIS .slds-dropdown-trigger .slds-button:active, .THIS .slds-dropdown-trigger .slds-button:focus {
+    color: #292F33;
+    box-shadow: none;
+}
+
+.THIS .slds-dropdown-trigger .slds-button svg {
+    color: #8A939D;
+    fill: #8A939D;
+}
+
+.THIS .slds-dropdown .slds-dropdown__item a {
+    font-family: AP Letter, sans-serif;
+    font-size: 1rem;
+    padding: t(spacingSmall) t(spacingLarge);
+}
+.THIS .slds-dropdown .slds-dropdown__item a:link, .THIS .slds-dropdown .slds-dropdown__item a:active, .THIS .slds-dropdown .slds-dropdown__item a:focus {
+    box-shadow: none;
+}
+.THIS .slds-dropdown .slds-dropdown__item a:hover {
+    background-color: #E4F5FB;
+    box-shadow: none;
+}
+
+.THIS .slds-dropdown .slds-has-divider_top-space {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+/**************************************************
+ * SEARCH FILTER
+ **************************************************/
+.THIS lightning-input.search-filter .slds-form-element__label {
+    display: none;
+}
+
+/**************************************************
+ * TOPOGRAPHY
+ **************************************************/
+
+.THIS h1.slds-text-heading_large, .THIS .slds-text-heading_large {
+    font-family: AP Letter, sans-serif;
+    font-weight: bold;
+    font-size: 2.3rem;
+    line-height: 2.4rem;
+    margin-bottom: t(spacingXLarge);
+    color: #292F33;
+}
+
+.THIS h2.slds-text-heading_large, .THIS .slds-text-heading_large {
+    font-family: AP Letter, sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+    line-height: 2.2rem;
+    margin-bottom: 10px;
+    color: #292F33;
+}
+
+.THIS h3.slds-text-heading_medium, .THIS .slds-text-heading_medium {
+    font-family: AP Letter, sans-serif;
+    font-weight: bold;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    margin-bottom: 10px;
+    color: #292F33;
+}
+
+.THIS h4.slds-text-heading_medium, .THIS .slds-text-heading_medium {
+    font-family: AP Letter, sans-serif;
+    font-weight: normal;
+    font-size: 1.4rem;
+    line-height: 1.5rem;
+    margin-bottom: 10px;
+    color: #292F33;
+}
+
+.THIS h5.slds-text-heading_small, .THIS .slds-text-heading_small {
+    font-family: AP Letter, sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    margin-bottom: 10px;
+    color: #292F33;
+}
+
+.THIS h5.regular.slds-text-heading_small, .THIS .slds-text-heading_small {
+    font-family: AP Letter, sans-serif;
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    margin-bottom: 10px;
+    color: #292F33;
+}
+
+.THIS .slds-text-body_regular {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #292F33;
+    margin-bottom: 1rem;
+
+}
+
+.THIS .slds-text-body_small {
+    font-size: 0.86rem;
+    margin-bottom: 0.85rem;
+    line-height: 1.3;
+    color: #292F33;
+}
+
+.THIS .slds-text-color_weak {
+    color: #535F67;
+}
+
+.THIS .slds-text-heading_large {
+    font-family: AP Letter, sans-serif;
+    font-weight: bold;
+    font-size: 2.3rem;
+    line-height: 2.4rem;
+    margin-bottom: 10px;
+    color: #292F33;
+}
+
+.THIS .layout-contained {
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+.THIS .font-weight-medium,
+.THIS .font-weight-medium button {
+    font-weight: 600;
+}
+
+/**************************************************
+ * SUCCESS PAGE
+ **************************************************/
+.THIS .registration-success-card .success-icon svg   {
+    width: 95px;
+    height: 95px;
+}
+
+/**************************************************
+ * ICONS
+ **************************************************/
+.THIS lightning-icon.pending-lock svg {
+    fill: #D0D5D8;
+}
+
+/**************************************************
+ * LIGHTNIGN BADGE
+ **************************************************/
+.THIS lightning-badge.slds-badge {
+    border-radius: 3px;
+    padding-left: t(spacingSmall);
+    padding-right: t(spacingSmall);
+}
+.THIS lightning-badge.slds-badge.slds-badge_inverse {
+    background-color: rgba(41, 47, 51, 0.5);
+    color: #fff;
+}
+.THIS lightning-badge.slds-badge.role-badge {
+    font-size: 0.86rem;
+}
+
+/**************************************************
+ * BUTTONS
+ **************************************************/
+
+.THIS .slds-button:focus {
+    box-shadow: none;
+    outline: 0;
+}
+.THIS .back-feature .slds-button {
+    font-family: AP Letter, sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #292F33;
+}
+.THIS .cancel .slds-button {
+    font-family: AP Letter, sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #292F33;
+    text-decoration: underline;
+}
+.THIS lightning-button.slds-button_full-width button {
+    width: 100%;
+}
+
+.THIS .slds-button {
+    font-family: AP Letter, sans-serif;
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 1rem;
+    border-radius: 3px;
+}
+.THIS .slds-button.slds-button_brand {
+    font-weight: bold;
+    background-color: #1064A3;
+    border: 1px solid #1064A3;
+    color: #fff;
+    padding: 10px 50px;
+}
+.THIS .slds-button.slds-button_brand:hover {
+    color: #fff;
+    background-color: #2182CC;
+    border: 1px solid #2182CC;
+}
+.THIS .slds-button.slds-button_brand:active {
+    color: #fff;
+    border: 1px solid #0E5287;
+    background-color: #0E5287;
+    box-shadow: none;
+    outline: 0;
+}
+.THIS .slds-button.slds-button_brand:focus {
+    color: #fff;
+    outline: 0;
+    box-shadow: none;
+}
+.THIS .slds-button.slds-button_brand:focus:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    left: -4px;
+    right: -4px;
+    border-radius: 3px;
+    border: 1px dotted #0E5287;
+}
+
+.THIS .slds-button.slds-button_brand[disabled],
+.THIS .slds-button.slds-button_brand[disabled]:hover,
+.THIS .slds-button.slds-button_brand[disabled]:active,
+.THIS .slds-button.slds-button_brand[disabled]:focus {
+    border: 1px solid #D0D5D8;
+    background-color: #F3F4F5;
+    color: #DADADA;
+}
+
+.THIS .slds-button.slds-button_outline-brand {
+    background-color: #fff;
+    border: 1px solid #1064A3;
+    color: #1064A3;
+    font-family: AP Letter, sans-serif;
+    font-size: 1rem;
+    line-height: 1rem;
+    padding: 10px 50px;
+    border-radius: 3px;
+}
+.THIS .slds-button.slds-button_outline-brand:hover {
+    background-color: #1064A3;
+    color: #fff;
+}
+.THIS .slds-button.slds-button_outline-brand:active {
+    background-color: #0E5287;
+    color: #fff;
+}
+.THIS .slds-button.slds-button_outline-brand:focus {
+    outline: 0;
+}
+
+.THIS .slds-button.slds-button_outline-brand:focus:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    left: -4px;
+    right: -4px;
+    border-radius: 3px;
+    border: 1px dotted #0E5287;
+}
+
+.THIS .slds-button.slds-button_icon-border {
+    border: 1px solid #D0D5D8;
+}
+
+.THIS .slds-button.slds-button_icon-border svg,
+.THIS .slds-button.slds-button_icon-container svg {
+    fill: #292F33;
+}
+
+.THIS .slds-button.slds-button_icon-border:hover,
+.THIS .slds-button.slds-button_icon-border:active {
+    background-color: #F3F4F5;
+}
+
+.THIS .slds-button.slds-button_icon-border:focus {
+    outline: 0;
+}
+
+.THIS .slds-button.slds-button_icon-border:focus:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    left: -4px;
+    right: -4px;
+    border-radius: 3px;
+    border: 1px dotted #0E5287;
+}
+
+.THIS .slds-button.slds-button_icon-border[disabled] {
+    background-color: #F3F4F5
+}
+
+.THIS .slds-button.slds-button_icon-border[disabled]:focus {
+    display: none;
+}
+
+.THIS .slds-button.slds-button_icon-border[disabled] svg {
+    fill: #DADADA;
+}
+
+.THIS .btn-x-large .slds-button.slds-button_icon-container,
+.THIS .btn-x-large .slds-button.slds-button_icon-border {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.THIS .btn-x-large .slds-button.slds-button_icon-container svg,
+.THIS .btn-x-large .slds-button.slds-button_icon-border svg {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+/* windows hack?! where icons were sitting well below the text */
+.THIS .slds-button lightning-primitive-icon {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: -1px;
+}
+.THIS .slds-button {
+    display:inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/**************************************************
+ * FORMS
+ **************************************************/
+.THIS .slds-form-element .slds-input {
+    border: 1px solid #D0D5D8;
+    border-radius: 3px;
+    color: #292F33;
+    font-size: 14px;
+    line-height: 1;
+    padding-top: 10px;
+    padding-bottom: 9px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    background: #fff;
+    transition: border 250ms ease-in-out, background-color 250ms ease-in-out;
+}
+
+.THIS .slds-form-element .slds-input[disabled] {
+    background-color: rgb(233, 234, 236);
+}
+
+.THIS .slds-form-element .slds-input:active,
+.THIS .slds-form-element .slds-input:focus {
+    border: 1px solid #292F33;
+    outline: 0;
+    box-shadow: none;
+}
+
+.THIS .slds-form-element .slds-input + lightning-primitive-icon svg {
+    transition: fill 250ms ease-in-out;
+}
+
+.THIS .slds-form-element .slds-input:active + lightning-primitive-icon svg,
+.THIS .slds-form-element .slds-input:focus + lightning-primitive-icon svg {
+    fill: #292F33;
+}
+
+.THIS .slds-form-element.slds-has-error .slds-input {
+    border: 1px solid #BC111E;
+    color: #BC111E;
+}
+
+.THIS .slds-form-element input[type=checkbox] {
+    border: 1px solid #D0D5D8;
+    border-radius: 3px;
+    font-size: 1rem;
+    background: #fff;
+    transition: background-color 250ms ease-in-out;
+    min-width: 60px;
+    max-width: 500px;
+}
+
+.THIS .slds-form-element .slds-form-element__label {
+    color: #535F67;
+    font-size: 1rem;
+}
+
+.THIS .slds-form-element .slds-form-element__legend {
+    font-weight: normal;
+}
+
+.THIS .slds-form-element.slds-has-error .slds-form-element__help {
+    color: #BC111E;
+}
+
+.THIS .slds-checkbox [type="checkbox"] + .slds-checkbox_faux,
+.THIS .slds-checkbox [type="checkbox"] ~ .slds-checkbox_faux,
+.THIS .slds-checkbox [type="checkbox"] + .slds-checkbox__label .slds-checkbox_faux {
+    border: 1px solid #D0D5D8;
+    border-radius: 3px;
+    background: #fff;
+    outline: 0;
+    box-shadow: none;
+}
+
+.THIS .slds-checkbox [type="checkbox"]:focus + .slds-checkbox_faux:before,
+.THIS .slds-checkbox [type="checkbox"]:focus ~ .slds-checkbox_faux:before,
+.THIS .slds-checkbox [type="checkbox"]:focus + .slds-checkbox__label .slds-checkbox_faux:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    left: -3px;
+    right: -3px;
+    border-radius: 3px;
+    border: 1px dotted #0E5287;
+}
+
+.THIS .slds-checkbox [type="checkbox"]:checked + .slds-checkbox_faux,
+.THIS .slds-checkbox [type="checkbox"]:checked ~ .slds-checkbox_faux,
+.THIS .slds-checkbox [type="checkbox"]:checked + .slds-checkbox__label .slds-checkbox_faux,
+.THIS .slds-checkbox [type="checkbox"]:checked:focus + .slds-checkbox_faux,
+.THIS .slds-checkbox [type="checkbox"]:checked:focus ~ .slds-checkbox_faux,
+.THIS .slds-checkbox [type="checkbox"]:checked:focus + .slds-checkbox__label .slds-checkbox_faux {
+    background: #1064A3;
+    border-color: #1064A3;
+}
+
+.THIS .slds-checkbox [type="checkbox"]:checked + .slds-checkbox_faux::after,
+.THIS .slds-checkbox [type="checkbox"]:checked ~ .slds-checkbox_faux::after,
+.THIS .slds-checkbox [type="checkbox"]:checked + .slds-checkbox__label .slds-checkbox_faux::after {
+    border-bottom-color: #fff;
+    border-left-color: #fff;
+}
+
+.THIS .slds-form-element.slds-has-error .slds-checkbox [type="checkbox"] + .slds-checkbox_faux,
+.THIS .slds-form-element.slds-has-error .slds-checkbox [type="checkbox"] ~ .slds-checkbox_faux,
+.THIS .slds-form-element.slds-has-error .slds-checkbox [type="checkbox"] + .slds-checkbox__label .slds-checkbox_faux {
+    border: 1px solid #BC111E;
+}
+
+.THIS .slds-form-element .slds-checkbox [type="checkbox"][disabled] + .slds-form-element__label,
+.THIS .slds-form-element .slds-checkbox [type="checkbox"][disabled] ~ .slds-form-element__label,
+.THIS .slds-form-element .slds-checkbox [type="checkbox"][disabled] + .slds-checkbox__label .slds-form-element__label {
+    color: #8A939D;
+}
+
+.THIS .slds-checkbox [type="checkbox"][disabled] + .slds-checkbox_faux,
+.THIS .slds-checkbox [type="checkbox"][disabled] ~ .slds-checkbox_faux,
+.THIS .slds-checkbox [type="checkbox"][disabled] + .slds-checkbox__label .slds-checkbox_faux {
+    background: #F3F4F5;
+    border: 1px solid #D0D5D8;
+}
+
+.THIS .slds-checkbox [type="checkbox"][disabled] + .slds-checkbox_faux:after,
+.THIS .slds-checkbox [type="checkbox"][disabled] ~ .slds-checkbox_faux:after,
+.THIS .slds-checkbox [type="checkbox"][disabled] + .slds-checkbox__label .slds-checkbox_faux:after {
+    border-bottom-color: #1064A3;
+    border-left-color: #1064A3;
+}
+
+/**************************************************
+ * USER TABLE
+ **************************************************/
+.THIS c-bam-user-table table.user-list .end-col {
+    width: 50px;
+}
+
+.THIS .layout-contained c-bam-user-table .full-width table.user-list .end-col {
+    width: calc(calc(100vw - 1140px) / 2); /* 575 = 1150/2 */
+    min-width: 0;
+}
+
+.THIS c-bam-user-table .empty-table-icon svg {
+    width: 9rem;
+    height: 9rem;
+}
+
+
+.THIS c-bam-user-table table.user-list thead th {
+    background-color: #F3F4F5;
+    padding-top: t(spacingMedium);
+    padding-bottom: t(spacingMedium);
+    font-weight: normal;
+    font-size: 1rem;
+}
+
+.THIS c-bam-user-table table.user-list td.user-name {
+    font-family: AP Letter, sans-serif;
+    font-weight: bold;
+}
+
+.THIS c-bam-user-table table.user-list td.application-list li {
+    vertical-align: middle;
+}
+
+.THIS c-bam-user-table table.user-list td.application-list li span {
+    display: inline-block;
+    position: relative;
+}
+
+.THIS c-bam-user-table table.user-list td.application-list li span:before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    position: relative;
+    margin-right: t(spacingXSmall);
+    border-radius: 50%;
+    background-color: #3E753F;
+}
+
+.THIS c-bam-user-table table.user-list td.application-list li span.pending:before {
+    background-color: #D0D5D8;
+}
+
+.THIS c-bam-user-table table.user-list td.application-list li span.error:before {
+    background-color:#BC111E;
+}
+
+.THIS c-bam-user-table .slds-table th,
+.THIS c-bam-user-table .slds-table td {
+    padding-top: t(spacingMedium);
+    padding-bottom: t(spacingMedium);
+}
+
+.THIS c-bam-user-table .bam-page-nav-left button {
+    color:gray;
+    border:solid 2px #d4d4d4; 
+    background-color:white; 
+    border-radius: 3px 0 0 3px;
+    margin-bottom: 0;
+    height: 32px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.THIS c-bam-user-table .bam-page-nav-right button {
+    color:gray;
+    border:solid 2px #d4d4d4; 
+    background-color:white; 
+    border-radius: 0 3px 3px 0;
+    margin-bottom: 0;
+    height: 32px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.THIS c-bam-user-table .bam-page-nav-page-no {
+    border: solid 2px #535f67;
+    background-color: white;
+    height: 32px;
+    width: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/**************************************************
+ * BADGES
+ **************************************************/
+.THIS .slds-badge_inverse {
+
+}
+
+/**************************************************
+ * FOOTER
+ **************************************************/
+
+.THIS#footer {
+    margin-top: 4.2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-top: 1px solid #D0D5D8;
+    background: #FFFFFF;
+    box-sizing: border-box;
+}
+
+.THIS#footer a, .THIS#footer a:visited {
+    transform: color 250ms, text-decoration 250ms;
+    font-size: 1rem;
+    color: #535F67;
+    text-decoration: none;
+}
+.THIS#footer a svg {
+    transform: fill 250ms;
+    fill: #535F67;
+    width: 16px;
+    height: 16px;
+}
+
+.THIS#footer a:active {
+    color: #292F33;
+    text-decoration: none;
+}
+
+.THIS#footer a:hover {
+    color: #292F33;
+    text-decoration: none;
+}
+.THIS#footer a:hover svg {
+    fill: #292F33;
+}
+
+.THIS#footer a:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.THIS#footer .right-links a, .THIS#footer .right-links a:visited {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/**************************************************
+ * RADIO BUTTON GROUP
+ **************************************************/
+
+.THIS .slds-radio_button-group {
+    border: 1px solid #292F33;
+    border-radius: 3px;
+}
+
+.THIS lightning-radio-group.disabled .slds-radio_button-group {
+    border: 1px solid #D0D5D8;
+}
+
+.THIS lightning-radio-group.disabled .slds-radio_button-group .slds-button.slds-radio_button {
+    border-left-color: #D0D5D8;
+}
+
+.THIS .slds-button.slds-radio_button {
+    line-height: 2.5rem;
+    border-radius: 0;
+}
+.THIS .slds-button.slds-radio_button:focus {
+    box-shadow: none;
+    outline: none;
+}
+.THIS .slds-radio_button .slds-radio_faux {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+}
+
+.THIS .slds-radio_button + .slds-radio_button {
+    border-left: 1px solid #292F33;
+}
+
+.THIS .slds-radio_button [type=radio] + .slds-radio_faux,
+.THIS .slds-radio_button [type=radio] ~ .slds-radio_faux,
+.THIS .slds-radio_button [type=radio] + .slds-radio_button__label {
+    font-size: 1rem;
+    font-family: AP Letter, sans-serif;
+    color: #292F33;
+    background-color: #fff;
+}
+
+.THIS .slds-radio_button [type=radio]:checked + .slds-radio_faux,
+.THIS .slds-radio_button [type=radio]:checked ~ .slds-radio_faux,
+.THIS .slds-radio_button [type=radio]:checked + .slds-radio_button__label {
+    background-color: #292F33;
+    color: #fff;
+}
+
+.THIS .slds-radio_button:first-child > .slds-radio_faux,
+.THIS .slds-radio_button:first-child > .slds-radio_button__label {
+    border-radius: 2px 0 0 2px;
+}
+
+.THIS .slds-radio_button:last-child > .slds-radio_faux,
+.THIS .slds-radio_button:last-child > .slds-radio_button__label {
+    border-radius: 0 2px 2px 0;
+}
+
+.THIS .slds-radio_button [type=radio][disabled] + .slds-radio_faux,
+.THIS .slds-radio_button [type=radio][disabled] ~ .slds-radio_faux,
+.THIS .slds-radio_button [type=radio][disabled] + .slds-radio_button__label {
+    color: #D0D5D8;
+    background-color: #fff;
+}
+.THIS .slds-radio_button [type=radio][disabled]:checked + .slds-radio_faux,
+.THIS .slds-radio_button [type=radio][disabled]:checked ~ .slds-radio_faux,
+.THIS .slds-radio_button [type=radio][disabled]:checked + .slds-radio_button__label {
+    background-color: #F3F4F5;
+    color: #D0D5D8;
+}
+
+/**************************************************
+ * LIGHTNING CARD
+ **************************************************/
+.THIS .slds-card {
+    border: 1px solid #D0D5D8;
+    border-radius: 3px;
+}
+
+.THIS .slds-card__header {
+    border-bottom: 1px solid #D0D5D8;
+    padding: t(spacingLarge) t(spacingXLarge);
+}
+
+.THIS .slds-card__header h2 {
+    line-height: 1.2;
+    font-size: 1.4rem;
+}
+
+.THIS c-custom-card > .slds-card > .slds-card__footer,
+.THIS .slds-card > .slds-card__footer {
+    border-top: 1px solid #D0D5D8;
+    margin-top: 0;
+}
+
+.THIS c-custom-card.no-footer > .slds-card > .slds-card__footer,
+.THIS c-custom-card.apps-roles > .slds-card > .slds-card__footer,
+.THIS .slds-card.no-footer > .slds-card__footer {
+    display: none;
+}
+
+.THIS c-custom-card.app-launcher > .slds-card > .slds-card__header,
+.THIS c-custom-card.no-header > .slds-card > .slds-card__header,
+.THIS .slds-card.no-header > .slds-card__header{
+    display: none;
+}
+
+.THIS c-custom-card.no-footer > .slds-card > .slds-card__footer,
+.THIS .slds-card.no-footer > .slds-card__footer {
+    display: none;
+}
+
+.THIS c-custom-card.app-launcher > .slds-card {
+    text-align: center;
+    border: 0px none;
+    border-radius: 4px;
+    box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.THIS c-custom-card.app-launcher > .slds-card > .slds-card__body {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.THIS c-custom-card.app-launcher > .slds-card .app-launcher-icon svg {
+    width: 4rem;
+    height: 4rem;
+}
+
+.THIS c-custom-card.app-launcher.pending {
+    background-color: #f00 !important;
+}
+
+
+/**************************************************
+ * ACCORDION
+ **************************************************/
+
+.THIS  .slds-accordion__summary-heading {
+    font-size: 1.28rem;
+}
+
+.THIS c-custom-accordion + c-custom-accordion .slds-accordion {
+    border-top: 1px solid #D0D5D8;
+}
+.THIS  .slds-accordion__section {
+    padding-top: t(spacingLarge);
+    padding-bottom: t(spacingLarge);
+    padding-left: 0;
+}
+.THIS  .slds-accordion__section.slds-is-open .slds-accordion__summary {
+    margin-bottom: t(spacingLarge);
+}
+
+/**************************************************
+ * LOGIN PAGE
+ **************************************************/
+
+.THIS#content-wrapper.login #mainBody {
+    max-width: 300px;
+}
+.THIS#content-wrapper.login.login-error #mainBody {
+    max-width: 600px;
+}
+.THIS#content-wrapper.login .communityLogoContainer {
+    margin-bottom: t(spacingXLarge);
+}
+
+/**************************************************
+ * MISC
+ **************************************************/
+/** clear fix support for IE11 **/
+.THIS .cf:before,
+.THIS .cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.THIS .cf:after {
+    clear: both;
+}
+
+.THIS .full-width {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    margin-left: -50vw;
+}
+
+/*right: 50%;
+    margin-right: -50vw;*/

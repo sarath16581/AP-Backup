@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Objective_Description__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>The value this objective delivers to others. How is this Objective relevant to the customer, or how is it relevant to the partner if this is a Partner Objective, or relevant to you if this is a Customer Success Objective.</inlineHelpText>
+    <label>Objective Description</label>
+    <length>8192</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>4</visibleLines>
+</CustomField>

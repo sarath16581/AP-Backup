@@ -1,0 +1,28 @@
+<!-- 2020-01-22 lija.jawahar@auspost.com.au created -->
+<aura:component description="stp_createCase" access="global"
+                controller="stp_CreateCase"
+                implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" >
+
+    <ltng:require scripts="{!join(',',$Resource.GlobalAssets + '/js/lightning/utils.js')}" afterScriptsLoaded="{!c.setDefaults}" />
+
+    <aura:registerEvent name="appEventContinuation" type="c:AsynchApexContinuationRequest" />
+    <aura:attribute name="caseRecordEditFormCmp" type="Aura.Component[]" access="public"/>
+    <aura:handler name="modalEvent" event="c:modalEvt" action="{!c.onModalEvent}"/>
+    <aura:attribute name="loadingSpinner" type="Object"/>
+    <aura:attribute name="isCreate" type="Boolean" default = "false"/>
+
+    <div class="paper-card" style="background:#CFD4D7; height: 130px; display: flex; justify-content: center; flex-direction: column;">
+        <div class="slds-text-align_center slds-text-body_regular">
+            <span> You can create a new case here!</span>
+            <div class="slds-clear">
+                <lightning:button variant="brand" label="Case Creation" title="CreateNewCase" class="slds-m-around_small"  onclick="{!c.onCaseCreateClick}" />
+            </div>
+        </div>
+    </div>
+    <aura:if isTrue="{!v.isCreate}">
+        <c:modalCmp modalId="caseRecordModal" title="Create new case"  showModal="true" showFooter="false">
+            <aura:set attribute="modalContent"> {!v.caseRecordEditFormCmp}
+            </aura:set>
+        </c:modalCmp>
+    </aura:if>
+</aura:component>

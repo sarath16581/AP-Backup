@@ -1,0 +1,246 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 01/09/2020
+  * @description  : Component for consignment details.
+--------------------------------------- History --------------------------------------------------
+01.09.2020    Jansi Rani   Created
+01.04.2021    Madhuri Awasthi - REQ2431363 BSP redirect field name changes
+14.05.2021    Madhuri Awasthi - REQ2481513 BSP redirect/recalll field name changes
+-->
+<template>
+    <div class="slds-grid slds-wrap slds-p-bottom_x-large">
+
+        <!--Consinment details-->
+        <template if:true={singleCon}>
+            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-p-bottom_x-large">
+
+                <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_small">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2"><b>Tracking number :</b> <br>
+                        {singleCon.Name}
+                        <template if:true={isExternalTrackingURLPresent}>
+                            <br><i>To track your item at the destination country, click <a
+                                    href={singleCon.ExternalTrackingURL__c} target="_blank"><b>here</b> </a></i>
+                        </template>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <template if:false={isConsignmentAuthenticated}><b>Destination :</b>
+                            <br>{destination}</template>
+                    </div>
+                </div>
+
+                <!--Authenticated/ non Authenticated Details-->
+                <template if:true={isConsignmentAuthenticated}>
+                    <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_small">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2"><b>Sender company :</b> <br>{singleCon.SenderCompany__c}
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2"><b>Receiver company :</b> <br>
+                            {singleCon.ReceiverCompany__c}</div>
+                    </div>
+                </template>
+
+                <template if:true={isConsignmentAuthenticated}>
+                    <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_small">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2"><b>Sender name :</b> <br>{singleCon.SenderName__c} </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2"><b>Receiver name :</b> <br> {singleCon.ReceiverName__c}
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={isConsignmentAuthenticated}>
+                    <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_small">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2"><b>Sender address :</b> <br>{formattedSenderAddress}
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2"><b>Receiver address :</b> <br>
+                            {formattedReceiverAddress}</div>
+                    </div>
+                </template>
+
+                <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_small">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2"><b>Lodgement date :</b> 
+                        <br><lightning-formatted-date-time value={APConsignmentLodgementDate} year="numeric" month="numeric" day="numeric">
+                        </lightning-formatted-date-time>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2"><b>Expected delivery date :</b> <br>
+                        <lightning-formatted-date-time value={APConsignmentExpDeliveryDate} year="numeric" month="numeric" day="numeric">
+                        </lightning-formatted-date-time></div>
+                </div>
+
+                <template if:true={isConsignmentAuthenticated}>
+                    <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_small">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2"><b>Sub-Product :</b> <br>{APConsignmentSubProduct}
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2"><b>Delivery instructions :</b> <br>
+                            {singleCon.DeliveryInstructions__c}</div>
+                    </div>
+                </template>
+
+            </div>
+        </template>
+
+        <!-- Recall / Redirect buttons-->
+        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 recall-redirect-box">
+            <!-- Heading-->
+            <div class="slds-grid slds-grid_align-spread slds-p-horizontal_large slds-p-top_large"><h3>Recall or redirect</h3>
+                <lightning-button label="Terms and Conditions" title="Terms and conditions" data-id={TnCBtnId}
+                class="terms-text brand-link-button underline-dec"
+                variant="base" onclick={onclickTermsAndConditions}>
+                </lightning-button>
+            </div>
+            <!-- Recall-->
+            <div class='slds-grid slds-p-around_large'>
+                <div class='slds-col slds-size_1-of-1'>
+                    {recallDescription}<br><br>
+                    <lightning-button label="Recall" title="Recall" data-id={recallBtnId}
+                        class="brand-primary-button slds-m-top_medium slds-align_absolute-center"
+                        disabled={recallOrRedirectButtonDisabled} variant="destructive" onclick={onClickRecallRedirect}>
+                    </lightning-button>
+                </div>
+            </div>
+            
+            <!-- Redirect-->
+            <div class='slds-grid slds-p-around_large recall-redirect-box-divider'>
+                <div class='slds-col slds-size_1-of-1'>
+                    {redirectDescription}<br><br>
+                    <lightning-button label="Redirect" title="Redirect" data-id={redirectBtnId}
+                        disabled={recallOrRedirectButtonDisabled}
+                        class="brand-primary-button slds-m-top_medium slds-align_absolute-center" variant="destructive"
+                        onclick={onClickRecallRedirect}>
+                    </lightning-button>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- Terms and Conditions Modal -->
+        <template if:true={showTermsAndConditions}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true"
+                    aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <div class="slds-is-relative">
+                            
+                            <header class="slds-modal__header slds-p-around_medium">
+                                <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Terms and Conditions
+                                </h2>
+                            </header>
+
+                            
+                            <div class="slds-modal__content slds-p-horizontal_large" id="modal-content-id-2">
+                                <p>While we will make all reasonable efforts to recall or update the address, it may not be possible in certain circumstances. Australia Post will have no responsibility for parcels that aren’t redirected or recalled. 
+                                    <br><br>We can only redirect or update the address for parcels addressed to a street address. It may be possible to recall a parcel addressed to a Parcel Locker, PO Box or Parcel Collect by phone: 13 11 18
+                                    <br><br>Updating the address will add at least one additional day to the time of delivery.
+                                    <br><br>Your contracted return to sender charge will apply to any recall or address update requests.
+                                
+                                </p>
+
+                            </div>
+                            
+                            <footer class="slds-modal__footer slds-p-around_large slds-grid slds-grid_align-center">
+                                    <lightning-button label="Close" title="Close" onclick={closeTermsAndConditions}
+                                        class="brand-secondary-button"></lightning-button>
+                            </footer>
+                        </div>
+                    </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+       
+
+
+        <!-- Recall and Redirect Modal -->
+        <template if:true={showRecallRedirect}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <div class="slds-is-relative">
+                        <!-- spinner-->
+                        <div if:true={showRecallRedirectSpinner}>
+                            <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+                        </div>
+                        <!-- modal header start -->
+                        <header class="slds-modal__header slds-p-around_medium">
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{recallRedirectTitle}
+                            </h2>
+                        </header>
+                        
+                        <!-- modal body start -->
+
+                        <div class="slds-modal__content slds-p-horizontal_large" id="modal-content-id-1">
+                             <!-- error display -->
+                            <template if:true={recallRedirectError}>
+                                <c-bsp-error error-message={recallRedirectError}></c-bsp-error>
+                            </template>
+
+
+                            <template if:false={recallRedirectCreated}>
+                                <lightning-input label={redirectLabelName} data-id="recallRedirectName"
+                                    data-validation="recallRedirect" type="text" value={recallRedirectName}
+                                    onchange={onChangeRecallRedirectField} onfocusout={handleFocusOut}
+                                    message-when-value-missing={missingValueMessage} required
+                                    class="brand-form-input slds-p-bottom_x-large"></lightning-input>
+                                <lightning-input label={redirectLabelCompanyName} data-id="recallRedirectCompany" type="text"
+                                    value={recallRedirectCompany} onchange={onChangeRecallRedirectField}
+                                    onfocusout={handleFocusOut} 
+                                    class="brand-form-input slds-p-bottom_x-large"></lightning-input>
+
+                                <div class="modal-address-search">
+                                    <c-bsp-address-search address={recallRedirectAddress} label={redirectLabelAddress}
+                                        data-id="recallRedirectAddress" data-validate='doAddressValidate'
+                                        onstreetchange={handleManualChange} address-on-load="true"
+                                        field-level-help='If address not found, please expand and manually override the address'
+                                        placeholder='Search for address' onsearchtermchange={handleAddressChange} required
+                                        class="brand-form-input">
+                                    </c-bsp-address-search>
+                                </div>
+                            </template>
+                            <template if:true={recallRedirectCreated}>
+                                <div class="">
+                                    <h2 class="slds-p-vertical_medium">Thank you! We’ve received your request - reference <a
+                                            onclick={navigateToCaseDetails}><b>{createdCase.CaseNumber}</b></a>. </h2>
+                                    <p>Once this parcel arrives at the relevant facility, we’ll make every effort to update the address and update our
+                                        tracking information. Please allow up to 5 business days for this to happen.</p>
+                                    <div class="slds-p-top_small">
+                                    </div>
+                                </div>
+                            </template>
+
+                        </div>
+                        <!-- modal footer start-->
+                        <footer class="slds-modal__footer slds-p-around_large">
+                            <template if:false={recallRedirectCreated}>
+                                <lightning-button label="Cancel" title="Cancel"
+                                    class="brand-tertiary-button slds-p-right_medium" variant="Neutral"
+                                    onclick={onCancelRecallRedirect}>
+                                </lightning-button>
+                                <lightning-button label={recallRedirectBtnTitle} title={recallRedirectBtnTitle}
+                                    class="brand-primary-button" variant="destructive" onclick={onSubmitRecallRedirect}>
+                                </lightning-button>
+                            </template>
+                            <template if:true={recallRedirectCreated}>
+                                <lightning-button label="Close" title="Close" onclick={onCloseCaseCreated}
+                                    class="brand-secondary-button"></lightning-button>
+                            </template>
+                        </footer>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+
+
+        </template>
+    </div>
+
+    <!-- Article Events-->
+    <!--  <template if:true={consignmentEvents}>
+        <br><br>
+        <h3>Article events for {consignmentNumber}</h3> <br>
+        <template if:true={isConsigmentEventsExists}>
+          <c-bsp-article-events consignment-events={consignmentEvents} is-consignment-authenticated={isConsignmentAuthenticated}></c-bsp-article-events>
+        </template>
+       
+        <template if:false={isConsigmentEventsExists}>
+            No Consignment Tracking
+        </template>
+
+    </template> -->
+
+</template>

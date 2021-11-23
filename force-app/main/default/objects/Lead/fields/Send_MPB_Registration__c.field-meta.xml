@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Send_MPB_Registration__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Checking this box will send a MyPost Business registration invitation email to the customer.
+Marketing Cloud use this checkbox as a trigger for the email send. Sent emails will appear in the Individual Email Results related list on Lead records</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Checking this box will send a MyPost Business registration invitation email to the customer.</inlineHelpText>
+    <label>Send MPB Registration</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

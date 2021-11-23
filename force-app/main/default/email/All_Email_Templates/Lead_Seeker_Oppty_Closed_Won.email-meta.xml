@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>The lead submitter receives an email indicating that through the progression of the opportunity within the sales process, the customer has taken up Australia Post’s proposal.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Lead Seeker - Oppty Closed Won</name>
+    <style>none</style>
+    <subject>Seeker Rewards Program Update- opportunity won! {!Opportunity.Opportunity_Number__c} - {!Opportunity.Name}</subject>
+    <textOnly>Dear {!Opportunity.Hidden_Lead_Creator_Name__c},
+
+Congratulations! The new business lead you submitted has been won for the amount of {!Opportunity.Amount}.
+
+You’ll be awarded with points based on how much the win is worth (as shown in the table below):
+
+Tier 1 – Opportunity Win ($1 to $1,999) 150 Points
+Tier 2 – Opportunity Win ($2,000 to $9,999) 500 Points
+Tier 3 – Opportunity Win ($10,000 to $19,999) 1,000 Points
+Tier 4 – Opportunity Win ($20,000 to $29,999) 2,000 Points
+Tier 5 – Opportunity Win ($30,000 to $49,999) 3,000 Points
+Tier 6 – Opportunity Win Opportunity Win ($50,000 to $99,999) 5,000 Points
+
+
+Points are allocated on a fortnightly basis. As soon as you receive them you can start shopping from the huge range of rewards on offer. Simply login to the Seeker website to browse and redeem fantastic rewards.
+
+You’ve clearly got an eye for spotting a great lead, so don’t forget to keep them coming for your chance to grow your points balance!
+
+Congratulations again and happy shopping.
+
+Regards,
+The Seeker Team
+
+
+
+Terms &amp; conditions | Privacy policy | Security
+
+
+
+
+
+Contact us: If this email has been incorrectly sent to you or the information contained within isn’t correct, please let us know at seekerrewards@auspost.com.au
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

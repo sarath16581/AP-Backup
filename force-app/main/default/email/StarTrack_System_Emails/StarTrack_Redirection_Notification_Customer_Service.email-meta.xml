@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>StarTrack Email Template to be used for sending Redirection Notification when resolved by Operations.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>StarTrack Redirection Notification - Customer Service</name>
+    <style>freeForm</style>
+    <subject>Consignment {!workflow_Email__c.Consignment_Number__c} - StarTrack Case {!workflow_Email__c.Calc_Case_Number__c} has been resolved</subject>
+    <textOnly>Case Number: {!workflow_Email__c.Calc_Case_Number__c}
+
+Hi  {!workflow_Email__c.Contact_First_Name__c},
+
+Thank you for contacting StarTrack regarding consignment {!workflow_Email__c.Consignment_Number__c}.
+
+Your freight has now been redirected to the requested address. Delivery is expected between 1 - 2 business days.
+
+You can track the progress of your delivery via our website at www.startrack.com.au.
+
+Kind Regards,
+
+StarTrack Customer Service Team
+
+
+{!workflow_Email__c.Case_Thread_Id__c}
+
+Help &amp; Support  |  Terms &amp; Conditions  |  Privacy Policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

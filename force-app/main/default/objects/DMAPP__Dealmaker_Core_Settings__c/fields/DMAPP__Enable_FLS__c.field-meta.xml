@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Enable_FLS__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Enable Field Level Security</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enable Field Level Security</inlineHelpText>
+    <label>Enable FLS</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

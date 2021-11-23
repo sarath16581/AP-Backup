@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bid_Support_Request_Queue_Deal_Support_Request</fullName>
+    <columns>NAME</columns>
+    <columns>Stage__c</columns>
+    <columns>Status__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Bid_or_Tender_Type__c</columns>
+    <columns>Document_Type__c</columns>
+    <columns>Product__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>Due_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Deal_Support_Request__c.Bids_Support_Request</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Submitted,Received Information,In Progress,Pending Information,Completed</value>
+    </filters>
+    <label>Bid Support Request</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>Bid_Support_Request_Team</group>
+    </sharedTo>
+</ListView>

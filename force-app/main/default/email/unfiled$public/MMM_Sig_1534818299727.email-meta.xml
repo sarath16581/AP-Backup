@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Kind regards,   Biz Luo MMM Controller GPO Box 5091 Melbourne VIC 3001  T   1300 823 789  E  MMMcontroller@auspost.com.au</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>MMM Sig</name>
+    <relatedEntityType>Case</relatedEntityType>
+    <style>none</style>
+    <subject>Test</subject>
+    <type>custom</type>
+    <uiType>SFX</uiType>
+</EmailTemplate>

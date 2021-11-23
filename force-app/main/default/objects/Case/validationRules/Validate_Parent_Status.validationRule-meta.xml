@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_Parent_Status</fullName>
+    <active>true</active>
+    <description>Validate parent status/fields before creating VOC Incident record.</description>
+    <errorConditionFormula>AND(
+    ISNEW(),
+    OR(Parent_Status__c = &apos;Closed&apos;,
+       ISBLANK(Subject),
+       ISBLANK(Description),
+       ISBLANK(Recent_Caller_First_Name__c)),
+    RecordType.Name = &apos;Voice of Customer Incident&apos;)</errorConditionFormula>
+    <errorMessage>Creation of VOC Incident is not allowed if the VOC Enquiry Status is Closed or if any of these fields are blank (Classification, Subject, Description, Contact Firstname).</errorMessage>
+</ValidationRule>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>A reply for new case to the Salesforce support Shared Mailbox</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>System Support - NewCaseReply</name>
+    <style>none</style>
+    <subject>{!Case.Subject} - {!Case.Thread_Id}</subject>
+    <textOnly>Hello
+
+Your request has been received and logged as case {!Case.CaseNumber}.
+
+One of the User Support Team will be in contact shortly.
+
+Please reply to this email with any comments/questions.
+
+Alternatively if you have Salesforce access, you can add case comments on the link below.
+
+{!Case.Link}
+
+Cheers
+
+The Salesforce User Support Team
+Australia Post  {!Case.Thread_Id}
+
+-----------------------------------------------------------------------------------------
+
+{!Case.Description}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

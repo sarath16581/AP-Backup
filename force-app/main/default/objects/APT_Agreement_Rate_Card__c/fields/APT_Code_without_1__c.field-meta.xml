@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Code_without_1__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( OR(AND(CONTAINS(APT_Value_1__c , &apos;1&apos;),CONTAINS( APT_Agreement_Line_Item__r.APT_Price_Structure__c , &apos;Z30&apos;)),AND(CONTAINS(APT_Value_1__c , &apos;0&apos;),CONTAINS( APT_Agreement_Line_Item__r.APT_Price_Structure__c , &apos;Z40&apos;))),&apos;&apos;, APT_Value_1__c )</formula>
+    <label>Code without 1</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

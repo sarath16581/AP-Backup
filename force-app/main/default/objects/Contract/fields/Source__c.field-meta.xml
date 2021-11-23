@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Source__c</fullName>
+    <description>Source of this contract – internal paper or third party contract</description>
+    <externalId>false</externalId>
+    <label>Source</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Internal Paper</fullName>
+                <default>true</default>
+                <label>Internal Paper</label>
+            </value>
+            <value>
+                <fullName>Other Party Paper</fullName>
+                <default>false</default>
+                <label>Other Party Paper</label>
+            </value>
+            <value>
+                <fullName>Ariba Migrated Contract</fullName>
+                <default>false</default>
+                <label>Ariba Migrated Contract</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

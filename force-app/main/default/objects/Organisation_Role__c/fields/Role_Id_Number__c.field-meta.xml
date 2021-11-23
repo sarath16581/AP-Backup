@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Role_Id_Number__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE( Text(Role_Type__c) ,  
+&apos;Competitor&apos;, &apos;Com&apos; &amp;   Name,
+&apos;Consumer&apos;, &apos;Con&apos; &amp;  Name,
+&apos;Supplier&apos;, &apos;Sup&apos; &amp;  Name ,
+&apos;Partner&apos;, &apos;Par&apos; &amp;  Name ,
+&apos;Prospect&apos;, &apos;Pro&apos; &amp;  Name ,
+&apos;Customer&apos;, &apos;Cus&apos; &amp;  Name ,
+&apos;Known&apos;, &apos;Kno&apos; &amp;  Name ,
+&apos;Non Account Customer&apos;, &apos;NAC&apos; &amp;  Name ,
+&apos;Other&apos; &amp; Name)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Role Id</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

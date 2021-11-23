@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__TAS_Question__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>The section heading under which the criterion will be displayed. 
+
+Defined as a picklist, you can edit the section headings (change the names of the existing and/or add new) under App Setup &gt; Create &gt; Objects &gt; Assessment Criterion &gt; Section Heading.</inlineHelpText>
+    <label>Section Heading</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Is there an opportunity?</fullName>
+                <default>false</default>
+                <label>Is there an opportunity?</label>
+            </value>
+            <value>
+                <fullName>Can we compete?</fullName>
+                <default>false</default>
+                <label>Can we compete?</label>
+            </value>
+            <value>
+                <fullName>Can we win?</fullName>
+                <default>false</default>
+                <label>Can we win?</label>
+            </value>
+            <value>
+                <fullName>Is it worth winning?</fullName>
+                <default>false</default>
+                <label>Is it worth winning?</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

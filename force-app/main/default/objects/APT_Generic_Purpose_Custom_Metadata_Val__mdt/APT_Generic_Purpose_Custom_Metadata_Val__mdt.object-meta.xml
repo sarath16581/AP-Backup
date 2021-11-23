@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Values of APT_Generic_Purpose_Custom_Metadata_Key which will have the lookup of APT_Generic_Purpose_Custom_Metadata_Key</description>
+    <label>APT_Generic_Purpose_Custom_Metadata_Val</label>
+    <pluralLabel>APT_Generic_Purpose_Custom_Metadata_Val</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

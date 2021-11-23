@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Card_Left_Phone__c</fullName>
+    <description>Used when using manage delivery PA and case depot preferred method of tasking = &apos;Phone&apos;.</description>
+    <externalId>false</externalId>
+    <label>StarTrack Card Left Phone</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

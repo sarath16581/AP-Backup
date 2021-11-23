@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Contract Management Enquiry (CME) Case Comments Updated</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>CME Case Comments Updated v2</name>
+    <style>freeForm</style>
+    <subject>Case {!Case.CaseNumber} - {!Case.Subject} - Case Comments Updated</subject>
+    <textOnly>Dear Colleague,
+
+Your case is ‘Awaiting Information’
+
+In order to action your request can you please provide further information as detailed in the Case Comments Field.
+
+Case Number: {!Case.CaseNumber}
+
+Subject: {!Case.Subject}
+
+Case Comments:
+
+
+{!Case.Last_Case_Comment}
+
+
+
+Please do not respond to this request via reply e-mail. Add information/comments and relevant attachments to your case online by following the link below.
+
+
+{!Case.Link} or entering your case number into the search engine on the front page of SalesForce.com.
+
+Please Note:
+
+• If no response is received within 7 days of this request a reminder notification will be sent.
+
+• The case will be closed after 3 days if no response is received to the reminder notification.
+
+
+Alternatively, you can contact the Sales Support team on 1800SalesSupport@auspost.com.au or 1800 316 508 during business hours.
+
+Regards
+
+Contract Management Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

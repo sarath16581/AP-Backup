@@ -1,0 +1,17 @@
+<apex:page standardController="Apttus__APTS_Agreement__c"
+    extensions="APT_ImportController"
+    action="{!doFullySigned}" >
+    
+    
+    <apex:form id="theForm">
+    <apex:pageBlock mode="edit"
+            id="agmtInfo">
+        <apex:outputText id="displayMsg" value="{!output_text_Value}" style="font-weight: bold;"/>
+    </apex:pageBlock>
+  
+
+    </apex:form>
+    
+    
+    
+</apex:page>

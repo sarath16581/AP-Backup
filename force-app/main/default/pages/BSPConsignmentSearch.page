@@ -1,0 +1,750 @@
+<!--
+    Description: This VF page is being used for BSP Portal Consignment Search functionality.
+    History:
+    January 22, 2017 David Catindoy (Accenture) Added the ability to search AusPost Consignments
+    Feb 1, 2017 David Catindoy (Accenture) Modified the StarTrack Consignment Search results section
+    Nov 11, 2018 Kalpita T Modified the render statements on Delivered with signature scans to accomodate Safe drop too.
+    2019-04-19 nathan.franklin1@auspost.com.au Large refactor to support the onboarding of BAM Self service portal
+    2020-02-27 hasantha.liyanage added external tracking url for ICO
+    -->
+<apex:page controller="BSPConsignmentSearch"
+    cache="false"
+    contentType="text/html"
+    showHeader="false"
+    sidebar="false"
+    standardStylesheets="true"
+    title="Business Support Portal"
+    docType="html-5.0"
+    id="page"
+    action="{!preValidateBamBspAccess}">
+
+    <html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="DC.Creator" scheme="AglsAgent" content="Australia Post" />
+        <meta name="DC.Title" content="Australia Post - Home" />
+        <title>Business Support Portal</title>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="apple-touch-icon" sizes="144x144" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-144x144.png')}" />
+        <link rel="apple-touch-icon" sizes="114x114" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-114x114.png')}" />
+        <link rel="apple-touch-icon" sizes="72x72" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-72x72.png')}" />
+        <link rel="apple-touch-icon" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon.png')}" />
+        <link rel="shortcut icon" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/favicon.ico')}" />
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/style.css')}" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/head.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/libs/jquery-1.8.2.min.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/csso-widget.js')}"></script>
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/cssolight.css')}" />
+
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/style-icams-addons.css')}" />
+
+        <!-- MRSO assets -->
+        <link href="{!URLFOR($Resource.BSP_Asset,'css/mrso/mrso-v2.css')}" rel="stylesheet" />
+        <link href="{!URLFOR($Resource.BSP_Asset,'css/mrso/lightbox.css')}" rel="stylesheet" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/mrso/application.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/mrso/lightbox.js')}"></script>
+
+        <link href="{!URLFOR($Resource.BSP_Asset,'jquery-ui.css')}" rel="stylesheet" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'jquery-ui.js')}"></script>
+
+        <!-- Redirect Modal Dialog Resources -->
+        <apex:includeScript value="{!URLFOR($Resource.GlobalAssets, '/js/localState.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.BSP_Asset, '/js/redirectModal/controller.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.BSP_Asset, '/css/redirectModal/styles.css')}" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'GsForm_Script.js')}"></script>
+
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_CSS)}"/>
+        <script src="{!URLFOR($Resource.BSP_JS)}"></script>
+
+        <style>
+            .form-errors li {
+                margin-left: 20px;
+            }
+            #loading {
+               width: 100%;
+               height: 100%;
+               top: 0px;
+               left: 0px;
+               position: fixed;
+               display: block;
+               opacity: 0.7;
+               background-color: #fff;
+               z-index: 99;
+               text-align: center;
+            }
+            #loading-image {
+              position: absolute;
+              top: 35%;
+              left: 50%;
+              z-index: 100;
+            }
+            .rowColor {
+                background-color:#939393 !important;
+                font-size: 16px;
+            }
+            #page:conSearch_form:j_id36 .bw-table-header{
+                width: 10px;
+            }
+
+            .st-table-header {
+                background: #f3f1ee;
+                color: #382f2d;
+                font-family: Arial, sans-serif;
+                font-size: 13px;
+                font-style: normal;
+                font-weight: bold;
+                padding: 4px 10px 4px 6px;
+                text-align: left;
+            }
+
+            .st-table {
+                width: 100% !important;
+                border: 1px solid;
+                border-right-color: #E2E2E0;
+                border-left-color: #E2E2E0;
+                border-radius: 3px;
+                table-layout: fixed;
+            }
+
+            .st-row {
+                border-bottom: 1px solid #E2E2E0;
+                border-radius: 3px;
+                font-family: Arial,sans-serif;
+                color: #7f736f;
+            }
+
+            .st-row > td {
+                padding: 6px;
+                border-radius: 3px;
+                word-wrap: break-word;
+            }
+            .pading-top
+            {
+                padding-top: 10px;
+            }
+        </style>
+    </head>
+    <!--[if lt IE 7]> <body class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]>    <body class="lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]>    <body class="lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]><!--> <body> <!--<![endif]-->
+    <apex:outputPanel id="loadingPanel">
+    <div id="loading" style="display: none">
+        <img id="loading-image" src="/img/loading.gif" alt="Loading..." />
+    </div>
+    </apex:outputPanel>
+
+    <!-- START Accessibility links -->
+    <div class="accessibility-links"> <a href="#main" class="visuallyhidden focusable">Skip to content</a> <a href="#primary-nav" class="visuallyhidden focusable">Skip to primary navigation</a> </div>
+    <!-- END Accessibility links -->
+    <!-- START GE01 Header -->
+    <c:bspHeader />
+    <!-- END GE01 Header -->
+
+    <script type="text/javascript">
+        function hideLoading() {
+            console.log('~~' + document.getElementById('loading'));
+                document.getElementById('loading').style.display = 'none';
+            }
+        function showLoading() {
+                document.getElementById('loading').style.display = '';
+            }
+        function doSave(date) {
+            paraFunction(document.getElementById('artId').value);
+        }
+        //Highlight row on click event.
+        var pRow='';
+        function highlightElem(a) {
+            var c=a.className;
+            a.className="rowColor";
+            if(pRow=='' || pRow == undefined){
+                pRow=a;
+            } else {
+                if(pRow.innerHTML!=a.innerHTML) {
+                    pRow.className=c;
+                    pRow=a;
+                }
+            }
+        }
+        function selectArticle(articleNo) {
+            document.getElementById('{!$Component.conSearch_form.selectedArticleContainer}').value = articleNo;
+        }
+
+        function selectEventArticle(articleNo) {
+            document.getElementById('{!$Component.conSearch_form.selectedEventArticle}').value = articleNo;
+            retrieveArticleEvents();
+
+        }
+        function selectRowRad(input) {
+            var radioList = document.getElementsByClassName('radio_consign');
+            for (var i = 0 ; i < radioList.length ; i++) {
+                var radElem = document.getElementById('rad-' + radioList[i].value);
+                if (radElem.value == input) {
+                    radElem.checked = true;
+                }
+            }
+        }
+    </script>
+
+   <div class="l-container">
+        <div class="l-main l-without-left-panel clearfix" role="main" id="main">
+            <!-- MAIN PANEL -->
+            <div class="content-panel">
+                <div class='workarea'>
+                    <apex:outputPanel >
+                        <div id="breadcrumbs" >
+                           <a class="clearfix left bw-breadcrumbs-link-color" href="{!$Site.CurrentSiteUrl}bspEnquiry">Corporate Home</a>
+                           <div class="left bw-breadcrumbs-text-color">
+                               &nbsp;&nbsp;>&nbsp;&nbsp;Track an Item
+                           </div>
+                        </div>
+                    </apex:outputPanel>
+                    <div class="clearfix" />
+
+                    <apex:outputPanel >
+                        <br/>
+                        <h1>Track an Item</h1>
+                    </apex:outputPanel>
+
+                    <!-- START CM51 Value prop  -->
+                    <p class="value-proposition"></p>
+
+                    <div style="clear:both"/>
+
+                   <apex:form styleClass="form fn-validation"  id="conSearch_form" enctype="multipart/form-data">
+                        <!-- Trigger the "Search" process from JS, e.g. upon recalling or redirecting -->
+                        <apex:actionFunction name="searchArticle" action="{!search}" rerender="loadingPanel, conDetail, conListPanel, errMsg" oncomplete="hideLoading();" />
+
+                         <apex:outputPanel id="errMsg">
+                            <apex:Messages styleclass="form-errors" id="form_err" />
+                         </apex:outputPanel>
+
+                        <!-- START Error list
+                                If there are serverside errors, include them as <li> elements
+                                If there are no serverside errors, still include this DIV, but without any <li> elements. It will be used by JavaScript.
+                        -->
+                        <div class="form-errors hidden">
+                            <h3>Please enter the required information.</h3>
+                        </div>
+                        <!-- END Error list -->
+
+
+                        <!--<apex:outputPanel id="consignmentSearchSection" rendered="{!(selectedConsignmentSearchType != '')}">-->
+                        <apex:outputPanel id="consignmentSearchSection">
+
+                            <div class="input-group">
+                                <div class="input required">
+                                    <p>Tracking Number</p>
+                                    <apex:inputText id="consignmentNumber_id" value="{!consignmentNumber}" />
+                                </div>
+                            </div>
+
+                            <br/>
+                            <apex:outputPanel id="EnquiryButtons">
+                                <div class="form-buttons clearfix">
+                                    <div class="right">
+                                        <apex:commandButton styleClass="primary-cta button-submit" value="Search" id="genericSubmitButton" action="{!search}"
+                                                    style="background:#dc1928; padding:5px 20px;display:block"
+                                                    onclick="showLoading();" oncomplete="hideLoading();"
+                                                    rerender="loadingPanel, conDetail, conListPanel, errMsg">
+                                        </apex:commandButton>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel id="conListPanel">
+                            <apex:outputPanel rendered="{!showConList}">
+                                <br/>
+                                <h3>Consignments</h3>
+                                <hr/>
+                                <div>
+                                <apex:outputPanel id="consignmentResults">
+                                    <apex:inputHidden id="selectedArticleContainer" value="{!selectedArticle}"/>
+                                    <apex:dataTable value="{!conList}" var="art" headerClass="st-table-header" styleclass="st-table" rowclasses="st-row" columnsWidth="30px">
+                                        <apex:column onclick="selectArticle('{!art.ArticleID__c}');">
+                                            <input type="radio" name="chosen" class="radio_consign" id="rad-{!art.ArticleID__c}" VALUE="{!art.ArticleID__c}" onclick="selectArticle('{!art.ArticleID__c}');"/>
+                                        </apex:column>
+                                        <apex:repeat value="{!$ObjectType.Article__c.fieldsets.BSP_Consignment_Search_Results}"  var="fieldValue">
+                                            <!-- David Catindoy - Added additional columns to cater change of column name. -->
+                                            <apex:column onclick="selectArticle('{!art.ArticleID__c}');selectRowRad('{!art.ArticleID__c}');" rendered="{!fieldValue = 'Name'}" width="1px;">
+                                                <apex:facet name="header">Tracking Number</apex:facet>
+                                                <apex:outputPanel >
+                                                    <!--<apex:outputLink value="/{!art.Id}" target="_blank" rendered="{!art.Id != NULL}">{!art.Name}</apex:outputLink>-->
+                                                    <apex:outputText value="{!art.Name}"/>
+                                                </apex:outputPanel>
+                                            </apex:column>
+                                            <apex:column onclick="selectArticle('{!art.ArticleID__c}');selectRowRad('{!art.ArticleID__c}');" rendered="{!fieldValue = 'ExpectedDeliveryDate_Str__c'}">
+                                                <apex:facet name="header">ETA Date</apex:facet>
+                                                <apex:outputPanel >
+                                                    <apex:outputText value="{!art[fieldValue]}"/>
+                                                </apex:outputPanel>
+                                            </apex:column>
+                                            <apex:column onclick="selectArticle('{!art.ArticleID__c}');selectRowRad('{!art.ArticleID__c}');" rendered="{!fieldValue = 'Service_Type__c'}">
+                                                <apex:facet name="header">Service</apex:facet>
+                                                <apex:outputPanel >
+                                                    <apex:outputText value="{!art[fieldValue]}"/>
+                                                </apex:outputPanel>
+                                            </apex:column>
+                                            <apex:column onclick="selectArticle('{!art.ArticleID__c}');selectRowRad('{!art.ArticleID__c}');" rendered="{!fieldValue = 'Consignment_Summary_Status__c'}">
+                                                <apex:facet name="header">Status</apex:facet>
+                                                <apex:outputPanel >
+                                                    <apex:outputText value="{!art[fieldValue]}"/>
+                                                </apex:outputPanel>
+                                            </apex:column>
+                                            <apex:column onclick="selectArticle('{!art.ArticleID__c}');selectRowRad('{!art.ArticleID__c}');" rendered="{!fieldValue = 'Receiver_Suburb__c'}">
+                                                <apex:facet name="header">Destination</apex:facet>
+                                                <apex:outputPanel >
+                                                    <apex:outputText value="{!art[fieldValue]}"/>
+                                                </apex:outputPanel>
+                                            </apex:column>
+                                            <apex:column onclick="selectArticle('{!art.ArticleID__c}');selectRowRad('{!art.ArticleID__c}');" rendered="{!CASE(fieldValue, 'Name', 0, 'ExpectedDeliveryDate_Str__c', 0, 'Service_Type__c', 0, 'Consignment_Summary_Status__c', 0, 'Receiver_Suburb__c', 0, 1) = 1}">
+                                                <apex:facet name="header">{!fieldValue.Label}</apex:facet>
+                                                <apex:outputPanel >
+                                                    <apex:outputText value="{!art[fieldValue]}"/>
+                                                </apex:outputPanel>
+                                            </apex:column>
+                                        </apex:repeat>
+                                    </apex:dataTable>
+                                </apex:outputPanel>
+                                </div>
+                                <br/>
+                                <apex:outputPanel id="RetrieveButtonPanel">
+                                <div class="form-buttons clearfix">
+                                    <div class="right">
+                                        <apex:commandButton styleClass="primary-cta button-submit" value="Retrieve" id="proceedButton" action="{!searchSTConsignmentByUniqueExtId}"
+                                                            style="background:#dc1928; padding:5px 20px;display:block" onclick="showLoading();" oncomplete="hideLoading();" rerender="conDetail, conListPanel">
+                                        </apex:commandButton>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                        <apex:outputPanel id="conDetail">
+                            <script type="text/javascript">
+                                if (redirectModal && redirectModal.hasOwnProperty('model'))
+                                {
+                                    redirectModal.model.set('articleId', '{!singleCon.Id}');
+                                    redirectModal.model.set('eligible', {!authToRecallRedirect});
+                                    redirectModal.model.set('recallInProgress', {!singleCon.RecallTempLock__c || (singleCon.Consignment__c != null && singleCon.Consignment__r.RecallTempLock__c)});
+                                    redirectModal.checkElgibility();
+                                }
+                            </script>
+                            <apex:outputPanel rendered="{!showConDetail}">
+                                <!-- David Catindoy - Split the display panel for AusPost and StarTrack. -->
+                                <apex:outputPanel rendered="{!selectedConsignmentSearchType == 'StarTrack'}">
+                                    <hr/>
+                                    <h3>Tracking Number</h3>
+                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.Name}" style="color: #222;"/>
+                                    <!-- David Catindoy - Split the panel for authenticated view and unauthenticated view for StarTrack consignment details.-->
+                                    <apex:outputPanel rendered="{!isConsignmentAuthenticated}"> <!-- Start of authenticated view -->
+                                        <table class="bw-item-details">
+                                            <tr>
+                                                <td>
+                                                    <h5>Sender Company</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.SenderCompany__c}"/>
+                                                </td>
+                                                <td>
+                                                    <h5>Receiver Company</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.ReceiverCompany__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h5>Sender Name</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.SenderName__c}"/>
+                                                </td>
+                                                <td>
+                                                    <h5>Receiver Name</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.ReceiverName__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h5>Sender Address</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.SenderAddress__c}"/>
+                                                </td>
+                                                <td>
+                                                    <h5>Receiver Address</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.ReceiverAddress__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h5>Dispatched</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.Dispatch_Date_Str__c}"/>
+                                                </td>
+                                                <td>
+                                                    <h5>Estimated Arrival</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.ExpectedDeliveryDate_Str__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h5>Service Type</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.STServiceType__c}"/>
+                                                </td>
+                                                <td>
+                                                    <h5>Unit Type</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.Unit_Type__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h5>Special Instructions</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.DeliveryInstructions__c}"/>
+                                                </td>
+                                                <td>
+                                                    <h5>Customer Reference</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.Customer_Ref__c}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </apex:outputPanel> <!-- End of authenticated view -->
+                                    <apex:outputPanel rendered="{!NOT(isConsignmentAuthenticated)}"> <!-- Start of unauthenticated view -->
+                                        <table class="bw-item-details">
+                                            <tr>
+                                                <td>
+                                                    <h5>Dispatched</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.Dispatch_Date_Str__c}"/>
+                                                </td>
+                                                <td>
+                                                    <h5>Estimated Arrival</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.ExpectedDeliveryDate_Str__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h5>Service Type</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.STServiceType__c}"/>
+                                                </td>
+                                                <td>
+                                                    <h5>Destination</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!destination}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </apex:outputPanel> <!-- End of unauthenticated view -->
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!selectedConsignmentSearchType == 'AusPost'}">
+                                    <hr/>
+                                    <h3>Tracking Number</h3>
+                                    <!-- To track your item at the destination country.... will be displayed based on the availability of the Externa Traking URL -->
+                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.Name}" rendered="{!singleCon.ExternalTrackingURL__c != null}" style="color: #222;">
+                                        To track your item at the destination country, click<apex:outputLink value="{!singleCon.ExternalTrackingURL__c}"  target="_blank"> here</apex:outputLink>
+                                    </apex:outputText>
+                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.Name}" rendered="{!singleCon.ExternalTrackingURL__c == null}" style="color: #222;"/>
+                                    <apex:outputPanel rendered="{!isConsignmentAuthenticated}"> <!-- Start of authenticated view -->
+                                        <table class="bw-item-details">
+                                            <tr>
+                                                <td>
+                                                    <h5>Sender Company</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.SenderCompany__c}"/>
+                                                </td>
+                                                <td>
+                                                    <h5>Receiver Company</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.ReceiverCompany__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h5>Sender Name</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.SenderName__c}"/>
+                                                </td>
+                                                <td>
+                                                    <h5>Receiver Name</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.ReceiverName__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h5>Sender Address</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.SenderAddress__c}"/>
+                                                </td>
+                                                <td>
+                                                    <h5>Receiver Address</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.ReceiverAddress__c}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h5>Lodgement Date</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{0, date}">
+                                                        <apex:param value="{!APConsignmentLodgementDate}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                                <td>
+                                                    <h5>Expected Delivery Date</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{0, date}">
+                                                        <apex:param value="{!APConsignmentExpDeliveryDate}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h5>Sub-Product</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!APConsignmentSubProduct}"/>
+                                                </td>
+                                                <td>
+                                                    <h5>Delivery Instructions</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!singleCon.DeliveryInstructions__c}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!NOT(isConsignmentAuthenticated)}"> <!-- Start of unauthenticated view -->
+                                        <table class="bw-item-details">
+                                            <tr>
+                                                <td>
+                                                    <h5>Destination</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{!destination}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h5>Lodgement Date</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{0, date}">
+                                                        <apex:param value="{!APConsignmentLodgementDate}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                                <td>
+                                                    <h5>Expected Delivery Date</h5>
+                                                    <apex:outputText styleClass="bw-readonly-field" value="{0, date}">
+                                                        <apex:param value="{!APConsignmentExpDeliveryDate}"/>
+                                                    </apex:outputText>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </apex:outputPanel> <!-- End of unauthenticated view -->
+                                </apex:outputPanel>
+
+                                <!-- Recall/Redirect buttons. Check "BSP Asset -> js -> redirectModal -> controller.js" for logic -->
+                                <apex:outputPanel layout="none" rendered="{!selectedConsignmentSearchType == 'AusPost'}">
+                                    <input type="button" class="primary-cta button-submit redButton dialogTrigger disabledButton" value="Redirect" id="redirectButton" style="display: inline-block; margin: 0; float: right;" />
+                                    <input type="button" class="primary-cta button-submit redButton dialogTrigger " value="Recall" id="recallButton" style="display: inline-block; margin: 0 5px; float: right;" />
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!selectedConsignmentSearchType == 'StarTrack' || (selectedConsignmentSearchType == 'AusPost' && singleCon.RecordType.Name == 'Article')}">
+                                    <br/>
+                                    <h3><apex:outputText value="{!IF(selectedConsignmentSearchType == 'StarTrack', 'Consignment Tracking', 'Article Tracking')}"/></h3>
+                                    <hr/>
+                                    <apex:outputPanel id="consignmentEvents" rendered="{!consignmentEvents.size > 0}">
+                                        <apex:dataTable value="{!consignmentEvents}" var="ce" headerClass="bw-table-header" styleclass="bw-table" rowclasses="bw-row">
+                                            <apex:column >
+                                                <apex:facet name="header">Actual Date/Time</apex:facet>
+                                                <apex:outputField value="{!ce.ActualDateTime_TimeStamp__c}" rendered="{!selectedConsignmentSearchType == 'StarTrack'}"/>
+                                                <apex:outputField value="{!ce.ActualDateTime__c}" rendered="{!selectedConsignmentSearchType == 'AusPost'}"/>
+                                            </apex:column>
+                                            <apex:column rendered="{!selectedConsignmentSearchType == 'StarTrack'}">
+                                                <apex:facet name="header">Depot Name</apex:facet>
+                                                <apex:outputField value="{!ce.Depot_Name__c}" />
+                                            </apex:column>
+                                            <apex:column >
+                                                <apex:facet name="header">Event Description</apex:facet>
+                                                <apex:outputText value="{!ce.ExternalDescription__c}" />
+                                            </apex:column>
+                                            <apex:column rendered="{!selectedConsignmentSearchType == 'AusPost'}">
+                                                <apex:facet name="header">Location</apex:facet>
+                                                <apex:outputText value="{!ce.WorkCentreText__c}"/>
+                                            </apex:column>
+                                            <apex:column rendered="{!(selectedConsignmentSearchType == 'AusPost' && isConsignmentAuthenticated)}">
+                                                <apex:facet name="header">Proof of Delivery</apex:facet>
+                                              <!--  <apex:outputLink value="/servlet/servlet.FileDownload?file={!ce.NotesAndAttachments[0].Id}" rendered="{!ce.NotesAndAttachments.size > 0}" target="_blank">Click to View Image</apex:outputLink> -->
+                                                <apex:outputLink value="/bsp/POD_Redirect?id={!ce.Id}" rendered="{!(ce.NotesAndAttachments.size > 0 ||  ce.Safe_Drop_GUID__c != '' ) && IF(CONTAINS(emScanTypes, ce.EventType__c),true,false)}" target="_blank">Click to View </apex:outputLink>
+                                            </apex:column>
+                                        </apex:dataTable>
+                                    </apex:outputPanel>
+                                    <apex:outputText rendered="{!consignmentEvents.size == 0}" value="No Consignment Tracking"/>
+                                    <br/>
+                                </apex:outputPanel>
+
+                                <apex:actionFunction name="retrieveArticleEvents" action="{!retrieveArticleEvents}" rerender="conDetail, conListPanel"/>
+
+                                <apex:outputPanel rendered="{!(selectedConsignmentSearchType == 'StarTrack' || (selectedConsignmentSearchType == 'AusPost' && singleCon.RecordType.Name == 'Consignment'))}">
+                                    <br/>
+                                    <h3>Article Tracking</h3>
+                                    <hr/>
+                                    <apex:outputPanel id="labelEvents" rendered="{!labelEvents.size > 0}">
+                                        <apex:inputHidden id="selectedEventArticle" value="{!selectedEventArticle}"/>
+                                        <apex:dataTable value="{!labelEvents}" var="le" headerClass="bw-table-header" styleclass="bw-table" rowclasses="bw-row">
+                                            <apex:column rendered="{!selectedConsignmentSearchType == 'AusPost'}">
+                                                <apex:image id="imageButtonPlus" styleClass="imageHover" url="{!URLFOR($Resource.StarTrackCaseIcons, '/add_60.png')}" width="12px;" height="12px;" onclick="selectEventArticle('{!le.Article__c}')" rendered="{!selectedEventArticle != le.Article__c}"/>
+                                                <apex:image id="imageButtonMinus" styleClass="imageHover" url="{!URLFOR($Resource.StarTrackCaseIcons, '/dash_60.png')}" width="12px;" height="12px;" onclick="selectEventArticle('')" rendered="{!selectedEventArticle == le.Article__c}"/>
+                                            </apex:column>
+                                            <apex:column >
+                                                <apex:facet name="header">Article Number</apex:facet>
+                                                <apex:outputField value="{!le.Article__r.Name}" />
+                                            </apex:column>
+                                            <apex:column >
+                                                <apex:facet name="header">Date &amp; Time</apex:facet>
+                                                <apex:outputField value="{!le.ActualDateTime_TimeStamp__c}" rendered="{!selectedConsignmentSearchType == 'StarTrack'}"/>
+                                                <apex:outputField value="{!le.ActualDateTime__c}" rendered="{!selectedConsignmentSearchType == 'AusPost'}"/>
+                                            </apex:column>
+                                            <apex:column >
+                                                <apex:facet name="header">Last Tracking Event</apex:facet>
+                                                <apex:outputField value="{!le.ExternalDescription__c}" />
+                                            </apex:column>
+                                            <apex:column >
+                                                <apex:facet name="header">Location</apex:facet>
+                                                <apex:outputText value="{!le.Depot_Code__c}" rendered="{!selectedConsignmentSearchType == 'StarTrack'}"/>
+                                                <apex:outputText value="{!le.WorkCentreText__c}" rendered="{!selectedConsignmentSearchType == 'AusPost'}"/>
+                                            </apex:column>
+                                            <apex:column rendered="{!(selectedConsignmentSearchType == 'AusPost' && isConsignmentAuthenticated)}">
+                                                <apex:facet name="header">Proof of Delivery</apex:facet>
+                                                <!--apex:outputLink value="/servlet/servlet.FileDownload?file={!le.NotesAndAttachments[0].Id}" rendered="{!le.NotesAndAttachments.size > 0}" target="_blank">Click to View Image</apex:outputLink -->
+                                                <apex:outputLink value="/bsp/POD_Redirect?id={!le.Id}" rendered="{!(le.NotesAndAttachments.size > 0 || le.Safe_Drop_GUID__c != null) && IF(CONTAINS(emScanTypes, le.EventType__c),true,false)}" target="_blank">Click to View </apex:outputLink>
+                                            </apex:column>
+                                        </apex:dataTable>
+                                    </apex:outputPanel>
+                                    <apex:outputText rendered="{!labelEvents.size == 0}" value="No Freight Items Tracking"/>
+                                </apex:outputPanel>
+
+                                <apex:outputPanel id="articleEventsPanel" rendered="{!(selectedConsignmentSearchType == 'AusPost' && articleEvents.size > 0)}">
+                                    <br/>
+                                    <br/>
+                                    <h3>Article Events</h3>
+                                    <hr/>
+                                    <apex:dataTable value="{!articleEvents}" var="ae" headerClass="bw-table-header" styleclass="bw-table" rowclasses="bw-row">
+                                        <apex:column >
+                                            <apex:facet name="header">Article Number</apex:facet>
+                                            <apex:outputField value="{!ae.Article__r.Name}" />
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">Date &amp; Time</apex:facet>
+                                            <apex:outputField value="{!ae.ActualDateTime__c}"/>
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">Last Tracking Event</apex:facet>
+                                            <apex:outputField value="{!ae.ExternalDescription__c}" />
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">Location</apex:facet>
+                                            <apex:outputText value="{!ae.WorkCentreText__c}"/>
+                                        </apex:column>
+                                        <apex:column rendered="{!isConsignmentAuthenticated}">
+                                            <apex:facet name="header">Proof of Delivery</apex:facet>
+                                            <!-- updated by Kalpita for POD/SafeDrop link update to PDF page -->
+                                            <apex:outputLink value="/bsp/POD_Redirect?id={!ae.Id}"
+                                                rendered="{!(ae.NotesAndAttachments.size > 0 || ae.Safe_Drop_GUID__c != null) && IF(CONTAINS(emScanTypes, ae.EventType__c),true,false)}"
+                                                target="_blank">Click to View</apex:outputLink>
+                                        </apex:column>
+                                    </apex:dataTable>
+                                    <br/>
+                                </apex:outputPanel>
+
+                                <apex:outputPanel rendered="{!selectedConsignmentSearchType == 'StarTrack'}">
+                                    <apex:outputPanel rendered="{!relatedPODs.size > 0}">
+                                        <br/>
+                                        <br/>
+                                        <h3>Proof of Delivery</h3>
+                                        <hr/>
+                                        <apex:outputPanel id="proofOfDeliveries">
+                                            <apex:dataTable value="{!relatedPODs}" var="pod" headerClass="bw-table-header" styleclass="bw-table" rowclasses="bw-row">
+                                                <apex:column >
+                                                    <apex:facet name="header">Date and Time</apex:facet>
+                                                    <apex:outputField value="{!pod.POD_Received_Date_Str__c}"/>
+                                                </apex:column>
+                                                <apex:column >
+                                                    <apex:outputLink value="/bsp/BSPStarTrackPOD?id={!pod.NotesAndAttachments[0].Id}" target="_blank" rendered="{!IF((LEFT(singleCon.ArticleID__c,4)='TM2_'),true,false)}">Click to View </apex:outputLink>
+                                                    <apex:outputLink value="/bsp/StarTrackProofOfDeliveryMerge?id={!pod.Id}" target="_blank" rendered="{!IF((LEFT(singleCon.ArticleID__c,4)=='TR2_'),true,false)}">Click to View </apex:outputLink>
+                                                </apex:column>
+                                            </apex:dataTable>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+
+                                <apex:outputPanel id="CreateEnquiryBtn" rendered="{!showCreateCaseButton}">
+                                    <hr/>
+                                    <div class="form-buttons clearfix">
+                                        <div class="right">
+                                            <apex:commandButton styleClass="primary-cta button-submit" value="Create enquiry" id="createButton" action="{!createCaseFromConsignDetail}"
+                                                        style="background:#dc1928; padding:5px 20px;display:block"
+                                                        onclick="showLoading();" oncomplete="hideLoading();" rerender="conDetail"/>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                    </apex:form>
+                    <!-- Recall/Redirect popup markup -->
+                    <div id="redirectDialog">
+                        <apex:form id="redirectForm" styleClass="form fn-validation">
+                            <div class="form-errors hidden">
+                                <h3>Please enter the required information.</h3>
+                </div>
+                            <p class="required-legend"><span class="symbol-req"> *</span> Required information</p>
+                            <div class="input-group">
+                                <div class="input required input-medium">
+                                    <p>Addressee Name<span class="symbol-req"> *</span></p>
+                                    <input type="text" id="ReturnName"/>
+            </div>
+                                <div class="input input-medium">
+                                    <p>Company Name</p>
+                                    <input type="text" id="ReturnCompanyName"/>
+                                </div>
+                                <script src="{!URLFOR($Resource.jQuery111)}" />
+                                <script src="{!URLFOR($Resource.jQueryUI1_10_3)}" />
+                                <c:bspQasComponent id="comp1" address="{!redirectAddress}" legend="Addressee Address" qastype="redirect" />
+                            </div>
+                            <br/><br/>
+                            <div id="termsAndConditionsButton" onclick="document.getElementById('termsAndConditionsText').style.display == 'none' ? document.getElementById('termsAndConditionsText').style.display = 'block' : document.getElementById('termsAndConditionsText').style.display = 'none'">
+                                Terms &amp; Conditions
+                            </div><br/>
+                            <div id="termsAndConditionsText" style="display: none;">
+                                While we will make all reasonable efforts to recall or update the address, it may not be possible in certain circumstances. Australia Post  will have no responsibility for parcels that aren’t redirected or recalled.<br/><br/>
+                                We can only redirect or update the address for parcels addressed to a street address. It may be possible to recall a parcel addressed to a Parcel Locker, PO Box or Parcel Collect by phone: 13 11 18<br/><br/>
+                                Updating the address will add at least one additional day to the time of delivery<br/><br/>
+                                Your contracted return to sender charge will apply to any recall or address update requests.
+                            </div>
+                        </apex:form>
+                    </div>
+                    <div id="redirectDialogSuccessMessage">
+                        <h1 class="success">Thank you! We’ve received your request - reference </h1><h1 class="success" id="caseNumber"></h1><h1 class="success"></h1>
+                        <br/><br/>
+                        <h2 class="NormalWeight">Once this parcel arrives at the relevant facility, we'll make every effort to update the address and update our tracking information</h2>
+                        <!--h2 class="NormalWeight" id="returnOrRedirect"></h2-->
+                        <br/><br/>
+                        <h2 class="NormalWeight">Please allow up to 5 business days for this to happen.</h2>
+                        <br/><br/><br/><br/><br/><br/>
+                        <div class="clearfix">
+                            <center>
+                                <img src="{!URLFOR($Resource.BSP_Asset, 'media/images/thank-you-img.png')}" alt="Thank you." />
+                            </center>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        var j$ = jQuery.noConflict();
+                        var redirectModal = new redirectModal();
+                        j$(function() {
+                            // initialize js controller
+                            redirectModal.initialize();
+                        });
+                    </script>
+                </div>
+            </div>
+            <!-- END MAIN PANEL -->
+
+            <!-- START Your details -->
+            <c:bspYourDetails />
+            <!-- END Your details -->
+
+            <!-- START Quicklinks -->
+            <c:bspQuickLinks />
+            <!-- END Quicklinks -->
+        </div>
+    </div>
+
+    <!-- START GE02 Footer -->
+    <c:bspFooter />
+    <!-- END GE02 Footer -->
+
+    <script>
+        if({!autoClickSTButton} || {!autoClickAPButton}){
+            document.getElementById("page:conSearch_form:genericSubmitButton").click();
+        }
+    </script>
+
+    </body>
+    </html>
+</apex:page>

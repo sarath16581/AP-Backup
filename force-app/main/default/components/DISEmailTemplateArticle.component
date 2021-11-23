@@ -1,0 +1,91 @@
+<!-- Description:    VF component to generate the event
+History:
+--------------------------------------------------
+12/05/2020 - Hara Sahoo Modified- Added page break
+22/05/2020 - Hara Sahoo Modified- Added page break on the event message section display
+--->
+<apex:component >
+    <apex:attribute name="article" description="Article to be displayed"
+                    type="Article__c" required="true"/>
+    
+    <apex:attribute name="eventMessages" description="Event Messages to be displayed"
+                    type="TIBCOEventMessageWrapper[]" required="true"/>
+    
+    <apex:attribute name="IsConsignment" description="Is this a consignment"
+                    type="Boolean" required="false" default="false"/>
+    
+    <apex:attribute name="articleFields" description="Article fields to display"
+                    type="Schema.FieldSetMember[]" required="true"/>
+    
+    <apex:attribute name="eventMessageFields" description="Event Message fields to display"
+                    type="Schema.FieldSetMember[]" required="true"/>
+    
+    
+        
+        <div style="page-break-inside: avoid;">
+        <h3 style="color: #DF1027;">{!IF(IsConsignment, "Consignment", "Article")}</h3>
+        
+        <apex:repeat value="{!articleFields}" var="f">
+           
+            <apex:outputPanel rendered="{!NOT(ISBLANK(article[f]))}">
+                <b><apex:outputLabel value="{!f.Label}: " /></b>
+                <apex:outputText styleClass="form-control input-sm {!f.type}" value=" {!article[f]}" /><br/>
+            </apex:outputPanel>
+        </apex:repeat>
+        
+        <apex:outputPanel rendered="{!NOT(ISBLANK(article.AdditionalServices__c))}">
+            <table style="border-collapse: collapse;border: none;padding: 0;">
+                <tr style="border: none;padding: 0;">
+                    <td style="border: none;width:150px;vertical-align: top;padding: 0;">
+                        <b><apex:outputLabel value="Additional Services: " /></b>
+                        
+                    </td>
+                    <td style="border: none;padding: 0;">
+                        <apex:outputField styleClass="form-control input-sm TextArea" value=" {!article.AdditionalServices__c}" />
+                    </td>
+                </tr>
+            </table>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!NOT(ISBLANK(article.ContentsItems__c))}">
+            <table style="border-collapse: collapse;border: none;padding: 0;">
+                <tr style="border: none;padding: 0;">
+                    <td style="border: none;width:150px;vertical-align: top;padding: 0;">
+                        <b><apex:outputLabel value="Contents Items: " /></b>
+                        
+                    </td>
+                    <td style="border: none;padding: 0;">
+                        <apex:outputField styleClass="form-control input-sm TextArea" value=" {!article.ContentsItems__c}" />
+                    </td>
+                </tr>
+            </table>
+        </apex:outputPanel>
+    </div>
+        <br/>
+        <div style="page-break-inside: avoid;">
+        <apex:outputPanel rendered="{!eventMessages.size > 0 || NOT(IsConsignment)}">
+            <h3 style="color: #DF1027;">Event Messages</h3>
+            <table class="event-message-section">
+                <tr>
+                    <apex:repeat value="{!eventMessageFields}" var="f">
+                        <th><apex:outputLabel value="{!f.Label}"/></th>
+                    </apex:repeat>
+                </tr>
+                <apex:repeat value="{!eventMessages}" var="item">
+                    <tr>
+                        <apex:repeat value="{!eventMessageFields}" var="f">
+                            <td>
+                                <apex:outputText styleClass="form-control input-sm {!f.type}"  rendered="{!IF(f.type='datetime','false','true')}" value="{!item.proxyEM[f]}" />
+                                <apex:outputText styleClass="form-control input-sm {!f.type}"  rendered="{!IF(f.type='datetime','true','false')}"  value=" {!item.proxyEM[f]}"/>
+                            </td>
+                        </apex:repeat>            
+                    </tr>
+                </apex:repeat>
+                <apex:repeat value="{!1}" rendered="{!ISBLANK(eventMessages)}">
+                    <tr>
+                        <td style="height: 60px;text-align: center;" colspan="{!eventMessageFields.size}">There are no event messages</td>
+                    </tr>
+                </apex:repeat>
+            </table>
+        </apex:outputPanel>           
+    </div>
+</apex:component>

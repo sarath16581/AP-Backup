@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACN_Status__c</fullName>
+    <description>Used to Identify the status of the organisation 
+Requested and owned by Christopher Doyle 
+Customer &amp; Market Analyst . 
+Customer Data &amp; Insights</description>
+    <externalId>false</externalId>
+    <label>ACN Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Registered</fullName>
+                <default>false</default>
+                <label>Registered</label>
+            </value>
+            <value>
+                <fullName>Deregistered</fullName>
+                <default>false</default>
+                <label>Deregistered</label>
+            </value>
+            <value>
+                <fullName>No ACN</fullName>
+                <default>false</default>
+                <label>No ACN</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

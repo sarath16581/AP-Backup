@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>APMS Closing Application</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>APMS Closing Application</name>
+    <style>none</style>
+    <subject>SecurePay Online Payments Application Number {!Application__c.Name} Closed</subject>
+    <textOnly>Hi {!Application__c.ContactFirstName__c},
+
+Further to our recent email, we have tried unsuccessfully on a number of occasions to contact you via email and phone to assist with getting your Credit card acceptance account Ready to Trade.
+
+As such we have closed your application and removed it from our system.
+
+If you still require an online Credit Card acceptance system, please contact us at your earliest convenience and we can start this process over again.
+
+Regards,
+
+The SecurePay Team
+SecurePay Pty Ltd – A business of Australia Post
+Level 8, 222 Exhibition St, Melbourne, VIC 3000
+P 1300 656 372 (option 1)
+E onlinepayments@securepay.com.au
+W securepay.com.au</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

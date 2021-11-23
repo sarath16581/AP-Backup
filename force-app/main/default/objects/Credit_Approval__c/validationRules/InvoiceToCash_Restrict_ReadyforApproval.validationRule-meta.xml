@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InvoiceToCash_Restrict_ReadyforApproval</fullName>
+    <active>true</active>
+    <description>Restrict update of ready for approval only to case owner</description>
+    <errorConditionFormula>AND( ISCHANGED( Ready_For_Approval__c ) ,  Case__r.OwnerId != $User.Id )</errorConditionFormula>
+    <errorDisplayField>Ready_For_Approval__c</errorDisplayField>
+    <errorMessage>You must be the Case Owner to submit this for approval.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>account has been approved and we have sent you an electronic agreement via email from DocuSign</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>APMS SOP Agreement Awaiting Signature</name>
+    <style>none</style>
+    <subject>Your SecurePay Online Payments agreement is awaiting signature - {!Application__c.Name}</subject>
+    <textOnly>Hi {!Application__c.ContactFirstName__c},
+
+We can see that your account has been approved and we have sent you an electronic agreement via email from DocuSign.
+
+Please check your inbox for an email from DocuSign with the subject line “Australia Post Request for Customer Signature”. Once we have received notification that you have electronically signed the document we can go ahead and begin on boarding your account.
+
+Once your account has been on boarded you will receive a Welcome Pack which has instructions to finalise your application and start taking payments online.
+
+If you need help with this task, our team is on hand to help guide you. Please call us on 1300 656 372 (option 1), we’re here to help.
+
+Regards,
+
+The SecurePay Team
+SecurePay Pty Ltd – A business of Australia Post
+Level 8, 222 Exhibition St, Melbourne, VIC 3000
+P 1300 656 372 (option 1)
+E onlinepayments@securepay.com.au
+W securepay.com.au</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

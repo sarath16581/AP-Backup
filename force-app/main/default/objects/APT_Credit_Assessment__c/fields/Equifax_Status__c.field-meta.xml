@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Equifax_Status__c</fullName>
+    <description>This field will be used to store the status returned from the equifax credit check callout. Possible values are ERROR, PRE_DECLINE, PRE_REFER, DECLINE, REFER, WITHDRAW, APPROVE.</description>
+    <externalId>false</externalId>
+    <label>Equifax Status</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Job_Template_by_Duty</fullName>
+    <columns>NAME</columns>
+    <columns>Location__c</columns>
+    <columns>Activity_Type__c</columns>
+    <columns>Next_Day_Job__c</columns>
+    <columns>Start_Time__c</columns>
+    <columns>Duration__c</columns>
+    <columns>Dock_Number__c</columns>
+    <columns>Job_Instructions__c</columns>
+    <columns>Day_Start_Time__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Route_Template__c</field>
+        <operation>equals</operation>
+        <value>MP85</value>
+    </filters>
+    <label>Job Template by Duty</label>
+</ListView>

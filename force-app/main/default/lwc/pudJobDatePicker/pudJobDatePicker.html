@@ -1,0 +1,22 @@
+<!--
+ - Created by MandavilD on 18/02/2020.
+ -->
+
+<!-- Job Date Picker -->
+<template>
+    <lightning-card title="Enter Date" icon-name="standard:record">
+        <lightning-record-edit-form object-api-name="PUD_Job__c" >
+            <lightning-input-field field-name="Date__c" onchange={handleDateChange} required></lightning-input-field>
+        </lightning-record-edit-form>
+        <lightning-radio-group name="radioGroup"
+                               label="Please Select below:"
+                               options={options}
+                               value={value}
+                               required
+                               type="radio"
+                               onchange={handleOnChange}></lightning-radio-group>
+            <br/>
+            <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="Proceed" label="Proceed" onclick={navigateToWebPage}>
+            </lightning-button>
+    </lightning-card>
+</template>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>mls_AddressLine1__c</fullName>
+    <description>Field used to support the remediation process for missorted or looping parcels.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Field used to support the remediation process for missorted or looping parcels.</inlineHelpText>
+    <label>Remediation Address Line 1</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

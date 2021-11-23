@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Unit__c</fullName>
+    <description>Phase 2</description>
+    <externalId>false</externalId>
+    <label>Business Unit</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Letters (International)</fullName>
+                <default>false</default>
+                <label>Letters (International)</label>
+            </value>
+            <value>
+                <fullName>Parcels</fullName>
+                <default>false</default>
+                <label>Parcels</label>
+            </value>
+            <value>
+                <fullName>Parcels (International)</fullName>
+                <default>false</default>
+                <label>Parcels (International)</label>
+            </value>
+            <value>
+                <fullName>Multi Business Unit</fullName>
+                <default>false</default>
+                <label>Multi Business Unit</label>
+            </value>
+            <value>
+                <fullName>Identity Services</fullName>
+                <default>false</default>
+                <label>Identity Services</label>
+            </value>
+            <value>
+                <fullName>Financial &amp; Commercial Services</fullName>
+                <default>false</default>
+                <label>Financial &amp; Commercial Services</label>
+            </value>
+            <value>
+                <fullName>Merchandise</fullName>
+                <default>false</default>
+                <label>Merchandise</label>
+            </value>
+            <value>
+                <fullName>Express Letters</fullName>
+                <default>false</default>
+                <label>Express Letters</label>
+            </value>
+            <value>
+                <fullName>Mail</fullName>
+                <default>false</default>
+                <label>Mail</label>
+            </value>
+            <value>
+                <fullName>eLetter</fullName>
+                <default>false</default>
+                <label>eLetter</label>
+            </value>
+            <value>
+                <fullName>Data</fullName>
+                <default>false</default>
+                <label>Data</label>
+            </value>
+            <value>
+                <fullName>eServices</fullName>
+                <default>false</default>
+                <label>eServices</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

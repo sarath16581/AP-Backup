@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <name>R2T UMS Product Team</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>Sales_Business_System_Team</publicGroup>
+        </publicGroups>
+        <users>
+            <user>amelia.jansen@auspost.com.au</user>
+            <user>glyn.powell@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Apttus_Approval__Approval_Request__c</sobjectType>
+    </queueSobject>
+</Queue>

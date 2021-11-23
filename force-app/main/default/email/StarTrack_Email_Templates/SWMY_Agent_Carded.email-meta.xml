@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SWMY – Agent Carded</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SWMY – Agent Carded</name>
+    <style>none</style>
+    <subject>SWMY – Agent Carded</subject>
+    <textOnly>Hi Team,
+
+Please arrange redelivery of the following consignment:
+
+Article
+
+{!Case.ArticleTest__c}
+
+Receiver Name
+
+{!Case.Receiver_Name__c}
+
+Address
+
+{!Case.Address4__c}, {!Case.Address4Suburb__c},{!Case.Address4Postcode__c}
+
+
+(COPY &amp; PASTE DELIVERY DETAILS FROM CASE)
+
+If you could advise when this has been actioned via return email it would be greatly appreciated.
+Kind regards,
+
+{!User.Name}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

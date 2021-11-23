@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AccessRole__c</fullName>
+    <description>.</description>
+    <externalId>false</externalId>
+    <label>Access Role</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>StarTrack Case Manager</fullName>
+                <default>false</default>
+                <label>StarTrack Case Manager</label>
+            </value>
+            <value>
+                <fullName>StarTrack Case Administrator</fullName>
+                <default>false</default>
+                <label>StarTrack Case Administrator</label>
+            </value>
+            <value>
+                <fullName>Contract UI User</fullName>
+                <default>false</default>
+                <label>Contract UI User</label>
+            </value>
+            <value>
+                <fullName>Send a Parcel UI User</fullName>
+                <default>false</default>
+                <label>Send a Parcel UI User</label>
+            </value>
+            <value>
+                <fullName>Cognition User</fullName>
+                <default>false</default>
+                <label>Cognition User</label>
+            </value>
+            <value>
+                <fullName>MPB System Administrator</fullName>
+                <default>false</default>
+                <label>MPB System Administrator</label>
+            </value>
+            <value>
+                <fullName>Secure RF User</fullName>
+                <default>false</default>
+                <label>Secure RF User</label>
+            </value>
+            <value>
+                <fullName>WFV_ADMIN</fullName>
+                <default>false</default>
+                <label>WFV_ADMIN</label>
+            </value>
+            <value>
+                <fullName>SecurePay User</fullName>
+                <default>false</default>
+                <label>SecurePay User</label>
+            </value>
+            <value>
+                <fullName>WFV_FULL_ACCESS</fullName>
+                <default>false</default>
+                <label>WFV_FULL_ACCESS</label>
+            </value>
+            <value>
+                <fullName>WFV_RESTRICTED</fullName>
+                <default>false</default>
+                <label>WFV_RESTRICTED</label>
+            </value>
+            <value>
+                <fullName>BYO User</fullName>
+                <default>false</default>
+                <label>BYO User</label>
+            </value>
+            <value>
+                <fullName>AusPost Case Administrator</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>AusPost Case Administrator</label>
+            </value>
+            <value>
+                <fullName>AusPost Case Manager</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>AusPost Case Manager</label>
+            </value>
+            <value>
+                <fullName>Enterprise Case Manager</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Enterprise Case Manager</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

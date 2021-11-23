@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AUSTRAC_type_needs_to_be_on_Organisation</fullName>
+    <active>true</active>
+    <description>AUSTRAC registration needs to be only set up on an Organisation record type on the Organisation object</description>
+    <errorConditionFormula>RecordType.Name = &apos;AUSTRAC Registration&apos; &amp;&amp;
+Account__r.Record_Type_Id__c &lt;&gt; &apos;01290000000VkR9AAK&apos;</errorConditionFormula>
+    <errorDisplayField>Account__c</errorDisplayField>
+    <errorMessage>AUSTRAC registration needs to be set up at Parent Organisation level</errorMessage>
+</ValidationRule>

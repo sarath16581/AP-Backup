@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <description>Bca Step Director Summary</description>
+    <isExposed>false</isExposed>
+    <masterLabel>Bca Step Director Summary</masterLabel>
+</LightningComponentBundle>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BASE_PER_KG_Z30</fullName>
+    <columns>NAME</columns>
+    <columns>APT_Charge_Code__c</columns>
+    <columns>APT_Consignment_Pricing__c</columns>
+    <columns>APT_Network_Type__c</columns>
+    <columns>APT_Price_Structure__c</columns>
+    <columns>APT_Signature__c</columns>
+    <columns>APT_Weight_Measure__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>APT_Price_Structure__c</field>
+        <operation>equals</operation>
+        <value>BASE+PER_KG {Z40}</value>
+    </filters>
+    <filters>
+        <field>APT_Network_Type__c</field>
+        <operation>equals</operation>
+        <value>Standard</value>
+    </filters>
+    <label>BASE+PER_KG {Z40}</label>
+    <language>en_US</language>
+</ListView>

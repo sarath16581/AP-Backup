@@ -1,0 +1,84 @@
+<!--
+Author:        Patrick James Franco
+Company:       Cloud Sherpas
+Description:   Transfer Case component for StarTrack Cases
+History
+November 23, 2015 - Patrick James Franco - Created
+-->
+
+<apex:component controller="StarTrackTransferCase_ControllerX" allowDML="true">
+<apex:attribute name="case" description="" type="Case" required="true"/>
+
+<apex:includeScript value="/support/api/34.0/interaction.js"/>
+<apex:includeScript value="/canvas/sdk/js/publisher.js" />
+<style type="text/css">
+    .bPageBlock .detailList tr td.dataCol, 
+    .bPageBlock .detailList tr th.labelCol {
+        border-bottom:2px solid #FFFFFF;
+    }
+</style>
+<apex:outputPanel id="scriptPanel">
+    <script type="text/javascript">
+        function publishandclose(){
+            if({!validation}){
+                sforce.interaction.entityFeed.refreshObject('{!case.id}', true, true, true);
+                sforce.interaction.entityFeed.reloadFrame();
+                Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload :{feed: true, objectRelatedLists: {}}});
+                Sfdc.canvas.publisher.publish({name:"publisher.selectAction",payload:{actionName:"Case.Closed"}});
+            }
+        }
+    </script>
+</apex:outputPanel>
+
+<script type="text/javascript">
+    function resizePA(){
+        Sfdc.canvas.publisher.resize();
+    }
+</script>
+
+<apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+<apex:pageMessages id="pageMessages"/>
+<div class="slds">
+    <apex:actionstatus id="counterStatus">
+    <apex:facet name="start">
+        <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb; height:100%; width:100%; opacity:0.65;">
+            <div class="waitingHolder" style="top: 40%; width: 50%;">
+                <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                <span class="waitingDescription">Loading...</span>
+            </div>
+        </div>
+    </apex:facet>
+</apex:actionstatus>
+    <div class="slds-form--horizontal">
+    <apex:form id="transferCase">
+    <apex:actionFunction name="save" action="{!saveOverride}" rerender="out,scriptPanel" oncomplete="publishandclose(); resizePA();" status="counterStatus"/>
+    <apex:actionFunction name="ownerChange" action="{!onChangeOfOwner}" rerender="pageMessages, out" oncomplete="resizePA();"/>
+    <apex:actionRegion >
+        <apex:actionFunction name="refresh" action="{!refreshPage}" rerender="pageMessages, out" oncomplete="resizePA();" status="counterStatus"/>
+    </apex:actionRegion>
+    <apex:actionRegion id="thePanelActionRegion">
+        <apex:outputPanel id="out">
+            <apex:actionRegion id="theBlockActionRegion">
+                <apex:pageBlock tabStyle="Case" mode="maindetail" id="theBlock">
+                    <apex:pageBlockSection columns="2" id="theSection">
+                        <apex:inputField value="{!c.ownerid}" onchange="ownerChange();"/>
+                        <apex:outputField value="{!c.Business_Solutions_Customer__c}"/>
+                        <apex:outputText value="{!c.Network__r.Name}"/>
+                        <apex:inputField value="{!c.Transfer_Override_Reason__c}" required="true" rendered="{!showOwnershipReason}"/>
+                        <apex:pageBlockSectionItem rendered="{!NOT(showOwnershipReason)}"/>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:actionRegion>
+        </apex:outputPanel>
+    </apex:actionRegion>
+    <apex:outputPanel id="searchIcon" style="float: right; bottom: 0px;">
+        <apex:commandButton style="right: 10px;" styleClass="slds-button slds-button--brand slds-button--small" oncomplete="chatter.getPublisher().submit();" value="Calculate" immediate="true" onclick="refresh();"/>
+        <apex:commandButton styleClass="slds-button slds-button--brand slds-button--small" onclick="save();" id="cpbutton" oncomplete="chatter.getPublisher().submit();" immediate="true" value="Submit"/>
+    </apex:outputPanel>
+    </apex:form>
+    </div>
+</div>
+<script type="text/javascript">
+    Sfdc.canvas.publisher.resize();
+</script>
+</apex:component>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Next_Steps__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>This field will update &apos;Next Steps&apos; on Opportunity</inlineHelpText>
+    <label>Opportunity Next Steps</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Apttus__Status_Category__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Prepare contract</fullName>
+                <default>false</default>
+                <label>Prepare contract</label>
+            </value>
+            <value>
+                <fullName>Negotiate to achieve alignment</fullName>
+                <default>false</default>
+                <label>Negotiate to achieve alignment</label>
+            </value>
+            <value>
+                <fullName>Seek assistance to close the deal</fullName>
+                <default>false</default>
+                <label>Seek assistance to close the deal</label>
+            </value>
+            <value>
+                <fullName>Finalise contract terms &amp; conditions</fullName>
+                <default>false</default>
+                <label>Finalise contract terms &amp; conditions</label>
+            </value>
+            <value>
+                <fullName>Present final contract to customer</fullName>
+                <default>false</default>
+                <label>Present final contract to customer</label>
+            </value>
+            <value>
+                <fullName>Confirm agreement with final contract terms</fullName>
+                <default>false</default>
+                <label>Confirm agreement with final contract terms</label>
+            </value>
+            <value>
+                <fullName>Sign contract</fullName>
+                <default>false</default>
+                <label>Sign contract</label>
+            </value>
+            <value>
+                <fullName>Review outcome and lessons&apos;s learnt</fullName>
+                <default>false</default>
+                <label>Review outcome and lessons&apos;s learnt</label>
+            </value>
+            <value>
+                <fullName>Commence implementation</fullName>
+                <default>false</default>
+                <label>Commence implementation</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Request</controllingFieldValue>
+            <controllingFieldValue>In Authoring</controllingFieldValue>
+            <valueName>Prepare contract</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Request</controllingFieldValue>
+            <controllingFieldValue>In Authoring</controllingFieldValue>
+            <valueName>Negotiate to achieve alignment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Request</controllingFieldValue>
+            <controllingFieldValue>In Authoring</controllingFieldValue>
+            <valueName>Seek assistance to close the deal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Request</controllingFieldValue>
+            <controllingFieldValue>In Authoring</controllingFieldValue>
+            <valueName>Finalise contract terms &amp; conditions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Request</controllingFieldValue>
+            <controllingFieldValue>In Authoring</controllingFieldValue>
+            <valueName>Present final contract to customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Request</controllingFieldValue>
+            <controllingFieldValue>In Authoring</controllingFieldValue>
+            <valueName>Confirm agreement with final contract terms</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Signatures</controllingFieldValue>
+            <controllingFieldValue>In Effect</controllingFieldValue>
+            <valueName>Sign contract</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Signatures</controllingFieldValue>
+            <controllingFieldValue>In Effect</controllingFieldValue>
+            <valueName>Review outcome and lessons&apos;s learnt</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Signatures</controllingFieldValue>
+            <controllingFieldValue>In Effect</controllingFieldValue>
+            <valueName>Commence implementation</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

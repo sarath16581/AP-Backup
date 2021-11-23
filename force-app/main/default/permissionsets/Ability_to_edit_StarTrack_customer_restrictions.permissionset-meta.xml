@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>For StarTrack users who are required to edit the customer restriction fields on the Account object</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Ability to edit StarTrack customer restrictions</label>
+    <license>Salesforce</license>
+</PermissionSet>

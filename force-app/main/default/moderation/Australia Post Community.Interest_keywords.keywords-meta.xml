@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<KeywordList xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Keywords the business is interested in</description>
+    <keywords>
+        <keyword>ANZ</keyword>
+    </keywords>
+    <keywords>
+        <keyword>beechworth</keyword>
+    </keywords>
+    <keywords>
+        <keyword>4306</keyword>
+    </keywords>
+    <keywords>
+        <keyword>Ombudsman</keyword>
+    </keywords>
+    <keywords>
+        <keyword>Christine Holgate</keyword>
+    </keywords>
+    <keywords>
+        <keyword>CEO</keyword>
+    </keywords>
+    <keywords>
+        <keyword>6219</keyword>
+    </keywords>
+    <keywords>
+        <keyword>stamp prices</keyword>
+    </keywords>
+    <keywords>
+        <keyword>mount molloy</keyword>
+    </keywords>
+    <keywords>
+        <keyword>cookernup</keyword>
+    </keywords>
+    <keywords>
+        <keyword>script</keyword>
+    </keywords>
+    <keywords>
+        <keyword>Ipswich</keyword>
+    </keywords>
+    <masterLabel>Interest keywords</masterLabel>
+</KeywordList>

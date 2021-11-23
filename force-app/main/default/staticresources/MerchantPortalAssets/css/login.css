@@ -1,0 +1,358 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li, ul li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+html, body {
+    height: auto;
+    min-height: 0;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(243, 244, 245);
+    color: #292F33;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#content-wrapper {
+    flex: 1 0 0;
+}
+
+header {
+    background: #fff;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 2px 3px rgba(21, 24, 26, 0.1);
+    margin-bottom: 100px;
+
+}
+header div.left {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+header h1 {
+    font-size: 1.4rem;
+    color: #535f67;
+    margin-left: 0.75rem;
+    font-weight: normal;
+    font-family: AP Letter, sans serif;
+    margin-bottom: 0;
+}
+
+.layout-contained {
+    margin: 0 auto;
+    max-width: 1150px;
+}
+
+
+/**************************************************
+ * TOPOGRAPHY
+ **************************************************/
+
+h1 {
+    font-family: AP Letter, sans-serif;
+    font-weight: bold;
+    font-size: 2.3rem;
+    line-height: 2.4rem;
+    margin-bottom: 2rem;
+    color: #292F33;
+}
+
+h2 {
+    font-family: AP Letter, sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+    line-height: 2.2rem;
+    margin-bottom: 10px;
+    color: #292F33;
+}
+
+h3 {
+    font-family: AP Letter, sans-serif;
+    font-weight: bold;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    margin-bottom: 10px;
+    color: #292F33;
+}
+
+h4 {
+    font-family: AP Letter, sans-serif;
+    font-weight: normal;
+    font-size: 1.4rem;
+    line-height: 1.5rem;
+    margin-bottom: 10px;
+    color: #292F33;
+}
+
+h5 {
+    font-family: AP Letter, sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    margin-bottom: 10px;
+    color: #292F33;
+}
+
+h5.regular {
+    font-family: AP Letter, sans-serif;
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    margin-bottom: 10px;
+    color: #292F33;
+}
+
+a:link, a:visited {
+    color: #292F33;
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/**************************************************
+ * CARD
+ **************************************************/
+.flow-container {
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+div.card {
+    border: 1px solid #D0D5D8;
+    border-radius: 3px;
+    background-color: #fff;
+    padding: 3rem;
+    text-align: center;
+}
+
+.login-checkbox {
+    display: block;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+    line-height: 1.4;
+}
+.login-checkbox input[type=checkbox] {
+    display: inline;
+
+    width: 16px;
+    height: 16px;
+    border: 1px solid #D0D5D8;
+    border-radius: 3px;
+    font-size: 1rem;
+    background: #000;
+    color: #fff;
+
+}
+.login-checkbox span:last-child {
+    margin-left: 10px;
+}
+.login-checkbox span {
+    vertical-align: top;
+    display: inline-block;
+    min-height: 20px;
+    text-align: left;
+}
+
+
+/**************************************************
+ * BUTTONS
+ **************************************************/
+button {
+    position: relative;
+    font-family: AP Letter, sans-serif;
+    font-size: 1rem;
+    line-height: 1rem;
+    border-radius: 3px;
+    font-weight: 600;
+    background-color: #1064A3;
+    border: 1px solid #1064A3;
+    color: #fff;
+    padding: 10px 50px;
+    cursor: pointer;
+}
+button:hover {
+    color: #fff;
+    background-color: #2182CC;
+    border: 1px solid #2182CC;
+}
+button:active {
+    color: #fff;
+    border: 1px solid #0E5287;
+    background-color: #0E5287;
+    box-shadow: none;
+    outline: 0;
+}
+button:focus {
+    color: #fff;
+    outline: 0;
+    box-shadow: none;
+}
+button:focus:after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    left: -4px;
+    right: -4px;
+    border-radius: 3px;
+    border: 1px dotted #0E5287;
+}
+
+button[disabled],
+button[disabled]:hover,
+button[disabled]:active,
+button[disabled]:focus {
+    border: 1px solid #D0D5D8;
+    background-color: #F3F4F5;
+    color: #DADADA;
+}
+
+/**************************************************
+ * FOOTER
+ **************************************************/
+
+footer {
+    margin-top: 4.2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-top: 1px solid #D0D5D8;
+    background: #FFFFFF;
+    box-sizing: border-box;
+}
+
+footer .layout-contained {
+    display: flex;
+    justify-content: space-between;
+}
+
+footer .layout-contained ul {
+    display: flex;
+}
+
+footer .layout-contained a {
+    padding: 0.5rem;
+    display: inline-block;
+}
+footer .layout-contained .left ul li:first-child a {
+    margin-left: -0.5rem;
+
+}
+
+footer .layout-contained .left {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+footer a:link, footer a:visited {
+    text-decoration: none;
+    transform: color 250ms, text-decoration 250ms;
+    font-size: 1rem;
+    color: #535F67;
+}
+footer a svg {
+    transform: fill 250ms;
+    fill: #535F67;
+    width: 16px;
+    height: 16px;
+}
+
+footer a:active {
+    color: #292F33;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #292F33;
+    text-decoration: none;
+}
+footer a:hover svg {
+    fill: #292F33;
+}
+
+footer a:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+footer .right-links a, footer .right-links a:visited {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+footer .slds-icon_container {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+/**************************************************
+ * Label
+ **************************************************/
+
+.error {
+    color: #BC111E;
+}
+
+
+
+
+
+
+
+

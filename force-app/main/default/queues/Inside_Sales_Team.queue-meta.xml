@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Inside Sales Team</name>
+    <queueMembers>
+        <users>
+            <user>brett.gibson@auspost.com.au</user>
+            <user>jason.semena@auspost.com.au</user>
+            <user>lauren.daykin@auspost.com.au</user>
+            <user>michael.kirner@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Lead</sobjectType>
+    </queueSobject>
+</Queue>

@@ -1,0 +1,77 @@
+<!--Page to allow printing of Duty for driver a backup to the mobile device -->
+<!--Uses controller extension to retreive data. Controller required to retreive long field and allow sort on Day Start Time-->  
+<!--Created 26-11-19 Dheeraj Mandavilli--> 
+<apex:page docType="html-5.0" standardController="PUD_Route__c" extensions="PUD_JobPrintfromListViewControllerX" recordSetVar="routes" renderAs="pdf" applyBodyTag="false" >
+    <head>
+        <style type="text/css" media="print">
+            @page {
+            @top-center {
+            content: element(header);
+            }       
+            @bottom-center {
+            content: element(footer);
+            }
+            }
+            @page { size: A4 portrait; }
+            .page-break {
+            display:block;
+            page-break-after:always;
+            }
+            div.header {
+            padding: 5px;
+            position: running(header);
+            }
+            table {
+            -fs-table-paginate: paginate;
+            } 
+            div.footer {
+            display: block;
+            padding: 5px;
+            position: running(footer);
+            }
+            .pagenumber:before {
+            content: counter(page);
+            }
+            .pagecount:before {
+            content: counter(pages);
+            }
+        </style>
+    </head>
+    
+    <div class="header">
+    </div>
+    
+    <div class="footer">
+        <div>
+            <center>
+                Page <span class="pagenumber"/> of <span class="pagecount"/>
+                (
+                <apex:outputText value="{0, date, d MMM yyyy}">
+                    <apex:param value="{!NOW()}" />
+                </apex:outputText>
+                )
+            </center>
+        </div>
+    </div>
+    
+    <div class="content">    
+        
+        <apex:pageBlock > 
+            <apex:repeat value="{!routeJobMap}" var="key">
+                <div style="page-break-after:always;">
+                    <center>
+                        <img src="{!$Resource.auspost_logo}" width="15%"/>
+                        <br/><br/>
+                        <b>Driver Run Sheet for {!depotName}</b>
+                    </center><br/>
+                    <b>Route Name : {!key}</b><br/>
+                    <br/>
+                    <b>Date : {!reportdate}</b>
+                    <br/><br/>           
+                    <c:PUD_PermJobsComponent Jobs="{!routeJobMap[key]}"/>   
+                </div>
+            </apex:repeat>          
+        </apex:pageBlock>  
+        
+    </div>
+</apex:page>

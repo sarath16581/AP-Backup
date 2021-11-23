@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Template_Admin</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Template Admin</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>function showAlertMessage(msg) { 
+    var box = new SimpleDialog(&quot;hersh&quot; + Math.random(), true);
+
+    parent.box = box; 
+    box.setTitle(&quot;Template Admin&quot;); 
+    box.createDialog(); 
+    box.setWidth(350);
+	box.setContentInnerHTML(msg + &quot;&lt;br /&gt;&lt;br /&gt;&lt;button class=&apos;btn&apos; onclick=&apos;window.parent.box.hide(); return false;&apos;&gt;OK&lt;/button&gt;&quot;);
+
+    box.setupDefaultButtons(); 
+    box.show();
+}
+
+if (&quot;{!Agreement_Document__c.Rate_List__c}&quot; !== &quot;&quot;) {
+    var CongaURL = &quot;https://composer.congamerge.com&quot; + 
+    &quot;?sessionId={!API.Session_ID}&quot; + 
+    &quot;&amp;serverUrl={!API.Partner_Server_URL_290}&quot; + 
+    &quot;&amp;id={!Agreement_Document__c.Id}&quot; + 
+    &quot;&amp;QVar3Id={!$Setup.AgreeMgt_Conga_Query_Ids__c.Rates_Active_Name__c}?pv0={!Agreement_Document__c.Licence_Type__c}&quot; + 
+    &quot;&amp;QueryId=&quot; + 
+    &quot;[Rates]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Rates__c}?pv0={!Agreement_Document__c.Rate_List__c},&quot; + 
+    &quot;[LegalEntity]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Legal_Entity__c}?pv0={!Agreement_Document__c.Legal_Entity_Id__c},&quot; + 
+    &quot;[NominatedContact]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Nominated_Contact__c}?pv0={!Agreement_Document__c.Nominated_Contact__c},&quot; +
+    &quot;[ContactDirectorsExNC]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Contact_Role_Directors__c}?pv0={!Agreement_Document__c.Legal_Entity_Id__c}~pv1={!Agreement_Document__c.Nominated_Contact__c},&quot; +
+    &quot;[ContactPartnersExNC]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Contact_Role_Partners__c}?pv0={!Agreement_Document__c.Legal_Entity_Id__c}~pv1={!Agreement_Document__c.Nominated_Contact__c},&quot; +
+    &quot;[ContactTrusteesExNC]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Contact_Role_Trustees__c}?pv0={!Agreement_Document__c.Legal_Entity_Id__c}~pv1={!Agreement_Document__c.Nominated_Contact__c},&quot; +
+    &quot;[ContactDecisMakeExNC]{!$Setup.AgreeMgt_Conga_Query_Ids__c.ContactRoleDecisionMaker__c}?pv0={!Agreement_Document__c.Legal_Entity_Id__c}~pv1={!Agreement_Document__c.Nominated_Contact__c},&quot; +
+    &quot;[ContactAccrPsOffExNC]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Contact_Role_Acred_Passpt_Off__c}?pv0={!Agreement_Document__c.Legal_Entity_Id__c}~pv1={!Agreement_Document__c.Nominated_Contact__c},&quot; + 
+    &quot;[Licence]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Licence__c}?pv0={!Agreement_Document__c.LicenceId__c},&quot; + 
+    &quot;[LoanInterestFree]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Loan_Interest_Free__c}?pv0={!Agreement_Document__c.LicenceId__c},&quot; + 
+    &quot;[LoanRefurbishment]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Loan_Refurbishment__c}?pv0={!Agreement_Document__c.LicenceId__c},&quot; + 
+    &quot;[LoanSecurity]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Loan_Security__c}?pv0={!Agreement_Document__c.LicenceId__c},&quot; + 
+    &quot;[NegPaymentLicence]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Negotiated_Payment_Licence__c}?pv0={!Agreement_Document__c.LicenceId__c}~pv1={!Agreement_Document__c.Agreement_Effective_From_Date_Reformat__c},&quot; +
+    &quot;[NegPaymentFacility]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Negotiated_Payment_Facility__c}?pv0={!Agreement_Document__c.Facility_Id__c}~pv1={!Agreement_Document__c.Agreement_Effective_From_Date_Reformat__c},&quot; +
+    &quot;[Facility]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Facility__c}?pv0={!Agreement_Document__c.Facility_Id__c},&quot; + 
+    &quot;[FacilityTimingCT]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Facility_Timing_Conveyance_Times__c}?pv0={!Agreement_Document__c.Facility_Id__c},&quot; + 
+    &quot;[FacilityTimingBST]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Facility_Timing_Boxing_Times__c}?pv0={!Agreement_Document__c.Facility_Id__c},&quot; +
+    &quot;[Network]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Network__c}?pv0={!Agreement_Document__c.Network_Id__c},&quot; + 
+    &quot;[ParentNetwork]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Parent_Network__c}?pv0={!Agreement_Document__c.Parent_Network_Id__c},&quot; + 
+    &quot;[RetailRegionNetwork]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Grandparent_Network__c}?pv0={!Agreement_Document__c.Retail_Region_Network_Id__c},&quot; + 
+    &quot;[RelatedNetworks]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Related_Networks__c}?pv0={!Agreement_Document__c.Parent_Network_Id__c},&quot; + 
+    &quot;[Lockers]{!$Setup.AgreeMgt_Conga_Query_Ids__c.Lockers__c}?pv0={!Agreement_Document__c.Network_Id__c}&quot;;
+
+    window.open(CongaURL, &quot;Conga&quot;, &quot;width=700,height=550,menubar=0&quot; );
+} else {
+    showAlertMessage(&quot;Please select a Rate List before launching the Template Admin function.&quot;);
+}</url>
+</WebLink>

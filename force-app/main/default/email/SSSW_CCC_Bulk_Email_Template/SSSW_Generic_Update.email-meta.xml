@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Generic Update Case for Bulk email send</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Generic Update</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}.</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference {!Case.CaseNumber}
+
+Update for {!Case.Type} - {!Case.CaseNumber}
+
+Hi {!Contact.FirstName}
+
+Thanks for getting in touch
+
+This is just a quick update to let you know that we received your message and we’re looking into it right now. You can expect an update by ENTER SLA DATE HERE.
+
+But if you’d like to speak with someone before then, feel free to give our Customer Care Team a call on LIST AP PHONE NUMBER HERE.
+
+
+Regards,
+
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

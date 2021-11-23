@@ -1,0 +1,22 @@
+<aura:component controller="cpGetTrendingDiscussions" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="TrendingDiscussionsWrapperElements" type="cpTrendingDiscussionWrapper[]" access="global"/>
+
+    <aura:attribute name="cppageSize" type="Integer" default="5" access="global"/>
+    <aura:attribute name="cpSortingParam" type="String" default="CreatedDateDesc" access="global"/>
+
+    <!-- Display chatter feed elements -->
+
+    <div class="cp-custom-comp" aura:id="TrendingDiscussionHeader">
+        <div class="cp-custom-comp-heading">
+            <h2>Trending discussions</h2>
+        </div>
+        <div class="cp-custom-comp-body">
+            <aura:iteration items="{!v.TrendingDiscussionsWrapperElements}" var="discussion">
+                <div class="cp-custom-comp-inner">
+                    <div class="cp-custom-comp-iteration"><c:cpTrendingDiscussionsIterator TrendingDiscussion="{!discussion}"/></div>
+                </div>
+            </aura:iteration>
+        </div>
+    </div>
+</aura:component>

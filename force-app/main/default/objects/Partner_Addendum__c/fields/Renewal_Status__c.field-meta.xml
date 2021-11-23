@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Renewal_Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Renewal Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>First Reminder Sent</fullName>
+                <default>false</default>
+                <label>First Reminder Sent</label>
+            </value>
+            <value>
+                <fullName>Second Reminder Sent</fullName>
+                <default>false</default>
+                <label>Second Reminder Sent</label>
+            </value>
+            <value>
+                <fullName>Final Reminder Sent</fullName>
+                <default>false</default>
+                <label>Final Reminder Sent</label>
+            </value>
+            <value>
+                <fullName>Pending</fullName>
+                <default>false</default>
+                <label>Pending</label>
+            </value>
+            <value>
+                <fullName>Active</fullName>
+                <default>true</default>
+                <label>Active</label>
+            </value>
+            <value>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+                <label>Rejected</label>
+            </value>
+            <value>
+                <fullName>Ceased</fullName>
+                <default>false</default>
+                <label>Ceased</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

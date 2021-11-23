@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Major_Oppty_Propose_Stage_Validation</fullName>
+    <active>true</active>
+    <description>STP: Validation rule prior to stage update Propose.</description>
+    <errorConditionFormula>AND(
+ISCHANGED(StageName),
+ISPICKVAL(StageName, &quot;Propose&quot;), 
+$RecordType.Name = &quot;Major&quot;,
+CTA_Pursue_Approved__c = false,
+Opportunity_Annualised_Value__c  &gt;= 3000000
+)</errorConditionFormula>
+    <errorMessage>Commit To Action - Pursue Request approval is required before moving this Opportunity to the Propose Stage</errorMessage>
+</ValidationRule>

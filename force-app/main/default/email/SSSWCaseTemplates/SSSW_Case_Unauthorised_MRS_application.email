@@ -1,0 +1,95 @@
+<style>
+	html {
+		font-family: Arial,Helvetica,sans-serif;
+		font-size: 12px;
+	}
+	h1 {
+		color: #111111;
+		font-weight: bold;
+		font-family: Arial,Helvetica,sans-serif;
+		font-size: 22px;
+		line-height: 30px;
+		text-align: left;
+		display: inline;
+		padding-left: 20px;
+	}
+	h3 {
+		font-family: Arial,Helvetica,sans-serif;
+		font-size: 14px;
+		line-height: 16px;
+		text-align: left;
+		padding-left: 20px;
+	}
+	.red {
+		color: #DF1027;
+	}
+	.bold {
+		font-weight: bold;
+	}
+	.outer {
+		background: #FFEDBA;
+		padding: 20px;
+	}
+	.header {
+		background: #FFFFFF;
+		padding: 20px;
+		margin: 20px;
+	}
+	.content {
+		background: #FFFFFF;
+		margin: 20px;
+		padding: 20px;
+	}
+	.footer {
+		margin: 20px;
+		padding: 20px;
+	}
+</style>
+
+<div class="outer">
+	<div class="header">
+	<table>
+		<tr>
+			<td>
+			<img align="left" style="outline:none;background-color:#DE1730;width:60px;height:60px;" src="/resource/1400462696000/square_logo" alt="AusPost" title="AusPost">
+			</td>
+			<td>
+			<h1> {!IF(ISPICKVAL(Case.Type,"Investigation"), 'Investigation', 'Feedback')}</h1><br/>
+			<h3>{!IF(ISPICKVAL(Case.Type,"Investigation"),IF(Case.Customer_Type__c == "Enterprise", 'Response required within 1 day', 'Response required within 2 days'), 'No Response required')}</h3>
+			<h1 class="red">Case {!Case.CaseNumber}</h1>
+			</td>
+		</tr>
+	</table>
+	</div>
+
+ 
+	<div class="content">
+
+<h3> {!IF(ISPICKVAL(Case.Type,"Investigation"), 'Please review the following enquiry and respond within the required response time.', '"Please review the following enquiry and address as appropriate. While not required, any response to CS&S may be sent via the channel you received this communication."')}</h3><br/>
+		<h3 class="red">Contact Details</h3> 
+		{!IF(Case.ContactDoNotDisclose__c,'Cannot disclose contact','<b>Name: </b>' + Contact.Name)} <br/>
+		{!IF(Case.ContactDoNotDisclose__c,'','<b>Mobile Phone: </b>' + Contact.MobilePhone + '<br/>')}
+		{!IF(Case.ContactDoNotDisclose__c,'','<b>Home Phone: </b>' + Contact.HomePhone + '<br/>')}
+		{!IF(Case.ContactDoNotDisclose__c,'','<b>Email: </b>' + Contact.Email + '<br/>')}
+		{!IF(Case.ContactDoNotDisclose__c,'','<b>Contact Description: </b>' + Contact.Description + '<br/>')}<br/>
+
+		<h3 class="red">Case</h3> 
+		<b>Case Number:</b> {!Case.CaseNumber} <br/>
+                {!IF(ISPICKVAL(Case.Type,"Feedback"),'<b>Feedback</b> - for your action, no response required','<b>Investigation</b> - Response Required')} <br/>
+                <b>{!Case.ProductCategory__c} - </b> {!Case.ProductSubCategory__c} - </b> {!Case.EnquirySubType__c} <br/>
+                <b>Network Name:</b> {!Case.Network__c} <br/>
+                <br/>
+                <b>Description:</b> {!Case.Description}<br/>
+                <br/>
+                <b>Customer Reference Number (CRN):</b> {!Case.ReferenceID__c} <br/>
+                <b>Date Issue Occured:</b> {!Case.DateofIncident__c} <br/>
+                <b>Old Address:</b> {!Case.Address1__c} <br/>
+                <b>New Address:</b> {!Case.Address2__c} <br/>
+                
+  </div>
+ 
+	<div class="footer">
+		<div class="red bold">Thank you,<br/>Customer Sales & Service</div>
+<span style="color:#FFFFFF;">{!Case.EmailThreadID__c}</span>
+  </div>
+</div>

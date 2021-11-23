@@ -1,0 +1,121 @@
+<!--
+* @author avula.jansirani@auspost.com.au
+* @date 05/02/2021
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Reusable cmp to display Terms and Conditions in 'Direct Debit' and 'Review &Summary' step
+* @changelog
+* 05/02/2021 avula.jansirani@auspost.com.au  Created
+*
+-->
+<template>
+    <div data-id='bcaTermAndConditions'>
+        <div class="form-outer-box">
+            <div class="form-inner-box-wide">
+
+                <!-- Label and Download-->
+                <table class="slds-m-bottom_large">
+                    <tr class="review-title">
+                        <td><b> <h3>{labelText}</h3></b></td>
+                        <td>
+                            <template if:true={isAllowDownload}>
+                                <a class="icon-text-button" href={tcDownloadURL} target="_blank">
+                                    <c-bsp-custom-icons icon="download" size="small">
+                                    </c-bsp-custom-icons>
+                                    <span>Download</span>
+                                </a>
+                            </template>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Terms and Conditions-->
+                <div class="tnc-text-window">
+                    <lightning-formatted-rich-text value={temsAndConditionsText}>
+                    </lightning-formatted-rich-text>
+                </div>
+
+                <!--Agree  check--> <!--DO NOT change data-id using in another cmp-->
+                <lightning-input type="checkbox" 
+                                 data-id="bcaTC"   
+                                 label={agreeText} 
+                                 name={agreeText} 
+                                 class="slds-m-top_medium checkbox" 
+                                 onchange={handleChange} 
+                                 onfocusout={handleChange}
+                                 message-when-value-missing = {errorMessage}
+                                 required>
+                </lightning-input>
+
+                <template if:true={displayLabel4}>
+                    <!--Agree  check--> <!--DO NOT change data-id using in another cmp-->
+                    <lightning-input type="checkbox" 
+                                    data-id="bcaDDTC"   
+                                    label={displayLabel4Text} 
+                                    name={displayLabel4Text} 
+                                    class="slds-m-top_medium checkbox" 
+                                    onchange={handleChange} 
+                                    onfocusout={handleChange}
+                                    message-when-value-missing = {agreeLabel4ErrorMsg}
+                                    required>
+                    </lightning-input>
+                </template>
+
+                <!--Agree  check2--> <!--DO NOT change data-id using in another cmp-->
+                <template if:true={displayLabel2}>
+                    <!--<div class="checkbox-custom">-->
+                        <lightning-input type="checkbox" 
+                                        data-id="bcaBunessPurposeTC"
+                                        label={businessPurposeText} 
+                                        name='agreeLabel2'
+                                        class="slds-m-top_medium checkbox" 
+                                        onchange={handleChange} 
+                                        onfocusout={handleChange}
+                                        message-when-value-missing={agreeLabel2ErrorMsg}
+                                        required
+                                        >
+                        </lightning-input>
+                        <!--<label class={checkBoxCustomClass}>{businessPurposeText}</label>-->
+                   <!-- </div> -->
+                 </template>
+                 <!-- Message-->
+                 <template if:true={showImportantText}>
+                    <!--<div class="slds-m-top_medium" style="padding-left: 30px;"><b>IMPORTANT: By signing this declaration you may lose your protection under the National Credit Code. <a href={findMoreURL} target='_blank' style="color: inherit; text-decoration: underline;">Find out more</a></b></div>-->
+                    <div class="slds-m-top_medium" style="padding-left: 30px;"><b>IMPORTANT: By signing this declaration you may lose your protection under the National Credit Code. <lightning-button variant="base" label="Find out more"  title="Find out more" onclick={onClickFindOutMore} class="link-button link-button-bold"></lightning-button></b></div>
+                 </template>
+                 
+                 <!--Agree  check3--> <!--DO NOT change data-id using in another cmp-->
+                <template if:true={displayLabel3}>
+                    <div class="checkbox-custom">
+                        <lightning-input type="checkbox" 
+                                        data-id="bcaPrivacyTC"
+                                        label=''
+                                        name='agreeLabel3' 
+                                        class="slds-m-top_medium checkbox" 
+                                        onchange={handleChange} 
+                                        onfocusout={handleChange}
+                                        message-when-value-missing={agreeLabel3ErrorMsg}
+                                        required
+                                        variant='label-hidden'>
+                        </lightning-input>
+                        <label class={checkBoxCustomClass}>I/We accept the <a href={pivacyNoticeURL} target='_blank'  style="color: inherit; text-decoration: underline;"><b>privacy notice</b></a></label>
+                    </div>
+                </template>
+
+                <!-- Application signed Date-->
+                <template if:true={applicationSignedDate}>
+                    <div data-id='applicationSignDate' class="slds-p-top_medium">
+                        <span class="weak-text">{appSignedDateText} {applicationSignedDate}</span>
+                    </div>
+                </template>
+               
+
+
+                <!--Error message
+                <template if:true={showErrorMessage}>
+                    <div class="error-box"><c-bsp-custom-icons icon="warning-alert" size="small" fill="#d61834"></c-bsp-custom-icons><span>{errorMessage}</span></div>
+                </template>-->
+            </div>
+        </div>
+    </div>
+</template>

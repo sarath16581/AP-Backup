@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Redbank_MPB_Bookings</fullName>
+    <booleanFilter>1 AND 2 AND (3 OR 4 OR 5)</booleanFilter>
+    <columns>NAME</columns>
+    <columns>Location__c</columns>
+    <columns>Street__c</columns>
+    <columns>City__c</columns>
+    <columns>Route_Lookup__c</columns>
+    <columns>Status__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>Effective_Date__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Depot__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>PUD_Booking__c.MPB_Pickup</value>
+    </filters>
+    <filters>
+        <field>Effective_Date__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>TODAY</value>
+    </filters>
+    <filters>
+        <field>State__c</field>
+        <operation>equals</operation>
+        <value>QLD</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+        <value>4300,4301,4303,4304,4305,4306</value>
+    </filters>
+    <filters>
+        <field>Post_Code__c</field>
+        <operation>contains</operation>
+    </filters>
+    <label>Redbank - MPB Bookings Today</label>
+    <language>en_US</language>
+</ListView>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>StarTrack Email Template to be used for sending BSC General Consignment Notification.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>StarTrack General Consignment Notification - Business Centre</name>
+    <style>freeForm</style>
+    <subject>Consignment {!workflow_Email__c.Consignment_Number__c} - StarTrack Case {!workflow_Email__c.Calc_Case_Number__c} has been resolved</subject>
+    <textOnly>Case No.: {!workflow_Email__c.Calc_Case_Number__c}
+
+Hi  {!workflow_Email__c.Contact_First_Name__c},
+
+Your enquiry relating to {!workflow_Email__c.Consignment_Number__c} has now been resolved and we&apos;re closing your case.
+
+Thank you for contacting our customer service team. If you require further assistance in regards to this consignment, please reply to this email.
+
+Regards,
+
+StarTrack Business Centre
+
+{!workflow_Email__c.Case_Thread_Id__c}
+
+Help &amp; Support  |  Terms &amp; Conditions  |  Privacy Policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

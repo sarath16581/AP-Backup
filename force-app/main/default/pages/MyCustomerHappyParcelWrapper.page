@@ -1,0 +1,22 @@
+<!--
+	This wraps the Lightning Wrapper component and allows us to use Lightning Out to create and communicate with the Happy Parcel lightning application
+	NOTE: applying body tag with slds-scope for in-app tooltips. The lightning tooltip adds it to the body which requires the body to be scoped to inherit the lightning styles
+			this only works when showHeader is false
+	@changelog:
+	2020-10-07 disha.kariya@auspost.com.au added attachsafedrop for supported LWC events and supports safe drop attachment for mini case component.
+	2020-10-12 - Ranjeewa Silva - Added 'suppportsCaseCreation' component attribute.
+	2021-10-10 - Nathan Franklin - Changed safe drop terminology to delivery proof
+-->
+<apex:page id="MyCustomerHappyParcelWrapper" showHeader="false" applyBodyTag="false" applyHtmlTag="false">
+	<html>
+	<head>
+	</head>
+	<body class="slds-scope">
+		<c:LightningWrapper lightningApp="c:HappyParcelWrapperApp"
+		                    lightningComponent="c:happyParcel"
+	                        crossOriginLwcEvents="idclick,externaledd,articledetails,customerselect,customerdeselect,customerdetails,trackingsearchcomplete,selectedarticles,attachdeliveryproof"
+	                        crossOriginSupport="true"
+	                        componentAttributes="{&quotsupportsExternalLinkHandling&quot:true,&quot;supportsSelectableChildArticles&quot;:true,&quot;supportsCustomerSelection&quot;:true,&quot;readonly&quot;:true,&quot;supportsExternalEdd&quot;:true,&quot;supportsSafeDropAttachment&quot;:true,&quot;supportsCaseCreation&quot;:true}"/>
+	</body>
+	</html>
+</apex:page>

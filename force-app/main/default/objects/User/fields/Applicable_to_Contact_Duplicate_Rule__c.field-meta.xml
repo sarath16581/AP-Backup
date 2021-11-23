@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Applicable_to_Contact_Duplicate_Rule__c</fullName>
+    <description>The checkbox is used to identify the number of users whose profile is applicable to the duplicate rule check for contact record creation.</description>
+    <externalId>false</externalId>
+    <formula>IF(
+OR(Profile_Name_in_Text__c == &apos;StarTrack Support&apos;,
+Profile_Name_in_Text__c == &apos;PT1&apos;,
+Profile_Name_in_Text__c == &apos;Enterprise Onboarding&apos;,
+Profile_Name_in_Text__c == &apos;Coverage Sales&apos;,
+Profile_Name_in_Text__c == &apos;BG Base&apos;,
+Profile_Name_in_Text__c == &apos;SSSW - Service Agent&apos;,
+Profile_Name_in_Text__c == &apos;Retail Operations&apos;,
+Profile_Name_in_Text__c == &apos;PartnerInfo Read Only&apos;,
+Profile_Name_in_Text__c == &apos;System Administrator&apos;,
+Profile_Name_in_Text__c == &apos;Customer Team&apos;,
+Profile_Name_in_Text__c == &apos;Retail&apos;,
+Profile_Name_in_Text__c == &apos;Sales Operations&apos;,
+Profile_Name_in_Text__c == &apos;Sales Contracts CME&apos;,
+Profile_Name_in_Text__c == &apos;Sales 3rd Party&apos;,
+Profile_Name_in_Text__c == &apos;Sales Admin&apos;,
+Profile_Name_in_Text__c == &apos;Hub Users&apos;,
+Profile_Name_in_Text__c == &apos;Credit Management&apos;,
+Profile_Name_in_Text__c == &apos;Product Sales&apos;,
+Profile_Name_in_Text__c == &apos;Marketing&apos;,
+Profile_Name_in_Text__c == &apos;Solutions Sales&apos;,
+Profile_Name_in_Text__c == &apos;StarTrack Operations&apos;),
+TRUE, FALSE)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Applicable to Contact Duplicate Rule</label>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Accounting_Service_Helpdesk_Case</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>ProductSubCategory__c</columns>
+    <filterScope>Queue</filterScope>
+    <label>Accounting Service Helpdesk</label>
+    <language>en_US</language>
+    <queue>Accounting_Service_Helpdesk</queue>
+    <sharedTo>
+        <group>Accounting_Services_Helpdesk</group>
+        <role>Accounting_Services</role>
+        <role>Retail_Merchandise_Supply_Chain</role>
+    </sharedTo>
+</ListView>

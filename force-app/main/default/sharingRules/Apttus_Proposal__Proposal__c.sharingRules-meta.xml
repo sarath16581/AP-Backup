@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>APT_Share_Proposals_with_FBU_Pricing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share Proposals with FBU Pricing</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>FBU_Pricing</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>APT_Share_Proposals_with_Sales</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share Proposals with Sales</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>APT_Share_Proposals_with_Sales_Ops</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share Proposals with Sales Ops</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>SalesOperations</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Sharing_Rule_for_ACIC_Approver</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Read/Write access to all proposal records for ACIC Approvers</description>
+        <label>Sharing Rule for ACIC Approver</label>
+        <sharedTo>
+            <group>ACIC_Request_Case_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

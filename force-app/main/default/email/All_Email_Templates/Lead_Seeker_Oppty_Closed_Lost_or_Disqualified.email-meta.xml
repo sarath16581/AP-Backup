@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>The lead submitter receives an email indicating that although the opportunity progressed through the sales process stage, the customer didn’t take up Australia Post’s proposal.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Lead Seeker - Oppty Closed Lost or Disqualified</name>
+    <style>none</style>
+    <subject>Seeker Rewards Program Update - opportunity unsuccessful {!Opportunity.Opportunity_Number__c} - {!Opportunity.Name}</subject>
+    <textOnly>Dear {!Opportunity.Hidden_Lead_Creator_Name__c},
+
+Thank you again for taking part in the Seeker program.
+
+The lead you submitted progressed through our sales process and, despite the best efforts of our hard working sales team, unfortunately the outcome wasn’t successful. The lead has therefore been closed as {!Opportunity.StageName}.
+
+You’ve earned points!
+
+In recognition of your great efforts, we’ve awarded you with points (Closed Disqualified – 50 points; Closed Lost – 100 points)!
+
+Have you seen the huge range of rewards?
+
+Make sure you visit the Seeker reward store and check out the amazing range of rewards on offer. There are 4,000+ to choose from, so we know you’ll find something you love.
+
+Congratulations on earning points and don’t forget to keep those fantastic leads coming!
+
+Regards,
+The Seeker Team
+
+
+
+Terms &amp; conditions | Privacy policy | Security
+
+
+
+
+
+Contact us: If this email has been incorrectly sent to you or the information contained within isn’t correct, please let us know at seekerrewards@auspost.com.au
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

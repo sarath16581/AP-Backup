@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ABN_Change_Reason_Mandatory</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (
+ ISPICKVAL(Stage__c, &quot;Closed&quot;),
+ ISPICKVAL(Reason__c, &quot;ABN Change - Same Owners&quot;),
+ OR(
+  ISBLANK(Related_Organisation__c),
+  ISBLANK(Related_Opportunity__c)
+ )
+)</errorConditionFormula>
+    <errorMessage>Please go back to BAR record and enter Related Organisation and Related Opportunity</errorMessage>
+</ValidationRule>

@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>ACIC_Case_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule shares ACIC Request Cases with ACIC Team Members</description>
+        <label>ACIC Case Sharing Rule</label>
+        <sharedTo>
+            <group>ACIC_Request_Case_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ACIC Request</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>AMLCTF_Retail_Audit_Case_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Sharing rule created to allow Retail Audit Cases to be shared across the team.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+        <label>Retail Audit Case Sharing Rule</label>
+        <sharedTo>
+            <group>AMLCTF_All_Retail_Audit_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Scheduled Audit,Unannounced Audit,Retail Dispute Enquiry,Assurance Audit,Please Explain</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Business_Enablement_Cases</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Allow all Startrack Business Enablement Team Members to view and edit each others cases</description>
+        <label>Business Enablement Cases</label>
+        <sharedTo>
+            <group>StarTrack_Business_Enablement_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Analytics &amp; Reporting Request (CAR),Sales Coordinator</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Business_Sales_Implementation_Case</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Each member of the team is able to read/write their cases regardless who owns the case</description>
+        <label>Business Sales Implementation Case</label>
+        <sharedTo>
+            <group>Business_Sales_Implementation_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Business Sales Implementation</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CIA_for_B_G_I</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Allows READ ONLY access to Customer Integration Application team Cases to members of the B,G &amp; I Hierarchy</description>
+        <label>CIA for B,G&amp;I</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Business_Government_International</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Integration Application</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Case_Sharing_Customer_Integration_Application</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Case Sharing - Customer Integration Application</label>
+        <sharedTo>
+            <roleAndSubordinates>Customer_Integration_Application</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Integration Application</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Case_Sharing_Retail_Fulfilment_Support</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Sharing to grant case visibility for the Retail Fulfilment Call Centre, Product Support &amp; Resolver Groups for all Retail</description>
+        <label>Case Sharing - Retail Fulfilment &amp; Support</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Retail_Merchandise_Supply_Chain</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Retail Fulfilment &amp; Support</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Case_Sharing_Retail_Fulfilment_Support_External_user</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Sharing to grant case visibility for the Retail Fulfilment Call Centre, Product Support &amp; Resolver Groups for all external users</description>
+        <label>Case Sharing - Retail Fulfilment &amp; Support -External user</label>
+        <sharedTo>
+            <role>DHL_Sprintpak</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Retail Fulfilment &amp; Support</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Customer_Data_Team_Case</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Each member of the team is able to read/write their cases regardless who owns the case</description>
+        <label>Customer Data Team Case</label>
+        <sharedTo>
+            <group>CustomerDataTeam</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Data Quality Management</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Customer_Onboarding_SecurePost</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Customer Onboarding SecurePost</label>
+        <sharedTo>
+            <group>SecurePost_Customer_Onboarding</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Onboarding</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ProductId</field>
+            <operation>equals</operation>
+            <value>01t2v000009FtAv</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>DeliveryEnquiry_AccountManagerSupport</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>DeliveryEnquiry_AccountManagerSupport</label>
+        <sharedTo>
+            <group>StarTrack_Account_Manager_Support</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Delivery Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Call_Purpose__c</field>
+            <operation>equals</operation>
+            <value>Account Manager Support</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Enterprise_Credit_Claim_Approvers_Read_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Enterprise Credit Claim Approvers Read Access</label>
+        <sharedTo>
+            <group>Credit_Dispute_Claim_Approvers</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Enterprise Credit Dispute Claim</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Enterprise_Credit_Claim_Credit_Management_Read_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Enterprise Credit Claim Credit Management Read Access</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Credit_Management</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Enterprise Credit Dispute Claim</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Enterprise_Credit_Dispute_Claim_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Enterprise Credit Dispute Claim Read/Write</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>StarTrack_Credit_Disputes_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Enterprise Credit Dispute Claim</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Enterprise_Dispute_Case_Sharing</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Sharing rule to allow users see all dispute cases in salesforce</description>
+        <label>Enterprise Dispute Case Sharing</label>
+        <sharedTo>
+            <group>Credit_Dispute_Access</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Enterprise Credit Dispute Claim</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Enterprise_Onboarding_read_only_CMDT_cases</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This is to give the Enterprise Onboarding Team read access to the customer data team&apos;s cases to assist sellers.</description>
+        <label>Enterprise Onboarding read only CMDT cases</label>
+        <sharedTo>
+            <role>Enterprise_Onboarding_Team</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Data Quality Management</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Ex_Gratia_Credit_Dispute</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Ex-Gratia Credit Dispute</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>SSSW Service,SSSW Delivery,Credit Dispute Claim,Service Delivery,SSSW General Enquiry</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>LCM_Read_write_access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>LCM Read &amp; write access</label>
+        <sharedTo>
+            <role>Lodgement_Customer_Migration</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Lodgement Customer Migrations</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Late_Payment_Charges</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Late Payment Charges</label>
+        <sharedTo>
+            <group>Credit_Officer</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>ReasonforCreditClaim__c</field>
+            <operation>equals</operation>
+            <value>Late payment</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Enquiry_Type__c</field>
+            <operation>equals</operation>
+            <value>Billing Dispute</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Enterprise Credit Dispute Claim</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Non_Compliance_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>sharing rule to enable PON users to run report against non-compliance related cases</description>
+        <label>Non-Compliance Sharing Rule</label>
+        <sharedTo>
+            <group>Non_Compliance_PON_users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-compliance Lodgement Issue</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Non_Compliance_Sharing_Rule2</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Sharing Rule for Non Compliance Lodgement Issue - Business Hubs Support Users</description>
+        <label>Non-Compliance Sharing Rule2</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Business_Hubs_Support</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-compliance Lodgement Issue</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>OPC_Exception_Case_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>OPC Exception Case Sharing Rule</label>
+        <sharedTo>
+            <group>OPC_Admin_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Sales Manager Review Exception</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ReadOnly_Access_to_Non_Compliance_Cases</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>ReadOnly Access to Non Compliance Lodgement Cases to Sales Operations and Sales Users</description>
+        <label>ReadOnly Access to Non Compliance Cases</label>
+        <sharedTo>
+            <group>Non_Compliance_Lodgement_ReadOnly</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-compliance Lodgement Issue</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SSSE_Depot_Co_ordinator_Read_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>SSSE Depot Co-ordinator Read Access</label>
+        <sharedTo>
+            <role>SSSE_Co_Ordinator</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Security Express,Special Services</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SSSW_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Shares all SSSW Record Types with the SSSW Roles.</description>
+        <label>SSSW Sharing</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>SSSW_Management</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>SSSW Service,SSSW Fax,NCCC Direct Email,SSSW Delivery,SSSW General Enquiry,Social Record Type</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Sales_Implementation_Case</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Sharing case between Sales Implementation member</description>
+        <label>Sales Implementation Case</label>
+        <sharedTo>
+            <group>Sales_Implementation</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>E&amp;G Sales Implementation</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Sales_Ops_Service_Read_Sharing</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Sales Ops &amp; Service Read Sharing</label>
+        <sharedTo>
+            <group>Sales_Ops_Service</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>SSSW Service,SSSW Fax,SSSW Delivery,Service Delivery,SSSW General Enquiry</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Secure_Post_Customer_Onboarding_with_Credit_Management</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Give read only access of Customer Onboarding Cases to Credit management team.</description>
+        <label>Secure Post Customer Onboarding with Credit Management</label>
+        <sharedTo>
+            <group>APT_Credit_Management_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Onboarding</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ProductId</field>
+            <operation>equals</operation>
+            <value>01t2v000009FtAv</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Secure_Post_Customer_Onboarding_with_Deal_Enablement</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Give read only access of Customer Onboarding Cases to Deal Enablement Center.</description>
+        <label>Secure Post Customer Onboarding with Deal Enablement</label>
+        <sharedTo>
+            <group>Contract_Management_Enquiry_CME</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Onboarding</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ProductId</field>
+            <operation>equals</operation>
+            <value>01t2v000009FtAv</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Service_Delivery_Read_Write_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Service Delivery Read Write Sharing</label>
+        <sharedTo>
+            <group>Sales_Ops_Delivery</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Service Delivery</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_ASH_With_Their_Public_Group</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This is to share the Accounting Services Helpdesk record type to their group to allow management of their cases</description>
+        <label>Share ASH With Their Public Group</label>
+        <sharedTo>
+            <group>Accounting_Services_Helpdesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Accounting Service Helpdesk</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_CTM_With_Their_Public_Group</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This is to share the Card Transaction Monitoring record type to their group to allow management of their cases</description>
+        <label>Share CTM With Their Public Group</label>
+        <sharedTo>
+            <group>Card_Transaction_Monitoring</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Card Transaction Monitoring</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_CreditBSI_Parent_Case_with_CDM</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share_CreditBSI_Parent_Case_with_CDM</label>
+        <sharedTo>
+            <group>CustomerDataTeam</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Business Systems Integration</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Credit_Parent_Case_with_BSI</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Credit Parent Case with BSI</label>
+        <sharedTo>
+            <group>APT_Credit_Management_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Business Systems Integration</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Shipster_Read_write_access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Shipster Read &amp; write access</label>
+        <sharedTo>
+            <group>Shipster</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Shipster</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>StarTrack_Account_Manager</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule will allow StarTrack Account Manager group to have read only access to the specified case record type.</description>
+        <label>StarTrack Account Manager</label>
+        <sharedTo>
+            <group>StarTrack_Account_Manager</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Delivery Enquiry,Sales Enquiry,General Enquiry,Pickup Booking Enquiry</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>StarTrack_Credit_Case_Approvers_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>StarTrack Credit Case Approvers Access</description>
+        <label>StarTrack Credit Case Approvers Access</label>
+        <sharedTo>
+            <group>All_StarTrack_Credit_Case_Approvers</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Dispute Claim</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>StarTrack_Credit_Dispute_ReadOnly1</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>StarTrack Credit Dispute ReadOnly1</label>
+        <sharedTo>
+            <role>StarTrack_Credit_Disputes_Team_Member</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Dispute Claim</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>StarTrack_Credit_Dispute_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>StarTrack Credit Dispute Read/Write</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>StarTrack_Credit_Disputes_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Dispute Claim</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>StarTrack_Credit_Dispute_Read_Write1</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>StarTrack Credit Dispute Read/Write1</label>
+        <sharedTo>
+            <role>StarTrack_Credit_Disputes_Manager</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Dispute Claim</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>StarTrack_Delivery_Enquiry_sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All the delivery enquiry cases are accesible to all startrack users except the account manager support cases</description>
+        <label>StarTrack Delivery Enquiry sharing</label>
+        <sharedTo>
+            <group>All_StarTrack_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Delivery Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Call_Purpose__c</field>
+            <operation>notEqual</operation>
+            <value>Account Manager Support</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>StarTrack_Transit_Warranty_Approvers_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>StarTrack Transit Warranty Approvers Access</label>
+        <sharedTo>
+            <group>All_StarTrack_Transit_Warranty_Approvers</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Transit Warranty Claim</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>StarTrack_Transit_Warranty_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Will give read/write access to transit warranty users.</description>
+        <label>StarTrack Transit Warranty Read/Write</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>StarTrack_Transit_Warranty_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Transit Warranty Claim</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>StarTrack_sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Rule to allow all StarTrack users to read and edit each others cases</description>
+        <label>StarTrack case sharing</label>
+        <sharedTo>
+            <group>All_StarTrack_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Pickup Booking Enquiry,Sales Enquiry,General Enquiry</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Supply_Chain_Optimisation_Case</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Sharing for SCO Cases - read only for other profile</description>
+        <label>Supply Chain Optimisation Case</label>
+        <sharedTo>
+            <group>All_Users_Ex_SSSW</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Service Partner</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ULD_Allocation_Case</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>ULD Allocation Case shared between the group</description>
+        <label>ULD Allocation Case</label>
+        <sharedTo>
+            <group>ULD_Allocation</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ULD Allocation</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>VOC_Incident_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Access to VOC Enquiry &amp; Incidents Read Only access</description>
+        <label>VOC Incident Read Only</label>
+        <sharedTo>
+            <group>Quality_Assurance_Team</group>
+        </sharedTo>
+        <booleanFilter>1 Or 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Voice of Customer Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Voice of Customer Incident</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>VOC_Incident_Read_Write_Managers</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>VOC Incident Read/Write Managers</label>
+        <sharedTo>
+            <group>StarTrack_VOC_Manager_Team</group>
+        </sharedTo>
+        <booleanFilter>1 Or 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Voice of Customer Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Voice of Customer Incident</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>View_all_business_Enablement_Cases</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Sharing rule to allow all business enablement recordtypes to be viewed by all users</description>
+        <label>View all business Enablement Cases</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Business_Reporting</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Analytics &amp; Reporting Request (CAR),Sales Coordinator</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>APGL_Support</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>APGL Support case sharing</description>
+        <label>APGL Support</label>
+        <sharedTo>
+            <group>APGLSupport_NZ</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>APGLSupport_NZ</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Partner_Info_RW_Access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Share Partner Info related cases to Partner Info Roles</description>
+        <label>Partner Info RW Access</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>PartnerInfo_National_RNP_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>PartnerInfo_National_RNP_Manager</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Sales_Implementation_Case_Sharing</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Sales Implementation Case Sharing</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <group>Business_Sales_Implementation_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Sharing_Rule_for_Sales_Process_Cases</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>case sharing rule for all sales excellence team member.</description>
+        <label>Sharing Rule for Sales Process Cases</label>
+        <sharedTo>
+            <group>Sales_Excellence</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Sales_Excellence</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

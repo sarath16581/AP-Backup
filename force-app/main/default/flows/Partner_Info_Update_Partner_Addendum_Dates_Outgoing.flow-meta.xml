@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <assignments>
+        <description>Assign the error to an output variable to this can be handled as required in Apex.</description>
+        <name>Assign_Error_to_Output_Variable</name>
+        <label>Assign Error to Output Variable</label>
+        <locationX>328</locationX>
+        <locationY>305</locationY>
+        <assignmentItems>
+            <assignToReference>Error</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_End_Date_for_Outgoing_Licence</name>
+        <label>Set End Date for Outgoing Licence</label>
+        <locationX>156</locationX>
+        <locationY>196</locationY>
+        <assignmentItems>
+            <assignToReference>StartDate</assignToReference>
+            <operator>Subtract</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_End_Date_of_Outgoing_Licence_Partner_Addendums</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>IsOutgoingLicenceValid</name>
+        <label>IsOutgoingLicenceValid</label>
+        <locationX>158</locationX>
+        <locationY>73</locationY>
+        <defaultConnectorLabel>[Default Outcome]</defaultConnectorLabel>
+        <rules>
+            <name>OutgoingLicenceValid</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>OutgoingLicenceId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_End_Date_for_Outgoing_Licence</targetReference>
+            </connector>
+            <label>OutgoingLicenceValid</label>
+        </rules>
+    </decisions>
+    <description>Update the Start Dates for the Partner Addendums against the outgoing licence.
+
+This flow is called from Apex Class AccountUtil.activateLicence</description>
+    <interviewLabel>Partner Info - Update Partner Addendum Dates Outgoing {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Partner Info - Update Partner Addendum Dates Outgoing</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_End_Date_of_Outgoing_Licence_Partner_Addendums</name>
+        <label>Update End Date of Outgoing Licence Partner Addendums</label>
+        <locationX>155</locationX>
+        <locationY>305</locationY>
+        <faultConnector>
+            <targetReference>Assign_Error_to_Output_Variable</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>End_Date__c</field>
+            <operator>GreaterThan</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Licence__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>OutgoingLicenceId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Schedule_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Recurring</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>End_Date__c</field>
+            <value>
+                <elementReference>StartDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Renewal_Status__c</field>
+            <value>
+                <stringValue>Ceased</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Partner_Addendum__c</object>
+    </recordUpdates>
+    <startElementReference>IsOutgoingLicenceValid</startElementReference>
+    <status>Active</status>
+    <variables>
+        <name>Error</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>The record id of the outgoing licence.  This will be used to update the end date of all PAs associated to the Licence</description>
+        <name>OutgoingLicenceId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>StartDate</name>
+        <dataType>Date</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

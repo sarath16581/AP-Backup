@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Solution_Stage__c</fullName>
+    <externalId>false</externalId>
+    <label>Solution Stage</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Consultation</fullName>
+                <default>false</default>
+                <label>Consultation</label>
+            </value>
+            <value>
+                <fullName>Definition</fullName>
+                <default>false</default>
+                <label>Definition</label>
+            </value>
+            <value>
+                <fullName>Scope Requirements</fullName>
+                <default>false</default>
+                <label>Scope Requirements</label>
+            </value>
+            <value>
+                <fullName>Solution</fullName>
+                <default>false</default>
+                <label>Solution</label>
+            </value>
+            <value>
+                <fullName>Capability Review</fullName>
+                <default>false</default>
+                <label>Capability Review</label>
+            </value>
+            <value>
+                <fullName>Pilot Build</fullName>
+                <default>false</default>
+                <label>Pilot Build</label>
+            </value>
+            <value>
+                <fullName>Pilot</fullName>
+                <default>false</default>
+                <label>Pilot</label>
+            </value>
+            <value>
+                <fullName>Solution Review</fullName>
+                <default>false</default>
+                <label>Solution Review</label>
+            </value>
+            <value>
+                <fullName>Process Standardisation</fullName>
+                <default>false</default>
+                <label>Process Standardisation</label>
+            </value>
+            <value>
+                <fullName>Go to market</fullName>
+                <default>false</default>
+                <label>Go to market</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

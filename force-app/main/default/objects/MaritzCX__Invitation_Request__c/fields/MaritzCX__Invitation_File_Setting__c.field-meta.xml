@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaritzCX__Invitation_File_Setting__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Reference to  Invitation File Settings</description>
+    <externalId>false</externalId>
+    <label>Invitation File Setting</label>
+    <referenceTo>MaritzCX__Invitation_File_Setting__c</referenceTo>
+    <relationshipLabel>Invitation Requests</relationshipLabel>
+    <relationshipName>Invitation_Requests</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This is an auto from a web-2-case creation to notify the customer of their case details.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Shipster New Case Auto Reply</name>
+    <style>none</style>
+    <subject>Your Shipster enquiry {!Case.CaseNumber}.  {!Case.EmailThreadID__c}</subject>
+    <textOnly>Australia Post
+
+Help &amp; support
+
+Reference number {!Case.CaseNumber}
+
+
+Hi {!Case.Recent_Caller_First_Name__c},
+
+Your enquiry is in progress.
+
+Thank you for contacting Shipster. Your case reference number for this enquiry is {!Case.CaseNumber}.
+
+While we progress your enquiry, feel free to find out more at our Help &amp; Support which may have an answer to your question.
+
+We look forward to assisting you further. We will be in touch with you shortly.
+
+Thank you,
+The Shipster Team
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

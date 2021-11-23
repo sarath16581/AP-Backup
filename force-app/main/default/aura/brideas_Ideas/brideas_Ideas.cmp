@@ -1,0 +1,156 @@
+<aura:component controller="brideas_IdeasCtrl" implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="commonVars" type="Object" description="Used to share common variables for child components" />
+    <aura:attribute name="orderBy" type="String" default="Popular" access="global" />
+    <aura:attribute name="orderByLabel" type="String" description="Label for selected item from orderBy options" />
+    <aura:attribute name="userInfo" type="Object" description="Represents information about current user" />
+    <aura:attribute name="systemMessage" type="Object" />
+    <aura:attribute name="currentPage" type="Integer" default="1" description="Current list page" />
+    <aura:attribute name="pagesTotal" type="Integer" default="1" description="Calculated amount list pages for current query" />
+    <aura:attribute name="searchQuery" type="String" description="Search phrase" />
+    <aura:attribute name="filters" type="Object" description="All filters options and status" />
+    <aura:attribute name="listItems" type="brideas_IdeaWrapper[]" description="Loaded ideas objects" />
+    <aura:attribute name="itemsCount" type="Integer" default="0" description="Total amount of ideas according to selected filters" />
+    <aura:attribute name="showCreateModal" type="Boolean" default="true" description="Define visibility of modal window with idea creating form" />
+    <aura:attribute name="showJoinGroupModal" type="Boolean" default="true" description="Define visibility of modal window with survey in iframe" />
+    <aura:attribute name="listLoading" type="Boolean" default="false" description="Using to define loading status" />
+    <aura:attribute name="debugStartTime" type="Integer" description="NOT USED" />
+
+    <aura:attribute name="communityName" type="String" access="global" />
+    <aura:attribute name="title" type="String" default="Ideas by AdvancedCommunities" access="global" description="NOT USED" />
+    <aura:attribute name="categoriesSource" type="String" default="Ideas categories" access="global" description="Using to switch between native ideas categories and custom settings values" />
+    <aura:attribute name="loginPage" type="String" access="global" description="Community Login Page URL" />
+    <aura:attribute name="itemsPerPage" type="Integer" default="5" access="global" description="List ideas amount per page" />
+    <aura:attribute name="configDisplayIdeasCount" type="Boolean" default="false" access="global" />
+    <aura:attribute name="configFiltersCollapse" type="Boolean" default="false" access="global" description="NOT USED" />
+    <aura:attribute name="configLayoutName" type="String" default="Default" access="global" description="NOT USED" />
+    <aura:attribute name="configEnableProfileLink" type="Boolean" default="true" access="global" description="NOT USED" />
+    <aura:attribute name="configSearchByTitleOnly" type="Boolean" default="false" access="global" description="Using with searchQuery attribute to enable simplest search condition only by Title field" />
+    <aura:attribute name="parentName" type="String" default="IdeasList" />
+
+    <aura:registerEvent name="ideasErrorEvent" type="c:brideas_Error" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="openIdeaEvent" event="c:brideas_OpenIdea" action="{!c.handleOpenIdea}" />
+    <aura:handler name="ideasErrorEvent" event="c:brideas_Error" action="{!c.handleErrorEvent}" />
+    <aura:handler name="ideaCreateSuccess" event="c:brideas_CreateEvent" action="{!c.handleIdeaCreated}" />
+    <aura:handler name="ideasFilterEvent" event="c:brideas_FilterIdeaEvent" action="{!c.handleIdeaFilter}"/>
+
+    <ltng:require styles="{!$Resource.BrIdeas + '/css/style.css'}" />
+
+    <div class="slds lght-ideas">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-order--2 slds-large-order--2 slds-size--1-of-1 slds-large-size--2-of-3 slds-p-right--medium slds-p-left--medium">
+                <aura:if isTrue="{!not(empty(v.systemMessage.body))}">
+                    <div class="slds-notify_container slds-m-bottom--small">
+                        <div class="slds-notify slds-notify--alert slds-theme--alert-texture">
+                            <h2>{!v.systemMessage.body}</h2>
+                        </div>
+                    </div>
+                </aura:if>
+
+                <div class="slds-grid header">
+                    <div class="slds-col">
+                        <ui:menu class="slds-dropdown-trigger">
+                            <ui:menuTriggerLink class="slds-button" aura:id="sortByListTrigger">
+                                {!v.orderByLabel}
+                                <img src="{!$Resource.BrIdeas + '/images/dropdown-arrow.png'}" class="slds-button__icon--right" alt="" />
+                            </ui:menuTriggerLink>
+                            <ui:menuList >
+                                <ui:actionMenuItem label="{!$Label.c.RecentSorting}" click="{!c.orderByRecent}"
+                                                   class="slds-p-horizontal--small slds-m-bottom--xx-small" />
+                                <ui:actionMenuItem label="{!$Label.c.OldestSorting}" click="{!c.orderByOldest}"
+                                                   class="slds-p-horizontal--small slds-m-bottom--xx-small" />
+                                <ui:actionMenuItem label="{!$Label.c.TrendingSorting}" click="{!c.orderByTrending}"
+                                                   class="slds-p-horizontal--small slds-m-bottom--xx-small" />
+                                <ui:actionMenuItem label="{!$Label.c.PopularSorting}" click="{!c.orderByPopular}"
+                                                   class="slds-p-horizontal--small slds-m-bottom--xx-small" />
+                            </ui:menuList>
+                        </ui:menu>
+                    </div>
+
+                    <div class="slds-col search-input">
+                        <lightning:input value="{!v.searchQuery}" type="text" name="IdeasSearch" onchange="{!c.searchIdeas}" label="Search" />
+                        <a href="javascript:void(0)" onclick="{!c.searchIdeas}" class="btn"><img src="{!$Resource.BrIdeas + '/images/search-btn.png'}" alt="Search" /></a>
+                    </div>
+                </div>
+
+                <div class="ideas-list">
+                    <aura:iteration items="{!v.listItems}" var="i">
+                        <c:brideas_IdeasItem aura:id="listItem" item="{#i}" commonVars="{!v.commonVars}" filters="{!v.filters}"/>
+                    </aura:iteration>
+                </div>
+
+                <aura:if isTrue="{!v.listLoading}">
+                    <div class="slds-grid slds-grid--align-center slds-p-vertical--large">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </aura:if>
+
+                <aura:if isTrue="{!or(v.listItems.length > 0, v.listLoading)}">
+                    <div class="slds-grid slds-grid--align-center slds-m-vertical--medium">
+                        <div class="slds-col--padded">
+                            <aura:if isTrue="{!greaterthan(v.currentPage, 1)}">
+                                <a href="javascript:void(0)" class="slds-button slds-button--brand" onclick="{!c.openPreviousPage}">
+                                    {!$Label.c.PreviousPagination}
+                                </a>
+                                <aura:set attribute="else">
+                                    <div class="slds-button slds-button--neutral">
+                                        {!$Label.c.PreviousPagination}
+                                    </div>
+                                </aura:set>
+                            </aura:if>
+                        </div>
+                        <div class="slds-col--padded slds-p-top--x-small">
+                            <span class="slds-text-body--regular pages">{!v.currentPage}&nbsp;{!$Label.c.of}&nbsp;{!v.pagesTotal}</span>
+                        </div>
+                        <div class="slds-col--padded">
+                            <aura:if isTrue="{!and(greaterthan(v.pagesTotal, 1), lessthan(v.currentPage, v.pagesTotal))}">
+                                <a href="javascript:void(0)" class="slds-button slds-button--brand" onclick="{!c.openNextPage}">
+                                    {!$Label.c.NextPagination}
+                                </a>
+                                <aura:set attribute="else">
+                                    <div class="slds-button slds-button--neutral">
+                                        {!$Label.c.NextPagination}
+                                    </div>
+                                </aura:set>
+                            </aura:if>
+                        </div>
+                    </div>
+                </aura:if>
+
+                <aura:if isTrue="{!and(v.listItems.length == 0, !v.listLoading)}">
+                    <p class="slds-text-body--large slds-text-align--center slds-m-vertical--medium">
+                        {!$Label.c.NoItemsMsg}
+                    </p>
+                </aura:if>
+            </div>
+
+            <div class="slds-col slds-size--1-of-1 slds-order--1 slds-large-size--1-of-3 slds-large-order--2 slds-p-left--medium right-col">
+                <div class="post-idea-button slds-p-right--small">
+                    <!--Below code is commented on 08-08-2018 for Communities Ideas List Page for moving the 
+                        Post idea or Join group button to a new component in the header.-->
+                    <!--<aura:if isTrue="{!and(not(empty(v.userInfo.Super)), equals(v.userInfo.Super,'true'))}">
+                        <lightning:button label="{!$Label.c.OpenPostIdea}" class="big-button" onclick="{!c.openCreateDialog}" variant="base" />
+                    </aura:if>
+                    <aura:if isTrue="{!notequals(v.userInfo.Super,'true')}">
+                        <lightning:button label="{!$Label.c.JoinIdeasGroup}" class="big-button join" onclick="{!c.joinIdeasGroup}" variant="base" />
+                    </aura:if>-->
+                </div>
+
+                <c:brideas_Sidebar parentName="{!v.parentName}" />
+            </div>
+        </div>
+        <!--Below code is commented on 08-08-2018 for Communities Ideas List Page for moving the 
+            Post idea or Join group button to a new component in the header.-->
+        <!--<c:brideas_CreateForm isVisible="{!v.showCreateModal}"
+                              communityName="{!v.communityName}"
+                              categoryOptions="{!v.filters.category.options}" 
+                              activeCategory="{#v.filters.category.selected}"></c:brideas_CreateForm>
+        <c:brideas_JoinGroupForm isVisible="{!v.showJoinGroupModal}" />-->
+    </div>
+
+    <div style="display: none;">
+        <a href="{!v.loginPage}" aura:id="hiddenLoginBtn"></a>
+    </div>
+
+</aura:component>

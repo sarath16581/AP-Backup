@@ -1,0 +1,49 @@
+<!--
+	Step capturing details related to the article in Direct to Network Case creation flow.
+
+    Changelog:
+    2020-10-05 - Ranjeewa Silva - Created.
+ -->
+<template>
+    <div class="slds-grid slds-wrap slds-gutters">
+        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2">
+            <lightning-input type="number"
+                             name="valueOfContents"
+                             label="Value of Contents"
+                             value={valueOfContents}
+                             formatter="currency"
+                             step="0.01"
+                             class="article-input"
+                             onchange={handleValueOfContentsChange}
+                             autocomplete="off"
+                             required></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2">
+            <lightning-input label="Date Posted"
+                             type="date"
+                             value={articleLodgementDate}
+                             class="article-input"
+                             onchange={handleDatePostedValueChange}
+                             required></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2">
+            <lightning-textarea
+                    label="Description of Contents"
+                    max-length="255"
+                    class="article-input"
+                    onchange={handleDescriptionOfContentsValueChange}
+                    required>
+            </lightning-textarea>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2">
+            <lightning-textarea
+                    label="Message to Network"
+                    max-length="32000"
+                    class="article-input"
+                    onchange={handleMessageToNetworkValueChange}
+                    value={messageToNetworkDefaultValue}
+                    required>
+            </lightning-textarea>
+        </div>
+    </div>
+</template>

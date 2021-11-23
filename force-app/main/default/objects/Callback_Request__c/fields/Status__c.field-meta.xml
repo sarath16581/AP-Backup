@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <description>Status field to control the processing of callback request and reminders.</description>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New</fullName>
+                <default>false</default>
+                <label>New</label>
+            </value>
+            <value>
+                <fullName>Case Unresolved</fullName>
+                <default>false</default>
+                <label>Case Unresolved</label>
+            </value>
+            <value>
+                <fullName>Voicemail</fullName>
+                <default>false</default>
+                <label>Voicemail</label>
+            </value>
+            <value>
+                <fullName>No Voicemail</fullName>
+                <default>false</default>
+                <label>No Voicemail</label>
+            </value>
+            <value>
+                <fullName>Closed</fullName>
+                <default>false</default>
+                <label>Closed</label>
+            </value>
+            <value>
+                <fullName>Assigned</fullName>
+                <default>false</default>
+                <label>Assigned</label>
+            </value>
+            <value>
+                <fullName>Assigned to Agent</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Assigned to Agent</label>
+            </value>
+            <value>
+                <fullName>Assigned to Queue</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Assigned to Queue</label>
+            </value>
+            <value>
+                <fullName>No Response</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>No Response</label>
+            </value>
+            <value>
+                <fullName>Open</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Open</label>
+            </value>
+            <value>
+                <fullName>Reminder Is Due</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Reminder Is Due</label>
+            </value>
+            <value>
+                <fullName>Resolved and Closed</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Resolved and Closed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

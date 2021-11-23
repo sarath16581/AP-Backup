@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Color__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF((ISPICKVAL(DMAPP__Status__c, &quot;Supporter&quot;) || ISPICKVAL(DMAPP__Status__c, &quot;Mentor&quot;)), &quot;green&quot;,
+IF((ISPICKVAL(DMAPP__Status__c, &quot;Non-Supporter&quot;) || ISPICKVAL(DMAPP__Status__c, &quot;Enemy&quot;)), &quot;red&quot;,
+IF((ISPICKVAL(DMAPP__Political__c, &quot;Political Structure&quot;) || ISPICKVAL(DMAPP__Political__c, &quot;Inner Circle&quot;)), &quot;yellow&quot;,
+&quot;grey&quot;
+)
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Color</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

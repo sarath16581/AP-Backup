@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>SSSWCTIMaintainWindowState</name>
+    </customPermissions>
+    <description>Permission Set is used to provide additional permissions to Agents from both back office and digital teams that are handling overflow CTI interactions.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>SSSW - CTI Overflow Experience</label>
+    <license>Salesforce</license>
+</PermissionSet>

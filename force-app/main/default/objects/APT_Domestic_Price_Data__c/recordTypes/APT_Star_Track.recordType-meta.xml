@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Star_Track</fullName>
+    <active>true</active>
+    <description>used for star track products</description>
+    <label>Star Track</label>
+    <picklistValues>
+        <picklist>APT_Category__c</picklist>
+        <values>
+            <fullName>Tier 0</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 6</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Network_Type__c</picklist>
+        <values>
+            <fullName>EXP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LO2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LOC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LOT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NXF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PRM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RE2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RET</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SE2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SE3</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Outbound_Inbound__c</picklist>
+        <values>
+            <fullName>Inbound</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outbound</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

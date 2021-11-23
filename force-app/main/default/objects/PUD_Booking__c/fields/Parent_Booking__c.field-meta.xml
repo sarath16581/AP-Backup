@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Parent_Booking__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The related booking - for van services permanent delivery bookings this will be the related pickup booking</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The related booking - for AP this is the related pickup booking.</inlineHelpText>
+    <label>Parent Booking</label>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>Only AP pickup bookings can be selected as the parent booking</errorMessage>
+        <filterItems>
+            <field>PUD_Booking__c.RecordType.DeveloperName</field>
+            <operation>equals</operation>
+            <value>AP_Adhoc_Pickup, AP_Permanent_Pickup</value>
+        </filterItems>
+        <infoMessage>Please select either an Adhoc or Permanent Pickup Booking.</infoMessage>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>PUD_Booking__c</referenceTo>
+    <relationshipLabel>Related Delivery Booking</relationshipLabel>
+    <relationshipName>Bookings</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NetworkSearchOLD</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Network Search OLD</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/apex/FacilitySearch?id={!Case.Id}&amp;postcode={!Case.Address2Postcode__c}&amp;isdtp=vw</url>
+</WebLink>

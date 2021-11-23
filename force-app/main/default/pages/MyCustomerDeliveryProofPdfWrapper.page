@@ -1,0 +1,23 @@
+<!--
+ Grabs a copy of the Safe Drop or signature image and plots it on a PDF wrapped in AP branding with other details about the article/consignment
+ NOTE: This page is called by apex when attaching a delivery proof PDF to the case record
+
+ @author Nathan Franklin
+ @date 30.01.2014
+ @changelog
+ -->
+<apex:page id="MyCustomerDeliveryProofPdfWrapper" controller="MyCustomerDeliveryProofPdfController" action="{!getSafeDropOrSignature}" showHeader="false" sideBar="false" renderAs="advanced_pdf">
+
+	<apex:outputPanel rendered="{!NOT(ISNULL(pageError))}" layout="none">
+		<div id="errorWrapper" style="margin:20px;">
+			<div class="alert alert-warning" role="alert">
+				{!pageError}
+			</div>
+		</div>
+	</apex:outputPanel>
+
+	<apex:outputPanel rendered="{!ISNULL(pageError)}" layout="none">
+		<c:DeliveryProofPdfRenderer eventMessage="{!eventMessage}" signatureAttachmentId="{!signatureAttachmentId}" safeDropAttachmentId="{!safeDropAttachmentId}" />
+	</apex:outputPanel>
+
+</apex:page>

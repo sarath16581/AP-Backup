@@ -1,0 +1,278 @@
+<template>
+    <div class="slds-m-horizontal_large slds-p-horizontal_large">
+        <div class="slds-text-heading_large slds-m-around_medium text-center">Mail redirection/hold
+        </div>
+        <template if:true={submitted}>
+            <div class="slds-m-around_large slds-p-around_large">
+                <template if:true={fileUploaded}>
+                    <div class="text-center">File {fileName} succesfully uploaded and attached to case {caseNumber}.</div>
+                    <div class="text-center slds-m-around_large">Customer name : {customerName}</div>
+                </template>
+                <template if:false={fileUploaded}>
+                    <div class="text-center slds-m-around_large">Case {caseNumber} was successfully created.</div>
+                    <div class="text-center slds-m-around_large">Customer name : {customerName}</div>
+                    <div class="slds-box text-center slds-no-print">If you would like to include a photo or file, attach here.
+                        <div class="slds-align_absolute-center slds-m-around_large">
+                            <lightning-file-upload
+                                label="Attach file (jpg, png, or pdf)"
+                                name="fileUploader"
+                                accept={acceptedFormats}
+                                record-id={caseId}
+                                onuploadfinished={handleUploadFinished}
+                                >
+                            </lightning-file-upload>
+                        </div>
+                    </div>
+                </template>
+                <div class="slds-p-around_medium">
+                    <button class="slds-align_absolute-center slds-button slds-button_outline-brand slds-no-print" 
+                            onclick={printScreen} title="Print" aria-label="Print">Print</button>
+                </div>
+            </div>
+        </template>
+        <template if:false={submitted}>
+            <template if:true={submitting}>
+                <lightning-spinner alternative-text="Loading"></lightning-spinner>
+            </template>
+            <div class="slds-grid slds-wrap">
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <lightning-combobox class="form-input" label="Select your outlet" required placeholder="Please select" value={values.facility} name="facility"
+                        options={facilityOptions} onchange={handleFacilityValueChange} field-level-help={selectYourOutlet}>
+                    </lightning-combobox>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="productSubCategory">
+                        <lightning-radio-group 
+                            required class="form-input" 
+                            label="Is this for a mail redirection or mail hold service?" 
+                            value={values.productSubCategory}
+                            options={mailRedirectOrHoldOptions}>
+                        </lightning-radio-group>
+                    </c-lwc-form-element>   
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="productCategory">
+                        <lightning-radio-group 
+                            required class="form-input" 
+                            label="Type of service" 
+                            value={values.productCategory}
+                            options={typeOfServiceOptions}>
+                        </lightning-radio-group>
+                    </c-lwc-form-element>   
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="custRefNo">
+                        <lightning-radio-group 
+                            required 
+                            class="form-input" 
+                            label="Do you have a Customer Reference Number (CRN)?" 
+                            value={values.custRefNo}
+                            options={yesNoOptions}>
+                        </lightning-radio-group>
+                    </c-lwc-form-element>   
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="custRefID" render-config={custRefNoConfig}>
+                        <lightning-input 
+                            class="form-input" 
+                            required
+                            type="text" 
+                            label="Customer Reference Number (CRN)" 
+                            name="custRefNo"
+                            value={values.custRefID}>
+                        </lightning-input>
+                    </c-lwc-form-element>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="caseLocality">
+                        <lightning-radio-group 
+                            required class="form-input" 
+                            label="Domestic or International service?" 
+                            value={values.caseLocality}
+                            options={domesticOrInternationalServiceOptions}>
+                        </lightning-radio-group>
+                    </c-lwc-form-element>   
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small">
+                    <c-lwc-form-element visibility-state={visibilities} name="hasPhotoId">
+                        <div class="inline-flex">
+                            <lightning-radio-group
+                                    required
+                                    class="form-input"
+                                    label="Has the customer provided Photo ID? (required for Privacy compliance)"
+                                    value={values.hasPhotoId}
+                                    options={yesNoOptions}>
+                            </lightning-radio-group>
+                            <lightning-helptext content="Please verify customer ID by asking for Photo ID (E.g. driver's license)"></lightning-helptext>
+                        </div>
+                    </c-lwc-form-element>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <c-customer-search search-result-select-handler={searchResultSelectHandler}></c-customer-search>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <lightning-input 
+                        required 
+                        class="form-input" 
+                        type="text" 
+                        label="First name" 
+                        name="FirstName" 
+                        value={values.FirstName}
+                        onchange={handleValueChange}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <lightning-input 
+                        required 
+                        class="form-input" 
+                        type="text" 
+                        label="Last name" 
+                        name="LastName" 
+                        value={values.LastName}
+                        onchange={handleValueChange}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <lightning-input
+                        required
+                        class="form-input" 
+                        type="tel" 
+                        label="Contact number" 
+                        placeholder="Please enter contact number"
+                        name="MobilePhone"
+                        value={values.MobilePhone}
+                        pattern={phoneNumberRegEx}
+                        field-level-help="When a phone number cannot be obtained, please enter 137678."
+                        message-when-pattern-mismatch="Enter a valid contact number (if landline, include area code)"
+                        onchange={handleValueChange}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <lightning-input 
+                        class="form-input" 
+                        type="email" 
+                        label="Email" 
+                        placeholder="Please enter email address"
+                        message-when-type-mismatch="Please enter a valid email address"
+                        name="Email"
+                        field-level-help="Please try to obtain an email address to enable prompt resolution for customer."
+                        value={values.Email}
+                        onchange={handleValueChange}>
+                    </lightning-input>
+                </lightning-layout-item>
+                    <lightning-layout-item size="6" padding="horizontal-small">
+                        <c-qas-address-validation 
+                            required 
+                            class="form-input sender-address" 
+                            label="Customer address"
+                            address-change-handler={customerAddressChangeHandler}
+                            address-search-term-change-handler={customerAddressSearchTermChangeHandler}
+                            >
+                        </c-qas-address-validation>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" padding="horizontal-small">
+                        <c-lwc-form-element visibility-state={visibilities} name="mailRedirectSection" render-config={mailRedirectionConfig}>
+                            <div class="slds-text-heading_small slds-m-around_medium text-center">Mail redirection details</div>
+                        </c-lwc-form-element>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" padding="horizontal-small">
+                        <c-lwc-form-element visibility-state={visibilities} name="mailRedirectSection" render-config={mailRedirectionConfig}>
+                            <div class="slds-p-vertical_small">
+                                <lightning-button label="Copy customer address" variant="brand" onclick={handleCopyToOldAddress}></lightning-button>
+                            </div> 
+                        </c-lwc-form-element>      
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" padding="horizontal-small">
+                        <c-lwc-form-element visibility-state={visibilities} name="mailRedirectSection" render-config={mailRedirectionConfig}>
+                            <div class="slds-p-vertical_small">
+                                <lightning-button label="Copy customer address" variant="brand" onclick={handleCopyToNewAddress}></lightning-button>
+                            </div> 
+                        </c-lwc-form-element>      
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" padding="horizontal-small">
+                        <c-lwc-form-element visibility-state={visibilities} name="mailRedirectOldAddress" render-config={mailRedirectionConfig}>
+                            <c-qas-address-validation 
+                                required 
+                                data-id="mailredirect-old-address-input"
+                                class="form-input mailredirect-old-address" 
+                                label="What is the old address?"
+                                address-change-handler={senderAddressChangeHandler}
+                                address-search-term-change-handler={senderAddressSearchTermChangeHandler}
+                                >
+                            </c-qas-address-validation>
+                        </c-lwc-form-element>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" padding="horizontal-small">
+                        <c-lwc-form-element visibility-state={visibilities} name="mailRedirectNewAddress" render-config={mailRedirectionConfig}>
+                            <c-qas-address-validation 
+                                required 
+                                data-id="mailredirect-new-address-input"
+                                class="form-input mailredirect-new-address" 
+                                label="What is the new address?"
+                                address-change-handler={addresseeAddressChangeHandler}
+                                address-search-term-change-handler={addresseeAddressSearchTermChangeHandler}
+                            >
+                            </c-qas-address-validation>
+                        </c-lwc-form-element>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" padding="horizontal-small">
+                        <c-lwc-form-element visibility-state={visibilities} name="redirectComments" render-config={mailRedirectionConfig}>
+                            <lightning-textarea 
+                                required
+                                class="form-input"
+                                name="redirectComments" 
+                                value={values.redirectComments} 
+                                label="Notes to assist with enquiry"
+                                placeholder="Include any article IDs if known, and any other relevant supporting information.">
+                            </lightning-textarea>
+                        </c-lwc-form-element>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" padding="horizontal-small">
+                        <c-lwc-form-element visibility-state={visibilities} name="mailHoldSection" render-config={mailHoldConfig}>
+                            <div class="slds-text-heading_small slds-m-around_medium text-center">Mail hold details</div>
+                        </c-lwc-form-element>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" padding="horizontal-small">
+                        <c-lwc-form-element visibility-state={visibilities} name="mailHoldSection" render-config={mailHoldConfig}>
+                            <div class="slds-p-vertical_small">
+                                <lightning-button label="Copy customer address" variant="brand" onclick={handleCopyToMailHoldAddress}></lightning-button>
+                            </div> 
+                        </c-lwc-form-element>      
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" padding="horizontal-small">
+                        <c-lwc-form-element visibility-state={visibilities} name="mailHoldAddress" render-config={mailHoldConfig}>
+                            <c-qas-address-validation 
+                                required 
+                                class="form-input mailhold-address" 
+                                label="What is the mail hold address?"
+                                address-change-handler={addresseeAddressChangeHandler}
+                                address-search-term-change-handler={addresseeAddressSearchTermChangeHandler}
+                            >
+                            </c-qas-address-validation>
+                        </c-lwc-form-element>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12"></lightning-layout-item>
+                    <lightning-layout-item size="6" padding="horizontal-small">
+                        <c-lwc-form-element visibility-state={visibilities} name="mailholdComments"  render-config={mailHoldConfig}>
+                            <lightning-textarea 
+                                required
+                                class="form-input"
+                                name="mailholdComments" 
+                                value={values.mailholdComments} 
+                                label="Notes to assist with enquiry"
+                                placeholder="Include any article IDs if known, and any other relevant supporting information.">
+                            </lightning-textarea>
+                        </c-lwc-form-element>
+                    </lightning-layout-item>
+                </div>
+                <template if:true={displayErrorMsg}>
+                    <lightning-layout-item size="12" padding="around-small">
+                        <div class="slds-box slds-align_absolute-center slds-m-around_large slds-text-color_error">Please complete highlighted fields above</div>
+                    </lightning-layout-item>
+                </template>
+            <div class="slds-p-around_small slds-align_absolute-center">
+                <lightning-button label="Submit" variant="brand" onclick={handleSubmit}></lightning-button>
+            </div>
+        </template>
+    </div>
+</template>

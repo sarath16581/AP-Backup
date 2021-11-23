@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Credit_Claims_Queue_Disputed_Item</fullName>
+    <filterScope>Queue</filterScope>
+    <label>StarTrack Credit Claims Queue</label>
+    <queue>StarTrack_Credit_Claims_Queue</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

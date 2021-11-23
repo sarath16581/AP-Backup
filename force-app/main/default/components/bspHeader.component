@@ -1,0 +1,138 @@
+<!--
+2019-04-28 nathan.franklin@auspost.com.au Changed the condition for displaying live agent (to conform with BAM refactor)
+2020-04-27 snigdha.sahu@auspost.com.au Updated for REQ2166987
+2020-10-12 swati.mogadala@auspost.com.au Updated banner for REQ2307493
+-->
+<apex:component controller="bspComponent">
+
+  <style type="text/css">
+    .l-header {
+      <!--margin-bottom: 62px !important;-->
+    }
+    
+    .announcement {
+      	color: #d34322;
+        line-height: 1.5;
+        display: block;
+        border-radius: 4px;
+        border: 2px solid rgb(180, 180, 180);
+        background-color: #FFBE33 !important;
+      }
+      
+    .bw-liveagent {
+        z-index: 20;
+        bottom: -51px !important;
+    }
+
+    #alert-container {
+        position: absolute;
+        top: 111px;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        background-color: #FBF8F1;
+        border-bottom: 1px solid #EBEAEA;
+    
+
+    #alert-container > div {
+        box-sizing: border-box;
+        width: 960px;
+        margin:0 auto;
+        padding-right: 235px;
+        color:white;
+        position: relative;
+        top: 50%;
+        transform: perspective(1px) translateY(-50%);
+    }
+
+    .temp-alert .inner {
+        line-height: 1.3;
+        display: block;
+        padding: 1px;
+        border-radius: 3px;
+        border: 1px solid rgb(180, 180, 180);
+        background-color: rgb(212, 212, 212);
+        color: rgb(88, 88, 88);
+    }
+
+    .temp-alert.warning .inner {
+        border: 2px solid rgb(251,238,213);
+        background-color: rgb(252,248,227);
+    }
+
+    .temp-alert.warning .inner, .temp-alert.warning .close {
+        color: rgb(192,152,83);
+    }
+</style>
+    <div class="announcement">
+      <div style = "padding-left: 7px;">
+          Coronavirus is having a significant impact on our business. We are experiencing substantial delivery delays due to limited flights, social distancing in our facilities and increased parcel volumes. We apologise in advance for any inconvenience.  Australia Post will continue to do our best to respond to your queries during this difficult time and ask that you please treat our people with respect and understanding. Thank you for your patience and cooperation.
+        <br>
+        </br>
+        <b>
+          The Business Support Portal is being refreshed to make it easier for your business to manage deliveries. The Portal will be unavailable between 8.00pm to 10.30pm 22 October 2020 while we make these changes. You will automatically have access to the refreshed Portal from 23 October 2020.
+        </b>
+      </div>
+    </div>
+    <div class="l-header">
+      
+      <!--<div id="alert-container">
+        <div>
+            <div class="temp-alert warning">
+                
+                <div class="inner">
+                  Coronavirus is having a significant impact on our business. We are experiencing substantial delivery delays due to limited flights, social distancing in our facilities and increased parcel volumes. We apologise in advance for any inconvenience.  Australia Post will continue to do our best to respond to your queries during this difficult time and ask that you please treat our people with respect and understanding. Thank you for your patience and cooperation.
+                  <!--<a href="https://auspost.com.au/about-us/news-media/important-updates" target="_blank">Coronavirus: international delays  &amp; changes to domestic parcel delivery</a> -->
+                <!--</div> 
+               
+            </div>
+        </div>
+    </div>-->
+        
+      <div id="header" style ="height:60px">
+          <apex:form >              
+            <header>
+              <!-- START top nav -->
+              <div class="top-nav clearfix">
+                  <nav>
+                  <!-- CSSO global widget -->
+                      <dl class="csso-global">
+                        <dt class="active-session"><a href="#"><span class="csso-icon"></span>{!$User.FirstName} {!$User.LastName}<span class="acc-options"></span></a></dt>
+                        <dd class="csso-menu" style="display:none;">
+                          <ul class="csso-options">
+                            <li class="acc-no">Primary Billing Account<span>&nbsp;{!businessNumber}</span></li>
+                            <li><a href="{!$Site.CurrentSiteUrl}bspProfile">Update details</a></li>
+                              <apex:outputPanel layout="none" rendered="{!not(isCSSOLogin)}">
+                                <li><a href="{!$Site.CurrentSiteUrl}bspProfile?section=password">Change password</a></li>
+                              </apex:outputPanel>
+                            <li><a href="{!$Site.Prefix}/secur/logout.jsp">Logout</a></li>
+                          </ul>
+                        </dd>
+                      </dl>
+                  <!-- END CSSO global widget -->
+                  </nav>
+              </div>
+              <!-- END top nav -->
+			  
+              <!-- START logo -->
+              <a href="{!$Site.CurrentSiteUrl}bspEnquiry" class="main-logo"> <img src="{!URLFOR($Resource.BSP_Asset, 'css/images/logo-ap_st-2_h_1.png')}" alt="Australia Post logo" /> </a>
+              <!-- END logo -->
+
+              <!-- START primary nav -->
+              <div id="primary-nav" class="primary-nav clearfix">
+                <h3> Business Support Portal</h3>
+              </div>
+              <!-- END primary nav -->
+
+
+            <!-- START Live Agent -->
+            <apex:outputPanel rendered="{!hasAPBillingAccounts}">
+                <c:bspLiveAgent />
+            </apex:outputPanel>
+            <!-- END Live Agent -->
+
+            </header>
+          </apex:form>
+      </div>
+    </div>
+</apex:component>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Resource__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The assigned driver (Resource Type = T) service resource.</description>
+    <externalId>false</externalId>
+    <label>Service Resource</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>ServiceResource.IsActive</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <filterItems>
+            <field>ServiceResource.ResourceType</field>
+            <operation>equals</operation>
+            <value>T</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>ServiceResource</referenceTo>
+    <relationshipLabel>Duty Assignments</relationshipLabel>
+    <relationshipName>AssignedRoutes</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

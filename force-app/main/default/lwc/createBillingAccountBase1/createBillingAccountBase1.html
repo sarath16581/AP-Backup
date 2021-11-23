@@ -1,0 +1,21 @@
+<!--
+/* @author
+ * @date 2021-03-10
+ * @group Billing Accounts
+ * @tag Billing Account
+ * @description: Billing Account Creation modal popup . Used for showing the attributes/ validation message if exists
+ *               and triggering the billing account creation request.
+ * @changelog
+ * 2021-03-10 dheeraj.mandavilli@auspost.com.au Created
+ *
+ -->
+
+<!-- Create Billing Account Base -->
+<template>
+    <template if:true={isAusPost}>
+        <c-create-billing-account record-id={recordId} onclose={cancel}></c-create-billing-account>
+    </template>
+    <template if:true={isStartrack}>
+        <c-create-s-t-billing-account record-id={recordId} onclose={cancel}></c-create-s-t-billing-account>
+    </template>
+</template>

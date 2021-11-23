@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Call lighting component to launch lighting web component to create a booking exception (No Pickup)</description>
+    <height>370</height>
+    <label>No Pickup</label>
+    <lightningComponent>pudCreateBookingExceptionLC</lightningComponent>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>LightningComponent</type>
+    <width>-100</width>
+</QuickAction>

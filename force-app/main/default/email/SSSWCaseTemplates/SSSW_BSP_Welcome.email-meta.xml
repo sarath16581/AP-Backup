@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Template used to welcome new BSP Customers</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW BSP Welcome</name>
+    <style>none</style>
+    <subject>Australia Post - Welcome {!Contact.FirstName} to the BSP!</subject>
+    <textOnly>Australia Post
+
+Help &amp; support
+
+Hi {!Contact.FirstName},
+
+Thank you for taking the time to learn about our Business Support Portal (BSP).
+
+Australia Post is committed to providing world class customer service and we have embarked upon a journey of technological investment in our business to better serve our customers.
+
+As discussed, please find attached all information required to log in and access the Business Support Portal. Please note the portal works more efficiently within a Chrome browser session.
+
+Our recommendation is to familiarise yourself primarily with the following documents first:
+
+Business Support Portal – How to use
+Business Support Portal – FAQ Sheet Enquiry Types
+
+To register you need to open https://www.auspost.com.au/bsp in an internet browser and then click on ‘Create a New Account’.
+
+You will need the following detail to register:
+
+Your company name (must match the name on our monthly statements to you)
+Your Australia Post Account Number
+
+The advantages of this online portal are:
+
+Access to the BSP 24/7
+Ability to register multiple logins
+Ability to view all enquiries in a single screen (with an individual status for each enquiry)
+Ability to view enquiries across the whole organisation (not just enquiries raised by one user)
+Live Chat with Customer Support between 8am-6pm (AEST)
+Access to Proof of Deliveries (immediate in some cases)
+Access to external links (eParcel Merchant Access and My Business Account)
+
+Should you require any further assistance with these steps, please feel free to contact us.
+
+Regards,
+{!User.FirstName}
+
+Australia Post
+{!Case.Thread_Id}
+
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

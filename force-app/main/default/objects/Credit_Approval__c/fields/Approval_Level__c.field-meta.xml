@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approval_Level__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
+    <description>DEPRECATED. DO NOT USE.</description>
+    <externalId>false</externalId>
+    <label>Approval Level (DEPRECATED)</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>GM of Product</fullName>
+                <default>false</default>
+                <label>GM of Product</label>
+            </value>
+            <value>
+                <fullName>National Dispute Manager</fullName>
+                <default>false</default>
+                <label>National Dispute Manager</label>
+            </value>
+            <value>
+                <fullName>Head Of Product</fullName>
+                <default>false</default>
+                <label>Head Of Product</label>
+            </value>
+            <value>
+                <fullName>Not Submitted</fullName>
+                <default>false</default>
+                <label>Not Submitted</label>
+            </value>
+            <value>
+                <fullName>Approved by Level 1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Approved by Level 1</label>
+            </value>
+            <value>
+                <fullName>Approved by Level 2</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Approved by Level 2</label>
+            </value>
+            <value>
+                <fullName>Approved by Level 3</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Approved by Level 3</label>
+            </value>
+            <value>
+                <fullName>Approved by Level 4</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Approved by Level 4</label>
+            </value>
+            <value>
+                <fullName>Approved by Level 5</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Approved by Level 5</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

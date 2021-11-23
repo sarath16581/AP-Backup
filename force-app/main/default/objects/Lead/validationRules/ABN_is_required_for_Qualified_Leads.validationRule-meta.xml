@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ABN_is_required_for_Qualified_Leads</fullName>
+    <active>true</active>
+    <description>ABN field is required when Primary Product is not &apos;Mypost business&apos; and Lead Status=&apos;Qualified&apos; Or &apos;Converted&apos; for BG Standard and StarTrack Lead</description>
+    <errorConditionFormula>AND(
+ISCHANGED(Status),
+OR(
+ISPICKVAL(Status, &quot;Qualified&quot;),
+ISPICKVAL(Status, &quot;Verified&quot;),
+ISPICKVAL(Status, &quot;MyPost Business&quot;)
+),
+OR(
+RecordType.DeveloperName = &apos;BG_Standard&apos;,
+RecordType.DeveloperName = &apos;StarTrack_Lead&apos;
+),
+NOT( ISPICKVAL( Product__c , &apos;MyPost Business&apos;)),
+ OR( ISNULL( ABN__c ), ISBLANK(ABN__c )  )
+
+ )</errorConditionFormula>
+    <errorMessage>ABN needs to be populated prior to changing the Stage to &apos;Qualified or Converted&apos;</errorMessage>
+</ValidationRule>

@@ -1,0 +1,5 @@
+<apex:page controller="reportingAggregateUtils">
+  <apex:form >
+      <apex:commandButton action="{!build}" value="Build Aggregates"/>
+  </apex:form>
+</apex:page>

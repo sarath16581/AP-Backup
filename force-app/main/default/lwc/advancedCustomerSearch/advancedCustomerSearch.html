@@ -1,0 +1,83 @@
+<template>
+    <div class="slds-m-left_small">
+        <lightning-button variant="brand" label="Advanced Search" onclick={openModal}></lightning-button>
+    </div>
+    
+    <c-modal title="Advanced Customer Search" show-modal={showModal} close-modal-callback={closeModal} is-large>
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <lightning-combobox 
+                    class="form-input" 
+                    label="Customer Type" 
+                    placeholder="Any"
+                    options={customerTypeOptions}>
+                </lightning-combobox>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <lightning-input label="First Name" name=firstName  onchange={handleParamChange}>
+                </lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <lightning-input label="Last Name">
+                </lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <lightning-input label="Email">
+                </lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <lightning-input label="Phone Number">
+                </lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <lightning-input label="Account No. / ABN / APCN">
+                </lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <lightning-input label="Account Name">
+                </lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <lightning-input label="Social Key">
+                </lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <lightning-input-address 
+                    address-label="Address"
+                    street-label="Street" 
+                    city-label="City" 
+                    country-label="Country"
+                    province-label="State" 
+                    postal-code-label="PostalCode">
+                </lightning-input-address>
+            </lightning-layout-item>
+        </lightning-layout>
+        <div class="slds-p-around_small">
+            <lightning-button 
+                onclick={doSearch}
+                variant="brand"
+                label="Search"
+                icon-name="utility:search">
+            </lightning-button>
+        </div>      
+        <div>
+            <tmeplate if:true={noResultsFound}>
+                <h2 class="slds-text-heading_small slds-m-around_small">No customer found matching the search criteria.
+                </h2>
+            </tmeplate>
+            <div class="slds-m-around_small" style="max-height: 300px">
+                <lightning-datatable 
+                    show-row-number-column="true" 
+                    key-field="Id" 
+                    data={searchResults}
+                    onrowaction={handleRowAction} 
+                    columns={columns} 
+                    resize-column-disabled
+                    hide-checkbox-column
+                ></lightning-datatable>
+            </div>
+        </div>
+        <lightning-button class="slds-m-left_x-small" variant="neutral" label="Cancel" slot="footer" onclick={closeModal}>
+        </lightning-button>
+    </c-modal>
+</template>

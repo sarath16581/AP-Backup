@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>An email to advise the Solution Request has been not been approve/rejected after 2 days it&apos;s been created</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SolutionRequestManagerReminder</name>
+    <style>none</style>
+    <subject>Sales Solution Requests - {!Sales_Solution_Request__c.Name} Reminder</subject>
+    <textOnly>Hello
+
+A request was created {!Sales_Solution_Request__c.CreatedDate} and the status doesn&apos;t appear to have changed  {!Sales_Solution_Request__c.Name}
+
+{!Sales_Solution_Request__c.Link}
+
+Regards</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

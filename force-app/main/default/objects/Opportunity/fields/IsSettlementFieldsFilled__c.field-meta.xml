@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsSettlementFieldsFilled__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>2014-06 APMS - This flag will be updated by trigger. When checked, it means 4 mandatory fields on Application are filled. Only system admin can edit this field on UI.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field is checked if 4 Settlement fields are filled on the related Application.</inlineHelpText>
+    <label>Settlement Fields Filled?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

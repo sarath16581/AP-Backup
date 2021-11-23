@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SSSW - Used to notify the Customer when the onboard with driver event message is created</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Onboard with driver</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference number {!Case.CaseNumber}
+
+
+Hi {!Contact.FirstName},
+
+Your item {!Case.ReferenceID__c} is due for delivery today
+
+Hang on, what if I’m not home? Here’s what will happen:
+
+If nobody’s home we’ll still deliver your item, provided we can leave it in a safe place. Otherwise it will be dropped at a Post Office for your collection.
+
+For information on your how you can control your deliveries in future, please see here.
+
+If you have any further questions about the delivery of your article, please reply to this email and we will be happy to assist you.
+
+
+Thank you,
+
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

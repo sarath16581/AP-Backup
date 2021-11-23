@@ -1,0 +1,40 @@
+{
+  "connect": {
+    "connecting": "Connecting...",
+    "connected": "Connected",
+    "notConnected": "Not Connected"
+  },
+  "task": {
+    "started": "Task",
+    "completed": "Task Completed"
+  },
+  "case": {
+    "new": "New Case",
+    "existing": "Case"
+  },
+  "search": {
+    "search": "Search",
+    "caseSearch": "Case Search",
+    "caseNumber": "Case Number",
+    "phoneNumber": "Phone Number",
+    "name": "Name",
+    "email": "Email",
+    "address": "Address",
+    "subject": "Subject",
+    "account": "Account",
+    "dateCreated": "Date Created"
+  },
+  "mediaType": {
+    "voiceInbound": "Voice-Inbound",
+    "voiceOutbound": "Voice-Outbound",
+    "voiceInternal": "Voice-Internal",
+    "email": "Email",
+    "chat": "Chat",
+    "sms": "Sms",
+    "facebook": "Facebook",
+    "twitter": "Twitter",
+    "workitem": "Work Item",
+    "webcallback": "Web Callback",
+    "video": "Video"
+  }
+}

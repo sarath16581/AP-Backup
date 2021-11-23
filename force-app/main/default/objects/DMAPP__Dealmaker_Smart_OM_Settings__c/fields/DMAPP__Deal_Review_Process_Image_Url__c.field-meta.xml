@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Deal_Review_Process_Image_Url__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This setting holds a url to an image which defines the T&amp;I process
+
+This image is shown on the welcome page of the T&amp;I</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This setting holds a url to an image which defines the T&amp;I process
+
+This image is shown on the welcome page of the T&amp;I</inlineHelpText>
+    <label>Deal Review Process Image Url</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

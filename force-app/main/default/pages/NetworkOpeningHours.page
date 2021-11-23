@@ -1,0 +1,28 @@
+<apex:page standardController="Network__c">
+
+<style>
+	
+thead th {
+background-color: #eee;
+font-size: 80%;
+text-align: center;
+}
+	
+th {
+padding: 8px;
+border: 1px solid #ddd;
+text-align: center;
+}	
+	
+td {
+padding-top: 3px;
+padding-bottom: 3px;
+margin-bottom: 0;
+border: 1px solid #ddd;
+text-align: center;
+}	
+	
+</style>
+
+	<c:Business_Hours facility="{!Network__c}" rendered="true"/>
+</apex:page>

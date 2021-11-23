@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AM_Seaford</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Depot__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>sea</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>SEA01,SEA02,SEA03,SEA04,SEA05</value>
+    </filters>
+    <label>AM Seaford</label>
+    <sharedTo>
+        <group>SEAFORD_VAN_OPERATIONS</group>
+    </sharedTo>
+</ListView>

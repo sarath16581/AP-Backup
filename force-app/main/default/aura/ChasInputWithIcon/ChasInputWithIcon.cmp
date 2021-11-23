@@ -1,0 +1,53 @@
+<aura:component extends="c:ChasBaseInput" description="Standard text input">
+    <aura:attribute name="type" type="String" default="text"/>
+    <aura:attribute name="maxlength" type="Integer"/>
+    <aura:attribute name="placeholder" type="String"/>
+    <aura:attribute name="prefix" type="String"/>
+    <aura:attribute name="pattern" type="String"/>
+    <aura:attribute name="onblur" type="Aura.Action" />
+    <aura:attribute name="isLoading"  type="Boolean" default="false" />
+    <aura:attribute name="isVerified"  type="Boolean" default="false" />
+    
+    
+    <div class="slds-form-element">
+        <!-- Label -->
+        <c:ChasInputLabel for="{! v.name }" label="{! v.label }" subLabel="{! v.subLabel }" helptext="{! v.helptext }"/>
+        
+        <!-- Errors -->
+        <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }" id="{! v.name }" />
+        
+        <div class="chas-input-field-container slds-form-element__control slds-grow">
+            <aura:if isTrue="{! v.prefix }">
+                <div class="prefix">{! v.prefix }</div>
+            </aura:if>
+            
+            <!-- Input -->
+            <input
+                   type='{! v.type }'
+                   id='{! v.name }'
+                   name='{! v.name }'
+                   required='{! v.required }'
+                   value='{! v.value }'
+                   oninput='{! c.updateValue }'
+                   onblur='{! c.searchOnBlur }'
+                   class="{! 'slds-input chas-input-field'}"
+                   maxlength='{! v.maxlength }'
+                   pattern='{! v.pattern }'
+                   step='any'
+                   placeholder="{! v.placeholder }"
+                   aria-describedby="{! v.name + '-description ' + v.name + '-error' }"/>
+            <div class="{! 'rotate loading-' + v.isLoading}">
+            </div>
+            <aura:if isTrue="{! v.isVerified }">
+                <div class="verified">
+                    <img src="{! $Resource.ChasIcons + '/chas-icons/svgs/UI/icons/ic_verified.svg' }" alt="icon verified"/>
+                </div>
+            </aura:if>
+        </div>
+        
+        <div class="chas-below-input" id="{! v.name + '-description' }">
+            {! v.body }
+        </div>
+        
+    </div>
+</aura:component>

@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+
+<body>
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Good Morning</span><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"></span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Licence Record {!Account.Name} has the existing contract due to expire in {! IF(Account.Assignment_Effective_To_Date__c-Today() >= 180, "6 months", IF(Account.Assignment_Effective_To_Date__c-Today() >= 90, "3 months" , IF(Account.Assignment_Effective_To_Date__c-Today() >= 30,"1 month", TEXT(Account.Assignment_Effective_To_Date__c-Today()) + " days")))}</span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Please review this Contract agreement and complete required documents if needed.</span></p>
+
+<!--p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Failure to do so will impact the current licensee payments. </span></p-->
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Click <a href="{!Account.Link}">here</a> to view Licence. </span></p>
+
+<!--p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"><font color="Red">{!IF(ISBLANK(Account.SAP_Vendor_ID__c), 'The SAP vendor number has NOT been provided.<br/>Please update the details and ensure approval is finalised prior to COB<br/>This will ensure that licensee payments are not impacted.' , ' ')}
+ </font></span></p-->
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Regards</span></p>
+
+
+</body>
+</html>

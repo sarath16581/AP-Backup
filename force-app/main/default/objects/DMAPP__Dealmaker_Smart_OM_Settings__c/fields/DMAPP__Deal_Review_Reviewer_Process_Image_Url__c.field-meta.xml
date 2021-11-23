@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Deal_Review_Reviewer_Process_Image_Url__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field holds a url for an image that defines the Reviewers Deal Review process.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field holds a url for an image that defines the Reviewers Deal Review process.</inlineHelpText>
+    <label>Deal Review Reviewer Process Image Url</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

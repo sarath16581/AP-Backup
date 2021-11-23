@@ -1,0 +1,29 @@
+<!--
+* @author Andrew Judd ajudd@salesforce.com 
+* @date 2020-07-01
+* @domain Field Service 
+* @description  Page associated to FSL Gantt actions:
+                        - 'Assign to Duty' mass action (drop down in the left hand panel)
+                        - 'Assign to Duty' gant action (left click on selected service appointments)
+*                   Allows user to select service appoinment and assign them direct to the selected duty.
+*                   Note that unschuduled appointments are scheduled based on Earliest Start time 
+*
+* @changelog 
+* 2020-07-01 - Andrew Judd - Created 
+* 2020-09-05 - Andrew Judd - Change labeling from Scheduled to Assign
+-->
+<apex:page docType="html-5.0" controller="TDF_ScheduleToDutyController">
+    <apex:stylesheet value="{!URLFOR($Resource.TDFLightningCSS, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
+    <apex:form >
+		<apex:pageMessages escape="false"/>  
+        <apex:pageBlock title="Assign selected Service Appoinments to a Duty" id="duty_list">
+
+            <apex:selectList size="1" value="{!selectedDutyForAssignment}" styleClass="slds-select">
+            	<apex:selectOptions value="{!dutyToAssignSelectList}" />
+            </apex:selectList>
+            
+            <apex:commandButton value="Assign" action="{!scheduleToDuty}" styleClass="slds-button slds-button_brand" />
+
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

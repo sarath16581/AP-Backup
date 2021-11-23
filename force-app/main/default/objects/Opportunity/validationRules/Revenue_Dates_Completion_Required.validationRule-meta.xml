@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Revenue_Dates_Completion_Required</fullName>
+    <active>true</active>
+    <description>This Validation Rule is created as part of User Story STP -2221 Release 2 . This is to make sure that users have to first complete the Opportunity Products Revenue start date and Revenue End date before progressing with the Opportunity Stage .</description>
+    <errorConditionFormula>AND(NOT(ISNEW()), ISCHANGED( StageName ), OR(Count_of_Contract_Start_Dates__c&gt;0 ,Count_of_Contract_End_Dates__c&gt;0))</errorConditionFormula>
+    <errorMessage>Please Complete the Quantity , Revenue Start Date and End Date on Opportunity Products before progressing with the Stage</errorMessage>
+</ValidationRule>

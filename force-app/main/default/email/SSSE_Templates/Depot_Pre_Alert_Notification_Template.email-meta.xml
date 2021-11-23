@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Template to notify the depot for pick up task</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Depot Pre-Alert Notification Template</name>
+    <style>none</style>
+    <subject>Alert : New Pickup Task for &apos;{!Job__c.Job_Type__c}&apos;</subject>
+    <textOnly>ATT:  Please check Salesforce for new &apos;{!Job__c.Job_Type__c}&apos; pick up task ({!Job__c.Name})
+
+({!Job__c.Link})</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

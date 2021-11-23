@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>38.0</apiVersion>
+    <description>Visualforce component to display Attempt to delivery event message &amp; case details in email template</description>
+    <label>VE_CardedCase</label>
+</ApexComponent>

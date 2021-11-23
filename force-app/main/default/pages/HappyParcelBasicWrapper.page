@@ -1,0 +1,40 @@
+<!--
+	This wraps the Lightning Wrapper component and allows us to use Lightning Out to create and communicate with the Happy Parcel lightning application
+	This is just a basic wrapper to render the HP LWC component and display it in visualforce
+-->
+<apex:page id="HappyParcelBasicWrapper">
+	<apex:slds />
+
+	<apex:outputPanel rendered="{!AND($User.UIThemeDisplayed != 'Theme4d', $User.UIThemeDisplayed != 'Theme4t', $User.UIThemeDisplayed != 'Theme4u')}">
+		<div id="wrapper">
+			<c:LightningWrapper lightningApp="c:HappyParcelWrapperApp"
+			                    lightningComponent="c:happyParcel"
+			                    crossOriginLwcEvents="false"
+								componentAttributes="{&quot;supportsExternalLinkHandling&quot;:true}"	/>
+		</div>
+
+		<script>
+			// listen for the custom dom event idclick so we can handle anytime a user wants to click a record from within HP
+			document.getElementById('wrapper').addEventListener('idclick', handleHappyParcelLightningEvent);
+
+			// add slds scope class to body since the body can't be overridden since we are showing vf headers
+			// this give the vf page a bit of funky look (for example, the logo disappears), but it's a legacy page which should eventually disappear
+			document.body.className += ' slds-scope';
+
+			/**
+			 * This is the callback for anytime a lightning event is generated for Happy Parcel
+			 */
+			function handleHappyParcelLightningEvent(e) {
+				console.log('handleHappyParcelLightningEvent', e);
+				if(e && e.detail && e.type === 'idclick' && e.detail.id) {
+					// this occurs if a link is clicked in Happy Parcel that requires a record page to be opened
+					window.open('/' + e.detail.id);
+				}
+			}
+		</script>
+
+	</apex:outputPanel>
+	<apex:outputPanel rendered="{!OR($User.UIThemeDisplayed == 'Theme4d', $User.UIThemeDisplayed == 'Theme4t', $User.UIThemeDisplayed == 'Theme4u')}">
+		<p>This page can not be viewed in Lightning. Please view here: <a href="/lightning/n/SAP_EM" target="_top">SAP EM</a></p>
+	</apex:outputPanel>
+</apex:page>

@@ -1,0 +1,18 @@
+<template>
+    <div class="container">
+        <c-post-code-custom-look-up 
+            class="lookup"
+            name="lookup"
+            id="lookup"
+            field-list="APT_Post_Code__c,APT_Suburb__c, Name, Id"
+            sobject-name="APT_Post_Code_Mapping__c"
+            fields-to-search="APT_Post_Code__c,APT_Suburb__c, Name"
+            icon-name="standard:contact"
+            placeholder="Search PostCode..." 
+            search-result-subtitle-formatter={subtitleFormatter} 
+            search-result-select-handler={searchResultSelectHandler}
+            selected-post-code={pillItemVar}
+            >
+        </c-post-code-custom-look-up>
+        </div>
+</template>

@@ -1,0 +1,97 @@
+<!--
+Description:    CTI Page Handler for StarTrack CTI
+History:
+--------------------------------------------------
+2018-02-01  angelo.rivera@auspost.com.au  Created
+2018-05-22  nathan.franklin@auspost.com.au  Tidyups
+-->
+<apex:page showHeader="false" controller="StarTrack_ConnectorController" sidebar="false">
+	<apex:includeLightning />
+
+	<div class="login-card">
+		<div id="version"></div>
+	</div>
+
+	<link rel="stylesheet" href="{!URLFOR($Resource.login_css)}"/>
+
+	<script type="text/javascript" src="{!URLFOR($Resource.StarTrack_CRMGlue, 'lib/require.min.js')}"></script>
+	<script type="text/javascript">
+		require.config({
+			baseUrl : '{!URLFOR($Resource.StarTrack_CRMGlue)}',
+			paths: {
+				util: 'lib/util',
+				jquery: 'lib/jquery-3.1.1.min',
+				moment: 'lib/moment.min',
+				connector: 'SFDC/connector',
+				integration: '/support/console/41.0/integration',
+				interaction: '/support/api/41.0/interaction',
+				lightning: '/support/api/41.0/lightning/opencti_min',
+				i18next: 'lib/i18next.min',
+				jqueryI18next: 'lib/jquery-i18next.min',
+				i18nextXHRBackend: 'lib/i18next-xhr-backend.min'
+			},
+			shim: {
+				'jquery': {
+					exports: '$'
+				},
+				'integration': {
+					exports: 'sforce'
+				},
+				'interaction': {
+					exports: 'sforce'
+				},
+				'lightning': {
+					exports: 'sforce'
+				}
+			}
+		});
+
+		require(['SFDC/sfdc', 'SFDC/package', 'interaction', 'lightning', 'config', 'SFDC/case', 'SFDC/pop'],
+				function(sfdc, packageInfo, interaction, sforce, config, caseObj, pop) {
+
+			var log_prefix = "StarTrack_CRMConnector: ";
+
+			console.info(log_prefix + "VERSION: " + packageInfo.VERSION);
+			console.info(log_prefix + "BUILD DATE: " + packageInfo.DATE);
+			$('#version').text(packageInfo.NAME + ' v' + packageInfo.VERSION);
+
+			var parseSettings = function(settings, isLightning) {
+				sfdc.initialize('{!URLFOR($Resource.StarTrack_CRMGlue)}' +'/', settings, isLightning).
+					done(function(i18n) {
+						// customization examples
+						/*i18n.addResources("en", "translation", {
+							"task.started": "Activity",
+							"task.completed": "Activity Completed"
+						  });*/
+
+						/*config.beforeDial = function (request) {
+								request.userData = { foo: "bar" };
+							};*/
+
+
+					}
+				);
+			};
+
+			var isLightning = "{!$CurrentPage.parameters.mode}" === 'Lightning';
+			if (isLightning ) {
+				console.info(log_prefix + "is lightning");
+				sforce.opencti.getCallCenterSettings({callback: function(response) {
+					console.log(log_prefix + 'Lightning console getCallCenterSettings');
+					parseSettings(response.returnValue, true);
+				}});
+			}
+			else {
+				console.info(log_prefix + "is classic console");
+				sforce.interaction.cti.getCallCenterSettings(function(response) {
+					console.log(log_prefix + 'Classic console getCallCenterSettings');
+					var settings = $.parseJSON(response.result, false);
+					parseSettings(settings);
+				});
+			}
+
+		});
+
+	</script>
+
+</apex:page>

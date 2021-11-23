@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_pricing_fields_changed__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This flag is set to true if Pricing fields on proposal are changed.</description>
+    <externalId>false</externalId>
+    <label>Pricing fields on Proposal Changed?</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

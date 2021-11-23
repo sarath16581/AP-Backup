@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaritzCX__Status__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Stores the status of API Call</description>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New</fullName>
+                <default>false</default>
+                <label>New</label>
+            </value>
+            <value>
+                <fullName>Error</fullName>
+                <default>false</default>
+                <label>Error</label>
+            </value>
+            <value>
+                <fullName>Sent</fullName>
+                <default>false</default>
+                <label>Sent</label>
+            </value>
+            <value>
+                <fullName>Retry</fullName>
+                <default>false</default>
+                <label>Retry</label>
+            </value>
+            <value>
+                <fullName>Not Sent</fullName>
+                <default>false</default>
+                <label>Not Sent</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

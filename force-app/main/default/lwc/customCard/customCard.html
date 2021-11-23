@@ -1,0 +1,27 @@
+<!-- this component was made to suport the styling on BAM UI in the event that salesforce 
+    implements their base lightning components with the shadow dom in a future release.
+    Since that could prevents the styling on the theme to reach down and apply our css 
+    to the base components -->
+<template>
+    <article class="slds-card">
+        <template if:true={title}>
+            <div class="slds-card__header slds-grid">    
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                        <div class="slds-truncate" title={title}>
+                            <span>{title}</span>
+                        </div>
+                        </h2>
+                    </div>
+                </header>
+            </div>
+        </template>
+        <div class="slds-card__body slds-card__body_inner">
+            <slot></slot>
+        </div>
+        <footer class="slds-card__footer">
+            <slot name="footer"></slot>
+        </footer>
+    </article>
+</template>

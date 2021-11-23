@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StartDateTime</fullName>
+    <inlineHelpText>Scheduled event start date and time. 
+* Events in the Open Activities list on a record will automatically move to Activity History after this time.</inlineHelpText>
+</CustomField>

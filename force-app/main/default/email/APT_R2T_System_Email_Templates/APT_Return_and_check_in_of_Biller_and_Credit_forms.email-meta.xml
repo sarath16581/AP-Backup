@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>APT_R2T_Contract_Letterhead</letterhead>
+    <name>PBP Return and check in of Biller and Credit forms</name>
+    <style>freeForm</style>
+    <subject>Return and check in of Biller and Credit forms</subject>
+    <textOnly>Please note the Biller and Credit Account Applications have been completed for {!Apttus__APTS_Agreement__c.Apttus__Account__c}.
+
+The following actions are required:
+
+The Biller/Credit Account Applications (where applicable) have been forwarded to Credit Management for processing.
+
+Once the new accounts have been created, Credit Management will notify Agency Operations and the Seller.
+
+Agency Operations to collate Letter of Intent, account details (from Credit Management) and Questionnaire (from Ready to Trade) to commence build process.
+
+The contract is now available for drafting and submission by the Seller.
+
+Once the contract has been signed and returned by the customer, further notification will be provided to the Seller, Agency Operations and Shared Services.
+
+
+Please do not reply to this email. This is a system generated email.
+
+Australia Post is committed to providing our customers with excellent service. If we can assist you in any way please telephone 13 13 18 or visit our website.
+
+The information contained in this email communication may be proprietary, confidential or legally professionally privileged. It is intended exclusively for the individual or entity to which it is addressed. You should only read, disclose, re-transmit, copy, distribute, act in reliance on or commercialise the information if you are authorised to do so. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, virus or interference.
+
+If you are not the addressee or intended recipient please notify us by replying direct to the sender and then destroy any electronic or paper copy of this message. Any views expressed in this email communication are taken to be those of the individual sender, except where the sender specifically attributes those views to Australia Post and is authorised to do so.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

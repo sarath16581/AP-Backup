@@ -1,0 +1,148 @@
+<aura:component description="Outlines completed and in-progress page of the navigation">
+    <!-- <aura:attribute name="textColor" type="String" default="blue"/> -->
+    <aura:attribute name="progressFirstWord" type="String" default="Enquiry"/>
+
+    <aura:attribute name="stepperFutureTextColor" type="String" default="#8A939D"/>
+    <aura:attribute name="stepperCurrentTextColor" type="String" default="#006DEF"/>
+    <aura:attribute name="stepperCompleteTextColor" type="String" default="#178A00"/>
+
+    <aura:attribute name="currentStepNumber" type="Integer" default="1"/>
+    <aura:attribute name="currentStepName" type="String"/>
+
+    <aura:attribute name="headingText" type="String"/>
+
+    <!-- The other options for progressFirstWord are 'Item' and 'Issue' -->
+    <aura:attribute
+        name="progressStepIcon"
+        type="Map"
+        default="{
+                             a: 'sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/stepper/stepper_future.png',
+                             b: 'sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/stepper/stepper_current.png',
+                             c: 'sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/stepper/stepper_complete.png'
+                             }"/>
+    
+    <!-- Deprecated the below init and anylytics by Jansi on Aug 09 and moved to SS_uiWizardPage.cmp -->
+    
+    <!-- <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> -->
+    
+    <!-- Adobe Analytics -->
+    <!--  <aura:if isTrue="{!v.currentStepNumber == '1'}">
+        <c:ChasAdobeAnalyticsPageView pageName="{! v.headingText }" step="{! v.currentStepName }" stage="start"/>
+        <aura:set attribute='else'>
+            <c:ChasAdobeAnalyticsPageView pageName="{! v.headingText }" step="{! v.currentStepName }" stage=""/>
+        </aura:set>
+    </aura:if> -->
+
+
+    <div class="component progress-component">
+        <div class="progress-inner">
+
+            <ol id="chasProgress" tabindex="0" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="{! v.currentStepNumber }" aria-valuetext="{! v.headingText + ' step ' + v.currentStepNumber + ' of 3, ' +  v.currentStepName}">
+                <!-- first step : checking the current progress step and display the progress accordingly.-->
+                <li>
+                    <aura:if isTrue="{!v.currentStepNumber == '1'}">
+                        <div class="progress-icon"><c:ChasIconProgress theStepIcon="{!v.progressStepIcon.b}"/></div>
+                        <div>
+                            <p style="{!'color:'+v.stepperCurrentTextColor +';'}">1.
+                                <span class="slds-assistive-text">
+                                    of 3
+                                </span>{!v.progressFirstWord} details</p>
+                        </div>
+                        <aura:set attribute='else'>
+                            <div class="progress-icon"><c:ChasIconProgress theStepIcon="{!v.progressStepIcon.c}"/></div>
+                            <div>
+                                <p style="{!'color:'+v.stepperCompleteTextColor +';'}">1.
+                                    <span class="slds-assistive-text">
+                                        of 3
+                                    </span>{!v.progressFirstWord} details</p>
+                            </div>
+
+                        </aura:set>
+                    </aura:if>
+
+                </li>
+                <li class="line-li chas-show-medium" aria-hidden="true">
+                    <div class="dotted-line"></div>
+                </li>
+                <!-- second step : checking the current progress step and display the progress accordingly.-->
+                <li>
+                    <aura:if isTrue="{!v.currentStepNumber == '2'}">
+                        <div class="progress-icon"><c:ChasIconProgress theStepIcon="{!v.progressStepIcon.b}"/></div>
+                        <div>
+                            <p style="{!'color:'+v.stepperCurrentTextColor +';'}">2.
+                                <span class="slds-assistive-text">
+                                    of 3
+                                </span>Contact details</p>
+                        </div>
+                        <aura:set attribute='else'>
+                            <aura:if isTrue="{!lessthan(v.currentStepNumber,2)}">
+
+                                <div class="progress-icon"><c:ChasIconProgress theStepIcon="{!v.progressStepIcon.a}"/></div>
+                                <div>
+                                    <p style="{!'color:'+v.stepperFutureTextColor +';'}">2.
+                                        <span class="slds-assistive-text">
+                                            of 3
+                                        </span>Contact details</p>
+                                </div>
+                                <aura:set attribute='else'>
+
+                                    <div class="progress-icon"><c:ChasIconProgress theStepIcon="{!v.progressStepIcon.c}"/></div>
+                                    <div>
+                                        <p style="{!'color:'+v.stepperCompleteTextColor +';'}">2.
+                                            <span class="slds-assistive-text">
+                                                of 3
+                                            </span>Contact details</p>
+                                    </div>
+
+                                </aura:set>
+                            </aura:if>
+
+                        </aura:set>
+                    </aura:if>
+                </li>
+                <li class="line-li chas-show-medium" aria-hidden="true">
+                    <div class="dotted-line"></div>
+                </li>
+
+                <!-- third step : checking the current progress step and display the progress accordingly.-->
+                <li>
+                    <aura:if isTrue="{!v.currentStepNumber == '3'}">
+
+                        <div class="progress-icon"><c:ChasIconProgress theStepIcon="{!v.progressStepIcon.b}"/></div>
+                        <div>
+                            <p style="{!'color:'+v.stepperCurrentTextColor +';'}">3.
+                                <span class="slds-assistive-text">
+                                    of 3
+                                </span>Review and submit</p>
+                        </div>
+
+                        <aura:set attribute='else'>
+
+                            <aura:if isTrue="{!lessthan(v.currentStepNumber,'3')}">
+
+                                <div class="progress-icon"><c:ChasIconProgress theStepIcon="{!v.progressStepIcon.a}"/></div>
+                                <div>
+                                    <p style="{!'color:'+v.stepperFutureTextColor +';'}">3.
+                                        <span class="slds-assistive-text">
+                                            of 3
+                                        </span>Review and submit</p>
+                                </div>
+
+                                <!-- this case will not be there -->
+                                <aura:set attribute='else'>
+                                    <div class="progress-icon"><c:ChasIconProgress theStepIcon="{!v.progressStepIcon.c}"/></div>
+                                    <div>
+                                        <p style="{!'color:'+v. stepperCompleteTextColor +';'}">3.
+                                            <span class="slds-assistive-text">
+                                                of 3
+                                            </span>Review and submit</p>
+                                    </div>
+                                </aura:set>
+                            </aura:if>
+                        </aura:set>
+                    </aura:if>
+                </li>
+            </ol>
+        </div>
+    </div>
+</aura:component>

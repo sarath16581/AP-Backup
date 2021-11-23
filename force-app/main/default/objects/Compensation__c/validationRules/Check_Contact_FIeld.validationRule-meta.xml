@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_Contact_FIeld</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(CONTAINS($Profile.Name, &apos;SSSW&apos;),ISBLANK(Contact__c))</errorConditionFormula>
+    <errorDisplayField>Contact__c</errorDisplayField>
+    <errorMessage>To create compensations the case must be attached to a customer</errorMessage>
+</ValidationRule>

@@ -1,0 +1,15 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 01/09/2020
+  * @description  : Component for StarTrack Consignment Proof of Delivery Individual Row.
+--------------------------------------- History --------------------------------------------------
+01.09.2020    Jansi Rani   Created
+-->
+<template>
+    <template if:true={pod}>
+        <td class="table-first-cell">{formattedPODDateStr}</td>
+        <td>
+            <a href={podHref} target='_blank'>Click to view</a>
+        </td>
+    </template>
+</template>

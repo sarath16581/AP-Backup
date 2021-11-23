@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ALL</fullName>
+    <columns>NAME</columns>
+    <columns>Case__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Adjustment__c</columns>
+    <columns>Account_Manager__c</columns>
+    <columns>Case_Owner__c</columns>
+    <columns>CreditAmountInclusiveGST__c</columns>
+    <columns>Type__c</columns>
+    <columns>GSTAmount__c</columns>
+    <columns>Product_Family__c</columns>
+    <columns>Status__c</columns>
+    <columns>Ready_For_Approval__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>ALL</label>
+    <language>en_US</language>
+</ListView>

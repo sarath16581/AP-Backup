@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>WU to confirm status of registration</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>WU to confirm status of registration</name>
+    <style>freeForm</style>
+    <subject>Western Union Licence Registration - Status Confirmation</subject>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

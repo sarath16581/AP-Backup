@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ICO_Contact_related_to_selected_Acct</fullName>
+    <active>true</active>
+    <description>Selected contact must be related to selected Legal Entity AND must be a nominated contact</description>
+    <errorConditionFormula>AND(RecordType.Name  = &apos;International Outbound Request&apos; , $User.Id != &apos;00590000003nhFS&apos; ,OR(Account.Id !=  Contact.AccountId,NOT(INCLUDES(Contact.Key_Contact__c, &apos;ICO Nominated Contact&apos;))) )</errorConditionFormula>
+    <errorMessage>Selected contact must be related to selected Legal Entity AND Bust be a nominated contact (Please nominate contacts by using Key Business Contact field on Contact record)</errorMessage>
+</ValidationRule>

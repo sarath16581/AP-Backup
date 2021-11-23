@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Allow_Submit_For_Approval__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Flag to only allow submit for approval via the flow AgreeMgt - Submit Approval. Flag is set and reset in the flow, and used as an entry criteria for the approval process AgreeMgt-Approval.</description>
+    <externalId>false</externalId>
+    <label>Allow Submit For Approval</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

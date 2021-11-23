@@ -1,0 +1,25 @@
+<aura:component >
+   <!-- <aura:attribute name="selectedProducts" type="List"/>
+    <aura:attribute name="selectedProductsQuestions" type="Map"/>
+    <div style='width:100%'>
+        <lightning:accordion allowMultipleSectionsOpen="true"
+                             activeSectionName="productsSummary" class='mainAccordianSection'>
+            <lightning:accordionSection name="productsSummary" label="Products &amp; Services">
+                
+                <!-*-<Selected Products -*->  
+                <div style='padding-left:0px;padding-top:0px;padding-bottom:0px'>
+                    <aura:iteration items="{!v.selectedProducts}" var="prod" indexVar="i">
+                        <lightning:accordion allowMultipleSectionsOpen="true"
+                                             activeSectionName="productsSummary" >
+                            <lightning:accordionSection name="productsSummary" label="{!prod}" class='subAccordianSection'>
+                                <c:BG_EachSummaryProduct 
+                                                         selectedProductsQuestions='{!v.selectedProductsQuestions}'
+                                                         key='{!prod}'/>
+                            </lightning:accordionSection>
+                        </lightning:accordion> 
+                    </aura:iteration>
+                </div>
+            </lightning:accordionSection>
+        </lightning:accordion>
+    </div> -->
+</aura:component>

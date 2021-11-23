@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Observation__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Observation</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>IDEAL</fullName>
+                <default>false</default>
+                <label>IDEAL</label>
+            </value>
+            <value>
+                <fullName>GOOD SIGN</fullName>
+                <default>false</default>
+                <label>GOOD SIGN</label>
+            </value>
+            <value>
+                <fullName>BAD SIGN</fullName>
+                <default>false</default>
+                <label>BAD SIGN</label>
+            </value>
+            <value>
+                <fullName>HIGH RISK</fullName>
+                <default>false</default>
+                <label>HIGH RISK</label>
+            </value>
+            <value>
+                <fullName>URGENT</fullName>
+                <default>false</default>
+                <label>URGENT</label>
+            </value>
+            <value>
+                <fullName>PRIORITY</fullName>
+                <default>false</default>
+                <label>PRIORITY</label>
+            </value>
+            <value>
+                <fullName>CONTINUE</fullName>
+                <default>false</default>
+                <label>CONTINUE</label>
+            </value>
+            <value>
+                <fullName>LOW PRIORITY</fullName>
+                <default>false</default>
+                <label>LOW PRIORITY</label>
+            </value>
+            <value>
+                <fullName>IN QUESTION</fullName>
+                <default>false</default>
+                <label>IN QUESTION</label>
+            </value>
+            <value>
+                <fullName>POWERFUL</fullName>
+                <default>false</default>
+                <label>POWERFUL</label>
+            </value>
+            <value>
+                <fullName>BYSTANDER</fullName>
+                <default>false</default>
+                <label>BYSTANDER</label>
+            </value>
+            <value>
+                <fullName>LAGGARD</fullName>
+                <default>false</default>
+                <label>LAGGARD</label>
+            </value>
+            <value>
+                <fullName>CONSERVATIVE</fullName>
+                <default>false</default>
+                <label>CONSERVATIVE</label>
+            </value>
+            <value>
+                <fullName>INNOVATOR</fullName>
+                <default>false</default>
+                <label>INNOVATOR</label>
+            </value>
+            <value>
+                <fullName>VISIONARY</fullName>
+                <default>false</default>
+                <label>VISIONARY</label>
+            </value>
+            <value>
+                <fullName>PRAGMATIST</fullName>
+                <default>false</default>
+                <label>PRAGMATIST</label>
+            </value>
+            <value>
+                <fullName>NEUTRALIZE</fullName>
+                <default>false</default>
+                <label>NEUTRALIZE</label>
+            </value>
+            <value>
+                <fullName>MOTIVATE</fullName>
+                <default>false</default>
+                <label>MOTIVATE</label>
+            </value>
+            <value>
+                <fullName>LEVERAGE</fullName>
+                <default>false</default>
+                <label>LEVERAGE</label>
+            </value>
+            <value>
+                <fullName>INFLUENTIAL</fullName>
+                <default>false</default>
+                <label>INFLUENTIAL</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

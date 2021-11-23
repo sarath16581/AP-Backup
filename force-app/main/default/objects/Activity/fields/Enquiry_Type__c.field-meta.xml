@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Enquiry_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Enquiry Type</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Product Information</fullName>
+                <default>false</default>
+                <label>Product Information</label>
+            </value>
+            <value>
+                <fullName>Pricing Information</fullName>
+                <default>false</default>
+                <label>Pricing Information</label>
+            </value>
+            <value>
+                <fullName>Sales enquiries</fullName>
+                <default>false</default>
+                <label>Sales enquiries</label>
+            </value>
+            <value>
+                <fullName>Post Office Information</fullName>
+                <default>false</default>
+                <label>Post Office Information</label>
+            </value>
+            <value>
+                <fullName>Tracking enquiries</fullName>
+                <default>false</default>
+                <label>Tracking enquiries</label>
+            </value>
+            <value>
+                <fullName>Service requests</fullName>
+                <default>false</default>
+                <label>Service requests</label>
+            </value>
+            <value>
+                <fullName>Feedback &amp; complaints</fullName>
+                <default>false</default>
+                <label>Feedback &amp; complaints</label>
+            </value>
+            <value>
+                <fullName>Payment enquiries</fullName>
+                <default>false</default>
+                <label>Payment enquiries</label>
+            </value>
+            <value>
+                <fullName>Online application support</fullName>
+                <default>false</default>
+                <label>Online application support</label>
+            </value>
+            <value>
+                <fullName>All other enquiries</fullName>
+                <default>false</default>
+                <label>All other enquiries</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

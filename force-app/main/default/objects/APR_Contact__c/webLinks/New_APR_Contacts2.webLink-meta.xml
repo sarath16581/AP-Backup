@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_APR_Contacts2</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Associate Contacts</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>/a0t/e?CF00N9000000DhLDn={!APR__c.Legal_Entity_Name__c}&amp;CF00N9000000DhLDn_lkid={!APR__c.Account_ID__c}&amp;CF00N9000000DhLDk={!APR__c.Name}&amp;CF00N9000000DhLDk_lkid={!APR__c.Id}&amp;retURL={!APR__c.Id}</url>
+</WebLink>

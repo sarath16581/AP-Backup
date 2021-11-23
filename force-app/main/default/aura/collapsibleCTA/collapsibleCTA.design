@@ -1,0 +1,6 @@
+<design:component label="Collapsible CTA">
+	<design:attribute name="title" label="Title" description="Title Text"/>
+    <design:attribute name="description" label="Description" description="Description Text"/>
+    <design:attribute name="linkText" label="Link Text" description="Link Label Text"/>
+    <design:attribute name="link" label="Link" description="Link URL"/>
+</design:component>

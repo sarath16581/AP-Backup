@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Use_Account_Grouping__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This custom setting is deprecated</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enable this checkbox to enable Account Grouping</inlineHelpText>
+    <label>ZZ Use Account Grouping (Deprecated)</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>HVS_pickuplocationfinal</masterLabel>
+    <promptVersions>
+        <actionButtonLabel>Click here for more info!</actionButtonLabel>
+        <actionButtonLink>https://auspost.sharepoint.com/:b:/s/SPBG/Sales-support-site/EYWjbg6Du7JAlAhrHhIwzyQB77heQU4uDaq36DB3uwNbIA?e=lB0Fgm</actionButtonLink>
+        <body>&lt;p&gt;In conjunction with the automated TEAM Leader Account set up improvements, new functionality has been introduced to Pick-Up Location records in Salesforce to help identify the Primary Pick-Up Location address details. These address details will be used in the creation of a TEAM Leader account.&lt;/p&gt;</body>
+        <customApplication>standard__HVSConsole</customApplication>
+        <delayDays>1</delayDays>
+        <description>New in app guidance for pick up location in HVS</description>
+        <displayType>DockedComposer</displayType>
+        <endDate>2021-08-13</endDate>
+        <header>Pick-Up Location Record Improvements</header>
+        <isPublished>true</isPublished>
+        <masterLabel>HVS_pickuplocationfinal</masterLabel>
+        <publishedDate>2021-06-07</publishedDate>
+        <shouldDisplayActionButton>true</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
+        <startDate>2021-07-12</startDate>
+        <targetPageKey1>Customer_Scoping_Questionnaire__c</targetPageKey1>
+        <targetPageKey2>view</targetPageKey2>
+        <targetPageType>standard__recordPage</targetPageType>
+        <timesToDisplay>3</timesToDisplay>
+        <title>Pick-Up Location Record Improvements</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+        <videoLink>https://web.microsoftstream.com/embed/video/ef58254b-d808-440e-a652-7a44a46af397?autoplay=false&amp;showinfo=true</videoLink>
+    </promptVersions>
+</Prompt>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Saturday_Delivery_Network__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This is the indicator to state whether the LPO is in the Saturday Delivery Network and is eligible for payment.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is the indicator to state whether the LPO is in the Saturday Delivery Network and is eligible for payment.</inlineHelpText>
+    <label>Saturday Delivery Network</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

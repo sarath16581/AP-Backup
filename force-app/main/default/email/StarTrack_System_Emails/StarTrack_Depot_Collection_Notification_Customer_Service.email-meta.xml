@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>StarTrack Email Template to be used for sending Depot Collection Notification when resolved by Operations.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>StarTrack Depot Collection Notification - Customer Service</name>
+    <style>freeForm</style>
+    <subject>Consignment {!workflow_Email__c.Consignment_Number__c} - StarTrack Case {!workflow_Email__c.Calc_Case_Number__c} has been resolved</subject>
+    <textOnly>Case Number: {!workflow_Email__c.Calc_Case_Number__c}
+
+Hi {!workflow_Email__c.Contact_First_Name__c},
+
+Thank you for contacting StarTrack regarding consignment {!workflow_Email__c.Consignment_Number__c}.
+
+Your freight is now ready for collection from:
+
+{!workflow_Email__c.Network_Name__c}
+{!workflow_Email__c.Depot_Address__c}
+
+Special instructions:
+{!workflow_Email__c.Special_Instructions__c}
+
+Operating hours:
+{!workflow_Email__c.Depot_Collection_Hours__c}
+Not open public holidays
+
+Please ensure that you take your StarTrack connote number along with valid photo identification.
+
+If there is anything else that we can help you with, please feel free to contact us and a customer service consultant will assist you with your enquiry.
+
+Kind Regards,
+
+StarTrack Customer Service Team
+
+
+{!workflow_Email__c.Case_Thread_Id__c}
+
+Help &amp; Support   |  Terms &amp; Conditions  |  Privacy Policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

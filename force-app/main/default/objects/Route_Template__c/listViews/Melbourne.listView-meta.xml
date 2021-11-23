@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Melbourne</fullName>
+    <columns>NAME</columns>
+    <columns>Active_Route_Days__c</columns>
+    <columns>Status__c</columns>
+    <columns>Effective_Date__c</columns>
+    <columns>Expiry_Date__c</columns>
+    <columns>Service_Territory__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Service_Territory__c</field>
+        <operation>equals</operation>
+        <value>Melbourne</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </filters>
+    <label>MTF - Active</label>
+</ListView>

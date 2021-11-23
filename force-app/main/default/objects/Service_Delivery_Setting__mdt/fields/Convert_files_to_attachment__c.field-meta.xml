@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Convert_files_to_attachment__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>True if we want to convert Files to Attachments if Child Case is using Attachments.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Convert files to attachment</label>
+    <type>Checkbox</type>
+</CustomField>

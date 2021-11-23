@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Seasonal_Variation</fullName>
+    <active>true</active>
+    <description>Seasonal Variation</description>
+    <label>Seasonal Variation</label>
+    <picklistValues>
+        <picklist>Additional_Minutes__c</picklist>
+        <values>
+            <fullName>00</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>30</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>45</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Approval_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Draft</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Renewal_Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Final Reminder Sent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>First Reminder Sent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Second Reminder Sent</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Request_Change__c</picklist>
+        <values>
+            <fullName>Cease Early</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renew For Another Year</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Schedule_Type__c</picklist>
+        <values>
+            <fullName>Once</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recurring</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ceased</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Draft</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suspended</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sub_Type__c</picklist>
+        <values>
+            <fullName>Business Counter Delivery Points Variation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Delivery Points Variation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Transit Points Variation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail Bag Despatched Variation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Counter Delivery Points Variation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Delivery Points Variation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Transit Points Variation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,5 @@
+<apex:page showHeader="false" sidebar="false">
+	<c:ScriptLoader jsLibraries="jquery" />
+
+	<c:SafeDropImageComponent SafeDropGuid="{!$CurrentPage.parameters.sdguid}" />
+</apex:page>

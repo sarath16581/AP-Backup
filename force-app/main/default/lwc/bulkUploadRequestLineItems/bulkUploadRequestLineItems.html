@@ -1,0 +1,109 @@
+<!--
+	Display Bulk upload request line items in a table.
+
+    Changelog:
+    2021-01-22 - Ranjeewa Silva - Created.
+ -->
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner size="small" variant="brand" alternative-text="loading data..."></lightning-spinner>
+    </template>
+
+
+    <template if:true={bulkUploadRequest}>
+        <div class={variant}>
+            <article class="slds-card slds-card_boundary">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="utility:cancel_file_request" title={cardTitle} size="small"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body card__header-title">
+                            <h2 class="slds-card__header-title">
+                                <span>{cardTitle}</span>
+                            </h2>
+                        </div>
+                        <div class="slds-no-flex">
+                            <div class="slds-button-group-row">
+                                <lightning-input class="slds-m-right_x-small"
+                                                 type="search"
+                                                 label="Search File Name"
+                                                 placeholder="Search this list.."
+                                                 autocomplete="off"
+                                                 variant="label-hidden"
+                                                 onchange={handleSearchStringChange}></lightning-input>
+                                <div class="slds-button-group-item">
+                                    <lightning-button label="Download" title="Download action" icon-name="utility:download" onclick={handleDownloadLineItems} ></lightning-button>
+                                </div>
+                                <div class="slds-button-group-item slds-p-vertical_x-small slds-p-left_x-small">
+                                    <lightning-button-icon icon-name="utility:close" variant="bare" onclick={closePopup}></lightning-button-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body">
+                    <template if:true={hasLineItems}>
+                        <div class="slds-scrollable" style="max-height:300px;">
+                        <table class="slds-table slds-table_bordered" role="grid">
+                            <thead>
+                            <tr class="slds-line-height_reset">
+                                <!-- Iterating columns-->
+                                <template for:each={columnDefinitions} for:item="col">
+
+                                    <th key={col.fieldName} data-id={col.fieldName} onclick={handleSort}>
+                                        <a class={col.cssClass}  data-id={col.fieldName} >
+                                            <div class="slds-truncate slds-text-align--left" data-id={col.fieldName}>
+                                                {col.label}
+                                            </div>
+                                            <template if:true={col.sortedColumn}>
+                                                <template if:false={isAsc}>
+                                                    <lightning-icon icon-name="utility:arrowdown" size="xx-small" class="slds-m-left_xx-small"></lightning-icon>
+                                                </template>
+                                                <template if:true={isAsc}>
+                                                    <lightning-icon icon-name="utility:arrowup" size="xx-small" class="slds-m-left_xx-small"></lightning-icon>
+                                                </template>
+                                            </template>
+                                        </a>
+                                    </th>
+                                </template>
+                            </tr>
+                            </thead>
+                            <tbody class="brand-table">
+                            <!-- Iterating requests-->
+                            <template for:each={computedLineItems} for:item="lineItem">
+                                <tr class="slds-hint-parent" key={lineItem.key}>
+                                    <template for:each={lineItem._columns} for:item="column">
+                                        <td class="slds-cell-wrap" key={column.key}>
+                                            <c-formatted-text-label type={column.fieldType} value={column.fieldValue}>
+                                            </c-formatted-text-label>
+                                        </td>
+                                    </template>
+                                </tr>
+                            </template>
+                            </tbody>
+                        </table>
+                    </div>
+                    </template>
+                    <template if:false={hasLineItems}>
+                        <template if:false={error}>
+                            <div class="slds-p-around_large slds-align_absolute-center slds-border_top">
+                                <lightning-icon icon-name="utility:info_alt" size="x-small" alternative-text="Info" title="Info"></lightning-icon>
+                                <div class="slds-m-vertical_large slds-m-horizontal_x-small">
+                                    <p class="slds-text-color_weak">No line items found</p>
+                                </div>
+                            </div>
+                        </template>
+                        <template if:true={error}>
+                            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error">
+                                <div>
+                                    <p>{error}</p>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+            </article>
+        </div>
+    </template>
+</template>

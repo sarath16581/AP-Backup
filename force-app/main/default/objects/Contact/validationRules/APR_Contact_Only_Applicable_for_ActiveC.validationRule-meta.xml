@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APR_Contact_Only_Applicable_for_ActiveC</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(OR(CONTAINS($Profile.Name,&quot;System Administrator&quot;), CONTAINS($Profile.Name,&quot;Customer Team&quot;))) 
+&amp;&amp; 
+APR_Contact__c = true &amp;&amp; ISPICKVAL( Status__c , &apos;Inactive&apos;)</errorConditionFormula>
+    <errorMessage>APR Contact is only valid for Active Contact.</errorMessage>
+</ValidationRule>

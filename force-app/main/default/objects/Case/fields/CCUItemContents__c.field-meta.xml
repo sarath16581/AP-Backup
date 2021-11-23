@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCUItemContents__c</fullName>
+    <description>2014-05 CCU</description>
+    <externalId>false</externalId>
+    <label>Item Contents</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Alcohol (Excluding Wine)</fullName>
+                <default>false</default>
+                <label>Alcohol (Excluding Wine)</label>
+            </value>
+            <value>
+                <fullName>Alcohol (Wine)</fullName>
+                <default>false</default>
+                <label>Alcohol (Wine)</label>
+            </value>
+            <value>
+                <fullName>Art/Craft/Supplies</fullName>
+                <default>false</default>
+                <label>Art/Craft/Supplies</label>
+            </value>
+            <value>
+                <fullName>Books</fullName>
+                <default>false</default>
+                <label>Books</label>
+            </value>
+            <value>
+                <fullName>Camera/Camcorder</fullName>
+                <default>false</default>
+                <label>Camera/Camcorder</label>
+            </value>
+            <value>
+                <fullName>Cash/Coins/Notes/Cheque</fullName>
+                <default>false</default>
+                <label>Cash/Coins/Notes/Cheque</label>
+            </value>
+            <value>
+                <fullName>CD/DVD/Video/Tape</fullName>
+                <default>false</default>
+                <label>CD/DVD/Video/Tape</label>
+            </value>
+            <value>
+                <fullName>Clothing/Toys</fullName>
+                <default>false</default>
+                <label>Clothing/Toys</label>
+            </value>
+            <value>
+                <fullName>Computer - Laptop</fullName>
+                <default>false</default>
+                <label>Computer - Laptop</label>
+            </value>
+            <value>
+                <fullName>Computer Hardware/Software</fullName>
+                <default>false</default>
+                <label>Computer Hardware/Software</label>
+            </value>
+            <value>
+                <fullName>Cosmetics</fullName>
+                <default>false</default>
+                <label>Cosmetics</label>
+            </value>
+            <value>
+                <fullName>Documents</fullName>
+                <default>false</default>
+                <label>Documents</label>
+            </value>
+            <value>
+                <fullName>Electronic Accessory</fullName>
+                <default>false</default>
+                <label>Electronic Accessory</label>
+            </value>
+            <value>
+                <fullName>Electrical Appliance</fullName>
+                <default>false</default>
+                <label>Electrical Appliance</label>
+            </value>
+            <value>
+                <fullName>Film/Photograph/Slide</fullName>
+                <default>false</default>
+                <label>Film/Photograph/Slide</label>
+            </value>
+            <value>
+                <fullName>Food</fullName>
+                <default>false</default>
+                <label>Food</label>
+            </value>
+            <value>
+                <fullName>Footwear</fullName>
+                <default>false</default>
+                <label>Footwear</label>
+            </value>
+            <value>
+                <fullName>Gift Card/Certificate</fullName>
+                <default>false</default>
+                <label>Gift Card/Certificate</label>
+            </value>
+            <value>
+                <fullName>Healthcare Product</fullName>
+                <default>false</default>
+                <label>Healthcare Product</label>
+            </value>
+            <value>
+                <fullName>Homeware</fullName>
+                <default>false</default>
+                <label>Homeware</label>
+            </value>
+            <value>
+                <fullName>Jewellery (Including Watches)</fullName>
+                <default>false</default>
+                <label>Jewellery (Including Watches)</label>
+            </value>
+            <value>
+                <fullName>Kitchenware</fullName>
+                <default>false</default>
+                <label>Kitchenware</label>
+            </value>
+            <value>
+                <fullName>Magazine/Poster</fullName>
+                <default>false</default>
+                <label>Magazine/Poster</label>
+            </value>
+            <value>
+                <fullName>Medicine</fullName>
+                <default>false</default>
+                <label>Medicine</label>
+            </value>
+            <value>
+                <fullName>Mobile Phone/Accessory</fullName>
+                <default>false</default>
+                <label>Mobile Phone/Accessory</label>
+            </value>
+            <value>
+                <fullName>Motor Part</fullName>
+                <default>false</default>
+                <label>Motor Part</label>
+            </value>
+            <value>
+                <fullName>Other (Must list in Enquiry Details)</fullName>
+                <default>false</default>
+                <label>Other (Must list in Enquiry Details)</label>
+            </value>
+            <value>
+                <fullName>Passport/Travel Documents</fullName>
+                <default>false</default>
+                <label>Passport/Travel Documents</label>
+            </value>
+            <value>
+                <fullName>Perfume</fullName>
+                <default>false</default>
+                <label>Perfume</label>
+            </value>
+            <value>
+                <fullName>Sportsgoods</fullName>
+                <default>false</default>
+                <label>Sportsgoods</label>
+            </value>
+            <value>
+                <fullName>Stamps</fullName>
+                <default>false</default>
+                <label>Stamps</label>
+            </value>
+            <value>
+                <fullName>Stationery</fullName>
+                <default>false</default>
+                <label>Stationery</label>
+            </value>
+            <value>
+                <fullName>Sunglasses/Eyewear</fullName>
+                <default>false</default>
+                <label>Sunglasses/Eyewear</label>
+            </value>
+            <value>
+                <fullName>Ticket</fullName>
+                <default>false</default>
+                <label>Ticket</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

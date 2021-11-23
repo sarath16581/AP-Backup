@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Shipping &amp; Tracking API Prod Key attached in encrypted Zip file</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>CIA_Letterhead_Oct2018</letterhead>
+    <name>CIA - S &amp; T API Prod Key in Zip</name>
+    <style>freeForm</style>
+    <subject>Shipping &amp; Tracking API Prod Key attached in encrypted Zip file</subject>
+    <textOnly>Dear (name)
+
+
+Congratulations! You now have access to your Shipping and Tracking API production keys.
+
+We&apos;ve attached your user keys in an encrypted Zip file which you should be able to open with Winzip or most other compression programs. So make sure you keep this email safe!
+
+We&apos;ll be sending you a follow up email shortly with the password to open your file.
+
+Once you&apos;ve received it, simply copy the password to decompress the Zip file and you&apos;re good to go.
+
+How to open a Zip file
+
+To open your file, save it to your desktop and double click the file. This will open it in Winzip or your default compression program.
+
+You&apos;ll be prompted to put in a password. Copy the password we send you and paste it in.
+
+To extract the file, simply choose where you&apos;d like to unzip it to and follow the prompts. Your extracted production keys will appear in the folder you previously chose.
+
+If you have any queries regarding this information, please don’t hesitate to contact us at customer_connectivity@auspost.com.au
+
+Regards,
+
+Lodgement &amp; API Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

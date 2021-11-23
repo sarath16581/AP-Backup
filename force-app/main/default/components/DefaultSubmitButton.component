@@ -1,0 +1,23 @@
+<!--
+2017-10-02 nathan.franklin@auspost.com.au - Minor changes to variable names
+-->
+<apex:component controller="DefaultSubmitButtonController">
+	<apex:attribute name="targetId" required="true" type="string" description="The id of the submit button"/>
+	<script type="text/javascript">
+		var j$ = jQuery.noConflict();
+		j$(function() {
+			var target = j$('[id$="{!targetId}"]');
+			var frm = target.closest('form');
+			var cloned = target.clone();
+			cloned.attr('type', 'submit');
+			cloned.css({
+				position: 'absolute',
+				left: '-999px',
+				top: '-999px',
+				height: 0,
+				width: 0
+			});
+			frm.prepend(cloned);
+		});
+	</script>
+</apex:component>

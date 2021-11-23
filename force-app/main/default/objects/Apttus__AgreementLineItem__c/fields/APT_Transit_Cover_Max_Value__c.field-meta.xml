@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Transit_Cover_Max_Value__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(  ISPICKVAL( Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Signature_On_Delivery__c , &apos;yes&apos;) , 5000, 500)
+
+/*IF(  ISPICKVAL( Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Signature_On_Delivery__c , &apos;yes&apos;) , 5000, 5000)*/</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Transit Cover Max Value</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

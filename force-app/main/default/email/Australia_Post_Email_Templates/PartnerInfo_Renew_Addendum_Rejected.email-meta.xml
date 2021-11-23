@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Partner Info - Email to notify the rejection of Addendum renewal</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>SFDC_Blank</letterhead>
+    <name>PartnerInfo Renew Addendum Rejected</name>
+    <style>freeForm</style>
+    <subject>Renew Negotiated Payment for {!Partner_Addendum__c.Licence__c} is Rejected</subject>
+    <textOnly>Request to renew the negotiated payment -  {!Partner_Addendum__c.Sub_Type__c}  for Licence {!Partner_Addendum__c.Licence__c} is rejected.
+
+Reason for rejection:
+
+{!ApprovalRequest.Comments}
+
+
+
+Regards,</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

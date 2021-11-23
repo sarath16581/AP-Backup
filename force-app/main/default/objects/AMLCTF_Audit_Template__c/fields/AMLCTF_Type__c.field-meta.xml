@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AMLCTF_Type__c</fullName>
+    <description>Type of Task template entry.  Field added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Type of Task template entry.  Field added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pre-audit Checklist Task</fullName>
+                <default>false</default>
+                <label>Pre-audit Checklist Task</label>
+            </value>
+            <value>
+                <fullName>Post-audit Checklist Task</fullName>
+                <default>false</default>
+                <label>Post-audit Checklist Task</label>
+            </value>
+            <value>
+                <fullName>Audit Task</fullName>
+                <default>false</default>
+                <label>Audit Task</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Sync_with_Opportunity__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Set Sync with Opportunity as true if you want to sync the product while sync with opportunity action otherwise false.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Set Sync with Opportunity as true if you want to sync the product while sync with opportunity action otherwise false.</inlineHelpText>
+    <label>Sync with Opportunity</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

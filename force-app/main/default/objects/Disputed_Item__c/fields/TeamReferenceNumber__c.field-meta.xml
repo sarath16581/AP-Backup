@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TeamReferenceNumber__c</fullName>
+    <description>Auto generated number to provide a reference number to Team- Must be within 8 digits</description>
+    <displayFormat>C{0000000}</displayFormat>
+    <externalId>true</externalId>
+    <label>Team Reference Number</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>AutoNumber</type>
+</CustomField>

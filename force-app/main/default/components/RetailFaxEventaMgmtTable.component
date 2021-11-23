@@ -1,0 +1,66 @@
+<!--
+    Component to display the event management scans
+-->
+<apex:component controller="RetailFaxEventaMgmtTableContr" >
+
+    <apex:attribute name="article" description="Article to be displayed" 
+        type="Article__c" required="true"/>
+        
+    <apex:attribute name="article_Id" description="Article to be displayed" 
+        type="Id" required="false"/>
+
+    <apex:attribute name="eventMessages" description="Event Messages to be displayed" assignTo="{!emWrap}"
+        type="TIBCOEventMessageWrapper[]" required="true"/>
+        
+    <apex:attribute name="eventMessagesList" description="Event Messages to be displayed"
+        type="EventMessage__c[]" required="false"/>        
+
+    <apex:attribute name="IsConsignment" description="Is this a consignment"
+        type="Boolean" required="false" default="false"/>
+
+    <apex:attribute name="articleFields" description="Article fields to display"
+        type="Schema.FieldSetMember[]" required="true"/>
+
+    <apex:attribute name="eventMessageFields" description="Event Message fields to display"
+        type="Schema.FieldSetMember[]" required="true"/>
+
+    <!-- table to show the event management scans -->
+    <apex:outputPanel rendered="{!(eventMessages.size > 0) || NOT(IsConsignment)}">
+        
+        <table class="event-message-section">
+            <tr>
+                <apex:repeat value="{!eventMessageFields}" var="f">
+                    <th  style="font-size: 0.75em;width:{!IF(f.Label == 'Event Description' || f.Label == 'Work Centre Text' ,'30%',
+                                                                             IF(f.Label == 'Comment Text' ,'10%',''))}">
+                            <apex:outputLabel value="{!f.Label}"/>
+                    </th>
+                </apex:repeat>
+            </tr>
+            <!--apex:repeat value="{!eventMessages}" var="item" rows="5" first="0">
+                <tr>
+                    <apex:repeat value="{!eventMessageFields}" var="f">
+                        <td style="font-size: 0.75em; width:{!IF(f.Label == 'Event Description' || f.Label == 'Work Centre Text' ,'30%','')}">
+                            <apex:outputText styleClass="form-control input-sm {!f.type}" rendered="{!IF(f.type='datetime','false','true')}" value="{!item.proxyEM[f]}" />
+                            <apex:outputText styleClass="form-control input-sm {!f.type}" rendered="{!IF(f.type='datetime','true','false')}"  value=" {!item.proxyEM[f]}"/>
+                        </td>
+                    </apex:repeat>            
+                </tr>
+            </apex:repeat-->
+            
+            <apex:repeat value="{!emSort}" var="item" rows="5" first="0">
+                <tr>
+                    <apex:repeat value="{!eventMessageFields}" var="f">
+                        <td style="font-size: 0.75em; width:{!IF(f.Label == 'Event Description' || f.Label == 'Work Centre Text' ,'30%','')}">
+                            <apex:outputText styleClass="form-control input-sm {!f.type}" rendered="{!IF(f.type='datetime','false','true')}" value="{!item[f]}" />
+                            <apex:outputText styleClass="form-control input-sm {!f.type}" rendered="{!IF(f.type='datetime','true','false')}"  value=" {!item[f]}"/>
+                        </td>
+                    </apex:repeat>            
+                </tr>
+            </apex:repeat>
+            
+        </table>
+        
+    </apex:outputPanel> 
+             
+
+</apex:component>

@@ -1,0 +1,120 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 13/08/2020
+  * @description  : Component for Profile Update for authenticated users.
+--------------------------------------- History --------------------------------------------------
+13.08.2020    Jansi Rani   Created
+25-11-2020    avula.jansirani@auspost.com.au       removed console.log lines
+-->
+<template>
+    <!-- Navigation links-->
+    <c-bsp-breadcrumb bread-crumb-text="Update details"></c-bsp-breadcrumb>
+
+    <div class="slds-grid slds-grid_align-center">
+        <div
+            class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_7-of-12 headline-box slds-m-bottom_x-large">
+            <h1>Update your details</h1>
+            <p>Enter new details for {user.Email}</p>
+        </div>
+    </div>
+    <div class="slds-grid slds-grid_align-center">
+
+        <!--  Pofile elements -->
+        <div
+            class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_7-of-12 slds-m-bottom_x-large outer-box slds-is-relative">
+            <lightning-card title="">
+                <div class="slds-p-horizontal_x-large slds-p-bottom_large long-form-right-pad">
+
+                    <!-- Error messages-->
+                    <template if:true={errorMessage}>
+                        <c-bsp-error data-id="message" error-message={errorMessage}></c-bsp-error>
+                    </template>
+
+                    <!-- Success message-->
+                    <template if:true={showSuccessSection}>
+                        <c-bsp-success data-id="message" success-message="Details updated successfully."></c-bsp-success>
+                    </template>
+
+                    <form onsubmit={handleLogin}>
+
+                        <!--First Name-->
+                        <lightning-input type="text" data-id="firstName" label="First name" data-validate="doValidate"
+                            onchange={handleChange} onfocusout={handleFocusOut} value={user.FirstName} max-length="40"
+                            required class="brand-form-input slds-p-bottom_x-large">
+                        </lightning-input>
+
+                        <!--LastName-->
+                        <lightning-input type="text" data-id="lastName" label="Last name" name="lastName"
+                            data-validate="doValidate" value={user.LastName} max-length="80" onchange={handleChange}
+                            onfocusout={handleFocusOut} required class="brand-form-input slds-p-bottom_x-large">
+                        </lightning-input>
+
+                        <!--email address-->
+                        <lightning-input type="email" data-id="email" label="Email address" data-validate="doValidate"
+                            value={user.Email} required class="brand-form-input slds-p-bottom_x-large" disabled>
+                        </lightning-input>
+
+                        <!--phone Number-->
+                        <lightning-input type="text" data-id="phone" label="Phone number" data-validate="doValidate"
+                            onfocusout={handleFocusOut} value={user.Phone} onchange={handleChange} max-length="40"
+                            required class="brand-form-input slds-p-bottom_x-large">
+                        </lightning-input>
+
+                        <!--Mobile Number-->
+                        <lightning-input type="text" data-id="Mobile" label="Mobile" data-validate="doValidate"
+                            onfocusout={handleFocusOut} value={user.MobilePhone} onchange={handleChange} max-length="40"
+                            class="brand-form-input slds-p-bottom_x-large">
+                        </lightning-input>
+
+                        <!-- 'Business Details' section heading-->
+                        <div class="slds-p-vertical_x-large">
+                            <h3>Business Details</h3>
+                        </div>
+
+                        <!--Business name-->
+                        <lightning-input type="text" data-id="businessname" label="Business name"
+                            data-validate="doValidate" required value={businessName}
+                            class="brand-form-input slds-p-bottom_x-large" disabled></lightning-input>
+
+                        <!--Business Credit Account-->
+                        <lightning-input type="text" data-id="businessNumber" label="Business Credit Account"
+                            data-validate="doValidate" required value={businessCreditAccountNum}
+                            class="brand-form-input slds-p-bottom_x-large" disabled></lightning-input>
+
+                        <!-- Address Section -->
+                        <div class="slds-p-top_xxx-small">
+                            <c-bsp-address-search address={addCmpAddressFormat}
+                                search-address-term={businessAddressSerachText} label="Business address"
+                                data-validate="doAddressValidate" onstreetchange={handleManualChange}
+                                field-level-help="If address not found, please expand and manually override the address"
+                                placeholder="Search for address" onsearchtermchange={handleAddressChange}
+                                class="brand-form-input slds-p-bottom_x-large" required>
+                            </c-bsp-address-search>
+
+                        </div>
+
+                        <!-- "Required information" text-->
+                        <div class="slds-p-top_x-large">
+                            <span class="slds-text-color_error">*</span>&nbsp;Required information
+                        </div>
+                        <!--Buttons Section - Start-->
+                        <div class="slds-p-top_x-large">
+                            <!-- Cancel-->
+                            <lightning-button label="Cancel" title="Cancel" onclick={navigateHome} press={navigateHome}
+                                class="brand-tertiary-button slds-p-right_medium"></lightning-button>
+                            <!--Submit Button-->
+                            <lightning-button type="submit" variant="brand" label="Save" title="Save"
+                                onclick={handleSave} press={handleSave} class="brand-primary-button"></lightning-button>
+                        </div>
+                        <!--Buttons Section - End -->
+                    </form>
+                </div>
+            </lightning-card>
+            <!-- spinner-->
+            <div if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+            </div>
+        </div>
+    </div>
+
+</template>

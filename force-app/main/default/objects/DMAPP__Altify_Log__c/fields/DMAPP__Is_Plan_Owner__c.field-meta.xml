@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Is_Plan_Owner__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>DMAPP__User__c = DMAPP__Account_Plan__r.DMAPP__Owner__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is Plan Owner</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

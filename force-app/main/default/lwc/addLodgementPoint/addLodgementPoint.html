@@ -1,0 +1,66 @@
+<template>
+    <lightning-card>
+        <!-- Heading of the Lodgement Point Search component -->
+        <h3 slot="title" class="slds-align_absolute-center slds-truncate">
+            Type in search box below and 
+            <br/>
+            Select one or more lodgement point name
+        </h3>
+        <p slot="footer"></p>
+        <div class="slds-form-element">
+            <div class="slds-form-element__control">
+                <div class="slds-combobox_container">
+                    
+                    <!-- Lodgement Point Search Box display, contains 'utility:search' Icon and place-holder text -->
+                    <div class={txtclassname} data-id="resultBox" aria-expanded="false" aria-haspopup="listbox" role="combobox">
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left" role="none">
+                            <lightning-icon class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" icon-name="utility:search" size="x-small" alternative-text="icon"></lightning-icon>
+                            <lightning-input required={required} data-id="userinput" label={Label} name="searchText" onchange={searchField} class="leftspace" placeholder="Search Lodgement Point"></lightning-input>
+                        </div>
+                        <!-- Display of Selected Lodgement Point records underneath the Search Box. Contain button to remove the selected record off the display -->
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon slds-input-has-icon_left-right" role="none">
+                            <template for:each={selectedRecords} for:item="serecord">
+                                <span key={serecord.recId}>
+                                <lightning-pill label={serecord.recName} name={serecord.recId} onremove={removeRecord}>
+                                        <lightning-icon icon-name={iconName} variant="circle" alternative-text={serecord.recName}></lightning-icon>
+                                    </lightning-pill>
+                                </span>
+                            </template>
+                        </div>
+                    
+                        <!-- Dropdown list display of the search result, data obtained from 'searchRecords' list variable which is populated from Apex Controller -->
+                        <div id="listbox-id-1" class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox">
+                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                <template for:each={searchRecords} for:item="serecord">
+                                    <li role="presentation" class="slds-listbox__item" key={serecord.recId}>
+                                         <!-- Loop and display the search result, each entry contains an ICON, Lodgement Name, Lodgement Address-->
+                                        <div data-id={serecord.recId} data-name={serecord.recName} data-wcc={serecord.recWCC} data-address={serecord.recAddress} onclick={setSelectedRecord} class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
+                                            <span class="slds-media__figure">
+                                                <span class="slds-icon_container slds-icon-standard-account">
+                                                    <lightning-icon icon-name={iconName} class="slds-icon slds-icon slds-icon_small slds-icon-text-default" size="x-small"></lightning-icon>
+                                                </span>
+                                            </span>
+                                            <span class="slds-media__body">
+                                                <span class="slds-listbox__option-text slds-listbox__option-text_entity">{serecord.recName}</span>
+                                                <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">{objectName} • {serecord.recAddress}</span>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                         <!-- Text display when search result returns no matches -->
+                        <div if:true={messageFlag}>
+                            No result found.
+                        </div>
+                        <!-- Text display the querying is in progress -->
+                        <div if:true={LoadingText}>
+                            Loading...
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

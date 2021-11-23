@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Depot_ID__c</fullName>
+    <description>StarTrack: 3 letter Depot Code. This is a depot code identifier, but is not necessarily unique to each facility, based on physical location.</description>
+    <externalId>true</externalId>
+    <label>Depot Code</label>
+    <length>10</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

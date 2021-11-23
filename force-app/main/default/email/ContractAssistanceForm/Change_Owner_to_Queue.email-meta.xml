@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Change Owner to Queue</name>
+    <style>none</style>
+    <subject>Commercial Team Request added to the Queue</subject>
+    <textOnly>Contract Assistance Form {!ContractAssistanceForm__c.Name} has been assigned to the Commercial Team Queue. Please click on the link below to view the record.
+
+{!ContractAssistanceForm__c.Link}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

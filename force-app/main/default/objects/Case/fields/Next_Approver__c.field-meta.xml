@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Next_Approver__c</fullName>
+    <externalId>false</externalId>
+    <label>Next Approver</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>GM Sales</fullName>
+                <default>false</default>
+                <label>GM Sales</label>
+            </value>
+            <value>
+                <fullName>Head of Product</fullName>
+                <default>false</default>
+                <label>Head of Product</label>
+            </value>
+            <value>
+                <fullName>GM of Product</fullName>
+                <default>false</default>
+                <label>GM of Product</label>
+            </value>
+            <value>
+                <fullName>EGM</fullName>
+                <default>false</default>
+                <label>EGM</label>
+            </value>
+            <value>
+                <fullName>Direct Reports to GM Finance</fullName>
+                <default>false</default>
+                <label>Direct Reports to GM Finance</label>
+            </value>
+            <value>
+                <fullName>GM Finance</fullName>
+                <default>false</default>
+                <label>GM Finance</label>
+            </value>
+            <value>
+                <fullName>CFO</fullName>
+                <default>false</default>
+                <label>CFO</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

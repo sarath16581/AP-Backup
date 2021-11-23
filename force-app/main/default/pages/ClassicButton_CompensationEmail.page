@@ -1,0 +1,83 @@
+<apex:page standardController="Compensation__c" extensions="CompensationResendButtonExtension">
+
+    <apex:slds />
+    
+    <style type="text/css">
+        .spinner-text::after {
+            position: relative;
+            content: 'Sending compensation email...';
+            width: 100%;
+            text-align: center;
+            top: calc(50% + 3em);
+            left: calc(50% - 7em);
+            font-weight: bold;
+            max-height: 300px;
+        }
+
+        .center-screen {
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            height: 100px;
+        }
+    </style>
+    
+    <div id="confirm">
+        <div class="slds-scope">
+            <div class="center-screen" style="text-align: center">
+                <div id="resultDetail" style="text-align: center; font-weight: bold; font-size: larger">
+                    You are about to re-send compensation email. Click “OK“ to continue, “Cancel“ to return to compensation record
+                </div>
+                <button style="margin-top: 1em" class="slds-button slds-button_brand" onclick="userConfirmed();resendEmail()">OK</button>
+                <button style="margin-top: 1em" class="slds-button slds-button_destructive" onclick="navigateToRecord()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <apex:outputPanel id="main">
+        <div class="slds-scope">
+            <apex:outputPanel rendered="{!!compensationEmailResendDone}">
+                <div class="slds-spinner_container spinner-text" id="spinner" style="display: none">
+                    <div role="status" class="slds-spinner slds-spinner--large slds-spinner--brand">
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+    
+            <apex:outputPanel rendered="{!compensationEmailResendDone}">
+                <div style="text-align: center;" class="center-screen" id="resultPanel" >
+                    <div id="resultDetail" style="text-align: center; font-weight: bold; font-size: larger">
+                        {!compensationEmailResendResult}
+                    </div>
+                    <button style="margin-top: 1em" class="slds-button slds-button_brand" onclick="navigateToRecord()">Back to record</button>
+                </div>
+            </apex:outputPanel>
+        </div>
+    </apex:outputPanel>
+    
+    <apex:form >
+        <apex:actionFunction action="{!resendCompensationEmail}" name="resendEmail" reRender="main"/>
+    </apex:form>
+
+    <script type="text/javascript">
+
+        var navigateToRecord = function()
+        {
+            let recordId = '{!JSENCODE($CurrentPage.parameters.id)}';
+            window.open(`/${recordId}`, '_self');
+        }
+
+        var userConfirmed = function()
+        {
+            let confirm = document.getElementById('confirm');
+            let spinner = document.getElementById('spinner');
+            confirm.style.display = 'none';
+            spinner.style.display = 'block';
+        }
+    </script>
+    
+</apex:page>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This permission is used to prevent the closure of all console windows when a new CTI interaction is received using the &apos;AP2 SFDC Genesys Connector&apos; adapter.</description>
+    <isLicensed>false</isLicensed>
+    <label>SSSW CTI Maintain Window State</label>
+</CustomPermission>

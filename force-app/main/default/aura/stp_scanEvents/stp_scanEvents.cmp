@@ -1,0 +1,163 @@
+<!-- 2018-06-01 clint.dsilva@auspost.com.au created -->
+<aura:component description="starTrackPortalScanEvents" controller="stp_ConsignmentSearch" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global">
+
+    <aura:registerEvent name="appEventContinuation" type="c:AsynchApexContinuationRequest" />
+    <aura:registerEvent name="notifyCompEvent" type="c:eNotificationComp" />
+
+    <aura:attribute name="data" type="Object[]" />
+    <aura:attribute name="columns" type="Object[]" />
+
+    <aura:attribute name="datConsignmentSummary" type="Object" />
+    <aura:attribute name="colConsignmentSummary" type="List" />
+
+    <aura:attribute name="dataEventMessages" type="Object[]" />
+    <aura:attribute name="columnsEventMessages" type="List" />
+
+    <aura:attribute name="dataEventMessagesByArticle" type="Object[]" />
+    <aura:attribute name="columnsEventMessagesByArticle" type="List" />
+
+    <aura:attribute name="displayConsignmentSummary" type="boolean" default="false" />
+    <aura:attribute name="consignmentId" type="string" />
+    <aura:attribute name="consignmentNumber" type="string" />
+
+    <aura:attribute name="dataPOD" type="Object[]" />
+    <aura:attribute name="columnsPOD" type="List" />
+
+    <aura:attribute name="compDispTbl" type="Object[]" access="private" />
+    <aura:attribute name="msgOrErrors" type="Object[]" />
+
+    <aura:attribute name="vfHost" type="String" default="" />
+    <aura:attribute name="loadingSpinner" type="Object"/>
+    <ltng:require scripts="{!join(',',$Resource.GlobalAssets + '/js/lightning/utils.js')}" afterScriptsLoaded="{!c.onInit}" />
+
+    <aura:method access="public" action="{!c.onPopulateData}" description="Populate detail component" name="populateData">
+        <aura:attribute name="payload" description="payload to populate data into component" type="Object" access="public" />
+    </aura:method>
+
+    <lightning:layout multipleRows="true">
+        <lightning:layoutItem padding="around-small" size="12">
+            <lightning:card class="paper-card">
+                <aura:set attribute="title">
+                    <!-- <div class="slds-col slds-size_1-of-1 slds-page-header slds-page-header_record-home" style="background-color:#B8E4FA">Scan Events</div> -->
+                    <lightning:icon iconName="utility:event" size="small" />
+                    Scan Events
+                </aura:set>
+                <lightning:layout multipleRows="true">
+                    <lightning:layoutItem padding="around-small" size="12">
+                        <lightning:card>
+                            <aura:set attribute="title">
+                                <div class="startrack-shade_grey">
+                                    <lightning:icon aura:id="consignmentSummaryIcon" iconName="utility:chevronright" size="small" />
+                                    <a onclick="{!c.toggleDisplayConsignmentSummary}" class="slds-card__header-link slds-truncate" title="Consignment Summary">
+                                        <span>Consignment Summary</span>
+                                    </a>
+                                </div>
+                            </aura:set>
+                            <div>
+                                <aura:if isTrue="{!v.displayConsignmentSummary}">
+                                    <div class="slds-p-around_small">
+                                        <div class="slds-form slds-form_horizontal" role="list">
+                                            <div class="slds-grid slds-gutters_small slds-wrap">
+                                                <aura:iteration var="datFld" items="{!v.datConsignmentSummary}" indexVar="idxDat">
+                                                    <aura:iteration var="colFld" items="{!v.colConsignmentSummary}" indexVar="idxCol">
+
+                                                        <div class="slds-col slds-size_1-of-1  slds-medium-size_1-of-2  slds-has-flexi-truncate slds-grid" role="listitem">
+                                                            <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                                                                <span class="slds-form-element__label">{!colFld.label}</span>
+                                                                <div class="slds-form-element__control">
+                                                                    <div class="slds-form-element__static">
+                                                                        <c:DynamicTableCell record="{!datFld}" field="{!colFld}" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </aura:iteration>
+                                                </aura:iteration>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aura:if>
+                            </div>
+                        </lightning:card>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="around-small" size="12" class="startrack-shade_grey">
+                        <div class="page-section page-header ">
+                            <p>Consignment Events</p>
+                        </div>
+                    </lightning:layoutItem>
+
+                    <!-- Consignment Events Data table-->
+                    <lightning:layoutItem padding="around-small" size="12">
+                        <lightning:datatable aura:id="consignmentEventsDataTable" title="Consignment Events" showRowNumberColumn="false" hideCheckboxColumn="true" keyField="Id" columns="{! v.columnsEventMessages }" data="{! v.dataEventMessages }" />
+                    </lightning:layoutItem>
+
+
+                    <lightning:layoutItem padding="around-small" size="12" class="startrack-shade_grey">
+                        <div class="page-section page-header ">
+                            <p>Events By Article</p>
+                        </div>
+                    </lightning:layoutItem>
+
+                    <!--  Events by article data table-->
+                    <lightning:layoutItem padding="around-small" size="12">
+                        <lightning:datatable title="Events By Article" showRowNumberColumn="false" hideCheckboxColumn="true" columns="{! v.columnsEventMessagesByArticle }" data="{! v.dataEventMessagesByArticle }" keyField="id" />
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="around-small" size="12" class="startrack-shade_grey">
+                        <div class="page-section page-header ">
+                            <p>POD</p>
+                        </div>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="around-small" size="12">
+                        <table class="slds-table slds-table_bordered slds-table_striped ">
+                            <thead>
+                            <tr class="slds-text-title_caps" style="background-color:#ccf2ff;">
+                                <aura:iteration items="{!v.columnsPOD}" indexVar="idx" var="colName">
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="{!colName.label}"> {!colName.label} </div>
+                                    </th>
+                                </aura:iteration>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Image">Image</div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <aura:iteration items="{!v.dataPOD}" indexVar="idx" var="dispObj">
+                                <tr class="slds-hint-parent">
+                                    <!-- access data needs to be hard code, as we have an additional column "Image" we cannot use dataTable -->
+                                    <td data-label="Tracking #">
+                                        <div class="slds-truncate" title="Tracking #">{!dispObj.pod.Name}</div>
+                                    </td>
+                                    <td data-label="Signed by">
+                                        <div class="slds-truncate" title="Signed by">{!dispObj.pod.POD_Received_Date_Str__c}</div>
+                                    </td>
+                                    <td data-label="POD Received Date">
+                                        <div class="slds-truncate" title="Signed By">{!dispObj.pod.Signed_by__c}</div>
+                                    </td>
+                                    <td data-label="POD Received Date">
+                                        <div class="slds-truncate" title="Delivery Address">{!dispObj.pod.Delivery_Address__c}</div>
+                                    </td>
+                                    <td data-label="POD Received Date">
+                                        <div class="slds-truncate" title="Article Listing">{!dispObj.pod.Article_Listing__c}</div>
+                                    </td>
+                                    <td data-label="POD Received Date">
+                                        <div class="slds-truncate" title="QC Status">{!dispObj.pod.QC_Status__c}</div>
+                                    </td>
+                                    <td class="slds-show_medium" data-label="Image">
+                                        <div class="slds-truncate" title="Image" style="overflow:visible;">
+                                            <c:ImageContainer aura:id="imgContainer" imageBase64="{!dispObj.imageBase64}" imageLoaded="true" width="30px" height="30px" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </aura:iteration>
+                            </tbody>
+                        </table>
+                    </lightning:layoutItem>
+                </lightning:layout>
+
+            </lightning:card>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

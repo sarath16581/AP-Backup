@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_value_in_other_industry_field</fullName>
+    <active>true</active>
+    <description>StarTrack: other industry value is required if industry is other</description>
+    <errorConditionFormula>AND(
+ISPICKVAL(Industry,&apos;Other&apos;), ISBLANK(Industry_Other__c), $RecordType.DeveloperName = &quot;StarTrack_Lead&quot;)</errorConditionFormula>
+    <errorDisplayField>Industry_Other__c</errorDisplayField>
+    <errorMessage>Please provide industry other value</errorMessage>
+</ValidationRule>

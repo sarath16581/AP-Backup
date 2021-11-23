@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>CBRUpdate_Status</fullName>
+        <description>SSSW Callback Reminder Due Date - update status</description>
+        <field>Status__c</field>
+        <literalValue>Assigned</literalValue>
+        <name>CBR Update Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>CBR_Update_Owner_to_Queue</fullName>
+        <description>Callback Request Reminder - Change Owner to Holding Queue</description>
+        <field>OwnerId</field>
+        <lookupValue>SSSW_Callback_Reminder_Holding_Queue</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>CBR Update Owner to Queue</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Change_Status</fullName>
+        <description>Update status field.</description>
+        <field>Status__c</field>
+        <literalValue>New</literalValue>
+        <name>CBR Change Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Callback_Status</fullName>
+        <field>Status__c</field>
+        <literalValue>Assigned</literalValue>
+        <name>Update Callback Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Owner_to_Queue</fullName>
+        <description>Update Owner to Queue for re-routing after 6 (Business) hours</description>
+        <field>OwnerId</field>
+        <lookupValue>SSSW_Callback_Request_Queue</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>CBR Update Owner to Queue</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Reschedule Callback Request</fullName>
+        <active>true</active>
+        <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
+        <criteriaItems>
+            <field>Callback_Request__c.ReExecutionDateTime__c</field>
+            <operation>notEqual</operation>
+            <value>4/4/1982</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Callback_Request__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Case Unresolved</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Callback_Request__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Voicemail</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Callback_Request__c.Status__c</field>
+            <operation>equals</operation>
+            <value>No Voicemail</value>
+        </criteriaItems>
+        <description>Reschedule callback request when customer
+Case Unresolved
+Voicemail
+No Voicemail</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Change_Status</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>Update_Owner_to_Queue</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Callback_Request__c.ReExecutionDateTime__c</offsetFromField>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>SSSW Callback Reminder Is Due</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Callback_Request__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Callback Reminder</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Callback_Request__c.Status__c</field>
+            <operation>equals</operation>
+            <value>New</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Callback_Request__c.ReExecutionDateTime__c</field>
+            <operation>notEqual</operation>
+            <value>4/4/1982</value>
+        </criteriaItems>
+        <description>When callback reminder is due.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>CBRUpdate_Status</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Callback_Request__c.ReExecutionDateTime__c</offsetFromField>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>SSSW Reschedule Callback Request</fullName>
+        <active>true</active>
+        <booleanFilter>1 AND (2 OR 3 OR 4) AND 5</booleanFilter>
+        <criteriaItems>
+            <field>Callback_Request__c.ReExecutionDateTime__c</field>
+            <operation>notEqual</operation>
+            <value>4/4/1982</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Callback_Request__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Case Unresolved</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Callback_Request__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Voicemail</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Callback_Request__c.Status__c</field>
+            <operation>equals</operation>
+            <value>No Voicemail</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Callback_Request__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Callback Request</value>
+        </criteriaItems>
+        <description>Reschedule callback request when customer
+Case Unresolved
+Voicemail
+No Voicemail</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Change_Status</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>Update_Owner_to_Queue</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Callback_Request__c.ReExecutionDateTime__c</offsetFromField>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+</Workflow>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Block_Outbound_Email</fullName>
+    <active>true</active>
+    <description>Temporary fix - Outbound emails to &apos;nathan.richards1@icloud.com&apos;,&apos;nathan.richards1@me.com&apos; needs to be blocked.</description>
+    <errorConditionFormula>AND((CONTAINS(ToAddress,&apos;nathan.richards1@icloud.com&apos;) || CONTAINS(ToAddress,&apos;nathan.richards1@me.com&apos;)||
+CONTAINS(CcAddress,&apos;nathan.richards1@icloud.com&apos;)|| CONTAINS(CcAddress,&apos;nathan.richards1@me.com&apos;)|| CONTAINS(BccAddress,&apos;nathan.richards1@icloud.com&apos;)|| CONTAINS(BccAddress,&apos;nathan.richards1@me.com&apos;)),Incoming = false)</errorConditionFormula>
+    <errorMessage>You are trying to send an email to incorrect address.</errorMessage>
+</ValidationRule>

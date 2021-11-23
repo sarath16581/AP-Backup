@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Depot_Collection_Hours__c</fullName>
+    <externalId>false</externalId>
+    <formula>&quot;Mon: &quot; &amp; BLANKVALUE(Case__r.Network__r.Depot_Collection_Times_Monday__c, &quot;N/A&quot;) &amp; BR() &amp;
+&quot;Tue: &quot; &amp; BLANKVALUE(Case__r.Network__r.Depot_Collection_Times_Tuesday__c, &quot;N/A&quot;) &amp; BR() &amp;
+&quot;Wed: &quot; &amp; BLANKVALUE(Case__r.Network__r.Depot_Collection_Times_Wednesday__c, &quot;N/A&quot;) &amp; BR() &amp;
+&quot;Thu: &quot; &amp; BLANKVALUE(Case__r.Network__r.Depot_Collection_Times_Thursday__c, &quot;N/A&quot;) &amp; BR() &amp;
+&quot;Fri: &quot; &amp; BLANKVALUE(Case__r.Network__r.Depot_Collection_Times_Friday__c, &quot;N/A&quot;) &amp; BR() &amp;
+&quot;Sat: &quot; &amp; BLANKVALUE(Case__r.Network__r.Depot_Collection_Times_Saturday__c, &quot;N/A&quot;) &amp; BR() &amp;
+&quot;Sun: &quot; &amp; BLANKVALUE(Case__r.Network__r.Depot_Collection_Times_Sunday__c, &quot;N/A&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Depot Collection Hours</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

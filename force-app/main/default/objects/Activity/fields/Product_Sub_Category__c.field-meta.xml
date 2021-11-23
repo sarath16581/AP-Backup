@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_Sub_Category__c</fullName>
+    <externalId>false</externalId>
+    <label>Product Sub Category</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Product_Category__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AirMail</fullName>
+                <default>false</default>
+                <label>AirMail</label>
+            </value>
+            <value>
+                <fullName>AirMail Parcels</fullName>
+                <default>false</default>
+                <label>AirMail Parcels</label>
+            </value>
+            <value>
+                <fullName>All other Delivery Services</fullName>
+                <default>false</default>
+                <label>All other Delivery Services</label>
+            </value>
+            <value>
+                <fullName>AMEX</fullName>
+                <default>false</default>
+                <label>AMEX</label>
+            </value>
+            <value>
+                <fullName>Australian Air Express</fullName>
+                <default>false</default>
+                <label>Australian Air Express</label>
+            </value>
+            <value>
+                <fullName>Bank at Post</fullName>
+                <default>false</default>
+                <label>Bank at Post</label>
+            </value>
+            <value>
+                <fullName>Bulk Mail Services</fullName>
+                <default>false</default>
+                <label>Bulk Mail Services</label>
+            </value>
+            <value>
+                <fullName>Carded Parcels (Collection Cards)</fullName>
+                <default>false</default>
+                <label>Carded Parcels (Collection Cards)</label>
+            </value>
+            <value>
+                <fullName>Cash on Delivery</fullName>
+                <default>false</default>
+                <label>Cash on Delivery</label>
+            </value>
+            <value>
+                <fullName>Change of Address Notification</fullName>
+                <default>false</default>
+                <label>Change of Address Notification</label>
+            </value>
+            <value>
+                <fullName>Click &amp; Send</fullName>
+                <default>false</default>
+                <label>Click &amp; Send</label>
+            </value>
+            <value>
+                <fullName>Click &amp; Send Domestic Parcels</fullName>
+                <default>false</default>
+                <label>Click &amp; Send Domestic Parcels</label>
+            </value>
+            <value>
+                <fullName>Click &amp; Send International</fullName>
+                <default>false</default>
+                <label>Click &amp; Send International</label>
+            </value>
+            <value>
+                <fullName>Delivery Choice</fullName>
+                <default>false</default>
+                <label>Delivery Choice</label>
+            </value>
+            <value>
+                <fullName>Digital Mailbox</fullName>
+                <default>false</default>
+                <label>Digital Mailbox</label>
+            </value>
+            <value>
+                <fullName>Domestic Letter Insurance (Extra Cover)</fullName>
+                <default>false</default>
+                <label>Domestic Letter Insurance (Extra Cover)</label>
+            </value>
+            <value>
+                <fullName>Domestic Parcel Insurance (Extra Cover)</fullName>
+                <default>false</default>
+                <label>Domestic Parcel Insurance (Extra Cover)</label>
+            </value>
+            <value>
+                <fullName>eParcel</fullName>
+                <default>false</default>
+                <label>eParcel</label>
+            </value>
+            <value>
+                <fullName>Express Courier International</fullName>
+                <default>false</default>
+                <label>Express Courier International</label>
+            </value>
+            <value>
+                <fullName>Express Courier International Platinum</fullName>
+                <default>false</default>
+                <label>Express Courier International Platinum</label>
+            </value>
+            <value>
+                <fullName>Express Post</fullName>
+                <default>false</default>
+                <label>Express Post</label>
+            </value>
+            <value>
+                <fullName>Express Post International</fullName>
+                <default>false</default>
+                <label>Express Post International</label>
+            </value>
+            <value>
+                <fullName>Express Post Parcels</fullName>
+                <default>false</default>
+                <label>Express Post Parcels</label>
+            </value>
+            <value>
+                <fullName>Express Post Platinum</fullName>
+                <default>false</default>
+                <label>Express Post Platinum</label>
+            </value>
+            <value>
+                <fullName>Express Post Platinum Parcels</fullName>
+                <default>false</default>
+                <label>Express Post Platinum Parcels</label>
+            </value>
+            <value>
+                <fullName>Farmhouse Direct</fullName>
+                <default>false</default>
+                <label>Farmhouse Direct</label>
+            </value>
+            <value>
+                <fullName>General Merchandise</fullName>
+                <default>false</default>
+                <label>General Merchandise</label>
+            </value>
+            <value>
+                <fullName>Gift cards</fullName>
+                <default>false</default>
+                <label>Gift cards</label>
+            </value>
+            <value>
+                <fullName>Identity Services - All other</fullName>
+                <default>false</default>
+                <label>Identity Services - All other</label>
+            </value>
+            <value>
+                <fullName>Insurance</fullName>
+                <default>false</default>
+                <label>Insurance</label>
+            </value>
+            <value>
+                <fullName>International Letter Insurance (Extra Cover)</fullName>
+                <default>false</default>
+                <label>International Letter Insurance (Extra Cover)</label>
+            </value>
+            <value>
+                <fullName>International Parcel Insurance (Extra Cover)</fullName>
+                <default>false</default>
+                <label>International Parcel Insurance (Extra Cover)</label>
+            </value>
+            <value>
+                <fullName>Letter Collections</fullName>
+                <default>false</default>
+                <label>Letter Collections</label>
+            </value>
+            <value>
+                <fullName>Load &amp; Go Cards</fullName>
+                <default>false</default>
+                <label>Load &amp; Go Cards</label>
+            </value>
+            <value>
+                <fullName>Locations &amp; Hours of Operation</fullName>
+                <default>false</default>
+                <label>Locations &amp; Hours of Operation</label>
+            </value>
+            <value>
+                <fullName>Mail Hold &amp; Redirections</fullName>
+                <default>false</default>
+                <label>Mail Hold &amp; Redirections</label>
+            </value>
+            <value>
+                <fullName>Mail Redirections &amp; Mail Holding online</fullName>
+                <default>false</default>
+                <label>Mail Redirections &amp; Mail Holding online</label>
+            </value>
+            <value>
+                <fullName>Messenger Post Courier</fullName>
+                <default>false</default>
+                <label>Messenger Post Courier</label>
+            </value>
+            <value>
+                <fullName>Mobile Apps</fullName>
+                <default>false</default>
+                <label>Mobile Apps</label>
+            </value>
+            <value>
+                <fullName>Mobile devices</fullName>
+                <default>false</default>
+                <label>Mobile devices</label>
+            </value>
+            <value>
+                <fullName>Money Services</fullName>
+                <default>false</default>
+                <label>Money Services</label>
+            </value>
+            <value>
+                <fullName>My Deliveries</fullName>
+                <default>false</default>
+                <label>My Deliveries</label>
+            </value>
+            <value>
+                <fullName>New Address Listings</fullName>
+                <default>false</default>
+                <label>New Address Listings</label>
+            </value>
+            <value>
+                <fullName>Ordinary Mail</fullName>
+                <default>false</default>
+                <label>Ordinary Mail</label>
+            </value>
+            <value>
+                <fullName>Other Bulk Mail Services</fullName>
+                <default>false</default>
+                <label>Other Bulk Mail Services</label>
+            </value>
+            <value>
+                <fullName>Other Courier Products &amp; Services</fullName>
+                <default>false</default>
+                <label>Other Courier Products &amp; Services</label>
+            </value>
+            <value>
+                <fullName>Other Digital Products &amp; Services</fullName>
+                <default>false</default>
+                <label>Other Digital Products &amp; Services</label>
+            </value>
+            <value>
+                <fullName>Other Domestic Letter Services</fullName>
+                <default>false</default>
+                <label>Other Domestic Letter Services</label>
+            </value>
+            <value>
+                <fullName>Other Domestic Parcel Services</fullName>
+                <default>false</default>
+                <label>Other Domestic Parcel Services</label>
+            </value>
+            <value>
+                <fullName>Other Financial Products &amp; Services</fullName>
+                <default>false</default>
+                <label>Other Financial Products &amp; Services</label>
+            </value>
+            <value>
+                <fullName>Other International Letter services</fullName>
+                <default>false</default>
+                <label>Other International Letter services</label>
+            </value>
+            <value>
+                <fullName>Other International Parcel Services</fullName>
+                <default>false</default>
+                <label>Other International Parcel Services</label>
+            </value>
+            <value>
+                <fullName>Other Post Office Products &amp; Services</fullName>
+                <default>false</default>
+                <label>Other Post Office Products &amp; Services</label>
+            </value>
+            <value>
+                <fullName>Pack &amp; Track International</fullName>
+                <default>false</default>
+                <label>Pack &amp; Track International</label>
+            </value>
+            <value>
+                <fullName>Packaging</fullName>
+                <default>false</default>
+                <label>Packaging</label>
+            </value>
+            <value>
+                <fullName>Parcel Collections</fullName>
+                <default>false</default>
+                <label>Parcel Collections</label>
+            </value>
+            <value>
+                <fullName>Parcel Lockers</fullName>
+                <default>false</default>
+                <label>Parcel Lockers</label>
+            </value>
+            <value>
+                <fullName>Parcel Post</fullName>
+                <default>false</default>
+                <label>Parcel Post</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Plus</fullName>
+                <default>false</default>
+                <label>Parcel Post Plus</label>
+            </value>
+            <value>
+                <fullName>Passport - Australian</fullName>
+                <default>false</default>
+                <label>Passport - Australian</label>
+            </value>
+            <value>
+                <fullName>Passport - British</fullName>
+                <default>false</default>
+                <label>Passport - British</label>
+            </value>
+            <value>
+                <fullName>Philatelic (stamps)</fullName>
+                <default>false</default>
+                <label>Philatelic (stamps)</label>
+            </value>
+            <value>
+                <fullName>PO Boxes &amp; Bags</fullName>
+                <default>false</default>
+                <label>PO Boxes &amp; Bags</label>
+            </value>
+            <value>
+                <fullName>Post BillPay</fullName>
+                <default>false</default>
+                <label>Post BillPay</label>
+            </value>
+            <value>
+                <fullName>Proof of International Letter Delivery</fullName>
+                <default>false</default>
+                <label>Proof of International Letter Delivery</label>
+            </value>
+            <value>
+                <fullName>Proof of International Parcel Delivery</fullName>
+                <default>false</default>
+                <label>Proof of International Parcel Delivery</label>
+            </value>
+            <value>
+                <fullName>Proof of Letter Delivery</fullName>
+                <default>false</default>
+                <label>Proof of Letter Delivery</label>
+            </value>
+            <value>
+                <fullName>Proof of Parcel Delivery</fullName>
+                <default>false</default>
+                <label>Proof of Parcel Delivery</label>
+            </value>
+            <value>
+                <fullName>Registered Post</fullName>
+                <default>false</default>
+                <label>Registered Post</label>
+            </value>
+            <value>
+                <fullName>Registered Post Parcels</fullName>
+                <default>false</default>
+                <label>Registered Post Parcels</label>
+            </value>
+            <value>
+                <fullName>SeaMail Parcels</fullName>
+                <default>false</default>
+                <label>SeaMail Parcels</label>
+            </value>
+            <value>
+                <fullName>Shop online</fullName>
+                <default>false</default>
+                <label>Shop online</label>
+            </value>
+            <value>
+                <fullName>Star Track Express</fullName>
+                <default>false</default>
+                <label>Star Track Express</label>
+            </value>
+            <value>
+                <fullName>Stationery</fullName>
+                <default>false</default>
+                <label>Stationery</label>
+            </value>
+            <value>
+                <fullName>Street Letter Delivery</fullName>
+                <default>false</default>
+                <label>Street Letter Delivery</label>
+            </value>
+            <value>
+                <fullName>Street Parcel Delivery</fullName>
+                <default>false</default>
+                <label>Street Parcel Delivery</label>
+            </value>
+            <value>
+                <fullName>Street Post Boxes</fullName>
+                <default>false</default>
+                <label>Street Post Boxes</label>
+            </value>
+            <value>
+                <fullName>Technology - All other</fullName>
+                <default>false</default>
+                <label>Technology - All other</label>
+            </value>
+            <value>
+                <fullName>Travelex</fullName>
+                <default>false</default>
+                <label>Travelex</label>
+            </value>
+            <value>
+                <fullName>Unaddressed Mail</fullName>
+                <default>false</default>
+                <label>Unaddressed Mail</label>
+            </value>
+            <value>
+                <fullName>Western Union</fullName>
+                <default>false</default>
+                <label>Western Union</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <controllingFieldValue>Post Office Products &amp; Services</controllingFieldValue>
+            <controllingFieldValue>Letter &amp; Parcel Delivery Services</controllingFieldValue>
+            <valueName>Carded Parcels (Collection Cards)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Cash on Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Click &amp; Send Domestic Parcels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Domestic Parcel Insurance (Extra Cover)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <controllingFieldValue>Digital Products &amp; Services</controllingFieldValue>
+            <valueName>eParcel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Express Post Parcels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Express Post Platinum Parcels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <controllingFieldValue>Courier Products &amp; Services</controllingFieldValue>
+            <valueName>Messenger Post Courier</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Other Domestic Parcel Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Parcel Collections</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Parcel Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Parcel Post Plus</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Proof of Parcel Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Registered Post Parcels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Products &amp; Services</controllingFieldValue>
+            <valueName>General Merchandise</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Products &amp; Services</controllingFieldValue>
+            <valueName>Gift cards</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Products &amp; Services</controllingFieldValue>
+            <valueName>Identity Services - All other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Products &amp; Services</controllingFieldValue>
+            <valueName>Locations &amp; Hours of Operation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Products &amp; Services</controllingFieldValue>
+            <valueName>Mobile devices</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Products &amp; Services</controllingFieldValue>
+            <valueName>Other Post Office Products &amp; Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Products &amp; Services</controllingFieldValue>
+            <valueName>Packaging</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Products &amp; Services</controllingFieldValue>
+            <controllingFieldValue>Letter &amp; Parcel Delivery Services</controllingFieldValue>
+            <valueName>Parcel Lockers</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Products &amp; Services</controllingFieldValue>
+            <valueName>Passport - Australian</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Products &amp; Services</controllingFieldValue>
+            <valueName>Passport - British</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Products &amp; Services</controllingFieldValue>
+            <valueName>Philatelic (stamps)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Products &amp; Services</controllingFieldValue>
+            <valueName>PO Boxes &amp; Bags</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Products &amp; Services</controllingFieldValue>
+            <valueName>Stationery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Products &amp; Services</controllingFieldValue>
+            <valueName>Technology - All other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letter &amp; Parcel Delivery Services</controllingFieldValue>
+            <valueName>All other Delivery Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letter &amp; Parcel Delivery Services</controllingFieldValue>
+            <valueName>Bulk Mail Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letter &amp; Parcel Delivery Services</controllingFieldValue>
+            <valueName>Change of Address Notification</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letter &amp; Parcel Delivery Services</controllingFieldValue>
+            <valueName>Delivery Choice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letter &amp; Parcel Delivery Services</controllingFieldValue>
+            <valueName>Mail Hold &amp; Redirections</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letter &amp; Parcel Delivery Services</controllingFieldValue>
+            <valueName>New Address Listings</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letter &amp; Parcel Delivery Services</controllingFieldValue>
+            <valueName>Street Letter Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letter &amp; Parcel Delivery Services</controllingFieldValue>
+            <valueName>Street Parcel Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letter &amp; Parcel Delivery Services</controllingFieldValue>
+            <valueName>Street Post Boxes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letter &amp; Parcel Delivery Services</controllingFieldValue>
+            <valueName>Unaddressed Mail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <valueName>AirMail Parcels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <valueName>Click &amp; Send International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <controllingFieldValue>Courier Products &amp; Services</controllingFieldValue>
+            <valueName>Express Courier International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <controllingFieldValue>Courier Products &amp; Services</controllingFieldValue>
+            <valueName>Express Courier International Platinum</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <valueName>Express Post International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <valueName>International Parcel Insurance (Extra Cover)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <valueName>Other International Parcel Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <valueName>Pack &amp; Track International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <valueName>Proof of International Parcel Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcels</controllingFieldValue>
+            <valueName>SeaMail Parcels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Products &amp; Services</controllingFieldValue>
+            <valueName>AMEX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Products &amp; Services</controllingFieldValue>
+            <valueName>Bank at Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Products &amp; Services</controllingFieldValue>
+            <valueName>Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Products &amp; Services</controllingFieldValue>
+            <valueName>Load &amp; Go Cards</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Products &amp; Services</controllingFieldValue>
+            <valueName>Money Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Products &amp; Services</controllingFieldValue>
+            <valueName>Other Financial Products &amp; Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Products &amp; Services</controllingFieldValue>
+            <valueName>Post BillPay</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Products &amp; Services</controllingFieldValue>
+            <valueName>Travelex</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Products &amp; Services</controllingFieldValue>
+            <valueName>Western Union</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Domestic Letter Insurance (Extra Cover)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Express Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Express Post Platinum</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Ordinary Mail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <valueName>Other International Letter services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Proof of Letter Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Registered Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <valueName>AirMail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <valueName>International Letter Insurance (Extra Cover)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Letters</controllingFieldValue>
+            <valueName>Proof of International Letter Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Products &amp; Services</controllingFieldValue>
+            <valueName>Click &amp; Send</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Products &amp; Services</controllingFieldValue>
+            <valueName>Digital Mailbox</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Products &amp; Services</controllingFieldValue>
+            <valueName>Farmhouse Direct</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Products &amp; Services</controllingFieldValue>
+            <valueName>Mail Redirections &amp; Mail Holding online</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Products &amp; Services</controllingFieldValue>
+            <valueName>Mobile Apps</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Products &amp; Services</controllingFieldValue>
+            <valueName>My Deliveries</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Products &amp; Services</controllingFieldValue>
+            <valueName>Other Digital Products &amp; Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Products &amp; Services</controllingFieldValue>
+            <valueName>Shop online</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Products &amp; Services</controllingFieldValue>
+            <valueName>Australian Air Express</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Products &amp; Services</controllingFieldValue>
+            <valueName>Other Courier Products &amp; Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Products &amp; Services</controllingFieldValue>
+            <valueName>Star Track Express</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

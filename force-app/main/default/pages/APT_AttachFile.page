@@ -1,0 +1,55 @@
+<!--
+ * Created by Raviteja Epuri * 
+ * Date: 12th Jan 2016
+ * Upload Jpg,png,gif files and insert links to product Image of Product
+ * Files with size more than 1Mb are not allowed. 
+ -->
+<apex:page controller="APT_AttachFileController" sidebar="true"
+         showHeader="true">
+        
+         <apex:includeScript value="{!URLFOR($Resource.jquery, '/js/jquery-1.11.3.min.js')}" />
+         <apex:includeScript value="{!URLFOR($Resource.jquery, '/js/jquery-ui-1.11.4.min.js')}" />
+ 
+  <apex:form id="idAttachFile">
+                 <apex:sectionHeader title="{!$Label.APT_Upload_Image}"
+                          subtitle="{!$Label.APT_Upload_Image}" />
+                 <div class="navigateSelect"><apex:pageblock rendered="{!NOT(isUploadPressed)}">
+ <apex:pageMessages rendered="{!errorMessage!=null}" />
+                          <apex:pageblocksection columns="1">
+                                   <span style="font-weight: bold">Select Image</span>
+                                   <br></br>
+                                   
+                                   <apex:inputFile accept="png, jpeg, jpg" filename="{!image.Name}"
+                                            contentType="{!image.ContentType}" filesize="{!image.BodyLength}"
+                                            value="{!image.body}" StyleClass="imageUpload" />
+                                                                       
+                          </apex:pageblocksection> 
+                          <apex:pageBlockButtons location="bottom">
+                                   <apex:commandbutton value="{!$Label.APT_Upload}" action="{!uploadFile}" rendered="{!NOT(isUploadPressed)}" />
+                                   <apex:commandbutton value="{!$Label.APT_Cancel}" action="{!goHome}" rendered="{!NOT(isUploadPressed)}" />
+                          </apex:pageBlockButtons>
+                          </apex:pageblock></div>             
+                    
+                
+         
+                 <apex:pageblock rendered="{!isUploadPressed}">
+                 <b><span> {!infoMessage}</span></b>
+                 <br></br>
+                 <apex:pageBlockButtons location="bottom">
+                 <apex:commandbutton value="{!$Label.APT_Finish}" action="{!goHome}" rendered="{!isUploadPressed}" />
+                 </apex:pageBlockButtons>                 
+    </apex:pageblock>
+   
+  
+</apex:form>
+ 
+ 
+<script type="text/javascript">
+ 
+j$ = jQuery.noConflict();
+ 
+j$(document).ready(function() {
+}
+</script>
+ 
+</apex:page>

@@ -1,0 +1,164 @@
+/**
+ * @author Nathan Franklin
+ * @date 2020-05-10
+ * @group Selector
+ * @domain Core
+ * @description A very simple selector class that sits in the base domain
+ * @changelog
+ * 2020-05-10 - Nathan Franklin - Created
+ * 2020-07-22 - Nathan Franklin - Added field override capability
+ * 2021-10-01 - Nathan Franklin - Added new fields list
+ */
+public virtual inherited sharing class ArticlesSelector extends ApplicationSelector {
+
+	public enum Options {
+		WITH_RECORDTYPE, WITH_CONSIGNMENT, WITH_CHILDARTICLES,
+		WITH_BILLINGACCOUNT // using BillingAccountsSelector
+	}
+
+	public static ArticlesSelector newInstance() {
+		return (ArticlesSelector)Application.Selectors.newInstance(ArticlesSelector.class);
+	}
+
+	/**
+	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 *						  This approach removes data consistency and prevents possible caching of results
+	 */
+	public static ArticlesSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
+		ArticlesSelector selector = (ArticlesSelector)Application.Selectors.newInstance(ArticlesSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
+	/**
+	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 *						  This approach removes data consistency and prevents possible caching of results
+	 */
+	public static ArticlesSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		ArticlesSelector selector = (ArticlesSelector)Application.Selectors.newInstance(ArticlesSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
+	public virtual override SObjectType getSObjectType() {
+		return Article__c.getSObjectType();
+	}
+
+	public virtual override Set<SObjectField> getSObjectFieldList() {
+		return new Set<SObjectField> {
+				Article__c.Name, Article__c.Billing_Account__c, Article__c.Sender_APCN__c, Article__c.Receiver_APCN__c, Article__c.Hide_Article__c, Article__c.ArticleID__c, Article__c.ActualWeight__c,
+				Article__c.ArticleCount__c, Article__c.ArticleLodgementDate__c, Article__c.ArticleTransitAmountValue__c, Article__c.DeliveryInstructions__c,
+				Article__c.DestinationPostCode__c, Article__c.ProductCategory__c, Article__c.ReceiverAddress__c, Article__c.ReceiverAddressLine1__c,
+				Article__c.ReceiverAddressLine2__c, Article__c.ReceiverAddressLine3__c, Article__c.ReceiverAddressLine4__c, Article__c.ReceiverCity__c,
+				Article__c.ReceiverState__c, Article__c.ReceiverPostcode__c, Article__c.ReceiverCountry__c, Article__c.ReceiverCountryName__c, Article__c.ReceiverName__c,
+				Article__c.ReceiverEmail__c, Article__c.ReceiverCompany__c, Article__c.SenderAddress__c, Article__c.SenderAddressLine1__c, Article__c.SenderAddressLine2__c,
+				Article__c.SenderAddressLine3__c, Article__c.SenderAddressLine4__c, Article__c.SenderCity__c, Article__c.SenderState__c, Article__c.SenderPostcode__c,
+				Article__c.SenderCountry__c, Article__c.SenderCountryName__c, Article__c.SenderName__c, Article__c.SenderEmail__c, Article__c.SenderCompany__c,
+				Article__c.ServiceCode__c, Article__c.SignatureRequiredFlag__c, Article__c.SubProduct__c, Article__c.ServiceQualifier__c, Article__c.Subscribed__c, Article__c.ExpectedDeliveryDate__c,
+				Article__c.ConsignmentParcelCount__c, Article__c.ContentsItems__c, Article__c.ContentsItemsPayload__c, Article__c.InsuranceRequired__c,
+				Article__c.InsuranceAmount__c, Article__c.InsuranceChargeAmount__c, Article__c.InsuranceSDR__c, Article__c.CTCDollarAmount__c, Article__c.AdditionalServices__c,
+				Article__c.AdditionalServicesPayload__c, Article__c.CustCommDecisionCode__c, Article__c.CustCommDecisionDescription__c, Article__c.CustDelPrefOptionCode__c,
+				Article__c.CustDelPrefDescription__c, Article__c.Notification__c, Article__c.RecordTypeId, Article__c.Description_of_Goods__c, Article__c.Customer_Ref__c,
+				Article__c.Delivered__c, Article__c.TrackingID__c, Article__c.Consignment__c, Article__c.MLID__c
+		};
+	}
+
+	/**
+	 * @description Run a simple query to get records based on Id's
+	 */
+	public virtual Map<Id, Article__c> selectById(Set<Id> ids) {
+		return selectById(ids, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on Id's
+	 */
+	public virtual Map<Id, Article__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Article__c.Id + ' in :ids')).endConditions();
+		return new Map<Id, Article__c>((List<Article__c>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * @description Run a simple query to get records based on Id's
+	 */
+	public virtual Map<Id, Article__c> selectByArticleIds(Set<String> ids) {
+		return selectByArticleIds(ids, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on Id's
+	 */
+	public virtual Map<Id, Article__c> selectByArticleIds(Set<String> ids, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(Article__c.ArticleID__c + ' in :ids')).endConditions();
+		return new Map<Id, Article__c>((List<Article__c>)Database.query(qb.toSoqlString()));
+	}
+
+	public Map<Id, Article__c> selectByTracking(Set<String> trackingIds, Boolean includeConsignmentSearch) {
+		return selectByTracking(trackingIds, new Set<Object>(), includeConsignmentSearch);
+	}
+	public Map<Id, Article__c> selectByTracking(Set<String> trackingIds, Set<Object> selectorOptions, Boolean includeConsignmentSearch) {
+		return selectByIdOrTracking(trackingIds, new Set<Id>(), selectorOptions, includeConsignmentSearch);
+	}
+
+	public Map<Id, Article__c> selectByIdOrTracking(Set<String> trackingIds, Set<Id> ids, Boolean includeConsignmentSearch) {
+		return selectByIdOrTracking(trackingIds, ids, new Set<Object>{}, includeConsignmentSearch);
+	}
+	public Map<Id, Article__c> selectByIdOrTracking(Set<String> trackingIds, Set<Id> ids, Set<Object> selectorOptions, Boolean includeConsignmentSearch) {
+		QueryBuilder builder = newQueryBuilder(selectorOptions);
+
+		// add our tracking query
+		QueryBuilder.ConditionsManager conditions = builder.addConditions();
+
+		Integer conditionCount = 0;
+		if(!trackingIds.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition('ArticleID__c in :trackingIds'));
+			conditionCount++;
+		}
+		if(includeConsignmentSearch) {
+			conditions.add(new QueryBuilder.SimpleCondition('Consignment__r.ArticleID__c in :trackingIds'));
+			conditionCount++;
+		}
+		if(!ids.isEmpty()) {
+			conditions.add(new QueryBuilder.SimpleCondition('Id in :ids'));
+			conditionCount++;
+		}
+
+		if(conditionCount == 1) {
+			conditions.setConditionOrder('1');
+		} else if(conditionCount == 2) {
+			conditions.setConditionOrder('1 OR 2');
+		} else if(conditionCount == 3) {
+			conditions.setConditionOrder('1 OR 2 OR 3');
+		}
+
+		String soql = conditions.endConditions().toSoqlString();
+		return new Map<Id, Article__c>((List<Article__c>)Database.query(soql));
+	}
+
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+		if(selectorOptions.contains(Options.WITH_RECORDTYPE)) {
+			builder.addRelatedFields(RecordTypesSelector.newInstance().newQueryBuilder(selectorOptions), 'RecordType');
+		}
+
+		if(selectorOptions.contains(Options.WITH_CONSIGNMENT)) {
+			Set<Object> childOptions = selectorOptions.clone();
+			childOptions.remove(Options.WITH_CHILDARTICLES);
+			childOptions.remove(Options.WITH_CONSIGNMENT);
+			builder.addRelatedFields(ArticlesSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(childOptions), 'Consignment__r');
+		}
+
+		if(selectorOptions.contains(Options.WITH_CHILDARTICLES)) {
+			Set<Object> childOptions = selectorOptions.clone();
+			childOptions.remove(Options.WITH_CHILDARTICLES);
+			childOptions.remove(Options.WITH_CONSIGNMENT);
+			builder.addSubQuery(ArticlesSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(childOptions), 'Articles__r');
+		}
+
+		if(selectorOptions.contains(Options.WITH_BILLINGACCOUNT)) {
+			builder.addRelatedFields(BillingAccountsSelector.newInstance(recordLimit, fieldOverrides).newQueryBuilder(selectorOptions), 'Billing_Account__r');
+		}
+
+		return builder;
+	}
+
+}

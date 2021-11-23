@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Response_Received__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Transport - indicates that a response (comment) has been posted on an active post by a driver. Used as a filter in the Gantt. Works in conjunction with Message Active field</description>
+    <externalId>false</externalId>
+    <label>Response Received</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Warehouse_Processing_Townsville_0450_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Warehouse Processing – Townsville (0450)</label>
+    <queue>Warehouse_Processing_Townsville_0450</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

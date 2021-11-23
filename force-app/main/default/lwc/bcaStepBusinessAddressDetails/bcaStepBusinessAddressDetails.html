@@ -1,0 +1,61 @@
+<!--
+* @author avula.jansirani@auspost.com.au
+* @date 2020-01-20
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Business address details step to input the business street and postal address. 
+* @changelog
+* 2020-01-20 avula.jansirani@auspost.com.au created
+*
+-->
+
+<template>
+
+    <!--Street Address-->
+    <c-address-search-cmp data-id='streetAddress' 
+                          address={streetAddress} 
+                          search-address-term='' 
+                          label="Street address"
+                          data-validate="doAddressValidate"
+                          placeholder="Search for address" 
+                          class="brand-form-input slds-p-bottom_x-large"
+                          is-allow-international-address='no'  
+                          show-country-in-manual-enrtry-for-local-address='no' 
+                          onaddresschange={handleAddressChange}  
+                          required>
+    </c-address-search-cmp> 
+   
+
+    <!-- Is Street address same as Postal Address?-->
+    <lightning-radio-group data-id='PS' 
+                           name="psRadioGroup" 
+                           label="Is the postal address same as street address?"
+                           options={options} 
+                           type="radio" 
+                           onchange={handleChange} 
+                           onfocusout={handleFocusOut} 
+                           class="slds-p-top_large" 
+                           value={_businessAddressStepDetails.isBusNStreetAddressSame}
+                           required>
+    </lightning-radio-group>
+
+    <!--Postal Address-->
+    <template if:true={isDisplayPostalAddress}>
+        <div class="slds-p-top_large">
+            <c-address-search-cmp  data-id='postalAddress' 
+                                   address={postalAddress} 
+                                   search-address-term=''
+                                   label="Postal address" 
+                                   data-validate="doAddressValidate"
+                                   placeholder="Search for address" 
+                                   class="brand-form-input slds-p-bottom_x-large"
+                                   is-allow-international-address='no' 
+                                   show-country-in-manual-enrtry-for-local-address='no' 
+                                   onaddresschange={handleAddressChange} 
+                                   required>
+            </c-address-search-cmp> 
+               </div>
+    </template>
+
+
+</template>

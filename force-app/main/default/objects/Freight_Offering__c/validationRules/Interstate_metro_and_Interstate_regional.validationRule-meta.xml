@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Interstate_metro_and_Interstate_regional</fullName>
+    <active>true</active>
+    <description>Interstate metro and Interstate regional should add up to 100</description>
+    <errorConditionFormula>(Distribution_Network_Interstate_metro__c + Distribution_Network_Interstate_region__c + 	
+
+Distribution_Network_Intrastate_metro__c + Distribution_Network_Intrastate_region__c)&lt;&gt;1</errorConditionFormula>
+    <errorMessage>Interstate metro, Interstate regional , Intrastate metro and Intrastate regional should add up to 100</errorMessage>
+</ValidationRule>

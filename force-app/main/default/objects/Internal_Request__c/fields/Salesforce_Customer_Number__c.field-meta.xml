@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Salesforce_Customer_Number__c</fullName>
+    <description>To display the Organisational Number for the DSR</description>
+    <externalId>false</externalId>
+    <formula>Organisation__r.AccountNumber</formula>
+    <label>Salesforce Customer Number</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

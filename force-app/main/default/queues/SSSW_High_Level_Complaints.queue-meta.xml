@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@auspost.com.au</email>
+    <name>SSSW High Level Complaints</name>
+    <queueMembers>
+        <users>
+            <user>adi.sutiono@auspost.com.au</user>
+            <user>allison.quach@auspost.com.au</user>
+            <user>andrew.ballantyne@auspost.com.au</user>
+            <user>brent.row@auspost.com.au</user>
+            <user>camille.oeding@auspost.com.au</user>
+            <user>caoimhe.halpin-bassham@auspost.com.au</user>
+            <user>crystle.staniland@auspost.com.au</user>
+            <user>emma.stevenson@auspost.com.au</user>
+            <user>jacob.finau@auspost.com.au</user>
+            <user>jamie.butcher@auspost.com.au</user>
+            <user>kathy.long@auspost.com.au</user>
+            <user>lia.tomaras@auspost.com.au</user>
+            <user>linda.fernando@auspost.com.au</user>
+            <user>lucy.jones@auspost.com.au</user>
+            <user>luke.richie@auspost.com.au</user>
+            <user>lydia.bramwell@auspost.com.au</user>
+            <user>maddi.jenner@auspost.com.au</user>
+            <user>michael.cronin@auspost.com.au</user>
+            <user>michelle.liu@auspost.com.au</user>
+            <user>natasha.sitkowski@auspost.com.au</user>
+            <user>shanija.perera@auspost.com.au</user>
+            <user>shilpa.fernando@auspost.com.au</user>
+            <user>siew.lau@auspost.com.au</user>
+            <user>tony.loriente@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

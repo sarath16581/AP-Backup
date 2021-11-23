@@ -1,0 +1,24 @@
+<!--
+* @author Victor.Cheng@auspost.com.au
+* @date 5/02/2021
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Bca Step Credit End
+* @changelog
+* 5/02/2021 Victor.Cheng@auspost.com.au  Created
+*
+-->
+<!-- Bca Step Credit End -->
+<template>
+    <div class="bca-inner-box-red slds-p-around_medium">
+        <template if:true={isUnder}>
+            <h1>We can’t complete your request</h1>
+            <p class="slds-p-top_medium">Sorry, it looks like you’re not currently spending enough with Australia Post each month to qualify for a Business Credit Account. Please keep using the pay-as-you-go option, available via your MyPost Business portal.</p>
+        </template>
+        <!-- template if:true={isOver}>
+            <h1>Let's talk</h1>
+            <p class="slds-p-top_medium">We’d like to discuss your needs to better understand how we can tailor our services to suit your business.</p>
+            <p class="slds-p-top_small">We’ll send an email to <b>{contactEmail}</b> with more details and various ways to contact us.</p>
+        </template -->
+    </div>
+</template>

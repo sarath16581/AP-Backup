@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Product_type__c</fullName>
+    <externalId>false</externalId>
+    <label>Product type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Unidentified</fullName>
+                <default>false</default>
+                <label>Unidentified</label>
+            </value>
+            <value>
+                <fullName>eParcels Domestic</fullName>
+                <default>false</default>
+                <label>eParcels Domestic</label>
+            </value>
+            <value>
+                <fullName>International</fullName>
+                <default>false</default>
+                <label>International</label>
+            </value>
+            <value>
+                <fullName>UMS</fullName>
+                <default>false</default>
+                <label>UMS</label>
+            </value>
+            <value>
+                <fullName>Post Billpay</fullName>
+                <default>false</default>
+                <label>Post Billpay</label>
+            </value>
+            <value>
+                <fullName>Print Post</fullName>
+                <default>false</default>
+                <label>Print Post</label>
+            </value>
+            <value>
+                <fullName>Community Update</fullName>
+                <default>false</default>
+                <label>Community Update</label>
+            </value>
+            <value>
+                <fullName>Securepay</fullName>
+                <default>false</default>
+                <label>Securepay</label>
+            </value>
+            <value>
+                <fullName>Courier</fullName>
+                <default>false</default>
+                <label>Courier</label>
+            </value>
+            <value>
+                <fullName>Legacy Products</fullName>
+                <default>false</default>
+                <label>Legacy Products</label>
+            </value>
+            <value>
+                <fullName>StarTrack</fullName>
+                <default>false</default>
+                <label>StarTrack</label>
+            </value>
+            <value>
+                <fullName>On Demand</fullName>
+                <default>false</default>
+                <label>On Demand</label>
+            </value>
+            <value>
+                <fullName>Decipha</fullName>
+                <default>false</default>
+                <label>Decipha</label>
+            </value>
+            <value>
+                <fullName>Workforce Verification</fullName>
+                <default>false</default>
+                <label>Workforce Verification</label>
+            </value>
+            <value>
+                <fullName>Priority Product</fullName>
+                <default>false</default>
+                <label>Priority Product</label>
+            </value>
+            <value>
+                <fullName>Local Pickup and Delivery Services</fullName>
+                <default>false</default>
+                <label>Local Pickup and Delivery Services</label>
+            </value>
+            <value>
+                <fullName>Track Mail</fullName>
+                <default>false</default>
+                <label>Track Mail</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract</fullName>
+                <default>false</default>
+                <label>Parcel Contract</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract-Feature</fullName>
+                <default>false</default>
+                <label>Parcel Contract-Feature</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract-Surcharge</fullName>
+                <default>false</default>
+                <label>Parcel Contract-Surcharge</label>
+            </value>
+            <value>
+                <fullName>Parcel Contract-Return</fullName>
+                <default>false</default>
+                <label>Parcel Contract-Return</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,146 @@
+<apex:page standardController="CN08__c" extensions="EditCN08ContExt">
+
+    <apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+    <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+
+    <apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-1.10.2.min.js')}"/>
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    
+    <style>
+        body {
+            font-family: "HelveticaNeue",Helvetica,Arial,sans-serif;
+            font-size: 12px !important;
+            line-height: 1;
+            color: #333;
+        }
+        input.form-control, select.form-control, textarea.form-control  {
+            min-width: 150px;
+            max-width: 350px;
+        }
+        select.form-control[multiple] {
+            height: auto;
+            margin-top: -5px;
+        }
+        textarea.form-control {
+            min-height: 90px;
+        }
+        
+        .pageDescription {
+        	margin:0px!important;        
+        }
+        
+    </style>
+    
+    <script>
+        var $j = jQuery.noConflict();
+        
+        $j(document).ready(function() {
+            $j('.textarea').html($j('.textarea')
+                .text().replace(/_BR_ENCODED_/gi, '&#10;'));
+            tabTitle();
+        });
+        
+        function RefreshPrimaryTabById() {     
+            sforce.console.getFocusedSubtabId(showTabId);
+        }
+        
+        function tabTitle() {
+            //Set the current tab's title
+            sforce.console.setTabTitle('CN 08');
+        }
+            
+        var showTabId = function showTabId(result) {
+            sforce.console.refreshSubtabById(result.id, true);
+        };
+    </script>
+    
+    <apex:form id="cn08-form">
+ 
+    <apex:sectionheader title="CN 08 " subtitle="{!if(cn08.Id==null,'New CN 08',cn08.Name)}"></apex:sectionheader>
+    
+    <apex:pageblock mode="edit" id="CN08BP" title="CN 08">
+    
+        <apex:pageblockbuttons >
+            <apex:commandbutton action="{!save}" value="Save" onComplete="createAttachment();"/>
+            <apex:actionFunction name="createAttachment" action="{!createAttachment}" />
+            <apex:commandbutton action="{!cancel}" value="Cancel"/>
+        </apex:pageblockbuttons>
+        
+        <div class="cn08">
+
+        <apex:pageblocksection id="CN08Section1" title="Inquiry">
+            <apex:inputfield value="{!cn08.ReturnAddress__c}" styleClass="textarea form-control input-sm"/>
+            
+            <apex:inputfield value="{!cn08.InquiryType__c}" styleClass="form-control input-sm"/>
+            <apex:inputfield value="{!cn08.DateOfInquiry__c}" styleClass="form-control input-sm"/>          
+            <apex:inputfield value="{!cn08.Reference__c}" styleClass="form-control input-sm"/>
+            <apex:inputfield value="{!cn08.DateOfDuplicate__c}" styleClass="form-control input-sm"/>
+            
+            <apex:inputfield value="{!cn08.ServiceOfDestination__c}" styleClass="form-control input-sm"/>
+        </apex:pageblocksection>
+        
+        <apex:pageblocksection id="CN08Section2" title="Particulars to be supplied by the service of origin" columns="1">
+            <h4>Reason for inquiry</h4><br/>
+            <apex:inputfield value="{!cn08.ReasonForInquiry__c}"/>
+            <apex:inputfield value="{!cn08.DateOfArrival__c}" styleClass="form-control input-sm"/>
+            
+            <h4>Item under inquiry</h4><br/>
+            <apex:inputfield value="{!cn08.IsPriority__c}"/>            
+            <apex:inputfield value="{!cn08.ItemType__c}" styleClass="form-control input-sm"/>
+            <apex:inputfield value="{!cn08.NumberOfItems__c}" styleClass="form-control input-sm"/>
+            <apex:inputfield value="{!cn08.ItemWeight__c}" styleClass="form-control input-sm"/>
+            
+            <apex:inputfield value="{!cn08.InsuredValue__c}" styleClass="form-control input-sm"/>   
+            <apex:inputfield value="{!cn08.CODAmount__c}" styleClass="form-control input-sm"/>
+            <apex:inputfield value="{!cn08.CODCurrency__c}" styleClass="form-control input-sm"/>
+            <apex:inputfield value="{!cn08.AmountOfIndemnity__c}" styleClass="form-control input-sm"/>
+            
+            <h4>Special indications</h4><br/>
+            <apex:inputfield value="{!cn08.SpecialIndications__c}"/> 
+            
+            <h4>Posted</h4>
+            <apex:inputfield value="{!cn08.PostedDate__c}" styleClass="form-control input-sm"/> 
+            <apex:inputfield value="{!cn08.OfficePostedFrom__c}" styleClass="form-control input-sm"/>   
+            <apex:inputfield value="{!cn08.ReceiptSeen__c}"/>   
+            <apex:inputfield value="{!cn08.ChargesPaid__c}" styleClass="form-control input-sm"/>    
+            <apex:inputfield value="{!cn08.OtherFees__c}" styleClass="form-control input-sm"/>  
+            
+            <h4>Sender</h4>
+            <apex:inputfield value="{!cn08.SenderName__c}" styleClass="form-control input-sm"/> 
+            <apex:inputfield value="{!cn08.SenderAddress__c}" styleClass="form-control input-sm"/>  
+            <apex:inputfield value="{!cn08.SenderPhone__c}" styleClass="form-control input-sm"/>    
+            <apex:inputfield value="{!cn08.AddresseeDeclarationRequested__c}"/> 
+            
+            <h4>Addressee</h4>
+            <apex:inputfield value="{!cn08.AddresseeName__c}" styleClass="form-control input-sm"/>  
+            <apex:inputfield value="{!cn08.AddresseeAddress__c}" styleClass="form-control input-sm"/>   
+            <apex:inputfield value="{!cn08.AddresseePhone__c}" styleClass="form-control input-sm"/> 
+            
+            <h4>Contents (precise description)</h4>
+            <apex:inputfield value="{!cn08.ContentsDescription__c}" styleClass="form-control input-sm"/>    
+            
+            <h4>Item Found</h4>
+            <apex:inputfield value="{!cn08.ToBeSentTo__c}" styleClass="form-control input-sm"/> 
+            
+        </apex:pageblocksection>
+        
+        <apex:pageblocksection id="CN08Section3" title="Particulars to be supplied by the office of exchange">
+            <apex:inputfield value="{!cn08.MailType__c}" styleClass="form-control input-sm"/>
+            <apex:inputfield value="{!cn08.MailNumber__c}" styleClass="form-control input-sm"/>
+            <apex:inputfield value="{!cn08.DispatchDate__c}" styleClass="form-control input-sm"/>
+            <apex:inputfield value="{!cn08.DispatchingOffficeOfExchange__c}" styleClass="form-control input-sm"/>
+            <apex:inputfield value="{!cn08.OfficeOfExchangeOfDestination__c}" styleClass="form-control input-sm"/>
+            <apex:inputfield value="{!cn08.BillListNumber__c}" styleClass="form-control input-sm"/>
+            <apex:inputfield value="{!cn08.SerialNumber__c}" styleClass="form-control input-sm"/>
+            <apex:inputfield value="{!cn08.ListType__c}" styleClass="form-control input-sm"/>
+            <apex:inputfield value="{!cn08.BulkAdvice__c}"/>
+            
+        </apex:pageblocksection>
+        
+        </div>
+            
+    </apex:pageblock>
+    
+    </apex:form>
+ 
+</apex:page>

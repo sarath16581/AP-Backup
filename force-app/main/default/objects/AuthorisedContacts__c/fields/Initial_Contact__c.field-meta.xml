@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Initial_Contact__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This will flag the related contact as initial contact</description>
+    <externalId>false</externalId>
+    <label>Initial Contact</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

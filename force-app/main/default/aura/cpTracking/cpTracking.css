@@ -1,0 +1,74 @@
+/*  **********************************************
+   @import 'variables';
+   Sass Variables
+   Are
+   Here
+   ***********************************************
+*/
+
+
+/*  **********************************************
+   cpTracking component stylings
+	 Are
+   Here
+   ***********************************************
+*/
+
+.THIS.cp-tracking-container {
+    background: white;
+    border-radius: 3px;
+    height: 196px;
+    /*margin-top: 20px;*/
+    margin-bottom: 16px;/* Add spacing between Tracking and Recognitions badges */
+    
+}
+
+.THIS.cp-tracking-container span {
+    font-family: 'letterbold';
+}
+
+.THIS.cp-tracking-container div.cp-track-inline {
+    padding-top: 20px;
+    display: flex;
+    height: 108px;
+}
+
+.THIS.cp-tracking-container div.cp-track-inline span.cp-track-icon-box {
+    width: 33px;
+    height: 33px;
+    margin: 0 6px 0 20px;
+}
+
+.THIS.cp-tracking-container div.cp-track-inline span.cp-track-input-box {
+    margin-top: 4px;
+}
+
+.THIS.cp-tracking-container input {
+    margin-top: 20px;
+    margin-left: -30px;
+    font-family: arial;
+    opacity: 0.8;
+}
+
+.THIS.cp-tracking-container button {
+    margin-bottom: 20px;
+    margin-left: 25px;
+    margin-top: 8px;
+    background: #dc1928;
+    color: white;
+    height: 38px;
+    font-family: 'lettermedium';
+    width: 84%;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.THIS.cp-tracking-container button span {
+    font-family: 'lettermedium';
+}
+
+.THIS.cp-tracking-container small {
+    opacity: 0.8;
+    margin-left: 32px;
+    font-size: 12px;
+}

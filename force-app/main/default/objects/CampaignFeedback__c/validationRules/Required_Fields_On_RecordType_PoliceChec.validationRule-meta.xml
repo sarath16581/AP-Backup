@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Fields_On_RecordType_PoliceChec</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+$Profile.Name &lt;&gt; &quot;System Administrator&quot;,
+RecordType.DeveloperName = &apos;Police_Check&apos;,
+ISPICKVAL(Status__c, &apos;Completed&apos;),
+
+OR(
+ISBLANK( DateofCommunication__c ),
+TEXT( Is_there_a_need_for_background_checks__c) = &quot;&quot;
+
+)
+)</errorConditionFormula>
+    <errorMessage>The following fields are mandatory for records where the status is completed: 
+•	Date of Communication
+•	Is there a need for background checks?</errorMessage>
+</ValidationRule>

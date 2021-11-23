@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ResponseCode__c</fullName>
+    <description>HTTP Response code from the result of the query</description>
+    <externalId>false</externalId>
+    <inlineHelpText>HTTP Response code from the result of the query</inlineHelpText>
+    <label>Response Code</label>
+    <precision>10</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

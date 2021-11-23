@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hidden_Use_for_NRT_Report__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(((ISPICKVAL( Classification_c__c , &quot;Growth&quot;)  &amp;&amp;  Total_NRT_Adjusted__c &gt; 0)  || ISPICKVAL( Classification_c__c , &quot;New Business&quot;)  || ISPICKVAL( Classification_c__c , &quot;Cross Sell&quot;)  || ISPICKVAL( Classification_c__c , &quot;Win Back&quot;) || ISPICKVAL( Classification_c__c , &quot;New Business - One Off&quot;)) ,1, 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>{Hidden} Use for NRT Report</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

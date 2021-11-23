@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>HVS_HOMEPAGE_CNA</masterLabel>
+    <promptVersions>
+        <actionButtonLabel>Click here for more info!</actionButtonLabel>
+        <actionButtonLink>https://auspost.sharepoint.com/:b:/r/sites/SPBG/Sales-support-site/Shared%20Documents/Customer%20Simplification%20Program/FY2021%20Q4/Sales%20Standardisation/Salesforce%20Lightning%20QRG%20-%20Create%20Opportunity%20Record%20-%20Sales%20Team%20(1).pdf?csf=1&amp;web=1&amp;e=eQ9QSu</actionButtonLink>
+        <body>&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-family: &amp;quot;AP Letter&amp;quot;, &amp;quot;AP Letter_EmbeddedFont&amp;quot;, &amp;quot;AP Letter_MSFontService&amp;quot;, &amp;quot;AP Letter_MSFontService&amp;quot;, sans-serif; font-size: 15.9833px;&quot;&gt;See logical groupings&amp;nbsp;of fields&amp;nbsp;and the new tabbed layout&amp;nbsp;​&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-family: &amp;quot;AP Letter&amp;quot;, &amp;quot;AP Letter_EmbeddedFont&amp;quot;, &amp;quot;AP Letter_MSFontService&amp;quot;, &amp;quot;AP Letter_MSFontService&amp;quot;, sans-serif; font-size: 15.9833px;&quot;&gt;See the&amp;nbsp;registered business name beside the legal entity name​&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-family: &amp;quot;AP Letter&amp;quot;, &amp;quot;AP Letter_EmbeddedFont&amp;quot;, &amp;quot;AP Letter_MSFontService&amp;quot;, &amp;quot;AP Letter_MSFontService&amp;quot;, sans-serif; font-size: 15.9833px;&quot;&gt;Create opportunity records with less effort (from an&amp;nbsp;organisation record)​&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-family: &amp;quot;AP Letter&amp;quot;, &amp;quot;AP Letter_EmbeddedFont&amp;quot;, &amp;quot;AP Letter_MSFontService&amp;quot;, &amp;quot;AP Letter_MSFontService&amp;quot;, sans-serif; font-size: 15.9833px;&quot;&gt;Introducing the&amp;nbsp;Customer&amp;nbsp;Needs tab for capturing customer needs and qualifying deals in/out​&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-family: &amp;quot;AP Letter&amp;quot;, &amp;quot;AP Letter_EmbeddedFont&amp;quot;, &amp;quot;AP Letter_MSFontService&amp;quot;, &amp;quot;AP Letter_MSFontService&amp;quot;, sans-serif; font-size: 15.9833px;&quot;&gt;Get quick access to Enhanced notes via the Utility bar to capture free form notes about the customer needs&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;</body>
+        <customApplication>standard__HVSConsole</customApplication>
+        <delayDays>1</delayDays>
+        <displayType>DockedComposer</displayType>
+        <endDate>2021-08-15</endDate>
+        <header>Opportunity Record &amp; Customer Needs</header>
+        <isPublished>true</isPublished>
+        <masterLabel>HVS_HOMEPAGE_CNA</masterLabel>
+        <publishedDate>2021-07-13</publishedDate>
+        <shouldDisplayActionButton>true</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
+        <startDate>2021-07-15</startDate>
+        <targetPageKey1>home</targetPageKey1>
+        <targetPageType>standard__namedPage</targetPageType>
+        <timesToDisplay>3</timesToDisplay>
+        <title>Opportunity Record &amp; Customer Needs</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+        <videoLink>https://web.microsoftstream.com/embed/video/11887a0a-4740-4da3-bba5-df12c5ac1571?autoplay=false&amp;showinfo=true</videoLink>
+    </promptVersions>
+</Prompt>

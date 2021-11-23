@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SD_Contact_Name_Mandatory</fullName>
+    <active>true</active>
+    <description>This validation rule executes when case record type is Service Delivery and where the case origin is equals to Customer - Phone or Customer - Email or Customer - In Person. Contact Name field is mandatory.</description>
+    <errorConditionFormula>AND 
+(ISPICKVAL( Origin , &quot;Customer - Phone&quot;) || 
+ISPICKVAL( Origin , &quot;Customer - In Person&quot;)) &amp;&amp; 
+ISBLANK( Contact.Id ) &amp;&amp; 
+RecordType.DeveloperName = &quot;Sales_Ops_Delivery&quot;</errorConditionFormula>
+    <errorDisplayField>ContactId</errorDisplayField>
+    <errorMessage>Please enter a Contact Name for this case.</errorMessage>
+</ValidationRule>

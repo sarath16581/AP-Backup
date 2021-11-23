@@ -1,0 +1,8 @@
+Hi {!SFL1_Entertainment_Event__c.OwnerFirstName}
+
+Please submit the provisional guest list approval for event - {!SFL1_Entertainment_Event__c.Name} - ASAP as this event will take place witin the next 42 days.
+
+Regards,
+
+{!SFL1_Entertainment_Event__c.CreatedBy}
+Corporate Hospitality & Events

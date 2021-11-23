@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>hidden_frequency_Adhoc__c</fullName>
+    <description>used for TAM processes</description>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL( Frequency__c , &quot;&quot;) , &quot;Ad-hoc&quot;, &quot;Frequent&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>{hidden_frequency_Adhoc}</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

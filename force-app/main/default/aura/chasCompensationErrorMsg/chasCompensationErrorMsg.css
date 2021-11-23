@@ -1,0 +1,34 @@
+.THIS {
+  margin-bottom: 30px;
+  margin-top: 15px;
+}
+
+.THIS p {
+  line-height: 24px;
+}
+
+.THIS h1, .THIS p {
+  text-align: center;
+  color: #292f33;
+}
+
+.THIS h1 {
+  font-size: 20px;
+  line-height: 28px;
+  margin-bottom: 14px;
+}
+
+.THIS .container-inner {
+    display: inline-block;
+    margin: 0 auto;
+    text-align: left !important;
+    /* max-width: 22em; */
+}
+
+.THIS .container-outer {
+    width: 100%;
+    text-align: center;
+}
+.THIS .container-inner>p {
+    margin-bottom: 0.5em;
+}

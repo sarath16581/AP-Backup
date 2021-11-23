@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Consignment_Detail_Page_2</fullName>
+    <description>StarTrack Consignment detail page on right hand sidebar in console. This is the second fieldset to support this component, as first fieldset has maxed the 25 fields cross object limit.</description>
+    <displayedFields>
+        <field>ArticleTest__r.Additionals__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <label>Consignment Detail Page 2</label>
+</FieldSet>

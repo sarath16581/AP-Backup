@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Digital_Callback_Request</fullName>
+    <filterScope>Queue</filterScope>
+    <label>SSSW Callback Reminder Digital</label>
+    <queue>SSSW_Digital</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

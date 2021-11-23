@@ -1,0 +1,27 @@
+<aura:component description="Business Support Portal deflection message AND OTHER DEFLECTION MESSAGES">
+    <aura:attribute name="from" type="String" default=""/> 
+    <aura:attribute name="heading" type="String" default=""/>
+    <aura:attribute name="hasClose" type="Boolean" default="true"/>
+    <aura:attribute name="animate" type="Boolean" default="false"/>
+    <aura:attribute name="borderStyle" type="String" default="info-box"/>
+    <aura:attribute name="noInfoIcon" type="Boolean" default="false"/>
+
+    <div aura:id="bspBox" class="{! 'animate-open-' + v.animate }">
+        <div class="{!v.borderStyle}">
+            <aside>
+                <aura:if isTrue="{!v.noInfoIcon == false}">
+                    <span><img class="info" src="{!$Resource.ChasIcons + '/chas-icons/pngs/UI/icons/ic_info.png' }" alt=""/></span>
+                </aura:if>
+                <span class="text">
+                    <h3 class="outer-box-fonts">{!v.heading}</h3>
+                    <div class="outer-box-fonts">
+                        {! v.body }
+                    </div>
+                </span>
+                <aura:if isTrue="{! v.hasClose }">
+                    <lightning:buttonIcon iconName="utility:close" variant="container" alternativeText="Close" class="close" onclick="{!c.closeBox}"/>
+                </aura:if>
+            </aside>
+        </div>
+    </div>
+</aura:component>

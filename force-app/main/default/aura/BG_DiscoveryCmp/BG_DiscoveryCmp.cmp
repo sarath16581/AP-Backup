@@ -1,0 +1,74 @@
+<!--
+    STP:20/02/2020: 
+    This lightning componet is to get all the 'Discovery' category type questions configured
+    in the custom object - Qualification_Template_Questions__c and display here.
+-->
+<aura:component controller='BG_QualificationApex'>
+    
+    <aura:attribute name="discoveryCategoryQuestions" type="Object"/>
+    <aura:attribute name="discoveryCategoryQuestionsWithRelatedChild" type="Object"/>
+    <aura:attribute name="category" type="String" default='Discovery'/> 
+    <aura:attribute name="currentProgressStep" type="Integer" default='1'/>
+    <aura:attribute name="hasErrorInCurrentStep" type="Boolean" default='false'/>
+    <aura:attribute name="isLoading" type="Boolean" default='false'/>
+    <aura:attribute name="savedAsDraft" type="Boolean" default='false'/>
+    <aura:attribute name="isManualOpp" type="Boolean" />  
+    <aura:attribute name="qualificationRecordId" type="String" />
+    <aura:attribute name="existingQualification" type="Object"/>
+    <aura:attribute name="initialLoad" type="Boolean" default='false'/>
+    <aura:attribute name="editFlow" type="Boolean" default='false' />
+    <aura:attribute name="hasBgSalesPermissionSet" type="Boolean" />
+    <aura:attribute name="selectedProducts" type="List"/>
+    <aura:attribute name="selectedProductsQuestions" type="Map" default='{}'/>
+    <aura:attribute name="productEstimateMap" type="Map" default='{}' />
+    <aura:attribute name="productNotesMap" type="Map" default='{}'/>
+    <aura:attribute name="totalEstimatedRevenue" type="Decimal" default=''/>
+    <aura:attribute name="summaryNotes" type="String" default=''/>
+    <aura:attribute name="selectedPrimaryProduct" type="String"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:registerEvent name="genCmpEvent" type="c:BG_GenericComponentEvent"/>
+    <aura:handler name="RelatedQuestionOrderEvt" event="c:BG_RelatedQuestionOrderEvt" action="{!c.handleRelatedQuestionEvent}"/>
+    
+    <!-- Progress BAR -->
+    <div>
+        <c:BG_QualificationProgressIndicator currentProgressStep='{!v.currentProgressStep}'
+                                             hasErrorInCurrentStep='{!v.hasErrorInCurrentStep}'/>
+        <br/>
+    </div>
+    
+    <div style='width:100%'>
+        <div class='slds-text-align_left headFont'>
+            Discovery
+        </div>
+        
+        <!-- Discovery Questions -->
+        <aura:iteration items="{!v.discoveryCategoryQuestions}" var="catQuestion" indexVar="index">
+            <c:BG_EachPreQualQuestion aura:id="field"
+                                      catQuestion='{!catQuestion}' index='{!index+1}' /> 
+        </aura:iteration>
+        <br/>
+        <aura:if isTrue="{!v.isLoading}">
+            <div >
+                <lightning:spinner alternativeText="Loading" size="small" />
+            </div>            
+        </aura:if> 
+        <aura:if isTrue="{!v.savedAsDraft}">
+            <div>
+                <p class='slds-text-color_success'>Saved as draft</p>
+            </div>            
+        </aura:if> 
+        
+        <!-- Discovery NEXT Button -->
+        <div class='slds-grid slds-wrap'>
+            <div class='slds-size_1-of-2 slds-text-align_left'>
+                <lightning:button aura:Id='saveButton' onclick="{!c.saveResponse}" label="Save for later" variant="brand-outline" />
+            </div>
+            <div class='slds-size_1-of-2 slds-text-align_right'>
+                <lightning:button aura:Id='nextButton' onclick="{!c.showPrductServices}" label="Next" variant="brand" />
+            </div>
+        </div>
+    </div>
+    
+</aura:component>

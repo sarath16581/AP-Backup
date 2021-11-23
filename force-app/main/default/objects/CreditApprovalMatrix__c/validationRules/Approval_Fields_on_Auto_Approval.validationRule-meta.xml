@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approval_Fields_on_Auto_Approval</fullName>
+    <active>true</active>
+    <description>Ensure approver fields (Approver 1 to 6) are empty when Auto Approval = TRUE</description>
+    <errorConditionFormula>AND(  AutoApprove__c ,
+    NOT( AND( ISBLANK( Approver_1__c ), ISBLANK( TEXT(Approver1Role__c) ),  ISBLANK( Approver_2__c ),  ISBLANK( TEXT(Approver2Role__c) ), ISBLANK( Approver_3__c ),  ISBLANK( TEXT(Approver3Role__c) ), ISBLANK( Approver_4__c ),  ISBLANK( TEXT(Approver4Role__c) ), ISBLANK( Approver_5__c ),  ISBLANK( TEXT(Approver5Role__c) ), ISBLANK( Approver_6__c ),  ISBLANK( TEXT(Approver6Role__c) )))    
+)</errorConditionFormula>
+    <errorMessage>Since you have indicated that this is an auto-approval, all of the approver data (Approver 1 to 6) must be empty.</errorMessage>
+</ValidationRule>

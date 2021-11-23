@@ -1,0 +1,67 @@
+<apex:page showHeader="false" controller="ConnectorController" sidebar="false">
+  <div class="login-card">
+  	<div id="version"></div>
+  </div>	
+  <link rel="stylesheet" href="{!URLFOR($Resource.login_css)}"/>
+  <script type="text/javascript" src="{!URLFOR($Resource.CRMGlue, 'lib/require.min.js')}"></script>
+  <script type="text/javascript">
+require.config({
+	baseUrl : '{!URLFOR($Resource.CRMGlue)}',
+    paths: {
+        util: 'lib/util',
+        jquery: 'lib/jquery-2.1.4.min',
+        moment: 'lib/moment.min',
+        connector: 'SFDC/connector',
+        integration: '/support/console/36.0/integration',
+        interaction: '/support/api/36.0/interaction',
+        i18next: 'lib/i18next.min',
+        jqueryI18next: 'lib/jquery-i18next.min',
+        i18nextXHRBackend: 'lib/i18next-xhr-backend.min'
+    },
+    shim: {
+        'jquery': {
+            exports: '$'
+        },
+        'integration': {
+            exports: 'sforce'
+        },
+        'interaction': {
+            exports: 'sforce'
+        }
+    }
+});
+
+require(['SFDC/sfdc', 'SFDC/package', 'interaction'], 
+		function(sfdc, packageInfo, sforce, user) { 
+	var log_prefix = "CRMConnector: ";
+	
+	console.info(log_prefix + "VERSION: " + packageInfo.VERSION);
+	$('#version').text(packageInfo.NAME + ' v' + packageInfo.VERSION);
+	
+	sforce.interaction.cti.getCallCenterSettings(function(response) {
+    	console.log(log_prefix + 'getCallCenterSettings: ' + response.result);
+        var settings = $.parseJSON(response.result);
+		
+		var height = settings['/reqGeneralInfo/reqSoftphoneHeight'];
+		sforce.interaction.cti.setSoftphoneHeight(height, function() {
+	    });
+                        
+		sfdc.initialize('{!URLFOR($Resource.CRMGlue)}' +'/').done();
+	});
+
+});
+
+function getConnectorOption(settings, optionName, defValue) {
+    var value = settings['/ConnectorSettings/' + optionName];
+    if (value) {
+        console.log("getConnectorOption: " + optionName + ": " + value);
+        return value;
+    } else {
+        console.log("getConnectorOption: " + optionName + " (default): " + defValue);
+        return defValue;
+    }
+    
+    return setting;
+}
+</script>
+</apex:page>

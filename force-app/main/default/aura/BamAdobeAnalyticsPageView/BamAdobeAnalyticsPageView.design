@@ -1,0 +1,6 @@
+<design:component label="BAM Adobe Analytics Tracking">
+    <design:attribute name="sitePrefix" label="Site Prefix" description="Site Prefix"/>
+    <design:attribute name="pageCategory" label="Page Category" description="Page Category"/>
+    <design:attribute name="pageDescription" label="Page Description" description="Page Description"/>
+    <design:attribute name="trackingType" label="Tracking Type" description="Tracking Type"/>
+</design:component>

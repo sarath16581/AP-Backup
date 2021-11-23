@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Source_Street__c</fullName>
+    <description>Address field on Booking which gets sent over from MPB.
+Which will further be used to get geo-cordinates from AME,</description>
+    <externalId>false</externalId>
+    <label>Source Street</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

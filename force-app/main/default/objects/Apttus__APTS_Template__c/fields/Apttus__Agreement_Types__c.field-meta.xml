@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus__Agreement_Types__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Note: If you add a new agreement record type, the type must also be manually added to this set of picklist values to keep record types in sync between agreements and templates.</description>
+    <externalId>false</externalId>
+    <label>Agreement Types</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Default</fullName>
+                <default>false</default>
+                <label>Default</label>
+            </value>
+            <value>
+                <fullName>Proposal</fullName>
+                <default>false</default>
+                <label>Proposal</label>
+            </value>
+            <value>
+                <fullName>Amendment Quote</fullName>
+                <default>false</default>
+                <label>Amendment Quote</label>
+            </value>
+            <value>
+                <fullName>Renewal Quote</fullName>
+                <default>false</default>
+                <label>Renewal Quote</label>
+            </value>
+            <value>
+                <fullName>Post Billpay Contract</fullName>
+                <default>false</default>
+                <label>Post Billpay Contract</label>
+            </value>
+            <value>
+                <fullName>Letter of Intent</fullName>
+                <default>false</default>
+                <label>Letter of Intent</label>
+            </value>
+            <value>
+                <fullName>SecurePay Online Payments</fullName>
+                <default>false</default>
+                <label>SecurePay Online Payments</label>
+            </value>
+            <value>
+                <fullName>MSA &amp; Service Schedule</fullName>
+                <default>false</default>
+                <label>MSA &amp; Service Schedule</label>
+            </value>
+            <value>
+                <fullName>Rebate Contract</fullName>
+                <default>false</default>
+                <label>Rebate Contract</label>
+            </value>
+            <value>
+                <fullName>Community Update Pack</fullName>
+                <default>false</default>
+                <label>Community Update Pack</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

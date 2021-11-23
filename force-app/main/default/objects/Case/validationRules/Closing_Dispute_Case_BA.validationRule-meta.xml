@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closing_Dispute_Case_BA</fullName>
+    <active>true</active>
+    <description>Validated that Billing account AND billin account number is populated before closing a case</description>
+    <errorConditionFormula>AND(RecordType.Name = &quot;Enterprise Credit Dispute Claim&quot;, 
+				ISCHANGED(Status),ISPICKVAL(Status, &quot;Closed&quot;), 
+    OR(
+								ISBLANK( Related_Billing_Account__c ),
+				    ISBLANK( Billing_Number__c)
+								))</errorConditionFormula>
+    <errorDisplayField>Related_Billing_Account__c</errorDisplayField>
+    <errorMessage>Please provide a billing account before closing the case</errorMessage>
+</ValidationRule>

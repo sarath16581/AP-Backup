@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_UnaddressedMail_Distirbution_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Distirbution Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Interstate Regular</fullName>
+                <default>false</default>
+                <label>Interstate Regular</label>
+            </value>
+            <value>
+                <fullName>Interstate Select</fullName>
+                <default>false</default>
+                <label>Interstate Select</label>
+            </value>
+            <value>
+                <fullName>Intrastate Regular</fullName>
+                <default>false</default>
+                <label>Intrastate Regular</label>
+            </value>
+            <value>
+                <fullName>Intrastate Select</fullName>
+                <default>false</default>
+                <label>Intrastate Select</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

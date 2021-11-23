@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Business_Solutions_Team_Name</fullName>
+    <active>true</active>
+    <description>Rule to ensure that all StarTrack Business Solutions Consultants are assigned to a logical team so that the Business Solutions Manager Dashboards can report across team performance</description>
+    <errorConditionFormula>(UserRole.Name = &apos;StarTrack Business Solutions Team Lead&apos; || UserRole.Name = &apos;StarTrack Business Solutions Team Member&apos;) &amp;&amp;  Text(StarTrack_Team_Name__c) = &apos;&apos;</errorConditionFormula>
+    <errorDisplayField>StarTrack_Team_Name__c</errorDisplayField>
+    <errorMessage>All StarTrack users assigned to the Team members or Team Leader roles are required to have a Team Name assigned</errorMessage>
+</ValidationRule>

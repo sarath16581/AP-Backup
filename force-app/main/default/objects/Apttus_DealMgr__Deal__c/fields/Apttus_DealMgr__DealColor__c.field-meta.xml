@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealMgr__DealColor__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The deal color</description>
+    <externalId>false</externalId>
+    <label>Deal Color</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Green</fullName>
+                <default>false</default>
+                <label>Green</label>
+            </value>
+            <value>
+                <fullName>Light Green</fullName>
+                <default>false</default>
+                <label>Light Green</label>
+            </value>
+            <value>
+                <fullName>Yellow</fullName>
+                <default>false</default>
+                <label>Yellow</label>
+            </value>
+            <value>
+                <fullName>Orange</fullName>
+                <default>false</default>
+                <label>Orange</label>
+            </value>
+            <value>
+                <fullName>Red</fullName>
+                <default>false</default>
+                <label>Red</label>
+            </value>
+            <value>
+                <fullName>BlackBlue</fullName>
+                <default>false</default>
+                <label>BlackBlue</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

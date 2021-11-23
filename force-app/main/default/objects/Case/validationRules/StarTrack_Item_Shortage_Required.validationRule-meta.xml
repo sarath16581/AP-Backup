@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Item_Shortage_Required</fullName>
+    <active>true</active>
+    <description>No. of Item Shortage is required for FInal Shortage case type</description>
+    <errorConditionFormula>AND(OR(ISCHANGED(ResolutionCode__c), ISCHANGED(No_of_Item_s_Short__c),
+ISCHANGED(Status)),OR(ISPICKVAL(Enquiry_Type__c,&quot;SF25&quot;),ISPICKVAL(Enquiry_Type__c,&quot;Final Shortage&quot;)),OR(ISPICKVAL(ResolutionCode__c, &quot;Resolved - Final Shortage&quot;),ISPICKVAL(ResolutionCode__c, &quot;Unresolved - Final Shortage&quot;)), ISPICKVAL(Status,&quot;Closed&quot;),OR(ISBLANK(No_of_Item_s_Short__c),No_of_Item_s_Short__c &lt;= 0))</errorConditionFormula>
+    <errorDisplayField>No_of_Item_s_Short__c</errorDisplayField>
+    <errorMessage>A number greater than 0 is required to close a Final Shortage case.</errorMessage>
+</ValidationRule>

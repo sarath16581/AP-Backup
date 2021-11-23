@@ -1,0 +1,4 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="resourceName" type="String" access="public"/>
+    <img src="{!'/resource/'+v.resourceName}"/>
+</aura:component>

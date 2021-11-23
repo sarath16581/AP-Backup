@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Pricing_Reason__c</fullName>
+    <externalId>false</externalId>
+    <label>Pricing Reason</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>International Renewal</fullName>
+                <default>false</default>
+                <label>International Renewal</label>
+            </value>
+            <value>
+                <fullName>International Customised Rates</fullName>
+                <default>false</default>
+                <label>International Customised Rates</label>
+            </value>
+            <value>
+                <fullName>Standard Cat 5 &amp; 6 Domestic Rates</fullName>
+                <default>false</default>
+                <label>Standard Cat 5 &amp; 6 Domestic Rates</label>
+            </value>
+            <value>
+                <fullName>Customised Domestic Rates Renewal / New</fullName>
+                <default>false</default>
+                <label>Customised Domestic Rates Renewal / New</label>
+            </value>
+            <value>
+                <fullName>Domestic Express Satchel Rates (flat rates)</fullName>
+                <default>false</default>
+                <label>Domestic Express Satchel Rates (flat rates)</label>
+            </value>
+            <value>
+                <fullName>Competitor Threat/Competitor Pricing</fullName>
+                <default>false</default>
+                <label>Competitor Threat/Competitor Pricing</label>
+            </value>
+            <value>
+                <fullName>At Risk</fullName>
+                <default>false</default>
+                <label>At Risk</label>
+            </value>
+            <value>
+                <fullName>Lost Business</fullName>
+                <default>false</default>
+                <label>Lost Business</label>
+            </value>
+            <value>
+                <fullName>Cubic Profile</fullName>
+                <default>false</default>
+                <label>Cubic Profile</label>
+            </value>
+            <value>
+                <fullName>Future Date and Time (DCE)</fullName>
+                <default>false</default>
+                <label>Future Date and Time (DCE)</label>
+            </value>
+            <value>
+                <fullName>Oversize</fullName>
+                <default>false</default>
+                <label>Oversize</label>
+            </value>
+            <value>
+                <fullName>Features &amp; Charges i.e. Returns</fullName>
+                <default>false</default>
+                <label>Features &amp; Charges i.e. Returns</label>
+            </value>
+            <value>
+                <fullName>Customised Wine pricing</fullName>
+                <default>false</default>
+                <label>Customised Wine pricing</label>
+            </value>
+            <value>
+                <fullName>Growth opportunity</fullName>
+                <default>false</default>
+                <label>Growth opportunity</label>
+            </value>
+            <value>
+                <fullName>Strategic Business Opportunity</fullName>
+                <default>false</default>
+                <label>Strategic Business Opportunity</label>
+            </value>
+            <value>
+                <fullName>Overweight</fullName>
+                <default>false</default>
+                <label>Overweight</label>
+            </value>
+            <value>
+                <fullName>Out of Specification</fullName>
+                <default>false</default>
+                <label>Out of Specification</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

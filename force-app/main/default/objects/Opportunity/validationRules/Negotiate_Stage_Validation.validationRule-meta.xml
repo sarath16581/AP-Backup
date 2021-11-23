@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Negotiate_Stage_Validation</fullName>
+    <active>true</active>
+    <description>STP: Validation rule prior to stage update Negotiate.</description>
+    <errorConditionFormula>AND(
+$Permission.BG_Core,
+ISCHANGED(StageName),
+ISPICKVAL(StageName, &quot;Negotiate&quot;),
+$RecordType.Name = &quot;Major&quot;, 
+Opportunity_Annualised_Value__c &gt;= 10000000,
+NOT(ISPICKVAL( Pricing_Governance_Forum_Approval__c , &quot;Approved&quot;))
+)</errorConditionFormula>
+    <errorMessage>Pricing Governance Forum approval is required before changing Opportunity stage to Negotiate.</errorMessage>
+</ValidationRule>

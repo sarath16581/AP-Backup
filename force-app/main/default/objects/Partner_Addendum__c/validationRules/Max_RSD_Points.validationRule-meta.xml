@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Max_RSD_Points</fullName>
+    <active>true</active>
+    <description>Maximum allowed value for RSD points is 1000</description>
+    <errorConditionFormula>AND( RecordType.DeveloperName = &apos;Negotiated_Payment_Type_F1&apos;,   RSD_Points__c  &gt; 1000)</errorConditionFormula>
+    <errorMessage>Maximum allowed value for RSD points is 1000</errorMessage>
+</ValidationRule>

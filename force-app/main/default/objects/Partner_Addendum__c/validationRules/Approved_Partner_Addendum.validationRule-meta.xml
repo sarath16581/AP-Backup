@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approved_Partner_Addendum</fullName>
+    <active>true</active>
+    <description>AJ 20/06/16 - Added condition to allow update of Insurance PAs</description>
+    <errorConditionFormula>AND(NOT(OR(ISPICKVAL(Status__c, &apos;Draft&apos;), ISPICKVAL(Status__c, &apos;Rejected&apos;), CONTAINS($UserRole.Name, &apos;RNP Manager&apos;),RecordType.DeveloperName = &apos;Insurance&apos;)
+	),
+    OR(ISCHANGED( Additional_Minutes__c ),ISCHANGED( Amount__c ),ISCHANGED( Annual_Amount__c ),ISCHANGED( AP_Listed__c ),
+		ISCHANGED( Effective_Date__c ),ISCHANGED( Expiry_Date__c ),ISCHANGED( Facility__c ),ISCHANGED( GL_Code__c ),
+		ISCHANGED( Hours__c ),ISCHANGED( Insurance_Provider__c ),ISCHANGED( Kilometers__c ),ISCHANGED( Licence__c ),
+		ISCHANGED( Loan_Reason__c ),ISCHANGED( Minimum_10_Million__c ),ISCHANGED( Negotiated_Lump_Sum__c ),
+		ISCHANGED( Non_RSD_Days__c ),ISCHANGED( Policy_Number__c ),ISCHANGED( Quantity__c ),ISCHANGED( Rate_Per_Hour__c ),
+		ISCHANGED( Rate_Per_KM__c ),ISCHANGED( Rate_Per_Point__c ),ISCHANGED( Reason_Description__c ),ISCHANGED( RSD_Points__c ),
+		ISCHANGED( SPBs__c ),ISCHANGED( Sub_Type__c ),ISCHANGED( Term__c ),
+		AND(ISCHANGED(Status__c),NOT(ISPICKVAL(Status__c, &apos;Pending&apos;))),
+		AND(ISCHANGED(End_Date__c),
+			NOT(OR(ISPICKVAL(Licence__r.Termination_Reason__c, &apos;New Assignment&apos;),Start_Date__c &gt;= TODAY()))
+			),
+		AND(ISCHANGED( Start_Date__c ),Start_Date__c &lt;&gt; Licence__r.Assignment_Effective_From_Date__c)
+	)
+)</errorConditionFormula>
+    <errorMessage>This record is locked and it can&apos;t be changed.</errorMessage>
+</ValidationRule>

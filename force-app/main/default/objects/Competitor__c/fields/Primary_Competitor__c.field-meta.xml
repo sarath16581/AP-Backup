@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Competitor__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates if the competitor is the primary competitor for this customer&apos;s business. Is sued to Populate the Primary Competitor field on the Opportunity record</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select if this is the Primary Competitor. There can only be 1 Primary Competitor per Opportunity</inlineHelpText>
+    <label>Primary Competitor</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

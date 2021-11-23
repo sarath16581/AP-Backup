@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ULD_Ratio__c</fullName>
+    <description>The volume of one unit of the product relative to a Full ULD.  Used by Transport to determine vehicle utilisation.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The volume of one unit of the product relative to a Full ULD.  Used by Transport to determine vehicle utilisation.</inlineHelpText>
+    <label>ULD Ratio</label>
+    <precision>9</precision>
+    <required>false</required>
+    <scale>5</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Cubing__c</fullName>
+    <description>Created for Ariba mapping purposes. Reused for future records with Sellers input</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Ariba migrated field</inlineHelpText>
+    <label>Cubing</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+            <value>
+                <fullName>Yes - With Cubic Factor</fullName>
+                <default>false</default>
+                <label>Yes - With Cubic Factor</label>
+            </value>
+            <value>
+                <fullName>Yes - without Cubic Factor (commercial decision)</fullName>
+                <default>false</default>
+                <label>Yes - without Cubic Factor (commercial decision)</label>
+            </value>
+            <value>
+                <fullName>Yes - without Cubic Factor (non-Cubic product)</fullName>
+                <default>false</default>
+                <label>Yes - without Cubic Factor (non-Cubic product)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

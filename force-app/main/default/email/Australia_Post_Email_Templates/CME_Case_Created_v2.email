@@ -1,0 +1,31 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal">Dear Colleague, <br>
+<br>
+Your Contract Management <b style="color: rgb(0, 0, 0);">case</b> has
+been <b style="color: rgb(0, 0, 0);">created</b>.&nbsp;<br>
+<br>
+Case Number: <b style="color: rgb(0, 0, 0);">{!Case.CaseNumber}<br>
+</b><br>
+Subject: {!Case.Subject}<br>
+<br>
+Case Description: {!Case.Description}<br>
+<br>
+Please <b><u><font color="#ff0000">do not</font></u></b> respond to this
+notification via reply e-mail.&nbsp;<br>
+<br>
+You can track the progress of your case, make further comments and add relevant
+attachments online by following the link below.<br>
+<br>
+{!Case.Link} or entering your case number into the search engine on the front
+page of&nbsp;<a href="http://salesforce.com/" target="_blank" style="color: rgb(0, 0, 0);">SalesForce.com</a>.<br>
+<br>
+Alternatively, you can call the Sales Contract Consulting team on 1300 795 759
+during business hours.<br>
+<br>
+Regards<br>
+<br>
+Contract Management Team<o:p></o:p></p>]]></td>
+</tr>
+</table>

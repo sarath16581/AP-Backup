@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Kind regards Cisca Tan Service Advisor Business &amp; Government Sales Australia Post T 02 9319 8733</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Signature</name>
+    <relatedEntityType>Case</relatedEntityType>
+    <style>none</style>
+    <subject>Prime Minister - Scott Morrison - Mail Redirection - PO Box Cronulla to GPO Box Canberra</subject>
+    <type>custom</type>
+    <uiType>SFX</uiType>
+</EmailTemplate>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>43.0</apiVersion>
+    <available>true</available>
+    <description>Email template to welcome the client</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Membership_Welcome</name>
+    <style>none</style>
+    <subject>Membership Application Approved: {!Membership__c.LPO_Name__c} - {!Membership__c.Licensee_Type__c}</subject>
+    <type>visualforce</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

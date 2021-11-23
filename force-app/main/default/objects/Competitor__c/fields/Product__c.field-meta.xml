@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Opportunity product that maps the competitor list</inlineHelpText>
+    <label>Product</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Competitor_Type__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Banking &amp; Billpay OTC and ID&amp;V</fullName>
+                <default>false</default>
+                <label>Banking &amp; Billpay OTC and ID&amp;V</label>
+            </value>
+            <value>
+                <fullName>Boxes &amp; Bags</fullName>
+                <default>false</default>
+                <label>Boxes &amp; Bags</label>
+            </value>
+            <value>
+                <fullName>Courier</fullName>
+                <default>false</default>
+                <label>Courier</label>
+            </value>
+            <value>
+                <fullName>Decipha</fullName>
+                <default>false</default>
+                <label>Decipha</label>
+            </value>
+            <value>
+                <fullName>Digital Mailbox</fullName>
+                <default>false</default>
+                <label>Digital Mailbox</label>
+            </value>
+            <value>
+                <fullName>Domestic Parcels</fullName>
+                <default>false</default>
+                <label>Domestic Parcels</label>
+            </value>
+            <value>
+                <fullName>Express Letters</fullName>
+                <default>false</default>
+                <label>Express Letters</label>
+            </value>
+            <value>
+                <fullName>Express Parcels</fullName>
+                <default>false</default>
+                <label>Express Parcels</label>
+            </value>
+            <value>
+                <fullName>Financial &amp; Commercial Services</fullName>
+                <default>false</default>
+                <label>Financial &amp; Commercial Services</label>
+            </value>
+            <value>
+                <fullName>Fulfilment</fullName>
+                <default>false</default>
+                <label>Fulfilment</label>
+            </value>
+            <value>
+                <fullName>Identity &amp; Government Services</fullName>
+                <default>false</default>
+                <label>Identity &amp; Government Services</label>
+            </value>
+            <value>
+                <fullName>Insight Services</fullName>
+                <default>false</default>
+                <label>Insight Services</label>
+            </value>
+            <value>
+                <fullName>International Inward</fullName>
+                <default>false</default>
+                <label>International Inward</label>
+            </value>
+            <value>
+                <fullName>International Outward</fullName>
+                <default>false</default>
+                <label>International Outward</label>
+            </value>
+            <value>
+                <fullName>Money Orders</fullName>
+                <default>false</default>
+                <label>Money Orders</label>
+            </value>
+            <value>
+                <fullName>Ordinary Mail</fullName>
+                <default>false</default>
+                <label>Ordinary Mail</label>
+            </value>
+            <value>
+                <fullName>Packaging Material</fullName>
+                <default>false</default>
+                <label>Packaging Material</label>
+            </value>
+            <value>
+                <fullName>Philatelic</fullName>
+                <default>false</default>
+                <label>Philatelic</label>
+            </value>
+            <value>
+                <fullName>Presort</fullName>
+                <default>false</default>
+                <label>Presort</label>
+            </value>
+            <value>
+                <fullName>Print Post</fullName>
+                <default>false</default>
+                <label>Print Post</label>
+            </value>
+            <value>
+                <fullName>Registered</fullName>
+                <default>false</default>
+                <label>Registered</label>
+            </value>
+            <value>
+                <fullName>Retail Products</fullName>
+                <default>false</default>
+                <label>Retail Products</label>
+            </value>
+            <value>
+                <fullName>Securepay</fullName>
+                <default>false</default>
+                <label>Securepay</label>
+            </value>
+            <value>
+                <fullName>Star Track Express</fullName>
+                <default>false</default>
+                <label>Star Track Express</label>
+            </value>
+            <value>
+                <fullName>Star Track International</fullName>
+                <default>false</default>
+                <label>Star Track International</label>
+            </value>
+            <value>
+                <fullName>Unaddressed Mail</fullName>
+                <default>false</default>
+                <label>Unaddressed Mail</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Banking &amp; Billpay OTC and ID&amp;V</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Boxes &amp; Bags</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Courier</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Decipha</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Digital Mailbox</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Domestic Parcels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Express Letters</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Express Parcels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Financial &amp; Commercial Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Fulfilment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Identity &amp; Government Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Insight Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>International Inward</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>International Outward</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Money Orders</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Ordinary Mail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Packaging Material</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Philatelic</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Presort</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Print Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Registered</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Retail Products</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Securepay</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Star Track Express</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Star Track International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Competitor</controllingFieldValue>
+            <controllingFieldValue>Incumbent</controllingFieldValue>
+            <valueName>Unaddressed Mail</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

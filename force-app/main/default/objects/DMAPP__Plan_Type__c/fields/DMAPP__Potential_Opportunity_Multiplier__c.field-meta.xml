@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Potential_Opportunity_Multiplier__c</fullName>
+    <defaultValue>5</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This value is part of the Scorecard calculation that indicates whether you have enough value in the potential pipeline to fill the plan pipeline funnel.
+It features in the formula:
+Potential Goal Value = Annual Plan Target x Potential Opportunity Multiplier</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This value is part of the Scorecard calculation that indicates whether you have enough value in the potential pipeline to fill the plan pipeline funnel.
+It&apos;s in the formula:
+Potential Goal Value = Annual Plan Target x Potential Opportunity Multipli</inlineHelpText>
+    <label>Potential Opportunity Multiplier</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

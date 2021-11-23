@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Licensee__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The owner for the AUSTRAC/Western Union registraion</description>
+    <externalId>false</externalId>
+    <label>Licensee</label>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>The primary contact must be from the License organisation</errorMessage>
+        <filterItems>
+            <field>Contact.AccountId</field>
+            <operation>equals</operation>
+            <valueField>$Source.Account__c</valueField>
+        </filterItems>
+        <infoMessage>The contact must belong to the License organisation</infoMessage>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Memberships (Primary Contact)</relationshipLabel>
+    <relationshipName>Memberships2</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

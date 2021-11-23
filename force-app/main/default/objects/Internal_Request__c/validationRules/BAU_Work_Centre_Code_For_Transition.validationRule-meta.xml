@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAU_Work_Centre_Code_For_Transition</fullName>
+    <active>true</active>
+    <description>BAU Work Centre Code is required if project transition to BAU is needed.</description>
+    <errorConditionFormula>AND(ISPICKVAL(License_Use_Purpose__c,&apos;Project to be transitioned to BAU&apos;), ISBLANK(BAU_Work_Centre_Code__c), OR(  RecordType.DeveloperName == &apos;Other_Salesforce_Product&apos;, RecordType.DeveloperName == &apos;Salesforce_License&apos;,RecordType.DeveloperName == &apos;Salesforce_Sandbox&apos;))</errorConditionFormula>
+    <errorDisplayField>BAU_Work_Centre_Code__c</errorDisplayField>
+    <errorMessage>Please provide a BAU work centre code for project transition.</errorMessage>
+</ValidationRule>

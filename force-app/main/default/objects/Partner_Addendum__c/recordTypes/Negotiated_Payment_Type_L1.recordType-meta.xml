@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Negotiated_Payment_Type_L1</fullName>
+    <active>true</active>
+    <description>Negotiated Accommodation Fee, Storage of Carded Articles Annual Fee,Storage of Mail Fee,Annual Lease Account Payment, Miscellaneous Type 1-3, Acceptance of Defence Parcels Less than 2kg, Annual Phone Subsidy Amount and Annual Rent Subsidy Amount</description>
+    <label>Negotiated Payment Type L1</label>
+    <picklistValues>
+        <picklist>Additional_Minutes__c</picklist>
+        <values>
+            <fullName>00</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>30</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>45</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Approval_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved via Licence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Draft</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Renewal_Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ceased</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Final Reminder Sent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>First Reminder Sent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Second Reminder Sent</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Request_Change__c</picklist>
+        <values>
+            <fullName>Cease Early</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renew For Another Year</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Schedule_Type__c</picklist>
+        <values>
+            <fullName>Recurring</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ceased</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Draft</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suspended</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sub_Type__c</picklist>
+        <values>
+            <fullName>Acceptance of Defence Parcels Less Than 2kg</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Annual Lease Fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Annual Phone Subsidy Amount</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Annual Rent Subsidy Amount</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Miscellaneous Type 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Miscellaneous Type 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Miscellaneous Type 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Negotiated Accommodation Fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Storage of Carded Articles Annual Fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Storage of Mail Fee</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

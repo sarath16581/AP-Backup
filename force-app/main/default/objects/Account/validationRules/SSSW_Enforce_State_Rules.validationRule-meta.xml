@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Enforce_State_Rules</fullName>
+    <active>true</active>
+    <description>Enforces State Rules for SAPCRM integration</description>
+    <errorConditionFormula>IsPersonAccount
+&amp;&amp;
+((
+ PersonMailingCountry = &apos;AU&apos;
+ &amp;&amp;
+ NOT(ISBLANK(PersonMailingState))
+ &amp;&amp;
+ NOT(CONTAINS(&apos;AAT,ACT,NSW,NT,QLD,SA,TAS,VIC,WA&apos;, PersonMailingState))
+) || (
+ PersonOtherCountry = &apos;AU&apos;
+ &amp;&amp;
+ NOT(ISBLANK(PersonOtherState))
+ &amp;&amp;
+ NOT(CONTAINS(&apos;AAT,ACT,NSW,NT,QLD,SA,TAS,VIC,WA&apos;, PersonOtherState))
+))</errorConditionFormula>
+    <errorMessage>The State entered is not valid for Australia. Please enter a valid state in this format. 
+&apos;AAT&apos;, &apos;ACT&apos;,&apos;NSW&apos;, &apos;NT&apos;,&apos;QLD&apos;,&apos;SA&apos;,&apos;TAS&apos;,&apos;VIC&apos;, &apos;WA&apos;.
+This is to ensure SAP-CRM Integration can be supported.</errorMessage>
+</ValidationRule>

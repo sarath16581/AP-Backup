@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_guest_invitation_status_Accept</fullName>
+    <active>true</active>
+    <description>Guest who didn&apos;t accept shouldn&apos;t attend.</description>
+    <errorConditionFormula>And( NOT(ISPICKVAL( Accepted__c , &quot;Accepted&quot;)), NOT(ISBLANK(TEXT( Attended__c ))))</errorConditionFormula>
+    <errorDisplayField>Attended__c</errorDisplayField>
+    <errorMessage>You cannot check &apos;attended&apos; if a guest has not accepted.</errorMessage>
+</ValidationRule>

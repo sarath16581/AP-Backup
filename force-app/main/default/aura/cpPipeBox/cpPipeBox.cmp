@@ -1,0 +1,62 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+	<div class="cp-pipe-ul-wrap">
+		<ul class="cp-pipe-ul">
+
+			<li class="cp-box">
+				<a href="/s/questions" alt="link to questions page">
+					<div class="cp-pipe-icon">
+						<!-- <c:cpsvgIcon svgPath="{!$Resource.cpIcons + '#question'}" class="cp-icon"/> -->
+						<img src="/resource/cp_home_icons_png/ask-question.png" alt=""/>
+					</div>
+					<div class="cp-pipe-text-box">
+						<h2>Ask a question</h2>
+						<p>Discussions</p>
+					</div>
+				</a>
+			</li>
+
+			<li class="cp-box">
+				<a href="/s/group/CollaborationGroup/00B90000004PBOdEAO" alt="link to group conversations page">
+					<div class="cp-pipe-icon">
+						<!-- <c:cpsvgIcon svgPath="{!$Resource.cpIcons + '#conversation'}" class="cp-icon"/> -->
+						<img src="/resource/cp_home_icons_png/join-conversation.png" alt=""/>
+
+					</div>
+					<div class="cp-pipe-text-box">
+						<h2>Join a conversation</h2>
+						<p>Groups</p>
+					</div>
+				</a>
+			</li>
+
+			<li class="cp-box">
+				<a href="/s/stories" alt="link to community articles">
+					<div class="cp-pipe-icon">
+						<!-- <c:cpsvgIcon svgPath="{!$Resource.cpIcons + '#articles'}" class="cp-icon"/> -->
+						<img src="/resource/cp_home_icons_png/articles.png" alt=""/>
+
+					</div>
+					<div class="cp-pipe-text-box">
+						<h2>How we're changing</h2>
+						<p>Articles</p>
+					</div>
+				</a>
+			</li>
+
+			<li class="cp-box">
+				<a href="/s/article/About-our-community" alt="link to about-the-community page">
+					<div class="cp-pipe-icon">
+						<!-- <c:cpsvgIcon svgPath="{!$Resource.cpIcons + '#how-to'}" class="cp-icon"/> -->
+						<img src="/resource/cp_home_icons_png/how-to-use-this-site.png" alt=""/>
+
+					</div>
+					<div class="cp-pipe-text-box">
+						<h2>How to use this site</h2>
+						<p>Find out more</p>
+					</div>
+				</a>
+			</li>
+
+		</ul>
+	</div>
+</aura:component>

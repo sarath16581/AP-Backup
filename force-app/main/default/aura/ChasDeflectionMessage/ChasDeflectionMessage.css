@@ -1,0 +1,26 @@
+/**
+* Created by hasantha on 5/9/19.
+* Modified by hara sahoo on 27/07/2020 , added float left
+* Modified by hara sahoo on 14/09/2020 , added letter-spacing to message-text, added box width
+*/
+.THIS .message-text-left {
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    float: left;
+    margin-top: 15px;
+    margin-bottom:32px !important;
+    letter-spacing:0.8px;
+}
+
+.THIS .slds-form-element__label {
+    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 24px;
+}
+@media (min-width: 480px)
+    {
+    .THIS .bsp-body {
+        width: 592px;
+    }
+}

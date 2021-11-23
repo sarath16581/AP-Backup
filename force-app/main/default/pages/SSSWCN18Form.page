@@ -1,0 +1,65 @@
+<!--
+    @Author      :  kalpita.talwadekar@auspost.com.au
+    @Date        :  03/12/2015
+    @Description :  Visualforce page to display case details and allow users to make updates to case
+-->
+<apex:page standardController="Case" extensions="SSSWCN18FormContExt" showHeader="false" standardStylesheets="false" 
+            renderAs="pdf" sidebar="false" applyBodyTag="false" action="{!getBody}">
+    <head>  
+        <apex:stylesheet value="{!$Resource.SSSWEmailTemplatesCSS}" />
+    </head>
+    <style  type="text/css" >
+        
+        
+        div.header{
+           
+           padding-left: 15mm;
+           border: 0;
+            margin: 0mm;
+
+           
+        }
+     
+    </style>
+    <apex:pageBlock >
+
+        <!-- Date print -->
+        <apex:outputText value="{0,date,dd/MM/yy}">
+            <apex:param value="{!today()}"/>
+        </apex:outputText>
+        <br/><br/><br/><br/><br/><br/><br/><br/>
+        
+        
+            <!-- address print -->
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!relatedCase.Secondary_Contact__c}<br/>
+           <apex:outputText rendered="{!relatedCase.Address2Line1__c!=''}" >
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!relatedCase.Address2Line1__c}  <br/>
+            </apex:outputText>
+            <apex:outputText rendered="{!relatedCase.Address2line2__c!=''}" >
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!relatedCase.Address2line2__c}<br/>
+            </apex:outputText>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!relatedCase.Address2Suburb__c}<apex:outputText rendered="{!relatedCase.Address2Suburb__c!=''}" >,</apex:outputText> {!relatedCase.Address2State__c}<apex:outputText rendered="{!relatedCase.Address2State__c!=''}" >,</apex:outputText> {!relatedCase.Address2Postcode__c}
+            <br/> <br/><br/>
+        
+        
+        
+        <apex:outputText value="{!msgBody1}" escape="false"></apex:outputText> <br/>
+        <br/>
+        
+        
+        <!-- Parcel details print -->
+        <apex:pageBlockSection title="Parcel details as advised by sender" columns="1">
+            <apex:outputText value="{!msgBody2}" escape="false"></apex:outputText> 
+        </apex:pageBlockSection>
+        <br/><br/>
+        
+        <!-- addressee acknowledgement print -->
+        <apex:pageBlockSection title="Addressee acknowledgement" columns="1" >
+            <apex:outputText value="{!$Label.CL_CN18_AckDetails}" escape="false"></apex:outputText> 
+        </apex:pageBlockSection>
+         
+        <apex:outputText value="{!msgBody3}" escape="false"></apex:outputText> 
+        
+    </apex:pageBlock>
+
+</apex:page>

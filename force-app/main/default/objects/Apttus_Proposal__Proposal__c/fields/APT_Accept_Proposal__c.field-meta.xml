@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Accept_Proposal__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (
+ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Presented&quot;) &amp;&amp; 
+NOT(ISPICKVAL( APT_Dangerous_Goods_Status__c , &quot;Not Submitted&quot;)) &amp;&amp;
+NOT(ISPICKVAL(APT_Overweight_Approval_Status__c  , &quot;Not Submitted&quot;)) , 
+HYPERLINK(&quot;/apex/APT_ValidateProposal?source=Apttus_QPConfig__ProposalAccept&amp;id=&quot;&amp;Id, IMAGE(&quot;/resource/Apttus_QPConfig__Button_Accept&quot;, &quot;Accept&quot;),&quot;_self&quot;), 
+NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>DG or Oversize Approvals need to be submitted if Domestic Oversize Flag or Dangerous Goods Flag is set as true before accepting proposal</inlineHelpText>
+    <label>Accept Proposal</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_Cover_Type_for_Extra_Cover</fullName>
+    <active>true</active>
+    <description>Allows user to select Extra Cover only if the related Case Article has extra cover</description>
+    <errorConditionFormula>OR(
+(!CONTAINS(&quot;Extra Cover:ACL:T&amp;C Cover&quot;,TEXT(Cover_Type__c)) &amp;&amp; HasExtraCover__c = true),
+(CONTAINS(&quot;Extra Cover&quot;,TEXT(Cover_Type__c))&amp;&amp; HasExtraCover__c = false)
+) &amp;&amp; CONTAINS(&quot;EFT:Account_Credit:Money_Order&quot;,RecordType.DeveloperName)</errorConditionFormula>
+    <errorDisplayField>Cover_Type__c</errorDisplayField>
+    <errorMessage>If the related article has Extra Cover only Extra Cover and ACL can be chosen (and T&amp;C Cover if the value does not exceed $100)</errorMessage>
+</ValidationRule>

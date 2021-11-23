@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email notification template sent to requestor on submission of their case by the Accounting Services Helpdesk team</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>ExternalContactEmail</letterhead>
+    <name>ASH Notification on New Case</name>
+    <style>freeForm</style>
+    <subject>New case {!Case.CaseNumber} has created for your request.</subject>
+    <textOnly>Hi,
+
+
+
+Thank you for contacting Australia Post.
+
+
+This is an automated response to confirm we have received your email.
+
+You have been allocated a unique Case Number, which is;
+
+
+
+Case {!Case.CaseNumber}
+
+So that we can help resolve your enquiry sooner, please ensure all  updates are provided through a reply to this email
+
+
+Kind Regards,
+
+Australia Post
+
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

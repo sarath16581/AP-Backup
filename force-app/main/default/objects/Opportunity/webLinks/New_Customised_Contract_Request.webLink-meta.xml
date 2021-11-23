@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Customised_Contract_Request</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Legal Support Request</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/{!$Setup.OrgWideSetting__c.ContractAssistanceFormObjectPrefix__c}/e?{!$Setup.OrgWideSetting__c.ContractAssistanceFormOppUrlName__c}={!Opportunity.Name}&amp;{!$Setup.OrgWideSetting__c.ContractAssistanceFormOppUrlName__c}_lkid={!Opportunity.Id}&amp;retURL={!Opportunity.Id}</url>
+</WebLink>

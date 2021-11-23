@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hidden_1st_of_Multi_Year__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Phase 2 - Field to indicate that the OPC record is the first in a multi-year contract.</description>
+    <externalId>false</externalId>
+    <label>Hidden 1st of Multi-Year</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

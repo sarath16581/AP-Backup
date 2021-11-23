@@ -1,0 +1,23 @@
+<aura:component >
+    <aura:attribute name="discoveryCategoryQuestions" type="Object"/>
+    
+    
+    <!--<table width='100%'>
+        <tr>&nbsp;</tr>
+        <aura:iteration items="{!v.discoveryCategoryQuestions}" var="catQuestion" indexVar="index">
+            <dl>
+                <dt>{!index + 1}. {!catQuestion.questionName}</dt>
+                <dd><aura:if isTrue='{!catQuestion.selectedAnswer != null}'>
+                    - {!catQuestion.selectedAnswer}
+                    <aura:set attribute='else'>
+                        &nbsp;
+                    </aura:set>
+                    </aura:if></dd>
+            </dl> 
+            <!-*- <tr >{!catQuestion.questionName}</tr>
+                            <tr >&nbsp; &nbsp; - &nbsp; <ui:outputText value="{!catQuestion.selectedAnswer}"></ui:outputText></tr>
+                            <tr>&nbsp;</tr> -*->
+        </aura:iteration>
+    </table> -->
+    
+</aura:component>

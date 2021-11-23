@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Letterhead xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <backgroundColor>#CCCCCC</backgroundColor>
+    <bodyColor>#edeae6</bodyColor>
+    <bottomLine>
+        <color>#382f2d</color>
+        <height>1</height>
+    </bottomLine>
+    <footer>
+        <backgroundColor>#edeae6</backgroundColor>
+        <height>1</height>
+        <horizontalAlignment>Left</horizontalAlignment>
+        <verticalAlignment>Top</verticalAlignment>
+    </footer>
+    <header>
+        <backgroundColor>#edeae6</backgroundColor>
+        <height>82</height>
+        <horizontalAlignment>Right</horizontalAlignment>
+        <logo>Australia_Post_Logo/AusPost_Square_Logo.gif</logo>
+        <verticalAlignment>Middle</verticalAlignment>
+    </header>
+    <middleLine>
+        <color>#FFFFFF</color>
+        <height>1</height>
+    </middleLine>
+    <name>ExternalContactEmail</name>
+    <topLine>
+        <color>#b7b5b4</color>
+        <height>1</height>
+    </topLine>
+</Letterhead>

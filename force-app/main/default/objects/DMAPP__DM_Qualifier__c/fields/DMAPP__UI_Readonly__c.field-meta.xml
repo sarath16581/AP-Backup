@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__UI_Readonly__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>A Smart Qualifier cannot be set by a user on the playbook UI screen. 
+It is anticipated that these qualifiers will be set by other means (triggers etc)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>A Smart Qualifier cannot be set by a user on the playbook UI screen. 
+It is anticipated that these qualifiers will be set by other means (triggers etc)</inlineHelpText>
+    <label>Smart Qualifier</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

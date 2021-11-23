@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Org_s_LCM_All</fullName>
+    <columns>NAME</columns>
+    <columns>Legal_Entity_Name__c</columns>
+    <columns>Contact__c</columns>
+    <columns>Status__c</columns>
+    <columns>Customer_Readiness__c</columns>
+    <columns>Additonal_Comments__c</columns>
+    <columns>Risk_Of_Loss_Of_Business__c</columns>
+    <columns>Account_Manager_Involvement__c</columns>
+    <filterScope>Mine</filterScope>
+    <label>My Org&apos;s LCM - All</label>
+    <language>en_US</language>
+</ListView>

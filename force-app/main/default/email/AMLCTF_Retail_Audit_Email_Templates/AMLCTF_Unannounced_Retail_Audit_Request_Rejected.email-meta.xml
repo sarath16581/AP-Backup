@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This email template is used in the Case Approval Process for Unannounced Retail Audit Cases. Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>AMLCTF_Retail_Audit_Letterhead</letterhead>
+    <name>Unannounced Retail Audit Request Rejected</name>
+    <style>freeForm</style>
+    <subject>Unannounced Retail Audit for {!Case.NetworkName__c} rejected</subject>
+    <textOnly>Hi,
+
+Your Unannounced Retail Audit with the following details have been rejected:
+
+Case #:				{!Case.CaseNumber}
+Subject:			{!Case.Subject}
+Retail Outlet:		{!Case.NetworkName__c}
+WCC:				{!Case.AMLCTF_WCC__c}
+Planned Audit Date:	{!Case.AMLCTF_Planned_Audit_Date__c}
+
+The unannounced audit above has been rejected, with the following comments:
+{!ApprovalRequest.Comments}
+
+Regards.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

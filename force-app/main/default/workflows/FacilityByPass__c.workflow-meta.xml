@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>SSSW_Adhoc</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Adhoc</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>SSSW - Adhoc</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Oversize</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Oversize</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>SSSW - Oversize</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Permanent</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Permenant</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>SSSW - Permanent</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SSSW_Temporary</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Temporary</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>SSSW - Temporary</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>SSSW - Bypass Type Adhoc</fullName>
+        <actions>
+            <name>SSSW_Adhoc</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>FacilityByPass__c.Bypass_Type__c</field>
+            <operation>equals</operation>
+            <value>Adhoc</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Bypass Type Oversize</fullName>
+        <actions>
+            <name>SSSW_Oversize</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>FacilityByPass__c.Bypass_Type__c</field>
+            <operation>equals</operation>
+            <value>Oversize</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW - Bypass Type Permanent</fullName>
+        <actions>
+            <name>SSSW_Permanent</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>FacilityByPass__c.Bypass_Type__c</field>
+            <operation>equals</operation>
+            <value>Permanent</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>SSSW Bypass Type Temporary</fullName>
+        <actions>
+            <name>SSSW_Temporary</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>FacilityByPass__c.Bypass_Type__c</field>
+            <operation>equals</operation>
+            <value>Temporary</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

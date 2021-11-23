@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Offers_Private_and_or_Locked_Bags__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Does this site offer Private or Locked Bags?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Does this site offer Private or Locked Bags?</inlineHelpText>
+    <label>Offers Private and/or Locked Bags</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

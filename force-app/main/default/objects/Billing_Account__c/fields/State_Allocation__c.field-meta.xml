@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>State_Allocation__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(LEFT( Credit_Person_Code__c , 1), 
+&quot;Q&quot;,&quot;Queensland&quot;, 
+&quot;N&quot; , &quot;NSW&quot;, 
+&quot;O&quot;, &quot;SSD&quot;, 
+&quot;S&quot;, &quot;SA&quot;, 
+&quot;T&quot;, &quot;Tas&quot;, 
+&quot;V&quot;, &quot;Vic&quot;, 
+&quot;W&quot;, &quot;WA&quot; , &quot;Other&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>State Allocation</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

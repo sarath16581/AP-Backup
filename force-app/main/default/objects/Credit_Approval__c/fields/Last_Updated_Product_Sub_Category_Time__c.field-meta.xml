@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Last_Updated_Product_Sub_Category_Time__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
+    <description>DEPRECATED. DO NOT USE.</description>
+    <externalId>false</externalId>
+    <label>Last Updated Product Sub Category Time</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

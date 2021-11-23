@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Days_Off_Line__c</fullName>
+    <description>To display the number of days the LPO has been off line with Western Union</description>
+    <externalId>false</externalId>
+    <formula>IF(Previous_registration_expiry__c&lt;TODAY() &amp;&amp;
+NOT(ISPICKVAL(Status__c, &apos;AUSTRAC Registered&apos;)), 
+TODAY()-Previous_registration_expiry__c, 0)</formula>
+    <label>Days Off Line</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

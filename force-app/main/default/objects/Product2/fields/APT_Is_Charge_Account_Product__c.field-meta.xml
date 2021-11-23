@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Is_Charge_Account_Product__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>To check if the Billing Account associate to the product is of Charge Type</description>
+    <externalId>false</externalId>
+    <label>Is Charge Account Product</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

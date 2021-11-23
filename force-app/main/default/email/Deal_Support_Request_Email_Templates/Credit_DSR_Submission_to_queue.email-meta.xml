@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <available>true</available>
+    <description>This is used to send email alert to Queue members when a new Credit DSR is submitted</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Credit DSR Submission to queue</name>
+    <style>none</style>
+    <subject>New Credit Management Request submitted :</subject>
+    <type>visualforce</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

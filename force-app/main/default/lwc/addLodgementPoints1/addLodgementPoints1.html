@@ -1,0 +1,118 @@
+<!--
+* @author       : Arjun Singh. arjun.singh@auspost.com.au
+* @date         : 05/04/2021
+* @description  : This lWC component is used in Sub Account Request creation from Proposal and Billing Account flow. It has following features
+*                 1. It contains logic for adding/removing multiple lodgement points to Sub Account Requests.
+*********************************History*******************************************************************
+05.04.2021    Arjun Singh   Created
+-->
+<template>
+    <lightning-card>
+        <!-- Heading of the Lodgement Point Search component -->
+        <h3 slot="title" class="slds-align_absolute-center slds-truncate">Type in the search box below & select required Lodgement Point(s) to add to account.</h3>
+        <p slot="footer"></p>
+        <div class="slds-form-element">
+            <div class="slds-form-element__control">
+                <div class="slds-combobox_container">
+                    
+                    <!-- Lodgement Point Search Box display, contains 'utility:search' Icon and place-holder text -->
+                    <div class={txtclassname} data-id="resultBox" aria-expanded="false" aria-haspopup="listbox" role="combobox">
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left" role="none">
+                            <lightning-icon class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" icon-name="utility:search" size="x-small" alternative-text="icon"></lightning-icon>
+                            <lightning-input required={required} data-id="userinput" label={Label} name="searchText" onchange={searchField} class="leftspace" placeholder="Search Lodgement Point"></lightning-input>
+                        </div>
+                        <!-- Display of Selected Lodgement Point records underneath the Search Box. Contain button to remove the selected record off the display -->
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon slds-input-has-icon_left-right" role="none">
+                            <template for:each={selectedRecords} for:item="serecord">
+                                <span key={serecord.recId}>
+                                <lightning-pill label={serecord.recName} name={serecord.recId} onremove={removeRecord}>
+                                        <lightning-icon icon-name={iconName} variant="circle" alternative-text={serecord.recName}></lightning-icon>
+                                    </lightning-pill>
+                                </span>
+                            </template>
+                        </div>
+                    
+                        <!-- Dropdown list display of the search result, data obtained from 'searchRecords' list variable which is populated from Apex Controller -->
+                        <div id="listbox-id-1" class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox">
+                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                <template for:each={searchRecords} for:item="serecord">
+                                    <li role="presentation" class="slds-listbox__item" key={serecord.recId}>
+                                         <!-- Loop and display the search result, each entry contains an ICON, Lodgement Name, Lodgement Address-->
+                                        <div data-id={serecord.recId} data-name={serecord.recName} data-wcc={serecord.recWCC} data-address={serecord.recAddress} data-postcode={serecord.postCode} onclick={setSelectedRecord} class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
+                                            <span class="slds-media__figure">
+                                                <span class="slds-icon_container slds-icon-standard-account">
+                                                    <lightning-icon icon-name={iconName} class="slds-icon slds-icon slds-icon_small slds-icon-text-default" size="x-small"></lightning-icon>
+                                                </span>
+                                            </span>
+                                            <span class="slds-media__body">
+                                                <span class="slds-listbox__option-text slds-listbox__option-text_entity">{serecord.recName}</span>
+                                                <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">{objectName} • {serecord.recAddress}</span>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                         <!-- Text display when search result returns no matches -->
+                        <div if:true={messageFlag}>
+                            No result found.
+                        </div>
+                        <!-- Text display the querying is in progress -->
+                        <div if:true={LoadingText}>
+                            Loading...
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div><br/><br/>
+        <!-- Lodgement Point Data table, sourced the data from 'selectedRecords'
+                 These data are coming from LWC component(addLodgementPoint) above when the user selected the search result -->
+                 <div class="slds-page-header">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-opportunity" title="Lodgement Point Record">
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Account Record">Lodgement Points</h1>
+                            <p class="slds-text-body_small slds-line-height_reset"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid slds-wrap">
+                    <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_fixed-layout slds-table_resizable-cols">    
+                        <thead class="slds-p-vertical_medium">
+                            <tr class="slds-text-body_medium slds-text-color_inverse-weak">
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Lodgment Point Name">Lodgement Point Name</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Work Centre Code">Work Centre Code</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Work Centre Code">Post Code</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <!-- loop and display the list of lodgement point data coming from the LWC compnent -->
+                        <tbody>
+                            <template for:each={selectedRecords} for:item="selectRec">    
+                                <tr key={selectRec}>
+                                    <td scope="row" data-label="Lodgement Point Name">
+                                        <div class="slds-truncate" >{selectRec.recName}</div>
+                                    </td>
+                                    <td data-label="Work Centre Code">
+                                        <div class="slds-truncate" >{selectRec.recWCC}</div>
+                                    </td>
+                                    <td data-label="Post Code">
+                                        <div class="slds-truncate" >{selectRec.postCode}</div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+    
+                </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,25 @@
+<!--
+    Description: Refer to details in W-000715.  This VF page is associated to / triggered by the "Consignment Search"
+    console component, launching the "StarTrackConsignmentSearch" VF Page as a primary tab in Service Console.
+    Solution uses Salesforce Console Integration Toolkit.
+
+    History: @Kenny Liew : V1 - as per desciption
+    FEB.26.2016 Kenny Liew (Salesforce) Created
+    -->
+
+<apex:page >
+        <apex:includeScript value="/support/console/35.0/integration.js"/>
+        
+        <script type="text/javascript">
+            var onButtonClicked = function(result)
+            {
+                var sPrimaryTabName = 'Consignment Search'
+                sforce.console.openPrimaryTab(null, '/apex/StarTrackConsignmentSearch', true, sPrimaryTabName, null, 'ConsignmentSearch');
+                sforce.console.focusPrimaryTabByName('ConsignmentSearch');
+                sforce.console.setCustomConsoleComponentVisible(false);
+                
+            };
+                
+            sforce.console.onCustomConsoleComponentButtonClicked(onButtonClicked);  
+        </script>
+</apex:page>

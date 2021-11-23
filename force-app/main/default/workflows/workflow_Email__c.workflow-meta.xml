@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>StarTrack_Check_Address_Notification_Customer_Service</fullName>
+        <description>StarTrack Check Address Notification - Customer Service</description>
+        <protected>false</protected>
+        <recipients>
+            <field>To_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>StarTrack_System_Emails/StarTrack_Check_Address_Notification_Customer_Service</template>
+    </alerts>
+    <alerts>
+        <fullName>StarTrack_Delivered_Consignment_Notification</fullName>
+        <description>StarTrack Delivered Consignment Notification - Customer Service</description>
+        <protected>false</protected>
+        <recipients>
+            <field>To_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>StarTrack_System_Emails/StarTrack_Delivered_Consignment_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>StarTrack_Delivered_Consignment_Notification_Business_Centre</fullName>
+        <description>StarTrack Delivered Consignment Notification - Business Centre</description>
+        <protected>false</protected>
+        <recipients>
+            <field>To_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>businesscentre@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>StarTrack_System_Emails/StarTrack_Delivered_Consignment_Notification_Business_Centre</template>
+    </alerts>
+    <alerts>
+        <fullName>StarTrack_Depot_Collection_Notification_Customer_Service</fullName>
+        <description>StarTrack Depot Collection Notification - Customer Service</description>
+        <protected>false</protected>
+        <recipients>
+            <field>To_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>StarTrack_System_Emails/StarTrack_Depot_Collection_Notification_Customer_Service</template>
+    </alerts>
+    <alerts>
+        <fullName>StarTrack_General_Consignment_Notification_Business_Centre</fullName>
+        <description>StarTrack General Consignment Notification - Business Centre</description>
+        <protected>false</protected>
+        <recipients>
+            <field>To_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>businesscentre@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>StarTrack_System_Emails/StarTrack_General_Consignment_Notification_Business_Centre</template>
+    </alerts>
+    <alerts>
+        <fullName>StarTrack_General_Consignment_Notification_Customer_Service</fullName>
+        <description>StarTrack General Consignment Notification - Customer Service</description>
+        <protected>false</protected>
+        <recipients>
+            <field>To_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>StarTrack_System_Emails/StarTrack_General_Consignment_Notification_Customer_Service</template>
+    </alerts>
+    <alerts>
+        <fullName>StarTrack_LDC_Approved_Email</fullName>
+        <description>StarTrack LDC Approved Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>To_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>StarTrack_Email_Templates/StarTrack_LDC_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>StarTrack_LDC_Manual_Reject_Email</fullName>
+        <description>StarTrack LDC Manual Reject Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>To_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>StarTrack_Email_Templates/StarTrack_LDC_Manual_Reject</template>
+    </alerts>
+    <alerts>
+        <fullName>StarTrack_LDC_Reject_Email</fullName>
+        <description>StarTrack LDC System Reject Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>To_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>StarTrack_Email_Templates/StarTrack_LDC_Reject</template>
+    </alerts>
+    <alerts>
+        <fullName>StarTrack_LDC_Rejected_Email</fullName>
+        <description>StarTrack LDC Rejected Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>To_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>StarTrack_Email_Templates/StarTrack_LDC_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>StarTrack_Notify_Receiver_Case_Closed</fullName>
+        <description>StarTrack Notify Receiver Case Closed</description>
+        <protected>false</protected>
+        <recipients>
+            <field>To_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>StarTrack_System_Emails/StarTrack_Notify_Receiver_Case_Closed</template>
+    </alerts>
+    <alerts>
+        <fullName>StarTrack_Redirection_Notification_Customer_Service</fullName>
+        <description>StarTrack Redirection Notification - Customer Service</description>
+        <protected>false</protected>
+        <recipients>
+            <field>To_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>StarTrack_System_Emails/StarTrack_Redirection_Notification_Customer_Service</template>
+    </alerts>
+    <alerts>
+        <fullName>StarTrack_Send_task_completed_email_alert</fullName>
+        <description>StarTrack: Send task completed email alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>To_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>StarTrack_Email_Templates/StarTrack_Task_Completed_Email_Alert</template>
+    </alerts>
+    <alerts>
+        <fullName>StarTrack_Send_task_email_alert_from_workflow_email_alert_object</fullName>
+        <description>StarTrack: Send task email alert from workflow email alert object</description>
+        <protected>false</protected>
+        <recipients>
+            <field>To_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>StarTrack_Email_Templates/StarTrack_Task_Email_Alert</template>
+    </alerts>
+    <alerts>
+        <fullName>StarTrack_VOC_Notification</fullName>
+        <description>StarTrack VOC Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <field>To_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>customer.satisfaction@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>StarTrack_System_Emails/StarTrack_VOC_Incident_Notification</template>
+    </alerts>
+    <rules>
+        <fullName>StarTrack Check Address Notification - Customer Service</fullName>
+        <actions>
+            <name>StarTrack_Check_Address_Notification_Customer_Service</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>workflow_Email__c.Workflow_Email_Alert__c</field>
+            <operation>equals</operation>
+            <value>StarTrack Check Address Notification - Customer Service</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>workflow_Email__c.To_Address__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Workflow rule to send Check Address notification email to customer.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>StarTrack Delivered Consignment Notification - Business Centre</fullName>
+        <actions>
+            <name>StarTrack_Delivered_Consignment_Notification_Business_Centre</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>workflow_Email__c.Workflow_Email_Alert__c</field>
+            <operation>equals</operation>
+            <value>Delivered Consignment Notification - Business Centre</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>workflow_Email__c.To_Address__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Workflow rule to send BSC delivered consignment notification email to customer.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>StarTrack Delivered Consignment Notification - Customer Service</fullName>
+        <actions>
+            <name>StarTrack_Delivered_Consignment_Notification</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>workflow_Email__c.Workflow_Email_Alert__c</field>
+            <operation>equals</operation>
+            <value>Delivered Consignment Notification - Customer Service</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>workflow_Email__c.To_Address__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Workflow rule to send Non-BSC delivered consignment notification email to customer.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>StarTrack Depot Collection Notification - Customer Service</fullName>
+        <actions>
+            <name>StarTrack_Depot_Collection_Notification_Customer_Service</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>workflow_Email__c.Workflow_Email_Alert__c</field>
+            <operation>equals</operation>
+            <value>StarTrack Depot Collection Notification - Customer Service</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>workflow_Email__c.To_Address__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Workflow rule to send Depot Collection notification email to customer.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>StarTrack General Consignment Notification - Business Centre</fullName>
+        <actions>
+            <name>StarTrack_General_Consignment_Notification_Business_Centre</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>workflow_Email__c.Workflow_Email_Alert__c</field>
+            <operation>equals</operation>
+            <value>General Consignment Notification - Business Centre</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>workflow_Email__c.To_Address__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Workflow rule to send BSC general consignment notification email to customer.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>StarTrack General Consignment Notification - Customer Service</fullName>
+        <actions>
+            <name>StarTrack_General_Consignment_Notification_Customer_Service</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>workflow_Email__c.Workflow_Email_Alert__c</field>
+            <operation>equals</operation>
+            <value>General Consignment Notification - Customer Service</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>workflow_Email__c.To_Address__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Workflow rule to send Non-BSC general consignment notification email to customer.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>StarTrack Notify Receiver Case Closed</fullName>
+        <actions>
+            <name>StarTrack_Notify_Receiver_Case_Closed</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(     Workflow_Email_Alert__c = &apos;Notify Receiver Case Closed&apos;,     NOT(ISBLANK(To_Address__c)))</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>StarTrack Redirection Notification - Customer Service</fullName>
+        <actions>
+            <name>StarTrack_Redirection_Notification_Customer_Service</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>workflow_Email__c.Workflow_Email_Alert__c</field>
+            <operation>equals</operation>
+            <value>StarTrack Redirection Notification - Customer Service</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>workflow_Email__c.To_Address__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Workflow rule to send Redirection notification email to customer.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

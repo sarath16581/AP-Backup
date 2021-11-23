@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Progress_Bar__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 
+ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Draft&quot;) 
+,IMAGE(&quot;/resource/APT_Draft&quot;, &quot; APT_Draft&quot;, 85, 650) 
+,IF( ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Generated&quot;) 
+,IMAGE(&quot;/resource/APT_Generated&quot;, &quot; APT_Generated&quot;, 85, 650) 
+,IF( ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Approved&quot;) 
+,IMAGE(&quot;/resource/APT_Approved&quot;, &quot; APT_Approved&quot;, 85, 650) 
+,IF( ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Approval Required&quot;) 
+,IMAGE(&quot;/resource/APT_AppReq&quot;, &quot; APT_AppReq&quot;, 85, 650) 
+,IF( ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;In Review&quot;) 
+,IMAGE(&quot;/resource/APT_InRev&quot;, &quot;APT_InRev&quot;, 85, 650) 
+,IF( ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Presented&quot;) 
+,IMAGE(&quot;/resource/APT_Presented&quot;, &quot; APT_Presented&quot;, 85, 650) 
+,IF( ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Other Party Signatures&quot;) 
+,IMAGE(&quot;/resource/APT_InSig&quot;, &quot; APT_InSig&quot;, 85, 650) 
+,IF( ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Fully Signed&quot;) 
+,IMAGE(&quot;/resource/APT_Signed&quot;, &quot; APT_Signed&quot;, 85, 650) 
+,IF( ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Denied&quot;) 
+,IMAGE(&quot;/resource/APT_Denied&quot;, &quot; APT_Denied&quot;, 85, 650) 
+,IF( ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted&quot;) 
+,IMAGE(&quot;/resource/APT_Accepted&quot;, &quot; APT_Accepted&quot;, 85, 650), 
+IMAGE(&quot;/resource/APT_General&quot;, &quot; APT_General&quot;, 85, 650) 
+) ) ) ) ))))))</formula>
+    <label>Progress Bar</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

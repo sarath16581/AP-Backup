@@ -1,0 +1,822 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Resolution__c</fullName>
+    <description>This is a custom field for the user support case queue.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select a value for resolution</inlineHelpText>
+    <label>Resolution</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>64-bit windows 7</fullName>
+                <default>false</default>
+                <label>64-bit windows 7</label>
+            </value>
+            <value>
+                <fullName>Add as project team member</fullName>
+                <default>false</default>
+                <label>Add as project team member</label>
+            </value>
+            <value>
+                <fullName>Add double spaces in business contact</fullName>
+                <default>false</default>
+                <label>Add double spaces in business contact</label>
+            </value>
+            <value>
+                <fullName>Adjust classification</fullName>
+                <default>false</default>
+                <label>Adjust classification</label>
+            </value>
+            <value>
+                <fullName>Advise how to avoid opportunity duplication error</fullName>
+                <default>false</default>
+                <label>Advise how to avoid opportunity duplication error</label>
+            </value>
+            <value>
+                <fullName>Advise seller to rectify customer email</fullName>
+                <default>false</default>
+                <label>Advise seller to rectify customer email</label>
+            </value>
+            <value>
+                <fullName>Advise user to install add-on</fullName>
+                <default>false</default>
+                <label>Advise user to install add-on</label>
+            </value>
+            <value>
+                <fullName>Analytic snapshots</fullName>
+                <default>false</default>
+                <label>Analytic snapshots</label>
+            </value>
+            <value>
+                <fullName>Apex trigger/code</fullName>
+                <default>false</default>
+                <label>Apex trigger/code</label>
+            </value>
+            <value>
+                <fullName>Assign datasan license</fullName>
+                <default>false</default>
+                <label>Assign datasan license</label>
+            </value>
+            <value>
+                <fullName>Batch job re-run</fullName>
+                <default>false</default>
+                <label>Batch job re-run</label>
+            </value>
+            <value>
+                <fullName>Case assignment rule</fullName>
+                <default>false</default>
+                <label>Case assignment rule</label>
+            </value>
+            <value>
+                <fullName>Certificate and key management</fullName>
+                <default>false</default>
+                <label>Certificate and key management</label>
+            </value>
+            <value>
+                <fullName>Changeset deployment</fullName>
+                <default>false</default>
+                <label>Changeset deployment</label>
+            </value>
+            <value>
+                <fullName>Close Workspace</fullName>
+                <default>false</default>
+                <label>Close Workspace</label>
+            </value>
+            <value>
+                <fullName>Compact layout</fullName>
+                <default>false</default>
+                <label>Compact layout</label>
+            </value>
+            <value>
+                <fullName>Complete non-production access request</fullName>
+                <default>false</default>
+                <label>Complete non-production access request</label>
+            </value>
+            <value>
+                <fullName>Conduct new training</fullName>
+                <default>false</default>
+                <label>Conduct new training</label>
+            </value>
+            <value>
+                <fullName>Configuration Issue</fullName>
+                <default>false</default>
+                <label>Configuration Issue</label>
+            </value>
+            <value>
+                <fullName>Contact Ariba support to revoke generating status</fullName>
+                <default>false</default>
+                <label>Contact Ariba support to revoke generating status</label>
+            </value>
+            <value>
+                <fullName>Contract workspace team modified</fullName>
+                <default>false</default>
+                <label>Contract workspace team modified</label>
+            </value>
+            <value>
+                <fullName>Create/delete sandboxes</fullName>
+                <default>false</default>
+                <label>Create/delete sandboxes</label>
+            </value>
+            <value>
+                <fullName>Create a Chatter Group</fullName>
+                <default>false</default>
+                <label>Create a Chatter Group</label>
+            </value>
+            <value>
+                <fullName>Create Campaign</fullName>
+                <default>false</default>
+                <label>Create Campaign</label>
+            </value>
+            <value>
+                <fullName>Create custom report type</fullName>
+                <default>false</default>
+                <label>Create custom report type</label>
+            </value>
+            <value>
+                <fullName>Create user account</fullName>
+                <default>false</default>
+                <label>Create user account</label>
+            </value>
+            <value>
+                <fullName>Create web-to-lead form</fullName>
+                <default>false</default>
+                <label>Create web-to-lead form</label>
+            </value>
+            <value>
+                <fullName>Customer data correction</fullName>
+                <default>false</default>
+                <label>Customer data correction</label>
+            </value>
+            <value>
+                <fullName>Customer Email corrected</fullName>
+                <default>false</default>
+                <label>Customer Email corrected</label>
+            </value>
+            <value>
+                <fullName>Dataloader-Opportunities</fullName>
+                <default>false</default>
+                <label>Dataloader-Opportunities</label>
+            </value>
+            <value>
+                <fullName>Dataloader-Accounts transfer</fullName>
+                <default>false</default>
+                <label>Dataloader-Accounts transfer</label>
+            </value>
+            <value>
+                <fullName>Dataloader-Campaigns</fullName>
+                <default>false</default>
+                <label>Dataloader-Campaigns</label>
+            </value>
+            <value>
+                <fullName>Dataloader-Cases</fullName>
+                <default>false</default>
+                <label>Dataloader-Cases</label>
+            </value>
+            <value>
+                <fullName>Dataloader-Contacts</fullName>
+                <default>false</default>
+                <label>Dataloader-Contacts</label>
+            </value>
+            <value>
+                <fullName>Dataloader-Leads</fullName>
+                <default>false</default>
+                <label>Dataloader-Leads</label>
+            </value>
+            <value>
+                <fullName>Dataloader-mass add chatter members</fullName>
+                <default>false</default>
+                <label>Dataloader-mass add chatter members</label>
+            </value>
+            <value>
+                <fullName>Dataloader-Mass task/event assignment</fullName>
+                <default>false</default>
+                <label>Dataloader-Mass task/event assignment</label>
+            </value>
+            <value>
+                <fullName>Dataloader-OPCs</fullName>
+                <default>false</default>
+                <label>Dataloader-OPCs</label>
+            </value>
+            <value>
+                <fullName>Dataloader-Reference table update</fullName>
+                <default>false</default>
+                <label>Dataloader-Reference table update</label>
+            </value>
+            <value>
+                <fullName>Dataloader-Target and revenue</fullName>
+                <default>false</default>
+                <label>Dataloader-Target and revenue</label>
+            </value>
+            <value>
+                <fullName>Deactivate user account</fullName>
+                <default>false</default>
+                <label>Deactivate user account</label>
+            </value>
+            <value>
+                <fullName>Delete a campaign</fullName>
+                <default>false</default>
+                <label>Delete a campaign</label>
+            </value>
+            <value>
+                <fullName>Delete a chatter group</fullName>
+                <default>false</default>
+                <label>Delete a chatter group</label>
+            </value>
+            <value>
+                <fullName>Delete unused report</fullName>
+                <default>false</default>
+                <label>Delete unused report</label>
+            </value>
+            <value>
+                <fullName>Desktop File Sync setup doc provided</fullName>
+                <default>false</default>
+                <label>Desktop File Sync setup doc provided</label>
+            </value>
+            <value>
+                <fullName>Develop new report</fullName>
+                <default>false</default>
+                <label>Develop new report</label>
+            </value>
+            <value>
+                <fullName>Document added to Sharepoint</fullName>
+                <default>false</default>
+                <label>Document added to Sharepoint</label>
+            </value>
+            <value>
+                <fullName>Document issue resolved</fullName>
+                <default>false</default>
+                <label>Document issue resolved</label>
+            </value>
+            <value>
+                <fullName>Docusign request resent to customer</fullName>
+                <default>false</default>
+                <label>Docusign request resent to customer</label>
+            </value>
+            <value>
+                <fullName>Email template</fullName>
+                <default>false</default>
+                <label>Email template</label>
+            </value>
+            <value>
+                <fullName>Fix corrupted document</fullName>
+                <default>false</default>
+                <label>Fix corrupted document</label>
+            </value>
+            <value>
+                <fullName>Fix L2 approver</fullName>
+                <default>false</default>
+                <label>Fix L2 approver</label>
+            </value>
+            <value>
+                <fullName>Grant user access</fullName>
+                <default>false</default>
+                <label>Grant user access</label>
+            </value>
+            <value>
+                <fullName>Hub catchment reference update</fullName>
+                <default>false</default>
+                <label>Hub catchment reference update</label>
+            </value>
+            <value>
+                <fullName>Inactive run user for dashboard</fullName>
+                <default>false</default>
+                <label>Inactive run user for dashboard</label>
+            </value>
+            <value>
+                <fullName>Initial Opportunity Amount was 0</fullName>
+                <default>false</default>
+                <label>Initial Opportunity Amount was 0</label>
+            </value>
+            <value>
+                <fullName>Integration issue resolved</fullName>
+                <default>false</default>
+                <label>Integration issue resolved</label>
+            </value>
+            <value>
+                <fullName>Integration Data</fullName>
+                <default>false</default>
+                <label>Integration Data</label>
+            </value>
+            <value>
+                <fullName>Lead allocation issue</fullName>
+                <default>false</default>
+                <label>Lead allocation issue</label>
+            </value>
+            <value>
+                <fullName>Usability</fullName>
+                <default>false</default>
+                <label>Usability</label>
+            </value>
+            <value>
+                <fullName>User Access</fullName>
+                <default>false</default>
+                <label>User Access</label>
+            </value>
+            <value>
+                <fullName>Login Details provided</fullName>
+                <default>false</default>
+                <label>Login Details provided</label>
+            </value>
+            <value>
+                <fullName>Login URL used was incorrect</fullName>
+                <default>false</default>
+                <label>Login URL used was incorrect</label>
+            </value>
+            <value>
+                <fullName>Manage documents</fullName>
+                <default>false</default>
+                <label>Manage documents</label>
+            </value>
+            <value>
+                <fullName>Manual configuration required</fullName>
+                <default>false</default>
+                <label>Manual configuration required</label>
+            </value>
+            <value>
+                <fullName>Manual contract URL creation</fullName>
+                <default>false</default>
+                <label>Manual contract URL creation</label>
+            </value>
+            <value>
+                <fullName>Minor Configuration update</fullName>
+                <default>false</default>
+                <label>Minor Configuration update</label>
+            </value>
+            <value>
+                <fullName>Modify a campaign</fullName>
+                <default>false</default>
+                <label>Modify a campaign</label>
+            </value>
+            <value>
+                <fullName>Modify account manager</fullName>
+                <default>false</default>
+                <label>Modify account manager</label>
+            </value>
+            <value>
+                <fullName>Modify a chatter group</fullName>
+                <default>false</default>
+                <label>Modify a chatter group</label>
+            </value>
+            <value>
+                <fullName>Modify custom report type</fullName>
+                <default>false</default>
+                <label>Modify custom report type</label>
+            </value>
+            <value>
+                <fullName>Modify existing report</fullName>
+                <default>false</default>
+                <label>Modify existing report</label>
+            </value>
+            <value>
+                <fullName>Modify Local Area Market(LAM)</fullName>
+                <default>false</default>
+                <label>Modify Local Area Market(LAM)</label>
+            </value>
+            <value>
+                <fullName>Modify Notification preferences</fullName>
+                <default>false</default>
+                <label>Modify Notification preferences</label>
+            </value>
+            <value>
+                <fullName>Modify Opportunity Driver</fullName>
+                <default>false</default>
+                <label>Modify Opportunity Driver</label>
+            </value>
+            <value>
+                <fullName>Modify Opportunity Team</fullName>
+                <default>false</default>
+                <label>Modify Opportunity Team</label>
+            </value>
+            <value>
+                <fullName>Modify sales team/holding role</fullName>
+                <default>false</default>
+                <label>Modify sales team/holding role</label>
+            </value>
+            <value>
+                <fullName>Modify user profile</fullName>
+                <default>false</default>
+                <label>Modify user profile</label>
+            </value>
+            <value>
+                <fullName>Modify Workspace Team</fullName>
+                <default>false</default>
+                <label>Modify Workspace Team</label>
+            </value>
+            <value>
+                <fullName>More training</fullName>
+                <default>false</default>
+                <label>More training</label>
+            </value>
+            <value>
+                <fullName>New User Added</fullName>
+                <default>false</default>
+                <label>New User Added</label>
+            </value>
+            <value>
+                <fullName>OPC Exception Resolved</fullName>
+                <default>false</default>
+                <label>OPC Exception Resolved</label>
+            </value>
+            <value>
+                <fullName>OPC issue resolved</fullName>
+                <default>false</default>
+                <label>OPC issue resolved</label>
+            </value>
+            <value>
+                <fullName>OPC Sales Exception Resolved</fullName>
+                <default>false</default>
+                <label>OPC Sales Exception Resolved</label>
+            </value>
+            <value>
+                <fullName>Opportunity Stage modified</fullName>
+                <default>false</default>
+                <label>Opportunity Stage modified</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>true</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Outlook configuration</fullName>
+                <default>false</default>
+                <label>Outlook configuration</label>
+            </value>
+            <value>
+                <fullName>Page layout change</fullName>
+                <default>false</default>
+                <label>Page layout change</label>
+            </value>
+            <value>
+                <fullName>PDF Fixed in Ariba</fullName>
+                <default>false</default>
+                <label>PDF Fixed in Ariba</label>
+            </value>
+            <value>
+                <fullName>PDF generating takes longer</fullName>
+                <default>false</default>
+                <label>PDF generating takes longer</label>
+            </value>
+            <value>
+                <fullName>Permission set change</fullName>
+                <default>false</default>
+                <label>Permission set change</label>
+            </value>
+            <value>
+                <fullName>Picklist value change</fullName>
+                <default>false</default>
+                <label>Picklist value change</label>
+            </value>
+            <value>
+                <fullName>Profile Change</fullName>
+                <default>false</default>
+                <label>Profile Change</label>
+            </value>
+            <value>
+                <fullName>Provide notification preferences document</fullName>
+                <default>false</default>
+                <label>Provide notification preferences document</label>
+            </value>
+            <value>
+                <fullName>Record type</fullName>
+                <default>false</default>
+                <label>Record type</label>
+            </value>
+            <value>
+                <fullName>Re-issue a signature task</fullName>
+                <default>false</default>
+                <label>Re-issue a signature task</label>
+            </value>
+            <value>
+                <fullName>Relevant Data uploaded</fullName>
+                <default>false</default>
+                <label>Relevant Data uploaded</label>
+            </value>
+            <value>
+                <fullName>Report request completed</fullName>
+                <default>false</default>
+                <label>Report request completed</label>
+            </value>
+            <value>
+                <fullName>Re-send DocuSign request to customer</fullName>
+                <default>false</default>
+                <label>Re-send DocuSign request to customer</label>
+            </value>
+            <value>
+                <fullName>Reset Password</fullName>
+                <default>false</default>
+                <label>Reset Password</label>
+            </value>
+            <value>
+                <fullName>Re-trigger billing account update</fullName>
+                <default>false</default>
+                <label>Re-trigger billing account update</label>
+            </value>
+            <value>
+                <fullName>Re-trigger contract in opportunity</fullName>
+                <default>false</default>
+                <label>Re-trigger contract in opportunity</label>
+            </value>
+            <value>
+                <fullName>Re-trigger integration</fullName>
+                <default>false</default>
+                <label>Re-trigger integration</label>
+            </value>
+            <value>
+                <fullName>Re-upload correct document format</fullName>
+                <default>false</default>
+                <label>Re-upload correct document format</label>
+            </value>
+            <value>
+                <fullName>Role hierarchy change</fullName>
+                <default>false</default>
+                <label>Role hierarchy change</label>
+            </value>
+            <value>
+                <fullName>Salesforce for Outlook</fullName>
+                <default>false</default>
+                <label>Salesforce for Outlook</label>
+            </value>
+            <value>
+                <fullName>Salesforce for Outlook Add-On configured</fullName>
+                <default>false</default>
+                <label>Salesforce for Outlook Add-On configured</label>
+            </value>
+            <value>
+                <fullName>Sales team reference update</fullName>
+                <default>false</default>
+                <label>Sales team reference update</label>
+            </value>
+            <value>
+                <fullName>SAMs database updated</fullName>
+                <default>false</default>
+                <label>SAMs database updated</label>
+            </value>
+            <value>
+                <fullName>SAMs improvement</fullName>
+                <default>false</default>
+                <label>SAMs improvement</label>
+            </value>
+            <value>
+                <fullName>Sandbox refresh</fullName>
+                <default>false</default>
+                <label>Sandbox refresh</label>
+            </value>
+            <value>
+                <fullName>SAP Hierachy Update</fullName>
+                <default>false</default>
+                <label>SAP Hierachy Update</label>
+            </value>
+            <value>
+                <fullName>SCCR issue fixed</fullName>
+                <default>false</default>
+                <label>SCCR issue fixed</label>
+            </value>
+            <value>
+                <fullName>Service Now ticket raised for TIBCO</fullName>
+                <default>false</default>
+                <label>Service Now ticket raised for TIBCO</label>
+            </value>
+            <value>
+                <fullName>Service Request created for Ariba Connect</fullName>
+                <default>false</default>
+                <label>Service Request created for Ariba Connect</label>
+            </value>
+            <value>
+                <fullName>Service Request created for Salesforce.com</fullName>
+                <default>false</default>
+                <label>Service Request created for Salesforce.com</label>
+            </value>
+            <value>
+                <fullName>Service Request raised with DocuSign</fullName>
+                <default>false</default>
+                <label>Service Request raised with DocuSign</label>
+            </value>
+            <value>
+                <fullName>Sharing rule change</fullName>
+                <default>false</default>
+                <label>Sharing rule change</label>
+            </value>
+            <value>
+                <fullName>Signature Task Status verified and communicated</fullName>
+                <default>false</default>
+                <label>Signature Task Status verified and communicated</label>
+            </value>
+            <value>
+                <fullName>Site creation or re-design</fullName>
+                <default>false</default>
+                <label>Site creation or re-design</label>
+            </value>
+            <value>
+                <fullName>System Configuration</fullName>
+                <default>false</default>
+                <label>System Configuration</label>
+            </value>
+            <value>
+                <fullName>Data Management</fullName>
+                <default>false</default>
+                <label>Data Management</label>
+            </value>
+            <value>
+                <fullName>Device/Operating Environment</fullName>
+                <default>false</default>
+                <label>Device/Operating Environment</label>
+            </value>
+            <value>
+                <fullName>Apex/Visualforce</fullName>
+                <default>false</default>
+                <label>Apex/Visualforce</label>
+            </value>
+            <value>
+                <fullName>Assistance Provided</fullName>
+                <default>false</default>
+                <label>Assistance Provided</label>
+            </value>
+            <value>
+                <fullName>Customer - No response</fullName>
+                <default>false</default>
+                <label>Customer - No response</label>
+            </value>
+            <value>
+                <fullName>Had Conversation</fullName>
+                <default>false</default>
+                <label>Had Conversation</label>
+            </value>
+            <value>
+                <fullName>Resolved</fullName>
+                <default>false</default>
+                <label>Resolved</label>
+            </value>
+            <value>
+                <fullName>System Error Message</fullName>
+                <default>false</default>
+                <label>System Error Message</label>
+            </value>
+            <value>
+                <fullName>Territory assignment reference update</fullName>
+                <default>false</default>
+                <label>Territory assignment reference update</label>
+            </value>
+            <value>
+                <fullName>Third-party apps</fullName>
+                <default>false</default>
+                <label>Third-party apps</label>
+            </value>
+            <value>
+                <fullName>Transfer Workspace</fullName>
+                <default>false</default>
+                <label>Transfer Workspace</label>
+            </value>
+            <value>
+                <fullName>UI-Mass delete records</fullName>
+                <default>false</default>
+                <label>UI-Mass delete records</label>
+            </value>
+            <value>
+                <fullName>UI-Mass transfer records</fullName>
+                <default>false</default>
+                <label>UI-Mass transfer records</label>
+            </value>
+            <value>
+                <fullName>Integration System</fullName>
+                <default>false</default>
+                <label>Integration System</label>
+            </value>
+            <value>
+                <fullName>Usability Issue - Training provided</fullName>
+                <default>false</default>
+                <label>Usability Issue - Training provided</label>
+            </value>
+            <value>
+                <fullName>Usage query</fullName>
+                <default>false</default>
+                <label>Usage query</label>
+            </value>
+            <value>
+                <fullName>User related report</fullName>
+                <default>false</default>
+                <label>User related report</label>
+            </value>
+            <value>
+                <fullName>Validation rule</fullName>
+                <default>false</default>
+                <label>Validation rule</label>
+            </value>
+            <value>
+                <fullName>Verify signature progress in DocuSign</fullName>
+                <default>false</default>
+                <label>Verify signature progress in DocuSign</label>
+            </value>
+            <value>
+                <fullName>Web-To-Lead issue resolved</fullName>
+                <default>false</default>
+                <label>Web-To-Lead issue resolved</label>
+            </value>
+            <value>
+                <fullName>Withdraw a signature task</fullName>
+                <default>false</default>
+                <label>Withdraw a signature task</label>
+            </value>
+            <value>
+                <fullName>Workflow request</fullName>
+                <default>false</default>
+                <label>Workflow request</label>
+            </value>
+            <value>
+                <fullName>Contract template modified</fullName>
+                <default>false</default>
+                <label>Contract template modified</label>
+            </value>
+            <value>
+                <fullName>Group allocation modified</fullName>
+                <default>false</default>
+                <label>Group allocation modified</label>
+            </value>
+            <value>
+                <fullName>Data import/export</fullName>
+                <default>false</default>
+                <label>Data import/export</label>
+            </value>
+            <value>
+                <fullName>Modify billing account</fullName>
+                <default>false</default>
+                <label>Modify billing account</label>
+            </value>
+            <value>
+                <fullName>Email to case</fullName>
+                <default>false</default>
+                <label>Email to case</label>
+            </value>
+            <value>
+                <fullName>Bluewolf</fullName>
+                <default>false</default>
+                <label>Bluewolf</label>
+            </value>
+            <value>
+                <fullName>Ariba Support</fullName>
+                <default>false</default>
+                <label>Ariba Support</label>
+            </value>
+            <value>
+                <fullName>Salesforce.com</fullName>
+                <default>false</default>
+                <label>Salesforce.com</label>
+            </value>
+            <value>
+                <fullName>Certificate Changes</fullName>
+                <default>false</default>
+                <label>Certificate Changes</label>
+            </value>
+            <value>
+                <fullName>Apology</fullName>
+                <default>false</default>
+                <label>Apology</label>
+            </value>
+            <value>
+                <fullName>Credit</fullName>
+                <default>false</default>
+                <label>Credit</label>
+            </value>
+            <value>
+                <fullName>Gift or Token of Goodwill</fullName>
+                <default>false</default>
+                <label>Gift or Token of Goodwill</label>
+            </value>
+            <value>
+                <fullName>Customer Education</fullName>
+                <default>false</default>
+                <label>Customer Education</label>
+            </value>
+            <value>
+                <fullName>Service Upgrade</fullName>
+                <default>false</default>
+                <label>Service Upgrade</label>
+            </value>
+            <value>
+                <fullName>Damage</fullName>
+                <default>false</default>
+                <label>Damage</label>
+            </value>
+            <value>
+                <fullName>Reimbursement</fullName>
+                <default>false</default>
+                <label>Reimbursement</label>
+            </value>
+            <value>
+                <fullName>Acknowledge Feedback</fullName>
+                <default>false</default>
+                <label>Acknowledge Feedback</label>
+            </value>
+            <value>
+                <fullName>Technical Assistance</fullName>
+                <default>false</default>
+                <label>Technical Assistance</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

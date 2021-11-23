@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Adhoc__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates that the Duty Template is for Adhoc Bookings.  Note that Adhoc Bookings created from the Gantt can only be created against Adhoc Duty Templates.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Indicates that the Duty Template is for Adhoc Bookings.  Note that Adhoc Bookings created from the Gantt can only be created against Adhoc Duty Templates.</inlineHelpText>
+    <label>Is Adhoc</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

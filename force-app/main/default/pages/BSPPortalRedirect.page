@@ -1,0 +1,8 @@
+<apex:page >
+    <script>
+        function codeAddress() {
+            window.top.location.href = "{!LEFT($Api.Partner_Server_URL_310, FIND( '/services', $Api.Partner_Server_URL_310))}" + "bspEnquiry"; 
+        }
+        window.onload = codeAddress;
+    </script>
+</apex:page>

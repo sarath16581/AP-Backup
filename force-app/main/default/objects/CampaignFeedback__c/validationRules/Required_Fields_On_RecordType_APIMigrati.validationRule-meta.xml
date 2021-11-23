@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Fields_On_RecordType_APIMigrati</fullName>
+    <active>true</active>
+    <description>The following fields are mandatory for records where the status is completed: 
+•	Agreed start date for migration to begin
+•	What solution will customer migrate to?
+•	Risk of migration to competitor</description>
+    <errorConditionFormula>AND(
+ $Profile.Name &lt;&gt; &quot;System Administrator&quot;, 
+ RecordType.DeveloperName = &apos;API_Migration_Mid_Markets&apos;,
+ ISPICKVAL(Status__c, &apos;Completed&apos;),
+
+  OR(
+  ISBLANK(Agreed_Start_Date_For_Migration_To_Begin__c),
+  TEXT(What_Solution_Will_Customer_Migrate_To__c) = &quot;&quot;,
+  TEXT( Riskofmigrationtocompetitor__c ) = &quot;&quot;
+
+  )
+ )</errorConditionFormula>
+    <errorMessage>The following fields are mandatory for records where the status is completed: 
+•	Agreed start date for migration to begin
+•	What solution will customer migrate to?
+•	Risk of migration to competitor</errorMessage>
+</ValidationRule>

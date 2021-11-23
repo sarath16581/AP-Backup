@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Fee_Template__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(NOT(ISBLANK(APT_Fee__c)),
+&apos;$&apos;+ IF( 
+  APT_Fee__c &gt;= 1000000, 
+  TEXT(FLOOR(APT_Fee__c / 1000000)) &amp; &quot;,&quot;, 
+  &quot;&quot;) &amp; 
+IF( 
+  APT_Fee__c &gt;= 1000, 
+  RIGHT(TEXT(FLOOR(APT_Fee__c / 1000)), 3) &amp; &quot;,&quot;, 
+  &quot;&quot;) &amp; 
+RIGHT(TEXT(FLOOR(APT_Fee__c)), 3) &amp; &quot;.&quot; &amp; 
+IF( 
+  MOD(APT_Fee__c , 1) * 100 &lt; 10, 
+  &quot;0&quot; &amp; TEXT(ROUND(MOD(APT_Fee__c , 1), 2) * 100), 
+  TEXT(MIN(ROUND(MOD(APT_Fee__c , 1), 2) * 100, 99)) 
+),
+null)</formula>
+    <label>Fee Template</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

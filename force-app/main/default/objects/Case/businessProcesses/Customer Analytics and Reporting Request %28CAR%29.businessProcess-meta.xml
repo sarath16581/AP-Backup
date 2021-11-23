@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer Analytics and Reporting Request %28CAR%29</fullName>
+    <description>This support process is created for Customer Analytics and Reporting Requests (CAR)</description>
+    <isActive>true</isActive>
+    <values>
+        <fullName>Awaiting Information</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Awaiting information from another team</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Closed-duplicate</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Closed-out of scope</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>In Progress</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Reopened</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Resolved</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Unallocated</fullName>
+        <default>true</default>
+    </values>
+</BusinessProcess>

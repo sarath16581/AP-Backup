@@ -1,0 +1,724 @@
+<!--
+04-Mar-2019 saiswetha.pingali@auspost.com.au Added Is New flag to display on SSSWSorting page for REQ1708775
+18-Nov-2020 - Ranjeewa Silva - Updated to display new 'SocialPostTags__c' field on the page.
+-->
+<apex:page id="SSSWSorting" controller="SSSWSortingController">
+    <!-- <apex:includeScript value="{!URLFOR($Resource.SSSWSorting, '/jquery-3.1.1.min.js')}"/> -->
+    <!-- <apex:includeScript value="{!URLFOR($Resource.SSSWSorting, '/jquery-ui.min.js')}"/> -->
+    <!-- <apex:includeScript value="{!$Resource.SSSWSortingTest}"/> -->
+    <!-- <apex:stylesheet value="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/> -->
+    <c:ScriptLoader jsLibraries="jquery,jqueryui" />
+    <apex:stylesheet value="{!$Resource.SSSWSortingCSS}" />
+    <style>
+        #sortableRoute, #sortableNPS, #sortableEscalate, #sortableDescription {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            width = 100%
+        }
+        
+        .truncate {
+            white-space: nowrap;
+            text-overflow:ellipsis;
+            overflow: hidden;
+            max-width:1px;"
+        }
+
+        #sortableRoute  li, #sortableNPS  li, #sortableEscalate  li, #sortableDescription li {
+            margin: 0 3px 3px 3px;
+            padding: 0.4em;
+            padding-left: 1.5em;
+            font-size: 1.4em;
+            height: 125px;
+        }
+
+        #sortableRoute  li span, #sortableNPS  li span, #sortableEscalate  li span, #sortableDescription li span {
+            position: absolute;
+            margin-left: -1.3em;
+        }
+
+        #sortableRoute  li span.table-outputPanel, #sortableNPS  li span.table-outputPanel, #sortableEscalate  li span.table-outputPanel, #sortableDescription li span.table-outputPanel {
+            position: absolute;
+            margin-left: 0em;
+        }
+
+        .ui-state-highlight {
+            height: 1.5em;
+            line-height: 1.2em;
+        }
+
+        .ssswList {
+            font-size: 11px;
+            width: 100%;
+            margin-left: 35px;
+        }
+
+        .queueName {
+            color: #FF0000 !important;
+        }
+
+        .sequence, .sequenceNPS {
+            font-size: 18;
+            font-style: bold;
+        }
+
+        .seqDetails {
+        	width:95%;
+            padding-left: 20px;
+            margin-top: -23px;
+        }
+
+        .hideseq {
+            display: none;
+        }
+
+        .col1 {
+            width: 50%;
+        	white-space: nowrap;
+            text-overflow:ellipsis;
+            overflow: hidden;
+            max-width:1px;"
+        }
+
+        .col2 {
+            width: 50%;
+        	white-space: nowrap;
+            text-overflow:ellipsis;
+            overflow: hidden;
+            max-width:1px;"
+        }
+
+        .editLink {
+            margin-top: 5px;
+            padding-left: 21px;
+            color: #0000ff !important;
+            cursor: pointer;
+        }
+
+        .delLink {
+            margin-top: 23px;
+            padding-left: 21px;
+            padding-top: 15px;
+            color: #0000ff !important;
+            cursor: pointer;
+        }
+
+        .delLink a {
+            color: #0000ff !important;
+        }
+
+        .iFrameStyles {
+            width: 700px;
+            height: 613px;
+        	overflow-y: auto;
+        }
+
+        .ui-dialog {
+            position: fixed;
+            left: 20%;
+            top: 5%;
+        }
+    </style>
+    <script type="text/javascript">
+        //Initialise Sortable
+        $(function () {
+            $("#sortableRoute").sortable({
+                placeholder: "ui-state-highlight",
+                disabled: false,
+                stop: function (event, ui) {
+                    sortRouting("Route");
+                }
+            });
+        });
+        $(function () {
+            $("#sortableNPS").sortable({
+                placeholder: "ui-state-highlight",
+                disabled: false,
+                stop: function (event, ui) {
+                    sortRouting("NPS");
+                }
+            });
+        });
+        $(function () {
+            $("#sortableEscalate").sortable({
+                placeholder: "ui-state-highlight",
+                disabled: false,
+                stop: function (event, ui) {
+                    sortRouting("Escalate");
+                }
+            });
+        });
+        $(function () {
+            $("#sortableDescription").sortable({
+                placeholder: "ui-state-highlight",
+                disabled: false,
+                stop: function (event, ui) {
+                    sortRouting("Description");
+                }
+            });
+        });
+        
+        //Start Change by Snigdha : REQ1689248  
+        function confirmDelete(){
+            return confirm('Are you sure you wish to delete?');           
+        }
+        //End Change
+        
+        //Call it for initial page load and for refreshes
+        sortRouting("Route");
+        sortRouting("NPS");
+        sortRouting("Escalate");
+        sortRouting("Description");
+        //Sort the routing rules
+        function sortRouting(type) {
+            try{
+                console.log('sorting');
+                console.log("type: "+type);
+                var sort = "#sortable" + type;
+                var sequence = ".sequence"+type;
+                console.log('sort--->'+sort+'<--sequence-->'+sequence);
+                $(function () {
+                    console.log('Test1');
+                    $.each($(sort), function (i, sortL) {
+                        updateSequence(sequence);
+                        $('.hideseq input', sortL).each(function (z, sortI) {
+                            $(this).val(z + 1);
+                            console.log('Test2');
+                        });
+                    });
+                });
+                //After saving result
+                updateSequence(sequence);
+            }catch(err) {
+                console.log('err-->'+err);
+            }
+        }
+        //Update Sequence Number on sorting
+        function updateSequence(seq){
+            $(seq).each(function (z, sortI) {
+                $(this).html((z + 1) + '.');
+            });
+        }
+        //Build the iFrame link
+        function buildiFrame(rowId, rowNum, recType) {
+            console.log(rowNum);
+            var url = "/apex/ssswRouting?Id=" + rowId + "&newRoute=false" + "&newSeqFrom=" + rowNum + "&recType=" + recType;
+            console.log(url);
+            $("#dialog1").html($("<iframe />").attr({src: url, class: "iFrameStyles", scrolling:"yes"}));
+            //$("#dialog1").dialog("option", "title", "Edit Rule " + rowNum);
+            $("#dialog1").dialog("option", "title", recType + " Details");
+            $("#dialog1").on("dialogclose", function (event, ui) {
+                if(recType=="SSSW Routing")
+                    rerenderRoutes();
+                if(recType=="SSSW NPS")
+                    rerenderNPS();
+                if(recType=="SSSW Escalation")
+                    rerenderEscalate();
+                if(recType=="SSSW Description")
+                    rerenderDescription();
+            });
+            $("#dialog1").dialog("open");
+        }
+
+        function buildNewiFrame() {
+            var recordType = document.getElementById('SSSWSorting:SSSWSorting:routingForm:recType');
+            var recType = recordType.options[recordType.selectedIndex].value;
+            console.log('recType-->'+recType);
+            var rowNum;
+            if(recType=="SSSW Routing")
+                rowNum = "{!newSeqFrom}";
+            if(recType=="SSSW NPS")
+                rowNum = "{!newSeqFromNPS}";
+            if(recType=="SSSW Escalation")
+                rowNum = "{!newSeqFromEscalate}";
+            if(recType=="SSSW Description")
+                rowNum = "{!newSeqFromDescription}";
+            console.log('rowNum: '+rowNum);
+            //var url = "/apex/ssswRouting?newSeqFrom=" + rowNum + '&newRoute=true' + "&recType=" + recType;
+            var url = "/apex/ssswRouting?newRoute=true" + "&recType=" + recType;
+            console.log(url);
+            $("#dialog1").html($("<iframe />").attr({src: url, class: "iFrameStyles", scrolling:"yes"}));
+            //$("#dialog1").dialog("option", "title", "Create New Rule");
+            $("#dialog1").dialog("option", "title", recType + " Details");
+            $("#dialog1").on("dialogclose", function (event, ui) {
+                if(recType=="SSSW Routing")
+                    rerenderRoutes();
+                if(recType=="SSSW NPS")
+                    rerenderNPS();
+                if(recType=="SSSW Escalation")
+                    rerenderEscalate();
+                if(recType=="SSSW Description")
+                    rerenderDescription();
+            });
+            $("#dialog1").dialog("open");
+        }
+
+        function rerenderRoutes() {
+            //empty function to support apex:actionsupport
+        }
+        function rerenderNPS(){
+            //empty function to support apex:actionsupport
+        }
+        function rerenderEscalate(){
+            //empty function to support apex:actionsupport
+        }
+        function rerenderDescription(){
+            //empty function to support apex:actionsupport
+        }
+        //Modal settings
+        $(function () {
+            $("#dialog1").dialog({
+                autoOpen: false,
+                width: "auto",
+                height: "auto",
+                close: function (event, ui) {
+                }
+            });
+        });
+
+    </script>
+    <apex:pageblock id="SSSWSorting" title="SSSW Rule Sorting">
+        <apex:form id="routingForm">
+            <h1>Select Record Type: </h1>
+            <apex:selectList value="{!selectedRecordType}" multiselect="false" size="1" id="recType" onchange="changeRecordType();">
+                <apex:selectOptions value="{!recordTypes}"/>
+            </apex:selectList>&nbsp;&nbsp;
+            <script>
+                window.onload = function() {
+                    changeRecordType();
+                }
+               function changeRecordType(){
+                    var recordType = document.getElementById('SSSWSorting:SSSWSorting:routingForm:recType');
+                    var myPicklistValue = recordType.options[recordType.selectedIndex].value;
+                    console.log(myPicklistValue);
+                    if(myPicklistValue == 'SSSW Routing'){
+                        $("#routingDiv").show();
+                        $("#npsDiv").hide();
+                        $("#escalateDiv").hide();
+                        $("#descriptionDiv").hide();
+                        //{!recType} = 'SSSW Routing';
+                        jQuery('[id$=myHiddenField]').val('SSSW Routing');
+                    }
+                    else if(myPicklistValue == 'SSSW NPS'){
+                        $("#routingDiv").hide();
+                        $("#npsDiv").show();
+                        $("#escalateDiv").hide();
+                        $("#descriptionDiv").hide();
+                        //{!recType} = 'SSSW NPS';
+                        jQuery('[id$=myHiddenField]').val('SSSW NPS');
+                    }
+                    else if(myPicklistValue == 'SSSW Escalation'){
+                        $("#routingDiv").hide();
+                        $("#npsDiv").hide();
+                        $("#escalateDiv").show();
+                        $("#descriptionDiv").hide();
+                        jQuery('[id$=myHiddenField]').val('SSSW Escalation');
+                    }
+                    else if(myPicklistValue == 'SSSW Description'){
+                        $("#routingDiv").hide();
+                        $("#npsDiv").hide();
+                        $("#escalateDiv").hide();
+                        $("#descriptionDiv").show();
+                        jQuery('[id$=myHiddenField]').val('SSSW Description');
+                    }
+               } 
+            </script> 
+            <apex:inputHidden value="{!recType}" id="myHiddenField"/>
+            <!-- <div id="routingDiv"> -->
+            <apex:outputPanel id="sortButton" >
+                <apex:commandButton value="Sort Table" action="{!sortRoutings}" 
+                                    rendered="{!IF(pageMode != 'sort', true, false)}"/>
+                <apex:outputPanel rendered="{!IF(pageMode != 'sort', true, false)}">
+                    <button type="button" onclick="buildNewiFrame()">New</button>
+                </apex:outputPanel>
+            </apex:outputPanel>
+            <div id="routingDiv">
+                <apex:outputPanel id="routeList" >
+                <apex:commandButton value="Save SSSW Routings" action="{!saveRoutings}"
+                                    rendered="{!IF(pageMode == 'sort', true, false)}" rerender="sortButton,routeList,NPSList,EscalateList,DescriptionList" Oncomplete="sortRouting('Route');sortRouting('NPS');sortRouting('Escalate');sortRouting('Description');" />
+                <apex:commandButton value="Cancel" action="{!cancelSort}"
+                                    rendered="{!IF(pageMode == 'sort', true, false)}" rerender="sortButton,routeList,NPSList,EscalateList,DescriptionList" Oncomplete="sortRouting('Route');sortRouting('NPS');sortRouting('Escalate');sortRouting('Description');"/>
+                <!-- <apex:outputPanel rendered="{!IF(pageMode != 'sort', true, false)}">
+                    <button type="button" onclick="buildNewiFrame('{!newSeqFrom}', 'Routing')">New Route</button>
+                </apex:outputPanel> -->
+                <!-- <apex:commandButton value="Sort Routes/NPS" action="{!sortRoutings}"
+                                    rendered="{!IF(pageMode != 'sort', true, false)}"/> -->
+                <apex:outputPanel rendered="{!IF(pageMode != 'sort', true, false)}">
+                    <script>
+                        $(function () {
+                            $("#sortableRoute").sortable("option", "disabled", true);
+                        });
+
+                    </script>
+                </apex:outputPanel>
+                <apex:messages />
+                <!-- <apex:actionFunction name="rerenderRoutes" action="{!refreshRoutings}"/> -->
+                <apex:actionFunction name="rerenderRoutes" action="{!refreshRoutings}"  rerender="routeList" Oncomplete="sortRouting('Route');" />
+                <br/>
+                <br/>
+                <!-- <apex:outputPanel id="routeList" > -->
+                <ul id="sortableRoute">
+                    <apex:repeat value="{!rulesWithQueues}" var="r">
+
+                        <li class="ui-state-default">
+                            <apex:outputPanel styleClass="ui-icon ui-icon-arrowthick-2-n-s"
+                                              rendered="{!IF(pageMode == 'sort', true, false)}">
+                            </apex:outputPanel>
+                            <div class="sequenceRoute">1.</div>
+                            <apex:outputPanel styleclass="editLink" rendered="{!IF(pageMode != 'sort', true, false)}">
+                                <div onclick="buildiFrame('{!r.rule.Id}','{!r.rule.Sequence__c}','SSSW Routing')">Edit</div>
+                            </apex:outputPanel>
+                            <apex:outputPanel styleclass="delLink" rendered="{!IF(pageMode != 'sort', true, false)}">
+                                <apex:commandLink onclick="if (!confirmDelete()) return false;" action="{!deleteRouting}" value="Delete" rerender="routeList" Oncomplete="sortRouting('Route');">
+                                    <apex:param name="delRouteNo" assignTo="{!delRouteNo}" value="{!r.rule.Sequence__c}" />
+                                </apex:commandLink>
+                            </apex:outputPanel>
+                            <div class="seqDetails">
+                                <table class="ssswList">
+                                    <tr>
+                                        <td class="queueName col1"><b>Queue:</b>{!r.queueName}</td>
+                                        <!-- <apex:outputPanel styleclass="editLink" id="statusActive"
+                                                          rendered="{!IF(r.rule.IsActive__c, true, false)}">
+                                            <td class="queueName col1"><b>Status:</b> Activated</td>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel styleclass="editLink" id="statusInactive"
+                                                          rendered="{!IF(r.rule.IsActive__c, false, true)}">
+                                            <td class="queueName col1"><b>Status:</b> Deactivated</td>
+                                        </apex:outputPanel> -->
+                                        <td class="col2">
+                                            <b>Description:</b> {!r.rule.Description__c}
+                                            <!-- only showing active, so, no point -->
+                                            <!--
+                                            <apex:outputPanel styleClass="table-outputPanel" rendered="{!r.rule.IsActive__c}">
+                                                <b>Active:</b> Yes
+                                            </apex:outputPanel>
+                                            <apex:outputPanel styleClass="table-outputPanel" rendered="{!IF(r.rule.IsActive__c, false, true)}">
+                                                <b>Active:</b> No
+                                            </apex:outputPanel>
+                                            -->
+                                            <div class="hideseq">
+                                                <apex:inputField value="{!r.rule.Sequence__c}"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Is New?:</b> {!r.rule.IsNew__c}</td>
+                                        <td class="col2"><b>Match On:</b> {!r.rule.Match_Rules_On__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Channel:</b> {!r.rule.Origin__c}</td>
+                                        <td class="col2"><b>Customer Type:</b> {!r.rule.CustomerQueueType__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Product Category:</b> {!r.rule.ProductCategory__c}</td>
+                                        <td class="col2"><b>Enquiry Type:</b> {!r.rule.CaseType__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Product Sub Category:</b> {!r.rule.ProductSubCategory__c}</td>
+                                        <td class="col2"><b>Enquiry Sub Type:</b> {!r.rule.EnquirySubType__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>High Level Complaint?:</b> {!r.rule.High_Level_Complaint_Flag__c}</td>
+                                        <td class="col2"><b>Customer Recovery?:</b> {!r.rule.Customer_Recovery_Flag__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Is Strategic?:</b> {!r.rule.IsStrategic__c}</td>
+                                        <td class="col2"><b>Social Post Tags:</b> {!r.rule.SocialPostTags__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Has Extra Cover?:</b> {!r.rule.HasExtraCover__c}</td>
+                                        <td class="col2"><b></b> </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </li>
+                    </apex:repeat>
+                </ul>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!rulesWithQueues.size == 0}">
+                <h6><b> No records to Display </b></h6>
+            </apex:outputPanel>
+            </div>
+        </apex:form>
+
+        <div id="dialog1" hidden="hidden">
+        </div>
+        <!-- <div id="dialog2" hidden="hidden">
+
+        </div> -->
+            <apex:form >
+            <div id="npsDiv">
+            <apex:outputPanel id="NPSList" >
+            <apex:commandButton value="Save SSSW NPS" action="{!saveNPS}"
+                                rendered="{!IF(pageMode == 'sort', true, false)}" rerender="sortButton,routeList,NPSList,EscalateList,DescriptionList" Oncomplete="sortRouting('Route');sortRouting('NPS');sortRouting('Escalate');sortRouting('Description');" />
+            <apex:commandButton value="Cancel" action="{!cancelSort}"
+                                rendered="{!IF(pageMode == 'sort', true, false)}" rerender="sortButton,routeList,NPSList,EscalateList,DescriptionList" Oncomplete="sortRouting('Route');sortRouting('NPS');sortRouting('Escalate');sortRouting('Description');" />
+            <!-- <apex:outputPanel rendered="{!IF(pageMode != 'sort', true, false)}">
+                <button type="button" onclick="buildNewiFrame('{!newSeqFromNPS}','NPS')">New NPS</button>
+            </apex:outputPanel>
+            <apex:commandButton value="Sort Routes/NPS" action="{!sortRoutings}" 
+                                rendered="{!IF(pageMode != 'sort', true, false)}"/> -->
+            <apex:outputPanel rendered="{!IF(pageMode != 'sort', true, false)}">
+                <script>
+                    $(function () {
+                        $("#sortableNPS").sortable("option", "disabled", true);
+                    });
+
+                </script>
+            </apex:outputPanel>
+            <apex:messages />
+            <apex:actionFunction name="rerenderNPS" action="{!refreshNPS}"  rerender="NPSList" Oncomplete="sortRouting('NPS');" />
+            <br/>
+            <br/>
+                <ul id="sortableNPS">
+                    <apex:repeat value="{!rulesForNPS}" var="r">
+                        <li class="ui-state-default">
+                            <apex:outputPanel styleClass="ui-icon ui-icon-arrowthick-2-n-s"
+                                              rendered="{!IF(pageMode == 'sort', true, false)}">
+                            </apex:outputPanel>
+                            <div class="sequenceNPS">1.</div>
+                            <apex:outputPanel styleclass="editLink" rendered="{!IF(pageMode != 'sort', true, false)}">
+                                <div onclick="buildiFrame('{!r.Id}','{!r.Sequence__c}','SSSW NPS')">Edit</div>
+                            </apex:outputPanel>
+                            <apex:outputPanel styleclass="delLink" rendered="{!IF(pageMode != 'sort', true, false)}">
+                                <apex:commandLink onclick="if (!confirmDelete()) return false;" action="{!deleteNPS}" value="Delete" rerender="NPSList" Oncomplete="sortRouting('NPS');">
+                                    <apex:param name="delRouteNo" assignTo="{!delRouteNo}" value="{!r.Sequence__c}"/>
+                                </apex:commandLink>
+                            </apex:outputPanel>
+                            <div class="seqDetails">
+                                <table class="ssswList">
+                                    <tr>
+                                        <td class="queueName col1"><b>NPS Criteria:</b>{!r.NPS_criteria__c}</td>
+                                        <!-- <apex:outputPanel styleclass="editLink"
+                                                          rendered="{!IF(r.IsActive__c, true, false)}">
+                                            <td class="queueName col1"><b>Status:</b> Activated</td>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel styleclass="editLink"
+                                                          rendered="{!IF(r.IsActive__c, false, true)}">
+                                            <td class="queueName col1"><b>Status:</b> Deactivated</td>
+                                        </apex:outputPanel> -->
+                                        <td class="col2">
+                                            <apex:outputPanel styleClass="table-outputPanel" rendered="{!r.IsActive__c}">
+                                                <b>Active:</b> Yes
+                                            </apex:outputPanel>
+                                            <apex:outputPanel styleClass="table-outputPanel" rendered="{!IF(r.IsActive__c, false, true)}">
+                                                <b>Active:</b> No
+                                            </apex:outputPanel>
+                                            <div class="hideseq">
+                                                <apex:inputField value="{!r.Sequence__c}"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Is New?:</b> {!r.IsNew__c}</td>
+                                        <td class="col2"><b>Match On:</b> {!r.Match_Rules_On__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Channel:</b> {!r.Origin__c}</td>
+                                        <td class="col2"><b>Customer Type:</b> {!r.CustomerQueueType__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Product Category:</b> {!r.ProductCategory__c}</td>
+                                        <td class="col2"><b>Enquiry Type:</b> {!r.CaseType__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Product Sub Category:</b> {!r.ProductSubCategory__c}</td>
+                                        <td class="col2"><b>Enquiry Sub Type:</b> {!r.EnquirySubType__c}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </li>
+                    </apex:repeat>
+                </ul>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!rulesForNPS.size == 0}">
+                <h6><b> No records to Display </b></h6>
+            </apex:outputPanel>
+            </div>
+            </apex:form>
+
+
+            <apex:form >
+            <div id="escalateDiv">
+            <apex:outputPanel id="EscalateList" >
+            <apex:commandButton value="Save SSSW Escalation" action="{!saveEscalate}"
+                                rendered="{!IF(pageMode == 'sort', true, false)}" rerender="sortButton,routeList,NPSList,EscalateList,DescriptionList" Oncomplete="sortRouting('Route');sortRouting('NPS');sortRouting('Escalate');sortRouting('Description');" />
+            <apex:commandButton value="Cancel" action="{!cancelSort}"
+                                rendered="{!IF(pageMode == 'sort', true, false)}" rerender="sortButton,routeList,NPSList,EscalateList,DescriptionList" Oncomplete="sortRouting('Route');sortRouting('NPS');sortRouting('Escalate');sortRouting('Description');" />
+            <!-- <apex:outputPanel rendered="{!IF(pageMode != 'sort', true, false)}">
+                <button type="button" onclick="buildNewiFrame('{!newSeqFromEscalate}')">New Escalation</button>
+            </apex:outputPanel> -->
+            <!-- <apex:commandButton value="Sort Routes/NPS" action="{!sortRoutings}" 
+                                rendered="{!IF(pageMode != 'sort', true, false)}"/> -->
+            <apex:outputPanel rendered="{!IF(pageMode != 'sort', true, false)}">
+                <script>
+                    $(function () {
+                        $("#sortableEscalate").sortable("option", "disabled", true);
+                    });
+
+                </script>
+            </apex:outputPanel>
+            <apex:messages />
+            <apex:actionFunction name="rerenderEscalate" action="{!refreshEscalate}" rerender="EscalateList" Oncomplete="sortRouting('Escalate');" />
+            <br/>
+            <br/>
+                <ul id="sortableEscalate">
+                    <apex:repeat value="{!rulesForEscalate}" var="r">
+                        <li class="ui-state-default">
+                            <apex:outputPanel styleClass="ui-icon ui-icon-arrowthick-2-n-s"
+                                              rendered="{!IF(pageMode == 'sort', true, false)}">
+                            </apex:outputPanel>
+                            <div class="sequenceEscalate">1.</div>
+                            <apex:outputPanel styleclass="editLink" rendered="{!IF(pageMode != 'sort', true, false)}">
+                                <div onclick="buildiFrame('{!r.Id}','{!r.Sequence__c}','SSSW Escalation')">Edit</div>
+                            </apex:outputPanel>
+                            <apex:outputPanel styleclass="delLink" rendered="{!IF(pageMode != 'sort', true, false)}">
+                                <apex:commandLink onclick="if (!confirmDelete()) return false;" action="{!deleteEscalate}" value="Delete" rerender="EscalateList" Oncomplete="sortRouting('Escalate');">
+                                    <apex:param name="delRouteNo" assignTo="{!delRouteNo}" value="{!r.Sequence__c}"/>
+                                </apex:commandLink>
+                            </apex:outputPanel>
+                            <div class="seqDetails">
+                                <table class="ssswList">
+                                    <tr>
+                                        <td class="queueName col1"><b>Auto Escalate:</b>{!IF(r.AutoEscalate__c, 'True', 'False')}</td>
+                                        <!-- <apex:outputPanel styleclass="editLink"
+                                                          rendered="{!IF(r.IsActive__c, true, false)}">
+                                            <td class="queueName col1"><b>Status:</b> Activated</td>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel styleclass="editLink"
+                                                          rendered="{!IF(r.IsActive__c, false, true)}">
+                                            <td class="queueName col1"><b>Status:</b> Deactivated</td>
+                                        </apex:outputPanel> -->
+                                        <td class="col2">
+                                            <apex:outputPanel styleClass="table-outputPanel" rendered="{!r.IsActive__c}">
+                                                <b>Active:</b> Yes
+                                            </apex:outputPanel>
+                                            <apex:outputPanel styleClass="table-outputPanel" rendered="{!IF(r.IsActive__c, false, true)}">
+                                                <b>Active:</b> No
+                                            </apex:outputPanel>
+                                            <div class="hideseq">
+                                                <apex:inputField value="{!r.Sequence__c}"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                         <td class="col1"><b>Is New?:</b> {!r.IsNew__c}</td>
+                                        <td class="col2"><b>Match On:</b> {!r.Match_Rules_On__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Channel:</b> {!r.Origin__c}</td>
+                                        <td class="col2"><b>Customer Type:</b> {!r.CustomerQueueType__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Product Category:</b> {!r.ProductCategory__c}</td>
+                                        <td class="col2"><b>Enquiry Type:</b> {!r.CaseType__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Product Sub Category:</b> {!r.ProductSubCategory__c}</td>
+                                        <td class="col2"><b>Enquiry Sub Type:</b> {!r.EnquirySubType__c}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </li>
+                    </apex:repeat>
+                </ul>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!rulesForEscalate.size == 0}">
+                <h6><b> No records to Display </b></h6>
+            </apex:outputPanel>
+            </div>
+            </apex:form>
+
+        <apex:form >
+            <div id="descriptionDiv">
+            <apex:outputPanel id="DescriptionList" >
+            <apex:commandButton value="Save SSSW Description" action="{!saveDescription}"
+                                rendered="{!IF(pageMode == 'sort', true, false)}" rerender="sortButton,routeList,NPSList,EscalateList,DescriptionList" Oncomplete="sortRouting('Route');sortRouting('NPS');sortRouting('Escalate');sortRouting('Description');" />
+            <apex:commandButton value="Cancel" action="{!cancelSort}"
+                                rendered="{!IF(pageMode == 'sort', true, false)}" rerender="sortButton,routeList,NPSList,EscalateList,DescriptionList" Oncomplete="sortRouting('Route');sortRouting('NPS');sortRouting('Escalate');sortRouting('Description');" />
+            <!-- <apex:outputPanel rendered="{!IF(pageMode != 'sort', true, false)}">
+                <button type="button" onclick="buildNewiFrame('{!newSeqFromEscalate}')">New Escalation</button>
+            </apex:outputPanel> -->
+            <!-- <apex:commandButton value="Sort Routes/NPS" action="{!sortRoutings}" 
+                                rendered="{!IF(pageMode != 'sort', true, false)}"/> -->
+            <apex:outputPanel rendered="{!IF(pageMode != 'sort', true, false)}">
+                <script>
+                    $(function () {
+                        $("#sortableDescription").sortable("option", "disabled", true);
+                    });
+
+                </script>
+            </apex:outputPanel>
+            <apex:messages />
+            <apex:actionFunction name="rerenderDescription" action="{!refreshDescription}" rerender="DescriptionList" Oncomplete="sortRouting('Description');" />
+            <br/>
+            <br/>
+                <ul id="sortableDescription">
+                    <apex:repeat value="{!rulesForDescription}" var="r">
+                        <li class="ui-state-default">
+                            <apex:outputPanel styleClass="ui-icon ui-icon-arrowthick-2-n-s"
+                                              rendered="{!IF(pageMode == 'sort', true, false)}">
+                            </apex:outputPanel>
+                            <div class="sequenceDescription">1.</div>
+                            <apex:outputPanel styleclass="editLink" rendered="{!IF(pageMode != 'sort', true, false)}">
+                                <div onclick="buildiFrame('{!r.Id}','{!r.Sequence__c}','SSSW Description')">Edit</div>
+                            </apex:outputPanel>
+                            <apex:outputPanel styleclass="delLink" rendered="{!IF(pageMode != 'sort', true, false)}">
+                                <apex:commandLink onclick="if (!confirmDelete()) return false;" action="{!deleteDescription}" value="Delete" rerender="DescriptionList" Oncomplete="sortRouting('Description');">
+                                    <apex:param name="delRouteNo" assignTo="{!delRouteNo}" value="{!r.Sequence__c}"/>
+                                </apex:commandLink>
+                            </apex:outputPanel>
+                            <div class="seqDetails">
+                                <table class="ssswList">
+                                    <tr>
+                                        <td class="queueName col1"><b>Case Description:</b>{!IF(LEN(r.DefaultCaseDetails__c) > 100, LEFT(r.DefaultCaseDetails__c, 97) + '...', r.DefaultCaseDetails__c)}</td>
+                                        <!-- <apex:outputPanel styleclass="editLink"
+                                                          rendered="{!IF(r.IsActive__c, true, false)}">
+                                            <td class="queueName col1"><b>Status:</b> Activated</td>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel styleclass="editLink"
+                                                          rendered="{!IF(r.IsActive__c, false, true)}">
+                                            <td class="queueName col1"><b>Status:</b> Deactivated</td>
+                                        </apex:outputPanel> -->
+                                        <td class="col2">
+                                            <apex:outputPanel styleClass="table-outputPanel" rendered="{!r.IsActive__c}">
+                                                <b>Active:</b> Yes
+                                            </apex:outputPanel>
+                                            <apex:outputPanel styleClass="table-outputPanel" rendered="{!IF(r.IsActive__c, false, true)}">
+                                                <b>Active:</b> No
+                                            </apex:outputPanel>
+                                            <div class="hideseq">
+                                                <apex:inputField value="{!r.Sequence__c}"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Is New?:</b> {!r.IsNew__c}</td>
+                                        <td class="col2"><b>Match On:</b> {!r.Match_Rules_On__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Channel:</b> {!r.Origin__c}</td>
+                                        <td class="col2"><b>Customer Type:</b> {!r.CustomerQueueType__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Product Category:</b> {!r.ProductCategory__c}</td>
+                                        <td class="col2"><b>Enquiry Type:</b> {!r.CaseType__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Product Sub Category:</b> {!r.ProductSubCategory__c}</td>
+                                        <td class="col2"><b>Enquiry Sub Type:</b> {!r.EnquirySubType__c}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </li>
+                    </apex:repeat>
+                </ul>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!rulesForDescription.size == 0}">
+                <h6><b> No records to Display </b></h6>
+            </apex:outputPanel>
+            </div>
+            </apex:form>
+            </apex:pageblock>
+</apex:page>

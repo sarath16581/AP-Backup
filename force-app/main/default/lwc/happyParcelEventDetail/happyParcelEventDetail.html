@@ -1,0 +1,19 @@
+<!--
+    2021-10-02 mathew.jose@auspost.com.au Created
+-->
+<template>
+	<div class={variant}>
+		<c-happy-parcel-card title={heading} variant="no-flex" icon-name="utility:expand_alt" loading={waiting} button-icon="utility:close" button-variant="bare" oncardbuttonclick={closeOverflowModal}>
+			<div>
+				<div class="slds-grid slds-wrap">
+					<template for:each={fieldsIterator} for:item="field">
+						<div class="slds-col slds-m-bottom_xx-small slds-size_1-of-1 slds-small-size_1-of-2 slds-large-size_4-of-12 animated fadeIn" key={field.fieldName} style={field.animationCss}>
+							<c-formatted-text-label label={field.label} type={field.fieldType} value={field.fieldValue} url={field.url} url-target={field.urlTarget} help-text={field.fieldHelpText}>
+							</c-formatted-text-label>
+						</div>
+					</template>
+				</div>
+			</div>
+		</c-happy-parcel-card>
+	</div>
+</template>

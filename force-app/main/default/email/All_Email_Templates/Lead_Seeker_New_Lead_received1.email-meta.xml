@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>The trigger for this email is any new lead that is submitted under the program will get this initial email</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Lead Seeker - New Lead received</name>
+    <style>none</style>
+    <subject>Seeker Rewards Program – New lead received! {!Lead.Lead_Number__c} for {!Lead.Company}</subject>
+    <textOnly>Dear {!Lead.First_Name_Formula__c},
+
+Thank you for submitting a new business lead.
+
+Your lead is currently being followed-up by our hard working sales team and we’ll keep you informed of its progress. If it reaches the ‘opportunity stage’ of the sales process, you’ll be awarded points!
+
+Don’t forget, the more information you supply with your leads (contact names and details, information about the company, why you think it’s a potential sales opportunity, etc.) the easier it is for our sales team to quickly progress it and the better their chance of success (which means more points for you!).
+
+Thanks again and keep those great leads coming.
+
+Regards,
+The Seeker Team
+
+
+
+Terms &amp; conditions | Privacy policy | Security
+
+
+
+
+
+Contact us: If this email has been incorrectly sent to you or the information contained within isn’t correct, please let us know at seekerrewards@auspost.com.au
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

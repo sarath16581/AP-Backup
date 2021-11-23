@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Redbank_Bookings_TODAY</fullName>
+    <columns>Route_Lookup__c</columns>
+    <columns>RECORDTYPE</columns>
+    <columns>Location__c</columns>
+    <columns>Street__c</columns>
+    <columns>City__c</columns>
+    <columns>Booking_Comments__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Effective_Date__c</columns>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>Red</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>notEqual</operation>
+        <value>PUD_Booking__c.Other</value>
+    </filters>
+    <filters>
+        <field>Effective_Date__c</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>Redbank  Bookings - TODAY</label>
+</ListView>

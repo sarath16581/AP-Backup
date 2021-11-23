@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pecentage_of_Spend_Primary_Competitor__c</fullName>
+    <description>Percentage of Primary Competitor spend against Total Spend</description>
+    <externalId>false</externalId>
+    <formula>ABS(Primary_Competitor_Spend_FY__c  /    Total_estimated_spend_on_this_Service__c  )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Percentage of Primary Competitor spend against Total Spend</inlineHelpText>
+    <label>% of Spend (Primary)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

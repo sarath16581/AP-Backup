@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Melbourne_LHR_Roster_Next_Fortnight</fullName>
+    <columns>NAME</columns>
+    <columns>Duty_Board__c</columns>
+    <columns>Service_Resource__c</columns>
+    <columns>Active_Route_Days__c</columns>
+    <columns>Start_Week__c</columns>
+    <columns>Start_Date__c</columns>
+    <columns>End_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Start_Date__c</field>
+        <operation>lessOrEqual</operation>
+        <value>NEXT_N_DAYS:14</value>
+    </filters>
+    <filters>
+        <field>End_Date__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>TODAY</value>
+    </filters>
+    <filters>
+        <field>Duty_Service_Territory__c</field>
+        <operation>equals</operation>
+        <value>Melbourne LHR</value>
+    </filters>
+    <label>Melbourne LHR Roster - Next Fortnight</label>
+    <language>en_US</language>
+</ListView>

@@ -1,0 +1,30 @@
+/**
+ * Created by disha.kariya on 4/05/2021.
+ */
+ 
+.toggle-locked {
+    pointer-events: none;
+}
+
+.slds-scope .slds-card__body{
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.slds-scope .slds-notify_toast, .slds-scope .slds-notify--toast {
+    padding: 0px
+}
+
+.bottom_bordered{
+    border-top:none;
+}
+
+.no_border {
+    border-top:none;
+    border-bottom:none;
+}
+
+.slds-card {
+    border-radius: 2px;
+}

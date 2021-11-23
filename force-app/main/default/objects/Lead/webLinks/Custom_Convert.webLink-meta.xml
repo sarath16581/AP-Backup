@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Custom_Convert</fullName>
+    <availability>online</availability>
+    <description>STP: Created to retain existing custom lead conversion functionality.</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Convert</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/apex/LeadConvert2?Id={!Lead.Id}</url>
+</WebLink>

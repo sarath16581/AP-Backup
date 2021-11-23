@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Create_Rebate_Contract__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( IsAPMSApplication__c , null, 
+
+HYPERLINK(&quot;/apex/Apttus__OpportunityAgreement?id=&quot; &amp;Id&amp;&quot;&amp;recordTypeId=&quot;+ $Label.APT_RebateRecordTypeID ,IMAGE(&quot;/resource/APT_Create_Rebate_Contract&quot;, &quot;Create Rebate Contract&quot;),&quot;_self&quot;))</formula>
+    <label>Create Rebate Contract</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

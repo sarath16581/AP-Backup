@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Company_Type__c</fullName>
+    <description>Type of company, which may contain company&apos;s Trading Name or Legal Name.</description>
+    <externalId>false</externalId>
+    <label>Company Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Conveyancer</fullName>
+                <default>false</default>
+                <label>Conveyancer</label>
+            </value>
+            <value>
+                <fullName>Lawyer</fullName>
+                <default>false</default>
+                <label>Lawyer</label>
+            </value>
+            <value>
+                <fullName>Mortgagee/Mortgage Broker</fullName>
+                <default>false</default>
+                <label>Mortgagee/Mortgage Broker</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

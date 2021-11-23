@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MerchantKeyDriverstoDecline__c</fullName>
+    <description>Factors that influenced customer decision to decline.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Factors that influenced customer decision to decline</inlineHelpText>
+    <label>Merchant Key Drivers to Decline</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>MerchantadoptionofCampaign__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Price Uncompetitve</fullName>
+                <default>false</default>
+                <label>Price Uncompetitve</label>
+            </value>
+            <value>
+                <fullName>Unsatisfactory Service Levels</fullName>
+                <default>false</default>
+                <label>Unsatisfactory Service Levels</label>
+            </value>
+            <value>
+                <fullName>Timeframe to Implement</fullName>
+                <default>false</default>
+                <label>Timeframe to Implement</label>
+            </value>
+            <value>
+                <fullName>Merchant Cost to Implement</fullName>
+                <default>false</default>
+                <label>Merchant Cost to Implement</label>
+            </value>
+            <value>
+                <fullName>Operational Concerns/Limitations</fullName>
+                <default>false</default>
+                <label>Operational Concerns/Limitations</label>
+            </value>
+            <value>
+                <fullName>IT Complexity</fullName>
+                <default>false</default>
+                <label>IT Complexity</label>
+            </value>
+            <value>
+                <fullName>Using a Competitor Already</fullName>
+                <default>false</default>
+                <label>Using a Competitor Already</label>
+            </value>
+            <value>
+                <fullName>Don’t see value in offer</fullName>
+                <default>false</default>
+                <label>Don’t see value in offer</label>
+            </value>
+            <value>
+                <fullName>Nil - Merchant has Accepted</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Nil - Merchant has Accepted</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>Price Uncompetitve</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>Unsatisfactory Service Levels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>Timeframe to Implement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>Merchant Cost to Implement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>Operational Concerns/Limitations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>IT Complexity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>Using a Competitor Already</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>No</controllingFieldValue>
+            <valueName>Don’t see value in offer</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

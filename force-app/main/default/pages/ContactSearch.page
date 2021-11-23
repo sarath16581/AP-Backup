@@ -1,0 +1,22 @@
+<!--
+	2017-09-17 nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
+-->
+<apex:page >
+    <style>
+        div.scroll {
+            height: 550px;
+            overflow: auto;
+        }
+    </style>
+
+    <apex:form >
+
+		<c:ScriptLoader jsLibraries="jquery,jqueryui,jquery.layout,ssswconsole,interaction,integration,bootstrap"
+						cssLibraries="jqueryui,bootstrap,jquery.layout,ssswconsole" />
+
+        <div class="scroll">
+        <c:SearchContactComponent />
+        </div>
+
+    </apex:form>
+</apex:page>

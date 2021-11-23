@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ECLM_Review_Date_Changed__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>ECLM field, turns to true if Review Date is changed from previous value.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>ECLM field, turns to true if Review Date is changed from previous value.</inlineHelpText>
+    <label>Review Date Changed</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,110 @@
+<!-- 
+ 	2017-09-08 nathan.franklin@auspost.com.au Manages the script loading process for all GlobalAssets
+ 	2018-05-15 Hasantha.Liyanage@auspost.com.au added jsresizemonitor
+ 	2018-05-23 nathan.franklin@auspost.com.au added canvaspublisher
+ 	2020-04-10 nathan.franklin@auspost.com.au added slds styles and corsmessenger for iframe communication
+ -->
+<apex:component id="ScriptLoader" controller="ScriptLoaderController">
+	<apex:attribute name="jslibraries" description="Comma separated list of libraries that should be loaded." type="String" required="false" assignTo="{!jsLibs}" />
+	<apex:attribute name="csslibraries" description="Comma separated list of libraries that should be loaded." type="String" required="false" assignTo="{!cssLibs}" />
+
+	<apex:repeat value="{!cssLibrariesToLoad}" var="key">
+		<apex:variable var="cssjqueryui" value="" rendered="{!(key == 'jqueryui')}">
+			<apex:stylesheet value="{!URLFOR($Resource.GlobalAssets, '/css/jqueryui/1.10.4/smoothness/jquery-ui.min.css')}" />
+		</apex:variable>
+		<apex:variable var="cssjquerylayout" value="" rendered="{!(key == 'jquery.layout')}">
+			<apex:stylesheet value="{!URLFOR($Resource.GlobalAssets, '/css/jquery.layout/1.3.0/layout-default.css')}" />
+		</apex:variable>
+		<apex:variable var="cssssswconsole" value="" rendered="{!(key == 'ssswconsole')}">
+			<apex:stylesheet value="{!$Resource.SSSWCSS}" />
+		</apex:variable>
+		<apex:variable var="cssbootstrap" value="" rendered="{!(key == 'bootstrap')}">
+			<apex:stylesheet value="{!URLFOR($Resource.GlobalAssets, '/css/bootstrap/3.3.7/bootstrap.min.css')}" />
+		</apex:variable>
+		<apex:variable var="cssloadingspinnercomponent" value="" rendered="{!(key == 'ssswloadingspinner')}">
+			<style type="text/css">
+				.WaitingHolder {
+					background-color: white;
+					z-index: 9999;
+					padding: 19px 0px 19px 24px;
+					position: absolute;
+					border-radius: 6px;
+					width: 119px;
+					-moz-box-shadow: 3px 3px 5px #888888;
+					-webkit-box-shadow: 3px 3px 5px #888888;
+					box-shadow: 3px 3px 5px #888888;
+				}
+
+				.WaitingBackground {
+					background-color: black;
+					opacity: 0.20;
+					filter: alpha(opacity = 20);
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					top: 0;
+					left: 0;
+					z-index: 9998;
+				}
+
+				.WaitingDescription {
+					float: left;
+					height: 24px;
+					line-height: 24px;
+					margin-left: 8px;
+				}
+
+				.WaitingImage {
+					float: left;
+					margin-left: 20px;
+				}
+			</style>
+		</apex:variable>
+	</apex:repeat>
+
+	<apex:repeat value="{!jsLibrariesToLoad}" var="key">
+		<apex:variable var="jsjquery" value="" rendered="{!(key == 'jquery')}">
+			<apex:includeScript value="{!URLFOR($Resource.GlobalAssets, '/js/jquery/1.12.4/jquery.min.js')}" />
+		</apex:variable>
+		<apex:variable var="jsjqueryui" value="" rendered="{!(key == 'jqueryui')}">
+			<apex:includeScript value="{!URLFOR($Resource.GlobalAssets, '/js/jqueryui/1.10.4/jquery-ui.min.js')}" />
+		</apex:variable>
+		<apex:variable var="jsjquerylayout" value="" rendered="{!(key == 'jquery.layout')}">
+			<apex:includeScript value="{!URLFOR($Resource.GlobalAssets, '/js/jquery.layout/1.3.0/jquery.layout.min.js')}" />
+		</apex:variable>
+		<apex:variable var="jsjquerycookie" value="" rendered="{!(key == 'jquery.cookie')}">
+			<apex:includeScript value="{!$Resource.jQueryCookie}" />
+		</apex:variable>
+		<apex:variable var="jsbootstrap" value="" rendered="{!(key == 'bootstrap')}">
+			<apex:includeScript value="{!URLFOR($Resource.GlobalAssets, '/js/bootstrap/3.3.7/bootstrap.min.js')}" />
+		</apex:variable>
+		<apex:variable var="jsjson" value="" rendered="{!(key == 'jquery.json')}">
+			<apex:includeScript value="{!$Resource.jQueryJSON}" />
+		</apex:variable>
+		<apex:variable var="jsssswconsole" value="" rendered="{!(key == 'ssswconsole')}">
+			<apex:includeScript value="{!$Resource.SSSWJS}" />
+		</apex:variable>
+		<apex:variable var="jsinteraction" value="" rendered="{!(key == 'interaction')}">
+			<apex:includeScript value="/support/api/40.0/interaction.js" />
+		</apex:variable>
+		<apex:variable var="jsintegration" value="" rendered="{!(key == 'integration')}">
+			<apex:includeScript value="/support/console/40.0/integration.js" />
+		</apex:variable>
+		<apex:variable var="jslocalstate" value="" rendered="{!(key == 'localstate')}">
+			<apex:includeScript value="{!URLFOR($Resource.GlobalAssets, '/js/localState.js')}" />
+		</apex:variable>
+		<apex:variable var="jsWebAnalyser" value="" rendered="{!(key == 'webanalyser')}">
+			<apex:includeScript value="{!$Resource.Web_Analyser}" />
+		</apex:variable>
+        <apex:variable var="jsresizemonitor" value="" rendered="{!(key == 'resizemonitor')}">
+            <apex:includeScript value="{!URLFOR($Resource.GlobalAssets, '/js/lightning/resizeMonitor.js')}" />
+        </apex:variable>
+		<apex:variable var="jscorsmessenger" value="" rendered="{!(key == 'corsmessenger')}">
+			<apex:includeScript value="{!URLFOR($Resource.GlobalAssets, '/js/lightning/messenger2.js')}" />
+		</apex:variable>
+		<apex:variable var="canvaspublisher" value="" rendered="{!(key == 'canvaspublisher')}">
+			<apex:includeScript value="/canvas/sdk/js/publisher.js" />
+		</apex:variable>
+	</apex:repeat>
+
+</apex:component>

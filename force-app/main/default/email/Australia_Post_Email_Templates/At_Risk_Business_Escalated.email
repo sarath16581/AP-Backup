@@ -1,0 +1,13 @@
+Dear {!At_Risk_Business__c.Escalated_To__c},
+ 
+{!At_Risk_Business__c.Legal_Entity_Name__c} has been identified as an At Risk Business and your assistance has been identified in the Mitigation Plan.
+ 
+Escalation Comments: {!At_Risk_Business__c.Escalation_Comments__c}
+
+Mitigation Plan: {!At_Risk_Business__c.Mitigation_Plan__c}
+
+Click on the link to view the At Risk Business record:
+
+{!At_Risk_Business__c.Link}
+
+For further information, contact the BAR owner: {!At_Risk_Business__c.Key_Sales_Owner__c}

@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales_Team__c</fullName>
+    <description>The Sales team that the user belongs to</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The Sales team that the user belongs to</inlineHelpText>
+    <label>Sales Team</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Business Hubs</fullName>
+                <default>false</default>
+                <label>Business Hubs</label>
+            </value>
+            <value>
+                <fullName>Business Sales NSW 1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Business Sales NSW 1</label>
+            </value>
+            <value>
+                <fullName>Business Sales NSW 2</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Business Sales NSW 2</label>
+            </value>
+            <value>
+                <fullName>Business Sales NSW 3</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Business Sales NSW 3</label>
+            </value>
+            <value>
+                <fullName>Business Sales NSW 4</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Business Sales NSW 4</label>
+            </value>
+            <value>
+                <fullName>Business Sales QLD 1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Business Sales QLD 1</label>
+            </value>
+            <value>
+                <fullName>Business Sales QLD 2</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Business Sales QLD 2</label>
+            </value>
+            <value>
+                <fullName>Business Sales SA/NT</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Business Sales SA/NT</label>
+            </value>
+            <value>
+                <fullName>Business Sales VIC 1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Business Sales VIC 1</label>
+            </value>
+            <value>
+                <fullName>Business Sales VIC 2</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Business Sales VIC 2</label>
+            </value>
+            <value>
+                <fullName>Business Sales VIC 3</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Business Sales VIC 3</label>
+            </value>
+            <value>
+                <fullName>Business Sales VIC 4</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Business Sales VIC 4</label>
+            </value>
+            <value>
+                <fullName>Business Sales WA</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Business Sales WA</label>
+            </value>
+            <value>
+                <fullName>Customer Acquisition NSW</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Customer Acquisition NSW</label>
+            </value>
+            <value>
+                <fullName>Customer Acquisition VIC</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Customer Acquisition VIC</label>
+            </value>
+            <value>
+                <fullName>eCommerce Business Development</fullName>
+                <default>false</default>
+                <label>eCommerce Business Development</label>
+            </value>
+            <value>
+                <fullName>Enterprise</fullName>
+                <default>false</default>
+                <label>Enterprise</label>
+            </value>
+            <value>
+                <fullName>Enterprise Financial Services</fullName>
+                <default>false</default>
+                <label>Enterprise Financial Services</label>
+            </value>
+            <value>
+                <fullName>Enterprise Key Accounts Inside Sales</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Enterprise Key Accounts Inside Sales</label>
+            </value>
+            <value>
+                <fullName>Enterprise Key Accounts North</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Enterprise Key Accounts North</label>
+            </value>
+            <value>
+                <fullName>Enterprise Key Accounts South</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Enterprise Key Accounts South</label>
+            </value>
+            <value>
+                <fullName>Enterprise Letters and Mail Inside Sales</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Enterprise Letters and Mail Inside Sales</label>
+            </value>
+            <value>
+                <fullName>Federal Government</fullName>
+                <default>false</default>
+                <label>Federal Government</label>
+            </value>
+            <value>
+                <fullName>Federal Government Inside Sales</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Federal Government Inside Sales</label>
+            </value>
+            <value>
+                <fullName>Federal Government Regional NSW/WA Inside Sales</fullName>
+                <default>false</default>
+                <label>Federal Government Regional NSW/WA Inside Sales</label>
+            </value>
+            <value>
+                <fullName>Financial Services NSW</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Financial Services NSW</label>
+            </value>
+            <value>
+                <fullName>Financial Services VIC/QLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Financial Services VIC/QLD</label>
+            </value>
+            <value>
+                <fullName>Holding Sales Team</fullName>
+                <default>false</default>
+                <label>Holding Sales Team</label>
+            </value>
+            <value>
+                <fullName>Inside Sales Acquisition</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Inside Sales Acquisition</label>
+            </value>
+            <value>
+                <fullName>Inside Sales North 1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Inside Sales North 1</label>
+            </value>
+            <value>
+                <fullName>Inside Sales North 2</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Inside Sales North 2</label>
+            </value>
+            <value>
+                <fullName>Inside Sales North 3</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Inside Sales North 3</label>
+            </value>
+            <value>
+                <fullName>Inside Sales NSW 1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Inside Sales NSW 1</label>
+            </value>
+            <value>
+                <fullName>Inside Sales NSW 2</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Inside Sales NSW 2</label>
+            </value>
+            <value>
+                <fullName>Inside Sales QLD 1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Inside Sales QLD 1</label>
+            </value>
+            <value>
+                <fullName>Inside Sales QLD 2</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Inside Sales QLD 2</label>
+            </value>
+            <value>
+                <fullName>Inside Sales QLD 3</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Inside Sales QLD 3</label>
+            </value>
+            <value>
+                <fullName>Inside Sales QLD 4</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Inside Sales QLD 4</label>
+            </value>
+            <value>
+                <fullName>Inside Sales South 1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Inside Sales South 1</label>
+            </value>
+            <value>
+                <fullName>Inside Sales South 2</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Inside Sales South 2</label>
+            </value>
+            <value>
+                <fullName>Inside Sales TSA</fullName>
+                <default>false</default>
+                <label>Inside Sales TSA</label>
+            </value>
+            <value>
+                <fullName>Inside Sales VIC 1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Inside Sales VIC 1</label>
+            </value>
+            <value>
+                <fullName>Inside Sales VIC 2</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Inside Sales VIC 2</label>
+            </value>
+            <value>
+                <fullName>Intermediaries</fullName>
+                <default>false</default>
+                <label>Intermediaries</label>
+            </value>
+            <value>
+                <fullName>Internal Accounts</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Internal Accounts</label>
+            </value>
+            <value>
+                <fullName>Internal Customers</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Internal Customers</label>
+            </value>
+            <value>
+                <fullName>Key &amp; Strategic North 1</fullName>
+                <default>false</default>
+                <label>Key &amp; Strategic North 1</label>
+            </value>
+            <value>
+                <fullName>Key &amp; Strategic North 2</fullName>
+                <default>false</default>
+                <label>Key &amp; Strategic North 2</label>
+            </value>
+            <value>
+                <fullName>Key &amp; Strategic South 1</fullName>
+                <default>false</default>
+                <label>Key &amp; Strategic South 1</label>
+            </value>
+            <value>
+                <fullName>Key &amp; Strategic South 2</fullName>
+                <default>false</default>
+                <label>Key &amp; Strategic South 2</label>
+            </value>
+            <value>
+                <fullName>Key Financial NSW</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Key Financial NSW</label>
+            </value>
+            <value>
+                <fullName>Key Financial VIC</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Key Financial VIC</label>
+            </value>
+            <value>
+                <fullName>Key Retail &amp; Healthcare VIC</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Key Retail &amp; Healthcare VIC</label>
+            </value>
+            <value>
+                <fullName>Key Retail NSW</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Key Retail NSW</label>
+            </value>
+            <value>
+                <fullName>Letters and Mail Sales</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Letters and Mail Sales</label>
+            </value>
+            <value>
+                <fullName>Medium Business NSW 1</fullName>
+                <default>false</default>
+                <label>Medium Business NSW 1</label>
+            </value>
+            <value>
+                <fullName>Medium Business NSW 2</fullName>
+                <default>false</default>
+                <label>Medium Business NSW 2</label>
+            </value>
+            <value>
+                <fullName>Medium Business NSW 3</fullName>
+                <default>false</default>
+                <label>Medium Business NSW 3</label>
+            </value>
+            <value>
+                <fullName>Medium Business NSW 4</fullName>
+                <default>false</default>
+                <label>Medium Business NSW 4</label>
+            </value>
+            <value>
+                <fullName>Medium Business QLD 1</fullName>
+                <default>false</default>
+                <label>Medium Business QLD 1</label>
+            </value>
+            <value>
+                <fullName>Medium Business QLD 2</fullName>
+                <default>false</default>
+                <label>Medium Business QLD 2</label>
+            </value>
+            <value>
+                <fullName>Medium Business SA/NT</fullName>
+                <default>false</default>
+                <label>Medium Business SA/NT</label>
+            </value>
+            <value>
+                <fullName>Medium Business VIC 1</fullName>
+                <default>false</default>
+                <label>Medium Business VIC 1</label>
+            </value>
+            <value>
+                <fullName>Medium Business VIC 2</fullName>
+                <default>false</default>
+                <label>Medium Business VIC 2</label>
+            </value>
+            <value>
+                <fullName>Medium Business VIC 3</fullName>
+                <default>false</default>
+                <label>Medium Business VIC 3</label>
+            </value>
+            <value>
+                <fullName>Medium Business VIC 4</fullName>
+                <default>false</default>
+                <label>Medium Business VIC 4</label>
+            </value>
+            <value>
+                <fullName>Medium Business WA</fullName>
+                <default>false</default>
+                <label>Medium Business WA</label>
+            </value>
+            <value>
+                <fullName>Parcel Key Accounts NSW</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Parcel Key Accounts NSW</label>
+            </value>
+            <value>
+                <fullName>Parcel Key Accounts QLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Parcel Key Accounts QLD</label>
+            </value>
+            <value>
+                <fullName>Parcel Key Accounts VIC</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Parcel Key Accounts VIC</label>
+            </value>
+            <value>
+                <fullName>Parcel Partner Sales</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Parcel Partner Sales</label>
+            </value>
+            <value>
+                <fullName>Political Parties and MPs NSW/QLD</fullName>
+                <default>false</default>
+                <label>Political Parties and MPs NSW/QLD</label>
+            </value>
+            <value>
+                <fullName>Political Parties and MPs VIC/TAS</fullName>
+                <default>false</default>
+                <label>Political Parties and MPs VIC/TAS</label>
+            </value>
+            <value>
+                <fullName>Political Parties and MPs WA/SA/NT</fullName>
+                <default>false</default>
+                <label>Political Parties and MPs WA/SA/NT</label>
+            </value>
+            <value>
+                <fullName>Small Business NSW 1</fullName>
+                <default>false</default>
+                <label>Small Business NSW 1</label>
+            </value>
+            <value>
+                <fullName>Small Business NSW 2</fullName>
+                <default>false</default>
+                <label>Small Business NSW 2</label>
+            </value>
+            <value>
+                <fullName>Small Business NSW 3</fullName>
+                <default>false</default>
+                <label>Small Business NSW 3</label>
+            </value>
+            <value>
+                <fullName>Small Business QLD 1</fullName>
+                <default>false</default>
+                <label>Small Business QLD 1</label>
+            </value>
+            <value>
+                <fullName>Small Business QLD 2</fullName>
+                <default>false</default>
+                <label>Small Business QLD 2</label>
+            </value>
+            <value>
+                <fullName>Small Business SA/NT/WA</fullName>
+                <default>false</default>
+                <label>Small Business SA/NT/WA</label>
+            </value>
+            <value>
+                <fullName>Small Business VIC 1</fullName>
+                <default>false</default>
+                <label>Small Business VIC 1</label>
+            </value>
+            <value>
+                <fullName>Small Business VIC 2</fullName>
+                <default>false</default>
+                <label>Small Business VIC 2</label>
+            </value>
+            <value>
+                <fullName>State &amp; Local Government NSW</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>State &amp; Local Government NSW</label>
+            </value>
+            <value>
+                <fullName>State &amp; Local Government NSW/QLD</fullName>
+                <default>false</default>
+                <label>State &amp; Local Government NSW/QLD</label>
+            </value>
+            <value>
+                <fullName>State &amp; Local Government NSW/QLD Inside Sales</fullName>
+                <default>false</default>
+                <label>State &amp; Local Government NSW/QLD Inside Sales</label>
+            </value>
+            <value>
+                <fullName>State &amp; Local Government QLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>State &amp; Local Government QLD</label>
+            </value>
+            <value>
+                <fullName>State &amp; Local Government SA</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>State &amp; Local Government SA</label>
+            </value>
+            <value>
+                <fullName>State &amp; Local Government VIC/TAS</fullName>
+                <default>false</default>
+                <label>State &amp; Local Government VIC/TAS</label>
+            </value>
+            <value>
+                <fullName>State &amp; Local Government VIC/TAS/SA/NT Inside Sales</fullName>
+                <default>false</default>
+                <label>State &amp; Local Government VIC/TAS/SA/NT Inside Sales</label>
+            </value>
+            <value>
+                <fullName>State &amp; Local Government VIC/TAS Inside  Sales</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>State &amp; Local Government VIC/TAS Inside  Sales</label>
+            </value>
+            <value>
+                <fullName>State &amp; Local Government WA/NT</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>State &amp; Local Government WA/NT</label>
+            </value>
+            <value>
+                <fullName>State &amp; Local Government WA/SA/NT</fullName>
+                <default>false</default>
+                <label>State &amp; Local Government WA/SA/NT</label>
+            </value>
+            <value>
+                <fullName>State &amp; Local Government WA/SA/NT Inside Sales</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>State &amp; Local Government WA/SA/NT Inside Sales</label>
+            </value>
+            <value>
+                <fullName>Strategic &amp; Key QLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Strategic &amp; Key QLD</label>
+            </value>
+            <value>
+                <fullName>Strategic Accounts North</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Strategic Accounts North</label>
+            </value>
+            <value>
+                <fullName>Strategic Accounts South</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Strategic Accounts South</label>
+            </value>
+            <value>
+                <fullName>Strategic Financial &amp; Healthcare NSW</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Strategic Financial &amp; Healthcare NSW</label>
+            </value>
+            <value>
+                <fullName>Strategic Financial &amp; Utilities VIC</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Strategic Financial &amp; Utilities VIC</label>
+            </value>
+            <value>
+                <fullName>Strategic Retail &amp; Telco NSW</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Strategic Retail &amp; Telco NSW</label>
+            </value>
+            <value>
+                <fullName>Strategic Retail &amp; Telco VIC</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Strategic Retail &amp; Telco VIC</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

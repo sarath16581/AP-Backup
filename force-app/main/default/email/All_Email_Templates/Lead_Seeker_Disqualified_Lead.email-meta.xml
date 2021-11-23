@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Disqualified Lead: (to be used for lead status – Disqualified) (All disqualified lead reasons)</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Lead Seeker - Disqualified Lead</name>
+    <style>none</style>
+    <subject>Seeker Rewards Program – Unsuccessful lead {!Lead.Lead_Number__c} for {!Lead.Company}</subject>
+    <textOnly>Dear {!Lead.First_Name_Formula__c},
+
+Thanks again for taking part in our Seeker Rewards Program.
+
+Unfortunately, the lead you submitted could not be progressed for the following reason: {!Lead.Disqualified_Lead_Reason__c}
+
+But what does this actually mean?
+
+Here’s a clearer explanation of why some leads don’t progress to the ‘opportunity stage’:
+
+Could Not Contact We tried to contact the customer, but they couldn’t be reached or did not respond to our calls / emails
+Declined by customer The customer wasn’t open to having a sales-related conversation of any type
+Enquiry does not meet criteria The enquiry from the customer does not relate to a new business opportunity (i.e. it may be a tracking enquiry, a complaint, etc.)
+Existing customer, no opportunity The customer is already using the most suitable Australia Post products and services
+
+
+When a lead doesn’t progress for any of the reasons above, no points are awarded. But don’t be disheartened! Every lead is valuable, so please keep up the great work and keep the leads coming. The next lead you submit could be the one that earns you lots of points!
+
+Regards,
+The Seeker Team
+
+
+
+Terms &amp; conditions | Privacy policy | Security
+
+
+
+
+
+Contact us: If this email has been incorrectly sent to you or the information contained within isn’t correct, please let us know at seekerrewards@auspost.com.au
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

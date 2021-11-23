@@ -1,0 +1,181 @@
+<!--
+    2018-01-23 nanda.kothamasu@auspost.com.au  Fix the script library references - INC1037462
+ -->
+<apex:component controller="AddressComponentV1Controller" id="addressComponent">
+    <script src="/soap/ajax/35.0/connection.js" type="text/javascript"></script>
+    <script src="/soap/ajax/35.0/apex.js" type="text/javascript"></script>
+    <c:ScriptLoader jsLibraries="jquery,jqueryui,jquery.layout"
+						cssLibraries="jqueryui,ssswconsole" />
+    <script>
+        sforce.connection.sessionId='{!GETSESSIONID()}';
+    </script>
+
+    <style>
+        .leftColumn  {
+            width: 49%;
+            float:left;
+        }
+
+        .rightColumn {
+            width: 49%;
+            float:right;
+        }
+
+        .statePostcode {
+            width:100%;
+        }
+
+        .addressRow label {
+            margin: 3px 0;
+        }
+
+        .upperCase {
+            text-transform:uppercase;
+        }
+    </style>
+    <script>
+    var j$ = jQuery.noConflict();
+
+    function {!id}_selectedAddress(data){
+        var addressPanel = j$('.{!id}_addressPanel');
+        var txtLine1 = addressPanel.find('[id$="txtLine1"]');
+        var txtLine2 = addressPanel.find('[id$="txtLine2"]');
+        var txtCity = addressPanel.find('[id$="txtCity"]');
+        var txtState = addressPanel.find('[id$="txtState"]');
+        var txtPostcode = addressPanel.find('[id$="txtPostcode"]');
+        var txtDPID = addressPanel.find('[id$="txtDPID"]');
+        var hfDPID = addressPanel.find('[id$="hfDPID"]');
+        var txtCountry = addressPanel.find('[id$="txtCountry"]');
+
+        txtLine1.val(data.addressLine1);
+        txtLine2.val(data.addressLine2);
+        txtCity.val(data.city);
+        txtState.val(data.state);
+        txtPostcode.val(data.postcode);
+        txtDPID.val(data.dpid);
+        hfDPID.val(data.dpid);
+        txtCountry.val('AU');
+
+        {!id}_onselectedFunction({!IF(onselected != null, onselected, 'null')}, data);
+    }
+
+    function {!id}_clearAddress(){
+        var addressPanel = j$('.{!id}_addressPanel');
+        var txtDPID = addressPanel.find('[id$="txtDPID"]');
+        var hfDPID = addressPanel.find('[id$="hfDPID"]');
+        txtDPID.val('');
+        hfDPID.val('');
+        {!id}_onchangeFunction({!IF(onchange != null, onchange, 'null')});
+    }
+
+    function {!id}_onselectedFunction(onselectedFunctionName, data) {
+        if (onselectedFunctionName != null) {
+            onselectedFunctionName(data);
+        }
+    }
+
+    function {!id}_onchangeFunction(onchangeFunctionName) {
+        if (onchangeFunctionName != null) {
+            onchangeFunctionName();
+        }
+    }
+
+    function {!if(getAddress != null, getAddress, id + '_getAddress')}(){
+        var addressPanel = j$('.{!id}_addressPanel');
+        var txtLine1 = addressPanel.find('[id$="txtLine1"]');
+        var txtLine2 = addressPanel.find('[id$="txtLine2"]');
+        var txtCity = addressPanel.find('[id$="txtCity"]');
+        var txtState = addressPanel.find('[id$="txtState"]');
+        var txtPostcode = addressPanel.find('[id$="txtPostcode"]');
+        var txtDPID = addressPanel.find('[id$="txtDPID"]');
+        var hfDPID = addressPanel.find('[id$="hfDPID"]');
+        var txtCountry = addressPanel.find('[id$="txtCountry"]');
+
+        var result = {};
+        result.addressLine1 = txtLine1.val();
+        result.addressLine2 = txtLine2.val();
+        result.city = txtCity.val();
+        result.state = txtState.val();
+        result.postcode = txtPostcode.val();
+        result.dpid = txtDPID.val();
+        result.country = txtCountry.val();
+        return result;
+    }
+
+    function {!id}_checkInput(){
+        var key = event.keyCode || event.charCode;
+        if( key == 8 || key == 46 ) {
+            {!id}_clearAddress();
+        }
+    }
+</script>
+    <c:AddressValidation onselect="{!id}_selectedAddress" styleClass="{!id}_addressValidation" onInit="{!id}_clearAddress" />
+    <apex:attribute type="string" name="legend" required="false" description="a legend for this address box" />
+    <apex:attribute type="integer" name="tabIndex" required="false" description="a tab index for this address box" default="1" />
+    <apex:attribute type="string" name="onchange" description="a callback on change" required="false" />
+    <apex:attribute type="string" name="onselected" description="a callback on selected" required="false" />
+    <apex:attribute type="Case" name="record" description="selected case record" required="false"/>
+    <apex:attribute type="string" name="getAddress" description="the function name used to get address object " required="false" />
+    <apex:attribute type="AddressExtension" name="address"
+        assignto="{!currentAddress}" description="the current address used" />
+    <fieldset class="boxed">
+        <legend class="legendClass">{!legend}</legend>
+        <div>
+            <apex:pageBlockSection >
+                <apex:inputField id="businessName" value="{!record.Business_Name__c}"
+                                    styleClass="form-control input-sm string"/>
+                <apex:inputField id="receiverName" value="{!record.StarTrack_Receiver_Name__c}"
+                                    styleClass="form-control input-sm string"/>
+                <apex:inputField value="{!record.Phone__c}"
+                                    styleClass="form-control input-sm string"/>
+                <apex:inputField value="{!record.DeliveryInstructions__c}"
+                                    styleClass="form-control input-sm string"/>
+                <apex:inputField value="{!record.Delivery_Collection_Date__c}" onchange="validateDeliveryDateAction();"
+                                    styleClass="form-control input-sm date" style="width: 100px"/>
+            </apex:pageBlockSection>
+            <div class="{!id}_addressPanel">
+                <div class="addressRow">
+                    <apex:pageBlockSection >
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputlabel for="txtLine1" value="Line 1" />
+                            <apex:inputtext id="txtLine1" value="{!currentAddress.line1}" onkeydown="{!id}_checkInput();" tabIndex="{!(tabIndex + 1)}"
+                                    styleClass="form-control input-sm string {!id}_addressValidation" />
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputlabel for="txtLine2" value="Line 2" />
+                            <apex:inputtext id="txtLine2" value="{!currentAddress.line2}" onchange="{!id}_clearAddress()" tabIndex="{!(tabIndex + 1)}"
+                                    styleClass="form-control input-sm string" />
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputlabel for="txtState" value="State" />
+                            <apex:inputtext id="txtState" value="{!currentAddress.state}" onchange="{!id}_clearAddress()" tabIndex="{!(tabIndex + 1)}"
+                                styleClass="form-control input-sm string statePostcode" />
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputlabel for="txtPostcode" value="Postcode" />
+                            <apex:inputtext id="txtPostcode" value="{!currentAddress.postcode}" onchange="{!id}_clearAddress()" tabIndex="{!(tabIndex + 1)}"
+                                styleClass="form-control input-sm string statePostcode" />
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputlabel for="txtCountry" value="Country Code" />
+                            <apex:inputtext id="txtCountry" value="{!currentAddress.country}" onchange="{!id}_clearAddress()" tabIndex="{!(tabIndex + 1)}"
+                                styleClass="form-control input-sm string statePostcode upperCase addressComponent_{!id}" />
+                        </apex:pageBlockSectionItem>
+
+                        <apex:pageBlockSectionItem >
+                            <apex:outputlabel for="txtCity" value="Suburb" />
+                            <apex:inputtext id="txtCity" value="{!currentAddress.city}" onchange="{!id}_clearAddress()" tabIndex="{!(tabIndex + 1)}"
+                                styleClass="form-control input-sm string" />
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <c:CountryLookup styleClass="addressComponent_{!id}" display="code" />
+</apex:component>

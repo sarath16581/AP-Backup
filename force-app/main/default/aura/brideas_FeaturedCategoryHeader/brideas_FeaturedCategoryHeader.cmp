@@ -1,0 +1,43 @@
+<aura:component controller="brideas_CategoriesCtrl" description="brideas_FeaturedCategoryHeader" implements="forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="featuredCategory" type="String" />
+    <aura:attribute name="featuredCategoryImageUrl" type="String" />
+    <aura:attribute name="isLoaded" type="Boolean" default="false" />
+    <aura:attribute name="configTitleText" type="String" default="Featured category:" />
+    <aura:attribute name="configDescription" type="String" default="Category description" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <div class="{!'featured-category-header' + (v.isLoaded?'':' hidden')}">
+    <!--Below code is added and changed on 16-08-2018 to retrieve featured category image url 
+        and render the image on Ideas List page as part of Communities changes.-->
+    <div class="slds-grid filters-block">
+        
+         <div class="slds-col slds-size_2-of-3 filters-block">
+         <span>
+            <h2>{!v.configTitleText + ' '} <a href="javascript:void(0)" onclick="{!c.selectCategory}">{!v.featuredCategory}</a></h2>
+           
+            <p>{!v.configDescription}</p>
+         </span>
+         </div>
+         <div class="slds-col slds-size_1-of-3 filters-block">
+         <span><img src="{!v.featuredCategoryImageUrl}" alt="" class="network-postie"/>
+         </span>
+         </div>
+    </div>
+        
+    <div class="slds-grid slds-grid_vertical mobile-filters-block">
+        
+        <div class="slds-col slds-size_3-of-3 mobile-filters-block">
+        <span>
+            <h2>{!v.configTitleText + ' '} <a href="javascript:void(0)" onclick="{!c.selectCategory}">{!v.featuredCategory}</a></h2>
+            
+            <p>{!v.configDescription}</p>
+        </span>
+        </div>
+        <div class="slds-col slds-size_3-of-3 mobile-filters-block">
+        <span><img src="{!v.featuredCategoryImageUrl}" alt="" class="network-postie"/>
+        </span>
+        </div>
+    </div>
+        
+    </div>
+</aura:component>

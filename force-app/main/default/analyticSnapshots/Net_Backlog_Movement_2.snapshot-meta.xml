@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnalyticSnapshot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <groupColumn>TYPE</groupColumn>
+    <mappings>
+        <sourceField>JobName</sourceField>
+        <sourceType>snapshot</sourceType>
+        <targetField>Analytic_Snapshot__c.Name</targetField>
+    </mappings>
+    <mappings>
+        <sourceField>RowCount</sourceField>
+        <sourceType>summary</sourceType>
+        <targetField>Analytic_Snapshot__c.Daily_closed_cases__c</targetField>
+    </mappings>
+    <name>Net Backlog Movement 2</name>
+    <runningUser>stephanie.stolk@auspost.com.au</runningUser>
+    <sourceReport>Customer_Service_Archive/Net_Backlog_Movement_Closed</sourceReport>
+    <targetObject>Analytic_Snapshot__c</targetObject>
+</AnalyticSnapshot>

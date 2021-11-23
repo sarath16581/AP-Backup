@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Coming soon: easier access to Property VOI services</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>ExternalContactEmail</letterhead>
+    <name>Coming soon: easier access to Property VOI services</name>
+    <style>freeForm</style>
+    <subject>Coming soon: easier access to Property VOI services</subject>
+    <textOnly>Hello {!Contact.FirstName},
+
+We&apos;re making it easier to use our Property VOI services with a new portal launching soon. With a single login, you&apos;ll have access to all of our current features in one place:
+
+Access your VOI reports
+Generate the latest forms (both reusable and client-specific)
+Access our do-it-yourself VOI tool
+
+There&apos;s nothing you need to do
+We&apos;ll automatically redirect you from the current login page to the new Property VOI login page once it&apos;s ready, and your login details will remain the same.
+
+Benefits of our Property VOI
+
+Witnessing of Client Authorisation Forms / Land Registry Instruments presented during the VOI – included in your VOI reports
+Convenient options – VOI at more than 1,500 participating Post Offices across Australia or conducted by you (using our do-it-yourself VOI tool)
+Electronic report delivery – typically within 15 minutes
+Your VOI reports all in one place – whether identity checks are completed at a Post Office or by you
+Professional indemnity and fidelity insurance (with our in-store service)
+
+Questions?
+Email us at LandTitleVOI@auspost.com.au or call us on 1300 364 543.
+
+
+Kind regards,
+
+Australia Post Property VOI Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

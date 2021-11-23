@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BER_Cases_Must_Have_Owner</fullName>
+    <active>true</active>
+    <description>Will not allow case to close without a user nominated ase case owner</description>
+    <errorConditionFormula>AND(
+RecordType.Name = &apos;Sales Coordinator&apos;, ISPICKVAL(Status,&apos;Closed&apos;),Owner:Queue.Id = &apos;00G90000002V50a&apos;)</errorConditionFormula>
+    <errorMessage>This case must have an owner</errorMessage>
+</ValidationRule>

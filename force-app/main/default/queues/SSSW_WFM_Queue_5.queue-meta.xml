@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@auspost.com.au</email>
+    <name>SSSW WFM Queue 5</name>
+    <queueMembers>
+        <users>
+            <user>ben.kloppenborg@auspost.com.au</user>
+            <user>carlo.alora@auspost.com.au</user>
+            <user>shakira.mccoll@auspost.com.au</user>
+            <user>silvia.cordova@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

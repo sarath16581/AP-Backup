@@ -1,0 +1,22 @@
+<!--
+    2020-04-01 nathan.franklin@auspost.com.au Created
+-->
+<template>
+
+	<c-happy-parcel-card title="Manifest Assessment" icon-name="utility:display_text" loading={loading} variant="vanilla-stretch" help-text={helpText}>
+		<div class="slds-grid slds-align_absolute-center animated pulse" style={animationCss}>
+			<template if:true={displayValue}>
+				<template if:true={icon}>
+					<div class="slds-m-right_small">
+						<lightning-icon icon-name={icon} size="large"></lightning-icon>
+					</div>
+				</template>
+				<span class="slds-text-heading_large slds-m-right_x-small">{displayValue}</span>
+				<lightning-helptext content={statusHelpText}></lightning-helptext>
+			</template>
+			<template if:false={displayValue}>
+				<lightning-icon icon-name="utility:dash" size="medium"></lightning-icon>
+			</template>
+		</div>
+	</c-happy-parcel-card>
+</template>

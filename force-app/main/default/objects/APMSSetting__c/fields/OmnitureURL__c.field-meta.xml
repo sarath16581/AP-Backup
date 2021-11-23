@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OmnitureURL__c</fullName>
+    <description>2014-05 Omniture URL can be Production or Test
+Test: 
+https://test-static.npe.auspost.com.au/ap/js/tracking/s_code.js
+
+Production:
+https://static.auspost.com.au/ap/js/tracking/s_code.js</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Please enter the URL for Omniture reference.</inlineHelpText>
+    <label>Omniture URL</label>
+    <length>100</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

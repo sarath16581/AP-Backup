@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>standard-home</defaultLandingTab>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>Sales Team</label>
+    <tabs>standard-Chatter</tabs>
+    <tabs>standard-Account</tabs>
+    <tabs>standard-Contact</tabs>
+    <tabs>standard-Opportunity</tabs>
+    <tabs>standard-Case</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>standard-Dashboard</tabs>
+    <tabs>Territory_Assignment_Matrix__c</tabs>
+    <tabs>Application__c</tabs>
+    <tabs>PricingPlan__c</tabs>
+    <tabs>standard-Knowledge</tabs>
+    <tabs>APR_Contact__c</tabs>
+    <tabs>APR__c</tabs>
+    <tabs>Share_of_Wallet__c</tabs>
+    <tabs>Apttus_Proposal__Proposal__c</tabs>
+    <tabs>Apttus__APTS_Agreement__c</tabs>
+    <tabs>Sales_Coaching__c</tabs>
+    <tabs>ContractAssistanceForm__c</tabs>
+    <tabs>Contract_Performance_Measurement__c</tabs>
+    <tabs>Contract_Performance_Agreement__c</tabs>
+    <tabs>Contract_Performance_Result__c</tabs>
+    <tabs>SAP_EM_VF_WRAPPER</tabs>
+    <tabs>Manual_Credit_Assessment</tabs>
+    <tabs>APT_Sub_Account__c</tabs>
+    <tabs>et4ae5__Configuration__c</tabs>
+    <tabs>Apttus_Config2__ConfigSettings__c</tabs>
+    <tabs>et4ae5__Business_Unit__c</tabs>
+    <tabs>SAM_Admin1</tabs>
+</CustomApplication>

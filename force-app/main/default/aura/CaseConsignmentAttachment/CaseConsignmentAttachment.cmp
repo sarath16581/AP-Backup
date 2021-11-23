@@ -1,0 +1,44 @@
+<!-- 2018-06-01 clint.dsilva@auspost.com.au created -->
+
+<aura:component description="Case Consignment Attachment" controller="ImageUtility">
+    <aura:attribute name="caseID" type="string" default = "" />
+    <aura:attribute name="caseNumber" type="string" default = ""  />
+    <aura:attribute  name="disputes" type="Object[]"  access="private"/>
+    <ltng:require scripts="{!join(',',$Resource.GlobalAssets + '/js/lightning/utils.js')}" afterScriptsLoaded="{!c.doInit}"/>
+    <c:waitingQueueComponent aura:id="loader" />
+    <div class="slds-grid slds-grid_align-end slds-wrap">
+        <div class="slds-col ">
+            <lightning:button aura:id="viewBtn"  variant="success"  label="View Images" iconName="utility:preview"  iconPosition="right"  onclick="{! c.onPreview }"/>
+        </div>
+        <div class="slds-col slds-size_1-of-1">
+            <div class="slds-m-top--xx-small"></div>
+        </div>
+        <div class="slds-col slds-size_1-of-1">
+            <table class="slds-table slds-table_bordered slds-table_striped ">
+                <thead>
+                <tr class="slds-text-title_caps" style="background-color:#ccf2ff;">
+                    <th scope="col">
+                        <div class="slds-truncate" title="Connote">Connote#</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Disputed Item">Disputed Item</div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <aura:iteration items="{!v.disputes}" var="dispObj"  >
+
+                    <tr class="slds-hint-parent">
+                        <td  data-label="Connote#">
+                            <div class="slds-truncate" title="Connote#">{!dispObj.Connote__c}</div>
+                        </td>
+                        <td  data-label="Article">
+                            <div class="slds-truncate" title="Disputed Item">{!dispObj.Name}</div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</aura:component>

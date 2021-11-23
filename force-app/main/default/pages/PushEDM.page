@@ -1,0 +1,554 @@
+<apex:page showheader="false" controller="PushEDM"
+    action="{!populateEmailTempalte}">
+    <link rel="stylesheet"
+        href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" />
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" />
+    <apex:stylesheet value="{!URLFOR($Resource.JQueryUI, '/css/ui-lightness/jquery-ui-1.10.3.custom.min.css')}" />
+    <script src="/support/console/28.0/integration.js" />
+    <script src="/support/api/28.0/interaction.js" />
+
+    <style>
+.waitingHolder {
+    background-color: white;
+    /*border-width: 2px;
+                    border-style: solid;*/
+    z-index: 9999;
+    left: 43.7%;
+    padding: 19px 0px 19px 24px;
+    position: absolute;
+    border-radius: 6px;
+    width: 119px;
+    top: 39%;
+    -moz-box-shadow: 3px 3px 5px #888888;
+    -webkit-box-shadow: 3px 3px 5px #888888;
+    box-shadow: 3px 3px 5px #888888;
+}
+
+.waitingBackground {
+    background-color: black;
+    opacity: 0.20;
+    filter: alpha(opacity = 20);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9998;
+}
+
+.waitingDescription {
+    float: left;
+    height: 24px;
+    line-height: 24px;
+    margin-left: 11px;
+}
+
+.waitingImage {
+    float: left;
+    margin-left: 32px;
+}
+
+.articlebody {
+    border: 1px solid #ccc;
+    display: block;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+}
+
+.articlebody:hover {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .2);
+}
+
+#close {
+    float: right;
+    display: inline-block;
+    padding: 2px 5px;
+    background: #ccc;
+    cursor: pointer;
+}
+
+#moveup,#movedown {
+    float: right;
+    display: inline-block;
+    padding: 2px 2px;
+    background: #ccc;
+    cursor: pointer;
+}
+
+#movedown,#close {
+    margin-right: 2px;
+}
+
+#close:hover,#moveup:hover,#movedown:hover {
+    color: #fff;
+}
+
+.articles a {
+    cursor: pointer;
+}
+
+.topcategory {
+    font-weight: bold;
+    display: none;
+    cursor: pointer;
+}
+
+.subcategory {
+    display: none;
+    cursor: pointer;
+}
+
+.topcategory:hover,.subcategory:hover {
+    color: #333435;
+}
+
+body input.zen-btn {
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	font-size: 1.1em;
+	padding: 5px 20px;
+	color: #404c5b;
+	background: #eaebed;
+	border: 1px solid #c5c6c8;
+	font-weight: bold;
+}
+
+body input.zen-btn:hover {
+	background: #f5f5f5;
+	background-image: -webkit-linear-gradient(top,#fff,#efefef);
+	background-image: -moz-linear-gradient(top,#fff,#efefef);
+	background-image: -ms-linear-gradient(top,#fff,#efefef);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,.3);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,.3);
+	box-shadow: 0 1px 3px rgba(0,0,0,.3);
+	text-shadow: 0 1px 0 rgba(255,255,255,1);
+}
+
+body input.zen-btn.primary {
+	/*
+    overflow: visible;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    padding: 3px 6px;
+    border-color: #c3c3c3 #aaa #909090;
+    font-weight: bold;
+    text-decoration: none;
+    -moz-border-radius: 3px;
+    background: -moz-linear-gradient(#fff, #f0f0f0);
+    background: -webkit-linear-gradient(#fff, #f0f0f0);
+    background: -ms-linear-gradient(#fff, #f0f0f0);*/
+    background: #8ab529;
+	border: 1px solid #6c8049;
+	color: #fff;
+}
+
+body input.zen-btn.primary:hover {
+	background: #a0cb3d;
+	background-image: -webkit-linear-gradient(top,#a0cb3d,#87ac31);
+	background-image: -moz-linear-gradient(top,#a0cb3d,#87ac31);
+	background-image: -ms-linear-gradient(top,#a0cb3d,#87ac31);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,.3);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,.3);
+	box-shadow: 0 1px 3px rgba(0,0,0,.3);
+	text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+}
+/*
+.zen-highlightBtn {
+    font-family: Arial;
+    font-size: 1.08em;
+    background-color: #8ab529 !important;
+    border: 1px solid #6c8049 !important;
+    background-image: -webkit-linear-gradient(top, #8AB529 0, #87AC31 100%)
+        !important;
+    background-image: linear-gradient(top, #8AB529 0, #87AC31 100%)
+        !important;
+    display: inline-block;
+    padding-top: 0 !important;
+    padding-bottom: 1px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    height: 30px;
+    color: #fff !important;
+    -moz-border-radius: 3px;
+    border-radius: 2px;
+    -moz-box-shadow: 0 1px 2px 0 #adadad;
+    -webkit-box-shadow: 0 1px 2px 0 #adadad;
+    box-shadow: 0 1px 2px 0 #adadad;
+    margin: 0;
+}*/
+
+input#keyword {
+	margin-left: 0;
+	padding: 5px 8px;
+	width: 169px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border: 1px solid #999;
+	height: 16px;
+	font-size: 1.1em;
+}
+</style>
+
+    <script type="text/javascript">           
+        j$ = jQuery.noConflict();  
+        
+        var searchButtonClicked2 = function() {
+        	var keyword = j$("input[id*='keyword']").val();
+        	if(keyword && keyword.trim().length > 0 && keyword.trim().length < 3) {
+        		alert("You must specify at least 3 charactors for searching the articles.");
+        	} else {
+        		showProgress();
+        		searchArticles();
+        	}
+        }
+        
+          
+        //j$(function(){      
+          //  bindActions();
+        //});                                                
+        
+        function appendArticle(title, type, id, articleId) {
+            // remove %%BodyContent%%
+            j$("#BodyContent:contains('%%BodyContent%%')").empty();
+            
+            var articleFound = false;
+            j$("#BodyContent > div").each(function() {
+                if (this.id == articleId) {
+                    articleFound = true;                            
+                }
+            });         
+            if (!articleFound) {                
+                var articleBody =  j$(esc(id)).html();  
+				if(type=='FAQ')
+				{
+                	articleBody = '<br/><b>' + title + '</b><br/><br/>' + articleBody;
+				}
+				else
+				{
+					articleBody = articleBody;
+				}
+                //j$("#BodyContent").append('<div id="' + articleId + '"><span id="close" onclick=j$("#' + articleId + '").remove();>x</span>' + articleBody + '</div>');
+                j$("#BodyContent").append('<div id="' + articleId + '" class="articlebody"><span id="moveup" onclick="moveArticle(\'up\', \'' + id + '\', \'' + articleId + '\');">▲</span><span id="movedown" onclick="moveArticle(\'down\', \'' + id + '\', \'' + articleId + '\');">▼</span><span id="close" onclick="removeArticle(\'' + id + '\', \'' + articleId + '\');">x</span>' + articleBody + '</div>');
+                showProgress();                     
+                addArticleBody(articleBody);
+            }
+        }   
+        
+        function moveArticle(direction, id, articleId) {
+            var childCount = j$("#BodyContent").children().length;   
+            if (childCount > 1) {               
+                var currentArticle = j$("#" + articleId);
+                var index = j$("#BodyContent > div").index(currentArticle);  
+                var hasMoved = false;           
+                if (direction == 'up') { 
+                    if (index > 0) {                
+                        currentArticle.prev().before(currentArticle);
+                        hasMoved = true;  
+                    }           
+                } else { // down  
+                    if (index < childCount-1) {             
+                        currentArticle.next().after(currentArticle);
+                        hasMoved = true;
+                    }
+                }
+                
+                if (hasMoved) {
+                    var index = j$("#BodyContent > div").index(currentArticle);
+                    var articleBody =  j$(esc(id)).html();                  
+                    showProgress();                     
+                    moveArticleBody(articleBody, index);
+                }
+            }
+        }
+             
+        function esc(myid) {
+            return '#' + myid.replace(/(:|\.)/g,'\\\\$1');
+        }
+                                
+        function removeArticle(id, articleId) { 
+            var currentArticle = j$("#" + articleId);
+            var index = j$("#BodyContent > div").index(currentArticle);         
+            currentArticle.remove();
+            var articleBody =  j$(esc(id)).html(); 
+            showProgress();
+            removeArticleBody(index);
+        }
+        
+        function showProgress() {
+            j$('#waitingDiv').show();
+        }
+            
+        function hideProgress() {
+            j$('#waitingDiv').hide();
+        }    
+        
+        
+    </script>
+	
+   	<apex:form id="edmForm">
+        <apex:actionFunction name="addArticleBody"
+            action="{!addToArticleBody}" rerender="temp"
+            oncomplete="hideProgress();return false;">
+            <apex:param id="param1" name="tempLineId1" value=""
+                assignTo="{!articleBody}" />
+        </apex:actionFunction>
+        <apex:actionFunction name="removeArticleBody"
+            action="{!removeFromArticleBody}" rerender="temp"
+            oncomplete="hideProgress();return false;">
+            <apex:param id="param2" name="tempLineId2" value=""
+                assignTo="{!articlePosition}" />
+        </apex:actionFunction>
+        <apex:actionFunction name="moveArticleBody"
+            action="{!moveToArticleBody}" rerender="temp"
+            oncomplete="hideProgress();return false;">
+            <apex:param id="param3" name="tempLineId3" value=""
+                assignTo="{!articleBody}" />
+            <apex:param id="param4" name="tempLineId4" value=""
+                assignTo="{!articlePosition}" />
+        </apex:actionFunction>
+        <!-- added by shengpeng.xiao@bluewolf.com at 2014.7.15 start -->
+        <apex:actionFunction name="searchArticles"
+            action="{!searchArticles}" rerender="articles"
+            oncomplete="hideProgress();return false;">
+        </apex:actionFunction>
+        <!-- added by shengpeng.xiao@bluewolf.com at 2014.7.15 end -->
+        <table width="100%" height="1000px">
+            <tr>
+                <td width="50%" valign="top"><script>
+                function getUrlParameters(parameter, staticURL, decode){
+                   /*
+                    Function: getUrlParameters
+                    Description: Get the value of URL parameters either from 
+                                 current URL or static URL
+                    Author: Tirumal
+                    URL: www.code-tricks.com
+                   */
+                   var currLocation = (staticURL.length)? staticURL : window.location.search,
+                       parArr = currLocation.split("?")[1].split("&"),
+                       returnBool = true;
+                   
+                   for(var i = 0; i < parArr.length; i++){
+                        parr = parArr[i].split("=");
+                        if(parr[0] == parameter){
+                            return (decode) ? decodeURIComponent(parr[1]) : parr[1];
+                            returnBool = true;
+                        }else{
+                            returnBool = false;            
+                        }
+                   }
+                   
+                   if(!returnBool) return false;  
+                }             
+                
+                function searchButtonClicked(){
+                    if(document.getElementById('keyword').value!=''){
+                    
+                        if(getUrlParameters("k", "", true)==false){
+                            window.location.href=window.location.href+'&k='+document.getElementById('keyword').value;
+                        }
+                        else{
+                            window.location.href=window.location.href.substring(0,window.location.href.indexOf('&k'))+'&k='+document.getElementById('keyword').value;
+                        }
+                        
+                    }
+                    else{
+                        window.location.href=window.location.href.substring(0,window.location.href.indexOf('&k'))
+                    }
+                  }
+                  
+                </script> 
+                <!-- modified by shengpeng.xiao@bluewolf.com at 2014.7.15 start -->
+                <!-- <input type="text" id="keyword" /> 
+                	 <input class="zen-btn" type="button" value="Search" onclick="searchButtonClicked();return false;" />
+               	-->
+                <apex:inputText value="{!searchKeyword}" id="keyword" />
+                <input class="zen-btn" type="button" value="Search" onclick="searchButtonClicked2();return false;" />
+                <!-- modified by shengpeng.xiao@bluewolf.com at 2014.7.15 end -->
+                
+                
+                <input class="zen-btn" type="button" value="Clear" onclick="document.getElementById('{!jsEncode($Component.keyword)}').value='';searchButtonClicked2();return false;" />
+                    <!-- <script>
+                   if(getUrlParameters("k", "", true)!=false){
+                        document.getElementById('keyword').value=getUrlParameters("k", "", true);
+                    }
+                </script>  -->
+                <apex:outputPanel id="articles">
+                	<script>
+                		var j$ = jQuery.noConflict();
+                		
+                		 var bindActions = function() {
+				        	j$('.topcategory').next().next('span').css('margin-bottom', '15px');
+				                                        
+				            // top category collapse/expand 
+				            j$('.topcategory').click(function() {
+				            	j$('.topCategoryArticles_' + this.id).slideToggle();
+			            	 
+				                if (j$(this).children('span').hasClass('ui-icon-triangle-1-e')) {
+				                    j$(this).children('span').removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
+				                    j$(this).removeClass('ui-corner-all').addClass('ui-accordion-header-active ui-state-active ui-corner-top');
+				                } else {
+				                    j$(this).children('span').removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
+				                    j$(this).removeClass('ui-accordion-header-active ui-state-active ui-corner-top').addClass('ui-corner-all');
+				                }                                                                                     
+				            });
+				            j$('.topcategory').each(function() { j$('.topCategoryArticles_' + this.id).slideToggle();});
+				            
+				            // sub category collapse/expand
+				            j$('.subcategory').click(function() {  
+				                var status = j$(this).parent().next('ul').is(":hidden");
+				                
+				                if (status == true) {
+				                    j$(this).children('span').removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
+				                    j$(this).removeClass('ui-corner-all').addClass('ui-accordion-header-active ui-state-active ui-corner-top');
+				                } else {
+				                    j$(this).children('span').removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
+				                    j$(this).removeClass('ui-accordion-header-active ui-state-active ui-corner-top').addClass('ui-corner-all');
+				                }                                      
+				                j$(this).parent().next('ul').slideToggle();
+				            });
+				            j$('.subcategory').parent().next('ul').slideToggle();
+				            
+				            // article title collapse/expand                                
+				            j$('.articles > a').click(function() {                              
+				                j$(this).parent().children('span').slideToggle();
+				            });
+				            j$('.articles > a').parent().children('span').slideToggle();
+				            
+				            // Added by Jim <lingjun.jiang@bluewolf.com> 2014-06-17
+				            // When user enter any keyword and then press enter, it will search the result instead of showing a blank page.
+				            j$('input[id*="keyword"]').keypress(function(ev) {
+				                var keycode = (ev.keyCode ? ev.keyCode : ev.which);
+				                if (keycode == '13') {
+				                    //searchButtonClicked();
+				                    searchButtonClicked2();
+				                    return false;
+				                }
+				            });
+				        }    
+				        
+                		j$(document).ready(function() {
+                			bindActions();
+                		});
+                	</script>
+                <apex:repeat value="{!TopCategories}" var="topCategory">
+                        <div class="accordion ui-accordion ui-widget ui-helper-reset">
+                            <h3 id="{!topCategory.Name}"
+                                class="topcategory ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-accordion-header-active ui-state-active ui-corner-top ui-state-hover"
+                                role="tab"
+                                aria-controls="ui-accordion-acc012O00000000Q8MIAU-panel-0"
+                                aria-selected="false" tabindex="0">
+                                <span
+                                    class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-s"></span>
+                                <apex:outputtext value="{!topCategory.Label}" />
+                            </h3>
+                        </div>
+                        <ul class="topCategoryArticles_{!topCategory.Name}" style="display:none;">
+                            <apex:repeat value="{!ArticleSet}" var="article">
+                                <!-- modified by shengpeng.xiao@bluewolf.com 2014.06.16 begin -->
+                                <!-- show article by map key -->
+                                <!-- <apex:outputtext rendered="{!if(article.categoryList=topCategory.name,true,false)}"> -->
+                                <apex:outputtext rendered="{!if(CONTAINS(article.categoryListUnique,'$'+topCategory.name+'$'),true,false)}">
+                                <!-- modified by shengpeng.xiao@bluewolf.com 2014.06.16 end -->
+                                    <script>
+                                        //document.getElementById('{!jsEncode(topCategory.Name)}').style.display="block";
+                                    </script>
+                                    <li class="articles"><a style="color: red"><apex:outputtext value="{!article.title}" /></a>
+                                        <span style="width: 100%"> 
+											<br /><br /> 
+											<apex:outputtext escape="false" value="{!article.body}" id="articleID" /> 
+											<br /> <br />
+											<input type="button" 
+												class="zen-btn"
+                                            	value="Add to Email"
+                                            	onclick="appendArticle('{!jsEncode(article.title)}', '{!article.type}','{!$component.articleID}', '{!article.id}'); return false;" />
+                                            <br />
+                                        <br />
+                                    </span></li>
+                                </apex:outputtext>
+                            </apex:repeat>
+                        </ul>
+                        <div class="topCategoryArticles_{!topCategory.Name}" style="display:none;">
+	                        <knowledge:categoryList categoryVar="category"
+	                            categoryGroup="Product" rootCategory="{!topCategory.Name}"
+	                            level="-1">
+	
+	                            <div class="accordion ui-accordion ui-widget ui-helper-reset"
+	                                id="{!category.name}"
+	                                style="margin-left: 17px; width: 653px;">
+	                                <h3
+	                                    class="subcategory ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all ui-state-hover"
+	                                    role="tab"
+	                                    aria-controls="ui-accordion-acc012O00000000Q8MIAU-panel-0"
+	                                    aria-selected="false" tabindex="0">
+	                                    <span
+	                                        class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>
+	                                        <apex:outputtext value="{!category.label}" />
+	                                    
+	                                </h3>
+	                            </div>
+	                            <ul>
+	                                <apex:repeat value="{!ArticleSet}" var="article">
+	                                    <!-- modified by shengpeng.xiao@bluewolf.com 2014.06.16 begin -->
+	                                    <!-- show article by map key -->
+	                                    <!-- <apex:outputtext rendered="{!if(article.categoryList=category.name,true,false)}"> -->
+	                                    <apex:outputtext rendered="{!if(CONTAINS(article.categoryListUnique,'$'+category.name+'$'),true,false)}">
+	                                    <!-- modified by shengpeng.xiao@bluewolf.com 2014.06.16 end -->
+	                                    <script>
+	                                        //document.getElementById('{!jsEncode(category.name)}').style.display="block";
+	                                        //document.getElementById('{!jsEncode(topCategory.Name)}').style.display="block";
+	                                    </script>
+	                                        <li class="articles"><a style="color: red"><apex:outputtext value="{!article.title}" /></a>
+	                                            <span style="width: 100%"> 
+	                                            <br /><br /> 
+	                                            <apex:outputtext escape="false" value="{!article.body}" id="articleID" /> 
+	                                            <br /><br />  
+	                                            <input  type="button" class="zen-btn" value="Add to Email"  onclick="appendArticle('{!jsEncode(article.title)}', '{!article.type}', '{!$component.articleID}', '{!article.id}'); return false;" />
+	                                            <br />
+	                                            <br />
+	                                        </span></li>
+	                                    </apex:outputtext>
+	                                </apex:repeat>
+	                            </ul>
+	                        </knowledge:categoryList>
+                        </div>
+                </apex:repeat>
+                </apex:outputPanel>
+                </td>
+                <td width="50%" valign="top" align="center"><apex:outputtext escape="false" value="{!template}" id="emailTemplate" /> <br /> <apex:outputpanel id="temp">
+                        <apex:commandButton value="Send Email" immediate="true"
+                            onclick="sendEmail();return false;" 
+                            style="font-weight:bold" styleClass="zen-highlightBtn zen-btn primary" />
+                        <apex:actionfunction name="jSendEmail" action="{!sendEmail}"
+                             rerender="edmForm"/>
+                        
+                        <script>
+                        var j$ = jQuery.noConflict();
+                        
+                        function sendEmail(){
+                            jSendEmail();
+                            sforce.console.getEnclosingPrimaryTabId(function(result){
+                                console.log(result);
+                                sforce.console.closeTab(result.id);
+                                alert('The email has been sent successfully...');
+                            });
+                        }
+                        </script>
+                        </apex:outputPanel></td>
+            </tr>
+        </table>
+        <!-- Loading -->
+        <div id="waitingDiv" style="display: none;">
+            <div class="waitingBackground" />
+            <div class="waitingHolder">
+                <img src="{!$Resource.loading32}" class="waitingImage"
+                    title="Please Wait..." />
+                <div class="waitingDescription">Please Wait...</div>
+            </div>
+        </div>
+    </apex:form>
+</apex:page>

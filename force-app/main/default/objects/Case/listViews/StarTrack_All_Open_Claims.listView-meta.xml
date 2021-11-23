@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_All_Open_Claims</fullName>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>Billing_Number__c</columns>
+    <columns>Related_Billing_Account__c</columns>
+    <columns>Business_Name__c</columns>
+    <columns>ReasonforCreditClaim__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.LAST_UPDATE</columns>
+    <columns>Total_Number_of_Items_Claimed__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Enterprise_Credit_Dispute_Claim</value>
+    </filters>
+    <filters>
+        <field>Business_Unit__c</field>
+        <operation>equals</operation>
+        <value>StarTrack</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Invalid</value>
+    </filters>
+    <label>StarTrack All Open Claims</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>APG_Credit_Management</group>
+        <group>APG_Customer_Resolutions</group>
+        <group>Credit_Disputes</group>
+        <group>StarTrack_Credit_Disputes_Manager</group>
+        <group>StarTrack_Cust_Resolution_Team_Leader</group>
+        <group>StarTrack_Customer_Resolution_Manager</group>
+        <group>StarTrack_Customer_Resolution_Officer</group>
+    </sharedTo>
+</ListView>

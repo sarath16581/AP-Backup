@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason__c</fullName>
+    <description>.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Identify specifically &apos;why&apos; the business is at risk or as been lost</inlineHelpText>
+    <label>Reason</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>3rd Party Channel shift</fullName>
+                <default>false</default>
+                <label>3rd Party Channel shift</label>
+            </value>
+            <value>
+                <fullName>ABN Change - Same Owners</fullName>
+                <default>false</default>
+                <label>ABN Change - Same Owners</label>
+            </value>
+            <value>
+                <fullName>Auspost Decision - Freight profile</fullName>
+                <default>false</default>
+                <label>Auspost Decision - Freight profile</label>
+            </value>
+            <value>
+                <fullName>Auspost Decision - Perishables</fullName>
+                <default>false</default>
+                <label>Auspost Decision - Perishables</label>
+            </value>
+            <value>
+                <fullName>Business Sold - New Owners</fullName>
+                <default>false</default>
+                <label>Business Sold - New Owners</label>
+            </value>
+            <value>
+                <fullName>Credit Issues</fullName>
+                <default>false</default>
+                <label>Credit Issues</label>
+            </value>
+            <value>
+                <fullName>Liquidated</fullName>
+                <default>false</default>
+                <label>Liquidated</label>
+            </value>
+            <value>
+                <fullName>Pricing - Annual Price Review</fullName>
+                <default>false</default>
+                <label>Pricing - Annual Price Review</label>
+            </value>
+            <value>
+                <fullName>Pricing - Competitor</fullName>
+                <default>false</default>
+                <label>Pricing - Competitor</label>
+            </value>
+            <value>
+                <fullName>Pricing - Surcharges/ Fees</fullName>
+                <default>false</default>
+                <label>Pricing - Surcharges/ Fees</label>
+            </value>
+            <value>
+                <fullName>Product Migration</fullName>
+                <default>false</default>
+                <label>Product Migration</label>
+            </value>
+            <value>
+                <fullName>Service Performance</fullName>
+                <default>false</default>
+                <label>Service Performance</label>
+            </value>
+            <value>
+                <fullName>Significant down trade (Covid 19)</fullName>
+                <default>false</default>
+                <label>Significant down trade (Covid 19)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

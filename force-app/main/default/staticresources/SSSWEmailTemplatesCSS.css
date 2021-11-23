@@ -1,0 +1,100 @@
+/**************************************************
+Type:       CSS for SSSW Case enquiries       
+Purpose:    Styling for the email and fax templates for SSSW Case enquiries sent
+			to facilities.
+Used by:    SSSW_Case_DomesticItemSearch page, SSSW_Case_MailRedirectionFailure page,
+     		SSSW_Case_GeneralEnquiry.
+History:
+-------------------------------------------------- 
+20.01.2014  A. Tran (Bluewolf)	Created.
+**************************************************/
+
+/** general **/
+
+body { 
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 10pt;
+}
+h3 {
+    margin-bottom: 5px; 
+}
+td, th {
+    border: 1px solid black;
+    padding: 0 5px 0 5px;
+}
+tr th {
+	width: 35%;
+    text-align: left;
+}
+.event-message-section tr th {
+    text-align: center;
+}
+table {
+    border-collapse: collapse;
+    border: 2px solid black;
+    width: 100%;
+}
+.empty {
+    height: 60px;
+    text-align: center;
+}
+div.section {
+    float: left;
+    width: 100%;
+    text-align: left;
+}
+
+/** faxes (pdf) **/
+
+div#header {
+    padding-bottom: 10px;
+    height: auto;
+}
+div#header h1 {
+    display: inline-block;
+}
+div#header img {
+    display: inline-block;
+    float: right;
+}
+div#comment-section table tr td {
+    height: 30px;
+}
+
+h1 {
+	color: #111111;
+	font-weight: bold;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 22px;
+	line-height: 30px;
+	text-align: left;
+	display: inline;
+	padding-left: 20px;
+}
+h3 {
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 14px;
+	line-height: 16px;
+	text-align: left;
+}
+.red {
+	color: #DF1027;
+}
+.bold {
+	font-weight: bold;
+}
+div.header {
+	border: 2px solid black;
+	padding: 20px;
+	margin: 20px 0;
+}
+div.content {
+	border: 2px solid black;
+	margin: 20px 0;
+	padding: 0 20px 20px 20px;
+}
+div.footer {
+	border: 2px solid black;
+	margin: 20px 0;
+	padding: 20px;
+}

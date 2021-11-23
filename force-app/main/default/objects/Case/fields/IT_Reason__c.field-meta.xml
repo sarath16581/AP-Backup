@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IT_Reason__c</fullName>
+    <description>used by Sales implementation case</description>
+    <externalId>false</externalId>
+    <label>IT/Parcel Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>IT_Parcel_Status__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Awaiting test files/Labels</fullName>
+                <default>false</default>
+                <label>Awaiting test files/Labels</label>
+            </value>
+            <value>
+                <fullName>Change in IT service</fullName>
+                <default>false</default>
+                <label>Change in IT service</label>
+            </value>
+            <value>
+                <fullName>Test files not approved</fullName>
+                <default>false</default>
+                <label>Test files not approved</label>
+            </value>
+            <value>
+                <fullName>Unable to complete requirements</fullName>
+                <default>false</default>
+                <label>Unable to complete requirements</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>On Hold</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Customer</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Internal</controllingFieldValue>
+            <valueName>Awaiting test files/Labels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>On Hold</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Customer</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Internal</controllingFieldValue>
+            <valueName>Change in IT service</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>On Hold</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Customer</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Internal</controllingFieldValue>
+            <valueName>Test files not approved</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>On Hold</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Customer</controllingFieldValue>
+            <controllingFieldValue>Roadblock - Internal</controllingFieldValue>
+            <valueName>Unable to complete requirements</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,412 @@
+<template>
+
+    <div class="slds-is-relative">
+
+    <!-- spinner -->
+    <template if:true={showLoading}>
+        <div class="spinner-container slds-is-fixed">
+            <lightning-spinner size="small" variant="brand"
+                                alternative-text="loading search results"
+            ></lightning-spinner>
+        </div>
+    </template>
+    <div>
+        <lightning-button
+                variant="base"
+                label="Back to Merchant Portal"
+                icon-name="utility:back"
+                onclick={backToMerchantPortal}
+                class="back-feature slds-m-bottom_medium slds-show_inline-block">
+        </lightning-button>
+
+        <!-- NO ACCESS HEADER -->
+        <template if:false={isBAMUser}>
+            <c-community-custom-error error-message="You do not have access to Access Management."></c-community-custom-error>
+        </template>
+        <!-- END NO ACCESS HEADER -->
+
+        <template if:true={isBAMUser}>
+
+            <h1 class="slds-text-heading_large">User access management</h1>
+
+            <!-- Table Filters -->
+
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-medium-size_6-of-12">
+                    <span onkeyup={handleSearchKeyUp}>
+                        <lightning-input type="search"
+                                            label=""
+                                            class="search-filter"
+                                            value={searchString}
+                                            onchange={handleSearchChange}
+                        ></lightning-input>
+                    </span>
+                    <div>Search for given name, surname or email address.</div>
+                </div>
+            </div>
+
+            <div class="slds-m-vertical_medium">
+                <lightning-button variant="base" label="Filters" title="Filters" icon-position="right" icon-name={filterIcon} class="font-weight-medium" onclick={toggleShowFilters}></lightning-button>
+            </div>
+
+            <!-- FILTERS toggle panel -->
+            <template if:true={showFilters}>
+                <lightning-input
+                        type="checkbox" label="Show deactivated users" title="Show deactivated users" name="checkDeactivated"
+                        checked={includeDeactivated}
+                        onchange={handleToggleDeactivatedFilter}
+                >
+                </lightning-input>
+            </template>
+            <!-- END FILTERS toggle panel -->
+        </template>
+    </div>
+        <template if:true={isBAMUser}>
+            <div class="slds-text-align_right slds-m-vertical_small">
+                <lightning-button variant="brand" label="New user" icon-name="utility:add" title="Invite user" onclick={inviteUser}>
+                </lightning-button>
+            </div>
+
+
+            <!-- User Table -->
+            <div class="table-container full-width">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered user-list slds-no-row-hover slds-table_fixed-layout">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="end-col" scope="col"></th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Name">Name</div>
+                            </th>
+                            <th class="slds-show_medium" scope="col">
+                                <div class="slds-truncate" title="Email">Email</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Status">Status</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Application">Application</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Actions"></div>
+                            </th>
+                            <th class="end-col" scope="col">
+                                <div class="slds-truncate" title="Actions"></div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- table -->
+                        <template for:each={searchResults} for:item="contactData">
+                            <tr class="slds-hint-parent" key={contactData.contact.Id}>
+                                <td class="end-col"></td>
+                                <td class="user-name slds-align-top slds-truncate"
+                                title={contactData.contact.Name}>
+                                    <span>
+                                        {contactData.contact.Name}
+                                        <template if:true={contactData.currentlyLoggedInUserContact}>
+                                            <!--lightning-badge class="slds-m-left_small" label="you"></lightning-badge-->
+                                            <span class="slds-m-left_small"
+                                                    style="border-radius: 2px;background: #05ac3e;padding: 2px 4px 2px 4px;font-size: small; font-weight: normal; color:white; font-family: 'Salesforce Sans', Arial, sans-serif"
+                                            >You</span>
+                                        </template>
+                                        <div class="slds-hide_medium" style="font-family:AP Letter,sans-serif;font-weight:normal;">
+                                            {contactData.contact.Email}
+                                        </div>
+                                    </span>
+                                </td>
+                                <td class="slds-align-top slds-show_medium">
+                                    <div class="slds-truncate" title="Email">{contactData.contact.Email}</div>
+                                </td>
+                                <td data-label="Prospecting" class="slds-align-top">
+                                    <div class="slds-truncate" title="Status">{contactData.contact.displayStatus}</div>
+                                </td>
+                                <td class="application-list slds-align-top">
+                                    <div class="slds-truncate" title=Application>
+                                        <template if:true={contactData.contact.statusActive}>
+                                        <ul class="slds-list">
+                                            <template for:each={contactData.contactApplications} for:item="conApp">
+                                                <li key={conApp.Application__r.Name}>
+                                                    <template if:true={conApp.statusError}>
+                                                        <span class="error slds-text-color_weak" title={conApp.errorMessage}>{conApp.Application__r.Name}</span>
+                                                    </template>
+                                                    <template if:true={conApp.statusPending}>
+                                                        <span class="pending slds-text-color_weak" title="pending">{conApp.Application__r.Name}</span>
+                                                    </template>
+                                                    <template if:true={conApp.statusActive}>
+                                                        <span class="active slds-text-color_weak" title="active">{conApp.Application__r.Name}</span>
+                                                    </template>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                        </template>
+                                    </div>
+                                </td>
+                                <td class="slds-align-top">
+                                    <template if:true={contactData.contact.statusActive}>
+
+                                        <template if:true={contactData.contact.hasPending}>
+                                            <!-- show cancel button -->
+                                            <lightning-button-icon data-id={contactData.contact.Id}
+                                                                   class="slds-m-horizontal_x-small btn-x-large" icon-name="utility:error"
+                                                                   alternative-text="Cancel pending request" size="large"
+                                                                   onclick={handleCancelRequest}>
+                                            </lightning-button-icon>
+                                        </template>
+
+                                        <!-- current user -->
+                                        <template if:true={contactData.currentlyLoggedInUserContact}>
+                                            <lightning-button-icon data-id={contactData.contact.Id}
+                                                                    class="btn-x-large slds-m-horizontal_x-small"
+                                                                    icon-name="utility:block_visitor"
+                                                                    size="large"
+                                                                    alternative-text="you cannot deactivate yourself" disabled>
+                                            </lightning-button-icon>
+                                            <lightning-button-icon class="btn-x-large slds-m-horizontal_x-small"
+                                                                    data-id={contactData.contact.Id}
+                                                                    size="large"
+                                                                    icon-name="utility:edit"
+                                                                    alternative-text="Edit user access" onclick={handleEditAction}>
+                                            </lightning-button-icon>
+                                        </template>
+
+                                        <!-- other active users -->
+                                        <template if:false={contactData.currentlyLoggedInUserContact}>
+
+                                            <!-- showing reinvite -->
+                                            <template if:true={contactData.contact.showReinvite}>
+                                                <template if:true={contactData.contact.enabledReinvite}>
+                                                    <lightning-button-icon data-id={contactData.contact.Id}
+                                                                            class="btn-x-large slds-m-horizontal_x-small"
+                                                                            icon-name="utility:email"
+                                                                            alternative-text="Re-invite user"
+                                                                            size="large"
+                                                                            onclick={handleReinviteAction}>
+                                                    </lightning-button-icon>
+                                                </template>
+                                                <template if:false={contactData.contact.enabledReinvite}>
+                                                    <lightning-button-icon data-id={contactData.contact.Id}
+                                                                            class="btn-x-large slds-m-horizontal_x-small"
+                                                                            icon-name="utility:email"
+                                                                            alternative-text="Re-invite user (pending)"
+                                                                            size="large"
+                                                                            disabled>
+                                                    </lightning-button-icon>
+                                                </template>
+                                            </template>
+
+                                            <template if:false={contactData.contact.hasPending}>
+                                                <!-- show deactivate button -->
+                                                <lightning-button-icon data-id={contactData.contact.Id}
+                                                                        class="slds-m-horizontal_x-small btn-x-large" icon-name="utility:block_visitor"
+                                                                        alternative-text="De-activate User" size="large"
+                                                                        onclick={handleDeactivateAction}>
+                                                </lightning-button-icon>
+                                            </template>
+                                            <lightning-button-icon data-id={contactData.contact.Id} icon-name="utility:edit" class="slds-m-horizontal_x-small btn-x-large"
+                                                                    alternative-text="Edit user access" size="large"
+                                                                    onclick={handleEditAction}>
+                                            </lightning-button-icon>
+                                        </template>
+
+
+                                    </template>
+
+                                    <!-- show reactivate -->
+                                    <template if:false={contactData.contact.statusActive}>
+                                        <!-- inactive users -->
+                                        <template if:false={contactData.contact.hasPending}>
+                                            <lightning-button-icon data-id={contactData.contact.Id}
+
+                                                                    icon-name="utility:loop" alternative-text="Reactivate user" size="large" class="btn-x-large slds-m-horizontal_x-small"
+                                                                    onclick={handleReactivateAction}>
+                                            </lightning-button-icon>
+                                        </template>
+                                        <lightning-button-icon data-id={contactData.contact.Id}
+                                                                class="btn-x-large slds-m-horizontal_x-small"
+                                                                icon-name="utility:edit"
+                                                                size="large"
+                                                                alternative-text="Edit user access (disabled)" disabled>
+                                        </lightning-button-icon>
+
+                                    </template>
+
+                                </td>
+                                <td class="end-col"></td>
+                            </tr>
+                        </template>
+                        <!-- END TABLE -->
+
+
+                        <!--
+                        <template for:each={tableDisplayListData} for:item="contact">
+                            <tr class="slds-hint-parent" key={contact.Id}>
+                                <td class="end-col"></td>
+                                <td class="user-name">
+                                    <span>
+                                        {contact.Name}
+                                        <template if:true={contact.currentlyLoggedInUserContact}>
+                                            <lightning-badge class="slds-m-left_small" label="you"></lightning-badge>
+                                        </template>
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title="Email">{contact.Email}</div>
+                                </td>
+                                <td data-label="Prospecting">
+                                    <div class="slds-truncate" title="Status">{contact.Status__c}</div>
+                                </td>
+                                <td class="application-list">
+                                    <div class="slds-truncate" title=Application>
+                                        <ul class="slds-list">
+                                            <template iterator:it={contact.appList}>
+                                                <li key={it.value.name}>
+                                                    <template if:true={it.value.pending}>
+                                                        <span class="pending slds-text-color_weak">{it.value.Application__r.Name}</span>
+                                                    </template>
+                                                    <template if:false={it.value.pending}>
+                                                        <span>{it.value.Application__r.Name}</span>
+                                                    </template>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    <lightning-button-icon data-id={contact.Id} icon-name="utility:block_visitor"
+                                        alternative-text="Settings" onclick={handleDeactivateAction}>
+                                    </lightning-button-icon>
+                                    <lightning-button-icon class="slds-m-left_small" data-id={contact.Id}
+                                        icon-name="utility:edit" alternative-text="Settings" onclick={handleEditAction}>
+                                    </lightning-button-icon>
+                                </td>
+                                <td class="end-col"></td>
+                            </tr>
+                        </template>
+                        -->
+                    </tbody>
+                </table>
+            </div>
+
+            <template if:true={noTableData}>
+                <div class="full-width slds-p-around_large empty-message-container">
+                    <div class="empty-table-body slds-p-around_large slds-m-around_large">
+                        <div class="slds-m-vertical_large slds-m-right_large">
+                            <template if:false={ie11}>
+                                <lightning-icon src={noResultsIconUrl} alternative-text="No results found" size="large" class="empty-table-icon"></lightning-icon>  
+                            </template> 
+                            <!-- Render SVGs for IE11 using the img tag, intended as a workaround -->
+                            <template if:true={ie11}>
+                                <img src={noResultsIconUrl_IE11} style="width:9rem; height:9rem;" alt="No results found">
+                            </template>     
+                        </div>
+                        <div class="slds-m-around_large">
+                            <h4 class="slds-text-heading_medium slds-p-around_x-small"><b>We weren't able to find any users</b></h4>
+                            <p class="slds-p-horizontal_x-small slds-text-color_weak">Check your search term and try again</p>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <!-- only display table footer if tabnle is populated with data -->
+            <template if:false={noTableData}>
+            <div class="slds-m-top_large">
+                <div style="display:flex;justify-content:flex-start;align-items:center;">
+                    <div style="flex:1">
+                        <div>
+                            Showing {pageSize} per page
+                        </div>
+                    </div>
+                    <div style="flex:1">
+                        <div style="display:flex;justify-content:flex-start;align-items:center;padding-left: 1in;">
+                            <span style="font-weight: bold">{resultsShowing}</span> &nbsp;<span> of {totalResults}</span>
+                        </div>
+                    </div>
+                    <div style="flex:1">
+                        <div style="display: flex;justify-content: center;align-items: center; color:#535f67;">
+                            <!-- <div class="slds-p-left_medium slds-p-right_medium slds-p-vertical_xx-small" style="border:solid 2px #d4d4d4; background-color:white; border-radius: 3px 0 0 3px;"> -->
+                                <lightning-button title="Prev"
+                                                    variant="base"
+                                                    label="Prev"
+                                                    icon-position="left"
+                                                    onclick={handlePreviousPage}
+                                                    disabled={disablePreviousButton}
+                                                    icon-name="utility:chevronleft"
+                                                    class="bam-page-nav-left"
+                                ></lightning-button>
+                            <!-- </div> -->
+                            <div class="bam-page-nav-page-no">
+                                {currentPageNumber}
+                            </div>
+                            <!-- <div class="slds-p-left_medium slds-p-right_medium slds-p-vertical_xx-small" style="border:solid 2px #d4d4d4; background-color:white; border-radius: 0 3px 3px 0;"> -->
+                                <lightning-button title="Next"
+                                                    variant="base"
+                                                    label="Next"
+                                                    onclick={handleNextPage}
+                                                    icon-position="right"
+                                                    icon-name="utility:chevronright"
+                                                    disabled={disableNextButton}
+                                                    class="bam-page-nav-right"
+                                ></lightning-button>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+            <!-- Deactivation confirmation modal -->
+            <c-modal title="Deactivate user" show-modal={showConfirmDeactivateModal} close-modal-callback={closeModalCallback}>
+                <p><b>{selectedUserForDeactivation.Name}</b> will no longer have access to any applications</p>
+                <br>
+                <!-- p><b>A deactivated user cannot be reactivated for 24 hours.</b></p-->
+                <lightning-button class="slds-m-left_x-small" label="Cancel" slot="footer"
+                                    variant="base"
+                                    onclick={closeModals}>
+                </lightning-button>
+                <lightning-button class="slds-m-left_x-small" variant="brand" label="Deactivate" slot="footer"
+                    onclick={deactivateSelectedUser}>
+                </lightning-button>
+            </c-modal>
+
+            <!-- Request Cancellation confirmation modal -->
+            <c-modal title="Cancel request" show-modal={showConfirmRequestCancellationModal} close-modal-callback={closeModalCallback}>
+                <p>Are you sure you want to cancel all pending requests for this user?</p>
+                <br>
+                <!-- p><b>A deactivated user cannot be reactivated for 24 hours.</b></p-->
+                <lightning-button class="slds-m-left_x-small" label="Cancel" slot="footer"
+                                  variant="base"
+                                  onclick={closeModals}>
+                </lightning-button>
+                <lightning-button class="slds-m-left_x-small" variant="brand" label="Submit" slot="footer"
+                                  onclick={cancelRequestForSelectedUser}>
+                </lightning-button>
+            </c-modal>
+
+            <!-- Deactivate response message -->
+            <c-modal title="Deactivate user" show-modal={showDeactivateResultModal} close-modal-callback={closeModalCallback}>
+                <p>{deactivateResultMessage}</p>
+                <lightning-button class="slds-m-left_x-small" label="OK" slot="footer"
+                                    variant="brand"
+                                    onclick={closeModals}>
+                </lightning-button>
+            </c-modal>
+            <!-- END Deactivate response message -->
+            <!-- Cancellation response message -->
+            <c-modal title="Cancel request" show-modal={showRequestCancellationResultModal} close-modal-callback={closeModalCallback}>
+                <p>{requestCancellationResultMessage}</p>
+                <lightning-button class="slds-m-left_x-small" label="OK" slot="footer"
+                                  variant="brand"
+                                  onclick={closeModals}>
+                </lightning-button>
+            </c-modal>
+            <!-- END Deactivate response message -->
+            <!-- Reactivate response message -->
+            <c-modal title="Reactivate user" show-modal={showReactivateResultModal} close-modal-callback={closeModalCallback}>
+                <p>{reactivateResultMessage}</p>
+                <lightning-button class="slds-m-left_x-small" variant="brand" label="OK" slot="footer"
+                                    onclick={closeModals}>
+                </lightning-button>
+            </c-modal>
+            <!-- END Reactivate response message -->
+        </template>
+    </div>
+    <c-bam-confetti></c-bam-confetti>
+</template>

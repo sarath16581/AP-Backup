@@ -1,0 +1,16 @@
+A Sales Coverage Change Request needs your approval. Please find details below.
+
+Organisation: {!Account.Name}
+Reason for change:
+{!Segmentation_Change_Request__c.Reason_for_Change__c}
+Name of Requestor: {!Segmentation_Change_Request__c.CreatedBy}
+Link to Request: {!Segmentation_Change_Request__c.Link}
+Effective Date of Change: {!Segmentation_Change_Request__c.Effective_Date_of_Change__c}
+
+Please note that the specified changes are set to take effect on the 23rd day of the next quarter. If approval is not given by COB on Day 22 of the next quarter the changes will be delayed until the following quarter.
+
+Quarters are defined as:
+Q1 July to September
+Q2 October - December
+Q3 January - March
+Q4 April - June

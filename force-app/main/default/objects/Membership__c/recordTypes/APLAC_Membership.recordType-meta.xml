@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APLAC_Membership</fullName>
+    <active>true</active>
+    <description>to store the APLAC Memberships for a LPO where appropriate</description>
+    <label>APLAC Membership</label>
+    <picklistValues>
+        <picklist>Cancellation_reason__c</picklist>
+        <values>
+            <fullName>Blacklisted</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Licensee_Type__c</picklist>
+        <values>
+            <fullName>New Membership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Update Membership</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Member_Type__c</picklist>
+        <values>
+            <fullName>Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sole Trader</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trust</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_of_Registration__c</picklist>
+        <values>
+            <fullName>Change in Entity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Change of reg details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Registration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No longer required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reregistration</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

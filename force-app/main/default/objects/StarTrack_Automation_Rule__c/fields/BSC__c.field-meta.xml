@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BSC__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This checkbox will be matched against Case BSC flag.</description>
+    <externalId>false</externalId>
+    <label>BSC</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

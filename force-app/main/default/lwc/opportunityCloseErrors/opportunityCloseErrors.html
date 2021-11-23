@@ -1,0 +1,50 @@
+<!--
+/* @author 
+ * @date 2020-07-28
+ * @group Opportunities
+ * @tag Opportunity
+ * @description OpportunityValidationErrors capture all the possible validation messages for Opportunity
+ *              which is in stage Negotiate and ready for CloseWon.User will be able to use to this information
+ *              to close Won an Opportunity .
+ * @changelog
+ * 2020-07--28 vcheng Created
+ * 2020-08-16 - arjun.singh@auspost.com.au - Modified to include OpportunityValidationErros vf page which in turns pass all the possibe
+ *                                           validation errors to lwc component
+ *
+ -->  
+<template>
+    <div class="slds-card ">
+
+        <template if:true={showSpinner}>
+            <lightning-spinner variant="brand" size="medium"></lightning-spinner>
+        </template>
+        <div class="slds-hide">
+            <iframe width="10" height="10" src={fullUrl}></iframe>
+        </div> 
+        <div class="slds-m-around_medium">
+            <div class="slds-text-heading_small">Opportunity Tracker</div>
+            <div class="slds-m-top_x-small">
+                <template if:true={opptyIsClosed}>
+                    <!-- if oppty is closed, nothing to see here -->
+                    <div class="slds-text-color_success">This Opportunity is already <span style="font-weight: bold">{currentStage}</span></div>
+                </template>
+                <template if:false={opptyIsClosed}>
+                    <!-- if oppty can progress -->
+                    <template if:true={validForProgress}>
+                        <div class="slds-text-color_success">You can progress from <span style="font-weight: bold">{currentStage}</span> to <span style="font-weight: bold">{nextStage}</span></div>
+                    </template>
+                    <template if:false={validForProgress}>
+                        <div class="slds-text-color_error">If you are ready to progress from <span style="font-weight: bold">{currentStage}</span> to <span style="font-weight: bold">{nextStage}</span></div>
+                        <ol class="slds-list_dotted slds-m-top_x-small">
+                            <template for:each={progressErrs} for:item="errClose">
+                                <li key={errClose} class="slds-m-bottom_x-small">
+                                    {errClose}
+                                </li>
+                            </template>
+                        </ol>
+                    </template>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

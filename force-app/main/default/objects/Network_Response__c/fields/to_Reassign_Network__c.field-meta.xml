@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>to_Reassign_Network__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Reassign Network</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Network__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Business Hub, Delivery, Other, Retail</value>
+        </filterItems>
+        <filterItems>
+            <field>Network__c.Status__c</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </filterItems>
+        <filterItems>
+            <field>Network__c.Contact_Facility__c</field>
+            <operation>equals</operation>
+            <value>Email, Fax, MyNetwork</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Network__c</referenceTo>
+    <relationshipLabel>Network Responses</relationshipLabel>
+    <relationshipName>Network_Responses</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

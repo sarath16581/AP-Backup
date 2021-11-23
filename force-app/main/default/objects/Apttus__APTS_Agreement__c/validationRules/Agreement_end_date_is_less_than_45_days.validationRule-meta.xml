@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Agreement_end_date_is_less_than_45_days</fullName>
+    <active>true</active>
+    <description>Contract For Review is not required if Agreement End Date is less than 45 days from today</description>
+    <errorConditionFormula>AND ( ISCHANGED(APT_Mark_for_Review__c), 
+(Apttus__Contract_End_Date__c -  TODAY() ) &lt; 45 , 
+ISPICKVAL(Term__c , &apos;Open Ended&apos;))</errorConditionFormula>
+    <errorDisplayField>APT_Mark_for_Review__c</errorDisplayField>
+    <errorMessage>You cannot mark this Open-Ended Contract For Review because the Agreement End Date is less than 45 days from today</errorMessage>
+</ValidationRule>

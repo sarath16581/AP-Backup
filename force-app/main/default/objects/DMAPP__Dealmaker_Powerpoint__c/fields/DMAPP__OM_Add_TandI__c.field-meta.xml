@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__OM_Add_TandI__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Check this box to include T&amp;I data from Smart Opportunity Manager in the Powerpoint file.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select this checkbox to include Test &amp; Improve information from Opportunity Manager in the Powerpoint file.</inlineHelpText>
+    <label>OM Add T&amp;I</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

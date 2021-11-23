@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_DoV_Details__c</fullName>
+    <externalId>false</externalId>
+    <label>DoV Details</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>As detailed below</fullName>
+                <default>true</default>
+                <label>As detailed below</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

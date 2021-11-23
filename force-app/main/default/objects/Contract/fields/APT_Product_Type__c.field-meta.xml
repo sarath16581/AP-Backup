@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Product_Type__c</fullName>
+    <description>Created for Ariba mapping purposes. Reused for future records with Sellers input</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Ariba migrated field</inlineHelpText>
+    <label>Product Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Mail, Letters or Parcel</fullName>
+                <default>false</default>
+                <label>Mail, Letters or Parcel</label>
+            </value>
+            <value>
+                <fullName>Agency Services</fullName>
+                <default>false</default>
+                <label>Agency Services</label>
+            </value>
+            <value>
+                <fullName>APMS</fullName>
+                <default>false</default>
+                <label>APMS</label>
+            </value>
+            <value>
+                <fullName>PostConnect</fullName>
+                <default>false</default>
+                <label>PostConnect</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

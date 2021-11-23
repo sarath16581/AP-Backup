@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GoogleMapKey__c</fullName>
+    <defaultValue>&apos;client=gme-startrack&apos;</defaultValue>
+    <description>Google Map Key or the Client code. Enter it as either key=aaa OR client=gme-startrack.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Google Map Key or the Client code. Enter it as either key=aaa OR client=gme-startrack.</inlineHelpText>
+    <label>GoogleMapKey</label>
+    <length>132</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

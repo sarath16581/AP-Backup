@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Data_Quality_Description_Individual__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(   Hidden_Data_Score_Individual__c =100 ,&quot;All Contact Details Captured&quot;, &quot;Missing: &quot;
+&amp;IF(ISBLANK( FirstName )||ISBLANK(LastName ),&quot;Name-&quot;,&quot;&quot;)&amp;&quot;&quot;
+&amp;IF(ISBLANK( Title ),&quot;Job Title-&quot;,&quot;&quot;)&amp;&quot;&quot;
+&amp;IF(ISBLANK(TEXT( Function_Group__c ) ),&quot;Title Group-&quot;, &quot;&quot;)&amp;&quot;&quot;
+&amp;IF(LEN(Phone) =0, &quot;Phone-&quot;, &quot;&quot;) &amp;&quot;&quot;
+&amp;IF(ISBLANK( Email ),&quot;Email-&quot;,&quot;&quot;)&amp;&quot;&quot;
+&amp;IF(ISBLANK(  MailingStreet &amp; MailingCity&amp; MailingState&amp; MailingPostalCode ),&quot;Billing Address-&quot;, &quot;&quot;)&amp;&quot;&quot;
+&amp;IF(ISBLANK( OtherStreet &amp; OtherCity&amp; OtherState&amp; OtherPostalCode ),&quot;Physical Address-&quot;, &quot;&quot;)&amp;&quot;&quot;
+&amp;IF(ISBLANK( MobilePhone ),&quot;Mobile-&quot;, &quot;&quot;)&amp;&quot;&quot;
+&amp;IF(ISBLANK( Fax ),&quot;Fax-&quot;,&quot;&quot;)&amp;&quot;&quot;
+&amp;IF(ISBLANK( text(Status__c) ),&quot;Status-&quot;,&quot;&quot;)&amp;&quot;&quot;
+&amp;IF(ISBLANK( AccountId ),&quot;Legal Entity Name-&quot;, &quot;&quot;)&amp;&quot;&quot;
+&amp;IF(ISBLANK( text(Privacy_Marketing_Opt_Out__c )),&quot;Marketing Opt Out-&quot;, &quot;&quot;)&amp;&quot;&quot;
+&amp;IF(ISBLANK( text(Email_Electronic_Opt_In__c) ),&quot;Electronic Email Opt In-&quot;, &quot;&quot;)&amp;&quot;&quot;
+&amp;IF(NOT( DoNotCall) ,&quot;Do Not Call-&quot;,&quot;&quot;)&amp;&quot;&quot;
+&amp;IF(NOT(Do_Not_Mail__c) ,&quot;Do Not Mail-&quot;, &quot;&quot;)&amp;&quot;&quot;
+&amp;IF(NOT(HasOptedOutOfFax), &quot;Do Not Fax-&quot;, &quot;&quot;)&amp;&quot;&quot;
+&amp;IF(ISBLANK( Birthdate ),&quot;Birthday-&quot;, &quot;&quot;)&amp;&quot;&quot;
+&amp;IF(ISBLANK( text(Gender__c ) ),&quot;Gender-&quot;, &quot;&quot;)&amp;&quot;&quot;
+&amp;IF(ISBLANK( Hidden_Description__c ),&quot;Description&quot;, &quot;&quot;))</formula>
+    <label>Data Quality Description-Individual</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Requestor_Workgroup__c</fullName>
+    <description>USQ case</description>
+    <externalId>false</externalId>
+    <label>Requestor Workgroup</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer Sales and Services</fullName>
+                <default>false</default>
+                <label>Customer Sales and Services</label>
+            </value>
+            <value>
+                <fullName>ECG Sales</fullName>
+                <default>false</default>
+                <label>ECG Sales</label>
+            </value>
+            <value>
+                <fullName>Hubs</fullName>
+                <default>false</default>
+                <label>Hubs</label>
+            </value>
+            <value>
+                <fullName>IT</fullName>
+                <default>false</default>
+                <label>IT</label>
+            </value>
+            <value>
+                <fullName>Marketing</fullName>
+                <default>false</default>
+                <label>Marketing</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>P&amp;ES Sales</fullName>
+                <default>false</default>
+                <label>P&amp;ES Sales</label>
+            </value>
+            <value>
+                <fullName>Projects</fullName>
+                <default>false</default>
+                <label>Projects</label>
+            </value>
+            <value>
+                <fullName>Retail</fullName>
+                <default>false</default>
+                <label>Retail</label>
+            </value>
+            <value>
+                <fullName>SecurePay</fullName>
+                <default>false</default>
+                <label>SecurePay</label>
+            </value>
+            <value>
+                <fullName>Shared Service</fullName>
+                <default>false</default>
+                <label>Shared Service</label>
+            </value>
+            <value>
+                <fullName>Lodgement Point</fullName>
+                <default>false</default>
+                <label>Lodgement Point</label>
+            </value>
+            <value>
+                <fullName>Account Managers</fullName>
+                <default>false</default>
+                <label>Account Managers</label>
+            </value>
+            <value>
+                <fullName>Platform development</fullName>
+                <default>false</default>
+                <label>Platform development</label>
+            </value>
+            <value>
+                <fullName>IT Support</fullName>
+                <default>false</default>
+                <label>IT Support</label>
+            </value>
+            <value>
+                <fullName>Strategic/Enterprise Support</fullName>
+                <default>false</default>
+                <label>Strategic/Enterprise Support</label>
+            </value>
+            <value>
+                <fullName>Credit/Contract Management</fullName>
+                <default>false</default>
+                <label>Credit/Contract Management</label>
+            </value>
+            <value>
+                <fullName>EM Team</fullName>
+                <default>false</default>
+                <label>EM Team</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

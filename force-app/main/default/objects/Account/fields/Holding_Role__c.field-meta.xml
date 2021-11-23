@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Holding_Role__c</fullName>
+    <description>Supplementary information to further define Holding User for the Customer Data team. Do not update options without agreement of Customer Data team.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>When the Account Manager = Holding User, you must select a Holding Role</inlineHelpText>
+    <label>Old Holding Role</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Accounts</fullName>
+                <default>false</default>
+                <label>New Accounts</label>
+            </value>
+            <value>
+                <fullName>Prospect</fullName>
+                <default>false</default>
+                <label>Prospect</label>
+            </value>
+            <value>
+                <fullName>SMB Unallocated</fullName>
+                <default>false</default>
+                <label>SMB Unallocated</label>
+            </value>
+            <value>
+                <fullName>Vacant Advertising &amp; Media Agencies KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant Advertising &amp; Media Agencies KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Banking, F&amp;PS KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant Banking, F&amp;PS KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Business North NSW 1 TSR 1</fullName>
+                <default>false</default>
+                <label>Vacant Business North NSW 1 TSR 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Business North NSW 2 TSR 1</fullName>
+                <default>false</default>
+                <label>Vacant Business North NSW 2 TSR 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Business North NSW 3 TSR 1</fullName>
+                <default>false</default>
+                <label>Vacant Business North NSW 3 TSR 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Business North QLD TSR 1</fullName>
+                <default>false</default>
+                <label>Vacant Business North QLD TSR 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Business Sales 1</fullName>
+                <default>false</default>
+                <label>Vacant Business Sales 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Business South SA/NT TSR 1</fullName>
+                <default>false</default>
+                <label>Vacant Business South SA/NT TSR 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Business South VIC 1 TSR 1</fullName>
+                <default>false</default>
+                <label>Vacant Business South VIC 1 TSR 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Business South VIC 1 TSR 2</fullName>
+                <default>false</default>
+                <label>Vacant Business South VIC 1 TSR 2</label>
+            </value>
+            <value>
+                <fullName>Vacant Business South VIC 2 TSR 1</fullName>
+                <default>false</default>
+                <label>Vacant Business South VIC 2 TSR 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Business South VIC 3 TSR 1</fullName>
+                <default>false</default>
+                <label>Vacant Business South VIC 3 TSR 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Business South WA TSR 1</fullName>
+                <default>false</default>
+                <label>Vacant Business South WA TSR 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Communications KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant Communications KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Communications KAM 2</fullName>
+                <default>false</default>
+                <label>Vacant Communications KAM 2</label>
+            </value>
+            <value>
+                <fullName>Vacant eCommerce BD KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant eCommerce BD KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Federal Government KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant Federal Government KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Health &amp; Energy Business Development</fullName>
+                <default>false</default>
+                <label>Vacant Health &amp; Energy Business Development</label>
+            </value>
+            <value>
+                <fullName>Vacant Health &amp; Energy KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant Health &amp; Energy KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Health &amp; Energy Service Delivery</fullName>
+                <default>false</default>
+                <label>Vacant Health &amp; Energy Service Delivery</label>
+            </value>
+            <value>
+                <fullName>Vacant Inside Sales North 1 ISR 1</fullName>
+                <default>false</default>
+                <label>Vacant Inside Sales North 1 ISR 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Inside Sales North 1 ISR 2</fullName>
+                <default>false</default>
+                <label>Vacant Inside Sales North 1 ISR 2</label>
+            </value>
+            <value>
+                <fullName>Vacant Inside Sales North 2 ISR 1</fullName>
+                <default>false</default>
+                <label>Vacant Inside Sales North 2 ISR 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Inside Sales North 3 ISR 1</fullName>
+                <default>false</default>
+                <label>Vacant Inside Sales North 3 ISR 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Inside Sales South 1 ISR 1</fullName>
+                <default>false</default>
+                <label>Vacant Inside Sales South 1 ISR 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Inside Sales South 2 ISR 1</fullName>
+                <default>false</default>
+                <label>Vacant Inside Sales South 2 ISR 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Inside Sales South 2 ISR 2</fullName>
+                <default>false</default>
+                <label>Vacant Inside Sales South 2 ISR 2</label>
+            </value>
+            <value>
+                <fullName>Vacant Integrated Accounts KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant Integrated Accounts KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Local Govt, NFP &amp; Education KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant Local Govt, NFP &amp; Education KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant NSW State Government KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant NSW State Government KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Parcel Key Accounts North KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant Parcel Key Accounts North KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Parcel Key Accounts South KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant Parcel Key Accounts South KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Parcel Partner Sales KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant Parcel Partner Sales KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Postal Partners KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant Postal Partners KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant QLD Commercial KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant QLD Commercial KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant Retail Services KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant Retail Services KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant VIC State Government KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant VIC State Government KAM 1</label>
+            </value>
+            <value>
+                <fullName>Vacant WA/NT Commercial KAM 1</fullName>
+                <default>false</default>
+                <label>Vacant WA/NT Commercial KAM 1</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,46 @@
+<!-- 2018-06-01 clint.dsilva@auspost.com.au created -->
+<aura:component description="ImageContainer" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="imageBase64" type="String"  access="global"  default=""   />
+    <aura:attribute name="source" type="Object"  access="global"    />
+    <aura:attribute name="iterationIdx" type="Integer"  access="global"  default="0"   />
+    <aura:attribute name="errorMsgs" type="Object[]"  access="global"     />
+    <aura:attribute name="guid" type="String"  access="global"  default=""   />
+    <aura:attribute name="width" type="String"  access="global"  default="" />
+    <aura:attribute name="height" type="String"  access="global"  default=""    />
+    <aura:attribute name="border" type="String"  access="global"   default=""  />
+
+    <aura:attribute name="imgShowing" type="boolean"     default="false" access="private"  />
+    <aura:attribute name="imageLoaded" type="Boolean" default="false" />
+
+    <aura:attribute name="defwidth" type="String"  access="global" default="100px"  />
+    <aura:attribute name="defheight" type="String"  access="global" default="100px"  />
+    <aura:attribute name="defborder" type="String"  access="global"  default="0"/>
+
+    <aura:method name="loadImg" action="{!c.doLoadImg}">
+        <aura:attribute name="imageBase64str" type="String"/>
+        <aura:attribute name="errorMapLst" type="Object[]" />
+    </aura:method>
+    <aura:registerEvent name="ImageLoadedEvent" type="c:eComponentLoaded"/>
+    <div class="popup"  onclick="{!c.handleClick}"   >
+        <div class="exampleHolder">
+            <aura:if isTrue="{! v.imageLoaded }">
+                <img aura:id="containerImg"  src="{! 'data:image/jpeg;base64, ' + v.imageBase64}"  style="{!'width:' + v.width +  ';height:' + v.height + ';border:' + v.border + ';' }"
+                />
+                <aura:set attribute="else">
+                    <lightning:spinner alternativeText="Loading" aura:id="imgSpinner"  />
+
+                </aura:set>
+            </aura:if>
+        </div>
+        <div>
+            <ul class="slds-has-dividers_bottom">
+                <aura:iteration items="{!v.errorMsgs}" var="err" >
+                    <li class="slds-item">{!err.error}</li>
+                </aura:iteration>
+            </ul>
+        </div>
+        <span class="popuptext" aura:id="myPopup" id="myPopup" >
+            <img aura:id="containerImgPop"  src="{! 'data:image/jpeg;base64, ' + v.imageBase64}"  onmouseout="{!c.handleShowPopOut}"  />
+        </span>
+    </div>
+</aura:component>

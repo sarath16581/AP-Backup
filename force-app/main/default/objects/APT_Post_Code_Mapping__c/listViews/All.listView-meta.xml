@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>APT_Post_Code__c</columns>
+    <columns>APT_Suburb__c</columns>
+    <columns>APT_Tier_Zone__c</columns>
+    <columns>APT_Direct_Zone__c</columns>
+    <columns>APT_Onforwarding_Zone__c</columns>
+    <columns>APT_Onforwarding_Alternate_Zone__c</columns>
+    <columns>APT_EXP_Zone_Type__c</columns>
+    <columns>APT_PRM_Zone_Type__c</columns>
+    <columns>APT_RE2_Zone_Type__c</columns>
+    <columns>APT_RET_Zone_Type__c</columns>
+    <columns>RECORDTYPE</columns>
+    <columns>APT_SE2_Zone_Type__c</columns>
+    <columns>APT_SE3_Zone_Type__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

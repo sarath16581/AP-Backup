@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>PA created for StarTrack users to add additional callers  for scenarios where the case is reused for a 2nd caller</description>
+    <fieldOverrides>
+        <field>Add_Caller_Quick_Action__c</field>
+        <formula>TRUE</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Callers_Data_Change__c</field>
+        <formula>IF(
+AND(
+ISPICKVAL(Case.Origin, &apos;Email&apos;), 
+ISBLANK(Case.Recent_Caller_First_Name__c))
+,FALSE,TRUE
+)</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Direction__c</field>
+        <literalValue>Inbound</literalValue>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>No_Data_Capture_DateTime__c</field>
+        <formula>NOW() - 0.0415972222222222</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Recent_Caller_Email__c</field>
+        <formula>IF(AND(
+ISBLANK(Case.Recent_Caller_Email__c),
+NOT(ISBLANK(Case.SuppliedEmail))),
+Case.SuppliedEmail,&apos;&apos;
+)</formula>
+    </fieldOverrides>
+    <icon>Log_a_Call</icon>
+    <label>Add New Caller</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Recent_Caller_First_Name__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Recent_Caller_Type__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Recent_Caller_Phone_Number__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Recent_Caller_Pref_Method_of_Contact__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Recent_Caller_Last_Name__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Direction__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Recent_Caller_Email__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Callers_Data_Change__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+    </quickActionLayout>
+    <type>Update</type>
+</QuickAction>

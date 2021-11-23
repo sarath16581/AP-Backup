@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaritzCX__Question_Label__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field will hold the labels for corresponding type of questions for a Survey.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The label can be overridden to display on Response lists.</inlineHelpText>
+    <label>Question Label</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

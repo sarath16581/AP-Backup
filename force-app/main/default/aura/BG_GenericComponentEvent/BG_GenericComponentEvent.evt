@@ -1,0 +1,19 @@
+<!--
+    STP:20/02/2020: 
+    This is a lightning geniric component event which is using to fire and handle b/w the steps during the Guided qualification process.
+-->
+<aura:event type="COMPONENT">
+   <!-- <aura:attribute name="name" type="String"/>
+    <aura:attribute name="value" type="String"/>
+    <aura:attribute name="objectRecord" type="Object"/> -->
+    <aura:attribute name="NextCmpToLoad" type="String"/> <!-- 'Discovery' or 'Product Selection' or 'Product Detail' or 'Review' or 'Summary' -->
+    <aura:attribute name="qualificationRecordId" type="String"/>
+    <aura:attribute name="existingQualification" type="Object"/>
+    <aura:attribute name="discoveryCategoryQuestions" type="Object"/>
+    <aura:attribute name="operationalCategoryQuestions" type="Object"/>
+    <aura:attribute name="initialLoad" type="Boolean"/>
+    <aura:attribute name="editFlow" type="Boolean"/>
+    <aura:attribute name="navigateFromViewButton" type="Boolean"/>
+    <aura:attribute name="hasBgSalesPermissionSet" type="Boolean"/>
+    <aura:attribute name="isManualOpp" type="Boolean" />  
+</aura:event>

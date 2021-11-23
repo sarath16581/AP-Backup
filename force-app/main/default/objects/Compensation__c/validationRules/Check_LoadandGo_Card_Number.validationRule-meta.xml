@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_LoadandGo_Card_Number</fullName>
+    <active>true</active>
+    <description>This rule checks for 16 digits in the load and go card number field.</description>
+    <errorConditionFormula>RecordType.DeveloperName == &apos;Load_and_Go&apos; &amp;&amp; LEN(Load_and_Go_Card_Number__c) &lt;&gt; 16</errorConditionFormula>
+    <errorDisplayField>Load_and_Go_Card_Number__c</errorDisplayField>
+    <errorMessage>Card ID number must have 16 digits</errorMessage>
+</ValidationRule>

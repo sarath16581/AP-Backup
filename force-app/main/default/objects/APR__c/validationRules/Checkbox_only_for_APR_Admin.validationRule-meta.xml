@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Checkbox_only_for_APR_Admin</fullName>
+    <active>true</active>
+    <description>Only APR Admin users can edit the Entered in Team / PeopleSoft checkbox field</description>
+    <errorConditionFormula>AND( 
+ RecordType.DeveloperName = &apos;StarTrack&apos;,
+ISCHANGED( Entered_in_Team_PeopleSoft__c ), 
+NOT(OR( 
+$Permission.APR_Admin = TRUE, 
+$Profile.Name = &apos;System Administrator&apos; 
+)))</errorConditionFormula>
+    <errorDisplayField>Entered_in_Team_PeopleSoft__c</errorDisplayField>
+    <errorMessage>You do not have access to edit this field</errorMessage>
+</ValidationRule>

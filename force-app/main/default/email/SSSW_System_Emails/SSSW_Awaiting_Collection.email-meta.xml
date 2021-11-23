@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SSSW - Used to notify the Customer when the Awaiting Collection event message is created</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Awaiting Collection</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference number {!Case.CaseNumber}
+
+
+Hi {!Contact.FirstName},
+
+Your item {!Case.ReferenceID__c} is now awaiting collection
+
+
+Your item is ready for collection {!IF(ISPICKVAL(Case.ProductSubCategory__c, &apos;Registered Post International&apos;),&apos;&apos;,&apos;, please click here: https://auspost.com.au/mypost/track/#/search to confirm its current location&apos;)}.It will be held with Australia Post for 10 business days.
+
+It is recommended you also bring Photo ID. For instructions on how to collect your item, please see here.
+
+If you have any further questions about the delivery of your item, please reply to this email and we will be happy to assist you.
+
+
+Thank you,
+
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

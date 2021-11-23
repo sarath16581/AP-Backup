@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Credit_Claim_Reason_Validation</fullName>
+    <active>true</active>
+    <description>Validate if Case Type is &apos;Dispute Claim&apos; and make reason for credit claim mandatory.</description>
+    <errorConditionFormula>AND(
+    Case_RecordType_Name__c = &apos;Credit Dispute Claim&apos;,
+    ISPICKVAL(Enquiry_Type__c, &apos;Dispute Claim&apos;),
+    ISBLANK(TEXT(ReasonforCreditClaim__c)))</errorConditionFormula>
+    <errorDisplayField>ReasonforCreditClaim__c</errorDisplayField>
+    <errorMessage>Reason for Credit Claim is mandatory when Case Type is &apos;Dispute Claim&apos;.</errorMessage>
+</ValidationRule>

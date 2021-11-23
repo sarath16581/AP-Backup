@@ -1,0 +1,11 @@
+Hello,
+
+A new support request has been submitted : {!Deal_Support_Request__c.Name}
+
+Request can be reviewed by following the below link:
+{!Deal_Support_Request__c.Link}
+or by entering support request number in global search within Salesforce.
+
+
+Regards
+Salesforce

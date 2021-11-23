@@ -1,0 +1,64 @@
+{
+  "Consignment": "50623188ABCD",
+  "Type": 4,
+  "Type_EnumString": "Delivered Today",
+  "EventDateTime": "/Date(1518574939000+1100)/",
+  "EventDesc": "Delivered",
+  "Network": "AusPost",
+  "Depot": "APO",
+  "SenderName": "Cellnet (BR1)",
+  "ReceiverName": "John Smith",
+  "Address1": "111",
+  "Address2": "Bourke STREET",
+  "SenderSuburb": "Sydney",
+  "SenderPostcode": "4019",
+  "ReceiverSuburb": "Melbourne",
+  "ReceiverPostcode": "3000",
+  "DespatchDate": "/Date(1518440400000+1100)/",
+  "ServiceCode": "ASK",
+  "Latitude": -12.460854999601937,
+  "Longitude": 130.841952,
+  "ETADateTime": "/Date(1518613200000+1100)/",
+  "NbrItems": 1,
+  "DestinationDepot": "MLB",
+  "Category": 11,
+  "Category_EnumString": "Delivered Early",
+  "APEvent": "DD-ER13",
+  "APEventReason": "",
+  "PublicEventDescription": "Delivered",
+  "ClientEventDescription": "Delivered",
+  "InternalEventDescription": "Delivered",
+  "PredictedETADateTime": null,
+  "PredictedNbrStopsToDelivery": 0,
+  "PredictedDeliveryWindowStart": null,
+  "PredictedDeliveryWindowEnd": null,
+  "ContextualParagragh1": "Your consignment was delivered successfully prior to today and ahead of the estimated delivery date.",
+  "ContextualParagragh2": "The Driver delivered the shipment  on 14/02/2018 01:22PM.",
+  "ContextualParagragh3": "[SignatureImage]",
+  "SignatureName": null,
+  "SignatureImageBase64": null,
+  "DriverName": null,
+  "DriverImageBase64": null,
+  "References": [
+    {
+      "Type": "QUOTATION  NUMBER",
+      "Value": "0000223778"
+    },
+    {
+      "Type": "ORDER NUMBER",
+      "Value": "08015727654"
+    },
+    {
+      "Type": "DESPATCH SLIP",
+      "Value": "08015727654"
+    },
+    {
+      "Type": "DELIVERY LOCATION NUMBER",
+      "Value": "449442079"
+    },
+    {
+      "Type": "SENDERS REFERENCE",
+      "Value": "8525735529"
+    }
+  ]
+}

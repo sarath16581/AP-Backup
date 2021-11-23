@@ -1,0 +1,20 @@
+<!--
+ - Created by Nathan on 2019-06-08.
+ -->
+
+<!-- Bam Profile Menu -->
+<template>
+    <c-custom-drop-down-menu align="right" label={name}>
+        <li class="slds-dropdown__item" role="presentation">
+            <a href={myAccessPageURL} role="menuitem" tabindex="0">
+                <span class="slds-truncate" title="My Access">My Access</span>
+            </a>
+        </li>
+        <li class="slds-dropdown__item" role="presentation">
+            <a href={logoutURL} role="menuitem" tabindex="-1">
+                <span class="slds-truncate" title="Logout">Log out</span>
+            </a>
+        </li>
+    </c-custom-drop-down-menu>
+
+</template>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Coverage_Sales_Access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing setting is to give read/write access to Coverage Sales to Lodgement Rules</description>
+        <label>Coverage Sales Access</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Lodgement Rules</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>LCM_Read_write_access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This is to give users read/write access to the &quot;Lodgement Rules&quot; record type</description>
+        <label>LCM Read &amp; write access</label>
+        <sharedTo>
+            <group>Lodgement_Customer_Migration_Authorizati</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Lodgement Rules</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Lodgement_Auth_Rules</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This Sharing Rule is to allow users to access Lodgement Auth Ruls.</description>
+        <label>Lodgement Auth Rules</label>
+        <sharedTo>
+            <group>All_CIA_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Lodgement Rules</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>MPB_Auth_Rules</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This Sharing Rule is to allow users to access MPB Auth Rules.</description>
+        <label>MPB Auth Rules</label>
+        <sharedTo>
+            <group>MPB_Auth_Rules</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>MPB Rules</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

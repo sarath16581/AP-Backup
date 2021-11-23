@@ -1,0 +1,11 @@
+<p>We've got news!</p>
+<p><a href="https://auspost.my.salesforce.com/support/s/idea/{!ideaId}">{!ideaTitle}</a> has been changed from <b>{!oldStatus}</b> to <b>{!newStatus}</b>.</p>
+<hr />
+<p>Here are the Idea details:</p>
+{!ideaBody}
+<hr />
+<p><a href="https://community.auspost.com.au/s/idea/{!ideaId}/detail"><em>Post a comment to the Idea owner</em></a>, or <a href="https://community.auspost.com.au/s/ideas-list"><em>explore other Ideas</em></a> in the community. Or head over to the <a href="https://community.auspost.com.au/s/group/0F990000000M0AdCAK/innovation-the-future-australia-post"<em>Innovation and Future Australia Post group</em></a> and share your thoughts about how Australia Post should evolve.
+</p>
+<hr />
+<p><a href="https://auspost.my.salesforce.com/support/s/ideas-unsubscribe?action=unsubscribe&ideaId={!ideaId}">Unsubscribe</a> from this idea</p>
+<p><a href="https://auspost.my.salesforce.com/support/s/ideas-unsubscribe?action=unsubscribeall">Unsubscribe</a> from all ideas</p>

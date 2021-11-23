@@ -1,0 +1,42 @@
+<!--
+ - Created by alexvolkov on 3/3/20.
+ -->
+
+<!-- Bg Datadic Field Usage -->
+<template>
+    <div class="slds-box">
+      <!--  <lightning-accordion allow-multiple-sections-open active-section-name="fieldUsage">
+            <lightning-accordion-section name="fieldUsage" label="Field Usage" class="slds-section"> -->
+                <template if:true={showTable}>
+                    <lightning-layout>
+                        <lightning-layout-item size="6">
+                            <lightning-input checked={showReports} label="Show Reports" type="checkbox"
+                                             onchange={applyFilters} name="showReports"></lightning-input>
+                            <lightning-input checked={showLayouts} label="Show Layouts" type="checkbox"
+                                             onchange={applyFilters} name="showLayouts"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6">
+                            <lightning-input checked={showReportTypes} label="Show Report Types" type="checkbox"
+                                             onchange={applyFilters} name="showReportTypes"></lightning-input>
+                        </lightning-layout-item>
+
+                    </lightning-layout>
+                    <div style="height: 25rem;">
+                        <lightning-datatable
+                                key-field="rowid"
+                                hide-checkbox-column
+                                resize-column-disabled
+                                data={tableData}
+                                columns={tableDef}>
+                        </lightning-datatable>
+                    </div>
+                </template>
+                <template if:false={tableData}>
+                    <div class="slds-align_absolute-center">
+                        <lightning-formatted-text value="No Field Usage found"></lightning-formatted-text>
+                    </div>
+                </template>
+      <!--      </lightning-accordion-section>
+        </lightning-accordion> -->
+    </div>
+</template>

@@ -1,0 +1,132 @@
+<!--
+    STP:20/02/2020: 
+    This component display the input question based on its data type('Picklist Field' or 'Multiselect Field' or 'Text Field')
+    The 'catQuestion'is input parameter with question details(Object datatype)
+-->
+<aura:component controller='BG_QualificationApex'>
+    <aura:attribute name="catQuestion" type="Object"/>
+    <aura:attribute name="wizardData" type="Map"/>
+    <aura:attribute name="isError" type="Boolean"/>
+    <aura:attribute name="errorMessage" type="String"/>
+    <aura:attribute name="selectedOption" type="String"/>
+    <aura:attribute name="options" type="List" />
+    <aura:attribute name="value" type="String"/>
+    <aura:attribute name="multiselectedAnswer" type="Object" />
+    <aura:attribute name="multiSelectAnswerList" type="List" />
+    <aura:attribute name="index" type="Integer" />
+    <aura:attribute name="childIndex" type="Integer" />    
+    <aura:attribute name="showRelatedQuestion" type="Boolean" default="false"/>
+    <aura:attribute name="relatedQuestions" type="Object"/>
+    <aura:attribute name="selectedProductRelatedQuestions" type="Map"/>
+    <aura:attribute name="product" type="String" />
+
+    <aura:method name="validateQuestion" action="{!c.validate}" access="PUBLIC" />
+    <aura:handler name="relatedQuestionEvent" event="c:BG_RelatedQuestionEvent" action="{!c.handleRelatedQuestionEvent}"/>
+    <!---Enable doInit in case if navigaion back will be present -->
+    <aura:handler name='init' value='{!this}' action='{!c.doInit}' /> 
+    <!--- hhhh={!v.catQuestion.selectedAnswer}-->
+    <aura:registerEvent name="RelatedQuestionOrderEvt" type="c:BG_RelatedQuestionOrderEvt"/>
+    
+    <!-- validation methods -->
+    <aura:method name="reportValidity" action="{! c.reportValidity }" />
+    <aura:method name="checkValidity" action="{! c.checkValidity }" />
+    
+    <aura:if isTrue="{!v.catQuestion.dataType == 'Picklist Field'}">
+        <c:BG_InfoInputWrap 
+                            aura:id="field"
+                            name="{!v.catQuestion.questionName}"
+                            label="{!v.index + '. '+v.catQuestion.questionName}"
+                            uniqueKey="{!v.catQuestion.uniqueKey}"
+                            value="{!v.catQuestion.selectedAnswer}"
+                            type="{!v.catQuestion.dataType}"
+                            messageWhenValueMissing=" "
+                            options='{!v.options}'
+                            required='{!v.catQuestion.isRequired}'
+                            placeholder='--- Select an Option ---'
+                            />
+        
+        
+    </aura:if>
+    <aura:if isTrue="{!v.catQuestion.dataType == 'Multiselect Field'}">
+        <c:BG_InfoInputWrap
+                            type='checkoxGroup'  
+                            aura:id="field"
+                            name="{!v.catQuestion.questionName}"
+                            options='{!v.options}'
+                            label="{!v.index + '. '+v.catQuestion.questionName}"
+                            uniqueKey="{!v.catQuestion.uniqueKey}"
+                            helptext=''  
+                            value='{!v.multiSelectAnswerList}'
+                            onchange='{!c.onchangeMultiselect}'
+                            required='{!v.catQuestion.isRequired}'
+                            />
+    </aura:if>
+    <aura:if isTrue="{!v.catQuestion.dataType == 'Radio Button'}">
+        <c:BG_InfoInputWrap
+                            type='radiogroup'                              
+                            aura:id="field"
+                            name="{!v.catQuestion.questionName}"
+                            options='{!v.options}'
+                            label="{!v.index + '. '+v.catQuestion.questionName}"
+                            uniqueKey="{!v.catQuestion.uniqueKey}"
+                            helptext=''
+                            value="{!v.catQuestion.selectedAnswer}"
+                            required='{!v.catQuestion.isRequired}'
+                            />
+    </aura:if>
+    <aura:if isTrue="{!v.catQuestion.dataType == 'Text Field' || v.catQuestion.dataType == 'number' || v.catQuestion.dataType == 'date' }">
+        <c:BG_InfoInputWrap 
+                            aura:id="field"
+                            name="{!v.catQuestion.questionName}"
+                            label="{!v.index + '. '+v.catQuestion.questionName}"
+                            uniqueKey="{!v.catQuestion.uniqueKey}"
+                            value="{!v.catQuestion.selectedAnswer}"
+                            type="{!v.catQuestion.dataType}"
+                            messageWhenValueMissing=" "
+                            required='{!v.catQuestion.isRequired}'
+                            />
+    </aura:if>
+ <aura:if isTrue="{!v.catQuestion.dataType == 'Multiline Text'}">
+        <c:BG_InfoInputWrap 
+                            aura:id="field"
+                            name="{!v.catQuestion.questionName}"
+                            label="{!v.index + '. '+v.catQuestion.questionName}"
+                            uniqueKey="{!v.catQuestion.uniqueKey}"
+                            value="{!v.catQuestion.selectedAnswer}"
+                            type="{!v.catQuestion.dataType}"
+                            messageWhenValueMissing=" "
+                            required='{!v.catQuestion.isRequired}'
+                            />
+    </aura:if>
+    <aura:if isTrue="{!v.catQuestion.dataType == 'Percent'}">
+        <c:BG_InfoInputWrap 
+                            aura:id="field"
+                            name="{!v.catQuestion.questionName}"
+                            label="{!v.index + '. '+v.catQuestion.questionName}"
+                            uniqueKey="{!v.catQuestion.uniqueKey}"
+                            value="{!v.catQuestion.selectedAnswer}"
+                            type="{!v.catQuestion.dataType}"
+                            messageWhenValueMissing=" "
+                            required='{!v.catQuestion.isRequired}'
+                            />
+    </aura:if>
+   <aura:if isTrue="{!v.catQuestion.dataType == 'Postcode Lookup'}">
+        <c:BG_PostCodeMappingWrapper 
+            aura:id="postcodeId"
+            name="{!v.catQuestion.questionName}"
+            label="{!v.index + '. '+v.catQuestion.questionName}"            
+            valueLabel="{!v.catQuestion.selectedAnswerLabel}"
+            uniqueKey="{!v.catQuestion.uniqueKey}"
+            value="{!v.catQuestion.selectedAnswer}"
+            type="{!v.catQuestion.dataType}"
+            required='{!v.catQuestion.isRequired}'
+            />
+    </aura:if>
+    <aura:if isTrue="{!and(v.isError, v.errorMessage != undefined)}">
+        <table>
+            <tr class="xlcol" >
+                <td class="xlcol redFont small-body" ><lightning:formattedText value="{!v.errorMessage}"/></td>
+            </tr>
+        </table>
+    </aura:if>
+</aura:component>

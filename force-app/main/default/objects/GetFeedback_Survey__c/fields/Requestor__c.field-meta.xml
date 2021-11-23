@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Requestor__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This field looks up Case object to obtain the requestorr name.</description>
+    <externalId>false</externalId>
+    <label>Requestor</label>
+    <referenceTo>Case</referenceTo>
+    <relationshipLabel>GetFeedback Surveys (Case)</relationshipLabel>
+    <relationshipName>GetFeedback_Surveys1</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

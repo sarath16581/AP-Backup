@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CTIServiceType__c</fullName>
+    <externalId>false</externalId>
+    <label>CTI Service Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Training</fullName>
+                <default>false</default>
+                <label>Training</label>
+            </value>
+            <value>
+                <fullName>Sales Enquiry</fullName>
+                <default>false</default>
+                <label>Sales Enquiry</label>
+            </value>
+            <value>
+                <fullName>Order Enquiry</fullName>
+                <default>false</default>
+                <label>Order Enquiry</label>
+            </value>
+            <value>
+                <fullName>Campaign Enquiry</fullName>
+                <default>false</default>
+                <label>Campaign Enquiry</label>
+            </value>
+            <value>
+                <fullName>Support Enquiry</fullName>
+                <default>false</default>
+                <label>Support Enquiry</label>
+            </value>
+            <value>
+                <fullName>Tech Support Enquiry</fullName>
+                <default>false</default>
+                <label>Tech Support Enquiry</label>
+            </value>
+            <value>
+                <fullName>Test</fullName>
+                <default>false</default>
+                <label>Test</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

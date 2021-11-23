@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Auto_Renew_Consent__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates whether consent is required to extend / renew this agreement</description>
+    <externalId>false</externalId>
+    <label>Renewal Consent</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

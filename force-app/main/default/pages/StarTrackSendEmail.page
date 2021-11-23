@@ -1,0 +1,21 @@
+<!--
+Author:        Patrick James Franco
+Company:       Cloud Sherpas
+Description:   Custom email publisher used to override the Send Email publisher action
+History
+August 24, 2015 - Patrick James Franco - Created
+September 1, 2015 - Patrick James Franco -
+-->
+
+<apex:page standardController="Case" extensions="StarTrackSendEmailExt" showHeader="false" sidebar="false">
+    <apex:emailPublisher entityId="{!Id}"
+        autoCollapseBody="false"
+        bccVisibility="editableWithLookup"
+        ccVisibility="editableWithLookup"
+        emailBodyFormat="textAndHTML"
+        expandableHeader="false"
+        title=""
+        toAddresses="{!toAddress}"
+        sendButtonName="Send Email"
+        subject=""/>
+</apex:page>

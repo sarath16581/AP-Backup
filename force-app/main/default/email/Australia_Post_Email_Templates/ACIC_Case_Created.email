@@ -1,0 +1,10 @@
+A new ACIC Request has been created, please find the details below,
+Case Number: {!Case.CaseNumber}
+
+Subject: {!Case.Subject}
+
+Case Description:
+{!Case.Description}
+
+To view this Case in full or add a new Comment follow this link
+{!Case.Link}

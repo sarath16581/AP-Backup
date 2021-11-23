@@ -1,0 +1,214 @@
+<!--
+ @description
+ "Review and submit" form for chasMissignItem components for Help and support community
+ @author Hara Sahoo
+ @date 2020-07-06
+ @changelog : Change made for roll out of Safe Drop feature on Missing Items form 
+ 2020-07-06 : Modified : Recipient Address(from AME address validation)
+-->
+<aura:component extends="c:CHAS_reviewAndSubmit" description="Missing Items wizard page 3: Review and Submit">
+   
+    <div class="component">
+        <div class="left-padding">
+            <img src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/back_arrow.png" alt="Go back"/><label>&nbsp;</label>
+            <lightning:button label="BACK" variant="base" onclick="{!c.goBack}" class="goBack"/>
+        </div>
+        <div class="card-layout">
+            <!-- Componnet Heading1 -->
+            <h2 class="chas-header">Review and submit</h2>
+            
+            <!-- Item Details Heading -->
+            <h3 class="sub-header">Item details</h3>
+            
+            <div class="review-container">
+                <dl>
+                    <div>
+                        <dt>Tracking number</dt>
+                        <dd>{! v.wizardData.trackingId }</dd>
+                    </div>
+                    <div>
+                        <dt>You are the</dt>
+                        <dd>{! v.wizardData.selectedRadio1Name }</dd>
+                    </div>
+                    <!-- Parcel or Letter-->
+                    <div>
+                        <dt>Item type</dt>
+                        <dd>{! v.wizardData.selectedRadio2Name }</dd>
+                    </div>
+                    <div>
+                        <dt>Item was sent via</dt>
+                        <dd>{! v.wizardData.selectedRadio3Name } </dd>
+                    </div>
+                    <div>
+                        <dt>Item send date</dt>
+                        <dd><ui:outputDate aura:id="oDate" value="{!v.wizardData.itemSentDate }" />
+                            <!-- <lightning:formattedDateTime value="{!v.wizardData.itemSentDate }" />--></dd>
+                    </div>
+                    <div>
+                        <dt>Item description</dt>
+                        <dd>{! v.wizardData.complaintDetails }</dd>
+                    </div>
+                    
+                    <!-- Item Value-->
+                    <aura:if isTrue="{! and(v.wizardData.selectedRadio1Name == 'Sender', v.wizardData.itemValue) }">
+                        <div>
+                            <dt>Item value</dt>
+                            <dd>${! v.wizardData.itemValue }</dd>
+                        </div>
+                    </aura:if>
+                    <!-- Domestic Sender Address -->
+                    <aura:if isTrue="{! and(v.wizardData.senderOrRecipientType == 'Domestic', v.wizardData.selectedRadio1Name == 'Sender') }">
+                        <div>
+                            <dt>Sender address</dt>
+                            <dd>{! v.wizardData.senderAddressLine1 + ', ' }
+                                <aura:if isTrue='{! v.wizardData.senderAddressLine2 != null }'>
+                                    {! v.wizardData.senderAddressLine2 + ', ' }
+                                </aura:if>
+                                <aura:if isTrue='{! v.wizardData.senderCity != null }'>
+                                    {! v.wizardData.senderCity + ' ' }
+                                </aura:if>
+                                <aura:if isTrue='{! v.wizardData.senderState != null }'>
+                                    {! v.wizardData.senderState + ' ' }
+                                </aura:if>
+                                <aura:if isTrue='{! v.wizardData.senderPostcode != null }'>
+                                    {! v.wizardData.senderPostcode }
+                                </aura:if>
+                            </dd>
+                        </div>
+                    </aura:if>
+                    
+                    <!-- International Sender Address -->
+                    <!-- Changed below if condition on 8/10/2018 for International Missing Item Changes.
+                     To provide form view for International Parcels Sender on confirmation page prior to case being created. -->
+                    <aura:if isTrue="{! and(v.wizardData.senderOrRecipientType == 'International', v.wizardData.selectedRadio1Name == 'Sender')}">
+                        <div>
+                            <dt>Sender address</dt>
+                            <dd>
+                                <aura:if isTrue='{! v.wizardData.senderAddressLine1 != null }'>  <!-- no need if as it is mandatory field -->
+                                    {! v.wizardData.senderAddressLine1 + ', ' }
+                                </aura:if>
+                                <aura:if isTrue='{! v.wizardData.senderAddressLine2 != null }'>
+                                    {! v.wizardData.senderAddressLine2 + ', ' }
+                                </aura:if>
+                                <aura:if isTrue='{! v.wizardData.senderCity != null }'>
+                                    {! v.wizardData.senderCity + ' ' }
+                                </aura:if>
+                                <aura:if isTrue="{! and(v.wizardData.senderState != null, v.wizardData.senderState !='Select (default)') }">
+                                    {! v.wizardData.senderState + ' ' }
+                                </aura:if>
+                                <aura:if isTrue='{! v.wizardData.senderPostcode != null }'>
+                                    {! v.wizardData.senderPostcode + ' ' }
+                                </aura:if>
+                                <aura:if isTrue="{! and(v.wizardData.senderCountry != null, v.wizardData.senderCountry !='Select (default)') }">
+                                    {! v.wizardData.senderCountry }
+                                </aura:if>
+                            </dd>
+                        </div>
+                    </aura:if>
+                    <!-- International Recipient Address -->
+                    <!-- Changed below if condition on 8/10/2018 for International Missing Item Changes.
+                     To provide form view for International Parcels Recipient on confirmation page prior to case being created. -->
+                    <aura:if isTrue="{! v.wizardData.senderOrRecipientType == 'International'}">
+                        <div>
+                            <!-- Changed below label 'Delivey' to 'Delivery' on 8/10/2018 for International Missing Item Changes. -->
+                            <dt>Delivery address</dt>
+                            <dd>
+                                <aura:if isTrue='{! v.wizardData.recipientAddressLine1 != null }'>  <!-- no need if as it is mandatory field -->
+                                    {! v.wizardData.recipientAddressLine1 + ', ' }
+                                </aura:if>
+                                <aura:if isTrue='{! v.wizardData.recipientAddressLine2 != null }'>
+                                    {! v.wizardData.recipientAddressLine2 + ', ' }
+                                </aura:if>
+                                <aura:if isTrue='{! v.wizardData.recipientCity != null }'>
+                                    {! v.wizardData.recipientCity + ' ' }
+                                </aura:if>
+                                <aura:if isTrue="{! and(v.wizardData.recipientState != null, v.wizardData.recipientState !='Select (default)') }">
+                                    {! v.wizardData.recipientState + ' ' }
+                                </aura:if>
+                                <aura:if isTrue='{! v.wizardData.recipientPostcode != null }'>
+                                    {! v.wizardData.recipientPostcode + ' ' }
+                                </aura:if>
+                                <aura:if isTrue="{! and(v.wizardData.recipientCountry != null, v.wizardData.recipientCountry !='Select (default)') }">
+                                    {! v.wizardData.recipientCountry }
+                                </aura:if>
+                            </dd>
+                        </div>
+                    </aura:if>
+                    
+                    <!--  Domestic Recipient Address -->
+                    <aura:if isTrue="{! v.wizardData.senderOrRecipientType == 'Domestic' }">
+                        <aura:if isTrue="{!v.wizardData.correctDeliveryAddress}">
+                            <div>
+                                <dt>Delivery address</dt> 
+                                <dd> 
+                                    {!v.wizardData.correctDeliveryAddress}
+                                </dd>
+                            </div>
+                            <aura:set attribute="else">
+                                <div>
+                                    <!-- Changed below label 'Delivey' to 'Delivery' on 8/10/2018 for International Missing Item Changes. -->
+                                    <dt>Delivery address</dt>
+                                    <dd>  
+                                        {! v.wizardData.recipientAddressLine1 + ', ' }
+                                        <aura:if isTrue='{! v.wizardData.recipientAddressLine2 != null }'>
+                                            {! v.wizardData.recipientAddressLine2 + ', ' }
+                                        </aura:if>
+                                        <aura:if isTrue='{! v.wizardData.recipientCity != null }'>
+                                            {! v.wizardData.recipientCity + ' ' }
+                                        </aura:if>
+                                        <aura:if isTrue='{! v.wizardData.recipientState != null }'>
+                                            {! v.wizardData.recipientState + ' ' }
+                                        </aura:if>
+                                        <aura:if isTrue='{! v.wizardData.recipientPostcode != null }'>
+                                            {! v.wizardData.recipientPostcode }
+                                        </aura:if>
+                                        
+                                    </dd>
+                                </div>
+                            </aura:set>
+                        </aura:if>
+                    </aura:if>
+                    
+                </dl>
+            </div>
+            <!-- Section separator-->
+            <div class="separator-gap">
+                <hr/>
+            </div>
+            <!-- Contact Details Heading -->
+            <h3 class="chas-header_small">Contact details</h3>
+            
+            <div class="review-container">
+                <dl>
+                    <div>
+                        <dt>Name</dt>
+                        <!--<dd>{!(v.authUserData.userContactFirstName)+' '+(v.authUserData.userContactLastName)}</dd>-->
+                        <dd>{!or(v.wizardData.givenName,v.authUserData.userContactFirstName)+' '+or(v.wizardData.surname,v.authUserData.userContactLastName)}</dd>
+                    </div>
+                    <div>
+                        <dt>Email</dt>
+                        <!--<dd>{!v.authUserData.userContactEmail}</dd>-->
+                        <dd>{!or(v.wizardData.emailId,v.authUserData.userContactEmail)}</dd>
+                    </div>
+                    <div>
+                        <dt>Phone</dt>
+                        <!--<dd>{!v.authUserData.userContactPhone}</dd>-->
+                        <dd>{!or(v.wizardData.phone,v.authUserData.userContactPhone)}</dd>
+                    </div>
+                    <div>
+                        <!-- Contact Preference, added by Edmarco on July 2019 -->
+                        <dt>Contact Preference</dt>
+                        <dd>{!v.wizardData.contactPreferrence}</dd>
+                    </div>
+                    
+                </dl>
+                <!-- <ul>
+                <li>{! (v.authUserData.userContactFirstName)+' '+(v.authUserData.userContactLastName) }</li>
+                <li>{! v.authUserData.userContactEmail }</li>
+                <li>{! v.authUserData.userContactPhone }</li>
+            </ul> -->
+            </div>
+            <c:ChasNavButtons nextLabel="Submit" disabled="false" nextAction="{! c.goForward }" loading="{! v.showSpinner }"/>
+        </div>
+    </div>
+</aura:component>

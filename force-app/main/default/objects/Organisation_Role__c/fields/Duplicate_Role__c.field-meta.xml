@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Duplicate_Role__c</fullName>
+    <description>This field will help the Customer Data Team to understand which role is a duplicate and needs to be deleted.</description>
+    <externalId>false</externalId>
+    <formula>IF(  Name &lt;&gt;  Organisation__r.LEGACY_ID__c , IMAGE(&quot;/img/samples/flag_red.gif&quot;,&quot;NA&quot;), &quot;&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Duplicate Role?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

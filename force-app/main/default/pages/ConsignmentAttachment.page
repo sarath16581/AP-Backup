@@ -1,0 +1,39 @@
+<!-- 2018-06-01 clint.dsilva@auspost.com.au created -->
+<apex:page id="ConsignmentAttachment" standardController="Case" extensions="ConsignmentAssignmentExt" showHeader="true" standardStylesheets="true" sidebar="true" applyHtmlTag="true" applyBodyTag="false" docType="html-5.0">
+    <apex:outputText value="{!case.casenumber}" rendered="false"/>
+    <apex:outputText value="{!case.ArticleTest__c}" rendered="false"/>
+    <apex:includeScript value="/support/console/42.0/integration.js"/>
+    <apex:includeLightning />
+    <div id="lightning" />
+    <div id="broker" />
+    <script>
+        function testSetTabTitle() {
+            //Set the current tab's title
+            sforce.console.setTabTitle("{!caseNumber} " + "Image Detail" );
+        }
+        var pageLoad = window.onload;
+            window.onload = function() {
+                if (pageLoad) {
+                        pageLoad();
+                }
+                  testSetTabTitle();
+        };
+
+        $Lightning.use("c:LtngOutConsignmentAttachment", function() {
+          $Lightning.createComponent("c:AsynchApexContinuationBroker",
+            {},
+            "broker",
+            function(cmp) {
+                console.log('Broker Component created');
+                console.log(cmp);
+            });
+          $Lightning.createComponent("c:ConsignmentAttachment",
+          { label : "Consignment Assignment", caseID : "{!caseID}" , caseNumber : "{!caseNumber}"  , caseArticleTest : "{!articleTest}", connoteInputValues:"{!conNote}"  },
+          "lightning",
+          function(cmp) {
+            // Consignment Attachment created callback
+            console.log(cmp);
+          });
+        });
+    </script>
+</apex:page>

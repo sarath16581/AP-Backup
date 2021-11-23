@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Lead Seeker - Oppty Closed Duplicate</name>
+    <style>none</style>
+    <subject>Seeker Rewards Program Update - opportunity unsuccessful {!Opportunity.Opportunity_Number__c} - {!Opportunity.Name}</subject>
+    <textOnly>Dear {!Opportunity.Hidden_Lead_Creator_Name__c},
+
+Thank you again for taking part in the Seeker program.
+
+The lead you submitted progressed through our sales process, but unfortunately there was already another submitted before you that our sales team are currently working on. Your lead has now been closed as ‘Duplicate’.
+
+This means you’ll still receive the initial 100 points for the lead being verified. But no further points will be allocated. Please don’t be disheartened, there are leads all around us and you clearly know how to spot them? So please keep them coming for your chance to earn more points.
+
+Thanks again for your participation. Every lead is valuable and we look forward to receiving another lead from you soon.
+
+Regards,
+The Seeker Team
+
+
+
+Terms &amp; conditions | Privacy policy | Security
+
+
+
+
+
+Contact us: If this email has been incorrectly sent to you or the information contained within isn’t correct, please let us know at seekerrewards@auspost.com.au
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

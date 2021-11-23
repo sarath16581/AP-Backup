@@ -1,0 +1,8 @@
+.slds-modal__container
+{
+  width: 80% !Important;
+  max-width: 90rem !Important;
+}
+.hidemodel{
+  display: none;
+}

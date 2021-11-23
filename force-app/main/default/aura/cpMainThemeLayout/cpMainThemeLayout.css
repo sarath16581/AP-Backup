@@ -1,0 +1,805 @@
+/*  **********************************************
+   @import 'variables';
+   Sass Variables
+   Are
+   Here
+   ***********************************************
+*/
+
+
+/*  **********************************************
+   @import 'fonts';
+   Fonts
+   Are
+   Here
+   ***********************************************
+*/
+
+@font-face {
+    font-family: 'letterbold';
+    src: url("/resource/cpApFonts/letter-bold-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-bold-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'letterbold_italic';
+    src: url("/resource/cpApFonts/letter-bolditalic-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-bolditalic-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'letterlight';
+    src: url("/resource/cpApFonts/letter-light-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-light-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'letterlight_italic';
+    src: url("/resource/cpApFonts/letter-lightitalic-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-lightitalic-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'lettermedium';
+    src: url("/resource/cpApFonts/letter-medium-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-medium-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'lettermedium_italic';
+    src: url("/resource/cpApFonts/letter-mediumitalic-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-mediumitalic-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'letterregular';
+    src: url("/resource/cpApFonts/letter-regular-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-regular-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'letteritalic';
+    src: url("/resource/cpApFonts/letter-regularitalic-webfont.woff2") format("woff2"), url("/resource/cpApFonts/letter-regularitalic-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+.THIS p.titleContainer.forceChatterCompactFeedItemBody {
+    font-family: 'letterregular';
+}
+
+.THIS .feedBodyInner .uiOutputText, .THIS a, .THIS li, .THIS li span.uiOutputText, .THIS p, .THIS p.uiOutputText {
+    font-family: 'arial' !important;
+}
+
+.THIS div.topicLabel, .THIS h1, .THIS h2, .THIS h3, .THIS h4, .THIS h5, .THIS span.uiOutputText {
+    font-family: 'letterbold' !important;
+}
+
+
+/*  **********************************************
+   @import 'variables';
+   Sass Variables
+   Are
+   Here
+   ***********************************************
+*/
+
+
+/*  **********************************************
+   SVG Icon Fill
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS button.slds-button.slds-button--neutral.search-button.uiButton {
+    background-color: #dc1928;
+}
+
+.THIS button.slds-button.slds-button--neutral.search-button.uiButton:active, .THIS button.slds-button.slds-button--neutral.search-button.uiButton:focus, .THIS button.slds-button.slds-button--neutral.search-button.uiButton:hover {
+    background-color: #bb1522;
+}
+
+.THIS a:hover {
+    /*text-decoration: none;*/
+    opacity: 0.8;
+}
+
+.THIS a:active, .THIS a:focus, .THIS a:visited {
+    text-decoration: none;
+}
+
+.THIS svg.slds-icon.slds-icon-text-default.slds-icon {
+    fill: #8177E7;
+}
+
+.THIS svg.cuf-likeIcon.slds-icon.slds-icon-text-default.slds-icon--x-small.slds-align-middle, .THIS svg.slds-icon--small.slds-icon {
+    fill: #8177E7;
+}
+
+.THIS svg.slds-icon.slds-icon-text-default.slds-icon--x-small.slds-align-middle {
+    fill: #8177E7;
+}
+
+.THIS .forceEntityIcon {
+    background: #8177E7 !important;
+}
+
+.THIS .cuf-roundBorder {
+    background: #8177E7 !important;
+}
+
+.THIS svg.slds-icon.slds-icon-text-default.slds-icon--small.slds-icon {
+    fill: #8177E7;
+}
+
+.THIS .slds-icon_container slds-icon-utility-success .bestAnswerIcon .slds-button__icon .forceIcon .cuf-bestAnswerContainer.uiBlock svg.slds-icon--small.slds-icon {
+    fill: green !important;
+}
+
+.THIS * {
+    text-transform: none;
+}
+
+.THIS .forceCommunityOmniBox .no-assigned-image .default-bg-overlay {
+    background: transparent none repeat scroll 0 0 !important;
+}
+
+.THIS .slds-button:focus, .THIS .slds-button:hover {
+    /*color: white;*/
+}
+
+.THIS .cp-nowrap {
+    white-space: nowrap;
+}
+
+
+/*  **********************************************
+   @import 'cp-ap-nav';
+   Australia Post Navbar
+   Is
+   Here
+   ***********************************************
+*/
+
+.THIS section.ap-nav {
+    height: 25px;
+    background-color: #3E474D;
+}
+
+.THIS section.ap-nav div {
+    height: inherit;
+    max-width: 1140px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+.THIS section.ap-nav div ul {
+    height: inherit;
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.THIS section.ap-nav div ul li {
+    margin: 0 12px;
+}
+
+.THIS section.ap-nav div ul a {
+    color: white;
+    font-size: 12px;
+    font-family: 'helvetica' !important;
+}
+
+
+/*  **********************************************
+   @import 'cp-new-navbar';
+   New custom navbar
+   Is
+   Here
+   ***********************************************
+*/
+
+.THIS img.cp-ap-p-logo {
+    min-width: 55px;
+    min-height: 55px;
+    width: 55px;
+    height: 55px;
+    max-width: 55px;
+    max-height: 55px;
+}
+
+.THIS .profileName {
+    color: #382f2d;
+}
+
+.THIS .cp-nav-full-width {
+    background: white;
+}
+
+.THIS .cp-nav-container {
+    display: flex;
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .THIS .cp-navbar {
+        min-width: 550px;
+    }
+}
+
+.THIS .cp-burger-and-logo {
+    display: flex;
+    align-items: center;
+}
+
+.THIS button.cp-burger {
+    color: #382f2d !important;
+    border: none;
+    background: none;
+}
+
+@media (min-width: 768px) {
+    .THIS button.cp-burger {
+        display: none;
+    }
+}
+
+.THIS button.cp-burger:active, .THIS button.cp-burger:focus, .THIS button.cp-burger:hover, .THIS button.cp-burger:selection, .THIS button.cp-burger:visited {
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.THIS nav.cp-nav {
+    display: flex;
+    margin: 0 auto;
+    padding: 8px;
+    width: 1140px;
+    max-width: 1140px;
+}
+
+.THIS nav.cp-nav .cp-navbar {
+    display: flex;
+}
+
+@media (max-width: 767px) {
+    .THIS nav.cp-nav ul li:not(:nth-child(-n+2)) {
+        display: none !important;
+    }
+    .THIS nav.cp-nav ul.cp-mobile-show-menu li:not(:nth-child(-n+2)) {
+        display: flex !important;
+    }
+    .THIS nav.cp-nav ul li:nth-child(2) {
+        margin-top: -63px;
+    }
+    .THIS nav.cp-nav ul li:nth-child(n+2) {
+        margin-left: 125px;
+    }
+    .THIS nav.cp-nav ul li span {
+        padding: 0 8px;
+    }
+}
+
+.THIS nav.cp-nav ul.cp-nav-ul {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 767px) {
+    .THIS nav.cp-nav ul.cp-nav-ul {
+        flex-direction: column;
+    }
+}
+
+.THIS nav.cp-nav ul.cp-nav-ul li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.THIS nav.cp-nav ul.cp-nav-ul li a {
+    font-family: 'lettermedium' !important;
+    padding: 0 15px;
+}
+
+@media (max-width: 767px) {
+    .THIS nav.cp-nav ul.cp-nav-ul li a {
+        padding: 0 5px;
+    }
+}
+
+@media (max-width: 767px) {
+    .THIS nav.cp-nav ul.cp-nav-ul li {
+        padding: 12px 0;
+        transform: translateY(-8px);
+    }
+}
+
+.THIS nav.cp-profile-nav {
+    width: 1140px;
+    max-width: 1140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 6px;
+    margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+    .THIS nav.cp-profile-nav {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 767px) {
+    .THIS .login {
+        position: relative;
+        right: -20px;
+        top: 20px;
+    }
+}
+        
+.THIS .selfServiceUserProfileMenu .login .linkLabel {
+    color: black;
+    font-family: 'lettermedium';
+    font-style: normal;
+}        
+
+.THIS .menuList.popupTargetContainer.uiPopupTarget.uiMenuList.uiMenuList--default.visible {
+    margin-top: 8px;
+}
+
+@media (max-width: 767px) {
+    .THIS .menuList.popupTargetContainer.uiPopupTarget.uiMenuList.uiMenuList--default.visible {
+        width: 275px;
+        margin-top: 16px;
+    }
+}
+
+@media (min-width: 769px) {
+    .THIS .menuList.popupTargetContainer.uiPopupTarget.uiMenuList.uiMenuList--default.visible {
+        right: 8px;
+    }
+    .THIS .cp-profile {
+        justify-content: flex-end;
+        display: flex;
+    }
+    .THIS .cp-profile-box {
+        width: 209px;
+    }
+}
+
+.THIS .selfServiceProfileMenuTrigger .trigger-link:focus {
+    box-shadow: none;
+}
+
+.THIS span.triggerDownArrow.down-arrow {
+    color: #382f2d;
+}
+
+
+/*  **********************************************
+   @import 'cp-home-search';
+   The home page header seach bubble
+   Is
+   Here
+   ***********************************************
+*/
+
+.THIS .forceCommunityOmniBox.focused .empty-state-panel-label, .THIS .forceCommunityOmniBox.focused .zero-state-panel, .THIS .forceCommunityOmniBox.focused .zero-state-panel-label, .THIS .forceCommunityOmniBox.focused.show-result .zero-state-panel {
+    display: none !important;
+}
+
+.THIS .selfServiceSearchWrapper .post-container, .THIS .selfServiceSearchWrapper .search-wrapper {
+    padding: 0 !important;
+}
+
+.THIS .cp-search-is-here {
+    position: relative;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    height: 60px;
+    width: 88%;
+}
+
+.THIS .search-container {
+    border: 1px solid lightgray;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+.THIS .search-container button {
+    border-radius: 3px;
+}
+
+.THIS button.slds-button.slds-button--neutral.search-button.uiButton {
+    border-radius: 3px;
+}
+
+.THIS .forceCommunityOmniBox.selfServiceSearchWrapper .has-input .search-field, .THIS .forceCommunityOmniBox.selfServiceSearchWrapper .search-field, .THIS .forceCommunityOmniBox.selfServiceSearchWrapper .search-field:focus {
+    border: none;
+}
+
+.THIS .forceCommunityOmniBox.selfServiceSearchWrapper .search-container {
+    border-radius: 5px;
+    height: 68px;
+}
+
+.THIS .cp-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.THIS .cp-home-speech-bubble {
+    margin-top: 48px;
+    margin-bottom: 102px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 720px;
+    min-height: 285px;
+    background: white;
+    border-radius: 8px;
+    text-align: center;
+    justify-content: space-between;
+}
+
+@media (max-width: 767px) {
+    .THIS .cp-home-speech-bubble {
+        margin-top: 32px;
+    }
+}
+
+.THIS .cp-home-speech-bubble .cp-home-speech-bubble-middle, .THIS .cp-home-speech-bubble .cp-home-speech-bubble-top, .THIS .cp-home-speech-bubble .cp-search-is-here {
+    margin-bottom: 37px;
+}
+
+.THIS .cp-home-speech-bubble .cp-home-speech-bubble-middle {
+    position: relative;
+}
+
+.THIS .cp-home-speech-bubble h1 {
+    font-family: 'letterbold' !important;
+    font-size: 28px;
+}
+
+.THIS .cp-home-speech-bubble p {
+    padding: 0 82px;
+}
+
+@media (max-width: 580px) {
+    .THIS .cp-home-speech-bubble p {
+        padding: 0 27px;
+    }
+}
+
+@media (max-width: 768px) {
+    .THIS .cp-home-speech-bubble {
+        width: 94vw;
+    }
+}
+
+.THIS .cp-three-circles {
+    text-align: left;
+    margin-left: 22px;
+    margin-top: 20px;
+    margin-bottom: 6px;
+}
+
+.THIS .cp-three-circles span {
+    display: inline-block;
+}
+
+.THIS .cp-circle {
+    width: 12px;
+    height: 12px;
+    background: #7FB5DB;
+    border-radius: 50%;
+    margin: 0 4px;
+}
+
+.THIS .cp-home-speech-bubble-bottom {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: white;
+    top: 83%;
+    right: 12%;
+    border-radius: 11px;
+    transform: rotate(45deg);
+}
+
+
+/*  **********************************************
+   @import 'cp-headings';
+   Heading styles for the community
+   Are
+   Here
+   ***********************************************
+*/
+
+
+/*  **********************************************
+   @import 'variables';
+   Sass Variables
+   Are
+   Here
+   ***********************************************
+*/
+
+.THIS .cp-home-page-heading-outer {
+    margin-bottom: -37px;
+}
+
+.THIS .cp-home-page-heading-box {
+    text-align: center;
+    padding: 0 20px;
+    max-width: 600px;
+    min-height: 150px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.THIS .cp-home-page-heading-box h2 {
+    max-width: 600px;
+    padding: 60px 0 12px;
+    font-size: 36px;
+    line-height: 125%;
+}
+
+.THIS .cp-home-page-heading-box p {
+    max-width: 600px;
+    padding: 0 0 32px;
+    font-size: 16px;
+    opacity: 1;
+}
+
+.THIS .cp-not-first {
+    margin-top: -73px;
+}
+
+.THIS .cp-home-discussions-heading-outer {
+    background: #CBEEEA;
+}
+
+.THIS .cp-home-groups-heading-outer {
+    background: #feeee9;
+}
+
+.THIS .cp-home-articles-heading-outer {
+    background: #ECEBFF;
+}
+
+.THIS .cp-home-survey-heading-outer {
+    background: #e4e4e4;
+    margin-top: -65px;
+}        
+        
+.THIS .cp-inner-page-heading-outer {
+    background: #F9F8F7;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-top: -35px;
+}
+
+.THIS .cp-inner-page-heading-box {
+    background: #F9F8F7;
+    max-width: 600px;
+    padding: 0 20px;
+    min-height: 110px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.THIS .cp-inner-page-heading-box h1 {
+    padding: 12px;
+    font-size: 36px;
+    line-height: 125%;
+}
+
+.THIS .cp-inner-page-heading-box p {
+    padding: 0 12px 12px;
+    font-size: 16px;
+    opacity: 0.6;
+}
+
+.THIS .cp-heading-box-with-p {
+    min-height: 150px;
+}
+
+.THIS .cp-heading-box-with-p h1 {
+    padding-top: 32px;
+    margin-bottom: 12px;
+    padding-bottom: 0;
+}
+
+.THIS .cp-heading-box-with-p p {
+    padding-bottom: 32px;
+}
+
+.THIS .cp-video-button-box {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.THIS .cp-video-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 3px;
+    width: 200px;
+    height: 50px;
+    margin: 50px 0 70px;
+    text-align: center;
+    align-items: center;
+    
+}
+
+.THIS .cp-video-button a {
+    font-family: 'letterbold';
+}
+
+.THIS .cp-home-page-video-heading-outer {
+    margin-bottom: -60px;
+}
+
+.THIS .cp-home-page-video-heading-box {
+    padding: 0 20px;
+    max-width: 600px;
+    min-height: 150px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'letterbold' !important;
+
+}
+
+.THIS .cp-home-video-heading-outer-above {
+    background: #ECEBFF;
+    min-height: 550px;
+    margin-top: -10px;
+    margin-bottom: -400px; 
+}
+
+.THIS .cp-home-video-heading-outer-below {
+    background: #ECEBFF;
+    margin-top: -50px;
+    margin-bottom: -10px; 
+}
+
+/*  **********************************************
+   Footer
+   is
+   Here
+   ***********************************************
+*/
+
+.THIS section.footer {
+    background-color: #3E474D;
+}
+
+.THIS section.footer div.footer-inner {
+    text-align: center;
+    padding: 6px 0;
+    max-width: 1140px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .THIS section.footer div.footer-inner {
+        text-align: left;
+        flex-flow: row;
+        justify-content: space-between;
+    }
+}
+
+.THIS section.footer div.footer-inner ul.cp-footer-links {
+    max-width: 492px;
+}
+
+.THIS section.footer div.footer-inner ul.cp-footer-social {
+    max-width: 268px;
+}
+
+.THIS section.footer div.footer-inner ul {
+    height: 60px;
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+@media (max-width: 767px) {
+    .THIS section.footer div.footer-inner ul {
+        justify-content: center;
+    }
+}
+
+.THIS section.footer div.footer-inner ul li {
+    margin: 0 12px;
+}
+
+.THIS section.footer div.footer-inner ul a {
+    color: white;
+    font-size: 14px;
+}
+
+.THIS .big-search-container.selfServiceSearchWrapper.forceCommunityOmniBox {
+    background-color: transparent;
+}
+
+.THIS header.cp-home-header {
+    min-height: 620px;
+    background-color: #7FB5DB;
+    background-image: url("/community/resource/cp_ap_small_hero_new");
+    background-repeat: no-repeat;
+    background-size: 640px;
+    background-position: center bottom;
+}
+
+@media (max-width: 767px) {
+    .THIS header.cp-home-header {
+        background-image: none;
+        min-height: 210px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .THIS header.cp-home-header {
+        background-image: url("/community/resource/cp_ap_hero_new");
+        background-size: 1137px;
+    }
+}
+
+@media (min-width: 1210px) {
+    .THIS header.cp-home-header {
+        background-size: 1344px;
+    }
+}
+
+.THIS .cp-pipebox-in-theme {
+    margin-bottom: 20px;
+}
+
+.THIS .cp-pipebox-box {
+    background: white;
+    display: flex;
+    justify-content: center;
+}
+
+.THIS .cCpTrendingTopicsView.cp-hot-topics-container {
+    margin-bottom: -72px;
+}

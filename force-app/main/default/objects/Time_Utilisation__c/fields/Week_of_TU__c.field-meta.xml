@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Week_of_TU__c</fullName>
+    <description>Week number of TU record</description>
+    <externalId>false</externalId>
+    <formula>Case(
+MOD( DATE(YEAR(Work_Week_Start__c), 1, 1) - DATE (1900, 1, 7), 7),
+0, ( Work_Week_Start__c- DATE(YEAR(Work_Week_Start__c),1,1) + 3) /7, 
+1, ( Work_Week_Start__c- DATE(YEAR(Work_Week_Start__c),1,1) + 4) /7, 
+2, ( Work_Week_Start__c- DATE(YEAR(Work_Week_Start__c),1,1) + 5) /7, 
+3, ( Work_Week_Start__c- DATE(YEAR(Work_Week_Start__c),1,1) + 6) /7, 
+4, ( Work_Week_Start__c- DATE(YEAR(Work_Week_Start__c),1,1) + 7) /7, 
+5, ( Work_Week_Start__c- DATE(YEAR(Work_Week_Start__c),1,1) + 1) /7, 
+6, ( Work_Week_Start__c- DATE(YEAR(Work_Week_Start__c),1,1) + 2) /7, 
+99)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Week of TU</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

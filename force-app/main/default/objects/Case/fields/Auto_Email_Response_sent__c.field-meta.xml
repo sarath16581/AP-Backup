@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Auto_Email_Response_sent__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>StarTrack field used by logic to ensure that only 1 Email response is sent for Delivery Enquiries. (Used due to  business logic preventing Process Builder from using &quot;on create&quot; / ISNew )</description>
+    <externalId>false</externalId>
+    <label>Auto Email Response sent?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

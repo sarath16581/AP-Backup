@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <email>rahul.raghavan@auspost.com.au</email>
+    <name>New Bids</name>
+    <queueMembers>
+        <roles>
+            <role>Bids_Tenders_Manager</role>
+        </roles>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Bid__c</sobjectType>
+    </queueSobject>
+</Queue>

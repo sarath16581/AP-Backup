@@ -1,0 +1,5 @@
+<apex:component >
+	<h1>SAP Panel</h1>
+	<br />
+	<!--<apex:image url="{!URLFOR($Resource.DummySAPPanel)}"  />-->
+</apex:component>

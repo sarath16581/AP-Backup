@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_View_Ratecard__c</fullName>
+    <externalId>false</externalId>
+    <formula>/*HYPERLINK(&quot;/apex/APT_ViewRatecardBatchExecute?id=&quot;&amp;Id ,IMAGE(&quot;/resource/APT_View_Rate_Card&quot;, &quot;APT_View_Rate_Card&quot;),&quot;_Self&quot;)*/
+
+IF ( AND(NOT(ISPICKVAL( Apttus_Proposal__Approval_Stage__c , &apos;Approval Required&apos;)) &amp;&amp; NOT(ISNULL(Apttus_QPConfig__ConfigurationFinalizedDate__c))) || ISPICKVAL( Apttus_Proposal__Approval_Stage__c , &apos;Approved&apos;) , HYPERLINK(&quot;/apex/APT_ViewRatecardBatchExecute?id=&quot;&amp;Id , IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;), NULL)</formula>
+    <label>Create (View RateCard)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,4 @@
+Please review the following opportunity and opportunity assessment for handover purposes.
+
+Opportunity - {!Opportunity_Assessment__c.Opportunity__c}
+Opportunity Assessment - {!Opportunity_Assessment__c.Name}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Plan_Unit__c</fullName>
+    <deleteConstraint>Cascade</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>From the drop down list, specify which Plan Unit this Objective is related to or if the Objective is for every Plan Unit.</inlineHelpText>
+    <label>Plan Row</label>
+    <referenceTo>DMAPP__AM_Plan_Unit__c</referenceTo>
+    <relationshipLabel>Objectives</relationshipLabel>
+    <relationshipName>Objectives</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

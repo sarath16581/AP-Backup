@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Level_3_Approval_Annual_Amount__c</fullName>
+    <defaultValue>100000</defaultValue>
+    <description>Minimum Annual Amount on Partner Addendum, for Level 3 Approval on Licence</description>
+    <externalId>false</externalId>
+    <label>Level 3 Approval Annual Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

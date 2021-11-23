@@ -1,0 +1,63 @@
+<!--
+  * @author       : arjun.singh@auspost.com.au
+  * @date         : 19/06/2020
+  * @description  : Component used for PO tansfer request. It display
+  *                 the selected po location deatils 
+--------------------------------------- History --------------------------------------------------
+19.06.2020    Arjun Singh    Created : Change made for roll out of Transfer to another PO
+-->
+<template> 
+    <div class="background" >
+        <div key={office.location.title}>
+            <div class="slds-grid top-padding">
+                <div class="slds-col slds-size_1-of-12">
+                    <img src={locationPinImgage} class="img-style">
+                    </div>
+                    <div class="slds-col slds-size_8-of-12">
+                        <p class="text-class"><b>{office.location.title}</b></p>
+                        <p style="width:80%" class="address-class">{office.location.address}</p>
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_4-of-12">
+                                <p class="status-class"><b>{office.postOfficeStatus}</b></p>
+                            </div>
+                            <template if:true={office.postOfficeStatus}>
+                                <div class="slds-col slds-size_6-of-12">
+                                    <p class="text-class">{office.currentBusinessHours}
+                                    </p>
+                                </div>
+                                <div class="slds-col slds-size_1-of-12">                                
+                                    <lightning-button-icon icon-name={iconName} variant="bare" onclick={toggleHander} value={itemIndex}  ></lightning-button-icon>                                
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_3-of-12 slds-m-bottom_small ">
+                        <p class="text-class">{office.location.distanceBetweenLocation} km away</p>
+                    </div>
+                </div>
+            </div>
+            <template if:true={showListOfHrs}>
+                <div class="slds-grid bottom-padding" >
+                    <div class="slds-col slds-size_1-of-12">
+                    </div>
+                    <div class="slds-col slds-size_8-of-12">
+                            <template for:each={office.businessHours} for:item="businessHrs" for:index="innerItemIndex">  
+                                <div class="slds-grid" key={businessHrs.title}> 
+                                    <div class="slds-col slds-size_5-of-12">
+                                        <p class="text-class">{businessHrs.weekday}</p>
+                                    </div>
+                                    <div class="slds-col slds-size_4-of-12">
+                                        <p class="text-class">{businessHrs.startTime}</p>
+                                    </div>
+                                    <div class="slds-col slds-size_3-of-12">
+                                        <p class="text-class">{businessHrs.endTime}</p>
+                                    </div>
+                                </div>
+                            </template>
+                    </div>
+                    <div class="slds-col slds-size_3-of-12">
+                    </div>
+                </div>
+            </template>
+        </div>
+</template>

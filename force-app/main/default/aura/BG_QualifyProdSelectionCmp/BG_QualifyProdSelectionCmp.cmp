@@ -1,0 +1,61 @@
+<!--
+    STP:20/02/2020: 
+    This is the parent component which contains a sub component to display all the products 
+    to be selected to continue the guided qualification.
+-->
+<aura:component controller='BG_QualificationApex'>
+    <!-- Attributes -->
+    <aura:attribute name="selectedProducts" type="List"/>
+    <aura:attribute name="selectedProductsQuestions" type="Map" default='{}'/>
+    <aura:attribute name="productAndServicesList" type="List"/>
+    <aura:attribute name="prodErrorMessage" type="String"/>
+    <aura:attribute name="currentProgressStep" type="Integer" default='2'/>
+    <aura:attribute name="hasErrorInCurrentStep" type="Boolean" default='false'/>
+    <aura:attribute name="errorMessage" type="String" default='You must select at least one category.'/>
+    <aura:attribute name="qualificationRecordId" type="String" />
+    <aura:attribute name="existingQualification" type="Object"/>
+    <aura:attribute name="initialLoad" type="Boolean" default='false'/>
+    <aura:attribute name="editFlow" type="Boolean" default='false' />
+    <aura:attribute name="hasBgSalesPermissionSet" type="Boolean" />
+    <aura:attribute name="discoveryCategoryQuestions" type="Object"/>
+    <aura:attribute name="isManualOpp" type="Boolean" />
+    <!--Handlers  -->
+    <aura:handler name="change" value="{!v.selectedProducts}" action="{!c.handleProdChange}"/>
+    
+    <!--Event cmp -->
+     <aura:registerEvent name="genCmpEvent" type="c:BG_GenericComponentEvent"/>
+    
+    <!-- Progress BAR -->
+    <div>
+        <c:BG_QualificationProgressIndicator currentProgressStep='{!v.currentProgressStep}'
+                                             hasErrorInCurrentStep='{!v.hasErrorInCurrentStep}'/>
+        <br/>
+    </div>
+    
+    <div style='width:100%' >
+        
+        <div class='slds-text-align_left headFont'>
+            Customer Needs Categories
+        </div>
+        
+        <!--Products Section -->
+        <c:BG_ProductServicesCmp aura:id='field' selectedProducts='{!v.selectedProducts}'
+                                 productAndServicesList='{!v.productAndServicesList}'
+                                 qualId='{!v.qualificationRecordId}'
+                                 existingQualification='{!v.existingQualification}'/>
+        <br />
+        
+        <aura:if isTrue='{!v.prodErrorMessage != null}'>
+            <p class='errorFont'> {!v. prodErrorMessage}</p>
+            <br/>
+        </aura:if>
+        
+        <!--Buttons Section -->
+        <div class='slds-text-align_right'>
+            <lightning:button aura:Id='backbutton'  onclick="{!c.showDiscovery}" label="Back" variant="brand-outline" />
+            <lightning:button aura:Id='nextButton'  onclick="{!c.showProductQuestions}" label="Next" variant="brand" />
+        </div>
+        
+    </div>
+    
+</aura:component>

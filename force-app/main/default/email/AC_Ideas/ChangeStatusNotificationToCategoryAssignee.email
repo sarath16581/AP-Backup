@@ -1,0 +1,11 @@
+<p><a href="https://auspost.my.salesforce.com/support/s/idea/{!ideaId}">{!ideaTitle}</a> has been changed from <b>{!oldStatus}</b> to <b>{!newStatus}</b>.</p>
+<hr />
+<p>Here are the Idea details:</p>
+{!ideaBody}
+<hr />
+<p> Things you might want to do next:
+</p>
+<ul>
+<li><a href="https://community.auspost.com.au/s/idea/{!ideaId}/detail"><em>Post a comment </em></a> to the Idea owner and those following the Idea</li>
+<li><a href="https://community.auspost.com.au/s/ideas-list"><em>Visit the Ideas community</em></a> and explore other Ideas</li>
+</ul>

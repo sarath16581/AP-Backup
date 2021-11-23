@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EFY__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Modified_Contract_Start_Date__c = DATE((YEAR(TODAY())-1),07,01) , 364,
+IF(End_of_CFY__c - Modified_Contract_Start_Date__c &lt; 0 , 0,
+IF(End_of_CFY__c - Modified_Contract_Start_Date__c &lt; 365 ,
+End_of_CFY__c - Modified_Contract_Start_Date__c, 0)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>EFY Days Remaining</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

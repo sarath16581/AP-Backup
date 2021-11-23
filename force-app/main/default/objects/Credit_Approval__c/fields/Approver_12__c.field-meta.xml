@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approver_12__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>DEPRECATED. DO NOT USE. Delegated Approver within the delegation workflow. Referenced by the standard approval process</description>
+    <externalId>false</externalId>
+    <label>Approver 12 (DEPRECATED)</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Credit_Approvalsujyt</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

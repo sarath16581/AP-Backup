@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>GOVERNMENT1</label>
+    <protected>false</protected>
+    <values>
+        <field>APT_ASIC_Type__c</field>
+        <value xsi:type="xsd:string">SCN,SCO,SCP,SCR,SCS,SCT,SCU,SGA,SGC,SGE,SGP,SGT,SSA,SSP,SSS,STC,STD,STF,STH,STI,STL,STQ,STT,STU,TCB,TCC,TCL,TCN,TCO,TCP,TCR,TCS,TCT,TCU,TGA,TGE,TGP,TGT,TSA,TSP,TSS,TTC,TTD,TTF,TTH,TTI,TTL,TTQ,TTT,TTU</value>
+    </values>
+    <values>
+        <field>APT_Entity_Type__c</field>
+        <value xsi:type="xsd:string">GOVT</value>
+    </values>
+    <values>
+        <field>APT_Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>APT_Is_Sole_Trader_Entity__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+</CustomMetadata>

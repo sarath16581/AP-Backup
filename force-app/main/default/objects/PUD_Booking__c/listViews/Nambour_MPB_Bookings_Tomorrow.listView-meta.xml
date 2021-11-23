@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Nambour_MPB_Bookings_Tomorrow</fullName>
+    <columns>NAME</columns>
+    <columns>Location__c</columns>
+    <columns>Street__c</columns>
+    <columns>City__c</columns>
+    <columns>Route_Lookup__c</columns>
+    <columns>Status__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>Effective_Date__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Depot__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>PUD_Booking__c.MPB_Pickup</value>
+    </filters>
+    <filters>
+        <field>Effective_Date__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>TOMORROW</value>
+    </filters>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>nam</value>
+    </filters>
+    <label>Nambour - MPB Bookings Tomorrow</label>
+    <sharedTo>
+        <group>NAMBOUR_PUD_TRANSPORT</group>
+    </sharedTo>
+</ListView>

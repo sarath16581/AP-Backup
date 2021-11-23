@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Approval_Required3__c</fullName>
+    <externalId>false</externalId>
+    <formula>FALSE
+
+/*IF( 
+AND(
+AND( 
+OR( 
+AND(APT_Customer_Type__c== &quot;Existing Customer&quot; , APT_Apply_Round_Off__c== &quot;Yes&quot; ) ,
+AND(APT_Customer_Type__c== &quot;New Customer&quot;,APT_Apply_Round_Off__c== &quot;No&quot; ) 
+), 
+OR(APT_Product_Name__c == &quot;eParcel&quot; , APT_Product_Name__c == &quot;eParcel Express&quot;)
+ )
+, 
+AND(APT_Product_Name__c &lt;&gt; &quot;Local Pickup and Delivery Charges&quot; , APT_New__c,  
+ISPICKVAL(Apttus_Config2__ChargeType__c, &quot;Standard Price&quot;))
+)
+,TRUE, FALSE)*/</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Approval Required3?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

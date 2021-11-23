@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Next_Steps__c</fullName>
+    <externalId>false</externalId>
+    <label>Opportunity Next Steps</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Apttus_Proposal__Approval_Stage__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Update opportunity details</fullName>
+                <default>false</default>
+                <label>Update opportunity details</label>
+            </value>
+            <value>
+                <fullName>Identify and engage Specialist resources</fullName>
+                <default>false</default>
+                <label>Identify and engage Specialist resources</label>
+            </value>
+            <value>
+                <fullName>Prepare for initial customer meeting</fullName>
+                <default>false</default>
+                <label>Prepare for initial customer meeting</label>
+            </value>
+            <value>
+                <fullName>Contact internal resources to determine capabilities</fullName>
+                <default>false</default>
+                <label>Contact internal resources to determine capabilities</label>
+            </value>
+            <value>
+                <fullName>Confirm issues, needs and desired outcomes</fullName>
+                <default>false</default>
+                <label>Confirm issues, needs and desired outcomes</label>
+            </value>
+            <value>
+                <fullName>Identify opportunity risks and competitors</fullName>
+                <default>false</default>
+                <label>Identify opportunity risks and competitors</label>
+            </value>
+            <value>
+                <fullName>Engage internal resources to develop solution</fullName>
+                <default>false</default>
+                <label>Engage internal resources to develop solution</label>
+            </value>
+            <value>
+                <fullName>Determine Go/No Go decision</fullName>
+                <default>false</default>
+                <label>Determine Go/No Go decision</label>
+            </value>
+            <value>
+                <fullName>Develop proposal</fullName>
+                <default>false</default>
+                <label>Develop proposal</label>
+            </value>
+            <value>
+                <fullName>Refine proposal with internal stakeholders</fullName>
+                <default>false</default>
+                <label>Refine proposal with internal stakeholders</label>
+            </value>
+            <value>
+                <fullName>Present the proposal to the customer</fullName>
+                <default>false</default>
+                <label>Present the proposal to the customer</label>
+            </value>
+            <value>
+                <fullName>Obtain verbal agreement</fullName>
+                <default>false</default>
+                <label>Obtain verbal agreement</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Draft</controllingFieldValue>
+            <controllingFieldValue>Approval Required</controllingFieldValue>
+            <controllingFieldValue>In Review</controllingFieldValue>
+            <valueName>Update opportunity details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Draft</controllingFieldValue>
+            <controllingFieldValue>Approval Required</controllingFieldValue>
+            <controllingFieldValue>In Review</controllingFieldValue>
+            <valueName>Identify and engage Specialist resources</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Draft</controllingFieldValue>
+            <controllingFieldValue>Approval Required</controllingFieldValue>
+            <controllingFieldValue>In Review</controllingFieldValue>
+            <valueName>Prepare for initial customer meeting</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Draft</controllingFieldValue>
+            <controllingFieldValue>Approval Required</controllingFieldValue>
+            <controllingFieldValue>In Review</controllingFieldValue>
+            <valueName>Contact internal resources to determine capabilities</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Draft</controllingFieldValue>
+            <controllingFieldValue>Approved</controllingFieldValue>
+            <controllingFieldValue>Denied</controllingFieldValue>
+            <valueName>Confirm issues, needs and desired outcomes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Draft</controllingFieldValue>
+            <controllingFieldValue>Approved</controllingFieldValue>
+            <controllingFieldValue>Denied</controllingFieldValue>
+            <valueName>Identify opportunity risks and competitors</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Draft</controllingFieldValue>
+            <controllingFieldValue>Approved</controllingFieldValue>
+            <controllingFieldValue>Denied</controllingFieldValue>
+            <valueName>Engage internal resources to develop solution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Draft</controllingFieldValue>
+            <controllingFieldValue>Approved</controllingFieldValue>
+            <controllingFieldValue>Denied</controllingFieldValue>
+            <valueName>Determine Go/No Go decision</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Generated</controllingFieldValue>
+            <controllingFieldValue>Presented</controllingFieldValue>
+            <controllingFieldValue>Accepted</controllingFieldValue>
+            <valueName>Develop proposal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Generated</controllingFieldValue>
+            <controllingFieldValue>Presented</controllingFieldValue>
+            <controllingFieldValue>Accepted</controllingFieldValue>
+            <valueName>Refine proposal with internal stakeholders</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Generated</controllingFieldValue>
+            <controllingFieldValue>Presented</controllingFieldValue>
+            <controllingFieldValue>Accepted</controllingFieldValue>
+            <valueName>Present the proposal to the customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Generated</controllingFieldValue>
+            <controllingFieldValue>Presented</controllingFieldValue>
+            <controllingFieldValue>Accepted</controllingFieldValue>
+            <valueName>Obtain verbal agreement</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

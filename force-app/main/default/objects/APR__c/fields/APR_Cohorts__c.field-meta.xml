@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APR_Cohorts__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>This field displays the cohort that this particular billing account belongs to. The APR cohort dictates the Published Rate and Date, as well as the APR status at the point of creation.</inlineHelpText>
+    <label>APR Cohorts</label>
+    <length>10</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HeadOfProduct__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>DEPRECATED. DO NOT USE.</description>
+    <externalId>false</externalId>
+    <label>Head Of Product (DEPRECATED)</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>CAM_HeadOfProduct</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

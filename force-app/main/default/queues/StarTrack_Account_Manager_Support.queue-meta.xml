@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@startrack.com.au</email>
+    <name>StarTrack Account Manager Support</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>StarTrack_Account_Manager</publicGroup>
+        </publicGroups>
+    </queueMembers>
+    <queueRoutingConfig>StarTrack_Account_Manager_Support_Routing_Configuration</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

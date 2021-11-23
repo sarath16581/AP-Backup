@@ -1,0 +1,35 @@
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Hi <span style="font-size: 10.0pt; line-height: 107%; font-family: 'AP Letter';">{!Case.Receiver_Contact_First_Name__c},</span>&nbsp;</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Thank you for your enquiry regarding consignment:&nbsp;</span><span style="font-size: 10.0pt; font-family: 'AP Letter';">&nbsp;</span></p>
+<table style="border-collapse: collapse; width: 64.4986%; height: 98px;" border="1">
+<tbody>
+<tr>
+<td style="width: 29.28%; padding: .75pt .75pt .75pt .75pt;" width="29%">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Article&nbsp;</span></p>
+</td>
+<td style="width: 70.6%; padding: .75pt .75pt .75pt .75pt;" width="70%">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!Case.ArticleTest__c}</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 29.28%; padding: .75pt .75pt .75pt .75pt;" width="29%">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Receiver Name&nbsp;</span></p>
+</td>
+<td style="width: 70.6%; padding: .75pt .75pt .75pt .75pt;" width="70%">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!Case.Receiver_Name__c}</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 29.28%; padding: .75pt .75pt .75pt .75pt;" width="29%">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Address&nbsp;</span></p>
+</td>
+<td style="width: 70.6%; padding: .75pt .75pt .75pt .75pt;" width="70%">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!Case.Address4__c}, {!Case.Address4Suburb__c},{!Case.Address4Postcode__c}</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">We have processed your request for redirection to the new address provided, and are pleased to advise that your new consignment number is&nbsp;</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">This will be available to track online from tomorrow at startrack.com.au, using our Track &amp; trace tool.</span><span style="font-size: 10.0pt; font-family: 'AP Letter';">&nbsp;</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Please don&rsquo;t hesitate to contact us on 13 23 45 should you have any further enquiries.</span><span style="font-size: 10.0pt; font-family: 'AP Letter';">&nbsp;</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Kind regards,</span><span style="font-size: 10.0pt; font-family: 'AP Letter';">&nbsp;</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!User.Name}</span></p>

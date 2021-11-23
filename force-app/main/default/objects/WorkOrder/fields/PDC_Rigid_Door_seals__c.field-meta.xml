@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PDC_Rigid_Door_seals__c</fullName>
+    <defaultValue>true</defaultValue>
+    <externalId>false</externalId>
+    <label>Door seals are intact and secure</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

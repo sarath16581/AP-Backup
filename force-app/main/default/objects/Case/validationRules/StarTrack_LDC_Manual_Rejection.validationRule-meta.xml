@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_LDC_Manual_Rejection</fullName>
+    <active>true</active>
+    <description>StarTrack - LDC Case Manual Rejection</description>
+    <errorConditionFormula>AND(
+    ISPICKVAL(LDC_Manual_Check_Result__c, &apos;Rejected&apos;),
+    ISBLANK(TEXT(LDC_Manual_Rejection_Reason__c))
+)</errorConditionFormula>
+    <errorDisplayField>LDC_Manual_Rejection_Reason__c</errorDisplayField>
+    <errorMessage>Please provide a value</errorMessage>
+</ValidationRule>

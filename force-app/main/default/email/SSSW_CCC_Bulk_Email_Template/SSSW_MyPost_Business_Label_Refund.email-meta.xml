@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Proactive notification to customer about Label Refund option</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW MyPost Business Label Refund</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference number {!Case.CaseNumber}
+
+
+Hi {!Contact.FirstName},
+
+
+Thanks for your patience while waiting for assistance with your label refund enquiry.
+The good news is you don’t need to wait any longer – you can now request a refund directly from your MyPost Business dashboard!
+
+To access this great new feature, head to the Track option in the top menu bar, then:
+
+1. Locate the order that contains your unused label and click on View.
+2. Locate the label you need refunded and click on View.
+3. Click on the Refund button.
+
+That’s it! Your refund has been requested and you’ll receive it within just a few working days (times may vary depending on your financial institution).
+
+Has this resolved your enquiry? Let us know here:
+
+CLOSE MY CASE
+
+Otherwise, there’s no need to do anything, we’ll be in touch to assist as soon as we can.
+
+
+
+
+Kind regards,
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

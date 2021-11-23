@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Federal &amp; ACT Government Support</name>
+    <queueMembers>
+        <users>
+            <user>cassie.lynch@auspost.com.au</user>
+            <user>christine.groh@auspost.com.au</user>
+            <user>jana.ackovska@auspost.com.au</user>
+            <user>jessica.robinson@auspost.com.au</user>
+            <user>ravinder.kumar@auspost.com.au</user>
+            <user>rebecca.mcmillan@auspost.com.au.ap</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

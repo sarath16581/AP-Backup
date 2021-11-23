@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Amend__c</fullName>
+    <externalId>false</externalId>
+    <formula>/*IF (OR(AND( NOT(ISPICKVAL( Apttus__Initiation_Type__c , &quot;Migrated Contract&quot;)),  (ISPICKVAL(Apttus__Status_Category__c,&quot;In Effect&quot;)),NOT(ISPICKVAL(Apttus__Status__c,&quot;Being Renewed&quot;)),NOT(ISPICKVAL(Apttus__Status__c,&quot;Being Amended&quot;))), AND(ISPICKVAL(Apttus__Initiation_Type__c , &quot;Migrated Contract&quot;),  $Profile.Name  &lt;&gt; &quot;Coverage Sales&quot;, (ISPICKVAL(Apttus__Status_Category__c,&quot;In Effect&quot;)),NOT(ISPICKVAL(Apttus__Status__c,&quot;Being Renewed&quot;)),NOT(ISPICKVAL(Apttus__Status__c,&quot;Being Amended&quot;)))), HYPERLINK(&quot;/apex/APT_AmendRenew?agreementId=&quot; &amp; Id &amp; &quot;&amp;actionName=DoV&quot;, IMAGE(&quot;/resource/Apttus__Button_Amend&quot;, &quot;Amend&quot;),&quot;_self&quot;), NULL)
+*/
+
+/* modified 06/26/2018
+IF (OR(AND( NOT(ISPICKVAL( Apttus__Initiation_Type__c , &quot;Migrated Contract&quot;)), (ISPICKVAL(Apttus__Status_Category__c,&quot;In Effect&quot;)),NOT(ISPICKVAL(Apttus__Status__c,&quot;Being Renewed&quot;)),NOT(ISPICKVAL(Apttus__Status__c,&quot;Being Amended&quot;))), AND(ISPICKVAL(Apttus__Initiation_Type__c , &quot;Migrated Contract&quot;), (ISPICKVAL(Apttus__Status_Category__c,&quot;In Effect&quot;)),NOT(ISPICKVAL(Apttus__Status__c,&quot;Being Renewed&quot;)),NOT(ISPICKVAL(Apttus__Status__c,&quot;Being Amended&quot;)))), HYPERLINK(&quot;/apex/APT_AmendRenew?agreementId=&quot; &amp; Id &amp; &quot;&amp;actionName=DoV&quot;, IMAGE(&quot;/resource/Apttus__Button_Amend&quot;, &quot;Amend&quot;),&quot;_self&quot;), NULL)
+*/
+
+IF (AND(OR(AND( NOT(ISPICKVAL( Apttus__Initiation_Type__c , &quot;Migrated Contract&quot;)), (ISPICKVAL(Apttus__Status_Category__c,&quot;In Effect&quot;)),NOT(ISPICKVAL(Apttus__Status__c,&quot;Being Renewed&quot;)),NOT(ISPICKVAL(Apttus__Status__c,&quot;Being Amended&quot;))), AND(ISPICKVAL(Apttus__Initiation_Type__c , &quot;Migrated Contract&quot;), (ISPICKVAL(Apttus__Status_Category__c,&quot;In Effect&quot;)),NOT(ISPICKVAL(Apttus__Status__c,&quot;Being Renewed&quot;)),NOT(ISPICKVAL(Apttus__Status__c,&quot;Being Amended&quot;)))),IF(Apttus__Related_Opportunity__c!=NULL,AND(NOT(ISPICKVAL(Apttus__Related_Opportunity__r.StageName,&quot;Closed Lost&quot;)),NOT(ISPICKVAL(Apttus__Related_Opportunity__r.StageName,&quot;Closed Disqualified&quot;)),NOT(ISPICKVAL(Apttus__Related_Opportunity__r.StageName,&quot;Closed Duplicate&quot;))),true)), HYPERLINK(&quot;/apex/APT_AmendRenew?agreementId=&quot; &amp; Id &amp; &quot;&amp;actionName=DoV&quot;, IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;), NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Deed of Variation</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

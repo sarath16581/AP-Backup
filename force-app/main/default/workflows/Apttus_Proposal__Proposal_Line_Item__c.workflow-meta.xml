@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>APT_Set_Product_Name_Text</fullName>
+        <description>Populates Text version of Product Name for Rollup Summary purpose</description>
+        <field>Product_Name_Text__c</field>
+        <formula>Apttus_Proposal__Product__r.Name</formula>
+        <name>APT Set Product Name Text</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>APT Populate Product Name to Text</fullName>
+        <actions>
+            <name>APT_Set_Product_Name_Text</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <description>Runs when Proposal Line Item is created and populates text version of the line item</description>
+        <formula>true</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

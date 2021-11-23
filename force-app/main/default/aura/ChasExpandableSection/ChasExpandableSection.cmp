@@ -1,0 +1,37 @@
+<!--
+ @changelog : 
+ 2020-07-06 : Hara.sahoo@auspost.com.au : Modified : Change made for roll out of Safe Drop feature on Missing Items form - Added a slds-grid structure
+-->
+<aura:component description="Expands a heading to display more information. Used on chasMissingItemWPage01">
+    <aura:attribute name="label" type="String" />
+    <aura:attribute name="darkTheme" type="Boolean" default="false" />
+    <aura:attribute name="open" type="Boolean" default="false" />
+    <aura:attribute name="grouped" type="Boolean" default="false" />
+    
+    <div class="{! 'dark-theme-' + v.darkTheme + ' grouped-' + v.grouped }">
+        <div class="{! 'chas-section-inner open-' + v.open }">
+            <a onclick="{! c.toggle }" class="chas-section-header chas-heading_small">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_11-of-12">
+                        <h3> {! v.label }</h3>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12">
+                       <div>
+                            <aura:if isTrue="{! v.open }">
+                                <img src="{! $Resource.ChasIcons + '/chas-icons/pngs/UI/icons/chevron-up.png' }" alt="chevron-down" class="icon-class"/>
+                                
+                               <aura:set attribute="else">
+                                    <img src="{! $Resource.ChasIcons + '/chas-icons/pngs/UI/icons/chevron-mobile-stepper.png' }" alt="chevron-down" class="icon-class"/>
+                             
+                                </aura:set>
+                            </aura:if>                   
+                        </div>
+                    </div>
+                </div>
+                </a>
+                <div class="chas-section-body">
+                    {! v.body }
+                </div>
+            </div>
+        </div>
+    </aura:component>

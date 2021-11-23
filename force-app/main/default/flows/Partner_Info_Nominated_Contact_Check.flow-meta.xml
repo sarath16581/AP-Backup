@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <assignments>
+        <name>Assign_Variables</name>
+        <label>Assign Variables</label>
+        <locationX>1224</locationX>
+        <locationY>21</locationY>
+        <assignmentItems>
+            <assignToReference>LegalEntityIdToCheck</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LegalEntity.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>LEName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LegalEntity.Name</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>LEHasFacility</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Legal_Entity_Checked_Initially</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Get the Id of the Facility associated to this Licence</description>
+        <name>Get_Facility_Id</name>
+        <label>Get Facility Id</label>
+        <locationX>674</locationX>
+        <locationY>285</locationY>
+        <assignmentItems>
+            <assignToReference>FacilityId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LicenceFound.Facility__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Facility_Id_Null</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Increment LEWithFacilityCount by 1 if the LE just checked had one or more facilities</description>
+        <name>Increment_LE_with_Facility_Count</name>
+        <label>Increment LE with Facility Count</label>
+        <locationX>748</locationX>
+        <locationY>187</locationY>
+        <assignmentItems>
+            <assignToReference>LEWithFacilityCount</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LEWithFacilityCountFx</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Multi_LE_Fac_Check</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Increment the Unique Facility Counter by 1
+Set Previous Facility as Facility Found to compare against next record.</description>
+        <name>Increment_Unique_Facility_Count</name>
+        <label>Increment Unique Facility Count</label>
+        <locationX>404</locationX>
+        <locationY>340</locationY>
+        <assignmentItems>
+            <assignToReference>UniqueFacilityCount</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>PreviousFacilityFound</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FacilityId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_through_Licences</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>The flow has found two Legal Entities, both with non end state Licences supporting more than one Facility.  Return this in the LegalEntityFoundName variable.</description>
+        <name>Set_Error_Output</name>
+        <label>Set Error Output</label>
+        <locationX>903</locationX>
+        <locationY>328</locationY>
+        <assignmentItems>
+            <assignToReference>LegalEntityFoundName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LEName</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Set:
+PreviousFacilityFound = Facility associated to the new Licence being created 
+FacilityCount = 1 (as this Facility is about to be associated to the Licence)
+LEHasFacility = true (as this Licence being created will associate a facility to the LE)</description>
+        <name>Set_Factility_Variables</name>
+        <label>Set Factility Variables</label>
+        <locationX>268</locationX>
+        <locationY>376</locationY>
+        <assignmentItems>
+            <assignToReference>PreviousFacilityFound</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FacilityId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>UniqueFacilityCount</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>LEHasFacility</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Contact_Email_Address</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>If Facility found, set flag to indicate that the LE has a Facility</description>
+        <name>Set_LE_Has_Faclity_to_True</name>
+        <label>Set LE Has Facility to True</label>
+        <locationX>674</locationX>
+        <locationY>489</locationY>
+        <assignmentItems>
+            <assignToReference>LEHasFacility</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Facility_Id_same_as_Facility_Found</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Set_LegalEntityNPCIUSet_to_false</name>
+        <label>Set LegalEntityNPCIUSet to false</label>
+        <locationX>25</locationX>
+        <locationY>584</locationY>
+        <assignmentItems>
+            <assignToReference>LegalEntityNPCIUSet</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Set flag so initial set up of objects only done once</description>
+        <name>Set_Other_Check_Started_Flag</name>
+        <label>Set Other Check Started Flag</label>
+        <locationX>1067</locationX>
+        <locationY>300</locationY>
+        <assignmentItems>
+            <assignToReference>OtherCheckStarted</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_All_Contacts_with_Email</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>If no email, but contact id provided, then this indicates that the flow is being called in from Scenario 1 &apos;Update Nominated Contact on Legal Entity&apos;.  Else Scenario 2 &apos;New Licence&apos;</description>
+        <name>Contact_Id_Provided</name>
+        <label>Contact Id Provided?</label>
+        <locationX>23</locationX>
+        <locationY>246</locationY>
+        <defaultConnector>
+            <targetReference>Get_Contact_Email_Address</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Yes-1.Upd NC on LE</defaultConnectorLabel>
+        <rules>
+            <name>NoContactId</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>ContactId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Legal_Entity_NPCIU</targetReference>
+            </connector>
+            <label>No-2.New Licence</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>If email is provided, then this indicates that the flow is being called in from Scenario 3 &apos;Update email address on Contact&apos;</description>
+        <name>Email_Address_Provided</name>
+        <label>Email Address Provided?</label>
+        <locationX>21</locationX>
+        <locationY>20</locationY>
+        <defaultConnector>
+            <targetReference>Get_LE_Name</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Yes-3.Upd Email On Con</defaultConnectorLabel>
+        <rules>
+            <name>NoEmailProvided</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>EmailAddress</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Contact_Id_Provided</targetReference>
+            </connector>
+            <label>No</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>If Facility Id of Licence Null, then nothing to compare, so check next</description>
+        <name>Facility_Id_Null</name>
+        <label>Facility Id Null?</label>
+        <locationX>674</locationX>
+        <locationY>398</locationY>
+        <defaultConnector>
+            <targetReference>Set_LE_Has_Faclity_to_True</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>YesFacIdNull</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FacilityId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Loop_through_Licences</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>If not Facility Id provided, then flow was called for scenario 2 for a &apos;Licence PP&apos; - so just check that Nominated Partner Contact has been set.</description>
+        <name>Facility_Id_Provided</name>
+        <label>Facility Id Provided?</label>
+        <locationX>268</locationX>
+        <locationY>480</locationY>
+        <defaultConnector>
+            <targetReference>Set_Factility_Variables</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Yes</defaultConnectorLabel>
+        <rules>
+            <name>No_FacIdProvided</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FacilityId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>No</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Is the ID of the Facility the same as one Found earlier?  If it is, then this OK so check next.  If not same then set MultiFacility flag to true</description>
+        <name>Facility_Id_same_as_Facility_Found</name>
+        <label>Facility Id same as Prev Facility Found?</label>
+        <locationX>498</locationX>
+        <locationY>491</locationY>
+        <defaultConnector>
+            <targetReference>Increment_Unique_Facility_Count</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_FacIdEqFacFound</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FacilityId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>PreviousFacilityFound</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Loop_through_Licences</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>If the LE returned was one checked intially based on LegalEnityId passed in, then go to next LE</description>
+        <name>Legal_Entity_Checked_Initially</name>
+        <label>Legal Entity Checked Initially</label>
+        <locationX>1067</locationX>
+        <locationY>20</locationY>
+        <defaultConnector>
+            <targetReference>Get_Licences_for_LE</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Y_LESame</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>LegalEntityId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>LegalEntityIdToCheck</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Other_Check_Started</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check if both the following evaluate to true:
+Legal Entity with Facility count &gt; 1
+Unique Facility count &gt; 1
+
+If so then we have detected a scenario where there is more the one Legal Entity with more than one Facility, with Nominated Partner Contact and Incent Users with the same email address.  This risks a conflict within Incent, so return the name of the conflicting org an cancel the operation.</description>
+        <name>Multi_LE_Fac_Check</name>
+        <label>Multi LE Fac Check</label>
+        <locationX>901</locationX>
+        <locationY>188</locationY>
+        <defaultConnector>
+            <targetReference>Other_Check_Started</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Multi</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>LEWithFacilityCount</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>UniqueFacilityCount</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Error_Output</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>If LE does not have a NPC then exit process and return indicator to raise error to user.
+This is scenaro 4 which is simply a check the the LE has a NPCIU.  This scenario executes when only a Legal Entity is passed in.</description>
+        <name>Nominated_Contact_Found</name>
+        <label>Nominated Contact Found?</label>
+        <locationX>25</locationX>
+        <locationY>480</locationY>
+        <defaultConnector>
+            <targetReference>Facility_Id_Provided</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Yes</defaultConnectorLabel>
+        <rules>
+            <name>NoNCNotFound</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>ContactId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_LegalEntityNPCIUSet_to_false</targetReference>
+            </connector>
+            <label>No-NPCIU Check</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>After looping though Licences of any LE passed in, then check for other LEs with the same email.  It is only necessary to get the LEs with the email once.</description>
+        <name>Other_Check_Started</name>
+        <label>Other Check Started?</label>
+        <locationX>1067</locationX>
+        <locationY>189</locationY>
+        <defaultConnector>
+            <targetReference>Set_Other_Check_Started_Flag</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_OtherStarted</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>OtherCheckStarted</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Loop_through_LEs</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Flow to perform NPCIU Email Rule Check: Before allowing an update, if the email address is to be used by more than one Legal Entity, then ensure all non end state Licences associated to these Legal Entities are not supporting more than one Facility.  If not then return the organisation name.  Called in following scenarios:
+1. Set or change of Nominated Partner Contact on LE (AccountUtil.checkNominatedContactEmail) 
+2. Set or change of LE on Licence (AccountUtil.checkLEUpdate) 
+3. Update to Contact Email (ContactUtility.checkContactEmail)
+*4. Set LE Against Licence (AccountUtil.checkLegalEntityNPCIU)
+ *Only to check that LE has a NPCIU set</description>
+    <formulas>
+        <description>Increment variable to count the number of LEs found with non end state Licences supporting more than one Facility</description>
+        <name>LEWithFacilityCountFx</name>
+        <dataType>Number</dataType>
+        <expression>{!LEWithFacilityCount}+IF({!LEHasFacility},1,0)</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>Partner Info Nominated Contact Check {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Partner Info - Nominated Contact Check</label>
+    <loops>
+        <name>Loop_through_Contacts</name>
+        <label>Loop through Contacts</label>
+        <locationX>1226</locationX>
+        <locationY>403</locationY>
+        <assignNextValueToReference>Contact</assignNextValueToReference>
+        <collectionReference>ContactsWithEmailAddress</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Get_LE_with_Nominated_Contact</targetReference>
+        </nextValueConnector>
+    </loops>
+    <loops>
+        <name>Loop_through_LEs</name>
+        <label>Loop through LEs</label>
+        <locationX>1225</locationX>
+        <locationY>190</locationY>
+        <assignNextValueToReference>LegalEntity</assignNextValueToReference>
+        <collectionReference>LegalEntities</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_Variables</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Loop_through_Contacts</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>Loop_through_Licences</name>
+        <label>Loop through Licences</label>
+        <locationX>499</locationX>
+        <locationY>183</locationY>
+        <assignNextValueToReference>LicenceFound</assignNextValueToReference>
+        <collectionReference>Licences</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Get_Facility_Id</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Increment_LE_with_Facility_Count</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get all contacts with this email address</description>
+        <name>Get_All_Contacts_with_Email</name>
+        <label>Get All Contacts with Email</label>
+        <locationX>1069</locationX>
+        <locationY>401</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_through_Contacts</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Email</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>EmailAddress</elementReference>
+            </value>
+        </filters>
+        <object>Contact</object>
+        <outputReference>ContactsWithEmailAddress</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Email</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Contact_Email_Address</name>
+        <label>Get Contact Email Address</label>
+        <locationX>267</locationX>
+        <locationY>245</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_LE_Name</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>ContactId</elementReference>
+            </value>
+        </filters>
+        <object>Contact</object>
+        <outputAssignments>
+            <assignToReference>EmailAddress</assignToReference>
+            <field>Email</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <description>Get the name of the Legal Entity</description>
+        <name>Get_LE_Name</name>
+        <label>Get LE Name</label>
+        <locationX>266</locationX>
+        <locationY>19</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Licences_for_LE</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>LegalEntityId</elementReference>
+            </value>
+        </filters>
+        <object>Account</object>
+        <outputAssignments>
+            <assignToReference>LegalEntityIdToCheck</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>LEName</assignToReference>
+            <field>Name</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_LE_with_Nominated_Contact</name>
+        <label>Get LE with Nominated Contact</label>
+        <locationX>1376</locationX>
+        <locationY>191</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_through_LEs</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Nominated_Partner_Contact_Incent_User__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Contact.Id</elementReference>
+            </value>
+        </filters>
+        <object>Account</object>
+        <outputReference>LegalEntities</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <description>If Legal Entity Id provided, then look up the Nominated Partner Contact and Incent User.</description>
+        <name>Get_Legal_Entity_NPCIU</name>
+        <label>Get Legal Entity NPCIU</label>
+        <locationX>24</locationX>
+        <locationY>381</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Nominated_Contact_Found</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>LegalEntityId</elementReference>
+            </value>
+        </filters>
+        <object>Account</object>
+        <outputAssignments>
+            <assignToReference>LegalEntityId</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>ContactId</assignToReference>
+            <field>Nominated_Partner_Contact_Incent_User__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <description>Get all Licences in non end state associated to LE.   
+Find out if these are supporting more than one facility.
+Sort by Facility Id</description>
+        <name>Get_Licences_for_LE</name>
+        <label>Get Licences for LE</label>
+        <locationX>499</locationX>
+        <locationY>20</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_through_Licences</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Licence_Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Ceased</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Licence_Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Not Activated</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ParentId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>LegalEntityIdToCheck</elementReference>
+            </value>
+        </filters>
+        <object>Account</object>
+        <outputReference>Licences</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Facility__c</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <sortField>Facility__c</sortField>
+        <sortOrder>Asc</sortOrder>
+    </recordLookups>
+    <startElementReference>Email_Address_Provided</startElementReference>
+    <status>Active</status>
+    <variables>
+        <name>Contact</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Contact</objectType>
+    </variables>
+    <variables>
+        <description>Id of the Contact being set as the &apos;Nominated Partner Contact and Incent User&apos; against a Legal Entity, or the Id of Contact whose email is being updated.  Required input for:
+Scenario 1: Update NC on LE, and 
+Scenario 3: Update Email on Contact.</description>
+        <name>ContactId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>ContactsWithEmailAddress</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Contact</objectType>
+    </variables>
+    <variables>
+        <description>Email Address being set of changed against a Contact. This is required input for:
+Scenario 3: Update Email on Contact.
+Before calling flow, trigger should check if the Contact is a &apos;Nominated Partner Contact and Incent User&apos;, and only call flow if it is.</description>
+        <name>EmailAddress</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Input the Facility Id when creating a new Licence.  This will be used to check that if other LEs are using the same email, that all non active Licences are assigned to this Facility only.</description>
+        <name>FacilityId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>LegalEntities</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <name>LegalEntity</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <description>Name of the Legal Entity that has a Licence in a non end state and a &apos;Nominated Partner Contact and Incent User&apos; with the same email address as either 1) the LE a new NPCIU is being associated to, or 2) the LE begining set against the Licence, or 3) the Contact with email addr being updated.</description>
+        <name>LegalEntityFoundName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>Id of the Legal Entity that the Licence is being associated to, or Contact who email address is being updated.
+Required input for:
+Scenario 1: Update NC on LE, and 
+Scenario 2: Creating new Licence, and
+Scenario 3: Update Email on Contact and
+Scenario 4: Checking if LE has a NPC</description>
+        <name>LegalEntityId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>001p0000008IJDFAA4</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>LegalEntityIdToCheck</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Flag to indicate if the Legal Entity has a Nominated Partner Contact and Incent User set.  Check this when calling flow when first assigning a Legal Entity to a Licence</description>
+        <name>LegalEntityNPCIUSet</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <booleanValue>true</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>LEHasFacility</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>LEName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>LENameFound</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>LEWithFacilityCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <name>LicenceFound</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <description>Licences associated to the LE</description>
+        <name>Licences</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <name>OtherCheckStarted</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Store value of Previous Facility Found
+Possible values:
+  null
+  an Id
+  Multi</description>
+        <name>PreviousFacilityFound</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Count the number of unique facilities associated to all LE found with the same NPCIU Email address.</description>
+        <name>UniqueFacilityCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+</Flow>

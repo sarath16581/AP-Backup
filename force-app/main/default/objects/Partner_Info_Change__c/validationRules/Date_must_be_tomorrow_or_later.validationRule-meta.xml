@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_must_be_tomorrow_or_later</fullName>
+    <active>true</active>
+    <description>Assignment Effective To Date, Suspend Start or Suspend End Date must be tomorrow or later.</description>
+    <errorConditionFormula>OR( Assignment_Effective_To_Date__c &lt;=  TODAY() ,
+ Interrupted_Start_Date__c &lt;= TODAY(),
+ Interrupted_End_Date__c &lt;= TODAY())</errorConditionFormula>
+    <errorMessage>Assignment Effective To Date, Suspend Start or Suspend End Date must be later than today.</errorMessage>
+</ValidationRule>

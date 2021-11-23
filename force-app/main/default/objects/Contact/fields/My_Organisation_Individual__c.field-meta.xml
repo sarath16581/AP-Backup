@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Organisation_Individual__c</fullName>
+    <description>This is formula is used in the My Organisations Individuals no email address List View. The formula allows Users to View their Individuals with the Individual Ownership being assigned.</description>
+    <externalId>false</externalId>
+    <formula>IF(Account.OwnerId  =  $User.Id, &quot;Yes&quot;, &quot;No&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>My Organisation Individual</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

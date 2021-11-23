@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Network_Manager__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Partner Info - Approval authority to assign new Licences to LPO or update existing Licences</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This user has the authority to approve new Licences to LPO or update existing Licences.</inlineHelpText>
+    <label>Network Manager</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Network</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

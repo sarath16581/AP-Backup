@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_ACIC_Case</fullName>
+    <availability>online</availability>
+    <description>This button will opens a new ACIC Request Case page with default values populated</description>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>New ACIC Case</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>/500/e?retURL={!Apttus_Proposal__Proposal__c.Id}&amp;saveURL={!Apttus_Proposal__Proposal__c.Id}&amp;RecordType=0122v000001UT87&amp;CF00N2v00000Ff6p2_lkid={!Apttus_Proposal__Proposal__c.Id}&amp;CF00N2v00000Ff6p2={!Apttus_Proposal__Proposal__c.Name}&amp;def_account_id={!Apttus_Proposal__Proposal__c.Account_Id__c}&amp;Account={!Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c}&amp;00N9000000EXci2={!Apttus_Proposal__Proposal__c.APT_ABN__c}&amp;def_contact_id={!Apttus_Proposal__Proposal__c.Primary_Contact_Id__c}&amp;Contact={!Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary_Contact__c}&amp;CF00N900000094ZZv_lkid={!$User.Id}&amp;CF00N900000094ZZv={!$User.FirstName}+{!$User.LastName}</url>
+</WebLink>

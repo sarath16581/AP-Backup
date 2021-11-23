@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Final_Shortage_is_Approved_Submitted__c</fullName>
+    <description>StarTrack error message to inform the user that the record has been submitted for approval or was approved already.</description>
+    <externalId>false</externalId>
+    <label>Final Shortage is Approved/Submitted</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

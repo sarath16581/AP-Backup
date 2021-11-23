@@ -1,0 +1,40 @@
+<!--
+The page is being called using 'Request for New Acccount' button from Account detail page. 
+Created By - Mausam Padhiyar
+Created Date - 17th Nov, 2015
+Last Modified By -
+Last Modified Date - 
+-->
+<apex:page controller="APT_RequestNewAccountController" tabStyle="Account">
+<style>
+    .aptRequiredBlock {
+        background-color: #c00;
+        
+    }
+</style>
+
+<apex:form >
+    <apex:pageBlock title="{!$Label.APT_Account_Creation}">
+    <apex:pageBlockButtons style="float:right;">
+    <apex:commandButton value="{!$Label.APT_Next}"  action="{!doNext}"/>
+    </apex:pageBlockButtons>
+        <apex:pageBlockSection >
+            <apex:pageBlockSectionItem >    
+                <apex:outputLabel >Organisation</apex:outputLabel>            
+                <apex:outputField value="{!organisation.Name}"/>
+            </apex:pageBlockSectionItem>            
+        </apex:pageBlockSection>
+        <apex:pageBlockSection >
+            <apex:pageBlockSectionItem >    
+                <apex:outputLabel >Desired Account Types</apex:outputLabel>
+                <apex:pageBlockSectionItem >  
+                <apex:outputLabel value="{!$Label.APT_Or_Sign}" styleClass="aptRequiredBlock"></apex:outputLabel>                              
+                    <apex:selectList value="{!selectedAccountType}" size="1" multiselect="false" required="true">
+                        <apex:selectOptions value="{!accountTypes}"></apex:selectOptions>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>  
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

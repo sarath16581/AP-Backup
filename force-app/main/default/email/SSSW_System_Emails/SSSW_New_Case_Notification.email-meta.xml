@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SSSW - Used to notify the Customer when the Case has been created.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW New Case Notification</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference number {!Case.CaseNumber}
+
+
+Hi {!Contact.FirstName},
+
+
+Thanks for contacting us{!IF(ISNULL(Case.ReferenceID__c), &apos;.&apos;, &apos; regarding &apos; + IF(LEN(Case.ReferenceID__c)&gt;9, &apos;article &apos;, &apos;customer reference &apos;) + Case.ReferenceID__c + &apos;.&apos;)} The reference number for your case is {!Case.CaseNumber}.
+
+Sometimes enquiries can be resolved before we&apos;ve completed our investigation. If that happens, let us know here:
+
+CLOSE MY CASE
+
+If receiving a response takes longer than usual, please know we haven’t forgotten about you, it is just taking us a little longer as we are continuing to manage higher than normal enquiry volumes.
+
+We are people just like you, doing our best to assist through these difficult times. We will treat you with kindness and respect and ask that you do the same. All Australia Post employees have the right not to be subjected to any behaviour or abuse that includes threats of physical harm or violence, religious, cultural or racial insults, homophobic, sexist or other derogatory remarks.
+
+We thank you for your cooperation. We&apos;ll be in touch as soon as we can.
+
+
+
+
+Kind regards,
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

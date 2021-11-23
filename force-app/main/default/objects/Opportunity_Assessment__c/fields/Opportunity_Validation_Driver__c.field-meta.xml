@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Validation_Driver__c</fullName>
+    <description>Phase 1 - Opportunity Assessment (PWC)
+
+Identify which internal stakeholder (Product, Solutions Sales, or Bids and Tenders) will progress this opportunity once it has reached stage 4</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Who will drive this opportunity once it has been Validated?</inlineHelpText>
+    <label>Opportunity Validation Driver</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Product</fullName>
+                <default>false</default>
+                <label>Product</label>
+            </value>
+            <value>
+                <fullName>Solutions Sales</fullName>
+                <default>false</default>
+                <label>Solutions Sales</label>
+            </value>
+            <value>
+                <fullName>Bids and Tenders</fullName>
+                <default>false</default>
+                <label>Bids and Tenders</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

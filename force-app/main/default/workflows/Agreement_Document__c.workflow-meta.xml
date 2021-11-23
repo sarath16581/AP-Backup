@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>AgreeMgt_AppScan_AllowSubmitToFalse</fullName>
+        <description>Reset the flag Allow Submit for Approval to False. This flag prevents the user from submitting the record using the default button</description>
+        <field>Allow_Submit_For_Approval__c</field>
+        <literalValue>0</literalValue>
+        <name>AgreeMgt-AppScan-AllowSubmitToFalse</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_App_AllowSubmitToFalse</fullName>
+        <description>Reset the flag Allow Submit for Approval to False. This flag prevents the user from submitting the record using the default button</description>
+        <field>Allow_Submit_For_Approval__c</field>
+        <literalValue>0</literalValue>
+        <name>AgreeMgt-App-AllowSubmitToFalse</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_Approval_APStatusToApproved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>AgreeMgt-Approval-APStatusToApproved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_Approval_ApStatusToPending</fullName>
+        <description>Update the approval status to Pending</description>
+        <field>Approval_Status__c</field>
+        <literalValue>Pending</literalValue>
+        <name>AgreeMgt-Approval-ApStatusToPending</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_Approval_ApStatusToRecalled</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Recalled</literalValue>
+        <name>AgreeMgt-Approval-ApStatusToRecalled</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_Approval_ApStatusToRejected</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>AgreeMgt-Approval-ApStatusToRejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_Approval_StatusToApproved</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>AgreeMgt-Approval-StatusToApproved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_Approval_StatusToPendingApprov</fullName>
+        <description>Reset the flag Allow Submit for Approval to False. This flag prevents the user from submitting the record using the default button</description>
+        <field>Status__c</field>
+        <literalValue>Pending Approval</literalValue>
+        <name>AgreeMgt-Approval-StatusToPendingApprov</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_PreApp_AllowSubmitToFalse</fullName>
+        <description>Reset the flag Allow Submit for Approval to False.  This flag prevents the user from submitting the record using the default button</description>
+        <field>Allow_Submit_For_Approval__c</field>
+        <literalValue>0</literalValue>
+        <name>AgreeMgt-PreApp-AllowSubmitToFalse</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_PreApp_PreApStatusToApproved</fullName>
+        <description>Update Pre Approval Status to Approved</description>
+        <field>Pre_Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>AgreeMgt-PreApp-PreApStatusToApproved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_PreApp_PreApStatusToPending</fullName>
+        <description>Update Pre Approval Status to Pending</description>
+        <field>Pre_Approval_Status__c</field>
+        <literalValue>Pending</literalValue>
+        <name>AgreeMgt-PreApp-PreApStatusToPending</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_PreApp_PreApStatusToRecalled</fullName>
+        <field>Pre_Approval_Status__c</field>
+        <literalValue>Recalled</literalValue>
+        <name>AgreeMgt-PreApp-PreApStatusToRecalled</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_PreApp_PreApStatusToRejected</fullName>
+        <description>Update Pre Approval Status to Rejected</description>
+        <field>Pre_Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>AgreeMgt-PreApp-PreApStatusToRejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_PreApp_StatusToDraft</fullName>
+        <description>Update the AD record status to Draft if the Pre Approval has completed</description>
+        <field>Status__c</field>
+        <literalValue>Draft</literalValue>
+        <name>AgreeMgt-PreApp-StatusToDraft</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_PreApp_StatusToNew</fullName>
+        <description>Update the status to new</description>
+        <field>Status__c</field>
+        <literalValue>New</literalValue>
+        <name>AgreeMgt-PreApp-StatusToNew</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_PreApp_StatusToPendPreApp</fullName>
+        <description>Change Agreement Document Status to Pending Pre-Approval</description>
+        <field>Status__c</field>
+        <literalValue>Pending Pre-Approval</literalValue>
+        <name>AgreeMgt-PreApp-StatusToPendPreApp</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_Reset_EscalateFlag</fullName>
+        <field>Escalate_Approval_Flag__c</field>
+        <name>AgreeMgt-Reset-EscalateFlag</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>AgreeMgt_SetScanPaperStatusActive</fullName>
+        <description>Set the AD Status to Active when a Scanned Paper record Approved</description>
+        <field>Status__c</field>
+        <literalValue>Active</literalValue>
+        <name>AgreeMgt-SetScanPaperStatusActive</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Reset_Flag</fullName>
+        <field>Run_WF_Rule_for_Updating_Status_to_AS__c</field>
+        <literalValue>0</literalValue>
+        <name>Reset Flag</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Active_Date</fullName>
+        <description>Update the Active Date to current date</description>
+        <field>Active_Date__c</field>
+        <formula>TODAY()</formula>
+        <name>Update Active Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Agreement_Document_Status_to_Awai</fullName>
+        <field>Status__c</field>
+        <literalValue>Awaiting Signature</literalValue>
+        <name>Update Agreement Document Status to Awai</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Agree Mgt - On Activation update Active Date</fullName>
+        <actions>
+            <name>Update_Active_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Agreement_Document__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </criteriaItems>
+        <description>Update the agreement document Active Date to current date which the Status becomes Active</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Agree Mgt - Update Scanned Paper Status to Active When Approved</fullName>
+        <actions>
+            <name>AgreeMgt_SetScanPaperStatusActive</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Agreement_Document__c.Approval_Type__c</field>
+            <operation>equals</operation>
+            <value>Scanned Paper</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Agreement_Document__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <description>When an Agreement Document of Approval Type of Scanned Paper is Approved then update its status to Active (i.e. skip the Approved state)</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Agreement Document Status to Awaiting Signature</fullName>
+        <actions>
+            <name>Reset_Flag</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Agreement_Document_Status_to_Awai</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Agreement_Document__c.Run_WF_Rule_for_Updating_Status_to_AS__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Agreement_Document__c.Status__c</field>
+            <operation>notEqual</operation>
+            <value>Awaiting Signature</value>
+        </criteriaItems>
+        <description>Update the status to Awaiting Signature when flag set by JavaScript on select of button &apos;Send for Signature&apos;</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

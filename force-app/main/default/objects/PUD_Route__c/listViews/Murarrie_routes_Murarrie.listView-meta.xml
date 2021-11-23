@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Murarrie_routes_Murarrie</fullName>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>MUR200,MUR201,MUR202,MUR203,MUR205,MUR206,MUR207,MUR209,MUR210,MUR217,MUR220</value>
+    </filters>
+    <label>Murarrie routes - Murarrie</label>
+</ListView>

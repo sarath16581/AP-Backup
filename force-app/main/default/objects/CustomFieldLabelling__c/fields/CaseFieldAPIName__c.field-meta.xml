@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CaseFieldAPIName__c</fullName>
+    <description>Its the API Name, 
+The Std fields: Name, Id, ContactId
+Std fields on Std objects: Contact.FirstName, Contact.MailingStreet, Account.Name
+Custom fields: BirthPlace__c
+Custom fields on Std objects: Account.Legacy_Id__c, Account.Legacy_Id__pc
+Custom fields on Custom objects: SecondaryContact__r.Birth_Place__c</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Its the API Name. Examples: Name, Id, Account.Name, Account.Legacy_Id__c, Account.Legacy_Id__pc, SecondaryContact__r.Name, SecondaryContact__r.Birth_Place__c</inlineHelpText>
+    <label>Case Field API Name</label>
+    <length>255</length>
+    <required>true</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

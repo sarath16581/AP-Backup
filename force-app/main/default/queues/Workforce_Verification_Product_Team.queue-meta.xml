@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <name>Workforce Verification Product Team</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>Sales_Business_System_Team</publicGroup>
+        </publicGroups>
+        <users>
+            <user>christian.seely@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Apttus_Approval__Approval_Request__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Apttus__APTS_Agreement__c</sobjectType>
+    </queueSobject>
+</Queue>

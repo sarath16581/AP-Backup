@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_Assessments_Integration_Failed</fullName>
+    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+    <columns>NAME</columns>
+    <columns>APT_Legal_Entity_Name__c</columns>
+    <columns>APT_ABN__c</columns>
+    <columns>APT_Credit_Assessment_Status__c</columns>
+    <columns>Integration_Status__c</columns>
+    <columns>APT_Requested_Credit_Limit__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Integration_Status__c</field>
+        <operation>equals</operation>
+        <value>ERROR</value>
+    </filters>
+    <filters>
+        <field>Integration_Status__c</field>
+        <operation>equals</operation>
+        <value>Partial Success</value>
+    </filters>
+    <filters>
+        <field>L2C_Assessment_Type__c</field>
+        <operation>equals</operation>
+        <value>Online</value>
+    </filters>
+    <label>Credit Assessments - Integration Failed</label>
+    <language>en_US</language>
+</ListView>

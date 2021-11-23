@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Agent_cant_change_owner</fullName>
+    <active>true</active>
+    <description>Only team leader is allowed to change the owner.</description>
+    <errorConditionFormula>AND( 
+ISCHANGED(OwnerId), 
+NOT($Permission.SSSW_Omni_Supervisor_PermSet),
+NOT(ISPICKVAL(CaseId__r.Status, &quot;Closed&quot;)),
+NOT(RecordType.DeveloperName == &apos;SSSW_Callback_Reminder&apos;)
+)</errorConditionFormula>
+    <errorDisplayField>OwnerId</errorDisplayField>
+    <errorMessage>Callback Request Owner cannot be changed.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Domestic_Pricing_Triage_Queue_Deal_Support_Request</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>Stage__c</columns>
+    <columns>Status__c</columns>
+    <columns>Request_type__c</columns>
+    <columns>Organisation__c</columns>
+    <columns>Requestor__c</columns>
+    <columns>Name_of_Product_Specialist__c</columns>
+    <columns>Priority__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>Request_Triage_Completed__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Request for Review Outcome,Received Information,In Progress</value>
+    </filters>
+    <label>In Progress Work Queue</label>
+    <queue>Domestic_Pricing_Triage_Queue</queue>
+    <sharedTo>
+        <group>Pricing_Support_Request_Domestic_team</group>
+    </sharedTo>
+</ListView>

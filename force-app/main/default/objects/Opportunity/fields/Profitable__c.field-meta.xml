@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Profitable__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Phase 1 - Opportunity Assessment (PWC) 
+
+Identify whether or not Australia Post would make profit on this if it was won</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Is this opportunity likely to be profitable?</inlineHelpText>
+    <label>Profitable</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,119 @@
+<apex:page showHeader="false" standardController="Case"
+	extensions="SendSMSControllerExtension">
+	<apex:form id="formId">
+		<apex:includeScript value="/support/console/28.0/integration.js" />
+		<apex:includeScript value="/support/api/28.0/interaction.js" />
+		<apex:includeScript value="{!$Resource.jquery191}" />
+		<apex:stylesheet value="{!$Resource.jQueryUI1_10_3_Css}" />
+		<apex:includeScript value="{!$Resource.jQueryUI1_10_3}" />
+		<apex:includeScript value="{!$Resource.bootstrapJS}" />
+		<apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+		<apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+		<apex:stylesheet value="{!$Resource.SSSWCSS}" />
+		<apex:includeScript value="{!$Resource.SSSWJS}" />
+
+		<style>
+.ui-dialog-titlebar {
+	background: #3399CC;
+	border-color: #3399CC;
+	color: white;
+}
+
+.myDialogClass {
+	background: white;
+}
+
+.maxWidth {
+	width: 100%;
+}
+
+textarea.input-sm {
+	height: 160px;
+	resize: none;
+}
+
+.ui-autocomplete {
+	max-height: 244px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+}
+</style>
+		<script>
+	var j$ = jQuery.noConflict();
+
+	function showMessage(msg, type) {
+		var pnlMessage = j$('#pnlMessage');
+		pnlMessage.show();
+		
+		var msgConfirm = j$('[id$="msgConfirm"]');
+		var msgError = j$('[id$="msgError"]');
+			
+		if(type == 'confirm') {
+			msgError.hide();
+			msgConfirm.show();
+			msgConfirm.find(".message").show();
+			msgConfirm.find(".messageText").html(msg);
+		} else {
+			msgConfirm.hide();
+			msgError.show();
+			msgError.find(".message").show();
+			msgError.find(".messageText").html(msg);
+		}
+	}
+
+	function hideMessage() {
+		j$('#pnlMessage').hide();
+		j$(".message").hide();
+	}
+	
+	function sendSMS() {
+		var message = j$('[id$="txtMessage"]').val();
+		if(message.trim() != ''){
+			showProgress();
+			SendSMSControllerExtension.sendSMS('{!currentCase.id}', '{!currentCase.caseNumber}','{!currentCase.contactId}', message.trim(), function(result, event){
+				if(event.status) {
+					if(result.indexOf('Success')==0){
+						showMessage('SMS submitted successfully', 'confirm');
+					}else{
+						showMessage(result, 'error');
+					}
+				}else {
+					showMessage('Unable to submit SMS', 'error');
+				}
+				hideProgress();
+			});
+		}else{
+			showMessage('Please enter a message', 'error');
+		}
+	}
+	
+</script>
+		<c:LoadingSpinnerComponent showFunctionName="showProgress"
+			hideFunctionName="hideProgress" />
+		<apex:outputPanel styleClass="blockPanel">
+			<apex:pagemessages />
+			<div style="display: none;" id="pnlMessage">
+				<apex:pagemessage severity="confirm" strength="3" id="msgConfirm"
+					summary="There is an error" />
+				<apex:pagemessage severity="error" strength="3" id="msgError"
+					summary="There is an error" />
+			</div>
+			<div id="case-summary">
+				<div class="case-field-float maxWidth">
+					<apex:outputLabel value="Mobile" for="txtMobile" />
+					<apex:inputText value="{!txtMobile}" id="txtMobile" tabindex="60"
+						disabled="true" onkeydown="hideMessage();"
+						styleClass="form-control input-sm string" />
+					<br />
+					<apex:outputLabel value="Message" for="txtMessage" />
+					<apex:inputTextArea value="{!txtMessage}" id="txtMessage"
+						onkeydown="hideMessage();" tabindex="60"
+						styleClass="form-control input-sm string" />
+					<i>NOTE: Max 160 characters...</i> <br /> <br /> <input
+						type="button" class="btn detail" style="background-color:#8ab529;color:white;float:right;" value="Send" onclick="sendSMS();" id="btnSend" />
+				</div>
+			</div>
+		</apex:outputPanel>
+	</apex:form>
+</apex:page>

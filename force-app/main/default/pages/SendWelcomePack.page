@@ -1,0 +1,54 @@
+<!--
+ - Created by shashwat.a.nath on 11/09/2019.
+ - This page is Invoked from Send Welcome Pack button on Application Detail Page
+ - On Clicking this button Visualforce Remoting Action is invoked
+ - On a failure user is shown an alert and then redirect back to the detail page.
+ -->
+
+<apex:page standardController="Application__c"
+           extensions="SendWelcomePackController"
+           id="SendWelcomePack">
+    <!--Included required scripts-->
+    <apex:includeScript value="/soap/ajax/36.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/36.0/apex.js"/>
+    <apex:includeScript value="/support/console/46.0/integration.js"/>
+    <!-- Script starts -->
+    <script type="text/javascript">
+
+        Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.SendWelcomePackController.updateApplication}', '{!recordId}',
+                function (result, event) {
+                    if (event.status) {
+                        // On Success
+                        console.log('Success');
+                        if (UITheme.getUITheme() === 'Theme4d' || UITheme.getUITheme() === 'Theme4u'){
+                            sforce.one.back(true);
+                        }
+                        else{
+                            window.location='/{!recordId}';
+                        }
+                    } else if(event.type==='exception') {
+                        // On Exception
+                        alert(event.message);
+                         if (UITheme.getUITheme() === 'Theme4d' || UITheme.getUITheme() === 'Theme4u'){
+                            sforce.one.back(true);
+                        }
+                        else{
+                            window.location='/{!recordId}';
+                        }
+                    } else {
+                        // On Failure
+                        alert('Something is wrong.Please contact your admin for more details');
+                        if (UITheme.getUITheme() === 'Theme4d' || UITheme.getUITheme() === 'Theme4u'){
+                            sforce.one.back(true);
+                        }
+                        else{
+                            window.location='/{!recordId}';
+                        }
+
+                    }
+                },
+                {escape: true}
+        );
+    </script>
+</apex:page>

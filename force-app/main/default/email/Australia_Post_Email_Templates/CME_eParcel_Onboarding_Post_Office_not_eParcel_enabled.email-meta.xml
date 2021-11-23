@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>eParcel Onboarding Post Office not eParcel enabled</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>CME eParcel Onboarding - Post Office not eParcel enabled</name>
+    <style>freeForm</style>
+    <subject>Post Office not eParcel enabled - {!Case.Account} - Case {!Case.CaseNumber}</subject>
+    <textOnly>To:
+
+DL National Eparcel Support Team
+
+rep
+
+
+Hi {!Case.Requestor__c}
+
+
+Regarding this eParcel contract…
+
+
+Xxx LPO has been nominated as a lodgement point, but this outlet is not PCMS enabled.
+
+
+Please liaise with eParcel Support and the line manager of the LPO to ensure that training is provided on the eParcel system
+
+eParcel Support will need to ensure that training is provided to the line manager of this LPO.
+Please follow up with the line manager to ensure that staff in the LPO are trained.
+
+
+Note that I have overridden this setting to enable entry of rates. This will need to be changed back if this outlet is not going to be trained. If a different lodgement point is required instead, please advise as soon as possible.
+
+
+
+Regards
+
+{!Case.OwnerFullName}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

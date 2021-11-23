@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_status_for_closed_queue</fullName>
+    <active>true</active>
+    <description>Lead status cannot be &apos;in progress&apos; or &apos;verified&apos; if it has to be transferred to the &apos;Closed lead queue&apos;</description>
+    <errorConditionFormula>AND(OR(ISPICKVAL(Status,&quot;In progress&quot;),ISPICKVAL(Status,&quot;Verified&quot;)),ischanged(OwnerId),( Owner:Queue.Id =&quot;00G90000000ZCHm&quot;))</errorConditionFormula>
+    <errorMessage>Lead status cannot be &apos;In progress&apos; or &apos;Verified&apos; when changing the lead owner to the queue &apos;Closed Leads&apos;</errorMessage>
+</ValidationRule>

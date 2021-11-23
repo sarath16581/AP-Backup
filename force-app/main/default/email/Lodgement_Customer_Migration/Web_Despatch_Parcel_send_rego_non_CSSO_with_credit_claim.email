@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style type="text/css">
+				/* 
+					core 'shell' CSS 
+				*/
+				body { width: 100%; min-width: 100%; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; font-family: Arial, Helvetica, sans-serif; }
+				table { border-collapse: collapse; }
+				ul { padding: 0; Margin: 0; }
+				li { Margin: 10px 0 0 20px; }
+				.addClassToSection a { color: #535f67!important; }
+				.ExternalClass { width: 100%; line-height: 100%; }
+				.appleLinks a { color:#535f67; text-decoration: none; }
+				.appleLinksWhite a { color:#ffffff; text-decoration: none; }
+				.appleLinksGrey a { color:#807370; text-decoration:none;}
+				div, p, a, li, td { -webkit-text-size-adjust:none; }
+				/* 
+					module mobile css
+				*/
+				@media only screen and (max-device-width: 540px)  {
+					.gmail-hack {
+						letter-spacing:320px!important;
+					}
+					.device-hide {
+						display:none!important;
+					}
+					.device-width {
+						width:320px!important;
+					}
+					.device-width-inner {
+						width:250px!important;
+					}
+					.container-sides-padding {
+						padding-left:35px!important;
+						padding-right:35px!important;
+					}
+					.header-copy-font {
+						font-size:15px!important;
+					}
+					.header-collapse-padding {
+						padding-bottom:10px!important;
+					}
+				}
+			</style>
+</head>
+<body width="100%" bgcolor="#F3F4F5" style="margin: 0; padding: 0;">
+<!-- START ISO-Header -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#F3F4F5" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+  <tr>
+    <td align="center"><!-- gmail hack to force desktop version -->
+      
+      <div role="presentation" class="gmail-hack" style="letter-spacing: 540px; line-height: 0; mso-hide: all">&nbsp;</div>
+      
+      <!-- header -->
+      
+      <table class="device-width" width="500" align="center" valign="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 500px;">
+        <tr><td class="container-sides-padding" style="display:none; color:#F3F4F5; font-family: Arial, Helvetica, sans-serif; font-size:0px; line-height:0px;">We’re inviting you to use  Parcel Send</td></tr>
+       
+        
+        <tr>
+          <td class="device-width" style="padding:35px 0 28px 0;"><!-- left logo ****-->
+            
+            <table align="left" valign="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+              <tr>
+                <td><a href="https://startrack.com.au" style="border:none; text-decoration:none;"><img src="https://cdn-au.whispir.com/public/resources/5666206568af3688850b691d7643a20f865.png" width="183" height="38" border="0" margin="0" alt="StarTrack=" style="display:block; min-width:183px; min-height:38px;" /></a></td>
+              </tr>
+			  
+			   <tr>
+								<td class="device-width-inner" align="left" style="padding:5px 0 0 0; color:#0f3769; font-family: Arial, Helvetica, sans-serif; font-size:10px; line-height:14px; text-align:left;">
+									A business of Australia Post
+								</td>
+              </tr>
+			  
+            </table>
+        </tr>
+      </table>
+      
+      <!-- corners -->
+      
+      <table role="presentation" class="device-hide" width="500" align="center" valign="top" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse;">
+        <tr>
+          <td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;"><!-- top left corner --> 
+            <img src="https://cdn-au.whispir.com/public/resources/56646bdac0d00ba1d83b87de1885e5f0d83.png" width="4" height="4" border="0" margin="0" alt="" style="display:block;" /></td>
+          <td width="496" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;"><!-- middle gap --> 
+            &nbsp; </td>
+          <td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;"><!-- top right corner --> 
+            <img src="https://cdn-au.whispir.com/public/resources/566aadbd9641f0bd6c564e0940348352f32.png" width="4" height="4" border="0" margin="0" alt="" style="display:block;"/></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<!-- END ISO-Header -->
+
+<!-- START ISO-Headline -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#F3F4F5" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+	<tr>
+		<td align="center">
+
+			<style type="text/css">
+				@media only screen and (max-device-width: 540px)  {
+					.headline-copy-font {
+						font-size:24px!important;
+						line-height:28px!important;
+					}
+				}
+			</style>
+
+			<!-- headline -->
+			<table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 500px; ">
+				<tr>
+					<td class="container-sides-padding" style="color:#293f33; font-family: Arial, Helvetica, sans-serif; font-size:28px; line-height:34px; padding:52px 60px 0 60px; text-align:left;">
+						<span class="headline-copy-font">We’re inviting you to use </span><br /> <span class="headline-copy-font" style="color:#118bd0;">Parcel Send</span>
+					</td>
+				</tr>
+			</table>
+
+		</td>
+	</tr>
+</table>
+<!-- END ISO-Headline -->
+
+<!-- START ISO-Body -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#F3F4F5" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+	<tr>
+		<td align="center">
+			<!-- body -->
+			<table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 500px; ">
+				<tr>
+					<td class="container-sides-padding" style="padding:35px 60px 0 60px; color:#535f67; font-family: Arial, Helvetica, sans-serif; text-align:left; line-height:25px; font-size:18px">
+						Hi {!Contact.FirstName}, 
+						<br /><br />                         
+                          
+						We previously contacted you about making the switch from Web Despatch to Parcel Send and the replacement of ‘pre-paid’ services with post-paid services.
+
+                                                <br /><br />
+
+                        We’ve already set up your account, so tap Register now and follow the prompts to start sending.
+                        <br/> <br/>
+
+                        Once you’ve registered, you’ll still have access to Web Despatch to view Proof of Deliveries (PODs) and obtain pricing estimates until these features are available in Parcel Send.
+                        <br/> <br/>    
+                                                 
+                        <b>Claiming credit for my excess ‘prepaid satchels’</b> 
+
+                        <br /><br />
+
+                        If you have any excess satchels, please fill out <u><a href="http://auspost.com.au/content/dam/startrack_global/documents/credit-claim-form.docx" target="_blank" style="color:#535f67;" >this form</a></u> so we can arrange a credit towards your post-paid services.
+                        <br/> <br/>
+
+                        Once you’ve returned your form, you can start ordering more post-paid satchels using your existing <u><a href="https://startrackgalaxy.tmagroup.com.au/IPFSitePages/Main.aspx" target="_blank" style="color:#535f67;" >StarTrack consumables website</a></u> username and password. You can still use your excess satchels with a valid Fixed Price Premium label from Parcel Send.
+
+                        <br/> <br/>
+
+                       Return the form by:<br/>
+                        <ul>
+                            <li>email at lodgementmigration@auspost.com.au</li>
+                            <li>fax on 03 9017 1212 or</li>
+                            <li>texting ‘claim’ to 0409 184 735 to either complete the form online or take a photo of your completed physical form and send it to us.</li>
+                        </ul>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<!-- END ISO-Body -->
+
+ 
+<!-- Button -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#F3F4F5" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+  <tr>
+    <td align="center">
+      <!-- cta -->
+      <table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 500px; ">
+        <tr>
+          <td  valign="top" align="left" class="container-sides-padding" style="padding:30px 60px 0 60px; text-align:left;">
+          	<div class="btn" style="text-align:left;color: #ffffff;">
+              <table cellpadding="0" cellspacing="0" align="left">
+                <tr>
+                  <td style="width: 150px;height: 40px;border-radius: 4px;background: #009ed9; font-family: arial,sans-serif; font-size: 14px; font-weight:bold; text-align:center;"><a target="_blank" href="https://auspost.com.au/parcel-send/registration/invite?contactId={!Contact.Id}&firstName={!Contact.FirstName}&lastName={!Contact.LastName}&emailAddress={!Contact.Email}" style="border-radius: 4px;text-decoration: none; color: #fff; display: inline-block; border-top: 10px solid #009ed9; border-bottom: 10px solid #009ed9; border-right: 20px solid #009ed9;border-left: 20px solid #009ed9;"> <span style="font-family: arial,sans-serif;">Register now</span> </a></td>
+                </tr>
+              </table>
+            </div>
+           </td>
+        </tr>
+      </table>
+     </td>
+  </tr>
+</table>
+
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#F3F4F5" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+        <tr>
+            <td align="center">
+                <!-- After Button body -->
+                <table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 500px; ">
+                    <tr>
+                        <!-- After Button Body -->
+                    <td class="container-sides-padding" style="padding:35px 60px 0 60px; color:#535f67; font-family: Arial, Helvetica, sans-serif; text-align:left; line-height:25px; font-size:18px">
+
+                        <b>Still have questions?</b>
+                        <br/>
+                
+                        If you’ve got any questions, please email our friendly support team at <a href="mailto:lodgementmigration@auspost.com.au" target="_blank" style="color:#535f67; text-decoration:underline;">lodgementmigration@auspost.com.au</a> or visit our website for more information on getting the most out of Parcel Send.
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+
+<!-- START Image -->
+<!-- <table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#F3F4F5" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+	<tr>
+		<td align="center"> -->
+          
+			<!-- image -->
+			<!-- <table class="device-width" width="500" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 500px;">
+				<tr>
+					<td class="container-sides-padding" style="padding:35px 60px 28px 60px;">
+						<img width="380" class="device-width-inner" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000DbDSS&oid=00D30000001GGce" border="0" margin="0" alt="" style="display:block; width:380px;"/>	
+					</td>
+				</tr>
+			</table>
+
+		</td>
+	</tr>
+</table> -->
+<!-- END Image -->
+
+
+
+<!-- START ISO-Footer -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#F3F4F5" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+	<tr>
+		<td align="center">
+
+			<style type="text/css">
+				div, p, a, li, td { -webkit-text-size-adjust:none; }
+				@media only screen and (max-device-width: 540px)  {
+					
+					.footer-security-image {
+						padding:0 23px 0 23px!important;
+					}
+					.footer-security-text {
+						font-size:12px!important;
+						line-height:14px!important;
+						padding-right:30px!important;
+					}
+					.footer-links-padding {
+						padding-top:5px!important;
+					}
+					.footer-outer-gap-height {
+						height:30px!important;
+						line-height:30px!important;
+					}
+					.footer-mobile-separator {
+						width:10px!important;
+					}
+				}
+			</style>
+
+			<!-- corners -->
+			<table class="device-hide" width="500" align="center" valign="top" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 500px; ">
+				<tr>
+					<td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+
+						<!-- top left corner -->
+						<img src="https://cdn-au.whispir.com/public/resources/566fe2e433187fd80b955d555a1cd3f7054.png" border="0" margin="0" alt="" style="display:block;" />
+					</td>
+					<td width="496" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+						<!-- middle gap -->
+						&nbsp;
+					</td>
+					<td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+
+						<!-- top right corner -->
+						<img src="https://cdn-au.whispir.com/public/resources/5669629f4eedeb5b159822d365a183ba6c4.png" border="0" margin="0" alt="" style="display:block;"/>
+					</td>
+				</tr>
+			</table>
+
+			<!-- logo -->
+			<table class="device-width" width="500" align="center" valign="top" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 500px;">
+				<tr>
+
+					<td class="device-width" style="padding-top: 20px;">
+
+						<table align="left" valign="top" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+							<tr>
+								<td class="device-width-inner" align="left" style="padding:0 0 20px;">
+
+									<!-- Australia Post logo -->
+									<a href="https://auspost.com.au/" style="border:none; text-decoration:none;"><img  src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000EgzLd&oid=00D30000001GGce"  border="0" margin="0" alt="Australia Post" display:block;" /></a>
+								</td>
+							</tr>
+
+						</table>
+					</td>
+				</tr>
+			</table>
+
+			<!-- security -->
+			<!-- <table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 500px;">
+				<tr>
+					<td class="footer-security-image" style="padding:13px 20px; background-color:#d0d5d8; -webkit-border-radius: 3px 0 0 3px; -moz-border-radius: 3px 0 0 3px; border-radius: 3px 0 0 3px;">
+						<img width="23" height="26" src="https://cdn-au.whispir.com/public/resources/5665bf95acbf58b97b905637c195bc3d6ad.png" border="0" margin="0" alt="Padlock Icon" style="display:block;"/>
+					</td>
+					<td class="footer-security-text" style="padding:13px; padding-left:0; color:#000000; font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; text-align:left; background-color:#d0d5d8; -webkit-border-radius: 0 3px 3px 0; -moz-border-radius: 0 3px 3px 0; border-radius: 0 3px 3px 0;">
+						Australia Post will never send you an email asking for your password, credit card details or account information. 
+					</td>
+				</tr>
+			</table> -->
+
+			<!-- disclaimer -->
+			<table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 500px;">
+				<tr>
+<!-- class="container-sides-padding" -->
+					<td class="device-width" style="padding-top:15px; color:#535f67; font-family: Arial, Helvetica, sans-serif; font-size:11px; line-height:14px; text-align:left;">
+						<!-- Message-specific disclaimer text -->
+						
+                        This email was sent by <a href="http://www.auspost.com.au/" target="_blank" style="color:#535f67; text-decoration:underline">Australia Post</a>. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+						<!-- <br>
+						<br>
+						If you&rsquo;re having trouble activating, contact your account manager or email us at <a href="mailto:customer_connectivity@auspost.com.au" target="_blank" style="color:#535f67; text-decoration:underline;">customer_connectivity@auspost.com.au</a>. -->
+					</td>
+				</tr>
+			</table>
+
+			<!-- outer single horizontal line -->
+			<table role="presentation"class="device-width" width="500"  border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; line-height:20px; text-align:center; width: 500px;">
+				<tr>
+					<td style="border-bottom:1px solid #a9afb7;">&nbsp;
+						
+					</td>
+				</tr>
+				<tr>
+					<td style="border-top:1px solid #a9afb7;">&nbsp;
+						
+					</td>
+				</tr>
+			</table>
+
+			<!-- outer single footer links -->
+			<table class="device-width" align="center" width="500" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 500px;">
+				<tr>
+					<td class="device-width" style="display:inline-block; padding: 0 0px 20px 0px; text-align:left; color:#535f67; font-family: Arial, Helvetica, sans-serif; font-size:11px;">
+					<a href="https://startrack.com.au/legal/terms-and-conditions/" style="color:#535f67; text-decoration:none">Terms &amp; conditions</a><span class="device-hide">&nbsp;&nbsp;</span> | <span class="device-hide">&nbsp;&nbsp;</span><a href="https://startrack.com.au/legal/privacy-policy/" style="color:#535f67; text-decoration:none">Privacy&nbsp;policy</a>
+					</td>
+				</tr>		
+			</table>
+
+		</td>
+	</tr>
+</table>
+<!-- END ISO-Footer -->
+
+<table class="device-width" align="center" width="500" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 500px;">
+  <tr>
+    <td class="container-sides-padding" style="display:inline-block; text-align:left; color:#535f67; font-family: Arial, Helvetica, sans-serif; font-size:11px;"><style type="text/css">
+							.hide{display:none;}
+						</style>
+      <img class="hide" src="@@web_link@@" width="1" height="1" style="display:none;" /></td>
+  </tr>
+</table>
+            
+            
+</body>
+</html>

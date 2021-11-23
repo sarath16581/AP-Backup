@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Initiating_Area__c</fullName>
+    <description>Information about the area that the Case Initiator works. Will remain the same, even if Initiator moves departments - meaning data will remain constant.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The busienss area where the Initiated By: user works</inlineHelpText>
+    <label>Initiating Area</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>BOS</fullName>
+                <default>false</default>
+                <label>BOS</label>
+            </value>
+            <value>
+                <fullName>Business Hub</fullName>
+                <default>false</default>
+                <label>Business Hub</label>
+            </value>
+            <value>
+                <fullName>CMS</fullName>
+                <default>false</default>
+                <label>CMS</label>
+            </value>
+            <value>
+                <fullName>CoE Team</fullName>
+                <default>false</default>
+                <label>CoE Team</label>
+            </value>
+            <value>
+                <fullName>Compliance</fullName>
+                <default>false</default>
+                <label>Compliance</label>
+            </value>
+            <value>
+                <fullName>Credit Management</fullName>
+                <default>false</default>
+                <label>Credit Management</label>
+            </value>
+            <value>
+                <fullName>Finance</fullName>
+                <default>false</default>
+                <label>Finance</label>
+            </value>
+            <value>
+                <fullName>Legal</fullName>
+                <default>false</default>
+                <label>Legal</label>
+            </value>
+            <value>
+                <fullName>Manager</fullName>
+                <default>false</default>
+                <label>Manager</label>
+            </value>
+            <value>
+                <fullName>Marketing</fullName>
+                <default>false</default>
+                <label>Marketing</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>P&amp;ES</fullName>
+                <default>false</default>
+                <label>P&amp;ES</label>
+            </value>
+            <value>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+                <label>Pricing</label>
+            </value>
+            <value>
+                <fullName>Processing Team</fullName>
+                <default>false</default>
+                <label>Processing Team</label>
+            </value>
+            <value>
+                <fullName>Retail</fullName>
+                <default>false</default>
+                <label>Retail</label>
+            </value>
+            <value>
+                <fullName>Revenue Protection</fullName>
+                <default>false</default>
+                <label>Revenue Protection</label>
+            </value>
+            <value>
+                <fullName>eParcel</fullName>
+                <default>false</default>
+                <label>eParcel</label>
+            </value>
+            <value>
+                <fullName>Parcels</fullName>
+                <default>false</default>
+                <label>Parcels</label>
+            </value>
+            <value>
+                <fullName>Mails</fullName>
+                <default>false</default>
+                <label>Mails</label>
+            </value>
+            <value>
+                <fullName>Postal</fullName>
+                <default>false</default>
+                <label>Postal</label>
+            </value>
+            <value>
+                <fullName>Call Centre</fullName>
+                <default>false</default>
+                <label>Call Centre</label>
+            </value>
+            <value>
+                <fullName>External</fullName>
+                <default>false</default>
+                <label>External</label>
+            </value>
+            <value>
+                <fullName>Internal</fullName>
+                <default>false</default>
+                <label>Internal</label>
+            </value>
+            <value>
+                <fullName>Sales</fullName>
+                <default>false</default>
+                <label>Sales</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

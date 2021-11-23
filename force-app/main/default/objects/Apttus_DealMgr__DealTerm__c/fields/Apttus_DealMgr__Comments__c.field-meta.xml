@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealMgr__Comments__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Comments about this Term in the context of this Deal.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Comments about this Term in the context of this Deal.</inlineHelpText>
+    <label>Comments</label>
+    <length>32000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

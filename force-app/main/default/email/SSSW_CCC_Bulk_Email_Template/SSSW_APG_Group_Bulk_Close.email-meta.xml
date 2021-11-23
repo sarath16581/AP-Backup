@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>October 2019: Template for bulk send to customer APG prior to bulk case closure</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW APG Group Bulk Close</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference {!Case.CaseNumber}
+
+Update for Case enquiry - {!Case.CaseNumber}
+
+
+Hi {!Case.Contact},
+
+Thanks for your patience while we have been investigating the whereabouts of the parcel you sent.
+
+Case Number: {!Case.CaseNumber}
+Tracking Number: {!Case.ReferenceID__c}
+Your reference: {!Case.CCUYourReference__c}
+Customer Name: {!Case.BSP_Addressee_Name__c}
+Customer Delivery Address: {!Case.BSP_Addressee_Address__c}
+
+We have monitored the scan events for any updates of the parcels location and can see it has been some time since the article received a scan. Because of this we regret to advise that our efforts to locate this article have not been successful. All possible avenues for our investigation have now been exhausted and therefore we deem this article lost in transit [LIT].
+
+Please accept our apologies for the inconvenience this matter has caused. I hope that this information has clarified the matter and been of some assistance. Please let us know if you have any further questions.
+
+Regards,
+
+Australia Post
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

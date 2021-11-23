@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Number_of_days_of_logging_info__c</fullName>
+    <defaultValue>90</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This setting defines the interval, in days, after which search log data is deleted from the system.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This setting defines the interval, in days, after which search log data is deleted from the system.</inlineHelpText>
+    <label>Number of days of logging info</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

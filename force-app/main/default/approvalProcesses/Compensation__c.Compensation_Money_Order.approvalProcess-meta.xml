@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <allowRecall>false</allowRecall>
+    <allowedSubmitters>
+        <type>creator</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <type>owner</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Name</field>
+        <field>Compensation_Amount__c</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <type>userHierarchyField</type>
+            </approver>
+        </assignedApprover>
+        <entryCriteria>
+            <booleanFilter>(1 OR 2) AND (3 OR 4)</booleanFilter>
+            <criteriaItems>
+                <field>Compensation__c.Total_Compensation_Amount__c</field>
+                <operation>greaterOrEqual</operation>
+                <value>100</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Compensation__c.Other__c</field>
+                <operation>notEqual</operation>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.UserRole</field>
+                <operation>equals</operation>
+                <value>SSSW South Service Agent</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>User.UserRole</field>
+                <operation>equals</operation>
+                <value>SSSW North Service Agent</value>
+            </criteriaItems>
+        </entryCriteria>
+        <ifCriteriaNotMet>ApproveRecord</ifCriteriaNotMet>
+        <label>Compensation Value is greater than $100 or Discretionary Compensation is required</label>
+        <name>Compensation_Value_is_Greater_than_100</name>
+    </approvalStep>
+    <description>Approval Process that checks the Compensation amount relative to the user for Money Orders</description>
+    <emailTemplate>SSSWCaseTemplates/SSSW_Compensation_Approval_Req</emailTemplate>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <entryCriteria>
+        <criteriaItems>
+            <field>Compensation__c.RecordType</field>
+            <operation>equals</operation>
+            <value>Money Order</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Status__c</field>
+            <operation>notEqual</operation>
+            <value>Contact Customer for Proof of Value</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Total_Compensation_Amount__c</field>
+            <operation>lessThan</operation>
+            <value>500</value>
+        </criteriaItems>
+    </entryCriteria>
+    <finalApprovalActions>
+        <action>
+            <name>SSSW_RT_Awaiting_Money_Order</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>SSSW_Status_Awaiting_Money_Order</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalApprovalActions>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
+    <finalRejectionActions>
+        <action>
+            <name>SSSWRejected</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalRejectionActions>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <label>Compensation - Money Order</label>
+    <nextAutomatedApprover>
+        <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
+        <userHierarchyField>Manager</userHierarchyField>
+    </nextAutomatedApprover>
+    <processOrder>2</processOrder>
+    <recordEditability>AdminOnly</recordEditability>
+    <showApprovalHistory>false</showApprovalHistory>
+</ApprovalProcess>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Annual_Spend__c</fullName>
+    <description>StarTrack: Capture annual spend information</description>
+    <externalId>false</externalId>
+    <label>Annual Spend</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>&lt;12k</fullName>
+                <default>false</default>
+                <label>&lt;12k</label>
+            </value>
+            <value>
+                <fullName>12k - 78k</fullName>
+                <default>false</default>
+                <label>12k - 78k</label>
+            </value>
+            <value>
+                <fullName>78k - 500k</fullName>
+                <default>false</default>
+                <label>78k - 500k</label>
+            </value>
+            <value>
+                <fullName>&gt; 500k</fullName>
+                <default>false</default>
+                <label>&gt; 500k</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

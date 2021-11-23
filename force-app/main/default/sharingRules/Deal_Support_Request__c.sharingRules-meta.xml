@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>DSR_Customer_onboarding</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Share Customer onboarding record type DSR with all users with Role- Custoemr Data Team</description>
+        <label>DSR Customer onboarding</label>
+        <sharedTo>
+            <role>CustomerDataManagementTeam</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Onboarding</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_All_DSR_with_DEC_Public_Group</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This rule allow DEC team member with Read-only access to all DSR types.</description>
+        <label>Share All DSR with DEC Public Group</label>
+        <sharedTo>
+            <group>Deal_Enablement_Centre_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>Customer Onboarding</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Commercial_Analytics_Modelling</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule share Commercial Analytics Modelling DSR access with various other support teams.</description>
+        <label>Share Commercial Analytics Modelling</label>
+        <sharedTo>
+            <group>Commercial_Analytics_Modelling</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Commercial Analytics &amp; Modelling</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Credit_DSR_Request_with_Credit_Management_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provide the Credit DSR Request access to the Credit Management Team</description>
+        <label>Share Credit DSR Request with Credit Management Team</label>
+        <sharedTo>
+            <group>Credit_DSR_Management_Request_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Management Request</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_DEC_DSR_with_Sales</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This rule share read-only access to DEC DSR type with Sales.</description>
+        <label>Share DEC DSR with Sales</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>CEO_EGM</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Onboarding,Pricing Support Request - Domestic,Pricing Support Request - StarTrack,Pricing Support Request - International</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_DSR_with_Pricing_Team</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>REQ2281463</description>
+        <label>Share DSR with Pricing Team</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_StarTrack</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Pricing Support Request - StarTrack</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Domestic_PSR_with_Intl_Pricing_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by Domestic PSR team with Intl Pricing Team</description>
+        <label>Share Domestic PSR with Intl Pricing Team</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_Intl_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Pricing Support Request - Domestic</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Domestic_PSR_with_StarTrack_Pricing_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by Domestic PSR team with StarTrack Pricing Team</description>
+        <label>Share Domestic PSR with StarTrack Pricing Team</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_StarTrack</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Pricing Support Request - Domestic</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Domestic_PSR_with_Surcharge_Exemption_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by Domestic PSR team with Surcharge Exemption Team</description>
+        <label>Share Domestic PSR with Surcharge Exemption Team</label>
+        <sharedTo>
+            <group>Surcharge_Exemption_Request_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Pricing Support Request - Domestic</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_E_G_Sales_Impl_DSR_with_Customer_Impl_Channel_Product</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the E&amp;G DSR requests with Channel and Product team</description>
+        <label>Share E&amp;G Sales Impl DSR with Customer Impl Channel Product</label>
+        <sharedTo>
+            <group>Customer_Implementation_Channel_Product</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>&quot;E&amp;G Sales,Customer Implementation Request&quot;</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_International_PSR_with_Domestic_PSR_team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by International PSR team with Domestic PSR team</description>
+        <label>Share International PSR with Domestic PSR team</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_Domestic_team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Pricing Support Request - International</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_International_PSR_with_StarTrack_PSR_team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by International PSR team with StarTrack PSR team</description>
+        <label>Share International PSR with StarTrack PSR team</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_StarTrack</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Pricing Support Request - International</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_International_PSR_with_Surcharge_Exemption_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by International PSR team with Surcharge Exemption Team</description>
+        <label>Share International PSR with Surcharge Exemption Team</label>
+        <sharedTo>
+            <group>Surcharge_Exemption_Request_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Pricing Support Request - International</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_StarTrack_PSR_with_Domestic_Pricing_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by StarTrack PSR team with Domestic Pricing Team</description>
+        <label>Share StarTrack PSR with Domestic Pricing Team</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_Domestic_team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Pricing Support Request - StarTrack</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_StarTrack_PSR_with_Intl_Pricing_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by StarTrack PSR team with Intl Pricing Team</description>
+        <label>Share StarTrack PSR with Intl Pricing Team</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_Intl_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Pricing Support Request - StarTrack</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_StarTrack_PSR_with_Surcharge_Exemption_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by StarTrack PSR team with Surcharge Exemption Team</description>
+        <label>Share StarTrack PSR with Surcharge Exemption Team</label>
+        <sharedTo>
+            <group>Surcharge_Exemption_Request_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Pricing Support Request - StarTrack</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Surcharge_Exemption_DSR_with_Domestic_PSR_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by Surcharge Exemption team with Domestic PSR Team</description>
+        <label>Share Surcharge Exemption DSR with Domestic PSR Team</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_Domestic_team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Surcharge Exemption Request</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Surcharge_Exemption_DSR_with_International_PSR_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by Surcharge Exemption team with International PSR Team</description>
+        <label>Share Surcharge Exemption DSR with International PSR Team</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_Intl_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Surcharge Exemption Request</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Surcharge_Exemption_DSR_with_StarTrack_PSR_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by Surcharge Exemption team with StarTrack PSR Team</description>
+        <label>Share Surcharge Exemption DSR with StarTrack PSR Team</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_StarTrack</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Surcharge Exemption Request</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>Deal_Enablement_Centre_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Deal Enablement Centre Team</label>
+        <sharedTo>
+            <group>Deal_Enablement_Centre_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Deal_Enablement_Centre_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_Owner_of_Credit_DSR_Request_with_Credit_Management_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Share the Owner of the Credit DSR request with the Credit Management Team</description>
+        <label>Share Owner of Credit DSR Request with Credit Management Team</label>
+        <sharedTo>
+            <group>Credit_DSR_Management_Request_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Credit_DSR_Management_Request_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_Product_Specialist_DSR_with_Domestic_PSR_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by Product Specialist team with Domestic PSR Team</description>
+        <label>Share Product Specialist DSR with Domestic PSR Team</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_Domestic_team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Product_Specialist_Support_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_Product_Specialist_DSR_with_International_PSR_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by Product Specialist team with International PSR Team</description>
+        <label>Share Product Specialist DSR with International PSR Team</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_Intl_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Product_Specialist_Support_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_Product_Specialist_DSR_with_Sales_Solution_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by Product Specialist team with Sales Solution Team</description>
+        <label>Share Product Specialist DSR with Sales Solution Team</label>
+        <sharedTo>
+            <group>Sales_Solution_Request_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Product_Specialist_Support_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_Product_Specialist_DSR_with_StarTrack_PSR_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by Product Specialist team with StarTrack PSR Team</description>
+        <label>Share Product Specialist DSR with StarTrack PSR Team</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_StarTrack</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Product_Specialist_Support_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_Product_Specialist_DSR_with_Surcharge_Exemption_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the DSR owned by Product Specialist team with Surcharge Exemption Team</description>
+        <label>Share Product Specialist DSR with Surcharge Exemption Team</label>
+        <sharedTo>
+            <group>Surcharge_Exemption_Request_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Product_Specialist_Support_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_Request_with_Bid_Support_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is share record owned by a Bid Support Team member with all the Team</description>
+        <label>Share Request with Bid Support Team</label>
+        <sharedTo>
+            <group>Bid_Support_Request_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Bid_Support_Request_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_Request_with_Channel_Product_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the requests with Channel and Product team</description>
+        <label>Share Request with Channel Product Team</label>
+        <sharedTo>
+            <group>Customer_Implementation_Channel_Product</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Customer_Implementation_Channel_Product</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_Request_with_Legal_Support_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule allows all Legal Support Team to view the records in their queue</description>
+        <label>Share Request with Legal Support Team</label>
+        <sharedTo>
+            <group>Legal_Support_Request_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Legal_Support_Request_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_Request_with_PSR_Domestic</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule give access for Pricing Domestic Request to all queue members</description>
+        <label>Share Request with PSR-Domestic</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_Domestic_team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Pricing_Support_Request_Domestic_team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_Request_with_PSR_International</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to give access to all the Pricing Support International Team</description>
+        <label>Share Request with PSR International</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_Intl_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Pricing_Support_Request_Intl_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_Request_with_Sales_Solution_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the Sales Solution Request with Sales Solution Queue</description>
+        <label>Share Request with Sales Solution Team</label>
+        <sharedTo>
+            <group>Sales_Solution_Request_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Sales_Solution_Request_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_Request_with_Surcharge_Exemption_Request</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This will give access to Surcharge exemption team</description>
+        <label>Share Request with Surcharge Exemption Request</label>
+        <sharedTo>
+            <group>Surcharge_Exemption_Request_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Surcharge_Exemption_Request_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_with_Business_Sales_Implementation</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Rule to share requests with Business Sales Implementation Team</description>
+        <label>Share with Business Sales Implementation</label>
+        <sharedTo>
+            <group>Business_Sales_Implementation_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Business_Sales_Implementation_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_with_Deal_Governance</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share the requests with all Deal Governance Team</description>
+        <label>Share with Deal Governance</label>
+        <sharedTo>
+            <group>Deal_Governance_Support_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Deal_Governance_Support_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_with_EG_Sales_Implementation</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Rule to share requests with E&amp;G Sales Implementation Team</description>
+        <label>Share with EG Sales Implementation</label>
+        <sharedTo>
+            <group>E_G_Sales_Implementation_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>E_G_Sales_Implementation_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_with_PSR_StarTrack</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This rule is to share request with StarTrack Pricing team</description>
+        <label>Share with PSR StarTrack</label>
+        <sharedTo>
+            <group>Pricing_Support_Request_StarTrack</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Pricing_Support_Request_StarTrack</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Share_with_Product_Specialist_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Rule to share request with Product Specialist Team</description>
+        <label>Share with Product Specialist Team</label>
+        <sharedTo>
+            <group>Product_Specialist_Support_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Product_Specialist_Support_Team</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

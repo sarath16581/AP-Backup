@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Type_Description__c</fullName>
+    <description>Field to return the Sub Type Description from the Custom Setting &apos;Partner Addendum Sub Type Description&apos;</description>
+    <externalId>false</externalId>
+    <formula>CASE(Sub_Type__c, 
+&quot;Acceptance of Defence Parcels Less Than 2kg&quot; ,$Setup.PA_ST_Desc__c.Accept_Defence_Parcels_Less_Than_2__c,
+&quot;Ad-hoc&quot;,$Setup.PA_ST_Desc__c.Ad_hoc__c,
+&quot;Annual Lease Fee&quot;,$Setup.PA_ST_Desc__c.Annual_Lease_Fee__c,
+&quot;Annual Phone Subsidy Amount&quot;,$Setup.PA_ST_Desc__c.Annual_Phone_Subsidy_Amount__c,
+&quot;Annual Rent Subsidy Amount&quot;,$Setup.PA_ST_Desc__c.Annual_Rent_Subsidy_Amount__c,
+&quot;Business Counter Delivery Points Variation&quot;, $Setup.PA_ST_Desc__c.Bus_Counter_Delivery_Points_Var__c,
+&quot;Business Delivery Points Variation&quot;,$Setup.PA_ST_Desc__c.Bus_Delivery_Points_Var__c,
+&quot;Business Transit Points Variation&quot;,$Setup.PA_ST_Desc__c.Bus_Transit_Points_Var__c,
+&quot;Clearance of Remote SPB Fee&quot;,$Setup.PA_ST_Desc__c.Clearance_of_Remote_SPB_Fee__c,
+&quot;Counter Collection on non RSD days&quot;, $Setup.PA_ST_Desc__c.Counter_Collection_on_non_RSD_days__c,
+&quot;Customer Transfer Fee&quot;,$Setup.PA_ST_Desc__c.Customer_Transfer_Fee__c,
+&quot;Interest Free Loan&quot;,$Setup.PA_ST_Desc__c.Interest_Free_Loan__c,
+&quot;Mail Bag Despatched Variation&quot;,$Setup.PA_ST_Desc__c.Mail_Bag_Despatched_Var__c,
+&quot;Mail Conveyancing Fee&quot;,$Setup.PA_ST_Desc__c.Mail_Conveyancing_Fee__c,
+&quot;Mail Service Payment&quot;,$Setup.PA_ST_Desc__c.Mail_Service_Payment__c,
+&quot;Miscellaneous Type 1&quot;,$Setup.PA_ST_Desc__c.Misc_Type_1__c,
+&quot;Miscellaneous Type 2&quot;,$Setup.PA_ST_Desc__c.Misc_Type_2__c,
+&quot;Miscellaneous Type 3&quot;,$Setup.PA_ST_Desc__c.Misc_Type_3__c,
+&quot;Negotiated Accommodation Fee&quot;,$Setup.PA_ST_Desc__c.Negotiated_Accom_Fee__c,
+&quot;New Business Spotter&apos;s Fee&quot;,$Setup.PA_ST_Desc__c.New_Bus_Spotters_Fee__c,
+&quot;Private Counter Delivery Points Variation&quot;, $Setup.PA_ST_Desc__c.Pri_Counter_Delivery_Points_Var__c,
+&quot;Private Delivery Points Variation&quot;,$Setup.PA_ST_Desc__c.Pri_Delivery_Points_Var__c,
+&quot;Private Transit Points Variation&quot;,$Setup.PA_ST_Desc__c.Pri_Transit_Points_Var__c,
+&quot;Public Liability&quot;,$Setup.PA_ST_Desc__c.Public_Liability__c,
+&quot;Refurbishment Loan&quot;,$Setup.PA_ST_Desc__c.Refurbishment_Loan__c,
+&quot;Repayment Arrangement&quot;,$Setup.PA_ST_Desc__c.Repayment_Arrangement__c,
+&quot;Representation Allowance - First Day Covers&quot;, $Setup.PA_ST_Desc__c.Rep_Allow_First_Day_Covers__c,
+&quot;Representation Allowance - Reply Paid&quot;,$Setup.PA_ST_Desc__c.Rep_Allow_Reply_Paid__c,
+&quot;Security Loan&quot;,$Setup.PA_ST_Desc__c.Security_Loan__c,
+&quot;Storage of Carded Articles Annual Fee&quot;, $Setup.PA_ST_Desc__c.Storage_of_Carded_Articles_Annual_Fee__c,
+&quot;Storage of Mail Fee&quot;,$Setup.PA_ST_Desc__c.Storage_of_Mail_Fee__c,
+&quot;&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Sub Type Description</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

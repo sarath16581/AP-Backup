@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Current_Owner_Role__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Profile.Name == &apos;LPO Partner Community User&apos;, Text(Contact.Account.Sales_Segment__c),
+BLANKVALUE(UserRole.RollupDescription,  UserRole.Name))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Current Owner Role</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

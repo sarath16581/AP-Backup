@@ -1,0 +1,103 @@
+<apex:component controller="bspComponent" >
+    <!-- 06/08/2021 : prerna.rahangdale@auspost.com.au Commenting the bsp live agent chat and introducing Chatbot Code
+                      which in turns escalates to live agent from chat bot.  -->
+    <!-- Attribute Definitions
+    <apex:attribute name="isMpbHspAttrib" description="This attribute determines if the control was called as part of the MyPost Business page"
+                    type="Boolean" required="false" assignTo="{!isMpbHspFlag}"/>  -->
+    
+                    <style type="text/css">
+                        .l-header {
+                            margin-bottom: 62px !important;
+                        }
+                        .bw-liveagent {
+                            z-index: 20;
+                            bottom: -51px !important;
+                        }
+                    
+                        #alert-container {
+                            position: absolute;
+                            top: 111px;
+                            left: 0;
+                            width: 100%;
+                            height: 53px;
+                            background-color: #FBF8F1;
+                            border-bottom: 1px solid #EBEAEA;
+                        }
+                    
+                        #alert-container > div {
+                            box-sizing: border-box;
+                            width: 960px;
+                            margin:0 auto;
+                            padding-right: 235px;
+                            color:white;
+                            position: relative;
+                            top: 50%;
+                            transform: perspective(1px) translateY(-50%);
+                        }
+                    
+                        .temp-alert .inner {
+                            line-height: 1.3;
+                            display: block;
+                            padding: 6px;
+                            border-radius: 3px;
+                            border: 1px solid rgb(180, 180, 180);
+                            background-color: rgb(212, 212, 212);
+                            color: rgb(88, 88, 88);
+                        }
+                    
+                        .temp-alert.warning .inner {
+                            border: 1px solid rgb(251,238,213);
+                            background-color: rgb(252,248,227);
+                        }
+                    
+                        .temp-alert.warning .inner, .temp-alert.warning .close {
+                            color: rgb(192,152,83);
+                        }
+                    </style>
+    <div class="l-header">
+        <div id="alert-container">
+            <div>
+                <div class="temp-alert warning">
+                    <div class="inner">
+                        <a href="https://auspost.com.au/about-us/news-media/important-updates" target="_blank">Coronavirus: international delays 	&amp; changes to domestic parcel delivery</a> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="header">
+            <header> 
+                
+                <!-- START top nav -->
+                <div class="top-nav clearfix">
+                </div>
+                <!-- END top nav --> 
+                
+                <!-- START logo --> 
+                   <a href="{!$Site.CurrentSiteUrl}MpbHspEnquiry" class="main-logo" id="mpb-logo"> <img src="{!URLFOR($Resource.BSP_Asset, 'css/images/logo-ap_st-2_h_1_mpbhsp2.png')}" alt="Australia Post logo" /> </a>
+                   <!--a href="{!$Site.CurrentSiteUrl}MpbHspEnquiry" class="main-logo"> <img src="{!URLFOR($Resource.BSP_Asset, 'css/images/logo-ap_st-2_h_1_mpbhsp2.png')}" alt="Australia Post logo" /> </a-->
+                <!-- END logo --> 
+              
+                <!-- START primary nav -->
+                <div id="primary-nav" class="primary-nav clearfix">
+                    <h2> Support</h2>
+                </div>
+                
+                <!-- END primary nav --> 
+    
+                <!-- START Live Agent Smart Speak Changes -->
+
+                <div id="ssce-chatbot-data" data-contactid="{!$User.ContactId}" data-nickname="{!$User.FirstName}" data-firstname="{!$User.FirstName}"
+                      data-lastname="{!$User.LastName}" data-email="{!$User.Email}"
+                      data-organisation-id="{!orgId}" data-deployment-id="{!deploymentId}"
+                      data-button-id="{!buttonId}" data-endpoint="{!endpoint}" data-segment="{!serviceSLA}" data-chat-init="{!chatInit}"  data-chatscript-src="{!chatScriptSrc}"
+                      class="hidden"></div>
+                <div id="ssce-chatbot-container">
+                 <apex:includeScript value="{!$Resource.sscechatbot + '/ssce-mpb-chatbot.js'}" loadOnReady="true"/>
+                </div>
+                
+                <!-- END Live Agent -->
+            
+            </header>
+        </div>
+    </div>
+</apex:component>

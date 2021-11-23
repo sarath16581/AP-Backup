@@ -1,0 +1,127 @@
+.THIS [data-item-id="1c366bcd-4b44-4704-83cd-5515f08f89d0"] {
+    margin-bottom: 15px;
+}
+
+.THIS.collapsibleCTA { 
+    border-bottom: 16px solid transparent !important;
+    border-top: 16px solid transparent !important;
+}
+
+/* Styling for the title section */
+.THIS .expander-contractor .title {
+    background: #ffffff !important;
+    /*border-top: 10px solid #f3f1ee;*/
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    position: relative;
+}
+
+/* Styling for the subtitle section */
+.THIS .expander-contractor .title .subtitle{
+     position: absolute;
+     top: 20px;
+     left: 80px
+}
+
+/* Styling for the description section */
+.THIS .expander-contractor .description {
+    display: block;
+    background: #ffffff !important;
+    padding-bottom: 15px;
+    padding-left: 80px;
+    padding-right: 15px;
+}
+
+/* Styling for the arrow down image */
+.THIS .expander-contractor .title .arrowDown{
+     display: block;
+     position: absolute;
+     top: 28px;
+     right: 25px;
+     width: 20px;
+     height: 11px;
+     background-repeat: no-repeat;
+     background-position: 4px -9px;
+     background-image: url('sfsites/c/resource/brideas/images/collapse-arrow.png');
+     cursor: pointer;
+}
+
+/* Styling for the arrow up image */
+.THIS .expander-contractor .title .arrowUp{
+     display: block;
+     position: absolute;
+     top: 28px;
+     right: 25px;
+     width: 20px;
+     height: 11px;
+     background-repeat: no-repeat;
+     background-position: 4px 2px;
+     background-image: url('sfsites/c/resource/brideas/images/collapse-arrow.png');
+     cursor: pointer;
+}
+
+/* Styling for the link on the component */
+.THIS .expander-contractor .link{
+    padding-left: 80px;
+    padding-bottom: 20px;
+    background: #ffffff !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    text-decoration: none;
+}
+
+/* Styling for the caret image */
+.THIS .featured-header-caret {
+   background: #ffffff !important;
+   width: 10px;
+   height: 6px;
+   color: #292f33;
+   padding-right: 4px;
+}
+
+/* Styling for the info icon image */
+.THIS .expander-contractor .info-icon {
+   background: #ffffff !important;
+   padding-right: 20px;
+   margin-left: 10px;
+}
+
+/* Ideas Expand Contract component styling for mobile view */
+@media screen and (max-width: 768px) {
+.THIS.expander-contractor .title{
+   text-align: center;
+}
+    
+.THIS.expander-contractor .description{
+   text-align: center;
+}
+    
+.THIS .expander-contractor .title .subtitle{
+     left: 70px
+}  
+    
+.THIS .expander-contractor .info-icon {
+   background: #ffffff !important;
+   margin-left: 5px;
+   padding-right: 5px;
+}
+    
+.THIS .expander-contractor .description {
+   padding-left: 25px;
+}
+    
+.THIS .expander-contractor .link {
+   padding-left: 25px;
+}
+    
+.THIS .expander-contractor .title .arrowDown{
+   right: 5px;
+}
+
+.THIS .expander-contractor .title .arrowUp{
+   right: 5px;
+}
+}

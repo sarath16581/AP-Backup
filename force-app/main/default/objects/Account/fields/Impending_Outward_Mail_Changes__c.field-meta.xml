@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Impending_Outward_Mail_Changes__c</fullName>
+    <description>Impending changes to outward mail processing that may affect outlet</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Impending changes to outward mail processing that may affect outlet</inlineHelpText>
+    <label>Impending Outward Mail Changes</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

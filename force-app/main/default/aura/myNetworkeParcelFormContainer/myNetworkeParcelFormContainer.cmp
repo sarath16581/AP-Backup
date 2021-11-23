@@ -1,0 +1,4 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes">
+    <c:AsynchApexContinuationProxy aura:id="proxy" />
+    <c:myNetworkeParcelDamagesForm onasynchapexcontinuationrequest="{!c.onContinuationRequest}"/>
+</aura:component>

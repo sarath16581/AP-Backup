@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSSCaseTypeNotSet</fullName>
+    <active>true</active>
+    <description>SSSW is based on Case Types. These are required for all Cases.</description>
+    <errorConditionFormula>Bypass_Data_enforcement__c = FALSE 
+&amp;&amp;
+BEGINS(RecordType.DeveloperName, &apos;SSSW&apos;) 
+&amp;&amp; 
+ISBLANK(TEXT(Type)) 
+&amp;&amp; 
+NOT(ISPICKVAL(Origin, &apos;Direct Email&apos;)) 
+&amp;&amp; 
+NOT(ISPICKVAL(Origin, &apos;Email&apos;))
+&amp;&amp; 
+NOT(ISPICKVAL(Origin, &apos;Fax&apos;))
+&amp;&amp; 
+NOT(ISPICKVAL(Origin, &apos;White mail&apos;))</errorConditionFormula>
+    <errorDisplayField>Type</errorDisplayField>
+    <errorMessage>Please specify a Case Type for this Case.</errorMessage>
+</ValidationRule>

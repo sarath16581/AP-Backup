@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>HVS_subaccount</masterLabel>
+    <promptVersions>
+        <actionButtonLabel>Click here for more info!</actionButtonLabel>
+        <actionButtonLink>https://auspost.sharepoint.com/:b:/s/SPBG/Sales-support-site/EZH2H8J0fhJCuB0HF8V15GABCSxnqviAp5uJ0MkI972uaw?e=Kn563h</actionButtonLink>
+        <body>&lt;p&gt;A new Sub Account Creation Request Form has been developed in Salesforce replacing the manual spreadsheet and pdf versions of the form.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Please now complete a sub account creation request for an existing AP customer account directly from the Salesforce Parent Billing Account record using the new ‘Sub Account Request’ button. We think you’ll like the intuitive form, with specific data validation, dynamic fields and help text ensuring requests are processed correctly first time. Built in functionality supports your efficient and accurate data entry including address, lodgement point, and contact lookup validation.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Importantly, this new process enables automation and real-time integration between SAP and Salesforce resulting in instant account creation in both systems, resulting in a significant reduction in cycle time with customer sub accounts set-up and ready to trade faster.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Contract Rates:&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;I&lt;/b&gt;n addition, where Contract Rates are required to be added to a sub account, a new automated Deal Support Request will be submitted to the Contract Administration team, meaning you no longer need to complete this manual task and ensuring that rates are added to required sub account once created.&lt;/p&gt;</body>
+        <customApplication>standard__HVSConsole</customApplication>
+        <delayDays>1</delayDays>
+        <description>New in app guidance for sub accounts in HVS</description>
+        <displayType>DockedComposer</displayType>
+        <endDate>2021-08-13</endDate>
+        <header>Sub Account Creation Request</header>
+        <isPublished>true</isPublished>
+        <masterLabel>HVS_subaccount</masterLabel>
+        <publishedDate>2021-06-01</publishedDate>
+        <shouldDisplayActionButton>true</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
+        <startDate>2021-07-12</startDate>
+        <targetPageKey1>Billing_Account__c</targetPageKey1>
+        <targetPageKey2>view</targetPageKey2>
+        <targetPageType>standard__recordPage</targetPageType>
+        <timesToDisplay>3</timesToDisplay>
+        <title>New &amp; Improved Sub Account Creation</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+        <videoLink>https://web.microsoftstream.com/embed/video/a66c8ffb-2ca6-493f-813b-937ac2dc8847?autoplay=false&amp;showinfo=true</videoLink>
+    </promptVersions>
+</Prompt>

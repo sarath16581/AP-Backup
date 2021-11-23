@@ -1,0 +1,12 @@
+{
+  "vars": {},
+  "css": [
+    "forms.less",
+    "navs.less",
+    "navbar.less",
+    "utilities.less"
+  ],
+  "js": [
+    "tab.js"
+  ]
+}

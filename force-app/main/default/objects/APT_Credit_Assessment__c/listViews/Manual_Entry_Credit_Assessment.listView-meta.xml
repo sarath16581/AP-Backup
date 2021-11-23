@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Manual_Entry_Credit_Assessment</fullName>
+    <columns>NAME</columns>
+    <columns>APT_Legal_Entity_Name__c</columns>
+    <columns>APT_ABN__c</columns>
+    <columns>APT_Credit_Assessment_Status__c</columns>
+    <columns>L2C_AP_Proposed_Credit_Limit__c</columns>
+    <columns>L2C_Star_Track_Proposed_Credit_Limit__c</columns>
+    <columns>APT_Charge_Account__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>L2C_Assessment_Type__c</field>
+        <operation>equals</operation>
+        <value>Manual Entry Screen</value>
+    </filters>
+    <label>Manual Entry Credit Assessment</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>APT_Credit_Management_Team</group>
+        <role>SO_Sales_Excellence</role>
+    </sharedTo>
+</ListView>

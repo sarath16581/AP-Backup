@@ -1,0 +1,5 @@
+The following Opportunity has been assigned to you.
+Company: {!Opportunity.Account}
+Opportunity Name: {!Opportunity.Name}
+
+Click on the link to access the opportunity directly: {!Opportunity.Link}

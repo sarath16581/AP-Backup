@@ -1,0 +1,64 @@
+<!--
+ - Created by MandavilD on 01/10/2019.
+ -->
+
+<!-- Ame Address Validation 1 -->
+<template>
+
+    <div class="slds-form-element slds-lookup slds-is-open">
+        <!-- Search Box -->
+        <div class="search-container">
+            <lightning-layout-item size="12">
+                <lightning-input class="address-input" type="search" name={name} label={label}
+                                 placeholder={placeholder} required={required} onkeyup={search} value={searchAddressTerm}
+                                 variant={variant} onfocus={openSearchResultsList} onblur={closeSearchResultsList} field-level-help={fieldLevelHelp}></lightning-input>
+            </lightning-layout-item>
+            <template if:true={isSearchingAddressDetails}>
+                <lightning-spinner size="small" alternative-text="Loading"></lightning-spinner>
+            </template>
+        </div>
+        <template if:true={shouldShowDropDown}>
+            <div class="slds-lookup__menu slds">
+                <template if:true={isLoading}>
+                    <div class="slds-p-horizontal_large slds-text-body_small">searching...</div>
+                </template>
+                <ul class="slds-lookup__list" role="listbox">
+                    <template for:each={searchResults} for:item="result">
+                        <c-search-result key={result.dpid} record={result} icon-name="standard:address"
+                                         search-term={searchAddressTerm} onselected={handleSearchResultSelect}>
+                        </c-search-result>
+                    </template>
+                </ul>
+            </div>
+        </template>
+        <!-- Address Details -->
+        <template if:true={showAddressDetails}>
+            <lightning-layout class="slds-box slds-m-top_small" multiple-rows>
+                <lightning-layout-item size="12">
+                    <lightning-input type="checkbox" label="Override Address" name="CheckBox" onchange={handleCheckBoxChange}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="12">
+                    <lightning-input class="address-input" required={required} disabled={enterAddressDetails} type="text" name="addressLine1" label="Address Line 1" onchange={handleAddressChange} value={address.addressLine}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="12">
+                    <lightning-input class="address-input"  disabled={enterAddressDetails} type="text" name="addressLine2" label="Address Line 2" onchange={handleAddressChange} value={address.addressLine3}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="12">
+                    <lightning-input class="address-input" required={required} disabled={enterAddressDetails} type="text" name="city" label="Suburb" onchange={handleAddressChange} value={address.city}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input class="address-input" required={required} disabled={enterAddressDetails} type="text" name="state" label="State" onchange={handleAddressChange} value={address.state}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <lightning-input required={required} class="slds-m-left_small address-input"  disabled={enterAddressDetails} type="text" name="postcode" label="Postcode" value={address.postcode}
+                                     pattern="[0-9]{4}" message-when-pattern-mismatch="Enter a valid postcode" onchange={handleAddressChange}></lightning-input>
+                </lightning-layout-item>
+            </lightning-layout>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,19 @@
+<apex:page Controller="APT_ManageSAPContractController" sidebar="false" tabStyle="APT_SAP_Contracts__c" >
+    <apex:form >
+       <apex:pageBlock title="{!title}" id="ManageSAPContracts">
+            <apex:pageMessages escape="false"></apex:pageMessages>
+            <p>Enter SAP Contract Numbers separated by new line: </p><apex:inputTextArea style="width: 36.5%;" rows="15" value="{!textAreaUserInput}"></apex:inputTextArea>
+            <br/>
+                <apex:actionStatus id="pageStatus" >
+                    <apex:facet name="start"> 
+                    <apex:outputPanel >           
+                    <img src="{!$Resource.Apttus_DocuApi__Image_LoadingPage}" width="15" height="15" />
+                    <b><apex:outputLabel value="{!processingText}"/></b>
+                    </apex:outputPanel>                        
+                    </apex:facet>
+                </apex:actionStatus>           
+                <center><apex:commandButton value="{!saveText}" action="{!saveSAPContracts}" reRender="ManageSAPContracts" status="pageStatus"></apex:commandButton>
+                <apex:commandButton value="{!pageCancel}" action="{!backToContract}" status="pageStatus"></apex:commandButton></center>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

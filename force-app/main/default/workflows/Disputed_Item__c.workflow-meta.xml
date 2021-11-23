@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Disputed_Item_SF_Ref_Update</fullName>
+        <field>DisputedItemSFRef__c</field>
+        <formula>Name</formula>
+        <name>Disputed Item SF Ref Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>GST_Amount</fullName>
+        <field>GSTAmount__c</field>
+        <formula>IF (
+Inc_GST__c = TRUE  , 
+Proposed_Credit__c / 11  ,
+
+
+
+((Proposed_Credit__c * 1.1 ) / 11) )</formula>
+        <name>GST Amount</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_ERP_From_Source_System</fullName>
+        <field>Target_ERP__c</field>
+        <formula>TEXT(Case__r.Related_Billing_Account__r.Source_System__c)</formula>
+        <name>Update ERP From Source System</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Exclusive_GST</fullName>
+        <field>Credit_Amount_Exclusive_GST__c</field>
+        <formula>IF ( 
+Inc_GST__c = false ,
+				Proposed_Credit__c,
+
+Proposed_Credit__c / 1.1)</formula>
+        <name>Update Exclusive GST</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Inclusive_GST</fullName>
+        <field>Credit_Amount_Inclusive_GST__c</field>
+        <formula>IF (
+Inc_GST__c = TRUE  , 
+
+Proposed_Credit__c  ,(Proposed_Credit__c * 1.1 ) )</formula>
+        <name>Update Inclusive GST</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Record_Type_To_Deafult_ERP</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Default_Disputed_Item_ERP</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Update Record Type To Deafult ERP</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Record_Type_To_Peoplesoft_ERP</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Peoplesoft_ERP</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Update Record Type To Peoplesoft ERP</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Record_Type_To_SAP_ERP</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>SAP_ERP</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Update Record Type To SAP ERP</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Record_Type_To_Team_ERP</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Team_ERP</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Update Record Type To Team ERP</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Disputed Item - Update GST Totals</fullName>
+        <actions>
+            <name>GST_Amount</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Exclusive_GST</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Inclusive_GST</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>OR(   ISNEW(),   ISCHANGED(Proposed_Credit__c),   ISCHANGED(Inc_GST__c ))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Disputed Item SF Ref</fullName>
+        <actions>
+            <name>Disputed_Item_SF_Ref_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>Case__r.RecordType.DeveloperName = &apos;Enterprise_Credit_Dispute_Claim&apos;</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update ERP</fullName>
+        <actions>
+            <name>Update_ERP_From_Source_System</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This will update the ERP field from the Related Billing account Source System</description>
+        <formula>AND(NOT(ISBLANK( Case__c )), NOT(ISBLANK(Case__r.Related_Billing_Account__c)))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Record Type To Default ERP</fullName>
+        <actions>
+            <name>Update_Record_Type_To_Deafult_ERP</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This will update the record type based on the value in ERP field</description>
+        <formula>AND(NOT(ISBLANK( Case__c )), ISBLANK(Target_ERP__c))</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Record Type To Peoplesoft ERP</fullName>
+        <actions>
+            <name>Update_Record_Type_To_Peoplesoft_ERP</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This will update the record type based on the value in ERP field</description>
+        <formula>AND(NOT(ISBLANK( Case__c )), Target_ERP__c  = &apos;PeopleSoft&apos;)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Record Type To SAP ERP</fullName>
+        <actions>
+            <name>Update_Record_Type_To_SAP_ERP</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This will update the record type based on the value in ERP field</description>
+        <formula>AND(NOT(ISBLANK( Case__c )), Target_ERP__c  = &apos;SAP ERP&apos;)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Record Type To Team ERP</fullName>
+        <actions>
+            <name>Update_Record_Type_To_Team_ERP</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(NOT(ISBLANK( Case__c )), Target_ERP__c  = &apos;TEAM&apos;)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

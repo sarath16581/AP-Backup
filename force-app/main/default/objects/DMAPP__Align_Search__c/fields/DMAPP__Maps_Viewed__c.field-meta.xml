@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Maps_Viewed__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Maps Viewed</label>
+    <summaryFilterItems>
+        <field>DMAPP__Align_Search_Usage__c.DMAPP__Type__c</field>
+        <operation>equals</operation>
+        <value>Map</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>DMAPP__Align_Search_Usage__c.DMAPP__Used__c</field>
+        <operation>equals</operation>
+        <value>False</value>
+    </summaryFilterItems>
+    <summaryForeignKey>DMAPP__Align_Search_Usage__c.DMAPP__Align_Search__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

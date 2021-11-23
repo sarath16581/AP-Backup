@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Final reminder to use new forms: Existing CLMs 2nd email template</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>ExternalContactEmail</letterhead>
+    <name>Form generator launch comms to Existing CLMs 2nd email template</name>
+    <style>freeForm</style>
+    <subject>Final reminder to use new forms: VOI for Property Transfers in store service - {!Lead.FirstName}</subject>
+    <textOnly>Dear {!Lead.FirstName},
+
+New Verification of Identity forms now available
+
+Today, we’re pleased to launch two new versions of the Verification of Identity (VOI) forms for property transfers that will be quicker and easier for you and your clients to complete.
+
+Self-service online form generator
+
+You have a choice of two V5.10 VOI forms that can now be accessed via the self-service online form generator links below.
+1. Reusable version V5.10: pre-populated with your company name. Simply print this as required for your client to complete manually.
+2. Single-use version V5.10: also pre-populated with your company name but allows you to complete it online with your client details.
+
+To log into the online form generator, you will need:
+1. your 5-digit number (CLMID) which is found next to your name above.
+2. your passcode which has been set to the postcode of the business postal address you submitted to Australia Post during registration.
+
+These customised forms display your company name and barcode, and determine where we electronically deliver each VOI Report.
+
+We encourage you to start using these new and improved forms immediately, however you can continue to use the (V4.14) version of the VOI Form until 31 May, 2018.
+
+Client Authorisation Form Training
+We have recently completed upskill training for our Post Office retail staff. Our staff will now be prompted to ask your clients if they have a Client Authorisation Form (CAF) and will ensure these are compliant.
+
+Need help?
+Our team is here to help. If you’d like us to call you or to respond to a question via email, please reach out to us on landtitleVOI@auspost.com.au.
+
+Kind regards,
+
+The Australia Post Property Transfers VOI support team.
+Both web-forms are hosted by Decipha Pty Ltd, a business of Australia Post.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

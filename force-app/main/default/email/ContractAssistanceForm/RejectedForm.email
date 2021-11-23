@@ -1,0 +1,19 @@
+<messaging:emailTemplate subject="Commercial Team Request Rejected" recipientType="User" relatedToType="ContractAssistanceForm__c">
+<messaging:plainTextEmailBody >
+Dear {!relatedTo.Opportunity__r.Owner.FirstName},
+
+The Commercial Team Request {!relatedTo.Name} related to Opportunity {!relatedTo.Opportunity__r.Name} has been rejected.
+
+Reason: {!relatedTo.RejectionReason__c}
+</messaging:plainTextEmailBody>
+<messaging:htmlEmailBody >
+Dear {!relatedTo.Opportunity__r.Owner.FirstName},
+<br/><br/>
+The Commercial Team Request {!relatedTo.Name} related to Opportunity {!relatedTo.Opportunity__r.Name} has been rejected.
+<br/><br/>
+Reason: {!relatedTo.RejectionReason__c}
+
+Please contact Gavin Stroud if you would like to discuss further.
+
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

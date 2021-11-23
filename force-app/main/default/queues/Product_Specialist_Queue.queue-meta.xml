@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <name>Product Specialist Queue</name>
+    <queueMembers>
+        <users>
+            <user>alana.barlow@auspost.com.au</user>
+            <user>ashleigh.brownscombe@auspost.com.au</user>
+            <user>belinda.towers@auspost.com.au</user>
+            <user>benjamin.rivera@auspost.com.au</user>
+            <user>brad.fenech@auspost.com.au</user>
+            <user>david.galea@auspost.com.au</user>
+            <user>dean.kappler@auspost.com.au</user>
+            <user>deepanjan.banerjee@auspost.com.au</user>
+            <user>grant.ellul@startrack.com.au</user>
+            <user>janine.hemmings@auspost.com.au</user>
+            <user>luke.holtfreter@auspost.com.au</user>
+            <user>mark.foster@auspost.com.au</user>
+            <user>marlana.monea@auspost.com.au</user>
+            <user>mary.tse@auspost.com.au</user>
+            <user>nick.christov@auspost.com.au</user>
+            <user>peter.anderson@auspost.com.au</user>
+            <user>peter.theodore@auspost.com.au</user>
+            <user>sandra.nutbean@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Internal_Request__c</sobjectType>
+    </queueSobject>
+</Queue>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <interviewLabel>TDF Test {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>TDF Test</label>
+    <processType>FieldServiceMobile</processType>
+    <screens>
+        <name>Hello</name>
+        <label>Hello</label>
+        <locationX>110</locationX>
+        <locationY>145</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>txtHello</name>
+            <fieldText>Hello</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <startElementReference>Hello</startElementReference>
+    <status>Active</status>
+</Flow>

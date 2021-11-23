@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CampaignInstructions__c</fullName>
+    <description>Follow these instructions for assistance with your conversations and next steps</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Follow these instructions for assistance with your conversations and next steps</inlineHelpText>
+    <label>Campaign Instructions</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

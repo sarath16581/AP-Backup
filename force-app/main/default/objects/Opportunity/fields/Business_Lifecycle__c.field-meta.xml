@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Lifecycle__c</fullName>
+    <description>Business Life cycle records where an organisation is at in their lifecycle at the point in time of the opportunity being noticed - values defined by the Marketing team.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Where is the customer placed in their business lifecycle? (6%)</inlineHelpText>
+    <label>Business Lifecycle</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Startup</fullName>
+                <default>false</default>
+                <label>Startup</label>
+            </value>
+            <value>
+                <fullName>Commercialise</fullName>
+                <default>false</default>
+                <label>Commercialise</label>
+            </value>
+            <value>
+                <fullName>Growth</fullName>
+                <default>false</default>
+                <label>Growth</label>
+            </value>
+            <value>
+                <fullName>Expand/Diversify</fullName>
+                <default>false</default>
+                <label>Expand/Diversify</label>
+            </value>
+            <value>
+                <fullName>Transition</fullName>
+                <default>false</default>
+                <label>Transition</label>
+            </value>
+            <value>
+                <fullName>Mature</fullName>
+                <default>false</default>
+                <label>Mature</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Apttus_Config2__PermissionSetRelationship__c</baseObject>
+    <category>admin</category>
+    <deployed>false</deployed>
+    <description>Permission Set Relationships</description>
+    <label>Permission Set Relationships</label>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Apttus_Config2__Child__c</field>
+            <table>Apttus_Config2__PermissionSetRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedBy</field>
+            <table>Apttus_Config2__PermissionSetRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>Apttus_Config2__PermissionSetRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedBy</field>
+            <table>Apttus_Config2__PermissionSetRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedDate</field>
+            <table>Apttus_Config2__PermissionSetRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner</field>
+            <table>Apttus_Config2__PermissionSetRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Apttus_Config2__Parent__c</field>
+            <table>Apttus_Config2__PermissionSetRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Id</field>
+            <table>Apttus_Config2__PermissionSetRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Name</field>
+            <table>Apttus_Config2__PermissionSetRelationship__c</table>
+        </columns>
+        <masterLabel>Permission Set Relationships</masterLabel>
+    </sections>
+</ReportType>

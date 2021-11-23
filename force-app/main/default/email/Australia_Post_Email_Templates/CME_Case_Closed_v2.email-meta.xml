@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Contract Management Enquiry (CME) Case Closed</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>CME Case Closed v2</name>
+    <style>freeForm</style>
+    <subject>Case {!Case.CaseNumber} - {!Case.Subject} - Case Closed</subject>
+    <textOnly>Dear Colleague,
+
+
+Case Closed – Refer to Comments field in Salesforce for action taken.
+
+Case Number: {!Case.CaseNumber}
+
+Subject: {!Case.Subject}
+
+Please do not comment within the case as these comments cannot be seen by the Contract Management team.
+
+Please do not respond to this notification via reply e-mail.
+
+You can review your case details online by following the link below:
+
+{!Case.Link} or entering your case number into the search engine on the front page of SalesForce.com.
+
+Alternatively, you can contact the Sales Support team on 1800SalesSupport@auspost.com.au or 1800 316 508 during business hours.
+
+Regards
+
+Contract Management Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

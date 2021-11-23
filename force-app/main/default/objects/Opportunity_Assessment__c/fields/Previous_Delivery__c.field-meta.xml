@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Previous_Delivery__c</fullName>
+    <description>Phase 1 - Opportunity Assessment (PWC)
+
+Identify with internal stakeholders if we have delivered this product previously</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Do we have a track record in delivering these types of products/ solutions?</inlineHelpText>
+    <label>Previous Delivery</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

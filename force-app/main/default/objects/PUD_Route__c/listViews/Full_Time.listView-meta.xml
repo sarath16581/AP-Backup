@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Full_Time</fullName>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>contains</operation>
+        <value>sea</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>contains</operation>
+        <value>SEA10,SEA11,SEA13,SEA14,SEA15,SEATO1,SEATO2</value>
+    </filters>
+    <label>Full Time Seaford</label>
+    <sharedTo>
+        <group>SEAFORD_VAN_OPERATIONS</group>
+    </sharedTo>
+</ListView>

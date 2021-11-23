@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Weight__c</fullName>
+    <description>The total weighting of the case. A calculation based on field values and weight amounts stored in custom setting StarTrack Weight.</description>
+    <externalId>false</externalId>
+    <formula>CASE(Status,
+&apos;Awaiting Investigation&apos;, $Setup.StarTrack_Weight__c.Status_AwaitInv__c,
+&apos;New&apos;, $Setup.StarTrack_Weight__c.Status_New__c,
+&apos;Reopened&apos;, $Setup.StarTrack_Weight__c.Status_Reopened__c,
+&apos;Awaiting Review&apos;, $Setup.StarTrack_Weight__c.Status_AwaitRev__c,
+&apos;Monitoring for Closure&apos;, $Setup.StarTrack_Weight__c.Status_MonForClose__c,
+&apos;Waiting on customer&apos;, $Setup.StarTrack_Weight__c.Status_WaitOnCus__c,
+&apos;Waiting on operations&apos;, $Setup.StarTrack_Weight__c.Status_WaitOnOp__c,
+0)
++
+CASE(Case_Update__c,
+&apos;New Comment&apos;, $Setup.StarTrack_Weight__c.CaseUpdate_NewCom__c,
+&apos;New Email Received&apos;, $Setup.StarTrack_Weight__c.CaseUpdate_NewEmailRec__c,
+&apos;Operations Responded&apos;, $Setup.StarTrack_Weight__c.CaseUpdate_OpResp__c,
+&apos;Waiting on Investigator&apos;, $Setup.StarTrack_Weight__c.CaseUpdate_WaitOnInves__c,
+0)
++
+CASE(Priority,
+&apos;Critical&apos;, $Setup.StarTrack_Weight__c.Priority_Critical__c,
+&apos;Urgent&apos;, $Setup.StarTrack_Weight__c.Priority_Urgent__c,
+&apos;High&apos;, $Setup.StarTrack_Weight__c.Priority_High__c,
+&apos;Normal&apos;, $Setup.StarTrack_Weight__c.Priority_Normal__c,
+0)
++
+CASE(ConsignmentSummaryStatus__c,
+&apos;Delivered&apos;, $Setup.StarTrack_Weight__c.ConSumStat_Delivered__c, 0)
++
+IF(IsEscalated, $Setup.StarTrack_Weight__c.Escal_True__c, 0) 
++
+IF(Action_Date__c &gt; Today(), $Setup.StarTrack_Weight__c.ActionDate_InFuture__c,
+  IF(Action_Date__c = Today(), $Setup.StarTrack_Weight__c.ActionDate_Today__c,
+    IF(Action_Date__c &lt; Today(), $Setup.StarTrack_Weight__c.ActionDate_InPast__c,
+      $Setup.StarTrack_Weight__c.ActionDate_Null__c
+    )
+  )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Case Weight</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

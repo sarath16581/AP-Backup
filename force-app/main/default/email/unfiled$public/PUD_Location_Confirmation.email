@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="Location Confirmation" recipientType="User" relatedToType="PUD_Booking_Location__c">
+<messaging:HtmlEmailBody >
+<c:PUD_LocationConfirmationComponent locationid="{!relatedTo.Id}" />
+</messaging:HtmlEmailBody>
+</messaging:emailTemplate>

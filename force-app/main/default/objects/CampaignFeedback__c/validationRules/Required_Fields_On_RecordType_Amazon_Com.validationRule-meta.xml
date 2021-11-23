@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Fields_On_RecordType_Amazon_Com</fullName>
+    <active>true</active>
+    <description>When merchant is not intending on selling on	is selected as &apos; Other&apos;
+Additional detail &amp; comments required</description>
+    <errorConditionFormula>AND(
+$Profile.Name &lt;&gt; &quot;System Administrator&quot;,
+RecordType.DeveloperName = &apos;Amazon&apos;, 
+INCLUDES(If_no_why__c, &apos;Other&apos;), 
+(ISBLANK( Additionaldetailcomments__c))
+)</errorConditionFormula>
+    <errorDisplayField>Additionaldetailcomments__c</errorDisplayField>
+    <errorMessage>When &apos;If not selling on Amazon, why?&apos; is selected as &apos;Other&apos;, please provide comments in &apos;Additional detail &amp; comments&apos;</errorMessage>
+</ValidationRule>

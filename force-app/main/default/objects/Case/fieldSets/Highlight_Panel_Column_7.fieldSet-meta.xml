@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Highlight_Panel_Column_7</fullName>
+    <description>Used in HighlightPanelHeader for column # 7</description>
+    <displayedFields>
+        <field>Priority</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>NPSAgent__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <label>Highlight Panel Column # 7</label>
+</FieldSet>

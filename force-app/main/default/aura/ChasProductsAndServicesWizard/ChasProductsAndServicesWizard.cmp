@@ -1,0 +1,62 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" extends="c:SS_uiWizard" access="global" description="Wizard navigation unique to Products and Services">
+    
+    <aura:attribute name="name" type="String" default="ProductsAndServices" />
+    
+    <aura:attribute name="pageMap" type="Map"
+                    default="
+                             {'ChasProductsAndServicesWPage01':
+                             {'key': 'ChasProductsAndServicesWPage01'
+                             ,'name': 'c:ChasProductsAndServicesWPage01'
+                             ,'next': 'ChasContactDetailsPage'
+                             ,'step': '1'
+                             ,'currentStepName': 'Enquiry details'
+                             ,'stage': 'start'
+                             ,'attributes':
+                             {'authenticatedURL': '/products-and-services-authenticated'
+                             }
+                             }
+                             ,'ChasContactDetailsPage':
+                             {'key': 'ChasContactDetailsPage'
+                             ,'name': 'c:ChasContactDetailsPage'
+                             ,'prev': 'ChasProductsAndServicesWPage01'
+                             ,'next': 'ChasProductsAndServicesWPage03'
+                             ,'step': '2'
+                             ,'currentStepName': 'Contact details'
+                             ,'stage': ''
+                             ,'attributes':
+                             {'authenticatedURL': '/products-and-services-authenticated'
+                             }
+                             }
+                             ,'ChasProductsAndServicesWPage03':
+                             {'key': 'ChasProductsAndServicesWPage03'
+                             ,'name': 'c:ChasProductsAndServicesWPage03'
+                             ,'prev': 'ChasContactDetailsPage'
+                             ,'next': 'ChasThankYouWizardPage'
+                             ,'step': '3'
+                             ,'currentStepName': 'Review and submit'
+                             ,'stage': ''
+                             ,'attributes':
+                             {'apexCaseCreationFunction': 'c.createCaseFromProductsAndServices'
+                             }
+                             }
+                             ,'ChasThankYouWizardPage':
+                             {'key': 'ChasThankYouWizardPage'
+                             ,'name': 'c:ChasThankYouWizardPage'
+                             ,'step': '3'
+                             ,'currentStepName': 'thankyou'
+                             ,'stage': 'submit'
+                             ,'attributes':
+                             {'tiles': ['digital-id', 'safe-drop', 'extra-cover']
+                             ,'header': 'Thanks, we’ve received the details about product &amp; service enquiry'
+                             ,'isUrgent': 'false'
+                             }
+                             }
+                             }" />
+    
+    
+    <aura:attribute name="startPage" type="String" default="ChasProductsAndServicesWPage01" />
+    <aura:attribute name="currentPage" type="String" default="ChasProductsAndServicesWPage01" />
+    <aura:attribute name="firstWordInProgressBar" type="String" default="Enquiry" />
+    <aura:attribute name="pageTitle" type="String" default="Products &amp; services"/>
+    
+</aura:component>

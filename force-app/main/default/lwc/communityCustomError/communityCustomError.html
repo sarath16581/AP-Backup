@@ -1,0 +1,14 @@
+<!-- Community Custom Error -->
+<template>
+    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+        <span class="slds-assistive-text">error</span>
+        <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small" title="Error icon"><lightning-icon icon-name="standard:error" size="medium"></lightning-icon></span>
+        <h2>
+            <lightning-icon icon-name="utility:error" size="small" class="slds-m-right--small"></lightning-icon>
+            <template if:true={showTitle}>
+                <span style="font-weight:bold;">{errorTitle}</span><br/>
+            </template>
+            <span>{errorMessage}</span>
+        </h2>
+    </div>
+</template>

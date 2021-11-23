@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_VOC_Enquiry_Before_Closing</fullName>
+    <active>true</active>
+    <description>Validate VOC Enquiry record before allowing user to close the record.</description>
+    <errorConditionFormula>AND(
+    RecordType.Name = &apos;Voice of Customer Enquiry&apos;,
+    ISPICKVAL(Status, &apos;Closed&apos;),
+    OR(
+    Number_of_Open_VOC_Incidents__c &gt; 0, 
+    ISBLANK(TEXT(ResolutionCode__c))))</errorConditionFormula>
+    <errorMessage>You cannot close the VOC enquiry record if the resolution code is null or if there is VOC Incident child case record that are still open.</errorMessage>
+</ValidationRule>

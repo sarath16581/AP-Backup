@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>eParcel Onboarding no account number</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>CME eParcel Onboarding - No account number</name>
+    <style>freeForm</style>
+    <subject>No account number - {!Case.Account} - Case {!Case.CaseNumber}</subject>
+    <textOnly>Hi {!Case.Requestor__c}
+
+
+There is no account number listed on this contract, and the rates cannot be entered into SAP without an account number.
+
+
+I think the account should be xx.
+
+
+Please advise.
+
+
+
+Regards
+
+{!Case.OwnerFullName}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

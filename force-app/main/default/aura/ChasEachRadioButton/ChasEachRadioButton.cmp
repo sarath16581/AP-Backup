@@ -1,0 +1,36 @@
+<aura:component description="Single Radio button in a ChasRadioButtons input group">
+    <aura:attribute name="name" type="string"/>
+    <aura:attribute name="label" type="string"/>
+    <aura:attribute name="image" type="string"/>
+    <aura:attribute name="id" type="string"/>
+    <aura:attribute name='value' type='String'/>
+    <aura:attribute name='onchange' type='Aura.Action'/>
+    <aura:attribute name='dataset' type='Map'/>
+    <aura:attribute name='boxed' type="Boolean" default="false" />
+    <aura:attribute name="customStyle" type="String" default="" description="pass custom styles"/>
+
+    <!-- Radio Button DIV -->
+    <div class="{! 'slds-radio image-' + ( or(!empty( v.image ), v.boxed == true) ) + ' selected-' + (v.value == v.id) }">
+        <input 
+        	type="radio" 
+        	id="{! v.id }" 
+        	name="{! v.name }" 
+            value='{! v.id }'
+            onchange='{! c.updateValue }'
+        	checked="{! v.id == v.value }"
+            onblur='{! v.onchange }'
+            aura:id="radioBtn"
+        	/>
+        
+        <label class="{! 'slds-radio__label chas-radio-label ' + v.customStyle}" for="{! v.id }">
+			<span class="chas-radio_outer">
+            	<span class="slds-radio_faux"></span>
+            </span>
+            <aura:if isTrue="{! v.image }">
+                <span class="chas-radio-image" aria-hidden="true"><img src="{! $Resource.ChasIcons + v.image }" alt=""/></span>
+            </aura:if>
+            <span class="chas-label-text slds-form-element__label">{! v.label }</span>
+        </label>
+        </div>
+    
+</aura:component>

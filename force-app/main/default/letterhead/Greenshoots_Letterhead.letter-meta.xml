@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Letterhead xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <backgroundColor>#ffffff</backgroundColor>
+    <bodyColor>#FFFFFF</bodyColor>
+    <bottomLine>
+        <color>#ffffFF</color>
+        <height>0</height>
+    </bottomLine>
+    <description>Letterhead template used for Greenshoots email templates</description>
+    <footer>
+        <backgroundColor>#FFFFFF</backgroundColor>
+        <height>100</height>
+        <horizontalAlignment>Left</horizontalAlignment>
+        <verticalAlignment>Top</verticalAlignment>
+    </footer>
+    <header>
+        <backgroundColor>#FFFFFF</backgroundColor>
+        <height>100</height>
+        <horizontalAlignment>Left</horizontalAlignment>
+        <verticalAlignment>Top</verticalAlignment>
+    </header>
+    <middleLine>
+        <color>#ffffFF</color>
+        <height>0</height>
+    </middleLine>
+    <name>Greenshoots Letterhead</name>
+    <topLine>
+        <color>#ffffFF</color>
+        <height>0</height>
+    </topLine>
+</Letterhead>

@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="Event is fired when some data was updated">
+    <aura:attribute name="targetId" type="String" />
+    <aura:attribute name="values" type="String" />
+</aura:event>

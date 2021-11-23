@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_has_file__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Apttus Contract Record has a file(s)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Apttus Contract Record has a file(s)</inlineHelpText>
+    <label>Agreement Attached</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CustomerSeedingSource__c</fullName>
+    <description>SSSW - SAP Integration</description>
+    <externalId>false</externalId>
+    <label>Customer Seeding Source</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>PO Box</fullName>
+                <default>false</default>
+                <label>PO Box</label>
+            </value>
+            <value>
+                <fullName>MRS</fullName>
+                <default>false</default>
+                <label>MRS</label>
+            </value>
+            <value>
+                <fullName>SAP CRM</fullName>
+                <default>false</default>
+                <label>SAP CRM</label>
+            </value>
+            <value>
+                <fullName>Philatelic</fullName>
+                <default>false</default>
+                <label>Philatelic</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

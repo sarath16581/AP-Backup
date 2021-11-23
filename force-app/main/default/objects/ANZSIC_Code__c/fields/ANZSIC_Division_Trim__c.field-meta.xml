@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ANZSIC_Division_Trim__c</fullName>
+    <externalId>false</externalId>
+    <formula>RIGHT( ANZSIC_Division__c , LEN(ANZSIC_Division__c ) - 2 )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>ANZSIC Division Trim</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

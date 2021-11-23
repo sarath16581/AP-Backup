@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status</fullName>
+    <inlineHelpText>How the task is progressing. 
+* If the task was created using the Log A Call button, the Status will be automatically set to Completed.</inlineHelpText>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+</CustomField>

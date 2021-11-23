@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notification to the SA coordinator to RTS partial wine consignment</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW SA Wine Network Notification Partial RTS</name>
+    <style>none</style>
+    <subject>eParcel Damage Instructions - RTS for partial damaged article: {!Case.ReferenceID__c}</subject>
+    <textOnly>Wine Customer has requested RTS of a partial article via Netley PDC
+Case {!Case.CaseNumber} has been created for {!Contact.LastName}.
+
+Reference ID: {!Case.ReferenceID__c}
+Please click this link to view the Case: {!Case.Link}
+
+Thank you for reporting the damaged parcel {!Case.ReferenceID__c} to the eParcel Damages Team. The sender has requested that only the damaged article be delivered to the address detailed below.
+
+
+INSTRUCTIONS
+
+1. If this is a multi consignment please deliver all remaining undamaged boxes to the addressee.
+
+2. Please attach the yellow &apos;Damaged article - not for delivery&apos; stickers to the damaged article and record the reference number {!Case.CaseNumber}.
+
+3. Ensure that the appropriate Damaged and Deliver event scans are recorded in EM prior to dispatch.
+
+4. Repack the damaged carton (ensure addressee labels are included), print this Case.
+
+5. Fold where indicated below and affix address label to return parcel.
+
+
+Regards,
+
+Australia Post Customer Contact Centre
+
+
+FOR YOUR CONVENIENCE FOLD OR CUT HERE AND TAPE TO DAMAGED CARTON
+
+
+
+
+SA WINE Co-ordinator
+Netley Parcel Delivery Centre
+Attn:  David Marshall
+368 Richmond Road
+NETLEY SA 5037
+
+
+{!Case.EmailThreadID__c}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

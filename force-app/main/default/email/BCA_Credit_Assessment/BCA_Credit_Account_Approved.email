@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Australia Post</title>
+
+  <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <style type="text/css">
+    /* CLIENT-SPECIFIC STYLES */
+    body,
+    table,
+    td,
+    a {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    /* Prevent WebKit and Windows mobile changing default text sizes */
+    table,
+    td {
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+
+    /* Remove spacing between tables in Outlook 2007 and up */
+    img {
+      -ms-interpolation-mode: bicubic;
+    }
+
+    /* Allow smoother rendering of resized image in Internet Explorer */
+
+    /* RESET STYLES */
+    img {
+      border: 0;
+      height: auto;
+      line-height: 100%;
+      outline: none;
+      text-decoration: none;
+    }
+
+    table {
+      border-collapse: collapse !important;
+    }
+
+    body {
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+    }
+
+    /* iOS BLUE LINKS */
+    a[x-apple-data-detectors] {
+      color: inherit !important;
+      text-decoration: none !important;
+      font-size: inherit !important;
+      font-family: inherit !important;
+      font-weight: inherit !important;
+      line-height: inherit !important;
+    }
+
+    /* MOBILE STYLES */
+    @media screen and (max-width: 570px) {
+
+      /* ALLOWS FOR FLUID TABLES */
+      .wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+
+      /* ADJUSTS LAYOUT OF LOGO IMAGE */
+      .logo img {
+        margin: 0 auto !important;
+      }
+
+      .logo-left img {
+        margin: 0 0 0 32px !important;
+      }
+
+      /* USE THESE CLASSES TO HIDE CONTENT ON MOBILE */
+      .mobile-hide {
+        display: none !important;
+      }
+
+      .img-max {
+        max-width: 100% !important;
+        width: 100% !important;
+        height: auto !important;
+      }
+
+      /* FULL-WIDTH TABLES */
+      .responsive-table {
+        width: 100% !important;
+      }
+
+      /* UTILITY CLASSES FOR ADJUSTING PADDING ON MOBILE */
+      .padding {
+        padding: 30px 32px 30px 32px !important;
+      }
+
+      .padding-meta {
+        padding: 30px 5% 0px 5% !important;
+        text-align: center;
+      }
+
+      .no-padding {
+        padding: 0 !important;
+      }
+
+    .section-padding {
+        padding: 20px 32px 20px 32px !important;
+      }
+
+    .section-padding-full {
+        padding: 5px 0 !important;
+          border-left: none !important;
+          border-right: none !important;
+      }
+
+    .footer-padding {
+        padding: 0 32px 20px 32px !important;
+    }
+
+    .footer-links-padding {
+        padding: 0 32px 0 32px !important;
+    }
+
+    .footer-links {
+        display: table-row;
+        height: 35px;
+    }
+
+    .footer-acknowledge {
+        display: table-row;
+    }
+
+    .footer-acknowledge img {
+        height: 32px !important;
+        padding: 0 0 16px 0;
+    }
+
+    .footer-ack-padding {
+        padding: 24px 32px !important;
+    }
+
+    .headline-copy {
+        font-size: 26px !important;
+        line-height: 32px !important;
+    }
+
+        .hide-on-mobile {
+        	visibility: hidden;
+        }
+        .privacy-lock {
+        	vertical-align: top;
+            padding-top: 5px;
+        }
+
+        .body-section {
+        	border: 0 !important;
+            border-top: 1px solid #e2e2e2 !important;
+            border-bottom: 1px solid #e2e2e2 !important;
+        }
+
+
+
+      /* ADJUST BUTTONS ON MOBILE */
+      .mobile-button-container {
+        margin: 0 auto;
+        width: 100% !important;
+      }
+
+      .mobile-button {
+        padding: 15px !important;
+        border: 0 !important;
+        font-size: 16px !important;
+        display: block !important;
+      }
+
+    }
+
+    .body-link { color: #DC1928 !important; }
+
+    /* ANDROID CENTER FIX */
+    div[style*="margin: 16px 0;"] {
+      margin: 0 !important;
+    }
+  </style>
+</head>
+
+<body style="margin: 0 !important; padding: 0 !important;">
+
+  <!-- HIDDEN PREHEADER TEXT -->
+  <div style="display:none;font-size:1px;color:#333333;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">.&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</div>
+
+  <!-- HEADER -->
+  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+      <td bgcolor="#ffffff" align="center" height="80px" style="border-bottom: 1px solid #EEEEEE; height:80px;">
+        <!--[if (gte mso 9)|(IE)]>
+            <table role="presentation" align="center" border="0" cellspacing="0" cellpadding="0" width="570">
+            <tr>
+            <td align="left" valign="top" width="570">
+            <![endif]-->
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="570px" style="max-width: 570px;" class="wrapper">
+          <tr>
+            <td align="left" valign="top" width="152" style="padding: 15px 0; width: 152px; text-align: left;" class="logo-left">
+              <a href="https://auspost.com.au/" target="_blank">
+                <img alt="Australia Post" src="https://image.notifications.auspost.com.au/lib/fe5d1570726c007b7d14/m/1/66468223-3050-41a2-b38b-253f8000e1c0.png" width="152" height="32" border="0" style="display: block; font-family: 'Helvetica Neue', Arial, sans-serif; color: #ffffff; font-size: 16px;">
+              </a>
+            </td>
+          </tr>
+        </table>
+        <!--[if (gte mso 9)|(IE)]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+      </td>
+    </tr>
+
+
+    <tr>
+      <td bgcolor="#f5f5f5" align="center" style="padding: 40px 15px 0 15px;" class="section-padding-full">
+        <!--[if (gte mso 9)|(IE)]>
+            <table role="presentation" align="center" border="0" cellspacing="0" cellpadding="0" width="570">
+            <tr>
+            <td align="center" valign="top" width="570">
+            <![endif]-->
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 570px;" class="responsive-table">
+          <tr>
+            <td>
+              <!-- MAIN BODY -->
+              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+
+                <tr>
+                  <td bgcolor="#ffffff;" style="border: 1px solid #e2e2e2; background-color:#ffffff; padding: 40px 40px; color: #4D4D54;" class="padding body-section">
+                    <!-- COPY -->
+                    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                          <td align="left" style="font-size: 16px; line-height: 25px; font-family: 'Helvetica Neue', Arial, sans-serif; padding: 0 0 16px 0;">Application Reference Number:<br><strong>{!APT_Credit_Assessment__c.Application_Reference_Number__c}</strong></td>
+                      </tr>
+                      <tr>
+                          <td align="left" style="font-family: 'Helvetica Neue', Arial, sans-serif; padding: 0 0 32px 0; color: #212129;"><span style="font-size: 40px; line-height: 44px;" class="headline-copy">Your Business Credit Account has been approved</span></td>
+                      </tr>
+                      <tr>
+                          <td align="left" style="font-size: 16px; line-height: 25px; font-family: 'Helvetica Neue', Arial, sans-serif;">Thanks for completing the Australia Post Business Credit Account online application form.<br><br>Your account has been successfully created!<br><br>Within two business days you’ll receive an email with the details of your new credit account, including your account number.
+                          {!CASE(APT_Credit_Assessment__c.APT_Entity_Type__c, 'GOVT','','<br><br>Please access a copy of your <a target="_blank" href="https://auspost.com.au/content/dam/auspost_corp/media/documents/direct-debit-request-service-agreement.pdf" class="body-link" style="color: #DC1928;">Direct Debit Request Service Agreement</a> and the <a target="_blank" href="https://auspost.com.au/content/dam/auspost_corp/media/documents/business-credit-account-terms-and-conditions.pdf" class="body-link" style="color: #DC1928;">Business Charge Account Terms and Conditions</a>. These agreements are also available via our website.')}
+                          <br><br>If you have any problems setting up your account, or you don’t receive the set-up email, please visit <a target="_blank" href="https://ausposts.com.au/help-and-support" class="body-link" style="color: #DC1928;">help &amp; support</a>.</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+              </table>
+            </td>
+          </tr>
+        </table>
+        <!--[if (gte mso 9)|(IE)]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+      </td>
+    </tr>
+
+
+    <tr>
+      <td bgcolor="#f5f5f5" align="center" style="padding: 24px 15px 5px 15px;" class="section-padding">
+        <!--[if (gte mso 9)|(IE)]>
+            <table role="presentation" align="center" border="0" cellspacing="0" cellpadding="0" width="570">
+            <tr>
+            <td align="center" valign="top" width="570">
+            <![endif]-->
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 570px;" class="responsive-table">
+          <tr>
+            <td>
+              <!-- PRIVACY MESSAGE -->
+              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+
+                <tr>
+                  <td bgcolor="#eeeeee;" style="border-radius: 6px; background-color: #eeeeee; padding: 16px 24px;">
+                    <!-- COPY -->
+                    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+
+                      <tr>
+                            <td align="left" valign="middle" style="height:50px; width: 38px;" class="privacy-lock"><img height="24" style="height:24px;" src="https://image.email.auspost.com.au/lib/fe6415707c66047a7215/m/6/15f0d072-2bab-47f9-a626-5020fb4442f0.png" alt=""/></td>
+                            <td align="center" style="height:10px; width:1px; background-color: #e2e2e2; margin: 20px 0;">&zwnj;</td>
+                            <td align="left" valign="middle" style="padding: 4px 0 4px 15px; font-size: 12px; line-height: 16px; font-family: 'Helvetica Neue', Arial, sans-serif; color: #666666;">Australia Post will never send you an email asking for your password, credit card details or account information.</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+              </table>
+            </td>
+          </tr>
+        </table>
+        <!--[if (gte mso 9)|(IE)]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+      </td>
+    </tr>
+
+    <tr>
+      <td bgcolor="#f5f5f5" align="center" style="padding: 24px 0 0 0;" class="section-padding-full footer-padding">
+        <!--[if (gte mso 9)|(IE)]>
+            <table role="presentation" align="center" border="0" cellspacing="0" cellpadding="0" width="570">
+            <tr>
+            <td align="center" valign="top" width="570">
+            <![endif]-->
+        <!-- BORDER -->
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="max-width: 570px;" class="responsive-table">
+          <tr>
+            <td align="left" style="height:5px; font-family: 'Helvetica Neue', Arial, sans-serif; border-top: 1px solid #e2e2e2;">
+              &zwnj;
+            </td>
+          </tr>
+        </table>
+        <!--[if (gte mso 9)|(IE)]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+      </td>
+    </tr>
+
+     <tr>
+      <td bgcolor="#f5f5f5" align="center" style="padding: 0 0 20px 0;" class="section-padding-full footer-padding">
+        <!--[if (gte mso 9)|(IE)]>
+            <table role="presentation" align="center" border="0" cellspacing="0" cellpadding="0" width="570">
+            <tr>
+            <td align="center" valign="top" width="570">
+            <![endif]-->
+        <!-- SOCIAL LINKS -->
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="max-width: 570px;" class="responsive-table">
+            <tr>
+                <td align="left" valign="middle" style="height:24px; width: 38px;"><a target="_blank" href="https://auspost.com.au/"><img height="24" src="https://image.email.auspost.com.au/lib/fe6415707c66047a7215/m/6/5b254af2-1fa0-4cd1-8a4b-bee371e20316.png" alt="AP-logo" style="height: 24px;"/></a></td>
+
+            <td align="right" style="font-size: 12px; line-height: 16px; font-family: 'Helvetica Neue', Arial, sans-serif; color:#4D4D54; padding-right: 8px;" class="hide-on-mobile">
+             Connect with Australia Post
+            </td>
+
+                <td align="right" valign="middle" style="height:32px; width: 38px;"><a target="_blank" href="https://www.instagram.com/auspost/"><img height="22" src="https://image.email.auspost.com.au/lib/fe6415707c66047a7215/m/6/e87b7b1a-36f1-4d33-b953-990c0ae2e7dd.png" alt="" style="height:32px"/></a></td>
+
+                <td align="right" valign="middle" style="height:32px; width: 38px;"><a target="_blank" href="https://www.facebook.com/australiapost/"><img height="22" src="https://image.email.auspost.com.au/lib/fe6415707c66047a7215/m/6/988e5fd8-4c85-46b9-a6e8-f97997a991f6.png" alt="" style="height:32px"/></a></td>
+
+          </tr>
+        </table>
+        <!--[if (gte mso 9)|(IE)]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+      </td>
+    </tr>
+
+    <tr>
+      <td bgcolor="#f5f5f5" align="center" style="padding: 0 0 20px 0;" class="section-padding-full footer-padding">
+        <!--[if (gte mso 9)|(IE)]>
+            <table role="presentation" align="center" border="0" cellspacing="0" cellpadding="0" width="570">
+            <tr>
+            <td align="center" valign="top" width="570">
+            <![endif]-->
+        <!-- FOOTER COPY -->
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="max-width: 570px;" class="responsive-table">
+          <tr>
+            <td align="left" style="font-size: 12px; line-height: 16px; font-family: 'Helvetica Neue', Arial, sans-serif; color:#4D4D54;">
+                This email was sent by <a href="https://auspost.com.au/" target="_blank" style="color:#4D4D54;">Australia Post</a>, 111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don't think you should have received this email, please call us on 13 13 18. Visit <a href="https://auspost.com.au/" target="_blank" style="color:#4D4D54;">auspost.com.au</a> for further information on our <a href="https://auspost.com.au/about-us/about-our-site/online-security-scams-fraud" target="_blank" style="color:#4D4D54;">online security</a>.<br><br>
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.
+
+            </td>
+          </tr>
+        </table>
+        <!--[if (gte mso 9)|(IE)]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+      </td>
+    </tr>
+
+    <tr>
+      <td bgcolor="#f5f5f5" align="center" style="padding: 0 0 20px 0;" class="section-padding-full footer-links-padding">
+        <!--[if (gte mso 9)|(IE)]>
+            <table role="presentation" align="center" border="0" cellspacing="0" cellpadding="0" width="570">
+            <tr>
+            <td align="center" valign="top" width="570">
+            <![endif]-->
+        <!-- FOOTER LINKS -->
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="max-width: 570px;" class="responsive-table">
+          <tr>
+            <td align="left" style="width: 24%; font-size: 12px; line-height: 18px; font-family: 'Helvetica Neue', Arial, sans-serif; color:#212129; font-weight: bold;" class="footer-links">
+                <a target="_blank" href="https://auspost.com.au/terms-conditions" style="color:#212129; text-decoration: none;">Terms &amp; conditions</a>
+            </td>
+            <td align="left" style="width: 19%; font-size: 12px; line-height: 18px; font-family: 'Helvetica Neue', Arial, sans-serif; color:#212129; font-weight: bold;" class="footer-links">
+                <a target="_blank" href="https://auspost.com.au/help-and-support" style="color:#212129; text-decoration: none;">Help &amp; Support</a>
+            </td>
+            <td align="left" style="width: 20%; font-size: 12px; line-height: 18px; font-family: 'Helvetica Neue', Arial, sans-serif; color:#212129; font-weight: bold;" class="footer-links">
+                <a target="_blank" href="https://auspost.com.au/privacy" style="color:#212129; text-decoration: none;">Privacy &amp; Policy</a>
+            </td>
+            <td align="left" style="font-size: 12px; line-height: 18px; font-family: 'Helvetica Neue', Arial, sans-serif; color:#212129;">
+             &zwnj;
+            </td>
+          </tr>
+        </table>
+        <!--[if (gte mso 9)|(IE)]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+      </td>
+    </tr>
+
+      <tr>
+      <td bgcolor="#f5f5f5" align="center" style="padding: 0 0 24px 0;" class="section-padding-full footer-padding">
+        <!--[if (gte mso 9)|(IE)]>
+            <table role="presentation" align="center" border="0" cellspacing="0" cellpadding="0" width="570">
+            <tr>
+            <td align="center" valign="top" width="570">
+            <![endif]-->
+        <!-- COPYRIGHT -->
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="max-width: 570px;" class="responsive-table">
+          <tr>
+            <td align="left" style="height:24px; font-family: 'Helvetica Neue', Arial, sans-serif; border-top: 1px solid #e2e2e2;">
+              &zwnj;
+            </td>
+          </tr>
+          <tr>
+            <td align="left" style="font-size: 12px; line-height: 16px; font-family: 'Helvetica Neue', Arial, sans-serif; color:#4D4D54;">
+              © 2021 Australia Post. All Rights Reserved.
+
+            </td>
+          </tr>
+
+        </table>
+        <!--[if (gte mso 9)|(IE)]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+      </td>
+    </tr>
+
+      <tr>
+      <td bgcolor="#31313D" align="center" style="padding: 16px 0;" class="section-padding-full footer-ack-padding">
+        <!--[if (gte mso 9)|(IE)]>
+            <table role="presentation" align="center" border="0" cellspacing="0" cellpadding="0" width="570">
+            <tr>
+            <td align="center" valign="top" width="570">
+            <![endif]-->
+        <!-- ACKNOWLGEMENT COPY -->
+        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="max-width: 570px;" class="responsive-table">
+          <tr>
+              <td align="left" valign="middle" style="height:40px; width: 80px;" class="footer-acknowledge"><a target="_blank" href="https://auspost.com.au/"><img height="40" src="https://image.email.auspost.com.au/lib/fe6415707c66047a7215/m/6/12cb1805-f422-4173-915c-ce6ec54a4b97.png" alt="" style="height: 40px;"/></a></td>
+            <td align="left" style="font-size: 11px; line-height: 14px; font-family: 'Helvetica Neue', Arial, sans-serif; color:#ffffff; padding-left: 16px;" class="footer-acknowledge">
+              Australia Post acknowledges the Traditional Custodians of the land on which we operate, live and gather as employees, and recognise their continuing connection to land, water and community. We pay respect to Elders past, present and emerging.
+
+            </td>
+          </tr>
+        </table>
+        <!--[if (gte mso 9)|(IE)]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+      </td>
+    </tr>
+
+  </table>
+</body>
+
+</html>

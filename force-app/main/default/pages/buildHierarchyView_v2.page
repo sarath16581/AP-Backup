@@ -1,0 +1,53 @@
+<apex:page controller="accountStructureController" sidebar="false" showHeader="false">
+     <apex:pageBlock title="Customer Hierarchy and associated Billing Accounts">
+         <!--
+         <apex:form >
+             <apex:commandButton action="{!toExcel}" value="Send to Excel"/>
+         </apex:form>
+         -->
+     To render this information in Excel, highlight the hierarchy, copy to clipboard (CTRL+C) and then paste (CTRL+V) into Excel.
+     </apex:pageBlock>
+     <html>
+     <table border="0">
+     <tr>
+        <th rowspan="2">Name</th>
+        <th rowspan="2">Account Number</th>
+        <th rowspan="2">Owner</th>
+        <th rowspan="2">ABN</th>
+        <th rowspan="2">Employee Number</th>
+     
+        <th colspan="3">Billing Account Info</th>
+        
+     </tr>
+     <tr>
+        <th>Reference</th>
+        <th>Credit Person Code</th>
+        <th>Payer Account Id</th>
+     </tr>
+        <apex:repeat value="{!info}" var="i">
+            <tr>
+                <td nowrap="nowrap">
+                    <apex:repeat value="{!i.lList}" var="j">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                    </apex:repeat>
+                    {!i.a.Name}
+                </td>
+                <td nowrap="nowrap">{!i.a.AccountNumber}</td>
+                <td nowrap="nowrap">{!i.a.Owner.Name}</td>
+                <td nowrap="nowrap">{!i.a.ABN__c}</td>
+                <td nowrap="nowrap">{!i.a.Owner.EmployeeNumber}</td>
+                <apex:repeat value="{!i.a.Billing_Accounts__r}" var="b">
+                    <tr> 
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td nowrap="nowrap">{!b.name}</td><td align="center">{!b.Credit_Person_Code__c}</td><td>{!b.PAYER_ACCOUNT_ID__r.Name}</td>
+                    </tr>
+                </apex:repeat>
+            </tr>
+        </apex:repeat>
+     </table>
+     </html> 
+</apex:page>

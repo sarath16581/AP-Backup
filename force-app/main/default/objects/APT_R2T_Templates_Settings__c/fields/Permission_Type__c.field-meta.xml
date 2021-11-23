@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Permission_Type__c</fullName>
+    <description>Indicate whether it is a Profile, or User ID (Used for reference Only)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Indicate whether it is a Profile, or User ID (Used for reference Only)</inlineHelpText>
+    <label>Permission Type</label>
+    <length>20</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

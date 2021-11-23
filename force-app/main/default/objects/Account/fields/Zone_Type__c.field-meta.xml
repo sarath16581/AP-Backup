@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Zone_Type__c</fullName>
+    <description>This field defines the customer zone 1,3,6 and 9</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field defines the customer zone 1,3,6 and 9</inlineHelpText>
+    <label>Zone Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1Zone</fullName>
+                <default>false</default>
+                <label>1Zone</label>
+            </value>
+            <value>
+                <fullName>3Zone</fullName>
+                <default>false</default>
+                <label>3Zone</label>
+            </value>
+            <value>
+                <fullName>6Zone</fullName>
+                <default>false</default>
+                <label>6Zone</label>
+            </value>
+            <value>
+                <fullName>9Zone</fullName>
+                <default>false</default>
+                <label>9Zone</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

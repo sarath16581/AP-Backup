@@ -1,0 +1,10 @@
+<!--
+ - Created by shashwat.a.nath on 13/09/2019.
+ -->
+
+<apex:page standardController="Account"
+        id="QuickGuideMe"
+        extensions="QuickGuideMeController"
+        action="{!createOpportunity}">
+    <apex:pageMessages />
+</apex:page>

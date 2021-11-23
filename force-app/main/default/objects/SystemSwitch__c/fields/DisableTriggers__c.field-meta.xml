@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DisableTriggers__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Flag to deactivate triggers</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Triggers will be deactivated when checked. DO NOT turn off if you are not authorized or no approval.</inlineHelpText>
+    <label>Disable Triggers</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

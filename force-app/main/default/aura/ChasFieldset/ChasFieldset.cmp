@@ -1,0 +1,31 @@
+<!--
+@changeLog: Hara.sahoo@auspost.com.au  24-07-2020  - Modifed : Added custom styling
+-->
+<aura:component description="Houses a fieldset element with some styling">
+    <aura:attribute name='label' type='String'/>
+    <aura:attribute name='small' type='Boolean'/>
+    <aura:attribute name='showHeader' type='Boolean' default="true"/>
+    <aura:attribute name="customStyle" type="String" default="" description="pass custom styles to the button box"/>
+
+    <fieldset>
+        <div class="{!v.customStyle}">
+		<aura:if isTrue="{! v.showHeader }">
+			<aura:if isTrue="{! v.small }">
+				<legend class="chas-header_small">
+					<h3>{! v.label }</h3>
+				</legend>
+				<aura:set attribute="else">
+					<legend class="chas-header">
+						<h2>{! v.label }</h2>
+					</legend>
+				</aura:set>
+			</aura:if>
+		</aura:if>
+            </div>
+
+	    <div class="form-input-container">
+        	{! v.body }
+        </div>
+
+    </fieldset>
+</aura:component>

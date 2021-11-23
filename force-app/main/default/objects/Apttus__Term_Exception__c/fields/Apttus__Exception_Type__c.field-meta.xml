@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus__Exception_Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Logical grouping of term exceptions.</description>
+    <externalId>false</externalId>
+    <label>Exception Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Legal-Product</fullName>
+                <default>false</default>
+                <label>Legal-Product</label>
+            </value>
+            <value>
+                <fullName>Sales</fullName>
+                <default>false</default>
+                <label>Sales</label>
+            </value>
+            <value>
+                <fullName>Product</fullName>
+                <default>false</default>
+                <label>Product</label>
+            </value>
+            <value>
+                <fullName>Product-Finance</fullName>
+                <default>false</default>
+                <label>Product-Finance</label>
+            </value>
+            <value>
+                <fullName>Termination &amp; Notification Period</fullName>
+                <default>false</default>
+                <label>Termination &amp; Notification Period</label>
+            </value>
+            <value>
+                <fullName>Payment Terms</fullName>
+                <default>false</default>
+                <label>Payment Terms</label>
+            </value>
+            <value>
+                <fullName>Minimum Collection Value (Removal)</fullName>
+                <default>false</default>
+                <label>Minimum Collection Value (Removal)</label>
+            </value>
+            <value>
+                <fullName>Minimum Volume (Removal)</fullName>
+                <default>false</default>
+                <label>Minimum Volume (Removal)</label>
+            </value>
+            <value>
+                <fullName>Inclusion of KPI</fullName>
+                <default>false</default>
+                <label>Inclusion of KPI</label>
+            </value>
+            <value>
+                <fullName>Inclusion of a Volume based Rebate</fullName>
+                <default>false</default>
+                <label>Inclusion of a Volume based Rebate</label>
+            </value>
+            <value>
+                <fullName>Liability</fullName>
+                <default>false</default>
+                <label>Liability</label>
+            </value>
+            <value>
+                <fullName>Indemnity</fullName>
+                <default>false</default>
+                <label>Indemnity</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

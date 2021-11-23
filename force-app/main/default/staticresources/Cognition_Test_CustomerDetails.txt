@@ -1,0 +1,4011 @@
+{
+    "Request": {
+        "RequestGUID": "2d0a3541-12f7-97f2-dcc9-79e4cffba688",
+        "FromSeq": 0,
+        "ToSeq": 499,
+        "ClientIpAddress": "::1",
+        "ClientUserName": "scherukuwada@salesforce.com.devtrans"
+    },
+    "ConInfo": [
+        {
+            "Consignment": "ABCD11952390",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519080623000+1100)/",
+            "Latitude": -33.82685076912705,
+            "Longitude": 150.86800931
+        },
+        {
+            "Consignment": "ABCD11952320",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083267000+1100)/",
+            "Latitude": -33.49934499913119,
+            "Longitude": 151.3506234
+        },
+        {
+            "Consignment": "ABCD11952370",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519068870000+1100)/",
+            "Latitude": -33.86634129912655,
+            "Longitude": 151.28278346
+        },
+        {
+            "Consignment": "ABCD11952380",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519089285000+1100)/",
+            "Latitude": -37.80991728974278,
+            "Longitude": 145.00742686486888
+        },
+        {
+            "Consignment": "ABCD11957641",
+            "Type": 8,
+            "Type_EnumString": "Held at facility",
+            "EventDateTime": "/Date(1519080568000+1100)/",
+            "Latitude": -34.0562868,
+            "Longitude": 137.594312
+        },
+        {
+            "Consignment": "ABCD11957661",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519074761000+1100)/",
+            "Latitude": -37.834725679085736,
+            "Longitude": 145.0377963
+        },
+        {
+            "Consignment": "ABCD11957621",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519092073000+1100)/",
+            "Latitude": -31.6240614,
+            "Longitude": 115.6961431
+        },
+        {
+            "Consignment": "ABCD11964656",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519076135000+1100)/",
+            "Latitude": -33.4208179191322,
+            "Longitude": 149.57751826
+        },
+        {
+            "Consignment": "ABCD11964666",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035883000+1100)/",
+            "Latitude": -34.93422979275839,
+            "Longitude": 138.5297246111259
+        },
+        {
+            "Consignment": "ABCD11964676",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081775000+1100)/",
+            "Latitude": -33.81031134912725,
+            "Longitude": 151.21083291
+        },
+        {
+            "Consignment": "ABCD11964686",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519090357000+1100)/",
+            "Latitude": -32.73854629914126,
+            "Longitude": 151.85289504
+        },
+        {
+            "Consignment": "ABCD11964646",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519076247000+1100)/",
+            "Latitude": -37.681146999087,
+            "Longitude": 145.158118
+        },
+        {
+            "Consignment": "ABCD11963762",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079065000+1100)/",
+            "Latitude": -37.774625999086226,
+            "Longitude": 144.891256
+        },
+        {
+            "Consignment": "ABCD11964429",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519078786000+1100)/",
+            "Latitude": -31.951618307387758,
+            "Longitude": 115.8621907684694
+        },
+        {
+            "Consignment": "ABCD11954942",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1518998918910+1100)/",
+            "Latitude": -34.075726939123975,
+            "Longitude": 145.25021196
+        },
+        {
+            "Consignment": "ABCD11954992",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519023763430+1100)/",
+            "Latitude": -24.243062139292928,
+            "Longitude": 151.85450567
+        },
+        {
+            "Consignment": "ABCD11964420",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519086686000+1100)/",
+            "Latitude": -34.95829581911361,
+            "Longitude": 138.59323001
+        },
+        {
+            "Consignment": "ABCD11957785",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519077639000+1100)/",
+            "Latitude": -34.440703999119584,
+            "Longitude": 150.8268364
+        },
+        {
+            "Consignment": "ABCD11961419",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519076174000+1100)/",
+            "Latitude": -33.870310439126506,
+            "Longitude": 151.22443628
+        },
+        {
+            "Consignment": "ABCD11963636",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080056000+1100)/",
+            "Latitude": -27.503158239226547,
+            "Longitude": 153.10165121
+        },
+        {
+            "Consignment": "ABCD11961400",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519073106000+1100)/",
+            "Latitude": -33.89316356912622,
+            "Longitude": 151.20070561
+        },
+        {
+            "Consignment": "ABCD11952492",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035688000+1100)/",
+            "Latitude": -42.88046982905924,
+            "Longitude": 147.31685078
+        },
+        {
+            "Consignment": "ABCD11952422",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084018000+1100)/",
+            "Latitude": -37.888486,
+            "Longitude": 145.08177
+        },
+        {
+            "Consignment": "ABCD11952472",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035685000+1100)/",
+            "Latitude": -41.1757434,
+            "Longitude": 146.3796583
+        },
+        {
+            "Consignment": "ABCD11952482",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519074057000+1100)/",
+            "Latitude": -28.542519,
+            "Longitude": 150.3161787
+        },
+        {
+            "Consignment": "ABCD11957558",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1518997019810+1100)/",
+            "Latitude": -34.02360204912461,
+            "Longitude": 151.12803096
+        },
+        {
+            "Consignment": "ABCD11952452",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519042683000+1100)/",
+            "Latitude": -38.38764528908143,
+            "Longitude": 142.22671936
+        },
+        {
+            "Consignment": "ABCD11952462",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519082952000+1100)/",
+            "Latitude": -27.436089389227813,
+            "Longitude": 152.99067261
+        },
+        {
+            "Consignment": "ABCD11952432",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035676000+1100)/",
+            "Latitude": -19.302085509410713,
+            "Longitude": 146.76841906
+        },
+        {
+            "Consignment": "ABCD11952442",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519079007000+1100)/",
+            "Latitude": -37.803368999086,
+            "Longitude": 145.052749
+        },
+        {
+            "Consignment": "ABCD11952412",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519077377000+1100)/",
+            "Latitude": -21.1807694,
+            "Longitude": 149.1530461
+        },
+        {
+            "Consignment": "ABCD11961174",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519090932000+1100)/",
+            "Latitude": -33.86899584912651,
+            "Longitude": 151.20666327
+        },
+        {
+            "Consignment": "ABCD11961184",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519073487000+1100)/",
+            "Latitude": -33.264689819134226,
+            "Longitude": 151.53499951
+        },
+        {
+            "Consignment": "ABCD11961154",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519072335000+1100)/",
+            "Latitude": -33.883706959126336,
+            "Longitude": 151.19381556
+        },
+        {
+            "Consignment": "ABCD11961164",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081147000+1100)/",
+            "Latitude": -33.751162609127995,
+            "Longitude": 150.69221777000004
+        },
+        {
+            "Consignment": "ABCD11961144",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519080299000+1100)/",
+            "Latitude": -33.9445828,
+            "Longitude": 151.0292831
+        },
+        {
+            "Consignment": "ABCD11961194",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519078666000+1100)/",
+            "Latitude": -33.65726719912918,
+            "Longitude": 151.27451487
+        },
+        {
+            "Consignment": "ABCD11961124",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519086508550+1100)/",
+            "Latitude": -31.09388426916507,
+            "Longitude": 150.90861329
+        },
+        {
+            "Consignment": "ABCD11950715",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1518748113840+1100)/",
+            "Latitude": -33.48018018913143,
+            "Longitude": 145.53989629
+        },
+        {
+            "Consignment": "ABCD11957764",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519024702280+1100)/",
+            "Latitude": -30.71991999917088,
+            "Longitude": 121.45144999999998
+        },
+        {
+            "Consignment": "ABCD11952652",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084673000+1100)/",
+            "Latitude": -35.02136779911291,
+            "Longitude": 138.51627451
+        },
+        {
+            "Consignment": "ABCD11952662",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519076448000+1100)/",
+            "Latitude": -31.975069999151962,
+            "Longitude": 115.91528000000001
+        },
+        {
+            "Consignment": "ABCD11963922",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086277000+1100)/",
+            "Latitude": -37.78268374908616,
+            "Longitude": 145.12795793
+        },
+        {
+            "Consignment": "ABCD11952632",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519089215000+1100)/",
+            "Latitude": -34.4500408,
+            "Longitude": 140.5708383
+        },
+        {
+            "Consignment": "ABCD11952642",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035714000+1100)/",
+            "Latitude": -34.932284489113904,
+            "Longitude": 138.60141857
+        },
+        {
+            "Consignment": "ABCD11952602",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519075643000+1100)/",
+            "Latitude": -34.989721799113255,
+            "Longitude": 138.53498363000003
+        },
+        {
+            "Consignment": "ABCD11952612",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519076846000+1100)/",
+            "Latitude": -32.07127999915058,
+            "Longitude": 115.96355999999999
+        },
+        {
+            "Consignment": "ABCD11952671",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519090848000+1100)/",
+            "Latitude": -37.79374165908607,
+            "Longitude": 144.86279053
+        },
+        {
+            "Consignment": "ABCD11952651",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081126000+1100)/",
+            "Latitude": -31.657679999156596,
+            "Longitude": 116.67828000000002
+        },
+        {
+            "Consignment": "ABCD11952661",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084148000+1100)/",
+            "Latitude": -34.908300053022224,
+            "Longitude": 138.6022572883339
+        },
+        {
+            "Consignment": "ABCD11952631",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519090704000+1100)/",
+            "Latitude": -37.77800099908621,
+            "Longitude": 145.028391
+        },
+        {
+            "Consignment": "ABCD11952641",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081227000+1100)/",
+            "Latitude": -37.81614977908589,
+            "Longitude": 144.96354736
+        },
+        {
+            "Consignment": "ABCD11963707",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519076087000+1100)/",
+            "Latitude": -33.79959427912738,
+            "Longitude": 151.04067866
+        },
+        {
+            "Consignment": "ABCD11952601",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081590000+1100)/",
+            "Latitude": -34.685386,
+            "Longitude": 138.6580956
+        },
+        {
+            "Consignment": "ABCD11952611",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519082296000+1100)/",
+            "Latitude": -37.685533049086956,
+            "Longitude": 145.13384469000002
+        },
+        {
+            "Consignment": "ABCD11957533",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1518999595000+1100)/",
+            "Latitude": -12.191303189610013,
+            "Longitude": 136.77174025
+        },
+        {
+            "Consignment": "ABCD11957573",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519085474000+1100)/",
+            "Latitude": -31.301439319161915,
+            "Longitude": 116.82844896
+        },
+        {
+            "Consignment": "ABCD11961379",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087226000+1100)/",
+            "Latitude": -33.81484673912719,
+            "Longitude": 150.93061244
+        },
+        {
+            "Consignment": "ABCD11961389",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519088244000+1100)/",
+            "Latitude": -33.86925118912652,
+            "Longitude": 151.20940945
+        },
+        {
+            "Consignment": "ABCD11961359",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519083493250+1100)/",
+            "Latitude": -28.82726521920241,
+            "Longitude": 153.44796467
+        },
+        {
+            "Consignment": "ABCD11961369",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035841000+1100)/",
+            "Latitude": -31.940575869152468,
+            "Longitude": 141.47807012
+        },
+        {
+            "Consignment": "ABCD11961339",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519073942000+1100)/",
+            "Latitude": -33.90755854912604,
+            "Longitude": 151.0898115
+        },
+        {
+            "Consignment": "ABCD11961349",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519065687000+1100)/",
+            "Latitude": -33.78046489912762,
+            "Longitude": 150.8341774
+        },
+        {
+            "Consignment": "ABCD11961309",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519090049000+1100)/",
+            "Latitude": -33.8382460991269,
+            "Longitude": 151.20869
+        },
+        {
+            "Consignment": "ABCD11961319",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519073103000+1100)/",
+            "Latitude": -35.12480343911176,
+            "Longitude": 147.32923884
+        },
+        {
+            "Consignment": "ABCD11950367",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519080675000+1100)/",
+            "Latitude": -30.645598999172055,
+            "Longitude": 116.092918
+        },
+        {
+            "Consignment": "ABCD11961399",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084189000+1100)/",
+            "Latitude": -35.339604529109394,
+            "Longitude": 150.45660661
+        },
+        {
+            "Consignment": "ABCD11961329",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519074767000+1100)/",
+            "Latitude": -28.685908579204902,
+            "Longitude": 153.60524684
+        },
+        {
+            "Consignment": "ABCD11952497",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519087840000+1100)/",
+            "Latitude": -37.88037499908537,
+            "Longitude": 145.047835
+        },
+        {
+            "Consignment": "ABCD11952427",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035689000+1100)/",
+            "Latitude": -42.89660916905919,
+            "Longitude": 147.30621626
+        },
+        {
+            "Consignment": "ABCD11952477",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519076680000+1100)/",
+            "Latitude": -27.228470059231764,
+            "Longitude": 153.01848416
+        },
+        {
+            "Consignment": "ABCD11952487",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086549000+1100)/",
+            "Latitude": -27.521725669226196,
+            "Longitude": 153.19379745
+        },
+        {
+            "Consignment": "ABCD11952457",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084826000+1100)/",
+            "Latitude": -37.95661504908476,
+            "Longitude": 145.04380016
+        },
+        {
+            "Consignment": "ABCD11952467",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035684000+1100)/",
+            "Latitude": -41.162650659065,
+            "Longitude": 146.19805534
+        },
+        {
+            "Consignment": "ABCD11952437",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519081008000+1100)/",
+            "Latitude": -21.068266829366397,
+            "Longitude": 149.22433807
+        },
+        {
+            "Consignment": "ABCD11952447",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519081913000+1100)/",
+            "Latitude": -38.12279988908345,
+            "Longitude": 144.32671586
+        },
+        {
+            "Consignment": "ABCD11963508",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519067768000+1100)/",
+            "Latitude": -31.829689999154073,
+            "Longitude": 115.86433
+        },
+        {
+            "Consignment": "ABCD11952407",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519082060000+1100)/",
+            "Latitude": -27.391949239228648,
+            "Longitude": 153.02850169
+        },
+        {
+            "Consignment": "ABCD11952417",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083115000+1100)/",
+            "Latitude": -28.080459926405087,
+            "Longitude": 153.3858284177094
+        },
+        {
+            "Consignment": "ABCD11954266",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519010910000+1100)/",
+            "Latitude": -31.090773849165128,
+            "Longitude": 152.79191868
+        },
+        {
+            "Consignment": "ABCD11954226",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519076150000+1100)/",
+            "Latitude": -31.15877801916408,
+            "Longitude": 116.11269341
+        },
+        {
+            "Consignment": "ABCD11961370",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519073348000+1100)/",
+            "Latitude": -34.01391297912473,
+            "Longitude": 151.05473412
+        },
+        {
+            "Consignment": "ABCD11961380",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087825000+1100)/",
+            "Latitude": -32.19011593914888,
+            "Longitude": 152.51598459
+        },
+        {
+            "Consignment": "ABCD11961350",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087241000+1100)/",
+            "Latitude": -34.07710696912396,
+            "Longitude": 150.78880058
+        },
+        {
+            "Consignment": "ABCD11961360",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519078720000+1100)/",
+            "Latitude": -35.17419,
+            "Longitude": 149.14363
+        },
+        {
+            "Consignment": "ABCD11961330",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519078191000+1100)/",
+            "Latitude": -36.09156517910155,
+            "Longitude": 146.92527484
+        },
+        {
+            "Consignment": "ABCD11961340",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519091506000+1100)/",
+            "Latitude": -33.68010781912889,
+            "Longitude": 151.29030837
+        },
+        {
+            "Consignment": "ABCD11961300",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084041000+1100)/",
+            "Latitude": -34.491561479118985,
+            "Longitude": 150.79670918
+        },
+        {
+            "Consignment": "ABCD11961310",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519088604000+1100)/",
+            "Latitude": -34.02789435912456,
+            "Longitude": 150.85362189
+        },
+        {
+            "Consignment": "ABCD11961390",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086533000+1100)/",
+            "Latitude": -33.851405529126744,
+            "Longitude": 151.27520322
+        },
+        {
+            "Consignment": "ABCD11961320",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519091073000+1100)/",
+            "Latitude": -32.92856283913868,
+            "Longitude": 151.6599614
+        },
+        {
+            "Consignment": "ABCD11952528",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519076832000+1100)/",
+            "Latitude": -31.92842263915264,
+            "Longitude": 115.89056412
+        },
+        {
+            "Consignment": "ABCD11952578",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519079327000+1100)/",
+            "Latitude": -31.952819999152283,
+            "Longitude": 115.85576
+        },
+        {
+            "Consignment": "ABCD11952588",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519072578000+1100)/",
+            "Latitude": -31.85402848915372,
+            "Longitude": 115.85956061999998
+        },
+        {
+            "Consignment": "ABCD11952558",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519075399000+1100)/",
+            "Latitude": -37.583249599087814,
+            "Longitude": 141.41391351
+        },
+        {
+            "Consignment": "ABCD11952568",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519073302000+1100)/",
+            "Latitude": -37.68077,
+            "Longitude": 144.92984
+        },
+        {
+            "Consignment": "ABCD11952538",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519083019000+1100)/",
+            "Latitude": -34.23044372912209,
+            "Longitude": 142.17794583
+        },
+        {
+            "Consignment": "ABCD11952548",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519091783000+1100)/",
+            "Latitude": -37.78950899908611,
+            "Longitude": 145.244848
+        },
+        {
+            "Consignment": "ABCD11952508",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080136000+1100)/",
+            "Latitude": -38.432064999081106,
+            "Longitude": 145.027484
+        },
+        {
+            "Consignment": "ABCD11961006",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519076590000+1100)/",
+            "Latitude": -37.82035704908585,
+            "Longitude": 144.95071261
+        },
+        {
+            "Consignment": "ABCD11952518",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086539000+1100)/",
+            "Latitude": -27.38593,
+            "Longitude": 153.03081
+        },
+        {
+            "Consignment": "ABCD11963201",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519088353000+1100)/",
+            "Latitude": -34.922436599114015,
+            "Longitude": 138.60285401
+        },
+        {
+            "Consignment": "ABCD11954823",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1518746965590+1100)/",
+            "Latitude": -28.221884899213233,
+            "Longitude": 151.99536902
+        },
+        {
+            "Consignment": "ABCD11952397",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519079713000+1100)/",
+            "Latitude": -27.660194039223597,
+            "Longitude": 153.19376414
+        },
+        {
+            "Consignment": "ABCD11952327",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519089624000+1100)/",
+            "Latitude": -37.68318499908698,
+            "Longitude": 145.117721
+        },
+        {
+            "Consignment": "ABCD11952377",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080339000+1100)/",
+            "Latitude": -28.09176311921561,
+            "Longitude": 153.42970278
+        },
+        {
+            "Consignment": "ABCD11952387",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519073143000+1100)/",
+            "Latitude": -31.952649999152285,
+            "Longitude": 115.87362999999999
+        },
+        {
+            "Consignment": "ABCD11952357",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079707000+1100)/",
+            "Latitude": -33.915390469125946,
+            "Longitude": 151.14069702
+        },
+        {
+            "Consignment": "ABCD11952367",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519064592000+1100)/",
+            "Latitude": -34.452308069119454,
+            "Longitude": 150.83269761
+        },
+        {
+            "Consignment": "ABCD11952317",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519090193000+1100)/",
+            "Latitude": -35.34446675910935,
+            "Longitude": 150.47087095
+        },
+        {
+            "Consignment": "ABCD11957664",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084093000+1100)/",
+            "Latitude": -17.26337813946465,
+            "Longitude": 145.47193142
+        },
+        {
+            "Consignment": "ABCD11957694",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519003657110+1100)/",
+            "Latitude": -32.065405349150666,
+            "Longitude": 151.94121487
+        },
+        {
+            "Consignment": "ABCD11960221",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519049237000+1100)/",
+            "Latitude": -31.960059999152175,
+            "Longitude": 115.9231
+        },
+        {
+            "Consignment": "SQUV00068414",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519078583000+1100)/",
+            "Latitude": -26.623028,
+            "Longitude": 152.9628968
+        },
+        {
+            "Consignment": "ABCD11960222",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519077205000+1100)/",
+            "Latitude": -33.858999729126644,
+            "Longitude": 151.06422655
+        },
+        {
+            "Consignment": "ABCD11950853",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519084350000+1100)/",
+            "Latitude": -27.503158239226547,
+            "Longitude": 153.10165121
+        },
+        {
+            "Consignment": "ABCD11952593",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086153000+1100)/",
+            "Latitude": -37.77725799908621,
+            "Longitude": 145.000378
+        },
+        {
+            "Consignment": "ABCD11952523",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519091347000+1100)/",
+            "Latitude": -37.81832589908587,
+            "Longitude": 144.94978421
+        },
+        {
+            "Consignment": "ABCD11952573",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519077294000+1100)/",
+            "Latitude": -32.03398990915112,
+            "Longitude": 115.83547191
+        },
+        {
+            "Consignment": "ABCD11952583",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519071819000+1100)/",
+            "Latitude": -37.83697129908572,
+            "Longitude": 144.68238025
+        },
+        {
+            "Consignment": "ABCD11952553",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519080093000+1100)/",
+            "Latitude": -38.00544464908437,
+            "Longitude": 145.25996565
+        },
+        {
+            "Consignment": "ABCD11952563",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519076409000+1100)/",
+            "Latitude": -23.936933,
+            "Longitude": 151.284912
+        },
+        {
+            "Consignment": "ABCD11952533",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519077205000+1100)/",
+            "Latitude": -37.9972643,
+            "Longitude": 145.1492661
+        },
+        {
+            "Consignment": "ABCD11952543",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519092877000+1100)/",
+            "Latitude": -37.8643048990855,
+            "Longitude": 144.9846025
+        },
+        {
+            "Consignment": "ABCD11952503",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081268000+1100)/",
+            "Latitude": -36.11908850910127,
+            "Longitude": 146.89166561
+        },
+        {
+            "Consignment": "ABCD11952513",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519082559000+1100)/",
+            "Latitude": -16.99414003947198,
+            "Longitude": 145.43813197
+        },
+        {
+            "Consignment": "ABCD11963205",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519090931000+1100)/",
+            "Latitude": -33.86899584912651,
+            "Longitude": 151.20666327
+        },
+        {
+            "Consignment": "ABCD11956858",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519078646000+1100)/",
+            "Latitude": -31.849239999153788,
+            "Longitude": 115.81842999999999
+        },
+        {
+            "Consignment": "ABCD11952396",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080545000+1100)/",
+            "Latitude": -27.42521460922802,
+            "Longitude": 153.04768007
+        },
+        {
+            "Consignment": "ABCD11952326",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519083312350+1100)/",
+            "Latitude": -23.518571209006943,
+            "Longitude": 148.1931793685701
+        },
+        {
+            "Consignment": "ABCD11952376",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086018000+1100)/",
+            "Latitude": -27.491510179226765,
+            "Longitude": 153.02776923
+        },
+        {
+            "Consignment": "ABCD11952386",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081993000+1100)/",
+            "Latitude": -33.87647605912643,
+            "Longitude": 151.21293275
+        },
+        {
+            "Consignment": "ABCD11952356",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080379000+1100)/",
+            "Latitude": -33.38737222913263,
+            "Longitude": 148.00411227
+        },
+        {
+            "Consignment": "ABCD11952366",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080588000+1100)/",
+            "Latitude": -27.49869638922663,
+            "Longitude": 152.9611749
+        },
+        {
+            "Consignment": "ABCD11960225",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519077634000+1100)/",
+            "Latitude": -31.828179999154095,
+            "Longitude": 115.80473999999998
+        },
+        {
+            "Consignment": "ABCD11964653",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035881000+1100)/",
+            "Latitude": -31.96641652915209,
+            "Longitude": 141.45636921
+        },
+        {
+            "Consignment": "ABCD11964663",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519073427000+1100)/",
+            "Latitude": -35.27132170911014,
+            "Longitude": 148.26329392
+        },
+        {
+            "Consignment": "ABCD11964673",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519088242000+1100)/",
+            "Latitude": -33.91559246912594,
+            "Longitude": 151.23099352
+        },
+        {
+            "Consignment": "ABCD11964683",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519069316000+1100)/",
+            "Latitude": -32.19632789914879,
+            "Longitude": 152.51673074
+        },
+        {
+            "Consignment": "ABCD11964643",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035879000+1100)/",
+            "Latitude": -34.93638729911386,
+            "Longitude": 138.64988063
+        },
+        {
+            "Consignment": "ABCD11957702",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519078386000+1100)/",
+            "Latitude": -36.35643324909893,
+            "Longitude": 146.31684063
+        },
+        {
+            "Consignment": "ABCD11964562",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081121000+1100)/",
+            "Latitude": -37.7663649990863,
+            "Longitude": 144.972086
+        },
+        {
+            "Consignment": "ABCD11957625",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1518991082000+1100)/",
+            "Latitude": -32.58896999914331,
+            "Longitude": 115.64696999999998
+        },
+        {
+            "Consignment": "ABCD11964426",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519085963000+1100)/",
+            "Latitude": 0,
+            "Longitude": 0
+        },
+        {
+            "Consignment": "ABCD11964551",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083624000+1100)/",
+            "Latitude": -33.91591374753615,
+            "Longitude": 151.1953437186559
+        },
+        {
+            "Consignment": "ABCD11964571",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519075259000+1100)/",
+            "Latitude": -32.104429119150105,
+            "Longitude": 116.05940183
+        },
+        {
+            "Consignment": "ABCD11957411",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519092049000+1100)/",
+            "Latitude": -37.07793688909218,
+            "Longitude": 149.87511159
+        },
+        {
+            "Consignment": "ABCD11952674",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519077639000+1100)/",
+            "Latitude": -37.81253619908591,
+            "Longitude": 144.95141105
+        },
+        {
+            "Consignment": "ABCD11952654",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519052944000+1100)/",
+            "Latitude": -32.03868,
+            "Longitude": 115.82595
+        },
+        {
+            "Consignment": "ABCD11952634",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519074482000+1100)/",
+            "Latitude": -37.64973799908726,
+            "Longitude": 145.033317
+        },
+        {
+            "Consignment": "ABCD11952644",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035714000+1100)/",
+            "Latitude": -35.022941709112885,
+            "Longitude": 138.53582932
+        },
+        {
+            "Consignment": "ABCD11963705",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519089558000+1100)/",
+            "Latitude": -35.03292265911277,
+            "Longitude": 138.51851104
+        },
+        {
+            "Consignment": "ABCD11952604",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519074496000+1100)/",
+            "Latitude": -35.00710149911306,
+            "Longitude": 138.55201613
+        },
+        {
+            "Consignment": "ABCD11952614",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519079291000+1100)/",
+            "Latitude": -32.05017999915088,
+            "Longitude": 115.86066000000001
+        },
+        {
+            "Consignment": "ABCD11952495",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080484000+1100)/",
+            "Latitude": -27.4632690292273,
+            "Longitude": 153.03096139000002
+        },
+        {
+            "Consignment": "ABCD11952475",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080589000+1100)/",
+            "Latitude": -27.493692569226724,
+            "Longitude": 152.94788417
+        },
+        {
+            "Consignment": "ABCD11961179",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519080588000+1100)/",
+            "Latitude": -33.744428149128076,
+            "Longitude": 150.97716998
+        },
+        {
+            "Consignment": "ABCD11961189",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519087330270+1100)/",
+            "Latitude": -31.088523679165156,
+            "Longitude": 150.9274053
+        },
+        {
+            "Consignment": "ABCD11952485",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519082060000+1100)/",
+            "Latitude": -27.389199089228704,
+            "Longitude": 153.05580809
+        },
+        {
+            "Consignment": "ABCD11952455",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519069560000+1100)/",
+            "Latitude": -26.624194249243487,
+            "Longitude": 152.93384311
+        },
+        {
+            "Consignment": "ABCD11961159",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079383000+1100)/",
+            "Latitude": -35.27961655911005,
+            "Longitude": 149.13334322
+        },
+        {
+            "Consignment": "ABCD11952465",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519085171000+1100)/",
+            "Latitude": -27.51415113922634,
+            "Longitude": 153.04959235
+        },
+        {
+            "Consignment": "ABCD11961169",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519090932000+1100)/",
+            "Latitude": -33.86899584912651,
+            "Longitude": 151.20666327
+        },
+        {
+            "Consignment": "ABCD11952435",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035675000+1100)/",
+            "Latitude": -19.283168459411197,
+            "Longitude": 146.79098862
+        },
+        {
+            "Consignment": "ABCD11961139",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519052225000+1100)/",
+            "Latitude": -26.670451709242577,
+            "Longitude": 151.99973381
+        },
+        {
+            "Consignment": "ABCD11952445",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519088773000+1100)/",
+            "Latitude": -27.604221839224646,
+            "Longitude": 153.1030646
+        },
+        {
+            "Consignment": "ABCD11961149",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083461000+1100)/",
+            "Latitude": -33.9186762091259,
+            "Longitude": 151.11044591
+        },
+        {
+            "Consignment": "ABCD11952405",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087053000+1100)/",
+            "Latitude": -38.01365455908431,
+            "Longitude": 144.16026455
+        },
+        {
+            "Consignment": "ABCD11957595",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1518773414000+1100)/",
+            "Latitude": -23.706193569304762,
+            "Longitude": 133.87983364
+        },
+        {
+            "Consignment": "ABCD11952415",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086539000+1100)/",
+            "Latitude": -27.38593,
+            "Longitude": 153.03081
+        },
+        {
+            "Consignment": "ABCD11961199",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035861000+1100)/",
+            "Latitude": -31.63387790915694,
+            "Longitude": 152.7200111
+        },
+        {
+            "Consignment": "ABCD11961129",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519068922000+1100)/",
+            "Latitude": -34.57892735911796,
+            "Longitude": 150.83713886
+        },
+        {
+            "Consignment": "ABCD11954248",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1518730431900+1100)/",
+            "Latitude": -38.11460543908351,
+            "Longitude": 145.7640669
+        },
+        {
+            "Consignment": "ABCD11961377",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079605000+1100)/",
+            "Latitude": -33.293217779133855,
+            "Longitude": 149.10312281
+        },
+        {
+            "Consignment": "ABCD11961357",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519081316000+1100)/",
+            "Latitude": -33.865860499126555,
+            "Longitude": 151.21174117
+        },
+        {
+            "Consignment": "ABCD11961367",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519078562000+1100)/",
+            "Latitude": -33.88462249912633,
+            "Longitude": 151.20976038
+        },
+        {
+            "Consignment": "ABCD11961337",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519079238000+1100)/",
+            "Latitude": -33.7984640391274,
+            "Longitude": 151.2805503
+        },
+        {
+            "Consignment": "ABCD11961347",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519080723000+1100)/",
+            "Latitude": -33.41559869913227,
+            "Longitude": 151.3430223
+        },
+        {
+            "Consignment": "ABCD11961307",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519085091000+1100)/",
+            "Latitude": -33.87747009912641,
+            "Longitude": 151.21237999
+        },
+        {
+            "Consignment": "ABCD11961317",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519091572000+1100)/",
+            "Latitude": -30.227479279178738,
+            "Longitude": 153.15190387
+        },
+        {
+            "Consignment": "ABCD11961397",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087158000+1100)/",
+            "Latitude": -33.73254126912823,
+            "Longitude": 150.94582586
+        },
+        {
+            "Consignment": "ABCD11961327",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519068460000+1100)/",
+            "Latitude": -33.36797791913289,
+            "Longitude": 149.43186463
+        },
+        {
+            "Consignment": "ABCD11961170",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519090932000+1100)/",
+            "Latitude": -33.86899584912651,
+            "Longitude": 151.20666327
+        },
+        {
+            "Consignment": "ABCD11961180",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519082230000+1100)/",
+            "Latitude": -32.05278812915085,
+            "Longitude": 150.84768405
+        },
+        {
+            "Consignment": "ABCD11961150",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083073000+1100)/",
+            "Latitude": -33.89238116912623,
+            "Longitude": 151.25026571
+        },
+        {
+            "Consignment": "ABCD11961160",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519092252000+1100)/",
+            "Latitude": -33.730175979128255,
+            "Longitude": 151.00642202
+        },
+        {
+            "Consignment": "ABCD11961140",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519078791000+1100)/",
+            "Latitude": -31.95052,
+            "Longitude": 115.86046
+        },
+        {
+            "Consignment": "ABCD11963307",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519089272000+1100)/",
+            "Latitude": -33.89168848912624,
+            "Longitude": 151.00489983
+        },
+        {
+            "Consignment": "ABCD11961190",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519072899000+1100)/",
+            "Latitude": -33.35840798913301,
+            "Longitude": 151.49450508
+        },
+        {
+            "Consignment": "ABCD11961120",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081283000+1100)/",
+            "Latitude": -34.75144045911596,
+            "Longitude": 149.71633194
+        },
+        {
+            "Consignment": "ABCD11961008",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519078372000+1100)/",
+            "Latitude": -37.6211954,
+            "Longitude": 144.9976431
+        },
+        {
+            "Consignment": "ASHV00500851",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519085602000+1100)/",
+            "Latitude": -33.79589,
+            "Longitude": 150.84526
+        },
+        {
+            "Consignment": "ABCD11952665",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035716000+1100)/",
+            "Latitude": -34.93010859911393,
+            "Longitude": 138.55078826
+        },
+        {
+            "Consignment": "ABCD11952635",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519076889000+1100)/",
+            "Latitude": -32.14310889914955,
+            "Longitude": 116.0947315
+        },
+        {
+            "Consignment": "ABCD11952645",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083935000+1100)/",
+            "Latitude": -37.81377399908591,
+            "Longitude": 144.95367100000004
+        },
+        {
+            "Consignment": "ABCD11952615",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519076647000+1100)/",
+            "Latitude": -37.69490299908688,
+            "Longitude": 144.891619
+        },
+        {
+            "Consignment": "ABCD11952491",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084250000+1100)/",
+            "Latitude": -27.468411879227205,
+            "Longitude": 153.02733132
+        },
+        {
+            "Consignment": "ABCD11952421",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519089413000+1100)/",
+            "Latitude": -37.86195199908551,
+            "Longitude": 145.065656
+        },
+        {
+            "Consignment": "ABCD11952471",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519082673000+1100)/",
+            "Latitude": -27.561485486724145,
+            "Longitude": 151.95760028370285
+        },
+        {
+            "Consignment": "ABCD11952451",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519091705000+1100)/",
+            "Latitude": -37.51497299908838,
+            "Longitude": 145.131426
+        },
+        {
+            "Consignment": "ABCD11952461",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519082162000+1100)/",
+            "Latitude": -27.45076,
+            "Longitude": 153.00732
+        },
+        {
+            "Consignment": "ABCD11952431",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087193000+1100)/",
+            "Latitude": -27.46788071922721,
+            "Longitude": 153.02459438
+        },
+        {
+            "Consignment": "ABCD11952441",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519082922000+1100)/",
+            "Latitude": -26.620798049243557,
+            "Longitude": 152.95510599
+        },
+        {
+            "Consignment": "ABCD11952401",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087330000+1100)/",
+            "Latitude": -33.8146931791272,
+            "Longitude": 150.92939801
+        },
+        {
+            "Consignment": "ABCD11952411",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084250000+1100)/",
+            "Latitude": -27.468411879227205,
+            "Longitude": 153.02733132
+        },
+        {
+            "Consignment": "ABCD11954250",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519078082000+1100)/",
+            "Latitude": -33.89002120912626,
+            "Longitude": 151.21379429
+        },
+        {
+            "Consignment": "ABCD11954290",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083084000+1100)/",
+            "Latitude": -37.67726899908703,
+            "Longitude": 144.571886
+        },
+        {
+            "Consignment": "ABCD11961374",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519075286000+1100)/",
+            "Latitude": -33.73178252912823,
+            "Longitude": 150.89624917
+        },
+        {
+            "Consignment": "ABCD11961384",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519085993000+1100)/",
+            "Latitude": -33.88347110912634,
+            "Longitude": 151.16303186
+        },
+        {
+            "Consignment": "ABCD11961354",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519092008000+1100)/",
+            "Latitude": -33.90090759912612,
+            "Longitude": 151.12001387
+        },
+        {
+            "Consignment": "ABCD11961364",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519081749000+1100)/",
+            "Latitude": -34.00077305912489,
+            "Longitude": 150.86796183
+        },
+        {
+            "Consignment": "ABCD11961334",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086504000+1100)/",
+            "Latitude": -33.76520236912781,
+            "Longitude": 150.93753052
+        },
+        {
+            "Consignment": "ABCD11961344",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079341000+1100)/",
+            "Latitude": -33.8623612591266,
+            "Longitude": 151.20952404
+        },
+        {
+            "Consignment": "ABCD11961304",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519073270000+1100)/",
+            "Latitude": -33.86537215912656,
+            "Longitude": 151.20802033
+        },
+        {
+            "Consignment": "ABCD11961314",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519075972000+1100)/",
+            "Latitude": -32.8108905,
+            "Longitude": 151.6252259
+        },
+        {
+            "Consignment": "ABCD11961009",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519075738000+1100)/",
+            "Latitude": -33.7819774291276,
+            "Longitude": 151.00612087
+        },
+        {
+            "Consignment": "ABCD11961394",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519085142000+1100)/",
+            "Latitude": -28.6412974,
+            "Longitude": 153.6061011
+        },
+        {
+            "Consignment": "ABCD11961324",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519085027000+1100)/",
+            "Latitude": -33.8675312,
+            "Longitude": 151.2079914
+        },
+        {
+            "Consignment": "ABCD11948872",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519078111000+1100)/",
+            "Latitude": -33.875482719126445,
+            "Longitude": 151.12136828
+        },
+        {
+            "Consignment": "ABCD11954229",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519077175000+1100)/",
+            "Latitude": -24.871033309279397,
+            "Longitude": 152.34241784
+        },
+        {
+            "Consignment": "ABCD11952595",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519082007000+1100)/",
+            "Latitude": -31.8517292,
+            "Longitude": 115.9741222
+        },
+        {
+            "Consignment": "ABCD11952525",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519073177000+1100)/",
+            "Latitude": -31.93024999915261,
+            "Longitude": 115.80704
+        },
+        {
+            "Consignment": "ABCD11952575",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079066000+1100)/",
+            "Latitude": -37.774625999086226,
+            "Longitude": 144.891256
+        },
+        {
+            "Consignment": "ABCD11952585",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519078477000+1100)/",
+            "Latitude": -31.943626169152424,
+            "Longitude": 115.84477532000001
+        },
+        {
+            "Consignment": "ABCD11952555",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087256000+1100)/",
+            "Latitude": -37.579563309087845,
+            "Longitude": 143.83986276
+        },
+        {
+            "Consignment": "ABCD11952565",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035650000+1100)/",
+            "Latitude": -41.15717444906503,
+            "Longitude": 146.172664
+        },
+        {
+            "Consignment": "ABCD11952535",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519089818000+1100)/",
+            "Latitude": -38.116906559083496,
+            "Longitude": 145.14768721
+        },
+        {
+            "Consignment": "ABCD11952545",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519069398000+1100)/",
+            "Latitude": -23.347581829312805,
+            "Longitude": 150.5497843
+        },
+        {
+            "Consignment": "ABCD11952505",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519086676000+1100)/",
+            "Latitude": -38.120979729083466,
+            "Longitude": 144.32131281
+        },
+        {
+            "Consignment": "ABCD11961000",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519089607000+1100)/",
+            "Latitude": -33.867369139126545,
+            "Longitude": 151.20890027
+        },
+        {
+            "Consignment": "ABCD11952515",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084249000+1100)/",
+            "Latitude": -27.468411879227205,
+            "Longitude": 153.02733132
+        },
+        {
+            "Consignment": "ABCD11961010",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519073416000+1100)/",
+            "Latitude": -33.839229,
+            "Longitude": 151.207649
+        },
+        {
+            "Consignment": "ABCD11963822",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079383000+1100)/",
+            "Latitude": -35.27961655911005,
+            "Longitude": 149.13334322
+        },
+        {
+            "Consignment": "ABCD11960227",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519088246000+1100)/",
+            "Latitude": -33.7422745791281,
+            "Longitude": 150.9990892
+        },
+        {
+            "Consignment": "ABCD11954876",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519076456000+1100)/",
+            "Latitude": -27.39748923922854,
+            "Longitude": 153.02596265
+        },
+        {
+            "Consignment": "ABCD11952394",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519082269000+1100)/",
+            "Latitude": -26.659039419242802,
+            "Longitude": 153.08569227
+        },
+        {
+            "Consignment": "ABCD11952324",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519078957000+1100)/",
+            "Latitude": -37.85626199908557,
+            "Longitude": 145.128421
+        },
+        {
+            "Consignment": "ABCD11952374",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519077441000+1100)/",
+            "Latitude": -33.881219659126366,
+            "Longitude": 151.2055647
+        },
+        {
+            "Consignment": "ABCD11952384",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519091719000+1100)/",
+            "Latitude": -33.81097,
+            "Longitude": 151.18605
+        },
+        {
+            "Consignment": "ABCD11952354",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080056000+1100)/",
+            "Latitude": -27.503158239226547,
+            "Longitude": 153.10165121
+        },
+        {
+            "Consignment": "ABCD11952364",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519092480000+1100)/",
+            "Latitude": -33.928470559125785,
+            "Longitude": 151.14175686
+        },
+        {
+            "Consignment": "ABCD11957617",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519081783000+1100)/",
+            "Latitude": -34.00077305912489,
+            "Longitude": 150.86796183
+        },
+        {
+            "Consignment": "ABCD11952314",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519030104370+1100)/",
+            "Latitude": -32.1200314,
+            "Longitude": 115.8733506
+        },
+        {
+            "Consignment": "ABCD11957667",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084490000+1100)/",
+            "Latitude": -29.706123839187327,
+            "Longitude": 152.97197335
+        },
+        {
+            "Consignment": "ABCD11964655",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519068222000+1100)/",
+            "Latitude": -34.421272589119816,
+            "Longitude": 150.85842787
+        },
+        {
+            "Consignment": "ABCD11964665",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519078212000+1100)/",
+            "Latitude": -33.8892121,
+            "Longitude": 151.2319546
+        },
+        {
+            "Consignment": "ABCD11964675",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083372000+1100)/",
+            "Latitude": -33.83140984912699,
+            "Longitude": 151.2521018
+        },
+        {
+            "Consignment": "ABCD11964685",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519088879000+1100)/",
+            "Latitude": -37.81636099908589,
+            "Longitude": 144.961029
+        },
+        {
+            "Consignment": "ABCD11964645",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519081790000+1100)/",
+            "Latitude": -32.08464999915039,
+            "Longitude": 115.9388
+        },
+        {
+            "Consignment": "ABCD11957498",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519076071000+1100)/",
+            "Latitude": -22.692000419327787,
+            "Longitude": 117.7954477
+        },
+        {
+            "Consignment": "ABCD11964424",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081147000+1100)/",
+            "Latitude": -33.751162609127995,
+            "Longitude": 150.69221777000004
+        },
+        {
+            "Consignment": "ABCD11950910",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1518760368720+1100)/",
+            "Latitude": -31.542513719158297,
+            "Longitude": 115.63318856000001
+        },
+        {
+            "Consignment": "ABCD11954944",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1518736939630+1100)/",
+            "Latitude": -28.873652999201592,
+            "Longitude": 153.46587638
+        },
+        {
+            "Consignment": "ABCD11964658",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519088193000+1100)/",
+            "Latitude": -33.86883700912652,
+            "Longitude": 151.19401428
+        },
+        {
+            "Consignment": "ABCD11964668",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519090932000+1100)/",
+            "Latitude": -33.86899584912651,
+            "Longitude": 151.20666327
+        },
+        {
+            "Consignment": "ABCD11964688",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519074110000+1100)/",
+            "Latitude": -33.93393755686244,
+            "Longitude": 151.15643576975643
+        },
+        {
+            "Consignment": "ABCD11964638",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081137000+1100)/",
+            "Latitude": -37.7663649990863,
+            "Longitude": 144.972086
+        },
+        {
+            "Consignment": "ABCD11964648",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519077973000+1100)/",
+            "Latitude": -37.67405357908705,
+            "Longitude": 145.01480851
+        },
+        {
+            "Consignment": "ABCD11957763",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519020198000+1100)/",
+            "Latitude": -34.7338006,
+            "Longitude": 135.8777875
+        },
+        {
+            "Consignment": "ABCD11964427",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519085036000+1100)/",
+            "Latitude": -33.79771329912741,
+            "Longitude": 150.96234663
+        },
+        {
+            "Consignment": "ABCD11957753",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519076969000+1100)/",
+            "Latitude": -20.7462729493743,
+            "Longitude": 116.80599026
+        },
+        {
+            "Consignment": "ABCD11957723",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519077752000+1100)/",
+            "Latitude": -34.08489214912386,
+            "Longitude": 151.15514262
+        },
+        {
+            "Consignment": "ABCD11957793",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519073418000+1100)/",
+            "Latitude": -33.408350079132354,
+            "Longitude": 149.5638604
+        },
+        {
+            "Consignment": "ABCD11957572",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519011727500+1100)/",
+            "Latitude": -30.779403,
+            "Longitude": 121.442397
+        },
+        {
+            "Consignment": "ABCD11963638",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035849000+1100)/",
+            "Latitude": -34.90394849911422,
+            "Longitude": 138.66705538
+        },
+        {
+            "Consignment": "ABCD11952657",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519089337000+1100)/",
+            "Latitude": -37.79325030908607,
+            "Longitude": 144.93907229
+        },
+        {
+            "Consignment": "ABCD11952667",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035717000+1100)/",
+            "Latitude": -35.01063769911302,
+            "Longitude": 138.61281213
+        },
+        {
+            "Consignment": "ABCD11952647",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080682000+1100)/",
+            "Latitude": -32.534639999144055,
+            "Longitude": 115.73104
+        },
+        {
+            "Consignment": "ABCD11963708",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519092616000+1100)/",
+            "Latitude": -32.245047649148106,
+            "Longitude": 148.60527942
+        },
+        {
+            "Consignment": "ABCD11952617",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519082084000+1100)/",
+            "Latitude": -31.66090779915655,
+            "Longitude": 116.67609297000001
+        },
+        {
+            "Consignment": "ABCD11961417",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519077205000+1100)/",
+            "Latitude": -37.99434445908446,
+            "Longitude": 145.14875238
+        },
+        {
+            "Consignment": "ABCD11961372",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519077750000+1100)/",
+            "Latitude": -33.89908761912615,
+            "Longitude": 151.25918262000002
+        },
+        {
+            "Consignment": "ABCD11961382",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519067462000+1100)/",
+            "Latitude": -34.07244897912401,
+            "Longitude": 151.13914838
+        },
+        {
+            "Consignment": "ABCD11961352",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519076458000+1100)/",
+            "Latitude": -31.982522769151853,
+            "Longitude": 152.56176745
+        },
+        {
+            "Consignment": "ABCD11961362",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519081412000+1100)/",
+            "Latitude": -33.83792107912691,
+            "Longitude": 151.24592795
+        },
+        {
+            "Consignment": "ABCD11961332",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519091762000+1100)/",
+            "Latitude": -33.7824187691276,
+            "Longitude": 151.04564755
+        },
+        {
+            "Consignment": "ABCD11961342",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519063194000+1100)/",
+            "Latitude": -33.85146768912674,
+            "Longitude": 151.04819844
+        },
+        {
+            "Consignment": "ABCD11961302",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081670000+1100)/",
+            "Latitude": -33.75197126912798,
+            "Longitude": 151.25655248
+        },
+        {
+            "Consignment": "ABCD11961312",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519070206000+1100)/",
+            "Latitude": -33.85687283912667,
+            "Longitude": 151.26951058
+        },
+        {
+            "Consignment": "ABCD11961392",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519092163000+1100)/",
+            "Latitude": -33.946959519125556,
+            "Longitude": 150.83962076
+        },
+        {
+            "Consignment": "ABCD11961322",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519078467000+1100)/",
+            "Latitude": -33.72497819912833,
+            "Longitude": 151.09355642
+        },
+        {
+            "Consignment": "ABCD11952498",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519076616000+1100)/",
+            "Latitude": -36.139977499101064,
+            "Longitude": 144.7653956
+        },
+        {
+            "Consignment": "ABCD11952428",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084250000+1100)/",
+            "Latitude": -27.468411879227205,
+            "Longitude": 153.02733132
+        },
+        {
+            "Consignment": "ABCD11952478",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519080717000+1100)/",
+            "Latitude": -38.1775812,
+            "Longitude": 146.2639877
+        },
+        {
+            "Consignment": "ABCD11961176",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519089387000+1100)/",
+            "Latitude": -36.06283474910183,
+            "Longitude": 146.92305903
+        },
+        {
+            "Consignment": "ABCD11961186",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519091160000+1100)/",
+            "Latitude": -34.0281208,
+            "Longitude": 150.7718717
+        },
+        {
+            "Consignment": "ABCD11952488",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519079034000+1100)/",
+            "Latitude": -27.065029099234902,
+            "Longitude": 153.02337524
+        },
+        {
+            "Consignment": "ABCD11961156",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079383000+1100)/",
+            "Latitude": -35.27961655911005,
+            "Longitude": 149.13334322
+        },
+        {
+            "Consignment": "ABCD11952468",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519076478000+1100)/",
+            "Latitude": -23.87841227930094,
+            "Longitude": 151.23198436
+        },
+        {
+            "Consignment": "ABCD11961166",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081147000+1100)/",
+            "Latitude": -33.751162609127995,
+            "Longitude": 150.69221777000004
+        },
+        {
+            "Consignment": "ABCD11952438",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519072257000+1100)/",
+            "Latitude": -38.20258454908283,
+            "Longitude": 146.1524229
+        },
+        {
+            "Consignment": "ABCD11963515",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519074757000+1100)/",
+            "Latitude": -31.80842999915438,
+            "Longitude": 115.86587
+        },
+        {
+            "Consignment": "ABCD11952448",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519087042000+1100)/",
+            "Latitude": -27.103273179234165,
+            "Longitude": 152.91268259000003
+        },
+        {
+            "Consignment": "ABCD11961146",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519067683000+1100)/",
+            "Latitude": -33.87716880912642,
+            "Longitude": 151.21063735
+        },
+        {
+            "Consignment": "ABCD11952408",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519084435890+1100)/",
+            "Latitude": -37.710019999086754,
+            "Longitude": 145.16029600000002
+        },
+        {
+            "Consignment": "ABCD11952418",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083115000+1100)/",
+            "Latitude": -28.080459926405087,
+            "Longitude": 153.3858284177094
+        },
+        {
+            "Consignment": "ABCD11961196",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519077375000+1100)/",
+            "Latitude": -35.3640298,
+            "Longitude": 150.4681894
+        },
+        {
+            "Consignment": "ABCD11961126",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519089023000+1100)/",
+            "Latitude": -33.8679895,
+            "Longitude": 151.2088393
+        },
+        {
+            "Consignment": "ABCD11961371",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087026000+1100)/",
+            "Latitude": -33.873540069126456,
+            "Longitude": 151.23850379
+        },
+        {
+            "Consignment": "ABCD11961381",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519084892000+1100)/",
+            "Latitude": -33.796583959127425,
+            "Longitude": 151.13835429
+        },
+        {
+            "Consignment": "ABCD11961351",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519092046000+1100)/",
+            "Latitude": -33.94554301912557,
+            "Longitude": 151.01635896
+        },
+        {
+            "Consignment": "ABCD11961361",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519082470000+1100)/",
+            "Latitude": -32.926375059138714,
+            "Longitude": 151.76652636
+        },
+        {
+            "Consignment": "ABCD11961331",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519091988000+1100)/",
+            "Latitude": -36.39083,
+            "Longitude": 148.47181
+        },
+        {
+            "Consignment": "ABCD11961341",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519090737000+1100)/",
+            "Latitude": -33.88443052912633,
+            "Longitude": 151.13625898
+        },
+        {
+            "Consignment": "ABCD11961311",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084986000+1100)/",
+            "Latitude": -35.91337926910335,
+            "Longitude": 150.07727021
+        },
+        {
+            "Consignment": "ABCD11961391",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086330000+1100)/",
+            "Latitude": -33.8791000291264,
+            "Longitude": 151.22178307
+        },
+        {
+            "Consignment": "ABCD11961321",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081093000+1100)/",
+            "Latitude": -33.88744785262435,
+            "Longitude": 151.13691980511885
+        },
+        {
+            "Consignment": "ABCD11961003",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519075530000+1100)/",
+            "Latitude": -31.705730479155886,
+            "Longitude": 115.77715495
+        },
+        {
+            "Consignment": "ABCD11957659",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519011340000+1100)/",
+            "Latitude": -32.4594091,
+            "Longitude": 148.3392817
+        },
+        {
+            "Consignment": "ABCD11957679",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519020229350+1100)/",
+            "Latitude": -32.273575679147704,
+            "Longitude": 115.73426585
+        },
+        {
+            "Consignment": "ABCD11954844",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1518821660110+1100)/",
+            "Latitude": -32.9657303,
+            "Longitude": 119.2351413
+        },
+        {
+            "Consignment": "ABCD11954894",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1518729257030+1100)/",
+            "Latitude": -41.48749915906366,
+            "Longitude": 147.08646504
+        },
+        {
+            "Consignment": "ABCD11930135",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519069926000+1100)/",
+            "Latitude": -33.867064879126545,
+            "Longitude": 151.20219069
+        },
+        {
+            "Consignment": "ABCD11952592",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519075609000+1100)/",
+            "Latitude": -37.81569348908589,
+            "Longitude": 144.97265926
+        },
+        {
+            "Consignment": "ABCD11952522",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519077371000+1100)/",
+            "Latitude": -37.82240068908584,
+            "Longitude": 144.96206183
+        },
+        {
+            "Consignment": "ABCD11952572",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083167000+1100)/",
+            "Latitude": -34.922436599114015,
+            "Longitude": 138.60285401
+        },
+        {
+            "Consignment": "ABCD11952582",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519070366000+1100)/",
+            "Latitude": -32.12512509914981,
+            "Longitude": 133.673355
+        },
+        {
+            "Consignment": "ABCD11952562",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519069757000+1100)/",
+            "Latitude": -31.772639999154908,
+            "Longitude": 115.74178000000002
+        },
+        {
+            "Consignment": "ABCD11952532",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519050219000+1100)/",
+            "Latitude": -38.380894749081484,
+            "Longitude": 142.47806265
+        },
+        {
+            "Consignment": "ABCD11952542",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035730000+1100)/",
+            "Latitude": -41.199650579064844,
+            "Longitude": 146.35995688
+        },
+        {
+            "Consignment": "ABCD11952512",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519077209000+1100)/",
+            "Latitude": -37.666198999087115,
+            "Longitude": 144.573433
+        },
+        {
+            "Consignment": "ABCD11952591",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083153000+1100)/",
+            "Latitude": -34.82163840911516,
+            "Longitude": 138.49514099
+        },
+        {
+            "Consignment": "ABCD11952521",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519087161000+1100)/",
+            "Latitude": -34.93062816911392,
+            "Longitude": 138.61180654
+        },
+        {
+            "Consignment": "ABCD11952571",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519089171000+1100)/",
+            "Latitude": -37.84123699908569,
+            "Longitude": 144.976855
+        },
+        {
+            "Consignment": "ABCD11952551",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079034000+1100)/",
+            "Latitude": -37.817956949085875,
+            "Longitude": 145.08057406
+        },
+        {
+            "Consignment": "ABCD11952531",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519081582000+1100)/",
+            "Latitude": -37.97931599908458,
+            "Longitude": 145.260352
+        },
+        {
+            "Consignment": "ABCD11952541",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083590000+1100)/",
+            "Latitude": -27.469556229227177,
+            "Longitude": 153.02589305
+        },
+        {
+            "Consignment": "ABCD11952501",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080261000+1100)/",
+            "Latitude": -27.46918737922719,
+            "Longitude": 153.00260374000004
+        },
+        {
+            "Consignment": "ABCD11952511",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519085904000+1100)/",
+            "Latitude": -27.490983819226777,
+            "Longitude": 153.2303471
+        },
+        {
+            "Consignment": "ABCD11963204",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519072335000+1100)/",
+            "Latitude": -33.883706959126336,
+            "Longitude": 151.19381556
+        },
+        {
+            "Consignment": "ABCD11964652",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519076993000+1100)/",
+            "Latitude": -31.913807219152847,
+            "Longitude": 152.45745334
+        },
+        {
+            "Consignment": "ABCD11964662",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079454000+1100)/",
+            "Latitude": -33.81897777912714,
+            "Longitude": 151.15157103
+        },
+        {
+            "Consignment": "ABCD11964682",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086950000+1100)/",
+            "Latitude": -33.70999932912851,
+            "Longitude": 151.09778916
+        },
+        {
+            "Consignment": "ABCD11964632",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519067032000+1100)/",
+            "Latitude": -32.06346999915069,
+            "Longitude": 115.80782
+        },
+        {
+            "Consignment": "ABCD11964642",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519082938000+1100)/",
+            "Latitude": -33.777048789127676,
+            "Longitude": 151.1251653
+        },
+        {
+            "Consignment": "ABCD11952395",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087319000+1100)/",
+            "Latitude": -37.87788621524564,
+            "Longitude": 145.15732959229638
+        },
+        {
+            "Consignment": "ABCD11952325",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519082564000+1100)/",
+            "Latitude": -16.9982619,
+            "Longitude": 145.4374784
+        },
+        {
+            "Consignment": "ABCD11952375",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519083307000+1100)/",
+            "Latitude": -16.907585659474343,
+            "Longitude": 145.73159111
+        },
+        {
+            "Consignment": "ABCD11952385",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519091719000+1100)/",
+            "Latitude": -33.81097,
+            "Longitude": 151.18605
+        },
+        {
+            "Consignment": "ABCD11952355",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519085888000+1100)/",
+            "Latitude": -33.862618,
+            "Longitude": 151.207778
+        },
+        {
+            "Consignment": "ABCD11952365",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035691000+1100)/",
+            "Latitude": -19.335430449409856,
+            "Longitude": 146.71298926
+        },
+        {
+            "Consignment": "ABCD11954976",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519073339000+1100)/",
+            "Latitude": -36.976126249093106,
+            "Longitude": 145.14241035
+        },
+        {
+            "Consignment": "ABCD11964651",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519083492000+1100)/",
+            "Latitude": -34.44872409911949,
+            "Longitude": 150.46535361
+        },
+        {
+            "Consignment": "ABCD11964661",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519075675000+1100)/",
+            "Latitude": -33.72785858912828,
+            "Longitude": 151.04658095
+        },
+        {
+            "Consignment": "ABCD11964671",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084180000+1100)/",
+            "Latitude": -33.9270055891258,
+            "Longitude": 151.22327164
+        },
+        {
+            "Consignment": "ABCD11964681",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079917000+1100)/",
+            "Latitude": -33.69213559912874,
+            "Longitude": 150.52972554
+        },
+        {
+            "Consignment": "ABCD11964641",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519075609000+1100)/",
+            "Latitude": -37.81569348908589,
+            "Longitude": 144.97265926
+        },
+        {
+            "Consignment": "ABCD11957749",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519016851310+1100)/",
+            "Latitude": -26.23221098925127,
+            "Longitude": 152.63560596
+        },
+        {
+            "Consignment": "ABCD11957799",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519077483000+1100)/",
+            "Latitude": -34.574925,
+            "Longitude": 150.75447
+        },
+        {
+            "Consignment": "ABCD11957696",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083581000+1100)/",
+            "Latitude": -14.466418,
+            "Longitude": 132.2990129
+        },
+        {
+            "Consignment": "ABCD11963632",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519071367000+1100)/",
+            "Latitude": -33.77281691912772,
+            "Longitude": 150.95386319
+        },
+        {
+            "Consignment": "ABCD11964455",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519072335000+1100)/",
+            "Latitude": -33.883706959126336,
+            "Longitude": 151.19381556
+        },
+        {
+            "Consignment": "ABCD11948990",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083628000+1100)/",
+            "Latitude": -33.75529244912794,
+            "Longitude": 151.1577515
+        },
+        {
+            "Consignment": "ABCD11957760",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519025002520+1100)/",
+            "Latitude": -21.928864,
+            "Longitude": 114.12261
+        },
+        {
+            "Consignment": "ABCD11964425",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519085254000+1100)/",
+            "Latitude": -33.87240718912648,
+            "Longitude": 151.22758123
+        },
+        {
+            "Consignment": "ABCD11952659",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519071120000+1100)/",
+            "Latitude": -37.80420799908599,
+            "Longitude": 144.96519
+        },
+        {
+            "Consignment": "ABCD11952669",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519077295000+1100)/",
+            "Latitude": -37.81876374125753,
+            "Longitude": 144.95553907862538
+        },
+        {
+            "Consignment": "ABCD11963929",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083115000+1100)/",
+            "Latitude": -28.080459926405087,
+            "Longitude": 153.3858284177094
+        },
+        {
+            "Consignment": "ABCD11952639",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519080671000+1100)/",
+            "Latitude": -34.921980349114015,
+            "Longitude": 138.62893234
+        },
+        {
+            "Consignment": "ABCD11952649",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519070552000+1100)/",
+            "Latitude": -37.89283199908527,
+            "Longitude": 144.669252
+        },
+        {
+            "Consignment": "ABCD11957790",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079984000+1100)/",
+            "Latitude": -33.84503659912682,
+            "Longitude": 151.15255573
+        },
+        {
+            "Consignment": "ABCD11952619",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086181000+1100)/",
+            "Latitude": -34.9943287991132,
+            "Longitude": 138.59819763
+        },
+        {
+            "Consignment": "ABCD11952670",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519089201000+1100)/",
+            "Latitude": -37.84123699908569,
+            "Longitude": 144.976855
+        },
+        {
+            "Consignment": "ABCD11952650",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519067106000+1100)/",
+            "Latitude": -36.95623334909328,
+            "Longitude": 140.74444746
+        },
+        {
+            "Consignment": "ABCD11952660",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519076092000+1100)/",
+            "Latitude": -31.88638999915325,
+            "Longitude": 115.76735000000001
+        },
+        {
+            "Consignment": "ABCD11952640",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086690000+1100)/",
+            "Latitude": -37.77717812908621,
+            "Longitude": 144.82648688
+        },
+        {
+            "Consignment": "ABCD11952600",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519071110000+1100)/",
+            "Latitude": -37.80521899908598,
+            "Longitude": 144.892256
+        },
+        {
+            "Consignment": "ABCD11952610",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519072716000+1100)/",
+            "Latitude": -37.797700929086034,
+            "Longitude": 144.98735714
+        },
+        {
+            "Consignment": "ABCD11961178",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519082245000+1100)/",
+            "Latitude": -33.81939159912714,
+            "Longitude": 151.09343852
+        },
+        {
+            "Consignment": "ABCD11961188",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086621000+1100)/",
+            "Latitude": -35.34213559910936,
+            "Longitude": 149.12868188000002
+        },
+        {
+            "Consignment": "ABCD11961158",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079383000+1100)/",
+            "Latitude": -35.27961655911005,
+            "Longitude": 149.13334322
+        },
+        {
+            "Consignment": "ABCD11961168",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519090932000+1100)/",
+            "Latitude": -33.86899584912651,
+            "Longitude": 151.20666327
+        },
+        {
+            "Consignment": "ABCD11961138",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080488000+1100)/",
+            "Latitude": -27.47481661922708,
+            "Longitude": 153.1916667
+        },
+        {
+            "Consignment": "ABCD11961148",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519085403000+1100)/",
+            "Latitude": -33.86034349912663,
+            "Longitude": 151.08111328
+        },
+        {
+            "Consignment": "ABCD11961198",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519079529000+1100)/",
+            "Latitude": -36.72282252909544,
+            "Longitude": 149.97358449
+        },
+        {
+            "Consignment": "ABCD11961128",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519073154000+1100)/",
+            "Latitude": -33.85870250912665,
+            "Longitude": 151.2078562
+        },
+        {
+            "Consignment": "ABCD11950403",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519082440000+1100)/",
+            "Latitude": -29.593611637567882,
+            "Longitude": 150.4126733422868
+        },
+        {
+            "Consignment": "ABCD11963703",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084249000+1100)/",
+            "Latitude": -27.468411879227205,
+            "Longitude": 153.02733132
+        },
+        {
+            "Consignment": "ABCD11952656",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519088652000+1100)/",
+            "Latitude": -37.81257199908592,
+            "Longitude": 144.965472
+        },
+        {
+            "Consignment": "ABCD11952666",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519087034000+1100)/",
+            "Latitude": -34.934524999113876,
+            "Longitude": 138.67459188
+        },
+        {
+            "Consignment": "ABCD11952636",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519089942000+1100)/",
+            "Latitude": -37.81375360908591,
+            "Longitude": 144.97175631
+        },
+        {
+            "Consignment": "ABCD11952646",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079646000+1100)/",
+            "Latitude": -32.061229999150726,
+            "Longitude": 115.74836
+        },
+        {
+            "Consignment": "ABCD11961375",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519079125000+1100)/",
+            "Latitude": -33.83134954912699,
+            "Longitude": 150.98608169
+        },
+        {
+            "Consignment": "ABCD11961385",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519074896000+1100)/",
+            "Latitude": -33.83129930912699,
+            "Longitude": 151.22574623
+        },
+        {
+            "Consignment": "ABCD11961355",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084635000+1100)/",
+            "Latitude": -33.796583959127425,
+            "Longitude": 151.13835429
+        },
+        {
+            "Consignment": "ABCD11961365",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519089418000+1100)/",
+            "Latitude": -33.79939786912739,
+            "Longitude": 151.28586352
+        },
+        {
+            "Consignment": "ABCD11961335",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519088169000+1100)/",
+            "Latitude": -33.825545379127064,
+            "Longitude": 151.16125299
+        },
+        {
+            "Consignment": "ABCD11961345",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519092172000+1100)/",
+            "Latitude": -33.911025269126,
+            "Longitude": 151.16683828
+        },
+        {
+            "Consignment": "ABCD11961305",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519075403000+1100)/",
+            "Latitude": -33.83812073912691,
+            "Longitude": 151.16119941
+        },
+        {
+            "Consignment": "ABCD11961315",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519075975000+1100)/",
+            "Latitude": -32.8108905,
+            "Longitude": 151.6252259
+        },
+        {
+            "Consignment": "ABCD11961395",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519088211000+1100)/",
+            "Latitude": -33.95249162912549,
+            "Longitude": 151.05345502
+        },
+        {
+            "Consignment": "ABCD11961325",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087384000+1100)/",
+            "Latitude": -33.7714908,
+            "Longitude": 151.0799406
+        },
+        {
+            "Consignment": "ABCD11952493",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084018000+1100)/",
+            "Latitude": -37.888486,
+            "Longitude": 145.08177
+        },
+        {
+            "Consignment": "ABCD11961173",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519075316000+1100)/",
+            "Latitude": -33.86899584912651,
+            "Longitude": 151.20666327
+        },
+        {
+            "Consignment": "ABCD11952473",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086369000+1100)/",
+            "Latitude": -27.544960799225755,
+            "Longitude": 153.02791209
+        },
+        {
+            "Consignment": "ABCD11961183",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519086994000+1100)/",
+            "Latitude": -33.95161044912549,
+            "Longitude": 151.12611498
+        },
+        {
+            "Consignment": "ABCD11961153",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519072335000+1100)/",
+            "Latitude": -33.883706959126336,
+            "Longitude": 151.19381556
+        },
+        {
+            "Consignment": "ABCD11952453",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083473000+1100)/",
+            "Latitude": -27.431360836374218,
+            "Longitude": 153.0896445924887
+        },
+        {
+            "Consignment": "ABCD11961163",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519083181000+1100)/",
+            "Latitude": -34.03783,
+            "Longitude": 151.10301
+        },
+        {
+            "Consignment": "ABCD11952463",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519074406000+1100)/",
+            "Latitude": -27.09467269923433,
+            "Longitude": 152.92741582
+        },
+        {
+            "Consignment": "ABCD11952433",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081516000+1100)/",
+            "Latitude": -37.861685999085516,
+            "Longitude": 145.008646
+        },
+        {
+            "Consignment": "ABCD11961143",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086561000+1100)/",
+            "Latitude": -33.86210516912661,
+            "Longitude": 151.21160889
+        },
+        {
+            "Consignment": "ABCD11952443",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035677000+1100)/",
+            "Latitude": -19.297103249410842,
+            "Longitude": 146.79879747
+        },
+        {
+            "Consignment": "ABCD11952403",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519078113000+1100)/",
+            "Latitude": -33.88237500912635,
+            "Longitude": 150.94465634
+        },
+        {
+            "Consignment": "ABCD11952413",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084018000+1100)/",
+            "Latitude": -37.888486,
+            "Longitude": 145.08177
+        },
+        {
+            "Consignment": "ABCD11963305",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519051898000+1100)/",
+            "Latitude": -26.670451709242577,
+            "Longitude": 151.99973381
+        },
+        {
+            "Consignment": "ABCD11961193",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519079976000+1100)/",
+            "Latitude": -33.90782619912604,
+            "Longitude": 151.24139658000004
+        },
+        {
+            "Consignment": "ABCD11954261",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1518733749000+1100)/",
+            "Latitude": -10.1545169,
+            "Longitude": 142.1675327
+        },
+        {
+            "Consignment": "ABCD11961123",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519090023000+1100)/",
+            "Latitude": -33.90326183912609,
+            "Longitude": 150.61439445000002
+        },
+        {
+            "Consignment": "ABCD11954211",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519016888990+1100)/",
+            "Latitude": -37.1096759990919,
+            "Longitude": 146.34967528
+        },
+        {
+            "Consignment": "ABCD11954231",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1518758955610+1100)/",
+            "Latitude": -37.1887809890912,
+            "Longitude": 144.38295015
+        },
+        {
+            "Consignment": "ABCD11964011",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079065000+1100)/",
+            "Latitude": -37.774625999086226,
+            "Longitude": 144.891256
+        },
+        {
+            "Consignment": "ABCD11952594",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519088095000+1100)/",
+            "Latitude": -37.72617232908662,
+            "Longitude": 144.97566114
+        },
+        {
+            "Consignment": "ABCD11952524",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519081228000+1100)/",
+            "Latitude": -32.55191999914381,
+            "Longitude": 115.73553000000001
+        },
+        {
+            "Consignment": "ABCD11952574",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079065000+1100)/",
+            "Latitude": -37.774625999086226,
+            "Longitude": 144.891256
+        },
+        {
+            "Consignment": "ABCD11952584",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519089565000+1100)/",
+            "Latitude": -37.7277986,
+            "Longitude": 144.9828414
+        },
+        {
+            "Consignment": "ABCD11952554",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519089174000+1100)/",
+            "Latitude": -28.040669039216546,
+            "Longitude": 153.42484769
+        },
+        {
+            "Consignment": "ABCD11952564",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035650000+1100)/",
+            "Latitude": -23.8825187,
+            "Longitude": 151.2074439
+        },
+        {
+            "Consignment": "ABCD11952534",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519074821000+1100)/",
+            "Latitude": -38.38244985908147,
+            "Longitude": 142.23476038
+        },
+        {
+            "Consignment": "ABCD11952544",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519075145000+1100)/",
+            "Latitude": -38.3648270090816,
+            "Longitude": 143.57229648000003
+        },
+        {
+            "Consignment": "ABCD11961002",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519088286000+1100)/",
+            "Latitude": -33.26216752913426,
+            "Longitude": 151.56120646
+        },
+        {
+            "Consignment": "ABCD11952514",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084250000+1100)/",
+            "Latitude": -27.468411879227205,
+            "Longitude": 153.02733132
+        },
+        {
+            "Consignment": "ABCD11963206",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519082859000+1100)/",
+            "Latitude": -33.80057175912737,
+            "Longitude": 151.21446862
+        },
+        {
+            "Consignment": "ABCD11961001",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519090256000+1100)/",
+            "Latitude": -33.90741872912604,
+            "Longitude": 151.23380637
+        },
+        {
+            "Consignment": "ABCD11954988",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087014000+1100)/",
+            "Latitude": -26.48288308924628,
+            "Longitude": 147.97637273
+        },
+        {
+            "Consignment": "ABCD11963829",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084018000+1100)/",
+            "Latitude": -37.888486,
+            "Longitude": 145.08177
+        },
+        {
+            "Consignment": "ABCD11960226",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519076315000+1100)/",
+            "Latitude": -36.16708615910078,
+            "Longitude": 150.11888109
+        },
+        {
+            "Consignment": "ABCD11957668",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519006033400+1100)/",
+            "Latitude": -32.5576075,
+            "Longitude": 115.7126227
+        },
+        {
+            "Consignment": "ABCD11950321",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087364000+1100)/",
+            "Latitude": -33.88418146912634,
+            "Longitude": 151.22843824
+        },
+        {
+            "Consignment": "ABCD11957470",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519079381000+1100)/",
+            "Latitude": -20.41036999938263,
+            "Longitude": 118.60401
+        },
+        {
+            "Consignment": "ABCD11952597",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519075326000+1100)/",
+            "Latitude": -31.953689999152274,
+            "Longitude": 115.92084
+        },
+        {
+            "Consignment": "ABCD11952527",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079367000+1100)/",
+            "Latitude": -37.8273718990858,
+            "Longitude": 144.96644823
+        },
+        {
+            "Consignment": "ABCD11952577",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079065000+1100)/",
+            "Latitude": -37.774625999086226,
+            "Longitude": 144.891256
+        },
+        {
+            "Consignment": "ABCD11952557",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087823000+1100)/",
+            "Latitude": -27.499497649226615,
+            "Longitude": 152.995442
+        },
+        {
+            "Consignment": "ABCD11952567",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519073302000+1100)/",
+            "Latitude": -37.68077,
+            "Longitude": 144.92984
+        },
+        {
+            "Consignment": "ABCD11952537",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080045000+1100)/",
+            "Latitude": -27.975388529217742,
+            "Longitude": 153.41815633
+        },
+        {
+            "Consignment": "ABCD11952547",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081741000+1100)/",
+            "Latitude": -37.864344479085496,
+            "Longitude": 145.00907689
+        },
+        {
+            "Consignment": "ABCD11952392",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519077270000+1100)/",
+            "Latitude": -37.68753099908694,
+            "Longitude": 144.573082
+        },
+        {
+            "Consignment": "ABCD11952507",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035725000+1100)/",
+            "Latitude": -42.7786284,
+            "Longitude": 147.5631247
+        },
+        {
+            "Consignment": "ABCD11952322",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519085941000+1100)/",
+            "Latitude": -37.7661946090863,
+            "Longitude": 144.97072143
+        },
+        {
+            "Consignment": "ABCD11952517",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084018000+1100)/",
+            "Latitude": -37.888486,
+            "Longitude": 145.08177
+        },
+        {
+            "Consignment": "ABCD11952372",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519070498000+1100)/",
+            "Latitude": -33.79696743912742,
+            "Longitude": 151.28704502
+        },
+        {
+            "Consignment": "ABCD11952382",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080381000+1100)/",
+            "Latitude": -27.490461159226783,
+            "Longitude": 153.03175648
+        },
+        {
+            "Consignment": "ABCD11952352",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519081482000+1100)/",
+            "Latitude": -27.41460949922822,
+            "Longitude": 153.01177156
+        },
+        {
+            "Consignment": "ABCD11952362",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519074367000+1100)/",
+            "Latitude": -37.701649999086825,
+            "Longitude": 144.770527
+        },
+        {
+            "Consignment": "ABCD11956903",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1518756657750+1100)/",
+            "Latitude": -41.4507369290638,
+            "Longitude": 147.07749683
+        },
+        {
+            "Consignment": "ABCD11963200",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079065000+1100)/",
+            "Latitude": -37.774625999086226,
+            "Longitude": 144.891256
+        },
+        {
+            "Consignment": "ABCD11944609",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519075404000+1100)/",
+            "Latitude": -23.69783015930495,
+            "Longitude": 133.90438881
+        },
+        {
+            "Consignment": "ABCD11963928",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084249000+1100)/",
+            "Latitude": -27.468411879227205,
+            "Longitude": 153.02733132
+        },
+        {
+            "Consignment": "ABCD11952391",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519080623000+1100)/",
+            "Latitude": -33.82685076912705,
+            "Longitude": 150.86800931
+        },
+        {
+            "Consignment": "ABCD11952321",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519082634000+1100)/",
+            "Latitude": -21.119830059365142,
+            "Longitude": 149.10301198
+        },
+        {
+            "Consignment": "ABCD11952371",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519082714000+1100)/",
+            "Latitude": -37.77564599908622,
+            "Longitude": 144.947037
+        },
+        {
+            "Consignment": "ABCD11952381",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035694000+1100)/",
+            "Latitude": -42.823363389059374,
+            "Longitude": 147.30444657
+        },
+        {
+            "Consignment": "ABCD11952351",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519067229000+1100)/",
+            "Latitude": -36.89578326909384,
+            "Longitude": 149.90023318
+        },
+        {
+            "Consignment": "ABCD11952361",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087700000+1100)/",
+            "Latitude": -28.080644359215814,
+            "Longitude": 153.41066378
+        },
+        {
+            "Consignment": "ABCD11964657",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081188000+1100)/",
+            "Latitude": -34.030147519124526,
+            "Longitude": 150.83306834
+        },
+        {
+            "Consignment": "ABCD11964667",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519091707000+1100)/",
+            "Latitude": -37.7533334590864,
+            "Longitude": 144.79335564000002
+        },
+        {
+            "Consignment": "ABCD11964677",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087145000+1100)/",
+            "Latitude": -33.9364962,
+            "Longitude": 150.95938
+        },
+        {
+            "Consignment": "ABCD11964687",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081028000+1100)/",
+            "Latitude": -32.72543154914144,
+            "Longitude": 151.63382447
+        },
+        {
+            "Consignment": "ABCD11964647",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519073981000+1100)/",
+            "Latitude": -37.76941099908627,
+            "Longitude": 145.058148
+        },
+        {
+            "Consignment": "ABCD11964422",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519075511000+1100)/",
+            "Latitude": -31.992914489151712,
+            "Longitude": 115.85774684
+        },
+        {
+            "Consignment": "ABCD11960229",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519064593000+1100)/",
+            "Latitude": -34.452308069119454,
+            "Longitude": 150.83269761
+        },
+        {
+            "Consignment": "ABCD11957756",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519074570000+1100)/",
+            "Latitude": -37.84590299908565,
+            "Longitude": 144.876983
+        },
+        {
+            "Consignment": "ABCD11964421",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519078468000+1100)/",
+            "Latitude": -33.722572869128356,
+            "Longitude": 151.14313377
+        },
+        {
+            "Consignment": "ABCD11963770",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519070429000+1100)/",
+            "Latitude": -33.704381309128586,
+            "Longitude": 151.09821368
+        },
+        {
+            "Consignment": "ABCD11957726",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519090574000+1100)/",
+            "Latitude": -33.96197261912537,
+            "Longitude": 151.13131976
+        },
+        {
+            "Consignment": "ABCD11957509",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519084274000+1100)/",
+            "Latitude": -33.1457969991358,
+            "Longitude": 115.87947800000002
+        },
+        {
+            "Consignment": "ABCD11963637",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519035849000+1100)/",
+            "Latitude": -18.72129,
+            "Longitude": 145.69173
+        },
+        {
+            "Consignment": "ABCD11952658",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519078931000+1100)/",
+            "Latitude": -37.80846399908596,
+            "Longitude": 145.000797
+        },
+        {
+            "Consignment": "ABCD11952668",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519069179000+1100)/",
+            "Latitude": -31.83827999915395,
+            "Longitude": 115.84919
+        },
+        {
+            "Consignment": "ABCD11952648",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080668000+1100)/",
+            "Latitude": -32.534639999144055,
+            "Longitude": 115.73104
+        },
+        {
+            "Consignment": "ABCD11952608",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519071110000+1100)/",
+            "Latitude": -37.80799399908596,
+            "Longitude": 144.886645
+        },
+        {
+            "Consignment": "ABCD11952499",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079055000+1100)/",
+            "Latitude": -37.83082747908578,
+            "Longitude": 145.1900445
+        },
+        {
+            "Consignment": "ABCD11952618",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519076061000+1100)/",
+            "Latitude": -37.72064229908667,
+            "Longitude": 144.92117423
+        },
+        {
+            "Consignment": "ABCD11952429",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519084018000+1100)/",
+            "Latitude": -37.888486,
+            "Longitude": 145.08177
+        },
+        {
+            "Consignment": "ABCD11952479",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519086674000+1100)/",
+            "Latitude": -27.632435869224114,
+            "Longitude": 152.96930366
+        },
+        {
+            "Consignment": "ABCD11952489",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519092874000+1100)/",
+            "Latitude": -37.89324449908527,
+            "Longitude": 145.2980076
+        },
+        {
+            "Consignment": "ABCD11957550",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519005338310+1100)/",
+            "Latitude": -29.457085469191522,
+            "Longitude": 153.1962727
+        },
+        {
+            "Consignment": "ABCD11952459",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519075088000+1100)/",
+            "Latitude": -37.83764199908571,
+            "Longitude": 145.001202
+        },
+        {
+            "Consignment": "ABCD11957580",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519079228000+1100)/",
+            "Latitude": -27.522342949226182,
+            "Longitude": 152.82746685000004
+        },
+        {
+            "Consignment": "ABCD11952439",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519082519000+1100)/",
+            "Latitude": -37.84131299908569,
+            "Longitude": 145.08095700000004
+        },
+        {
+            "Consignment": "ABCD11952409",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519080068000+1100)/",
+            "Latitude": -27.42786487922797,
+            "Longitude": 153.05863331
+        },
+        {
+            "Consignment": "ABCD11952419",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519081970000+1100)/",
+            "Latitude": -27.40611073922838,
+            "Longitude": 153.06113037
+        },
+        {
+            "Consignment": "ABCD11954540",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1518672299870+1100)/",
+            "Latitude": -31.6567243,
+            "Longitude": 116.0318598
+        },
+        {
+            "Consignment": "ABCD11952420",
+            "Type": 5,
+            "Type_EnumString": "Delivery Unsucessful",
+            "EventDateTime": "/Date(1519088297000+1100)/",
+            "Latitude": -27.364246749229178,
+            "Longitude": 152.96850935
+        },
+        {
+            "Consignment": "ABCD11952470",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519075188000+1100)/",
+            "Latitude": -27.804641529220902,
+            "Longitude": 152.56933066
+        },
+        {
+            "Consignment": "ABCD11961175",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519087141000+1100)/",
+            "Latitude": -33.86953760912651,
+            "Longitude": 151.2206914
+        },
+        {
+            "Consignment": "ABCD11952480",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519078088000+1100)/",
+            "Latitude": -28.020858019216902,
+            "Longitude": 153.39247163
+        },
+        {
+            "Consignment": "ABCD11961185",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519078080000+1100)/",
+            "Latitude": -33.61558937912971,
+            "Longitude": 151.33075483
+        },
+        {
+            "Consignment": "ABCD11952450",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519078393000+1100)/",
+            "Latitude": -27.519554839226238,
+            "Longitude": 152.9494014
+        },
+        {
+            "Consignment": "ABCD11961155",
+            "Type": 3,
+            "Type_EnumString": "Onboard for Delivery",
+            "EventDateTime": "/Date(1519072335000+1100)/",
+            "Latitude": -33.883706959126336,
+            "Longitude": 151.19381556
+        },
+        {
+            "Consignment": "ABCD11952460",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519089671000+1100)/",
+            "Latitude": -37.8384534790857,
+            "Longitude": 144.99603791
+        },
+        {
+            "Consignment": "ABCD11961165",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081147000+1100)/",
+            "Latitude": -33.751162609127995,
+            "Longitude": 150.69221777000004
+        },
+        {
+            "Consignment": "ABCD11952430",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519081162000+1100)/",
+            "Latitude": -27.129701399233657,
+            "Longitude": 153.05106186
+        },
+        {
+            "Consignment": "ABCD11952440",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519064578000+1100)/",
+            "Latitude": -28.042383929216513,
+            "Longitude": 148.57157499
+        },
+        {
+            "Consignment": "ABCD11961145",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519090287000+1100)/",
+            "Latitude": -33.90739915912604,
+            "Longitude": 151.0759543
+        },
+        {
+            "Consignment": "ABCD11952400",
+            "Type": 2,
+            "Type_EnumString": "Not Onboard for Delivery",
+            "EventDateTime": "/Date(1519081712000+1100)/",
+            "Latitude": -30.02533279918204,
+            "Longitude": 148.12124766
+        },
+        {
+            "Consignment": "ABCD11952410",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519078047000+1100)/",
+            "Latitude": -36.728114339095384,
+            "Longitude": 142.20773399
+        },
+        {
+            "Consignment": "ABCD11954254",
+            "Type": 6,
+            "Type_EnumString": "Delivered Early",
+            "EventDateTime": "/Date(1519032151860+1100)/",
+            "Latitude": -28.743583969203883,
+            "Longitude": 114.83593971
+        },
+        {
+            "Consignment": "ABCD11961195",
+            "Type": 4,
+            "Type_EnumString": "Delivered Today",
+            "EventDateTime": "/Date(1519089749000+1100)/",
+            "Latitude": -33.78656576912755,
+            "Longitude": 151.19582939
+        }
+    ]
+}

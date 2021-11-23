@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AUSTRAC_registration_date_with_status</fullName>
+    <active>true</active>
+    <description>AUSTRAC registration date needs to be completed when the status is updated to AUSTRAC registered</description>
+    <errorConditionFormula>(RecordType.Name = &apos;AUSTRAC Registration&apos;) &amp;&amp;
+(ISPICKVAL(Status__c, &apos;AUSTRAC Registered&apos;) &amp;&amp;
+ISBLANK(AUSTRAC_registration_date__c))</errorConditionFormula>
+    <errorDisplayField>AUSTRAC_registration_date__c</errorDisplayField>
+    <errorMessage>AUSTRAC registration date needs to be completed when the status is updated to AUSTRAC registered</errorMessage>
+</ValidationRule>

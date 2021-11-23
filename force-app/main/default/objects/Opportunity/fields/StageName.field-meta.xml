@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StageName</fullName>
+    <inlineHelpText>Current stage of opportunity.(e.g. Values are: Identify, Qualify, Propose, Negotiate, Closed Won, Closed Lost, and Closed Disqualified.)</inlineHelpText>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>true</trackTrending>
+    <type>Picklist</type>
+</CustomField>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Selling_on_any_other_marketplace__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>If &apos;Yes - Other&apos; please idenfify marketplace in additional comments</inlineHelpText>
+    <label>Selling on any other marketplace?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes - Myer Marketplace</fullName>
+                <default>false</default>
+                <label>Yes - Myer Marketplace</label>
+            </value>
+            <value>
+                <fullName>Yes - eBay</fullName>
+                <default>false</default>
+                <label>Yes - eBay</label>
+            </value>
+            <value>
+                <fullName>Yes - Other</fullName>
+                <default>false</default>
+                <label>Yes - Other</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

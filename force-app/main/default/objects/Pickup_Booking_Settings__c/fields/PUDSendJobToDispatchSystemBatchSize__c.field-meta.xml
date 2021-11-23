@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PUDSendJobToDispatchSystemBatchSize__c</fullName>
+    <defaultValue>200</defaultValue>
+    <description>Batch size of the batch process (PUDSendJobToDispatchSystemBatch) that trigger outbound messages to send current day&apos;s jobs into external dispatch system.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Batch size of the batch process that trigger outbound messages to send current day&apos;s jobs into external dispatch system.</inlineHelpText>
+    <label>Dispatch System Sync Batch Size</label>
+    <precision>4</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

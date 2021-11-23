@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_and_Submit_for_Approval</fullName>
+    <availability>online</availability>
+    <description>Call flow that submits Partner Addendum record for approval</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Validate and Submit for Approval</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/flow/Partner_Info_Submit_PA_Approval?PartnerAddendumId={!Partner_Addendum__c.Id}&amp;retURL=/{!Partner_Addendum__c.Id}</url>
+</WebLink>

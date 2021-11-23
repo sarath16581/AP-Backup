@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>SFDC_Blank</letterhead>
+    <name>Bids</name>
+    <style>freeForm</style>
+    <subject>Bid Support Request {!Bid__c.Name} has been assigned</subject>
+    <textOnly>Hi {!Bid__c.hidden_Opportunity_Driver_First_Name__c},
+
+
+
+Thank you for your request for support from the Australia Post / StarTrack Bids &amp; Tenders team.
+
+
+
+I’m pleased to advise that your request has now been assigned.  Here are the details of your request and your Bid Manager:
+
+
+
+Activity Type - {!Bid__c.Bid_or_Tender_Type__c}
+
+Document Type - {!Bid__c.Document_Type__c}
+
+Customer Name - {!Bid__c.Customer_Name__c}
+
+Opportunity - {!Bid__c.Opportunity_Name__c}
+
+Due Date - {!Bid__c.Due_Date__c}
+
+Bid Manager - {!Bid__c.OwnerFullName}
+
+
+
+Your Bid Manager will make contact with you shortly to discuss your requirements.
+
+
+
+If there are any issues, please respond to this email – our team will assist you from there.
+
+
+Regards,
+
+
+
+Chris Thallon
+
+
+Manager, Bids &amp; Tenders
+Enterprise, Government &amp; eCommerce Delivery Sales
+Australia Post</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

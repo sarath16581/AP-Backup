@@ -1,0 +1,13 @@
+<apex:component controller="APT_ProposalApprovalEmailController" access="global">
+    
+    <apex:attribute name="proposalID" 
+                    description="This is the Proposal id." 
+                    type="String" 
+                    assignTo="{!propID}" />
+   
+    <apex:outputText value="Product Lines Requested: "></apex:outputText>     
+    <apex:outputText value="{!ProductLines}"></apex:outputText>
+    
+    
+                    
+</apex:component>

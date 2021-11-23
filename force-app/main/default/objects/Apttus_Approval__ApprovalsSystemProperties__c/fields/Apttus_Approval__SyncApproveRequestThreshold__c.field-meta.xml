@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_Approval__SyncApproveRequestThreshold__c</fullName>
+    <defaultValue>20</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Approval Request count threshold, exceeding which approve/reject actions will be processed in async mode</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Approval Request count threshold, exceeding which approve/reject actions will be processed in async mode</inlineHelpText>
+    <label>Sync Approve Request Threshold</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

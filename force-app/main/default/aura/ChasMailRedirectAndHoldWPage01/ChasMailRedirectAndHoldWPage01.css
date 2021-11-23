@@ -1,0 +1,63 @@
+/*
+@changelog: 23-07-2010 hara.sahoo@auspost.com.au Added new styling as per the Help and Support form uplift 
+*/
+.THIS .add-remove-person {
+	margin-top: -20px;
+}
+
+ .THIS .add-person {
+     color:#000;
+ }
+ .THIS .remove-person {
+ 	text-decoration: underline;
+ 	color: inherit;
+ 	line-height: 32px;
+ }
+ .THIS .remove-person-box {
+     text-align: right;
+ }
+ .THIS .additional-applicants-header {
+     margin-bottom: 28px;
+ }
+@media (min-width: 680px) {
+    .THIS .desktop-view {
+        display:block;
+    }
+    .THIS .mobile-view {
+        display:none;
+    }
+}
+@media (max-width: 680px) {
+    .THIS .desktop-view {
+        display:none;
+    }
+    .THIS .mobile-view {
+        display:block;
+    }
+}
+.THIS .chas-button-box {
+    border-top: none;
+    padding-top:0px !important;
+    flex-direction: row;
+}
+.THIS .sub-header { 
+        padding-bottom:32px;
+        letter-spacing: .8px;
+    }
+@media (max-width: 680px) {
+    .THIS .sub-header {
+        padding-bottom:32px;
+    }
+}
+.THIS .top-padding {
+    padding-top:32px;
+}
+.THIS .form-input-container{
+    max-width:none;
+}
+@media (min-width: 680px)
+    {
+    .THIS .cChasBspDeflection {
+    width: 656px;
+}
+}

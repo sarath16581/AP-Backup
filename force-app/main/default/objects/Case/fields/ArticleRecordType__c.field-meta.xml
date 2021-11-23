@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ArticleRecordType__c</fullName>
+    <description>Holds the record type name of the linked article. This field is created as a work around for the 15 cross object limit in the formulas and workflows.</description>
+    <externalId>false</externalId>
+    <label>Article Record Type</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Billing Accounts used in Cognition Pilot phase. Specify Billing Account Number without T or P in Cognition Pilot Account Name (DeveloperName) field and Billing Account Name in Label field. 
+Please put X as the first character for Cognition Pilot Account Name (DeveloperName) field. Value must start with an alphabet for this field.
+Maximum 5 records only.</description>
+    <label>Cognition Pilot Accounts</label>
+    <pluralLabel>Cognition Pilot Accounts</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

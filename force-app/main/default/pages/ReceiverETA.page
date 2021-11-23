@@ -1,0 +1,31 @@
+<apex:page standardStylesheets="false" applyBodyTag="false" showHeader="false" >
+    <apex:includeLightning />
+    <style>
+        html, body {
+        margin: 0;
+        padding: 0;
+        }
+        #lightningComponent {width: 100%;}
+    </style>
+   
+	<apex:stylesheet value="{!URLFOR($Resource.Cognition_StaticRes, '/css/Cognition_Styles2.css')}" />
+
+
+    <div id="content">
+        <div id="lightningComponent" />
+    </div>
+    <script>
+                            var urlParamStr = decodeURIComponent(window.location.search.substring(1));
+                            window.onload = function() { 
+                            $Lightning.use("c:cognition_ReceiverETALO", function(){
+                                var accListComp = $Lightning.createComponent("c:Cognition_ReceiverETA",
+                                    {ETAInputs : urlParamStr},
+                                    "lightningComponent",
+                                     function(component) {});
+                                });
+                            }
+    </script>
+<!--
+    <c:bspFooter />
+-->
+</apex:page>

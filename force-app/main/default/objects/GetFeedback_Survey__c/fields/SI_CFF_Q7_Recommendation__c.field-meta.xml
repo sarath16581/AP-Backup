@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SI_CFF_Q7_Recommendation__c</fullName>
+    <description>Based on your recent experience with our Sales Implementation Consultant, how likely are you to recommend Sales Implementation Enterprise &amp; Government to your Australia Post colleagues?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Based on your recent experience with our Sales Implementation Consultant, how likely are you to recommend Sales Implementation Enterprise &amp; Government to your Australia Post colleagues?</inlineHelpText>
+    <label>SI-CFF - Q7 Recommendation</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

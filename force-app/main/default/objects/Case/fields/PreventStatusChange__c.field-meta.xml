@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PreventStatusChange__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If this ticked, the status of the case will not automatically changed by the system. USED BY WFR on CaseComment &amp; EmailMessage</description>
+    <externalId>false</externalId>
+    <label>Prevent Status Change</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

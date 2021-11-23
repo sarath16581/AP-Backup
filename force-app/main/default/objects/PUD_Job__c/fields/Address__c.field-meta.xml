@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Address__c</fullName>
+    <description>Consolidation of address fields including location name for route report</description>
+    <externalId>false</externalId>
+    <formula>Street__c + BR() +
+City__c + BR() +
+Post_Code__c</formula>
+    <label>Address</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

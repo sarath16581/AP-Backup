@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>CEO</fullName>
+        <default>false</default>
+        <label>CEO</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Resolutions Manager</fullName>
+        <default>false</default>
+        <label>Customer Resolutions Manager</label>
+    </customValue>
+    <customValue>
+        <fullName>Divisional CFO</fullName>
+        <default>false</default>
+        <label>Divisional CFO</label>
+    </customValue>
+    <customValue>
+        <fullName>EGM</fullName>
+        <default>false</default>
+        <label>EGM</label>
+    </customValue>
+    <customValue>
+        <fullName>EGM Sales</fullName>
+        <default>false</default>
+        <label>EGM Sales</label>
+    </customValue>
+    <customValue>
+        <fullName>GCFO</fullName>
+        <default>false</default>
+        <label>GCFO</label>
+    </customValue>
+    <customValue>
+        <fullName>GM of Finance</fullName>
+        <default>false</default>
+        <label>GM of Finance</label>
+    </customValue>
+    <customValue>
+        <fullName>GM of Product</fullName>
+        <default>false</default>
+        <label>GM of Product</label>
+    </customValue>
+    <customValue>
+        <fullName>GM of Sales</fullName>
+        <default>false</default>
+        <label>GM of Sales</label>
+    </customValue>
+    <customValue>
+        <fullName>Group COO</fullName>
+        <default>false</default>
+        <label>Group COO</label>
+    </customValue>
+    <customValue>
+        <fullName>Head of Finance</fullName>
+        <default>false</default>
+        <label>Head of Finance</label>
+    </customValue>
+    <customValue>
+        <fullName>Head of Product</fullName>
+        <default>false</default>
+        <label>Head of Product</label>
+    </customValue>
+    <customValue>
+        <fullName>Parcels COO</fullName>
+        <default>false</default>
+        <label>Parcels COO</label>
+    </customValue>
+    <customValue>
+        <fullName>Sales Director</fullName>
+        <default>false</default>
+        <label>Sales Director</label>
+    </customValue>
+    <customValue>
+        <fullName>Credit Manager</fullName>
+        <default>false</default>
+        <label>Credit Manager</label>
+    </customValue>
+    <description>Roles that has authority to approve/reject credit.</description>
+    <masterLabel>Credit Approval Roles</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Top_Node_ANZSIC__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(left( Root_Id__c,15) = Id,   ANZSIC_Code__r.Name&amp;&quot;-&quot;&amp; ANZSIC_Code_Description__c  , &quot; &quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Top Node ANZSIC</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

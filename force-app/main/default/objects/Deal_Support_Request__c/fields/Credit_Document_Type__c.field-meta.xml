@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_Document_Type__c</fullName>
+    <description>Field that will indicate the type of documents that is required based upon the Pay Account Type.</description>
+    <externalId>false</externalId>
+    <label>Credit Document Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Pay_Account_Type__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Invoice</fullName>
+                <default>false</default>
+                <label>Invoice</label>
+            </value>
+            <value>
+                <fullName>Pricing Statement</fullName>
+                <default>false</default>
+                <label>Pricing Statement</label>
+            </value>
+            <value>
+                <fullName>Information Statement</fullName>
+                <default>false</default>
+                <label>Information Statement</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Billing Account</controllingFieldValue>
+            <controllingFieldValue>StarTrack Account</controllingFieldValue>
+            <valueName>Invoice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Account</controllingFieldValue>
+            <controllingFieldValue>Sub Account</controllingFieldValue>
+            <valueName>Pricing Statement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sub Account</controllingFieldValue>
+            <valueName>Information Statement</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

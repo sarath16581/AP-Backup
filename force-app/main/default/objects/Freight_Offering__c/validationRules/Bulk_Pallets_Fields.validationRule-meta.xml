@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bulk_Pallets_Fields</fullName>
+    <active>true</active>
+    <errorConditionFormula>and (   Bulk_Pallets__c  =true,   
+
+
+or( 
+ ISBLANK(   Qty_PalletsBP__c  ),
+ ISBLANK(   Qty_SkidsBP__c  ), 
+ ISBLANK(    Max_weightBP__c  )))</errorConditionFormula>
+    <errorMessage>Please make sure that Qty pallets, Qty Skids and Max weight fields for Bulk Pallets are not blank</errorMessage>
+</ValidationRule>

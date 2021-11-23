@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approver_2_Required</fullName>
+    <active>true</active>
+    <description>Ensure Approver 2 is specified if Approver3, Approver4, Approver5 or Approver6 is populated,</description>
+    <errorConditionFormula>AND(  ISBLANK(Approver_2__c) , 
+    NOT(AutoApprove__c) ,
+    NOT( AND( ISBLANK(Approver_3__c), ISBLANK(Approver_4__c), ISBLANK(Approver_5__c), ISBLANK(Approver_6__c) ))
+)</errorConditionFormula>
+    <errorDisplayField>Approver_2__c</errorDisplayField>
+    <errorMessage>You must specify Approver 2.</errorMessage>
+</ValidationRule>

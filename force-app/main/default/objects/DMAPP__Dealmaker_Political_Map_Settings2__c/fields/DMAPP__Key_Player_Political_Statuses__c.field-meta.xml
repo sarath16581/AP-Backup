@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Key_Player_Political_Statuses__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Specify a list of political attributes to use for Key Player Auto-Import. Use ### as the separator.
+
+Example: Inner Circle###Political Structure</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Specify a list of political attributes to use for Key Player Auto-Import. Use ### as the separator.
+
+Example: Inner Circle###Political Structure</inlineHelpText>
+    <label>Key Player Political Statuses</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

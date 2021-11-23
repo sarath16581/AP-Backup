@@ -1,0 +1,16 @@
+<aura:component access="global" implements="forceCommunity:availableForAllPageTypes">
+	<div class="cp-tracking-container">
+		<div class="cp-track-inline">
+			<!--<span class="cp-track-icon-box"><img src="/community/resource/cp_ap_track_icon" alt=""/></span> -->
+			<span class="cp-track-icon-box"><img src="{!$Resource.cp_ap_track_icon}" alt=""/></span>
+			<span class="cp-track-input-box">
+                <ui:inputText class="cp-track-input" aura:id="trackingnumber" label="Track an item" placeholder="Enter tracking number" keyup="{!c.enterTrack}"/></span>
+		</div>
+		<div>
+			<small>e.g. AA123BB2234</small>
+		</div>
+		<div data-event="site interaction" data-category="CTA" data-description="tracking-homepage">
+        		<lightning:button aura:id="button" variant="base" title="Click to track your item" class="button" label="Track" onclick="{!c.getInput}"/>
+		</div>
+	</div>
+</aura:component>

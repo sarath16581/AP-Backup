@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_ECIMERCH_AVG_Weight</fullName>
+    <active>true</active>
+    <description>ECI Merchandise AVG Weight(KG) must be less than 20 kg.</description>
+    <errorConditionFormula>ISPICKVAL(APT_Volume_Data__c, &apos;Yes&apos;) &amp;&amp; 
+(ECI_Merchandise_Annual_Volume__c != 0 &amp;&amp; (NOT(  APT_ECI_Merchandise_AVG_Weight_KG__c  &gt;= 0.001) 
+|| NOT(  APT_ECI_Merchandise_AVG_Weight_KG__c  &lt;= 20))) || 
+(ECI_Merchandise_Annual_Volume__c != 0 &amp;&amp; APT_ECI_Merchandise_AVG_Weight_KG__c = 0) &amp;&amp; NOT( Apttus_Config2__IsTransient__c)</errorConditionFormula>
+    <errorDisplayField>APT_ECI_Merchandise_AVG_Weight_KG__c</errorDisplayField>
+    <errorMessage>Invalid value for ECI Merchandise AVG Weight(KG).</errorMessage>
+</ValidationRule>

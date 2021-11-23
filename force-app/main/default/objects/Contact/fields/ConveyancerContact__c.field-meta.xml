@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ConveyancerContact__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This flag when checked means this is a Conveyancer primary contact in relation to Land Tittle VOI registration.</description>
+    <externalId>false</externalId>
+    <label>Conveyancer Contact</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

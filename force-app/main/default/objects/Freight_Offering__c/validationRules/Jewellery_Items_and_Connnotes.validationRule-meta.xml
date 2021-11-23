@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Jewellery_Items_and_Connnotes</fullName>
+    <active>true</active>
+    <errorConditionFormula>And(  Additional_Freight_Presentation__c  = true,  
+(or(
+and (   ISBLANK(  Jewellery_Qty_Connotes__c    ),   
+
+not( ISBLANK(   Jewellery_Qty_Items__c  ))),
+
+
+and (   ISBLANK(  Jewellery_Qty_Items__c   ),   
+
+not( ISBLANK(  Jewellery_Qty_Connotes__c   ))))))</errorConditionFormula>
+    <errorMessage>Please make sure that you have entered a value for Jewellery Qty Items and  Medical Qty Connotes fields for Additional Freight Presentation</errorMessage>
+</ValidationRule>

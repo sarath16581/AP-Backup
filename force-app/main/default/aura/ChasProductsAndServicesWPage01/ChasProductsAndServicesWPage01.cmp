@@ -1,0 +1,281 @@
+<!--
+  * @changeLog :
+  * @date         : 19/06/2020
+  * Modified by   : Hara Sahoo
+  * @description  : 1. Added Back Button and a card layout outer-box
+  * Modifield by Hara Sahoo - 11/01/2020 - Changes made as part of enquiry submission in an unauthenticated user context 
+  * Modifield by Hara Sahoo - 02/02/2021 - AME address validation for all address fields on the form 
+-->
+<aura:component extends="c:SS_uiWizardPage" controller='ChasApexController' description="Products and Services wizard page 1: Issue Details">
+    
+    <aura:attribute
+                    name="enquiryDetailsRadioGroup"
+                    type="List"
+                    default="[
+                             {'label':'Mail products', image:'/chas-icons/pngs/Selection-icons/mail-products.png','id':'firstRadio'},
+                             {'label':'Post Office', image:'/chas-icons/pngs/Selection-icons/post-office.png','id':'secondRadio'},
+                             {'label':'ID, documents &amp; accounts', image:'/chas-icons/pngs/Selection-icons/id-documents-accounts.png','id':'thirdRadio'},
+                             {'label':'Online Shop', image:'/chas-icons/pngs/Selection-icons/online-shop.png','id':'fourthRadio'},
+                             {'label':'Money', image:'/chas-icons/pngs/Selection-icons/money.png','id':'fifthRadio'}
+                             ]"/>
+    <aura:attribute name="mailProductsEnquiryTypes" type="List"
+                    default="[
+                             {'label':'24/7 Parcel Locker', value:'24/7 Parcel Locker'},
+                             {'label':'Express Post', value:'Express Post'},
+                             {'label':'Letter', value:'Letter'},
+                             {'label':'Parcel', value:'Parcel'},
+                             {'label':'Parcel Collect', value:'Parcel Collect'},
+                             {'label':'PO Box and Private Bag', value:'PO Box and Private Bag'},
+                             {'label':'Tracking', value:'Tracking'},
+                             {'label':'Transfer to another post office', value:'Transfer to another post office'}
+                             ]"/>
+    <aura:attribute name="idDocumentsAccountsEnquiryTypes" type="List"
+                    default="[
+                             {'label':'ID check', value:'ID check'},
+                             {'label':'Land title', value:'Land title'},
+                             {'label':'MyPost', value:'MyPost'},
+                             {'label':'Passport', value:'Passport'},
+                             {'label':'Police check', value:'Police check'},
+                             {'label':'Tax file number (TFN)', value:'Tax file number (TFN)'},
+                             {'label':'Other', value:'Other'}
+                             ]"/>
+    <aura:attribute name="madeAnOrderRadioGroup" type="List"
+                    default="[
+                             {'label':'Yes', 'id':'sixthRadio'},
+                             {'label':'No', 'id':'seventhRadio'}
+                             ]"/>
+    <aura:attribute name="moneyEnquiryTypeRadioGroup" type="List"
+                    default="[
+                             {'label':'Bank@Post', 'id':'eigthRadio'},
+                             {'label':'Post Billpay', 'id':'ninthRadio'}
+                             ]"/>
+    <aura:attribute name="helptext" type="String" />
+    <!-- Guest login attributes-->
+    <aura:handler name="chasmyPostLogin" event="c:ChasMyPostLogin" action="{!c.displaymyPostLoginForm}"/>
+    <aura:attribute name="authenticatedURL" type="String" />
+    
+    <aura:attribute name="checkInputsOnRender" type="Boolean" default="true"/>
+    <aura:attribute name="selectedPostOffice" type="String" default=''/>
+    <aura:attribute name="previousSelectedPO" type="String" default='' />
+    <aura:attribute name="showErrorSummary" type="Boolean" default="false"/>
+    <aura:attribute name="showPoError" type="Boolean" default="false"/>
+    <aura:attribute name="isFromDirectLink"  type="Boolean" default="false" />
+    <aura:handler name="chasGenComponentEvent" event="c:chasGenComponentEvent" action="{!c.onchange}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="render" value="{!this}" action="{!c.onRender}"/>
+    <!-- Error attributes-->
+    <aura:attribute name="error500" type="Boolean" default="false"/>
+    <aura:attribute name="error400" type="Boolean" default="false"/>
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+    <aura:attribute name="isVerified"  type="Boolean" default="false" />
+    <!-- AME attributes-->
+    <aura:attribute name="showError" type="Boolean" />
+    <aura:attribute name="error" type="String" default=''/>
+    <aura:attribute name="fieldError" type="String" default=''/>
+    <aura:attribute name="inputError" type="Boolean" default="false"/>    
+    <aura:attribute name="incorrectShowError" type="Boolean" default="false"/>
+    <aura:attribute name="inputFieldError" type="Boolean" default="false"/>
+    <aura:attribute name="isOverriden" type="Boolean" default="false"/>
+    <!-- Trigger analytics when redirected from a direct link like chatbot or from a FAQ page-->
+    <aura:if isTrue="{!v.isFromDirectLink}">
+        <c:adobeAnalyticsInterfaceComponent sitePrefix="auspost:help and support" pageViewTracking="{! v.analyticsPageViewAutoTracking }" 
+                                            pageViewTrackingType="helpsupport-form-navigate" 
+                                            pageViewFormName="{! 'form:' + v.pageTitle }" 
+                                            pageViewFormStep="enquiry details:type"
+                                            pageViewFormDetail="enquiry=mail products-Transfer to another post office"/>
+    </aura:if>
+    
+    <legend class="chas-header left-padding">
+        <h2>Enquiry details</h2>
+    </legend>
+    <c:ChasForm customStyle="left-padding">
+        <!-- Login was successful, user authenticated -->
+        <aura:if isTrue="{!v.authUserData.isUserAuthenticated == true}">
+            <!-- Dont present the login options-->
+            <aura:set attribute="else">
+                <!-- User is un-authenticated/guest -->
+                <!-- Present user with login options authenticated/ un-authenticated-->
+                <div class="slds-grid-address-login login-block">
+                    <div class="slds-col state-col-width">
+                        <c:ChasLoginOptions label="Continue with MyPost" myPostLogin="true" subLabel="to pre-fill some details. You'll also be able track your enquiry online."/>
+                    </div>
+                    <div class="slds-col separator-vertical separator-horizontal">
+                        <hr/>
+                    </div>
+                    <div class="slds-col state-col-width">
+                        <c:ChasLoginOptions label="Continue as a guest" subLabel="Enter all your details, then get updates on your enquiry via email or phone."/>
+                    </div>
+                </div>  
+            </aura:set>
+        </aura:if>
+        <c:ChasFieldset>
+            <div class="outer-box">
+                <!--Error summary-->
+                <aura:if isTrue="{! v.showErrorSummary }">
+                    <c:ChasErrorSummary aura:id="chasErrorSummary" errors="{! v.errors }"/>
+                </aura:if>
+                <!-- Issue type -->
+                <c:ChasRadioButtons aura:id="chasInput"
+                                    name="enquiryDetailsRadioButtons"
+                                    required="true" 
+                                    label="Issue type"
+                                    variant="label-hidden"
+                                    options="{! v.enquiryDetailsRadioGroup }"
+                                    value="{! v.wizardData.selectedRadio1 }" />
+                
+                <aura:if isTrue="{! v.wizardData.selectedRadio1 }">
+                    <!--<aura:if isTrue="{! not (v.error500) }">-->
+                    <aura:if isTrue="{! v.wizardData.selectedRadio1Name == 'Mail products' }">
+                        <!-- Mail product enquiry type Select -->
+                        <c:ChasSelect aura:id='chasInput' name='mailProductsEnquiryType' required="true" label='Enquiry type' options="{!v.mailProductsEnquiryTypes}" value='{!v.wizardData.mailProductsEnquiryType}' />
+                        
+                        <aura:if isTrue="{! v.wizardData.mailProductsEnquiryType == 'Transfer to another post office' }">
+                            <c:ChasBspDeflection heading="{!$Label.c.ChasTransferFeeHeading}" animate="true" borderStyle="info-box-left-bar bottom-gap">
+                                <p>
+                                    Please pay at the counter when you collect your item.
+                                </p>
+                            </c:ChasBspDeflection>
+                            <!-- Transfer Tracking Number -->
+                            <c:ChasInputWithIcon type='text' aura:id="transferTrackingNumber" name="transferTrackingNumber" required="false" 
+                                                 label='Tracking number' subLabel='(optional)' 
+                                                 value='{! v.wizardData.trackingId}'
+                                                 onblur="{!c.searchTrackingNumberService}" isVerified="{!v.isVerified}" isLoading="{!v.isLoading}"/>
+                            <!-- LWC component : Preferred Post Office for collection-->
+                            <div id="preferredLocation" name="preferredLocation">
+                                <aura:if isTrue="{! v.showPoError }">
+                                    <div class="chas-error-message">
+                                        <img src="{!$Resource.ChasIcons + '/chas-icons/pngs/UI/icons/ic_warning.png'}" alt="Input error"/>
+                                        <span>Select preferred Post Office for collection</span>
+                                    </div>
+                                </aura:if>
+                                
+                                <c:chasPreferredLocation onselectedpostoffice="{!c.selectedpostofficehandler}" /><br/>
+                            </div>
+                            
+                            <!-- Section separator-->
+                            <div class="separator-gap">
+                                <hr/>
+                            </div>
+                            
+                            <!-- Enquiry details -->
+                            <legend class="slds-form-element__label">
+                                <label class="label-style">Original delivery address</label>
+                            </legend>
+                            <p class="chas-body_small">We’ll use this to confirm that the item was addressed to you.</p>
+                            <div id="AMEOriginalDeliveryAddress" name="AMEOriginalDeliveryAddress" class="AMEAddress">
+                                <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }"/>
+                                <c:chasMissingItemAddressLookup aura:id="searchAddress" label="" searchAddressTerm="{!v.wizardData.selectedDeliveryAddress}"
+                                                                inputFieldError="{!v.inputFieldError}" inputError="{!v.inputError}" 
+                                                                errorMessage="{!v.errorMessage}" onshowError="{!c.getShowError}" 
+                                                                onvaluechange="{!c.getOverrideAddress}" onsearchtermchange="{!c.getSelectedAddress}" 
+                                                                onaddressOverride="{!c.checkOverride}" onaddressTyped="{!c.getAddressTyped}"/>
+                            </div>
+                            <!-- Address Line1-->
+                            <!--<c:ChasInput type='text' aura:id='chasInput' name='addressLine1' required="true" label='Address line 1' value='{!v.wizardData.deliveryAddressLine1}' />-->
+                            
+                            <!-- Address Line2-->
+                            <!--<c:ChasInput type='text' name='addressLine2' required="false" label='Address line 2' subLabel='(optional)' value='{! v.wizardData.deliveryAddressLine2}'/>-->
+                            
+                            <!-- City-->
+                            <!--<c:ChasInput type='text' aura:id='chasInput' name='city' required="true" label='Suburb, town or city' value='{!v.wizardData.deliveryCity}'  />-->
+                            
+                            <!--<div class="slds-grid-address">-->
+                                <!-- State -->
+                                <!--<div class="slds-col state-col-width"> 
+                                    <c:ChasSelect aura:id='chasInput' name='state' required="true" label='State' options="{!v.stateOptions}" value='{!v.wizardData.deliveryState}' />
+                                </div>-->
+                                
+                                <!-- Postcode -->
+                                <!--<div class="slds-col postcode-col-width col-separator">
+                                    <c:ChasInput type='text' aura:id='chasInput' name='postcode' required="true" label='Postcode' pattern="[0-9]*" value='{!v.wizardData.deliveryPostcode}' />
+                                </div>
+                            </div>-->
+                        </aura:if>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{! v.wizardData.selectedRadio1Name == 'ID, documents &amp; accounts' }">
+                        <!-- ID, documents & accounts enquiry type Select -->
+                        <c:ChasSelect aura:id='chasInput' name='idDocumentsAccountsEnquiryTypes' required="true" label='Enquiry type' options="{!v.idDocumentsAccountsEnquiryTypes}" value='{!v.wizardData.idDocumentsAccountsEnquiryType}' />
+                    </aura:if>
+                    
+                    <aura:if isTrue="{! v.wizardData.selectedRadio1Name == 'Online Shop' }">
+                        <!-- Made an order Radio Buttons -->
+                        <c:ChasRadioButtons aura:id="chasInput"
+                                            name="madeAnOrderRadioButtons"
+                                            required="true" 
+                                            label="Have you made an order?"
+                                            options="{! v.madeAnOrderRadioGroup }"
+                                            value="{! v.wizardData.selectedRadio2 }" />
+                        
+                        <aura:if isTrue="{! v.wizardData.selectedRadio2Name == 'Yes' }">
+                            <!-- Order Number -->
+                            <c:ChasInput type='number' aura:id='chasInput' name='orderNumber' required="true" label='Order no' value='{!v.wizardData.orderNumber}' />
+                            
+                            <!-- Order Tracking Number -->
+                            <c:ChasInput type='text' aura:id="chasInput" name="orderTrackingNumber" required="false" label='Tracking number' subLabel='(optional)' value='{! v.wizardData.orderTrackingNumber }' />
+                        </aura:if>
+                    </aura:if>
+                    
+                    <aura:if isTrue="{! v.wizardData.selectedRadio1Name == 'Money' }">
+                        <!-- Made an order Radio Buttons -->
+                        <c:ChasRadioButtons aura:id="chasInput"
+                                            name="moneyEnquiryTypeRadioButtons"
+                                            required="true" 
+                                            label="Enquiry type"
+                                            options="{! v.moneyEnquiryTypeRadioGroup }"
+                                            value="{! v.wizardData.selectedRadio3 }" />
+                    </aura:if>
+                    
+                    
+                    <!-- Enquiry details -->
+                    <c:chasTextArea aura:id="chasInput" name="enquiryDetails" required="true" label="Please provide details" value="{!v.wizardData.enquiryDetails}" helptext="{! v.helptext }" />
+                    
+                    <aura:if isTrue="{! and(v.wizardData.selectedRadio1Name == 'Online Shop', v.wizardData.selectedRadio2Name == 'Yes') }">
+                        <div id="AMEOnlineDeliveryAddress" name="AMEOnlineDeliveryAddress" class="AMEAddress">
+                            <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }"/>
+                            <c:chasMissingItemAddressLookup aura:id="searchAddress" label="Delivery Address" searchAddressTerm="{!v.wizardData.selectedDeliveryAddress}"
+                                                            inputFieldError="{!v.inputFieldError}" inputError="{!v.inputError}" 
+                                                            errorMessage="{!v.errorMessage}" onshowError="{!c.getShowError}" 
+                                                            onvaluechange="{!c.getOverrideAddress}" onsearchtermchange="{!c.getSelectedAddress}" 
+                                                            onaddressOverride="{!c.checkOverride}" onaddressTyped="{!c.getAddressTyped}"/>
+                        </div>
+                        <!--<c:ChasFieldset label="Delivery address" small="true">-->
+                            
+                            <!-- Address Line1-->
+                            <!--<c:ChasInput type='text' aura:id='chasInput' name='addressLine1' required="true" label='Address line 1' value='{!v.wizardData.deliveryAddressLine1}' />-->
+                            
+                            <!-- Address Line2-->
+                            <!--<c:ChasInput type='text' name='addressLine2' required="false" label='Address line 2' subLabel='(optional)' value='{! v.wizardData.deliveryAddressLine2}'/>-->
+                            
+                            <!-- City-->
+                            <!--<c:ChasInput type='text' aura:id='cichasInputty' name='city' required="true" label='Suburb or city' value='{!v.wizardData.deliveryCity}'  />-->
+                            <!--<div class="slds-grid-address slds-gutters">-->
+                                <!-- State -->
+                                <!--<div class="slds-col slds-size_1-of-2"> 
+                                    <c:ChasSelect aura:id='chasInput' name='state' required="true" label='State' options="{!v.stateOptions}" value='{!v.wizardData.deliveryState}' />
+                                </div>-->
+                                
+                                <!-- Postcode -->
+                                <!--<div class="slds-col slds-size_1-of-2">
+                                    <c:ChasInput type='text' aura:id='chasInput' name='postcode' required="true" label='Postcode' pattern="[0-9]*" value='{!v.wizardData.deliveryPostcode}' />
+                                </div>
+                            </div>
+                        </c:ChasFieldset>-->
+                    </aura:if>
+                    <!--<aura:set attribute="else">
+                            <div class="info-tile">
+                            <c:ChasInfoTile heading="Whoops, something's gone wrong." image="/chas-icons/pngs/UI/icons/it_error.png">
+                                <p>Please contact system administrator.</p>
+                            </c:ChasInfoTile>
+                            </div>
+                        </aura:set>-->
+                    <!--</aura:if>-->
+                </aura:if>
+                <c:ChasNavButtons nextLabel="Continue" disabled="false" nextAction="{! c.goForward }" />
+            </div>
+        </c:ChasFieldset>
+    </c:ChasForm>
+    
+    
+    
+</aura:component>

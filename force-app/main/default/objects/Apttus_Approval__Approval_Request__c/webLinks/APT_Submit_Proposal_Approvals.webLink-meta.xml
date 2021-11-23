@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Submit_Proposal_Approvals</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Submit Proposal Approvals</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>/apex/Apttus_Approval__ApprovalContextSubmit?sObjectType=Apttus_Proposal__Proposal__c&amp;sObjectId={!Apttus_Proposal__Proposal__c.Id}</url>
+</WebLink>

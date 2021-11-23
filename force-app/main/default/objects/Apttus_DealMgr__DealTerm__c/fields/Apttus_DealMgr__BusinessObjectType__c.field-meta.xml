@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealMgr__BusinessObjectType__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The type of the business object associated with the deal term</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The type of the business object associated with the deal term</inlineHelpText>
+    <label>Business Object Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Opportunity</fullName>
+                <default>false</default>
+                <label>Opportunity</label>
+            </value>
+            <value>
+                <fullName>Agreement</fullName>
+                <default>false</default>
+                <label>Agreement</label>
+            </value>
+            <value>
+                <fullName>Proposal</fullName>
+                <default>false</default>
+                <label>Proposal</label>
+            </value>
+            <value>
+                <fullName>Deal</fullName>
+                <default>false</default>
+                <label>Deal</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

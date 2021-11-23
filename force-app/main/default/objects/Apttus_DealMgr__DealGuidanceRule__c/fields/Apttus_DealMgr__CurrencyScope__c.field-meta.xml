@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealMgr__CurrencyScope__c</fullName>
+    <deprecated>false</deprecated>
+    <description>One or more currencies associated with the rule. Only applicable in multi-currency organizations.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>One or more currencies associated with the rule. Only applicable in multi-currency organizations.</inlineHelpText>
+    <label>Currency Scope</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>USD</fullName>
+                <default>false</default>
+                <label>USD</label>
+            </value>
+            <value>
+                <fullName>EUR</fullName>
+                <default>false</default>
+                <label>EUR</label>
+            </value>
+            <value>
+                <fullName>CAD</fullName>
+                <default>false</default>
+                <label>CAD</label>
+            </value>
+            <value>
+                <fullName>JPY</fullName>
+                <default>false</default>
+                <label>JPY</label>
+            </value>
+            <value>
+                <fullName>RMB</fullName>
+                <default>false</default>
+                <label>RMB</label>
+            </value>
+            <value>
+                <fullName>All</fullName>
+                <default>true</default>
+                <label>All</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

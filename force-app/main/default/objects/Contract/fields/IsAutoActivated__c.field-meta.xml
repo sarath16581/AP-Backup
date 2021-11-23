@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsAutoActivated__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates whether the agreement was activated by an auto system operation</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Indicates whether the agreement was activated by an auto system operation</inlineHelpText>
+    <label>Is Auto Activated</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

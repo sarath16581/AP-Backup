@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>User_Depot_Code_Check</fullName>
+    <active>true</active>
+    <description>Depot Users can only edit job assignments for their depots.</description>
+    <errorConditionFormula>OR
+(
+	AND
+	(
+		NOT(ISNEW()), 
+		$User.Network__c &lt;&gt; Depot__r.Depot_ID__c, 
+		OR
+		(
+			$UserRole.DeveloperName = &apos;Security_Express_Depot_Team_Member&apos;, 
+			$UserRole.DeveloperName = &apos;Special_Delivery_Depot_Team_Member&apos;, 
+			$UserRole.DeveloperName = &apos;Security_Express_Special_Deliveries&apos;, 
+			$Permission.SS_Depot_User, 
+			$Permission.SE_Depot_User
+		)
+	),
+	AND
+	(
+		NOT(ISNEW()),
+		$User.Network__c = Depot__r.Depot_ID__c,
+		OR
+		(
+			AND
+			(
+				RecordType.DeveloperName = &apos;Security_Express&apos;,
+				OR
+				(
+					NOT($Permission.SE_Depot_User),
+					AND
+					(
+						NOT($Permission.SS_Depot_User),
+						NOT($Permission.SE_Depot_User)
+					)
+				)
+			),
+			AND
+			(
+				RecordType.DeveloperName = &apos;Special_Services&apos;,
+				OR
+				(
+					NOT($Permission.SS_Depot_User),
+					AND
+					(
+						NOT($Permission.SS_Depot_User),
+						NOT($Permission.SE_Depot_User)
+					)
+				)
+			)
+		)
+	)
+)</errorConditionFormula>
+    <errorMessage>Sorry, you cannot make changes to a different depot assignment.</errorMessage>
+</ValidationRule>

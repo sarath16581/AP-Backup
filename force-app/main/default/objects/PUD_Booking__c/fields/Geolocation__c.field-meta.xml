@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Geolocation__c</fullName>
+    <description>Formula version of geolocation for display on UI</description>
+    <externalId>false</externalId>
+    <formula>TEXT(Geo__Latitude__s) &amp; &quot; &quot; &amp; TEXT(Geo__Longitude__s)</formula>
+    <label>Geolocation</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

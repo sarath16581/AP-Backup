@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Non_WH_Discrepancies_Open_Unassigned</fullName>
+    <columns>ChannelImage__c</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.TYPE</columns>
+    <columns>Problem_Type_Retail__c</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>NAME</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>ProductSubCategory__c</columns>
+    <columns>CASES.LAST_UPDATE</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>Last_Assigned_Queue__c</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
+    </filters>
+    <label>Non WH Discrepancies - Open &amp; Unassigned</label>
+    <queue>Non_Warehouse_Discrepancies</queue>
+    <sharedTo>
+        <group>Non_Warehouse_Discrepancies</group>
+    </sharedTo>
+</ListView>

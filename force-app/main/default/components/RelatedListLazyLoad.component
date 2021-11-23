@@ -1,0 +1,36 @@
+<apex:component controller="RelatedListLazyLoadController">
+
+	<apex:attribute name="relatedFieldNames" assignTo="{!relatedFieldNamesSingular}" required="true" type="string" description="the name of the field of the related list" />
+	<apex:attribute name="objectId" required="true" type="id" description="the id of the network" />
+	<apex:attribute name="isCaseRelated" required="true" type="boolean" description="used to differenciate between the two lists" />
+	<apex:attribute name="title" type="string" description="the heading of the link" />
+
+	<a id="toggler_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular}" onclick="showRelatedList_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular}();">Show {!title}</a>
+
+
+	<script>
+		var index_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular} = 1;
+		function showRelatedList_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular}() {
+			if(j$('#myframe_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular}').length == 0) {
+				j$('#toggler_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular}').after('<iframe id="myframe_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular}" src="" width="100%" height="0px" frameBorder="0" />');
+			}
+
+			index_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular}++;
+			var toggler = j$('#toggler_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular}');
+
+			if(index_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular} % 2 == 0) {
+				toggler.html('Hide {!jsEncode(title)}');
+				j$("#myframe_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular}").attr("src", "/apex/NetworkDynamicRelatedList?id={!objectId}&relatedListFieldNames={!relatedFieldNames}&isCaseRelated={!isCaseRelated}");
+			} else {
+				toggler.html('Show {!jsEncode(title)}');
+				j$("#myframe_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular}").attr("src", "");
+				j$("#myframe_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular}").attr("height", "0px");
+			}
+		}
+
+		function resizeFrame_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular}(h){
+			if(j$("#myframe_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular}").length>0)
+				j$("#myframe_{!objectId}_{!isCaseRelated}{!relatedFieldNamesSingular}").attr("height",h);
+		}
+	</script>
+</apex:component>

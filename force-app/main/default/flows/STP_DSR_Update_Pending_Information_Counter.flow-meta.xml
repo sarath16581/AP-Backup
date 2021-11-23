@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <assignments>
+        <description>Update pending information counter by 1 when status is changed to pending informatiion</description>
+        <name>Update_pending_information_counter</name>
+        <label>Update pending information counter</label>
+        <locationX>732</locationX>
+        <locationY>70</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Further_Info_Required_Counter__c</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>Check if the status is changed to pending infomation</description>
+        <name>Validate_Additional_Information_Requested</name>
+        <label>Validate Additional Information Requested</label>
+        <locationX>536</locationX>
+        <locationY>69</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Additional_Information_Requested</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_Existing_Deal_Support_Request.Status__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Pending Information</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_pending_information_counter</targetReference>
+            </connector>
+            <label>Additional Information Requested</label>
+        </rules>
+    </decisions>
+    <description>Increase Deal Support Request Pending Information Counter by 1 when additional information is requested</description>
+    <interviewLabel>STP-DSR_Update Pending Information Counter {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>STP-DSR_Update Pending Information Counter</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get the Existing Deal Support Request to check in next decision element if status is changed to pending information</description>
+        <name>Get_Existing_Deal_Support_Request</name>
+        <label>Get Existing Deal Support Request</label>
+        <locationX>318</locationX>
+        <locationY>71</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Validate_Additional_Information_Requested</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Deal_Support_Request__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Status__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>100</locationX>
+        <locationY>52</locationY>
+        <connector>
+            <targetReference>Get_Existing_Deal_Support_Request</targetReference>
+        </connector>
+        <object>Deal_Support_Request__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

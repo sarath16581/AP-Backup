@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CSQID_Matching_Validation_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>CSQ__c  &lt;&gt;  Freight_Offering__r.Customer_Scoping_Questionnaire__c</errorConditionFormula>
+    <errorMessage>The Pick-up Location CSQ does not match with Freight Offering CSQ. Please choose accurate Freight Offering Value.</errorMessage>
+</ValidationRule>

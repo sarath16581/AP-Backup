@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SAP_Billing_Date__c</fullName>
+    <description>Required field for &quot;SAP Daily Extract&quot; report. 
+Default value Adjustment created date with format &quot;DD.MM.YYYY&quot;</description>
+    <externalId>false</externalId>
+    <formula>Case (
+TEXT(DAY(DATEVALUE(CreatedDate))) ,
+				&apos;1&apos;,&apos;01&apos;,
+				&apos;2&apos;,&apos;02&apos;,
+				&apos;3&apos;,&apos;03&apos;,
+				&apos;4&apos;,&apos;04&apos;,
+				&apos;5&apos;,&apos;05&apos;,
+				&apos;6&apos;,&apos;06&apos;,
+				&apos;7&apos;,&apos;07&apos;,
+				&apos;8&apos;,&apos;08&apos;,
+				&apos;9&apos;,&apos;09&apos;,TEXT(DAY(DATEVALUE(CreatedDate))))
+
+
+&amp; &quot;.&quot; &amp; 
+Case (
+TEXT(MONTH(DATEVALUE(CreatedDate))) ,
+				&apos;1&apos;,&apos;01&apos;,
+				&apos;2&apos;,&apos;02&apos;,
+				&apos;3&apos;,&apos;03&apos;,
+				&apos;4&apos;,&apos;04&apos;,
+				&apos;5&apos;,&apos;05&apos;,
+				&apos;6&apos;,&apos;06&apos;,
+				&apos;7&apos;,&apos;07&apos;,
+				&apos;8&apos;,&apos;08&apos;,
+				&apos;9&apos;,&apos;09&apos;,
+				&apos;10&apos;,&apos;10&apos;,
+				&apos;11&apos;,&apos;11&apos;,
+				&apos;12&apos;,&apos;12&apos;,&apos;00&apos;)
+
+
+
+&amp; &quot;.&quot; &amp; 
+TEXT(YEAR(DATEVALUE(CreatedDate)))</formula>
+    <label>SAP Billing Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

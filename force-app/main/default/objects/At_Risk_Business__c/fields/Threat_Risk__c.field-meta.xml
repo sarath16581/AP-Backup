@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Threat_Risk__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Extreme: Formal advice that cust will cease trading within 30days
+Very High: Formal advice that cust will cease trading due to service/price
+High: Verbal risk of streaming/loss to comp
+Moderate: Early signs of competitor activity</inlineHelpText>
+    <label>Threat Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Moderate</fullName>
+                <default>false</default>
+                <label>Moderate</label>
+            </value>
+            <value>
+                <fullName>High</fullName>
+                <default>false</default>
+                <label>High</label>
+            </value>
+            <value>
+                <fullName>Very High</fullName>
+                <default>false</default>
+                <label>Very High</label>
+            </value>
+            <value>
+                <fullName>Extreme</fullName>
+                <default>false</default>
+                <label>Extreme</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

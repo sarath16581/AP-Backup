@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Segment__c</fullName>
+    <description>Used to further segment data from the segment field.
+Requested and owned by Matthew Whitmore and Judy Barnett</description>
+    <externalId>false</externalId>
+    <inlineHelpText>To clearly &amp; easily Identify Enterprise and Government sub-segments</inlineHelpText>
+    <label>Sub Segment</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Advertising/Marketing</fullName>
+                <default>false</default>
+                <label>Advertising/Marketing</label>
+            </value>
+            <value>
+                <fullName>Automotive</fullName>
+                <default>false</default>
+                <label>Automotive</label>
+            </value>
+            <value>
+                <fullName>Building Construction/Property Services</fullName>
+                <default>false</default>
+                <label>Building Construction/Property Services</label>
+            </value>
+            <value>
+                <fullName>Business Services</fullName>
+                <default>false</default>
+                <label>Business Services</label>
+            </value>
+            <value>
+                <fullName>Computer and IT related</fullName>
+                <default>false</default>
+                <label>Computer and IT related</label>
+            </value>
+            <value>
+                <fullName>Education</fullName>
+                <default>false</default>
+                <label>Education</label>
+            </value>
+            <value>
+                <fullName>Electrical Goods and Equipment</fullName>
+                <default>false</default>
+                <label>Electrical Goods and Equipment</label>
+            </value>
+            <value>
+                <fullName>Entertainment &amp; Recreation</fullName>
+                <default>false</default>
+                <label>Entertainment &amp; Recreation</label>
+            </value>
+            <value>
+                <fullName>Financial Services</fullName>
+                <default>false</default>
+                <label>Financial Services</label>
+            </value>
+            <value>
+                <fullName>Groceries &amp; Liquor</fullName>
+                <default>false</default>
+                <label>Groceries &amp; Liquor</label>
+            </value>
+            <value>
+                <fullName>Healthcare/Medical</fullName>
+                <default>false</default>
+                <label>Healthcare/Medical</label>
+            </value>
+            <value>
+                <fullName>Legal &amp; Professional</fullName>
+                <default>false</default>
+                <label>Legal &amp; Professional</label>
+            </value>
+            <value>
+                <fullName>Manufacturing/Industrial</fullName>
+                <default>false</default>
+                <label>Manufacturing/Industrial</label>
+            </value>
+            <value>
+                <fullName>Mining/Petroleum</fullName>
+                <default>false</default>
+                <label>Mining/Petroleum</label>
+            </value>
+            <value>
+                <fullName>Political and Religious Organisations</fullName>
+                <default>false</default>
+                <label>Political and Religious Organisations</label>
+            </value>
+            <value>
+                <fullName>Printing/Publishing/Intermediaries</fullName>
+                <default>false</default>
+                <label>Printing/Publishing/Intermediaries</label>
+            </value>
+            <value>
+                <fullName>Professional Associations</fullName>
+                <default>false</default>
+                <label>Professional Associations</label>
+            </value>
+            <value>
+                <fullName>Retail</fullName>
+                <default>false</default>
+                <label>Retail</label>
+            </value>
+            <value>
+                <fullName>Social Assistance/Charities</fullName>
+                <default>false</default>
+                <label>Social Assistance/Charities</label>
+            </value>
+            <value>
+                <fullName>Telecommunications/Broadcasting</fullName>
+                <default>false</default>
+                <label>Telecommunications/Broadcasting</label>
+            </value>
+            <value>
+                <fullName>Utilities</fullName>
+                <default>false</default>
+                <label>Utilities</label>
+            </value>
+            <value>
+                <fullName>Federal Government</fullName>
+                <default>false</default>
+                <label>Federal Government</label>
+            </value>
+            <value>
+                <fullName>Local Government</fullName>
+                <default>false</default>
+                <label>Local Government</label>
+            </value>
+            <value>
+                <fullName>State Government</fullName>
+                <default>false</default>
+                <label>State Government</label>
+            </value>
+            <value>
+                <fullName>Transport</fullName>
+                <default>false</default>
+                <label>Transport</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

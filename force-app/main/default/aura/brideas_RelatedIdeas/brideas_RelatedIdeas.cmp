@@ -1,0 +1,31 @@
+<aura:component description="brideas_RelatedIdeas" controller="brideas_RelatedIdeasCtrl" access="global">
+    <aura:attribute name="relatedIdeas" type="brideas_IdeaWrapper[]" />
+    <aura:attribute name="currentIdea" type="Idea"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:if isTrue="{!v.relatedIdeas.length > 0}">
+        <div class="relatedIdeas-block">
+            <h3 class="title">{!$Label.c.RelatedIdeasTitle}</h3>
+            <div class="related-list">
+                <aura:iteration items="{!v.relatedIdeas}" var="idea">
+                    <div class="related-idea slds-grid">
+                        <div class="slds-col slds-size_10-of-12 slds-large-size--4-of-5">
+                            <h4 class="idea-title">
+                                <a href="javascript:void(0)" onclick="{!c.openIdea}" id="{!idea.item.Id}">{!idea.item.Title}</a>
+                            </h4>
+                        </div>
+                        <div class="slds-col_bump-left slds-size_1-of-12 slds-large-size--1-of-5 totalVotes">
+                            <!--Below code is commented and changed for Communities Ideas Detail Page for having 
+                                new Vote image in the related ideas.-->
+                            <!--<img src="{!$Resource.BrIdeas + '/images/vote-up-ico.png'}" alt="" />-->
+                            <img src="{!$Resource.BrIdeas + '/images/heart-red.png'}" alt="" />
+                            <span>{!idea.votesNum}</span>
+                        </div>
+                    </div>
+                </aura:iteration>
+            </div>
+        </div>
+    </aura:if>
+
+</aura:component>

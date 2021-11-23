@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__DM_Dated_Forecast_Report__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>DM Dated Forecast Report</label>
+    <referenceTo>DMAPP__DM_Dated_Forecast_Report__c</referenceTo>
+    <relationshipLabel>DM Dated User Forecasts</relationshipLabel>
+    <relationshipName>DM_Dated_User_Forecasts</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

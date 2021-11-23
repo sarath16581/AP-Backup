@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Link_Account_v2</fullName>
+    <availability>online</availability>
+    <description>routes to version 2 of the VF page and controller</description>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Link Account</masterLabel>
+    <openType>replace</openType>
+    <page>LinkAccount_v2</page>
+    <protected>false</protected>
+</WebLink>

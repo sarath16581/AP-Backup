@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approvers_Required_When_No_AutoApproval</fullName>
+    <active>true</active>
+    <description>Ensure at least one approver is set when there is no auto approval.</description>
+    <errorConditionFormula>AND( NOT(AutoApprove__c), 
+    ISBLANK( TEXT(Approver1Role__c) ),
+    ISBLANK( Approver_1__c ) 
+)</errorConditionFormula>
+    <errorDisplayField>Approver_1__c</errorDisplayField>
+    <errorMessage>You must allocate at least one approver to this record. Alternatively, you can set this to auto-approval.</errorMessage>
+</ValidationRule>

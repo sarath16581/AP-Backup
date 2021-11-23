@@ -1,0 +1,126 @@
+<!--
+ - Created by shashwat.a.nath on 17/09/2019.
+ - This page is Invoked from "Invite Contact to BSP" Custom Button on Contact Detail Page
+ - On Clicking this button Visualforce Remoting Action is invoked to check if there is already a community user for the contact.
+ - If there is not any existing user , user has permission to Invite and Billing Account of the contact is not blank , User is redirected to User details page with all field sprepopulated.
+ - On a failure user is shown an alert and then redirect back to the detail page.
+ -->
+
+<apex:page standardController="Contact"
+           id="InviteContactToBSP"
+           extensions="InviteContactToBSPController">
+    <!--Included required scripts-->
+    <apex:includeScript value="/soap/ajax/36.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/36.0/apex.js"/>
+    <apex:includeScript value="/support/console/46.0/integration.js"/>
+    <!-- Script starts -->
+    <script type="text/javascript">
+        // Remote Action Invoked
+         Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.InviteContactToBSPController.fetchCurrentUserDetails}', '{!Contact.id}',
+            function (result, event) {
+                if (event.status) {
+                    // On Successful Response
+                    console.log(event.status);
+                    console.log(result);
+                    // Checking if there already is a Community User for this contact
+                    if (result.length !== 0) {
+                        alert('{!$Setup.StarTrack_Settings__c.StarTrack_Portal_User_Validation__c}');
+                        // User Redirection
+                        redirectUser();
+                    }
+                    else if (!{!$User.Invite_Contact_to_BSP_User__c}) {
+                        alert('{!$Setup.StarTrack_Settings__c.StarTrack_Portal_Auth_To_Invite_Error__c}');
+                        // User Redirection
+                        redirectUser();
+                    }
+                    else if ({!ISBLANK(Contact.BillingAccount__c)}) {
+                        alert('{!$Setup.StarTrack_Settings__c.ST_Contact_Billing_Account_Validation__c}');
+                        // User Redirection
+                        redirectUser();
+                    }
+                    else {
+                        var eml = "{!Contact.Email}".substring(0 , "{!Contact.Email}".indexOf('@'));
+                        // constructing the URL for community user creation
+                        var urlText = "/005/e?ut=c&retURL=%2F{!Contact.Id}" +
+                            "&cntc={!Contact.Id}" +
+                            "&Email={!Contact.Email}" +
+                            "&Username={!Contact.Email}.bsp" +
+                            "&Title={!Contact.Title}" +
+                            "&Phone={!Contact.Phone}" +
+                            "&MobilePhone={!Contact.MobilePhone}" +
+                            "&name_firstName={!JSENCODE(Contact.FirstName)}" +
+                            "&name_lastName={!JSENCODE(Contact.LastName)}" +
+                            "&name_middleName={!JSENCODE(Contact.MiddleName)}" +
+                            "&Alias={!JSENCODE(LOWER(LEFT(Contact.FirstName, 1) + LEFT(Contact.LastName, 4)))}" +
+                            "&Addressstreet={!JSENCODE(Contact.MailingStreet)}" +
+                            "&Addresscity={!JSENCODE(Contact.MailingCity)}" +
+                            "&Addressstate={!JSENCODE(Contact.MailingState)}" +
+                            "&Addresszip={!JSENCODE(Contact.MailingPostalCode)}" +
+                            "&Addresscountry={!JSENCODE(Contact.MailingCountry)}" +
+                            "&CommunityNickname="+eml+
+                            "&Fax={!Contact.Fax}" +
+                            "&Profile={!$Setup.StarTrack_Settings__c.BSP_Community_User_Profile_Id__c}";
+                        //If user is accessing the functinality from console
+                        if(sforce.console.isInConsole()) {
+                             var openSubtab = function(result){
+                                sforce.console.openSubtab(result.id, urlText, true);
+                                sforce.console.refreshPrimaryTabById(result.id, true , refreshSuccess );
+                            };
+                            // Opening a subtab within the primary tab in console
+                            sforce.console.getFocusedPrimaryTabId(openSubtab);
+                            var refreshSuccess = function refreshSuccess(result) {
+                               if (result.success == true) {
+                                    console.log('Primary Tab refreshed successfully');
+                                } else {
+                                    console.log('Primary Tab did not refresh');
+                                }
+                            };
+                        }
+                        else {
+                            // Redirecting to user creation page
+                            window.open(urlText, '_self');
+                        }
+                    }
+                }
+                else {
+                    // On Failure or Exception
+                    alert('Something is wrong.Please contact your admin for more details');
+                    redirectUser();
+                }
+            },
+            {escape: true}
+        );
+        
+        
+        // Common Redirection Function used within the page
+        function redirectUser(){
+            // Checking if the the current user is using Console if yes then redirecting user back to the Primary Tab
+            if(sforce.console.isInConsole()) {
+                sforce.console.getEnclosingPrimaryTabId(refreshPrimaryTab);
+            }
+            else{
+                // Redirecting user to the Contact Detail Page
+                window.location='/{!Contact.Id}';
+            }
+        }
+
+        // Callback function getting the Primary Console Tab Id
+        var refreshPrimaryTab = function refreshPrimaryTab(result) {
+            //Now that we have the primary tab ID, we can refresh it
+            var tabId = result.id;
+            console.log('Primary Tab Id =>'+ tabId);
+            sforce.console.openPrimaryTab(tabId,'/{!Contact.Id}',true , '{!Contact.Name}' , refreshSuccess );
+        };
+        // Callback function to assert whether primary tab refresh is a success or failure
+        var refreshSuccess = function refreshSuccess(result) {
+            //Report whether refreshing the primary tab was successful
+            console.log(result);
+            if (result.success == true) {
+                console.log('Primary tab refreshed successfully');
+            } else {
+                console.log('Error');
+            }
+        };
+    </script>
+</apex:page>

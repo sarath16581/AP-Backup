@@ -1,0 +1,9 @@
+Dear User,
+
+After close consideration, your Requirement Request {!Requirement__c.Name} has been rejected for the following reason: {!Requirement__c.Closed_Reason__c}
+
+If you wish to view this record - click this link: {!Requirement__c.Link}
+
+Regards,
+
+BAU Team @ Australia Post

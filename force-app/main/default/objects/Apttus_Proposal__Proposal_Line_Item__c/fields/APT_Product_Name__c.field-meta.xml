@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Product_Name__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND(Apttus_QPConfig__IsPrimaryLine__c,ISPICKVAL(Apttus_QPConfig__LineType__c,&quot;Option&quot;)) ,IF( CONTAINS($Setup.APT_R2T_System_Properties__c.Product_Name__c ,Apttus_QPConfig__OptionId__r.Name), Apttus_QPConfig__OptionId__r.Name &amp;&apos; (per article)&apos;,IF(Apttus_QPConfig__OptionId__r.Name=&apos;Manual Handling Surcharge&apos;, Apttus_QPConfig__OptionId__r.Name &amp;&apos; (per eligible article)&apos; ,Apttus_QPConfig__OptionId__r.Name)) ,IF(Apttus_QPConfig__IsPrimaryLine__c,Apttus_Proposal__Product__r.Name, NULL))</formula>
+    <label>Product Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

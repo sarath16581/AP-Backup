@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Case Unauthorised MRS application</name>
+    <style>none</style>
+    <subject>{!Case.Type} - Case: {!Case.CaseNumber}</subject>
+    <textOnly>{!IF(ISPICKVAL(Case.Type,&quot;Investigation&quot;), &apos;Investigation&apos;, &apos;Feedback&apos;)}
+{!IF(ISPICKVAL(Case.Type,&quot;Investigation&quot;),IF(Case.Customer_Type__c == &quot;Enterprise&quot;, &apos;Response required within 1 day&apos;, &apos;Response required within 2 days&apos;), &apos;No Response required&apos;)} Case {!Case.CaseNumber}
+
+{!IF(ISPICKVAL(Case.Type,&quot;Investigation&quot;), &apos;Please review the following enquiry and respond within the required response time.&apos;, &apos;&quot;Please review the following enquiry and address as appropriate. While not required, any response to CS&amp;S may be sent via the channel you received this communication.&quot;&apos;)}
+Contact Details {!IF(Case.ContactDoNotDisclose__c,&apos;Cannot disclose contact&apos;,&apos;Name: &apos; + Contact.Name)}
+{!IF(Case.ContactDoNotDisclose__c,&apos;&apos;,&apos;Mobile Phone: &apos; + Contact.MobilePhone + &apos;
+&apos;)} 		{!IF(Case.ContactDoNotDisclose__c,&apos;&apos;,&apos;Home Phone: &apos; + Contact.HomePhone + &apos;
+&apos;)} 		{!IF(Case.ContactDoNotDisclose__c,&apos;&apos;,&apos;Email: &apos; + Contact.Email + &apos;
+&apos;)} 		{!IF(Case.ContactDoNotDisclose__c,&apos;&apos;,&apos;Contact Description: &apos; + Contact.Description + &apos;
+&apos;)}
+Case Case Number: {!Case.CaseNumber}
+{!IF(ISPICKVAL(Case.Type,&quot;Feedback&quot;),&apos;Feedback - for your action, no response required&apos;,&apos;Investigation - Response Required&apos;)}
+{!Case.ProductCategory__c} -  {!Case.ProductSubCategory__c} -  {!Case.EnquirySubType__c}
+Network Name: {!Case.Network__c}
+
+Description: {!Case.Description}
+
+Customer Reference Number (CRN): {!Case.ReferenceID__c}
+Date Issue Occured: {!Case.DateofIncident__c}
+Old Address: {!Case.Address1__c}
+New Address: {!Case.Address2__c}
+Thank you,
+Customer Sales &amp; Service
+{!Case.EmailThreadID__c}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

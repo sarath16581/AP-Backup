@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phase_2_Multi_Business_Unit</fullName>
+    <active>true</active>
+    <description>Phase 2 - If Business Unit = Multi Unit, User needs to select Yes in the Solution Specialist required.</description>
+    <errorConditionFormula>AND ( 
+ISPICKVAL( Business_Unit__c , &quot;Multi Business Unit&quot;), 
+ISPICKVAL(  Solution_Specialist_Required__c , &quot;No&quot;)
+)</errorConditionFormula>
+    <errorDisplayField>Solution_Specialist_Required__c</errorDisplayField>
+    <errorMessage>Multi Business Unit requires a Solution Specialist.</errorMessage>
+</ValidationRule>

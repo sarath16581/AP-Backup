@@ -1,0 +1,43 @@
+.THIS .chas-input-field-container {
+    position: relative;
+}
+
+.THIS .prefix {
+    position: absolute;
+    top: 11px;
+    left: 11px;
+}
+
+.THIS .prefix + .chas-input-field {
+    padding-left: 25px;
+}
+.THIS .verified {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+}
+
+.THIS .loading-true::after {
+    display: inline-block;
+    margin: 0 auto;
+    width: 24px;
+    height: 24px;
+    -webkit-animation: .75s linear infinite spinnerRotate;
+    animation: .75s linear infinite spinnerRotate;
+    border: 2px solid #919194;
+    border-bottom-color: transparent;
+    border-radius: 100%;
+    background: 0 0;
+    content: "";
+    position: relative;
+    left: auto;
+    top: auto;
+    color: inherit;
+}
+.THIS .rotate {
+    position: absolute;
+    top: 11px;
+    right: 9px;
+    z-index: 1;
+    display: inline-block;
+}

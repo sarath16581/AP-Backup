@@ -1,0 +1,12 @@
+<aura:component >
+    <!--Heading -->
+    <div class='slds-text-heading_large slds-text-align_center slds-p-bottom_large' >
+        <b>Guided Qualification</b>
+    </div>
+    
+    <!--Button -->
+    <div class="slds-text-align_center">
+        <lightning:button aura:Id='create' onclick="{!c.showHideQualificationDetails}" label="Initiate Qualification" variant="brand" />
+    </div>
+    
+</aura:component>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPageWebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <availability>online</availability>
+    <displayType>link</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Edit Organisation</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{
+var loc=(window.location.pathname).substring(1);
+if(loc!=&apos;001/o&apos; &amp;&amp; loc.startsWith(&apos;001&apos;)) {
+       window.location.replace (&apos;/apex/ManageAccount?id=&apos; + loc);
+   }
+}</url>
+</CustomPageWebLink>

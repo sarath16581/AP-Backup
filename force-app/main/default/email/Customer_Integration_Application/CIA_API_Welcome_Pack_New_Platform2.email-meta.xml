@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>1- CIA - API Welcome Pack New Platform</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>CIA_Lodgement</letterhead>
+    <name>CIA - API Welcome Pack New Platform</name>
+    <style>freeForm</style>
+    <subject>[API Welcome Pack - direct integration customer]</subject>
+    <textOnly>Thank you for your recent enquiry in to Australia Post business services.
+
+To help you integrate with our Shipping and Tracking APIs please access the supporting information in our Developer Centre.
+
+In our Developer Centre you can access:
+
+1) Technical Specifications for Shipping and Tracking Services
+
+and
+
+2) Sample code for API calls
+
+We have also attached to this email, the supplementary guide Integrating with the Australia Post Shipping and Tracking APIs.
+
+When you’re ready to conduct testing please use your unique account number and API credentials (provided in the attached document) in our testbed via the following URL(s).
+
+https://digitalapi.auspost.com.au/testbed/shipping/v1/ (plus the name of your chosen API)
+
+e.g. https://digitalapi.auspost.com.au/testbed/shipping/v1/shipments
+
+Once you have successfully completed your testing, to enable us to validate your testbed integration can you please provide:
+
+· A pdf label that you have generated via the testbed API
+
+· A pdf Order Summary Report that you have generated via the testbed API.
+
+Once we have received these files, we can validate your integration and provide you access to the production Shipping and Tracking API.
+
+If you have any queries regarding this information, please don’t hesitate to contact us atcustomer_connectivity@auspost.com.au
+
+
+Regards
+
+Lodgement &amp; APIs Team
+
+Parcels, eCommerce and Digital</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Activity_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Activity Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Fit For Duty</fullName>
+                <default>false</default>
+                <label>Fit For Duty</label>
+            </value>
+            <value>
+                <fullName>Collection</fullName>
+                <default>false</default>
+                <label>Collection</label>
+            </value>
+            <value>
+                <fullName>Delivery</fullName>
+                <default>false</default>
+                <label>Delivery</label>
+            </value>
+            <value>
+                <fullName>Delivery &amp; Collection</fullName>
+                <default>true</default>
+                <label>Delivery &amp; Collection</label>
+            </value>
+            <value>
+                <fullName>Rest Break</fullName>
+                <default>false</default>
+                <label>Rest Break</label>
+            </value>
+            <value>
+                <fullName>Prepare Vehicle</fullName>
+                <default>false</default>
+                <label>Prepare Vehicle</label>
+            </value>
+            <value>
+                <fullName>Prepare Trailer</fullName>
+                <default>false</default>
+                <label>Prepare Trailer</label>
+            </value>
+            <value>
+                <fullName>Drop Trailer</fullName>
+                <default>false</default>
+                <label>Drop Trailer</label>
+            </value>
+            <value>
+                <fullName>Return &amp; Refuel Vehicle</fullName>
+                <default>false</default>
+                <label>Return &amp; Refuel Vehicle</label>
+            </value>
+            <value>
+                <fullName>Return Vehicle</fullName>
+                <default>false</default>
+                <label>Return Vehicle</label>
+            </value>
+            <value>
+                <fullName>Training</fullName>
+                <default>false</default>
+                <label>Training</label>
+            </value>
+            <value>
+                <fullName>Work As Directed</fullName>
+                <default>false</default>
+                <label>Work As Directed</label>
+            </value>
+            <value>
+                <fullName>Clear Posting Box</fullName>
+                <default>false</default>
+                <label>Clear Posting Box</label>
+            </value>
+            <value>
+                <fullName>Collection &amp; Clearance</fullName>
+                <default>false</default>
+                <label>Collection &amp; Clearance</label>
+            </value>
+            <value>
+                <fullName>Scheduled Task</fullName>
+                <default>false</default>
+                <label>Scheduled Task</label>
+            </value>
+            <value>
+                <fullName>Supervisory</fullName>
+                <default>false</default>
+                <label>Supervisory</label>
+            </value>
+            <value>
+                <fullName>Vehicle Servicing</fullName>
+                <default>false</default>
+                <label>Vehicle Servicing</label>
+            </value>
+            <value>
+                <fullName>Unscheduled Task</fullName>
+                <default>false</default>
+                <label>Unscheduled Task</label>
+            </value>
+            <value>
+                <fullName>Delivery, Collection &amp; Clearance</fullName>
+                <default>false</default>
+                <label>Delivery, Collection &amp; Clearance</label>
+            </value>
+            <value>
+                <fullName>Delivery &amp; Clearance</fullName>
+                <default>false</default>
+                <label>Delivery &amp; Clearance</label>
+            </value>
+            <value>
+                <fullName>Unpaid Break</fullName>
+                <default>false</default>
+                <label>Unpaid Break</label>
+            </value>
+            <value>
+                <fullName>Change Trailer</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Change Trailer</label>
+            </value>
+            <value>
+                <fullName>Handover Vehicle - Collect</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Handover Vehicle - Collect (DO NOT USE)</label>
+            </value>
+            <value>
+                <fullName>Handover Vehicle - Deliver</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Handover Vehicle - Deliver (DO NOT USE)</label>
+            </value>
+            <value>
+                <fullName>Handover Vehicle - Exchange</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Handover Vehicle - Exchange (DO NOT USE)</label>
+            </value>
+            <value>
+                <fullName>Meal Break Paid</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Meal Break Paid</label>
+            </value>
+            <value>
+                <fullName>Meal Break Unpaid</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Meal Break Unpaid</label>
+            </value>
+            <value>
+                <fullName>Parcel Delivery</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Parcel Delivery</label>
+            </value>
+            <value>
+                <fullName>Prepare Vehicle - Collect</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Prepare Vehicle - Collect</label>
+            </value>
+            <value>
+                <fullName>Prepare Vehicle - Interim</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Prepare Vehicle - Interim</label>
+            </value>
+            <value>
+                <fullName>Return &amp; Prepare Vehicle</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Return &amp; Prepare Vehicle (DO NOT USE)</label>
+            </value>
+            <value>
+                <fullName>Return Vehicle - Interim</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Return Vehicle - Interim</label>
+            </value>
+            <value>
+                <fullName>Work As Directed - Customers</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Work As Directed - Customers</label>
+            </value>
+            <value>
+                <fullName>Work As Directed - Shipping</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Work As Directed - Shipping</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

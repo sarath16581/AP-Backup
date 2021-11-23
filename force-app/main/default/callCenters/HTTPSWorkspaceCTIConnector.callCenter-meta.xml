@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CallCenter xmlns="http://soap.sforce.com/2006/04/metadata">
+    <adapterUrl>/apex/CTIListener2</adapterUrl>
+    <customSettings>{&quot;reqSoftphoneHeight&quot;:&quot;520&quot;,&quot;reqUseApi&quot;:&quot;true&quot;,&quot;reqSoftphoneWidth&quot;:&quot;410&quot;}</customSettings>
+    <displayName>Customised HTTPS Workspace CTI Connector</displayName>
+    <displayNameLabel>Display Name</displayNameLabel>
+    <internalNameLabel>Internal Name</internalNameLabel>
+    <sections>
+        <items>
+            <label>Description</label>
+            <name>reqDescription</name>
+            <value>HTTPS Workspace CTI Connector</value>
+        </items>
+        <items>
+            <label>Version</label>
+            <name>reqVersion</name>
+            <value>2.0</value>
+        </items>
+        <items>
+            <label>ProgId</label>
+            <name>reqUseApi</name>
+            <value>true</value>
+        </items>
+        <items>
+            <label>CTI Adapter URL</label>
+            <name>reqAdapterUrl</name>
+            <value>/apex/CTIListener2</value>
+        </items>
+        <items>
+            <label>Softphone Height</label>
+            <name>reqSoftphoneHeight</name>
+            <value>520</value>
+        </items>
+        <items>
+            <label>Softphone Width</label>
+            <name>reqSoftphoneWidth</name>
+            <value>410</value>
+        </items>
+        <label>General Information</label>
+        <name>reqGeneralInfo</name>
+    </sections>
+    <sections>
+        <items>
+            <label>Poll Port</label>
+            <name>PollPort</name>
+            <value>5050</value>
+        </items>
+        <items>
+            <label>Request Port</label>
+            <name>RequestPort</name>
+            <value>5051</value>
+        </items>
+        <items>
+            <label>Request Timeout</label>
+            <name>RequestTimeout</name>
+            <value>5000</value>
+        </items>
+        <items>
+            <label>Poll Queue Timeout</label>
+            <name>PollQueueTimeout</name>
+            <value>100</value>
+        </items>
+        <items>
+            <label>Poll Queue Timeout Error</label>
+            <name>PollQueueTimeoutError</name>
+            <value>500</value>
+        </items>
+        <items>
+            <label>Workspace Url</label>
+            <name>WorkspaceUrl</name>
+            <value>http://localhost</value>
+        </items>
+        <label>Interaction Workspace Configuration</label>
+        <name>WorkspaceOptions</name>
+    </sections>
+    <version>2</version>
+</CallCenter>

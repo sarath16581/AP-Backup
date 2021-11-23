@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>SFDC_Blank</letterhead>
+    <name>License Request Status Update</name>
+    <style>freeForm</style>
+    <subject>Salesforce License Request Status Update</subject>
+    <textOnly>Hi {!Internal_Request__c.Requestor_Name__c},
+
+There has been a change in your Salesforce Licence request status.
+Please view request status in the License Management Tool.
+
+Request # {!Internal_Request__c.Name}
+
+If you have any questions please send an email to licenserequests@auspost.com.au
+
+Regards,
+Customer Systems Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

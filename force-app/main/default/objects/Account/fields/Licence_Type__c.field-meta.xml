@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Licence_Type__c</fullName>
+    <description>Partner Info - Type of Outlet</description>
+    <externalId>false</externalId>
+    <inlineHelpText>What type of Outlet does this Facility or Licence relate to?</inlineHelpText>
+    <label>Outlet Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>LPO</fullName>
+                <default>false</default>
+                <label>LPO</label>
+            </value>
+            <value>
+                <fullName>CMA</fullName>
+                <default>false</default>
+                <label>CMA</label>
+            </value>
+            <value>
+                <fullName>CPA</fullName>
+                <default>false</default>
+                <label>CPA</label>
+            </value>
+            <value>
+                <fullName>PP</fullName>
+                <default>false</default>
+                <label>PP</label>
+            </value>
+            <value>
+                <fullName>RP</fullName>
+                <default>false</default>
+                <label>RP</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

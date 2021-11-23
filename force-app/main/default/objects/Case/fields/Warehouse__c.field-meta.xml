@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Warehouse__c</fullName>
+    <description>Used by Retail Fulfilment. The warehouse who supplied this product to the outlet.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The warehouse who supplied this product to the outlet</inlineHelpText>
+    <label>Warehouse</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>0200 - NSW</fullName>
+                <default>false</default>
+                <label>0200 - NSW</label>
+            </value>
+            <value>
+                <fullName>0300 - Sprintpak</fullName>
+                <default>false</default>
+                <label>0300 - Sprintpak</label>
+            </value>
+            <value>
+                <fullName>0350 - Altona</fullName>
+                <default>false</default>
+                <label>0350 - Altona</label>
+            </value>
+            <value>
+                <fullName>0600 - WA</fullName>
+                <default>false</default>
+                <label>0600 - WA</label>
+            </value>
+            <value>
+                <fullName>0990 - Sai Cheng</fullName>
+                <default>false</default>
+                <label>0990 - Sai Cheng</label>
+            </value>
+            <value>
+                <fullName>0550 - NT</fullName>
+                <default>false</default>
+                <label>0550 - NT</label>
+            </value>
+            <value>
+                <fullName>0450 - Townsville</fullName>
+                <default>false</default>
+                <label>0450 - Townsville</label>
+            </value>
+            <value>
+                <fullName>0380 - Mickleham</fullName>
+                <default>false</default>
+                <label>0380 - Mickleham</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

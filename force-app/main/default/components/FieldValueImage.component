@@ -1,0 +1,27 @@
+<apex:component controller="FieldValueImageController">
+<style type="text/css">
+.fieldImageHeading {
+    font-weight:bold;
+}
+
+.fieldImage img {
+    max-width: 65px;
+    padding-top:15px;
+    padding-bottom:5px;
+    padding-right:0px;
+    padding-left:0px;
+}
+</style>
+	<apex:attribute name="recordId" description="the selected recordId"
+		type="string" required="false" assignto="{!innerRecordID}" />
+	<div class="fieldImagePanel">
+		<apex:repeat value="{!listOfImageUrls}" var="key">
+			<div class="fieldImageRow">
+				<div class="fieldImageHeading">{!key}</div>
+				<div class="fieldImage">
+					<apex:image url="{!listOfImageUrls[key]}" />
+				</div>
+			</div>
+		</apex:repeat>
+	</div>
+</apex:component>

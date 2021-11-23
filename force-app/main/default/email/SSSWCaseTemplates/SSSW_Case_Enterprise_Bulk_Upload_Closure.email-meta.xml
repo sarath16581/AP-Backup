@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SSSW - Used to notify the customer that the Bulk Upload case has been closed with a description on success or failure</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Case Enterprise Bulk Upload Closure</name>
+    <style>none</style>
+    <subject>Australia Post - {!Case.Type}:{!Case.CaseNumber} has been Closed</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference {!Case.CaseNumber}
+
+
+Hi {!Contact.Name}.
+
+
+{!Case.Type} - {!Case.CaseNumber} has been closed.
+
+{!IF(CONTAINS(Case.Subject, &quot;Bulk Upload&quot;),&quot;Results after processing CSV file: &quot;,&quot;&quot;)}
+
+{!Case.Description}
+
+
+If you require a new Case to be raised, please feel free to contact us via our enquiry page:
+
+Ask our support team
+
+Available from 7:30am to 7:30pm (AEST) Monday to Friday.
+If you have any questions or comments you can reply to this email.
+
+Regards,
+Australia Post Customer Contact Centre
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>TU_Finish_Time_Blank</fullName>
+        <field>Finish_Time__c</field>
+        <name>TU Finish Time Blank</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>TU_Lunch_Time_Blank</fullName>
+        <field>Lunch_Time_Mins__c</field>
+        <name>TU Lunch Time Blank</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>TU_Start_Time_Blank</fullName>
+        <field>Start_Time__c</field>
+        <name>TU Start Time Blank</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>TU_update_timesheet_unique_identifier</fullName>
+        <field>Unique_Identifier__c</field>
+        <formula>Time_Utilisation__r.Id &amp; text(Work_Date__c)</formula>
+        <name>TU update timesheet unique identifier</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>TU Leave Day Reset</fullName>
+        <actions>
+            <name>TU_Finish_Time_Blank</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>TU_Lunch_Time_Blank</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>TU_Start_Time_Blank</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Timesheet_Entry__c.Day_Off__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>reset start, finish and lunch time to blank if on leave</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>TU Prevent duplicate timesheet entries</fullName>
+        <actions>
+            <name>TU_update_timesheet_unique_identifier</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>update the unique identifier on timesheet objects so no duplicates can be entered.</description>
+        <formula>ISBLANK(Unique_Identifier__c) || ISNEW()||ISCHANGED(Work_Date__c)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

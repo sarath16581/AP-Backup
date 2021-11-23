@@ -1,0 +1,36 @@
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Hi&nbsp;</span><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!Case.Receiver_Contact_First_Name__c},</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Thank you for your enquiry regarding consignment:&nbsp;</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">&nbsp;</span></p>
+<table style="border-collapse: collapse; width: 68.8658%; height: 54px;" border="1">
+<tbody>
+<tr>
+<td style="width: 32.0602%; padding: 0.75pt;" width="97">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Article&nbsp;</span></p>
+</td>
+<td style="width: 36.8855%; padding: 0.75pt;" width="35">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!Case.ArticleTest__c}</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 32.0602%; padding: 0.75pt;" width="97">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Receiver Name&nbsp;</span></p>
+</td>
+<td style="width: 36.8855%; padding: 0.75pt;" width="35">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!Case.Receiver_Name__c}</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 32.0602%; padding: 0.75pt;" width="97">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Address&nbsp;</span></p>
+</td>
+<td style="width: 36.8855%; padding: 0.75pt;" width="35">
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!Case.Address4__c}, {!Case.Address4Suburb__c},{!Case.Address4Postcode__c}</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">I would like to advise you that your supplier is UPS.</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">UPS have requested that all customer enquiries regarding Star Track consignments are directed to them.&nbsp;</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Please contact UPS on 131 877 and they will be able to assist you further.&nbsp;</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">Kind regards,&nbsp;</span></p>
+<p style="margin-bottom: .0001pt; line-height: normal; vertical-align: baseline;"><span style="font-size: 10.0pt; font-family: 'AP Letter';">{!User.Name}</span></p>

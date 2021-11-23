@@ -1,0 +1,19 @@
+<apex:component controller="APT_DGTProposalApprovalsCustomController" access="global">
+    <apex:attribute name="attributeSO" 
+                    description="This is the Proposal SObject." 
+                    type="Apttus_Proposal__Proposal__c" 
+                    assignTo="{!propSO}" />
+    <apex:attribute name="proposalID" 
+                    description="This is the Proposal SObject." 
+                    type="String" 
+                    assignTo="{!propID}" />
+    <apex:outputText value="Product Lines Requested: "></apex:outputText>     
+    <apex:outputText value="{!ProductLines}"></apex:outputText>
+    
+    <br/>                   
+                    
+    <apex:outputText value="Rejection Comments: " rendered="{!IF(propSO.APT_Dangerous_Goods_Status__c== 'Rejected',true,false)}"></apex:outputText><apex:outputText value="Approver Comments: " rendered="{!IF(propSO.APT_Dangerous_Goods_Status__c== 'Approved','true','false')}"></apex:outputText>
+    <apex:outputText value="Rejection Comments: " rendered="{!IF(propSO.APT_Overweight_Approval_Status__c== 'Rejected',true,false)}"></apex:outputText><apex:outputText value="Approver Comments: " rendered="{!IF(propSO.APT_Overweight_Approval_Status__c== 'Approved','true','false')}"></apex:outputText>
+    <apex:outputText value="{!ApprovalRequestComment}"></apex:outputText>
+    <br/>
+</apex:component>

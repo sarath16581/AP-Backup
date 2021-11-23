@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reasonfordecision__c</fullName>
+    <description>If  Merchant adoption of SOD to ATL = Mixed then what is the split. 
+If the split is others, please enter it here</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If  Merchant adoption of SOD to ATL = Mixed then what is the split. 
+If the split is others, please enter it here.</inlineHelpText>
+    <label>Reason for decision</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StatusTrackingConcurrentBatches__c</fullName>
+    <description>Number of concurrent batches to queue after a list of Cases has been generated. Usually a number between 2-4 depending on available resources.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Number of concurrent batches to queue after a list of Cases has been generated. Usually a number between 2-4 depending on available resources.</inlineHelpText>
+    <label>Status Tracking Concurrent Batches</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

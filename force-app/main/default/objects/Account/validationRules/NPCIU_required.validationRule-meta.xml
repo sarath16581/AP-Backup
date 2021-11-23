@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NPCIU_required</fullName>
+    <active>true</active>
+    <description>Once Nominated Partner Contact &amp; Incent User is set, this field cannot be cleared</description>
+    <errorConditionFormula>AND(!ISBLANK(PRIORVALUE(Nominated_Partner_Contact_Incent_User__c)),  ISBLANK(Nominated_Partner_Contact_Incent_User__c) )</errorConditionFormula>
+    <errorMessage>Nominated Partner Contact &amp; Incent User cannot be null</errorMessage>
+</ValidationRule>

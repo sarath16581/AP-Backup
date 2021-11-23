@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales_Ops_Serv_Delivery_Contact_Validate</fullName>
+    <active>true</active>
+    <description>Validate only contacts associated with the organisation can be selected within Service Delivery case type</description>
+    <errorConditionFormula>And (RecordType.DeveloperName =&apos;Sales_Ops_Delivery&apos; , ContactId &lt;&gt; &quot;&quot;, 
+
+Contact.AccountId &lt;&gt; AccountId , NOT (ISPICKVAL( Origin , &quot;Customer - Email&quot;)))</errorConditionFormula>
+    <errorDisplayField>ContactId</errorDisplayField>
+    <errorMessage>You can only choose contacts associated with the organisation.</errorMessage>
+</ValidationRule>

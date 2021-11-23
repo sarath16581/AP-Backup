@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Seaford_Routes1</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Depot__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>sea</value>
+    </filters>
+    <label>Seaford Routes</label>
+    <sharedTo>
+        <group>SEAFORD_VAN_OPERATIONS</group>
+    </sharedTo>
+</ListView>

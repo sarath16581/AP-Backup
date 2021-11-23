@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Use_Sales_Process_Map__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field allows an administrator to enable Dealmaker to use the Sales Process Mapping custom object to map opportunities to particular sales proceses</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field allows an administrator to enable Dealmaker to use the Sales Process Mapping custom object to map opportunities to particular sales proceses</inlineHelpText>
+    <label>Use Sales Process Map</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

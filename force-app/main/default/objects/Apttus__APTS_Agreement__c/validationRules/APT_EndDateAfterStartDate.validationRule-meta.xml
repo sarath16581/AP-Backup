@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_EndDateAfterStartDate</fullName>
+    <active>true</active>
+    <description>Validation Rule blocks users from entering Contract End Date before Contract Start Date</description>
+    <errorConditionFormula>Apttus__Contract_End_Date__c &lt; Apttus__Contract_Start_Date__c</errorConditionFormula>
+    <errorMessage>Contract End Date cannot be before Contract Start Date</errorMessage>
+</ValidationRule>

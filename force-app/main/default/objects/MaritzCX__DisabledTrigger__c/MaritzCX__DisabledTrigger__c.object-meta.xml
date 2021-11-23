@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>This setting is used to manage triggers in Salesforce.
+Using this setting the triggers can be enabled or disabled.
+If a &quot;Trigger Management&quot; custom setting is added for a user or profile with the &quot;Disable Specific Triggers&quot; option selected, the triggers listed here will be disabled.</description>
+    <enableFeeds>false</enableFeeds>
+    <label>5. Salesforce: Disabled Triggers</label>
+    <visibility>Public</visibility>
+</CustomObject>

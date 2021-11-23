@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Prevent_Change_to_SSSW_Entitlements</fullName>
+    <active>true</active>
+    <description>Prevents changes to the SSSW Entitlements Account</description>
+    <errorConditionFormula>(
+PRIORVALUE(FirstName) = &apos;SSSW&apos;
+&amp;&amp;
+PRIORVALUE(LastName) = &apos;Entitlements&apos;
+)
+&amp;&amp;
+(
+ISCHANGED( DoNotDisclose__pc )
+||
+ISCHANGED( PersonEmail )
+||
+ISCHANGED( FirstName )
+||
+ISCHANGED( LastName )
+)</errorConditionFormula>
+    <errorMessage>The Account is required for the SSSW Entitlements Process</errorMessage>
+</ValidationRule>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Email_Alert_Bids_Manager_of_new_bid_creation</fullName>
+        <ccEmails>ECGBids.TendersSupport@auspost.com.au</ccEmails>
+        <description>Email Alert - Bids Manager of new bid creation.</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Bids_Tenders_Manager</recipient>
+            <type>role</type>
+        </recipients>
+        <senderAddress>ecgbids.tenderssupport@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Email_Bids_Request_Manager</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Bid_to_Opportunity_Driver</fullName>
+        <ccEmails>chris.thallon@auspost.com.au</ccEmails>
+        <description>Send Bid to Opportunity Driver.</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <field>Coverage_Sales_Driver__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>ecgbids.tenderssupport@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Bids</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Bids_Add_Oppty_Driver_First_Name</fullName>
+        <field>hidden_Opportunity_Driver_First_Name__c</field>
+        <formula>Coverage_Sales_Driver__r.FirstName</formula>
+        <name>Bids - Add Oppty Driver First Name</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_Hidden_Bid_Quality_Score</fullName>
+        <description>Populate the {Hidden} Bid Quality Score field with the Bid Quality Score</description>
+        <field>Hidden_Bid_Quality_Score__c</field>
+        <formula>Bid_Quality_Score__c</formula>
+        <name>Populate Hidden Bid Quality Score</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Bids - Obtain Oppty Drivers First Name</fullName>
+        <actions>
+            <name>Bids_Add_Oppty_Driver_First_Name</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Bid__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Allocate to Bid Manager,Qualification Required</value>
+        </criteriaItems>
+        <description>Store the Opportunity Driver&apos;s First name in a hidden field within Bids to be used in the email template.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Bids - Send Email to Seller</fullName>
+        <actions>
+            <name>Send_Bid_to_Opportunity_Driver</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Bid__c.Status__c</field>
+            <operation>equals</operation>
+            <value>In Progress</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Bid__c.Coverage_Sales_Driver__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>All outgoing emails to advise sellers of the assignment of resources should be sent from the following masked email address: ECGBids.TendersSupport@auspost.com.au.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Notify Bids Manager of New Bid</fullName>
+        <actions>
+            <name>Email_Alert_Bids_Manager_of_new_bid_creation</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Bid__c.RecordTypeId</field>
+            <operation>contains</operation>
+            <value>Bids EC&amp;G,Business Development – PeS,Business Sales – PeS,Inside Sales – PeS,Key Accounts – PeS,Bids Request EC&amp;G</value>
+        </criteriaItems>
+        <description>Email notification sent to ECG Bids Manager when new Bids Request is created</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update hidden fields on Bids %26 Tenders</fullName>
+        <actions>
+            <name>Populate_Hidden_Bid_Quality_Score</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Bid__c.CreatedById</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Update hidden fields used in Data Quality Scoring and References</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

@@ -1,0 +1,37 @@
+<!--Component for the expand and collapse section on Ideas List Page-->
+<aura:component controller="brideas_IdeasCtrl" implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="title" type="String" />
+    <aura:attribute name="description" type="String" />
+    <aura:attribute name="linkText" type="String" />
+    <aura:attribute name="link" type="String" />
+    <aura:attribute name="status" type="String" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <div class="collapsibleCTA slds-grid slds-wrap">
+    <div class="slds-col">
+         <div class="expander-contractor">        
+                    <h3 class="title"><img src="{!$Resource.BrIdeas + '/images/info-icon1.png'}" alt="" class="info-icon"/>
+                        <span class="subtitle">{!v.title}</span>
+                        <aura:if isTrue="{!v.status == 'closed' ? true : false}">
+                            <span class="arrowDown" onclick="{!c.toggleExpander}"></span>
+                        </aura:if>
+                        <aura:if isTrue="{!v.status == 'opened' ? true : false}">
+                            <span class="arrowUp" onclick="{!c.toggleExpander}"></span>
+                        </aura:if>
+                    </h3>
+        
+                    <aura:if isTrue="{!v.status == 'opened' ? true : false}">
+                        <p class="description"> 
+                            {!v.description}
+                        </p>
+                        <div class="link">
+                            <aura:if isTrue="{!not(empty(v.linkText))}">
+                                <a onclick="{!c.openLink}"><img src="{!$Resource.ap_community_chevron}" alt="" class="featured-header-caret"/>{!v.linkText}</a>
+                            </aura:if>
+                        </div>
+                    </aura:if>
+         </div>
+    </div>
+    </div>
+</aura:component>

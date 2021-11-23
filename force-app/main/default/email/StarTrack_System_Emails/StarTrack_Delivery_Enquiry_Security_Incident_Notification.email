@@ -1,0 +1,5 @@
+•  Case #:  {!Case.CaseNumber}<br/>
+•  Subject: {!Case.Subject}<br/>
+•  Description: {!Case.Description}<br/>
+•  Tier #: {!Case.Tier__c}<br/>
+•  Case Creator:  {!Case.Calc_Owner_Name__c}<br/>

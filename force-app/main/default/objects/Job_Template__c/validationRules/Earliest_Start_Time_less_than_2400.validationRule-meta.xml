@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Earliest_Start_Time_less_than_2400</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+   NOT(ISBLANK(Earliest_Start_Time__c)),
+   OR(
+       NOT(ISNUMBER(Earliest_Start_Time__c)),
+       LEN(Earliest_Start_Time__c) &lt; 3,
+       VALUE(Earliest_Start_Time__c) &lt; 0,
+       VALUE(Earliest_Start_Time__c) &gt; 2400,
+       VALUE(RIGHT(Earliest_Start_Time__c,2)) &gt; 59
+   )
+)</errorConditionFormula>
+    <errorDisplayField>Earliest_Start_Time__c</errorDisplayField>
+    <errorMessage>Earliest Start Time must be number and between 0000 and 2400</errorMessage>
+</ValidationRule>

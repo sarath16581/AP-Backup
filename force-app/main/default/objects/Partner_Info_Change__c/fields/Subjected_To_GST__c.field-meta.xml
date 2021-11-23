@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Subjected_To_GST__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Identifies if the LPO is subject to GST or not (e.g. outside of Australia).</description>
+    <externalId>false</externalId>
+    <label>GST Applicable</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

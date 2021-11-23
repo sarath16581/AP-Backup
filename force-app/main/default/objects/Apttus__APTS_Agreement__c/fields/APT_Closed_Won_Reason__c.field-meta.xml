@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Closed_Won_Reason__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Available once the contract is Fully Signed - Populates Opportunity Closed Reason</inlineHelpText>
+    <label>Closed Won Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Capability</fullName>
+                <default>false</default>
+                <label>Capability</label>
+            </value>
+            <value>
+                <fullName>Functionality</fullName>
+                <default>false</default>
+                <label>Functionality</label>
+            </value>
+            <value>
+                <fullName>Implementation lead time</fullName>
+                <default>false</default>
+                <label>Implementation lead time</label>
+            </value>
+            <value>
+                <fullName>Network</fullName>
+                <default>false</default>
+                <label>Network</label>
+            </value>
+            <value>
+                <fullName>Price</fullName>
+                <default>false</default>
+                <label>Price</label>
+            </value>
+            <value>
+                <fullName>Strategic Decision</fullName>
+                <default>false</default>
+                <label>Strategic Decision</label>
+            </value>
+            <value>
+                <fullName>Product Migration</fullName>
+                <default>false</default>
+                <label>Product Migration</label>
+            </value>
+            <value>
+                <fullName>Channel Migration</fullName>
+                <default>false</default>
+                <label>Channel Migration</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

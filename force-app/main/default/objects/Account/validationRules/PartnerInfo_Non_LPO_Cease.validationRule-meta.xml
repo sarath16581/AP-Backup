@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfo_Non_LPO_Cease</fullName>
+    <active>true</active>
+    <description>For non LPO Licences, ensure that when the user sets the Termination Reason, that the Licence Status is Active, and the Assignment Effective To Date is set.</description>
+    <errorConditionFormula>AND(
+  OR(
+    RecordType.DeveloperName = &apos;Licence_CMA&apos;,
+    RecordType.DeveloperName = &apos;Licence_CPA&apos;,
+    RecordType.DeveloperName = &apos;Licence_PP&apos;),
+  NOT(ISPICKVAL(Termination_Reason__c,&apos;&apos;)),
+  OR(
+    ISNULL(Assignment_Effective_To_Date__c),
+    ISPICKVAL(Licence_Status__c, &quot;Draft&quot;),
+    ISPICKVAL(Licence_Status__c, &quot;Approved&quot;),
+    ISPICKVAL(Licence_Status__c, &quot;Rejected&quot;),
+    ISPICKVAL(Licence_Status__c, &quot;Not Activated&quot;)
+    )
+)</errorConditionFormula>
+    <errorMessage>When setting the Termination Reason, the Assignment Effective To Date must not be null, and the Licence must be Active. If the Licence is Active, set the Assignment Effective To Date, select the Termination Reason, and submit the Licence for Approval.</errorMessage>
+</ValidationRule>

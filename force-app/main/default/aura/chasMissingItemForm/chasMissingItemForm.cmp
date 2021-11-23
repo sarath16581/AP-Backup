@@ -1,0 +1,328 @@
+<!--
+ @description
+ This is the uplift form of the existing ChasMissingItemWPage02 form with safe drop image retrieval, display and form prefill functionality 
+ @author Hara Sahoo
+ @date 2020-07-06
+ @changelog : 
+ 2020-07-06 : Created : Change made for roll out of Safe Drop feature on Missing Items form
+ 2021-02-04 : Created : AME address validation for address fields on all of the H&S forms
+ 2021-07-21 : Hara Sahoo : Added field for sentimental value
+-->
+<aura:component extends="c:SS_uiWizardPage" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" description="Late or missing item form">
+    <aura:attribute name="isModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="checkInputsOnRender" type="Boolean" default="true"/>
+    <!-- Adobe Analytics Tracking Helpers -->
+    <!-- 29th Jan 2021- Hara.sahoo@auspost.com.au- Removed reference to onInit, since there is no definition for it in the controller -->
+    <!--<ltng:require scripts="{!$Resource.GlobalAssets + '/js/lightning/adobeAnalyticsHelper.js'}" afterScriptsLoaded="{!c.onInit}" />-->
+    <ltng:require scripts="{!$Resource.GlobalAssets + '/js/lightning/adobeAnalyticsHelper.js'}" />
+    <aura:registerEvent name="adobeAnalyticsInterfaceEvent" type="c:adobeAnalyticsInterfaceEvent"/>
+    <aura:handler name="chasGenComponentEvent" event="c:chasGenComponentEvent" action="{!c.onchange}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <!--<aura:handler name='change' value='{!v.wizardData.selectedRadio1}' action='{!c.onReload}' />-->
+    <aura:handler name="render" value="{!this}" action="{!c.onRender}"/>
+    <!-- If we want to change the order of Radion Buttons, change the order but dont swap/change the Ids-->
+    <aura:attribute name="recipientOrSenderRadioGroup" type="List"
+                    default="[
+                             {'label':'Recipient', image:'','id':'firstRadio'},
+                             {'label':'Sender', image:'','id':'secondRadio'}
+                             ]"
+                    description='The radio button label and its image URL to display'/>
+    <aura:attribute name="parcelOrLetterRadioGroup" type="List"
+                    default="[
+                             {'label':'Parcel', image:'','id':'thirdRadio'},
+                             {'label':'Letter', image:'','id':'fourthRadio'}
+                             ]"
+                    description='The radio button label and its image URL to display'/>
+    <aura:attribute name="domesticParcelSentTypeRadioGroup" type="List"
+                    default="[
+                             {'label':'Regular Post', image:'','id':'fifthRadio'},
+                             {'label':'Express Post', image:'','id':'sixthRadio'}
+                             ]"
+                    description='The radio button label and its image URL to display'/>
+    <aura:attribute name="domesticLetterSentTypeRadioGroup" type="List"
+                    default="[
+                             {'label':'Regular Post', image:'','id':'fifthRadio'},
+                             {'label':'Express Post', image:'','id':'sixthRadio'},
+                             {'label':'Registered Post', image:'','id':'seventhRadio'}
+                             ]"
+                    description='The radio button label and its image URL to display'/>
+    <aura:attribute name="internationalSentTypeRadioGroup" type="List"
+                    default="[
+                             {'label':'Courier', image:'','id':'tenthRadio'},
+                             {'label':'Express', image:'','id':'eleventhRadio'},
+                             {'label':'Economy Air', image:'','id':'thirteenthRadio'},
+                             {'label':'Economy Sea', image:'','id':'fourteenthRadio'}
+                             ]"
+                    description='The radio button label and its image URL to display'/>
+    <aura:attribute name="reasonForEnquiry" type="List"
+                    default="[
+                             {'label':'Location of the parcel is unclear from the photo', image:'','id':'fifteenthRadio'},
+                             {'label':'Location shown is not at the correct delivery address', image:'','id':'sixteenRadio'},
+                             {'label':'Parcel is no longer in the location shown', image:'','id':'seventeenRadio'},
+                             {'label':'Other', image:'','id':'eighteenRadio'}
+                             ]"
+                    description='The radio button label and its image URL to display'/>
+    <aura:attribute name="pharmaRadioGroup" type="List"
+                    default="[
+                             {'label':'Yes', image:'','id':'nineteenthRadio'},
+                             {'label':'No', image:'','id':'twentythRadio'}
+                             ]"
+                    description='The radio button label and its image URL to display'/>
+    <!-- HaraSahoo Added to handle items having a sentimental value example a legal document, amount > 1000$  -->                
+    <aura:attribute name="sentimentalValueRadioGroup" type="List"
+                    default="[
+                            {'label':'Yes', image:'','id':'yesSVRadio'},
+                            {'label':'No', image:'','id':'noSVRadio'}
+                             ]"
+                    description='The radio button label to hold the values for sentimental field'/>
+    <!-- AME attributes-->
+    <aura:attribute name="showError" type="Boolean" />
+    <aura:attribute name="error" type="String" default=''/>
+    <aura:attribute name="inputError" type="Boolean" default="false"/>
+    <aura:attribute name="inputFieldError" type="Boolean" default="false"/>
+    <aura:attribute name="isOverriden" type="Boolean" default="false"/>
+    <!--Go back button-->
+    <div class="left-padding">
+        <img src="sfsites/c/resource/ChasIcons/chas-icons/pngs/UI/icons/back_arrow.png" alt="Go back"/><label>&nbsp;</label>
+        <lightning:button label="BACK" variant="base" onclick="{!c.goBack}" class="goBack"/>
+    </div>
+    <legend class="chas-header left-padding">
+        <h2>Item details</h2>
+    </legend>
+    <c:ChasForm customStyle="left-padding">
+        
+        <div class="outer-box">
+            <div class="form-input-container">
+                <!--Error summary-->
+                <aura:if isTrue="{! v.showErrorSummary }">
+                    <c:ChasErrorSummary aura:id="chasErrorSummary" errors="{! v.errors }"/>
+                </aura:if>
+                <legend class="chas-header">
+                    <h3 class="item-label">Confirm item details</h3>
+                </legend>
+                <!--Tracking Number display -->
+                <div class="chas-output">
+                    <label for="trackingId" class="slds-form-element__label">Tracking number</label>
+                    <div id="trackingId">{!v.wizardData.trackingId}</div>
+                </div>
+                <!--Delivery address type display -->
+                <aura:if isTrue="{!v.wizardData.safeDropPayload != Null}">
+                <div class="chas-output">
+                    <label for="address" class="slds-form-element__label">Correct delivery address</label>
+                    <div id="address">{!v.wizardData.correctDeliveryAddress}</div>
+                </div>
+                    <aura:set attribute="else">
+                        <div class="chas-output">
+                    <label for="address" class="slds-form-element__label">Delivery address</label>
+                    <div id="address">{!v.wizardData.correctDeliveryAddress}</div>
+                </div>
+                    </aura:set>
+                </aura:if>
+                
+                <!--<aura:if isTrue="{!v.wizardData.correctDeliveryAddress != null}">
+                        <div class="chas-output">
+                            <label for="address" class="slds-form-element__label">Correct delivery address</label>
+                            <div id="address">{!v.wizardData.correctDeliveryAddressLine1}<br/>{!v.wizardData.correctDeliveryAddressLine2}</div>
+                        </div>
+            </aura:if>-->
+                <!-- Parcel Or Letter Radio Button Group-->
+                <c:ChasRadioButtons
+                                    aura:id="chasInput"
+                                    name="parcelOrLetterRadioButtons"
+                                    required="true"
+                                    label="Item type"
+                                    options="{!v.parcelOrLetterRadioGroup}"
+                                    value="{!v.wizardData.selectedRadio2}"/>
+                
+                <aura:if
+                         isTrue="{!and(v.wizardData.senderOrRecipientType =='Domestic',or(v.wizardData.selectedRadio2Name ==null, v.wizardData.selectedRadio2Name =='Parcel'))}">
+                    
+                    <c:ChasRadioButtons
+                                        aura:id="chasInput"
+                                        name="domesticParcelSentTypeRadioButtons"
+                                        required="true"
+                                        label="Delivery service"
+                                        options="{!v.domesticParcelSentTypeRadioGroup}"
+                                        value="{!v.wizardData.selectedRadio3}"/>
+                    <aura:set attribute='else'>
+                        <aura:if isTrue="{!v.wizardData.senderOrRecipientType =='Domestic'}">
+                            <c:ChasRadioButtons
+                                                aura:id="chasInput"
+                                                name="domesticLetterSentTypeRadioButtons"
+                                                required="true"
+                                                label="Delivery service"
+                                                options="{!v.domesticLetterSentTypeRadioGroup}"
+                                                value="{!v.wizardData.selectedRadio3}"/>
+                        </aura:if>
+                    </aura:set>
+                </aura:if>
+                <aura:if isTrue="{!v.wizardData.senderOrRecipientType =='International'}">
+                    <c:ChasRadioButtons
+                                        aura:id="chasInput"
+                                        name="internationalParcelSentTypeRadioButtons"
+                                        required="true"
+                                        label="Delivery service"
+                                        options="{!v.internationalSentTypeRadioGroup}"
+                                        value="{!v.wizardData.selectedRadio3}"/>
+                </aura:if>
+                <!--Date of posting -->
+                <c:ChasInput type='date' aura:id='chasInput' name='ChasItemSentDate' required="true"
+                             label='Date of posting' value='{! v.wizardData.itemSentDate }'
+                             helptext="If you're unsure, please check with the sender or provide your best estimate."
+                             short="true" placeholder="DD/MM/YYYY"/>
+                
+                <!--Item value input -->
+                <c:ChasInput type='number' aura:id='chasInput' name='ChasItemValue' required="false" subLabel='(optional)'
+                             label='Item value' value='{! v.wizardData.itemValue}'
+                             short="true" prefix="$">
+                    <p class="chas-body_small">e.g. $25.00</p>
+                </c:ChasInput>
+                <c:ChasRadioButtons
+                                    aura:id="chasInput"
+                                    name="pharmaRadioButtons"
+                                    required="true"
+                                    label="Does the item contain essential medication?"
+                                    options="{!v.pharmaRadioGroup}"
+                                    value="{!v.wizardData.selectedRadio4}"/>
+                <!--Sentimetal Value-->
+                <c:ChasRadioButtons
+                                        aura:id="chasInput"
+                                        name="sentimentalValueRadioButtons"
+                                        required="true"
+                                        label="Is the item urgent, sentimental or high value?"
+                                        helptext="E.g. A legal document, passport or currency for urgent travel, item for a wedding or funeral, or an item that can't be replaced."
+                                        options="{!v.sentimentalValueRadioGroup}"
+                                        value="{!v.wizardData.selectedSenti}"/>
+                <!-- Contents Description-->
+                <c:chasTextArea  aura:id="chasInput" name="chasContentDescription" required="true" 
+                                label="Description of contents" value="{!v.wizardData.issueDetails}">
+                    <p class="chas-body_small" style="margin-bottom:-25px">This will help us find the item, or speed up a compensation claim if that’s required.</p>
+                </c:chasTextArea>
+            </div>
+        </div>
+    </c:ChasForm>
+    <div class="outer-box box-seperator-gap">
+        <div class="form-input-container">
+            <legend class="chas-header">
+                <h3 class="item-label">Enquiry details</h3>
+            </legend>
+            <!-- Recipient/Sender Radio Buttions Group-->
+            <c:ChasRadioButtons
+                                aura:id="chasInput"
+                                name="recipientOrSenderRadioButtons"
+                                required="true"
+                                label="Are you the recipient or sender?"
+                                options="{!v.recipientOrSenderRadioGroup}"
+                                value="{!v.wizardData.selectedRadio1}"/>
+            <!-- Business Deflection login screen -->
+            <aura:if isTrue="{!v.wizardData.selectedRadio1Name == 'Sender'}">
+                <c:ChasBspDeflection heading='Business customer?' animate="true" borderStyle="info-box bottom-gap-Large">
+                    <p>
+                        Log in to the <a onclick="{!c.navToBsp}">Business Support Portal</a> to access priority
+                        support, track items and manage your enquiries 24/7.
+                    </p>
+                </c:ChasBspDeflection>
+            </aura:if>
+            <!--Your/Sender Addess ............ START -->
+            <aura:if isTrue="{!v.wizardData.selectedRadio1Name == 'Sender'}">
+                <div id="AMEDeliveryAddress" name="AMEDeliveryAddress" class="AMEAddress">
+                            <c:ChasErrorMessages error="{! v.error }" showError="{! v.showError }"/>
+                            <!-- Sender delivery address-->
+                            <c:chasMissingItemAddressLookup aura:id="searchAddress" label="Sender's address" searchAddressTerm="{!v.wizardData.selectedDeliveryAddress}"
+                                                            inputFieldError="{!v.inputFieldError}" inputError="{!v.inputError}" 
+                                                            errorMessage="{!v.errorMessage}" onshowError="{!c.getShowError}" 
+                                                            onvaluechange="{!c.getOverrideAddress}" onsearchtermchange="{!c.getSelectedAddress}" 
+                                                            onaddressOverride="{!c.checkOverride}" onaddressTyped="{!c.getAddressTyped}"/>
+                        </div>
+                <!--<c:ChasFieldset customStyle="item-label" label="Sender's address" small="true">-->
+                    
+                    <!-- Sender Address Line1-->
+                    <!--<c:ChasInput type='text' aura:id='chasInput' name='senderAddressLine1' required="true"
+                                 label='Address line 1' value='{!v.wizardData.senderAddressLine1}'/>-->
+                    
+                    <!-- Sender Address Line2-->
+                    <!--<c:ChasInput type='text' name='senderAddressLine2' required="false" label='Address line 2'
+                                 subLabel='(optional)' value='{! v.wizardData.senderAddressLine2}'/>-->
+                    
+                    <!-- Sender City-->
+                    <!--<c:ChasInput type='text' aura:id='chasInput' name='senderCityAU' required="true"
+                                 label='Suburb or city' value='{!v.wizardData.senderCity}'/>-->
+                    
+                    <!-- Sender State and Postcode -->
+                    <!--<div class="slds-grid-address">
+                        <div class="slds-col state-col-width">
+                            <c:ChasSelect aura:id='chasInput' name='senderStateAU' required="true" label='State'
+                                          options="{!v.stateOptions}" value='{!v.wizardData.senderState}'
+                                          short="true"/>
+                        </div>
+                        
+                        <div  class="slds-col postcode-col-width col-separator">
+                            <c:ChasInput type='text' aura:id='chasInput' name='senderPostcodeAU' required="true"
+                                         label='Postcode' pattern="[0-9]*"
+                                         value='{!v.wizardData.senderPostcode}' short="true"/>
+                        </div>
+                    </div>
+                </c:ChasFieldset>-->
+            </aura:if>
+            <!--Your/Sender Addess ............ END -->
+            <!--Safe drop image-->
+            <aura:if isTrue="{!v.wizardData.safeDropPayload != Null}">
+                <legend class="slds-form-element__label">Photo taken at the delivery address</legend>
+                <div style="padding-top:10px;">
+                    <img src="{!'data:image/jpeg;base64,'+v.wizardData.safeDropPayload}" width="100" height="132" alt="safe drop image"></img>
+                </div>
+                <div class="image-div">
+                    <lightning:button label="Enlarge photo" variant="neutral" class="chas-button" onclick="{!c.openModal}">
+                        <img src="{! $Resource.ChasIcons + '/chas-icons/pngs/UI/icons/image_enlarge.png'}" alt="Enlarge photo" style="padding-right:8px"/>
+                        Enlarge photo
+                    </lightning:button>
+                </div>
+                
+            </aura:if>
+            <aura:if isTrue="{! or(v.wizardData.hasCustomerSeenSafeDrop, v.wizardData.safeDropPayload != null)}">
+                <c:ChasRadioButtons
+                                    aura:id="chasInput" customStyle="radio-align"
+                                    name="reasonForEnquiry"
+                                    required="true"
+                                    label="Reason for enquiry"
+                                    options="{!v.reasonForEnquiry}"
+                                    value="{!v.wizardData.selectedRadio5}"/>
+            </aura:if>
+            
+            <!--Use aura:if tag to display/hide popup based on isModalOpen value-->  
+            <aura:if isTrue="{!v.isModalOpen}">
+                
+                <!-- Modal/Popup Box starts here-->
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <!-- Modal/Popup Box Header Starts here-->
+                        <header class="slds-modal__header">
+                            <lightning:buttonIcon iconName="utility:close"
+                                                  onclick="{! c.closeModal }"
+                                                  alternativeText="close"
+                                                  variant="bare-inverse"
+                                                  class="slds-modal__close"/>
+                        </header>
+                        <!--Modal/Popup Box Body Starts here-->
+                        <div class="slds-modal__content slds-p-around_xxx-small" id="modal-content-id-1">
+                            <img src="{!'data:image/jpeg;base64,'+v.wizardData.safeDropPayload}" alt="safe drop image"></img>
+                            
+                        </div>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </aura:if>
+            
+            <!-- Additional Information-->
+            <c:chasTextArea name="chasContentDescription" required="false" subLabel='(optional)'
+                            label="Additional information" value="{!v.wizardData.complaintDetails}">
+                <p class="chas-body_small">Anything else you think might help us investigate.</p>
+            </c:chasTextArea>
+            <div>
+                <!--<lightning:button label="Continue" variant="brand" onclick="{!c.goForward}" class="{! 'chas-button chas-input-search-button disabled-'+(not(v.formValid))}" />-->
+                <c:ChasNavButtons nextLabel="Continue" disabled="false" nextAction="{! c.goForward }"/>
+                
+            </div>
+        </div>
+    </div>
+</aura:component>

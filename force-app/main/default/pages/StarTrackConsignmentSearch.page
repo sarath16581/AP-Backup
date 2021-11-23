@@ -1,0 +1,626 @@
+<!--
+    Description: Consignment search page to search consignment locally and web service call out
+    if not found locally, Filters for search efficiency and create and open case functionality
+    History: @Fahad Akhtar : V1 - as per desciption
+    AUG.13.2015 Fahad Akhtar(CloudSherpas) Created
+    JAN.21.2016 Patrick Franco (Cloud Sherpas) - Added client side logic for displaying search parameters
+    FEB.05.2016 Patrick Franco (Cloud Sherpas) - Added full screen modal to be displayed during case creation
+                                               - Added default highlighting for single Consignment results
+    FEB.10.2016 Patrick Franco (Cloud Sherpas) - Added dynamic sections to accommodate assignment of a Consignment to Case
+    FEB.01.2018 Angelo Rivera (Accenture)      - CCTR Project - Added js method and action funtion to prepopulate seacrh String 
+    15.05.2018 hasantha.liyanage@auspost.com.au -   Make available the page through cpVisualforceWrapper.cmp
+                                                    added resizeMonitor and the implementation of the resize monitor
+                                                    adding the openTab functionality to open a lightning tab when opened with lightning experience
+                                                    make some elements hidden if accessed via cpVisualforceWrapper.cmp iFrame
+    2018-06-01 kalpita.talwadekar@auspost.com.au - IVR functionality
+    2018-06-05 nathan.franklin@auspost.com.au - Fixing bug around passing consignments from CTI
+    2018-09-15 clint.dsilva@auspost.com.au - Add View Image link , to go to image screen
+    09.06.2020  Lija Jawahar     Omni-channel bug fix - Removed standard controller
+    26.06.2020  Disha Kariya     Added custom permission to display Contact and case details only for Startrack users
+-->
+<apex:page Controller="StarTrack_Case_ConsignSearch_ControllerX" title="Consignment Search">
+    <apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}"/>
+    <c:ScriptLoader jsLibraries="jquery,resizeMonitor"/>
+    <div class="slds">
+    <div id="loading" style="display: none">
+        <img id="loading-image" src="/img/loading.gif" alt="Loading..." />
+    </div>
+    <apex:includeScript value="/support/console/48.0/integration.js"/>
+    <apex:includeScript value="/support/api/48.0/interaction.js"/>
+    <apex:includeLightning />
+    <style type="text/css">
+        /* Row highlighting */
+        .rowColor {
+            background-color:#e3f3ff;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        /* Modal content */
+        .modal-content {
+            margin-top: 18%;
+            margin-left: 48%;
+        }
+
+        #loading {
+           width: 100%;
+           height: 100%;
+           top: 0px;
+           left: 0px;
+           position: fixed;
+           display: block;
+           opacity: 0.7;
+           background-color: #fff;
+           z-index: 99;
+           text-align: center;
+        }
+
+        #loading-image {
+          position: absolute;
+          top: 35%;
+          left: 50%;
+          z-index: 100;
+        }
+
+        #maintable {
+            background-color:white;
+        }
+
+        #maintd {
+            padding-left: 15px;
+        }
+    </style>
+
+    <!-- Panel to hold and refresh all bind variable values-->
+    <apex:outputPanel id="scriptPanel">
+        <script type="text/javascript">
+            var j$ = jQuery.noConflict();
+            //set default tab title from custom setting value
+            function defaultTabTitle() {
+                //Set the current tab's title
+                sforce.console.setTabTitle('{!pageTitle}');
+            }
+            defaultTabTitle();
+
+            //open primary tab for new case creation and on sucess close current tab
+            function openCaseRecord(){
+                //Open a new primary tab with the salesforce.com home page in it
+                if({!flag}){
+                    if(sforce.console.isInConsole()){
+                        OpenPrimaryTab('{!c.id}', '{!c.CaseNumber}');
+                    }
+                }
+            }
+
+            function openRecord(isCreate) {
+                if({!flag}){
+                    if (isCreate == 'true') {
+                        openCaseRecord();
+                    } else {
+                        if(sforce.console.isInConsole()){
+                            OpenPrimaryTab('{!savedConsignment.id}', '{!savedConsignment.Name}');
+                        }
+                        else{
+                            console.log();
+                            window.open('/{!savedConsignment.id}', '_self');
+                        }
+                    }
+                }                
+            }
+
+            var openSuccess = function openSuccess(result) {
+                //Report whether opening the new tab was successful
+                if (result.success == true) {
+                    closeTab();
+                }else {
+                    alert('Primary tab cannot be opened');
+                }
+            };
+
+            //close current tab.
+            function closeTab() {
+                //First find the ID of the current tab to close it
+                sforce.console.getEnclosingTabId(closeSubtab);
+            }
+
+            //Open tab based on console
+            function openTab(Id){
+                if (sforce.console.isInConsole()) {
+                    console.log('>>>> opening in subtab of console....');
+                    sforce.console.openPrimaryTab(null, "/" + Id, true);
+                } else {
+                    console.log('>>>> NOT opening in subtab of console....');
+                    window.open("/"+Id , "_blank");
+                }
+            }
+
+            var closeSubtab = function closeSubtab(result) {
+                //Now that we have the tab ID, we can close it
+                var tabId = result.id;
+                sforce.console.closeTab(tabId);
+            };
+
+            //open primary tab for case object without closing any tab.
+            function OpenPrimaryTab(caseid,caseNumber){
+                if(sforce.console.isInConsole()){
+                    //Open a new primary tab with the salesforce.com home page in it
+                    sforce.console.openPrimaryTab(null, '/'+caseid, true, caseNumber,'caseTab');
+                } else {
+                    window.open('/'+caseid);
+                }
+            }
+
+            //Highlight row on click event.
+            var pRow='';
+            function highlightElem(a) {
+                var c=a.className;
+                a.className="rowColor";
+                if(pRow=='' || pRow == undefined){
+                    pRow=a;
+                }
+                else {
+                    if(pRow.innerHTML!=a.innerHTML) {
+                        pRow.className=c;
+                        pRow=a;
+                    }
+                }
+            }
+
+            //method search on press of enter button.
+            function replaceEnter(e){
+                if (e.keyCode == 13){
+                    var allElements = document.getElementsByTagName('*');
+                    for (var i = 0; i < allElements.length; i++){
+                        if (allElements[i].id.indexOf("ENTER_BUTTON") !=-1){
+                            allElements[i].click();
+                        }
+                    }
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+            window.onkeypress = replaceEnter;
+
+            function displayLoad(theElement){
+                document.getElementById(theElement).style.display = 'inline';
+            }
+
+            var previousSearchType = '';
+            // Method to toggle search parameter fields
+            function displaySearchParams(){
+                // Get selected search type
+                var searchType = document.getElementById('{!$Component.apxForm.searchBlock.searchSection.searchTypeItem.searchType}').value;
+
+                // Get backend values
+                var dateArray = {!dateFields};
+                var dateRangeArray = {!dateRangeFields};
+                var suburbArray = {!suburbFields};
+
+                // Get user input
+                var searchDate = document.getElementById('{!$Component.apxForm.searchBlock.searchDateSection}');
+                var searchDateRange = document.getElementById('{!$Component.apxForm.searchBlock.searchDateRangeSection}');
+                var searchSuburb = document.getElementById('{!$Component.apxForm.searchBlock.searchSuburbSection}');
+
+                // Date
+                if(dateArray.indexOf(searchType) > -1){
+                    var dateType = document.getElementById('{!$Component.apxForm.searchBlock.searchDateSection.searchDateRangeItem.searchDateRangeType}').value;
+
+                    if (!(dateArray.indexOf(previousSearchType) > -1)) {
+                        if(searchDate.style.display == 'none'){
+                            searchDate.style.display = 'inline';
+
+                            if(dateRangeArray.indexOf(dateType) > -1){
+                                searchDateRange.style.display = 'inline';
+                            }
+                        }
+                        else{
+                            searchDate.style.display = 'none';
+
+                            if(dateRangeArray.indexOf(dateType) < -1){
+                                searchDateRange.style.display = 'none';
+                            }
+                        }
+                    }
+                    
+                }
+                else{
+                    searchDate.style.display = 'none';
+                    searchDateRange.style.display = 'none';
+                }
+
+                // Suburb
+                if(suburbArray.indexOf(searchType) > -1){
+                    if (!(suburbArray.indexOf(previousSearchType) > -1)) {
+                        if(searchSuburb.style.display == 'none'){
+                            searchSuburb.style.display = 'inline';
+                        }
+                        else{
+                            searchSuburb.style.display = 'none';
+                        }
+                    }                    
+                }
+                else{
+                    searchSuburb.style.display = 'none';
+                }
+
+                previousSearchType = searchType;
+            }
+
+            // Method to toggle date range search parameter fields
+            function displayDateRange(){
+                var dateRangeArray = {!dateRangeFields};
+                var searchDateRange = document.getElementById('{!$Component.apxForm.searchBlock.searchDateRangeSection}');
+                var dateType = document.getElementById('{!$Component.apxForm.searchBlock.searchDateSection.searchDateRangeItem.searchDateRangeType}').value;
+
+                // Date Range
+                if(dateRangeArray.indexOf(dateType) > -1){
+                    searchDateRange.style.display = 'inline';
+                }
+                else{
+                    searchDateRange.style.display = 'none';
+                }
+            }
+
+            function setSearchFlags(thisElement){
+                var searchDate = document.getElementById('{!$Component.apxForm.searchBlock.searchDateSection}');
+            }
+
+            function refreshMainTab(){
+                if({!flag}){
+                    if(sforce.console.isInConsole()){
+                        sforce.console.getFocusedPrimaryTabId(refreshPrimaryTab);
+                        closeTab();
+                    } else {
+                        window.open('/{!c.Id}','_self');
+                    }
+                }                               
+            }
+
+            var refreshPrimaryTab = function refreshPrimaryTab(result) {
+                var tabId = result.id;
+                sforce.console.refreshPrimaryTabById(tabId, true);
+            };
+
+            function consoleInd() {
+                document.getElementById('{!$Component.apxForm.isConsole}').value = sforce.console.isInConsole();
+            } 
+            
+            var currId = '';
+            var tabMap = {};
+            var isCaseCreate;
+
+            function closeExistingTab(isCreate) {
+                isCaseCreate = isCreate;
+                if({!flag}){
+                    if (document.getElementById('{!$Component.apxForm.isConsole}').value == 'true') {
+                        sforce.console.getPrimaryTabIds(showTabId);
+                    }
+                }
+            }
+            
+            var ctr = 0;
+            var showTabId = function showTabId(result) {
+                ctr = 0;
+                for (var i = 0 ; i < result.ids.length ; i++) {
+                    currId = result.ids[i];
+                    tabMap[i] = currId;
+                    sforce.console.getPageInfo(result.ids[i], showPageInfo);
+                    console.log('tabMap[' + i + ']' + ' : ' + tabMap[i])
+                }
+            };
+
+            var showPageInfo = function showPageInfo(result) {
+                obj = JSON.parse(result.pageInfo);
+                var id = '{!savedConsignment.Id}';
+                id = id.slice(0,15);
+                if (obj != null && obj != 'undefined' && obj.objectId == id) {
+                    sforce.console.closeTab(tabMap[ctr]);
+                    console.log('ctr : ' + ctr);
+                    console.log('removed : ' + tabMap[ctr] + ' | id : ' + id);
+                }
+                if (obj != null && obj != 'undefined' && obj.url == '/apex/StarTrackConsignmentSearch') {
+                    sforce.console.closeTab(tabMap[ctr]);
+                    console.log('removed : ' + tabMap[ctr]);
+                }
+                ctr++;
+            };         
+            function logTime() {
+                logTimeAction();
+            }
+            function hideLoading() {
+                document.getElementById('loading').style.display = 'none';
+            }
+            function showLoading() {
+                document.getElementById('loading').style.display = '';
+            }
+         </script>
+
+        <script type='text/javascript'>
+            //START - CCTR - APRivera - 31012018 - Added function for the prepopulation of fields
+            var childId = Math.floor((Math.random() * 500) + 1);
+           
+            var listener = function (result){
+                var datapop = JSON.parse(result.message);
+                if(datapop) {
+                    console.log('CTI Consignment Search Received: ', datapop);
+                    
+                    var consigmentNumber = datapop['consignment'];
+                    var contactType = datapop['contactType'];
+
+                    // set the value of the consignment number
+                    if(consigmentNumber) {
+                        jQuery('input[name$="searchString"]').val(consigmentNumber);
+                        jQuery('input[name$="searchString"]').change();
+                    }
+
+                    // set the value of the caller type if one was set
+                    if(contactType) {
+                        jQuery('select.recent-caller-type').val(contactType);
+                        jQuery('select.recent-caller-type').change();
+                    }
+
+                    jQuery('input[name$="ENTER_BUTTON"]').click();
+                }
+            };
+            sforce.console.addEventListener('ParentDataResponse_SearchString', listener);
+
+            jQuery(function() {
+                sforce.console.fireEvent('RequestParentData_SearchString', childId);
+            });
+            //END - CCTR - APRivera - 31012018 - Added function for the prepopulation of fields
+       </script>
+
+    </apex:outputPanel>
+
+    <table width="75%" height="100%" id="maintable">
+        <tr>
+            <td width="60%" id="maintd">
+                <apex:pageMessages id="pageMessages"/>
+                <apex:form id="apxForm">
+                    <!-- Action function on search type to enable and disable UI fields-->
+                    <!-- <apex:actionFunction action="{!searTypeChange}"  name="searchtypeChange" rerender="searchSection"/> -->
+                    <!-- Date range change to enable and disable custom date picker-->
+                    <!-- <apex:actionFunction action="{!dateRangeChange}"  name="daterangeChange" rerender="searchSection"/> -->
+                    <!-- on select of a Article row, save id in SelectedArticle field.-->
+                    <apex:actionFunction name="logTimeAction" action="{!logTime}"/>
+                    <apex:actionFunction name="selectedRow" action="{!getCases}" reRender="caseResultsSection,caseResultsSection2" oncomplete="hideLoading();">
+                        <apex:param name="P1" value="" assignTo="{!selectedArticle}"/>
+                    </apex:actionFunction>
+
+                    <apex:inputHidden id="isConsole" value="{!isConsole}"/>
+
+                    <!-- Pageblock for search panel-->
+                    <apex:pageBlock tabStyle="EventMessage__c" mode="mainDetail" title="Search" id="searchBlock">
+                        <apex:pageBlockButtons location="bottom">
+                            <apex:commandButton action="{!searchConsignment}" value="Search" id="ENTER_BUTTON" reRender="pageMessages,conSearch,caseResultsSection,caseResultsSection2,searchIcon" onclick="displayLoad('searchIcon');consoleInd();"/>&nbsp;
+                            <apex:outputPanel id="searchIcon">
+                                <img id="searchIcon" src="/img/loading.gif" style="display: none"/>
+                            </apex:outputPanel>
+                        </apex:pageBlockButtons>
+
+                        <!-- Consignment search page block section to use collapsable functionality-->                        
+                        <apex:pageBlockSection collapsible="true" columns="2" title="Consignment Search" id="searchSection">
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Search String" for="searchString"/>
+                                <apex:inputText value="{!searchString}" id="searchString"/>
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem id="searchTypeItem">
+                                <apex:outputLabel value="Search Type" for="searchType"/>
+                                <apex:selectList value="{!fieldName}" multiselect="false" size="1" id="searchType" onchange="displaySearchParams();">
+                                    <apex:selectOptions value="{!getItems}"/>
+                                </apex:selectList>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                        <apex:pageBlockSection columns="2" id="searchDateSection">
+                            <apex:pageBlockSectionItem id="searchDate">
+                                <apex:outputLabel value="Date Type" for="searchDateType"/>
+                                <apex:selectList id="searchDateType" value="{!dateType}" multiselect="false" size="1">
+                                    <apex:selectOptions value="{!getDateTypes}"/>
+                                </apex:selectList>
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem id="searchDateRangeItem">
+                                <apex:outputLabel value="Date Range" for="searchDateRangeType"/>
+                                <apex:selectList id="searchDateRangeType" value="{!dateRange}" multiselect="false" size="1" onchange="displayDateRange();">
+                                    <apex:selectOptions value="{!getDateRange}"/>
+                                </apex:selectList>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                        <apex:pageBlockSection columns="2" id="searchDateRangeSection">
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="Start Date" for="startDate"/>
+                                    <apex:inputField value="{!datesFilter.Closed_Date__c}" id="startDate"/>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="End Date" for="endDate"/>
+                                    <apex:inputField value="{!datesFilter.Action_Date__c}" id="endDate"/>
+                                </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                        <apex:pageBlockSection columns="2" id="searchSuburbSection">
+                            <apex:pageBlockSectionItem />
+                            <apex:pageBlockSectionItem id="suburbitem">
+                                <apex:outputLabel value="Suburb" for="searchSuburb"/>
+                                <c:StarTrack_AutoComplete allowClear="true" importJquery="true" labelField="Name" SObject="Postcode__c" valueField="Suburb__c" targetField="{!suburb}" style="width:200px"/>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                    </apex:pageBlock>
+                    <!--Replaced isReadOnly to use custom permission to show Contact & Case details-->
+                    <apex:pageBlock tabStyle="EventMessage__c" mode="mainDetail" rendered="{!$Permission.Show_Case_and_Contact_details}" >
+                        
+                        <apex:pageBlockSection title="Contact Information" columns="2">
+                            <apex:repeat value="{!$ObjectType.Case.FieldSets.Consignment_Search_Caller_Detail}" var="f">
+                                <apex:inputField value="{!c[f]}" styleClass="{!if(f.fieldPath=='Recent_Caller_Type__c','recent-caller-type','')}"/>
+                            </apex:repeat>
+                        </apex:pageBlockSection>
+                    </apex:pageBlock>
+                                        
+                    <apex:pageBlock tabStyle="EventMessage__c" mode="mainDetail">
+                        <!--apex:pageBlockButtons location="bottom" rendered="{!c.Id != NULL}" style="display: {!IF(c.Id == NULL, 'none','')}">
+                            <apex:commandButton value="Assign to current Case" action="{!assignToCase}" oncomplete="refreshMainTab();" onclick="displayLoad('assignModal');" reRender="assignModal,pageMessages"/>
+                            <apex:outputPanel id="assignModal">
+                                <div id="assignModal" class="modal">
+                                    <div class="modal-content">
+                                        <img src="/img/loading32.gif"/>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:pageBlockButtons-->
+                        <!-- Consignment Results sections-->
+                        <apex:pageBlockSection title="Consignment Results" collapsible="true" id="conSearch" columns="1">
+                            <apex:outputPanel >
+                                <apex:outputText title="No consignments found" value="No consignments found" rendered="{!noConsignmentFound}"/>
+                                <apex:pageBlockTable value="{!lst_article}" var="art" rules="rows" rendered="{!lst_article.size != null && lst_article.size != 0}" onRowClick="showLoading();highlightElem(this);">
+                                    <apex:repeat value="{!$ObjectType.Article__c.fieldsets.Consignment_Search_Results}"  var="fieldValue">
+                                        <apex:column onclick="selectedRow('{!art.ArticleID__c}');" rendered="{!fieldValue = 'Name'}" styleClass="{!IF(lst_article.size == 1, 'rowColor', '')}">
+                                            <apex:facet name="header">Consignment Number</apex:facet>
+                                            <!--Render if theme is not lightning-->
+                                            <apex:outputPanel rendered="{!AND($User.UIThemeDisplayed != 'Theme4d', $User.UIThemeDisplayed != 'Theme4t', $User.UIThemeDisplayed != 'Theme4u')}">
+                                                <a href="#" onClick="openTab('{!art.Id}');"  >{!art.Name}</a>
+                                            </apex:outputPanel>
+
+                                            <!--Render if theme is lightning-->
+                                            <apex:outputPanel rendered="{!OR($User.UIThemeDisplayed == 'Theme4d', $User.UIThemeDisplayed == 'Theme4t', $User.UIThemeDisplayed == 'Theme4u')}">
+                                                <apex:outputLink value="/{!art.Id}" target="_self" rendered="{!art.Id != NULL}">{!art.Name}</apex:outputLink>
+                                                <apex:outputText value="{!art.Name}" rendered="{!art.Id == NULL}"/>
+                                            </apex:outputPanel>
+                                        </apex:column>
+                                        <apex:column rendered="{!fieldValue != 'Name'}" value="{!art[fieldValue]}" onclick="selectedRow('{!art.ArticleID__c}');highlightElem(this);" styleClass="{!IF(lst_article.size == 1, 'rowColor', '')}"/>
+                                    </apex:repeat>
+                                    <apex:column onclick="selectedRow('{!art.ArticleID__c}');"  styleClass="{!IF(lst_article.size == 1, 'rowColor', '')}" rendered="{!ShowImageLink}">
+                                        <apex:outputPanel >
+                                            <apex:facet name="header">View Images</apex:facet>
+                                            <apex:outputLink value="/apex/consignmentattachment?connote={!art.Name}" target="_self" rendered="{!art.Id != NULL}">Click To View Image</apex:outputLink>
+                                        </apex:outputPanel>
+                                    </apex:column>
+                                </apex:pageBlockTable>
+                            </apex:outputPanel>
+                        </apex:pageBlockSection>
+                    
+                        <!-- Selected consignment cases section-->
+                        <!--Replaced isReadOnly to use custom permission to show Contact & Case details-->
+                        <apex:pageBlockSection title="Case Results" collapsible="true" id="caseResultsSection" columns="1" rendered="{!AND(c.Id == NULL, $Permission.Show_Case_and_Contact_details)}">
+                            <apex:outputPanel >
+                                <apex:outputText title="No cases found" value="No cases found" rendered="{!noCaseFound}"/>
+                                <apex:outputText title="No consignment selected" value="No consignment selected" rendered="{!noArticleSelected}"/>
+                                <apex:pageBlockTable value="{!lst_case}" var="c" rendered="{!lst_case.size != null && lst_case.size != 0}">
+                                    <apex:repeat value="{!$ObjectType.Case.fieldsets.Consignment_Search_Results}" var="fieldValue">
+                                        <apex:column value="{!c[fieldValue]}"   onclick="OpenPrimaryTab('{!c.Id}','{!c.CaseNumber}');">
+                                        </apex:column>
+                                    </apex:repeat>
+                                </apex:pageBlockTable>
+                            </apex:outputPanel>
+                        </apex:pageBlockSection>
+                        <apex:pageBlockSection title="IVR Transactions" collapsible="true" id="caseResultsSection2" columns="1" rendered="{!c.Id == NULL}">
+                            <apex:outputPanel >
+                                <apex:outputText title="No cases found" value="No IVR transactions found" rendered="{!noIVRCaseFound}"/>
+                                <apex:outputText title="No consignment selected" value="No consignment selected" rendered="{!noArticleSelected}"/>
+                                <apex:pageBlockTable value="{!lst_case_ivr}" var="c" rendered="{!lst_case_ivr.size != null && lst_case_ivr.size != 0}">
+                                    <apex:repeat value="{!$ObjectType.Case.fieldsets.Consignment_Search_Results}" var="fieldValue">
+                                        <apex:column value="{!c[fieldValue]}"   onclick="OpenPrimaryTab('{!c.Id}','{!c.CaseNumber}');">
+                                        </apex:column>
+                                    </apex:repeat>
+                                </apex:pageBlockTable>
+                            </apex:outputPanel>
+                        </apex:pageBlockSection>
+                        
+                        <apex:pageBlockSection title="Current Case" collapsible="false" rendered="{!c.Id != NULL}">
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Case Number" for="currentCase"/>
+                                <apex:inputField value="{!c.CaseNumber}" id="currentCase"/>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+
+                        <!--apex:pageBlockButtons location="bottom" rendered="{!c.Id != NULL}" style="display: {!IF(c.Id == NULL, 'none','')}"-->
+                        <apex:outputPanel rendered="{!c.Id != NULL}" style="position: relative; left: 40%; margin-top: 20px;">
+                            <apex:commandButton value="Assign to current Case" action="{!assignToCase}" oncomplete="refreshMainTab();" onclick="displayLoad('assignModal');" reRender="assignModal,pageMessages,errorFlagCont,scriptPanel"/>
+                            <apex:outputPanel id="assignModal">
+                                <div id="assignModal" class="modal">
+                                    <div class="modal-content">
+                                        <img src="/img/loading32.gif"/>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                        <!--/apex:pageBlockButtons-->
+
+                    </apex:pageBlock>
+                <script type="text/javascript">
+                    // Hide search filters on load
+                    document.getElementById('{!$Component.apxForm.searchBlock.searchDateSection}').style.display = 'none';
+                    document.getElementById('{!$Component.apxForm.searchBlock.searchDateRangeSection}').style.display = 'none';
+                    document.getElementById('{!$Component.apxForm.searchBlock.searchSuburbSection}').style.display = 'none';
+                </script>
+                <!-- Case detail page to create a new case -->
+                <!--Replaced isReadOnly to use custom permission to show Contact & Case details-->
+                <apex:pageBlock tabStyle="EventMessage__c" mode="mainDetail" title="Case Detail" rendered="{!AND(c.Id == NULL, $Permission.Show_Case_and_Contact_details)}">
+                    <apex:pageBlockSection title="Case Information" columns="2" id="caseInfo">
+                        <apex:repeat value="{!$ObjectType.Case.FieldSets.Consignment_Search_Page}" var="f" id="apexRepeat">
+                            <apex:inputField value="{!c[f]}" rendered="{!AND(IF(f = 'RecordTypeId', false, true), IF(f = 'Call_Purpose__c', false, true), IF(f = 'RecordTypeId', false, true))}"/>
+                            <apex:inputField id="callPurpose" value="{!c[f]}" rendered="{!IF(f = 'Call_Purpose__c', true, false)}"/>
+                            <apex:selectList value="{!c[f]}" multiselect="false" size="1" rendered="{!f == 'RecordTypeId'}">
+                                <apex:selectOptions value="{!getCaseRecordType}"/>
+                            </apex:selectList>
+                        </apex:repeat>
+                    </apex:pageBlockSection>
+
+                </apex:pageBlock>
+
+                    <div style="position: relative; left: 35%;">
+                        <table style="width: 20%;">
+                            <tr>
+                                <td>
+                                    <!--Replaced isReadOnly to use custom permission to show Contact & Case details-->
+                                    <apex:outputLabel value="Create Case" rendered="{!AND($Permission.StarTrack_Create_Consignment,c.Id == NULL,$Permission.Show_Case_and_Contact_details)}">
+                                        <apex:inputCheckbox value="{!createCaseInd}" id="createCaseChkbxId"/>
+                                    </apex:outputLabel>
+                                </td>
+                                <td>
+                                    <!--Replaced isReadOnly to use custom permission to show Contact & Case details-->
+                                    <apex:commandButton action="{!createCase}" value="Proceed" oncomplete="closeExistingTab('{!createCaseInd}');openRecord('{!createCaseInd}');logTime();" reRender="pageMessages,scriptPanel,createModal" onclick="displayLoad('createModal');consoleInd();" rendered="{!AND(c.Id == NULL, $Permission.Show_Case_and_Contact_details)}"/>
+                                    <apex:outputPanel id="createModal">
+                                        <div id="createModal" class="modal">
+                                            <div class="modal-content">
+                                                <img src="/img/loading32.gif"/>
+                                            </div>
+                                        </div>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </apex:form>
+            </td>
+            <td width="75%" height="100%">
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    
+    <script type="text/javascript">
+        // documentObserver implementation for cpVisualforceWrapper component
+        resizeMonitoringObserver();
+        // this is to open a detailed tab based on the id provided in the console
+        // this will post the message to parent window, and then catch the event in the lightning component with a listener
+        // TODO: move to a utility stat resource
+//        function openTab(Id){
+//            var message = {
+//                id: Id,
+//                name: "opentab"
+//            };
+//            parent.postMessage(message, '*');
+//        }
+    </script>
+</apex:page>

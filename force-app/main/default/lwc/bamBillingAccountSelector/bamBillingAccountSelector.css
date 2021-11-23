@@ -1,0 +1,39 @@
+/**
+ * 2020-05-25 - Nathan Franklin - Added ability to search billing accounts for selection for Merchant Portal
+ */
+.table-container {
+    border-top: 1px solid rgb(212, 212, 212);
+    border-bottom: 1px solid rgb(212, 212, 212);
+}
+
+table.slds-table_bordered {
+    border-top: 0 none !important;
+    border-bottom: 0 none !important;
+}
+
+tbody tr {
+    cursor: pointer;
+}
+
+thead th {
+    border-bottom: 1px solid rgb(212, 212, 212);
+}
+
+tbody tr:first-child td {
+    border-top: 0 none;
+}
+
+th.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.toggle-locked {
+    pointer-events: none;
+}
+
+table.is-disabled tbody td:not(.toggle) {
+    color: #D0D5D8;
+}

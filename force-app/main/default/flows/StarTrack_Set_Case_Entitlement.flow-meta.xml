@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <interviewLabel>StarTrack Set Case Entitlement {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>StarTrack Set Case Entitlement</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Entitlement_Lookup</name>
+        <label>Entitlement Lookup</label>
+        <locationX>340</locationX>
+        <locationY>131</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Case</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Case_Entitlement__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>StarTrack_Settings__c</object>
+        <outputAssignments>
+            <assignToReference>varEntitlementId</assignToReference>
+            <field>Case_Entitlement__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Case</name>
+        <label>Update Case</label>
+        <locationX>340</locationX>
+        <locationY>245</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varCaseId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>EntitlementId</field>
+            <value>
+                <elementReference>varEntitlementId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <startElementReference>Entitlement_Lookup</startElementReference>
+    <status>Active</status>
+    <variables>
+        <name>varCaseId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>varEntitlementId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Partner Info - Send it to approvers for approving changes to Partner Info</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>PartnerInfo Change Request</name>
+    <style>freeForm</style>
+    <subject>Approval required for change of details</subject>
+    <textOnly>Please approve change of details for:
+Licence - {!Partner_Info_Change__c.Licence__c}
+Facility - {!Partner_Info_Change__c.Facility__c}
+
+To approve or reject this item, click this link {!ApprovalRequest.External_URL}
+
+Or reply to this email with one of these words in the first line of the email message: APPROVE, APPROVED, YES, REJECT, REJECTED, NO
+
+regards,</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

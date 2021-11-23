@@ -1,0 +1,87 @@
+<apex:component controller="bspEnquiry">
+    <script type="text/javascript">
+    var sfdcSessionId = '{!GETSESSIONID()}';
+    </script>
+    
+    <script src="../../soap/ajax/36.0/connection.js" type="text/javascript" />
+    
+    <script type="text/javascript">     
+        window.onload = setupPage;
+        function setupPage() {
+            sforce.connection.init(sfdcSessionId, 'https://api.smartspeak.com/callback/helloworld');
+        }
+        
+        function executeRemoteRESTAPIHttpPost(error, source) {
+            sforce.connection.remoteFunction({
+                url : "https://api.smartspeak.com/callback/helloworld", 
+                onSuccess : function(response) {
+                    console.log(response);
+                    alert("Calling SmartSpeak API returns POSITIVE response");
+                    alert(response);
+                } ,
+                onFailure : function(response) {
+                    console.log(response);
+                    alert("Calling SmartSpeak API returns NEGATIVE response");
+                    alert("Failed" + response);
+                },
+                method : "POST" ,
+                mimeType : "text/plain" ,
+                //async : true,
+                //requestHeaders : {} ,
+                requestHeaders : {"Content-Type":"application/json", "x-api-key":"8Kiz3AJlEV4S6H0aTn0vf11ce4KWuNmb6VyNMqqn "} ,
+                //requestData : {} ,
+                //cache : false ,
+                //timeout : 5000 
+            });
+        }
+        </script>
+  <!--      <apex:form >
+
+                <h2>Call Me Back</h2>
+            
+            	<div>
+                 Mobile No : <apex:inputText id="phoneNumber"/>
+           		</div>
+            
+    			<div>
+                	<apex:commandButton styleClass="primary-cta button-submit left" value="Call Me Back" id="call-me-back-button" style="background:#dc1928; padding:5px 20px;"/>
+                </div>
+                
+	            <button class="liveAgentChatElement liveAgentEndButton" onclick="executeRemoteRESTAPIHttpPost()">Call Me Back</button>
+</apex:form> -->
+
+
+  <style>
+        .button-margin
+        {
+        width:160px;
+        text-align: center;
+        padding:5px;
+        }
+        
+    </style>
+
+    <div class="right-panel">
+        <div class="l-sb-module">
+  	<apex:form >
+            <h2>Request a Callback</h2>
+            
+           	<p>Prefer to talk? Enter your phone number below and we'll call you shortly.</p>
+            
+            <p>
+                Operating hours: 8am to 6pm
+            </p>
+            
+            <p>Enter your phone number
+				<apex:inputText id="phoneNumber"/>   
+            </p>  
+            
+            <div>
+            	<apex:commandButton styleClass="primary-cta button-submit left" value="Request Call" id="call-me-back-button" style="background:#dc1928; padding:5px 20px;"/>
+            </div>
+	</apex:form>
+            </div>
+    </div>
+    <br></br>
+    
+</apex:component>

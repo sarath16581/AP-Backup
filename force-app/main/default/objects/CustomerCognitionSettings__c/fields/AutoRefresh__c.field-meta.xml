@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AutoRefresh__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If true, then Cognition Page will be refreshed automatically at regular intervals</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If true, then Cognition Page will be refreshed automatically at regular intervals</inlineHelpText>
+    <label>AutoRefresh</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

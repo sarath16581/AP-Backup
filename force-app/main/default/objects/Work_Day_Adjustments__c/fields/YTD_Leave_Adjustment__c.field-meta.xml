@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>YTD_Leave_Adjustment__c</fullName>
+    <description>The number of leave days taken YTD</description>
+    <externalId>false</externalId>
+    <formula>Q1_Leave_Adjustment__c +  Q2_Leave_Adjustment__c +  Q3_Leave_Adjustment__c +  Q4_Leave_Adjustment__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>The number of leave days taken YTD</inlineHelpText>
+    <label>YTD Leave Adjustment</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

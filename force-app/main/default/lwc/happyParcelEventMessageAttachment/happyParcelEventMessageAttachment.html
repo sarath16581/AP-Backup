@@ -1,0 +1,20 @@
+<!--
+	Show event message attachment (image).
+
+    Changelog:
+    2021-05-07 - Ranjeewa Silva - Created.
+ -->
+<template>
+    <div class="em-attachment-card__container">
+        <c-happy-parcel-card  title={attachmentTitle} icon-name="utility:image" loading={loadingAttachmentImage} variant="vanilla-stretch" button-icon="utility:close" button-variant="bare" oncardbuttonclick={closeAttachmentModal}>
+            <div class="slds-border_top slds-grow slds-p-around_small em-attachment-card__body">
+                <template if:true={attachmentErrorMessage}>
+                    {attachmentErrorMessage}
+                </template>
+                <template if:true={base64AttachmentImage}>
+                    <img src={base64AttachmentImage} class="em-attachment-image" />
+                </template>
+            </div>
+        </c-happy-parcel-card>
+    </div>
+</template>

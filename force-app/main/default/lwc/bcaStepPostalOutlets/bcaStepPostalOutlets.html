@@ -1,0 +1,78 @@
+<!--
+* @author Victor.Cheng@auspost.com.au
+* @date 21/12/2020
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Step in Credit Application Form to input postal outlet details
+* @changelog
+* 21/12/2020 Victor.Cheng@auspost.com.au  Created
+*
+-->
+
+<!-- Bca Step Postal Outlets -->
+<template>
+    <div class="form-outer-box">
+        <div class="form-inner-box-wide">
+            <!-- Input -->
+            <div class="inner-form-padding">
+                <div class="slds-grid">
+                    <c-google-maps-place-search style="width: 100%;" 
+                        lat={prepopulatedLat} 
+                        long={prepopulatedLong}
+                        search-address-term={prepopulatedAddress}>
+                    </c-google-maps-place-search>
+                    <button class={searchBtnClass} onclick={searchOutlets} disabled={searchDisabled} title="search"  aria-label="search">
+                        <template if:false={showLoader}>
+                            <c-bsp-custom-icons icon="search" size="x-small"></c-bsp-custom-icons>
+                        </template>
+                    </button>
+                </div>
+                <p class="input-hint-text">Search by suburb or street address</p> 
+            </div>
+            
+            <template if:true={totalRecords}>
+                <div class="slds-p-top_large slds-grid slds-grid_align-spread">
+                    <div>{totalSelection} of {MAX_SELECTION} selected</div>
+                    <div>{totalRecords} results</div>
+                </div>
+                <div class="postal-result-window slds-m-top_x-small slds-p-bottom_small">
+                    <template for:each={addressDetails} for:item="outlet">
+                        <div key={outlet.orgId} class="slds-p-horizontal_medium slds-p-top_medium">
+                            <div class="postal-results">
+                                <div class="slds-grid">
+                                    <lightning-input type="checkbox" name={outlet.orgId}
+                                                    data-id={outlet.orgId} onchange={onChangeOutlet}
+                                                    checked={outlet.selected} disabled={outlet.disabled}
+                                    ></lightning-input>
+                                </div>
+                                <div>
+                                    <span><b>{outlet.name}</b></span><br>
+                                    <span class="street-address">{outlet.addressFormatted}</span><br>
+                                    <div class="slds-grid slds-grid_vertical-align-center">
+                                        <span><c-bsp-custom-icons icon="map-pin-filled" size="x-small"></c-bsp-custom-icons></span>
+                                        <span class="slds-p-left_xx-small">{outlet.distance}km</span>
+                                        <span class="slds-p-left_x-small outlet-view-link"><a href={outlet.mapLink} target="_blank">View on map</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <template for:each={_postalOutlets} for:item="outlet">
+        <div class="form-summary-box po-select-box" key={outlet.orgId}>
+            <div class="slds-m-horizontal_large">
+                <h3>{outlet.name}</h3>
+                <span class="slds-p-left_x-small">
+                    <button class="slds-button slds-button_icon slds-button_icon-border no-border" onclick={onDeleteOutlet} data-id={outlet.orgId}>
+                        <c-bsp-custom-icons icon="bin" size="small"></c-bsp-custom-icons> 
+                    </button>  
+                </span>  
+            </div>
+        </div>
+    </template>
+    
+</template>

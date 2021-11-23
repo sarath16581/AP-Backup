@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <email>ckaria@apttus.com</email>
+    <name>International Sales Specialist</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>Sales_Business_System_Team</publicGroup>
+        </publicGroups>
+        <users>
+            <user>marios.arletos@auspost.com.au</user>
+            <user>maxine.cleary@auspost.com.au</user>
+            <user>michael.carr@auspost.com.au</user>
+            <user>pricing_support_01@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Apttus_Approval__Approval_Request__c</sobjectType>
+    </queueSobject>
+</Queue>

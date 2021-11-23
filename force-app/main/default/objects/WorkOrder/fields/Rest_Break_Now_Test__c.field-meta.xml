@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rest_Break_Now_Test__c</fullName>
+    <description>Now plus 1 minute. Used to determine if device is offline in Transport Rest Break mobile flow</description>
+    <externalId>false</externalId>
+    <formula>NOW()+ 1/1440</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Rest Break Now Test</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

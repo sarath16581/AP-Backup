@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Open_PSRs_StarTrack</fullName>
+    <booleanFilter>(1 OR 2) AND ((3 OR 4 OR 5) AND 6)</booleanFilter>
+    <columns>CREATED_DATE</columns>
+    <columns>Pricing_Analyst_Manager__c</columns>
+    <columns>NAME</columns>
+    <columns>Request_type__c</columns>
+    <columns>Status__c</columns>
+    <columns>Organisation__c</columns>
+    <columns>Requestor_Name__c</columns>
+    <columns>Name_of_Product_Specialist__c</columns>
+    <columns>Priority__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Internal_Request__c.Pricing_Request_StarTrack,Internal_Request__c.Pricing_Request_StarTrack_BAR</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Internal_Request__c.Pricing_Request_StarTrack_gen_enq</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Initial Review Required,In Progress</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Further Information Provided by Sales</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Approval Required,Review of Pricing Response Requested</value>
+    </filters>
+    <filters>
+        <field>Assigned_Team__c</field>
+        <operation>notEqual</operation>
+        <value>Product Specialist Team</value>
+    </filters>
+    <label>Open PSRs - StarTrack</label>
+    <language>en_US</language>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

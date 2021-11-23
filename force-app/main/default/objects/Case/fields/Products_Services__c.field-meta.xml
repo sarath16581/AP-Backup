@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Products_Services__c</fullName>
+    <description>product and serviced used by sales implementation case. This field is also used by the CAR team to identify products and services.</description>
+    <externalId>false</externalId>
+    <label>Products &amp; Services</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Courier</fullName>
+                <default>false</default>
+                <label>Courier</label>
+            </value>
+            <value>
+                <fullName>Decipha</fullName>
+                <default>false</default>
+                <label>Decipha</label>
+            </value>
+            <value>
+                <fullName>Digital Mailbox</fullName>
+                <default>false</default>
+                <label>Digital Mailbox</label>
+            </value>
+            <value>
+                <fullName>Express Post</fullName>
+                <default>false</default>
+                <label>Express Post</label>
+            </value>
+            <value>
+                <fullName>Fulfilment &amp; Unaddressed</fullName>
+                <default>false</default>
+                <label>Fulfilment &amp; Unaddressed</label>
+            </value>
+            <value>
+                <fullName>ID&amp;G and F&amp;CS</fullName>
+                <default>false</default>
+                <label>ID&amp;G and F&amp;CS</label>
+            </value>
+            <value>
+                <fullName>Mail Products</fullName>
+                <default>false</default>
+                <label>Mail Products</label>
+            </value>
+            <value>
+                <fullName>Mailroom</fullName>
+                <default>false</default>
+                <label>Mailroom</label>
+            </value>
+            <value>
+                <fullName>MRS &amp; Data Insights</fullName>
+                <default>false</default>
+                <label>MRS &amp; Data Insights</label>
+            </value>
+            <value>
+                <fullName>Other Postal Services</fullName>
+                <default>false</default>
+                <label>Other Postal Services</label>
+            </value>
+            <value>
+                <fullName>Other Retail Services</fullName>
+                <default>false</default>
+                <label>Other Retail Services</label>
+            </value>
+            <value>
+                <fullName>Parcel Post</fullName>
+                <default>false</default>
+                <label>Parcel Post</label>
+            </value>
+            <value>
+                <fullName>Post Logistics</fullName>
+                <default>false</default>
+                <label>StarTrack Logistics</label>
+            </value>
+            <value>
+                <fullName>Retail Services</fullName>
+                <default>false</default>
+                <label>Retail Services</label>
+            </value>
+            <value>
+                <fullName>Securepay</fullName>
+                <default>false</default>
+                <label>Securepay</label>
+            </value>
+            <value>
+                <fullName>Star Track Express</fullName>
+                <default>false</default>
+                <label>Star Track Express</label>
+            </value>
+            <value>
+                <fullName>Star Track International</fullName>
+                <default>false</default>
+                <label>Star Track International</label>
+            </value>
+            <value>
+                <fullName>Premium StarTrack</fullName>
+                <default>false</default>
+                <label>Premium StarTrack</label>
+            </value>
+            <value>
+                <fullName>Express StarTrack</fullName>
+                <default>false</default>
+                <label>Express StarTrack</label>
+            </value>
+            <value>
+                <fullName>Courier StarTrack</fullName>
+                <default>false</default>
+                <label>Courier StarTrack</label>
+            </value>
+            <value>
+                <fullName>Express AP</fullName>
+                <default>false</default>
+                <label>Express AP</label>
+            </value>
+            <value>
+                <fullName>Parcel AP</fullName>
+                <default>false</default>
+                <label>Parcel AP</label>
+            </value>
+            <value>
+                <fullName>International AP</fullName>
+                <default>false</default>
+                <label>International AP</label>
+            </value>
+            <value>
+                <fullName>Letters/Trusted Services</fullName>
+                <default>false</default>
+                <label>Letters/Trusted Services</label>
+            </value>
+            <value>
+                <fullName>Express Courier International</fullName>
+                <default>false</default>
+                <label>Express Courier International</label>
+            </value>
+            <value>
+                <fullName>3PL</fullName>
+                <default>false</default>
+                <label>3PL</label>
+            </value>
+            <value>
+                <fullName>eParcel</fullName>
+                <default>false</default>
+                <label>eParcel</label>
+            </value>
+            <value>
+                <fullName>International</fullName>
+                <default>false</default>
+                <label>International</label>
+            </value>
+            <value>
+                <fullName>PRM</fullName>
+                <default>false</default>
+                <label>PRM</label>
+            </value>
+            <value>
+                <fullName>EXP</fullName>
+                <default>false</default>
+                <label>EXP</label>
+            </value>
+            <value>
+                <fullName>FPP</fullName>
+                <default>false</default>
+                <label>FPP</label>
+            </value>
+            <value>
+                <fullName>On Demand</fullName>
+                <default>false</default>
+                <label>On Demand</label>
+            </value>
+            <value>
+                <fullName>NXF</fullName>
+                <default>false</default>
+                <label>NXF</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

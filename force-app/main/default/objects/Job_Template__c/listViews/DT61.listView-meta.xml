@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DT61</fullName>
+    <columns>NAME</columns>
+    <columns>Route_Template__c</columns>
+    <columns>Start_Time__c</columns>
+    <columns>Duration__c</columns>
+    <columns>Location__c</columns>
+    <columns>Active_Route_Days__c</columns>
+    <columns>Activity_Type__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Route_Template__c</field>
+        <operation>startsWith</operation>
+        <value>DT61</value>
+    </filters>
+    <label>DT61</label>
+</ListView>

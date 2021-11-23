@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SDR__c</fullName>
+    <externalId>false</externalId>
+    <formula>If (ISNULL(ClosedDate), &quot;N/A&quot;,
+    if( 
+        ( 24 * 
+            (
+                ( 5 * FLOOR( ( DATEVALUE( ClosedDate ) - DATE( 1900, 1, 8) ) / 7) 
+                    + MIN(5, 
+                        MOD(DATEVALUE( ClosedDate ) - DATE( 1900, 1, 8), 7) 
+                        + MIN( 1, 24 / 24 * 
+                            ( MOD( ClosedDate - DATETIMEVALUE( &apos;1900-01-08 16:00:00&apos; ), 1 ) 
+                            ) 
+                        ) 
+                    )
+                )
+                -
+                ( 5 * FLOOR( ( DATEVALUE( CreatedDate ) - DATE( 1900, 1, 8) ) / 7) 
+                    + MIN( 5, 
+                        MOD( DATEVALUE( CreatedDate ) - DATE( 1996, 1, 1), 7 )
+                        + MIN( 1, 24 / 24 * 
+                            ( MOD( CreatedDate - DATETIMEVALUE( &apos;1900-01-08 16:00:00&apos; ), 1) 
+                            ) 
+                        )
+                    )
+                )
+             )
+        )
+    &lt; 24 , &quot;SDR&quot;, &quot;NSDR&quot; )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>SDR?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

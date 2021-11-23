@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OPC_Day_Of_Week__c</fullName>
+    <description>Phase 2 - Generate OPC Batch day of week scheduler parameter</description>
+    <externalId>false</externalId>
+    <label>OPC Day Of Week</label>
+    <length>30</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

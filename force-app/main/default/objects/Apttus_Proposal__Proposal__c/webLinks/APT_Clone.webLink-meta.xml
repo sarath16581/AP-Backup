@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Clone</fullName>
+    <availability>online</availability>
+    <description>Clone Quote</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Clone</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/34.0/connection.js&quot;)}
+
+var quote = sforce.connection.query(&quot;select Id, Apttus_Proposal__Approval_Stage__c from Apttus_Proposal__Proposal__c where Id = &apos;{!Apttus_Proposal__Proposal__c.Id}&apos;&quot;);
+
+records = quote.getArray(&quot;records&quot;);
+
+if(records[0] == null) {
+    alert(&apos;No record found.&apos;);
+} else {
+    if(records[0].Apttus_Proposal__Approval_Stage__c == &apos;Accepted&apos;) {
+        alert(&apos;You can not clone accepted quote.&apos;);
+    } else {
+        window.location.href = &apos;/apex/Apttus_QPConfig__ProposalClone?clone=1&amp;retURL=/&apos;+&apos;{!Apttus_Proposal__Proposal__c.Id}&apos;+&apos;&amp;id=&apos;+&apos;{!Apttus_Proposal__Proposal__c.Id}&apos;;
+    }
+}</url>
+</WebLink>

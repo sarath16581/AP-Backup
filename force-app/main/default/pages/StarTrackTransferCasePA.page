@@ -1,0 +1,49 @@
+<!--
+    Description: This page is used to support a Transfer of Ownership Publisher Action for StarTrack. On completion redirects to a blank Publisher Action (Closed) as there is currently no way to have a custom VF PA adhere to auto-close feed setting.
+    History:
+    AUG.27.2015 FAHAD AKHTAR(CloudSherpas) Created
+    NOV.25.2015 Patrick James Franco (Cloud Sherpas) - Decomissioned. Replaced by StarTrackTransferCase component
+-->
+<apex:page id="page" standardController="Case" showHeader="false" sidebar="false" docType="html-5.0">
+    <c:StarTrackTransferCase case="{!Case}"/>
+    <!-- <apex:includeScript value="/support/api/34.0/interaction.js"/>
+    <apex:includeScript value="/canvas/sdk/js/publisher.js" />
+    <apex:outputPanel id="scriptPanel">
+        <script type="text/javascript">
+            function publishandclose(){
+                if({!validation}){
+                    Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload :{feed: true, objectRelatedLists: {}}});
+                    sforce.interaction.entityFeed.reloadFrame();
+                    Sfdc.canvas.publisher.publish({name:"publisher.selectAction",payload:{actionName:"Case.Closed"}});
+                }
+            }
+        </script>
+    </apex:outputPanel>
+    <apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    <div class="slds">
+        <div class="slds-form--horizontal">
+        <apex:form id="transferCase">
+        <apex:actionFunction name="save" action="{!saveOverride}" rerender="out,scriptPanel" oncomplete="publishandclose();"/>
+        <apex:actionFunction name="ownerChange" action="{!onChangeOfOwner}" rerender="out" />
+        <apex:actionRegion id="thePanelActionRegion">
+            <apex:outputPanel id="out">
+                <apex:actionRegion id="theBlockActionRegion">
+                    <apex:pageBlock tabStyle="Case" mode="maindetail" id="theBlock">
+                        <apex:pageBlockSection columns="2" id="theSection">
+                            <apex:inputField value="{!case.ownerid}" onchange="ownerChange();"  />
+                            <apex:outputField value="{!case.Account.Business_Solutions_Customer__c}" />
+                            <apex:inputField value="{!case.Transfer_Override_Reason__c}" required="true" rendered="{!showOwnershipReason}" />
+                            <apex:inputField value="{!case.Status}" required="true" rendered="{!showOwnershipReason}" />
+                            <apex:pageBlockSectionItem rendered="{!NOT(showOwnershipReason)}">
+                            </apex:pageBlockSectionItem>
+                            <apex:outputText value="{!case.Network__r.Name}" />
+                        </apex:pageBlockSection>
+                    </apex:pageBlock>
+                </apex:actionRegion>
+            </apex:outputPanel>
+        </apex:actionRegion>
+        </apex:form>
+        <button type="button" class="slds-button slds-button--brand slds-button--small" onclick="save();" style="position:fixed; bottom:0px; right:0px;" id="cpbutton" oncomplete="chatter.getPublisher().submit();">Submit</button>
+        </div>
+    </div> -->
+</apex:page>

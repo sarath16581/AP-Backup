@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales_Implementation_Request</fullName>
+    <availability>online</availability>
+    <description>Quick link to raise Sales Implementation Request</description>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Sales Implementation Request</masterLabel>
+    <openType>replace</openType>
+    <page>SalesImplementationRequest</page>
+    <protected>false</protected>
+</WebLink>

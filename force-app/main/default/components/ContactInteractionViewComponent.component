@@ -1,0 +1,47 @@
+<!--
+    Revision History:
+    06/22/17 angelo.rivera@auspost.com.au - added Javascript for riverbed - Resource.Web_Analyser
+    2017-09-17 nathan.franklin@auspost.com.au - Added ScriptLoader component to manage frontend scripts
+-->
+
+<apex:component controller="ContactInteractionViewComponentCont">
+	<apex:attribute name="recordId" description="the selected account/contact id" type="string" required="true" assignTo="{!recId}"/>
+
+	<c:ScriptLoader jsLibraries="jquery,webanalyser,interaction,integration" />
+	
+   	<script type="text/javascript">
+      	var j$ = jQuery.noConflict();
+		
+		j$(document).ready(function() {
+            initRecordLinks();
+        });
+        
+        function initRecordLinks() {
+            j$(".linkedField")
+                .attr("data-title", function(i, val) {//copying title to data-title to use in  the click event later
+                    return j$(this).attr("title");
+                })
+                .click(function() {
+                    var itemId = j$(this).attr("data-title");
+		
+                    if (itemId.match('^500.*')) {//checking if case id. need to find a more elegant way of checking
+                        sforce.console.openPrimaryTab(null, '/' + itemId, true);
+                    } else {
+                       /*openSubTabInPrimaryTab('/' + itemId, '/{ !caseContact.Id}');*/
+                        sforce.console.getEnclosingPrimaryTabId(function(result) {  
+            				sforce.console.openSubtab(result.id, '/' + itemId, true, '', null);
+        			});
+                    }
+                    return false;
+                })
+                .removeAttr("title");//to stop showing the id on hover over the link
+        }
+			        
+	</script>
+	
+	<apex:pageBlock title="Interactions">
+
+		<apex:dynamicComponent componentValue="{!relatedLists}"/>
+
+	</apex:pageBlock>
+</apex:component>

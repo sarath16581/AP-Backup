@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Queue Management Settings for SSSW</description>
+    <enableFeeds>false</enableFeeds>
+    <label>SSSW Queue Management</label>
+    <visibility>Public</visibility>
+</CustomObject>

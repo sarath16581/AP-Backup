@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VOC_Incident_Closure_Required_Fields</fullName>
+    <active>true</active>
+    <description>StarTrack validation to check if required fields was populated before allowing the case record to close successfully.</description>
+    <errorConditionFormula>AND(
+    Case_RecordType_Name__c = &apos;Voice of Customer Incident&apos;, 
+    ISCHANGED(Status),
+    ISPICKVAL(Status, &apos;Closed&apos;),
+    OR(
+       ISBLANK(TEXT(Journey__c)),
+       ISBLANK(TEXT(Business_Unit__c)),
+       ISBLANK(TEXT(Team__c)),
+       ISBLANK(TEXT(ST_Root_cause__c)),
+       ISBLANK(TEXT(Immediate_Action__c)),
+       ISBLANK(Immediate_Action_Details__c),
+       AND(
+        ISBLANK(Outcome_of_Customer_Contact__c),
+        CallBackRequired__c)))</errorConditionFormula>
+    <errorMessage>Journey, Business Unit, Team, Root cause, Immediate Action, Immediate Action Details, and Outcome of Customer Contact are required when closing VOC incident case.</errorMessage>
+</ValidationRule>

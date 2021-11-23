@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Public_Id__c</fullName>
+    <description>Used by the Gs Campaign and stores a publicly referenced Id generated when an email is sent to a lead.</description>
+    <externalId>false</externalId>
+    <label>Public Id</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

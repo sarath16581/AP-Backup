@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>SSSW_Send_Fax_to_Network</fullName>
+        <description>SSSW - Send Fax to Network</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Emailto__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>mycustomersfaxesproduction@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>SSSW_System_Emails/SSSW_Fax2Mail_with_Attachment</template>
+    </alerts>
+    <rules>
+        <fullName>SSSW - Send Fax to Fax2Mail</fullName>
+        <actions>
+            <name>SSSW_Send_Fax_to_Network</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Fax__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Outbound</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Fax__c.Emailto__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

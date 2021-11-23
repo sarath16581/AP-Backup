@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Unknown_Score__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>Score given to a &quot;?&quot; response to the criterion. Typically set to &quot;0&quot;, as the position is neither positive nor negative. However, you can set a plus or minus score if you determine that a &quot;?&quot; position on this criterion is better or worse than no response.</inlineHelpText>
+    <label>Unknown Score</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

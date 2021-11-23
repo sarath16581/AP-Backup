@@ -1,0 +1,99 @@
+<apex:component controller="bspLiveAgent" >
+    <!-- Attribute Definitions -->
+    <apex:attribute name="isMpbHspAttrib" description="This attribute determines if the control was called as part of the MyPost Business page"
+                    type="Boolean" required="false" assignTo="{!isMpbHspFlag}"/>
+
+<style>
+.bw-liveagent {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-family: "letter_one",Arial,sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+}
+#bw-helptext {
+    padding-bottom: 1px;
+    color: #dc1928;
+}
+.bw-liveagent-box {
+    background-color: #382F2D;
+    border-top-left-radius: 0.35em;
+    border-top-right-radius: 0.35em;
+    height: 3.4em;
+    min-width: 16.4em;
+}
+
+.chat-header {
+    margin: 8px 12px;
+    float: left;
+    float:left;
+    color: #fff;
+    cursor: default;
+}
+.bw-chatIcon {
+    background-image: url("{!URLFOR($Resource.BSP_Custom,'images/chat-icon.png')}");
+    background-repeat: no-repeat;
+    height: 19px;
+    width: 19px;
+    margin-right: 5px;
+    display: inline-block;
+    position: relative;
+    top: 0.4em;
+}
+
+.bw-liveagent-btn {
+    padding: 2px 13px;
+    margin: 10px;
+    text-transform:uppercase;
+    float: right;
+    border-radius: 0.3em;
+}
+.bw-liveagent-btn-on {
+    background-color: #057A3D;
+    color: #fff;
+}
+.bw-liveagent-btn-off {
+    background-color: #A79A9A;
+    color: #382F2D;
+    cursor: default;
+}
+.bw-liveagent-btn-on:hover {
+    text-decoration: none;
+}
+</style>
+
+<script type="text/javascript">
+    if (!window._laq) {
+        window._laq = [];
+    }
+    window._laq.push(function() {
+        liveagent.showWhenOnline('{!buttonId}', document.getElementById('liveagent_button_online_{!buttonId}'));
+        liveagent.showWhenOnline('{!buttonId}', document.getElementById('bw-helptext'));
+        liveagent.showWhenOffline('{!buttonId}', document.getElementById('liveagent_button_offline_{!buttonId}'));
+    });
+</script>
+
+<script type='text/javascript' src='{!scriptSrc}'></script>
+<script type='text/javascript'>
+    liveagent.init('{!init}', '{!deploymentId}', '{!orgId}');
+</script>
+
+<div class="bw-liveagent">
+    <div id="bw-helptext" style="display:none">Need help now?</div>
+    <div class="bw-liveagent-box">
+        <div class="chat-header">
+            <div class="bw-chatIcon"></div>
+            Live chat
+        </div>
+        <a class="bw-liveagent-btn bw-liveagent-btn-on" id="liveagent_button_online_{!buttonId}" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('{!buttonId}')">Online</a>
+        <div class="bw-liveagent-btn bw-liveagent-btn-off" id="liveagent_button_offline_{!buttonId}" style="display: none;">
+            Offline
+        </div>
+    </div>
+        <!-- <apex:outputText style="font-style:italic" value="isMpbHspFlag<{0}>;isMpbHspAttrib=<{1}>."> 
+                	<apex:param value="{!isMpbHspFlag}"/> 
+                 	<apex:param value="{!isMpbHspAttrib}"/>
+                </apex:outputText>  -->
+</div>
+</apex:component>

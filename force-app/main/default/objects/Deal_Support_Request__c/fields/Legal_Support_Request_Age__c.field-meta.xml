@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Legal_Support_Request_Age__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( NOT(ISPICKVAL( Stage__c , &quot;Closed&quot;)) ,   (  5*FLOOR((DATETIMEVALUE( DateClosed__c )-DATETIMEVALUE(&quot;1996-01-01 10:00:00&quot;))/7) +  MIN(5, MOD(DATETIMEVALUE( DateClosed__c )-DATETIMEVALUE(&quot;1996-01-01 10:00:00&quot;), 7))  ) - (  5*FLOOR((DATETIMEVALUE( CreatedDate )-DATETIMEVALUE(&quot;1996-01-01 10:00:00&quot;))/7) +  MIN(5, MOD(DATETIMEVALUE(CreatedDate)-DATETIMEVALUE(&quot;1996-01-01 10:00:00&quot;), 7))  ),   NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Legal Support Request Age</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

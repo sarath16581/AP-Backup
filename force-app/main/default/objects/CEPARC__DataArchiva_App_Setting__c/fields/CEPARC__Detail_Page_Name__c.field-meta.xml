@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEPARC__Detail_Page_Name__c</fullName>
+    <defaultValue>&apos;CEPARC__DataArchivaDetailPage&apos;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If you&apos;ve custom detail page to preview the archived records, please enter name of the page to overwrite the DataArchiva&apos;s default detail page.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If you&apos;ve custom detail page to preview the archived records, please enter name of the page to overwrite the DataArchiva&apos;s default detail page.</inlineHelpText>
+    <label>Detail Page Name</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

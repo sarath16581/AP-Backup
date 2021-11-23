@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Smart_Element__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Insight Smart Element</label>
+    <referenceTo>DMAPP__Insight_Smart_Node__c</referenceTo>
+    <relationshipLabel>Align Searches</relationshipLabel>
+    <relationshipName>Align_Searches</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

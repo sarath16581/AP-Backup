@@ -1,0 +1,104 @@
+<!--
+    2018-10-01 Anshul Goyal this vf page merge all the proposal docs from Notes  Attachment section, user can select the doc for merge as well
+-->
+<apex:page standardController="Apttus_Proposal__Proposal__c" extensions="APTS_CombineProposalDocsController" id="combinePage">
+    
+<apex:form >
+
+    <apex:PageMessages id="errorMsg"> </apex:pageMessages>
+
+    <apex:outputPanel id="loadingOutput">
+        <apex:outputPanel rendered="{!processSubmitted}">
+            <div class="popupBackground" style="text-align:center; margin-top:2%;">
+
+                <apex:image id="loadingImg" value="/img/loading32.gif"/>
+                <br/><br/>Do not close the browser/navigate from the page, documents generation in progress
+
+            </div>
+        </apex:outputPanel>
+    </apex:outputPanel>
+
+    <apex:PageBlock rendered="{!noAttachment}">
+        <apex:pageMessage severity="warning">
+                {!$Label.APT_MergeDocument_No_Attachment_Warning_Message}
+        </apex:pageMessage>
+
+        <apex:pageBlockButtons location="Bottom">
+            <apex:commandButton value="{!$Label.APT_MergeDocument_No_Attachment_Return_Button}" action="{!Cancel}" disabled="{!processSubmitted}"/>
+        </apex:pageBlockButtons>
+    </apex:PageBlock>
+
+    <apex:pageBlock title="Proposal Details" rendered="{!NOT(noAttachment)}">
+
+        <apex:pageBlockSection >
+            <apex:outputField value="{!Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal_Name__c}"/>
+            <apex:outputField label="Proposal ID" value="{!Apttus_Proposal__Proposal__c.Name}"/>
+            <apex:outputField label="Organisation" value="{!Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__r.Name }"/>
+            <apex:outputField value="{!Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal_Expiration_Date__c}"/>
+            <apex:outputField label="Opportunity" value="{!Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__r.name}"/>
+            <apex:outputField value="{!Apttus_Proposal__Proposal__c.Apttus_Proposal__Presented_Date__c}"/>
+            <apex:outputField label="Key Contact" value="{!Apttus_Proposal__Proposal__c.Apttus_Proposal__Primary_Contact__r.name}"/>
+            <apex:outputField value="{!Apttus_Proposal__Proposal__c.APT_Quote_Accepted_Date__c}"/>
+            <apex:outputField value="{!Apttus_Proposal__Proposal__c.APT_Legacy_BPA_Product_s__c}"/>
+            <apex:outputField value="{!Apttus_Proposal__Proposal__c.Apttus_Proposal__Approval_Stage__c}"/>
+            <apex:outputField value="{!Apttus_Proposal__Proposal__c.STE_Pricing_Tier__c}"/>
+            <apex:outputField value="{!Apttus_Proposal__Proposal__c.Apttus_QPApprov__Approval_Status__c}"/> 
+
+        </apex:pageBlockSection>
+
+    </apex:pageBlock>
+
+    <!--Block to show the attachmnets list---->
+    <apex:pageblock id="AttachmentBlock" title="{!$Label.APT_Select_Attachments}" rendered="{!NOT(noAttachment)}">
+
+        <apex:pageBlockButtons location="Bottom">
+            <apex:commandButton value="{!$Label.APT_Merge_Docs_Merge_Button}" action="{!MergeInitialization}" oncomplete="MergeDocumentJS()" disabled="{!processSubmitted}" rerender="AttachmentBlock,loadingOutput"/>
+            <apex:commandButton value="Return to Proposal(Cancel)" action="{!Cancel}" disabled="{!processSubmitted}"/>
+        </apex:pageBlockButtons>
+
+        <apex:pageBlockTable value="{!attachmentWrappers}" var="wrapper" id="AttachmentTable" style="width:80%;">
+
+            <apex:column headervalue="{!$Label.APT_Sequence_Number}" style="width:100px;text-align:center">
+                <apex:outputText value="{!wrapper.Sequence}"/>
+            </apex:column>
+
+            <apex:column headerValue="{!$Label.APT_File_Name}">
+                <apex:outputText value="{!wrapper.contentDoc.Title}"/>
+            </apex:column>
+
+            <apex:column headerValue="{!$Label.APT_Selected}" style="width:50px;text-align:center">
+                <apex:inputCheckbox value="{!wrapper.selected}" disabled="{!processSubmitted}"/>
+            </apex:column>
+
+            <apex:column headerValue="{!$Label.APT_Reorder_Documents}" style="width:110px;text-align:center" rendered="{!NOT(processSubmitted)}">
+
+                <apex:commandLink action="{!upAction}" reRender="AttachmentTable" rendered="{!wrapper.upVisible}">
+                    <apex:image id="UpIcon" url="{!$Resource.APT_Up}" width="15" height="18"/>
+                    <apex:param name="attachID" value="{!wrapper.contentDoc.ID}" assignTo="{!attachID}" />
+                </apex:commandLink>
+
+                <apex:outputText rendered="{!AND(wrapper.upVisible,wrapper.downVisible)}">&nbsp;</apex:outputText>
+
+                <apex:commandLink action="{!downAction}" reRender="AttachmentTable" rendered="{!wrapper.downVisible}">
+                    <apex:image id="DownIconImage" url="{!$Resource.APT_Down}" width="15" height="18"/>
+                    <apex:param name="attachID" value="{!wrapper.contentDoc.ID}" assignTo="{!attachID}" />
+                </apex:commandLink>
+            </apex:column>
+
+        </apex:pageBlockTable>
+
+        <apex:actionFunction name="MergeDocument" action="{!MergeDocument}"/>
+
+    </apex:pageBlock>
+    
+</apex:form>
+
+<script>
+    
+    function MergeDocumentJS() {
+        MergeDocument();
+    }
+    
+</script>
+
+</apex:page>

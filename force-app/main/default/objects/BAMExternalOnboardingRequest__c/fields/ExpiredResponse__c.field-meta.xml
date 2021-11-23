@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ExpiredResponse__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This checkbox is set if an expired response is returned from Camunda.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This checkbox is set if an expired response is returned from Camunda.</inlineHelpText>
+    <label>Expired Response</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

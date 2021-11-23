@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_LDC_Claim_Date_Validation</fullName>
+    <active>true</active>
+    <description>Claim Date is required for LDC Case Type</description>
+    <errorConditionFormula>AND(
+Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;,
+ISPICKVAL(Enquiry_Type__c , &apos;LDC&apos;),
+ISBLANK(Claim_Date__c)
+)</errorConditionFormula>
+    <errorDisplayField>Claim_Date__c</errorDisplayField>
+    <errorMessage>Claim Date is required for LDC Case Type.</errorMessage>
+</ValidationRule>

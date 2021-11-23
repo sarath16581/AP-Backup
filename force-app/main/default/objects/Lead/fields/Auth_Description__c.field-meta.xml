@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Auth_Description__c</fullName>
+    <description>Select value that determines the influence/authority the lead has.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Used to pick the value that the lead holds for the opportunity.</inlineHelpText>
+    <label>Authority Description</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sole decision maker</fullName>
+                <default>false</default>
+                <label>Sole decision maker</label>
+            </value>
+            <value>
+                <fullName>Decision Maker</fullName>
+                <default>false</default>
+                <label>Decision Maker</label>
+            </value>
+            <value>
+                <fullName>General authority</fullName>
+                <default>false</default>
+                <label>General authority</label>
+            </value>
+            <value>
+                <fullName>Main decision maker</fullName>
+                <default>false</default>
+                <label>Main decision maker</label>
+            </value>
+            <value>
+                <fullName>Influencer</fullName>
+                <default>false</default>
+                <label>Influencer</label>
+            </value>
+            <value>
+                <fullName>No authority</fullName>
+                <default>false</default>
+                <label>No authority</label>
+            </value>
+            <value>
+                <fullName>Joint decision maker</fullName>
+                <default>false</default>
+                <label>Joint decision maker</label>
+            </value>
+            <value>
+                <fullName>Opinion leader</fullName>
+                <default>false</default>
+                <label>Opinion leader</label>
+            </value>
+            <value>
+                <fullName>Authorised buyer</fullName>
+                <default>false</default>
+                <label>Authorised buyer</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

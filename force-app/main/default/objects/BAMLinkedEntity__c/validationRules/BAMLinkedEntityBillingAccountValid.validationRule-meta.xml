@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAMLinkedEntityBillingAccountValid</fullName>
+    <active>true</active>
+    <description>Rule ensure that a billing accounts outside of the Contact&apos;s (on Contact Application) Organisation can not be added.</description>
+    <errorConditionFormula>!ISBLANK(BillingAccount__c) &amp;&amp; BillingAccount__r.Organisation__c != ContactRole__r.ContactApplication__r.Contact__r.AccountId</errorConditionFormula>
+    <errorDisplayField>BillingAccount__c</errorDisplayField>
+    <errorMessage>The billing account is invalid for the contact linked to the Contact Application record.</errorMessage>
+</ValidationRule>

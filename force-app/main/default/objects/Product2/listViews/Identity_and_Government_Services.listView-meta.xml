@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Identity_and_Government_Services</fullName>
+    <columns>PRODUCT2.NAME</columns>
+    <columns>PRODUCT2.CUSTOMER_PRODUCT_ID</columns>
+    <columns>PRODUCT2.DESCRIPTION</columns>
+    <columns>PRODUCT2.FAMILY</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Product_Level_2__c</field>
+        <operation>contains</operation>
+        <value>Identity</value>
+    </filters>
+    <label>Identity and Government Services</label>
+    <sharedTo/>
+</ListView>

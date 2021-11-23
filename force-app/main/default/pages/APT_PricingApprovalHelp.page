@@ -1,0 +1,2 @@
+<apex:page controller="APT_PricingApprovalHelpController" action="{!doRedirect}">
+</apex:page>

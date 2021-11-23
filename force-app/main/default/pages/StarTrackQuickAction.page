@@ -1,0 +1,42 @@
+<!--
+Author:        Patrick James Franco
+Company:       Cloud Sherpas
+Description:   Hub for all StarTrack Cases custom Actions
+History
+November 23, 2015 - Patrick James Franco - Created
+-->
+
+<apex:page standardController="Case" standardStylesheets="true" showHeader="false" sidebar="false" docType="html-5.0">
+<apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}"/>
+
+<apex:includeScript value="/support/api/34.0/interaction.js"/>
+<apex:includeScript value="/canvas/sdk/js/publisher.js" />
+
+<script type="text/javascript">
+    function resizePA(){
+        Sfdc.canvas.publisher.resize();
+    }
+</script>
+
+<div class="slds">
+<apex:form >
+    <apex:actionFunction name="refreshPanel" reRender="thisPanel" oncomplete="resizePA()"/>
+
+    <div class="slds-form-element">
+        <label class="slds-form-element__label">Select an Action:</label>
+        <div class="slds-form-element__control">
+            <apex:inputField id="actionSelect" value="{!Case.StarTrack_Quick_Action__c}" onchange="refreshPanel()"/>
+        </div>
+    </div>
+</apex:form>
+</div>
+
+<apex:outputPanel id="thisPanel">
+    <c:StarTrackCardLeft case="{!Case}" rendered="{!Case.StarTrack_Quick_Action__c == 'Card Left'}"/>
+    <c:StarTrackConsignmentShortage caseRec="{!Case}" rendered="{!Case.StarTrack_Quick_Action__c == 'Consignment Shortage'}"/>
+    <c:StarTrackCreateCaseComment case="{!Case}" rendered="{!Case.StarTrack_Quick_Action__c == 'Create Comments'}"/>
+    <c:StarTrackCreateTask case="{!Case}" rendered="{!Case.StarTrack_Quick_Action__c == 'Create Task'}"/>
+    <c:StarTrackTransferCase case="{!Case}" rendered="{!Case.StarTrack_Quick_Action__c == 'Transfer Case'}"/>
+</apex:outputPanel>
+
+</apex:page>

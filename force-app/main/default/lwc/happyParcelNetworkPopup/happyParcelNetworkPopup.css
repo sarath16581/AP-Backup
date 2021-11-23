@@ -1,0 +1,24 @@
+/*
+    2020-09-09 disha.kariya@auspost.com.au Created
+    2021-06-15 - Ranjeewa Silva - Updated to set max width instead of the width.
+*/
+.slds-truncate {
+	white-space: normal !important;
+}
+
+.slds-table_bordered{
+    border-top:none;
+    border-bottom:none;
+}
+
+.width-card{
+    max-width : 90vw;
+}
+
+.slds-theme_info{
+    text-align: left;
+}
+
+.slds-notify_alert{
+    padding-right: 0.8rem;
+}

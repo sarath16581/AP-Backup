@@ -1,0 +1,65 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 25/08/2020
+  * @description  : Component for consignment header section for information at glance.
+--------------------------------------- History --------------------------------------------------
+25.08.2020    Jansi Rani   Created
+-->
+<template>
+
+    <div class="slds-grid slds-wrap slds-p-horizontal_large slds-p-vertical_medium slds-m-bottom_x-large tracking-header-box slds-grid_vertical-stretch">
+        <template if:true={headerEvent}>
+            <!--Most recent event-->
+            <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12 tracking-header-cell">
+                <div class="slds-p-right_large mobile-no-padding">
+                    <div class="slds-p-bottom_x-small tracking-header-cell-title">Most recent event</div>
+                    <div class="tracking-header-detail">{headerEvent.ExternalDescription__c} {consignmentLocation}</div>
+                </div>
+            </div>
+            <!--Last update-->
+            <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-12 tracking-header-cell">
+                <div class="slds-p-horizontal_large mobile-no-padding">
+                    <div class="slds-p-bottom_x-small tracking-header-cell-title">Last update</div>
+                    <div class="tracking-header-detail">
+                        <template if:true={isConsignmentSerchIsAPType}>
+                            <lightning-formatted-date-time value= {headerEvent.ActualDateTime__c} year="numeric" month="numeric" day="numeric">
+                            </lightning-formatted-date-time>&nbsp;<br>
+                            <lightning-formatted-date-time value= {headerEvent.ActualDateTime__c} hour="2-digit" minute="2-digit"
+                                hour12="true">
+                            </lightning-formatted-date-time>
+                        </template>
+                        <template if:false={isConsignmentSerchIsAPType}>
+                           {stConsignmentLastUpdate}
+                        </template>
+                    </div>
+                </div>
+            </div>
+            {ccc}
+        </template>
+        <!--<template if:true={APConsignmentExpDeliveryDate}> -->
+            <!--Expected delivery date-->
+            <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-12">
+                <div class="slds-p-left_large mobile-no-padding">
+                    <!--AP-->
+                    <template if:true={isConsignmentSerchIsAPType}>
+                        <div class="slds-p-bottom_x-small tracking-header-cell-title">Expected delivery date</div>
+                        <div class="tracking-header-detail"><lightning-formatted-date-time value={APConsignmentExpDeliveryDate} year="numeric" month="numeric" day="numeric">
+                        </lightning-formatted-date-time> </div>
+                    </template>
+                    <!--Startrack-->
+                    <template if:false={isConsignmentSerchIsAPType}>
+                        <div class="slds-p-bottom_x-small tracking-header-cell-title">Estimated arrival</div>
+                        <div class="tracking-header-detail">{stConsignmentArrivalFormattedDate}</div>
+                    </template>
+
+                    <div class="tracking-header-edd-disclaimer">Date varies depending on origin, destination and the
+                        service used</div>
+                </div>
+            </div>
+       <!--</template>--> 
+
+
+    </div>
+
+
+</template>

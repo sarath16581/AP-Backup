@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email_Address__c</fullName>
+    <description>The field captures email address under &apos;Copy of Invoice/Statement&apos; work type where document type is &apos;Invoice&apos; for Credit Management Request.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Please enter email to which invoice is to be sent</inlineHelpText>
+    <label>Email Address</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Email</type>
+    <unique>false</unique>
+</CustomField>

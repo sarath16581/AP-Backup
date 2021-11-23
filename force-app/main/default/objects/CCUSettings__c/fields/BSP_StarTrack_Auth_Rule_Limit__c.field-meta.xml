@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BSP_StarTrack_Auth_Rule_Limit__c</fullName>
+    <description>This will determine the max number of authorization rules a user can have.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This will determine the max number of authorization rules a user can have.</inlineHelpText>
+    <label>BSP StarTrack Auth Rule Limit</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@auspost.com.au</email>
+    <name>SSSW Consumer Back Office Spec Del</name>
+    <queueMembers>
+        <users>
+            <user>alice.tiumalu@auspost.com.au</user>
+            <user>annie.vuong@auspost.com.au</user>
+            <user>braedon.mcdonald@auspost.com.au</user>
+            <user>charlie.rountree@auspost.com.au</user>
+            <user>charmaine.wadhwani@auspost.com.au</user>
+            <user>chris.visser@auspost.com.au</user>
+            <user>danniella.brennan@auspost.com.au</user>
+            <user>george.heilman@auspost.com.au</user>
+            <user>katie.edwardes@auspost.com.au</user>
+            <user>maria.trinh@auspost.com.au</user>
+            <user>mark.grandovec@auspost.com.au</user>
+            <user>michelle.olsen@auspost.com.au</user>
+            <user>mitch.walters@auspost.com.au</user>
+            <user>paramita.khan3@auspost.com.au.ptestac</user>
+            <user>samantha.woller@auspost.com.au</user>
+            <user>sean.daly2@auspost.com.au</user>
+            <user>zack.mcloughlan@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

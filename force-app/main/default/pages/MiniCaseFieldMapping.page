@@ -1,0 +1,126 @@
+<apex:page standardController="MiniCaseFieldMapping__c"
+	extensions="MiniCaseFieldMappingController">
+	<apex:includeScript value="{!$Resource.jQuery111}" />
+	<apex:includeScript value="{!$Resource.bootstrapJS}" />
+	<apex:stylesheet value="{!$Resource.bootstrapCSS}" />
+	<apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+	<apex:stylesheet value="{!$Resource.SSSWCSS}" />
+	<apex:includeScript value="{!$Resource.jQueryJSON}" />
+	
+	<apex:includeScript value="/support/api/30.0/interaction.js" />
+	<apex:includeScript value="/support/console/30.0/integration.js" />
+	
+	
+	<apex:form >
+	<apex:inputfield value="{!proxyCase.Type_and_Product__c}" id="txtTypeProductCategory" style="display:none;" />
+					
+	<c:LoadingSpinnerComponent showFunctionName="routingShowProgress"  hideFunctionName="routingHideProgress"/>
+		<apex:pageblock id="pbEditForm" title="Enquiry Field Mapping">
+			<apex:pageMessages id="msg" />
+			<apex:actionfunction name="dummyRefresh" immediate="true" rerender="pbEditForm" oncomplete="routingHideProgress();"/>
+			<apex:actionfunction name="jrReloadPicklists" immediate="true" rerender="pbEditForm" oncomplete="routingShowProgress();dummyRefresh();" >
+				<apex:param name="recordTypeId" assignTo="{!proxyCase.recordTypeId}" value="" />
+				<apex:param name="type" assignTo="{!proxyCase.Type}" value="" />
+				<apex:param name="productCategory" assignTo="{!proxyCase.ProductCategory__c}" value="" />
+			</apex:actionfunction>
+			
+			
+			<apex:pageblocksection columns="2" title="CTI Mappings">
+				<apex:inputfield value="{!MiniCaseFieldMapping__c.CTICustomerSegment__c}" styleClass="form-control input-sm maxWidth" />					
+				<apex:inputfield value="{!MiniCaseFieldMapping__c.CTIServiceType__c}" styleClass="form-control input-sm maxWidth" />
+			</apex:pageblocksection>	
+						
+			<apex:pageblocksection columns="2" title="SAP Mappings">
+				<apex:inputfield value="{!MiniCaseFieldMapping__c.SAPProductCategory__c}" styleClass="form-control input-sm maxWidth" />					
+				<apex:inputfield value="{!MiniCaseFieldMapping__c.SAPProductSubcategory__c }" styleClass="form-control input-sm maxWidth" />
+			</apex:pageblocksection>	
+			
+			<apex:pageblocksection columns="2" title="Case Defaults">	
+				<apex:pageblocksectionitem >
+					<apex:outputlabel for="txtType" value="Type"  />
+					<apex:inputfield value="{!proxyCase.Type}" onchange="setJoinPicklist();" id="txtType" styleClass="form-control input-sm maxWidth" />
+				</apex:pageblocksectionitem>	
+				<apex:inputfield value="{!proxyCase.ProductSubCategory__c}" id="txtProductSubCategory"	styleClass="form-control input-sm maxWidth" />
+				<apex:inputfield value="{!proxyCase.ProductCategory__c}" onchange="setJoinPicklist();" id="txtProductCategory" styleClass="form-control input-sm maxWidth" />
+			</apex:pageblocksection>
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandbutton action="{!save}" value="Save" onclick="routingShowProgress()" oncomplete="routingHideProgress()"
+					rerender="pbEditForm,pnlExisitng,msg" immediate="false" />
+				<script type="text/javascript">
+						var j$ = jQuery.noConflict();
+														
+						function openPrimaryTabByObjectId(rId) {
+							sforce.console.getPrimaryTabIds(function(result){				
+								j$.each(result.ids, function(index, value) {
+									sforce.console.getPageInfo(value, function(l){
+										var pageInfo = j$.evalJSON(l.pageInfo);
+										if(pageInfo != null && pageInfo.objectId != null && rId.indexOf(pageInfo.objectId) > -1){
+											sforce.console.focusPrimaryTabById(value);	
+										}
+									});	
+								});
+								
+								sforce.console.openPrimaryTab(null, '/' + rId, true);	
+							});
+						}
+						
+						function reloadPicklists(){
+							routingShowProgress();
+							window.console&&console.log('#################### reloadpicklist called ####################');
+							var txtProductCategory = j$('[id$="txtProductCategory"]');
+							var txtType = j$('[id$="txtType"]');
+							
+							MiniCaseFieldMappingController.getRecordTypeId(txtType.val(), txtProductCategory.val(), function(result, event){
+								if(event.status && result != '') {
+									var txtProductSubCategory = j$('[id$="txtProductSubCategory"]');
+									txtProductSubCategory.val('');
+									jrReloadPicklists(result, txtType.val(), txtProductCategory.val());
+								}
+							});
+						}
+						
+						function setJoinPicklist(){
+							var type = j$('[id$="txtType"]').val();
+							var productCategory = j$('[id$="txtProductCategory"]').val();
+							console.log('type: ' + type);
+							console.log('productCategory: ' + productCategory);
+							var joint = j$('[id$="txtTypeProductCategory"]');
+							if(type != '' && productCategory != ''){
+								joint.val(type + '|' + productCategory);
+								joint.change();
+							} else {
+								joint.val('');
+								joint.change();
+							} 
+						}
+					</script>
+			</apex:pageBlockButtons>
+		</apex:pageblock>
+		<apex:outputpanel id="pnlExisitng">
+			<apex:pageblock rendered="{!!existingCTIMappings.empty}" title="Existing CTI Settings">
+				<apex:pageblocktable value="{!existingCTIMappings}" var="r">
+					<apex:column headerValue="Action">
+						<a href="#" onclick="openPrimaryTabByObjectId('{!r.Id}'); return false;">Edit</a>
+					</apex:column>
+					<apex:column value="{!r.CTICustomerSegment__c}" />
+					<apex:column value="{!r.CTIServiceType__c}" />
+					<apex:column value="{!r.ProductCategory__c}" />
+					<apex:column value="{!r.ProductSubcategory__c}" />
+					<apex:column value="{!r.Type__c}" />
+				</apex:pageblocktable>
+			</apex:pageblock>
+			<apex:pageblock rendered="{!!existingSAPMappings.empty}" title="Existing SAP Settings">
+				<apex:pageblocktable value="{!existingSAPMappings}" var="r">
+					<apex:column headerValue="Action">
+						<a href="#" onclick="openPrimaryTabByObjectId('{!r.Id}'); return false;">Edit</a>
+					</apex:column>
+					<apex:column value="{!r.SAPProductCategory__c}" />
+					<apex:column value="{!r.SAPProductSubcategory__c}" />
+					<apex:column value="{!r.ProductCategory__c}" />
+					<apex:column value="{!r.ProductSubcategory__c}" />
+					<apex:column value="{!r.Type__c}" />
+				</apex:pageblocktable>
+			</apex:pageblock>
+		</apex:outputpanel>
+	</apex:form>
+</apex:page>

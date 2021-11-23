@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Days_to_End_of_FY__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( MONTH(Contract_Start_Date__c)&gt;6, DATE(YEAR(Contract_Start_Date__c)+1,06,30) - Contract_Start_Date__c, DATE(YEAR(Contract_Start_Date__c),06,30) - Contract_Start_Date__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Hidden Days to End of FY</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

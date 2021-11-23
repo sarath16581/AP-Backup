@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Default_Price_List_ID__c</fullName>
+    <description>Salesforce ID of default price list that should be populated on new quotes</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Salesforce ID of default price list that should be populated on new quotes</inlineHelpText>
+    <label>Default Price List ID</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

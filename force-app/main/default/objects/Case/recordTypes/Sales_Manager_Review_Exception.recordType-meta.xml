@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales_Manager_Review_Exception</fullName>
+    <active>true</active>
+    <businessProcess>Internal</businessProcess>
+    <description>Testing the special characters こんにちは1!@#$%^&amp;*(){}[]/</description>
+    <label>Sales Manager Review Exception</label>
+    <picklistValues>
+        <picklist>APT_Payment_Terms__c</picklist>
+        <values>
+            <fullName>14 days</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>21 days</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Area_Affected__c</picklist>
+        <values>
+            <fullName>Billing Accounts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Campaigns</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Individuals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Leads</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Organisations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reports %26 Dashboards</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CHASEnquiryType__c</picklist>
+        <values>
+            <fullName>Complaints %26 feedback</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivery issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mail redirection %26 hold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Missing or lost item</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Products %26 services</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Case_Reason__c</picklist>
+        <values>
+            <fullName>Campaign</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lead</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Organisations and Individuals</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Complaint__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Issue_Resolution__c</picklist>
+        <values>
+            <fullName>OPC Sales Exception Resolved</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Origin</picklist>
+        <values>
+            <fullName>Salesforce</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason</picklist>
+        <values>
+            <fullName>Other</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_Code__c</picklist>
+        <values>
+            <fullName>ENT1%2E4 %E2%80%93 Channel Shift</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OPC1%2E1 %E2%80%93 Product Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OPC1%2E2 - ABN Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OPC1%2E3 - Trade Before Contract Executed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OPC1%2E5 - Product Line Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OPC1%2E6 - Revenue Date</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OPC1%2E7 %E2%80%93 Remove ACV from Performance Results</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OPC1%2E8 - Lost Opportunity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TE1%2E1 %E2%80%93 Abnormalities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TE1%2E2 %E2%80%93 Liquidation%2FReceivership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TE1%2E3 %E2%80%93 Credit Block</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Refer_to_Third_Party__c</picklist>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Resolution_Result__c</picklist>
+        <values>
+            <fullName>Damaged %26 Missing Contents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delayed%2FLate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disputed delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Futile Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost in transit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>POD Provided</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Redirected%2FIntercept</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Resolution_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplicate case</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Service_Type__c</picklist>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tailgate</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Support_Query_Type__c</picklist>
+        <values>
+            <fullName>Access Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Collateral Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Password Reset</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Process Query</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Training</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Useability Query</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Support_Work_Type__c</picklist>
+        <values>
+            <fullName>Account Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Add</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approvals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ariba</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Authorisation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Calcs%2FPayments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contract List</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contract Trading</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Copy of Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Current</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Query</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Date</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extensions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hardcopy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Historical</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lodgement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mails</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Modify</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non Standard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcels</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renewal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales Lead</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salesforce</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Termination</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Terms and Conditions</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>CRM Incident</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CRM Query</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Data Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Process Query</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_and_Product__c</picklist>
+        <values>
+            <fullName>General Enquiry%7CDomestic Parcels</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Work_Type__c</picklist>
+        <values>
+            <fullName>Data or System Maintenance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Functionality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not yet classified</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Review of Existing Functionality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>User Support</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

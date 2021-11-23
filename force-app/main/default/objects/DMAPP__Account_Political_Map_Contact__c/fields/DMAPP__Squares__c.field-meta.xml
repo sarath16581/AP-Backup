@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Squares__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>MIN(6,
+(CASE(DMAPP__Status__c,
+&quot;Mentor&quot;, 3,
+&quot;Enemy&quot;, 3,
+&quot;Supporter&quot;, 2,
+&quot;Non-Supporter&quot;, 2,
+&quot;Neutral&quot;, 0,
+&quot;Unknown&quot;, 0,
+0))
++
+(CASE(DMAPP__Political__c,
+&quot;Inner Circle&quot;, 3,
+&quot;Political Structure&quot;, 2,
+&quot;Unknown&quot;, 0,
+&quot;Outside Political Structure&quot;, 0,
+0))
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Squares</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

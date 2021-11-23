@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Include_Courier_Language__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Adds Courier language to generated Short Form Contract - used as a part of conditional document generation in Templates</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Adds Courier language to generated Short Form Contract</inlineHelpText>
+    <label>Include Courier Language</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Other_Event</fullName>
+    <active>true</active>
+    <description>Event Message record type</description>
+    <label>StarTrack Other Event</label>
+    <picklistValues>
+        <picklist>Outside_Delivery_Radius__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Null</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Source_System__c</picklist>
+        <values>
+            <fullName>TEAM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TRACK %26 TRACE</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>StatusText__c</picklist>
+        <values>
+            <fullName>Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Valid</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warning</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

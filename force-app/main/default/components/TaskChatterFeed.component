@@ -1,0 +1,6 @@
+<apex:component >
+	<apex:attribute name="idx" type="string" description="Unique index for this component in the page" />
+	<apex:outputPanel >
+		<chatter:feed entityId="{!idx}" id="chatterFeed_id" showPublisher="false"/>
+	</apex:outputPanel>
+</apex:component>

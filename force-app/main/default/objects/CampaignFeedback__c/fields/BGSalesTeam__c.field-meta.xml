@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BGSalesTeam__c</fullName>
+    <externalId>false</externalId>
+    <label>B&amp;G Sales Team</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Enterprise</fullName>
+                <default>false</default>
+                <label>Enterprise</label>
+            </value>
+            <value>
+                <fullName>Intermediaries</fullName>
+                <default>false</default>
+                <label>Intermediaries</label>
+            </value>
+            <value>
+                <fullName>Key &amp; Strategic North 1</fullName>
+                <default>false</default>
+                <label>Key &amp; Strategic North 1</label>
+            </value>
+            <value>
+                <fullName>Key &amp; Strategic North 2</fullName>
+                <default>false</default>
+                <label>Key &amp; Strategic North 2</label>
+            </value>
+            <value>
+                <fullName>Key &amp; Strategic South 1</fullName>
+                <default>false</default>
+                <label>Key &amp; Strategic South 1</label>
+            </value>
+            <value>
+                <fullName>Key &amp; Strategic South 2</fullName>
+                <default>false</default>
+                <label>Key &amp; Strategic South 2</label>
+            </value>
+            <value>
+                <fullName>Medium Business NSW 1</fullName>
+                <default>false</default>
+                <label>Medium Business NSW 1</label>
+            </value>
+            <value>
+                <fullName>Medium Business NSW 2</fullName>
+                <default>false</default>
+                <label>Medium Business NSW 2</label>
+            </value>
+            <value>
+                <fullName>Medium Business NSW 3</fullName>
+                <default>false</default>
+                <label>Medium Business NSW 3</label>
+            </value>
+            <value>
+                <fullName>Medium Business NSW 4</fullName>
+                <default>false</default>
+                <label>Medium Business NSW 4</label>
+            </value>
+            <value>
+                <fullName>Medium Business QLD 1</fullName>
+                <default>false</default>
+                <label>Medium Business QLD 1</label>
+            </value>
+            <value>
+                <fullName>Medium Business QLD 2</fullName>
+                <default>false</default>
+                <label>Medium Business QLD 2</label>
+            </value>
+            <value>
+                <fullName>Medium Business SA/NT</fullName>
+                <default>false</default>
+                <label>Medium Business SA/NT</label>
+            </value>
+            <value>
+                <fullName>Medium Business VIC 1</fullName>
+                <default>false</default>
+                <label>Medium Business VIC 1</label>
+            </value>
+            <value>
+                <fullName>Medium Business VIC 2</fullName>
+                <default>false</default>
+                <label>Medium Business VIC 2</label>
+            </value>
+            <value>
+                <fullName>Medium Business VIC 3</fullName>
+                <default>false</default>
+                <label>Medium Business VIC 3</label>
+            </value>
+            <value>
+                <fullName>Medium Business VIC 4</fullName>
+                <default>false</default>
+                <label>Medium Business VIC 4</label>
+            </value>
+            <value>
+                <fullName>Medium Business WA</fullName>
+                <default>false</default>
+                <label>Medium Business WA</label>
+            </value>
+            <value>
+                <fullName>Non-Account Managed</fullName>
+                <default>false</default>
+                <label>Non-Account Managed</label>
+            </value>
+            <value>
+                <fullName>Small Business NSW 1</fullName>
+                <default>false</default>
+                <label>Small Business NSW 1</label>
+            </value>
+            <value>
+                <fullName>Small Business NSW 2</fullName>
+                <default>false</default>
+                <label>Small Business NSW 2</label>
+            </value>
+            <value>
+                <fullName>Small Business NSW 3</fullName>
+                <default>false</default>
+                <label>Small Business NSW 3</label>
+            </value>
+            <value>
+                <fullName>Small Business QLD 1</fullName>
+                <default>false</default>
+                <label>Small Business QLD 1</label>
+            </value>
+            <value>
+                <fullName>Small Business QLD 3</fullName>
+                <default>false</default>
+                <label>Small Business QLD 3</label>
+            </value>
+            <value>
+                <fullName>Small Business SA/NT/WA</fullName>
+                <default>false</default>
+                <label>Small Business SA/NT/WA</label>
+            </value>
+            <value>
+                <fullName>Small Business VIC 1</fullName>
+                <default>false</default>
+                <label>Small Business VIC 1</label>
+            </value>
+            <value>
+                <fullName>Small Business VIC 2</fullName>
+                <default>false</default>
+                <label>Small Business VIC 2</label>
+            </value>
+            <value>
+                <fullName>State &amp; Local Government NSW/QLD</fullName>
+                <default>false</default>
+                <label>State &amp; Local Government NSW/QLD</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

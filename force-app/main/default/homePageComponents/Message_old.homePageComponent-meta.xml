@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <body>&lt;div style=&quot;text-align: center;&quot;&gt;&lt;font class=&quot;Apple-style-span&quot; color=&quot;#ff0000&quot; size=&quot;5&quot;&gt;Welcome to your new Customer Relationship Management System!&lt;/font&gt;&lt;/div&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;&lt;font class=&quot;Apple-style-span&quot; size=&quot;2&quot;&gt; &lt;/font&gt;&lt;/div&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;&lt;font class=&quot;Apple-style-span&quot; size=&quot;4&quot;&gt;
+&lt;/font&gt;&lt;div&gt;Salesforce.com gives you the tool to best manage your customers.  The only way to ensure quality results is to input quality data. We encourage you to really own your data by keeping it accurate and up-to-date.&lt;/div&gt;
+&lt;div&gt;&lt;br&gt;&lt;/div&gt;
+&lt;div&gt; The first time you see the data it may look different to what you’re used to.  For guidance, click &lt;a href=&quot;&quot;&gt;here&lt;/a&gt;.&lt;/div&gt;&lt;/div&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;&lt;font class=&quot;Apple-style-span&quot; size=&quot;4&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;&lt;font class=&quot;Apple-style-span&quot; size=&quot;4&quot;&gt;If you&amp;#39;d like to review your open opportunities, click &lt;a href=&quot;&quot;&gt;here&lt;/a&gt;.&lt;/font&gt;&lt;/div&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;&lt;font class=&quot;Apple-style-span&quot; size=&quot;2&quot;&gt; &lt;/font&gt;&lt;/div&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;&lt;font class=&quot;Apple-style-span&quot; size=&quot;4&quot;&gt;To search for previously asked questions and their answers and check out the Quick Reference Guides,click &lt;a href=&quot;&quot;&gt;here&lt;/a&gt;.&lt;/font&gt;&lt;/div&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;&lt;font class=&quot;Apple-style-span&quot; size=&quot;4&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;</body>
+    <pageComponentType>htmlArea</pageComponentType>
+    <width>wide</width>
+</HomePageComponent>

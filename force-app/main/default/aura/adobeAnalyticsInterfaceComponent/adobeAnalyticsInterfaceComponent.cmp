@@ -1,0 +1,54 @@
+<!--
+    Generic component for pushing adobe analytics track events
+    NOTE: version 39.0 to bypass locker service to get access to global 'analytics' variable
+
+    These definitions should be set in the global scope (either in a community HEAD declaration or the calling visualforce page (with lightning out)
+    <script>
+        var analytics = {};
+        analytics.page = {};
+        analytics.page.pageData = {};
+        analytics.component = {};
+        analytics.component.form = {};
+        analytics.component.search = {};
+        analytics.user = {};
+        analytics.user.userData = {};
+        analytics.page.pageData.sitePrefix = "";
+        analytics.page.pageData.pageAbort = "true";
+        analytics.user.userData.apcn = '';
+        analytics.user.userData.loginStatus = 'anonymous';
+    </script>
+    <script src="//assets.adobedtm.com/bfecad1ae7e5d7a2b8a9353b2d496d9b392db768/satelliteLib-9c215febcba74f72ca4a2cc8370a7f4b70048c28.js"></script>
+
+    History:
+    2019-08-30 nathan.franklin@auspost.com.au Created
+    2021-09-29 phap.mai@auspost.com.au Added flag for page measurement event of error type, set this flag to true to fire an error event
+
+-->
+<aura:component description="adobeAnalyticsInterfaceComponent" controller="AdobeAnalyticsInterfaceCmpController" implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute access="public" name="sitePrefix" type="string" default="auspost:help and support" />
+    <aura:attribute access="public" name="trackCommunityLoggedInStatus" type="Boolean" default="true" />
+    <aura:attribute access="public" name="trackCommunityLoggedInAPCN" type="Boolean" default="true" />
+
+    <aura:attribute access="public" name="pageViewTracking" type="Boolean" default="true" />
+    <aura:attribute access="public" name="pageViewTrackingType" type="String" description="The value used in _satellite.track" default="helpsupport-form-navigate" />
+
+    <!--<aura:attribute access="public" name="pageViewComponentAttributes" type="String" description="The object used in analytics.component.x" default="{ form: { name: '', step: '', stage: '', detail: '', product: ''} } " />-->
+
+    <aura:attribute name="pageViewFormName" type="String" default="" />
+    <aura:attribute name="pageViewFormStep" type="String" default="" />
+    <aura:attribute name="pageViewFormStage" type="String" default="" />
+    <aura:attribute name="pageViewFormError" type="String" default="" />
+    <aura:attribute name="pageViewFormDetail" type="String" default="" />
+    <aura:attribute name="pageViewFormProduct" type="String" default="" />
+    <aura:attribute name="pageViewFormReferenceId" type="String" default="" />
+
+    <aura:attribute access="private" name="apcn" type="String" />
+    <aura:attribute access="private" name="isLoggedIn" type="Boolean" />
+    <aura:attribute access="private" name="isLoaded" type="Boolean" />
+
+    <!-- DDS-7455: flag for page measurement event of error type -->
+    <aura:attribute name="isPageMeasurementErrorEvent" type="Boolean" default="false"/>
+
+    <aura:handler event="c:adobeAnalyticsInterfaceEvent" action="{!c.handleAdobeAnalyticsEvent}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.initialise}"/>
+</aura:component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Reopen_Date</fullName>
+    <active>true</active>
+    <description>Ensures the reopen date is not in the past</description>
+    <errorConditionFormula>CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;)
+&amp;&amp;
+Case_Reopen_Date__c  &lt;=  NOW()
+&amp;&amp;
+ISBLANK(PRIORVALUE(Case_Reopen_Date__c))</errorConditionFormula>
+    <errorDisplayField>Subscribe__c</errorDisplayField>
+    <errorMessage>The Reopen date cannot be in the past</errorMessage>
+</ValidationRule>

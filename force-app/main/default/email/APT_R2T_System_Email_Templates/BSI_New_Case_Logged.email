@@ -1,0 +1,14 @@
+Dear BSI team, 
+
+Please note a new Salesforce Case has been created in your Case Queue for New Sub-Account request. 
+
+The Case No is {!Case.CaseNumber} 
+
+Your Action: 
+1.	Click on the Case ID link below: 
+{!Case.Link}
+2.	Access the Customer Account details in Salesforce via the link provided on the Case 
+3.	If multiple Credit Accounts requested you can use the “Export Account” capability on the Salesforce Organisation record to export the data and process to SAP ERP via your own macro method 
+4.	Create the Customer Sub-Account(s) in SAP ERP. 
+5.	Provide the SAP ERP Account Number on your Case or a spreadsheet and attach to your case 
+6.	Close your Case. A new Case will be raised for the next team (CDM) with the new Sub-Account Number(s) created in SAP ERP.

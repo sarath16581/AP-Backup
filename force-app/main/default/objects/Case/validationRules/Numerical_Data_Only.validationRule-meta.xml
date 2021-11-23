@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Numerical_Data_Only</fullName>
+    <active>true</active>
+    <description>Users can only enter a numerical data</description>
+    <errorConditionFormula>AND(  RecordType.DeveloperName = &quot;Sales_Ops_Delivery&quot;,
+NOT(
+ OR(
+  LEN ( Credit_Dispute_Number__c ) = 0,
+  ISNUMBER( Credit_Dispute_Number__c )
+ )
+)
+)</errorConditionFormula>
+    <errorDisplayField>Credit_Dispute_Number__c</errorDisplayField>
+    <errorMessage>Please only enter the eight digit SAP number</errorMessage>
+</ValidationRule>

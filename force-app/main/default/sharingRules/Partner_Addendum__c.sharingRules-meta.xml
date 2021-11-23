@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Partner_Info_RW_Access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Partner Info RW Access</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>PartnerInfo_National_RNP_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>PartnerInfo_National_RNP_Manager</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

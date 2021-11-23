@@ -1,0 +1,25 @@
+.THIS .comment-item{
+    padding: 15px;
+    margin-bottom: 15px;
+    }
+    .THIS .comment-item .slds-tile__title{
+        padding-top: 10px;
+        }
+    .THIS .comment-item .slds-avatar{
+        width: 45px;
+        height: 45px;
+        }
+    .THIS .comment-item .comment-body{
+        padding: 10px 10px 0 20px;
+        overflow: hidden;
+        word-wrap: break-word;
+        }
+    .THIS .comment-item .comment-bottom{
+        font-size: 0.8em;
+        }
+        /*Below code is commented on 14-08-2018 for Communities Ideas Detail Page for adjusting 
+          the Flag button image on the idea comments section.*/
+        .THIS .comment-item .comment-bottom img {
+            /*margin: 0 5px 7px 0;*/
+              margin: 0 1px 1px 0;
+            }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Record_Maintainer__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>The key details of the contact are kept up-to-date by this role.</inlineHelpText>
+    <label>Contact Maintained By</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Account Manager</fullName>
+                <default>false</default>
+                <label>Account Manager</label>
+            </value>
+            <value>
+                <fullName>Contact Centre</fullName>
+                <default>false</default>
+                <label>Contact Centre</label>
+            </value>
+            <value>
+                <fullName>Marketing</fullName>
+                <default>false</default>
+                <label>Marketing</label>
+            </value>
+            <value>
+                <fullName>SCO Partner</fullName>
+                <default>false</default>
+                <label>SCO Partner</label>
+            </value>
+            <value>
+                <fullName>Service Delivery</fullName>
+                <default>false</default>
+                <label>Service Delivery</label>
+            </value>
+            <value>
+                <fullName>Unmanaged</fullName>
+                <default>true</default>
+                <label>Unmanaged</label>
+            </value>
+            <value>
+                <fullName>BAM</fullName>
+                <default>false</default>
+                <label>Merchant Portal</label>
+            </value>
+            <value>
+                <fullName>Transaction</fullName>
+                <default>false</default>
+                <label>Transaction</label>
+            </value>
+            <value>
+                <fullName>Parcel Send</fullName>
+                <default>false</default>
+                <label>Parcel Send</label>
+            </value>
+            <value>
+                <fullName>Platform Partner Team</fullName>
+                <default>false</default>
+                <label>Platform Partner Team</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

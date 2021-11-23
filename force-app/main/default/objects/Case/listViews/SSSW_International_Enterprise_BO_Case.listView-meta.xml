@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_International_Enterprise_BO_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>SSSW International Enterprise BO</label>
+    <queue>SSSW_International_Enterprise_BO</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
+</ListView>

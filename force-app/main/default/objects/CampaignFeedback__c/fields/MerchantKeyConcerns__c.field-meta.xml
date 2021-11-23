@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MerchantKeyConcerns__c</fullName>
+    <externalId>false</externalId>
+    <label>Merchant Key Concerns</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Technical Cost / Complexity</fullName>
+                <default>false</default>
+                <label>Technical Cost / Complexity</label>
+            </value>
+            <value>
+                <fullName>Lower Postal Delivery Officer</fullName>
+                <default>false</default>
+                <label>Lower Postal Delivery Officer</label>
+            </value>
+            <value>
+                <fullName>PDO security concerns</fullName>
+                <default>false</default>
+                <label>PDO security concerns</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>3</visibleLines>
+</CustomField>

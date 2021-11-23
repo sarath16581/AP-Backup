@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Next_Step__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Related to the Sales Stage, this field identifies the next step required to be completed to progress the opportunity.</inlineHelpText>
+    <label>Next Step</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>StageName</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Update opportunity details</fullName>
+                <default>true</default>
+                <label>Update opportunity details</label>
+            </value>
+            <value>
+                <fullName>Identify and engage Specialist resources</fullName>
+                <default>false</default>
+                <label>Identify and engage Specialist resources</label>
+            </value>
+            <value>
+                <fullName>Prepare for initial customer meeting</fullName>
+                <default>false</default>
+                <label>Prepare for initial customer meeting</label>
+            </value>
+            <value>
+                <fullName>Contact internal resources to determine capabilities</fullName>
+                <default>false</default>
+                <label>Contact internal resources to determine capabilities</label>
+            </value>
+            <value>
+                <fullName>Confirm issues, needs and desired outcomes</fullName>
+                <default>false</default>
+                <label>Confirm issues, needs and desired outcomes</label>
+            </value>
+            <value>
+                <fullName>Identify opportunity risks and competitors</fullName>
+                <default>false</default>
+                <label>Identify opportunity risks and competitors</label>
+            </value>
+            <value>
+                <fullName>Engage internal resources to develop solution</fullName>
+                <default>false</default>
+                <label>Engage internal resources to develop solution</label>
+            </value>
+            <value>
+                <fullName>Determine Go/No Go decision</fullName>
+                <default>false</default>
+                <label>Determine Go/No Go decision</label>
+            </value>
+            <value>
+                <fullName>Develop proposal</fullName>
+                <default>false</default>
+                <label>Develop proposal</label>
+            </value>
+            <value>
+                <fullName>Refine proposal with internal stakeholders</fullName>
+                <default>false</default>
+                <label>Refine proposal with internal stakeholders</label>
+            </value>
+            <value>
+                <fullName>Present the proposal to the customer</fullName>
+                <default>false</default>
+                <label>Present the proposal to the customer</label>
+            </value>
+            <value>
+                <fullName>Obtain verbal agreement</fullName>
+                <default>false</default>
+                <label>Obtain verbal agreement</label>
+            </value>
+            <value>
+                <fullName>Prepare contract</fullName>
+                <default>false</default>
+                <label>Prepare contract</label>
+            </value>
+            <value>
+                <fullName>Negotiate to achieve alignment</fullName>
+                <default>false</default>
+                <label>Negotiate to achieve alignment</label>
+            </value>
+            <value>
+                <fullName>Seek assistance to close the deal</fullName>
+                <default>false</default>
+                <label>Seek assistance to close the deal</label>
+            </value>
+            <value>
+                <fullName>Finalise contract terms &amp; conditions</fullName>
+                <default>false</default>
+                <label>Finalise contract terms &amp; conditions</label>
+            </value>
+            <value>
+                <fullName>Present final contract to customer</fullName>
+                <default>false</default>
+                <label>Present final contract to customer</label>
+            </value>
+            <value>
+                <fullName>Confirm agreement with final contract terms</fullName>
+                <default>false</default>
+                <label>Confirm agreement with final contract terms</label>
+            </value>
+            <value>
+                <fullName>Sign contract</fullName>
+                <default>false</default>
+                <label>Sign contract</label>
+            </value>
+            <value>
+                <fullName>Review outcome and lesson&apos;s learnt</fullName>
+                <default>false</default>
+                <label>Review outcome and lesson&apos;s learnt</label>
+            </value>
+            <value>
+                <fullName>Commence implementation</fullName>
+                <default>false</default>
+                <label>Commence implementation</label>
+            </value>
+            <value>
+                <fullName>No further action</fullName>
+                <default>false</default>
+                <label>No further action</label>
+            </value>
+            <value>
+                <fullName>Revisit opportunity in 6 months</fullName>
+                <default>false</default>
+                <label>Revisit opportunity in 6 months</label>
+            </value>
+            <value>
+                <fullName>Revisit opportunity in 12 months</fullName>
+                <default>false</default>
+                <label>Revisit opportunity in 12 months</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Identify</controllingFieldValue>
+            <valueName>Update opportunity details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Identify</controllingFieldValue>
+            <valueName>Identify and engage Specialist resources</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Identify</controllingFieldValue>
+            <valueName>Prepare for initial customer meeting</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Identify</controllingFieldValue>
+            <valueName>Contact internal resources to determine capabilities</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Qualify</controllingFieldValue>
+            <valueName>Confirm issues, needs and desired outcomes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Qualify</controllingFieldValue>
+            <valueName>Identify opportunity risks and competitors</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Qualify</controllingFieldValue>
+            <valueName>Engage internal resources to develop solution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Qualify</controllingFieldValue>
+            <valueName>Determine Go/No Go decision</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <controllingFieldValue>Closed Disqualified</controllingFieldValue>
+            <controllingFieldValue>Closed Duplicate</controllingFieldValue>
+            <valueName>No further action</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <controllingFieldValue>Closed Disqualified</controllingFieldValue>
+            <controllingFieldValue>Closed Duplicate</controllingFieldValue>
+            <valueName>Revisit opportunity in 6 months</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <controllingFieldValue>Closed Disqualified</controllingFieldValue>
+            <controllingFieldValue>Closed Duplicate</controllingFieldValue>
+            <valueName>Revisit opportunity in 12 months</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Propose</controllingFieldValue>
+            <valueName>Develop proposal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Propose</controllingFieldValue>
+            <valueName>Refine proposal with internal stakeholders</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Propose</controllingFieldValue>
+            <valueName>Present the proposal to the customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Propose</controllingFieldValue>
+            <valueName>Obtain verbal agreement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Negotiate</controllingFieldValue>
+            <valueName>Prepare contract</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Negotiate</controllingFieldValue>
+            <valueName>Negotiate to achieve alignment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Negotiate</controllingFieldValue>
+            <valueName>Seek assistance to close the deal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Negotiate</controllingFieldValue>
+            <valueName>Finalise contract terms &amp; conditions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Negotiate</controllingFieldValue>
+            <valueName>Present final contract to customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Negotiate</controllingFieldValue>
+            <valueName>Confirm agreement with final contract terms</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Negotiate</controllingFieldValue>
+            <valueName>Sign contract</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Won</controllingFieldValue>
+            <valueName>Review outcome and lesson&apos;s learnt</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Won</controllingFieldValue>
+            <valueName>Commence implementation</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

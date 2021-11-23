@@ -1,0 +1,85 @@
+.postage-service__section {
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-flex-direction: column;
+			-ms-flex-direction: column;
+			-moz-flex-direction: column;
+			-o-flex-direction: column;
+			flex-direction: column;
+			box-sizing: border-box;
+			color: #382f2d
+		}
+		.postage-service__section--name {
+				width: 50%
+			}
+		.postage-service__section__name-label {
+			font-family: ap_letter, Helvetica, Arial, sans-serif;
+			padding-top: 20px;
+			padding-bottom: 8px;
+			font-size: 1.3em;
+			font-weight:bold;
+		}
+		.postage-service__section__weight {
+			padding-left: 15px;
+			font-size: 1.4285714286em;
+			padding-bottom: 30px;
+			padding-right: 10px
+		}
+		.postage-service__section--deliverytime {
+				width: 35%;
+				border-left: 1px solid #f3f1ee
+			}
+			.postage-service__section--missingItem {
+				width: 35%;
+				border-left: 1px solid #f3f1ee;
+				padding-top:32px;
+			}	
+		.postage-service__section__delivery-time-label {
+				
+				padding-top: 25px;				
+				padding-bottom: 8px;
+				padding-top: 15px;
+				color: #807370;
+				font-size: 1em;
+				
+			}
+		.postage-service__section__deliverytime {
+			padding-left: 15px;
+			padding-bottom: 10px;
+			font-size: 1.3em;			
+		}
+		.postage-service__section__delivery-time-label,
+		.postage-service__section__name-label {
+			padding-left: 15px
+		}
+		
+		.postage-service__section__weight {
+			padding-left: 15px;
+			font-size: 1.4285714286em
+		}
+		
+		.postage-service__section__weight {
+			padding-bottom: 5px;			
+			color: #807370;
+			font-size: 1.0714285714em
+		}
+		
+		#tableId tr{
+			background-color: #fff;
+			margin-bottom: 20px;
+			width: 100%;
+			border-radius: 3px;
+			border: 1px solid #e2dfda;
+			border-top: 5px solid #ffd200;
+			border-radius: 3px;
+			display: -webkit-flex;
+			}
+		#tableId{
+			width:100%;
+		}
+		#tableId td{
+			width: 50%;
+			padding-right: 50px;
+			white-space: nowrap;
+		}

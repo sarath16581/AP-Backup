@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Duplicate Lead: (to be used for lead status – Duplicate)</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Lead Seeker - Duplicate Lead</name>
+    <style>none</style>
+    <subject>Seeker Rewards Program – Duplicate lead {!Lead.Lead_Number__c} for {!Lead.Company}</subject>
+    <textOnly>Dear {!Lead.First_Name_Formula__c},
+
+Thank you for submitting a new business lead.
+
+They say great minds think alike... unfortunately that means one of your equally clever (and speedy!) colleagues spotted the same lead and has already submitted it before you. Your lead has now been closed as ‘Duplicate’.
+
+This means we can’t allocate you any reward points on this occasion. But please don’t be disheartened. There are leads all around us and you clearly know how to spot them! So please keep them coming for your chance to earn points.
+
+Of course if you want any hot tips on hunting down leads, login to the Seeker website and browse the many great resources.
+
+Thanks again for your participation. Every lead is valuable and we look forward to receiving another lead from you soon!
+
+Regards,
+The Seeker Team
+
+
+
+Terms &amp; conditions | Privacy policy | Security
+
+
+
+
+
+Contact us: If this email has been incorrectly sent to you or the information contained within isn’t correct, please let us know at seekerrewards@auspost.com.au
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

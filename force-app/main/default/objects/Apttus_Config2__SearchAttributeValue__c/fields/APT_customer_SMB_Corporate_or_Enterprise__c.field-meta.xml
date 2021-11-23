@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_customer_SMB_Corporate_or_Enterprise__c</fullName>
+    <externalId>false</externalId>
+    <label>Customer SMB, Corporate or Enterprise?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>SMB Customer</fullName>
+                <default>false</default>
+                <label>SMB Customer</label>
+            </value>
+            <value>
+                <fullName>Enterprise Customer</fullName>
+                <default>false</default>
+                <label>Enterprise Customer</label>
+            </value>
+            <value>
+                <fullName>- - Select Option - -</fullName>
+                <default>false</default>
+                <label>- - Select Option - -</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

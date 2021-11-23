@@ -1,0 +1,237 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+xmlns:mv="http://macVmlSchemaUri" xmlns="http://www.w3.org/TR/REC-html40">
+
+
+<body bgcolor=white lang=EN-AU style='tab-interval:36.0pt'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal><span lang=EN-US style='mso-bidi-font-family:"Times New Roman";
+mso-ansi-language:EN-US'>&nbsp;</span><span style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal align=right style='margin-bottom:11.0pt;text-align:right;
+line-height:11.0pt'><span lang=EN-US style='font-size:10.0pt;font-family:Arial;
+letter-spacing:-.25pt;mso-ansi-language:EN-US'><img width=117 height=34
+id="Picture_x0020_6"
+src="https://auspost--stserviced--c.cs5.content.force.com/servlet/servlet.ImageServer?id=015O0000000J172&oid=00DO00000052lWv&lastMod=1440554365000"></span><span
+style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-bottom:11.0pt;text-align:justify'><span
+lang=EN-US style='font-family:Arial;letter-spacing:-.25pt;mso-ansi-language:
+EN-US'>
+
+{!APR__c.CreatedDate}
+
+<span style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-US
+style='font-family:Arial;mso-ansi-language:EN-US'>&nbsp;</span><span
+style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-family:Arial;color:black;
+mso-ansi-language:EN-US'>&nbsp;</span><span style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='font-family:Arial;color:black;
+mso-ansi-language:EN-US'>
+
+Dear {!APR_Contact__c.Contact__c}
+
+<span style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><b><span lang=EN-US
+style='font-family:Arial;mso-ansi-language:EN-US'>&nbsp;</span></b><span
+style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span style='mso-bidi-font-family:
+"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:-.05pt;margin-bottom:
+6.0pt;margin-left:0cm;text-align:justify'><span lang=EN-US style='font-family:
+Arial;mso-ansi-language:EN-US'>
+
+We have completed our annual price review in accordance with our terms and conditions. An increase of {!APR__c.Confirmed_Rate__c}% will apply to all quoted rates with effect from the billing week inclusive of {!APR__c.Confirmed_Date__c}
+
+<span style='mso-bidi-font-family: "Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:-.05pt;margin-bottom:
+6.0pt;margin-left:0cm;text-align:justify'><span lang=EN-US style='font-family:
+Arial;mso-ansi-language:EN-US'>In the previous two years, quoted rates
+increased by 4.9% and 4.4% respectively and we are pleased to continue this
+trend of reduced rate adjustments. Your revised quoted rates will remain in
+place for a period of twelve months. </span><span style='mso-bidi-font-family:
+"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:-.05pt;margin-bottom:
+6.0pt;margin-left:0cm;text-align:justify'><span class=SpellE><span lang=EN-US
+style='font-family:Arial;mso-ansi-language:EN-US'>StarTrack</span></span><span
+lang=EN-US style='font-family:Arial;mso-ansi-language:EN-US'> will continue to
+make every effort to improve operational efficiency and service quality to
+ensure we provide you with the best express freight and logistics services in
+the industry. </span><span style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:-.05pt;margin-bottom:
+0cm;margin-left:0cm;margin-bottom:.0001pt;text-align:justify'><span lang=EN-US
+style='font-family:Arial;mso-ansi-language:EN-US'>Please don’t hesitate to
+contact your Account Manager if you require any further information.</span><span
+style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;text-align:justify;line-height:
+150%'><span lang=EN-US style='font-family:Arial;mso-ansi-language:EN-US'>Thank
+you for your ongoing loyalty and support.</span><span style='mso-bidi-font-family:
+"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-US
+style='font-family:Arial;mso-ansi-language:EN-US'>&nbsp;</span><span
+style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span style='mso-bidi-font-family:
+"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-US
+style='font-family:Arial;mso-ansi-language:EN-US'>&nbsp;</span><span
+style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-US
+style='font-family:Arial;mso-ansi-language:EN-US'>Yours faithfully</span><span
+style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-US
+style='font-family:Arial;mso-ansi-language:EN-US'>&nbsp;</span><span
+style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-US
+style='font-size:10.0pt;font-family:Arial;mso-ansi-language:EN-US'><img
+width=121 height=36 id="Picture_x0020_1"
+src="https://auspost--stserviced--c.cs5.content.force.com/servlet/servlet.ImageServer?id=015O0000000J17M&oid=00DO00000052lWv&lastMod=1440554559000"></span><span
+style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-US
+style='font-family:Arial;mso-ansi-language:EN-US'>&nbsp;</span><span
+style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-right:-.05pt;text-align:justify'><b><span
+lang=EN-US style='font-family:Arial;mso-ansi-language:EN-US'>George <span
+class=SpellE>Pilovski</span><o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-top:0cm;margin-right:-.05pt;margin-bottom:
+9.0pt;margin-left:0cm'><b><span lang=EN-US style='font-family:Arial;mso-ansi-language:
+EN-US'>Head of Pricing</span></b><span style='mso-bidi-font-family:
+"Times New Roman"'><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-right:-.05pt;text-align:justify'><b><span
+lang=EN-US style='font-family:Arial;mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=MsoNormal style='margin-right:-.05pt;text-align:justify'><span
+style='mso-bidi-font-family:"Times New Roman"'><o:p>&nbsp;</o:p></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 align=left
+ width=342 style='width:342.0pt;border-collapse:collapse;mso-yfti-tbllook:1184;
+ margin-left:-3.0pt;margin-right:-3.0pt;mso-table-anchor-vertical:paragraph;
+ mso-table-anchor-horizontal:column;mso-table-left:left;mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid'>
+  <td width=150 valign=top style='width:149.7pt;padding:0cm 21.25pt 1.4pt 0cm'>
+  <p class=MsoNormal style='line-height:8.5pt;mso-element:frame;mso-element-wrap:
+  around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
+  column;mso-height-rule:exactly'><span class=SpellE><span lang=EN-US
+  style='font-size:7.0pt;font-family:Arial;mso-ansi-language:EN-US'>StarTrack</span></span><span
+  style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  <p class=MsoNormal style='line-height:8.5pt;mso-element:frame;mso-element-wrap:
+  around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
+  column;mso-height-rule:exactly'><span lang=EN-US style='font-size:7.0pt;
+  font-family:Arial;mso-ansi-language:EN-US'>219-241 Cleveland Street</span><span
+  style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  <p class=MsoNormal style='margin-bottom:6.0pt;line-height:8.5pt;mso-element:
+  frame;mso-element-wrap:around;mso-element-anchor-vertical:paragraph;
+  mso-element-anchor-horizontal:column;mso-height-rule:exactly'><span
+  lang=EN-US style='font-size:7.0pt;font-family:Arial;mso-ansi-language:EN-US'>Strawberry
+  Hills NSW 2010</span><span style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+  <td width=166 nowrap valign=top style='width:166.05pt;padding:0cm 0cm 1.4pt 0cm'>
+  <p class=MsoNormal style='line-height:8.5pt;mso-element:frame;mso-element-wrap:
+  around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
+  column;mso-height-rule:exactly'><span lang=EN-US style='font-size:7.0pt;
+  font-family:Arial;color:#003359;mso-ansi-language:EN-US'>T:</span><span
+  lang=EN-US style='font-size:7.0pt;font-family:Arial;mso-ansi-language:EN-US'>
+  13 2345</span><span style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  <p class=MsoNormal style='line-height:8.5pt;mso-element:frame;mso-element-wrap:
+  around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
+  column;mso-height-rule:exactly'><span lang=EN-US style='font-size:7.0pt;
+  font-family:Arial;color:#003359;mso-ansi-language:EN-US'>W:</span><span
+  lang=EN-US style='font-size:7.0pt;font-family:Arial;mso-ansi-language:EN-US'>
+  auspost.com.au | startrack.com.au</span><span style='mso-bidi-font-family:
+  "Times New Roman"'><o:p></o:p></span></p>
+  </td>
+  <td width=26 valign=top style='width:26.25pt;padding:0cm 0cm 1.4pt 0cm'>
+  <p class=MsoNormal align=right style='margin-bottom:12.0pt;text-align:right;
+  line-height:8.5pt;mso-element:frame;mso-element-wrap:around;mso-element-anchor-vertical:
+  paragraph;mso-element-anchor-horizontal:column;mso-height-rule:exactly'><span
+  lang=EN-US style='font-size:7.0pt;font-family:"AP Letter";mso-bidi-font-family:
+  "Times New Roman";color:#003359;mso-ansi-language:EN-US'><br
+  style='mso-special-character:line-break'>
+  <![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+  <![endif]></span><span style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;page-break-inside:avoid'>
+  <td width=342 colspan=3 valign=top style='width:342.0pt;padding:0cm 21.25pt 1.4pt 0cm'>
+  <p class=MsoNormal style='margin-bottom:4.5pt;line-height:8.5pt;mso-element:
+  frame;mso-element-wrap:around;mso-element-anchor-vertical:paragraph;
+  mso-element-anchor-horizontal:column;mso-height-rule:exactly'><span
+  lang=EN-US style='font-size:7.0pt;font-family:Arial;color:#003359;mso-ansi-language:
+  EN-US'>Star Track Express Pty <span class=GramE>Limited&nbsp; ABN</span> 44
+  001 227 890&nbsp; Trading as <span class=SpellE>StarTrack</span></span><span
+  style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  <p class=MsoNormal style='line-height:8.5pt;mso-element:frame;mso-element-wrap:
+  around;mso-element-anchor-vertical:paragraph;mso-element-anchor-horizontal:
+  column;mso-height-rule:exactly'><span class=SpellE><span lang=EN-US
+  style='font-size:7.0pt;font-family:Arial;color:#003359;mso-ansi-language:
+  EN-US'>StarTrack</span></span><span lang=EN-US style='font-size:7.0pt;
+  font-family:Arial;color:#003359;mso-ansi-language:EN-US'> is a business of
+  Australia Post</span><span style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US style='mso-bidi-font-family:"Times New Roman";
+mso-ansi-language:EN-US'>&nbsp;<span style='mso-no-proof:yes'>
+
+<!--[if gte vml 1]><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1027" type="#_x0000_t75"
+ style='width:109pt;height:54pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="https://auspost--stserviced.cs5.my.salesforce.com/015O0000000J17g"/>
+</v:shape><![endif]-->
+
+<![if !vml]>
+
+<img width=111 height=56
+src="https://auspost--stserviced--c.cs5.content.force.com/servlet/servlet.ImageServer?id=015O0000000J17g&oid=00DO00000052lWv&lastMod=1440554595000"><![endif]></span></span><span
+style='mso-bidi-font-family:"Times New Roman"'><o:p></o:p></span></p>
+
+</div>
+
+</body>
+
+</html>

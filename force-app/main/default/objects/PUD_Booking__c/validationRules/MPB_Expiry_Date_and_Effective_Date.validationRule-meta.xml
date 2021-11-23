@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MPB_Expiry_Date_and_Effective_Date</fullName>
+    <active>true</active>
+    <description>The Effective and Expiry dates must be the same on My Post Business pickup bookings, as MPB bookings are for a single job only.</description>
+    <errorConditionFormula>AND( RecordType.DeveloperName = &apos;MPB_Pickup&apos;,
+     OR( ISBLANK( Expiry_Date__c ),
+         Effective_Date__c !=  Expiry_Date__c
+     )
+)</errorConditionFormula>
+    <errorMessage>The Effective and Expiry dates must be the same on My Post Business pickup bookings.</errorMessage>
+</ValidationRule>

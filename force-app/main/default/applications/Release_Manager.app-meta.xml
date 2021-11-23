@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>standard-home</defaultLandingTab>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>Release Manager</label>
+    <tabs>standard-Chatter</tabs>
+    <tabs>Drop__c</tabs>
+    <tabs>Drop_Run_List__c</tabs>
+    <tabs>Requirement__c</tabs>
+    <tabs>Configuration_updates__c</tabs>
+    <tabs>APR_Contact__c</tabs>
+    <tabs>APR__c</tabs>
+    <tabs>APT_Charge_Code__c</tabs>
+    <tabs>APT_Sub_Account__c</tabs>
+    <tabs>et4ae5__Configuration__c</tabs>
+    <tabs>Apttus_Config2__ConfigSettings__c</tabs>
+    <tabs>et4ae5__Business_Unit__c</tabs>
+    <tabs>SAM_Admin1</tabs>
+</CustomApplication>

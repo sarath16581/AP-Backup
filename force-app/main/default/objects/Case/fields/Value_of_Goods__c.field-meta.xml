@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Value_of_Goods__c</fullName>
+    <externalId>false</externalId>
+    <label>Value of Goods</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>0 - $1500</fullName>
+                <default>false</default>
+                <label>0 - $1500</label>
+            </value>
+            <value>
+                <fullName>$1500+ - $10k</fullName>
+                <default>false</default>
+                <label>$1500+ - $10k</label>
+            </value>
+            <value>
+                <fullName>$10k+</fullName>
+                <default>false</default>
+                <label>$10k+</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

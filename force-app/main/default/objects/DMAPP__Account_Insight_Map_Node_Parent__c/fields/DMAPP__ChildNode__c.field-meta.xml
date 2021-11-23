@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__ChildNode__c</fullName>
+    <deleteConstraint>Cascade</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Account Insight Map Child Node</label>
+    <referenceTo>DMAPP__Account_Insight_Map_Node__c</referenceTo>
+    <relationshipLabel>Account Insight Map Node Parents</relationshipLabel>
+    <relationshipName>AccountInsightMapParents</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

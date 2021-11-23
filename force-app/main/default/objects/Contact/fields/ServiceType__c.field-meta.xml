@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ServiceType__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Account.IsVIP__c, IMAGE(&quot;/resource/SSSWIcons/vip.png&quot;, &quot;VIP&quot;, 16, 16), 
+IF(Account.IsPersonAccount, IMAGE(&quot;/resource/SSSWIcons/icon-segment_consumer_24px.png&quot;, &quot;Consumer&quot;, 16, 16), 
+IF( AND( NOT(ISBLANK(Account.Role_Type_Roll_Up__c)), Account.Role_Type_Roll_Up__c ==&apos;Customer&apos;), 
+IF( Text(Account.ServiceSLA__c) == &apos;Enterprise&apos;, IMAGE(&quot;/resource/SSSWIcons/icon-segment_enterprise_24px.png&quot;, &quot;Enterprise&quot;, 16, 16), 
+IMAGE(&quot;/resource/SSSWIcons/icon-segment_smb_24px.png&quot;, &quot;SMB&quot;, 16, 16)) , 
+IF( Account.CreatorProfile__c == &apos;SSSW Social Integration&apos;, IMAGE(&quot;/resource/SSSWIcons/icon-segment_social_24px.png&quot;, &quot;Social&quot;, 16, 16), 
+IMAGE(&quot;/resource/SSSWIcons/icon-segment_smb_consumer_24px.png&quot;, &quot;ConsumerSMB&quot;, 16, 16)) )))</formula>
+    <label>Service Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

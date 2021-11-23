@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Enquiry_Type_Error__c</fullName>
+    <description>StarTrack error message when case type is not shortage and the user is using the consignment shortage PA.</description>
+    <externalId>false</externalId>
+    <label>Case Type Error</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

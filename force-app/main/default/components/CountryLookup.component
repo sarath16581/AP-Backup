@@ -1,0 +1,54 @@
+<apex:component controller="CountryLookupController">
+	<apex:attribute name="onselect"
+		description="the callback function name" type="string"
+		required="false" />
+	<apex:attribute name="styleClass"
+		description="the CSS class name to attached the autocomplete"
+		type="string" required="true" />
+		<apex:attribute name="display" type="string" description="user 'postcode' for postcode, 'suburb' for suburb or 'both' for user entered " />
+	<script type="text/javascript">
+		var j$ = jQuery.noConflict();
+
+		var countryCache_{!id} = {};
+		
+		var countryCache_{!id}_autocompleteSettings = {
+			    minLength: 2,
+			    source: function (request, response) {
+			        if(request.term in countryCache_{!id}){
+			        	response(countryCache_{!id}[request.term]);
+			        } else {
+				        CountryLookupController.getData('{!display}', request.term, function(result, event) {
+							if(event.type == 'exception') {
+								alert(event.message);
+							} else {
+								countryCache_{!id}[request.term] = result;
+								response(result);
+							}
+				        });
+				   	}
+			    },
+			    select: function (event, ui) {
+			        
+			        // added by shengpeng.xiao@bluewolf.com at 2014.7.21 start
+			        // as this component used in other places, add special situation branch
+			        if(j$(this).hasClass("formatvalue")) {
+			        	ui.item.value = ui.item.postcode + ' - ' + ui.item.suburb;
+			        }
+			        // added by shengpeng.xiao@bluewolf.com at 2014.7.21 end
+			        
+			        j$(this).val(ui.item.value);
+			        countryCache_callBackFunction(this, {!IF(ISBLANK(onselect), 'null', onselect)}, ui.item);
+			    }
+			};
+
+		function countryCache_callBackFunction(el, callbackFunctionName, selected) {
+			if (callbackFunctionName != null) {
+				callbackFunctionName(el, selected);
+			}
+		}
+		
+		j$(function() {
+			j$(".{!styleClass}").autocomplete(countryCache_{!id}_autocompleteSettings);
+		});
+	</script>
+</apex:component>

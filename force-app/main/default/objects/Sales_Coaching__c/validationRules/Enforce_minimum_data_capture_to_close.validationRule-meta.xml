@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Enforce_minimum_data_capture_to_close</fullName>
+    <active>true</active>
+    <description>Ensure integrity of data capture for Sales coaching records when closed</description>
+    <errorConditionFormula>AND( 
+ISPICKVAL(Status__c,&apos;Closed&apos;), 
+OR(ISPICKVAL(ActivityType__c,&apos;&apos;), 
+ISBLANK(Score__c), 
+ISBLANK(Description__c), 
+ISBLANK(CompletedDate__c), 
+AND(ISPICKVAL(ActivityType__c,&apos;In Field observation&apos;), 
+ISPICKVAL(SubActivityType__c,&apos;&apos;)) 
+) 
+)</errorConditionFormula>
+    <errorMessage>The following fields must be selected before closing &quot;Activity Type, Score, Completed date, Description and Sub Activity Type (If Activity Type is &quot;In Field observation&quot;).</errorMessage>
+</ValidationRule>

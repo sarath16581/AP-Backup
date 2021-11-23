@@ -1,0 +1,267 @@
+<!--
+18-Nov-2020 - Ranjeewa Silva - Updated to display new 'SocialPostTags__c' field on the page.
+-->
+<apex:page standardController="SSSWRouting__c"
+           extensions="SSSWRoutingController" showHeader="false" sideBar="false" id="thePage">
+    <!-- <apex:includeScript value="{!$Resource.jQuery111}"/> -->
+    <!-- <apex:includeScript value="{!$Resource.bootstrapJS}"/> -->
+    <!-- <apex:stylesheet value="{!$Resource.bootstrapCSS}"/> -->
+    <c:ScriptLoader jsLibraries="jquery,jqueryui,bootstrap"
+						cssLibraries="jqueryui,ssswconsole,bootstrap, bootstrapTheme" />
+    <!-- <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}"/> -->
+    <!-- <apex:stylesheet value="{!$Resource.SSSWCSS}"/> -->
+    <script src="../../soap/ajax/38.0/connection.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //This JS was written to ensure we are only pulling the picklist values for the SSSW record types
+        //which at the time of writing, cannot be done with apex. We are pulling ALL the valies from apex, removing
+        //them, then adding in just the ones aligned with the recordtype.
+        jQuery(document).ready(function () {
+            //Set the session
+            sforce.connection.sessionId = '{!GETSESSIONID()}';
+            var rTypeIds = new Array('{!caseRecordTypeId}');
+            //Call describeLayout with the SSSW General Enquiry record type to get the related picklist values
+            var caseresult = sforce.connection.describeLayout('Case', null, rTypeIds);
+            console.log(caseresult);
+            //call out pickListValues function to build our lists.
+            var rTypeMap = new pickListValues(caseresult.recordTypeMappings);
+            console.log(rTypeMap);
+            //loop through the picklist values on the page and if they do not match those provided, remove them.
+            //Commented below line so as to show all Origin
+            //removePickVals(document.getElementById('{!$Component.thePage.theForm.pbEditForm.theCriteria.originPickList.originOptions}'), 'origin');
+        	/*
+            removePickVals(document.getElementById('{!$Component.thePage.theForm.pbEditForm.theCriteria.statusPickList.statusOptions}'), 'status');
+            removePickVals(document.getElementById('{!$Component.thePage.theForm.pbEditForm.theCriteria.customerTypePicklist.txtCustomerQueueType}'), 'customerQueueType');
+            removePickVals(document.getElementById('{!$Component.thePage.theForm.pbEditForm.theCriteria.productCategoryPicklist.txtProductCategory}'), 'productCategory');
+            removePickVals(document.getElementById('{!$Component.thePage.theForm.pbEditForm.theCriteria.enquiryTypePicklist.txtenquiryType}'), 'enquiryType');
+            removePickVals(document.getElementById('{!$Component.thePage.theForm.pbEditForm.theCriteria.productSubCategoryPicklist.txtProductSubCategory}'), 'productSubCategory');
+            removePickVals(document.getElementById('{!$Component.thePage.theForm.pbEditForm.theCriteria.enquirySubTypePicklist.txtEnquirySubType}'), 'enquirySubType');
+            */
+            function removePickVals(optionFieldSelector, fieldName) {
+                var valsToAdd = new Array();
+                var selectedString = '';
+                //Work out what field we are working with
+                switch (fieldName) {
+                    case 'origin':
+                        valsToAdd = rTypeMap.origin;
+                        selectedString = '{!origin}';
+                        break;
+                    case 'status':
+                        valsToAdd = rTypeMap.status;
+                        selectedString = '{!status}';
+                        break;
+                    case 'customerQueueType':
+                        valsToAdd = rTypeMap.customerQueueType;
+                        selectedString = '{!customerQueueType}';
+                        break;
+                    case 'productCategory':
+                        valsToAdd = rTypeMap.productCategory;
+                        selectedString = '{!productCategory}';
+                        break;
+                    case 'enquiryType':
+                        valsToAdd = rTypeMap.enquiryType;
+                        selectedString = '{!enquiryType}';
+                        break;
+                    case 'productSubCategory':
+                        valsToAdd = rTypeMap.productSubCategory;
+                        selectedString = '{!productSubCategory}';
+                        break;
+                    case 'enquirySubType':
+                        valsToAdd = rTypeMap.enquirySubType;
+                        selectedString = '{!enquirySubType}';
+                        break;
+                }
+                //Remove all the picklist values to begin with, except the default of none.
+                for (var z = optionFieldSelector.length - 1; optionFieldSelector.length > 1; z--) {
+                    if (optionFieldSelector.options[z].innerHTML != "--None--") {
+                        optionFieldSelector.options.remove(z);
+                    }
+                }
+                //Create the new picklist values based on what was retrieved from the API
+                for (var i = 0; i < valsToAdd.length; i++) {
+                    var opt = document.createElement('option');
+                    opt.value = valsToAdd[i].value;
+                    opt.innerHTML = valsToAdd[i].label;
+                    optionFieldSelector.appendChild(opt);
+                }
+                //Ensure that any existing option is selected.
+                console.log(selectedString);
+                optionFieldSelector.value = selectedString;
+            }
+
+            //Construct an object with all the picklist values we need.
+            function pickListValues(caseDescribe) {
+                for (var i = 0; i < caseDescribe.picklistsForRecordType.length; i++) {
+                    if (caseDescribe.picklistsForRecordType[i].picklistName == 'Origin') {
+                        this.origin = caseDescribe.picklistsForRecordType[i].picklistValues;
+                    }
+                    if (caseDescribe.picklistsForRecordType[i].picklistName == 'ProductCategory__c') {
+                        this.productCategory = caseDescribe.picklistsForRecordType[i].picklistValues;
+                    }
+                    if (caseDescribe.picklistsForRecordType[i].picklistName == 'ProductSubCategory__c') {
+                        this.productSubCategory = caseDescribe.picklistsForRecordType[i].picklistValues;
+                    }
+                    if (caseDescribe.picklistsForRecordType[i].picklistName == 'CustomerQueueType__c') {
+                        this.customerQueueType = caseDescribe.picklistsForRecordType[i].picklistValues;
+                    }
+                    if (caseDescribe.picklistsForRecordType[i].picklistName == 'Type') {
+                        this.enquiryType = caseDescribe.picklistsForRecordType[i].picklistValues;
+                    }
+                    if (caseDescribe.picklistsForRecordType[i].picklistName == 'EnquirySubType__c') {
+                        this.enquirySubType = caseDescribe.picklistsForRecordType[i].picklistValues;
+                    }
+                    if (caseDescribe.picklistsForRecordType[i].picklistName == 'Status') {
+                        this.status = caseDescribe.picklistsForRecordType[i].picklistValues;
+                    }
+                }
+            }
+        });
+        // function closeIframe() {
+        //   window.parent.document.getElementById('dialog1').style.display="none";
+           //parent.location.reload();
+        // }
+    </script>
+    <apex:form id="theForm">
+        <c:LoadingSpinnerComponent showFunctionName="routingShowProgress" hideFunctionName="routingHideProgress"/>
+        <apex:pageblock id="pbEditForm" title="{!IF(newRoute != 'true', 'Edit Rule ' + sequenceNo, 'Create new Rule')}">
+            <!--
+            <apex:outputLink value="/{!selRouting.Id}" target="_blank">{!selRouting.Id}</apex:outputLink >
+            -->
+            <span>
+                Last modified by <b>{!selRouting.LastModifiedBy.FirstName} {!selRouting.LastModifiedBy.LastName}</b> at
+                &nbsp;<apex:outputField value="{!selRouting.LastModifiedDate}"/>
+            </span>
+            <apex:pageMessages id="msg"/>
+            <apex:pageblocksection columns="2" title="Match" id="block2">
+                <!-- <apex:inputfield value="{!selRouting.Match_By__c}"
+                                 styleClass="form-control input-sm maxWidth" required="true"/> -->
+                <apex:inputfield value="{!selRouting.Match_Rules_On__c}"
+                                 styleClass="form-control input-sm maxWidth" required="true"/>
+                <apex:inputfield value="{!selRouting.Description__c}" styleClass="form-control input-sm maxWidth"/>
+            </apex:pageblocksection>
+            <apex:outputPanel id="thePicklists">
+                <apex:pageblocksection columns="2" title="Criteria" id="theCriteria">
+                    <apex:pageblocksectionitem >
+                        <apex:outputlabel value="Active?"/>
+                        <apex:inputfield value="{!selRouting.IsActive__c}"/>
+                    </apex:pageblocksectionitem>
+                    <apex:pageblocksectionitem >
+                    </apex:pageblocksectionitem>
+                    <apex:pageBlockSectionitem id="statusPickList" rendered="{!IF(RecordType == 'SSSW NPS', false, true)}">
+                        <apex:outputLabel value="Status"/>
+                        <apex:selectList size="5" value="{!status}" id="statusOptions" multiSelect="true">
+                            <apex:selectOptions value="{!statusOptions}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionitem>
+                    <apex:pageBlockSectionitem id="originPickList">
+                        <apex:outputLabel value="Origin"/>
+                        <apex:selectList size="5" value="{!origin}" id="originOptions" multiSelect="true">
+                            <apex:selectOptions value="{!originOptions}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionitem>
+                    <apex:pageBlockSectionitem id="customerTypePicklist">
+                        <apex:outputLabel value="Customer Type"/>
+                        <apex:selectList size="5" value="{!customerQueueType}" id="txtCustomerQueueType" multiSelect="true">
+                            <apex:selectOptions value="{!customerQueueTypeOptions}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionitem>
+                    <apex:pageBlockSectionitem id="productCategoryPicklist">
+                        <apex:outputLabel value="Product Category"/>
+                        <apex:selectList size="5" value="{!productCategory}" id="txtProductCategory" multiSelect="true">
+                            <apex:selectOptions value="{!productCategoryOptions}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionitem>
+                    <apex:pageBlockSectionitem id="enquiryTypePicklist">
+                        <apex:outputLabel value="Enquiry Type"/>
+                        <apex:selectList size="5" value="{!enquiryType}" id="txtenquiryType" multiSelect="true">
+                            <apex:selectOptions value="{!enquiryTypeOptions}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionitem>
+                    <apex:pageBlockSectionitem id="productSubCategoryPicklist">
+                        <apex:outputLabel value="Product Sub Category"/>
+                        <apex:selectList size="5" value="{!productSubCategory}" id="txtProductSubCategory" multiSelect="true">
+                            <apex:selectOptions value="{!productSubCategoryOptions}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionitem>
+                    <apex:pageBlockSectionitem id="enquirySubTypePicklist">
+                        <apex:outputLabel value="Enquiry Sub Type"/>
+                        <apex:selectList size="5" value="{!enquirySubType}" id="txtEnquirySubType" multiSelect="true">
+                            <apex:selectOptions value="{!enquirySubTypeOptions}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionitem>
+                    <apex:pageBlockSectionitem id="socialPostTags">
+                        <apex:outputLabel value="Social Post Tags"/>
+                        <apex:inputfield value="{!selRouting.SocialPostTags__c}" styleClass="form-control input-sm maxWidth"/>
+                    </apex:pageBlockSectionitem>
+                    <apex:pageBlockSectionitem >
+                        <apex:outputlabel value="High Level Complaint"/>
+                        <apex:inputfield value="{!selRouting.High_Level_Complaint_Flag__c}"/>
+                    </apex:pageBlockSectionitem>
+                    <apex:pageBlockSectionitem >
+                        <apex:outputlabel value="Customer Recovery"/>
+                        <apex:inputfield value="{!selRouting.Customer_Recovery_Flag__c}"/>
+                    </apex:pageBlockSectionitem>
+                    <apex:pageBlockSectionitem rendered="{!IF(RecordType == 'SSSW NPS', false, true)}">
+                        <apex:outputlabel value="Is New?"/>
+                        <apex:inputfield value="{!selRouting.IsNew__c}"/>
+                    </apex:pageBlockSectionitem>
+					<apex:pageBlockSectionitem >
+                        <apex:outputlabel value="Is Strategic?"/>
+                        <apex:inputfield value="{!selRouting.IsStrategic__c}"/>
+                    </apex:pageBlockSectionitem>
+                    <apex:pageBlockSectionitem >
+                        <apex:outputlabel value="Has Extra Cover?"/>
+                        <apex:inputfield value="{!selRouting.HasExtraCover__c}"/>
+                    </apex:pageBlockSectionitem>
+                </apex:pageblocksection>
+            </apex:outputPanel>
+            <apex:pageblocksection columns="2" title="Case Settings" id="caseSettingRoute" >
+                <apex:pageblocksectionitem id="queueItem" rendered="{!IF(RecordType == 'SSSW Routing' || RecordType='', true, false)}" >
+                        <apex:outputlabel for="ddlQueueIDs" value="Queue" id="queueLabel"/>
+                    <apex:outputPanel id="queuePanel" >
+                        <div > <!--Removed class="requiredInput"-->
+                            <div class="requiredBlock"></div>
+                            <apex:selectList value="{!queueID}" id="ddlQueueIDs"
+                                             multiselect="false" size="1" 
+                                             styleClass="form-control input-sm maxWidth" >
+                                <apex:selectoption itemValue="" itemLabel="-- None --"/>
+                                <apex:selectOptions value="{!queueIDs}"/>
+                    </apex:selectList>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageblocksectionitem>
+                <apex:pageBlockSectionitem id="npsItem" rendered="{!IF(RecordType == 'SSSW NPS', true, false)}">
+                        <apex:outputlabel value="NPS Criteria" id="npsLabel"/>
+                        <apex:inputfield value="{!selRouting.NPS_criteria__c}" id="ddlNPS"/>
+                </apex:pageBlockSectionitem>
+                <apex:pageBlockSectionitem id="escalateItem" rendered="{!IF(RecordType == 'SSSW Escalation', true, false)}">
+                        <apex:outputlabel value="Auto Escalate" id="escalateLabel"/>
+                        <apex:inputfield value="{!selRouting.AutoEscalate__c}" id="ddlEscalate"/>
+                </apex:pageBlockSectionitem>
+                <apex:pageBlockSectionitem id="descriptionItem" rendered="{!IF(RecordType == 'SSSW Description', true, false)}">
+                        <apex:outputlabel value="Case Desription" id="descriptionLabel"/>
+                        <apex:inputfield value="{!selRouting.DefaultCaseDetails__c}" id="ddlDescription"/>
+                </apex:pageBlockSectionitem>
+            </apex:pageblocksection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandbutton action="{!save}" value="Save"
+                                    rerender="pbEditForm,pnlExisitng,msg" immediate="false"/>
+                <!-- <apex:commandbutton action="{!newRoute}" value="New"
+                                    rerender="pbEditForm,pnlExisitng,msg" immediate="false"/> -->
+                <!-- <apex:commandbutton value="Cancel" onclick="closeIframe();" /> -->
+            </apex:pageBlockButtons>
+        </apex:pageblock>
+        <apex:outputpanel id="pnlExisitng">
+            <apex:pageblock title="Existing Settings">
+                <apex:pageblocktable value="{!existingRoutings}" var="r">
+                    <apex:column value="{!r.Sequence__c}"/>
+                    <apex:column value="{!r.Origin__c}"/>
+                    <apex:column value="{!r.CustomerQueueType__c}"/>
+                    <apex:column value="{!r.CaseType__c}"/>
+                    <apex:column value="{!r.EnquirySubType__c}"/>
+                    <apex:column value="{!r.ProductCategory__c}"/>
+                    <apex:column value="{!r.ProductSubCategory__c}"/>
+                </apex:pageblocktable>
+            </apex:pageblock>
+        </apex:outputpanel>
+    </apex:form>
+</apex:page>

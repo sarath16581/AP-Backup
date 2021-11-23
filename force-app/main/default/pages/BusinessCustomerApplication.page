@@ -1,0 +1,1750 @@
+<apex:page id="customerAcquisitionFormv3b"
+    name="customerAcquisitionFormv3b"
+    cache="false"
+    expires="0"
+    contentType="text/html"
+    showHeader="false" sidebar="false"
+    controller="GsFormController"
+    action="{!doCustomLeadCheck}"
+    standardStylesheets="False"
+    title="Customer Acquisition Form"
+    docType="html-5.0" >
+<html class="no-js" lang="en">
+<head>
+<!-- DEV/TEST -->
+<!--  <script src='https://test-static.npe.auspost.com.au/ap/js/tracking/s_code.js'></script> -->
+
+<!-- PROD -->
+<script src='https://static.auspost.com.au/ap/js/tracking/s_code.js'></script>
+<style>
+    .ajax-indicator
+    {
+        vertical-align: middle;
+        margin-left : 10px;
+    }
+</style>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="DC.Creator" scheme="AglsAgent" content="Australia Post" />
+<meta name="DC.Title" content="Australia Post - Home" />
+<title>Business Customer Application Form</title>
+<meta name="viewport" content="width=device-width" />
+<link rel="apple-touch-icon" sizes="144x144" href="{!URLFOR($Resource.GsForm_Assets,'css/images/favicons/apple-touch-icon-144x144.png')}" />
+<link rel="apple-touch-icon" sizes="114x114" href="{!URLFOR($Resource.GsForm_Assets,'css/images/favicons/apple-touch-icon-114x114.png')}" />
+<link rel="apple-touch-icon" sizes="72x72" href="{!URLFOR($Resource.GsForm_Assets,'css/images/favicons/apple-touch-icon-72x72.png')}" />
+<link rel="apple-touch-icon" href="{!URLFOR($Resource.GsForm_Assets,'css/images/favicons/apple-touch-icon.png')}" />
+<link rel="shortcut icon" href="{!URLFOR($Resource.GsForm_Assets,'css/images/favicons/favicon.ico')}" />
+<link rel="stylesheet" href="{!URLFOR($Resource.GsForm_Assets,'css/style.css')}" />
+<script src="{!URLFOR($Resource.GsForm_Assets,'js/head.js')}"></script>
+<script src="{!URLFOR($Resource.GsForm_Assets,'js/libs/jquery-1.8.2.min.js')}"></script>
+<script src="{!URLFOR($Resource.GsForm_Assets,'js/csso-widget.js')}"></script>
+<link rel="stylesheet" href="{!URLFOR($Resource.GsForm_Assets,'css/cssolight.css')}" />
+
+<!-- MRSO assets -->
+<link href="{!URLFOR($Resource.GsForm_Assets,'css/mrso/mrso-v2.css')}" rel="stylesheet" />
+<link href="{!URLFOR($Resource.GsForm_Assets,'css/mrso/lightbox.css')}" rel="stylesheet" />
+<script src="{!URLFOR($Resource.GsForm_Assets,'js/mrso/application.js')}"></script>
+<script src="{!URLFOR($Resource.GsForm_Assets,'js/mrso/lightbox.js')}"></script>
+<link href="{!URLFOR($Resource.GsForm_Assets,'jquery-ui.css')}" rel="stylesheet" />
+<script src="{!URLFOR($Resource.GsForm_Assets,'jquery-ui.js')}"></script>
+<!-- form.js -->
+<!-- Show Hide Disabled
+<script src="{!URLFOR($Resource.GsForm_Assets,'js/form.js')}"></script>
+-->
+<script type="text/javascript">
+    $(function() {
+        $(".datepicker").datepicker({dateFormat:'dd/mm/yy'});
+
+
+
+        $(".numeric").keypress(function(event) {
+          // Backspace, tab, enter, end, home, left, right
+          // We don't support the del key in Opera because del == . == 46.
+          var controlKeys = [8, 9, 13, 35, 36, 37, 39];
+          // IE doesn't support indexOf
+          var isControlKey = controlKeys.join(",").match(new RegExp(event.which));
+          // Some browsers just don't raise events for control keys. Easy.
+          // e.g. Safari backspace.
+          if (!event.which || // Control keys in most browsers. e.g. Firefox tab is 0
+              (49 <= event.which && event.which <= 57) || // Always 1 through 9
+              (48 == event.which && $(this).attr("value")) || // No 0 first digit
+              isControlKey) { // Opera assigns values for control keys.
+            return;
+          } else {
+            event.preventDefault();
+          }
+        }); 
+
+
+    });
+    
+
+
+    
+</script>
+</head>
+<!--[if lt IE 7]> <body class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <body class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <body class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <body> <!--<![endif]-->
+
+<!-- START Accessibility links -->
+<div class="accessibility-links"> <a href="#main" class="visuallyhidden focusable">Skip to content</a> <a href="#primary-nav" class="visuallyhidden focusable">Skip to primary navigation</a> </div>
+<!-- END Accessibility links -->
+<!-- START GE01 Header -->
+<div class="l-header">
+  <div id="header">
+    <header>
+
+      <!-- START top nav -->
+      <div class="top-nav clearfix"> </div>
+      <!-- END top nav -->
+
+      <!-- START logo -->
+      <a href="#" class="main-logo"> <img src="{!URLFOR($Resource.GsForm_Assets, 'css/images/auspost.png')}" alt="Australia Post logo" /> </a>
+      <!-- END logo -->
+
+      <!-- START primary nav -->
+      <div id="primary-nav" class="primary-nav clearfix">
+        <h3>Business customer application</h3>
+      </div>
+      <!-- END primary nav -->
+
+    </header>
+  </div>
+</div>
+<!-- END GE01 Header -->
+
+<div class="l-container l-wide">
+      <div class="l-main clearfix" role="main" id="main">
+        <!-- MAIN PANEL -->
+        <div class="content-panel">
+
+          <!-- START CM51 Value prop  -->
+          <p class="value-proposition"></p>          
+          <apex:form styleClass="form fn-validation">
+            <apex:pageMessages />
+
+
+            <!--
+            START Error list
+            If there are serverside errors, include them as <li> elements
+            If there are no serverside errors, still include this DIV, but without any <li> elements. It will be used by JavaScript.
+            -->
+            <div class="form-errors hidden">
+              <h3>We have encountered an error please see below</h3>
+            </div>
+            <!-- END Error list -->
+
+            <p class="required-legend"><span class="symbol-req">*</span> Required information</p>
+
+                
+                <apex:outputPanel id="credit-account-details">                
+                <h2>Australia Post Business Credit Account and parcel volume requirements</h2>
+                
+                <p>These questions will help us determine which Australia Post business products can best service your needs.</p>   
+                <h3>Australia Post Business Credit Account details</h3>
+                    <apex:outputPanel id="cred-acc-1" styleClass="input required">
+                      <p>Are you an existing Australia Post Business Credit Account customer?&nbsp;<span class="symbol-req">*</span></p>
+                      <apex:selectList size="1" value="{!existingCreditAccount}" style="width:100px;" >
+                           <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                           <apex:selectOption itemLabel="Yes" itemValue="Yes"/>
+                           <apex:selectOption itemLabel="No" itemValue="No"/>
+                            <apex:actionSupport event="onchange" reRender="credit-account-details, application-parts, terms-conditions" action="{!resetPicklist}" status="cred-acc-1-ajax" />
+                      </apex:selectList>
+                      <apex:actionStatus id="cred-acc-1-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                      </apex:actionStatus>                      
+                      <p class="error-message">You are required to provide a response.</p>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="cred-acc-2" styleClass="input input-large required" rendered="{!existingCreditAccount = 'Yes'}">
+                      <label for="abn-trust-number-textbox">Australia Post Business Credit Account number &nbsp;<span class="symbol-req">*</span></label>
+                      <apex:inputText label="credit-account-number" id="credit-account-number" value="{!appData.creditAccountNumber}"/>
+                      <p class="error-message">Australia Post Business Credit Account Number is required</p>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="cred-acc-7" styleClass="input input-small required" rendered="{!existingCreditAccount = 'Yes'}">
+                        <label>Do you currently lodge articles over the counter?&nbsp;<span class="symbol-req">*</span></label>
+                        <apex:selectList size="1" value="{!appData.lodgeOverTheCounter}" style="width:100px;" >
+                           <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                           <apex:selectOption itemLabel="Yes" itemValue="Yes"/>
+                           <apex:selectOption itemLabel="No" itemValue="No"/>
+                        </apex:selectList>
+                        <p class="error-message">You are required to provide a response.</p>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="cred-acc-8" styleClass="input input-large" rendered="{!existingCreditAccount = 'Yes'}">
+                        <label>Which postal outlet do you currently lodge at?</label>
+                        <apex:inputText id="lodge-post-outlet" value="{!appData.lodgePostOutlet}"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="cred-acc-3" styleClass="input required" rendered="{!existingCreditAccount = 'No'}">                   
+                      <p>Would you like to apply for an Australia Post Business Credit Account?&nbsp;<span class="symbol-req">*</span></p>
+                      <apex:selectList size="1" value="{!applyForCreditAccount}" style="width:100px;" >
+                           <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                           <apex:selectOption itemLabel="Yes" itemValue="Yes"/>
+                           <apex:selectOption itemLabel="No" itemValue="No"/>
+                           <apex:actionSupport event="onchange" reRender="credit-account-details, application-parts, terms-conditions" status="cred-acc-3-ajax" action="{!resetPicklist}"/>
+                       </apex:selectList>
+                       <apex:actionStatus id="cred-acc-3-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                      </apex:actionStatus>
+                      <p class="error-message">You are required to provide a response.</p>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="cred-acc-4" styleClass="input required" rendered="{!existingCreditAccount = 'No' && (existingCreditAccount = 'Yes' || applyForCreditAccount = 'Yes')}">
+                      <p>Do you require a credit limit greater than $5000?&nbsp;<span class="symbol-req">*</span></p>
+                      <apex:selectList size="1" value="{!appData.creditLimit5000}" style="width:100px;" >
+                           <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                           <apex:selectOption itemLabel="Yes" itemValue="Yes"/>
+                           <apex:selectOption itemLabel="No" itemValue="No"/>
+                           <apex:actionSupport event="onchange" reRender="credit-account-details, cred-acc-6, application-parts, terms-conditions" status="cred-acc-4-ajax" action="{!resetPicklist}"/>
+                       </apex:selectList>
+                       <apex:actionStatus id="cred-acc-4-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                      </apex:actionStatus>
+                      <p class="error-message">You are required to provide a response.</p>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="cred-acc-5" rendered="{!existingCreditAccount = 'Yes' || (existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No')}">  
+                     <br />
+                      <h3>Parcel volumes</h3>
+                      <div class="input required input-columns">
+                        <p>How many parcels does your business send per year?&nbsp;<span class="symbol-req">*</span></p>
+                        <apex:selectList size="1" value="{!appData.parcelsPerYear}" style="width:130px;">
+                            <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                           <apex:selectOption itemLabel="Less than 500" itemValue="Less than 500" />
+                           <apex:selectOption itemLabel="500 - 999" itemValue="500 - 999" 
+                               rendered="{!existingCreditAccount = 'Yes' || (existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No')}"/>
+                           <apex:selectOption itemLabel="1000 - 4999" itemValue="1000 - 4999" 
+                               rendered="{!existingCreditAccount = 'Yes' || (existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No')}"/>
+                           <apex:selectOption itemLabel="5000 - 9999" itemValue="5000 - 9999" 
+                               rendered="{!existingCreditAccount = 'Yes' || (existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No')}"/>
+                           <apex:actionSupport event="onchange" reRender="credit-account-details, application-parts, terms-conditions" status="cred-acc-5-ajax" action="{!resetPicklist}"/>
+                       </apex:selectList>
+                       <apex:actionStatus id="cred-acc-5-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                      </apex:actionStatus>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="cred-acc-6" styleClass="input required" rendered="{!appData.parcelsPerYear = '500 - 999'}"> 
+                    <!-- code being commented out due to conflicting use case -->
+                    <!-- || appData.parcelsPerYear = '1000 - 4999' || appData.parcelsPerYear = '5000 - 9999'}"> -->
+                      <p>Would you like to apply for the eParcel service?&nbsp;<span class="symbol-req">*</span></p>
+                      <apex:selectList size="1" value="{!appData.eParcelApplication}" style="width:100px;" >
+                           <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                           <apex:selectOption itemLabel="Yes" itemValue="Yes"/>
+                           <apex:selectOption itemLabel="No" itemValue="No"/>
+                           <apex:actionSupport event="onchange" reRender="application-parts, terms-conditions" status="cred-acc-6-ajax"/>
+                       </apex:selectList>
+                       <apex:actionStatus id="cred-acc-6-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                      </apex:actionStatus>
+                      <p class="error-message">You are required to provide a response.</p>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel id="cred-acc-9" rendered="{!appData.parcelsPerYear <> '' && (existingCreditAccount = 'Yes' || (existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No'))}"> 
+                      <label>Would you like to apply for our International service?</label>
+                      <apex:selectList size="1" value="{!appData.eciApplication}" style="width:100px;" >
+                           <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                           <apex:selectOption itemLabel="Yes" itemValue="Yes"/>
+                           <apex:selectOption itemLabel="No" itemValue="No"/>
+                           <apex:actionSupport event="onchange" reRender="credit-account-details, terms-conditions" status="cred-acc-7-ajax" action="{!resetPicklist}"/>
+                      </apex:selectList>
+                      <apex:actionStatus id="cred-acc-7-ajax">
+                           <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                           </apex:facet>                          
+                      </apex:actionStatus>
+                      <h3>International parcels</h3>
+                      <label>Do you currently send or looking to send parcels overseas?</label>
+                      <apex:selectList size="1" value="{!appData.sendParcelsOverseas}" style="width:100px;" >
+                           <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                           <apex:selectOption itemLabel="Yes" itemValue="Yes"/>
+                           <apex:selectOption itemLabel="No" itemValue="No"/>
+                           <apex:selectOption itemLabel="Maybe" itemValue="Maybe"/>
+                       </apex:selectList>
+                      <label>Which Express Courier International (ECI) product would you be interested to find out more?</label>
+                      <apex:selectList size="1" value="{!appData.whichECI}" style="width:300px;" >
+                           <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                           <apex:selectOption itemLabel="ECI $15 flat rate to New Zealand up to 2kg" itemValue="ECI $15 flat rate to New Zealand up to 2kg"/>
+                           <apex:selectOption itemLabel="ECI (standard)" itemValue="ECI (standard)"/>
+                       </apex:selectList>
+                    </apex:outputPanel>
+                                        
+                    </apex:outputPanel>
+                    
+  
+                    
+                    <hr />
+
+          
+            <h2>Business details</h2>
+              <div id="business-details-app">
+                <h3>Business name</h3>
+                <div class='input-group'>
+                  <div class="input required input-medium">
+                    <label for="company-name-textbox">Company or business name&nbsp;<span class="symbol-req">*</span></label>
+                    <apex:inputText value="{!LeadCompany}" id="company-name-textbox"/>
+                    <p class="error-message">Company name is required</p>
+                  </div>
+                  <div class="input required input-medium">
+                    <label for="trading-as-textbox">Trading as&nbsp;<span class="symbol-req">*</span></label>
+                    <apex:inputText id="trading-as-textbox" value="{!LeadTradingName}"/>
+                    <p class="error-message">Trading as is required</p>
+                  </div>
+                </div>
+                <div class="input required input-medium">
+                  <label for="abn-number-textbox">ABN / ACN&nbsp;<span class="symbol-req">*</span></label>
+                  <apex:inputText id="abn-number-textbox" value="{!LeadABN}"/>
+                  <p class="error-message">ABN / ACN number is required</p>
+                </div>
+                
+                    <div class="input input-medium required">
+                    <p style="margin-top:0px;">Type &nbsp;<span class="symbol-req">*</span></p>
+                    <apex:selectList size="1" value="{!appData.businessType}" style="width:244px;">
+                        <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                        <apex:selectOption itemLabel="Sole trader" itemValue="Sole trader"/>
+                        <apex:selectOption itemLabel="Company" itemValue="Company"/>
+                        <apex:selectOption itemLabel="Trading trust" itemValue="Trading-trust"/>
+                        <apex:selectOption itemLabel="Partnership" itemValue="Partnership"/>                        
+                        <apex:selectOption itemLabel="Government authority" itemValue="Government-authority"/>                          
+                        <apex:selectOption itemLabel="Local government" itemValue="Local-government"/>                                      
+                        <apex:selectOption itemLabel="International customer" itemValue="International-customer"/>                                      
+                            <apex:actionSupport event="onchange" reRender="ls,sole-trader-copy-values" action="{!resetPicklist}" status="business-type-ajax" />
+                      </apex:selectList>
+                      <apex:actionStatus id="business-type-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                      </apex:actionStatus>       
+                    <p class="error-message">You are required to provide a response.</p>
+                  </div>
+                    <!--                
+                <div class="input input-columns">
+
+                  <ul class="input-options clearfix">
+                    <li>
+                      <label for="soletrader-checkbox">
+                        <apex:inputCheckbox label="soletrader-checkbox" id="soletrader-checkbox" value="{!appData.soleTraderCheckbox}" styleClass="businessTypeGroup" />
+                        sole trader </label>
+                    </li>
+                    <li>
+                      <label for="company-checkbox">
+                        <apex:inputCheckbox label="company-checkbox" id="company-checkbox" value="{!appData.companyCheckbox}" styleClass="businessTypeGroup" />
+                        company </label>
+                    </li>
+                    <li>
+                      <label for="tt-checkbox">
+                        <apex:inputCheckbox label="tt-checkbox" id="tt-checkbox" value="{!appData.tradingTrustCheckbox}" styleClass="businessTypeGroup">
+                            <apex:actionSupport reRender="ls" event="onclick"/>
+                        </apex:inputCheckbox>                        
+                        trading trust </label>
+                    </li>
+                    <li>
+                      <label for="partnership-checkbox">
+                        <apex:inputCheckbox label="partnership-checkbox" id="partnership-checkbox" value="{!appData.partnershipCheckbox}" styleClass="businessTypeGroup">
+                            
+                        </apex:inputCheckbox>
+                        partnership </label>
+                    </li>
+                    <li>
+                      <label for="gov-auth-checkbox">
+                        <apex:inputCheckbox label="gov-auth-checkbox" id="gov-auth-checkbox" value="{!appData.govAuthCheckbox}" styleClass="businessTypeGroup" />
+                        government authority </label>
+                    </li>
+                    <li>
+                      <label for="localgov-checkbox">
+                        <apex:inputCheckbox label="localgov-checkbox" id="localgov-checkbox" value="{!appData.localGovCheckbox}" styleClass="businessTypeGroup" />
+                        local government </label>
+                    </li>
+                    <li>
+                      <label for="int-cus-checkbox">
+                        <apex:inputCheckbox label="int-cus-checkbox" id="int-cus-checkbox" value="{!appData.intCusCheckbox}" styleClass="businessTypeGroup" />
+                        international customer </label>
+                    </li>
+                  </ul>
+
+                  <p class="error-message">You are required to provide a response.</p>
+                
+                  </div>
+                  -->
+                <hr />
+                <apex:outputPanel id="ls">
+                <apex:outputPanel rendered="{!appData.businessType=='Trading-trust'}">
+                  <h3>Trust details</h3>
+                  <div class='input-group'>
+                    <div class="input input-medium">
+                      <label for="name-trust-textbox">Name of trust&nbsp;</label>
+                      <apex:inputText label="name-trust-textbox" id="name-trust-textbox" value="{!appData.nameOfTrust}" />
+                    </div>
+                    <div class="input input-medium">
+                      <label for="name-trustee-textbox">Name of trustee&nbsp;</label>
+                      <apex:inputText label="name-trustee-textbox" id="name-trustee-textbox" value="{!appData.nameOfTrustee}"/>
+                    </div>
+                  </div>
+                  <div class="input input-medium">
+                    <label for="abn-trust-number-textbox">ABN / ACN</label>
+                    <apex:inputText label="abn-trust-number-textbox" id="abn-trust-number-textbox" value="{!appData.abnAcnTrust}" styleClass="numeric"/>
+                    <p class="error-message">ABN / ACN number is required</p>
+                  </div>
+                  <hr/>
+                </apex:outputPanel>
+                </apex:outputPanel>
+                <h3>Business postal address</h3>
+                <div class="input input-large required">
+                  <label for="address-line-1-textbox">Address line 1 &nbsp;<span class="symbol-req">*</span></label>
+                  <apex:inputText id="address-line-1-textbox" value="{!leadStreet}"/>
+                  <p class="error-message">Address line 1 is required</p>
+                </div>
+                <div class="input input-large">
+                  <label for="address-line-2-textbox">Address line 2</label>
+                  <apex:inputText id="address-line-2-textbox" value="{!leadStreet2}"/>
+                  <p class="error-message">Address line 2 is required</p>
+                </div>
+                <div class='input-group'>
+                  <div class="input input-medium required">
+                    <label for="city-textbox">City &nbsp;<span class="symbol-req">*</span></label>
+                    <apex:inputText id="city-textbox" value="{!leadCity}"/>
+                    <p class="error-message">City is required</p>
+                  </div>
+                  <div class="input input-small required">
+                    <label for="state-textbox">State &nbsp;<span class="symbol-req">*</span></label>                  
+                      <apex:selectList size="1" value="{!leadState}" style="width:100px;" >
+                           <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                           <apex:selectOption itemLabel="ACT" itemValue="ACT"/>
+                           <apex:selectOption itemLabel="NSW" itemValue="NSW"/>
+                           <apex:selectOption itemLabel="NT" itemValue="NT"/>                           
+                           <apex:selectOption itemLabel="QLD" itemValue="QLD"/>
+                           <apex:selectOption itemLabel="SA" itemValue="SA"/> 
+                           <apex:selectOption itemLabel="TAS" itemValue="TAS"/>
+                           <apex:selectOption itemLabel="VIC" itemValue="VIC"/>
+                           <apex:selectOption itemLabel="WA" itemValue="WA"/>                          
+                      </apex:selectList>                    
+                    
+                    
+                    <p class="error-message">State is required</p>
+                  </div>
+                  <div class="input input-small required">
+                    <label for="postcode-zip-textbox">Postcode / Zip &nbsp;<span class="symbol-req">*</span></label>
+                    <apex:inputText id="postcode-zip-textbox" value="{!leadPostalcode}" styleClass="numeric"/>
+                    <p class="error-message">Postcode / Zip is required</p>
+                  </div>
+                </div>
+                <hr/>
+                <h3>Business type</h3>
+                <div class='input-group'>
+                  <!--div class="input input-large required">
+                    <label for="nature-bus-textbox">Nature of business / Main income producing activity &nbsp;<span class="symbol-req">*</span></label>
+                    <apex:inputText label="nature-bus-textbox" id="nature-bus-textbox" value="{!appData.natureOfBusiness}" />
+                    <p class="error-message">Nature of business is required</p>
+                  </div-->
+                  <div class="input input-large required">
+                    <label for="industry-type-textbox">Industry type &nbsp;<span class="symbol-req">*</span></label>
+                    <apex:inputText label="industry-type-textbox" id="industry-type-textbox" value="{!appData.industryType}" />
+                    <p class="error-message">Industry type is required</p>
+                  </div>
+                </div>
+                <br />
+                <div class='input input-group'>
+                  <div class="input input-small required">
+                    <label for="date-commenced-textbox">Date commenced &nbsp;<span class="symbol-req">*</span></label>
+                    <apex:inputText label="date-commenced-textbox" id="date-commenced-textbox" styleClass="datepicker" value="{!appData.dateCommenced}" />
+                    <p class="error-message">Date commenced is required</p>
+                  </div>
+                  <div class="input input-small required">
+                    <label for="number-empl-textbox">Number of employees &nbsp;<span class="symbol-req">*</span></label>
+                    <apex:inputText label="number-empl-textbox" id="number-empl-textbox" styleClass="numeric" value="{!appData.numOfEmployees}" />
+                    <p class="error-message">Number of employees is required</p>
+                  </div>
+                  <div class="input input-small required">
+                    <p style="margin-top:0px;">Premises &nbsp;<span class="symbol-req">*</span></p>
+                    <apex:selectList size="1" value="{!appData.premisesRadio}" style="width:100px;">
+                        <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                        <apex:selectOption itemLabel="Owned" itemValue="Owned"/>
+                        <apex:selectOption itemLabel="Rented" itemValue="Rented"/>
+                        <apex:selectOption itemLabel="Mortgaged" itemValue="Mortgaged"/>
+                    </apex:selectList>
+                    <p class="error-message">You are required to provide a response.</p>
+                  </div>
+                </div>
+                <hr/>
+                <h2>Contact details</h2>
+                <div class='input-group'>
+                  <div class="input input-medium required">
+                    <label for="">First name &nbsp;<span class="symbol-req">*</span></label>
+                    <apex:inputText value="{!LeadFirstName}" id="first-name"/>
+                    <p class="error-message">First Name is required</p>
+                  </div>
+                  <div class="input input-medium required">
+                    <label for="">Last name &nbsp;<span class="symbol-req">*</span></label>
+                    <apex:inputText value="{!LeadLastName}" id="last-name"/>
+                    <p class="error-message">Last Name is required</p>
+                  </div>
+                </div>
+                <div class="input input-medium required">
+                  <label for="phone-textbox">Phone &nbsp;<span class="symbol-req">*</span></label>
+                  <apex:inputText id="phone-textbox" value="{!leadPhone}"/>
+                  <p class="error-message">Phone is required</p>
+                </div>
+                <div class="input input-medium">
+                  <label for="fax-textbox">Fax</label>
+                  <apex:inputText id="fax-textbox" value="{!leadFax}"/>
+                  <p class="error-message">Fax is required</p>
+                </div>
+                <div class="input input-medium">
+                  <label for="mobile-textbox">Mobile phone</label>
+                  <apex:inputText id="mobile-textbox" value="{!leadMobilePhone}"/>
+                  <p class="error-message">Mobile is required</p>
+                </div>
+                <div class="input input-medium required">
+                  <label for="email-textbox">Email &nbsp;<span class="symbol-req">*</span></label>
+                  <apex:inputText Id="email-textbox" styleClass="email-textbox" value="{!leadEmail}"/>
+                  <p class="error-message">Email is required</p>
+                </div>
+                <div class="input input-medium">
+                  <label for="website-textbox">Website</label>
+                  <apex:inputText id="website-textbox" value="{!LeadWebsite}"/>
+                  <p class="error-message">Website is required</p>
+                </div>
+  
+                  </div>
+                <hr/>
+           <apex:outputPanel id="application-parts" >
+               <!-- the next outup panel will not render for this stage, previous rerender below
+               rendered="{!existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No'}"
+               -->
+            <apex:outputPanel id="credit-acc-app-amount" rendered="{!existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No'}">
+              <h2>Australia Post Business Credit Account application</h2>
+              <h3>Credit amount details</h3>
+
+              <label for="credit-amount">Credit amount required (must be less than $5000 and equivalent to two months average spend with Australia Post) &nbsp;<span class="symbol-req">*</span></label>              
+              <div class="input input-small required">              
+                <apex:inputText label="fax-textbox" id="credit-amount" value="{!appData.creditAmountRequired}" styleClass="numeric" />
+                <p class="error-message">Credit Amount is required</p>
+              </div>
+            </apex:outputPanel>
+            <apex:outputPanel id="credit-acc-app" rendered="false">  
+              <hr/>
+              <h3>Trade / business references (details of 3 major customers are required)</h3>
+              <div class="input input-medium required">
+                <label for="fax-textbox">Company or business name&nbsp;<span class="symbol-req">*</span></label>
+                <apex:inputText label="fax-textbox" id="ref1-company-name" value="{!appData.companyorBusinessName}"/>
+                <p class="error-message">Company Name is required</p>
+              </div>
+              <div class="input-group">
+                <div class="input input-medium required">
+                  <label for="fax-textbox">Contact name&nbsp;<span class="symbol-req">*</span></label>
+                  <apex:inputText label="fax-textbox" id="ref1-contact-name" value="{!appData.contactName1}"/>
+                  <p class="error-message">Contact Name is required</p>
+                </div>
+                <div class="input input-medium required">
+                  <label for="fax-textbox">Contact position title&nbsp;<span class="symbol-req">*</span></label>
+                  <apex:inputText label="fax-textbox" id="ref1-title" value="{!appData.contactPositionTitle1}" />
+                  <p class="error-message">Title is required</p>
+                </div>
+              </div>
+              <div class="input input-small required">
+                <label for="fax-textbox">Phone&nbsp;<span class="symbol-req">*</span></label>
+                <apex:inputText label="fax-textbox" id="ref1-phone" value="{!appData.phone1}" />
+                <p class="error-message">Phone is required</p>
+              </div>
+              <div class="input input-medium required">
+                <label for="fax-textbox">Email&nbsp;<span class="symbol-req">*</span></label>
+                <apex:inputText label="fax-textbox" id="ref1-email" value="{!appData.email1}" />
+                <p class="error-message">Email is required</p>
+              </div>
+              <hr/>
+              <div class="input input-medium required">
+                <label for="fax-textbox">Company or business name&nbsp;<span class="symbol-req">*</span></label>
+                <apex:inputText label="fax-textbox" id="ref2-company-name" value="{!appData.companyOrBusinessName2}" />
+                <p class="error-message">Company Name is required</p>
+              </div>
+              <div class="input-group">
+                <div class="input input-medium required">
+                  <label for="fax-textbox">Contact name&nbsp;<span class="symbol-req">*</span></label>
+                  <apex:inputText label="fax-textbox" id="ref2-contact-name" value="{!appData.contactName2}" />
+                  <p class="error-message">Contact Name is required</p>
+                </div>
+                <div class="input input-medium required">
+                  <label for="fax-textbox">Contact position title&nbsp;<span class="symbol-req">*</span></label>
+                  <apex:inputText label="fax-textbox" id="ref2-title"  value="{!appData.contactPositionTitle2}"/>
+                  <p class="error-message">Title is required</p>
+                </div>
+              </div>
+              <div class="input input-small required">
+                <label for="fax-textbox">Phone&nbsp;<span class="symbol-req">*</span></label>
+                <apex:inputText label="fax-textbox" id="ref2-phone" value="{!appData.phone2}" />
+                <p class="error-message">Phone is required</p>
+              </div>
+              <div class="input input-medium required">
+                <label for="fax-textbox">Email&nbsp;<span class="symbol-req">*</span></label>
+                <apex:inputText label="fax-textbox" id="ref2-email" value="{!appData.email2}" />
+                <p class="error-message">Email is required</p>
+              </div>
+              <hr/>
+              <div class="input input-medium required">
+                <label for="fax-textbox">Company or business name&nbsp;<span class="symbol-req">*</span></label>
+                <apex:inputText label="fax-textbox" id="ref3-company-name" value="{!appData.companyOrBusinessName3}" />
+                <p class="error-message">Company Namne is required</p>
+              </div>
+              <div class="input-group">
+                <div class="input input-medium required">
+                  <label for="fax-textbox">Contact name&nbsp;<span class="symbol-req">*</span></label>
+                  <apex:inputText label="fax-textbox" id="ref3-contact-name" value="{!appData.contactName3}" />
+                  <p class="error-message">Contact Name is required</p>
+                </div>
+                <div class="input input-medium required">
+                  <label for="fax-textbox">Contact position title&nbsp;<span class="symbol-req">*</span></label>
+                  <apex:inputText label="fax-textbox" id="ref3-title" value="{!appData.contactPositionTitle3}" />
+                  <p class="error-message">Title is required</p>
+                </div>
+              </div>
+              <div class="input input-small required">
+                <label for="fax-textbox">Phone&nbsp;<span class="symbol-req">*</span></label>
+                <apex:inputText label="fax-textbox" id="ref3-phone" value="{!appData.phone3}" />
+                <p class="error-message">Phone is required</p>
+              </div>
+              <div class="input input-medium required">
+                <label for="fax-textbox">Email&nbsp;<span class="symbol-req">*</span></label>
+                <apex:inputText label="fax-textbox" id="ref3-email" value="{!appData.email3}" />
+                <p class="error-message">Email is required</p>
+              </div>
+              <hr/>
+              </apex:outputPanel>
+              <apex:outputPanel id="credit-acc-personal-app" rendered="{!existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No'}">  
+              <h3>Personal details of sole trader / partners / directors or trustees</h3>
+              <apex:outputPanel id="sole-trader-copy-values">
+
+                <apex:actionStatus id="sole-trader-copy-values-ajax">
+                      <apex:facet name="start">
+                          <apex:commandButton value="Copying" style="width:240px;" />
+                      </apex:facet>                            
+                      <apex:facet name="stop">
+                          <apex:commandButton style="width:240px;" action="{!copyBusinessContactDetailToCreditAccount}" value="Copy business contact details" rendered="{!appData.businessType = 'Sole trader'}" rerender="credit-acc-personal-app-details" status="sole-trader-copy-values-ajax" />
+                      </apex:facet>
+                  </apex:actionStatus>                      
+                    
+              </apex:outputPanel>
+              
+              <apex:outputPanel id="credit-acc-personal-app-details">
+              <div class="input-group">
+                <div class="input required input-small">
+                  <label for="exampleSelSmall">Title&nbsp;<span class="symbol-req">*</span></label>
+                  <apex:selectList size="1" value="{!appData.titlePD1}">
+                      <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                      <apex:selectOption itemLabel="Mr." itemValue="Mr."/>
+                      <apex:selectOption itemLabel="Ms." itemValue="Ms."/>
+                      <apex:selectOption itemLabel="Mrs." itemValue="Mrs."/>
+                      <apex:selectOption itemLabel="Dr." itemValue="Dr."/>
+                      <apex:selectOption itemLabel="Prof." itemValue="Prof."/>
+                   </apex:selectList>
+                  <p class="error-message">You are required to provide a response.</p>
+                </div>
+                <div class="input input-large required">
+                  <label for="fax-textbox">Name &nbsp;<span class="symbol-req">*</span></label>
+                  <apex:inputText label="fax-textbox" id="dir1-contact-name" value="{!appData.namePD1}" />
+                  <p class="error-message">Contact Name is required</p>
+                </div>
+              </div>
+              <div class="input input-large required">
+                <label for="address-line-1-textbox">Address line 1 &nbsp;<span class="symbol-req">*</span></label>
+                <apex:inputText label="address-line-1-textbox" id="dir1-address-line-1" value="{!appData.address1PD1}" />
+                <p class="error-message">Address line 1 is required</p>
+              </div>
+              <div class="input input-large">
+                <label for="address-line-2-textbox">Address line 2</label>
+                <apex:inputText label="address-line-2-textbox" id="dir1-address-line-2" value="{!appData.address2PD1}" />
+                <p class="error-message">Address line 2 is required</p>
+              </div>
+              <div class='input-group'>
+                <div class="input input-medium required">
+                  <label for="city-textbox">City &nbsp;<span class="symbol-req">*</span></label>
+                  <apex:inputText label="city-textbox" id="dir1-city" value="{!appData.cityPD1}" />
+                  <p class="error-message">City is required</p>
+                </div>
+                <div class="input input-small required">
+                  <label for="state-textbox">State &nbsp;<span class="symbol-req">*</span></label>
+                      <apex:selectList size="1" value="{!appData.statePD1}" style="width:100px;" >
+                           <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                           <apex:selectOption itemLabel="ACT" itemValue="ACT"/>
+                           <apex:selectOption itemLabel="NSW" itemValue="NSW"/>
+                           <apex:selectOption itemLabel="NT" itemValue="NT"/>                           
+                           <apex:selectOption itemLabel="QLD" itemValue="QLD"/>
+                           <apex:selectOption itemLabel="SA" itemValue="SA"/> 
+                           <apex:selectOption itemLabel="TAS" itemValue="TAS"/>
+                           <apex:selectOption itemLabel="VIC" itemValue="VIC"/>
+                           <apex:selectOption itemLabel="WA" itemValue="WA"/>                          
+                      </apex:selectList>  
+                  <p class="error-message">State is required</p>
+                </div>
+                <div class="input input-small required">
+                  <label for="postcode-zip-textbox">Postcode / Zip &nbsp;<span class="symbol-req">*</span></label>
+                  <apex:inputText label="postcode-zip-textbox" id="dir1-postcode" value="{!appData.postcodePD1}" styleClass="numeric" />
+                  <p class="error-message">Postcode / Zip is required</p>
+                </div>
+              </div>
+              <div class="input required">
+                <p>Premises &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.premisesPD1}" style="width:100px;">
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                   <apex:selectOption itemLabel="Owned" itemValue="Owned"/>
+                   <apex:selectOption itemLabel="Rented" itemValue="Rented"/>
+                   <apex:selectOption itemLabel="Mortgaged" itemValue="Mortgaged"/>
+               </apex:selectList>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+              <div class="input input-medium required">
+                <label for="postcode-zip-textbox">Driver&#39;s licence number &nbsp;<span class="symbol-req">*</span></label>
+                <apex:inputText label="postcode-zip-textbox" id="dir1-licence" value="{!appData.driversLicensePD1}" />
+                <p class="error-message">Driver&#39;s Licence is required</p>
+              </div>
+              <div class="input input-small required">
+                <label for="postcode-zip-textbox">Birth date &nbsp;<span class="symbol-req">*</span></label>
+                <apex:inputText label="postcode-zip-textbox" id="dir1-birthdate" styleClass="datepicker"  value="{!appData.birthDatePD1}" />
+                <p class="error-message">Birth date is required</p>
+                <script>$(".datepicker").datepicker({dateFormat:'dd/mm/yy'});</script>
+              </div>
+              </apex:outputPanel>
+              
+              
+              
+              <!--div class="input input-large">
+                <label for="postcode-zip-textbox">Name of spouse</label>
+                <apex:inputText label="postcode-zip-textbox" id="dir1-spouse" value="{!appData.nameOfSpousePD1}" />
+                <p class="error-message">Spouse is required</p>
+              </div-->
+              <hr/>
+              <div class="input-group">
+                <div class="input input-small">
+                  <label for="exampleSelSmall">Title&nbsp;</label>
+                  <apex:selectList size="1" value="{!appData.titlePD2}">
+                      <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                      <apex:selectOption itemLabel="Mr." itemValue="Mr."/>
+                      <apex:selectOption itemLabel="Ms." itemValue="Ms."/>
+                      <apex:selectOption itemLabel="Mrs." itemValue="Mrs."/>
+                      <apex:selectOption itemLabel="Dr." itemValue="Dr."/>
+                      <apex:selectOption itemLabel="Prof." itemValue="Prof."/>
+                   </apex:selectList>
+                  <p class="error-message">You are required to provide a response.</p>
+                </div>
+                <div class="input input-large">
+                  <label for="fax-textbox">Name</label>
+                  <apex:inputText label="fax-textbox" id="dir2-contact-name" value="{!appData.namePD2}" />
+                  <p class="error-message">Contact Name is required</p>
+                </div>
+              </div>
+              <div class="input input-large">
+                <label for="address-line-1-textbox">Address line 1</label>
+                <apex:inputText label="address-line-1-textbox" id="dir2-address-line-1"  value="{!appData.address1PD2}"/>
+                <p class="error-message">Address line 1 is required</p>
+              </div>
+              <div class="input input-large">
+                <label for="address-line-2-textbox">Address line 2</label>
+                <apex:inputText label="address-line-2-textbox" id="dir2-address-line-2" value="{!appData.address2PD2}" />
+                <p class="error-message">Address line 2 is required</p>
+              </div>
+              <div class='input-group'>
+                <div class="input input-medium">
+                  <label for="city-textbox">City</label>
+                  <apex:inputText label="city-textbox" id="dir2-city"  value="{!appData.cityPD2}"/>
+                  <p class="error-message">City is required</p>
+                </div>
+                <div class="input input-small">
+                  <label for="state-textbox">State</label>
+                    <apex:selectList size="1" value="{!appData.statePD2}" style="width:100px;" >
+                           <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                           <apex:selectOption itemLabel="ACT" itemValue="ACT"/>
+                           <apex:selectOption itemLabel="NSW" itemValue="NSW"/>
+                           <apex:selectOption itemLabel="NT" itemValue="NT"/>                           
+                           <apex:selectOption itemLabel="QLD" itemValue="QLD"/>
+                           <apex:selectOption itemLabel="SA" itemValue="SA"/> 
+                           <apex:selectOption itemLabel="TAS" itemValue="TAS"/>
+                           <apex:selectOption itemLabel="VIC" itemValue="VIC"/>
+                           <apex:selectOption itemLabel="WA" itemValue="WA"/>                          
+                      </apex:selectList>  
+                  <p class="error-message">State is required</p>
+                </div>
+                <div class="input input-small">
+                  <label for="postcode-zip-textbox">Postcode / Zip</label>
+                  <apex:inputText label="postcode-zip-textbox" id="dir2-postcode" value="{!appData.postcodePD2}" styleClass="numeric" />
+                  <p class="error-message">Postcode / Zip is required</p>
+                </div>
+              </div>
+              <div class="input">
+                <p>Premises &nbsp;</p>
+                <apex:selectList size="1" value="{!appData.premisesPD2}" style="width:100px;">
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="Owned" itemValue="Owned"/>
+                    <apex:selectOption itemLabel="Rented" itemValue="Rented"/>
+                    <apex:selectOption itemLabel="Mortgaged" itemValue="Mortgaged"/>
+               </apex:selectList>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+              <div class="input input-medium">
+                <label for="postcode-zip-textbox">Driver&#39;s licence number</label>
+                <apex:inputText label="postcode-zip-textbox" id="dir2-licence" value="{!appData.driversLicensePD2}" />
+                <p class="error-message">Driver&#39;s Licence is required</p>
+              </div>
+              <div class="input input-small">
+                <label for="postcode-zip-textbox">Birth date</label>
+                <apex:inputText label="postcode-zip-textbox" id="dir2-birthdate" styleClass="datepicker" value="{!appData.birthDatePD2}" />
+                <p class="error-message">Birth date is required</p>
+                <script>$(".datepicker").datepicker({dateFormat:'dd/mm/yy'});</script>
+              </div>
+              <!-- div class="input input-large">
+                <label for="postcode-zip-textbox">Name of spouse</label>
+                <apex:inputText label="postcode-zip-textbox" id="dir2-spouse" value="{!appData.nameOfSpousePD2}" />
+                <p class="error-message">Spouse is required</p>
+              </div-->
+              <hr/>
+            </apex:outputpanel>
+            
+            <apex:outputPanel id="eparcel-acc-app" rendered="{!appData.eParcelApplication = 'Yes'}">
+              <h2>eParcel application</h2>
+              <h3>Parcel lodgement information</h3>
+              <div class="input required input-columns">
+                <p>How will your parcels be lodged? (tick all that apply)&nbsp;<span class="symbol-req">*</span></p>
+                <ul class="input-options clearfix">
+                  <li>
+                    <label for="exampleCheckbox_0">
+                      <apex:inputCheckbox label="exampleCheckbox" id="lodgement-pickup" value="{!appData.parcelPickUp}" />
+                      pick up </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_1" style="width: 144px;">
+                      <apex:inputCheckbox label="exampleCheckbox" id="lodgement-dropoff" value="{!appData.parelDropOff}" />
+                      drop off <br />(at lodgement centre) </label>
+                  </li>
+                </ul>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+              <hr/>
+              <h3>Lodgement centres</h3>
+              <div class="input input-medium">
+                <label for="postcode-zip-textbox">Principle lodgement centre</label>
+                <apex:inputText label="postcode-zip-textbox" id="centre-principal" value="{!appData.principalLC}" />
+                <p class="error-message">Principal Lodgement Centre is required</p>
+              </div>
+              <div class="input input-medium">
+                <label for="postcode-zip-textbox">Alternate lodgement centre</label>
+                <apex:inputText label="postcode-zip-textbox" id="centre-alt1"  value="{!appData.alternativeLC1}"/>
+                <p class="error-message">Alternative Lodgement Centre is required</p>
+              </div>
+              <div class="input input-medium">
+                <label for="postcode-zip-textbox">Alternate lodgement centre</label>
+                <apex:inputText label="postcode-zip-textbox" id="centre-alt2" value="{!appData.alternativeLC2}" />
+                <p class="error-message">Alternative Lodgement Centre is required</p>
+              </div>
+              <div class="input input-medium">
+                <label for="postcode-zip-textbox">Alternate lodgement centre</label>
+                <apex:inputText label="postcode-zip-textbox" id="centre-alt3" value="{!appData.alternativeLC3}" />
+                <p class="error-message">Alternative Lodgement Centre is required</p>
+              </div>
+              <hr/>
+              <h3>Pick up address</h3>
+              <div class="input input-large">
+                <label for="address-line-1-textbox">Address line 1</label>
+                <apex:inputText label="address-line-1-textbox" id="pickup-address-line-1" value="{!appData.address1PA}" />
+                <p class="error-message">Address line 1 is required</p>
+              </div>
+              <div class="input input-large">
+                <label for="address-line-2-textbox">Address line 2</label>
+                <apex:inputText label="address-line-2-textbox" id="pickup-address-line-2" value="{!appData.address2PA}" />
+                <p class="error-message">Address line 2 is required</p>
+              </div>
+              <div class='input-group'>
+                <div class="input input-medium">
+                  <label for="city-textbox">City</label>
+                  <apex:inputText label="city-textbox" id="pickup-city" value="{!appData.cityPA}" />
+                  <p class="error-message">City is required</p>
+                </div>
+                <div class="input input-small">
+                  <label for="state-textbox">State</label>
+                    <apex:selectList size="1" value="{!appData.statePA}" style="width:100px;" >
+                           <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                           <apex:selectOption itemLabel="ACT" itemValue="ACT"/>
+                           <apex:selectOption itemLabel="NSW" itemValue="NSW"/>
+                           <apex:selectOption itemLabel="NT" itemValue="NT"/>                           
+                           <apex:selectOption itemLabel="QLD" itemValue="QLD"/>
+                           <apex:selectOption itemLabel="SA" itemValue="SA"/> 
+                           <apex:selectOption itemLabel="TAS" itemValue="TAS"/>
+                           <apex:selectOption itemLabel="VIC" itemValue="VIC"/>
+                           <apex:selectOption itemLabel="WA" itemValue="WA"/>                          
+                      </apex:selectList>                    
+                  <p class="error-message">State is required</p>
+                </div>
+                <div class="input input-small">
+                  <label for="postcode-zip-textbox">Postcode / Zip</label>
+                  <apex:inputText label="postcode-zip-textbox" id="pickup-postcode" value="{!appData.postcodePA}"  styleClass="numeric"/>
+                  <p class="error-message">Postcode / Zip is required</p>
+                </div>
+              </div>
+              <hr/>
+              <h3>Pick up / drop off times</h3>
+              <div class="input required input-columns">
+                <p>Please select your preferred pick up / drop off days&nbsp;<span class="symbol-req">*</span></p>
+                <ul class="input-options clearfix">
+                  <li>
+                    <label for="exampleCheckbox_0">
+                      <apex:inputCheckbox label="exampleCheckbox" id="pref-monday" value="{!appData.mondayPickup}" />
+                      Monday </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_1">
+                      <apex:inputCheckbox label="exampleCheckbox" id="pref-tuesday" value="{!appData.tuesdayPickup}" />
+                      Tuesday </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_2">
+                      <apex:inputCheckbox label="exampleCheckbox" id="pref-wednesday" value="{!appData.wednesdayPickup}" />
+                      Wednesday </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_1">
+                      <apex:inputCheckbox label="exampleCheckbox" id="pref-thursday" value="{!appData.thursdayPickup}" />
+                      Thursday </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_2">
+                      <apex:inputCheckbox label="exampleCheckbox" id="pref-friday" value="{!appData.fridayPickup}" />
+                      Friday </label>
+                  </li>
+                </ul>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+              <p>What is your requested pick up / drop off time on the selected days? &nbsp;<span class="symbol-req">*</span></p>
+              <div class="input input-small required">
+                <apex:inputText label="state-textbox" id="pref-time" value="{!appData.requestedPickupTime}" />
+                <p class="error-message">A pick up / drop off time is required</p>
+              </div>
+              <hr/>
+              <h3>Transport and volume details</h3>
+              <p>Approximate volume per pick-up / drop off &nbsp;<span class="symbol-req">*</span></p>
+              <div class="input input-small required">
+                <apex:inputText label="pickup-volume-textbox" id="pickup-volume" styleClass="numeric" value="{!appData.pickupVolume}" />
+                <p class="error-message">Volume is required</p>
+              </div>
+              <div class="input required input-columns">
+                <p>Transport  (tick all that apply) &nbsp;<span class="symbol-req">*</span></p>
+                <ul class="input-options clearfix">
+                  <li>
+                    <label for="exampleCheckbox_0">
+                      <apex:inputCheckbox label="exampleCheckbox" id="pickup-van" value="{!appData.pickupTransportVan}" />
+                      van </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_1">
+                      <apex:inputCheckbox label="exampleCheckbox" id="pickup-truck" value="{!appData.pickupTransportTruck}" />
+                      truck </label>
+                  </li>
+                </ul>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+              <div class="input required input-columns">
+                <p>Presentation Method  (tick all that apply) &nbsp;<span class="symbol-req">*</span></p>
+                <ul class="input-options clearfix">
+                  <li>
+                    <label for="exampleCheckbox_0">
+                      <apex:inputCheckbox label="exampleCheckbox" id="pres-bag" value="{!appData.pickupPresentationMethodBag}" />
+                      bag </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_1">
+                      <apex:inputCheckbox label="exampleCheckbox" id="pres-loose" value="{!appData.pickupPresentationMethodLoose}" />
+                      loose </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_1">
+                      <apex:inputCheckbox label="exampleCheckbox" id="pres-uld" value="{!appData.pickupPresentationMethodULD}" />
+                      ULD </label>
+                  </li>
+                </ul>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+              <div class="input required input-columns">
+                <p>Destination (tick all that apply) &nbsp;<span class="symbol-req">*</span></p>
+                <ul class="input-options clearfix">
+                  <li>
+                    <label for="exampleCheckbox_0">
+                      <apex:inputCheckbox label="exampleCheckbox" id="destn-metro" value="{!appData.pickupDestinationMetro}" />
+                      metro </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_1">
+                      <apex:inputCheckbox label="exampleCheckbox" id="destn-state" value="{!appData.pickupDestinationState}" />
+                      state </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_1">
+                      <apex:inputCheckbox label="exampleCheckbox" id="destn-interstate" value="{!appData.pickupDestinationInterstate}" />
+                      interstate </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_1">
+                      <apex:inputCheckbox label="exampleCheckbox" id="destn-international" value="{!appData.pickupDestinationInternational}" />
+                      international </label>
+                  </li>
+                </ul>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+              <hr/>
+              <h3>Computer hardware and software specifications</h3>
+              <div class="input required input-columns">
+                <p>Operating system (tick all that apply) &nbsp;<span class="symbol-req">*</span></p>
+                <ul class="input-options clearfix">
+                  <li>
+                    <label for="exampleCheckbox_0">
+                      <apex:inputCheckbox label="exampleCheckbox" id="os-xp" value="{!appData.osWinXp}" />
+                      Windows XP </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_1">
+                      <apex:inputCheckbox label="exampleCheckbox" id="os-w7" value="{!appData.osWin7}" />
+                      Windows 7 </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_1">
+                      <apex:inputCheckbox label="exampleCheckbox" id="os-osx" value="{!appData.osMaxOs}" />
+                      Mac OS X </label>
+                  </li>
+                </ul>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+              <div class="input input-medium">
+                <label for="city-textbox">Other</label>
+                <apex:inputText label="city-textbox" id="os-other" value="{!appData.osOther}"/>
+                <p class="error-message">Other is required</p>
+              </div>
+              <!--div class="input required input-columns">
+                <p>Java runtime version 6 or above? &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.javaRuntimeV6Above}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="Yes" itemValue="Yes"/>
+                    <apex:selectOption itemLabel="No" itemValue="No"/>
+                </apex:selectList>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+              <div class="input required">
+                <p>Adobe Reader version 8 or above? &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.AdobeReaderV8above}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="Yes" itemValue="Yes"/>
+                    <apex:selectOption itemLabel="No" itemValue="No"/>
+                </apex:selectList>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+              <div class="input required input-columns">
+                <p>Internet browser (tick all that apply) &nbsp;<span class="symbol-req">*</span></p>
+                <ul class="input-options clearfix">
+                  <li style="width: 270px;">
+                    <label for="exampleCheckbox_0">
+                      <apex:inputCheckbox label="exampleCheckbox" id="browser-ie" value="{!appData.browserIE7Above}" />
+                      Internet Explorer 7 or above </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_1">
+                      <apex:inputCheckbox label="exampleCheckbox" id="browser-firefox" value="{!appData.browserFF}" />
+                      Firefox </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_1">
+                      <apex:inputCheckbox label="exampleCheckbox" id="browser-safari" value="{!appData.browserSafari}" />
+                      Safari </label>
+                  </li>
+                  <li>
+                    <label for="exampleCheckbox_1">
+                      <apex:inputCheckbox label="exampleCheckbox" id="browser-chrome" value="{!appData.browserChrome}" />
+                      Chrome </label>
+                  </li>
+                </ul>
+                <p class="error-message">YHou are required to provide a response.</p>
+              </div>
+              <div class="input required input-medium">
+                <label for="company-name-textbox">Printer make and model&nbsp;<span class="symbol-req">*</span></label>
+                <apex:inputText label="company-name-textbox" id="printer-model" value="{!appData.printerMakeModel}"/>
+                <p class="error-message">Printer is required</p>
+              </div-->
+              
+              <hr/>
+              
+              <h2>Customer safety declaration</h2>
+              <h3>Vehicle and pedestrian access</h3>
+              
+              
+              
+              <div class="input required">
+                <p>My site is free of obstacles eg bollards, parked cars, overhead powerlines, drains, gates, trees, stored goods, etc. &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.freeOfObstacles}" id="freeOfObstacles-Pick" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                    <apex:actionSupport event="onchange" reRender="freeOfObstaclesComment-panel,freeOfObstacles-Pick" status="freeOfObstacles-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="freeOfObstacles-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                      </apex:actionStatus>          
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+
+
+                <apex:outputPanel id="freeOfObstaclesComment-panel">
+                  <apex:outputPanel rendered="{!appData.freeOfObstacles=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="freeOfObstaclesComment" rows="6" value="{!appData.freeOfObstaclesComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>
+              
+              
+              
+              
+              <div class="input required">
+                <p>There is a designated loading / parking area on my site. &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.designatedLoadingParkingArea}" id="designatedLoadingParkingArea-Pick" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="designatedLoadingParkingArea-panel,designatedLoadingParkingArea-Pick" status="designatedLoadingParkingArea-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="designatedLoadingParkingArea-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="designatedLoadingParkingArea-panel">
+                  <apex:outputPanel rendered="{!appData.designatedLoadingParkingArea=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="designatedLoadingParkingAreaComment" rows="6" value="{!appData.designatedLoadingParkingAreaComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>
+                    
+              
+              
+              <div class="input required">
+                <p>My site can be driven into and doesn&#39;t require reversing from e.g. street, industrial complex driveway.  &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.noReversing}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="noReversing-panel,noReversing-Pick" status="noReversing-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="noReversing-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="noReversing-panel">
+                  <apex:outputPanel rendered="{!appData.noReversing=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="noReversingComment" rows="6" value="{!appData.noReversingComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>             
+              
+              <div class="input required">
+                <p>There is enough room and clear vision to safely manoeuvre an Australia Post van. &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.enoughRoom}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="enoughRoom-panel,enoughRoom-Pick" status="enoughRoom-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="enoughRoom-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+              
+                <apex:outputPanel id="enoughRoom-panel">
+                  <apex:outputPanel rendered="{!appData.enoughRoom=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="enoughRoomComment" rows="6" value="{!appData.enoughRoomComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>           
+              
+              
+              <div class="input required">
+                <p>Pedestrian and public access areas are controlled at my site. &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.controlledAccess}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="controlledAccess-panel,controlledAccess-Pick" status="controlledAccess-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="controlledAccess-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="controlledAccess-panel">
+                  <apex:outputPanel rendered="{!appData.controlledAccess=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="controlledAccessComment" rows="6" value="{!appData.controlledAccessComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>     
+              
+              
+              
+              
+              <div class="input required">
+                <p>The loading area is on even ground / has no slopes. &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.noSlopes}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="noSlopes-panel,noSlopes-Pick" status="noSlopes-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="noSlopes-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="noSlopes-panel">
+                  <apex:outputPanel rendered="{!appData.noSlopes=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="noSlopesComment" rows="6" value="{!appData.noSlopesComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>              
+              
+              
+              
+              <hr/>
+              <h3>Falls, slips and trips</h3>
+              <div class="input required">
+                <p>There are no slip, trip or fall hazards on my site. &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.noSlipTripFallHazards}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="noSlipTripFallHazards-panel,noSlipTripFallHazards-Pick" status="noSlipTripFallHazards-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="noSlipTripFallHazards-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="noSlipTripFallHazards-panel">
+                  <apex:outputPanel rendered="{!appData.noSlipTripFallHazards=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="noSlipTripFallHazardsComment" rows="6" value="{!appData.noSlipTripFallHazardsComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>             
+              
+              
+              
+              <div class="input required">
+                <p>There is adequate lighting within the pick-up area. &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.adequateLighting}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="adequateLighting-panel,adequateLighting-Pick" status="adequateLighting-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="adequateLighting-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="adequateLighting-panel">
+                  <apex:outputPanel rendered="{!appData.adequateLighting=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="adequateLightingComment" rows="6" value="{!appData.adequateLightingComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>              
+              
+              
+              
+              <hr/>
+              <h3>Manual handling</h3>
+              <div class="input required">
+                <p>There is no requirement to lift large or awkward parcels / loads above 16kgs. &nbsp;<span class="symbol-req">*</span><br/>
+                  (Assistance will be provided to Australia Post where large or awkward collections are required eg loads above 16kg) </p>
+                <apex:selectList size="1" value="{!appData.noAbove16kgs}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="noAbove16kgs-panel,noAbove16kgs-Pick" status="noAbove16kgs-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="noAbove16kgs-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="noAbove16kgs-panel">
+                  <apex:outputPanel rendered="{!appData.noAbove16kgs=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="noAbove16kgsComment" rows="6" value="{!appData.noAbove16kgsComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>             
+              
+              
+              
+              
+              <div class="input required">
+                <p>My parcels / loads are stable / balanced and won&#39;t fall over during loading or transportation. &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.stableBalancedParcel}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="stableBalancedParcel-panel,stableBalancedParcel-Pick" status="stableBalancedParcel-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="stableBalancedParcel-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="stableBalancedParcel-panel">
+                  <apex:outputPanel rendered="{!appData.stableBalancedParcel=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="stableBalancedParcelComment" rows="6" value="{!appData.stableBalancedParcelComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>             
+              
+              
+              <div class="input required">
+                <p>Stairs won&#39;t need to be used for pickup at my site. &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.noStairNeeded}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="noStairNeeded-panel,noStairNeeded-Pick" status="noStairNeeded-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="noStairNeeded-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="noStairNeeded-panel">
+                  <apex:outputPanel rendered="{!appData.noStairNeeded=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="noStairNeededComment" rows="6" value="{!appData.noStairNeededComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>             
+              
+              
+              <div class="input required">
+                <p>My parcels / loads won&#39;t need to be carried more than 10 metres.  &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.noMoreThan10meters}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="noMoreThan10meters-panel,noMoreThan10meters-Pick" status="noMoreThan10meters-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="noMoreThan10meters-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="noMoreThan10meters-panel">
+                  <apex:outputPanel rendered="{!appData.noMoreThan10meters=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="noMoreThan10metersComment" rows="6" value="{!appData.noMoreThan10metersComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>              
+              
+              <div class="input required">
+                <p>There is no requirement to frequently lift parcels / loads above shoulder height.  &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.noShoulderHeight}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="noShoulderHeight-panel,noShoulderHeight-Pick" status="noShoulderHeight-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="noShoulderHeight-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="noShoulderHeight-panel">
+                  <apex:outputPanel rendered="{!appData.noShoulderHeight=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="noShoulderHeightComment" rows="6" value="{!appData.noShoulderHeightComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>              
+              
+              <div class="input required">
+                <p>There is no requirement to lift parcels / loads in awkward or restricted spaces.  &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.noLift}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="noLift-panel,noLift-Pick" status="noLift-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="noLift-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="noLift-panel">
+                  <apex:outputPanel rendered="{!appData.noLift=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="noLiftComment" rows="6" value="{!appData.noLiftComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>              
+              
+              
+              <div class="input required">
+                <p>My parcels / loads don&#39;t contain any hazardous substances or sharp protrusions. &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.noHazardousOrSharp}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="noHazardousOrSharp-panel,noHazardousOrSharp-Pick" status="noHazardousOrSharp-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="noHazardousOrSharp-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="noHazardousOrSharp-panel">
+                  <apex:outputPanel rendered="{!appData.noHazardousOrSharp=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="noHazardousOrSharpComment" rows="6" value="{!appData.noHazardousOrSharpComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>              
+              
+              <div class="input required">
+                <p>My staff / colleagues will be on site at the time of collection.  &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.staffOnSite}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="staffOnSite-panel,staffOnSite-Pick" status="staffOnSite-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="staffOnSite-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="staffOnSite-panel">
+                  <apex:outputPanel rendered="{!appData.staffOnSite=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="staffOnSiteComment" rows="6" value="{!appData.staffOnSiteComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>              
+              
+              <hr/>
+              <h3>Forklifts and moving vehicles</h3>
+              <div class="input required">
+                <p>There is no requirement to work close to load shifting equipment (forklift, pallet jack etc), mobile plant<br/>
+                  and / or moving vehicles at my site.  &nbsp;<span class="symbol-req">*</span> </p>
+                <apex:selectList size="1" value="{!appData.noMovingVehicles}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="noMovingVehicles-panel,noMovingVehicles-Pick" status="noMovingVehicles-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="noMovingVehicles-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="noMovingVehicles-panel">
+                  <apex:outputPanel rendered="{!appData.noMovingVehicles=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="noMovingVehiclesComment" rows="6" value="{!appData.noMovingVehiclesComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>              
+              
+              <div class="input required">
+                <p>There is no requirement to operate load shifting equipment on sloping, uneven or rough surfaces at my site.  &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.noLoadShiftingEquipment}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="noLoadShiftingEquipment-panel,noLoadShiftingEquipment-Pick" status="noLoadShiftingEquipment-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="noLoadShiftingEquipment-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>
+                <apex:outputPanel id="noLoadShiftingEquipment-panel">
+                  <apex:outputPanel rendered="{!appData.noLoadShiftingEquipment=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="noLoadShiftingEquipmentComment" rows="6" value="{!appData.noLoadShiftingEquipmentComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>              
+              
+              <div class="input required input-columns">
+                <p>There is a floor traffic management plan in place and a designated safe zone for truck driver to stand etc.  &nbsp;<span class="symbol-req">*</span></p>
+                <apex:selectList size="1" value="{!appData.hasFloorTrafficManagementPlan}" style="width:100px;" >
+                    <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                    <apex:selectOption itemLabel="True" itemValue="True"/>
+                    <apex:selectOption itemLabel="False" itemValue="False"/>
+                <apex:actionSupport event="onchange" reRender="hasFloorTrafficManagementPlan-panel,hasFloorTrafficManagementPlan-Pick" status="hasFloorTrafficManagementPlan-ajax" />
+                 </apex:selectList>
+                      <apex:actionStatus id="hasFloorTrafficManagementPlan-ajax">
+                          <apex:facet name="start">
+                              <apex:image url="{!URLFOR($Resource.GsForm_Assets,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                          </apex:facet>                          
+                  </apex:actionStatus>
+                <p class="error-message">You are required to provide a response.</p>
+              </div>       
+                <apex:outputPanel id="hasFloorTrafficManagementPlan-panel">
+                  <apex:outputPanel rendered="{!appData.hasFloorTrafficManagementPlan=='False'}">
+                      <div class="input input-large required">
+                        <label for="exampleTextareaLarge">Please provide details for your responses</label>
+                        <apex:inputTextarea id="hasFloorTrafficManagementPlanComment" rows="6" value="{!appData.hasFloorTrafficManagementPlanComment}"/>
+                        <p class="error-message">You are required to provide a response.</p>
+                      </div>
+                  </apex:outputPanel>          
+              </apex:outputPanel>           
+              
+              <!--hr/>
+              <h3>Comments</h3>
+              <div class="input input-large">
+                <label for="exampleTextareaLarge">Please provide details for all responses you selected 'False'</label>
+                <apex:inputTextarea id="Comments" rows="6" value="{!appData.comment}"/>
+                <p class="error-message">You are required to provide a response.</p>
+              </div-->
+              <hr/>
+            </apex:outputPanel>
+            </apex:outputPanel>
+            <apex:outputPanel id="terms-conditions" >
+                
+            <h2>Terms and Conditions</h2>
+              <apex:outputPanel id="terms-conditions-information" styleClass="input required" rendered="{!appData.eParcelApplication = 'Yes'}" layout="block">
+              <p>Please complete the following declaration:</p>
+              <p>On behalf of the business nominated in this application, I, being a duly authorised officer (and named as the contact in the application) acknowledge that:</p>
+
+                  <label>
+                      <ol type="a">
+                          <li>all of the information provided in this application is true and complete.</li>
+                          <li>I understand that all information provided in the “Customer safety declaration” section in this application will be used for workplace health and safety purposes and failure to provide accurate information may prevent parcel pick-up.</li>
+                      </ol> 
+                      <apex:selectList size="1" value="{!appData.generalTAndC}" style="width: 130px;">
+                           <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                           <apex:selectOption itemLabel="I do not agree" itemValue="I do not agree"/>
+                           <apex:selectOption itemLabel="I agree" itemValue="I agree"/>
+                      </apex:selectList>
+                  </label>
+                  <p class="error-message">Please check the terms and conditions</p>
+              </apex:outputPanel>
+              <apex:outputPanel id="terms-conditions-business-credit" rendered="{!existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No'}"  styleClass="input required" layout="block">
+                  <h3>Australia Post Business Credit Account</h3>
+                  <label for="terms-agree">
+                      I have read and understood the&nbsp;<apex:outputLink value="{!$Resource.BusinessCreditAccountTermsAndConditions}" id="tc1" target="_blank">terms and conditions</apex:outputLink>&nbsp;for the operation, establishment and use of an Australia Post Business Credit Account.
+                  </label>
+                  <apex:selectList size="1" value="{!appData.termsCreditAccount}" style="width: 130px;">
+                     <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                     <apex:selectOption itemLabel="I do not agree" itemValue="I do not agree"/>
+                     <apex:selectOption itemLabel="I agree" itemValue="I agree"/>
+                  </apex:selectList> 
+                  <p class="error-message">Please check the terms and conditions of Australia Post Business Credit Account</p> 
+              </apex:outputPanel>
+              
+              <apex:outputPanel id="terms-conditions-eparcel" rendered="{!appData.eParcelApplication = 'Yes'}" styleClass="input required" layout="block">
+                  <h3>eParcel account</h3>
+                  <label for="eparcel-agree">                        
+                    I have read and understood the&nbsp;<apex:outputLink value="{!$Resource.TermsAndConditionsOfCarriage}" id="tc2" target="_blank">terms and conditions</apex:outputLink>&nbsp;for the operation, establishment and use of the eParcel service.
+                  </label>
+                  <apex:selectList size="1" value="{!appData.termsParcelService}" style="width: 130px;">
+                     <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                     <apex:selectOption itemLabel="I do not agree" itemValue="I do not agree"/>
+                     <apex:selectOption itemLabel="I agree" itemValue="I agree"/>
+                  </apex:selectList>
+                  <p class="error-message">Please check the terms and conditions of eParcel account</p>
+              </apex:outputPanel>
+
+			  <apex:outputPanel id="terms-conditions-eci" rendered="{!(appData.parcelsPerYear <> '' && (existingCreditAccount = 'Yes' || (existingCreditAccount = 'No' && applyForCreditAccount = 'Yes' && appData.creditLimit5000 = 'No'))) && appData.eciApplication = 'Yes'}" styleClass="input required" layout="block">
+                  <h3>International parcels</h3>
+                  <label for="eci-agree">
+                  	I have read and understood the&nbsp;<apex:outputLink value="{!$Resource.InternationalTermsOfCarriage}" id="tc3" target="_blank">terms and conditions</apex:outputLink>&nbsp;for the operation, establishment and use of the International service.                        
+                  </label>
+                  <apex:selectList size="1" value="{!appData.termsInternationalParcels}" style="width: 130px;">
+                     <apex:selectOption itemLabel="--Select--" itemValue=""/>
+                     <apex:selectOption itemLabel="I do not agree" itemValue="I do not agree"/>
+                     <apex:selectOption itemLabel="I agree" itemValue="I agree"/>
+                  </apex:selectList>
+                  <p class="error-message">Please check the terms and conditions of International parcels</p>
+              </apex:outputPanel>
+
+              
+              <div id="terms-conditions-promo">
+                  <h3>Promotions and offers</h3>
+                  <label for="promotions-agree">
+                    <apex:inputCheckbox value="{!legalMarketingOptIn}"/>
+                    We may use your personal information to tell you about other Australia Post products and services we think may be of benefit to you.
+                    Tick here if you wish to receive information about our products and services. </label>
+                    <p class="error-message">Please check the terms and conditions of promotions and offers</p>
+              </div>
+              <hr/>
+               
+              <div class="form-buttons clearfix">
+                <div class="right"> <!--<a href="#" class="cancel-link left">Cancel</a> -->
+                  <apex:commandLink styleClass="cancel-link left" value="Cancel" id="cancelButton" action="{!cancel}"/>
+                  <!-- Note: primary buttons are red. Secondary buttons are brown and need to have a classname of "secondary" -->
+                  <!--<input type="submit" value="Submit" class="left" />-->
+                  <!--<input type="submit" value="Save" class="left" />-->
+                  <!-- Note: primary buttons are red. Secondary buttons are brown and need to have a classname of "secondary" -->
+                  <!-- <apex:commandButton styleClass="left" value="Submit" id="submitButton" action="{!submitButton}" /> -->
+                  <!--  <apex:commandButton styleClass="left cancel" value="Save" id="saveButton" reRender="savePanel" action="{!saveButton}"/>-->
+                  
+                  <apex:actionStatus id="submit-btn-ajax">
+                      <apex:facet name="start">
+                          <apex:commandButton styleClass="left" value="Processing"/>
+                      </apex:facet>                            
+                      <apex:facet name="stop">
+                          <apex:commandButton styleClass="left" value="Submit" id="submitButton" action="{!submitButton}" status="submit-btn-ajax"/>
+                      </apex:facet>
+                  </apex:actionStatus>
+                  
+                  <apex:actionStatus id="save-btn-ajax">
+                      <apex:facet name="start">
+                          <apex:commandButton styleClass="left cancel" value="Processing" />
+                      </apex:facet>                            
+                      <apex:facet name="stop">
+                          <apex:commandButton styleClass="left cancel" value="Save" id="saveButton" rendered="{!publicId!=null || campaignMemberId!=null}" reRender="savePanel" action="{!saveButton}" status="save-btn-ajax"/>
+                      </apex:facet>
+                  </apex:actionStatus>
+                  
+                  
+                </div>
+                <apex:outputPanel id="savePanel" layout="block">
+                      <apex:outputPanel >
+                          <p style="color:{!saveColour}">{!saveMessage}</p>
+                      </apex:outputPanel>                  
+                  </apex:outputPanel>
+              </div>
+              
+            </apex:outputPanel>
+          </apex:form>
+        </div>
+        <!-- END MAIN PANEL -->
+
+      </div>
+    </div>
+
+<!-- START GE02 Footer -->
+<div class="l-footer">
+    <div id="footer">
+        <footer>
+            <div class="sub-footer-links">
+                <ul>
+                    <li><a href="http://auspost.com.au/about-us/about-our-site.html">About our site</a></li> 
+                    <li><a href="http://auspost.com.au/terms-conditions.html">Terms &amp; conditions</a></li> 
+                    <li><a href="http://auspost.com.au/privacy.html">Privacy policy</a></li> 
+                    <li><a href="https://contactus.auspost.com.au">Support</a></li>
+               </ul>
+            </div>
+        </footer>
+    </div>
+</div>
+<!-- END GE02 Footer -->
+<!-- Validation Disabled -->
+<script src="{!URLFOR($Resource.GsForm_Script)}"></script>
+
+<!--[if lt IE 8]>
+    <script src="{!URLFOR($Resource.GsForm_Assets,'js/unsupportedIE.js')}"></script>
+<![endif]-->
+<!-- Insert OMNITURE on-page tracking right above </body> tag -->
+
+<!-- SiteCatalyst code version: H.21.1.
+Copyright 1996-2010 Adobe, Inc. All Rights Reserved
+More info available at http://www.omniture.com -->
+<script type="text/javascript">
+s.pageName = "auspost:customer application form:home";
+var s_code=s.t();if(s_code)document.write(s_code);
+</script>
+<script type="text/javascript">if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-');</script><noscript><img src="https://australiapost.122.2o7.net/b/ss/auspost-prd/1/H.21.1--NS/0?[AQB]&amp;cdp=3&amp;[AQE]" height="1" width="1" alt="" /></noscript>
+
+  
+
+</body></html>
+</apex:page>

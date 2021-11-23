@@ -1,0 +1,36 @@
+<!--
+* @author
+* @date 2021-03-026
+* @group Billing Accounts
+* @tag Billing Account
+* @description: Update Primary Pickup Location modal popup . Used for showing the validation message if any other Primary Pickup Location exists
+*               for that Opportunity and buttons to cancel and override the current primary pickup location with new one.
+* @changelog
+* 2021-03-26 dheeraj.mandavilli@auspost.com.au Created
+* 2021-05-24 dheeraj.mandavilli@auspost.com.au Removed Primary Pickup Location field from the modal popup as part of STP-5775
+*
+-->
+
+<!-- Update Primary Pickup Location -->
+<template>
+    <lightning-card title="Primary Pickup Location Details" icon-name="standard:record" >
+        <div class="slds-m-around_small">
+            <template if:true={areDetailsVisible}>
+                <lightning-formatted-rich-text
+                        value={errorMessage}
+                ></lightning-formatted-rich-text>
+            </template>
+            <lightning-formatted-rich-text
+                value={noteForPrimary}
+            ></lightning-formatted-rich-text>
+            <template if:false={areDetailsVisible}>
+                <div><br/><br/><br/><br/></div>
+            </template>
+            <div></div>
+            <footer class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" onclick={cancel} >Cancel</button>
+                <button class="slds-button slds-button_brand" onclick={overridePrimary} >Override</button>
+            </footer>
+        </div>
+    </lightning-card>
+</template>

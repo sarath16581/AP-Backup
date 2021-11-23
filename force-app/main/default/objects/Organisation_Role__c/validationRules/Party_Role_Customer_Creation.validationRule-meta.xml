@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Party_Role_Customer_Creation</fullName>
+    <active>true</active>
+    <description>Phase 1 - Only customer data team can create a customer role</description>
+    <errorConditionFormula>ISPICKVAL( Role_Type__c, &quot;Customer&quot;) &amp;&amp;  ($Profile.Name != &quot;Customer Team&quot; &amp;&amp; $Profile.Name != &quot;System Administrator&quot; &amp;&amp; $Profile.Name != &quot;Australia Post - Integration&quot; &amp;&amp; $Profile.Name != &quot;Customer Team Super Users&quot; &amp;&amp; $Profile.Name != &quot;Enterprise Onboarding&quot; &amp;&amp; $Profile.Name != &apos;Automated Process&apos;)</errorConditionFormula>
+    <errorMessage>Only users from the Customer Team can create a customer record.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>Commercial_Governance_Team</name>
+    </customPermissions>
+    <description>To bypass the validation rule on Internal request object &quot;Request_cant_be_done_from_Closed_Opp&quot;</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Commercial Governance Team</label>
+</PermissionSet>

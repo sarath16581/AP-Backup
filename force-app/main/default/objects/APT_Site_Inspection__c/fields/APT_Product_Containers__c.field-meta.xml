@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Product_Containers__c</fullName>
+    <externalId>false</externalId>
+    <label>Presentation</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Loose</fullName>
+                <default>false</default>
+                <label>Loose</label>
+            </value>
+            <value>
+                <fullName>Pallets</fullName>
+                <default>false</default>
+                <label>Pallets</label>
+            </value>
+            <value>
+                <fullName>Trays/Bags</fullName>
+                <default>false</default>
+                <label>Trays/Bags</label>
+            </value>
+            <value>
+                <fullName>ULDs</fullName>
+                <default>false</default>
+                <label>ULDs</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

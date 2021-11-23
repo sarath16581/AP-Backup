@@ -1,0 +1,76 @@
+<apex:component controller="ContactCaseHistoryChartComponentCont">
+	<apex:attribute name="contactId" description="the selected contactid" type="string" required="true" assignTo="{!contId}"/>
+
+	<apex:includeScript value="/support/console/29.0/integration.js"/>
+	
+	<apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-1.10.2.min.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.Flot, '/js/jquery.flot.min.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.Flot, '/js/jquery.flot.categories.min.js')}"/>
+	
+	<script type="text/javascript">
+	    var $j = jQuery.noConflict();
+		
+		$j(document).ready(function() {
+			$j.plot($j("#chart_case_history"), [{!closedCaseChartData}, {!openCaseChartData}], {
+			    series: {
+			        bars: {
+						show: true,
+						barWidth: 0.3
+					}
+			    },
+			    xaxis: {
+					mode: "categories",
+					tickLength: 0
+				},
+				yaxis: {
+					min: 0,
+					minTickSize: 1,
+					tickDecimals: 0
+				},
+				colors: ['#a3d6e6','#ff9999'],
+				grid: {
+				    borderWidth: 0,
+				    hoverable: true
+				},
+				legend: {
+    				show: false
+    			}
+			});
+		
+			$j("<div id='case_chart_tooltip'></div>").css({
+				position: "absolute",
+				display: "none",
+				border: "1px solid #fdd",
+				padding: "2px",
+				"background-color": "#fee",
+				opacity: 0.80
+			}).appendTo("body");
+			
+			$j("#chart_case_history").on("plothover", function (event, pos, item) {
+				if (item) {
+					var x = item.datapoint[0].toFixed(2),
+						y = item.datapoint[1];
+
+					$j("#case_chart_tooltip").html(y + " " + item.series.label + " Case" + (y == 1 ? "" : "s"))
+						.css({top: pos.pageY-20, left: pos.pageX+5})
+						.fadeIn(200);
+				} else {
+					$j("#case_chart_tooltip").hide();
+				}
+				
+				$j(this).css({cursor: "pointer"});
+			});	
+			
+			$j("#chart_case_history").click(function () {
+				sforce.console.getEnclosingPrimaryTabId(function(result) {
+					var primaryTabId = result.id;
+		            sforce.console.openSubtab(primaryTabId , '/500?rlid=RelatedCaseList&id={!contId}&isdtp=vw', true);
+				});
+			});		
+		});
+	</script>
+
+	<div class="charttitle"><apex:image styleClass="titileIcon" url="/img/icon/cases24.png"/>&nbsp;Case History Volume by Month</div>
+	<div id="chart_case_history" class="chart"></div>
+		
+</apex:component>

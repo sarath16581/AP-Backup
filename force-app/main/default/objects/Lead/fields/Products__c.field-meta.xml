@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Products__c</fullName>
+    <description>Updated on 26/11/11 by CV to multiselect picklist, as need to select mulitple options not just one.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>MyPost Business (Customer sends less than 20 per week)</inlineHelpText>
+    <label>Service Interested</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Parcel Services (Parcel Post, eParcel)</fullName>
+                <default>false</default>
+                <label>Parcel Services (Parcel Post, eParcel)</label>
+            </value>
+            <value>
+                <fullName>Express Services (StarTrack &amp; Express)</fullName>
+                <default>false</default>
+                <label>Express Services (StarTrack &amp; Express)</label>
+            </value>
+            <value>
+                <fullName>Bulk Mail (Incl. UMS, Reply Paid)</fullName>
+                <default>false</default>
+                <label>Bulk Mail (Incl. UMS, Reply Paid)</label>
+            </value>
+            <value>
+                <fullName>ID&amp;V Services (POSTbillpay)</fullName>
+                <default>false</default>
+                <label>ID&amp;V Services (POSTbillpay)</label>
+            </value>
+            <value>
+                <fullName>International Services</fullName>
+                <default>false</default>
+                <label>International Services</label>
+            </value>
+            <value>
+                <fullName>PostPay</fullName>
+                <default>false</default>
+                <label>PostPay</label>
+            </value>
+            <value>
+                <fullName>SecurePay Online Payments (SOP)</fullName>
+                <default>false</default>
+                <label>SecurePay Online Payments (SOP)</label>
+            </value>
+            <value>
+                <fullName>Gateway</fullName>
+                <default>false</default>
+                <label>Gateway</label>
+            </value>
+            <value>
+                <fullName>POLi</fullName>
+                <default>false</default>
+                <label>POLi</label>
+            </value>
+            <value>
+                <fullName>StarTrack Courier (Pickup/Delivery)</fullName>
+                <default>false</default>
+                <label>StarTrack Courier (Pickup/Delivery)</label>
+            </value>
+            <value>
+                <fullName>Any other product/services</fullName>
+                <default>false</default>
+                <label>Any other product/services</label>
+            </value>
+            <value>
+                <fullName>Packaging Solutions (Prepaid, Custom)</fullName>
+                <default>false</default>
+                <label>Packaging Solutions (Prepaid, Custom)</label>
+            </value>
+            <value>
+                <fullName>MyPost Business</fullName>
+                <default>false</default>
+                <label>MyPost Business</label>
+            </value>
+            <value>
+                <fullName>Digital ID</fullName>
+                <default>false</default>
+                <label>Digital ID</label>
+            </value>
+            <value>
+                <fullName>Identity services</fullName>
+                <default>false</default>
+                <label>Identity services</label>
+            </value>
+            <value>
+                <fullName>Financial transactions &amp; payments</fullName>
+                <default>false</default>
+                <label>Financial transactions &amp; payments</label>
+            </value>
+            <value>
+                <fullName>Mail products &amp; services</fullName>
+                <default>false</default>
+                <label>Mail products &amp; services</label>
+            </value>
+            <value>
+                <fullName>Domestic shipping</fullName>
+                <default>false</default>
+                <label>Domestic shipping</label>
+            </value>
+            <value>
+                <fullName>International shipping</fullName>
+                <default>false</default>
+                <label>International shipping</label>
+            </value>
+            <value>
+                <fullName>Same-day delivery</fullName>
+                <default>false</default>
+                <label>Same-day delivery</label>
+            </value>
+            <value>
+                <fullName>Easy returns</fullName>
+                <default>false</default>
+                <label>Easy returns</label>
+            </value>
+            <value>
+                <fullName>Business to Business (B2B) logistics</fullName>
+                <default>false</default>
+                <label>Business to Business (B2B) logistics</label>
+            </value>
+            <value>
+                <fullName>Warehousing solutions</fullName>
+                <default>false</default>
+                <label>Warehousing solutions</label>
+            </value>
+            <value>
+                <fullName>Decipha</fullName>
+                <default>false</default>
+                <label>Decipha</label>
+            </value>
+            <value>
+                <fullName>Startrack</fullName>
+                <default>false</default>
+                <label>Startrack</label>
+            </value>
+            <value>
+                <fullName>Parcel Services</fullName>
+                <default>false</default>
+                <label>Parcel Services</label>
+            </value>
+            <value>
+                <fullName>Payments - Financial Services</fullName>
+                <default>false</default>
+                <label>Payments - Financial Services</label>
+            </value>
+            <value>
+                <fullName>Payments - eCommerce</fullName>
+                <default>false</default>
+                <label>Payments - eCommerce</label>
+            </value>
+            <value>
+                <fullName>Identity services – Digital ID</fullName>
+                <default>false</default>
+                <label>Identity services – Digital ID</label>
+            </value>
+            <value>
+                <fullName>Identity Services - WFV</fullName>
+                <default>false</default>
+                <label>Identity Services - WFV</label>
+            </value>
+            <value>
+                <fullName>Identity services - VoI</fullName>
+                <default>false</default>
+                <label>Identity services - VoI</label>
+            </value>
+            <value>
+                <fullName>Change of Address Notification</fullName>
+                <default>false</default>
+                <label>Change of Address Notification</label>
+            </value>
+            <value>
+                <fullName>Digital Identity</fullName>
+                <default>false</default>
+                <label>Digital Identity</label>
+            </value>
+            <value>
+                <fullName>Domestic Freight (B2B)</fullName>
+                <default>false</default>
+                <label>Domestic Freight (B2B)</label>
+            </value>
+            <value>
+                <fullName>Domestic Parcels (B2C)</fullName>
+                <default>false</default>
+                <label>Domestic Parcels (B2C)</label>
+            </value>
+            <value>
+                <fullName>Fulfilment</fullName>
+                <default>false</default>
+                <label>Fulfilment</label>
+            </value>
+            <value>
+                <fullName>Information and Mailroom Management</fullName>
+                <default>false</default>
+                <label>Information and Mailroom Management</label>
+            </value>
+            <value>
+                <fullName>Data and Insights</fullName>
+                <default>false</default>
+                <label>Data and Insights</label>
+            </value>
+            <value>
+                <fullName>International Parcels</fullName>
+                <default>false</default>
+                <label>International Parcels</label>
+            </value>
+            <value>
+                <fullName>Payment Services</fullName>
+                <default>false</default>
+                <label>Payment Services</label>
+            </value>
+            <value>
+                <fullName>Physical Mail</fullName>
+                <default>false</default>
+                <label>Physical Mail</label>
+            </value>
+            <value>
+                <fullName>Verification of Identity</fullName>
+                <default>false</default>
+                <label>Verification of Identity</label>
+            </value>
+            <value>
+                <fullName>Workforce Verification</fullName>
+                <default>false</default>
+                <label>Workforce Verification</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>9</visibleLines>
+</CustomField>

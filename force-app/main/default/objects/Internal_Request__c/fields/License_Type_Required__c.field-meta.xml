@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>License_Type_Required__c</fullName>
+    <description>Type of licenses required</description>
+    <externalId>false</externalId>
+    <label>License Type Required</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Full License (Sales &amp; Service)</fullName>
+                <default>false</default>
+                <label>Full License (Sales &amp; Service)</label>
+            </value>
+            <value>
+                <fullName>Field service - Dispatcher (Restricted User License)</fullName>
+                <default>false</default>
+                <label>Field service - Dispatcher (Restricted User License)</label>
+            </value>
+            <value>
+                <fullName>Field Service - Field Technician (Restricted User License)</fullName>
+                <default>false</default>
+                <label>Field Service - Field Technician (Restricted User License)</label>
+            </value>
+            <value>
+                <fullName>MyNetwork(Retail Resricted User License) - Full Time</fullName>
+                <default>false</default>
+                <label>MyNetwork(Retail Resricted User License) - Full Time</label>
+            </value>
+            <value>
+                <fullName>MyNetwork(Retail Resricted User License) - Part Time</fullName>
+                <default>false</default>
+                <label>MyNetwork(Retail Resricted User License) - Part Time</label>
+            </value>
+            <value>
+                <fullName>Einstein Analytic License (Permission Set)</fullName>
+                <default>false</default>
+                <label>Einstein Analytic License (Permission Set)</label>
+            </value>
+            <value>
+                <fullName>Sales Cloud</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Sales Cloud</label>
+            </value>
+            <value>
+                <fullName>Service Cloud (Restricted User License)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Service Cloud (Restricted User License)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

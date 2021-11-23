@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Fields_On_RecordType_General</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND ( 
+
+$Profile.Name &lt;&gt; &quot;System Administrator&quot;, 
+RecordType.DeveloperName = &apos;General&apos;, 
+ISPICKVAL(Status__c, &apos;Completed&apos;), 
+
+OR( 
+
+ISBLANK( DateofCommunication__c ), 
+TEXT( MerchantadoptionofCampaign__c ) = &quot;&quot;, 
+TEXT( Riskofmigrationtocompetitor__c ) = &quot;&quot;, 
+
+AND( 
+
+ISBLANK (MerchantKeyDriverstoAccept__c ), 
+ISBLANK( MerchantKeyDriverstoDecline__c ) 
+
+) 
+) 
+)</errorConditionFormula>
+    <errorMessage>The following fields are mandatory for records where the status is completed: 
+•	Date of Communication 
+•	Merchant adoption of Campaign 
+•	Merchant Key Drivers to Accept OR Merchant Key Drivers to Decline 
+•	Risk of migration to competitor</errorMessage>
+</ValidationRule>

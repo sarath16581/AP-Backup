@@ -1,0 +1,109 @@
+<!--
+    Description: This page is used in Card Left PA to support capture of important details.
+    History:
+    AUG.27.2015 DAVID CATINDOY(CloudSherpas) Created
+    SEPT.7.2015 DAVID CATINDOY(CloudSherpas) Finalize
+    NOV.25.2015 Patrick James Franco (Cloud Sherpas) - Decomissioned. Replaced by StarTrackCardLeft component
+-->
+<apex:page standardController="Case" id="thePage" >
+    <c:StarTrackCardLeft case="{!Case}"/>
+    <!-- <apex:pageMessages id="pageMessages"/>
+    <apex:stylesheet value="{!$Resource.bootstrapCSS}"/>
+    <apex:stylesheet value="{!$Resource.jQueryLayoutCSS}"/>
+    <apex:stylesheet value="{!$Resource.jQueryUI1_10_3_Css}"/>
+
+    <apex:includeScript value="/support/api/34.0/interaction.js"/>
+    <apex:includeScript value="/canvas/sdk/js/publisher.js" />
+
+    <style>
+        .boxed {
+            border-radius : 5px;
+            border: 1px solid #ccc;
+            border-top-color: rgb(204, 204, 204);
+            border-top-style: solid;
+            border-top-width: 1px;
+            border-right-color: rgb(204, 204, 204);
+            border-right-style: solid;
+            border-right-width: 1px;
+            border-bottom-color: rgb(204, 204, 204);
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            border-left-color: rgb(204, 204, 204);
+            border-left-style: solid;
+            border-left-width: 1px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .legendClass {
+            display: block;
+            width:initial;
+            padding: 0;
+            margin-bottom: 0px;
+            font-size: 14px;
+            font-weight:bold;
+            /* line-height: inherit; */
+            /* color: #333; */
+            /* border: 0; */
+            border-bottom: 0px solid #e5e5e5;
+        }
+    </style>
+
+    <apex:form id="theForm">
+        <apex:pageBlock tabStyle="Case" mode="maindetail" id="thePageBlock">
+            <apex:outputPanel id="thePanel" rendered="{!cardLeftAllowed}">
+                <apex:actionFunction name="validateEnquiryTypeAction" action="{!validateEnquiryType}" rerender="pageMessages, thePanel, cpbutton" oncomplete="resizePA();"/>
+                <apex:actionFunction name="validateDeliveryDateAction" action="{!validateDeliveryDate}"  rerender="pageMessages, thePanel, cpbutton" oncomplete="resizePA();"/>
+                <apex:actionFunction name="changeEnquiryTypeAction" action="{!changeEnquiryType}" rerender="pageMessages, thePanel, cpbutton" oncomplete="resizePA();"/>
+                <apex:pageBlockSection id="theMainBlockSection">
+                    <apex:inputField value="{!caseRecord.Call_Purpose__c}" styleClass="form-control input-sm string"/>
+                    <apex:selectList value="{!caseRecord.Enquiry_Type__c}" size="0" id="enquiryType" onchange="changeEnquiryTypeAction()" styleClass="form-control input-sm string">
+                        <apex:selectOptions value="{!EnquiryTypeValues}"/>
+                    </apex:selectList>
+                    <apex:inputField value="{!caseRecord.Override_Customer_Restriction__c}" onchange="validateEnquiryTypeAction()" rendered="{!((hasEnquiryTypeError) || (isOverride) && NOT(caseRecord.Enquiry_Type__c == '' || caseRecord.Enquiry_Type__c == 'Check Address'))}"/>
+                    <apex:inputField value="{!caseRecord.Override_Customer_Restriction_Reason__c}" styleClass="form-control input-sm string" rendered="{!(caseRecord.Override_Customer_Restriction__c)}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection id="depotCollectionAndRedeliverySection" rendered="{!(((caseRecord.Enquiry_Type__c == 'Depot Collection') || (caseRecord.Enquiry_Type__c == 'Redelivery')) && NOT(hasEnquiryTypeError))}">
+                    <apex:inputField value="{!caseRecord.Phone__c}" styleClass="form-control input-sm string"/>
+                    <apex:inputField value="{!caseRecord.Additional_Information__c}" styleClass="form-control input-sm string"/>
+                    <apex:inputField value="{!caseRecord.Delivery_Collection_Date__c}" onchange="validateDeliveryDateAction();" styleClass="form-control input-sm string" style="width: 100px"/>
+                    <apex:inputField value="{!caseRecord.StarTrack_Receiver_Name__c}" styleClass="form-control input-sm string"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection columns="1" collapsible="false" id="pgSecAddress" rendered="{!(((caseRecord.Enquiry_Type__c == 'Check Address') || (caseRecord.Enquiry_Type__c == 'Redirection')) && NOT(hasEnquiryTypeError))}">
+                    <c:StarTrackAddressComponent legend="Delivery Details" address="{!deliveryAddress}" id="adc" record="{!caseRecord}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection columns="1" rendered="{!(NOT((caseRecord.Enquiry_Type__c == 'Depot Collection') || (caseRecord.Enquiry_Type__c == '')) && NOT(hasEnquiryTypeError))}">
+                    <c:StarTrackATLComponent legend="ATL Details" id="atl" record="{!caseRecord}" hasEnquiryTypeError="{!hasEnquiryTypeError}" hasATLError="{!hasATLError}"/>
+                </apex:pageBlockSection>
+
+            </apex:outputPanel>
+            <apex:actionFunction name="save" action="{!updateCase}" rerender="scriptPanel, pageMessages, thePanel" oncomplete="publishandclose(); resizePA();"/>
+            <br/>
+            <center>
+                <apex:commandButton id="cpbutton" onclick="save();" value="Save" style="position:fixed; font-size:13px;" oncomplete="chatter.getPublisher().submit();" disabled="{!(hasEnquiryTypeError || hasATLError || (caseRecord.Enquiry_Type__c == '' || hasDeliveryDateMessage))}" rendered="{!cardLeftAllowed}"/>
+            </center>
+            <br/>
+        </apex:pageBlock>
+    </apex:form>
+    <apex:outputPanel id="scriptPanel">
+        <script type="text/javascript">
+            function publishandclose(){
+                if({!validation}){
+                    Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload :{feed: true, objectRelatedLists: {}}});
+                    sforce.interaction.entityFeed.reloadFrame();
+                    Sfdc.canvas.publisher.publish({name:"publisher.selectAction",payload:{actionName:"Case.Closed"}});
+                }
+            }
+        </script>
+    </apex:outputPanel>
+    <script type="text/javascript">
+        window.onload=function(){
+            Sfdc.canvas.publisher.resize();
+        };
+        function resizePA(){
+            Sfdc.canvas.publisher.resize();
+        }
+    </script>
+ -->
+</apex:page>

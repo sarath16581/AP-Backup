@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Portal_User_Validation__c</fullName>
+    <description>This field will store the error message to be displayed when a portal user is already created and user/agent is still trying to create a portal user via &apos;Invite Contact to BSP&apos; button on the contact detail page.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field will store the error message to be displayed when a portal user is already created and user/agent is still trying to create a portal user via &apos;Invite Contact to BSP&apos; button on the contact detail page.</inlineHelpText>
+    <label>StarTrack Portal User Validation</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

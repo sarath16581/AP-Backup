@@ -1,0 +1,7 @@
+<!--
+ - Created by MandavilD on 30/04/2021.
+ -->
+
+<design:component>
+    <design:attribute name="recordId" label="Record Id"/>
+</design:component>

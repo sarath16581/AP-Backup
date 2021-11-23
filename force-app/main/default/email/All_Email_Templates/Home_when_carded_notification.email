@@ -1,0 +1,20 @@
+<!--
+    @Author      :  nandan.narasappa@auspost.com.au
+    @Name        :  Home_when_carded_notification
+    @Date        :  31/10/2016
+    @Description :  Visualforce Email Template to display Attempt to delivery event message & case details
+-->
+<messaging:emailTemplate recipientType="User" relatedToType="Case" renderUsingSystemContextWithoutSharing="true"
+    subject="{!relatedTo.ReferenceID__c} {!$Label.CN_SUBJ_EVENT_MESSAGE} {!relatedTo.Network__r.Name} - {!$Label.CN_SUBJ_ARTICLE_CARDED_NO_DELIVERY}">
+    
+    <!-- HTML body generated via visualforce component to display both case & event message details -->
+    <messaging:htmlEmailBody id="htmlBody">
+        <!-- Added hiddent outputText for case fields to avoid query on Case object in visualforce component -->
+        <apex:outputText value="{!relatedTo.CaseNumber} {!relatedTo.Description} {!relatedTo.Type} {!relatedTo.ProductCategory__c} 
+                                    {!relatedTo.Contact.phone} {!relatedTo.Contact.MobilePhone}
+                                    {!relatedTo.ProductSubCategory__c} {!relatedTo.EnquirySubType__c} {!relatedTo.Network__r.Parent_SBU__c}" 
+                                    rendered="false" id="hiddenText"/>
+        <!-- Calling "VE_CardedCase" visualforce component -->
+        <c:VE_CardedCase case="{!relatedTo}" id="cardedComponent"/>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Bid_Support_DSR_Request_submit_Notification</fullName>
+        <description>Bid Support DSR Request submit Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>james.jackman@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>michele.gordon@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>scott.warbrick@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Support_Request_Email_Templates/Deal_Support_Request_Submission_to_queue</template>
+    </alerts>
+    <alerts>
+        <fullName>Business_Sales_Implementation_Customer_Survey_DSR</fullName>
+        <description>Business Sales Implementation - Customer Survey - DSR</description>
+        <protected>false</protected>
+        <recipients>
+            <field>CustomerContact1__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Business_Sales_Implementation/Business_Sales_Implementation_Customer_DSR</template>
+    </alerts>
+    <alerts>
+        <fullName>Business_Sales_Implementation_DSR_Request_submit_Notification</fullName>
+        <description>Business Sales Implementation DSR Request submit Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>christine.evans@startrack.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Support_Request_Email_Templates/Deal_Support_Request_Submission_to_queue</template>
+    </alerts>
+    <alerts>
+        <fullName>Business_Sales_Implementation_Internal_Survey_DSR</fullName>
+        <description>Business Sales Implementation - Internal Survey - DSR</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Business_Sales_Implementation/Business_Sales_Implementation_Internal_DSR</template>
+    </alerts>
+    <alerts>
+        <fullName>CTA_Creation_Notification</fullName>
+        <description>CTA Creation Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Support_Request_Email_Templates/CTA_Propose_Creation_Notification_html</template>
+    </alerts>
+    <alerts>
+        <fullName>CTA_Pursue_Creation_Notification</fullName>
+        <description>CTA Pursue Creation Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Support_Request_Email_Templates/CTA_Pursue_Creation_Notification_html</template>
+    </alerts>
+    <alerts>
+        <fullName>Commercial_Analytics_Modelling_Request_Submission_Notification_Commercial_Govern</fullName>
+        <description>Commercial Analytics Modelling Request Submission Notification - Commercial Governance</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>jason.tran2@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>simranjit.sokhi@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Deal_Support_Request_Email_Templates/Deal_Support_Request_Submission_to_queue</template>
+    </alerts>
+    <alerts>
+        <fullName>Commercial_Analytics_Modelling_Request_Submission_Notification_Product_Specialis</fullName>
+        <description>Commercial Analytics Modelling Request Submission Notification - Product Specialist</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>luke.holtfreter@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>nafiz.chowdhury@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Deal_Support_Request_Email_Templates/Deal_Support_Request_Submission_to_queue</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Governance_DSR_Request_submit_notiifcation</fullName>
+        <description>Deal Governance DSR Request submit notiifcation</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>james.jackman@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>nicola.mcguire@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>scott.warbrick@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Support_Request_Email_Templates/Deal_Support_Request_Submission_to_queue</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Support_Request_Additional_Info_Notification</fullName>
+        <description>Deal Support Request Additional Info Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Requestor__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Deal_Support_Request_Additional_Information_Request</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Support_Request_Completion_Notification</fullName>
+        <description>Deal Support Request Completion Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Requestor__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Deal_Support_Request_Completion_Notiifcation</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Support_Request_Submission_email</fullName>
+        <description>Deal Support Request Submission email</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Support_Request_Email_Templates/Deal_Support_Request_Submission_to_queue</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Support_request_Approved</fullName>
+        <description>Deal Support request Approved</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Deal_Support_Request_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Deal_Support_request_Rejected</fullName>
+        <description>Deal Support request Rejected</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Deal_Support_Request_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>E_G_DSR_Notification_Email</fullName>
+        <description>E&amp;G DSR Notification Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Requestor__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Email_Templates/DSR_E_G_Partner_Added</template>
+    </alerts>
+    <alerts>
+        <fullName>E_G_Sales_Implementation_Customer_Survey_DSR</fullName>
+        <description>E&amp;G Sales Implementation - Customer Survey - DSR</description>
+        <protected>false</protected>
+        <recipients>
+            <field>CustomerContact1__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Business_Sales_Implementation/EG_Sales_Implementation_Customer_DSR</template>
+    </alerts>
+    <alerts>
+        <fullName>E_G_Sales_Implementation_DSR_Request_submit_Notification</fullName>
+        <description>E&amp;G Sales Implementation DSR Request submit Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>michelle.axiak@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Support_Request_Email_Templates/Deal_Support_Request_Submission_to_queue</template>
+    </alerts>
+    <alerts>
+        <fullName>E_G_Sales_Implementation_Internal_Survey_DSR</fullName>
+        <description>E&amp;G Sales Implementation - Internal Survey - DSR</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Business_Sales_Implementation/EG_Sales_Implementation_Internal_DSR</template>
+    </alerts>
+    <alerts>
+        <fullName>LPO_Deal_Support_Request_Additional_Info_Notification</fullName>
+        <description>LPO Deal Support Request Additional Info Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Requestor__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>LPO_Email_Templates/LPO_Deal_Support_Request_Additional_Information_Request</template>
+    </alerts>
+    <alerts>
+        <fullName>LPO_Deal_Support_Request_Completion_Notification</fullName>
+        <description>LPO_Deal Support Request Completion Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Requestor__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>LPO_Email_Templates/LPO_Deal_Support_Request_Completion_Notiifcation</template>
+    </alerts>
+    <alerts>
+        <fullName>Product_Specialist_Solution_Support_DSR_Request_submit_Notification</fullName>
+        <description>Product Specialist Solution Support DSR Request submit Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>dean.kappler@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>luke.holtfreter@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>mark.foster@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>marra.saly@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Support_Request_Email_Templates/Deal_Support_Request_Submission_to_queue</template>
+    </alerts>
+    <alerts>
+        <fullName>Sales_Solution_Support_DSR_Request_submit_Notification</fullName>
+        <description>Sales Solution Support DSR Request submit Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>chelsea.o&apos;reilly@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Support_Request_Email_Templates/Deal_Support_Request_Submission_to_queue</template>
+    </alerts>
+    <alerts>
+        <fullName>Surcharge_Exemption_DSR_Request_submit_Notification</fullName>
+        <description>Surcharge Exemption DSR Request submit Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Surcharge_Exemption_Request_Notification</recipient>
+            <type>group</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Deal_Support_Request_Email_Templates/Deal_Support_Request_Submission_to_queue</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Approval_Flag_is_set_once_Approved</fullName>
+        <field>DSR_Approved__c</field>
+        <literalValue>1</literalValue>
+        <name>Approval Flag is set once Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>IntegrationTransaction_Id_to_Blank</fullName>
+        <description>Update Integration transaction Id to Blank</description>
+        <field>Integration_Transaction_Id__c</field>
+        <name>IntegrationTransaction Id to Blank</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Integration_Status_Description</fullName>
+        <description>Update Integration Status Description to Blank</description>
+        <field>Integration_Status_Description__c</field>
+        <name>Update Integration Status Description</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Stage_to_Submitted</fullName>
+        <description>This is to update the request after Approval to stage as Submitted</description>
+        <field>Stage__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Update Stage to Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Submitted</fullName>
+        <description>This will update Status of Request to Submitted upon Approval</description>
+        <field>Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Update Status to Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Surcharge_Approval_field</fullName>
+        <field>Surcharge_Submitted_for_Approval__c</field>
+        <literalValue>0</literalValue>
+        <name>Update Surcharge Approval field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Billing_Account_Creation_Retry_Update</fullName>
+        <actions>
+            <name>IntegrationTransaction_Id_to_Blank</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Integration_Status_Description</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Updates the Integration status description and transaction id attributes to blank in case user updates the Integration status from Error to blank</description>
+        <formula>AND( ISCHANGED(Integration_Status__c), ISBLANK(Integration_Status__c), (LOWER(PRIORVALUE(Integration_Status__c)) ==&apos;error&apos;)  )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

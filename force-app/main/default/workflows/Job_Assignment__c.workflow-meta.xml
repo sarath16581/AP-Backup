@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>SE_Owner_Update</fullName>
+        <field>OwnerId</field>
+        <lookupValue>Security_Express</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>SE Owner Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SE_Record_Type_Update</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Security_Express</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>SE Record Type Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SS_Owner_Update</fullName>
+        <field>OwnerId</field>
+        <lookupValue>Special_Services</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>SS Owner Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SS_Record_Type_Update</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Special_Services</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>SS Record Type Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Security Express Record Type Update</fullName>
+        <actions>
+            <name>SE_Owner_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SE_Record_Type_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(NOT(ISBLANK(Job__c)), ISPICKVAL(Job__r.Job_Type__c, &apos;Security Express&apos;))</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Special Services Record Type Update</fullName>
+        <actions>
+            <name>SS_Owner_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SS_Record_Type_Update</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(NOT(ISBLANK(Job__c)), ISPICKVAL(Job__r.Job_Type__c, &apos;Special Services&apos;))</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

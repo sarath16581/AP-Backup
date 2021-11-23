@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Goods_Details__c</fullName>
+    <defaultValue>&apos;Value of Goods: &apos; &amp; BR() &amp;
+&apos;Description of Content: &apos; &amp; BR() &amp;
+&apos;Description of Packaging: &apos;</defaultValue>
+    <externalId>false</externalId>
+    <label>Goods Details</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

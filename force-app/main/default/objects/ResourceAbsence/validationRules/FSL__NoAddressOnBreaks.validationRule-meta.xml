@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FSL__NoAddressOnBreaks</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( $RecordType.Name =&apos;Break&apos; , NOT(ISBLANK(Street) &amp;&amp; ISBLANK(City) &amp;&amp; ISBLANK(Country) &amp;&amp; ISBLANK(State) &amp;&amp; ISBLANK(PostalCode)  ))</errorConditionFormula>
+    <errorMessage>Cannot add address to resource absence with record type &apos;Break&apos;</errorMessage>
+</ValidationRule>

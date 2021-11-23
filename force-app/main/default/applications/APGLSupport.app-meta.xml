@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#DC0000</headerColor>
+        <logo>auspost</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
+    </brand>
+    <description>International Customer Outbound (Australia Post Global Logistics Support)</description>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>true</isNavPersonalizationDisabled>
+    <label>APGL Support</label>
+    <navType>Console</navType>
+    <setupExperience>all</setupExperience>
+    <tabs>standard-Case</tabs>
+    <tabs>standard-Account</tabs>
+    <tabs>standard-Contact</tabs>
+    <tabs>APT_Sub_Account__c</tabs>
+    <tabs>et4ae5__Configuration__c</tabs>
+    <tabs>Apttus_Config2__ConfigSettings__c</tabs>
+    <tabs>et4ae5__Business_Unit__c</tabs>
+    <tabs>SAM_Admin1</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>ICO_NZ_UtilityBar</utilityBar>
+    <workspaceConfig>
+        <mappings>
+            <tab>APT_Sub_Account__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Apttus_Config2__ConfigSettings__c</tab>
+        </mappings>
+        <mappings>
+            <tab>SAM_Admin1</tab>
+        </mappings>
+        <mappings>
+            <tab>et4ae5__Business_Unit__c</tab>
+        </mappings>
+        <mappings>
+            <tab>et4ae5__Configuration__c</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Account</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Case</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Contact</tab>
+        </mappings>
+    </workspaceConfig>
+</CustomApplication>

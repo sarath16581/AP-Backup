@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bid_Information_Missing__c</fullName>
+    <description>Shows user which fields on the Bid record need to be completed</description>
+    <externalId>false</externalId>
+    <formula>IF( Hidden_Bid_Quality_Score__c =100,&quot;Optimum quality bid. All data completed &quot;, &quot; | &quot; &amp;
+
+IF(ISBLANK(TEXT( Product__c)) ,&quot;Main Product |  &quot;,&quot;&quot;)
+&amp;IF(ISBLANK(TEXT( Bid_or_Tender_Type__c)) ,&quot;Bid or Tender Type |  &quot;,&quot;&quot;)
+&amp;IF(ISBLANK(TEXT( Stage__c)) ,&quot;Stage |  &quot;,&quot;&quot;)
+&amp;IF(ISBLANK(TEXT( Status__c)) ,&quot;Status |  &quot;,&quot;&quot;)
+
+&amp;IF(ISBLANK( Start_Date__c) ,&quot;Start Date |  &quot;,&quot;&quot;)
+&amp;IF(ISBLANK( Due_Date__c) ,&quot;Due Date |  &quot;,&quot;&quot;)
+
+&amp;IF(ISBLANK( Bid_Tender_Owner_del__c),&quot;Bid/Tender Owner | &quot;,&quot;&quot;)
+&amp;IF(ISBLANK( Coverage_Sales_Driver__c) ,&quot;Coverage Sales Driver |  &quot;,&quot;&quot;)
+&amp;IF(ISBLANK( Product_Sales_Driver__c) ,&quot;Product Sales Driver |  &quot;,&quot;&quot;)
+
+&amp;IF(ISBLANK( Result_Date__c) ,&quot;Result Date |  &quot;,&quot;&quot;)
+&amp;IF(ISBLANK( Tender_renewal_date__c) ,&quot;Tender Renewal Date |  &quot;,&quot;&quot;)
+&amp;IF(ISBLANK( Contract_Term__c) ,&quot;Contract Term |  &quot;,&quot;&quot;)
+)</formula>
+    <inlineHelpText>The following information is missing from this Bid or Tender eg | Start Date |</inlineHelpText>
+    <label>Bid Information Missing</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

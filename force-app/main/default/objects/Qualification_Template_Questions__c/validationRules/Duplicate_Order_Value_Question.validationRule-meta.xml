@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Duplicate_Order_Value_Question</fullName>
+    <active>true</active>
+    <errorConditionFormula>(VLOOKUP($ObjectType.Qualification_Template_Questions__c.Fields.Order__c, $ObjectType.Qualification_Template_Questions__c.Fields.Name, TEXT(Category__c))) == Order__c</errorConditionFormula>
+    <errorMessage>Order cannot be repeated for the same Category</errorMessage>
+</ValidationRule>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cost_Per_Unit__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (ISPICKVAL( Replacement_Products__c ,&apos;Booklet of 10 stamps ($1)&apos;), 10,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Booklet of 10 stamps ($11)&apos;), 11,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Registered Post label&apos;), 3.5,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Registered Post b4 prepaid envelope&apos;), 5.9,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Registered Post DL prepaid envelope&apos;), 4.3,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Flat Rate Satchel 500g Small (10 pack)&apos;), 2.5,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Flat Rate Satchel 3kg Medium (10 pack)&apos;), 3.5,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Flat Rate Satchel 5kg Large (10 pack)&apos;), 4.5,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;eBay Satchel 3kg (5 pack)&apos;), 1.75,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;eBay Satchel 3kg (10 pack)&apos;), 2.8,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;eBay Satchel 3kg (20 pack)&apos;), 4.2,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;eBay Satchel 500g (5 pack)&apos;), 1.25,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;eBay Satchel 500g (10 pack)&apos;), 2,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;eBay Satchel 500g (20 pack)&apos;), 3,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Parcel Post Satchel 3kg Medium&apos;), 13.4,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Parcel Post Satchel 500g Small&apos;), 8.25,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Parcel Post Satchel 5kg Large&apos;), 16.7,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Express Post Large B4 Envelope&apos;), 8.85,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Express Post Medium C5 Envelope&apos;), 7.45,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Express Post Small DL Envelope&apos;), 7.15,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Express Post Satchel 500g Small&apos;), 12.20,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Business redirection - 1 Month&apos;), 64.55,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Private redirection - 1 Month&apos;), 20.5,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Concession redirection - 1 Month&apos;), 10.3, 
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Express Post Platinum 3kg satchel&apos;), 23.10, 
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Express Post Platinum 500g satchel&apos;), 17, 
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Priority Label&apos;), 0.5, 
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Signature On Delivery Label&apos;), 2.95, 
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Express Post Satchel 1kg Medium&apos;),15.95,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Express Post Satchel 3kg Medium&apos;),19.70,
+(IF(ISPICKVAL( Replacement_Products__c ,&apos;Express Post Satchel 5kg Large&apos;),25.95,
+0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Cost Per Unit</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

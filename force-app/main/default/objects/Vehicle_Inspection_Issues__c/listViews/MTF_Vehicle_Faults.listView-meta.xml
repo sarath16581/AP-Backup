@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MTF_Vehicle_Faults</fullName>
+    <columns>NAME</columns>
+    <columns>Vehicle__c</columns>
+    <columns>Item__c</columns>
+    <columns>Repair_Order_No__c</columns>
+    <columns>Inspection_Information__c</columns>
+    <columns>Severity__c</columns>
+    <columns>Status__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Service_Territory__c</field>
+        <operation>equals</operation>
+        <value>Melbourne</value>
+    </filters>
+    <label>MTF Vehicle Faults</label>
+</ListView>

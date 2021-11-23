@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAMContactMatchesContactApplication</fullName>
+    <active>true</active>
+    <description>Ensures the contact id matches the contact id on the contact application record if both of them are suplied</description>
+    <errorConditionFormula>!ISBLANK(Contact__c) &amp;&amp; !ISBLANK(Contact_Application__r.Contact__c) &amp;&amp; Contact__c != Contact_Application__r.Contact__c</errorConditionFormula>
+    <errorMessage>The Contact value does not match the contact value on Contact Application</errorMessage>
+</ValidationRule>

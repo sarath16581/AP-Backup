@@ -1,0 +1,321 @@
+<!--
+    @Author      :  kalpita.talwadekar@auspost.com.au    
+    @Date        :  31/03/2017
+    @Description :  Visualforce page to display the custom list view based on network user visibility
+
+    Revision History:
+        06/22/17 angelo.rivera@auspost.com.au - added Javascript for riverbed - Resource.Web_Analyser
+        07/04/17 kalpita.talwadekar@auspot.com.au    updated code for column width adjustment
+        07/11/17 kalpita.talwadekar@auspot.com.au    updated code to comment web_Analyser for fixing INC0965267
+        2018-11-07 nathan.franklin@auspot.com.au implementing a transient caselist variable to minimise dependence on viewstate
+        2018-11-27 nathan.franklin@auspot.com.au implementing a collection size limit fix for collections over 1000...
+        2019-01-22 saiswetha.pingali@auspot.com.au REQ1673720 - Display total cases on MyNetwork Landing Page
+        2019-07-08 saiswetha.pingali@auspot.com.au INC1371858 - Display case 'Prority' and 'Product Category'
+        2019-11-26 gunith.devasurendra@auspost.com.au REQ1982330/REQ1962663 - Order by Priority and highlight High priority ones
+-->
+<apex:page sidebar="false" showHeader="false" id="page" controller="SSSW_MyNetworkLandingContr" action="{!initialize}" >
+    <apex:includeScript value="{!$Resource.jQuery111}" />
+    <apex:includeScript value="{!$Resource.bootstrapJS}" />
+    <apex:stylesheet value="{!$Resource.bootstrapCSS}" /> 
+    <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+    <apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    <apex:includeScript value="{!URLFOR($Resource.tablesorter, 'jquery.tablesorter.min.js')}"/>
+    <apex:includeScript value="{!$Resource.Pagination}"/>
+    <apex:includeScript value="{!$Resource.Sorting_Final}"/>
+    <apex:includeScript value="{!$Resource.ResizeTable}"/>
+    <!--apex:includeScript value="{!$Resource.Web_Analyser}" / -->
+
+    <!-- Script for setting the data table -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+           
+            $('#theaddrs').DataTable(
+            {
+                "aoColumns": [
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                ]
+                ,
+                "order": [
+                    [ 2, "desc" ],
+                    [ 4, "asc" ]
+                ]
+            }
+            );
+            
+             
+            
+            $('#theaddrs').colResizable({liveDrag:true,
+                draggingClass:"dragging"
+            });
+            
+            //document.getElementsByName('theaddrs_length')[0].selectedIndex = "1";
+            document.getElementById('theaddrs_length').style.display = 'none';
+            // document.getElementById('theaddrs_filter').style.display = 'none';
+            document.getElementsByTagName("input")[1].setAttribute("placeholder", 'Use this to search for items in your Case List');
+            document.getElementsByTagName("input")[1].style.width = '300px';
+        } ); 
+        
+            function openTwoWindows() 
+            {
+            for(var i = 0; i<2; i++)
+                  {
+                    
+            window.open("http://www.google.com");
+            }
+            }
+        
+    </script>
+   <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+    <center>
+    <!-- PAGE HEADER -->
+    <div class="slds-page-header">
+      <!-- LAYOUT GRID -->
+      <div class="slds-grid">
+        <!-- GRID COL -->
+        <div class="slds-col slds-has-flexi-truncate">
+          <!-- HEADING AREA -->
+          <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate" title="Welcome {!$User.FirstName}">Welcome {!$User.FirstName}</h1>
+          <p><h5 class="slds-text-title--caps ">Here are your Customer Contact Centre Cases</h5></p>
+          <h2 class="slds-text-heading_large">Total Cases = {!TotalCases}</h2>
+          <!-- / HEADING AREA -->
+        </div>
+      </div>
+    </div>
+    </center>
+<!-- / PAGE HEADER -->
+    
+    <apex:form style="background-color: white;" styleClass="slds" id="AccntTable">
+
+    <div class="slds-scope">
+    <div class="slds-scrollable--x" width="100%">
+    <!--apex:commandLink onclick="openTwoWindows()" immediate="false">
+        <span class="slds-icon_container icn" title="Notifications" style="float:right">
+          <svg class="slds-icon slds-icon-text-default" aria-hidden="true">
+            <use xlink:href="{!URLFOR($Resource.SLDS080,'assets/icons/utility-sprite/svg/symbols.svg#notification')}"></use>
+          </svg>
+          <span class="slds-show_inline" style="color: #c90000;">Notifications &nbsp;&nbsp;&nbsp;</span>
+        </span>
+    </apex:commandLink -->      
+          
+        <!-- table for the work list of cases -->
+        <table class="slds-table slds-table--edit slds-table--bordered slds-table--fixed-layout slds-table--resizable-cols" 
+           id="theaddrs"   role="grid" style="width:100%;"  >
+            <thead>
+                <tr class="slds-text-title--caps">
+                    <th class="slds-is-resizable slds-truncate slds-text-title--caps" scope="col" style="color:#c90000;"> Details </th>
+                    <!-- use field set to displhehe ay the relevant cases -->
+                    <apex:repeat value="{!$ObjectType.Case.FieldSets.CaseListView}" var="f">
+                  
+                        <th  class="slds-is-sortable slds-truncate slds-is-resizable slds-text-title--caps" style="border:1px ridge #D7D8D9;"  scope="col">
+                            <a href="javascript:void(0);" class="slds-th__action slds-text-link--reset" tabindex="0">
+                              <span class="slds-assistive-text">Sort </span>
+                              <span class="slds-truncate" title="{!f.Label}" style="color:#c90000;">
+                              <apex:outputText rendered="{!f.Label == 'Contact ID'}" >Contact Name </apex:outputText>
+                              <apex:outputText rendered="{!f.Label == 'Full Name'}" >Last Modified By </apex:outputText>
+                              <apex:outputText rendered="{!f.Label != 'Contact ID' && f.Label != 'Full Name'}" >{!f.Label} </apex:outputText>
+                              </span>
+                              <span class="slds-assistive-text" aria-live="assertive" aria-atomic="true"></span>
+                            </a>
+                           
+                            <div class="slds-resizable">
+                            
+                              <label for="cell-resize-handle-553" class="slds-assistive-text">{!f.Label}</label>
+                              <input type="range" min="20" max="1000" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-553" tabindex="0" />
+                              <span class="slds-resizable__handle">
+                                <span class="slds-resizable__divider"></span>
+                              </span>
+                            </div>
+                        </th>
+                    </apex:repeat>
+                </tr>
+            </thead>
+        <tbody>
+        <apex:repeat var="index" value="{!caseIdIndexes}">
+            <apex:repeat var="iterationCaseIds" value="{!caseIds[index]}">
+                <apex:repeat var="caseId" value="{!iterationCaseIds}">
+                    <apex:variable var="cse" value="{!caseList[index][caseId]}" />
+
+                    <tr>
+                        <td class="slds-truncate widht-25px">
+                            <span title="{!hoverTextMap[caseId]}">
+                                <apex:commandButton value="{!iconNameMap[caseId]}" action="{!respondToCase}" style="background-color:{!colorMap[caseId]}" alt="this tooltip" styleClass="btn slds-button"   rerender="dummyId">
+                                    <apex:param assignTo="{!cseId}" name="caseId" value="{!caseId}"/>
+                                </apex:commandButton>
+                           </span> &nbsp;&nbsp;
+                           <span class="slds-icon_container icn" title="Case Printed" style="display:{!IF(cse.checkbox__c, 'normal','none')};">
+                               <svg class="slds-icon slds-icon-text-warning slds-icon--x-small" aria-hidden="true">
+                                    <use xlink:href="{!URLFOR($Resource.SLDS080,'assets/icons/utility-sprite/svg/symbols.svg#copy')}"></use>
+                                  </svg>
+                                  <span class="slds-assistive-text">Case Printed</span>
+                            </span>
+                         </td>
+                         <!-- use the case list view for displaying the values for the records -->
+                        <apex:repeat value="{!$ObjectType.Case.FieldSets.CaseListView}" var="f">
+                            <td class="slds-truncate widht-20px" style="border:1px ridge #D7D8D9;
+                                       font-weight:{!IF(f.Label == 'Case Number' && cse.Facility_Milestones_Violated__c!=null && cse.Facility_Milestones_Violated__c > 1, 'bold', 'normal')};
+                                       color:{!IF(f.Label == 'Case Number' && cse.Facility_Milestones_Violated__c!=null && cse.Facility_Milestones_Violated__c > 1, 'red', 'black')}" >
+                                <apex:outputField value="{!cse[f]}" rendered="{!f.Label != 'Created Date' && f.Label != 'Priority'}"/>
+                                <span class="slds-icon_container icn" title="Escalated" style="display:{!IF(f.Label == 'Case Number' &&
+                                                cse.Facility_Milestones_Violated__c!=null && cse.Facility_Milestones_Violated__c > 1, 'normal','none')};">
+                                   <svg class="slds-icon slds-icon-text-warning slds-icon--x-small" aria-hidden="true">
+                                        <use xlink:href="{!URLFOR($Resource.SLDS080,'assets/icons/utility-sprite/svg/symbols.svg#warning')}"></use>
+                                      </svg>
+                                      <span class="slds-assistive-text">Escalated</span>
+                                </span>
+                                <span style="display:none; ">
+                                <apex:outputText value="{0,date,yyyyMMdd HH:mm:ss z}" rendered="{!f.Label == 'Created Date'}" >
+                                    <apex:param value="{!cse[f]}" />
+                                </apex:outputText> </span><apex:outputField value="{!cse[f]}" rendered="{!f.Label == 'Created Date'}">
+                                </apex:outputField>
+                                <apex:outputPanel rendered="{!f.Label == 'Priority'}">
+                                    <span style="color:white;font-size:1px">{!casePriorityNumbers[cse[f]]}</span>
+                                    <apex:outputText rendered="{!cse[f] == 'High'}" value="{!cse[f]}" style="color:red"/>
+                                    <apex:outputText rendered="{!cse[f] != 'High'}" value="{!cse[f]}"/>
+                                </apex:outputPanel>
+                            </td>
+                        </apex:repeat>
+                    </tr>
+                </apex:repeat>
+            </apex:repeat>
+        </apex:repeat>
+        </tbody>
+        </table>
+    <br/>
+    </div>
+    <!--center><apex:outputText style="fomt-weight:bold;color:#c90000;" rendered="{!cseList.size == 0 }">No Cases to display</apex:outputText>
+    <br/>
+    <apex:outputPanel rendered="{!cseList.size != 0 }">
+    <div id="pageNavPosition" style="background-color: #d20000;
+                                    color: white;
+                                    padding: 5px 5px;
+                                    text-align: center; 
+                                    text-decoration: none;
+                                    display: inline-block;cursor: pointer;" /> </apex:outputPanel>
+    <br/></center
+
+    <script type="text/javascript">
+    var pager = new Pager('theaddrs', 20); 
+    console.log( document.getElementById('page:j_id9:theaddrsblock:theaddrs'));
+    pager.init(); 
+    pager.showPageNav('pager', 'pageNavPosition'); 
+    pager.showPage(1);
+    </script -->
+  
+    <style>
+    
+    .slds .slds-icon {
+        fill: #c90000;
+    }
+ 
+       body input.btn{
+            font-family: Arial;
+            font-size: .8em;
+            //background-color: #ed0446;
+            border: 1px solid #ed0446;
+            //background-image: -ms-linear-gradient(top,#d20000  0,#d20000 100%);
+            //background-image: -moz-linear-gradient(top,#d20000 0,#d20000 100%);
+            //background-image: -webkit-linear-gradient(top,0 0,0 100%);
+            //background-image: linear-gradient(top,#8AB529 0,#87AC31 100%);
+            display: inline-block;
+            padding-top: 0;
+            padding-bottom: 0.8px;
+            padding-left: 7px;
+            padding-right: 7px;
+            height: 20px;
+            color: #fff;
+            -moz-border-radius: 2px;
+            border-radius: 1px;
+            //-moz-box-shadow: 0 1px 2px 0 #adadad;
+            //-webkit-box-shadow: 0 1px 2px 0 #adadad;
+            box-shadow: 0 1px 2px 0 #adadad;
+            margin: 0;
+        }
+        
+       .slds .slds-button {
+                position: relative;
+                display: inline-block;
+                padding-top: 0;
+                padding-bottom: 0.8px;
+                padding-left: 7px;
+                padding-right: 7px;
+                height: 20px;
+                width: 65px;
+                color: #fff;
+                border-radius: 5px;
+                background: transparent;
+                background-clip: padding-box;
+                
+                font-size: inherit;
+                line-height: 20px;
+                text-decoration: none;
+                -webkit-appearance: none;
+                white-space: normal;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                -webkit-transition: color 0.05s linear, background-color 0.05s linear;
+                transition: color 0.05s linear, background-color 0.05s linear;
+            }
+        
+        .slds .slds-table .slds-truncate {
+            min-width: 12px;
+            max-width: 40px;
+            
+
+        }
+        
+        #theaddrs_paginate {
+            //background-color: #d20000;
+            color:  #d20000;
+            padding: 5px 5px;
+            text-align: center; 
+            text-decoration: none;
+            display: inline-block;cursor: pointer;
+        }
+        
+        div#theaddrs_paginate > a{
+            margin-left: 10px;
+        }  
+        
+        div#theaddrs_paginate > span > a{
+            margin-left: 10px;
+        }        
+        
+        .current {
+            color:  #d20000;
+            font-family: "Salesforce Sans", Arial, sans-serif;
+            font-weight: normal;
+        }
+        
+        .dataTables_length, .dataTables_filter >label {
+            color:  #d20000;
+            font-family: "Salesforce Sans", Arial, sans-serif;
+            font-weight: normal;
+        }
+        
+        .dataTables_length >label {
+            color:  #d20000;
+            font-family: "Salesforce Sans", Arial, sans-serif;
+            font-weight: normal;
+        }
+        
+        </style>
+
+    </div>
+    
+    </apex:form>
+     </html>
+</apex:page>

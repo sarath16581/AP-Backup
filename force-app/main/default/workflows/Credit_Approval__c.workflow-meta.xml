@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>CreditApprovedNotetoOwner</fullName>
+        <description>Credit Approved - Note to Owner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>noreply-customerres@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Customer_Resolutions/Credit_Approved_Note_to_Owner</template>
+    </alerts>
+    <alerts>
+        <fullName>Credit_Approval_Rejected_Notification</fullName>
+        <description>Credit Approval Rejected Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Case_Owner_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply-customerres@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Case_Templates/Credit_Approval_Rejected</template>
+    </alerts>
+    <alerts>
+        <fullName>Credit_Approval_Rejection_Note_to_Record_Owner</fullName>
+        <description>Credit Approval Rejection - Note to Record Owner</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>noreply-customerres@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Customer_Resolutions/Credit_Approval_Rejected_Note_to_Owner</template>
+    </alerts>
+    <alerts>
+        <fullName>Credit_Approval_Reminder_Email</fullName>
+        <description>Credit Approval Reminder Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Current_Approver_Name__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>creditclaim@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Case_Templates/Credit_Approval_Reminder</template>
+    </alerts>
+    <alerts>
+        <fullName>Credit_Approval_Reminder_Email_New</fullName>
+        <description>Credit Approval Reminder Email New</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Current_Approver_Name__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>creditclaim@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Case_Templates/Credit_Approval_Reminder</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Approval_Level_Account_Manager</fullName>
+        <field>Current_Approver__c</field>
+        <formula>Account_Manager__c</formula>
+        <name>Approval Level - Account Manager</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approval_Level_Customer_Resolutions_Mana</fullName>
+        <field>Current_Approver__c</field>
+        <formula>&apos;Customer Resolutions Manager&apos;</formula>
+        <name>Approval Level-Customer Resolutions Mana</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approval_Level_Not_Submitted</fullName>
+        <field>Approval_Level__c</field>
+        <literalValue>Not Submitted</literalValue>
+        <name>Approval Level- Not Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Blank_Current_Approver</fullName>
+        <field>Current_Approver__c</field>
+        <name>Blank Current Approver</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Blank_Current_Approver_Step</fullName>
+        <field>Current_Approver__c</field>
+        <formula>&apos;&apos;</formula>
+        <name>Blank Current Approver_Step</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Case_Summary</fullName>
+        <field>Case_Summary__c</field>
+        <formula>Case__r.CaseDetails__c</formula>
+        <name>Case Summary</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Date_Submitted_for_Approval</fullName>
+        <field>Submitted_for_Approval_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Date Submitted for Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Date_Submitted_to_Approver</fullName>
+        <field>Date_Submitted_to_Current_Approver__c</field>
+        <formula>NOW()</formula>
+        <name>Date Submitted to Approver</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Date_Submitted_to_Approver_Old</fullName>
+        <field>Submitted_for_Approval_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Date Submitted to Approver Old</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Reset_Last_Action_Date</fullName>
+        <field>Last_Action_Date__c</field>
+        <name>Reset Last Action Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Send_Reminder_False</fullName>
+        <field>SendReminder__c</field>
+        <literalValue>0</literalValue>
+        <name>Send Reminder False</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Send_Reminder_True</fullName>
+        <field>SendReminder__c</field>
+        <literalValue>1</literalValue>
+        <name>Send Reminder True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approver_1_Complete</fullName>
+        <field>Approver1Complete__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Set Approver 1 Complete</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approver_1_Rejected</fullName>
+        <field>Approver1Complete__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Set Approver 1 Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approver_2_Complete</fullName>
+        <field>Approver2Complete__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Set Approver 2 Complete</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approver_2_Rejected</fullName>
+        <field>Approver2Complete__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Set Approver 2 Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approver_3_Complete</fullName>
+        <field>Approver3Complete__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Set Approver 3 Complete</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approver_3_Rejected</fullName>
+        <field>Approver3Complete__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Set Approver 3 Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approver_4_Complete</fullName>
+        <field>Approver4Complete__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Set Approver 4 Complete</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approver_4_Rejected</fullName>
+        <field>Approver4Complete__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Set Approver 4 Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approver_5_Complete</fullName>
+        <field>Approver5Complete__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Set Approver 5 Complete</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approver_5_Rejected</fullName>
+        <field>Approver5Complete__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Set Approver 5 Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approver_6_Complete</fullName>
+        <field>Approver6Complete__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Set Approver 6 Complete</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approver_6_Rejected</fullName>
+        <field>Approver6Complete__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Set Approver 6 Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Last_Action_Date</fullName>
+        <field>Last_Action_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Set Last Action Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Uncheck_Ready_For_Approval</fullName>
+        <field>Ready_For_Approval__c</field>
+        <literalValue>0</literalValue>
+        <name>Uncheck Ready For Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Uncheck_the_Escalation_Checkbox</fullName>
+        <field>Escalated__c</field>
+        <literalValue>0</literalValue>
+        <name>Uncheck the Escalation Checkbox</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approval_Level</fullName>
+        <field>Approval_Level__c</field>
+        <literalValue>Approved by Level 1</literalValue>
+        <name>Update Approval Level</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Approver_Step</fullName>
+        <field>Current_Approver__c</field>
+        <formula>&quot;Customer Resolutions Manager&quot;</formula>
+        <name>Update Approver Step</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Credit_Approval_Status</fullName>
+        <description>Used to update the Credit Approval Status once it has been submitted for approval</description>
+        <field>Status__c</field>
+        <literalValue>Pending Approval Decision</literalValue>
+        <name>Update Credit Approval Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Escalated_Time</fullName>
+        <field>Escalated_Date_Time__c</field>
+        <formula>NULL</formula>
+        <name>Update Escalated Time</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Sales_Team</fullName>
+        <field>Sales_Team__c</field>
+        <formula>TEXT(Organisation__r.Sales_Segment__c)</formula>
+        <name>Update Sales Team</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_Approved</fullName>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Status Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_Pending_Signatures</fullName>
+        <field>Status__c</field>
+        <literalValue>Pending Approval Signatures</literalValue>
+        <name>Update Status- Pending Signatures</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_Rejected</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Status Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_To_Rejected</fullName>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Update Status To Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_New</fullName>
+        <field>Status__c</field>
+        <literalValue>New</literalValue>
+        <name>Update Status to New</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Pending_Approval</fullName>
+        <field>Status__c</field>
+        <literalValue>Pending Approval Decision</literalValue>
+        <name>Update Status to Pending Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Approved Credit Approval - Email to Owner</fullName>
+        <actions>
+            <name>CreditApprovedNotetoOwner</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Credit_Approval__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Credit_Approval__c.AutoApprove__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <description>This workflow rule triggers when a credit approval that is not auto-approved is approved.  An email alert is sent to the credit approval owner.  The customer resolutions team does not want these emails to be sent for auto-approved credit approvals</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Credit Approval Reminder</fullName>
+        <active>true</active>
+        <formula>SendReminder__c = TRUE</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Credit_Approval_Reminder_Email_New</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>Credit_Approval__c.Date_Submitted_to_Current_Approver__c</offsetFromField>
+            <timeLength>24</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Escalation Updates</fullName>
+        <active>false</active>
+        <formula>Escalated__c = TRUE</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Uncheck_the_Escalation_Checkbox</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>Update_Escalated_Time</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Credit_Approval__c.TimeTrigger1Mins__c</offsetFromField>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Populate Sales Team</fullName>
+        <actions>
+            <name>Update_Sales_Team</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>NOT(ISBLANK(Organisation__c ))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

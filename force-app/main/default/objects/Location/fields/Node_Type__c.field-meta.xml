@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Node_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Node Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Adhoc customer</fullName>
+                <default>false</default>
+                <label>Adhoc customer</label>
+            </value>
+            <value>
+                <fullName>Airport</fullName>
+                <default>false</default>
+                <label>Airport</label>
+            </value>
+            <value>
+                <fullName>Annexe</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Annexe</label>
+            </value>
+            <value>
+                <fullName>Blue Depot Box</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Blue Depot Box</label>
+            </value>
+            <value>
+                <fullName>Business Centre</fullName>
+                <default>false</default>
+                <label>Business Centre</label>
+            </value>
+            <value>
+                <fullName>Business Hubs</fullName>
+                <default>false</default>
+                <label>Business Hubs</label>
+            </value>
+            <value>
+                <fullName>City Delivery Centre</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>City Delivery Centre</label>
+            </value>
+            <value>
+                <fullName>Contractor</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Contractor</label>
+            </value>
+            <value>
+                <fullName>Country Mail Centre</fullName>
+                <default>false</default>
+                <label>Country Mail Centre</label>
+            </value>
+            <value>
+                <fullName>Customer</fullName>
+                <default>false</default>
+                <label>Customer</label>
+            </value>
+            <value>
+                <fullName>Delivery Centre</fullName>
+                <default>false</default>
+                <label>Delivery Centre</label>
+            </value>
+            <value>
+                <fullName>Delivery Facility</fullName>
+                <default>false</default>
+                <label>Delivery Facility</label>
+            </value>
+            <value>
+                <fullName>Handover Point</fullName>
+                <default>false</default>
+                <label>Handover Point</label>
+            </value>
+            <value>
+                <fullName>International Airport</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>International Airport</label>
+            </value>
+            <value>
+                <fullName>Licenced Post Office</fullName>
+                <default>false</default>
+                <label>Licenced Post Office</label>
+            </value>
+            <value>
+                <fullName>Mail Centre</fullName>
+                <default>false</default>
+                <label>Mail Centre</label>
+            </value>
+            <value>
+                <fullName>Mail Sorting Centre</fullName>
+                <default>false</default>
+                <label>Mail Sorting Centre</label>
+            </value>
+            <value>
+                <fullName>Node</fullName>
+                <default>false</default>
+                <label>Node</label>
+            </value>
+            <value>
+                <fullName>Parcel Centre</fullName>
+                <default>false</default>
+                <label>Parcel Centre</label>
+            </value>
+            <value>
+                <fullName>Parcel Delivery Centre</fullName>
+                <default>false</default>
+                <label>Parcel Delivery Centre</label>
+            </value>
+            <value>
+                <fullName>Parcel Locker</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Parcel Locker</label>
+            </value>
+            <value>
+                <fullName>PDC-TBD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>PDC-TBD</label>
+            </value>
+            <value>
+                <fullName>Pick Up &amp; Deliver</fullName>
+                <default>false</default>
+                <label>Pick Up &amp; Deliver</label>
+            </value>
+            <value>
+                <fullName>Post Office</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Post Office</label>
+            </value>
+            <value>
+                <fullName>Post Office Agency</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Post Office Agency</label>
+            </value>
+            <value>
+                <fullName>PostShop Franchise</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>PostShop Franchise</label>
+            </value>
+            <value>
+                <fullName>Retail Post</fullName>
+                <default>false</default>
+                <label>Retail Post</label>
+            </value>
+            <value>
+                <fullName>Returns</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Returns</label>
+            </value>
+            <value>
+                <fullName>Revenue Protection</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Revenue Protection</label>
+            </value>
+            <value>
+                <fullName>Shipping Terminal</fullName>
+                <default>false</default>
+                <label>Shipping Terminal</label>
+            </value>
+            <value>
+                <fullName>SPB Gold</fullName>
+                <default>false</default>
+                <label>SPB Gold</label>
+            </value>
+            <value>
+                <fullName>SPB Group Location</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SPB Group Location</label>
+            </value>
+            <value>
+                <fullName>SPB Red</fullName>
+                <default>false</default>
+                <label>SPB Red</label>
+            </value>
+            <value>
+                <fullName>SPB Street Post Box</fullName>
+                <default>false</default>
+                <label>SPB Street Post Box</label>
+            </value>
+            <value>
+                <fullName>Train Terminal</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Train Terminal</label>
+            </value>
+            <value>
+                <fullName>Transit Centre</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Transit Centre</label>
+            </value>
+            <value>
+                <fullName>Transport Depot</fullName>
+                <default>false</default>
+                <label>Transport Depot</label>
+            </value>
+            <value>
+                <fullName>Transport Division (WA)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Transport Division (WA)</label>
+            </value>
+            <value>
+                <fullName>Van operations</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Van operations</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

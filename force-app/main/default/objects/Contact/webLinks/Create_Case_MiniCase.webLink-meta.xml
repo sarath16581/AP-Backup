@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Create_Case_MiniCase</fullName>
+    <availability>online</availability>
+    <description>Used to load up Mini Case component. Useful when a person account / contact is loaded in a subtab and the ContactSidePanel does not render.</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Create Case</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/40.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/support/console/40.0/integration.js&quot;)}
+
+var url = &apos;/apex/ContactSidePanel?id={!Contact.Id}&apos;;
+if(sforce.console.isInConsole()){
+    var openSubtab = function(result) { 
+        sforce.console.openSubtab(result.id,url,true,&apos;Create Case&apos;); 
+    };
+    sforce.console.getEnclosingPrimaryTabId(openSubtab); 
+} else {
+    window.location.href= url;
+}</url>
+</WebLink>

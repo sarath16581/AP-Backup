@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Customer_Request_for_a_call_Lead_Nurture_Program</fullName>
+        <description>Lead Nurture Customer Request for a call</description>
+        <protected>false</protected>
+        <recipients>
+            <type>accountOwner</type>
+        </recipients>
+        <senderAddress>nicky.hamilton@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Marketing_Templates/Lead_Nurture_Generic_Notification_V1</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Nurture_Customer_Request_for_a_call_new</fullName>
+        <description>Lead Nurture Customer Request for a call new</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Account_Manager_s_email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>nicky.hamilton@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Marketing_Templates/Lead_Nurture_Generic_Notification_V1</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Nurture_Tactical_Notification_Email</fullName>
+        <description>Lead Nurture Tactical Notification Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Account_Manager_s_email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>nicky.hamilton@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Marketing_Templates/Lead_Nurture_Tactical_Notification_Email_V1</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Lead_Nurture_Update_Account_Manager_s_em</fullName>
+        <field>Account_Manager_s_email__c</field>
+        <formula>et4ae5__Contact__r.Account.Account_Manager_Email__c</formula>
+        <name>Lead Nurture Update Account Manager&apos;s em</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>et4ae5__TrackingAsOf</fullName>
+        <field>et4ae5__Tracking_As_Of__c</field>
+        <formula>LastModifiedDate</formula>
+        <name>TrackingAsOf</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>true</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Lead Nurture Update Account Manager%27s email</fullName>
+        <actions>
+            <name>Lead_Nurture_Update_Account_Manager_s_em</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>et4ae5__IndividualEmailResult__c.Account_Manager_s_email__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <description>used to trigger email alerts</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>et4ae5__TrackingAsOfIER</fullName>
+        <actions>
+            <name>et4ae5__TrackingAsOf</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED(et4ae5__DateBounced__c) ||  ISCHANGED(et4ae5__DateOpened__c) ||  ISCHANGED(et4ae5__DateSent__c) ||  ISCHANGED(et4ae5__DateUnsubscribed__c) ||  ISCHANGED(et4ae5__NumberOfTotalClicks__c) ||  ISCHANGED(et4ae5__NumberOfUniqueClicks__c) ||  ISCHANGED(et4ae5__Opened__c) ||  ISCHANGED(et4ae5__SoftBounce__c)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

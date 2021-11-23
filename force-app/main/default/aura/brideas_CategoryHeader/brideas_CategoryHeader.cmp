@@ -1,0 +1,13 @@
+<aura:component controller="brideas_CategoriesCtrl" description="brideas_CategoryHeader" implements="forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="categoryInfo" type="brideas_Category__c" />
+    <aura:attribute name="initialCategory" type="String" />
+    <aura:attribute name="isLoaded" type="Boolean" default="false" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:handler event="ltng:sendMessage" action="{!c.handleMessage}" />
+
+    <div class="{!'category-header' + (v.isLoaded?'':' hidden')}">
+        <h1>{!v.categoryInfo.Name}</h1>
+        <p>{!v.categoryInfo.Description__c}</p>
+    </div>
+</aura:component>

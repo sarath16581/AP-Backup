@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Opportunity Assessment Handover - Approval Email</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Opportunity Assessment Handover</name>
+    <style>none</style>
+    <subject>Opportunity Assessment Handover</subject>
+    <textOnly>Please review the following opportunity and opportunity assessment for handover purposes.
+
+Opportunity - {!Opportunity_Assessment__c.Opportunity__c}
+Opportunity Assessment - {!Opportunity_Assessment__c.Name}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

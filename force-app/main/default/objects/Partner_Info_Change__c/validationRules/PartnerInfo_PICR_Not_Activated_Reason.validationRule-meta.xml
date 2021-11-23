@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfo_PICR_Not_Activated_Reason</fullName>
+    <active>true</active>
+    <description>If the Not Activated Reason is set the Licence Status must also be set to Not Activated</description>
+    <errorConditionFormula>AND(
+  NOT(ISPICKVAL(Not_Activated_Reason__c,&apos;&apos;)),
+  NOT(ISPICKVAL(Licence_Status__c, &quot;Not Activated&quot;))
+)</errorConditionFormula>
+    <errorMessage>To set the Licence to Not Activated, set the Licence Status to &apos;Not Activated&apos; and select a value in the &apos;Not Activated Reason&apos; field.</errorMessage>
+</ValidationRule>

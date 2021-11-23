@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Fields_On_RecordType_Amazon_Add</fullName>
+    <active>true</active>
+    <description>When considering selling on any other marketp	is selected as &apos;Yes - Other&apos;
+Additional detail &amp; comments</description>
+    <errorConditionFormula>AND(
+$Profile.Name &lt;&gt; &quot;System Administrator&quot;,
+RecordType.DeveloperName = &apos;Amazon&apos;, 
+ISPICKVAL(Selling_on_any_other_marketplace__c, &apos;Yes - Other&apos;), 
+(ISBLANK( Additionaldetailcomments__c))
+)</errorConditionFormula>
+    <errorDisplayField>Additionaldetailcomments__c</errorDisplayField>
+    <errorMessage>When &apos;Selling on any other marketplace?&apos; is selected as &apos;Yes - Other&apos;, please provide comments in &apos;Additional detail &amp; comments&apos;</errorMessage>
+</ValidationRule>

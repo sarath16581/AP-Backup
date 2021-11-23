@@ -1,0 +1,326 @@
+<style type="text/css">
+ 
+    /* base css */
+    body { width: 100%; background-color:#f3f1ee; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; font-family: Arial, Helvetica, sans-serif; }
+    table { border-collapse: collapse; }
+    .addClassToSection a { color: #000000!important; }
+    .ExternalClass { width: 100%; line-height: 100%; }
+    .appleLinks a { color:#5e514d; text-decoration: none; }
+    .appleLinksWhite a { color:#ffffff; text-decoration: none; }
+    .table-image { 
+             
+            padding:0px 23px 0px 0px; 
+        }
+    .table-noimage { 
+             
+            padding:0px 113px 0px 0px; 
+        }
+
+    /* media queries */
+    @media only screen and (max-device-width: 540px)  {
+
+        /* core styles */
+        .device-hide {
+            display:none!important;
+        }
+        .device-width {
+            width:320px!important;
+        }
+        .device-width-inner {
+            width:250px!important;
+        }
+        .gmail-hack {
+            letter-spacing:320px!important;
+        }
+        .container-sides-padding {
+            padding-left:35px!important;
+            padding-right:35px!important;
+        }
+        .footer-social-padding {
+            padding-top:15px!important;
+        }
+        .footer-disclaimer-padding {
+            padding-top:30px!important;
+        }
+        .footer-links-padding {
+            padding-top:5px!important;
+        }
+        .outer-gap-height {
+            height:30px!important;
+            line-height:30px!important;
+        }
+        .footer-gap-height {
+            height:35px!important;
+            line-height:35px!important;
+        }
+
+        /* font styles */
+        .title-copy-font {
+            font-size:24px!important;
+            line-height:28px!important;
+        }
+        .header-copy-font {
+            font-size:15px!important;
+        }
+
+        .colour-switch {
+            color:#382f2d!important;
+        }
+
+        /*
+            footer needs lots of space in between links
+            using four &nbsp; inside a span, adjust size for mobile
+
+            - margin/padding is inconsistent in outlook 7, 10, 13
+            - cant use td for padding as its too wide on mobile
+        */
+        .mobile-separator {
+            letter-spacing: -2px!important;
+        }
+
+
+        /*
+            Template specific changes
+
+            Could be unique per template, namespace like so:;
+            transactional-title, single-message-body, multi-message-gap
+
+        */
+        .generic-title-padding {
+            padding-top:25px!important;
+            padding-bottom:25px!important;
+        }
+        .generic-body-padding {
+            padding-top:35px!important;
+        }
+
+        .generic-gap-height {
+            height:30px!important;
+            line-height:30px!important;
+        }
+
+        .single-title-padding {
+            padding-top:30px!important;
+        }
+
+        .single-image-padding {
+            padding-top: 45px!important;
+        }
+
+        .single-gap-height {
+            height:30px!important;
+            line-height:30px!important;
+        }
+    }
+
+</style>
+<center>
+<table width="500" cellspacing="0" cellpadding="0" >
+        <tr>
+            <td style=" padding:35px 0px 29px 59px" >
+<div class="gmail-hack" style="letter-spacing: 500px; line-height: 0; mso-hide: all">&nbsp;</div>
+
+                <table>
+                    <tr>
+                        <td>
+                            <a href="http://auspost.com.au/" style="border:none; text-decoration:none;"><img width="35" height="35" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000Ae3i4&oid=00D30000001GGce" border="0" margin="0" alt="Australia Post logo" style="display:block;"/></a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+<tr>
+<td">
+<!-- inner corners top -->
+            <table class="device-hide" width="500" align="center" valign="top" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse;">
+                <tr>
+                    <td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+
+                        <!-- top left corner -->
+                        <img src="http://image.email.auspost.com.au/lib/fe611570736d027d7110/m/2/new-template-corner-tl.png" width="4" height="4" border="0" margin="0" alt="" style="display:block;" 
+
+/>
+                    </td>
+                    <td width="496" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+                        <!-- middle gap -->
+                        &nbsp;
+                    </td>
+                    <td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+
+                        <!-- top right corner -->
+                        <img src="http://image.email.auspost.com.au/lib/fe611570736d027d7110/m/2/new-template-corner-tr.png" width="4" height="4" border="0" margin="0" alt="" 
+
+style="display:block;"/>
+                    </td>
+                </tr>
+            </table>
+
+<table width="500" cellspacing="0" cellpadding="0" bgcolor="#ffffff" >
+<tr>
+<td style=" padding:50px 0px 39px 0px;" >
+    <table width="381" align="center" style="margin:0 auto !important;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style=" padding:0px 0px 25px 0px;" >
+                <table>
+                    <tr>
+                        <td>
+                            <p style="color:#000000; font-size:28px; font-family:arial,helvetica,sans-serif;">Thanks for your enquiry</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+<tr><td align="center" >
+                <img src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000Ae3eg&oid=00D30000001GGce" width="151" height="84!important"></td></tr>
+        <tr>
+            <td style=" padding:32px 0px 0px 0px;" >
+                <table><tr><td><p>
+                    Hi {!Contact.FirstName},
+                <br />
+                <br />
+                    As we discussed, here's some more information about our products and services you should find useful.
+                </p></td></tr></table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    &nbsp;
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p id="BodyContent" style="font:13px/18px Arial, Helvetica, sans-serif; color:#5e514d; padding-bottom:5px;">
+                    %%BodyContent%%
+                </p>
+            </td>
+        </tr>
+    </table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+<!-- inner corners bottom -->
+            <table class="device-hide" width="500" align="center" valign="top" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse;">
+                <tr>
+                    <td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+
+                        <!-- top left corner -->
+                        <img src="http://image.email.auspost.com.au/lib/fe611570736d027d7110/m/2/new-template-corner-bl.png" border="0" margin="0" alt="" style="display:block;" />
+                    </td>
+                    <td width="496" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+                        <!-- middle gap -->
+                        &nbsp;
+                    </td>
+                    <td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+
+                        <!-- top right corner -->
+                        <img src="http://image.email.auspost.com.au/lib/fe611570736d027d7110/m/2/new-template-corner-br.png" border="0" margin="0" alt="" style="display:block;"/>
+                    </td>
+                </tr>
+            </table>
+            <!-- end: section -->
+
+<!-- outer gap footer -->
+            <table class="device-width" width="500" align="center" valign="top" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+                <tr>
+                    <td class="footer-gap-height" height="33" style="line-height:33px;">
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+
+            <!-- outer single social text -->
+            <table class=footer" width="500" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+                <tr>
+                    <td style="color:#5e514d; font-family: Arial, Helvetica, sans-serif; font-size:11px; text-align:left;">
+                        Connect with us
+                    </td>
+                </tr>
+            </table>
+
+            <!-- outer social links -->
+            <table class="device-width" width="500" align="center" valign="top" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+                <tr>
+                    <td style="padding-top: 20px;">
+
+                        <table align="left" valign="top" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding-right:9px;">
+
+                                    <!-- twitter -->
+                                    <a href="https://twitter.com/auspost/" style="border:none; text-decoration:none;"><img width="46" height="46" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000Ae3i9&oid=00D30000001GGce" border="0" margin="0" alt="Twitter icon" style="display:block;"/></a>
+                                </td>
+                                <td style="padding-right:9px;">
+
+                                    <!-- facebook -->
+                                    <a href="https://www.facebook.com/australiapost/" style="border:none; text-decoration:none;"><img width="46" height="46" src="https://auspost--c.ap1.content.force.com/servlet/servlet.ImageServer?id=0159000000Ae3iE&oid=00D30000001GGce" border="0" margin="0" alt="Facebook icon" style="display:block;"/></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table width="500" align="center" border="0" >
+                <tr>
+                    <td
+                        style="color:#5e514d; font-family: Arial, Helvetica, sans-serif; font-size:11px; line-height:14px; text-align:left;">
+                        <p>&nbsp;</p>
+                        This email was sent by <a target="_blank" href="https://auspost.com.au/" style="color:#51534a;">Australia Post</a>,
+                        111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don't think you should have received this email,
+                        please call us on 13 13 18.
+                        Visit <a target="_blank" href="https://auspost.com.au/" style="color:#51534a;">auspost.com.au</a> for further
+                        information on our online
+                        <a target="_blank" href="https://auspost.com.au/about-us/about-our-site/online-security-scams-fraud"
+                            style="color:#51534a;">security</a>.
+                        <br /><br />
+                        If you do not wish to receive such information you can 
+                            <a href='%%=RedirectTo(@UNSUBSCRIBE_URL)=%%' alias='unsubscribe' style='color:#51534a;'>unsubscribe</a>
+                            
+                            
+                             at any time.
+                    
+                        Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been
+                        maintained nor that the communication is free from errors, viruses, or interference.
+                    </td>
+                </tr>
+            </table>
+            <table class="device-width-inner" align="center" width="500"  border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; line-height:20px; text-align:center;">
+                <tr>
+                    <td style="border-bottom:1px solid #dfd8d3;">
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border-top:1px solid #dfd8d3;">
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+
+
+            <!-- outer single footer links -->
+            <table class="footer" align="center" width="500" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; ">
+                <tr>
+                    <td style="padding: 0 0px 20px 0px; text-align:left; color:#5e514d; font-family: Arial, Helvetica, sans-serif; font-size:11px;">
+                        <a href="http://auspost.com.au/help-and-support?ilink=ccc-edm-cases-help" style="color:#5e514d; text-decoration:none">Help &amp; Support</a> <span 
+
+class="separator" style="padding: 0px 10px;" >|</span> <a href="http://auspost.com.au/terms-conditions.html?ilink=global-footer-terms-link" style="color:#5e514d; text-decoration:none">Terms &amp; Conditions</a> <span class="separator" 
+
+style="padding: 0px 10px;" >|</span> <a href="http://auspost.com.au/privacy.html" style="color:#5e514d; text-decoration:none">Privacy policy</a>
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>
+</td>
+</tr>
+</table>
+</center>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Previousknownoutcomefornotification__c</fullName>
+    <description>Results from the ATL campaign discussion</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Results from the ATL campaign discussion</inlineHelpText>
+    <label>Previous known outcome for notification</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Already Subscribing</fullName>
+                <default>false</default>
+                <label>Already Subscribing</label>
+            </value>
+            <value>
+                <fullName>Merchant agreed to provide email / mobile details</fullName>
+                <default>false</default>
+                <label>Merchant agreed to provide email / mobile details</label>
+            </value>
+            <value>
+                <fullName>Merchant agreed to subscribe to notifications</fullName>
+                <default>false</default>
+                <label>Merchant agreed to subscribe to notifications</label>
+            </value>
+            <value>
+                <fullName>Merchant chooses not to provide customer details</fullName>
+                <default>false</default>
+                <label>Merchant chooses not to provide customer details</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>SMB South Team - VIC/TAS/WA/SA</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>SMB_South_Team_VIC_TAS_WA_SA</publicGroup>
+        </publicGroups>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Deal_Support_Request__c</sobjectType>
+    </queueSobject>
+</Queue>

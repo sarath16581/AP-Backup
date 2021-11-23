@@ -1,0 +1,8 @@
+<aura:component extends="c:SS_uiWizardPage" controller='ChasApexController' extensible="true" description="Base component for review and submit pages. Displays summary of details entered in the wizard">
+
+    <aura:attribute name="apexCaseCreationFunction" type="String"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false"/>
+    
+    {! v.body }
+
+</aura:component>

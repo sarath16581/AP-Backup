@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Validate_Record_Type_Change</fullName>
+    <active>true</active>
+    <description>Prevent RecordType change for PUD Case if Status is Closed</description>
+    <errorConditionFormula>AND(
+    PRIORVALUE(Case_RecordType_Name__c) = &apos;Delivery Enquiry&apos;,
+    ISCHANGED(RecordTypeId),
+    IsClosed = true
+)</errorConditionFormula>
+    <errorMessage>Cannot change Record Type if Status is a Closed Status</errorMessage>
+</ValidationRule>

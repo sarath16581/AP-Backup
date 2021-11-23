@@ -1,0 +1,76 @@
+/**
+ * Created by disha.kariya on 14/09/2020.
+ * 2020-09-18 - Ranjeewa Silva - Implemented colour coding of event messages.
+ * 2021-05-05 - Ranjeewa Silva - Expose event message attachment(image), if an attachment is available.
+ * 2021-07-12 - Nathan Franklin - Added temporary Google Maps link (to be implemented correctly in future piece of work)
+ */
+.event-width {
+	min-width: 200px
+}
+.event-state {
+	min-width: 70px
+}
+td.align-center {
+	vertical-align:middle;
+	text-align:center;
+}
+
+.slds-table thead th {
+	padding: 0;
+}
+
+.slds-table_bordered{
+	border-top:none;
+	border-bottom:none;
+}
+
+.map-icon {
+	padding: 0 !important;
+	--sds-c-icon-color-background: none;
+	--sds-c-icon-color-foreground: var(--lwc-colorTextIconDefault, rgb(112, 110, 107));
+}
+
+.event-description-dot {
+		content: "";
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		position: relative;
+		margin-right: var(--lwc-spacingXSmall,0.5rem);
+		border-radius: 50%;
+}
+
+.color-code_default {
+	background-color: #BCBCBF;
+}
+
+.color-code_red {
+	background-color: #dc1928;
+}
+
+.color-code_blue {
+	background-color: #0070d2;
+}
+
+.color-code_green {
+	background-color: #4bc076;
+}
+
+.color-code_orange {
+	background-color: #f49756;
+}
+
+.color-code_purple {
+	background-color: #a094ed;
+}
+
+.event-message-popup-container:first-child {
+	border-top: var(--lwc-borderWidthThin,1px) solid var(--lwc-colorBorder,rgb(217, 219, 221));
+	padding-top: var(--lwc-spacingXSmall,0.5rem);
+}
+
+@media screen and (max-width: 60em) {
+	.maxWidth{
+		max-width:100px;
+ }
+}

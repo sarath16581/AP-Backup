@@ -1,0 +1,78 @@
+<!--
+* @author Victor.Cheng@auspost.com.au
+* @date 2020-11-12
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Step in Credit Application Form to input Business Direct Debit details
+* @changelog
+* 19/01/2021 Victor.Cheng@auspost.com.au  Created
+* 22/02/2021 avula.jansirani@auspost.com.au Updated
+*
+-->
+<template>
+    <div class="form-outer-box slds-m-bottom_medium">
+        <div class="form-inner-box">
+            <!--Account name-->
+            <lightning-input data-id="accountName"
+                             name="accountName" 
+                             label="Account name" 
+                             value={_directDebit.accountName}
+                             message-when-value-missing="Enter an account name"
+                             onchange={onChangeField}
+                             onfocusout={handleFocusOut}
+                             max-length="100"
+                             required>
+            </lightning-input>
+            <!--Bank name-->
+            <lightning-input data-id="bankName" 
+                             name="bankName" 
+                             label="Bank name" 
+                             class="slds-p-top_large"
+                             value={_directDebit.bankName}
+                             onchange={onChangeField}
+                             onfocusout={handleFocusOut}
+                             max-length="100"
+                             required>
+            </lightning-input>
+            <!--BSB number-->
+            <lightning-input data-id={bsbInputId}
+                             name={bsbInputId}
+                             label="BSB number"
+                             class="slds-p-top_large slds-col slds-size_1-of-1 slds-medium-size_6-of-12 short-form-field"
+                             message-when-value-missing="Enter a BSB number"
+                             message-when-too-short="Enter a valid BSB number"
+                             onkeydown={enforceFormat}
+                             onchange={onChangeField}
+                             onfocusout={onBlurBSB}
+                             minlength={bsbLength}
+                             required>
+            </lightning-input>
+            <!--Account number-->
+            <lightning-input data-id={accountInputId}
+                             name={accountInputId}
+                             label="Account number" 
+                             class="slds-p-top_large slds-col slds-size_1-of-1 slds-medium-size_6-of-12 short-form-field"
+                             message-when-value-missing="Enter an account number"
+                             onkeydown={enforceFormat}
+                             onchange={onChangeField}
+                             onfocusout={handleFocusOut}
+                             required>
+            </lightning-input>
+        </div>
+    </div>
+
+      <!-- Terms &b Conditions-->
+        <c-bca-terms-and-conditions label="Direct debit request service agreement"
+                                    tems-and-conditions={TC}
+                                    data-id="reviewTC"
+                                    download-u-r-l={directDebitTCDownloadURL}
+                                    agree-label="I am authorised to operate on the nominated account; and"
+                                    error-message={errorWhenNotAccepted}
+                                    display-label4=true
+                                    display-label4-text="I have understood and agreed to the terms and conditions set out in this request and in the direct debit request service agreement."
+                                    agree-label4-error-msg={errorWhenNotAcceptedLabel2}
+                                    allow-downlaod='yes'>
+        </c-bca-terms-and-conditions>
+
+
+</template>

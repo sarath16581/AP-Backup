@@ -1,0 +1,41 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal">Dear Colleague, <br>
+<br>
+Your case is ‘<b>Awaiting Information’</b><br>
+<br>
+In order to action your request can you please <b>provide further information</b> as detailed in the Case Comments
+Field.&nbsp;<br>
+<br>
+Case Number: <b>{!Case.CaseNumber}</b><br>
+<br>
+Subject: {!Case.Subject}<br>
+<br>
+<b><u>Case Comments:</u></b> <o:p></o:p></p>
+
+<p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+
+<p class="MsoNormal">{!Case.Last_Case_Comment}<o:p></o:p></p>
+
+<p class="MsoNormal"><br></p><p class="MsoNormal"><span style="background-color: rgb(255, 255, 255);">Please&nbsp;</span><b style="font-size: 12pt; background-color: rgb(255, 255, 255);"><span style="color: red;"><u>do not</u></span></b><span style="font-size: 12pt; background-color: rgb(255, 255, 255);">&nbsp;</span><span style="font-size: 12pt; background-color: rgb(255, 255, 255);">respond to this request via reply e-mail. Add information/comments and relevant attachments to your case online by following the link below.</span></p><p class="MsoNormal">
+<br>
+{!Case.Link} or entering your case number into the search engine on the front
+page of&nbsp;<a href="http://salesforce.com/" target="_blank">SalesForce.com</a>.<br>
+<br>
+Please Note:<br>
+<br>
+• If no response is received within 7 days of this request a reminder
+notification will be sent.<br>
+<br>
+• The case will be closed after 3 days if no response is received to the
+reminder notification.<br>
+<br>
+<br>
+Alternatively, you can contact the Sales Support team on&nbsp;<span style="background-color: rgb(255, 255, 255);">1800SalesSupport@auspost.com.au or 1800 316 508</span>&nbsp;during business hours.<br>
+<br>
+Regards<br>
+<br>
+Contract Management Team<o:p></o:p></p>]]></td>
+</tr>
+</table>

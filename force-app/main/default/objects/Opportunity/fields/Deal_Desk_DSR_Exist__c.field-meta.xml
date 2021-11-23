@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deal_Desk_DSR_Exist__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>STP: Set to true once Deal Desk DSR is created against the opportunity.</description>
+    <externalId>false</externalId>
+    <label>Deal Desk DSR Exist</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

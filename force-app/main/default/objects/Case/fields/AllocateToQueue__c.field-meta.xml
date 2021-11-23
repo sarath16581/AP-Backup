@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllocateToQueue__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>SSSW - This Field is used to fire the Workflow to allocate the Case back to the correct Queue.</description>
+    <externalId>false</externalId>
+    <label>Allocate to Queue</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

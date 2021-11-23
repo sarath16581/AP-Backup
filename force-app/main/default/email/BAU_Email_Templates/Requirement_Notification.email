@@ -1,0 +1,9 @@
+Dear User,
+
+A new Requirement Request {!Requirement__c.Name} has been submitted for approval.  
+
+Click this link to review: {!Requirement__c.Link}
+
+Regards,
+
+BAU Team @ Australia Post

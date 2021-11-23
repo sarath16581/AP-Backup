@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DisplayAlert__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If true, displays alert on home page</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If true, displays alert on home page</inlineHelpText>
+    <label>Display Alert</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

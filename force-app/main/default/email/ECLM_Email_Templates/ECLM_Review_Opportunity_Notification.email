@@ -1,0 +1,5 @@
+{!Opportunity.OwnerFullName}
+
+An opportunity assigned to you as the owner is up for review. Please click on the link below to view the opportunity:
+
+{!Opportunity.Link}

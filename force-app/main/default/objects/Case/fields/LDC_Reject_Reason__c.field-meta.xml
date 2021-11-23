@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LDC_Reject_Reason__c</fullName>
+    <description>StarTrack - LDC Reject Reason</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(ArticleTest__c),&apos;&apos;,
+IF((Article_Last_Delivery_Event_Date__c + 7) &gt;= IF(ISPICKVAL(Origin, &apos;Web&apos;), Claim_Date__c, Claim_Date__c + ($Setup.StarTrack_Settings__c.LDC_Claim_Date_Additional_Hours__c/24)), &apos;&apos;, $Setup.StarTrack_Settings__c.LDC_Claim_Date_Error__c &amp; BR()) &amp;
+IF(Article_Last_Delivery_Event_Date__c &gt; Article_Expected_Delivery_Date__c, &apos;&apos;, $Setup.StarTrack_Settings__c.LDC_Delivery_Date_Error__c &amp; BR()) &amp;
+IF(Article_Number_of_Delivery_Events__c &gt; 0, &apos;&apos;, $Setup.StarTrack_Settings__c.LDC_Delivery_Events_Error__c &amp; BR()) &amp;
+IF(!Article_Dangerous_Goods__c, &apos;&apos;, $Setup.StarTrack_Settings__c.LDC_Dangerous_Goods_Error__c &amp; BR()) &amp;
+IF(!Article_Bookin__c, &apos;&apos;, $Setup.StarTrack_Settings__c.LDC_Bookin_Error__c &amp; BR()) &amp;
+IF(!Article_International_Delivery__c, &apos;&apos;, $Setup.StarTrack_Settings__c.LDC_International_Delivery_Error__c)
+)</formula>
+    <label>LDC System Reject Reason</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

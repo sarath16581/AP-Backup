@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>APGL Support, this will use as a base default template and the content will be manage through quick text, this template without the contact us button on template</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>APGL Support [Without Contact Us]</name>
+    <style>none</style>
+    <subject>APGL Support : Customer outbound ({!Case.CaseNumber})</subject>
+    <textOnly>Australia Post Logo
+Tracking update
+	 	
+Request for supporting documentation
+Your parcel(s) / item(s) are currently held by the government border agency at for the following reasons:
+The goods are under incoterm DDU, and we have been unsuccessful in contacting the receiver to clear the goods.
+Tracking number
+ET100105026AU
+We require contact details (email address and phone) of the buyer/receiver to be forwarded to auspostnzenquiry@auspost.com.au to facilitate release from the border clearance agencies.
+Contact now
+Thank you for choosing Australia Post. 
+
+Customs Clearance Enquiries
+Australia Post
+111 Bourke Street, Melbourne, Victoria, 3000
+E: customsclearance@auspost.com.au
+
+If there are any questions, our customs agents may reply to your email directly.
+Should you wish to contact us, please phone Australia Post Customer Services on: 13 POST (13 76 78). From overseas: +61 3 8847 9045. Business account customers: 13 11 18.
+
+Support is available Monday to Friday 8am – 6pm Australia-wide (except public holidays) or please visit our website.
+
+ 
+	 	
+ 
+StarTrack Logo
+A business of Australia Post
+Padlock Icon	Australia Post will never send you an unsolicited email asking for your password, credit card details or account information.
+This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don’t think you should have received this email, please call us on 13 13 18. Visit auspost.com.au for further information on our online security . 
+
+If you do not wish to receive such information you can unsubscribe at any time. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.
+ 
+ 
+Help &amp; support   |   Terms &amp; conditions   |   Privacy policy   |    Our tracking service</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

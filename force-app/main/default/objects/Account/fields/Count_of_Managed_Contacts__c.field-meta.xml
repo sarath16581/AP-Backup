@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Count_of_Managed_Contacts__c</fullName>
+    <description>Counts all Contact Maintained By = Account Manager related to the Org</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Contacts maintained by the Account Manager (AM Maintained Contacts).</inlineHelpText>
+    <label>AM Maintained Contacts</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

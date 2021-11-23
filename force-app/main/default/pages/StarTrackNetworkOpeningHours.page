@@ -1,0 +1,100 @@
+<apex:page standardController="Network__c" standardStylesheets="false" showHeader="false" sidebar="false" docType="html-5.0">
+<apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+<style>
+    
+    thead th {
+    background-color: #eee;
+    font-size: 75%;
+    text-align: center;
+    }
+        
+    tbody th {
+    padding: 5px;
+    text-align: center;
+    font-size: 75%;
+    }   
+        
+    tbody td {
+    padding: 5px;
+    text-align: center;
+    font-size: 75%;
+    }   
+    
+</style>
+<script type="text/javascript">
+
+    function activateButton(){
+        
+        document.getElementById('centerAtrib').style.display = 'block';
+        document.getElementById('saveButton').style.display = 'inline';
+    }
+    
+</script>
+
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <div class="slds">
+        <apex:form id="mainForm">
+            <apex:actionFunction name="saveDepot" action="{!quickSave}" rerender="mainForm"/>
+            <center style="padding-bottom: 10px; padding-top: 0px; display: none;" id="centerAtrib">
+                <button id="saveButton" class="slds-button slds-button--brand slds-button--small" onclick="saveDepot();" style="display: none;">Save</button>
+            </center>
+            <apex:pageBlock mode="inlineEdit" id="mainBlock">
+            <table id="fs-businesshours" class="slds-table slds-table--bordered" style="width:100%;">
+                <thead>
+                <tr>
+                    <th width="10%"></th>
+                    <th width="30%">Opening Hours</th>
+                    <th width="30%">Lodgement Hours</th>
+                    <th width="30%">Collection Hours</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Mon</th>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Mon__c}"/></td>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Depot_Lodgement_Times_Monday__c}"/></td>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Depot_Collection_Times_Monday__c}"/></td>
+                </tr>
+                <tr>
+                    <th>Tue</th>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Tue__c}"/></td>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Depot_Lodgement_Times_Tuesday__c}"/></td>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Depot_Collection_Times_Tuesday__c}"/></td>
+                </tr>
+                <tr>
+                    <th>Wed</th>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Wed__c}"/></td>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Depot_Lodgement_Times_Wednesday__c}"/></td>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Depot_Collection_Times_Wednesday__c}"/></td>
+                </tr>
+                <tr>
+                    <th>Thu</th>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Thu__c}"/></td>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Depot_Lodgement_Times_Thursday__c}"/></td>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Depot_Collection_Times_Thursday__c}"/></td>
+                </tr>
+                <tr>
+                    <th>Fri</th>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Fri__c}"/></td>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Depot_Lodgement_Times_Friday__c}"/></td>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Depot_Collection_Times_Friday__c}"/></td>
+                </tr>
+                <tr>
+                    <th>Sat</th>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Sat__c}"/></td>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Depot_Lodgement_Times_Saturday__c}"/></td>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Depot_Collection_Times_Saturday__c}"/></td>
+                </tr>
+                <tr>
+                    <th>Sun</th>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Sun__c}"/></td>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Depot_Lodgement_Times_Sunday__c}"/></td>
+                    <td onchange="activateButton();"><apex:outputField value="{!Network__c.Depot_Collection_Times_Sunday__c}"/></td>
+                </tr>
+                </tbody>
+            </table>
+            </apex:pageBlock>
+        </apex:form>
+    </div>
+</html>
+</apex:page>

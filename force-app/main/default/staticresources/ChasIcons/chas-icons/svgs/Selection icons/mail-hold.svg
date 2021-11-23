@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons / Mail hold</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="20" cy="20" r="20"></circle>
+    </defs>
+    <g id="Icons-/-Mail-hold" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <g id="Icon---1kg">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#00AEA5" xlink:href="#path-1"></use>
+            </g>
+            <path d="M17,14.9777778 L17,23.6888889" id="Line-3" stroke="#FFFFFF" stroke-width="5" stroke-linecap="square"></path>
+            <path d="M24.3333333,14.9777778 L24.3333333,23.6888889" id="Line-3-Copy" stroke="#FFFFFF" stroke-width="5" stroke-linecap="square"></path>
+            <g id="Group-8-Copy" transform="translate(9.333333, 20.000000)" fill-rule="nonzero">
+                <g id="Group-11">
+                    <path d="M12.5989361,0.206293021 L0,0.206293021 L0,12.1547328 C0,12.5534082 0.328940558,12.8766899 0.734594468,12.8766899 L12.5989361,12.8766899 C13.00459,12.8766899 13.3333333,12.5534082 13.3333333,12.1547328 L13.3333333,0.928250198 C13.3333333,0.529574785 13.00459,0.206293021 12.5989361,0.206293021" id="Fill-8" fill="#CA8768"></path>
+                    <g id="Group-15" transform="translate(0.089275, 5.877533)">
+                        <g id="Rectangle-24-Copy-2-+-Imported-Layers-Copy-9" transform="translate(0.009703, 0.015372)">
+                            <g id="Imported-Layers-Copy-9" transform="translate(0.000000, 0.000000)">
+                                <g id="Imported-Layers-Copy-5" transform="translate(4.479910, 4.020814) rotate(10.000000) translate(-4.479910, -4.020814) translate(0.813243, 1.020814)">
+                                    <polyline id="Fill-7" fill="#FFFFFF" points="7.17806245 4.35399849 0.799969731 5.43857397 0.00923469471 1.11058981 6.38669832 0.0254074151 7.17806245 4.35399849"></polyline>
+                                    <polyline id="Fill-8" fill="#D0D5D8" points="6.1338141 1.38431311 0.728256289 2.30380491 0.602443238 1.61373087 6.00800104 0.693632145 6.1338141 1.38431311"></polyline>
+                                    <polyline id="Fill-9" fill="#D0D5D8" points="6.36656824 2.65582157 0.961010436 3.57531337 0.83456832 2.88523932 6.24012612 1.96574753 6.36656824 2.65582157"></polyline>
+                                    <polyline id="Fill-10" fill="#D0D5D8" points="6.59869332 3.92793697 1.19313552 4.84742874 1.06732247 4.15735469 6.47288029 3.23786292 6.59869332 3.92793697"></polyline>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

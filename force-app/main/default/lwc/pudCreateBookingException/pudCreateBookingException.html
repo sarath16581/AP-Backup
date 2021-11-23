@@ -1,0 +1,41 @@
+<template>
+    <lightning-card title="New No Pickup" icon-name="standard:record">
+        <div class="slds-m-around_small">
+                    <template if:true={areDetailsVisible}>
+                            <lightning-record-edit-form object-api-name="PUD_Booking_Exception__c" >
+
+                                    <lightning-input-field field-name="Start_Date__c" onchange={handleStartDateChange}></lightning-input-field>
+                                    <lightning-input-field field-name="End_Date__c" onchange={handleEndDateChange}></lightning-input-field>
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col">
+                                    <lightning-input-field field-name="Monday__c" onchange={handleMondayChange}></lightning-input-field>
+                                    <lightning-input-field field-name="Saturday__c" onchange={handleSaturdayChange}></lightning-input-field>
+                                    </div>
+                                    <div class="slds-col">
+                                    <lightning-input-field field-name="Tuesday__c" onchange={handleTuesdayChange}></lightning-input-field>
+                                    <lightning-input-field field-name="Sunday__c" onchange={handleSundayChange}></lightning-input-field>
+                                    </div>
+                                    <div class="slds-col">
+                                        <lightning-input-field field-name="Wednesday__c" onchange={handleWednesdayChange}></lightning-input-field>
+                                    </div>
+                                    <div class="slds-col">
+                                    <lightning-input-field field-name="Thursday__c" onchange={handleThursdayChange}></lightning-input-field>
+                                    </div>
+                                    <div class="slds-col">
+                                    <lightning-input-field field-name="Friday__c" onchange={handleFridayChange}></lightning-input-field>
+                                    </div>
+                                </div>
+                                </lightning-record-edit-form>
+                                 </br>
+                                <lightning-button
+                                        label="Save"
+                                        variant="brand"
+                                        onclick={createBookingExp}
+                                ></lightning-button>
+                    </template>
+                    <template if:true={error}>
+                        {errorMessage}
+                    </template>
+        </div>
+    </lightning-card>
+</template>

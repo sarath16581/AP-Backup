@@ -1,0 +1,3 @@
+<apex:page standardController="Opportunity">
+    <center><apex:outputText value="{!Opportunity.Stage_Image__c}" escape="false"/></center>
+</apex:page>

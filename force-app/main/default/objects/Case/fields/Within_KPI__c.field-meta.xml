@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Within_KPI__c</fullName>
+    <description>to be decommissioned - User Support Query RT cleanup</description>
+    <externalId>false</externalId>
+    <formula>IF ( IsClosed = false, &quot;NA&quot;, 
+
+IF((text(Work_Type__c)= &quot;&quot; ) || (text(Work_Type__c)= &quot;Development&quot; ) || (text(Work_Type__c)= &quot;Project Related&quot;) || (text(Work_Type__c)= &quot;Upgrade/Release&quot;), &quot;NA&quot;, 
+
+IF(ISPICKVAL(Work_Type__c, &quot;System Maintenance&quot;) &amp;&amp; Case_Age_In_Business_Hours__c &lt;40 , &quot;Stretch&quot;, 
+IF(ISPICKVAL(Work_Type__c, &quot;System Maintenance&quot;) &amp;&amp; Case_Age_In_Business_Hours__c &lt;80, &quot;Target&quot;, 
+
+IF(ISPICKVAL(Work_Type__c, &quot;Data Maintenance&quot;) &amp;&amp; Case_Age_In_Business_Hours__c &lt;30 , &quot;Stretch&quot;, 
+IF(ISPICKVAL(Work_Type__c, &quot;Data Maintenance&quot;) &amp;&amp; Case_Age_In_Business_Hours__c &lt;50, &quot;Target&quot;, 
+
+IF(ISPICKVAL(Work_Type__c, &quot;User Support&quot;) &amp;&amp; Case_Age_In_Business_Hours__c &lt;10 , &quot;Stretch&quot;, 
+IF(ISPICKVAL(Work_Type__c, &quot;User Support&quot;) &amp;&amp; Case_Age_In_Business_Hours__c &lt;20, &quot;Target&quot;, &quot;Fail&quot;))))))))</formula>
+    <label>Within KPI</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

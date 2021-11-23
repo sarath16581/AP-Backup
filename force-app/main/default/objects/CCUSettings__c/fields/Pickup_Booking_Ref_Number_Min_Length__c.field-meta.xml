@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pickup_Booking_Ref_Number_Min_Length__c</fullName>
+    <description>This stores the minimum length requirement for Pickup Booking Reference Number on BSP Pickup Booking Case creation.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This stores the minimum length requirement for Pickup Booking Reference Number on BSP Pickup Booking Case creation.</inlineHelpText>
+    <label>Pickup Booking Ref Number Min Length</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

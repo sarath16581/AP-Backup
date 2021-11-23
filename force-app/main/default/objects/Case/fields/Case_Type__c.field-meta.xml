@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Type__c</fullName>
+    <externalId>false</externalId>
+    <formula>IMAGE( 
+CASE(RecordType.Name,
+&apos;Transit Warranty Claim&apos;, &apos;/resource/StarTrackCaseIcons/Transit.png&apos;, 
+&apos;Sales Enquiry&apos;, &apos;/resource/StarTrackCaseIcons/Sales.png&apos;, 
+&apos;Pickup Booking Enquiry&apos;, &apos;/resource/StarTrackCaseIcons/Pickup.png&apos;,
+&apos;Credit Dispute Claim&apos;, &apos;/resource/StarTrackCaseIcons/Credit.png&apos;,
+&apos;Delivery Enquiry&apos;, &apos;/resource/StarTrackCaseIcons/Delivery.png&apos;,
+&apos;General Enquiry&apos;, &apos;/resource/StarTrackCaseIcons/General.png&apos;,
+&apos;StarTrack Business Solutions Communications&apos;, &apos;/resource/StarTrackCaseIcons/BSCEmail.png&apos;, &apos;/resource/StarTrackCaseIcons/Other.png&apos;),&apos;No Image&apos; 
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Record Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

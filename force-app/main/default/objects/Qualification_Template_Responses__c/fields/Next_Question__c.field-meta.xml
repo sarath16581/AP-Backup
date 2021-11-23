@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Next_Question__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>Response can be defined with a “Next Question”, to determine the next question if the given response is selected.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The next question that is selected here will be presented to the user based on this response.</inlineHelpText>
+    <label>Next Question</label>
+    <referenceTo>Qualification_Template_Questions__c</referenceTo>
+    <relationshipLabel>Linked as Next Question</relationshipLabel>
+    <relationshipName>Next_Question</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

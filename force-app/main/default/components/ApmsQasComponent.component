@@ -1,0 +1,87 @@
+<apex:component controller="APMSQasComponent" extensions="APMSApplication">
+    <script src="{!URLFOR($Resource.jQuery111)}" />
+    <script src="{!URLFOR($Resource.jQueryUI1_10_3)}" />
+    
+    <script>
+    var j$ = jQuery.noConflict();
+    
+    function {!id}_selectedAddress(data){
+        var addressPanel = j$('.{!id}_addressPanel');
+        var txtLine1 = addressPanel.find('[id$="txtLine1"]');
+        var txtLine2 = addressPanel.find('[id$="txtLine2"]');
+        var txtCity = addressPanel.find('[id$="txtCity"]');
+        var txtState = addressPanel.find('[id$="txtState"]');
+        var txtPostcode = addressPanel.find('[id$="txtPostcode"]');
+        var hfDPID = addressPanel.find('[id$="hfDPID"]');
+        var hfCountry = addressPanel.find('[id$="hfCountry"]');
+        
+        txtLine1.val(data.addressLine1 + ' ' + data.addressLine2);
+        //txtLine2.val(data.addressLine2);
+        txtCity.val(data.city);
+        txtState.val(data.state);
+        txtPostcode.val(data.postcode);
+        hfDPID.val(data.dpid);
+        hfCountry.val('AU');
+        
+        {!id}_callBackFunction({!IF(callback != null, callback, 'null')});
+    }
+    
+    function {!id}_clearAddress(){
+        var addressPanel = j$('.{!id}_addressPanel');
+        var hfDPID = addressPanel.find('[id$="hfDPID"]');
+        hfDPID.val('');
+        {!id}_callBackFunction({!IF(callback != null, callback, 'null')});
+    }
+    
+    function {!id}_callBackFunction(callbackFunctionName) {
+        if (callbackFunctionName != null) {
+            callbackFunctionName();
+        }
+    }
+    </script>
+    
+    <c:AddressValidation onselect="{!id}_selectedAddress" styleClass="{!id}_addressValidation" onInit="{!id}_clearAddress"/>
+    <apex:attribute type="string" name="legend" required="false" description="a legend for this address box" />
+    <apex:attribute type="string" name="callback" description="a callback on change" required="false" />
+    <apex:attribute type="AddressExtension" name="address"
+        assignto="{!currentAddress}" description="the current address used" />
+    <apex:attribute type="string" name="qastype" required="false" 
+        assignto="{!qasTypeString}" description="defines different layout of input fields"/>
+
+
+        <div class="{!id}_addressPanel">
+            <div class="input-group">
+                <div class="input {!qastype} input-large">
+                    <apex:inputtext id="txtLine1" value="{!currentAddress.line1}" 
+                        styleClass="form-control input-sm string {!id}_addressValidation" 
+                        html-placeholder="Address line" maxlength="50"/>
+                </div>
+            </div>
+            
+            <div style="clear:both;height=10px;"/>
+
+            <div class="input-group input-group-address">
+                <div class="input {!qastype} input-normal">
+                    <apex:inputtext id="txtCity" value="{!currentAddress.city}" 
+                        html-placeholder="Suburb" maxlength="40"
+                        onchange="{!id}_clearAddress()"/>
+                </div>
+                <div class="input {!qastype} input-small" >
+                    <apex:selectList id="txtState" size="1" value="{!currentAddress.state}" onchange="{!id}_clearAddress()">
+                        <apex:selectOptions value="{!States}"/>  
+                    </apex:selectList>                     
+                </div>
+                <div class="input {!qastype} input-small" >
+                    <apex:inputtext id="txtPostcode" value="{!currentAddress.postcode}" 
+                        styleclass="numeric" onkeypress="return isNumericKey(event)" 
+                        html-placeholder="Postcode" maxlength="4"
+                        onchange="{!id}_clearAddress()"/>
+                </div>
+                <div style="clear:both;" />
+            </div>
+
+            <apex:inputhidden id="hfDPID" value="{!currentAddress.dpid}" />
+            <apex:inputhidden id="hfCountry" value="{!currentAddress.country}" />
+        </div>
+
+</apex:component>

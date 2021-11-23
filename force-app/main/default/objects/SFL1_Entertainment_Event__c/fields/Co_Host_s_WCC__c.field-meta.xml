@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Co_Host_s_WCC__c</fullName>
+    <description>Co-Host&apos;s work centre code</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Co-Host&apos;s work centre code</inlineHelpText>
+    <label>Co-Host&apos;s WCC</label>
+    <length>6</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

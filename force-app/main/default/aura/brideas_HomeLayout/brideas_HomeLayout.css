@@ -1,0 +1,101 @@
+.THIS .description-block{
+
+    }
+    .THIS .description-block .inner-content{
+        max-width: 950px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        }
+    .THIS .description-block .html-content{
+        width: 530px;
+        }
+        .THIS .description-block .html-content h2{
+            font-size: 18px;
+            color: #000000;
+            margin-bottom: 20px;
+            }
+        .THIS .description-block .html-content p{
+            margin-bottom: 30px;
+            }
+    .THIS .description-block .list-link{
+        width: 265px;
+        height: 320px;
+        padding: 30px;
+        position: relative;
+        }
+        .THIS .description-block .list-link h2{
+            font-size: 30px;
+            padding-right: 20px;
+            }
+        .THIS .description-block .list-link a{
+            display: block;
+            width: 205px;
+            position: absolute;
+            bottom: 40px;
+            background: #292f33;
+            padding: 15px 5px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            border-radius: 3px;
+            text-decoration: none;
+            }
+.THIS .featured-block{
+    background: #dbf5ff;
+    margin: 0 15px 15px 15px;
+    }
+    .THIS .featured-block .inner-content{
+        padding: 60px 0;
+        }
+.THIS .articles-block{
+    display: none;
+    background: #cceeea;
+    margin: 0 15px 15px 15px;
+    }
+    .THIS .articles-block .inner-content{
+        padding: 65px 15px;
+        }
+        .THIS .articles-block .inner-content > h2{
+            font-size: 36px;
+            text-align: center;
+            }
+        .THIS .articles-block .inner-content > p{
+            color: #737b78;
+            text-align: center;
+            margin-bottom: 55px;
+            font-size: 20px;
+            font-family: 'letterbold' !important;
+            }
+    .THIS .articles-block .list{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        }
+        .THIS .articles-block .list .article{
+            width: 360px;
+            background: #ffffff;
+            border-radius: 4px;
+            border-bottom: solid 1px #c1e1de;
+            padding: 15px;
+            }
+            .THIS .articles-block .list .article a{
+                display: block;
+                margin-left: 15px;
+                font-family: 'letterbold' !important;
+                font-size: 19px;
+                font-weight: bold;
+                }
+                .THIS .articles-block .list .article a.img{
+                    margin-bottom: 15px;
+                    margin-left: 0;
+                    }
+
+.THIS .inner-content{
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 45px 15px;
+    }

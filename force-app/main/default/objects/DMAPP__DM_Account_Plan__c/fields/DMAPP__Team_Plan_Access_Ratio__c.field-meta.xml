@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Team_Plan_Access_Ratio__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF( OR( ISBLANK(DMAPP__Sum_Of_Members_Access_Ratio__c), ISBLANK(DMAPP__Number_Of_Plan_Members__c), DMAPP__Number_Of_Plan_Members__c == 0), 0, (DMAPP__Sum_Of_Members_Access_Ratio__c /  DMAPP__Number_Of_Plan_Members__c))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Team Plan Access Ratio</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

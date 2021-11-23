@@ -1,0 +1,8 @@
+<p>{!authorName} has commented on an Idea you're following - <a href="https://community.auspost.com.au/s/idea/{!ideaId}">{!ideaTitle}</a>.</p>
+<hr />
+<p>Comment details:</p>
+{!commentBody}
+<p><a href="https://community.auspost.com.au/s/idea/{!ideaId}/detail"><em>Post a reply</em></a></p>
+<hr />
+<p><a href="https://community.auspost.com.au/s/ideas-unsubscribe?action=unsubscribe&ideaId={!ideaId}">Unsubscribe</a> from this idea</p>
+<p><a href="https://community.auspost.com.au/s/ideas-unsubscribe?action=unsubscribeall">Unsubscribe</a> from all ideas</p>

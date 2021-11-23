@@ -1,0 +1,133 @@
+<!--
+@ModifiedBy: Meet Desai
+@ModifiedOn: 6 March, 2020
+@Description: Updated Merge Documents logic to refer Files/ Content Documents instead of Attachments
+-->
+
+<apex:page standardController="Apttus__APTS_Agreement__c" extensions="APTS_MergeDocumentstoPDFController">
+    
+<apex:form > 
+    <apex:PageMessages id="errorMsg"> </apex:pageMessages>
+    
+    <apex:outputPanel id="loadingOutput">
+        <apex:outputPanel rendered="{!processSubmitted}">
+            <div class="popupBackground" style="text-align:center; margin-top:2%;">
+               
+                    <apex:image id="loadingImg" value="/img/loading32.gif"/>
+                    <br/><br/>Do not close the browser/navigate from the page, documents generation in progress
+                
+            </div>
+        </apex:outputPanel>
+    </apex:outputPanel>
+    
+    <apex:PageBlock rendered="{!noFile}">
+        <apex:pageMessage severity="warning">
+            {!$Label.APT_MergeDocument_No_Attachment_Warning_Message}
+        </apex:pageMessage>
+        
+        <apex:pageBlockButtons location="Bottom">
+            <apex:commandButton value="{!$Label.APT_MergeDocument_No_Attachment_Return_Button}" action="{!Cancel}" disabled="{!processSubmitted}"/>
+        </apex:pageBlockButtons>
+    </apex:PageBlock>
+    
+    <apex:pageBlock title="{!$Label.APT_Generate_Docs_Header_Title}" rendered="{!NOT(noFile)}">
+        
+        <apex:pageBlockSection >
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Apttus__Account__r.Name }"/>
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Name }"/>
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c }"/>
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c }"/>
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Term__c }"/>
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Apttus__Subtype__c }"/>
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Included_Product_Lines__c }"/>
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Apttus__Agreement_Category__c }"/>
+        </apex:pageBlockSection>
+        
+    </apex:pageBlock>
+    
+    <apex:pageblock id="FileBlock" title="{!$Label.APT_Select_Attachments}" rendered="{!NOT(noFile)}">
+        
+        <apex:pageBlockButtons location="Bottom">
+            <apex:commandButton value="{!$Label.APT_Merge_Docs_Merge_Button}" action="{!MergeInitialization}" oncomplete="MergeDocumentJS()" disabled="{!processSubmitted}" rerender="FileBlock,loadingOutput"/>
+            <apex:commandButton value="{!$Label.APT_Merge_Docs_Cancel_Button}" action="{!Cancel}" disabled="{!processSubmitted}"/>
+        </apex:pageBlockButtons>
+
+        <apex:pageBlockTable value="{!lstWrapper}" var="wrapper" id="FileTable" style="width:80%;">   
+            
+            <apex:column headervalue="{!$Label.APT_Sequence_Number}" style="width:100px;text-align:center">
+                <apex:outputText value="{!wrapper.Sequence}"/>                    
+            </apex:column>  
+            
+            <apex:column headerValue="{!$Label.APT_File_Name}">
+                <apex:outputText value="{!wrapper.contentDoc.Title}"/>           
+            </apex:column>          
+            
+            <apex:column headerValue="{!$Label.APT_Selected}" style="width:50px;text-align:center">
+                <apex:inputCheckbox value="{!wrapper.selected}" disabled="{!processSubmitted}"/>
+            </apex:column>  
+            
+            <apex:column headerValue="{!$Label.APT_Reorder_Documents}" style="width:110px;text-align:center" rendered="{!NOT(processSubmitted)}">
+            
+                <apex:commandLink action="{!upAction}" reRender="FileTable" rendered="{!wrapper.upVisible}">
+                    <apex:image id="UpIcon" url="{!$Resource.APT_Up}" width="15" height="18"/>
+                    <apex:param name="fileID" value="{!wrapper.contentDoc.ID}" assignTo="{!fileID}" />
+                </apex:commandLink>
+            
+                <apex:outputText rendered="{!AND(wrapper.upVisible,wrapper.downVisible)}">&nbsp;</apex:outputText>
+            
+                <apex:commandLink action="{!downAction}" reRender="FileTable" rendered="{!wrapper.downVisible}">
+                    <apex:image id="DownIconImage" url="{!$Resource.APT_Down}" width="15" height="18"/>
+                    <apex:param name="fileID" value="{!wrapper.contentDoc.ID}" assignTo="{!fileID}" />
+                </apex:commandLink>
+            </apex:column>
+            
+        </apex:pageBlockTable>
+        
+        <apex:actionFunction name="MergeDocument" action="{!MergeDocument}"/>
+        
+    </apex:pageBlock>
+    
+     
+        
+    <apex:pageBlock title="{!$Label.APT_Merge_Docs_Description_Title}" rendered="{!NOT(noFile)}">
+        
+        <p>{!$Label.APT_Merge_Docs_Description_Content1}</p>
+        <p>{!$Label.APT_Merge_Docs_Description_Content2}</p>
+        
+        <ol>
+            <li><p>{!$Label.APT_Merge_Docs_Description_Content3}</p></li>
+            <li><p>{!$Label.APT_Merge_Docs_Description_Content4}</p></li>
+            <li><p>{!$Label.APT_Merge_Docs_Description_Content5}</p></li>
+        </ol>
+    </apex:pageBlock>
+    
+    <apex:pageblock id="TemplateBlock" title="{!$Label.APT_Merge_Documents_Template_Description_Header}" rendered="{!NOT(noTemplate)}">
+         
+            <p>{!$Label.APT_Merge_Documents_Template_Description_Value}</p>
+            <br/> 
+            
+        <apex:pageBlockTable value="{!lstTemplateWrapper}" var="tmpWrapper" id="TemplatesTable" style="width:60%;">   
+            
+            <apex:column headervalue="{!$Label.APT_Sequence_Number}" style="width:110px;text-align:center">
+                <apex:outputText value="{!tmpWrapper.Sequence}"/>                    
+            </apex:column>
+            
+            <apex:column headerValue="{!$Label.APT_Template_Name}">
+                <apex:outputText value="{!tmpWrapper.template.Name}"/>           
+            </apex:column>
+            
+        </apex:pageBlockTable>
+        
+    </apex:pageBlock>
+    
+</apex:form>
+
+<script>
+    
+    function MergeDocumentJS() {
+        MergeDocument();
+    }
+    
+</script>
+
+</apex:page>

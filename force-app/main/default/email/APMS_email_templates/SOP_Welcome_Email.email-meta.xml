@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>2014-09 APMS - SecurePay API Welcome Email</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SOP Welcome Email</name>
+    <style>none</style>
+    <subject>Welcome to SecurePay</subject>
+    <textOnly>Welcome to SecurePay
+
+Welcome to SecurePay!
+
+Hi {!Application__c.ContactFirstName__c},
+
+Welcome to SecurePay. Your account has been approved and you are almost ready to start accepting payments online.
+
+What do you need to do now?
+
+In order to start accepting payments online, you or your web developer needs to update your website with the live SecurePay credentials. Once this has been done you can start processing real payments.
+
+You will find your credentials when you log in to your account, under ‘Start Trading’. You will also find the instructions on how to implement the credentials on your website.
+
+If you are using an e-commerce provider such as WooCommerce or Magento, you will be asked to enter your live SecurePay credentials in the payment section of the shopping cart.
+
+{!IF(ISPICKVAL(Application__c.Opt_for_Multicurrency__c,&quot;Yes&quot;), &quot;Dynamic Currency Conversion&quot;&amp;&apos;
+&apos;&amp;&apos;
+&apos;,&quot;&quot;)} {!IF(ISPICKVAL(Application__c.Opt_for_Multicurrency__c,&quot;Yes&quot;),&quot;Dynamic Currency Conversion has been enabled as part of your SecurePay application. It can take a few days for the Dynamic Currency Conversion feature to be live on your account*, in the meantime you can integrate the DCC feature. Please visit our developer documentation and follow the &quot; &amp; &apos;integration instructions&apos; &amp;&quot;. After you have integrated, you will be ready to start accepting payments in foreign currencies.&quot;,&quot;&quot;)}  {!IF(ISPICKVAL(Application__c.Opt_for_Multicurrency__c,&quot;Yes&quot;), &apos;
+&apos;&amp;&apos;
+&apos;,NULL)} Your login details to the Merchant Portal
+
+The Merchant Portal will be a handy tool once you are set up and start processing payments. You will be able to:
+
+manage your transactions
+create reports
+search for transactions
+process credit card and bulk payments
+schedule future payments
+
+
+You can login to the Merchant Portal using the below login details. It’s important to note the Merchant Portal is separate to your SecurePay online account and login details will differ.
+
+Merchant ID: {!Application__c.SecurePayPortalMerchantID__c}
+User name: {!Application__c.SecurePayPortalUserId__c}
+Login password: {!Application__c.SecurePayPortalOneTimePassword__c}
+
+
+The first time you login to your Merchant Portal you will be asked to change your password so it’s unique to you.
+
+Terms and Conditions
+
+You can view a copy of our Terms and Conditions online.
+
+Have a question?
+
+Call our support team on 1300 786 756 or email us at support@securepay.com.au
+
+Our support team is available Monday to Friday, 8am to 8pm Australian Eastern Standard Time (AEST). We are closed on public holidays and weekends.
+
+Thank you for using SecurePay. We look forward to working with you.
+
+
+All the best,
+
+The SecurePay Team
+
+{!IF(ISPICKVAL(Application__c.Opt_for_Multicurrency__c,&quot;Yes&quot;), &quot;*DCC should be live on your SecurePay account within 24 hours however it can take up to 5 business days.&quot;,&quot;&quot;)}
+
+NAB provides the merchant banking services, which includes the authorisation, processing and settling of the cardholder’s card transactions to the merchant.
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

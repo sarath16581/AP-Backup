@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Hi {!Application__c.ContactFirstName__c},</span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Further to our recent email, we have tried unsuccessfully on a number of occasions to contact you via email and phone to assist with getting your Credit card acceptance account Ready to Trade.</span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">As such we have closed your application and removed it from our system.</span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">If you still require an online Credit Card acceptance system, please contact us at your earliest convenience and we can start this process over again.</span></p>
+
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Regards,</span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">The SecurePay Team<br />
+SecurePay Pty Ltd &ndash; A business of Australia Post<br />
+Level 8, 222 Exhibition St, Melbourne, VIC 3000<br />
+<strong>P</strong> 1300 656 372 (option 1)&nbsp;<br />
+<strong>E</strong> onlinepayments@securepay.com.au&nbsp;<br />
+<strong>W</strong> securepay.com.au</span></p>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>DocusignNewFeature</masterLabel>
+    <promptVersions>
+        <actionButtonLabel>Click here for more info!</actionButtonLabel>
+        <actionButtonLink>https://auspost.sharepoint.com/:b:/s/SPBG/Sales-support-site/EV5ZfoxsK7dNgjr9fM1K9voB8HqkD-rYBhhUVihnigyfEQ?e=9kEdhV</actionButtonLink>
+        <body>&lt;p&gt;When sending an Agreement for signature, you can add a personal message to the customer in the ‘Notes’ field.​&lt;/p&gt;</body>
+        <customApplication>BG_Sales</customApplication>
+        <delayDays>1</delayDays>
+        <description>DocuSign feature to display till 24th April&apos;21</description>
+        <displayType>DockedComposer</displayType>
+        <endDate>2021-04-24</endDate>
+        <header>New Feature</header>
+        <isPublished>true</isPublished>
+        <masterLabel>DocusignNewFeature</masterLabel>
+        <publishedDate>2021-03-25</publishedDate>
+        <shouldDisplayActionButton>true</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>true</shouldIgnoreGlobalDelay>
+        <startDate>2021-03-22</startDate>
+        <targetPageKey1>Apttus__APTS_Agreement__c</targetPageKey1>
+        <targetPageKey2>view</targetPageKey2>
+        <targetPageType>standard__recordPage</targetPageType>
+        <timesToDisplay>3</timesToDisplay>
+        <title>Add a personal note through Docusign</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

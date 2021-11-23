@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>E_G_Deployment_Date_Mandatory</fullName>
+    <active>true</active>
+    <description>This is make it Deployment Date field mandatory for certain Implementation Stage</description>
+    <errorConditionFormula>RecordType.DeveloperName =&apos;E_G_Sales_Implementation_Request&apos; &amp;&amp;
+(ISPICKVAL(Implementation_Stage__c, &quot;Stabalise&quot;) || ISPICKVAL( Implementation_Stage__c, &quot;Closed - Disengaged&quot;) || ISPICKVAL( Implementation_Stage__c, &quot;Closed - Maintained&quot;) || ISPICKVAL( Implementation_Stage__c, &quot;Closed - Rejected&quot;)) &amp;&amp;
+ISBLANK ( Deployment_Date__c )</errorConditionFormula>
+    <errorDisplayField>Deployment_Date__c</errorDisplayField>
+    <errorMessage>Please enter Deployment Date</errorMessage>
+</ValidationRule>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@auspost.com.au</email>
+    <name>SSSW Snap It Inbound</name>
+    <queueMembers>
+        <users>
+            <user>alexandra.maccarrone@auspost.com.au</user>
+            <user>betty.adamopoulos@auspost.com.au</user>
+            <user>caroline.holmes@auspost.com.au</user>
+            <user>chanel.murdoch@auspost.com.au</user>
+            <user>emily.pearson@auspost.com.au</user>
+            <user>eric.spice@auspost.com.au</user>
+            <user>grant.lamb@auspost.com.au</user>
+            <user>justin.caddaye@auspost.com.au</user>
+            <user>kesava.raghumanda@auspost.com.au</user>
+            <user>matthew.vowell@auspost.com.au</user>
+            <user>sandeep.jaswal@auspost.com.au</user>
+            <user>yubiao.he@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

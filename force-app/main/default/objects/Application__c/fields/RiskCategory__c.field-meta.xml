@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RiskCategory__c</fullName>
+    <description>This field is used by APMS credit management risk assessment process</description>
+    <externalId>false</externalId>
+    <label>Risk Category</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>001 - Very Low Risk</fullName>
+                <default>false</default>
+                <label>001 - Very Low Risk</label>
+            </value>
+            <value>
+                <fullName>002 - Low Risk</fullName>
+                <default>false</default>
+                <label>002 - Low Risk</label>
+            </value>
+            <value>
+                <fullName>003 - Acceptable Risk</fullName>
+                <default>false</default>
+                <label>003 - Acceptable Risk</label>
+            </value>
+            <value>
+                <fullName>004 - Medium Risk</fullName>
+                <default>false</default>
+                <label>004 - Medium Risk</label>
+            </value>
+            <value>
+                <fullName>005 - Moderate Risk</fullName>
+                <default>false</default>
+                <label>005 - Moderate Risk</label>
+            </value>
+            <value>
+                <fullName>006 - High Risk</fullName>
+                <default>false</default>
+                <label>006 - High Risk</label>
+            </value>
+            <value>
+                <fullName>007 - Very High Risk</fullName>
+                <default>false</default>
+                <label>007 - Very High Risk</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

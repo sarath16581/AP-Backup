@@ -1,0 +1,54 @@
+<apex:page standardController="Contract" extensions="FilesRelatedListExtensionClone" showHeader="false" sidebar="false">
+    <apex:form id="form1">
+        <apex:pageBlock >
+            Select Signature Type:
+            <apex:selectList size="1" value="{!selectedType}">
+                <apex:actionSupport event="onchange" action="{!setStatus}" rerender="filestable"/>
+                <apex:selectOptions value="{!optionsSignatureType}"></apex:selectOptions>
+            </apex:selectList>
+            &nbsp; Select Document Type:
+            <apex:selectList size="1" value="{!docuType}">
+                <apex:actionSupport event="onchange" action="{!setDocType}" rerender="filestable"/>
+                <apex:selectOptions value="{!optionsDocumentType}"></apex:selectOptions>
+            </apex:selectList>
+            <apex:pageBlockTable value="{!cvList}" var="cVersion" styleClass="tableClass" id="filestable">
+
+                <apex:column >
+
+                    <apex:facet name="header">Actions</apex:facet>
+                    <apex:outputLink value="/{!cVersion.ContentDocumentID}" target="_blank"> Preview </apex:outputLink> |
+                    <apex:outputLink value="{!URLFOR('/sfc/servlet.shepherd/version/download/' & cVersion.ID &'?')}"> Download </apex:outputLink>
+                    <!--
+                    <apex:commandLink value=" Del" onclick="return confirm('Are you sure?')" action="{!deleteFile}" >
+                        <apex:param name="deleteContentDocumentID" value="{!cVersion.ContentDocumentID}" assignTo="{!cdID}" />
+                    </apex:commandLink>
+                    -->
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Title</apex:facet>
+                    <apex:outputLink value="/{!cVersion.ContentDocumentID}" target="_blank"> {!cVersion.Title} </apex:outputLink>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Document Type</apex:facet>
+                    <apex:outputField value="{!cVersion.Document_Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Is Document Signed</apex:facet>
+                    <apex:outputField value="{!cVersion.Is_Signed__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Signature Type</apex:facet>
+                    <apex:outputField value="{!cVersion.Signature_Type__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Last Modified</apex:facet>
+                    <apex:outputField value="{!cVersion.LastModifiedDate}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Created By</apex:facet>
+                    <apex:outputField value="{!cVersion.CreatedByID}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

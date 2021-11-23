@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales_Segment__c</fullName>
+    <externalId>false</externalId>
+    <label>Sales Team</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Acquisition Sales</fullName>
+                <default>false</default>
+                <label>Acquisition Sales</label>
+            </value>
+            <value>
+                <fullName>Banking</fullName>
+                <default>false</default>
+                <label>Banking</label>
+            </value>
+            <value>
+                <fullName>Business Partnership</fullName>
+                <default>false</default>
+                <label>Business Partnership</label>
+            </value>
+            <value>
+                <fullName>CS Distribution and Industrial</fullName>
+                <default>false</default>
+                <label>CS Distribution and Industrial</label>
+            </value>
+            <value>
+                <fullName>Communications</fullName>
+                <default>false</default>
+                <label>Communications</label>
+            </value>
+            <value>
+                <fullName>ES Distribution and Industrial</fullName>
+                <default>false</default>
+                <label>ES Distribution and Industrial</label>
+            </value>
+            <value>
+                <fullName>Federal Government</fullName>
+                <default>false</default>
+                <label>Federal Government</label>
+            </value>
+            <value>
+                <fullName>Financial &amp; Professional Services</fullName>
+                <default>false</default>
+                <label>Financial &amp; Professional Services</label>
+            </value>
+            <value>
+                <fullName>Health &amp; Energy</fullName>
+                <default>false</default>
+                <label>Health &amp; Energy</label>
+            </value>
+            <value>
+                <fullName>Holding Sales Team</fullName>
+                <default>false</default>
+                <label>Holding Sales Team</label>
+            </value>
+            <value>
+                <fullName>Integrated Accounts - Telstra</fullName>
+                <default>false</default>
+                <label>Integrated Accounts - Telstra</label>
+            </value>
+            <value>
+                <fullName>Local Government, Not For Profit &amp; Education</fullName>
+                <default>false</default>
+                <label>Local Government, Not For Profit &amp; Education</label>
+            </value>
+            <value>
+                <fullName>SMB Inside Sales North</fullName>
+                <default>false</default>
+                <label>SMB Inside Sales North</label>
+            </value>
+            <value>
+                <fullName>SMB Inside Sales South</fullName>
+                <default>false</default>
+                <label>SMB Inside Sales South</label>
+            </value>
+            <value>
+                <fullName>SMB NSW ACT Territory Sales</fullName>
+                <default>false</default>
+                <label>SMB NSW ACT Territory Sales</label>
+            </value>
+            <value>
+                <fullName>SMB NSW Territory Sales</fullName>
+                <default>false</default>
+                <label>SMB NSW Territory Sales</label>
+            </value>
+            <value>
+                <fullName>SMB QLD Territory Sales</fullName>
+                <default>false</default>
+                <label>SMB QLD Territory Sales</label>
+            </value>
+            <value>
+                <fullName>SMB VIC TAS Territory Sales</fullName>
+                <default>false</default>
+                <label>SMB VIC TAS Territory Sales</label>
+            </value>
+            <value>
+                <fullName>SMB VIC Territory Sales</fullName>
+                <default>false</default>
+                <label>SMB VIC Territory Sales</label>
+            </value>
+            <value>
+                <fullName>SMB WA SA NT Territory Sales</fullName>
+                <default>false</default>
+                <label>SMB WA SA NT Territory Sales</label>
+            </value>
+            <value>
+                <fullName>State Government</fullName>
+                <default>false</default>
+                <label>State Government</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

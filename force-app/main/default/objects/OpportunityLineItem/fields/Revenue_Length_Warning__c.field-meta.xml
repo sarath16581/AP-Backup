@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Revenue_Length_Warning__c</fullName>
+    <description>Visual indicator of Revenue Length</description>
+    <externalId>false</externalId>
+    <formula>IF(Revenue_Days__c &lt;= 50,
+ IMAGE(&quot;/img/samples/flag_red.gif&quot;, &quot;red flag&quot;),
+
+ IF(AND(Revenue_Days__c &gt; 50, Revenue_Days__c &lt;= 100),
+  IMAGE(&quot;/img/samples/flag_yellow.gif&quot;, &quot;yellow flag&quot;),
+
+  IF(AND(Revenue_Days__c &gt; 100, Revenue_Days__c &lt;= 200),
+   IMAGE(&quot;/img/samples/flag_green.gif&quot;, &quot;green flag&quot;), &quot;&quot;
+  ) 
+ )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Visual indicator of Revenue Length</inlineHelpText>
+    <label>Revenue Length Warning</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

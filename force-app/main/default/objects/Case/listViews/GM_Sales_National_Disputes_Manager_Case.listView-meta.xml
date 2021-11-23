@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GM_Sales_National_Disputes_Manager_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>GM Sales / National Disputes Manager</label>
+    <queue>GM_Sales_National_Disputes_Manager</queue>
+    <sharedTo>
+        <group>StarTrack_National_Disputes_Manager</group>
+    </sharedTo>
+</ListView>

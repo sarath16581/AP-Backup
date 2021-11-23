@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GetFeedback_Survey_Response__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This lookup field is looking at survey response record from Get Feedback Custom Object.</description>
+    <externalId>false</externalId>
+    <label>GetFeedback Survey Response</label>
+    <referenceTo>GetFeedback_Survey__c</referenceTo>
+    <relationshipLabel>Deal Support Request</relationshipLabel>
+    <relationshipName>Deal_Support_Request</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

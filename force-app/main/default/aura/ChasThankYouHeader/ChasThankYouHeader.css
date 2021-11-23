@@ -1,0 +1,20 @@
+.THIS .info {
+  width: 40px;
+  min-width: 20px;
+  margin-bottom: 14px;
+}
+
+.THIS p {
+  margin-bottom: 16px;
+}
+
+.THIS h1 {
+  margin-bottom: 18px;
+}
+
+@media (min-width: 680px) {
+  .THIS .info {
+    width: 48px;
+    min-width: 48px;
+  }
+}

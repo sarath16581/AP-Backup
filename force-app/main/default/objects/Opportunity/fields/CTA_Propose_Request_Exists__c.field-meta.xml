@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CTA_Propose_Request_Exists__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field is set to True when new CTA Propose request is auto created</description>
+    <externalId>false</externalId>
+    <label>CTA Propose Request Exists</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

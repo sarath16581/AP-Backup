@@ -1,0 +1,32 @@
+<apex:page controller="TIBCOSMSTestCont" tabStyle="Case" showHeader="false" sidebar="false">
+
+	<apex:pageBlock >
+	<apex:form >
+		<apex:outputLabel value="Phone Number:" /><br/>
+		<apex:inputText value="{!phoneNum}" />
+		<br/><br/>
+		<apex:outputLabel value="Message:" /><br/>
+		<apex:inputTextArea value="{!message}" />
+		<br/>
+		<apex:commandButton value="Send" action="{!send}"
+			rerender="result" status="sts1"/>
+			
+		<apex:actionStatus id="sts1" stopText="">
+			<apex:facet name="start">
+				<apex:image value="/img/loading.gif" />
+			</apex:facet>
+		</apex:actionStatus>
+
+		<br />
+		<br />
+
+		<h1>Result</h1>
+		<hr />
+		<apex:outputPanel id="result">
+			<apex:outputPanel rendered="{!showResult}">
+				<apex:OutputText value="{!result}" />
+			</apex:outputPanel>
+		</apex:outputPanel>
+	</apex:form>
+	</apex:pageBlock>
+</apex:page>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_DetailsForContractRequiredForCase</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ISBLANK(APT_Details_For_Contract_Consulting_Lega__c),
+ APT_Submit_to_Contract_Consulting_Team__c ,
+ AND(
+OR( ISPICKVAL( Apttus__Status_Category__c , &apos;In Authoring&apos;) ,
+ ISPICKVAL(Apttus__Status_Category__c , &apos;Request&apos;) )) 
+)</errorConditionFormula>
+    <errorDisplayField>APT_Details_For_Contract_Consulting_Lega__c</errorDisplayField>
+    <errorMessage>Please enter details before requesting case to be created for Contract Consulting</errorMessage>
+</ValidationRule>

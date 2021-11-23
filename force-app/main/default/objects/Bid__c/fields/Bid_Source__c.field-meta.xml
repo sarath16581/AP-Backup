@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bid_Source__c</fullName>
+    <description>Indicates the source of the bid (ie either from internal or external sources)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>indicate the source of the bid (ie either from internal or external sources)</inlineHelpText>
+    <label>Bid Source</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Internal – Seller</fullName>
+                <default>false</default>
+                <label>Internal – Seller</label>
+            </value>
+            <value>
+                <fullName>Internal – Product</fullName>
+                <default>false</default>
+                <label>Internal – Product</label>
+            </value>
+            <value>
+                <fullName>Internal – Other</fullName>
+                <default>false</default>
+                <label>Internal – Other</label>
+            </value>
+            <value>
+                <fullName>External – Tender site</fullName>
+                <default>false</default>
+                <label>External – Tender site</label>
+            </value>
+            <value>
+                <fullName>External – Newspaper</fullName>
+                <default>false</default>
+                <label>External – Newspaper</label>
+            </value>
+            <value>
+                <fullName>External – Other</fullName>
+                <default>false</default>
+                <label>External – Other</label>
+            </value>
+            <value>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+                <label>Not Applicable</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

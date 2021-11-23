@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LOI_Dollar_Fees</fullName>
+    <active>true</active>
+    <label>LOI Dollar Fees</label>
+    <picklistValues>
+        <picklist>APT_Fee_Type__c</picklist>
+        <values>
+            <fullName>Cheque handling fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dishonour cheque or Credit Card charge-back fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Minimum Fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Billpay %E2%80%93 Scan %26 Pay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Billpay OTC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Billpay by Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Billpay on the Internet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transaction Fee%2C per transaction*</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Approval_Status__c</picklist>
+        <values>
+            <fullName>Approval Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Not Submitted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

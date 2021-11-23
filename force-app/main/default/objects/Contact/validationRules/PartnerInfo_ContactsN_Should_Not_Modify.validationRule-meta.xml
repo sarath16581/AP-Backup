@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfo_ContactsN_Should_Not_Modify</fullName>
+    <active>true</active>
+    <description>Once Contacts record is created, its Legal Entity Name should not be changed.</description>
+    <errorConditionFormula>AND( NOT(ISNEW()), 
+$Profile.Name = &apos;SSSW - Service Agent&apos;, 
+$Permission.SSSW_Social_Media_Permissions = false, 
+RecordType.Name = &apos;Contact&apos;,
+ISCHANGED(AccountId) 
+)</errorConditionFormula>
+    <errorMessage>Legal Entity Name cannot be modified. To change the Legal Entity Name, please visit Knowledge.</errorMessage>
+</ValidationRule>

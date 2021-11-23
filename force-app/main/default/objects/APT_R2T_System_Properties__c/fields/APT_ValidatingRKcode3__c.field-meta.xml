@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_ValidatingRKcode3__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>It Validates RK Code based on 
+Domestic: Lodgment zone 
+International :Digital/Non-Digital, Band</description>
+    <externalId>false</externalId>
+    <label>Validating RKcode 3</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

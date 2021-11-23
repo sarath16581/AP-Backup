@@ -1,0 +1,37 @@
+<!--
+* @author avula.jansirani@auspost.com.au
+* @date 2020-11-12
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Preferred postal outlets summary details . Used for showing Preferred postal outlets details entered in the input step
+                for review before submitting a credit form.
+* @changelog
+* 2020-01-20 avula.jansirani@auspost.com.au
+*
+-->
+<template>
+    <div data-id='postalOutlets'>
+        <div class="slds-section slds-is-open">
+    
+            <div aria-hidden="false" class="slds-section__content">
+    
+                <!--Header-->
+                <c-bca-summary-step-header header-label='Preferred postal outlets' step-name={stepName}>
+                </c-bca-summary-step-header>
+    
+                <!--Body-->
+                <table width="100%">
+                    <thead></thead>
+                    <tbody>
+                        <template for:each={postalOutlets} for:item="postalOutlet" for:index="index">
+                            <c-bca-summary-each-postal-outlet-details key={postalOutlet.dpid} postal-outlet={postalOutlet}
+                                index={index} class="street-address">
+                            </c-bca-summary-each-postal-outlet-details>
+                        </template>
+                    </tbody>
+                </table>
+    
+            </div>
+        </div>
+    </div>
+</template>

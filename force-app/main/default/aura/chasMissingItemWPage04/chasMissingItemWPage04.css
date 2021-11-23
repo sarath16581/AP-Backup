@@ -1,0 +1,33 @@
+/* 
+2020-07-06 Hara Sahoo:  Added styling for safe drop missing item project
+                        Go Back button now sits on the top of the page with UI changes
+*/
+
+.THIS .sub-header { 
+        padding-bottom:32px;
+        padding-top:32px;
+    }
+@media (max-width: 680px) {
+    .THIS .sub-header {
+        padding-bottom:40px;
+        padding-top:40px;
+    }
+}
+
+.THIS .card-layout { 
+    padding:32px 176px 32px 32px;
+    max-width: 656px;
+    background-color: #ffffff
+}
+
+@media (max-width: 680px) {
+.THIS .card-layout {
+    background-color: #ffffff;
+    padding: 32px 16px 32px 16px;
+}
+}
+.THIS .chas-button-box {
+    border-top: none;
+    padding-top:0px !important;
+    flex-direction: row;
+}

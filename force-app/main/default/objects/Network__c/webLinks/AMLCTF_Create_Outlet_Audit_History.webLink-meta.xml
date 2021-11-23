@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AMLCTF_Create_Outlet_Audit_History</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Create Outlet Audit History</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/{!$Setup.AMLCTF_Retail_Audit_Settings__c.Case_and_Comments_Report_Id__c}?pv0={!Network__c.Id}</url>
+</WebLink>

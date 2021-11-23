@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_StarTrack_Request_Org</fullName>
+    <availability>online</availability>
+    <description>New StarTrack Deal Support Request from Organisation</description>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>StarTrack general pricing enquiry</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>/aGI/e?&amp;RecordType=0122v000001d2Lj&amp;
+CF00N2v00000Ibloe={!Account.Name}&amp;
+CF00N2v00000Ibloe_lkid={!Account.Id}&amp;
+00N2v00000Iblou=Organisation&amp;
+retURL=%2F{!Account.Id}</url>
+</WebLink>

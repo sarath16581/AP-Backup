@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Open_Customer_Handover_Tasks</fullName>
+    <columns>TASK.SUBJECT</columns>
+    <columns>TASK.WHAT_NAME</columns>
+    <columns>Category__c</columns>
+    <columns>TASK.TYPE</columns>
+    <columns>EVENT.START_DATE_TIME</columns>
+    <columns>EVENT.END_DATE_TIME</columns>
+    <columns>TASK.DUE_DATE</columns>
+    <columns>TASK.STATUS</columns>
+    <columns>TASK.WHO_NAME</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>TASK.STATUS</field>
+        <operation>equals</operation>
+        <value>Completed,Rejected,Finished</value>
+    </filters>
+    <filters>
+        <field>TASK.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Task.Sales_Task</value>
+    </filters>
+    <filters>
+        <field>TASK.TYPE</field>
+        <operation>equals</operation>
+        <value>Customer Handover</value>
+    </filters>
+    <filters>
+        <field>TASK.CREATED_DATE</field>
+        <operation>greaterThan</operation>
+        <value>6/26/2019 12:00 AM</value>
+    </filters>
+    <label>My Open Customer Handover Tasks</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>All_Users_Ex_SSSW</group>
+        <group>All_Users_Ex_StarTrack</group>
+    </sharedTo>
+</ListView>

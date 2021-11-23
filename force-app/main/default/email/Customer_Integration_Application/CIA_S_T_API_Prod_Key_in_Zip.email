@@ -1,0 +1,40 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoBodyText" style="font-size: 12pt; color: rgb(0, 0, 0); font-family: arial; margin: 4.95pt 0cm 0.0001pt 6pt;"></p><p class="MsoBodyText" style="font-size: 12pt; color: rgb(0, 0, 0); font-family: arial; margin: 4.95pt 0cm 0.0001pt 6pt;"></p><p class="MsoNormal" style=""><span style="font-family: &quot;AP Letter Light&quot;;"><font size="2">Dear&nbsp;<b style="">{!Contact.FirstName}</b><o:p></o:p></font></span></p><p class="MsoNormal" style=""><span style="font-family: &quot;AP Letter Light&quot;;"><font size="2">Congratulations! You now have access to
+your Shipping and Tracking API production keys.<o:p></o:p></font></span></p><p class="MsoNormal" style=""><span style="font-family: &quot;AP Letter Light&quot;;"><font size="2">We've attached your user keys in an
+encrypted Zip file which you should be able to open with Winzip or most other
+compression programs. So make sure you keep this email safe!<o:p></o:p></font></span></p><p class="MsoNormal" style=""><span style="font-family: &quot;AP Letter Light&quot;;"><font size="2">We'll be sending you a follow up email
+shortly with the password to open your file.<o:p></o:p></font></span></p><p class="MsoNormal" style=""><span style="font-family: &quot;AP Letter Light&quot;;"><font size="2">Once you've received it, simply copy
+the password to decompress the Zip file and you're good to go.<o:p></o:p></font></span></p><p class="MsoNormal" style=""><span style="font-family: &quot;AP Letter Light&quot;;"><font size="2"><b>How to open a Zip file</b><o:p></o:p></font></span></p><p class="MsoNormal" style=""><span style="font-family: &quot;AP Letter Light&quot;;"><font size="2">To open your file, save it to your
+desktop and double click the file. This will open it in Winzip or your default
+compression program.<o:p></o:p></font></span></p><p class="MsoNormal" style=""><span style="font-family: &quot;AP Letter Light&quot;;"><font size="2">You'll be prompted to put in a
+password. Copy the password we send you and paste it in.<o:p></o:p></font></span></p><p class="MsoNormal" style=""><span style="font-family: &quot;AP Letter Light&quot;;"><font size="2">To extract the file, simply choose
+where you'd like to unzip it to and follow the prompts. Your extracted
+production keys will appear in the folder you previously chose.<o:p></o:p></font></span></p><p class="MsoNormal" style=""><span style="font-family: &quot;AP Letter Light&quot;;"><font size="2">If you have any queries regarding this
+information, please don’t hesitate to contact us at
+customer_connectivity@auspost.com.au<o:p></o:p></font></span></p><p class="MsoNormal" style=""><span style="font-family: &quot;AP Letter Light&quot;;"><font size="2">Regards,<o:p></o:p></font></span></p><p class="MsoNormal" style="">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p class="MsoNormal" style=""><span style="font-family: &quot;AP Letter Light&quot;;"><font size="2">Lodgement &amp; API Team</font><span style="font-size: 9pt;"><o:p></o:p></span></span></p><p style="font-size: 12pt; color: rgb(0, 0, 0); font-family: arial;"></p><p style="font-size: 12pt; color: rgb(0, 0, 0); font-family: arial;"></p>]]></td>
+</tr>
+</table>

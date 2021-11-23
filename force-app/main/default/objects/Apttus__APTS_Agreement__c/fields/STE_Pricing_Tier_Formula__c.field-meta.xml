@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>STE_Pricing_Tier_Formula__c</fullName>
+    <description>Formula to look at the Proposal Pricing Tier picklist value for StarTrack</description>
+    <externalId>false</externalId>
+    <formula>TEXT(Apttus_QPComply__RelatedProposalId__r.STE_Pricing_Tier__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>The StarTrack pricing tier that is being offered to the Customer.</inlineHelpText>
+    <label>ST Pricing Tier</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

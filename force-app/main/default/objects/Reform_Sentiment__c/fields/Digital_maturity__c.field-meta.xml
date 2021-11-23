@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Digital_maturity__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Native
+· Digitally First with customers
+Mature 
+· Advanced Digitally
+Developing
+· Expanding dig serv to customers
+Commence
+· Commencing dig serv to customers</inlineHelpText>
+    <label>Digital Maturity</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Mature 50%</fullName>
+                <default>false</default>
+                <label>Mature 50%</label>
+            </value>
+            <value>
+                <fullName>Developing 30%</fullName>
+                <default>false</default>
+                <label>Developing 30%</label>
+            </value>
+            <value>
+                <fullName>Commencing 10%</fullName>
+                <default>false</default>
+                <label>Commencing 10%</label>
+            </value>
+            <value>
+                <fullName>Native</fullName>
+                <default>false</default>
+                <label>Native</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

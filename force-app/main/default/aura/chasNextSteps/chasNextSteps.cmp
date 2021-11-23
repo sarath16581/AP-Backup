@@ -1,0 +1,37 @@
+<!--
+  * @changeLog :
+  * @date         : 12/03/2021 - Created - Hara Sahoo
+  * @date         : 27/05/2021 - DDS-5272 - Phap Mai: dynamic CSS for columns + formatted text for label and sub-label
+-->
+<aura:component description="Presents the user with the next steps on a thank you page">
+    <aura:attribute name='header' type='String' />
+    <aura:attribute name="options"  type="List" />
+    <aura:attribute name="hasTimeframe" type="Boolean" default="false"/>
+    <aura:attribute name="timeframeEDD" type="String"/>
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+    <!-- DDS-5272: move the column CSS into dynamic attribute to host new page variation -->
+    <aura:attribute name="LEFT_COLUMN_CSS" type="String" default="slds-col slds-size_1-of-12"/>
+    <aura:attribute name="RIGHT_COLUMN_LABEL_CSS" type="String" default="slds-col slds-size_11-of-12 textAlign"/>
+    <aura:attribute name="RIGHT_COLUMN_SUBLABEL_CSS" type="String" default="slds-col slds-size_11-of-12 textAlign"/>
+    <div>
+        <div style="text-align: left;"><h3 class="labelStyle">{!v.header}</h3></div>
+        <aura:iteration items="{! v.options }" var="option" indexVar="index">
+            <div class="slds-grid slds-gutters">
+                <div class="{!v.LEFT_COLUMN_CSS}">
+                    <img src="{!option.image }" alt="path" class="icon-class"/>
+                </div>
+                <div class="{!v.RIGHT_COLUMN_LABEL_CSS}">
+                    <b><lightning:formattedText value="{!option.label}"></lightning:formattedText></b>
+                </div>
+            </div>
+            <div class="slds-grid slds-gutters">
+                <div class="{!v.LEFT_COLUMN_CSS}">
+                    <img src="{! $Resource.ChasIcons + '/chas-icons/svgs/UI/icons/chas-vertical-line.svg' }" alt="vertical-separator" class="{!index == v.options.length -1 ? 'slds-hide' : 'dotted-line'}"/>
+                </div>
+                <div class="{!v.RIGHT_COLUMN_SUBLABEL_CSS}">
+                    <lightning:formattedText value="{!option.sublabel}" ></lightning:formattedText>
+                </div>
+            </div>
+        </aura:iteration>
+    </div>
+</aura:component>

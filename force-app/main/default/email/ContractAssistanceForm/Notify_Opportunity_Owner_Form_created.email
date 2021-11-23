@@ -1,0 +1,13 @@
+<messaging:emailTemplate subject="Legal Support Request {!relatedTo.name} Created" recipientType="User" relatedToType="ContractAssistanceForm__c">
+<messaging:plainTextEmailBody >
+Dear {!relatedTo.Opportunity__r.Owner.FirstName},
+
+Thank you for your request for assistance from the Commercial Team. Ordinarily, we will endeavour to allocate your request (Ref: {!relatedTo.name}) to a team member within two business days. The team member will assess this form and any documents attached. They will contact you to discuss any further information required and agree a response timeframe.
+</messaging:plainTextEmailBody>
+<messaging:htmlEmailBody >
+Dear {!relatedTo.Opportunity__r.Owner.FirstName}   ,
+<br/><br/>
+Thank you for your request for assistance from the Commercial Team. Ordinarily, we will endeavour to allocate your request (Ref: {!relatedTo.name}) to a team member within two business days. The team member will assess this form and any documents attached. They will contact you to discuss any further information required and agree a response timeframe.
+<br/><br/>
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

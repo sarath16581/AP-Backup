@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>What_legal_help_do_you_need__c</fullName>
+    <description>Field used within Legal Support Request</description>
+    <externalId>false</externalId>
+    <label>What legal help do you need?</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Tender response</fullName>
+                <default>false</default>
+                <label>Tender response</label>
+            </value>
+            <value>
+                <fullName>Customer’s NDA review</fullName>
+                <default>false</default>
+                <label>Customer’s NDA review</label>
+            </value>
+            <value>
+                <fullName>Extend / Renew an existing contract</fullName>
+                <default>false</default>
+                <label>Extend / Renew an existing contract</label>
+            </value>
+            <value>
+                <fullName>Vary an existing contract</fullName>
+                <default>false</default>
+                <label>Vary an existing contract</label>
+            </value>
+            <value>
+                <fullName>Review a customer’s contract</fullName>
+                <default>false</default>
+                <label>Review a customer’s contract</label>
+            </value>
+            <value>
+                <fullName>Review customer’s feedback on an AP contract</fullName>
+                <default>false</default>
+                <label>Review customer’s feedback on an AP contract</label>
+            </value>
+            <value>
+                <fullName>Draft a document</fullName>
+                <default>false</default>
+                <label>Draft a document</label>
+            </value>
+            <value>
+                <fullName>Advice</fullName>
+                <default>false</default>
+                <label>Advice</label>
+            </value>
+            <value>
+                <fullName>Dispute</fullName>
+                <default>false</default>
+                <label>Dispute</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

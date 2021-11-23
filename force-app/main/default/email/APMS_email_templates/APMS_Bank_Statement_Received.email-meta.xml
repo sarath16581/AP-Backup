@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>APMS Bank Statement Received</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>APMS Bank Statement Received</name>
+    <style>none</style>
+    <subject>Bank Statement Received for - {!Application__c.Name}</subject>
+    <textOnly>Hi {!Application__c.ContactFirstName__c},
+
+Thank you for your email and providing supporting documentation for your Business bank Account.
+
+I have now forwarded this to the appropriate team here at SecurePay to progress your application.
+
+You should hear back from us within the next few days.
+
+If you have any further questions throughout this process, please do not hesitate to call us on 1300 786 756 and select option #1 or email onlinepayments@securepay.com.au
+
+Regards,
+
+The SecurePay Team
+SecurePay Pty Ltd – A business of Australia Post
+Level 8, 222 Exhibition St, Melbourne, VIC 3000
+P 1300 656 372 (option 1)
+E onlinepayments@securepay.com.au
+W securepay.com.au</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

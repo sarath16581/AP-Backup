@@ -1,0 +1,170 @@
+<!--
+@ModifiedBy: Meet Desai
+@ModifiedOn: 12 Mar, 2020
+@Description: Updated Merge Documents logic to refer Files/ Content Documents instead of Attachments
+-->
+<apex:page standardController="Apttus__APTS_Agreement__c" extensions="APTS_MergeTemplatesController" id="GenerateDocsPage">
+    
+<script type="text/javascript">
+    function checkAll(cb,cbid)
+        {
+            var inputElem = document.getElementsByTagName("input");                    
+            for(var i=0; i<inputElem.length; i++)
+            {
+                 if(inputElem[i].id.indexOf(cbid)!=-1){                                       
+                    inputElem[i].checked = cb.checked;
+                }
+            }
+        }
+    
+    //function processDocsJS(){
+    //    processDocs();
+    //}
+    
+    //function completeGenDocsJS(){
+    //    alert('{!$Label.APT_Create_Contract_Docs_Message}');
+        //setTimeout('', 50000);
+        //alert('waiting2....');
+    //    completeGenDocs();
+    //}
+    
+    function processSubmitGenDocsJS() {
+        processSubmitGenDocs();
+    }
+</script>
+
+<apex:form id="GenerateDocsFrom"> 
+    <apex:PageMessages id="errorMsg" rendered="{!haserrorMessages}"> </apex:pageMessages>
+    
+    <apex:actionStatus id="processDocsStatus" rendered="true">
+        <apex:facet name="start">
+            <div class="popupBackground" style="text-align:center; margin-top:2%;">
+            <img src="/img/loading32.gif"/>
+            <br/><br/>Documents generation in progress.. The user will be notified once the document generation is completed.
+            </div>
+        </apex:facet>
+    </apex:actionStatus> 
+    
+    <apex:actionStatus id="completeGenDocsStatus"  rendered="true">
+        <apex:facet name="start">
+            <div class="popupBackground" style="text-align:center; margin-top:2%;">
+            <img src="/img/loading32.gif"/>
+            </div>
+        </apex:facet>
+    </apex:actionStatus> 
+    
+    <apex:PageBlock rendered="{!noFile}">
+        <apex:pageMessage severity="warning">
+            {!$Label.APT_Generate_Docs_No_Custom_Setting_Error_Message}
+        </apex:pageMessage>
+        
+        <apex:pageBlockButtons location="Bottom">
+            <apex:commandButton value="{!$Label.APT_Generate_Docs_No_Custom_Setting_Return_Button}" action="{!Cancel}" disabled="{!processSubmitted}"/>
+        </apex:pageBlockButtons>
+    </apex:PageBlock>    
+    
+    <apex:pageBlock title="{!$Label.APT_Generate_Docs_Header_Title}" rendered="{!NOT(noFile)}">
+        
+        <apex:pageBlockSection >
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Apttus__Account__r.Name }"/>
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Name }"/>
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Apttus__Contract_Start_Date__c }"/>
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c }"/>
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Term__c }"/>
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Apttus__Subtype__c }"/>
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Included_Product_Lines__c }"/>
+            <apex:outputField value="{! Apttus__APTS_Agreement__c.Apttus__Agreement_Category__c }"/>
+        </apex:pageBlockSection>
+        
+    </apex:pageBlock>
+    
+    <apex:pageblock id="TemplateBlock" title="{!$Label.APT_Select_Templates}" rendered="{!NOT(noFile)}">
+     
+        <apex:pageBlockButtons location="Bottom">
+            <!--apex:commandButton style="" id="generateButton" value="{!$Label.APT_Generate_Docs_Generate_Button}" action="{!GenerateDocument}" oncomplete="processDocsJS()" disabled="{!processSubmitted}" rerender="TemplateBlock"/-->
+            <apex:commandButton style="" id="generateButton" value="{!$Label.APT_Generate_Docs_Generate_Button}" action="{!GenerateDocument}" disabled="{!processSubmitted}" oncomplete="processSubmitGenDocsJS()" rerender="TemplateBlock" status="processDocsStatus"/>
+            <apex:commandButton value="{!$Label.APT_Generate_Docs_Cancel_Button}" action="{!Cancel}"/>
+        </apex:pageBlockButtons>
+        
+        <!--apex:pageBlockSection id="createContractInfoSectionId" rendered="{!processSubmitted}" columns="1">
+            <apex:pageMessage summary="{!$Label.APT_Create_Contract_Docs_Message}" severity="INFO" strength="3" />
+        </apex:pageBlockSection-->
+
+        <apex:pageBlockTable value="{!lstTemplateWrapper}" var="tmpWrapper" id="TemplatesTable" style="width:60%;">   
+            
+            <apex:column headervalue="Sequence Number" style="width:110px;text-align:center">
+                <apex:outputText value="{!tmpWrapper.Sequence}"/>                    
+            </apex:column>
+            
+            <apex:column headerValue="Template Name">
+                <apex:outputText value="{!tmpWrapper.template.Name}"/>           
+            </apex:column>
+            
+            <apex:column style="width:60px;text-align:center">
+                <apex:facet name="header">   
+                    <apex:inputCheckbox onclick="checkAll(this,'checkedone')" selected="true" disabled="{!processSubmitted}">Selected</apex:inputCheckbox>
+                </apex:facet>
+                <apex:inputCheckbox value="{!tmpWrapper.selected}" disabled="{!processSubmitted}" id="checkedone"/>          
+            </apex:column>  
+            
+            <apex:column headerValue="Reorder Templates" rendered="{!NOT(processSubmitted)}" style="width:50px;text-align:center">
+
+                <apex:commandLink action="{!upAction}" reRender="TemplatesTable" rendered="{!tmpWrapper.upVisible}">
+                    <apex:image id="UpIcon" url="{!$Resource.APT_Up}" width="15" height="18"/>
+                    <apex:param name="templateID" value="{!tmpWrapper.template.ID}" assignTo="{!templateID}" />
+                </apex:commandLink>
+                
+                <apex:outputText rendered="{!AND(tmpWrapper.upVisible,tmpWrapper.downVisible)}">&nbsp;</apex:outputText>
+          
+                <apex:commandLink action="{!downAction}" reRender="TemplatesTable" rendered="{!tmpWrapper.downVisible}">
+                    <apex:image id="DownIcon" url="{!$Resource.APT_Down}" width="15" height="18"/>
+                    <apex:param name="templateID" value="{!tmpWrapper.template.ID}" assignTo="{!templateID}" />
+                </apex:commandLink>
+                
+            </apex:column>
+            
+            <apex:column headerValue="Document Output" style="width:50px;text-align:center">
+                <apex:selectList value="{!tmpWrapper.outputFormat}" size="0" disabled="{!OR(processSubmitted,NOT(outputFormatPermission))}">
+                    <apex:selectOptions value="{!outputFormatOptions}"/>
+                </apex:selectList>
+            </apex:column>
+            
+        </apex:pageBlockTable>
+
+        <apex:inputCheckbox value="{!mergeDocuments}" disabled="{!processSubmitted}">
+            <br/>{!$Label.APT_Generate_Docs_Merge_Message}
+            <apex:actionSupport event="onchange" reRender="TemplateBlock"/>
+        </apex:inputCheckbox>
+
+        <apex:inputCheckbox value="{!deleteGenDocs}" disabled="{!processSubmitted}" rendered="{!mergeDocuments}">
+            <br/>{!$Label.APT_Generate_Docs_Delete_GenDocs_Message}
+        </apex:inputCheckbox>
+        
+        <!--apex:actionFunction name="processDocs" action="{!processDocs}" oncomplete="processDocsJS()" status="processDocsStatus"/-->
+        
+        <!--apex:actionFunction name="completeGenDocs" action="{!completeGenDocs}" status="completeGenDocsStatus"/-->
+        
+        <apex:actionFunction name="processSubmitGenDocs" action="{!processSubmitDocs}" onComplete="processSubmitGenDocsJS()" rerender="TemplateBlock" status="processDocsStatus"/>
+        
+    </apex:pageblock>
+    
+    <apex:pageBlock title="{!$Label.APT_Generate_Docs_Description_Title}" rendered="{!NOT(noFile)}">
+        
+        <p>{!$Label.APT_Generate_Docs_Description_Content_1}</p>
+        <p>{!$Label.APT_Generate_Docs_Description_Content_2}</p>
+        
+        <ol>
+            <li><p>{!$Label.APT_Generate_Docs_Description_Content_3}</p></li>
+            <p style="text-indent: 50px;">{!$Label.APT_Generate_Docs_Description_Content_3_note}</p>
+            <li><p>{!$Label.APT_Generate_Docs_Description_Content_4}</p></li>
+            <li><p>{!$Label.APT_Generate_Docs_Description_Content_5}</p></li>
+            <p style="text-indent: 50px;">{!$Label.APT_Generate_Docs_Description_Content_5_note}</p>
+            <li><p>{!$Label.APT_Generate_Docs_Description_Content_6}</p></li>
+            <li><p>{!$Label.APT_Generate_Docs_Description_Content_7}</p></li>
+            <li><p>{!$Label.APT_Generate_Docs_Description_Content_8}</p></li>
+        </ol>
+    </apex:pageBlock>
+    
+</apex:form>
+
+</apex:page>

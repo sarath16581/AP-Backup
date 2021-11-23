@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Enable_file_and_attachment_sharing__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Allow users to carry attachments/files to Child Cases.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Enable file and attachment sharing</label>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_HoldingUserID__c</fullName>
+    <description>This is used to identify the holding user for the batch &quot;ContractOwnerUpdateBatch&quot;</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Holding User Id</inlineHelpText>
+    <label>APT_HoldingUserID</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

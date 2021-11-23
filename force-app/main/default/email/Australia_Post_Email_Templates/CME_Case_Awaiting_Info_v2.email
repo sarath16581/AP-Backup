@@ -1,0 +1,41 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal">Dear Colleague,&nbsp;<br>
+<br>
+Your case is ‘<b>Awaiting Information</b>‘<br>
+<br>
+In order to action your request can you <b><i>please provide further information</i></b>
+as detailed in the Case Comments Field.&nbsp;<br>
+<br>
+Case Number: <b>{!Case.CaseNumber}</b>&nbsp;<br>
+<br>
+Subject: {!Case.Subject}&nbsp;<br>
+<br>
+<b><u>Case Comments</u></b><u>:</u> <o:p></o:p></p>
+
+<p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+
+<p class="MsoNormal">{!Case.Updated_Case_Comments__c}&nbsp;</p><p class="MsoNormal">
+<br><span style="background-color: rgb(255, 255, 255);">Please&nbsp;</span><b style="font-size: 12pt; background-color: rgb(255, 255, 255);"><span style="color: red;"><u>do not</u>&nbsp;</span></b><span style="font-size: 12pt; background-color: rgb(255, 255, 255);">respond to this request via reply e-mail. Add information/comments and relevant attachments to your case online by following the link below.&nbsp;</span></p><p class="MsoNormal">
+<br>
+{!Case.Link} or entering your case number into the search engine on the front
+page of&nbsp;<a href="http://salesforce.com/" target="_blank">SalesForce.com</a>.&nbsp;<br>
+<br>
+Please Note:&nbsp;<br>
+<br>
+• If no response is received within 7 days of this request a reminder
+notification will be sent.&nbsp;<br>
+<br>
+• The case will be closed after 7 days if no response is received to the
+reminder notification.&nbsp;<br>
+<br>
+<br>
+Alternatively, you can call the Sales Contract Consulting team on 1300 795759
+during business hours.&nbsp;<br>
+<br>
+Regards&nbsp;<br>
+<br>
+Contract Management Team<o:p></o:p></p>]]></td>
+</tr>
+</table>

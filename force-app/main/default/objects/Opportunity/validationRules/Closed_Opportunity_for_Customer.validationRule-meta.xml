@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closed_Opportunity_for_Customer</fullName>
+    <active>true</active>
+    <description>Associated Organisation is still a Prospect or an Individual.  Opportunity cannot be closed as won.
+
+Updated 08/01/13 : To Prevent Close Won on an Individual</description>
+    <errorConditionFormula>AND(ISPICKVAL(StageName, &quot;Closed Won&quot;),
+OR(
+Account.Role_Type_Roll_Up__c = &quot;Prospect&quot;,
+Contact_del__r.RecordTypeId = &quot;01290000000XRb0&quot;
+)
+)</errorConditionFormula>
+    <errorDisplayField>AccountId</errorDisplayField>
+    <errorMessage>This opportunity is currently associated with a Prospect or a Sales Contact. Use the Name: field to assign it to the correct Customer.</errorMessage>
+</ValidationRule>

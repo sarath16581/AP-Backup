@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Compliance__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Checking this field indicates that the Contact will receive information about Service &amp; Compliance</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Sales &amp; Marketing can accurately target account-related communications to customers.</inlineHelpText>
+    <label>Service &amp; Compliance</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

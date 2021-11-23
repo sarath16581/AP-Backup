@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <businessHours>Enterprise Contract Consulting</businessHours>
+    <description>Contract Consulting and Processing SLA&apos;s</description>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaFilterItems>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>true</value>
+    </exitCriteriaFilterItems>
+    <exitCriteriaFilterItems>
+        <field>Case.RecordTypeId</field>
+        <operation>notEqual</operation>
+        <value>Contract Management Enquiry</value>
+    </exitCriteriaFilterItems>
+    <isVersionDefault>true</isVersionDefault>
+    <milestones>
+        <businessHours>Enterprise Contract Consulting</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>New, Transferred</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Case_Owner_Title__c</field>
+            <operation>notEqual</operation>
+            <value>Contract Consulting</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Sales Contract Consulting</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>CC Case Assignment</milestoneName>
+        <minutesToComplete>960</minutesToComplete>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Enterprise Contract Consulting</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>New, Transferred</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Case_Owner_Title__c</field>
+            <operation>notEqual</operation>
+            <value>Contract Processing</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Sales Contract Processing</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>CC Case Assignment</milestoneName>
+        <minutesToComplete>960</minutesToComplete>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Enterprise Contract Consulting</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Case_Owner_Title__c</field>
+            <operation>equals</operation>
+            <value>Contract Processing</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Number_of_Sites__c</field>
+            <operation>equals</operation>
+            <value/>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>CP Assess Complexity</milestoneName>
+        <minutesToComplete>60</minutesToComplete>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Enterprise Contract Consulting</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Validating</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>CC Awaiting Information</milestoneName>
+        <minutesToComplete>480</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>VL_Third_email</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>VL_Second_email</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>VL_First_email</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Enterprise Contract Consulting</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Awaiting Information</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>CC Awaiting Information</milestoneName>
+        <minutesToComplete>1400</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>AI_First_email</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>AI_Third_email</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>7</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>AI_Second_email</name>
+                <type>Alert</type>
+            </actions>
+            <timeLength>3</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Enterprise Contract Consulting</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Work_Type__c</field>
+            <operation>equals</operation>
+            <value>Copy of Contract, Lodgement Points, New eParcel Customer, Transit Cover Offer, Error Rectification, New eParcel Contract, SAP Entry</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Sales Contract Consulting</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>CC Resolution Time</milestoneName>
+        <minutesToComplete>960</minutesToComplete>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Enterprise Contract Consulting</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Work_Type__c</field>
+            <operation>equals</operation>
+            <value>Addendum/DOV, Contract Creation, Contract Renewal, Manual Signed Agreement, Contract Entry, New Contract, OE Renewal</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Sales Contract Consulting</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>CC Resolution Time</milestoneName>
+        <minutesToComplete>1440</minutesToComplete>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Enterprise Contract Consulting</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Number_of_Sites__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>4.0</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Sales Contract Processing</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Case_Owner_Title__c</field>
+            <operation>equals</operation>
+            <value>Contract Processing</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>CC Resolution Time</milestoneName>
+        <minutesToComplete>2400</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Enterprise Contract Consulting</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Number_of_Sites__c</field>
+            <operation>lessOrEqual</operation>
+            <value>3.0</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Sales Contract Processing</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Case_Owner_Title__c</field>
+            <operation>equals</operation>
+            <value>Contract Processing</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Number_of_Sites__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>0.0</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>CC Resolution Time</milestoneName>
+        <minutesToComplete>1440</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <name>Contract Consulting Support</name>
+    <versionMaster>5520l0000008Pdd</versionMaster>
+    <versionNotes>v25</versionNotes>
+    <versionNumber>3</versionNumber>
+</EntitlementProcess>

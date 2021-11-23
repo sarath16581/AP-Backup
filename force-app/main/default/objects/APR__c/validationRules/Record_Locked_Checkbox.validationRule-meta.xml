@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Record_Locked_Checkbox</fullName>
+    <active>true</active>
+    <description>Record Locked when the ‘Record Locked’ checkbox is checked</description>
+    <errorConditionFormula>AND(
+ Record_Locked__c = true,
+$Permission.APR_Admin &lt;&gt; TRUE,
+$Profile.Name &lt;&gt; &apos;System Administrator&apos; 
+)</errorConditionFormula>
+    <errorMessage>Record Locked, no changes are allowed on APR record.</errorMessage>
+</ValidationRule>

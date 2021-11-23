@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Facility_Fitout__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Is property owned or leased by Australia Post?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Is property owned or leased by Australia Post?</inlineHelpText>
+    <label>Facility Fit out AP Owned</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

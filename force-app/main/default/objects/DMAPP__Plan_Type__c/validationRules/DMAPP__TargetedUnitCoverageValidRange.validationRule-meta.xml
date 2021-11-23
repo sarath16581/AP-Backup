@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__TargetedUnitCoverageValidRange</fullName>
+    <active>true</active>
+    <errorConditionFormula>(DMAPP__Tactical_Coverage_Green__c  &lt; 0 ||  DMAPP__Tactical_Coverage_Green__c &gt; 1) ||
+(DMAPP__Tactical_Coverage_Amber__c  &lt; 0 || DMAPP__Tactical_Coverage_Amber__c &gt; 1) ||
+(DMAPP__Tactical_Coverage_Amber__c   &gt;  DMAPP__Tactical_Coverage_Green__c)</errorConditionFormula>
+    <errorMessage>Targeted Row Coverage Green and Amber cannot be less than 0% or greater than 100% and Targeted Row Coverage Green cannot be less than Targeted Row Coverage Amber</errorMessage>
+</ValidationRule>

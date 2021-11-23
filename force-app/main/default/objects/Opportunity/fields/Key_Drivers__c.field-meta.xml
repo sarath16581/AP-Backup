@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Key_Drivers__c</fullName>
+    <description>Phase 1 - Opportunity Assessment (PWC)
+
+Concise description of the events that have caused the customer to take action including the major issues, drivers of this opportunity</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Why is the customer taking action? What are their key drivers for pursuing this product/solution? (8%)</inlineHelpText>
+    <label>Customer Key Drivers</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Reliability</fullName>
+                <default>false</default>
+                <label>Reliability</label>
+            </value>
+            <value>
+                <fullName>Ability to deliver anywhere in Australia</fullName>
+                <default>false</default>
+                <label>Ability to deliver anywhere in Australia</label>
+            </value>
+            <value>
+                <fullName>Deliver within expected timeframe</fullName>
+                <default>false</default>
+                <label>Deliver within expected timeframe</label>
+            </value>
+            <value>
+                <fullName>Goods handled with care</fullName>
+                <default>false</default>
+                <label>Goods handled with care</label>
+            </value>
+            <value>
+                <fullName>Easy to use supplier</fullName>
+                <default>false</default>
+                <label>Easy to use supplier</label>
+            </value>
+            <value>
+                <fullName>Range of Options</fullName>
+                <default>false</default>
+                <label>Range of Options</label>
+            </value>
+            <value>
+                <fullName>Flexibility</fullName>
+                <default>false</default>
+                <label>Flexibility</label>
+            </value>
+            <value>
+                <fullName>Integrated addressing &amp; management</fullName>
+                <default>false</default>
+                <label>Integrated addressing &amp; management</label>
+            </value>
+            <value>
+                <fullName>Competitive Price</fullName>
+                <default>false</default>
+                <label>Competitive Price</label>
+            </value>
+            <value>
+                <fullName>Resolution of problems quickly</fullName>
+                <default>false</default>
+                <label>Resolution of problems quickly</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>10</visibleLines>
+</CustomField>

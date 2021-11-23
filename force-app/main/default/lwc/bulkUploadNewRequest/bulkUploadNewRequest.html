@@ -1,0 +1,72 @@
+<!--
+    New bulk upload request.
+
+    Changelog:
+    2021-01-22 - Ranjeewa Silva - Created.
+-->
+<template>
+    <article class="slds-card slds-card_boundary slds-m-bottom_medium">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <lightning-icon icon-name="utility:upload" title="Bulk Upload" size="medium"></lightning-icon>
+                </div>
+                <div class="slds-media__body card__header-title">
+                    <h2 class="slds-card__header-title slds-truncate_container_75">
+                        <div class="slds-truncate" title="New Bulk Upload">New Bulk Upload</div>
+                    </h2>
+                </div>
+                <div class="slds-no-flex">
+                    <lightning-input slot="actions"
+                                     type="file"
+                                     label="Attachment"
+                                     accept="text/csv"
+                                     class="file-input"
+                                     onchange={handleUploadFile}
+                                     variant="label-hidden">
+                    </lightning-input>
+                </div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-m-around_medium">
+            <template if:true={isLoading}>
+                <div class="slds-text-align_center slds-grow">
+                    <lightning-spinner variant="brand" size="small" alternative-text="Loading ...">
+                    </lightning-spinner>
+                </div>
+            </template>
+            <template if:false={isLoading}>
+                <template if:true={hasMessages}>
+                    <!-- Status messages -->
+                    <template if:true={hasErrors}>
+                        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-m-top_mediumxx">
+                            <div>
+                                <p>{uploadStatusMessage}&nbsp;
+                                    <template if:true={hasLineItemErrorDetails}>
+                                        <a onclick={handleShowValidationErrors}>Show Errors</a>
+                                    </template>
+                                </p>
+                            </div>
+                        </div>
+                    </template>
+                    <template if:false={hasErrors}>
+                        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_success slds-m-top_mediumxx">
+                            <div>
+                                <p>{uploadStatusMessage}</p>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+                <template if:true={showValidationErrors}>
+                    <div class="slds-m-top_medium">
+                        <c-bulk-upload-request-line-items title='Validation Errors' onclosepopup={handleHideValidationErrors} bulk-upload-request={bulkUploadRequest} line-items={invalidLineItems}></c-bulk-upload-request-line-items>
+                    </div>
+                </template>
+                <template if:true={reviewInputFile}>
+                    <c-bulk-upload-review-input-file selected-file={selectedFile} type={type} preview-rows={previewRows} oncancel={handleCancelUpload} onconfirm={handleConfirmUpload}></c-bulk-upload-review-input-file>
+                </template>
+            </template>
+        </div>
+        <footer class="slds-card__footer"></footer>
+    </article>
+</template>

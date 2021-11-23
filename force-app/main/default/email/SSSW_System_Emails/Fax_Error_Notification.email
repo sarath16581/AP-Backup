@@ -1,0 +1,5 @@
+View Case Record:<br/>
+https://auspost.my.salesforce.com/console#%2F{!Fax__c.CaseId__c}<br/>
+<br/>
+<b>Fax Receipt</b><br/>
+{!Fax__c.FaxReceipt__c}

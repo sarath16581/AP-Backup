@@ -1,0 +1,16 @@
+<aura:component description="Reuseable label for inputs">
+    <aura:attribute name="for" type="String" />
+    <aura:attribute name="label" type="String" />
+    <aura:attribute name="subLabel" type="String" />
+    <aura:attribute name="helptext"  type="String" />
+
+	<label for="{! v.for }" class="slds-form-element__label">
+    	{! v.label }
+    	<aura:if isTrue="{! v.helptext }">
+    		<lightning:helptext content="{! v.helptext }" iconName="utility:help" class="chas-helptext"/>
+    	</aura:if>
+    	<span class="chas-body_small">
+    		{! v.subLabel }
+    	</span>
+    </label>
+</aura:component>

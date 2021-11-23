@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hours__c</fullName>
+    <description>Number of hours for Mail Coneyancing Fee calculation. 
+Removed Help text - &quot;Specify number of minutes as 0.25 for 15 minutes, 0.5 for 30 minutes and 0.75 for 45 minutes&quot;</description>
+    <externalId>false</externalId>
+    <label>Hours Per Day</label>
+    <precision>4</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

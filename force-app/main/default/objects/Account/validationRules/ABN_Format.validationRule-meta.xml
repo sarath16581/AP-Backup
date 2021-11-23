@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ABN_Format</fullName>
+    <active>true</active>
+    <description>Ensures that the ABN is only 11 digits for Customer type only.
+SC May2019 - Reactivated rule as per Alice Lo request
+PS Aug 2019 REQ1919573 - added Sys adm to exclude from rule</description>
+    <errorConditionFormula>IF( $Profile.Name &lt;&gt; &quot;System Administrator&quot; &amp;&amp; NOT(AND(ISNUMBER( ABN__c ), LEN(ABN__c) = 11)) &amp;&amp;  NOT(ISBLANK( ABN__c )) , true, false)</errorConditionFormula>
+    <errorDisplayField>ABN__c</errorDisplayField>
+    <errorMessage>Please enter a valid ABN of 11 digits without any spaces.</errorMessage>
+</ValidationRule>

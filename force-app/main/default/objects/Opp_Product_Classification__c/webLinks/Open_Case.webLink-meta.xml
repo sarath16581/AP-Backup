@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Open_Case</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Open Case</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/500/e?&amp;RecordType={!$Setup.ConfigSetting__c.Case_Record_Type_ID__c}&amp;CF{!$Setup.ConfigSetting__c.CaseProduct_ID__c}={!Opp_Product_Classification__c.Product__c}&amp;CF{!$Setup.ConfigSetting__c.CaseProduct_ID__c}_lkid={!Opp_Product_Classification__c.ProductId__c }&amp;CF{!$Setup.ConfigSetting__c.CaseOpportunityID__c}={!Opp_Product_Classification__c.Opportunity__c }&amp;CF{!$Setup.ConfigSetting__c.CaseOpportunityID__c}_lkid={!Opp_Product_Classification__c.OpportunityId__c}&amp;CF{!$Setup.ConfigSetting__c.CaseOriginatingOPC__c}={!Opp_Product_Classification__c.Name}&amp;cas4={!Opp_Product_Classification__c.Account__c}</url>
+</WebLink>

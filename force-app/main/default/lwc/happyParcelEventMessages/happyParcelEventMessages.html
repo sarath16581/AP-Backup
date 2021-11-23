@@ -1,0 +1,175 @@
+<!--
+	2020-04-01 nathan.franklin@auspost.com.au Created
+	2020-09-15 - Disha Kariya - Replaced data table with custom table to add button icon and other features
+	2020-09-16 - Disha Kariya - Changes to display padlock for events with disclaimer
+	2020-09-21 - Disha Kariya - Use lock in a Restricted column, Network Information popup.
+	2020-09-23 - Ranjeewa Silva - Colour coded event messages.
+	2021-05-05 - Ranjeewa Silva - Expose event message attachment(image), if an attachment is available.
+	2021-07-12 - Nathan Franklin - Added temporary Google Maps link (to be implemented correctly in future piece of work)
+	2021-10-01 - Nathan Franklin - Add event reason (with transient attributes) + uplift to version 52
+	2021-10-04 - Mathew Jose - Added the changes associated with row overflow feature in the data table.
+-->
+<template>
+
+	<c-happy-parcel-card title="Event Messages" icon-name="utility:high_velocity_sales" loading={loading} variant="vanilla" help-text={helpText}>
+		<div class="slds-border_top">
+
+			<template if:true={hasEvents}>
+				<template if:true={showTable}>
+					<div class="slds-scrollable_x">
+						<table class="slds-table slds-table_bordered" role="grid">
+							<thead>
+								<tr class="slds-line-height_reset">
+									<!-- Iterating columns-->
+									<template for:each={columns} for:item="col">
+										<th key={col.fieldName} data-id={col.fieldName} onclick={onHandleSort}>
+											<a class={col.cssClass}  data-id={col.fieldName} >
+												<div class="slds-truncate slds-text-align--left" data-id={col.fieldName}>
+													{col.label}
+												</div>
+												<template if:true={col.sortedColumn}>
+													<template if:true={isDsc}>
+														<lightning-icon icon-name="utility:arrowdown" size="xx-small" class="slds-m-left_xx-small"></lightning-icon>
+													</template>
+													<template if:true={isAsc}>
+														<lightning-icon icon-name="utility:arrowup" size="xx-small" class="slds-m-left_xx-small"></lightning-icon>
+													</template>
+												</template>
+											</a>
+										</th>
+									</template>
+								</tr>
+							</thead>
+							<tbody class="brand-table">
+								<!-- Iterating events-->
+								<template for:each={_events} for:item="event">
+									<tr class="slds-hint-parent" key={event.EventID__c}>
+										<template for:each={event._columns} for:item="column">
+											<template if:false={column.isCustom}>
+												<td class="slds-cell-wrap" key={column.key}>
+													<c-formatted-text-label type={column.fieldType} value={column.fieldValue}>
+													</c-formatted-text-label>
+												</td>
+											</template>
+											<template if:true={column.isCustom}>
+												<template if:true={column.fieldNameIs_Status__c}>
+													<td class="slds-cell-wrap align-center" key={column.key}>
+														<template if:true={column.isLock}>
+															<lightning-icon icon-name="utility:lock" size="x-small" variant="error" class="slds-m-right_xx-small icon-style" title="DO NOT DISCUSS SCAN WITH CUSTOMER, REFER TO KNOWLEDGE"></lightning-icon>
+														</template>
+													</td>
+												</template>
+												<template if:true={column.fieldNameIs_ActualLocation__c}>
+													<td class="slds-cell-wrap slds-truncate maxWidth" key={column.key}>
+														{event.ActualLocation__c}
+														<template if:true={event.Facility__c}>
+															<lightning-button-icon data-id = {event.EventID__c}
+																				   icon-name="utility:preview"
+																				   size="small"
+																				   variant="bare"
+																				   class="icon-style slds-m-left_xx-small"
+																				   onclick={handleNetworkInfo}
+																				   alternative-text="Network Info">
+															</lightning-button-icon>
+														</template>
+													</td>
+												</template>
+												<template if:true={column.fieldNameIs_EventDescription__c}>
+													<td class="slds-cell-wrap" key={column.key}>
+														<span class={column.colourCssClass}></span>
+														<span class="slds-m-right_xx-small">{event.EventDescription__c}</span>
+														<template if:true={column.extendedAttributes.eventReason}>
+															<span class="slds-m-right_xx-small slds-text-body_small">({column.extendedAttributes.eventReason})</span>
+														</template>
+														<template if:true={event.AttachmentGUID__c}>
+															<lightning-button-icon data-id = {event.EventID__c}
+																				   icon-name="utility:attach"
+																				   size="small"
+																				   variant="bare"
+																				   class="slds-m-right_xx-small"
+																				   onclick={handleShowAttachment}
+																				   alternative-text="Attachment">
+															</lightning-button-icon>
+														</template>
+														<template if:true={event.hasGeoCoordinates}>
+															<a href={event.googleMapLink} target="_blank" title="View location in Google Maps">
+																<lightning-icon icon-name="action:map"
+																				size="xx-small"
+																				class="slds-m-right_xx-small map-icon"
+																				alternative-text="View location in Google Maps">
+																</lightning-icon>
+															</a>
+														</template>
+														<template if:true={event.overflowRequired}>
+															<lightning-button-icon onclick={handleShowOverflow}
+																				data-event-id={event.EventID__c}
+																				icon-name="utility:zoomin"
+																				size="small"
+																				variant="bare"
+																				class="slds-m-right_xx-small"
+																				alternative-text="Click for more details">
+															</lightning-button-icon>
+														</template>
+													</td>
+												</template>
+											</template>
+										</template>
+									</tr>
+									<tr class="slds-hint-parent slds-m-around_none" key={event.EventID__c}>
+										<td colspan={columnCount} class="slds-p-around_none" style="border:0px">
+
+											<!--Collapsible overflow details section associated with each row-->
+											<template if:true={event.showOverflow} key={event.EventID__c}>								
+												<div class="slds-p-horizontal_x-small slds-p-bottom_x-small event-message-popup-container">
+													<c-happy-parcel-event-detail event-id={event.EventID__c}
+																				fields={event._overflowColumns}
+																				loading={loading}
+																				oncloseoverflowview={handleCloseOverflow}
+																				variant="width-card">
+													</c-happy-parcel-event-detail>
+												</div>
+											</template>
+
+											<template if:true={event.showNetworkDetails}>
+												<div class="slds-p-horizontal_x-small slds-p-bottom_x-small event-message-popup-container">
+													<c-happy-parcel-network-popup onclosepopup= {closePopupHandler} event-id={event.EventID__c} wcc={event.FacilityOrganisationID__c} variant="width-card"></c-happy-parcel-network-popup>
+												</div>
+											</template>
+
+											<template if:true={event.showAttachment}>
+												<div class="slds-p-horizontal_x-small slds-p-bottom_x-small event-message-popup-container">
+													<c-happy-parcel-event-message-attachment event-id={event.EventID__c} guid={event.AttachmentGUID__c} attachment-type={event.AttachmentType__c} oncloseattachmentview={handleCloseAttachment}></c-happy-parcel-event-message-attachment>
+												</div>
+											</template>
+										</td>
+									</tr>
+								</template>
+							</tbody>
+						</table>
+					</div>
+				</template>
+				<template if:false={showTable}>
+					<div class="slds-text-align_center slds-m-vertical_large">
+						<div class="slds-show_inline-block slds-is-relative">
+							<lightning-button variant="outline" label="Load" onclick={handleShowTable} class="slds-show_inline-block slds-align-middle"></lightning-button>
+							<template if:true={startTableLoad}>
+								<div class="slds-is-absolute" style="right:-30px;top:50%;">
+									<lightning-spinner size="small" variant="brand"></lightning-spinner>
+								</div>
+							</template>
+						</div>
+					</div>
+				</template>
+			</template>
+
+			<template if:false={hasEvents}>
+				<div class="slds-p-around_large slds-align_absolute-center">
+					<c-happy-parcel-custom-icon icon="not-found" size="small"></c-happy-parcel-custom-icon>
+					<div class="slds-m-around_large">
+						<p class="slds-p-horizontal_x-small slds-text-color_weak">No event messages found</p>
+					</div>
+				</div>
+			</template>
+		</div>
+	</c-happy-parcel-card>
+</template>

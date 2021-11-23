@@ -1,0 +1,103 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="CustomerOnboardingViewContactStatusCtrl"
+    description="Lightning component displaying list of contacts with onboarding status for the given cases">
+    <aura:attribute name="caseIdList" type="string[]"/><!-- the list of cases for the contact status to be displayed -->
+    <aura:attribute name="parentCaseMappingWithContactDetails" 
+        type="CustomerOnboardingViewContactStatusCtrl.parentCaseMappingWithContactDetails[]" />
+    <aura:attribute name="displayError" type="Boolean" default="false" />
+    <aura:attribute name="ErrorString" type="String" default="" />
+    <aura:attribute name="displaySpinner" type="Boolean" default="false" />
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="assets" type="List"/>
+    <aura:attribute name="isModalOpen" type="Boolean" default="false" />
+    
+    <!-- get the list of contacts on load of the lightning component for the passed list of cases -->
+    <aura:handler name="init" value="{!this}" action="{!c.getContactList}" />
+
+    <aura:if isTrue="{!v.displaySpinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+	<div class="mainDivStyle">
+   <h2 Class="header-title-container"><b><div class="slds-card__header-title slds-truncate innerDivStyles">Contact Status</div></b></h2>
+
+   <aura:if isTrue="{!v.displayError}">
+        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info innerDivStyles" role="alert">
+            <h2>{!v.ErrorString}</h2>
+        </div>
+    </aura:if>
+       <aura:if isTrue="{!not(v.displayError)}">
+        <div class="innerDivStyles">
+            <lightning:datatable
+                columns="{!v.columns}"
+                data="{!v.parentCaseMappingWithContactDetails}"
+                keyField="parentCaseId" hideCheckboxColumn="true"
+                onrowaction="{!c.showContacts}"/>
+         </div>
+     </aura:if>
+     <aura:if isTrue="{!v.isModalOpen}">
+         <!-- Modal/Popup Box starts here-->
+         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+             <div class="slds-modal__container">
+                 <!-- Modal/Popup Box Header Starts here-->
+                 <header class="slds-modal__header">
+                     <lightning:buttonIcon iconName="utility:close"
+                                           onclick="{!c.closePopUp}"
+                                           alternativeText="close"
+                                           variant="bare-inverse"
+                                           class="slds-modal__close"/>
+                     <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Contact List</h2>
+                 </header>
+                 <!--Modal/Popup Box Body Starts here-->
+                 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                     <aura:iteration items="{!v.assets}" var="ass">
+                         <li> <a class="slds-truncate" href="" id="{!ass.ContactId}" 
+                                 onclick="{!c.navigateTorecordPage}">{!ass.Contact.Name}</a></li>
+                     </aura:iteration>
+                 </div>
+                 <!--Modal/Popup Box Footer Starts here-->
+                 <footer class="slds-modal__footer">
+                     <lightning:button variant="brand"
+                                       label="OK"
+                                       title="OK"
+                                       onclick="{!c.closePopUp}"/>
+                 </footer>
+             </div>
+         </section>
+         <div class="slds-backdrop slds-backdrop_open"></div>
+     </aura:if>
+     <!--div class="slds-grid slds-wrap innerDivStyles">   
+        <aura:iteration items="{!v.parentCaseMappingWithContactDetails}" var="parentCaseContactMapping">
+            <div class="slds-size_1-of-3">
+                <div class="divMargin">                   
+                    <lightning:card>
+                        <aura:set attribute="title">
+                            <p class="slds-truncate">Case Number : <a href=""  id="{!parentCaseContactMapping.parentCase.Id}" 
+                                onclick="{!c.navigateTorecordPage}">{!parentCaseContactMapping.parentCase.CaseNumber}</a> </p>
+                            <p class="slds-truncate">Subject : {!parentCaseContactMapping.parentCase.Subject}</p>
+                        </aura:set>                 
+                        <aura:iteration items="{!parentCaseContactMapping.contactdetailsWrapper}" var="contactDetail">
+                            <aura:iteration items="{!contactDetail.AssetGroupingWrapperList}" var="assetContact">
+                                <lightning:accordion allowMultipleSectionsOpen="true" activeSectionName="assetName">
+                                    <lightning:accordionSection label="{!assetContact.assetName}" name="assetName">
+                                        <ul class="slds-listdotted">
+                                            <aura:iteration items="{!assetContact.assetList}" var="Asset">
+                                                <li> <a class="slds-truncate" href="" id="{!Asset.ContactId}" 
+                                                    onclick="{!c.navigateTorecordPage}">{!Asset.Contact.Name}</a></li>
+                                            </aura:iteration>
+                                        </ul>
+                                    </lightning:accordionSection>
+                                </lightning:accordion>
+                            </aura:iteration>
+                        </aura:iteration>
+                    </lightning:card>                   
+                </div>
+            </div>
+        </aura:iteration>       
+    </div-->
+    </div>
+</aura:component>

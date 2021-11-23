@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Booking_creation_upon_StopCredit</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISNEW() &amp;&amp; Booking_Location__r.Stop_Credit__c = true</errorConditionFormula>
+    <errorMessage>Booking cannot be created for this Location due to Credit Issues. Please contact your Supervisor.</errorMessage>
+</ValidationRule>

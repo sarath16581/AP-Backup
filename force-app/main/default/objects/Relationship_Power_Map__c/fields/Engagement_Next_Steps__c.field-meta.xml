@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Engagement_Next_Steps__c</fullName>
+    <description>Phase 1 - Opportunity Assessment (PWC)
+
+Identify next steps we will take to engage them</description>
+    <externalId>false</externalId>
+    <inlineHelpText>How will we engage them?</inlineHelpText>
+    <label>Engagement Next Steps</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

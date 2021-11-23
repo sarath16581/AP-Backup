@@ -1,0 +1,23 @@
+/*       --------Custom CSS Cart Panel override---------         */
+/*       ----override the TotalSection of cart Panel----         */
+
+MainColor:-- #1797c0   |-- For Main color theme change that is used in buttons, main overlay bars, section headers and text and category hover color
+	DarkColor:-- #085B76   |-- for secondary Search bar panel on the Catalog page which is used as dark color;
+
+/* 
+	Prevent to apply only to Override Cart Panel by selector 'div.apt-main-content.apt-page-content'
+*/
+/* Prevent to apply for main cart section */
+div.apt-main-content.apt-page-content  div.aptRoundedDiv.aptPageTitleBarPanel{
+	display:block !important; 
+}
+
+/*Prevent to apply Line Items Section of Cart Panel */
+div.apt-main-content.apt-page-content  div.idResultStatsPanel.aptRoundedDiv{
+	display:block !important;
+}
+
+/* Apply to only Total Panel of Cart panel */
+div.apt-main-content.apt-page-content div.aptRoundedDiv {
+	display:none;
+}

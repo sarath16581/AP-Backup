@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Distribution_Type_Print_Post__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Distribution_type__c, &quot;Local Sort Division&quot; ), &quot;Local Sort Division; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Distribution_type__c, &quot;Same State Metro&quot; ), &quot;Same State Metro; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Distribution_type__c, &quot;Same State Country&quot; ), &quot;Same State Country; &quot;,null ) &amp; 
+IF ( INCLUDES ( Apttus_Config2__AttributeValueId__r.APT_Distribution_type__c, &quot;Other State&quot; ), &quot;Other State; &quot;,null )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Distribution Type Print Post</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

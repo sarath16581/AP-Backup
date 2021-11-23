@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Change_of_details_Sub_Type_ST__c</fullName>
+    <description>Added as a part of STP-4469. The field is capturing the pre-defined sub- type for StarTrack Billing account and  on the selected type of changes of billing account details for credit management request.</description>
+    <externalId>false</externalId>
+    <label>Change of details Sub-Type (StarTrack)</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Billing_Account_Change_of_Details_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Email Address</fullName>
+                <default>false</default>
+                <label>New Email Address</label>
+            </value>
+            <value>
+                <fullName>New Phone Number</fullName>
+                <default>false</default>
+                <label>New Phone Number</label>
+            </value>
+            <value>
+                <fullName>New ABN</fullName>
+                <default>false</default>
+                <label>New ABN</label>
+            </value>
+            <value>
+                <fullName>New ACN</fullName>
+                <default>false</default>
+                <label>New ACN</label>
+            </value>
+            <value>
+                <fullName>New Legal Entity Name</fullName>
+                <default>false</default>
+                <label>New Legal Entity Name</label>
+            </value>
+            <value>
+                <fullName>New Trading Entity Name</fullName>
+                <default>false</default>
+                <label>New Trading Entity Name</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Contact Information Details</controllingFieldValue>
+            <valueName>New Email Address</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Contact Information Details</controllingFieldValue>
+            <valueName>New Phone Number</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Company Structure Details</controllingFieldValue>
+            <valueName>New ABN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Company Structure Details</controllingFieldValue>
+            <valueName>New ACN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Company Structure Details</controllingFieldValue>
+            <valueName>New Legal Entity Name</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Company Structure Details</controllingFieldValue>
+            <valueName>New Trading Entity Name</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Company Structure Details</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

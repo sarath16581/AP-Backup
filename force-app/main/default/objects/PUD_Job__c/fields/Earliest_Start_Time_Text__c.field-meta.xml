@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Earliest_Start_Time_Text__c</fullName>
+    <description>Represents the Earliest Start Time in plain text format to enable including in Outbound Messages delivered to the Dispatch System. Salesforce Outbound Messages do not currently support &apos;Time&apos; data type. Note that &apos;Z&apos; is appended at the end to make it consistent with the Time field format.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(Earliest_Start_Time__c), null, TEXT(Earliest_Start_Time__c) &amp; &apos;Z&apos;)</formula>
+    <inlineHelpText>Represents the Earliest Start Time in plain text format.</inlineHelpText>
+    <label>Earliest Start Time (Text)</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

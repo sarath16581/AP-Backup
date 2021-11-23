@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAMLinkedEntityGroupValidation</fullName>
+    <active>true</active>
+    <description>Rule validates Group to ensure they can be populated based on the config in Application Role record.</description>
+    <errorConditionFormula>!ISBLANK( Group__c ) &amp;&amp; ! ContactRole__r.ApplicationRole__r.ShowGroup__c</errorConditionFormula>
+    <errorDisplayField>Group__c</errorDisplayField>
+    <errorMessage>A Group can not be assigned to the current role.</errorMessage>
+</ValidationRule>

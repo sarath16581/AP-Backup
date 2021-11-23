@@ -1,0 +1,35 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="0" style="width:1135.0pt;margin-left:14.2pt;border-collapse:collapse;mso-yfti-tbllook:
+ 1184;mso-padding-alt:0cm 0cm 0cm 0cm">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+  height:30.55pt">
+  <td width="3" valign="top" style="width:1.0pt;padding:0cm 0cm 0cm 0cm;height:
+  30.55pt">
+  <p class="MsoNormal"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+  </td>
+  <td width="1511" style="width:20.0cm;padding:0cm 0cm 0cm 0cm;height:30.55pt">
+  <p class="MsoNormal" style="margin-bottom:12.0pt"><font face="Arial, sans-serif" size="2">Hi {!Contact.FirstName},</font></p><p class="MsoNormal" style="margin-bottom:12.0pt"><font face="Arial, sans-serif" size="2">Thank you for your recent interest in Australia Post
+  business services APIs.</font></p><p class="MsoNormal" style="margin-bottom:12.0pt"><font face="Arial, sans-serif" size="2">To help you through the create API key process we’ve attached
+  a guide <i style="">Access the Shipping Tracking
+  API via an eCommerce partner.</i></font></p>
+  <p class="MsoNormal" style="margin-bottom:12.0pt"><font face="Arial, sans-serif" size="2">To access the production environment, your unique 10 digit
+  account number is:<b style="mso-bidi-font-weight:normal"> 0000000000<o:p></o:p></b></font></p>
+  <p class="MsoNormal" style="margin-bottom:12.0pt"><font face="Arial, sans-serif" size="2">In the event of service status degradation or outages, you
+  can go to the Australia Post Developer Centre-API Status website at
+  https://developers.auspost.com.au/ to monitor the status of the application
+  or subscribe to receive status updates.<o:p></o:p></font></p>
+  <p class="MsoNormal" style="margin-bottom:12.0pt"><font face="Arial, sans-serif" size="2">If you have any queries regarding this information, please
+  don’t hesitate to contact us at <a href="mailto:customer_connectivity@auspost.com.au">customer_connectivity@auspost.com.au</a><span style="color: rgb(5, 99, 193);"><o:p></o:p></span></font></p>
+  <p class="MsoNormal" style="margin-bottom:3.0pt"><font face="Arial, sans-serif" size="2">Regards<o:p></o:p></font></p>
+  <p class="MsoNormal" style="margin-bottom:3.0pt"><font face="Arial, sans-serif" size="2">Lodgement
+  &amp; APIs Team<o:p></o:p></font></p>
+  <p class="MsoNormal" style="margin-bottom:3.0pt"><font face="Arial, sans-serif" size="2">Parcels,
+  eCommerce and Digital<o:p></o:p></font></p>
+  <p class="MsoNormal"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+  </td>
+ </tr>
+</tbody></table><br>]]></td>
+</tr>
+</table>

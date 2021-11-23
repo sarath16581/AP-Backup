@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>MyNetwork Settings</label>
+    <protected>false</protected>
+    <values>
+        <field>Dev_Oracle_IAM_Logout_URL__c</field>
+        <value xsi:type="xsd:string">https://sso-ptest-local.npe.auspost.com.au/oam/server/logout</value>
+    </values>
+    <values>
+        <field>Development_Base_URL__c</field>
+        <value xsi:type="xsd:string">https://ptest-auspostbusiness.cs58.force.com/myNetwork</value>
+    </values>
+    <values>
+        <field>PTEST_Base_URL__c</field>
+        <value xsi:type="xsd:string">https://ptest-auspostbusiness.cs58.force.com/myNetwork</value>
+    </values>
+    <values>
+        <field>PTEST_Oracle_IAM_Logout_URL__c</field>
+        <value xsi:type="xsd:string">https://sso-ptest-local.npe.auspost.com.au/oam/server/logout</value>
+    </values>
+    <values>
+        <field>Prod_Oracle_IAM_Logout_URL__c</field>
+        <value xsi:type="xsd:string">https://sso-local.auspost.com.au/oam/server/logout</value>
+    </values>
+    <values>
+        <field>Production_Base_URL__c</field>
+        <value xsi:type="xsd:string">https://auspostbusiness.force.com/myNetwork</value>
+    </values>
+    <values>
+        <field>Production_Retail_Logout_URL__c</field>
+        <value xsi:type="xsd:string">https://sso-local.auspost.com.au/mynetwork</value>
+    </values>
+    <values>
+        <field>STEST_Base_URL__c</field>
+        <value xsi:type="xsd:string">https://stest-auspostbusiness.cs72.force.com/myNetwork</value>
+    </values>
+    <values>
+        <field>Stest_Oracle_IAM_Logout_URL__c</field>
+        <value xsi:type="xsd:string">https://sso-stest-local.npe.auspost.com.au/oam/server/logout</value>
+    </values>
+</CustomMetadata>

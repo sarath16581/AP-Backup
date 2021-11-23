@@ -1,0 +1,398 @@
+<!--
+    Footer for StarTrack Service & Support. Duplicates QuicklinksFooterPanel but
+    two user groups have different preferences so the flexibility of a page for each
+    was preferred.
+-->
+<apex:page controller="QuickLinksFooterPanelCont">
+
+    <c:ScriptLoader jsLibraries="jquery,jqueryui,integration,bootstrap,localState"
+                    cssLibraries="jqueryui,bootstrap" />
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <script type="text/javascript">
+            var j$ = jQuery.noConflict();
+
+            //const
+            var DEFAULT_SYNC_CONTEXT = 'NoContext';
+
+            var model = new localState();
+
+            j$(function() {
+                //checkCurrentToken();
+            });
+
+            function refreshToken() {
+                window.console&&console.log('Calling refresh token...');
+                QuickLinksFooterPanelCont.getToken(true, function(result, event) {
+                    if (event.status) {
+                        window.console&&console.log('>> Got new token from server: '  + result);
+                        sforce.console.fireEvent('synchData_AddressValidationToken',
+                                result, null);
+                    }
+                });
+            }
+
+            function checkCurrentToken() {
+                window.console&&console.log('george says: checking token...');
+                var script = document.createElement("script");
+                var head = document.head || jQuery("head")[0]
+                        || document.documentElement;
+                script.async = false;
+                script.onerror = function() {
+                    window.console&&console.log("Token has expired...");
+                    refreshToken();
+                };
+                script.onload = script.onreadystatechange = function(_, isAbort) {
+                    if (isAbort || !script.readyState
+                            || /loaded|complete/.test(script.readyState)) {
+                        // Handle memory leak in IE
+                        script.onload = script.onreadystatechange = null;
+                        // Remove the script
+                        if (script.parentNode) {
+                            script.parentNode.removeChild(script);
+                        }
+                        // Dereference the script
+                        script = null;
+                        if (!isAbort) {
+                            window.console&&console.log('george says: token is good');
+                        }
+                    }
+                };
+                script.src = '{!addressSearchURL}?term=%20&aat={!token}';
+                window.console&&console.log('Loading src = ' + script.src);
+                head.insertBefore(script, head.firstChild);
+            }
+
+
+            function openInPrimaryTab(url, tabname) {
+                //modified for REQ1523178
+                if(tabname == 'Other links') {
+                 sforce.console.openPrimaryTab(null, url, true, tabname);
+                } else {
+                    event.stopPropagation();
+                    window.open(url);
+                }
+                sforce.console.setCustomConsoleComponentVisible(false);
+
+            }
+
+            //set contaxt for initial new page which share the same context.
+            function setContextValue(field, context, changeValue){
+                var syncedValues = model.get('SynchronisedValues'); //get context from page model
+
+                if(syncedValues == null || syncedValues == '' || syncedValues == undefined) {
+                    syncedValues = {};
+                }
+
+                var fieldValues = {};
+                var contextedSyncedValues = syncedValues[context];
+                if(contextedSyncedValues === undefined || contextedSyncedValues === null) {
+                    contextedSyncedValues = {};
+                }
+
+                contextedSyncedValues[field] = changeValue; //set updated field value
+
+                // serialize the updated values
+                syncedValues[context] = contextedSyncedValues;
+
+                model.set("SynchronisedValues", syncedValues); //update the context
+            }
+
+            function getSyncContextFromObj(obj) {
+                var fromContext = DEFAULT_SYNC_CONTEXT; // <-- by default the message is from NoContext unless otherwise specified
+                var value = '';
+                if(typeof obj === 'object') {
+                    fromContext = (obj.syncContext === null ? fromContext : obj.syncContext);
+                }
+                return fromContext;
+            }
+            function getSyncPropertyFromObj(obj, property) {
+                var value = '';
+                if(typeof obj === 'object') {
+                    if(obj[property]) {
+                        return obj[property];
+                    } else {
+                        return '';
+                    }
+                } else {
+                    return obj;
+                }
+            }
+
+            function isEmpty(val) {
+                // test results
+                //---------------
+                // []        true, empty array
+                // {}        true, empty object
+                // null      true
+                // undefined true
+                // ''        true, empty string
+                // ''        true, empty string
+                // 0         false, number
+                // true      false, boolean
+                // false     false, boolean
+                // Date      false
+                // function  false
+
+                if (val === undefined)
+                    return true;
+
+                if (typeof (val) == 'function' || typeof (val) == 'number' || typeof (val) == 'boolean' || Object.prototype.toString.call(val) === '[object Date]')
+                    return false;
+
+                if (val == null || val.length === 0)        // null or 0 length array
+                    return true;
+
+                if (typeof(val) == 'object') {
+                    // empty object
+                    var r = true;
+
+                    for (var f in val)
+                        r = false;
+
+                    return r;
+                }
+
+                return false;
+            }
+
+            /**
+             * Accepts either non JSON strings or JSON strings and will return the appropriate value
+             */
+            function safeParseJSON(str) {
+                if(typeof str === 'object') {
+                    return str;
+                }
+
+                var obj;
+                try {
+                    obj = JSON.parse(str);
+                } catch(err) {
+                    obj = str;
+                }
+
+                return obj;
+            }
+        </script>
+
+        <style>
+            .quickLink {
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 1.5em;
+                height: 40px;
+                vertical-align: middle;
+                display: table-cell;
+            }
+
+            .container {
+                margin: 10px;
+                overflow: auto;
+            }
+
+            .well {
+                height: 60px;
+                padding: 10px;
+                margin: 5px;
+            }
+        </style>
+    </head>
+    <script type="text/javascript">
+
+        // to minimise the number of queries that are fired against the server on the MiniCaseComponent
+        // we send a 'check' event whenever the primary tab changes
+        // if the MiniCaseComponent is on the same tab then the event will fire maybeDoActionLoaders inside the frontend component controller
+        // an exception of this is if the MiniCaseComponent is on the SSSWSearch page... (no event is fired so this is excluded from any checks on the controller)
+        // NOTE: onFocusedPrimaryTab is only fired on custom console components
+        sforce.console.onFocusedPrimaryTab(function() {
+            sforce.console.fireEvent('PrimaryTabChanged');
+        });
+
+        sforce.console.addEventListener('RequestValues', function(result) {
+            //get the context from model, if it is empty, create a new one
+            var contextObj = model.get('SynchronisedValues');
+            if(contextObj == '' || contextObj == null || contextObj == undefined){
+                contextObj = {};
+            }
+
+            var obj = safeParseJSON(result.message);
+            var context = getSyncContextFromObj(obj);
+            var message = getSyncPropertyFromObj(obj, 'message');
+
+            var broadcastEvent = '';
+            var broadcastPayload = '';
+
+            if(message.trim() == 'clear'){
+                console.log('>> FIRING EVENT TO CLEAR ALL');
+
+                console.log('ALL SYNCED VALUES: ', j$.extend({}, contextObj));
+                delete contextObj[context];
+                console.log('NEW ALL SYNCED VALUES: ', j$.extend({}, contextObj));
+                model.set("SynchronisedValues", contextObj);
+
+                var emptyObj = {};
+
+                <apex:repeat value="{!$ObjectType.Case.FieldSets.CTIFieldSet}" var="f">emptyObj.{!f.fieldPath} = '';</apex:repeat>
+                <apex:repeat value="{!$ObjectType.Case.FieldSets.MiniCaseFieldSet}" var="f">emptyObj.{!f.fieldPath} = '';</apex:repeat>
+
+                //add the chat key into message for future checking
+
+                broadcastEvent = 'SynchronisedValues';
+                broadcastPayload = {
+                    values: emptyObj,
+                    syncContext: context
+                };
+            } else {
+
+                console.log('>> FIRING EVENT FOR: ' + message);
+
+                var values = contextObj[context] || {};
+
+                //add the chat key into message for future checking
+                broadcastEvent = message + '_SynchronisedValues_OnLoad';
+                broadcastPayload = {
+                    values: values,
+                    syncContext: context
+                };
+            }
+
+            // convert the payload to a string and broadcast the JSON string
+            var payload = JSON.stringify(broadcastPayload);
+            sforce.console.fireEvent(broadcastEvent, payload);
+
+        });
+
+        sforce.console.addEventListener('RequestEDD', function(result){
+            sforce.console.fireEvent('SynchEDD', j$('#hfEDDValues').val());
+        });
+
+        sforce.console.addEventListener('UpdateEDD', function(result){
+            j$('#hfEDDValues').val(result.message);
+            sforce.console.fireEvent('SynchEDD', j$('#hfEDDValues').val());
+        });
+
+        //when users closed a live chat tab, remove the chat key from context
+        sforce.console.addEventListener('MiniCaseStorageDestroyContext', function(result) {
+            var contextObj = model.get("SynchronisedValues");
+
+            if(!isEmpty(contextObj) && contextObj.hasOwnProperty(result.message)) {
+                delete contextObj[result.message];
+
+                console.log('>> Removing Mini Case Context: ', result.message);
+                console.log('>> Remaining Mini Case Context: ', contextObj);
+
+                // store the updated storage without the context that was just removed
+                model.set('SynchronisedValues', contextObj);
+            }
+        });
+
+
+        var availableColorCodeList = new Array();//List to hold color codes defined in custom metadata
+        var usedColorCodeList =[];//List to identify colors used and restore in case the tab is closed
+
+        //when a primary chat tab is opened for live agent user assign the tab with colors available
+        sforce.console.addEventListener(sforce.console.ConsoleEvent.OPEN_TAB, function(result){
+            //Identify the tab is opened of type primary
+            if(result.id.indexOf('scc-pt-') > -1) {
+                //Identify if the current logged in user is live agent user
+                if('{!isLiveAgentUser}' == 'true'){
+                    //get the tab details and call the callback function setChatTabStyle
+                    sforce.console.chat.getDetailsByPrimaryTabId(result.id, setChatTabStyle);
+                }
+            }
+
+        });
+
+        //Function to set chat tab color
+        function setChatTabStyle(primaryTabResponse){
+            //check if the primary tab is a chat tab
+            if(primaryTabResponse.details != null && primaryTabResponse.details.chatKey != undefined){
+                //if there are no colors available retrieve from custom metadata
+                if(availableColorCodeList.length == 0){
+                    availableColorCodeList = JSON.parse('{!colorCodes}');
+                }
+                //Pick the latest color available, assign it to the tab and push it to the used list mapping with tab id
+                let availableColorCode = availableColorCodeList.pop();
+                sforce.console.setTabStyle('background:'+availableColorCode, primaryTabResponse.primaryTabId);//availableColorCode
+                usedColorCodeList.push({tabId: primaryTabResponse.primaryTabId, colorCode: availableColorCode});
+            }
+        }
+
+        //Method to restore color when a primary chat tab is closed
+        sforce.console.addEventListener(sforce.console.ConsoleEvent.CLOSE_TAB, function(result){
+            //Identify the tab is closed of type primary
+            if(result.id.indexOf('scc-pt-') > -1) {
+                //Identify if the current logged in user is live agent user
+                if('{!isLiveAgentUser}' == 'true'){
+                    if(usedColorCodeList != null){
+                        //Iterate through the map and identify the color of closed tab and restore it
+                        for(var closedTab = 0; closedTab < usedColorCodeList.length; closedTab++){
+                            if(usedColorCodeList[closedTab].tabId == result.id){
+                                availableColorCodeList.push(usedColorCodeList[closedTab].colorCode);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+       //  object.addEventListener("load", myScript);
+       // var myScript = sforce.console.addEventListener(sforce.console.ConsoleEvent.OPEN_TAB, testGetFocusedPrimaryTabObjectId);
+    </script>
+    <input type="hidden" id="hfEDDValues" />
+    <input type="hidden" id="hfMiniCaseRecordTypeId" />
+    <apex:repeat value="{!$ObjectType.Case.FieldSets.CTIFieldSet}" var="f">
+        <script type="text/javascript">
+            sforce.console.addEventListener('MiniCaseFieldSet_{!f.fieldPath}',  function(result) {
+                var obj = safeParseJSON(result.message);
+                var context = getSyncContextFromObj(obj);
+                var value = getSyncPropertyFromObj(obj, 'value');
+                setContextValue('{!f.fieldPath}',context, value); //set context
+            });
+        </script>
+    </apex:repeat>
+    <apex:repeat value="{!$ObjectType.Case.FieldSets.MiniCaseFieldSet}" var="f">
+        <script type="text/javascript">
+            sforce.console.addEventListener('MiniCaseFieldSet_{!f.fieldPath}',  function(result) {
+                var obj = safeParseJSON(result.message);
+                var context = getSyncContextFromObj(obj);
+                var value = getSyncPropertyFromObj(obj, 'value');
+                setContextValue('{!f.fieldPath}',context, value); //set context
+            });
+        </script>
+    </apex:repeat>
+
+    <div class="container">
+
+        <apex:repeat value="{!quickLinkWrappers}" var="qw">
+            <div class="row">
+                <apex:repeat value="{!qw}" var="q">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                        <div class="row">
+                            <div class="well" onClick="openInPrimaryTab('{!q.ql.FullHyperlink__c}','{!q.ql.Name}');">
+                                <div class="col-xs-6">
+                                    <apex:outputLink value=""
+                                                     onClick="openInPrimaryTab('{!q.ql.FullHyperlink__c}', '{!q.ql.Name}');">
+                                        <apex:image styleClass="img-responsive"
+                                                    style="vertical-align:middle;max-height:40px;"
+                                                    value="/servlet/servlet.FileDownload?file={!q.a.Id}" />
+                                    </apex:outputLink>
+                                </div>
+                                <div class="col-xs-6">
+                                    <apex:outputLink value=""
+                                                     onClick="openInPrimaryTab('{!q.ql.FullHyperlink__c}','{!q.ql.Name}');"
+                                                     styleClass="quickLink">
+                                        <apex:outputText value="{!q.ql.Name}" />
+                                    </apex:outputLink>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </apex:repeat>
+            </div>
+        </apex:repeat>
+    </div>
+</apex:page>

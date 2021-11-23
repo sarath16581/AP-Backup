@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Competitor_Other__c</fullName>
+    <description>Complete this field when you have selected either Other or Broker/3PL/FF from the competitor pick list above</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Complete this field when you have selected either Other or Broker/3PL/FF from the competitor pick list above</inlineHelpText>
+    <label>Competitor Other</label>
+    <length>25</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

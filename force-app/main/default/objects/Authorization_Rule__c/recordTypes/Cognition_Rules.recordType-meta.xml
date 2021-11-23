@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cognition_Rules</fullName>
+    <active>true</active>
+    <label>Cognition Rules</label>
+    <picklistValues>
+        <picklist>AccessRole__c</picklist>
+        <values>
+            <fullName>Cognition User</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inactive</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

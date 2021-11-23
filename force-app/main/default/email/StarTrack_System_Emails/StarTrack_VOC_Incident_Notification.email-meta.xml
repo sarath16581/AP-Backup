@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>StarTrack VOC Incident Notification</name>
+    <style>none</style>
+    <subject>{!workflow_Email__c.Name} - {!IF(ISBLANK(workflow_Email__c.Case_Connote_Number__c), &apos;Consignment Number: N/A&apos;, &apos;Consignment Number: &apos;+workflow_Email__c.Case_Connote_Number__c)} Due Date: {!workflow_Email__c.Due_Date__c}</subject>
+    <textOnly>Hi Team,
+
+The below feedback has been received by the VOC team.
+Please investigate this matter and ensure that you provide the outcome details via reply email by {!workflow_Email__c.Due_Date__c}.
+
+Classification: {!workflow_Email__c.Classification__c}.
+
+Name: {!workflow_Email__c.Caller_Name__c}
+Address: {!workflow_Email__c.Address__c}
+Depot: {!workflow_Email__c.Network_Name__c}
+Date of Incident: {!workflow_Email__c.Date_of_Incident__c}
+Contact No: {!workflow_Email__c.Phone_Number__c}
+Contact Required: {!workflow_Email__c.Call_Back_Required__c}
+Feedback Description: {!workflow_Email__c.Case_Description__c}
+Consignment No.: {!workflow_Email__c.Case_Connote_Number__c}
+Booking Ref: {!workflow_Email__c.Booking_Reference__c}
+Rego No: {!workflow_Email__c.Reg_Number__c}
+Journey: {!workflow_Email__c.Journey__c}
+Feedback Reason: {!workflow_Email__c.Feedback_Reason__c}
+
+Regards,
+
+{!workflow_Email__c.Case_Owner__c}
+VOC Team
+StarTrack
+
+{!workflow_Email__c.Case_Thread_Id__c}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

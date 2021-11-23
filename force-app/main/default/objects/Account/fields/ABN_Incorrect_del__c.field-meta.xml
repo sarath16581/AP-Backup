@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ABN_Incorrect_del__c</fullName>
+    <description>This field is used for the Data Team ABN Correct Report - Returns the Organisation Name if the ABN Number is null or has a dummy value.</description>
+    <externalId>false</externalId>
+    <formula>IF(ABN__c = &quot;99999999999&quot;,  &quot;Incorrect ABN&quot; , &quot;Correct ABN&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>ABN Incorrect</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,37 @@
+/**
+ * Created by clint on 9/25/2018.
+ */
+.THIS .expandCol {
+    overflow:visible;
+    width:2000px;
+}
+
+.THIS .startrack-shade_grey {
+    background:#CFD4D7;
+}
+
+.THIS.search-results-paper-card {
+    border: 1px solid #d4d4d4;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.THIS .search-results-buttons {
+    width: 100%;
+    display: inline-block;
+}
+
+.THIS .search-results-button-separator {
+    float: right;
+    margin-right: 2px;
+}
+
+.THIS .pagination-page-number {
+    border: solid 1px rgb(212,212,212);
+    background-color: white;
+    height: 32px;
+    width:32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}

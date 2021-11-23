@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AP_Customer_Required</fullName>
+    <active>true</active>
+    <description>A customer booking location must have a customer associated.</description>
+    <errorConditionFormula>AND ( RecordType.DeveloperName = &apos;AP_Customer&apos;,
+      ISBLANK(Customer__c)
+)</errorConditionFormula>
+    <errorMessage>A customer booking location must have a customer associated.</errorMessage>
+</ValidationRule>

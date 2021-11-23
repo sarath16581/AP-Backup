@@ -1,0 +1,57 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 01/09/2020
+  * @description  : Component for consignment list if there are multiple consignments.
+--------------------------------------- History --------------------------------------------------
+01.09.2020    Jansi Rani   Created
+-->
+<template>
+    <template if:true={conList}>
+        <div id='conListPanel'>
+            <h3 class="slds-m-bottom_small">Consignments</h3>
+            <div class="slds-m-bottom_medium">Your tracking number is related to multiple consignments. Please select an item below to view:</div>
+
+           
+            <table
+            class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered brand-table brand-table-scroll table-small-dense">
+            <thead class="brand-table">
+                <tr class="slds-line-height_reset">
+                   
+                  <th scope="col">
+                    <div class="slds-truncate">Tracking number</div>
+                  </th>
+
+                  <th scope="col">
+                    <div class="slds-truncate">Dispatch Date</div>
+                  </th>
+
+                 <!-- <th scope="col">
+                    <div class="slds-truncate">ETA date</div>
+                  </th>
+
+                  <th scope="col">
+                    <div class="slds-truncate">Service</div>
+                  </th>
+                  <th scope="col">
+                    <div class="slds-truncate">Status</div>
+                  </th> -->
+                  <th scope="col">
+                    <div class="slds-truncate">Destination</div>
+                  </th>
+
+                </tr>
+            </thead>
+            <tbody class="brand-table">
+                <!-- Iterating consignments-->
+                <template for:each={conList} for:item="con">
+                    <c-bsp-consignment-row key={con} con={con} 
+                    ontogglespinner={handleLoading}
+                    onselectedconsignmentresults={onSelectedConsignmentResults}
+                    onselectedconsignmenterror ={onSelectedConsignmentError}
+                    ></c-bsp-consignment-row >
+                </template>
+            </tbody>
+        </table>
+          </div>
+    </template>
+</template>

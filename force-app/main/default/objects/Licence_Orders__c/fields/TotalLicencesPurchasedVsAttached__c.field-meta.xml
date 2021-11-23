@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TotalLicencesPurchasedVsAttached__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(TotalLicencesAttachedToThisOrder__c &gt; TotalLicencesPurchased__c, IMAGE(&quot;/img/samples/flag_red.gif&quot;, &quot;red flag&quot;),
+IF(TotalLicencesPurchased__c &gt; TotalLicencesAttachedToThisOrder__c , IMAGE(&quot;/img/samples/flag_yellow.gif&quot;, &quot;yellow flag&quot;),
+IMAGE(&quot;/img/samples/flag_green.gif&quot;, &quot;green flag&quot;)))</formula>
+    <inlineHelpText>Green Lag - If the Total Licences Purchased = Total Licences Attached
+Yellow Flag -  If the Total Licences Purchased is greater than Total Licences Attached
+Red Flag - If the Total Licences Attached is greater than Total Licences Purchased</inlineHelpText>
+    <label>TotalLicencesPurchasedVsAttached</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

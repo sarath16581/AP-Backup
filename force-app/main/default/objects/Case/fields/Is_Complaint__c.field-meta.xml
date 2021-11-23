@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Complaint__c</fullName>
+    <description>To be used to determine whether a CCC case is a complaint
+/*This is setting setting a complaint flag to true if and only if it is a Feedback or Investigation and the Enquiry sub type is one of the ones listed - so by default the case will not be a complaint unless t matches the values below*/</description>
+    <externalId>false</externalId>
+    <formula>If ((ISPickval( Type, &quot;Feedback&quot;) ||Ispickval(Type,&quot;Investigation&quot;)) &amp;&amp;
+(IsPickval (EnquirySubType__c,&quot;Address not in NAF&quot;)||
+IsPickval (EnquirySubType__c,&quot;All Other&quot;)||
+IsPickval (EnquirySubType__c,&quot;Article carded - no card left&quot;)||
+IsPickval (EnquirySubType__c,&quot;Article carded - no delivery attempt&quot;)||
+IsPickval (EnquirySubType__c,&quot;Article safe dropped - no delivery attempt&quot;)||
+IsPickval (EnquirySubType__c,&quot;Article safe dropped - not located&quot;)||
+IsPickval (EnquirySubType__c,&quot;Article safe dropped unsafe location&quot;)||
+IsPickval (EnquirySubType__c,&quot;Complaint&quot;)||
+IsPickval (EnquirySubType__c,&quot;Complaint referred to issuer&quot;)||
+IsPickval (EnquirySubType__c,&quot;Damaged/Missing contents&quot;)||
+IsPickval (EnquirySubType__c,&quot;Damage to property&quot;)||
+IsPickval (EnquirySubType__c,&quot;Damage to vehicle&quot;)||
+IsPickval (EnquirySubType__c,&quot;Delayed&quot;)||
+IsPickval (EnquirySubType__c,&quot;Delayed - inside network&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Delayed - outside network&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Delivery complaint&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Disputed delivery&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Domestic Letters - Other&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Domestic Parcels - Other&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Incorrect mail being redirected/held&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Incorrect or missing order&quot;) ||
+IsPickval (EnquirySubType__c,&quot;International Letters - Other&quot;) ||
+IsPickval (EnquirySubType__c,&quot;International Parcels - Other&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Mail not being redirected/held&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Missed/Late Pickup&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Missing Item&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Money &amp; Insurance - Other&quot;) ||
+IsPickval (EnquirySubType__c,&quot;MRSO issue&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Pick up issue&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Post Office &amp; Hub - Other&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Product issue&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Queue times&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Remittance not received&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Safety issue&quot;)||
+IsPickval (EnquirySubType__c,&quot;SPB - Graffiti/Damage&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Staff Complaint&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Travel &amp; ID - Other&quot;) ||
+IsPickval (EnquirySubType__c,&quot;UMCS delivery issue&quot;) ||
+IsPickval (EnquirySubType__c,&quot;UMCS label issue&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Unaddressed mail booking service&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Unauthorised Hold/Redirection application&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Unauthorised MRS application&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Unauthorised Safe Drop&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Privacy breach&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Web &amp; Apps - Other&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Website technical issues&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Carding issue&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Delayed delivery&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Disputed delivery scan&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Facility reported damages&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Redirection Failure&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Express guarantee failure&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Delivered to no junk mail address&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Lodgement issue&quot;) ||
+IsPickval (EnquirySubType__c,&quot;SPB – Graffiti/Damage/New&quot;) ||
+IsPickval (EnquirySubType__c,&quot;SPB – Request removal/relocation&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Direct marketing opt out&quot;) ||
+IsPickval (EnquirySubType__c,&quot;Website/app technical issues&quot;)) 
+,true,false)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is Complaint</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

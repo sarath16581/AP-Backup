@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Agree Mgt -   Approval Notification Template</name>
+    <style>none</style>
+    <subject>Approval Request</subject>
+    <textOnly>{!Approval_Requesting_User.Name} has requested your approval for the following item:  To approve or reject this item, click this link {!ApprovalRequest.External_URL}{!ApprovalRequest.Internal_URL}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

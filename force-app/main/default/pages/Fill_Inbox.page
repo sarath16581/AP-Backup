@@ -1,0 +1,115 @@
+<!--
+ - Created by shashwat.a.nath on 11/09/2019.
+ - This VF page is used within a Custom Console Component Called Fill Inbox.
+ - Visualforce Remote Action call to "wsFillInbox" method is made  on click of Accept Button
+ - On Getting a Valid Response the System Redirects the User and sets the focus to Cases Tab
+ -->
+
+<apex:page controller="SSSW_FillInbox">
+    <!--Included required scripts-->
+
+    <apex:includeScript value="/soap/ajax/36.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/36.0/apex.js"/>
+    <apex:includeScript value="/support/console/46.0/integration.js"/>
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+    <!--Tag added to use Lightning Design System stylesheets-->
+    <apex:slds />
+    <!-- Script starts -->
+    <script type="text/javascript">
+        // Function on click of the Accept Button
+            function fillInbox(){
+            // Disabling the button after first click to restrict user from clicking multiple times
+            document.getElementById("myBtn").disabled = true;
+            try{
+                // Invoking the remote Action to call the Controller Method
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.SSSW_FillInbox.wsFillInbox}',
+                    function(result, event){
+                        if (event.status) {
+                            if( result=='{!$Label.SSSW_Filling_Inbox_Alert}')
+                            {
+                                alert('{!$Label.SSSW_Filling_Inbox_Alert}');
+                                setTimeout(function(){
+                                    sforce.console.setCustomConsoleComponentVisible(false);
+                                    document.getElementById("myBtn").disabled = false;
+                                }, 1000);
+                            }
+                            else if( result=='{!$Label.SSSW_Filling_Inbox_Alert2}')
+                            {
+                                alert('{!$Label.SSSW_Filling_Inbox_Alert2}');
+                                setTimeout(function(){
+                                    sforce.console.setCustomConsoleComponentVisible(false);
+                                    document.getElementById("myBtn").disabled = false;
+                                }, 1000);
+                            }
+                            else{
+                                // This is to close the console tab automatically
+                                setTimeout(function(){
+                                    sforce.console.setCustomConsoleComponentVisible(false);
+                                    document.getElementById("myBtn").disabled = false;
+                                }, 3000);
+                                // Navigating to Cases Home Page on Success
+                                navigateConsoleTabs();
+                            }
+                        } else if (event.type === 'exception') {
+                            // Displaying Error Alert in case of Exception
+                            alert('You do not have sufficient privileges to use this button. Please contact your admin for more details');
+                        }
+                    },
+                    {escape: true}
+                );
+            }
+            catch(err) {
+                console.error(err);
+                alert('You do not have sufficient privileges to use this button. Please contact your admin for more details');
+            }
+        }
+        // Navigating through different console tabs
+        function navigateConsoleTabs() {
+            sforce.console.getNavigationTabs(callback);
+        }
+        var callback = function (result){
+           if (result.success) {
+                var tempItem = JSON.parse(result.items);
+                console.log(tempItem[0]);
+                for (var i = 0, len = tempItem.length; i < len; i++) {
+                    console.log(tempItem[i]);
+                    // checking the prefix to identify the case tab
+                    if(tempItem[i].keyprefix==='500'){
+                        // Navigating to Case Home Tab
+                        navigateToCasesHomePage(tempItem[i].navigationTabId);
+                        break;
+                    }
+                }
+            } else {
+                alert('Something is wrong.Please contact your admin for more details');
+            }
+        };
+        function navigateToCasesHomePage(casesTabId) {
+            // Navigating to Case Home Tab
+            sforce.console.setSelectedNavigationTab(callbackNavigation,casesTabId);
+        }
+        var callbackNavigation = function (result){
+            if (result.success) {
+                console.log(result.success);
+                // Setting the focus to Case Tab if redirected from a different tab
+                sforce.console.focusNavigationTab();
+            } else {
+                alert('Something is wrong.Please contact your admin for more details');
+            }
+        };
+
+    </script>
+    <!-- Script Ends -->
+    <!--style tag added-->
+    <style>
+        .slds-scope button{
+            margin: 50px;
+        }
+    </style>
+    <div class="slds-scope" align="center" >
+        <!--Accept button on custom console button-->
+        <button id="myBtn" onclick="fillInbox();" class="slds-button slds-button_success" >Accept</button>
+    </div>
+    </html>
+</apex:page>

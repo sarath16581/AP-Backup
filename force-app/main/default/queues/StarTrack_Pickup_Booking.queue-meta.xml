@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>noreply@startrack.com.au</email>
+    <name>BSP General</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>StarTrack_Pickup_Booking</publicGroup>
+        </publicGroups>
+    </queueMembers>
+    <queueRoutingConfig>StarTrack_BSP_Booking_Routing_configuration</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

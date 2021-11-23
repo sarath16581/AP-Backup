@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_Consumer_Minimum_Record</fullName>
+    <active>true</active>
+    <description>Enforces 1 minimum data element per record</description>
+    <errorConditionFormula>IsPersonAccount
+&amp;&amp;
+(
+(
+ISBLANK( FirstName )
+)
+||
+(
+ISBLANK( PersonEmail )
+&amp;&amp;
+ISBLANK( PersonMailingStreet )
+&amp;&amp;
+ISBLANK( Phone )
+&amp;&amp;
+ISBLANK( PersonHomePhone )
+&amp;&amp;
+ISBLANK( PersonMobilePhone )
+&amp;&amp;
+ISBLANK( PersonOtherPhone )
+)
+)</errorConditionFormula>
+    <errorMessage>You have not met the minimum data for a Consumer. 
+Must have a First and Last Name AND 1 of the following:
+Email,
+Address,
+Phone / Mobile.</errorMessage>
+</ValidationRule>

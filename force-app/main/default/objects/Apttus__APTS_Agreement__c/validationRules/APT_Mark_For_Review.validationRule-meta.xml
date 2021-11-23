@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Mark_For_Review</fullName>
+    <active>true</active>
+    <description>If Contract Term is Fixed then Mark for Review cannot be checked.</description>
+    <errorConditionFormula>AND( 
+ISPICKVAL(Term__c , &apos;Fixed Term&apos;) ,APT_Mark_for_Review__c)</errorConditionFormula>
+    <errorDisplayField>APT_Mark_for_Review__c</errorDisplayField>
+    <errorMessage>&apos;Fixed Term&apos; Contracts cannot be marked for review.</errorMessage>
+</ValidationRule>

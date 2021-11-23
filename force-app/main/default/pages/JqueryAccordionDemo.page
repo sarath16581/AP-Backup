@@ -1,0 +1,24 @@
+<!--
+ @author :Avidev9@gmail.com
+ @Blog : Blogforce9.blogspot.com
+ @created date : 23-April-2013
+-->
+<apex:page sidebar="false">
+    
+    
+    <apex:sectionHeader title="Easy jQuery Accordion" subtitle="Jquery Accordion for Visualforce Pages" />
+    
+    <c:Accordion >
+        <c:AccordionSection title="Section 1">
+            Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. 
+            Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh.
+            Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. 
+            Vestibulum a velit eu ante scelerisque vulputate.
+        </c:AccordionSection>
+        <c:AccordionSection title="Section 2">
+            Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet purus. 
+            Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor velit, 
+            faucibus interdum tellus libero ac justo. Vivamus non quam. In suscipit faucibus urna.
+        </c:AccordionSection>
+    </c:Accordion>
+</apex:page>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>StarTrack - Contract UI Invitation Email</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>StarTrack - Contract UI Invitation Email</name>
+    <style>none</style>
+    <subject>Your invitation to start using Parcel Send</subject>
+    <textOnly>You’ve been invited to use Parcel Send
+
+A business of Australia Post
+
+You’ve been invited to use
+Parcel Send
+
+Hi {!Contact.FirstName},
+
+Welcome to Parcel Send.
+
+To set up your account, sign up and follow the prompts. You&apos;ll be up and running in minutes.
+
+Sign up
+
+Australia Post will never send you an email asking for your password, credit card details or account information.
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+
+If you’re having trouble activating, contact your account manager or email us at parcelsend@auspost.com.au.
+
+Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

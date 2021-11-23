@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Startrack_prevent_casetype_Delivery_Updt</fullName>
+    <active>true</active>
+    <description>Startrack prevent casetype &quot;Delivery Update&quot;</description>
+    <errorConditionFormula>AND( 
+RecordType.Name = &apos;Delivery Enquiry&apos;, 
+ISPICKVAL(Enquiry_Type__c, &apos;Delivery Update&apos;), 
+NOT(ISPICKVAL(Origin,&apos;System&apos;)), 
+$Profile.Name = &apos;StarTrack Support&apos; 
+)</errorConditionFormula>
+    <errorMessage>Case type &quot;Delivery Update&apos; is not valid.</errorMessage>
+</ValidationRule>

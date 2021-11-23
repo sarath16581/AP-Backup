@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Update_To_Be_Processed_c</fullName>
+        <field>To_Be_Processed__c</field>
+        <literalValue>1</literalValue>
+        <name>Update To_Be_Processed__c</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Update To be Processed for Freeze end date</fullName>
+        <active>true</active>
+        <description>On the day of Freeze End Date on Assigned Asset, make &quot;To_be_Processed&quot; = true using time based workflow.</description>
+        <formula>Freeze_Period_End_Date__c +1 &gt;= Today()</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Update_To_Be_Processed_c</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Asset.Freeze_Period_End_Date__c</offsetFromField>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Update To_Be_Processed%5F%5Fc</fullName>
+        <actions>
+            <name>Update_To_Be_Processed_c</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Update flag To_Be_Processed__c when there is any change in the Asset record</description>
+        <formula>AND (  $RecordType.Name = &apos;PSR&apos;, OR( ISNEW(),  (ISCHANGED(Product_Name__c) ||  ISCHANGED( Freeze_Period_End_Date__c ) ||  ISCHANGED( Freeze_Period_Start_Date__c ))) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

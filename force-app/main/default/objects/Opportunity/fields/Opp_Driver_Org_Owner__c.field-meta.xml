@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opp_Driver_Org_Owner__c</fullName>
+    <description>Shows whether the Opportunity Driver also manages the Organisation (Legal Entity Name) that the opportunity is related to. (If user owns both, value is 1). Used on Opportunity dashboard components and list views to filter Opportunity Team information.</description>
+    <externalId>false</externalId>
+    <formula>IF(OwnerId = Account.Owner.Id,1,0)</formula>
+    <inlineHelpText>If value = 1: The Opportunity Driver also manages the Organisation (Legal Entity Name) that the opportunity is related to.</inlineHelpText>
+    <label>Opp Driver Also AM</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

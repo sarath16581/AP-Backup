@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Registration_Type__c</fullName>
+    <description>This field was created for MW0001719 - it is to help identify whether the lead came in via over the counter, the Internet or both</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field is used to distinguish between the verification of identity (VOI) for Property Transfers channel/product each conveyancer/lawyer/mortgagee (CLM) has registered with Australia Post to use.</inlineHelpText>
+    <label>Registration Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>OTC Registration Only</fullName>
+                <default>false</default>
+                <label>OTC Registration Only</label>
+            </value>
+            <value>
+                <fullName>Online Registration Only</fullName>
+                <default>false</default>
+                <label>Online Registration Only</label>
+            </value>
+            <value>
+                <fullName>Online With OTC Issued</fullName>
+                <default>false</default>
+                <label>Online With OTC Issued</label>
+            </value>
+            <value>
+                <fullName>Online With OTC Returned</fullName>
+                <default>false</default>
+                <label>Online With OTC Returned</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

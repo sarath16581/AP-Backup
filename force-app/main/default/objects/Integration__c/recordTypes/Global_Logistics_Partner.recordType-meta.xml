@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Global_Logistics_Partner</fullName>
+    <active>true</active>
+    <description>Used for Platform Partners Global Logistics Integrations</description>
+    <label>Global Logistics Partner</label>
+    <picklistValues>
+        <picklist>Labels__c</picklist>
+        <values>
+            <fullName>API</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Own</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Own %28SSCC%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Verified__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

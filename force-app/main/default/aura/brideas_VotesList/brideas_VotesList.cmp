@@ -1,0 +1,22 @@
+<aura:component controller="brideas_IdeasCtrl">
+    <aura:attribute name="ideaId" type="String" />
+    <aura:attribute name="votesList" type="Vote[]" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="votes-list slds-clearfix">
+        <aura:iteration items="{!v.votesList}" var="vote">
+            <div class="{!'item slds-float--left ' + vote.Type}">
+                <img src="{!vote.CreatedBy.SmallPhotoUrl}" width="64" 
+                     alt="{!vote.CreatedBy.FirstName + ' ' + vote.CreatedBy.LastName}" />
+                <span class="name"><c:brideas_UserDisplayName userId="{!vote.CreatedById}" /></span>
+                <aura:if isTrue="{!vote.Type == 'Up'}">
+                    <span class="icon vote-thumbup-ico active"></span>
+                </aura:if>
+                <aura:if isTrue="{!vote.Type == 'Down'}">
+                    <span class="icon vote-thumbdown-ico active"></span>
+                </aura:if>
+            </div>
+        </aura:iteration>
+    </div>
+</aura:component>

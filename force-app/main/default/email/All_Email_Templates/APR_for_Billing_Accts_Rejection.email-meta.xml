@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>APR for Billing Accts Rejection</name>
+    <style>none</style>
+    <subject>APR Rejected - Account No: {!Billing_Account__c.LEGACY_ID__c}   {!Billing_Account__c.Name}</subject>
+    <textOnly>The following APR has been rejected by {!ApprovalRequest.Process_Approver}
+
+Rejection Comments: {!ApprovalRequest.Comments}
+
+View APR record in Salesforce here: {!APR__c.Link}
+
+Summary Information
+APR No: {!APR__c.Name}
+Legal Entity Name: {!APR__c.Legal_Entity_Name__c}
+Billing Account No: {!APR__c.Billing_Account_No__c}
+Billing Account: {!APR__c.Billing_Account_Name__c}
+
+
+APR Information
+Published Rate: {!APR__c.Published_Rate__c}
+Confirmed Rate: {!APR__c.Confirmed_Rate__c}
+Published Date: {!APR__c.Published_Date__c}
+Confirmed Date: {!APR__c.Confirmed_Date__c}
+Conclusion Date: {!APR__c.Conclusion_Date__c}
+Status: {!APR__c.Status__c}
+Sub-Status: {!APR__c.Sub_Status__c}
+Comments: {!APR__c.Comments__c}
+
+
+Manual Handling Surcharge Information
+MHS Status: {!APR__c.MHS_Status__c}
+MHS Published Rate: {!APR__c.MHS_Published_Rate__c}
+MHS Confirmed Rate: {!APR__c.MHS_Confirmed_Rate__c}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

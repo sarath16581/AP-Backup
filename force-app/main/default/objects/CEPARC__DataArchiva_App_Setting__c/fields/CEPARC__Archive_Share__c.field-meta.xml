@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEPARC__Archive_Share__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If checked, user will be able to archive Share records.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If checked, user will be able to archive Share records.</inlineHelpText>
+    <label>Archive Share?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

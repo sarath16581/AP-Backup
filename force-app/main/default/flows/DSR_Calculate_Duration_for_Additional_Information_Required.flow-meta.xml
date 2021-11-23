@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <assignments>
+        <name>Calculate_Duration_0</name>
+        <label>Calculate Duration</label>
+        <locationX>50</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.In_Pending_Information_Status__c</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Duration</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Completed_DateTime</name>
+        <label>Set Completed DateTime</label>
+        <locationX>578</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Status_Closed_Date_Time__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Submitted_DateTime</name>
+        <label>Set Submitted DateTime</label>
+        <locationX>314</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Submitted_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>Compare_With_Old_record</name>
+        <label>Compare With Old record</label>
+        <locationX>446</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Received_Information</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_Old_DSR_Record.Status__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Received Information</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Calculate_Duration_0</targetReference>
+            </connector>
+            <label>Received Information</label>
+        </rules>
+        <rules>
+            <name>Submitted_Status</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_Old_DSR_Record.Status__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Submitted</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Submitted_DateTime</targetReference>
+            </connector>
+            <label>Submitted Status</label>
+        </rules>
+        <rules>
+            <name>Closed_Status</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Stage__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_Old_DSR_Record.Stage__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Stage__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Completed_DateTime</targetReference>
+            </connector>
+            <label>Closed Status</label>
+        </rules>
+    </decisions>
+    <formulas>
+        <name>Duration</name>
+        <dataType>Number</dataType>
+        <expression>ROUND( 24 * (
+   ( 5 * FLOOR( ( DATEVALUE({!$Flow.CurrentDateTime})  - DATE( 1900, 1, 8) ) / 7) +
+     MIN( 5,
+      MOD(DATEVALUE( {!$Flow.CurrentDateTime}) - DATE( 1996, 1, 1), 7 ) +
+      MIN( 1,  MOD( {!$Flow.CurrentDateTime} - DATETIMEVALUE(&apos;1900-01-07 13:00:00&apos;), 1)  )
+    ) 
+   )
+ -
+   (5 * FLOOR( ( DATEVALUE({!$Record.Requested_Information__c})  - DATE( 1900, 1, 8) ) / 7) +
+     MIN( 5,
+      MOD( DATEVALUE({!$Record.Requested_Information__c}) - DATE( 1996, 1, 1), 7 ) +
+      MIN( 1,  MOD( {!$Record.Requested_Information__c} - DATETIMEVALUE(&apos;1900-01-07 13:00:00&apos;), 1)  )
+   ) 
+  )), 
+2 )</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>DSR Calculate Duration for Additional Information Required {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>DSR Calculate Duration for Additional Information Required</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Old_DSR_Record</name>
+        <label>Get Old DSR Record</label>
+        <locationX>446</locationX>
+        <locationY>311</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Compare_With_Old_record</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Deal_Support_Request__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>In_Pending_Information_Status__c</queriedFields>
+        <queriedFields>Status__c</queriedFields>
+        <queriedFields>Stage__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>320</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Old_DSR_Record</targetReference>
+        </connector>
+        <filterLogic>(1 AND 2) OR 3 OR 4</filterLogic>
+        <filters>
+            <field>Requested_Information__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Received Information</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Submitted</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Stage__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </filters>
+        <object>Deal_Support_Request__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

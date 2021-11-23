@@ -1,0 +1,13 @@
+<b>New Salesforce Task</b><br><br>
+
+Hi there,<br><br>
+
+{!Task.CreatedBy} has assigned you the following new Salesforce task to action:<br><br>
+
+Subject: {!Task.Subject}<br>
+Due Date: {!Task.ActivityDate}<br>
+Priority: {!Task.Priority}<br>
+Comments: <br>
+{!Task.Description}<br><br>
+
+<b>Please click on this link to the task within Salesforce to access the relevant contact and task details: https://auspost.my.salesforce.com/{!Task.Id}</b>

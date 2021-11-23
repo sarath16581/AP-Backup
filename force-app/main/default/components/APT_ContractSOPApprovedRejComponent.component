@@ -1,0 +1,42 @@
+<apex:component controller="APT_ContractSOPApprovedRejController" access="global" >
+    <apex:attribute name="approvalContractID" 
+                    description="This is the contract ID." 
+                    type="String" 
+                    assignTo="{!contractId}" />
+    
+    
+<style type="text/css">
+    .fontStyle{ 
+        font-family: Arial; 
+        size: 12pt;
+    }
+    
+    .fontSmallStyle{
+        font-family: arial;
+        font-size: x-small;
+    }
+</style>
+<apex:outputPanel styleClass="fontStyle">
+<b>Responded By:</b>{!approvalRequestSO.Apttus_Approval__ActualApproverName__c} <br /><br />
+<b>Details of Pricing Request:</b><br/>
+Product Lines Requested: {!agreementSO.Included_Product_Lines__c}<br />
+Pricing Plan: {!agreementSO.APT_Price_Plan__c}<br/>
+Comments: {!approvalRequestSO.Apttus_Approval__SubmissionComment1__c}
+<br />
+<br />
+<b>Details of Pricing Approval/Rejection:</b><br/>
+APPROVED or REJECTED  - {!agreementSO.Apttus_Approval__Approval_Status__c}<br/>
+Approved Pricing Plan - {!agreementSO.APT_Price_Plan__c}<br/>
+Approver Comments: {!approvalRequestSO.Apttus_Approval__Approver_Comments__c}<br/><br/>
+</apex:outputPanel>
+<apex:outputPanel styleClass="fontStyle">
+    Click on the below link:
+                  <br/>
+    <apex:outputLink value="{!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))  + agreementSO.ID}">
+    
+    {!LEFT($Api.Enterprise_Server_URL_300, FIND('/services',$Api.Enterprise_Server_URL_300))  + agreementSO.ID}
+    
+    </apex:outputLink>
+</apex:outputPanel>
+<br/><br/>
+</apex:component>

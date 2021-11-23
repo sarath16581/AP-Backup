@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Type of influence i.e. null/default or Conflict, which represents a Conflict between 2 contacts</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Type of influence i.e. null/default or Conflict, which represents a Conflict between 2 contacts</inlineHelpText>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Conflict</fullName>
+                <default>false</default>
+                <label>Conflict</label>
+            </value>
+            <value>
+                <fullName>Influence</fullName>
+                <default>false</default>
+                <label>Influence</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

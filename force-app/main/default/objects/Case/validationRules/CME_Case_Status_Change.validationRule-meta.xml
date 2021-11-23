@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CME_Case_Status_Change</fullName>
+    <active>true</active>
+    <description>Only CME agents and Systems Admin can change the status field for Contract Management Enquiry Case record type</description>
+    <errorConditionFormula>AND( RecordType.DeveloperName = &quot;Deal_Enablement_Centre&quot;, 
+(ISCHANGED( Status )), 
+AND($Profile.Id &lt;&gt; &quot;00e30000001jG0I&quot;, 
+$Profile.Id &lt;&gt; &quot;00e90000001eeTl&quot;, 
+$Profile.Id &lt;&gt; &quot;00e90000001dX8A&quot;, 
+$Profile.Id &lt;&gt; &quot;00e90000001bBy9&quot;, 
+$Profile.Id &lt;&gt; &quot;00e90000000kuD3&quot;, 
+$Permission.Deal_Enablement_Read_Write_Cases = False))</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>Please contact your administrator to change the case status</errorMessage>
+</ValidationRule>

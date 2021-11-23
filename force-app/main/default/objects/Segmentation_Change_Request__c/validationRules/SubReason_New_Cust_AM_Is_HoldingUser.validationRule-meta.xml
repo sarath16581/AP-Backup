@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SubReason_New_Cust_AM_Is_HoldingUser</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISPICKVAL( Sub_Reason_for_Change__c , &quot;New Customer&quot;) 
+&amp;&amp; 
+(Account_Manager_Current__c = &quot;Holding User&quot;) 
+&amp;&amp; 
+(CurrentSalesTeam__c &lt;&gt; &quot;Holding Sales Team&quot;) 
+&amp;&amp; 
+($Profile.Name &lt;&gt; &quot;System Administrator&quot;)</errorConditionFormula>
+    <errorMessage>You can only select &quot;New Customer&quot; when the Account Manager is “Holding User” and the sales team is “Holding Sales Team”</errorMessage>
+</ValidationRule>

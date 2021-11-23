@@ -1,0 +1,272 @@
+<!--
+Type: vf email template used in the workflow email notification
+Purpose:    To show the job and  all freight items related to the special services case created by TIBCO
+History:
+--------------------------------------------------
+15.02.2019      Anshul Goyal      Created
+-->
+<messaging:emailTemplate subject="New Case: Salesforce Case number {!relatedTo.EmailThreadID__c}" recipientType="Contact" relatedToType="Case">
+
+    <messaging:htmlEmailBody >
+        <html>
+        <style type="text/css">
+               p{
+                  font-size: 11pt;
+                  font-family: Calibri, sans-serif; 
+                  color: rgb(31, 78, 121);
+               }
+           </style>
+        <body>
+        <div style="background-color:#ebe6e1">
+            <p>Thanks for submitting the Special Services Request through the Startrack Website. A new case number has been generated in our system.</p>
+
+            <p>The reference case number is: {!relatedTo.CaseNumber}.</p>
+
+            <p>You may also reply to this email with attachments if any further communications is required for this request. </p>
+
+            <p>Alternatively, you may also contact the Special Services team on below contact details by quoting your case number.</p>
+        </div>
+        </body>
+        </html>
+    </messaging:htmlEmailBody>
+
+    <!--This block of code generate the pdf attachment in the email-->
+    <messaging:attachment renderAs="pdf" filename="Special Services Delivery">
+        <html>
+        <style type="text/css">
+                table, tr, td {
+                  font-family:verdana;
+
+                }
+            </style>
+        <header>
+
+
+        </header>
+
+        <body>
+        <table style="border-collapse: collapse; width: 100%;margin-left:4px;" border="0">
+            <tbody>
+            <tr style="height: 18px;">
+                <td style="width: 50%; height: 58px;">
+                    <p style="margin-bottom: .25in; tab-stops: right 99.25pt 269.35pt 439.45pt;"><strong><span style="font-size: 12.0pt; font-variant: small-caps;">Special Services Delivery Request</span></strong></p>
+                </td>
+                <td style="width: 25%;">&nbsp;</td>
+                <td style="width: 25%; height: 58px;">&nbsp;</td>
+            </tr>
+            <tr style="height: 18px;">
+                <td style="width: 50%; height: 18px;"><b>StarTrack Contact</b></td>
+                <td style="width: 25%;">&nbsp;</td>
+                <td style="width: 25%; height: 18px;">&nbsp;</td>
+            </tr>
+            <tr style="height: 18px;">
+                <td style="width: 50%; height: 18px;">National Coordinator Centre (NCC)</td>
+                <td style="width: 25%;text-align:right;"><b>Case Number:</b></td>
+                <td style="width: 25%; height: 18px;">{!relatedTo.CaseNumber}</td>
+            </tr>
+            <tr style="height: 18px;">
+                <td style="width: 10%; height: 18px;text-align:left;">Ph:<span style="margin-left:2px;">1300 TAILLIFT</span></td>
+                <td style="width: 25%;text-align:right;"><b>Charge Acc Number:</b></td>
+                <td style="width: 25%; height: 18px;">{!relatedTo.Billing_Number__c}</td>
+            </tr>
+            <tr style="height: 25px;">
+                <td style="width: 10%;text-align:left;">Email:<span style="margin-left:2px;">specialservices@startrack.com.au</span></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--Display the job related to the case , assuming one job is connected to the case--->
+        <apex:repeat var="jb" value="{!relatedTo.Jobs__r}">
+            <p style="background: #BFBFBF;margin-bottom:6px;"><strong><span style="font-size: 11.0pt;margin-left:4px;">&nbsp;Senders/Pickup Details</span></strong></p>
+
+            <table style="border-collapse: collapse; width: 100%;font-family:'AP Letter Light';" border="0" cellspacing="6">
+                <tbody>
+                <tr style="height: 30px;">
+                    <td style="width: 25%; height: 18px;text-align:right;margin-left:2px;"><b>Company Name:</b></td>
+                    <td style="height: 18px;" colspan="5"><span style="text-transform:capitalize">{!jb.SendersCompanyName__c}</span></td>
+                </tr>
+                <tr style="height: 18px;">
+                    <td style="width: 25%; height: 18px;text-align:right;"><b>Address:</b></td>
+                    <td style="height: 18px;" colspan="5">{!jb.Senders_Address__c}</td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td style="width: 25%; height: 18px;text-align:right;"><b>Suburb:</b></td>
+                    <td style="width: 25%; height: 18px;">{!jb.Senders_Suburb__c}</td>
+                    <td style="width: 16.6667%; height: 18px;text-align:right;"><b>State:</b></td>
+                    <td style="width: 16.6667%; height: 18px;">{!jb.Senders_State__c}</td>
+                    <td style="width: 30%; height: 18px;text-align:right;"><b>Postcode:</b></td>
+                    <td style="width: 16.6667%; height: 18px;">{!jb.Senders_Postcode__c}</td>
+                </tr>
+                <tr style="height: 18px;">
+                    <td style="width: 25%; height: 18px;text-align:right;"><b>Primary Contact:</b></td>
+                    <td style="width: 25%; height: 18px;">{!jb.Senders_Primary_Contact__c}</td>
+                    <td style="width: 16.6667%; height: 18px;text-align:right;"><b>Phone:</b></td>
+                    <td style="height: 18px;" colspan="2">{!jb.Senders_Primary_Contact_Pone__c}</td>
+
+                </tr>
+                <tr style="height: 30px;">
+                    <td style="width: 25%; height: 18px;">&nbsp;</td>
+                    <td style="width: 25%; height: 18px;">&nbsp;</td>
+                    <td style="width: 16.6667%;height: 18px;text-align:right;"><b>Email:</b></td>
+                    <td style="height: 18px;" colspan="3">{!jb.Contact_Email_Address__c}</td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td style="width: 25%; height: 18px;text-align:right;"><b>Secondary Contact:</b></td>
+                    <td style="width: 25%; height: 18px;">{!jb.Senders_Secondary_Contact__c}</td>
+                    <td style="width: 16.6667%; height: 18px;text-align:right;"><b>Phone:</b></td>
+                    <td style="height: 18px;" colspan="2">{!jb.Senders_Secondary_Contact_Phone__c}</td>
+
+                </tr>
+                <tr style="height: 30px;">
+                    <td style="width: 25%; height: 18px;text-align:right;"><b>Pickup Date:</b></td>
+                    <td style="width: 25%; height: 18px;">
+                        <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                            <apex:param value="{!jb.Pickup_Date__c}" />
+                        </apex:outputText></td>
+                    <td style="width: 16.6667%; height: 18px;text-align:right;"><b>Time:</b></td>
+                    <td style="width: 16.6667%; height: 18px;">{!jb.Pickup_Open_Time__c}</td>
+                    <td style="width: 30%; height: 18px;text-align:right;"><b>Closing Time:</b></td>
+                    <td style="width: 16.6667%; height: 18px;">{!jb.Pickup_Close_Time__c}</td>
+                </tr>
+                </tbody>
+            </table>
+
+
+            <p style="background: #BFBFBF;margin-bottom:6px;"><strong><span style="font-size: 11.0pt;margin-left:4px;">&nbsp;Receivers Details</span></strong></p>
+            <table style="border-collapse: collapse; width: 100%;font-family:'AP Letter Light';" border="0" cellspacing="6">
+                <tbody>
+                <tr style="height: 30px;">
+                    <td style="width: 25%; height:18px;text-align:right;margin-left:2px;"><b>Company Name:</b></td>
+                    <td style="height: 18px;" colspan="5">{!jb.RecieverCompanyName__c}</td>
+
+                </tr>
+                <tr style="height: 18px;">
+                    <td style="width: 25%; height: 18px;text-align:right;"><b>Address:</b></td>
+                    <td style="height: 18px;" colspan="5">{!jb.Receiver_Address__c}</td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td style="width: 25%; height: 18px;text-align:right;"><b>Suburb:</b></td>
+                    <td style="width: 25%; height: 18px;">{!jb.Receiver_Suburb__c}</td>
+                    <td style="width: 16.6667%; height: 18px;text-align:right;"><b>State:</b></td>
+                    <td style="width: 16.6667%; height: 18px;">{!jb.Receiver_State__c}</td>
+                    <td style="width: 30%; height: 18px;text-align:right;"><b>Postcode:</b></td>
+                    <td style="width: 16.6667%; height: 18px;">{!jb.Receiver_Postcode__c}</td>
+                </tr>
+                <tr style="height: 18px;">
+                    <td style="width: 25%; height: 18px;text-align:right;"><b>Primary Contact:</b></td>
+                    <td style="width: 25%; height: 18px;">{!jb.Receiver_Primary_Contact__c}</td>
+                    <td style="width: 16.6667%; height: 18px;text-align:right;"><b>Phone:</b></td>
+                    <td style="height: 18px;" colspan="2">{!jb.Receiver_Primary_Contact_Pone__c}</td>
+
+                </tr>
+                <tr style="height: 30px;">
+                    <td style="width: 25%; height: 18px;">&nbsp;</td>
+                    <td style="width: 25%; height: 18px;">&nbsp;</td>
+                    <td style="width: 16.6667%; height: 18px;text-align:right;"><b>Email:</b></td>
+                    <td style="height: 18px;" colspan="3">{!jb.Receiver_Email_Address__c}</td>
+
+                </tr>
+                <tr style="height: 30px;">
+                    <td style="width: 25%; height: 18px;text-align:right;"><b>Secondary Contact:</b></td>
+                    <td style="width: 25%; height: 18px;">{!jb.Receiver_Secondary_Contact__c}</td>
+                    <td style="width: 16.6667%; height: 18px;text-align:right;"><b>Phone:</b></td>
+                    <td style="height: 18px;" colspan="2">{!jb.Receiver_Secondary_Contact_Phone__c}</td>
+
+                </tr>
+                <tr style="height:25px;">
+                    <td style="width: 25%; height: 18px;text-align:right;"><b>Delivery Date:</b></td>
+                    <td style="width: 25%; height: 18px;">
+                        <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                            <apex:param value="{!jb.Delivery_Date__c}" />
+                        </apex:outputText></td>
+                    <td style="width: 16.6667%; height: 18px;text-align:right;"><b>Time:</b></td>
+                    <td style="width: 16.6667%; height: 18px;">{!jb.Delivery_Open_Time__c}</td>
+                    <td style="width: 30%; height: 18px;text-align:right;"><b>Closing Time:</b></td>
+                    <td style="width: 16.6667%; height: 18px;">{!jb.Delivery_Close_Time__c}</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <p style="background: #BFBFBF;margin-bottom:6px;"><strong><span style="font-size: 11.0pt;margin-left:4px;">&nbsp;Consignment Details</span></strong></p>
+            <table style="border-collapse: collapse; width:100%;" border="0" cellspacing="6">
+                <tbody>
+                <tr style="height: 30px;">
+                    <td style="width: 25%; height: 18px; text-align: right;margin-left:2px;"><strong>Connote Number:</strong></td>
+                    <td style="width: 30%; height: 18px;">{!jb.Connote_Number__c}</td>
+                    <td style="width: 16.6667%%; height: 18px; text-align: right;"><strong>Cartons:</strong></td>
+                    <td style="width: 10%;">
+                        <apex:outputText value="{0, number, integer}">
+                            <apex:param value="{!jb.Cartons__c}" />
+                        </apex:outputText>
+                    </td>
+                </tr>
+                <tr style="height: 18px;">
+                    <td style="width: 25%;">&nbsp;</td>
+                    <td style="width: 25%;">&nbsp;</td>
+                    <td style="width:16.6667%; text-align: right;"><b>Pallets:</b></td>
+                    <td style="width: 10%;">
+                        <apex:outputText value="{0, number, integer}">
+                            <apex:param value="{!jb.Pallets__c}" />
+                        </apex:outputText>
+                    </td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td style="width: 25%;">&nbsp;</td>
+                    <td style="width: 25%;">&nbsp;</td>
+                    <td style="width: 16.6667%; text-align: right;"><b>Total Pieces:</b></td>
+                    <td style="width: 10%;">
+                        <apex:outputText value="{0, number, integer}">
+                            <apex:param value="{!jb.Total_Pieces__c}" />
+                        </apex:outputText>
+                    </td>
+                    <td style="width: 25%; text-align: right;"><b>Weight</b>(Kg):</td>
+                    <td style="width: 16.6667%;">{!jb.Weight_Kgs__c}</td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td style="width: 25%; height: 18px; text-align: right; margin-left: 5px;"><b>Freight Description:</b></td>
+                    <td style="height: 18px; width: 116.532%;" colspan="5">{!jb.Freight_Description__c}</td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td style="width: 25%; height: 18px; text-align: right; margin-left: 5px;"><b>Sender Reference:</b></td>
+                    <td style="height: 18px; width: 116.532%;" colspan="5">{!jb.Senders_Reference__c}</td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td style="width: 25%; height: 18px; text-align: right; margin-left: 5px;"><b>Service:</b></td>
+                    <td style="height: 18px; width: 116.532%;" colspan="5">{!jb.Service_Code__c}</td>
+                </tr>
+                <tr style="height: 18px;">
+                    <td style="width: 25%; text-align: right;"><b>Requirements:</b></td>
+                    <td style="padding-left: 10px; text-align: left;"><c:OutputCheckbox value="{!jb.Additional_Equipment__c}" />Additional Equipment</td>
+                    <td style="padding-left: 0px; text-align: left;" colspan="5"><c:OutputCheckbox value="{!jb.Unpacking_and_Rubbish_Removal__c}" />Unpack and Remove Rubbish</td>
+                </tr>
+                <tr style="height: 18px;">
+                    <td style="width: 25%;">&nbsp;</td>
+                    <td style="padding-left: 10px; text-align: left;"><c:OutputCheckbox value="{!jb.Site_Inspection__c}" />Site Inspection</td>
+                    <td style="padding-left: 0px; text-align: left;" colspan="5"><c:OutputCheckbox value="{!jb.Urgent_Notification_of_Problems__c}" />Urgent Notification of Any Delivery Problems</td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td style="width: 25%;">&nbsp;</td>
+                    <td style="padding-left: 10px; text-align: left;"><c:OutputCheckbox value="{!jb.Stair_Climber__c}" />Stair Climber</td>
+                    <td style="padding-left: 0px; text-align: left;" colspan="5"><c:OutputCheckbox value="{!jb.WeekendPublic_Holiday__c}" />Weekend/Public Holiday Delivery</td>
+                </tr>
+                <tr style="height: 18px;">
+                    <td style="width: 25%; height: 18px; text-align:right;" ><b>Additional Requirements:</b></td>
+                    <td style="height:18px;margin-left:6px;" colspan="5">&nbsp;{!jb.Additional_Requirements__c}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="page-break-after:always;height:1px;">  </div>
+            <p style="background: #BFBFBF;padding-left:4px;"><strong><span style="font-size: 11.0pt;margin-left:4px;">&nbsp;Product Details</span></strong></p>
+
+            <c:DisplayFreightItemsFromJob jobSfId="{!jb.Id}"/>
+
+        </apex:repeat>
+        </body>
+
+
+        <footer>
+        </footer>
+        </html>
+    </messaging:attachment>
+</messaging:emailTemplate>

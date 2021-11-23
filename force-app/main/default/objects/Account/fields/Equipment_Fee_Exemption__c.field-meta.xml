@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Equipment_Fee_Exemption__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Whether or not an LPO is exempted from paying equipment fees.</description>
+    <externalId>false</externalId>
+    <label>Equipment Fee Exemption</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

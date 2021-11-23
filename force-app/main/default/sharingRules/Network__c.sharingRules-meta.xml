@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Open_access_to_Network</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Open access to Network</label>
+        <sharedTo>
+            <group>StarTrack_Delegated_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Agent,Regional,Metro,Care Agent</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Partner_Info_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Incent system updates few Partner Info related fields</description>
+        <label>Partner Info RW</label>
+        <sharedTo>
+            <group>Partner_Info_RW</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Retail,Other,Lockers</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SSSW_MyNetwork_Manager</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>SSSW MyNetwork Manager</label>
+        <sharedTo>
+            <role>SSSW_Facility_Manager_VIC</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Retail,Delivery,Other</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Networks_to_LBP</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Allows the LBP to populate LBP field on Opportunity</description>
+        <label>Share Networks to LBP</label>
+        <sharedTo>
+            <roleAndSubordinates>PartnerInfo_National_RNP_Manager</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Retail</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Updated__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field indicates the update time of the Account Plan in Dealmaker. This field does not reflect changes made outside of Dealmaker that may impact the Account Plan, for example, deleting an opportunity in Salesforce but not in Dealmaker would not update this field.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field indicates the update time of the Account Plan in Dealmaker. This field does not reflect changes made outside of Dealmaker that may impact the Account Plan, for example, deleting an opportunity in Salesforce would not update this field.</inlineHelpText>
+    <label>Updated</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

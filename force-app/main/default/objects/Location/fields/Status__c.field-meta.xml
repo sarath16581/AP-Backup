@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Available</fullName>
+                <default>false</default>
+                <label>Available</label>
+            </value>
+            <value>
+                <fullName>In Use</fullName>
+                <default>false</default>
+                <label>In Use</label>
+            </value>
+            <value>
+                <fullName>Fault</fullName>
+                <default>false</default>
+                <label>Fault</label>
+            </value>
+            <value>
+                <fullName>Scheduled Maintainance</fullName>
+                <default>false</default>
+                <label>Scheduled Maintainance</label>
+            </value>
+            <value>
+                <fullName>Decommissioned</fullName>
+                <default>false</default>
+                <label>Decommissioned</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

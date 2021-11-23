@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Medical_Qty_ItemsIFMedical__c</fullName>
+    <description>Qty Items- Incompatible Freight  (per month)- Medical</description>
+    <externalId>false</externalId>
+    <inlineHelpText>It relates to only those items that are not machine able i.e, temperature sensitive, packed in dry ice, etc</inlineHelpText>
+    <label>Medical - Qty Items</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

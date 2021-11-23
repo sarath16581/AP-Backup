@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataCategoryGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Parcel Post</label>
+                <name>Parcel_Post</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Express</label>
+                <name>Express</name>
+            </dataCategory>
+            <dataCategory>
+                <label>eParcel- Regular</label>
+                <name>eParcel_Regular</name>
+            </dataCategory>
+            <dataCategory>
+                <label>eParcel- Express</label>
+                <name>eParcel_Express</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Courier Post</label>
+                <name>Courier_Post</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Cash on Delivery</label>
+                <name>Cash_on_Delivery</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Other Domestic Parcels</label>
+                <name>Other_Domestic_Parcels</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Mail redirection</label>
+                <name>Mail_redirection</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Mail hold</label>
+                <name>Mail_hold</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Messenger Post</label>
+                <name>Messenger_Post</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Star Track Express</label>
+                <name>Star_Track_Express</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Staff feedback</label>
+                <name>Staff_feedback</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Other Domestic Parcel Products</label>
+                <name>Other_Domestic_Parcel_Products</name>
+            </dataCategory>
+            <label>Domestic Parcels</label>
+            <name>Domestic_Parcels</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>PO Boxes &amp; Bags</label>
+                <name>PO_Boxes_Bags</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Article Collection</label>
+                <name>Article_Collection</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Mail Pick up</label>
+                <name>Mail_Pick_up</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Mobile devices</label>
+                <name>Mobile_devices</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Packaging</label>
+                <name>Packaging</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Philatelic (stamps)</label>
+                <name>Philatelic_stamps</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Concession stamps</label>
+                <name>Concession_stamps</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Stationery</label>
+                <name>Stationery</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Gift cards</label>
+                <name>Gift_cards</name>
+            </dataCategory>
+            <dataCategory>
+                <label>General merchandise</label>
+                <name>General_merchandise</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Staff feedback</label>
+                <name>stafffeedback</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Other Technology products</label>
+                <name>Other_Technology_products</name>
+            </dataCategory>
+            <label>Post Office &amp; Business Hub Services</label>
+            <name>Post_Office_Business_Hub_Services</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>ECI</label>
+                <name>ECI</name>
+            </dataCategory>
+            <dataCategory>
+                <label>ECI Platinum</label>
+                <name>ECI_Platinum</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Registered Post International</label>
+                <name>Registered_Post_International</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Express Post International</label>
+                <name>Express_Post_International</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Pack &amp; Track International</label>
+                <name>Pack_Track_International</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Airmail over 2kg</label>
+                <name>Airmail_over_2kg</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Airmail under 2kg</label>
+                <name>Airmail_under_2kg</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Sea Mail</label>
+                <name>Sea_Mail</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Other international Parcels</label>
+                <name>Other_international_Parcels</name>
+            </dataCategory>
+            <label>International Parcels</label>
+            <name>International_Parcels</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Multi-Currency Cash Passport</label>
+                <name>Multi_Currency_Cash_Passport</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Western Union</label>
+                <name>Western_Union</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Passport - Australian</label>
+                <name>Passport_Australian</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Passport - British</label>
+                <name>Passport_British</name>
+            </dataCategory>
+            <dataCategory>
+                <label>All Other ID&amp;V services</label>
+                <name>All_Other_ID_V_services</name>
+            </dataCategory>
+            <dataCategory>
+                <label>My Post ID card</label>
+                <name>My_Post_ID_card</name>
+            </dataCategory>
+            <dataCategory>
+                <label>KeyPass</label>
+                <name>KeyPass</name>
+            </dataCategory>
+            <label>Travel &amp; ID</label>
+            <name>Travel_ID</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Bank@Post</label>
+                <name>Bank_Post</name>
+            </dataCategory>
+            <dataCategory>
+                <label>PostBillPay</label>
+                <name>PostBillPay</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Load &amp; Go</label>
+                <name>Load_Go</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Insurance</label>
+                <name>Insurance</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Amex</label>
+                <name>Amex</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Foreign Currency</label>
+                <name>Foreign_Currency</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Multi-Currency Cash Passport</label>
+                <name>Multi_CurrencyCash_Passport</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Western Union</label>
+                <name>WesternUnion</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Passport - Australian</label>
+                <name>PassportAustralian</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Passport - British</label>
+                <name>PassportBritish</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Other Financial Services</label>
+                <name>Other_Financial_Services</name>
+            </dataCategory>
+            <label>Money &amp; Insurance</label>
+            <name>Money_Insurance</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Express Post</label>
+                <name>Express_Post</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Express Post Platinum</label>
+                <name>Express_Post_Platinum</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Cash on Delivery</label>
+                <name>Cash_onDelivery</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Ordinary mail</label>
+                <name>Ordinary_mail</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Registered Post</label>
+                <name>Registered_Post</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Business Letters</label>
+                <name>Business_Letters</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Item Transfer</label>
+                <name>Item_Transfer</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Unaddressed Mail</label>
+                <name>Unaddressed_Mail</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Mail redirection</label>
+                <name>Mailredirection</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Staff feedback</label>
+                <name>Staff_feedbac</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Mail hold</label>
+                <name>Mailhold</name>
+            </dataCategory>
+            <label>Domestic Letters</label>
+            <name>Domestic_Letters</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>ECI</label>
+                <name>EC</name>
+            </dataCategory>
+            <dataCategory>
+                <label>ECI Platinum</label>
+                <name>ECIPlatinum</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Registered Post International</label>
+                <name>RegisteredPost_International</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Express Post International</label>
+                <name>ExpressPost_International</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Pack &amp; Track International</label>
+                <name>PackTrack_International</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Airmail under 2kg</label>
+                <name>Airmailunder_2kg</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Other international letters</label>
+                <name>Other_international_letters</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Mail redirection</label>
+                <name>Mailredirectio</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Mail hold</label>
+                <name>Mailhld</name>
+            </dataCategory>
+            <label>International Letters</label>
+            <name>International_Letters</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Website</label>
+                <name>Website</name>
+            </dataCategory>
+            <dataCategory>
+                <label>shop.auspost.com.au</label>
+                <name>shop_auspost_com_au</name>
+            </dataCategory>
+            <dataCategory>
+                <label>stationery.auspost.com.au</label>
+                <name>stationery_auspost_com_au</name>
+            </dataCategory>
+            <dataCategory>
+                <label>eBay Store</label>
+                <name>eBay_Store</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Mobile website</label>
+                <name>Mobile_website</name>
+            </dataCategory>
+            <dataCategory>
+                <label>AP Digital Mailbox</label>
+                <name>AP_Digital_Mailbox</name>
+            </dataCategory>
+            <dataCategory>
+                <label>MRS Online</label>
+                <name>MRS_Online</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Delivery Choices</label>
+                <name>Delivery_Choices</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Parcel Lockers</label>
+                <name>Parcel_Lockers</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Parcel Collect</label>
+                <name>Parcel_Collect</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Click &amp; Send</label>
+                <name>Click_Send</name>
+            </dataCategory>
+            <dataCategory>
+                <label>eParcel Online</label>
+                <name>eParcel_Online</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Parcel Send</label>
+                <name>Parcel_Send</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Postcard App</label>
+                <name>Postcard_App</name>
+            </dataCategory>
+            <dataCategory>
+                <label>UMCS</label>
+                <name>UMCS</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Video Stamp</label>
+                <name>Video_Stamp</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Farmhouse Direct</label>
+                <name>Farmhouse_Direct</name>
+            </dataCategory>
+            <dataCategory>
+                <label>APCN</label>
+                <name>APCN</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Other Web &amp; Apps</label>
+                <name>Other_Web_Apps</name>
+            </dataCategory>
+            <label>Web &amp; Apps</label>
+            <name>Web_Apps</name>
+        </dataCategory>
+        <label>All</label>
+        <name>All</name>
+    </dataCategory>
+    <label>Product</label>
+    <objectUsage>
+        <object>KnowledgeArticleVersion</object>
+    </objectUsage>
+</DataCategoryGroup>

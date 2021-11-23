@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Name__c</fullName>
+    <externalId>false</externalId>
+    <label>Name</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Despatcher (Thick)</fullName>
+                <default>false</default>
+                <label>Despatcher (Thick)</label>
+            </value>
+            <value>
+                <fullName>Freight Master (Thick)</fullName>
+                <default>false</default>
+                <label>Freight Master (Thick)</label>
+            </value>
+            <value>
+                <fullName>eParcel Web (Online)</fullName>
+                <default>false</default>
+                <label>eParcel Web (Online)</label>
+            </value>
+            <value>
+                <fullName>FMU (Online)</fullName>
+                <default>false</default>
+                <label>FMU (Online)</label>
+            </value>
+            <value>
+                <fullName>Web Despatch (Online)</fullName>
+                <default>false</default>
+                <label>Web Despatch (Online)</label>
+            </value>
+            <value>
+                <fullName>Integrated</fullName>
+                <default>false</default>
+                <label>Integrated</label>
+            </value>
+            <value>
+                <fullName>Third Party Integrators</fullName>
+                <default>false</default>
+                <label>Third Party Integrators</label>
+            </value>
+            <value>
+                <fullName>eParcel (Integrated)</fullName>
+                <default>false</default>
+                <label>eParcel (Integrated)</label>
+            </value>
+            <value>
+                <fullName>BulkShipper (Integrated)</fullName>
+                <default>false</default>
+                <label>BulkShipper (Integrated)</label>
+            </value>
+            <value>
+                <fullName>MOS (Integrated)</fullName>
+                <default>false</default>
+                <label>MOS (Integrated)</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>MyStarTrack Online</fullName>
+                <default>false</default>
+                <label>MyStarTrack Online</label>
+            </value>
+            <value>
+                <fullName>MyStarTrack (Thick)</fullName>
+                <default>false</default>
+                <label>MyStarTrack (Thick)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

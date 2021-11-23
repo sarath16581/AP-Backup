@@ -1,0 +1,7 @@
+<p>Hi {!Deal_Support_Request__c.Requestor__c},</p>
+
+<p>You have a fantastic opportunity that has been flagged as Major or Complex in the Qualify Stage and as such, Salesforce has automatically created a Deal Support Request &ndash; Commit to Pursue: <a href="{!Deal_Support_Request__c.Link}">{!Deal_Support_Request__c.Name}</a>.<br>
+A Commit to Pursue is a function within BG&amp;I to ensure you have the right resources to progress this sale. You can click on the link above and add any comments about what you need, and someone from the Deal Desk will be contact with you shortly.</p>
+
+<p>Kind Regards,<br>
+Deal Support Team</p>

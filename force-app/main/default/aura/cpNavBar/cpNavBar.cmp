@@ -1,0 +1,34 @@
+<aura:component controller="cpNavBarController" extends="forceCommunity:navigationMenuBase" implements="forceCommunity:availableForAllPageTypes">
+	<!-- <div aura:id="changeIt">Change Me!</div><br/> -->
+	<!-- <lightning:buttonIcon iconName="utility:shi  eld" variant="bare" onclick="{!c.toggleCSS}" alternativeText="Menu"/> -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="menu" type="list"/>
+    <!--onclick="{!c.onClick}"-->
+    <ul id="cp-nav-id" aura:id="toggleIt" class="cp-nav-ul"  aria-expanded="false">
+		<li>
+			<span class="cp-burger-and-logo">
+				<lightning:buttonIcon iconName="utility:rows" variant="bare" size="large" class="cp-burger" onclick="{!c.toggleCSS}" alternativeText="Menu"/>
+				<!-- <a href="https://auspost.com.au/" target="blank" title="Link to Australia Post main website2"><img class="cp-ap-p-logo" src="/resource/cp_home_icons_png/AP_logo.png" alt="Australia Post logo link to main website"/></a> -->
+            	<!-- <a href="https://auspost.com.au/" target="blank" title="Link to Australia Post main website"><img class="cp-ap-p-logo" src="{!$Resource.cp_home_icons_png + '/AP_logo.png'}" alt="Australia Post logo link to website"/></a> -->
+			</span>
+		</li>
+		<aura:iteration aura:id="closeIt" items="{!v.menu}" var="item">
+			<aura:if isTrue="{!item.subMenu}">
+				<li >{!item.label}</li>
+				<ul>
+					<aura:iteration items="{!item.subMenu}" var="subItem">
+						<li>
+							<a data-menu-item-id="{!subItem.id}" href="">{!subItem.label}</a>
+						</li>
+					</aura:iteration>
+				</ul>
+                <!--Below code is changed on 15-08-2018 for adding title to Navigation Menu bar for Communities.-->
+				<aura:set attribute="else">
+					<li onclick="{!c.removeCSS}">
+                        <a data-menu-item-id="{!item.id}" href="{!item.target}" title="{!item.label}">{!item.label}</a>
+					</li>
+				</aura:set>
+			</aura:if>
+		</aura:iteration>
+	</ul> 
+</aura:component>

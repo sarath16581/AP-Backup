@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Highlight an answer your company endorses by marking it as Company Verified</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Verify Answers to Chatter Questions</label>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>CanVerifyComment</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ChatterEnabledForUser</name>
+    </userPermissions>
+</PermissionSet>

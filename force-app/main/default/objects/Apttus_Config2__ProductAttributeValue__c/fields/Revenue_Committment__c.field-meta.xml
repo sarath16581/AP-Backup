@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Revenue_Committment__c</fullName>
+    <externalId>false</externalId>
+    <label>Revenue Commitment($)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Less than 3,000</fullName>
+                <default>true</default>
+                <label>Less than 3,000</label>
+            </value>
+            <value>
+                <fullName>3,000 - 4,999</fullName>
+                <default>false</default>
+                <label>3,000 - 4,999</label>
+            </value>
+            <value>
+                <fullName>5,000 - 19,999</fullName>
+                <default>false</default>
+                <label>5,000 - 19,999</label>
+            </value>
+            <value>
+                <fullName>20,000 - 34,999</fullName>
+                <default>false</default>
+                <label>20,000 - 34,999</label>
+            </value>
+            <value>
+                <fullName>35,000 - 50,000</fullName>
+                <default>false</default>
+                <label>35,000 - 50,000</label>
+            </value>
+            <value>
+                <fullName>Above 50,000</fullName>
+                <default>false</default>
+                <label>Above 50,000</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

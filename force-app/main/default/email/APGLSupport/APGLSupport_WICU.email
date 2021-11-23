@@ -1,0 +1,465 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+				/* 
+					core 'shell' CSS 
+				*/
+				body { width: 100%; min-width: 100%; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; font-family: Arial, Helvetica, sans-serif; }
+				table { border-collapse: collapse; }
+				ul { padding: 0; Margin: 0; }
+				li { Margin: 10px 0 0 20px; }
+				.addClassToSection a { color: #5e514d!important; }
+				.ExternalClass { width: 100%; line-height: 100%; }
+				.appleLinks a { color:#5e514d; text-decoration: none; }
+				.appleLinksWhite a { color:#ffffff; text-decoration: none; }
+              	.appleLinksBlack a { color:#382f2d; text-decoration: none; }
+              	.appleLinksGrey a { color:#807370; text-decoration: none; }
+				div, p, a, li, td { -webkit-text-size-adjust:none; }
+				
+				/* 
+					module mobile css
+				*/
+				@media only screen and (max-width: 540px)  {
+					.gmail-hack {
+						letter-spacing:320px!important;
+					}
+					.device-hide {
+						display:none!important;
+					}
+					.device-width {
+						width:320px!important;
+					}
+					.device-width-inner {
+						width:250px!important;
+					}
+					.container-sides-padding {
+						padding-left:35px!important;
+						padding-right:35px!important;
+					}
+					.header-copy-font {
+						font-size:15px!important;
+					}
+					.header-collapse-padding {
+						padding-bottom:10px!important;
+					}
+					.padding-t-35 {
+						padding:35px 0 0 0!important;
+					}
+				}
+			</style>
+</head>
+<body width="100%" bgcolor="#f3f1ee" style="margin: 0; padding: 0;">
+<!-- START ISO-Header -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+<tbody>
+<tr>
+<td align="center"><!-- gmail hack to force desktop version -->
+<div role="presentation" class="gmail-hack" style="letter-spacing: 540px; line-height: 0; mso-hide: all">
+&nbsp;</div>
+<!-- header -->
+<table class="device-width" width="500" align="center" valign="middle" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 500px;">
+<tbody>
+<tr>
+<td class="container-sides-padding" style="display:none; color:#f3f1ee; font-family: Arial, Helvetica, sans-serif; font-size:0px; line-height:0px;">
+Request for supporting documentation.</td>
+</tr>
+<tr>
+<td class="container-sides-padding" style="padding:35px 60px 28px 60px;"><!-- left logo -->
+<table align="left" valign="middle" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+<tbody>
+<tr>
+<td><a href="http://click.notifications.auspost.com.au/?qs=b47caf39db891409278a716dcbcc2972dae77a13a5d98efab4e27be0f4a627cb9fd0325c87ee246735845661b10664c2863f4599b004ef1f" style="border:none; text-decoration:none;"><img src="http://image.email.auspost.com.au/lib/fe5d1570726c007b7d14/m/1/aplogo.png" width="45" height="45" border="0" margin="0" alt="Australia Post Logo" style="display:block; min-width:45px; min-height:45px;"></a>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- right text -->
+<table align="right" valign="middle" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+<tbody>
+<tr>
+<td class="header-copy-font header-collapse-padding" style="text-align:right; padding-top:12px; color:#807370; font-family: Arial, Helvetica, sans-serif; font-size:16px; line-height:20px;">
+Tracking update </td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- corners -->
+<table role="presentation" class="device-hide" width="500" align="center" valign="top" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse;">
+<tbody>
+<tr>
+<td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+<!-- top left corner --><img src="http://image.email.auspost.com.au/lib/fe5d1570726c007b7d14/m/1/DBN_2016-corner-tl.png" width="4" height="4" border="0" margin="0" alt="" style="display:block;"></td>
+<td width="496" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+<!-- middle gap -->&nbsp; </td>
+<td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+<!-- top right corner --><img src="http://image.email.auspost.com.au/lib/fe5d1570726c007b7d14/m/1/DBN_2016-corner-tr.png" width="4" height="4" border="0" margin="0" alt="" style="display:block;"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- END ISO-Header --><!-- START ISO-Headline -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+<tbody>
+<tr>
+<td align="center"><style type="text/css">
+				@media only screen and (max-device-width: 540px)  {
+					.headline-copy-font {
+						font-size:24px!important;
+						line-height:28px!important;
+                      	text-decoration: none!important;
+					}
+				}
+			</style><!-- headline -->
+<table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 500px; ">
+<tbody>
+<tr>
+<td class="container-sides-padding" style="color:#dc1928; font-family: Arial, Helvetica, sans-serif; font-size:28px; line-height:32px; padding:52px 60px 0 60px; text-align:left;">
+<span class="headline-copy-font appleLinksBlack">Request for supporting documentation</span>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- END ISO-Headline --><!-- START ISO-Body -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+<tbody>
+<tr>
+<td align="center"><!-- body -->
+<table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 500px; ">
+<tbody>
+<tr> </tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- END ISO-Body --><!-- START ISO-Body -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+<tbody>
+<tr> </tr>
+</tbody>
+</table>
+<!-- END ISO-Body --><!-- START ISO-Label-Data -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+<tbody>
+<tr> </tr>
+</tbody>
+</table>
+<!-- END ISO-Label-Data --><!-- START ISO-Body -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+<tbody>
+<tr>
+<td align="center"><!-- body -->
+<table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 500px; ">
+<tbody>
+<tr>
+<td class="container-sides-padding" style="padding:35px 60px 0 60px; color:#382f2d; font-family: Arial, Helvetica, sans-serif; text-align:left; line-height:24px; font-size:16px"> [highlight this and select a quick text here]</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- END ISO-Body --><!-- Button -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+<tbody>
+<tr>
+<td align="center"><!-- cta -->
+<table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 500px; ">
+<tbody>
+<tr>
+<td valign="top" align="left" class="container-sides-padding" style="padding:30px 60px 0 60px; text-align:left;">
+<div class="btn" style="text-align:left;color: #ffffff;">
+<table cellpadding="0" cellspacing="0" align="left">
+<tbody>
+<tr>
+<td bgcolor="#dc1928" style="min-width:205px; height: 50px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; font-family: arial,sans-serif; font-size: 13px; font-weight:bold; text-align:center;">
+<a target="_blank" href="mailto:auspostnzenquiry@auspost.com.au" style="padding:17px 43px;  -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px;text-decoration:none; color:#ffffff; display:inline-block; border:1px solid #dc1928;"><span style="font-family: arial,sans-serif;;">Contact
+ now</span> </a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- START ISO-Body -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+<tbody>
+<tr>
+<td align="center"><!-- body -->
+<table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 500px; ">
+<tbody>
+<tr>
+<td class="container-sides-padding" style="padding:35px 60px 0 60px; color:#382f2d; font-family: Arial, Helvetica, sans-serif; text-align:left; line-height:24px; font-size:16p">
+Thank you for choosing Australia Post. <br>
+<br>
+<strong>Customs Clearance Enquiries</strong><br>
+Australia Post<br>
+<span class="appleLinks">111 Bourke Street, Melbourne, Victoria, 3000</span><br>
+E: <a target="_blank" href="mailto:customsclearance@auspost.com.au" style="color:#382f2d; text-decoration:none;word-break:break-all">
+customsclearance@auspost.com.au</a><a></a></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- END ISO-Body --><!-- START ISO-Rule -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+<tbody>
+<tr>
+<td align="center"><!-- inner divider -->
+<table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width:500px;">
+<tbody>
+<tr>
+<td height="1" class="padding-t-35" style="padding:35px 60px 0 60px"><!-- // Full Width -->
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<!--Update top padding value to control gap height -->
+<td height="1">
+<table class="device-width" width="380" height="1" style="border-bottom: 1px #d8d8d8 solid; line-height:1px; width:380px;">
+<tbody>
+<tr>
+<td height="1"><img src="http://image.email.auspost.com.au/lib/fe5d1570726c007b7d14/m/1/DBN_spacer.png" height="1" width="1" alt="" style="display: block"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- // Full Width --></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- END ISO-Rule --><!-- START ISO-Body -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+<tbody>
+<tr>
+<td align="center"><!-- body -->
+<table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 500px; ">
+<tbody>
+<tr>
+<td class="container-sides-padding" style="padding:35px 60px 0 60px; color:#382f2d; font-family: Arial, Helvetica, sans-serif; text-align:left; line-height:24px; font-size:16px">
+If there are any questions, our customs agents may reply to your email directly. </td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- END ISO-Body --><!-- START ISO-Caption -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+<tbody>
+<tr>
+<td align="center"><!-- body -->
+<table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 500px; ">
+<tbody>
+<tr>
+<td class="container-sides-padding" style="padding:35px 60px 0 60px; color:#807370; font-family: Arial, Helvetica, sans-serif; text-align:left; line-height:16px; font-size:12px">
+Should you wish to contact us, please phone Australia Post Customer Services on: 13 POST (13 76 78). From overseas:
+<span class="appleLinksGrey">&#43;61 3 8847 9045. Business account customers: 13 11 18.<br>
+<br>
+Support is available Monday to Friday 8am – 6pm Australia-wide (except public holidays) or please</span>
+<a href="http://click.notifications.auspost.com.au/?qs=b47caf39db8914094adf8af46ce0083abf9ec892eaed20b6bfdc86785b5cf513bb5d6437fe87567e2845be113f39cd3d157c11638addf934" target="_blank" style="color:#807370; text-decoration:underline; font-size: 12px">
+visit our website</a>.<br>
+<br>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- END ISO-Caption --><!-- START ISO-Gap -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+<tbody>
+<tr>
+<td align="center"><style type="text/css">
+				@media only screen and (max-device-width: 540px)  {
+					.gap-height {
+						height: 35px!important;
+						line-height: 35px!important;
+					}
+				}
+			</style><!-- inner divider -->
+<table role="presentation" class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width:500px;">
+<tbody>
+<tr>
+<td><!-- To adjust desktop height of gap, update height and line-height values below. For mobile height, update CSS in media query inside the parent table. -->
+<table class="gap-height" width="100%" height="35" style="line-height:35px;">
+<tbody>
+<tr>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- END ISO-Gap --><!-- START ISO-Footer -->
+<table class="device-width" width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#f3f1ee" style="border-collapse: collapse; table-layout: fixed; margin: 0 auto;">
+<tbody>
+<tr>
+<td align="center"><style type="text/css">
+				div, p, a, li, td { -webkit-text-size-adjust:none; }
+				@media only screen and (max-device-width: 540px)  {
+					
+					.footer-security-image {
+						padding:0 23px 0 23px!important;
+					}
+					.footer-security-text {
+						font-size:12px!important;
+						line-height:14px!important;
+						padding-right:30px!important;
+					}
+					.footer-links-padding {
+						padding-top:5px!important;
+					}
+					.footer-outer-gap-height {
+						height:30px!important;
+						line-height:30px!important;
+					}
+					.footer-mobile-separator {
+						width:10px!important;
+					}
+				}
+			</style><!-- corners -->
+<table class="device-hide" width="500" align="center" valign="top" border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="border-collapse: collapse; width: 500px; ">
+<tbody>
+<tr>
+<td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+<!-- top left corner --><img src="http://image.email.auspost.com.au/lib/fe5d1570726c007b7d14/m/1/DBN_new-template-corner-bl.png" border="0" margin="0" alt="" style="display:block;">
+</td>
+<td width="496" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+<!-- middle gap -->&nbsp; </td>
+<td width="4" height="4" style="mso-line-height-rule:exactly; line-height:4px; font-size:4px;">
+<!-- top right corner --><img src="http://image.email.auspost.com.au/lib/fe5d1570726c007b7d14/m/1/DBN_new-template-corner-br.png" border="0" margin="0" alt="" style="display:block;">
+</td>
+</tr>
+</tbody>
+</table>
+<!-- gap -->
+<table role="presentation" class="device-width" width="500" align="center" valign="top" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 500px;">
+<tbody>
+<tr>
+<td class="footer-outer-gap-height" height="20" style="line-height:20px;">&nbsp; </td>
+</tr>
+</tbody>
+</table>
+<!-- logo -->
+<table class="device-width" width="500" align="center" valign="top" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 500px;">
+<tbody>
+<tr>
+<td class="container-sides-padding" style="padding-top: 20px;">
+<table align="left" valign="top" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+<tbody>
+<tr>
+<td class="device-width-inner" align="left" style="padding:0;"><!-- startrack logo --><img src="http://image.email.auspost.com.au/lib/fe5d1570726c007b7d14/m/1/DBN_startrack-logo-grey.png" width="133" height="28" border="0" margin="0" alt="StarTrack Logo" style="min-width:123px; min-height:26px; display:block;">
+</td>
+</tr>
+<tr>
+<td class="device-width-inner" align="left" style="padding:5px 0 20px 0; color:#0f3769; font-family: Arial, Helvetica, sans-serif; font-size:10px; line-height:14px; text-align:left;">
+A business of Australia Post </td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- security -->
+<table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 500px;">
+<tbody>
+<tr>
+<td class="footer-security-image" style="padding:13px 20px; background-color:#dfdddb; -webkit-border-radius: 3px 0 0 3px; -moz-border-radius: 3px 0 0 3px; border-radius: 3px 0 0 3px;">
+<img width="23" height="26" src="http://image.email.auspost.com.au/lib/fe5d1570726c007b7d14/m/1/DBN_2016-padlock.png" border="0" margin="0" alt="Padlock Icon" style="display:block;">
+</td>
+<td class="footer-security-text" style="padding:13px; padding-left:0; color:#000000; font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; text-align:left; background-color:#dfdddb; -webkit-border-radius: 0 3px 3px 0; -moz-border-radius: 0 3px 3px 0; border-radius: 0 3px 3px 0;">
+Australia Post will never send you an unsolicited email asking for your password, credit card details or account information.
+</td>
+</tr>
+</tbody>
+</table>
+<!-- disclaimer -->
+<table class="device-width" width="500" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 500px;">
+<tbody>
+<tr>
+<td class="container-sides-padding" style="padding-top:20px; color:#5e514d; font-family: Arial, Helvetica, sans-serif; font-size:11px; line-height:14px; text-align:left;">
+<!-- Message-specific disclaimer text -->This email was sent by <a href="http://click.notifications.auspost.com.au/?qs=b47caf39db8914094adf8af46ce0083abf9ec892eaed20b6bfdc86785b5cf513bb5d6437fe87567e2845be113f39cd3d157c11638addf934" target="_blank" style="color:#5e514d; text-decoration:underline">
+Australia Post</a>, <span class="appleLinks">111 Bourke Street, MELBOURNE VIC 3000</span>. If you have any concerns, or don’t think you should have received this email, please call us on 13&nbsp;13&nbsp;18. Visit
+<a href="http://click.notifications.auspost.com.au/?qs=b47caf39db8914094adf8af46ce0083abf9ec892eaed20b6bfdc86785b5cf513bb5d6437fe87567e2845be113f39cd3d157c11638addf934" target="_blank" style="color:#5e514d; text-decoration:underline;">
+auspost.com.au</a> for further information on our online <a href="http://click.notifications.auspost.com.au/?qs=b47caf39db891409f51b876385b0de22b963cd613719aaf34ebd8636e4f7668ec0459ab97c984bf4dd5a572a8af763d625c5e5432cf15af4" target="_blank" style="color:#5e514d; text-decoration:underline">
+security </a>. <br>
+<br>
+If you do not wish to receive such information you can <a href="http://click.notifications.auspost.com.au/?qs=b47caf39db89140921220ae82c25b19d69051ec1823c4029e139c6ce4fa57e20dd07106fa7dda004e28397e97e2b4a6eaf9b099f6ba700516e738e1d32eb1fb0" target="_blank" style="color:#5e514d; text-decoration:underline">
+unsubscribe</a> at any time. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.
+</td>
+</tr>
+</tbody>
+</table>
+<!-- outer single horizontal line -->
+<table role="presentation" class="device-width-inner" width="500" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; line-height:20px; text-align:center; width: 500px;">
+<tbody>
+<tr>
+<td style="border-bottom:1px solid #dfd8d3;">&nbsp; </td>
+</tr>
+<tr>
+<td style="border-top:1px solid #dfd8d3;">&nbsp; </td>
+</tr>
+</tbody>
+</table>
+<!-- outer single footer links -->
+<table class="device-width" align="center" width="500" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 500px;">
+<tbody>
+<tr>
+<td class="container-sides-padding footer-links-padding" style="display:inline-block; padding: 0 0px 20px 0px; text-align:left; color:#5e514d; font-family: Arial, Helvetica, sans-serif; font-size:11px;">
+<a href="http://click.notifications.auspost.com.au/?qs=b47caf39db891409b28a812c0d0eeea3c47efcc6081c6664216421e7fe6c7c181d92c9550ffc34f4e1c3f7cadec377929e7a2f3836da27e3" style="color:#51534a; text-decoration:none">Help &amp; support</a><span class="device-hide">&nbsp;&nbsp;</span>
+ | <span class="device-hide">&nbsp;&nbsp;</span><a href="http://click.notifications.auspost.com.au/?qs=b47caf39db8914099ecb3efcab38b2782774c4854ba10069825b5ec57ff70753339092be4fc096359fe863dd4ef103c5e98e3bce71da94c9" style="color:#51534a; text-decoration:none">Terms
+ &amp; conditions</a><span class="device-hide">&nbsp;&nbsp;</span> | <span class="device-hide">
+&nbsp;&nbsp;</span><a href="http://click.notifications.auspost.com.au/?qs=b47caf39db891409eddd50c8a4a3427cb2fdebc1a689086be18928bee236aa2fdbccfe5f9c5edb0867f0264afb7fe23782aecd3e755e817c" style="color:#51534a; text-decoration:none">Privacy&nbsp;policy</a><span class="device-hide">&nbsp;&nbsp;</span>
+ | <span class="device-hide">&nbsp;&nbsp;</span> <a href="http://click.notifications.auspost.com.au/?qs=b47caf39db8914090e74945215436ce7410b4d980368eb4d6d92ceb3ae987f641a8bc5238f88de3c86123bfa45f9786e96cdce26047ae6f9" style="color:#51534a; text-decoration:none">
+Our tracking service</a> </td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- END ISO-Footer --><img src="http://click.notifications.auspost.com.au/open.aspx?ffcb10-fe4e16797d620d79761c-fdcb1571746704797710767c61-fe5d1570726c007b7d14-fe9815747165037874-fdf3157573610c7c72107775-ffce15" width="1" height="1">
+{!Case.Thread_Id}
+</body>
+</html>

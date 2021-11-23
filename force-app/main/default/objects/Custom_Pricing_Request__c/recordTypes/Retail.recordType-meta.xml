@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Retail</fullName>
+    <active>true</active>
+    <description>This request is to be used for Retail Custom Pricing Requests.</description>
+    <label>Retail</label>
+    <picklistValues>
+        <picklist>Approval_Status__c</picklist>
+        <values>
+            <fullName>3%2E Pricing Approval Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Draft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Escalated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>On Hold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Submitted</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Business_Unit__c</picklist>
+        <values>
+            <fullName>Financial %26 Commercial Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Identity Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Merchandise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Multi Business Unit</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Current_Post_Contracts__c</picklist>
+        <values>
+            <fullName>BPA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BPA Express</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Returns</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel Express</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Pricing_Specialist_Required__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Solution_Specialist_Required__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sort_by_State_Destination__c</picklist>
+        <values>
+            <fullName>2-Way Sort</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Full Sort</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nil Sort</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>PRIVATE COMPANY</label>
+    <protected>true</protected>
+    <values>
+        <field>APT_ASIC_Type__c</field>
+        <value xsi:type="xsd:string">PRV,APTY</value>
+    </values>
+    <values>
+        <field>APT_Entity_Type__c</field>
+        <value xsi:type="xsd:string">APTY</value>
+    </values>
+    <values>
+        <field>APT_Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>APT_Is_Sole_Trader_Entity__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+</CustomMetadata>

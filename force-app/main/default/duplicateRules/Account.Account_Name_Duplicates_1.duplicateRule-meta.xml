@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <actionOnInsert>Allow</actionOnInsert>
+    <actionOnUpdate>Allow</actionOnUpdate>
+    <alertText>We found some other organisations with similar names. Use one of these?</alertText>
+    <description>Warn users when similar account names with existing accounts are detected</description>
+    <duplicateRuleFilter>
+        <booleanFilter>4 AND 9 AND (2 OR 3 OR 1 OR 5 OR 6 OR 7 OR 8)</booleanFilter>
+        <duplicateRuleFilterItems>
+            <field>Profile_Name_in_Text__c</field>
+            <operation>equals</operation>
+            <value>SSSW - Service Agent</value>
+            <sortOrder>1</sortOrder>
+            <table>User</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>Profile_Name_in_Text__c</field>
+            <operation>equals</operation>
+            <value>Sales 3rd Party</value>
+            <sortOrder>2</sortOrder>
+            <table>User</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>Profile_Name_in_Text__c</field>
+            <operation>equals</operation>
+            <value>StarTrack Support</value>
+            <sortOrder>3</sortOrder>
+            <table>User</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>RecordType</field>
+            <operation>equals</operation>
+            <value>Organisation</value>
+            <sortOrder>4</sortOrder>
+            <table>Account</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>Profile_Name_in_Text__c</field>
+            <operation>equals</operation>
+            <value>Coverage Sales</value>
+            <sortOrder>5</sortOrder>
+            <table>User</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>Profile_Name_in_Text__c</field>
+            <operation>equals</operation>
+            <value>Retail Operations</value>
+            <sortOrder>6</sortOrder>
+            <table>User</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>Profile_Name_in_Text__c</field>
+            <operation>equals</operation>
+            <value>BG Base</value>
+            <sortOrder>7</sortOrder>
+            <table>User</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>Profile_Name_in_Text__c</field>
+            <operation>equals</operation>
+            <value>PartnerInfo Read Only</value>
+            <sortOrder>8</sortOrder>
+            <table>User</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>false</value>
+            <sortOrder>9</sortOrder>
+            <table>Account</table>
+        </duplicateRuleFilterItems>
+    </duplicateRuleFilter>
+    <duplicateRuleMatchRules>
+        <matchRuleSObjectType>Account</matchRuleSObjectType>
+        <matchingRule>Account_Name_Matching_Rule</matchingRule>
+        <objectMapping xsi:nil="true"/>
+    </duplicateRuleMatchRules>
+    <isActive>true</isActive>
+    <masterLabel>Account Name Duplicates 1</masterLabel>
+    <operationsOnInsert>Alert</operationsOnInsert>
+    <operationsOnInsert>Report</operationsOnInsert>
+    <operationsOnUpdate>Alert</operationsOnUpdate>
+    <operationsOnUpdate>Report</operationsOnUpdate>
+    <securityOption>EnforceSharingRules</securityOption>
+    <sortOrder>3</sortOrder>
+</DuplicateRule>

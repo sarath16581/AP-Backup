@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__List_All_Actions__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If this is checked in a customer account the Actions tab in OM should list all actions associated with the opportunity - not just PRIME actions. Show blank value for actions which don&apos;t have a PRIME type</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If this is checked in a customer account the Actions tab in OM should list all actions associated with the opportunity - not just PRIME actions. Show blank value for actions which don&apos;t have a PRIME type</inlineHelpText>
+    <label>List All Actions</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

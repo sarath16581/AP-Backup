@@ -1,0 +1,89 @@
+<!-- 2018-06-01 clint.dsilva@auspost.com.au created -->
+<aura:component description="stp_taskSearchResults" controller="stp_TaskSearch" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="data" type="Object" />
+    <aura:attribute name="columns" type="List" />
+    <aura:attribute name="selectedRows" type="List" />
+    <aura:attribute name="resultMsg" type="String" default="" />
+    <aura:attribute name="showSearchResultMsg" type="Boolean" default="false" />
+    <aura:attribute name="loadingSpinner" type="Object"/>
+    <aura:attribute name="defaultRows" type="List" default="[]" description="reset selected rows..." />
+    <aura:attribute name="isCompletedTask" type="boolean" />
+
+    <!--pagination atrributes-->
+    <aura:attribute name="startRec" type="Integer" />
+    <aura:attribute name="lastRec" type="Integer"/>
+    <aura:attribute name="currentPageNumber" type="Integer"/>
+    <aura:attribute name="totalRecords" type="Integer"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="dataList" type="Object" />
+    <aura:attribute name="currentRange" type="String" />
+    <!--end of pagination atrributes-->
+
+    <aura:handler name="init" value="{!this }" action="{! c.onInit}" />
+    <aura:handler name="notifyCompEvent" event="c:eNotificationComp" action="{!c.onNotificationComp}" />
+    <aura:method access="public" action="{!c.onPopulateData}" description="Populate detail component" name="populateData">
+        <aura:attribute name="payload" description="payload to populate data into component" type="Object[]" access="public" />
+    </aura:method>
+    <aura:method access="public" action="{!c.onMyFinishedTasksDisplay}" description="Populate My finished tasks" name="finishedTask"/>
+
+    <aura:registerEvent name="notifyCompEvent" type="c:eNotificationComp" />
+
+    <aura:if isTrue="{!v.showSearchResultMsg}">
+        <lightning:card>
+            <div class="slds-p-around_small">
+                <h1 style="">{!v.resultMsg}</h1>
+            </div>
+        </lightning:card>
+    </aura:if>
+
+    <aura:if isTrue="{!v.showSearchResultMsg == false}">
+        <div class="search-results-paper-card">
+            <div class="search-results-buttons">
+                <lightning:button class="search-results-button-separator" aura:id="btnAcknowledge" onclick="{!c.handleOnAcknowledge}" label="Acknowledge" variant="brand" disabled="{!v.isCompletedTask}"  />
+            </div>
+
+            <!--Paginated table -->
+            <div class="slds-grid slds-grid_vertical">
+                <div style="overflow-x:auto;">
+                    <div style="width:3000px;">
+                        <lightning:datatable  aura:id="searchResultTable" showRowNumberColumn="false"
+                                              columns="{!v.columns }" data="{!v.data}"
+                                              keyField="id" onrowselection="{!c.onRowSelection}"
+                                              onrowaction="{!c.onRowActionClicked}"/>
+                    </div>
+                </div>
+                <div class="slds-m-top_large slds-grid" style="display:flex;justify-content:flex-start;align-items:center;">
+                    <div class="slds-col" >
+                        <div class="slds-float_left" >
+                            Showing {!v.pageSize} per page
+                        </div>
+                    </div>
+                    <div class="slds-col" >
+                        <div class="slds-align_absolute-center">
+                            <span style="font-weight: bold">{!v.currentRange}</span> &nbsp;<span> of {!v.totalRecords}</span>
+                        </div>
+                    </div>
+                    <div class="slds-col" >
+                        <div class="slds-float_right" style="float:right;" >
+                            <lightning:buttonGroup >
+                                <lightning:button label="Previous"
+                                                  disabled="{!v.startRec == 1}"
+                                                  onclick="{!c.previous}"
+                                                  iconName='utility:back'/>
+                                <div class="pagination-page-number">
+                                {!v.currentPageNumber}
+                            </div>
+                                <lightning:button label="Next" class="slds-float--right"
+                                                  disabled="{!v.lastRec >= v.totalRecords}"
+                                                  iconName='utility:forward'
+                                                  onclick="{!c.next}"
+                                                  />
+                            </lightning:buttonGroup>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!--End of pagination -->
+        </div>
+    </aura:if>
+</aura:component>

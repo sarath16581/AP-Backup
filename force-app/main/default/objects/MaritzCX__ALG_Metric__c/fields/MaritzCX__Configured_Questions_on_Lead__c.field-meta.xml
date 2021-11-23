@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaritzCX__Configured_Questions_on_Lead__c</fullName>
+    <defaultValue>&apos;k1;k2;k3;k4;k5;k6;m1;m2;m3;m4;m5;m6;m7;m8;c1;c2&apos;</defaultValue>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>This field is deprecated.</inlineHelpText>
+    <label>Configured Questions on Lead[DEPRECATED]</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

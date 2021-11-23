@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MPB_Lead_Owner__c</fullName>
+    <description>MPB - This contains the user id who will own the lead and organisation hierarchy when a lead is converted owned by a queue (MyPost Bus Leads).  User assigned should have the Person Account Record Type Setup to &quot;Consumer&quot;</description>
+    <externalId>false</externalId>
+    <label>MPB Lead Owner</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

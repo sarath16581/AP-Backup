@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Guide_Me</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Guide Me</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/apex/APT_GuideMe?opportunityId={!Opportunity.Id}&amp;accountId={!Account.Id}</url>
+</WebLink>

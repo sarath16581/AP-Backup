@@ -1,0 +1,67 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="color: rgb(0, 0, 0); font-family: 'AP Letter'; font-size: 12pt;">Hi&nbsp;<o:p></o:p></span><font face="AP Letter">{!Case.Requestor__c}</font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">This customer has given the name of a trust and the accompanying ABN for
+the trust.<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">We need more information in order to be able to correctly set up the
+billing account.<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><b><span style="font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+mso-fareast-language:EN-AU;mso-no-proof:yes">Please provide at least <span style="color:red">one </span>of the following:<o:p></o:p></span></b></p><ol style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-top: 0in;" start="1" type="1">
+ <li class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;
+     mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+     mso-fareast-language:EN-AU;mso-no-proof:yes">The ACN of the trust – if
+     there is one.<o:p></o:p></span></li>
+ <li class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;
+     mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+     mso-fareast-language:EN-AU;mso-no-proof:yes">The names of all the
+     trustees. If there is no ACN for the trust, the billing account will be
+     set up in the names of all of the trustees.<o:p></o:p></span></li>
+ <li class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;
+     mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+     mso-fareast-language:EN-AU;mso-no-proof:yes">The ABN of the Pty Ltd
+     company – if there is one.<o:p></o:p></span></li>
+</ol><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">Please note that I will not be able to proceed with setting up an account
+for this customer until we have this information.<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes"><br></span></p><p class="MsoNormal" style="margin-bottom: 0.0001pt;"><font face="AP Letter">You can access your case online by following the link below:</font></p><p class="MsoNormal" style="margin-bottom: 0.0001pt;"><font face="AP Letter"><br></font></p><p class="MsoNormal" style="margin-bottom: 0.0001pt;"></p><p class="MsoNormal" style="margin-bottom: 0.0001pt;"><font face="AP Letter">{!Case.Link}</font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">Regards<o:p></o:p></span></p><p class="MsoNormal" style="margin-bottom: 0.0001pt;"><font face="AP Letter">{!Case.OwnerFullName}</font></p>]]></td>
+</tr>
+</table>

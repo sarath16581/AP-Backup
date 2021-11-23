@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Version 2 - Email notifying client the setup process is complete and they can begin sending customers to outlets. Attachment- Client VOI form</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>ExternalContactEmail</letterhead>
+    <name>Registration confirmation: Australia Post - VOI Tool for Property Transfers</name>
+    <style>freeForm</style>
+    <subject>Registration confirmation: Australia Post - VOI Tool for Property Transfers - {!Lead.FirstName} {!Lead.LastName}</subject>
+    <textOnly>Dear {!Contact.FirstName},
+
+
+
+Thank you for completing the online registration form for the Australia Post do it yourself Verification of Identity (VOI) Tool for Property Transfers.
+
+
+
+We are pleased to advise that you are now able to use this tool to support you in verifying your clients’ identity.
+
+
+
+Your login credentials are
+
+Username -
+
+Password -
+
+
+
+You can access the tool at https://auspost.com.au/propertytransfer/#/login
+
+
+
+Instructions on how to use the do it yourself VOI tool are available through the Help link available on the login page. Reports for all VOI checks completed by yourself using the VOI tool, or by Australia Post over the counter, can be accessed in the VOI Report Portal.
+
+
+
+The VOI Report Portal can be accessed through the dashboard of the VOI tool or directly at https://ltdia.com.au Instructions on how to use the VOI Report Portal, including how to change your password, are attached.
+
+
+
+NEXT STEPS
+
+
+
+Start completing your own VOI checks for your clients using our VOI tool at
+
+https://auspost.com.au/propertytransfer/#/login
+
+
+
+Should you wish to also allow your clients to have their VOI check completed by us at our participating Australia Post post offices, please print, sign and return a copy of the attached VOI (Property Transfers)
+
+
+
+Referral Agreement:
+
+Via email to:
+
+LandTitleVOI@auspost.com.au
+
+Or via post to:
+
+Property Transfers VOI
+
+Reply Paid 4310
+
+
+
+Once we have received your signed agreement we will send you your customised Property Transfers VOI form. The form needs to be presented by your clients at participating Post Offices (auspost.com.au/find/landtitle) in order for them to have their identity verified by Australia Post.
+
+
+
+If you require any assistance please contact us via email LandTitleVOI@auspost.com.au or call us on 1300 364 543.
+
+
+
+Kind regards,
+
+
+Australia Post Property Transfers VOI team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

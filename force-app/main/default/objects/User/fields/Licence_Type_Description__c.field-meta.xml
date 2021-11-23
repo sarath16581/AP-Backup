@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Licence_Type_Description__c</fullName>
+    <description>This field has been added to assist with MH. When a some selects a user, they don&apos;t know if which user type they are. ie consumer or salesforce user.</description>
+    <externalId>false</externalId>
+    <formula>Profile.UserLicense.Name</formula>
+    <label>Licence Type Description</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

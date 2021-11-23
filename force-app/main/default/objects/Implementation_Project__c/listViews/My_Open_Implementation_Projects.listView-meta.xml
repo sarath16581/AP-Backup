@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Open_Implementation_Projects</fullName>
+    <columns>NAME</columns>
+    <columns>Implementation_Project_Owner__c</columns>
+    <columns>Customer_Name__c</columns>
+    <columns>Implementation_Start_Date__c</columns>
+    <columns>Estimated_completion_date__c</columns>
+    <filterScope>Mine</filterScope>
+    <label>My Open Implementation Projects</label>
+</ListView>

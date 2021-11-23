@@ -1,0 +1,3 @@
+<apex:page sidebar="false">
+    <iframe frameborder="0" height="600px" scrolling="auto" src="https://www.saleswebserver.net/sfdc/MillerHeiman6/SAMAdmin.asp?SessionID={!$API.Session_ID}&EndPoint=https://auspost.my.salesforce.com/services/Soap/u/24.0/" title="Content" width="100%" style="width:100%"></iframe>  
+</apex:page>

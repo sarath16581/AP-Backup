@@ -1,0 +1,135 @@
+<!--
+* @author Victor.Cheng@auspost.com.au
+* @date 2021-01-19
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Step in Credit Application Form to input Business Contact details
+* @changelog
+* 2021-01-19 Victor.Cheng@auspost.com.au  Created
+* 2021-02-26 avula.jansirani@auspost.com.au  updated
+*
+-->
+
+<template>
+
+    <!-- Radio options for directors and someone else-->
+    <template if:true={showContactOptions}>
+        <div class="inner-form-padding last-section-padding-top">
+            <lightning-radio-group label={label}
+                                    options={contactPersonOptions}
+                                    name={radioButtonId}
+                                    data-id={radioButtonId}
+                                    onchange={onSelectContactPerson}
+                                    type="radio"
+                                    value={selectedContact}
+                                    required>
+            </lightning-radio-group>
+        </div>
+    </template>
+
+    <template if:true={showBanner}>
+        <div class="notify-box">
+            <c-bsp-custom-icons icon="round-exclaim-filled" size="small" fill="#3687DA">
+            </c-bsp-custom-icons>
+            <span>You must be authorised to logde this application on behalf of the business</span>
+        </div>
+    </template>
+    
+    <!-- someone else form-->
+    <template if:true={showSomeOneElseForm}>
+
+        <div class="inner-form-padding last-section-padding-top">
+            <!-- show for 'Who is lodging the application'-->
+            <template if:true={showAuthorizedBannerText}>
+                <!-- Full  Name-->
+                <lightning-input label="Full name" 
+                                 name="fullName" 
+                                 data-id="fullName" 
+                                 type="text"
+                                 value={contactSomeoneElse.fullName} 
+                                 max-length={fullNameFieldLength}
+                                 onchange={onChangeField} 
+                                 onfocusout={handleFocusOut} 
+                                 required>
+                </lightning-input>
+            </template>
+                <!-- show for 'Business Contact Person'-->
+            <template if:false={showAuthorizedBannerText}>
+            
+                <!-- First Name-->
+                <lightning-input label="First name" 
+                                 name="firstName" 
+                                 data-id="firstName" 
+                                 type="text"
+                                 value={contactSomeoneElse.firstName} 
+                                 max-length={fullNameFieldLength} 
+                                 onchange={onChangeField}
+                                 onfocusout={handleFocusOut} 
+                                 required>
+                </lightning-input>
+            
+                <!-- SurName-->
+                <lightning-input label="Surname" 
+                                 name="lastName" 
+                                 data-id="lastName" 
+                                 max-length={lastNameFieldLength} 
+                                 type="text"
+                                 value={contactSomeoneElse.lastName} 
+                                 class="slds-p-top_large" 
+                                 onchange={onChangeField}
+                                 onfocusout={handleFocusOut} 
+                                 required>
+                </lightning-input>
+            
+            </template>
+ 
+
+            <!-- Position title-->
+            <lightning-input label="Position title" 
+                             name="positionTitle" 
+                             data-id="positionTitle"
+                             max-length={positionTitleFieldLength}
+                             type="text" 
+                             value={contactSomeoneElse.positionTitle} 
+                             class="slds-p-top_large"
+                             onchange={onChangeField} 
+                             onfocusout={handleFocusOut} 
+                             required>
+            </lightning-input>
+
+            <!--Phone number-->
+            <lightning-input label="Phone number" 
+                             name="phone" 
+                             data-id="phone"
+                             type="tel" 
+                             class="slds-p-top_large slds-col slds-size_1-of-1 slds-medium-size_6-of-12 short-form-field"
+                             max-length={phoneMaxLength} 
+                             onkeyup={onChangeField}
+                             value={contactSomeoneElse.phoneFormatted} 
+                             onfocusout={handleFocusOut} 
+                             required>
+            </lightning-input>
+                  
+            <!-- show for 'Business Contact Person'-->
+            <template if:false={showAuthorizedBannerText}>
+                <!--Email address -->  
+                <lightning-input label="Email address" 
+                                name="email" 
+                                data-id="email"
+                                type="email"
+                                pattern="[a-zA-Z\-0-9._%+-]+@[a-zA-Z\-0-9.-]+\.[a-zA-Z]{2,}$"
+                                max-length={emailFieldMaxLength} 
+                                value={contactSomeoneElse.email} 
+                                class="slds-p-top_large"
+                                message-when-value-missing={emailAddressValueMissingMsg}
+                                message-when-type-mismatch={emailAddressPatternMismatchMsg}
+                                message-when-pattern-mismatch={emailAddressPatternMismatchMsg}
+                                onchange={onChangeField} 
+                                onfocusout={handleFocusOut} 
+                                required>
+                </lightning-input>
+        </template>
+
+        </div>
+    </template>
+</template>

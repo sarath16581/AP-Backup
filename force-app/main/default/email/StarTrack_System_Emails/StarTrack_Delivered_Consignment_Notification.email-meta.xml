@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>StarTrack Email Template to be used for sending Non-BSC Delivered Consignment Notification.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>StarTrack Delivered Consignment Notification - Customer Service</name>
+    <style>freeForm</style>
+    <subject>Case {!workflow_Email__c.Calc_Case_Number__c} - StarTrack Consignment {!workflow_Email__c.Consignment_Number__c} has been delivered</subject>
+    <textOnly>Case Number: {!workflow_Email__c.Calc_Case_Number__c}
+
+Hi  {!workflow_Email__c.Contact_First_Name__c},
+
+We’re pleased to let you know that Consignment {!workflow_Email__c.Consignment_Number__c} has been delivered and we&apos;re closing your case.
+
+Please note that if the delivery address was unattended at time of delivery, the consignment may have been left as instructed or is ready for collection at the nearest Post Office. Please visit www.startrack.com.au for further tracking information.
+
+If you require further assistance in regards to this consignment and wish to reopen your case, please reply to this email.
+
+Regards,
+
+StarTrack Customer Service Centre
+
+{!workflow_Email__c.Case_Thread_Id__c}
+
+Help &amp; Support  |  Terms &amp; Conditions  |  Privacy Policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Approval Request Delegation Notification</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>APT_R2T_Contract_Letterhead</letterhead>
+    <name>Approval Request Delegation Notification</name>
+    <style>freeForm</style>
+    <subject>You have been identified as the delegate approver for {!Apttus_Approval__Backup_Approver__c.Apttus_Approval__Current_User__c}</subject>
+    <textOnly>Dear {!Apttus_Approval__Backup_Approver__c.Apttus_Approval__Backup_User__c}
+
+You have been identified as the delegate approver for {!Apttus_Approval__Backup_Approver__c.Apttus_Approval__Current_User__c}. All Approval Requests that are assigned to {!Apttus_Approval__Backup_Approver__c.Apttus_Approval__Current_User__c} will also be available to you. This gives you the ability to Approve/Reject or Add Comments to a request on behalf of {!Apttus_Approval__Backup_Approver__c.Apttus_Approval__Current_User__c}. You will be notified by email whenever there is an approval request assigned to {!Apttus_Approval__Backup_Approver__c.Apttus_Approval__Current_User__c}.
+
+Any in flight approval requests assigned to {!Apttus_Approval__Backup_Approver__c.Apttus_Approval__Current_User__c} that were still open at the time the delegate went into effect may be available for you to take an action on. Please login to your Salesforce account, navigate to the Console tab, and look under Approval Requests / My Approvals, to see if there are any available requests.
+
+Please contact your regional approvals administrator if you have any questions.
+
+Thanks
+
+
+
+Please do Not reply to this email. This is a system generated email.
+
+Australia Post is committed to providing our customers with excellent service. If we can assist you in any way please telephone 13 13 18 or visit our website.
+
+The information contained in this email communication may be proprietary, confidential or legally professionally privileged. It is intended exclusively for the individual or entity to which it is addressed. You should only read, disclose, re-transmit, copy, distribute, act in reliance on or commercialise the information if you are authorised to do so. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, virus or interference.
+
+If you are not the addressee or intended recipient please notify us by replying direct to the sender and then destroy any electronic or paper copy of this message. Any views expressed in this email communication are taken to be those of the individual sender, except where the sender specifically attributes those views to Australia Post and is authorised to do so.
+
+Please consider the environment before printing this email.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

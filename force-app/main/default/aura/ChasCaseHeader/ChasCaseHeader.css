@@ -1,0 +1,24 @@
+.THIS {
+	padding: 25px 0;
+	max-width: 1170px;
+	margin: auto;
+}
+
+/* a little big dodgy */
+.THIS h1 {
+	letter-spacing: 1.3px;
+}
+
+.THIS .back-button {
+	height: 25px;
+}
+
+.THIS a.chas-body_small {
+	color: white;
+}
+
+@media (min-width: 680px) {
+	.THIS {
+		padding-top: 30px;
+	}
+}

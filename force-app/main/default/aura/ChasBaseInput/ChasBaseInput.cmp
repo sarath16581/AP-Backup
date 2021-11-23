@@ -1,0 +1,20 @@
+<aura:component extensible="true" description="Contains all the base functionality for Chas Input Components">
+    <aura:attribute name="name" type="String" />
+    <aura:attribute name="required" type="Boolean" default="false" />
+    <aura:attribute name="label" type="String" />
+    <aura:attribute name="subLabel" type="String"/>
+    <aura:attribute name="variant"  type="String" />
+    <aura:attribute name="value" type="Object" />
+    <aura:attribute name="lastValue" type="Object" />
+    <aura:attribute name="error" type="String" />
+    <aura:attribute name="showError" type="Boolean" default="false" />
+    <aura:attribute name="short" type="Boolean" default="false"/>
+    <aura:attribute name="helptext"  type="String" description='Text to be displayed in a tooltip next to the label' />
+    
+    <aura:handler name="change" value="{! v.value }" action="{! c.onchange }"/>
+    <aura:registerEvent name="chasGenComponentEvent" type="c:chasGenComponentEvent"/>
+    
+    <div aura:id="chasBaseInput" class="{! 'chas-input' + (and(v.showError, v.error) ? ' has-error' : '') }">
+    	{! v.body }
+    </div>
+</aura:component>

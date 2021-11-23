@@ -1,0 +1,92 @@
+/* ***********************************************
+* 21-05-2020 rufus.solomon@auspost.com.au Updated background colors - #f3f1ee replaced with #f5f5f5
+*/
+
+/* Stlye Header section */
+.THIS.headerContainer{
+    background-color: white;
+}
+
+.THIS .header-inner-left-content{
+    
+    display: flex;
+    max-width: 1154px;
+    margin: 0 auto;
+    padding: 15px 15px;
+}
+
+.THIS .contentheader-block1 {
+    padding: 15px 10px;
+    
+}
+
+.THIS .contentheader-block2 {
+    padding: 14px 10px;
+}
+
+.THIS .header-inner-right-content{
+    display: flex;
+    flex-flow: column;
+    margin: 0 auto;
+    position: relative;
+    height: 275px;
+    margin-top: 15px;
+    max-height: 275px;
+    
+}
+
+.THIS .contentheader-block3 {
+    padding: 15px 10px;
+    background: #f5f5f5;
+    height: 50%;
+    border-radius: 3px;
+     
+} 
+
+.THIS .contentheader-block4 {
+    padding: 15px 10px;
+    background: #f5f5f5;
+    margin-top: 15px;
+    border-radius: 3px;
+    height: 50%;
+}
+
+/* Stlye main Content section, including the Sidebar */
+.THIS .body-inner-content{
+    background: #f5f5f5; 
+    display: flex;
+    padding: 0 10px;
+    max-width: 1154px;
+    margin: 0 auto;
+    
+}
+
+.THIS .mainContent {
+    padding: 10px 10px;
+    background: #f5f5f5; 
+
+}
+
+.THIS .contentSidebar {
+    padding: 10px 10px;
+    background: #f5f5f5; 
+
+}
+
+/* Stlye Footer section */
+.THIS.contentfooter {
+    padding: 20px 20px;
+    max-width: 1154px;
+    margin: 0 auto;
+
+}
+
+/* Home Page component styling for mobile view */
+@media screen and (max-width: 768px) {
+    .THIS .mainContent {
+        padding: 6px 10px;
+}
+.THIS .contentheader-block2 {
+    padding: 0px 0px;
+}
+}

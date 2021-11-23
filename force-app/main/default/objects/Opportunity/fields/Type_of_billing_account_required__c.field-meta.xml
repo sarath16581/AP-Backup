@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_of_billing_account_required__c</fullName>
+    <defaultValue>&quot;None&quot;</defaultValue>
+    <description>Operational Details</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field pre-fills the New Account Type field in the APTTUS Proposal step</inlineHelpText>
+    <label>Type of billing account required</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Charge account and sub-account</fullName>
+                <default>false</default>
+                <label>Charge account and sub-account</label>
+            </value>
+            <value>
+                <fullName>Sub-account for an existing credit account</fullName>
+                <default>false</default>
+                <label>Sub-account for an existing credit account</label>
+            </value>
+            <value>
+                <fullName>Charge account</fullName>
+                <default>false</default>
+                <label>Charge account</label>
+            </value>
+            <value>
+                <fullName>Existing Billing Account</fullName>
+                <default>false</default>
+                <label>Existing Billing Account</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

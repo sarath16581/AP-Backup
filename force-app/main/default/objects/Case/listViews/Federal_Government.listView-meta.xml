@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Federal_Government</fullName>
+    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>Work_Type__c</columns>
+    <columns>CASES.LAST_UPDATE</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>Requestor__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Sales_Ops_Delivery</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>OWNER_NAME</field>
+        <operation>equals</operation>
+        <value>&quot;Ballerini, Angela&quot;,&quot;Brooks, Sonia&quot;,&quot;Henderson, Tony&quot;,&quot;sukkar, george&quot;</value>
+    </filters>
+    <label>** Federal Government</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>Sales_Ops_Delivery</group>
+    </sharedTo>
+</ListView>

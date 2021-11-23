@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disputed_Reason__c</fullName>
+    <description>The reason the customer is disputing the charge.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Reason provided by the customer</inlineHelpText>
+    <label>Disputed Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Quantity Incorrect</fullName>
+                <default>false</default>
+                <label>Quantity Incorrect</label>
+            </value>
+            <value>
+                <fullName>Incorrect Charge</fullName>
+                <default>false</default>
+                <label>Incorrect Charge</label>
+            </value>
+            <value>
+                <fullName>Incorrect Weight</fullName>
+                <default>false</default>
+                <label>Incorrect Weight</label>
+            </value>
+            <value>
+                <fullName>Incorrect Product</fullName>
+                <default>false</default>
+                <label>Incorrect Product</label>
+            </value>
+            <value>
+                <fullName>Duplicate Billing</fullName>
+                <default>false</default>
+                <label>Duplicate Billing</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

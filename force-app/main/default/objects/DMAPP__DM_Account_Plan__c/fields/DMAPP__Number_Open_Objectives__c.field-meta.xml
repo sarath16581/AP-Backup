@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Number_Open_Objectives__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field provides a count of objectives that are Not Started, In Progress, or Deferred.</description>
+    <externalId>false</externalId>
+    <label>Number Open Objectives</label>
+    <summaryFilterItems>
+        <field>DMAPP__Account_Plan_Objective__c.DMAPP__Status__c</field>
+        <operation>equals</operation>
+        <value>Not Started, In Progress, Deferred</value>
+    </summaryFilterItems>
+    <summaryForeignKey>DMAPP__Account_Plan_Objective__c.DMAPP__Account_Plan__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

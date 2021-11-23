@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BA_must_belong_to_valid_Legal_Entity</fullName>
+    <active>true</active>
+    <description>If BA is specified, then it must belong to the Legal Entity of the Contact.</description>
+    <errorConditionFormula>if( RecordType.DeveloperName != &apos;Cognition_Rules&apos; , 
+(!(ISBLANK(Billing_Account__c)) &amp;&amp;  (Billing_Account__r.Organisation__c !=  Contact__r.Account.Id)),false)</errorConditionFormula>
+    <errorMessage>The Contact and Billing Account must belong to the same Legal Entity</errorMessage>
+</ValidationRule>

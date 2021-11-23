@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Migration_result__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Scenarios available for product migration results</inlineHelpText>
+    <label>Product Migration result</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Closed_Reason__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>EPA: eParcel</fullName>
+                <default>false</default>
+                <label>EPA: eParcel</label>
+            </value>
+            <value>
+                <fullName>EPS: eParcel - ex SoD</fullName>
+                <default>false</default>
+                <label>EPS: eParcel - ex SoD</label>
+            </value>
+            <value>
+                <fullName>BPP: BPA barcoded</fullName>
+                <default>false</default>
+                <label>BPP: BPA barcoded</label>
+            </value>
+            <value>
+                <fullName>BPS: BPA self generated</fullName>
+                <default>false</default>
+                <label>BPS: BPA self generated</label>
+            </value>
+            <value>
+                <fullName>BPI: BPA Integrated</fullName>
+                <default>false</default>
+                <label>BPI: BPA Integrated</label>
+            </value>
+            <value>
+                <fullName>BPN: BPA no barcode</fullName>
+                <default>false</default>
+                <label>BPN: BPA no barcode</label>
+            </value>
+            <value>
+                <fullName>CAS: Click &amp; Send</fullName>
+                <default>false</default>
+                <label>CAS: Click &amp; Send</label>
+            </value>
+            <value>
+                <fullName>RET: Retail</fullName>
+                <default>false</default>
+                <label>RET: Retail</label>
+            </value>
+            <value>
+                <fullName>NOC: No change: No Barcode &amp; remain on old BPA rate card</fullName>
+                <default>false</default>
+                <label>NOC: No change: No Barcode &amp; remain on old BPA rate card</label>
+            </value>
+            <value>
+                <fullName>BAU: Not in migration list</fullName>
+                <default>false</default>
+                <label>BAU: Not in migration list</label>
+            </value>
+            <value>
+                <fullName>NAT: No Action Taken</fullName>
+                <default>false</default>
+                <label>NAT: No Action Taken</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Product Migration</controllingFieldValue>
+            <valueName>EPA: eParcel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Migration</controllingFieldValue>
+            <valueName>EPS: eParcel - ex SoD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Migration</controllingFieldValue>
+            <valueName>BPP: BPA barcoded</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Migration</controllingFieldValue>
+            <valueName>BPS: BPA self generated</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Migration</controllingFieldValue>
+            <valueName>BPI: BPA Integrated</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Migration</controllingFieldValue>
+            <valueName>BPN: BPA no barcode</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Migration</controllingFieldValue>
+            <valueName>CAS: Click &amp; Send</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Migration</controllingFieldValue>
+            <valueName>RET: Retail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Migration</controllingFieldValue>
+            <valueName>NOC: No change: No Barcode &amp; remain on old BPA rate card</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Migration</controllingFieldValue>
+            <valueName>BAU: Not in migration list</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Migration</controllingFieldValue>
+            <valueName>NAT: No Action Taken</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

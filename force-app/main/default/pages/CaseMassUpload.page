@@ -1,0 +1,36 @@
+<apex:page Controller="CaseMassUploadCont" showHeader="false" sidebar="false" tabStyle="Case">
+	<apex:includeScript value="/support/console/29.0/integration.js"/>
+	<script type="text/javascript">
+        function openUrl() {
+			if (sforce.console.isInConsole()) {
+				sforce.console.openPrimaryTab(null, "{!URLFOR($Resource.CSVUploadTemplates, 'AccountUploadTemplate.csv')}", true);
+			} else {
+				window.open("{!URLFOR($Resource.CSVUploadTemplates, 'AccountUploadTemplate.csv')}");
+			}
+		}
+    </script>
+	<apex:form id="theForm">
+		<apex:pageBlock title="Case Mass Upload">
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton value="Upload" action="{!upload}"/>
+            </apex:pageBlockButtons>
+			<apex:pageBlockSection >	
+				<apex:inputField value="{!proxyCase.AccountId}" />					
+					<apex:outputLink onclick="openUrl();" id="theLink">Download CSV Template</apex:outputLink>
+				<apex:inputField value="{!proxyCase.ContactId}" />
+					<br />
+				<apex:inputField value="{!proxyCase.Type}" />
+					<br />
+				<apex:inputField value="{!proxyCase.OwnerId}" />
+					<br />
+				<apex:pageBlockSectionItem >
+					<apex:outputText value="CSV File:"/>
+					<apex:inputFile value="{!csvBlob}"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+		<apex:pageBlock title="Result" id="result">
+			<apex:messages />
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

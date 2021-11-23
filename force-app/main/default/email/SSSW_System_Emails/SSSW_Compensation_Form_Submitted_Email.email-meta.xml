@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email after custom has finished compensation form</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Compensation Form Submitted Email</name>
+    <style>none</style>
+    <subject>We&apos;ve received your payment details</subject>
+    <textOnly>Australia Post
+
+VIEW ONLINE
+
+We&apos;ve received your payment details
+
+Hi {!Compensation__c.ContactFirstName__c},
+
+
+Thanks for providing your payment details for case number: {!Compensation__c.Case_Number__c}
+
+We&apos;re sending compensation for the value of {!Compensation__c.Total_Compensation_Amount__c}.
+
+What happens from here?
+
+We&apos;ll process the compensation payment. Once the process is completed, we&apos;ll close your enquiry.
+
+You&apos;ll receive the payment within 5 business days, depending on the destination bank&apos;s processing time.
+
+If this compensation is for a late or missing item, it&apos;s possible that your item may still show up. If the item gets delivered after the compensation has been paid, it can be kept. No need to pay us back or open another case.
+
+Thanks
+
+AusPost Customer Services
+
+
+
+
+Australia Post will never send you an unsolicited email asking for your password, credit card details or account information
+
+
+Terms &amp; conditions    Help &amp; support    Privacy policy
+
+Nothing in this email is intended to exclude or limit any rights or remedies that you may have under the Australian Consumer Law.
+
+This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don&apos;t think you should have received this email, please call us on 13 13 18. Visit auspost.com.au for further information on our online security.
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or inteference.
+
+@ 2020 Australia Post. All Rights Reserved.
+
+Connect with Australia Post
+
+
+
+Australia Post acknowledges the Traditional Custodians of the land on which we operate, live and gather as employees, and recognize their continuing connection to land, water and community. We pay respect to Elders past, present and emerging.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

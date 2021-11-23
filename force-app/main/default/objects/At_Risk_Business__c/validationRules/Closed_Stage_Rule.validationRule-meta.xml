@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closed_Stage_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ ISPICKVAL(Stage__c, &quot;Closed&quot;),
+ NOT(
+  OR(
+   ISPICKVAL(Status__c, &quot;Business Lost&quot;),
+   ISPICKVAL(Status__c, &quot;Business Retained&quot;),
+   ISPICKVAL(Status__c, &quot;Business Migrated&quot;)
+  )
+ )
+)</errorConditionFormula>
+    <errorMessage>Status can be either Business Lost or Business Retained or Business Migrated</errorMessage>
+</ValidationRule>

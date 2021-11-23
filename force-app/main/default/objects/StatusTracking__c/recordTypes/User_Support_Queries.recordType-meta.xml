@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>User_Support_Queries</fullName>
+    <active>false</active>
+    <description>used for user support query case status tracking</description>
+    <label>User Support Queries</label>
+    <picklistValues>
+        <picklist>FieldsChanged__c</picklist>
+        <values>
+            <fullName>Status</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

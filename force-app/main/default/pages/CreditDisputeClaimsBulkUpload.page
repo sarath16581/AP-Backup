@@ -1,0 +1,25 @@
+<!--
+	This wraps the Lightning Wrapper component and allows us to use Lightning Out to create and communicate with Credit Dispute Claims Bulk Upload application
+	NOTE: applying body tag with slds-scope for in-app tooltips. The lightning tooltip adds it to the body which requires the body to be scoped to inherit the lightning styles
+			this only works when showHeader is false
+	@changelog:
+	2021-02-12 - Ranjeewa Silva - Created.
+-->
+
+<apex:page id="CreditDisputeClaimsBulkUpload" showHeader="false" applyBodyTag="false" applyHtmlTag="false">
+    <html>
+        <head>
+        </head>
+        <body class="slds-scope" style="background:var(--lwc-brandBackgroundPrimary,rgb(250, 250, 249));">
+            <c:LightningWrapper lightningApp="c:CreditDisputeClaimsBulkUploadWrapper"
+                                lightningComponent="c:bulkUpload"
+                                crossOriginLwcEvents="false"
+                                componentAttributes="{&quot;title&quot;:&quot;Credit&nbsp;Dispute&nbsp;Claims&quot;,&quot;type&quot;:&quot;DISPUTED_CREDIT_CLAIMS&quot;,&quot;iconName&quot;:&quot;custom:custom40&quot;,&quot;duplicateCheck&quot;:true}"	/>
+
+            <c:LightningWrapper lightningApp="c:CreditDisputeClaimsBulkUploadWrapper"
+                                lightningComponent="c:caseSupportingDocuments"
+                                crossOriginLwcEvents="false"
+                                componentAttributes="{&quot;caseRecordTypeName&quot;:&quot;Enterprise Credit Dispute Claim&quot;}"	/>
+        </body>
+    </html>
+</apex:page>

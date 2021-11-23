@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>StarTrack - Snap It case response to employee user when case is created</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>StarTrack - Snap It Response to Employee</name>
+    <style>none</style>
+    <subject>RE: {!Case.Subject}</subject>
+    <textOnly>Case No.: {!Case.CaseNumber}
+
+Dear {!Case.Employee_Lastname__c},
+
+Thank you for submitting a customer enquiry through Snap It. Your reference number is {!Case.CaseNumber}.
+
+The request is currently being investigated by our Customer Contact Centre. We will respond to the customer within one business day.
+
+Thank you,
+
+
+StarTrack Business Centre
+{!Case.Thread_Id}
+
+This email is sent by Star Track Express Pty Limited or one of its related entities (collectively referred to as “STARTRACK”). The information contained in this email is confidential and may contain legally privileged information. Confidentiality and legal privilege are not waived or lost by reason of mistaken delivery. The content of this email is the view or opinion of the stated author and does not necessarily reflect the view or opinion of STARTRACK. If you are not the intended recipient or the person responsible for the delivery of the message to the intended recipient, any dissemination of the information is strictly prohibited. If you have received this email in error, please contact the sender by return email and delete the email and any attachments from your computer. Although STARTRACK has taken care to ensure the attachments (if any) to this email are virus free, STARTRACK does not warrant that any such attachments are free of errors, viruses or other malicious codes and does not accept liability for any consequences to the recipient upon opening or using this email.
+Help &amp; Support  |  Terms &amp; Conditions  |  Privacy Policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

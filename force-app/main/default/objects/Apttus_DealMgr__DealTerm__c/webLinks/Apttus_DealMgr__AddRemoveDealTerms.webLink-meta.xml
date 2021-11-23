@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealMgr__AddRemoveDealTerms</fullName>
+    <availability>online</availability>
+    <description>Launch deal term maintenance</description>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <height>600</height>
+    <linkType>url</linkType>
+    <masterLabel>Add/Remove Deal Terms</masterLabel>
+    <openType>sidebar</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>/apex/Apttus_DealMgr__DealTerm?bizObjectId={!Opportunity.Id}&amp;bizObjectType=Opportunity</url>
+</WebLink>

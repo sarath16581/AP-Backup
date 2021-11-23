@@ -1,0 +1,101 @@
+<!--
+* @author Victor.Cheng@auspost.com.au
+* @date 2020-11-12
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Trust input details to upload Trust deed documents
+* @changelog
+* 2020-01-20 Victor.Cheng@auspost.com.au  Created
+*
+-->
+
+<!-- Bca Step Trust Details -->
+<template>
+    <div class="slds-is-relative">
+        <template if:true={hasFiles}>
+            <div class="search-aligned-input inner-form-padding">
+                <div class="slds-form-element" style="width: 100%;">
+                    <span class="slds-form-element__label" id="file-selector-primary-label">{trustDeedLabel}</span>
+                    
+                    <template for:each={filesUploaded} for:item="file">
+                        <div class="slds-form-element__control" key={file.PathOnClient}>
+                            <div class="slds-file-selector slds-file-selector_files slds-grid slds-m-bottom_large">
+                                <div class="upload-file-list">
+                                    <div class="slds-truncate" key={file.Title}>{file.Title}</div>
+                                </div>
+                                <!--<div class="slds-button slds-button_icon slds-button_icon-border search-aligned-input-button upload-button-margin"
+                                     data-id={file.index} onclick={onClickPreview} >
+                                    <c-bsp-custom-icons fill="#382F2D" icon="view" size="x-small"></c-bsp-custom-icons>
+                                </div>-->
+                                <div class="slds-file-selector__button slds-button slds-button_icon slds-button_icon-border search-aligned-input-button upload-button-margin"
+                                     data-id={file.index} onclick={onClickDelete} tabindex="0">
+                                    <c-bsp-custom-icons fill="#382F2D" icon="bin" size="x-small"></c-bsp-custom-icons>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<p class="input-hint-text inner-form-padding slds-m-bottom_medium" key={file.PathOnClient}> PDF, JPG or PNG format up to 2MB in size</p>-->
+                    </template>
+
+                </div>
+            </div>
+        </template>
+
+        <template if:true={showAdditionalFiles}>
+            <div class="search-aligned-input inner-form-padding">
+                <div class={uploadLabelClass} style="width: 100%;">
+                    <template if:false={hasFiles}>
+                        <span class="slds-form-element__label" id="file-selector-primary-label-01">Trust deed document</span>
+                    </template>
+                    <template if:true={hasFiles}>
+                        <span class="slds-form-element__label" id="file-selector-primary-label-02">Additional document</span>
+                    </template>
+
+                    <!-- error message -->
+                    <template if:true={errorMessage}>
+                        <div class="slds-form-element__help slds-text-color_error" role="alert"><span>{errorMessage}</span></div>
+                    </template>
+
+                    <div class="slds-form-element__control">
+                        <div class="slds-file-selector slds-file-selector_files slds-grid">
+
+                            <div class={uploadInputClass}>
+                                <template if:false={hasFiles}>
+                                    <div class="slds-truncate">Upload a file...</div>
+                                </template>
+                                <template if:true={hasFiles}>
+                                    <div class="slds-truncate">Upload another file...</div>
+                                </template>
+                            </div>
+
+                            <!-- Display if file NOT selected -->
+                            <div class="slds-file-selector__dropzone">
+                                <input type="file" class="slds-file-selector__input slds-assistive-text"
+                                       accept={uploadFileFormats} onchange={uploadTrustFile}
+                                       id={fileInputId} data-id={fileInputId} 
+                                       aria-labelledby="file-selector-primary-label file-selector-secondary-label" required/>
+                                <label class="slds-file-selector__body" for={fileInputId} id="file-selector-secondary-label-01">
+                                    <span class={uploadBtnClass}>
+                                        <c-bsp-custom-icons fill="#382F2D" icon="upload" size="x-small"></c-bsp-custom-icons>
+                                    </span>
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="input-hint-text inner-form-padding"> PDF, JPG or PNG format up to 2MB in size</p>
+            
+            <!-- error box style 
+            <template if:true={errorMessage}>
+                <div class="error-box"><c-bsp-custom-icons icon="warning-alert" size="small" fill="#d61834"></c-bsp-custom-icons><span>{errorMessage}</span></div>
+            </template>-->
+
+        </template>
+
+        <!-- spinner-->
+        <div if:true={loading}>
+            <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+        </div>
+    </div>
+</template>

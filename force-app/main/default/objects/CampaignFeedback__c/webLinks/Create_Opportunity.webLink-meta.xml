@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Create_Opportunity</fullName>
+    <availability>online</availability>
+    <description>This custom button will create an opportunity with account name, Campaign name.</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Create Opportunity</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/006/e?retURL=%2F{!Opportunity.Id} 
+&amp;opp4_lkid={!CampaignFeedback__c.Legal_Entity_NameId__c} 
+&amp;opp17={!CampaignFeedback__c.CampaignName__c}
+&amp;opp17_lkid={!CampaignFeedback__c.CampaignNameId__c}</url>
+</WebLink>

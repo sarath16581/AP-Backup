@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReasonforDowntrading__c</fullName>
+    <description>Reasons for why the customer is downtrading</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Reasons for why the customer is downtrading</inlineHelpText>
+    <label>Reason for Downtrading</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Uncompetitive Pricing - Weight Specific</fullName>
+                <default>false</default>
+                <label>Uncompetitive Pricing - Weight Specific</label>
+            </value>
+            <value>
+                <fullName>Uncompetitive Pricing - Lane Specific</fullName>
+                <default>false</default>
+                <label>Uncompetitive Pricing - Lane Specific</label>
+            </value>
+            <value>
+                <fullName>Uncompetitive Pricing - Overall</fullName>
+                <default>false</default>
+                <label>Uncompetitive Pricing - Overall</label>
+            </value>
+            <value>
+                <fullName>Uncompetitive Pricing</fullName>
+                <default>false</default>
+                <label>Uncompetitive Pricing</label>
+            </value>
+            <value>
+                <fullName>Uncompetitive Pricing - Surcharges</fullName>
+                <default>false</default>
+                <label>Uncompetitive Pricing - Surcharges</label>
+            </value>
+            <value>
+                <fullName>Unsatisfactory Level of Support</fullName>
+                <default>false</default>
+                <label>Unsatisfactory Level of Support</label>
+            </value>
+            <value>
+                <fullName>Unsatisfactory Service Performance</fullName>
+                <default>false</default>
+                <label>Unsatisfactory Service Performance</label>
+            </value>
+            <value>
+                <fullName>Streaming to Competitor</fullName>
+                <default>false</default>
+                <label>Streaming to Competitor</label>
+            </value>
+            <value>
+                <fullName>Business not performing as it used to</fullName>
+                <default>false</default>
+                <label>Business not performing as it used to</label>
+            </value>
+            <value>
+                <fullName>Going Out of Business / Winding Down</fullName>
+                <default>false</default>
+                <label>Going Out of Business / Winding Down</label>
+            </value>
+            <value>
+                <fullName>Economic Downturn</fullName>
+                <default>false</default>
+                <label>Economic Downturn</label>
+            </value>
+            <value>
+                <fullName>Channel Shift - Acquired by Another Business</fullName>
+                <default>false</default>
+                <label>Channel Shift - Acquired by Another Business</label>
+            </value>
+            <value>
+                <fullName>Channel Shift - Lodging through 3rd Party</fullName>
+                <default>false</default>
+                <label>Channel Shift - Lodging through 3rd Party</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>6</visibleLines>
+</CustomField>

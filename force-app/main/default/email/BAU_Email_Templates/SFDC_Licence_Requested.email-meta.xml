@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Standard email sent to new user requests.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>SFDC_Blank</letterhead>
+    <name>SFDC Licence Requested</name>
+    <style>freeForm</style>
+    <subject>Salesforce User licence</subject>
+    <textOnly>Thank you for your application for a Salesforce User licence.
+
+To create a new user in Salesforce, we need authorisation and approval for the cost of a licence - $1200 pa – prorata from 1 October each year
+
+
+We can set up access as soon as we receive:
+
+
+· Approval from a person with the spend delegation
+
+· The Work Centre Code for the licence to be costed to
+
+· The new user’s APS Number, Team, and Manager
+
+
+It is also really helpful if you can tell us how you intend to use Salesforce, so we can set up appropriate views and permissions.
+
+
+Look forward to hearing from you.
+
+
+Haider Raza
+
+Sales Excellence
+
+Australia Post
+
+Level 1, 111 Bourke Street, Melbourne 3000
+
+P 03 9107 0281
+
+E haider.raza@auspost.com.au| W auspost.com.au
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

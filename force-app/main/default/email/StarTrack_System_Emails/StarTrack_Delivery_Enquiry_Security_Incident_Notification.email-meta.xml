@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>StarTrack Delivery Enquiry Security Incident Notification</name>
+    <style>none</style>
+    <subject>{!Case.CaseNumber} {!Case.Call_Purpose__c}</subject>
+    <textOnly>•  Case #:  {!Case.CaseNumber}
+•  Subject: {!Case.Subject}
+•  Description: {!Case.Description}
+•  Tier #: {!Case.Tier__c}
+•  Case Creator:  {!Case.Calc_Owner_Name__c}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

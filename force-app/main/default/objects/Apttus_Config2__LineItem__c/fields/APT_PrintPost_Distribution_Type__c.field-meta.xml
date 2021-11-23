@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_PrintPost_Distribution_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Distribution Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Local Sort Division</fullName>
+                <default>false</default>
+                <label>Local Sort Division</label>
+            </value>
+            <value>
+                <fullName>Same State Metro</fullName>
+                <default>false</default>
+                <label>Same State Metro</label>
+            </value>
+            <value>
+                <fullName>Same State Country</fullName>
+                <default>false</default>
+                <label>Same State Country</label>
+            </value>
+            <value>
+                <fullName>Other State</fullName>
+                <default>false</default>
+                <label>Other State</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

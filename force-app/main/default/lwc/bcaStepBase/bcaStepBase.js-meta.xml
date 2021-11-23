@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <description>base class for wizard steps</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Bca Step Base</masterLabel>
+</LightningComponentBundle>

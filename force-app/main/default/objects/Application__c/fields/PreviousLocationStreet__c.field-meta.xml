@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PreviousLocationStreet__c</fullName>
+    <description>User to input - no &quot; / &quot; or comma etc</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Address must be within Australia. PO Box is not acceptable.</inlineHelpText>
+    <label>Previous Location Street</label>
+    <length>40</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

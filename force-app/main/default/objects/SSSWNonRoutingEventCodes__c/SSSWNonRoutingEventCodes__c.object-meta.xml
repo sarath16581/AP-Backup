@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>When an event of this code comes, the Case is not routed and these events are ignored</description>
+    <enableFeeds>false</enableFeeds>
+    <label>SSSW Non Routing Event Codes</label>
+    <visibility>Public</visibility>
+</CustomObject>

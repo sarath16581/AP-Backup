@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>icatp__Slay_Images</fullName>
+    <availability>online</availability>
+    <description>Add images to the Signature Slayer Hit List directly from the case.</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <height>600</height>
+    <linkType>url</linkType>
+    <masterLabel>Manage Attached Images</masterLabel>
+    <openType>sidebar</openType>
+    <protected>false</protected>
+    <url>/apex/icatp__RecordHitList?id={!Case.Id}</url>
+</WebLink>

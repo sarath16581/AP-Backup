@@ -1,0 +1,42 @@
+/* 
+2020-07-06 Hara Sahoo:  Added styling for help and support form uplift as per the new designs
+*/
+.THIS.info-box {
+    /* 2020-07-06 Changed text color from red to black*/
+    /*color: rgb(188, 17, 30);*/
+    color: #212129;
+    background: #F2D0D5;
+    border-left-color: rgb(188, 17, 30);
+    margin-bottom: 2rem;
+    /*2020-07-06 Removed border and changes background color*/
+    /*background: rgba(188, 17, 30, 0.1);*/
+    /*border-color: rgba(188, 17, 30, 0.1);*/
+}
+@media (min-width: 680px) {
+    .THIS.info-box {
+        width:592px;
+    }
+}
+
+.THIS .warn-icon {
+    vertical-align: text-bottom;
+    margin-right: 15px;
+}
+
+.THIS img.warn-icon {
+    /*width: 20px;
+    min-width: 20px;*/	
+    height: 18px;
+}
+
+.THIS li {
+	list-style: disc;
+    margin-left: 60px;
+    padding-left: 10px;
+}
+
+.THIS a {
+	text-decoration: underline;
+    color: #212129;
+    /*color: rgb(188, 17, 30);*/
+}

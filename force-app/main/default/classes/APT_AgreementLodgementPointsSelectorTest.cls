@@ -1,0 +1,87 @@
+/**
+* @author Seth Heang
+* @date 2021-06-09
+* @group Tests
+* @tag Selector
+* @tag APT_Agreement_Lodgement_Point__c SObject
+* @domain Core
+* @description A very simple selector class that sits in the base domain
+* @changelog
+* 2021-06-09 - Seth Heang - Created
+*/
+@IsTest
+private with sharing class APT_AgreementLodgementPointsSelectorTest {
+	/**
+     * Test:
+     *  Ensures that the selectors QueryBuilder is generating the correct output
+     */
+    @IsTest
+    private static void testEnsureQueryBuilderProducesCorrectString() {
+
+        // =====================================
+        // Data Preparation
+        // =====================================
+        // None!
+
+        // =====================================
+        // Stubbing
+        // =====================================
+        // None!
+
+        // =====================================
+        // Testing
+        // =====================================
+        Test.startTest();
+
+        APT_AgreementLodgementPointsSelector selector = APT_AgreementLodgementPointsSelector.newInstance();
+        QueryBuilder qb = selector.newQueryBuilder();
+        String soql = qb.toSoqlString();
+
+        System.assertEquals(true, Pattern.compile('(?is)\\bfrom APT_Agreement_Lodgement_Point__c\\b').matcher(soql).find(), 'Resulting query does not select from opportunity product classification');
+
+        Test.stopTest();
+
+    }
+
+    /**
+     * Test:
+     *  Ensures that the selectors QueryBuilder is generating the correct output
+     */
+    @IsTest
+    private static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
+
+        // =====================================
+        // Data Preparation
+        // =====================================
+        MockUtility.disableTriggerExecution();
+        Account acc = ApplicationTestDataFactory.getAccounts(1, false)[0]; 
+        insert acc;
+		Contact con = ApplicationTestDataFactory.getContacts(1, acc.id, false)[0];
+        insert con;
+        Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, acc.id, false)[0];
+        insert opp;
+        Apttus__APTS_Agreement__c contract = ApplicationTestDataFactory.getApttusContracts(1, con.Id, opp.Id, false)[0];
+        insert contract;
+        APT_Agreement_Lodgement_Point__c agreementLP = ApplicationTestDataFactory.getAgreementLodgementPoints(1, null, contract.Id,acc.Id, false)[0];
+        insert agreementLP;
+        
+        // =====================================
+        // Stubbing
+        // =====================================
+        // None!
+
+        // =====================================
+        // Testing
+        // =====================================
+        Test.startTest();
+
+        // Query Agreement Lodgement Point based on Apttus Contract Id
+        Map<Id, APT_Agreement_Lodgement_Point__c> results;
+        results = APT_AgreementLodgementPointsSelector.newInstance(1).selectByApttusContractId(new Set<id>{contract.Id},new set<object>{APT_AgreementLodgementPointsSelector.Options.WITH_NETWORK});
+        
+        System.assertEquals(1, results.size(), 'Expected result size of 1');
+
+        Test.stopTest();
+
+    }
+}

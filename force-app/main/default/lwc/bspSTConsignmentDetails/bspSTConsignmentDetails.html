@@ -1,0 +1,119 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 01/09/2020
+  * @description  : Component for Consignment Details.
+--------------------------------------- History --------------------------------------------------
+01.09.2020    Jansi Rani   Created
+-->
+<template> 
+    <!-- ST Consinment details-->
+    <template if:true={singleCon}>
+
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_1-of-1 slds-p-bottom_small"><b>Tracking number :</b> <br>
+                    {singleCon.Name}
+                    
+                </div>
+            </div>
+
+            <!--Authenticated-->
+            <template if:true={isConsignmentAuthenticated}>
+
+
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small"><b>Sender company :</b> <br>
+                        {singleCon.SenderCompany__c}
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <b>Receiver company :</b>
+                            <br>{singleCon.ReceiverCompany__c}
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small"><b>Sender name :</b> <br>
+                        {singleCon.SenderName__c} 
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <b>Receiver name :</b>
+                            <br>{singleCon.ReceiverName__c}
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small"><b>Sender address :</b> <br>
+                        {formattedSenderAddress}
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <b>Receiver address :</b>
+                            <br>{formattedReceiverAddress}
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small"><b>Dispatched :</b> <br>
+                        {dispatchedFormattedDateStr}<!--{singleCon.Dispatch_Date_Str__c} -->
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <b>Estimated arrival :</b>
+                            <br>{expectedDeliveryFormattedDateStr}<!--{singleCon.ExpectedDeliveryDate_Str__c}-->
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small"><b>Customer reference  :</b> <br>
+                        {singleCon.Customer_Ref__c}
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <b>Service type :</b>
+                            <br>{singleCon.STServiceType__c}
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small"><b>Unit type  :</b> <br>
+                        {singleCon.Unit_Type__c}
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <b>Special instructions :</b>
+                            <br>{singleCon.DeliveryInstructions__c}
+                    </div>
+                </div>
+
+            </template> 
+
+            <!--Un Authenticated-->
+            <template if:false={isConsignmentAuthenticated}>
+                
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small"><b>Dispatched :</b> <br>
+                        {singleCon.Dispatch_Date_Str__c}
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <b>Estimated arrival  :</b>
+                            <br>{singleCon.ExpectedDeliveryDate_Str__c}
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small"><b>Service type :</b> <br>
+                        {singleCon.STServiceType__c} 
+                        
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-bottom_small">
+                        <b>Destination :</b>
+                            <br>{destination}
+                    </div>
+                </div>
+                
+            </template>
+
+    </template>
+</template>

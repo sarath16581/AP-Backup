@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_BlockEditsBasedOfApprovalStatus</fullName>
+    <active>true</active>
+    <description>Block record from being edited</description>
+    <errorConditionFormula>AND( NOT( ISPICKVAL( Approval_Status__c , &apos;Approval Required&apos;)) ,NOT( ISCHANGED(Approval_Status__c )))</errorConditionFormula>
+    <errorMessage>Records which are Cancelled, Approved, Rejected or Pending Approval, cannot be edited. Please create new Contract Extension and submit it for Approval</errorMessage>
+</ValidationRule>

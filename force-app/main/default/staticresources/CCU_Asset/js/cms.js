@@ -1,0 +1,1 @@
+(function(e){var t=e("body"),n;if(!e.browser.msie)return;n=parseInt(e.browser.version,10),n<9&&t.addClass("lt-ie9"),n<8&&t.addClass("lt-ie8"),n<7&&t.addClass("lt-ie7")})(jQuery);var AUSPOST_CMS=function(e){return e.showAllSlideshowItems=function(){$("body").addClass("is-slideshow-authoring")},e}(AUSPOST_CMS||{});

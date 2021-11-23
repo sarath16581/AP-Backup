@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Max_1_active_lookup</fullName>
+    <active>true</active>
+    <errorConditionFormula>if (NOT ISBLANK(DMAPP__AM_Plan_Unit_Question__c), 1, 0) +
+if (NOT ISBLANK(DMAPP__AM_Question__c), 1, 0) +
+if (NOT ISBLANK(DMAPP__Assessment_Criterion__c), 1, 0) +
+if (NOT ISBLANK(DMAPP__Milestone_Question__c), 1, 0) +
+if (NOT ISBLANK(DMAPP__Milestone_Question_Option__c), 1, 0) +
+if (NOT ISBLANK(DMAPP__Milestone_Section__c), 1, 0) +
+if (NOT ISBLANK(DMAPP__New_Coach_Rules__c), 1, 0) +
+if (NOT ISBLANK(DMAPP__Qualifier__c), 1, 0) +
+if (NOT ISBLANK(DMAPP__Quicklink__c), 1, 0) +
+if (NOT ISBLANK(DMAPP__Plan_Type__c), 1, 0) +
+
+if (NOT ISBLANK(DMAPP__Segmentation_Question__c), 1, 0) +
+if (NOT ISBLANK(DMAPP__Segmentation_Question_Option__c), 1, 0) +
+if (NOT ISBLANK(DMAPP__Insight_Category__c), 1, 0) +
+if (NOT ISBLANK(DMAPP__Insight_Subcategory__c), 1, 0) +
+if (NOT ISBLANK(DMAPP__Insight_Map_Category_Type__c), 1, 0) +
+if (NOT ISBLANK(DMAPP__Value_Map_Question__c), 1, 0) +
+if (NOT ISBLANK(DMAPP__Value_Map_Question_Option__c), 1, 0) 
+
+
+
+&lt;&gt; 1</errorConditionFormula>
+    <errorMessage>Content Translation should have exactly 1 active lookup</errorMessage>
+</ValidationRule>

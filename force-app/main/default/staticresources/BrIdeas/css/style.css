@@ -1,0 +1,130 @@
+.lght-ideas .filter-selector h3.title .arrow{
+	background-image: url('../images/collapse-arrow.png');
+}
+
+
+.vote-thumbup-ico {
+	background: url('../images/sprite-icons.png') no-repeat scroll -2px -2px;
+	width: 12px;
+	height: 14px;
+}
+.vote-thumbdown-ico {
+	background: url('../images/sprite-icons.png') no-repeat scroll -20px -2px;
+	width: 12px;
+	height: 14px;
+}
+
+.vote-thumbup-ico.active {
+	background-position: -2px -41px;
+	width: 18px;
+	height: 20px;
+}
+.vote-thumbdown-ico.active {
+	background-position: -22px -41px;
+	width: 18px;
+	height: 20px;
+}
+.post-idea-button .big-button.join{
+    background-image: url('../images/join-group-btn-ico.png');
+    background-repeat: no-repeat;
+    }
+.loading-spinner {
+    width: 52px;
+    height: 52px;
+    margin: 5px;
+    background-image: url('../images/spinner52.gif');
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.idea-post-form .loading-spinner {
+    width: auto;
+    height: 32px;
+    background-image: url('../images/spinner32.gif');
+    background-position: left center;
+    padding: 6px 0 0 45px;
+    margin: 0;
+    color: #777777;
+    }
+
+.bedrock-ideas-settings .settings {
+    padding: 10px 0;
+    }
+.bedrock-ideas-settings .settings .buttons{
+    padding: 20px 0;
+    }
+.bedrock-ideas-settings .settings .field-row .label{
+    width: 120px;
+    }
+.bedrock-ideas-settings .company-info {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f7f9fa;
+    border: solid 1px #e5e5e5;
+    }
+    .bedrock-ideas-settings .company-info .logo {
+        margin: 0 0 20px 0;
+        }
+    .bedrock-ideas-settings .company-info a {
+        color: #ed455e;
+        }
+    .bedrock-ideas-settings .company-info p {
+        margin: 0 0 15px 0;
+        line-height: 18px;
+        }
+        .bedrock-ideas-settings .company-info p span {
+            color: #ed455e;
+            }
+.bedrock-ideas-settings h1 {
+    font-size: 200%;
+    font-weight: normal;
+    color: #555555;
+    }
+.bedrock-ideas-settings h2 {
+    display: block;
+    font-size: 150%;
+    font-weight: normal;
+    color: #888888;
+    margin: 5px 0 10px 0;
+    }
+.bedrock-ideas-settings .messages {
+    padding: 10px 0 0 0;
+    margin: 0;
+    list-style: none;
+    }
+    .bedrock-ideas-settings .messages li {
+        display: block;
+        padding: 10px;
+        background: #f5f5f5;
+        border: solid 1px #e5e5e5;
+        margin: 0 0 5px 0;
+        color: #445566;
+        }
+.bedrock-ideas-settings .settings-group {
+    padding: 20px 0;
+    }
+.bedrock-ideas-settings .field-row {
+    padding: 10px 0;
+    }
+    .bedrock-ideas-settings .field-row .label {
+        display: inline-block;
+        margin-right: 10px;
+        }
+.bedrock-ideas-settings .moderators-list{
+    max-width: 600px;
+    margin: 10px 0 20px 0;
+    padding: 10px 0;
+    list-style: none;
+    background: #ffffff;
+    border: solid 1px #dddddd;
+    }
+    .bedrock-ideas-settings .moderators-list li{
+        padding: 5px 0;
+        font-size: 1.2em;
+        }
+.bedrock-ideas-settings .field-row.status .marker{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: solid 1px #888888;
+    background: #888888;
+    }

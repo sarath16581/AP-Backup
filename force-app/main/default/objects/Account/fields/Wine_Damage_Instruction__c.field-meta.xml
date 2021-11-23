@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Wine_Damage_Instruction__c</fullName>
+    <description>Wine damages instructions for organisation used in mynetwork forms</description>
+    <externalId>false</externalId>
+    <label>Damage Instructions</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Return To Sender</fullName>
+                <default>false</default>
+                <label>Return to sender</label>
+            </value>
+            <value>
+                <fullName>Deliver as Addressed</fullName>
+                <default>false</default>
+                <label>Deliver as addressed</label>
+            </value>
+            <value>
+                <fullName>Discard</fullName>
+                <default>false</default>
+                <label>Discard</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

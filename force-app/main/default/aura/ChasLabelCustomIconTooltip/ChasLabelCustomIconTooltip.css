@@ -1,0 +1,62 @@
+/*
+    mobile view
+*/
+@media (max-width: 480px)
+{
+    .THIS .tooltip .tooltext {
+        visibility: hidden;
+        background-color: white;
+        color: black;
+        position: absolute;
+        z-index: 1;
+        box-shadow: 5px 10px 8px 10px #ECECEC;
+        transform: translate(-3em, -4em);
+        font-weight: normal;
+    }
+    
+    .THIS .tooltip:hover .tooltext {
+        visibility: visible;
+    }
+    
+    .THIS .tooltip .tooltext::after {
+        content: " ";
+        position: absolute;
+        top: 100%;
+        left: 5%;
+        margin-left: -5px;
+        border-width: 15px;
+        border-style: solid;
+        border-color: white transparent transparent transparent;
+    }
+}
+/*
+    desktop view
+*/
+@media (min-width: 481px)
+{
+    .THIS .tooltip .tooltext {
+        visibility: hidden;
+        background-color: white;
+        color: black;
+        position: absolute;
+        z-index: 1;
+        box-shadow: 5px 10px 8px 10px #ECECEC;
+        transform: translate(-3em, -4em);
+        font-weight: normal;
+    }
+    
+    .THIS .tooltip:hover .tooltext {
+        visibility: visible;
+    }
+    
+    .THIS .tooltip .tooltext::after {
+        content: " ";
+        position: absolute;
+        top: 100%;
+        left: 5%;
+        margin-left: -5px;
+        border-width: 15px;
+        border-style: solid;
+        border-color: white transparent transparent transparent;
+    }
+}

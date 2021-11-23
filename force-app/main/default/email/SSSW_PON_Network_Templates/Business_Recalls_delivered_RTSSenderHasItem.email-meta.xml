@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Business – Recalls – delivered - RTS - Sender has the item</name>
+    <style>none</style>
+    <subject>Australia Post – Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference {!Case.CaseNumber}
+
+Update for {!Case.Type} - {!Case.CaseNumber}
+
+Hi {!Contact.FirstName}
+
+Re: Article {!Case.ReferenceID__c}
+
+We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
+
+I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that your item was returned to the sender. This can occur when there’s an issue with the address or barcode on the item.
+
+Please contact the sender to discuss the reasons for the return and to re-arrange delivery.
+
+Kind Regards,
+{!User.FirstName}
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

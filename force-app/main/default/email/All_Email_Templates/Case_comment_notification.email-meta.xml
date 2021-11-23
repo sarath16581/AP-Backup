@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This template is used to notify case owner and/or case team members (according to the Service delivery setting metadata) when a case comment is added.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Case comment notification</name>
+    <style>none</style>
+    <subject>Case {!Case.CaseNumber} - {!Case.Subject} - New Case Comment Update</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

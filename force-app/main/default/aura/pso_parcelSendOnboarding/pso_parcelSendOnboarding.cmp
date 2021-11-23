@@ -1,0 +1,368 @@
+<!--
+ - Created by hasantha on 19/3/19.
+ -->
+
+<aura:component description="pso_parcelSendOnboarding" implements="forceCommunity:availableForAllPageTypes,flexipage:availableForRecordHome" controller="pso_ParcelSendOnboardingController" access="global">
+    <c:MessagePannel aura:id="messages" />
+    <c:waitingQueueComponent aura:id="loader" />
+    <aura:attribute name="contactId" type="String" required="true" />
+    <aura:attribute name="statusResponse" type="Object" />
+    <aura:attribute name="contact" type="Object" />
+    <aura:attribute name="displayRecords" type="Object" />
+
+
+    <aura:registerEvent name="appEventContinuation" type="c:AsynchApexContinuationRequest"/>
+    <ltng:require scripts="{!join(',',$Resource.GlobalAssets + '/js/lightning/utils.js')}"  afterScriptsLoaded="{!c.doInit}"/>
+
+    <div class="slds-page-header slds-box page-header" style="background-color: #eef2f6;">
+        <div class="slds-text-heading_large">Parcel Send Onboarding</div>
+    </div>
+        <!-- Header End -->
+    <br/>
+
+    <div class="slds-grid slds-grid_vertical">
+        <div class="slds-card slds-container--fluid">
+            <div class="slds-media">
+                <div class="slds-button-group slds-p-top_small slds-p-left_small" role="group">
+                    <lightning:button variant="brand" onclick="{!c.onboard}" disabled="{!v.statusResponse.disabled}" iconName="utility:process" iconPosition="left" label="Onboard"  />
+                </div>
+                <div class="slds-p-top_medium slds-p-left_medium">
+                    <h1 class="slds-text-body_regular ">
+                        <ui:outputText value="{!v.statusResponse.Status}" class="" title="Status"/>
+                        <ui:outputText value="{!v.statusResponse.Message}" class="slds-p-left_small" title="Details"/>
+                        <br/>
+                        <br/>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="slds-card slds-container--fluid">
+            <table class="slds-table slds-table_bordered slds-table_striped ">
+                <thead>
+                <tr class="slds-text-title_caps" style="background-color:#ccf2ff;">
+                    <!-- column headers arent made dynamic as this peice of work will be overridden by BAM-->
+                    <th scope="col" class="slds-size_1-of-7">
+                        <div class="slds-truncate" title="Status"> Status </div>
+                    </th>
+                    <th scope="col" class="slds-size_1-of-7">
+                        <div class="slds-truncate" title="Description"> Description </div>
+                    </th>
+                    <th scope="col" class="slds-size_3-of-7">
+                       <div class="tooltip">Error/Reason
+                            <lightning:helptext content=""/>
+                            <span class="tooltiptext">Please copy the error Error/Reason when you raise an enquiry</span>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <aura:iteration items="{!v.statusResponse.StatusResults}" indexVar="idx" var="dispObj">
+                    <tr class="slds-hint-parent">
+                        <td data-label="status">
+                            <div class="slds-truncate" title="Status">{!dispObj.status}</div>
+                        </td>
+                        <td data-label="message">
+                            <div class="slds-truncate" title="Description">{!dispObj.message}</div>
+                        </td>
+                        <td data-label="errorDescription">
+                            <div class="font-colour-error word-break " title="Error Description">
+                                <aura:if isTrue="{! and(dispObj.errorSummary != null, dispObj.errorDescription != null) }">
+                                    Summary : {!dispObj.errorSummary} <br/>
+                                    Description : {!dispObj.errorDescription}
+                                </aura:if>
+                            </div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="slds-card slds-container--fluid">
+            <lightning:card class="paper-card" >
+                <div class="slds-p-around_small">
+                    <lightning:input name="Email" readonly="true" value="{!v.contact.Name}" label="Full Name"/>
+                    <lightning:input name="Email" readonly="true" value="{!v.contact.Email}" label="Email"/>
+                    <lightning:input name="BillingAccount__c" readonly="true" value="{!v.contact.BillingAccount__r.Name}" label="Primary Billing Account"/>
+                </div>
+            </lightning:card>
+        </div>
+
+        <div class="slds-card slds-container--fluid">
+            <table class="slds-table slds-table_bordered slds-table_striped ">
+                <thead>
+                <tr class="slds-text-title_caps" style="background-color:#ccf2ff;">
+                    <!-- column headers arent made dynamic as this peice of work will be overridden by BAM-->
+                    <th scope="col">
+                        <div class="slds-truncate" title="Contact Application"> Contact Application Name </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Status"> Status </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Is Deleted"> Is Deleted </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Pending Delete"> Pending Delete </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Application"> Application </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Pending Deactivation"> Pending Deactivation </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="CreatedDate"> Created Date </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="LastModifiedDate"> Last Modified Date </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <aura:iteration items="{!v.displayRecords.contactApplications}" indexVar="idx" var="dispObj">
+                    <tr class="slds-hint-parent">
+                        <td data-label="Contact Application">
+                            <div class="slds-truncate" title="Contact Application">{!dispObj.Name}</div>
+                        </td>
+                        <td data-label="Status">
+                            <div class="slds-truncate" title="Status">{!dispObj.Status__c}</div>
+                        </td>
+                        <td data-label="Status">
+                            <div class="slds-truncate" title="Is Deleted">{!dispObj.IsDeleted}</div>
+                        </td>
+                        <td data-label="Status">
+                            <div class="slds-truncate" title="Pending Delete">{!dispObj.Pending_Delete__c}</div>
+                        </td>
+                        <td data-label="Application Name">
+                            <div class="slds-truncate" title="Application Name">{!dispObj.Application_Name__c}</div>
+                        </td>
+                        <td data-label="Status">
+                            <div class="slds-truncate" title="Pending Deactivation">{!dispObj.Pending_Deactivation__c}</div>
+                        </td>
+                        <td data-label="Application Name">
+                            <div class="slds-truncate" title="Application Name"><lightning:formattedDateTime year="numeric" month="numeric" day="numeric" hour="2-digit"
+                                                                                                             minute="2-digit"  value="{!dispObj.CreatedDate}" /></div>
+                        </td>
+                        <td data-label="Status">
+                            <div class="slds-truncate" title="Pending Deactivation"><lightning:formattedDateTime year="numeric" month="numeric" day="numeric" hour="2-digit"
+                                                                                                                 minute="2-digit"  value="{!dispObj.LastModifiedDate}"/></div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="slds-card slds-container--fluid">
+            <table class="slds-table slds-table_bordered slds-table_striped ">
+                <thead>
+                <tr class="slds-text-title_caps" style="background-color:#ccf2ff;">
+                    <!-- column headers arent made dynamic as this peice of work will be overridden by BAM-->
+                    <th scope="col">
+                        <div class="slds-truncate" title="Contact Role Name"> Contact Role Name </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Status"> Status </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Is Deleted"> Is Deleted </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Pending Delete"> Pending Delete </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Contact Application"> Contact Application </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Role"> Role </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="CreatedDate"> Created Date </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="LastModifiedDate"> Last Modified Date </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <aura:iteration items="{!v.displayRecords.contactRoles}" indexVar="idx" var="dispObj">
+                    <tr class="slds-hint-parent">
+                        <td data-label="Billing Account">
+                            <div class="slds-truncate" title="Contact Role Name">{!dispObj.Name}</div>
+                        </td>
+                        <td data-label="Status">
+                            <div class="slds-truncate" title="Status">{!dispObj.Status__c}</div>
+                        </td>
+                        <td data-label="Status">
+                            <div class="slds-truncate" title="Is Deleted">{!dispObj.IsDeleted}</div>
+                        </td>
+                        <td data-label="Status">
+                            <div class="slds-truncate" title="Pending Delete">{!dispObj.Pending_Delete__c}</div>
+                        </td>
+                        <td data-label="Legacy Id">
+                            <div class="slds-truncate" title="Contact Application">{!dispObj.ContactApplication__r.Name}</div>
+                        </td>
+                        <td data-label="Legacy Id">
+                            <div class="slds-truncate" title="Role">{!dispObj.Application_Role_Role__c}</div>
+                        </td>
+                        <td data-label="Application Name">
+                            <div class="slds-truncate" title="Application Name"><lightning:formattedDateTime year="numeric" month="numeric" day="numeric" hour="2-digit"
+                                                                                                             minute="2-digit" value="{!dispObj.CreatedDate}" /></div>
+                        </td>
+                        <td data-label="Status">
+                            <div class="slds-truncate" title="Pending Deactivation"><lightning:formattedDateTime year="numeric" month="numeric" day="numeric" hour="2-digit"
+                                                                                                                 minute="2-digit" value="{!dispObj.LastModifiedDate}"/></div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="slds-card slds-container--fluid">
+            <table class="slds-table slds-table_bordered slds-table_striped ">
+                <thead>
+                <tr class="slds-text-title_caps" style="background-color:#ccf2ff;">
+                    <!-- column headers arent made dynamic as this peice of work will be overridden by BAM-->
+                    <th scope="col">
+                        <div class="slds-truncate" title="Linked Entity Name"> Linked Billing Account Name </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Status"> Status </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Is Deleted"> Is Deleted </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Pending Delete"> Pending Delete </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Contact Role Name"> Contact Role Name </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Group"> Group </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Billing Account"> Billing Account </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="CreatedDate"> Created Date </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="LastModifiedDate"> Last Modified Date </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <aura:iteration items="{!v.displayRecords.linkedEntities}" indexVar="idx" var="dispObj">
+                    <tr class="slds-hint-parent">
+                        <td data-label="Billing Account">
+                            <div class="slds-truncate" title="Linked Entity Name">{!dispObj.Name}</div>
+                        </td>
+                        <td data-label="Status">
+                            <div class="slds-truncate" title="Status">{!dispObj.Status__c}</div>
+                        </td>
+                        <td data-label="Is Deleted">
+                            <div class="slds-truncate" title="Is Deleted">{!dispObj.IsDeleted}</div>
+                        </td>
+                        <td data-label="Pending Delete">
+                            <div class="slds-truncate" title="Pending Delete">{!dispObj.Pending_Delete__c}</div>
+                        </td>
+                        <td data-label="Contact Application">
+                            <div class="slds-truncate" title="Contact Application">{!dispObj.ContactRole__r.Name}</div>
+                        </td>
+                        <td data-label="Role">
+                            <div class="slds-truncate" title="Role">{!dispObj.Group__r.Name}</div>
+                        </td>
+                        <td data-label="Billing Account">
+                            <div class="slds-truncate" title="Billing Account">{!dispObj.Group__r.Name}</div>
+                        </td>
+                        <td data-label="Application Name">
+                            <div class="slds-truncate" title="Application Name"><lightning:formattedDateTime year="numeric" month="numeric" day="numeric" hour="2-digit"
+                                                                                                             minute="2-digit" value="{!dispObj.CreatedDate}" /></div>
+                        </td>
+                        <td data-label="Status">
+                            <div class="slds-truncate" title="Pending Deactivation"><lightning:formattedDateTime year="numeric" month="numeric" day="numeric" hour="2-digit"
+                                                                                                                 minute="2-digit" value="{!dispObj.LastModifiedDate}"/></div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="slds-card slds-container--fluid">
+            <table class="slds-table slds-table_bordered slds-table_striped ">
+                <thead>
+                <tr class="slds-text-title_caps" style="background-color:#ccf2ff;">
+                    <!-- column headers arent made dynamic as this peice of work will be overridden by BAM-->
+                    <th scope="col">
+                        <div class="slds-truncate" title="Billing Account"> Billing Account </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Is Deleted"> Is Deleted </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="LEGACY ID"> Legacy Id </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="MLID"> MLID </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Source System"> Source System </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="SAP marked for deletion"> SAP marked for deletion </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="CreatedDate"> Created Date </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="LastModifiedDate"> Last Modified Date </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <aura:iteration items="{!v.displayRecords.billingAccounts}" indexVar="idx" var="dispObj">
+                    <tr class="slds-hint-parent">
+                        <td data-label="Billing Account">
+                            <div class="slds-truncate" title="Billing Account">{!dispObj.Name}</div>
+                        </td>
+                        <td data-label="Is Deleted">
+                            <div class="slds-truncate" title="Is Deleted">{!dispObj.IsDeleted}</div>
+                        </td>
+                        <td data-label="Legacy Id">
+                            <div class="slds-truncate" title="Legacy Id">{!dispObj.LEGACY_ID__c}</div>
+                        </td>
+                        <td data-label="MLID">
+                            <div class="slds-truncate" title="MLID">{!dispObj.MLID__c}</div>
+                        </td>
+                        <td data-label="Source System">
+                            <div class="slds-truncate" title="Source System">{!dispObj.Source_System__c}</div>
+                        </td>
+                        <td data-label="SAP marked for deletion">
+                            <div class="slds-truncate" title="SAP marked for deletion">{!dispObj.SAP_marked_for_deletion__c}</div>
+                        </td>
+                        <td data-label="Application Name">
+                            <div class="slds-truncate" title="Application Name"><lightning:formattedDateTime year="numeric" month="numeric" day="numeric" hour="2-digit"
+                                                                                                             minute="2-digit"  value="{!dispObj.CreatedDate}" /></div>
+                        </td>
+                        <td data-label="Status">
+                            <div class="slds-truncate" title="Pending Deactivation"><lightning:formattedDateTime year="numeric" month="numeric" day="numeric" hour="2-digit"
+                                                                                                                 minute="2-digit"  value="{!dispObj.LastModifiedDate}"/></div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</aura:component>

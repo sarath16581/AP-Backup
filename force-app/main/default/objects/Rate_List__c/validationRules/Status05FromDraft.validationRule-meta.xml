@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status05FromDraft</fullName>
+    <active>true</active>
+    <description>Prevent the user from changing the status from Draft, and advise them to progress the record via Submit Rate List for Approval.  After the record is submitted for approval it becomes locked via the Approval lock process, and via field Lock Record val rule</description>
+    <errorConditionFormula>AND(
+  NOT(ByPassValidation__c), 
+  ISPICKVAL(PRIORVALUE(Status__c), &quot;Draft&quot;),
+  NOT(ISPICKVAL(Status__c, &quot;Draft&quot;))
+)</errorConditionFormula>
+    <errorMessage>The Rate List record can only be progressed by submitting it for approval by selecting the &apos;Submit Rate List for Approval&apos; button.  If the record is no longer required it can be deleted while in Draft or Approved state.</errorMessage>
+</ValidationRule>

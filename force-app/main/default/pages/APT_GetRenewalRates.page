@@ -1,0 +1,370 @@
+<!-- Modifiedby: Aditya Shetty :: ModifiedOn:19/3/2020 :: Description :: UX issues-->
+<!-- Modifiedby: Mansi Shah :: ModifiedOn:1/5/2021 :: Description :: UX issues--> 
+<apex:page controller="APT_GetRenewalRatesController" showHeader="false" id="Page" >
+<!-- added by Mansi Shah - to give a lightning experience on this page-->
+<apex:slds />
+
+
+<apex:stylesheet value="{!$Resource.Apttus_Config2__ConfigStyles}" />
+    <apex:stylesheet value="{!URLFOR($Resource.Apttus_Config2__YUILibrary, '/yui/build/assets/skins/sam/skin.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.Apttus_Config2__JQueryUILibrary19, 'css/smoothness/jquery-ui-1.9.2.custom.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.Apttus_Config2__CPQGlobalCSS, 'CPQNewUI.css')}" />
+    <apex:stylesheet value="{!$Resource.Apttus_Config2__ConfigStyles}" />
+    <apex:stylesheet value="{!URLFOR($Resource.Apttus_Config2__CPQPageResources,'CPQCommon.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.Apttus_Config2__JQueryUILibrary19, 'css/smoothness/jquery-ui-1.9.2.custom.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.Apttus_Config2__CPQPageResources,'CPQOptions.css')}" />
+    
+    <apex:includeScript value="{!URLFOR($Resource.Apttus_Config2__JQueryUILibrary19, 'js/jquery-1.8.3.min.js')}"/>
+    <apex:includeScript value="{!$Resource.Apttus_Config2__ActionFunctionQueue}"/>
+    <apex:includeScript value="{!$Resource.Apttus_Config2__ConfigJSLib}"/>
+    <apex:includeScript value="{!$Resource.Apttus_Config2__CPQJSLibrary}"/>
+    <apex:include pageName="Apttus_Config2__ConfigJSLibInclude" />
+    <apex:includeScript value="{!$Resource.Apttus_Config2__CPQOptionsJS}"/>
+    
+    <apex:stylesheet value="{!URLFOR($Resource.Apttus_Config2__CPQPageResources, 'CPQCommon.csss')}" />
+    <!--link class="user" href="/resource/1415662482000/apttus_config2__CPQPageResources/CPQCommon.css" rel="stylesheet" type="text/css"/-->
+    <link class="user" href="/sCSS/32.0/sprites/1417474122000/Theme3/default/gc/common.css" rel="stylesheet" type="text/css"/>
+
+
+
+<div class="apt-page-header cartTable clearfix">
+        <div class="dropdown apt-pull-left">
+            <div class="apt-hamburger-icon apt-dropdown-toggle" data-toggle="dropdown" id="stepMenu" role="button" style="display: none;">
+                <div class="icon-utility-rows"></div>
+            </div>
+            <ul aria-labelledby="stepMenu" class="apt-list-dropdown dropdown-menu taskPageButtons dropdown-menu-top" role="menu">
+                <li class="aptProductListHeader">&nbsp;&nbsp;&nbsp;Follow these steps:</li>
+            </ul>
+        </div>
+        <div class="apt-quote-panel apt-pull-left">
+            <span class="apt-cart-head-label">Proposal:</span>
+                                &nbsp;
+            <span id="j_id0:idLineItemSO:idCartHeader:j_id25:j_id32">
+            
+                <!-- <a href="{!proposalURL}" target="_self" >{!proposalNumber}</a> -->
+                <apex:outputLink value="/{!proposalId}" target="_blank"> {!proposalName} </apex:outputLink>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="apt-cart-head-label">  &nbsp;&nbsp; - &nbsp;&nbsp; {!accountName} </span>
+            </span>
+            <!-- <span class="apt-location-text apt-cart-head-label">{!proposalName}</span> -->
+        </div>
+        <div class="apt-aprroval-panel apt-pull-left">
+            <span class="apt-cart-head-label">Approval Status:</span>
+            <span id="j_id0:idLineItemSO:idCartHeader:j_id25:j_id37" class="approvalText">
+                <span id="j_id0:idLineItemSO:idCartHeader:j_id25:j_id38">{!approvalStatus}</span>
+            </span>
+            <span id="j_id0:idLineItemSO:idCartHeader:j_id25:j_id40">&nbsp;</span>
+        </div>            
+        <div id="aptGeneralSpinner"></div>
+        
+        <!-- div id="aptAbandonBtn" style="float:right;padding-top:2px;">
+            <div id="j_id0:idLineItemSO:idTopNavActions" style="text-align: right; padding-right: 4px;">
+                <input type="submit" name="j_id0:idLineItemSO:j_id326" value="Abandon" onclick="showAbandonConfirmationDialog(); return false;" style="background-color:#657383;background-image:none;color:white;" class="btn"/>
+            </div>
+        </div -->
+        
+        <div class="apt-headerPlacement apt-pull-right"></div>
+        <div class="apt-powered-logo">
+            <apex:image url="{!URLFOR($Resource.Apttus_Config2__CPQDelight, 'apt-logo.png')}" alt="{!$Label.APT_Powered_By_Apttus}" title="{!$Label.APT_Powered_By_Apttus}"/>
+            <!-- img src="/resource/1415662482000/apttus_config2__CPQDelight/apt-logo.png" alt="Powered By Apttus" title="Powered By Apttus"/ -->
+        </div>
+        <div class="dropdown apt-help-panel apt-pull-right">
+            <div class="apt-dropdown-toggle" data-toggle="dropdown" id="apt-helpIcon" role="button" style="display: none;">
+                <div class="icon-utility-help"></div>
+            </div>
+            <ul aria-labelledby="apt-helpIcon" class="apt-list-dropdown dropdown-menu dropdown-menu-top apt-helpDropDown" role="menu"></ul>
+        </div>
+        <div class="dropdown apt-mini-cart-panel apt-pull-right" style="display: none;">
+            <div class="apt-dropdown-toggle" data-toggle="dropdown" id="apt-cartIcon" role="button">
+                <div class="apt-pull-left icon-utility-cart" id="apt-miniCartPanel"></div> Cart (
+                <span id="aptAddCartItemCount">2</span>) 
+                <span class="icon-utility-down"></span>
+            </div>
+            <div aria-labelledby="apt-cartIcon" class="dropdown-menu dropdown-menu-top apt-cartDropDown" role="menu"></div>
+        </div>
+    </div>
+    
+    <style>   
+    
+   button:disabled,button[disabled]{
+              opacity: 0.65; 
+              cursor: not-allowed;
+            }     
+        .aptOutputLabel {
+            color: #4a4a56;
+            font-size: 91%;
+            font-weight: bold;
+            text-align: left;
+        }        
+        
+        .aptListButton {
+            border: none !important;
+            outline:none; 
+            cursor: pointer;
+            background-color:#236fbd !important;
+        }
+         .aptListButton {
+            border: none !important;
+            outline:none; 
+            cursor: pointer;
+            background-color:#236fbd !important;
+        }
+        .aptRequiredBlock {
+            background-color: #c00;
+        }
+        
+        .aptTable {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 6px;
+        }
+        
+        .backgrouddcolor {
+    background-color: #293f54 !important;
+        }
+        
+    
+        .customPopup{
+        background-color: white;
+        border-width: 2px;
+        z-index: 9999;
+        left: 50%;
+        padding:10px;
+        position: absolute;
+        /* These are the 3 css properties you will need to change so the popup 
+        displays in the center of the screen. First set the width. Then set 
+        margin-left to negative half of what the width is. You can add 
+        the height property for a fixed size pop up if you want.*/
+        width: 500px;
+        margin-left: -250px;
+        top:100px;
+        }
+        
+        .popupBackground{
+        background-color:black;
+        opacity: 0.5;
+        filter: alpha(opacity = 5);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 9998;
+        }
+       
+        .popup-styling{
+        background: white;z-index: 99999;opacity: 1;border: 1px;border-style: groove;margin: 70px auto;padding: 20px;background: #fff;width: 30%;position: relative;
+        }
+        
+       
+            
+        
+        
+    </style>    
+
+
+
+
+<apex:form id="formId"> 
+<script>
+    function myJavascriptFunc1()
+    {
+        //alert('Entered Javascript') ;
+        buttdisablepopup1();
+        //alert('Entered Javascript') ;
+        ConfirmandContinue();
+    }
+        function myJavascriptFunc2()
+    {
+        //alert('Entered Javascript') ;
+         buttdisablepopup1();
+        
+        //alert('Entered Javascript') ;
+        gobacktocart1();
+    }
+    function myJavascriptFunc3()
+    {
+        //alert('Entered Javascript') ;
+         buttdisablepopup1();
+        
+        //alert('Entered Javascript') ;
+        close1();
+    }
+    function myJavascriptFunc4()
+    {
+        //alert('Entered Javascript') ;
+         buttdisablepopup2();
+        
+        //alert('Entered Javascript') ;
+         YYespopup2();
+
+    }
+    function myJavascriptFunc5()
+    {
+        //alert('Entered Javascript') ;
+         buttdisablepopup2();
+        
+        //alert('Entered Javascript') ;
+        gobacktocart1();
+    }
+    function myJavascriptFunc6()
+    {
+        //alert('Entered Javascript') ;
+         buttdisablepopup2();
+        
+        //alert('Entered Javascript') ;
+        close2();
+    }
+    function myJavascriptFunc7()
+    {
+        //alert('Entered Javascript') ;
+         buttdisablepopup3();
+        
+        //alert('Entered Javascript') ;
+        Continue();
+    }
+    function myJavascriptFunc8()
+    {
+         buttonDisableinputs();
+         gobacktocart1();
+    }
+    function buttonDisableinputs()
+    {
+    document.getElementById("{!$Component.Page.formId.pageblock.pageblocksection.ratecardKey}").required = false;
+    }
+   
+    function buttdisablepopup1()
+    {
+    document.getElementById('ConfandCont').disabled = true;
+    document.getElementById('BktoCt1').disabled = true;
+    document.getElementById('Close1').disabled = true;
+    }
+    function buttdisablepopup2()
+    {
+    document.getElementById('yespopup2').disabled = true;
+    document.getElementById('nopopup2').disabled = true;
+    document.getElementById('Close2').disabled = true;
+    }
+    function buttdisablepopup3()
+    {
+        document.getElementById('{!$Component.Page.formId.pageblock.pageblockbuttons.Continue}').disabled = true;
+    }
+    function onKeyup_TxtFieldcom(e)
+    {
+    var keynum;
+    if(window.event) // IE
+    {
+    keynum = e.keyCode;
+    }
+    if(keynum == 13) 
+    { 
+    Continue();
+    return false; 
+    } 
+    }
+</script>
+ <apex:outputPanel id="panel">
+    <c:APT_WaitComponent />
+    <apex:actionStatus id="ajaxStatus" onstart="wait(true)" onstop="wait(false)" />
+     <apex:actionfunction name="ConfirmandContinue" action="{!doGetRenewalRates}" status="ajaxStatus" rerender="panel" />
+     <apex:actionfunction name="gobacktocart1" action="{!goBack}" rerender="panel" />
+     <apex:actionfunction name="close1" action="{!goBck}" rerender="panel" />
+     <apex:actionfunction name="YYespopup2" action="{!UpdateConfigandRates}" status="ajaxStatus" rerender="panel" />
+     <!--<apex:actionfunction name="gobacktocart2" action="{!goBack}" rerender="panel" />-->
+     <apex:actionfunction name="close2" action="{!goBck}" rerender="panel" />
+     <apex:actionfunction name="Continue" action="{!warningpopup}" status="ajaxStatus" rerender="panel" />
+    <!-- <apex:actionfunction name="ConfirmandContinue1" action="{!doGetRenewalRates}"  rerender="panel"/>-->
+    <table id="searchLodgementZoneTableId" width="80%" style="margin: 5px; background: #293f54; ">
+      <!--Modified by : Mansi Shah - Updated the Header from Get Renewal Rates to Import rates from P&Y Tool as per user story - STP-4988 -->
+            <div class="aptRoundedDiv aptPageTitleBarPanel" ><div class="title">Import rates from P&amp;Y Tool</div></div>
+        </table>
+    
+    
+    <apex:pageBlock id="pageblock" title="">
+     
+        <apex:pageBlockSection >
+            <apex:pagemessages rendered="{!haserrorMessages}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection id="pageblocksection"> 
+            <apex:inputField id="ratecardKey" label="{!$Label.APT_RateCardKey}" value="{!lineItem.APT_Rate_Card_Key__c}" onkeypress="return onKeyup_TxtFieldcom(event);" required="true" />             
+         </apex:pageBlockSection> 
+         <apex:pageBlockButtons id="pageblockbuttons" location="bottom">
+         <!--Modified by : Mansi Shah - Updated the styleclass for lightning experience as per user story - STP-4988 -->
+             <apex:commandButton id="Continue" value="{!$Label.APT_Continue}" onclick="myJavascriptFunc7()" styleClass="slds-button slds-button_neutral"/>
+             <!-- <button type="button" id="BktoCt2" onclick="myJavascriptFunc8()" immediate="true" Class="aptListButton">{!$Label.APT_Back}</button>
+             <!--<apex:commandButton value="{!$Label.APT_Continue}" action="{!warningpopup}" status="ajaxStatus" rerender="panel" styleClass="aptListButton"/> -->
+             <!--Modified by : Mansi Shah - Updated the styleclass for lightning experience as per user story - STP-4988 -->
+             <apex:commandButton value="{!$Label.APT_Back}" action="{!goBack}" immediate="true" styleClass="slds-button slds-button_neutral"/>
+             <!--<button type="button" id="BackToCart" onclick="myJavascriptFunc8()" Class="aptListButton">{!$Label.APT_Back}</button>-->
+         </apex:pageBlockButtons> 
+    
+    </apex:pageBlock>
+   
+    
+
+
+       
+        
+        <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopUp}"/> 
+        <apex:outputPanel layout="block" rendered="{!displayPopUp}">
+        <div class="popup-styling" style=" ">
+            
+            <table width="80%" style="margin: 5px; background: #293f54;">
+                <div class="aptRoundedDiv aptPageTitleBarPanel" ><apex:image value="{!$Resource.APT_Warningsymbol}" style="float:left;width:32px;height:30px;"/><div class="title">{!$Label.APT_Warning}<button type="button" id="Close1" onclick="myJavascriptFunc3()" style="float:right;width:25px;height:28px;padding-top:0px;padding-bottom:2px;">X</button><!--<apex:commandButton value="X" action="{!goBck}" rerender="panel" style="float:right;width:25px;height:28px;padding-top:0px;padding-bottom:3px;"/>--></div></div>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        <apex:outputLabel value="{!$Label.APT_RKwarningmessage}" styleClass="aptOutputLabel" ></apex:outputLabel>                        
+                    </td>
+                   
+                </tr>
+                 
+            </table>
+            <br/>
+            
+            <center>
+               <button type="button" id="ConfandCont" onclick="myJavascriptFunc1()" Class="aptListButton">{!$Label.APT_ConfirmandContinue}</button>
+               <button type="button" id="BktoCt1" onclick="myJavascriptFunc2()" Class="aptListButton">{!$Label.APT_BacktoCart}</button>
+              <!--<apex:commandButton id="ConfandCont" value="{!$Label.APT_ConfirmandContinue}" action="{!doGetRenewalRates}" styleClass="aptListButton" rerender="panel"/>
+                <apex:commandButton id="BktoCt" value="{!$Label.APT_BacktoCart}" action="{!goBack}" styleClass="aptListButton"  rerender="panel"/>-->
+            </center>
+         
+       </div>
+    
+    </apex:outputPanel>
+    
+
+     <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayemtycustomerpopup}"/> 
+        <apex:outputPanel layout="block" rendered="{!displayemtycustomerpopup}">
+        <div class="popup-styling" style=" ">
+            
+            <table width="80%" style="margin: 5px; background: #293f54; ">
+                <div class="aptRoundedDiv aptPageTitleBarPanel" ><apex:image value="{!$Resource.APT_Warningsymbol}" style="float:left;width:32px;height:30px;"/><div class="title">{!$Label.APT_ConfirmationRequired}<button type="button" id="Close2" onclick="myJavascriptFunc6()" style="float:right;width:25px;height:28px;padding-top:0px;padding-bottom:2px;">X</button><!--<apex:commandButton value="X" action="{!goBck}" rerender="panel" style="float:right;width:25px;height:28px;padding-top:0px;padding-bottom:3px;"/>--></div></div>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        <apex:outputLabel value="{!$Label.APT_Blankcustomerid}<br/>{! If(customerId!=null,$Label.APT_Apttuscustomerid+': '+customerId,'') }" styleClass="aptOutputLabel" escape="false"></apex:outputLabel>                        
+                    </td>
+                   
+                </tr>
+                  
+            </table>
+            <br/> 
+            
+            <center>
+                <button type="button" id="yespopup2" onclick="myJavascriptFunc4()" Class="aptListButton">{!$Label.APT_Yes}</button>
+               <button type="button" id="nopopup2" onclick="myJavascriptFunc5()" Class="aptListButton">{!$Label.APT_No1}</button>
+                <!--<apex:commandButton value="{!$Label.APT_Yes}" action="{!UpdateConfigandRates}" styleClass="aptListButton" rerender="panel"/>
+                <apex:commandButton value="{!$Label.APT_No1}" action="{!goBack}" styleClass="aptListButton" rerender="panel"/>-->
+            </center>
+         
+       </div>
+    </apex:outputPanel>
+    
+   
+    
+   </apex:outputPanel> 
+</apex:form> 
+</apex:page>

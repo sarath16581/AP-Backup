@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Dov_Type__c</fullName>
+    <description>This field is created to bring the Opportunity Sub Type Value at the Product Configuration Level . This would be used to restrict the product syncing for DoV Decrease Scenario .</description>
+    <externalId>false</externalId>
+    <formula>TEXT(Apttus_QPConfig__Proposald__r.APT_Revenue_Type__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Dov Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

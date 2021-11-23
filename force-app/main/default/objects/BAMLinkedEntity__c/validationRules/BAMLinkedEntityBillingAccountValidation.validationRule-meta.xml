@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BAMLinkedEntityBillingAccountValidation</fullName>
+    <active>true</active>
+    <description>Rule validates Billing Accounts to ensure they can be populated based on the config in Application Role record.</description>
+    <errorConditionFormula>!ISBLANK(BillingAccount__c) &amp;&amp; !ContactRole__r.ApplicationRole__r.ShowBillingAccount__c</errorConditionFormula>
+    <errorDisplayField>BillingAccount__c</errorDisplayField>
+    <errorMessage>A Billing Account can not be assigned to the current role.</errorMessage>
+</ValidationRule>

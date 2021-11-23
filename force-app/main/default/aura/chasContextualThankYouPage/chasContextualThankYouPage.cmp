@@ -1,0 +1,112 @@
+<!--
+  * @changeLog :
+  * @date         : 12/03/2021 - Created - Hara Sahoo
+  * @date         : 20/07/2021 - Added - Hara Sahoo : Content change to indicate that EDD was estimated
+  * @date         : 08/11/2021 - Modified - Phap Mai: set no EDD as baseline variation
+-->
+<aura:component extends="c:SS_uiWizardPage" description="Header including the unique Case Number" controller="ChasApexController">
+    <aura:attribute name="tiles" type="List" default="['digital-id', 'safe-drop', 'my-post', 'extra-cover', 'po-boxes']" />
+    <aura:attribute name="header" type="String" default="Thanks for your enquiry" /> 
+    <aura:attribute name='caseNumber' type='String' default="XXXXXXXXX"/>
+    <aura:attribute name='isUrgent' type='Boolean' default="false"/>
+    <aura:attribute name='caseThankYouMessage' type='String' default="Showing the delivery photo is something new for us, so we’d love to know what you think."/>
+    <aura:attribute name='isWithinEDD' type='Boolean' default="false"/>
+    <aura:attribute name='isDefault' type='Boolean' default="false"/>
+    <aura:attribute name='isWithinEDDPlusBusinessDays' type='Boolean' default="false"/>
+    <aura:attribute name='isPastEDDPlusBusinessDays' type='Boolean' default="false"/>
+    <aura:attribute name='hasTimeframe' type='Boolean' default="false"/>
+    <aura:attribute name="timeframeEDD" type="String" default=""/>
+    <aura:attribute name="timeFrom" type="String" default=""/>
+    <aura:attribute name="timeTo" type="String" default=""/>
+    <aura:attribute name="edd" type="String" default=""/>
+    <aura:attribute name="expectedDeliveryText" type="String" default="" />
+    <!-- DDS-5820: Scalability for next step section on Thank you pages -->
+    <aura:attribute name="nextStepsConfiguration" type="List" default="[]"/>
+    <!-- DDS-5820: Scalability for next step section on Thank you pages -->
+    <aura:attribute name="pageVariation" type="String"/>
+    <aura:attribute name="loading" type="Boolean" default="false"/>
+    <!-- Adobe Analytics Tracking Helpers -->
+    <ltng:require scripts="{!$Resource.GlobalAssets + '/js/lightning/adobeAnalyticsHelper.js'}" afterScriptsLoaded="{!c.onInit}" />
+    <aura:registerEvent name="adobeAnalyticsInterfaceEvent" type="c:adobeAnalyticsInterfaceEvent"/>
+    
+    <!-- handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+    <aura:if isTrue="{!v.wizardData.caseCreationStatus == 'SUCCESS'}">
+        <!-- DDS-5820: Scalability for next step section on Thank you pages -->
+        <aura:if isTrue="{!v.loading}">
+            <!-- spinner -->
+            <lightning:spinner alternativeText="Loading" size="large"></lightning:spinner>
+
+            <!-- main content -->
+            <aura:set attribute="else">
+                <aura:if isTrue="{!not(empty(v.nextStepsConfiguration))}">
+                    <div class="component">
+                        <div class="thanks-header-inner">
+                            <div class="thanks-content-box slds-text-align_center">
+                                <img class="info" src="sfsites/c/resource/ChasIcons/chas-icons/svgs/UI/icons/chas-thankyou.svg" alt="thank you"/>
+                                <h1>{! v.header }</h1>
+                                <div class="top-bit">
+                                    <p>We've sent you a confirmation email with the details,</p><p>including your reference number: <b>{! v.wizardData.caseNumber }</b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="component">
+                        <div class="thanks-header-inner">
+                            <div class="white-card">
+                                <aura:if isTrue="{!or(v.pageVariation == 'nextStepsWithinEDDPlusBusinessDays', v.pageVariation == 'withinEDD')}">
+                                    <c:ChasBspDeflection heading='' animate="true" borderStyle="info-box-left-bar bottom-gap" hasClose="false">
+                                        <p>
+                                            <aura:if isTrue="{!and(not(empty(v.timeFrom)), not(empty(v.timeTo)))}">
+                                                {!v.expectedDeliveryText}&nbsp;<b>{!v.timeFrom} - {!v.timeTo}*</b>
+                                                <aura:set attribute="else">
+                                                    {!v.expectedDeliveryText}&nbsp;<b>{!v.edd}</b>
+                                                </aura:set>
+                                            </aura:if>
+                                        </p>
+                                    </c:ChasBspDeflection>
+                                    <!--Message to say that the EDD was estimated-->
+                                    <aura:if isTrue="{!v.wizardData.isEDDEstimated}">
+                                        <p style="margin-bottom:32px">We've estimated this delivery date from your item's latest tracking info.</p>
+                                    </aura:if>
+                                </aura:if>
+                                <c:chasNextSteps header="What happens next" options="{!v.nextStepsConfiguration}" hasTimeframe="{!v.hasTimeframe}" timeframeEDD="{!v.timeframeEDD}"/>
+                                <aura:if isTrue="{!v.pageVariation == 'nextStepsSafeDropDelivered'}">
+                                    <div class="separator-gap">
+                                        <hr/>
+                                    </div>
+                                    <p>
+                                        {! v.caseThankYouMessage}
+                                    </p>
+                                    <p style="padding-top:16px;">
+                                        <lightning:button label="Give feedback" variant="neutral" class="chas-button" onclick="{!c.requestSurvey}"/>
+                                    </p>
+                                </aura:if>
+                            </div>
+                            <aura:if isTrue="{!or(v.pageVariation == 'nextStepsWithinEDDPlusBusinessDays', v.pageVariation == 'withinEDD')}">
+                                <div class="indicative">
+                                        <p>*Delivery dates are a guide only, and they may not take into account local public holidays.</p>
+                                    </div>
+                            </aura:if>
+                        </div>
+                    </div>
+                    <!-- DDS-8370 -->
+                    <!-- set default page to be no EDD variation therefore this block will not normally be reached -->
+                    <!-- we still leave this uncommneted as a last line of defense in case metadata setting having issue and unretrievable -->
+                    <aura:set attribute="else">
+                        <c:ChasThankYouHeader caseNumber='{!v.wizardData.caseNumber }' header="{! v.header }" isUrgent="{! v.isUrgent }" 
+                                                                caseCreationStatus='{! v.wizardData.caseCreationStatus }' 
+                                                                hasCustomerSeenSafedropImage="{! v.wizardData.hasCustomerSeenSafeDrop}"
+                                                                transferToPo="{! v.wizardData.transferToPo}" isEligibleForNetworkDeliveryIssue="{! v.wizardData.isEligibleForNetworkAssignmentDeliveryIssue}"/>
+                        <c:ChasThankYouTiles tileList="{! v.tiles }" /> 
+                    </aura:set>
+                </aura:if>
+            </aura:set>
+        </aura:if>
+        
+        <!-- Error message -->
+        <aura:set attribute='else'>
+            <c:ChasErrorMsg />
+        </aura:set>
+    </aura:if>
+</aura:component>

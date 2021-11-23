@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IfrelevantHowelsecanwehelp__c</fullName>
+    <description>What other areas can we assist the the customer with (product, support etc.)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>What other areas can we assist the the customer with (product, support etc.)</inlineHelpText>
+    <label>If relevant - How else can we help?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Product - Faster Delivery Next Day</fullName>
+                <default>false</default>
+                <label>Product - Faster Delivery Next Day</label>
+            </value>
+            <value>
+                <fullName>Product - Faster Delivery Same Day</fullName>
+                <default>false</default>
+                <label>Product - Faster Delivery Same Day</label>
+            </value>
+            <value>
+                <fullName>Product - Warehouse/Pick-pack</fullName>
+                <default>false</default>
+                <label>Product - Warehouse/Pick-pack</label>
+            </value>
+            <value>
+                <fullName>Product - Bulk Shipments</fullName>
+                <default>false</default>
+                <label>Product - Bulk Shipments</label>
+            </value>
+            <value>
+                <fullName>Product - ID Services (workforce verification)</fullName>
+                <default>false</default>
+                <label>Product - ID Services (workforce verification)</label>
+            </value>
+            <value>
+                <fullName>Product - Packaging</fullName>
+                <default>false</default>
+                <label>Product - Packaging</label>
+            </value>
+            <value>
+                <fullName>Product - International Sending</fullName>
+                <default>false</default>
+                <label>Product - International Sending</label>
+            </value>
+            <value>
+                <fullName>Product - Reverse Logistics (consumer returns)</fullName>
+                <default>false</default>
+                <label>Product - Reverse Logistics (consumer returns)</label>
+            </value>
+            <value>
+                <fullName>Product - Accepting payments</fullName>
+                <default>false</default>
+                <label>Product - Accepting payments</label>
+            </value>
+            <value>
+                <fullName>Marketing - DM Promotions (catelogues etc)</fullName>
+                <default>false</default>
+                <label>Marketing - DM Promotions (catelogues etc)</label>
+            </value>
+            <value>
+                <fullName>Marketing - eCommerce Market Insights</fullName>
+                <default>false</default>
+                <label>Marketing - eCommerce Market Insights</label>
+            </value>
+            <value>
+                <fullName>Support - Reporting</fullName>
+                <default>false</default>
+                <label>Support - Reporting</label>
+            </value>
+            <value>
+                <fullName>Support - Tracking</fullName>
+                <default>false</default>
+                <label>Support - Tracking</label>
+            </value>
+            <value>
+                <fullName>No Further Assistance Required</fullName>
+                <default>false</default>
+                <label>No Further Assistance Required</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>6</visibleLines>
+</CustomField>

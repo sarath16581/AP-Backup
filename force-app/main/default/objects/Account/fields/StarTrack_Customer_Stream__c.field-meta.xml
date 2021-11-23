@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Customer_Stream__c</fullName>
+    <description>StarTrack Customer Stream</description>
+    <externalId>false</externalId>
+    <label>StarTrack Customer Stream</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sapphire</fullName>
+                <default>false</default>
+                <label>Sapphire</label>
+            </value>
+            <value>
+                <fullName>Emerald</fullName>
+                <default>false</default>
+                <label>Emerald</label>
+            </value>
+            <value>
+                <fullName>Ruby</fullName>
+                <default>false</default>
+                <label>Ruby</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

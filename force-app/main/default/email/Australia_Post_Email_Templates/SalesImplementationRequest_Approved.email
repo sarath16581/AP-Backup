@@ -1,0 +1,11 @@
+Hello {!Case.CreatedBy}
+
+Your request for Sales Implementation assistance - Case {!Case.CaseNumber} has been pre-qualified to proceed. 
+
+I have assigned a Sales Implementation Specialist - {!Case.OwnerFullName},  to work with you on your request. 
+
+{!Case.Link}
+
+Regards 
+
+{!Case.RecordType} Team

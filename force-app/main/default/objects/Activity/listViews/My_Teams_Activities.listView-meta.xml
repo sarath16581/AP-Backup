@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Teams_Activities</fullName>
+    <columns>TASK.SUBJECT</columns>
+    <columns>Category__c</columns>
+    <columns>TASK.TYPE</columns>
+    <columns>TASK.DUE_DATE</columns>
+    <columns>TASK.STATUS</columns>
+    <columns>TASK.WHAT_NAME</columns>
+    <columns>TASK.WHO_NAME</columns>
+    <columns>TASK.CREATED_DATE</columns>
+    <columns>TASK.RECORDTYPE</columns>
+    <filterScope>Team</filterScope>
+    <filters>
+        <field>TASK.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Task.Default_Taks,Event.Default_Events,Event.Sales_Event,Task.Sales_Task</value>
+    </filters>
+    <filters>
+        <field>TASK.CREATED_DATE</field>
+        <operation>greaterOrEqual</operation>
+        <value>7/1/2015 12:00 AM</value>
+    </filters>
+    <label>My Team&apos;s Activities ( &gt;01/07/2015 )</label>
+    <sharedTo>
+        <group>All_Users_Ex_SSSW</group>
+    </sharedTo>
+</ListView>

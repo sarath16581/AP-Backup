@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ActType_Site_Start_Duration_required</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(
+ Location__c = null,
+ Start_Time__c = null,
+ ISPICKVAL(Duration__c, &apos;&apos;),
+ ISPICKVAL(Activity_Type__c ,&apos;&apos;)
+)</errorConditionFormula>
+    <errorMessage>Activity Type, Site, Start Time and Duration are required for Job Template.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X3D33</fullName>
+    <columns>NAME</columns>
+    <columns>APT_Charge_Code__c</columns>
+    <columns>APT_Display_Order_Sequence__c</columns>
+    <columns>APT_Price_Value__c</columns>
+    <columns>APT_Price_Value_Description__c</columns>
+    <columns>APT_Weight_Range_Code__c</columns>
+    <columns>APT_Zone__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>APT_Charge_Code__c</field>
+        <operation>equals</operation>
+        <value>3D33</value>
+    </filters>
+    <label>3D33</label>
+    <language>en_US</language>
+</ListView>

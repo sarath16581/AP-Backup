@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Replacement_Product</fullName>
+    <active>true</active>
+    <description>Compensation type is Replacement Product</description>
+    <label>Replacement Product</label>
+    <picklistValues>
+        <picklist>Cover_Type__c</picklist>
+        <values>
+            <fullName>ACL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extra Cover</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>T%26C Cover</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transit Cover</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Replacement_Products__c</picklist>
+        <values>
+            <fullName>Booklet of 10 stamps %28%2411%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Large B4 Envelope</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Medium C5 Envelope</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Platinum 3kg satchel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Platinum 500g satchel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Satchel 1kg Medium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Satchel 3kg Medium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Satchel 500g Small</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Satchel 5kg Large</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Post Small DL Envelope</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Pending</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+</RecordType>

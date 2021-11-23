@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>APT_R2T_Quote_LetterHead</letterhead>
+    <name>Overweight Approval Request Notification</name>
+    <style>freeForm</style>
+    <subject>Approval Request for Overweight Items has been submitted for your approval</subject>
+    <textOnly>Dear All
+
+Approval Request for Overweight Items has been submitted for your approval.
+
+Account Name:  {!Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__c}
+Proposal Name: {!Apttus_Proposal__Proposal__c.Apttus_Proposal__Proposal_Name__c}
+Owner Full Name: Owner Full Name: {!Apttus_Proposal__Proposal__c.OwnerFullName}
+Average Weight Domestic: {!Apttus_Proposal__Proposal__c.APT_Average_Weight_Domestic__c}
+Average Weight International: {!Apttus_Proposal__Proposal__c.APT_Average_Weight_International__c}
+Overweight Items Description: {!Apttus_Proposal__Proposal__c.APT_Overweight_Items_Description__c}
+
+Click on the link below to access the Quote: {!Apttus_Proposal__Proposal__c.Link}
+
+
+
+Please do not reply to this email. This is a system generated email.
+
+Australia Post is committed to providing our customers with excellent service. If we can assist you in any way please telephone 13 13 18 or visit our website.
+
+The information contained in this email communication may be proprietary, confidential or legally professionally privileged. It is intended exclusively for the individual or entity to which it is addressed. You should only read, disclose, re-transmit, copy, distribute, act in reliance on or commercialise the information if you are authorised to do so. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, virus or interference.
+
+If you are not the addressee or intended recipient please notify us by replying direct to the sender and then destroy any electronic or paper copy of this message. Any views expressed in this email communication are taken to be those of the individual sender, except where the sender specifically attributes those views to Australia Post and is authorised to do so.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

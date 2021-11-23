@@ -1,0 +1,37 @@
+<apex:component controller="bspLoginComponent">
+
+    <apex:form id="loginComponentFormId" styleClass="form fn-validation" style="min-height:320px" >
+        
+        <apex:Messages styleclass="form-errors"/>
+        
+        <!-- START Error list
+            If there are serverside errors, include them as <li> elements
+            If there are no serverside errors, still include this DIV, but without any <li> elements. It will be used by JavaScript.
+        -->
+        
+        <!-- END Error list -->
+
+
+        <p class="required-legend"><span class="symbol-req"> *</span> Required information</p>
+        
+        <h2>Login</h2>
+        
+        <div class="input required input-medium">
+            <p>Email Address<span class="symbol-req"> *</span></p>
+            <apex:inputText required="true" id="username" value="{!username}" />
+            <p class="error-message">Please enter a value.</p>    
+        </div>
+
+        <div class="input required input-medium">
+            <p>Password<span class="symbol-req"> *</span></p>
+            <apex:inputSecret required="true" id="password" value="{!password}" />
+            <p class="error-message">Please enter a value.</p>    
+        </div>
+
+        <a href="{!$Site.CurrentSiteUrl}bspLogin?section=ForgotPassword" style="text-decoration:underline">Forgot Your Password?</a>
+
+        <br/>
+
+        <apex:commandButton value="Login" action="{!login}" />        
+    </apex:form>
+</apex:component>

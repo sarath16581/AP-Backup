@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Audit_Program_PreAudit_Rel__c</fullName>
+    <description>Master / Detail relationship, relating Audit Programs with Pre-audit Checklist Items.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Master / Detail relationship, relating Audit Programs with Pre-audit Checklist Items.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
+    <label>Audit Program - PreAudit Rel</label>
+    <referenceTo>AMLCTF_Audit_Program__c</referenceTo>
+    <relationshipLabel>Pre-Audit Checklist</relationshipLabel>
+    <relationshipName>PreAudit_Checklist_Items</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

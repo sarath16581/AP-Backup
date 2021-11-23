@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_Proposal__RFP</fullName>
+    <active>false</active>
+    <compactLayoutAssignment>Proposal_Lightning_Compact_Layout</compactLayoutAssignment>
+    <description>RFP</description>
+    <label>RFP</label>
+    <picklistValues>
+        <picklist>APT_Contracting_Entity__c</picklist>
+        <values>
+            <fullName>Australia Post Services Pty Ltd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australian Postal Corporation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decipha Pty Ltd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>POLi Payments Pty Ltd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Logistics %28Hong Kong%29 Pty Ltd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SecurePay Pty Ltd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Star Track Express Pty Ltd</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Credit_Assessment_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referred</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Cubic_Factor_Type__c</picklist>
+        <values>
+            <fullName>Cubic Calculation1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cubic Calculation2</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Dangerous_Goods_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Domestic_Max_Weight__c</picklist>
+        <values>
+            <fullName>%3C 22 Kg</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>%3E 22 Kg</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Intermediary__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_International_Max_Weight__c</picklist>
+        <values>
+            <fullName>%3C 2 Kg</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>%3E 20 Kg</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 to 20 Kg</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Is_Existing_eParcel_Customer__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Method_of_Payment__c</picklist>
+        <values>
+            <fullName>Charge Account</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Next_Steps__c</picklist>
+        <values>
+            <fullName>Develop proposal</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Overweight_Approval_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Pricing_Request_Type__c</picklist>
+        <values>
+            <fullName>Cross Sell</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Business</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Revenue_Type__c</picklist>
+        <values>
+            <fullName>Decrease Revenue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Increase Revenue</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_State__c</picklist>
+        <values>
+            <fullName>NSW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QLD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SA%2FNT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TAS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VIC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WA</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Tier_Adjustment_Type__c</picklist>
+        <values>
+            <fullName>1 Tier Up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 Tier Up</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_UMS_Weight__c</picklist>
+        <values>
+            <fullName>Over 100g</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>APT_Use_Offline_Rates_Reason__c</picklist>
+        <values>
+            <fullName>Other - please specify</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing not available in Apttus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Process not available in Apttus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technical Issue</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_Proposal__Approval_Stage__c</picklist>
+        <values>
+            <fullName>Accepted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approval Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Draft</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Generated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Presented</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_Proposal__Payment_Term__c</picklist>
+        <values>
+            <fullName>1 Year</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 Years</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3 Years</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Net 30 Days</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_Proposal__Proposal_Category__c</picklist>
+        <values>
+            <fullName>Proposal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quote</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_Proposal__RFP_Stage__c</picklist>
+        <values>
+            <fullName>Expected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Final Draft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>First Revision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internal Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Received</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Submitted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technical Input</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_Proposal__Risk_Factors__c</picklist>
+        <values>
+            <fullName>Price Pressure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technical Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Turnaround Time</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_Proposal__Strategic_Importance__c</picklist>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Must Win</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Strategic</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_QPConfig__ABOType__c</picklist>
+        <values>
+            <fullName>Add-on</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Renewal</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_QPConfig__Intent__c</picklist>
+        <values>
+            <fullName>Contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Order</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Price Agreement</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_QPConfig__QTCProfile__c</picklist>
+        <values>
+            <fullName>Regular</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Split</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_QPConfig__SourceChannel__c</picklist>
+        <values>
+            <fullName>Direct</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>E-Commerce</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EDI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partner</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Apttus_QPConfig__UseType__c</picklist>
+        <values>
+            <fullName>Config</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Main</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Pricing</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Exempted_Product_Type__c</picklist>
+        <values>
+            <fullName>Priority Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workforce Verification</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Is_Startrack_Proposal__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Pricing_Category__c</picklist>
+        <values>
+            <fullName>Nonstandard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>STE_Pricing_Tier__c</picklist>
+        <values>
+            <fullName>Tier 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tier 6</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

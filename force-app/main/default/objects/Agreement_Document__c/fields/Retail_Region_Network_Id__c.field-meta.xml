@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Retail_Region_Network_Id__c</fullName>
+    <description>The Id of the Retail Region Network.  Used for conga in script on buttons Generate Document and Template Admin.</description>
+    <externalId>false</externalId>
+    <formula>Licence__r.Facility__r.Network_Facility__r.Parent_Network__r.Parent_Network__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Retail Region Network Id</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

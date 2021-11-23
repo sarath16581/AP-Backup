@@ -1,0 +1,92 @@
+<!-- 2021-07-04 prerna.rahangdale@auspost.com.au added smart Speak js , it's attributes and removed old live agent code.-->
+<aura:component implements="forceCommunity:themeLayout,forceCommunity:availableForAllPageTypes" access="global" description="BSP - Custom Default Theme Layout" controller="bspBaseUplift">
+
+    <!-- smart speak js -->
+
+    <aura:attribute name="showSearch" type="Boolean" default="false" />
+    <aura:attribute name="showNavigation" type="Boolean" default="false" />
+    <aura:attribute name="showProfileMenu" type="Boolean" default="false" />
+    <aura:attribute name="showHeader" type="Boolean" default="false" />
+    <aura:attribute name="showHero" type="Boolean" default="false" />
+    <aura:attribute name="layoutWidth" type="String" default="contained" required="true" />
+    <aura:attribute name="cssClass" type="String" />
+    <aura:attribute name="search" type="Aura.Component[]" required="false" />
+    <aura:attribute name="profileMenu" type="Aura.Component[]" required="false" />
+    <aura:attribute name="navBar" type="Aura.Component[]" required="false" />
+    <aura:attribute name="newHeader" type="Aura.Component[]" required="false" />
+    <aura:attribute name="showLiveAgent" type="Boolean" default="false" />
+    <aura:attribute name="isSSOUserAllowedBSP" type="Boolean"/>
+    <aura:attribute name="displayBody" type="Boolean" default="false"/>
+    <aura:attribute name="hasAPBillingAccountsAccess" type="Boolean"  default='false'/>
+
+
+    <!-- Smart Speak attributes picks up from Custom Settings-->
+    <aura:attribute name="loadSmartSpeakJS" type="Boolean"/>
+    <aura:attribute name="contactId" type="String"/>
+    <aura:attribute name="userFirstName" type="Boolean"/>
+    <aura:attribute name="userLastName" type="Boolean"/>
+    <aura:attribute name="serviceSLA" type="String"/>
+    <aura:attribute name="userEmail" type="Boolean"/>
+    <aura:attribute name="buttonId" type="String"/>
+    <aura:attribute name="deploymentId" type="String"/>
+    <aura:attribute name="orgId" type="String"/>
+    <aura:attribute name="scriptSrc" type="String"/>
+    <aura:attribute name="chatInit" type="String"/>
+    <aura:attribute name="ssEndPoint" type="String"/>
+
+    <!-- init handler -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div id="content-wrapper" class="{!v.cssClass}">
+        <div  aura:id="ssce-chatbot-data" id="ssce-chatbot-data" data-contactid="{!v.contactId}" data-nickname="{!v.userFirstName}" data-firstname="{!v.userFirstName}"
+              data-lastname="{!v.userLastName}" data-email="{!v.userEmail}"
+              data-organisation-id="{!v.orgId}" data-deployment-id="{!v.deploymentId}"
+              data-button-id="{!v.buttonId}" data-chatscript-src="{!v.scriptSrc}"
+              data-chat-init="{!v.chatInit}" data-endpoint="{!v.ssEndPoint}" data-segment="{!v.serviceSLA}"
+              class="hidden"></div>
+        <!-- END Smart-Speak data -->
+
+        <!-- Alert Message -->
+        <c:bspAnnouncementMessage></c:bspAnnouncementMessage>
+        <!-- Header -->
+        <header id="header" class="full-width-parent white-bgcolor header">
+            <div class="content cf slds-p-horizontal_small slds-p-vertical_small full-width-child white-bgcolor">          
+                <c:bspTopHeader showProfileMenu="{!v.showProfileMenu}"></c:bspTopHeader>
+            </div>
+        </header>
+
+        <aura:if isTrue="{!v.displayBody}">
+            <!-- Body -->
+            <div id="mainBody" class="mainBody full-width-child grey-bgcolor">
+                <aura:if isTrue="{!v.isSSOUserAllowedBSP}">
+                    {!v.body}
+                    <aura:set attribute="else">
+                        <div class="center-card slds-align_absolute-center slds-m-vertical_large">
+                            <h3>You do not have access to this page.</h3>
+                        </div>
+                    </aura:set>
+                </aura:if>
+            </div>
+            <!-- Chat Button -->
+            <aura:if isTrue="{!and(v.showLiveAgent, v.hasAPBillingAccountsAccess)}">
+                <div id="ssce-chatbot-container"></div>
+                <!-- this is to force the script to load AFTER the divs above have been rendered -->
+                <aura:if isTrue="{!v.loadSmartSpeakJS}">
+                    <ltng:require scripts="{!$Resource.sscechatbot + '/ssce-chatbot-app.js'}"/>
+                </aura:if>
+
+                <!-- Old Live Chat button  -->
+                <!--c:bspLiveAgentUplift showLiveAgent="{!v.showLiveAgent}"></c:bspLiveAgentUplift-->
+            </aura:if>
+        </aura:if>
+    </div>
+
+    <aura:if isTrue="{!v.displayBody}">
+        <!-- Footer -->
+        <footer id="footer" class="footer">
+            <div class="slds-grid slds-grid_align-spread">
+                <c:bspFooter></c:bspFooter>
+            </div>
+        </footer>
+    </aura:if>
+</aura:component>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Calculate_Run_Dock_and_Depot_Area__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>StarTrack checkbox that will determine if run dock and depot area calculation is permitted.</description>
+    <externalId>false</externalId>
+    <label>Manage Delivery Flag</label>
+    <type>Checkbox</type>
+</CustomField>

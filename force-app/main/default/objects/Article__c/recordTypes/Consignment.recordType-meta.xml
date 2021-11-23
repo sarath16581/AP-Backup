@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Consignment</fullName>
+    <active>true</active>
+    <description>SSSW</description>
+    <label>Consignment</label>
+    <picklistValues>
+        <picklist>ArticleType__c</picklist>
+        <values>
+            <fullName>Courier Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Courier Parcel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Express Parcel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Regular Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Regular Parcel</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Last_Update_Type__c</picklist>
+        <values>
+            <fullName>ARTICLE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BOOKINNOTE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EVENT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FULL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>POD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SUBDOCKET</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

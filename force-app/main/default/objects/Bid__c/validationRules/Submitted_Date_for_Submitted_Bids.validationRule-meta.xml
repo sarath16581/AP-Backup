@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Submitted_Date_for_Submitted_Bids</fullName>
+    <active>true</active>
+    <description>Require a Submitted Date for all Bids that have been Submitted</description>
+    <errorConditionFormula>IF(AND(OR( 
+ISPICKVAL(Status__c, &quot;Submitted&quot;), 
+ISPICKVAL( Status__c , &quot;Won&quot;) , 
+ISPICKVAL(Status__c, &quot;Lost&quot;)) 
+,ISBLANK(TEXT(  Closed_Date__c  ))), True, False)</errorConditionFormula>
+    <errorDisplayField>Closed_Date__c</errorDisplayField>
+    <errorMessage>A Submitted Date is required on all Bids that have been submitted</errorMessage>
+</ValidationRule>

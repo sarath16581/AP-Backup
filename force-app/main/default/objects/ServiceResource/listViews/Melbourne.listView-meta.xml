@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Melbourne</fullName>
+    <columns>Name</columns>
+    <columns>ServiceCrew</columns>
+    <columns>FSL__GanttLabel__c</columns>
+    <columns>RelatedRecord</columns>
+    <columns>LastModifiedDate</columns>
+    <columns>LastModifiedBy</columns>
+    <columns>ResourceType</columns>
+    <columns>IsActive</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>IsActive</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>ResourceType</field>
+        <operation>equals</operation>
+        <value>T</value>
+    </filters>
+    <label>Melbourne</label>
+</ListView>

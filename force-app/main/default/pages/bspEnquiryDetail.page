@@ -1,0 +1,674 @@
+<!--
+    Description: This VF page is being used to display enquiry details.
+    History:
+    Feb 16, 2017 David Catindoy (Accenture) Modified to hide SSCR5 changes.
+    2019-04-19 nathan.franklin@auspost.com.au Large refactor to support the onboarding of BAM Self service portal
+    2019-09-06 gunith.devasurendra@auspost.com.au Enable formatting for Case Comment
+    2020-05-05 - Nathan Franklin - variable name change for more consistency
+-->
+<apex:page controller="bspEnquiryDetail"
+    cache="false"
+    contentType="text/html"
+    showHeader="false"
+    sidebar="false"
+    standardStylesheets="false"
+    title="Business Support Portal"
+    docType="html-5.0"
+    action="{!preValidateBamBspAccess}">
+
+    <html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="DC.Creator" scheme="AglsAgent" content="Australia Post" />
+        <meta name="DC.Title" content="Australia Post - Home" />
+        <title>Business Support Portal</title>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="apple-touch-icon" sizes="144x144" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-144x144.png')}" />
+        <link rel="apple-touch-icon" sizes="114x114" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-114x114.png')}" />
+        <link rel="apple-touch-icon" sizes="72x72" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon-72x72.png')}" />
+        <link rel="apple-touch-icon" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/apple-touch-icon.png')}" />
+        <link rel="shortcut icon" href="{!URLFOR($Resource.BSP_Asset,'css/images/favicons/favicon.ico')}" />
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/style.css')}" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/head.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/libs/jquery-1.8.2.min.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/csso-widget.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/libs/dropzone.min.js')}"></script>
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/dropzone.css')}" />
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/cssolight.css')}" />
+        
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_Asset,'css/style-icams-addons.css')}" />
+    
+        <!-- MRSO assets -->
+        <link href="{!URLFOR($Resource.BSP_Asset,'css/mrso/mrso-v2.css')}" rel="stylesheet" />
+        <link href="{!URLFOR($Resource.BSP_Asset,'css/mrso/lightbox.css')}" rel="stylesheet" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/mrso/application.js')}"></script>
+        <script src="{!URLFOR($Resource.BSP_Asset,'js/mrso/lightbox.js')}"></script>
+
+      
+        <link href="{!URLFOR($Resource.BSP_Asset,'jquery-ui.css')}" rel="stylesheet" />
+        <script src="{!URLFOR($Resource.BSP_Asset,'jquery-ui.js')}"></script>
+
+    
+        <script src="{!URLFOR($Resource.BSP_Asset,'GsForm_Script.js')}"></script>
+      
+        <link rel="stylesheet" href="{!URLFOR($Resource.BSP_CSS)}"/>
+  
+        <script src="{!URLFOR($Resource.BSP_JS)}"/>         
+        
+        <style>
+        
+            table.st-item-details {
+                width: 100% !important; 
+                table-layout: fixed;
+            }
+            
+            #loading {
+               width: 100%;
+               height: 100%;
+               top: 0px;
+               left: 0px;
+               position: fixed;
+               display: block;
+               opacity: 0.7;
+               background-color: #fff;
+               z-index: 99;
+               text-align: center;
+            }
+    
+            #loading-image {
+              position: absolute;
+              top: 35%;
+              left: 50%;
+              z-index: 100;
+            }
+            .opacityElement {
+                filter:alpha(opacity=50);  // IE
+            -moz-opacity:0.5;          // Firefox
+            -khtml-opacity: 0.5;
+                opacity: 0.5;
+            }
+
+        </style>
+        
+        <script>
+            $(function() {
+//              $( "#accordion" ).accordion();
+                $( document ).tooltip();
+            });
+        </script>
+        
+        <script type="text/javascript">
+            function showLoading(elemName) {
+                document.getElementById(elemName).style.display = '';
+            }
+    </script>
+    </head>
+ 
+    
+    <!--[if lt IE 7]> <body class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]>    <body class="lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]>    <body class="lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]><!--> <body> <!--<![endif]-->
+    
+    <div id="loading" style="display: none;">
+        <img id="loading-image" src="/img/loading.gif" alt="Loading..." />
+    </div>
+    
+    <!-- START Accessibility links -->
+    
+    <div class="accessibility-links"> <a href="#main" class="visuallyhidden focusable">Skip to content</a> <a href="#primary-nav" class="visuallyhidden focusable">Skip to primary navigation</a> </div>
+    <!-- END Accessibility links --> 
+    <!-- START GE01 Header -->
+    <c:bspHeader />
+    <!-- END GE01 Header -->
+ 
+ 
+ 
+ 
+ 
+   <div class="l-container">
+
+        <div class="l-main l-without-left-panel clearfix" role="main" id="main">
+    
+            <!-- MAIN PANEL -->
+            <div class="content-panel">
+                <div class='workarea'>
+
+                   <!-- START CM51 Value prop  -->
+                   <p class="value-proposition"></p>   
+       
+                   <div style="clear:both"/>
+
+                   <div id="breadcrumbs" >
+                       <a class="clearfix left bw-breadcrumbs-link-color" href="{!$Site.CurrentSiteUrl}bspEnquiry">Corporate Home</a>
+                       <div class="left bw-breadcrumbs-text-color">
+                           &nbsp;&nbsp;>&nbsp;&nbsp;Incident detail
+                       </div>
+                   </div> 
+
+                   <div style="clear:both"/>
+
+                   <apex:form styleClass="fn-validation" enctype="multipart/form-data">
+         
+
+                        <apex:Messages styleclass="form-errors"/>
+
+
+                       <!-- only show the case if the user is authorised to view it -->
+                        <apex:outputPanel rendered="{!authorised}">
+                            <!-- START Error list
+                                    If there are serverside errors, include them as <li> elements
+                                    If there are no serverside errors, still include this DIV, but without any <li> elements. It will be used by JavaScript.
+                            -->
+                            <div class="form-errors hidden">
+                                <h3>Please enter the required information.</h3>
+                            </div>
+                            <!-- END Error list -->
+
+                            <apex:outputPanel styleClass="bw-enq-details">
+                                <h1>Enquiry details</h1>
+                                <div class="bw-enq-subtitles">
+                                    <h2><apex:outputText value="{!'Enquiry Number: ' + enq.CaseNumber}"/></h2>
+                                    <apex:outputPanel rendered="{!(BEGINS(enq.RecordType.Developername, 'StarTrack') && enq.Enquiry_Type__c != null)}">
+                                        <h3>
+                                        Enquiry Type:&nbsp;
+                                        <apex:outputField value="{!enq.Enquiry_Type__c}"/>
+                                    </h3>
+                                    </apex:outputPanel>
+                                    <h3>
+                                        Created on&nbsp;
+                                        <apex:outputField value="{!enq.CreatedDate}"/>
+                                    </h3>
+                                </div>
+                                <div class="bw-enq-toolbox">
+                                    <div class="bw-status-box">
+                                        <apex:outputText styleClass="bw-enq-status {!IF(CONTAINS(LOWER(enq.Status), 'close'), 'closed', 'open')}" value="{!IF(LOWER(enq.Status)=='awaiting customer response','Action Required',IF((LOWER(enq.status)=='closed'&&enq.Permanent_Close__c)||enq.subject=='Bulk Upload',enq.status,IF(LOWER(enq.status)=='closed'&&!enq.Permanent_Close__c,'Resolved',IF(LOWER(enq.Status)=='waiting on customer','Action Required','In Progress'))))}"/><br/>
+                                        Updated&nbsp;
+                                        <apex:outputField value="{!enq.LastModifiedDate}"/>
+                                    </div>
+                                    <div class="action bw-print" onclick="window.print();">
+                                        <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/icons-32bit/print.png')}"/>
+                                        Print
+                                    </div>
+
+                                    <!--<outputPanel rendered="{!AND(hideSSCR5, isAPUser)}">
+                                        <outputPanel rendered="{!IF(LOWER(enq.status)=='closed'&&NOT(enq.Permanent_Close__c),false,true)}">
+                                        <div class="action bw-close-enq" title="If no further investigation is required, resolve your enquiry." onclick="JsCloseCase();">
+                                            <image url="{!URLFOR($Resource.BSP_Custom, 'images/close-icon.png')}"/>
+                                            Resolve enquiry
+                                        </div>
+                                        </outputPanel>
+                                        <outputPanel rendered="{!IF(LOWER(enq.status)=='closed'&&NOT(enq.Permanent_Close__c)&&BEGINS(enq.RecordType.Developername, 'SSSW'),true,false)}" title="Click on the link to re-open case">
+                                            <div class="action bw-close-enq" title="If the case is not resolved, reopen your enquiry." onclick="JsCloseCase();">
+                                                <commandLink value="Re-open Enquiry" action="{!reopenCase}"/>
+
+                                            </div>
+                                        </outputPanel>
+                                    </outputPanel>-->
+
+                                    <apex:outputPanel > <!-- rendered="{!OR(NOT(isAPUser), AND(NOT(hideSSCR5), isAPUser))}"-->
+                                        <apex:outputPanel rendered="{!enq.Status != 'Closed'}">
+                                            <div class="action bw-close-enq" title="If no further investigation is required, resolve your enquiry." onclick="showLoading('loading'); STClose();" style="float: right; margin-left: 12px;">
+                                                <apex:image url="{!URLFOR($Resource.BSP_Custom, 'images/close-icon.png')}"/>
+                                                Resolve enquiry
+                                            </div>
+                                            <apex:outputPanel styleClass="action bw-close-enq" title="Click the button to search for consignment." rendered="{!((enq.ArticleTest__r.Name != null && BEGINS(enq.RecordType.Developername, 'StarTrack')) || (enq.ReferenceID__c != null && BEGINS(enq.RecordType.Developername, 'SSSW')))}" onclick="SearchConsignment();" style="float: right; margin-left: 12px;">
+                                                <apex:image url="{!URLFOR($Resource.BSP_Track_Item_Icon)}" width="17px" height="17px"/>
+                                                Track item
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!IF(LOWER(enq.status)=='closed'&&NOT(enq.Permanent_Close__c)&&BEGINS(enq.RecordType.Developername, 'SSSW'),true,false)}" title="Click on the link to re-open case">
+                                            <div class="action bw-close-enq" title="If the case is not resolved, reopen your enquiry." onclick="JsCloseCase();">
+                                                &nbsp;<apex:commandLink value="Re-open Enquiry" action="{!reopenCase}"/>
+                                            </div>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!(enq.Status == 'Closed' && ((enq.ArticleTest__r.Name != null && BEGINS(enq.RecordType.Developername, 'StarTrack')) || (enq.ReferenceID__c != null && BEGINS(enq.RecordType.Developername, 'SSSW'))))}">
+                                            <div class="action bw-close-enq" title="Click the button to search for consignment." onclick="SearchConsignment();">
+                                                <apex:image url="{!URLFOR($Resource.BSP_Track_Item_Icon)}" width="17px" height="17px"/>
+                                                Track item
+                                            </div>
+                                        </apex:outputPanel>
+
+                                            <!--<apex:commandButton value="Resolve enquiry" title="If no further investigation is required, resolve your enquiry." action="{!closeCase}" rendered="{!enq.Status != 'Closed'}" style="float: right;"  onclick="showLoading('loading');"/>-->
+                                            <!--<apex:commandButton value="Resolve enquiry" action="{!closeCase}" rendered="{!enq.Status == 'Closed'}" disabled="true" style="border: solid 2px #e4e4e4; background-color: #e4e4e4; float: right;"  onclick="showLoading('loading');"/>-->
+                                            <!--<apex:commandButton id="trackItem" action="{!trackItem}" style="padding:5px 20px; float: right; margin-right: 5px; margin-top: 10px;" value="Track Item"/>-->
+                                    </apex:outputPanel>
+
+                                    <apex:actionFunction name="VfCloseCase" action="{!closeCase}" rendered="{!LOWER(enq.Status)!='closed'}"/>
+                                    <apex:actionFunction name="STClose" action="{!closeCase}" rendered="{!enq.Status != 'Closed'}"/>
+                                    <apex:actionFunction name="SearchConsignment" action="{!trackItem}"/>
+                                </div>
+
+                                <hr/>
+
+                                <apex:outputPanel rendered="{!BEGINS(enq.RecordType.Developername, 'SSSW')}">
+                                    <h5>Enquiry name</h5>
+                                    <apex:outputText styleClass="bw-readonly-field" value="{!enq.CCUYourReference__c}"/>
+
+                                    <h4>Item details</h4>
+
+                                    <table class="bw-item-details">
+                                        <tr>
+                                            <td>
+                                                <h5>Tracking number</h5>
+                                                <apex:outputText styleClass="bw-readonly-field" value="{!enq.ReferenceID__c}"/>
+                                            </td>
+                                            <td>
+                                                <h5>Posting date</h5>
+                                                <apex:outputText styleClass="bw-readonly-field" value="{0, date, dd'/'MM'/'yyyy}">
+                                                    <apex:param value="{!enq.DatePosted__c}"/>
+                                                </apex:outputText>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5>Item type</h5>
+                                                <apex:outputText styleClass="bw-readonly-field" value="{!IF(NOT(ISBLANK(enq.ArticleType__c)),enq.ArticleType__c,enq.ProductCategory__c)}"/>
+                                            </td>
+                                            <td>
+                                                <h5>Service used</h5>
+                                                <apex:outputText styleClass="bw-readonly-field" value="{!IF(NOT(ISBLANK(enq.CCUServiceUsed__c)),enq.CCUServiceUsed__c,enq.ProductSubCategory__c)}"/>
+                                            </td>
+                                            <td>
+                                                <h5>Item contents</h5>
+                                                <apex:outputText styleClass="bw-readonly-field" value="{!IF(NOT(ISBLANK(enq.CCUItemContents__c)),enq.CCUItemContents__c,enq.DescriptionofContents__c)}"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <hr/>
+
+                                    <div class="bw-address bw-from-address">
+                                        <h4>From</h4>
+                                        <apex:outputText styleClass="bw-readonly-tofrom" value="{!fromName}"/>
+                                        <apex:outputText styleClass="bw-readonly-tofrom" value="{!fromCompany}"/>
+                                        <apex:outputText styleClass="bw-readonly-tofrom" value="{!fromAddress1}"/>
+                                        <apex:outputText styleClass="bw-readonly-tofrom" value="{!fromAddress2}"/>
+                                    </div>
+
+                                    <div class="bw-address bw-to-address">
+                                        <h4>To</h4>
+                                        <apex:outputText styleClass="bw-readonly-tofrom" value="{!toName}"/>
+                                        <apex:outputText styleClass="bw-readonly-tofrom" value="{!toCompany}"/>
+                                        <apex:outputText styleClass="bw-readonly-tofrom" value="{!toAddress1}"/>
+                                        <apex:outputText styleClass="bw-readonly-tofrom" value="{!toAddress2}"/>
+                                    </div>
+                                </apex:outputPanel>
+
+                                <apex:outputPanel rendered="{!BEGINS(enq.RecordType.Developername, 'StarTrack')}">
+
+                                    <h4>Item details</h4>
+
+                                    <table class="st-item-details">
+                                        <tr>
+                                            <td>
+                                                <h5>Billing Account Name</h5>
+                                                <apex:outputText styleClass="bw-readonly-field" value="{!enq.Related_Billing_Account__r.Name}"/>
+                                            </td>
+                                            <td>
+                                                <h5>Subject</h5>
+                                                <apex:outputText styleClass="bw-readonly-field" value="{!enq.Subject}"/>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5><apex:outputText value="{!IF(enq.RecordType.Name == 'Pickup Booking Enquiry', 'Pickup Booking Reference Number', 'Consignment Number')}"/></h5>
+                                                <apex:outputText styleClass="bw-readonly-field" value="{!IF(enq.RecordType.Name == 'Pickup Booking Enquiry', enq.Pickup_Booking_Reference__c, enq.ArticleTest__r.Name)}"/>
+                                            </td>
+                                        </tr>
+                                        <apex:outputPanel rendered="{!enq.RecordType.Name == 'Delivery Enquiry'}">
+                                        <tr>
+                                            <td>
+                                                <h5>Receiver Name</h5>
+                                                <apex:outputText styleClass="bw-readonly-field" value="{!enq.Article_Receiver_Name__c}"/>
+                                            </td>
+                                            <td>
+                                                <h5>Receiver Address</h5>
+                                                <apex:outputText styleClass="bw-readonly-field" value="{!enq.Article_Receiver_Address__c}"/>
+                                            </td>
+                                        </tr>
+                                        </apex:outputPanel>
+                                    </table>
+
+                                    <h5>Description</h5>
+                                    <p>
+                                        <!-- Description field setting for View More feature -->
+                                        <span class="mainContent"> <apex:outputText style="font-size: 1.2em; font-family:'letter_one',Arial,sans-serif;"
+                                                                                    value="{!enq.Description}" /> </span>
+                                        <!-- link for read more -->
+                                        <a class="read-more-show hide" href="#"> <apex:outputText value="...[ read more >> ]" /></a>
+                                        <!-- hidden excess description part -->
+                                        <span class="read-more-content "> <apex:outputText style="font-size: 1.2em; font-family:'letter_one',Arial,sans-serif;"
+                                                                                           value="{!enq.Description}" />
+                                            <!-- link for hidding the excess characters -->
+                                    <a class="read-more-hide hide" href="#"> <apex:outputText value="[ read less << ]" /> </a>
+                                    </span>
+                                    </p>
+
+                                    <hr/>
+                                </apex:outputPanel>
+
+                            </apex:outputPanel>
+
+
+                            <!-- START Communication History -->
+
+                            <apex:outputPanel styleClass="bw-comm-history">
+                                <apex:outputPanel rendered="{!LOWER(enq.Status)!='closed'}">
+                                    <div class="bw-comm-history-corner"></div>
+
+                                    <h2>Communication history</h2>
+
+                                    <apex:inputTextarea styleClass="bw-comments bw-input-field" html-placeholder="Add a comment or update" value="{!newCaseComment.CommentBody}" />
+
+
+                                    <!-- Hasantha added 15-12-2019 : Drag and drop component -->
+                                    <apex:CommandButton value="Send" action="{!addComment}" styleClass="primary-cta button-submit"  onclick="showLoading('loading');"/>
+                                    <div class="bw-add-attachment">
+                                        <apex:actionRegion >
+                                            <apex:image url="{!URLFOR($Resource.BSP_Custom, 'images/plus-icon.png')}" alt="Add" styleclass="left cursor-pointer" onclick="JS_DisplayAttachmentButtonED();" />
+                                            <apex:actionFunction name="SF_DisplayAttachmentButtonED" rerender="attachment-zone" onComplete="makedz();" action="{!SF_DisplayAttachmentButton}" status="loading-att"/>
+
+
+                                        </apex:actionRegion>
+                                    </div>
+
+                                    <div id="attachment-block">
+                                        <h4 >Attach a document or image</h4>
+                                        <p>PDF, JPEG and DOC files up to {!fileSizeLimitInteger}MB accepted</p>
+                                    </div>
+
+                                    <apex:actionStatus id="loading-att">
+                                        <apex:facet name="start">
+                                            <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator"/>
+                                        </apex:facet>
+                                    </apex:actionStatus>
+                                    <div id="attachment-" style="width: 100%">
+                                        <apex:outputPanel id="attachment-zone" >
+                                            <apex:outputPanel id="attachment-component" rendered="{!showAttachmentButtonFlag}">
+                                                <div id="upload-widget"  class="dropzone" style="border: 2px dashed #d5d2ca; border-radius: 5px; background: white; min-height: 116px">
+                                                    <apex:actionStatus id="upload-att-auspost">
+                                                        <apex:facet name="start">
+                                                            <apex:image url="{!URLFOR($Resource.BSP_Asset,'css/images/ajax_icon.gif')}" styleClass="ajax-indicator" style=" position: relative; margin: auto;left: 50%;"/>
+                                                        </apex:facet>
+                                                    </apex:actionStatus>
+                                                </div>
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </div>
+                                    <!-- end attachment uploader stuff-->
+                                </apex:outputPanel>
+
+                                <apex:outputPanel rendered="{!LOWER(enq.Status)='closed'}">
+                                    <div class="bw-comm-history-corner"></div>
+
+                                    <h2>Communication history</h2>
+
+                                    <h2>This enquiry cannot be reopened or updated. If you need further assistance, please submit a new enquiry.</h2>
+                                </apex:outputPanel>
+
+                                <apex:outputPanel id="existing-attachments" rendered="{!(existingAttachments.size!=0)}">
+                                    <br/>
+                                    <table>
+                                    <tr>
+                                        <td width="200px" style="background-color: F3F1EE;">
+                                            <h4>File Attachment</h4>
+                                        </td>
+                                        <td style="background-color: F3F1EE;">
+                                            <apex:repeat value="{!existingAttachments}" var="a" >
+                                                <apex:outputLink value="{!URLFOR($Action.Attachment.Download,a.id)}" target="_blank">{!a.Name}</apex:outputLink>&nbsp;&nbsp;&nbsp;<span>({!a.BodyLength} bytes)</span><br/>
+                                            </apex:repeat>
+                                        </td>
+                                    </tr>
+                                    </table>
+                                </apex:outputPanel>
+                                <!--Yongling CHUA 27/6/17 - Commented out this section as to prevent causing error after changing controller to With Sharing Class due to security breach.-->
+                                <div id="accordion">
+                                    <apex:repeat value="{!commHistoryList}" var="c">
+                                        <apex:outputText value="{!c.Header}" escape="false" />
+                                        <div class="caseComment">
+                                            <apex:outputText value="{!c.Body}" rendered="{!c.objType='comment'}" />
+                                        </div>
+                                        <apex:outputPanel rendered="{!c.objType='message'}">
+                                            <pre><span style="font-family: Arial,sans-serif;"><apex:outputText value="{!c.Body}" escape="true" /></span></pre>
+                                        </apex:outputPanel>
+                                    </apex:repeat>
+                                </div>
+
+
+                            </apex:outputPanel>
+                            <!-- refresh exisitng attachments -->
+                            <apex:actionFunction name="refreshFileList"  action="{!initialiseAttachments}" onComplete="stopUploadAttachmentSpinner();" reRender="existing-attachments" >
+
+                            </apex:actionFunction>
+                            <!-- Hasantha added 15-12-2019 : Drag and drop component  related -->
+                            <apex:actionFunction name="submitEnquiryFileUpload"  action="{!submitEnquiryFileUpload}" onComplete="refreshFileList();" reRender="existing-attachments"   >
+                                <apex:param name="firstParam" assignTo="{!fileBody}" value="" />
+                                <apex:param name="secondParam" assignTo="{!fileName}" value="" />
+                                <apex:param name="thirdParam" assignTo="{!fileContentType}" value="" />
+                                <apex:param name="fourthParam" assignTo="{!fileBodyLength}" value="" />
+                            </apex:actionFunction>
+
+                            <!-- END Communication History -->
+                        </apex:outputPanel>
+                    </apex:form>
+
+                    <script>
+                        // Hasantha added 15-12-2019 : Drag and drop component  related
+                        // Disabling autoDiscover, otherwise Dropzone will try to attach twice.
+                        Dropzone.autoDiscover = false;
+                        // or disable for specific dropzone:
+                        var uploadedFileCount = 0;
+                        var uploadCompletedFileCount = 0;
+                        /**
+                         * create the dropZone component, when the user click on the plus icon,
+                         * https://www.dropzonejs.com
+                         */
+                        function makedz() {
+                            var options = {
+                                url: "/bsp/EnquiryDetail/{!enq.CaseNumber}",
+                                paramName: "fileUploaded",
+                                maxFiles: 5,
+                                maxFilesize: {!fileSizeLimitInteger},
+                                acceptedFiles: "application/pdf, image/jpeg, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document ",
+                                addRemoveLinks: false,
+                                dictFallbackMessage : "Your browser seems not supported for file upload, please use Chrome 7+, Firefox 4+, IE 10+, Safari 6+",
+                                dictFileTooBig: "Maximum file size {!fileSizeLimitInteger} exceeded, upload terminated!",
+                                dictDefaultMessage: "Drop your files here or click and attach, and once upload successful uploaded files will be listed below;",
+                                dictMaxFilesExceeded : "Maximum number of files handled at once exceeded!",
+                                success: function(file) {
+                                    // on successfull upload, let upload the file to server
+                                    var reader = new FileReader();
+                                    reader.addEventListener("loadend", function(event) {
+                                        var binary = "";
+                                        var bytes = new Uint8Array(event.target.result);
+                                        var length = bytes.byteLength;
+
+                                        for (var i = 0; i < length; i++){
+                                            binary += String.fromCharCode(bytes[i]);
+                                        }
+                                        var base64String = window.btoa(binary);
+                                        $("span[id*=':upload-att-auspost.start']").css('display', '');
+                                        // overlay on the dropzone and remove the clickable funcitonlity
+                                        $("div[id='upload-widget']").css("pointer-events","none");
+                                        $("div[id='upload-widget']").addClass("opacityElement");
+                                        uploadedFileCount +=1;
+                                        // we use a transient variable in controller to store the body as a string
+                                        submitEnquiryFileUpload(base64String, file.name, file.type, file.size);
+
+                                        console.log('submitEnquiryFileUpload!');
+                                    });
+                                    reader.readAsArrayBuffer(file);
+                                },
+                                uploadprogress: function(file, progress, bytesSent) {
+                                    //iterate through the progress bar DOM and make display none
+                                    //whenever upload progress event is triggered
+                                    var progressElement = document.getElementsByClassName('dz-progress');
+                                    // display spinner inside the dropzone
+                                    $("span[id*=':upload-att-auspost.start']").css('display', '');
+                                    // overlay on the dropzone and remove the clickable funcitonlity
+                                    $("div[id='upload-widget']").css("pointer-events","none");
+                                    $("div[id='upload-widget']").addClass("opacityElement");
+                                    var max = progressElement.length;
+                                    for (var i=0; i < max; i++) {
+                                        progressElement[i].style.display = 'none';
+                                    }
+                                },
+                            }
+
+                            var uploader = new Dropzone("#upload-widget", options);
+                        }
+
+                        /**
+                         * stop the spinner when the upload is completed for all the files and remove them from ui
+                         **/
+                        function stopUploadAttachmentSpinner(){
+                            // hide the spinner
+                            uploadCompletedFileCount +=1;
+                            if(uploadedFileCount == uploadCompletedFileCount) {
+                                //re-init countvariables
+                                uploadedFileCount = 0;
+                                uploadCompletedFileCount = 0;
+                                // stop the spinner
+                                $("span[id*=':upload-att-auspost.start']").css('display', 'none');
+                                // overlay on the dropzone and remove the clickable funcitonlity
+                                $("div[id='upload-widget']").removeClass('opacityElement');
+                                $("div[id='upload-widget']").css("pointer-events","");
+                                // remove the file from the dropzone once upload completed
+                                var thisDropzone = Dropzone.forElement("#upload-widget");
+                                thisDropzone.removeAllFiles();
+                            }
+                        }
+
+                    </script>
+
+                </div> 
+            </div>
+            <!-- END MAIN PANEL --> 
+
+
+            <!-- START Your details -->
+
+            <c:bspYourDetails />
+            <!-- END Your details -->
+        
+            <!-- START Quicklinks -->
+            <c:bspQuickLinks />
+            <!-- END Quicklinks -->
+
+
+        </div>
+        
+    </div>
+
+    
+    <!-- START GE02 Footer -->
+    <c:bspFooter />
+    <!-- END GE02 Footer -->
+    </body>
+    </html>
+    <script>
+        $(document).ready(function(){
+            // Configure/customize the variables for view more feature.
+            var showChar = 255;  // How many characters are shown by default
+
+            // Hide the extra content initially, using JS so that if JS is disabled, no problemo:
+            $('.read-more-content').addClass('hide')
+            $('.read-more-show, .read-more-hide').removeClass('hide')
+
+            //default characters to be shown
+            $('.mainContent').each(function() {
+                var content = $(this).html();
+                //if chars more than 255
+                $('.read-more-show').addClass('hide');
+                if(content.length > showChar) {
+                    //get the 1st 255 chars of the description
+                    var contentShown = content.substr(0, showChar);
+                    //if it is not ending with a whole word.
+                    if(!contentShown.endsWith(" ")) {
+                        //loop through rest of the characters and complete the pending word
+                        for(var i=255; i<content.length; i++) {
+                            if(content[i] == " ") {
+                                //once space is found, break the loop
+                                break;
+                            }
+                            else {
+                                showChar++;
+                            }
+                        }
+                    }
+                    contentShown = content.substr(0, showChar);
+                    //set the hidden text of description based on above created visible text
+                    var contentHidden = content.substr(showChar+1, content.length - showChar);
+                    $('.read-more-show').removeClass('hide')
+                    $(this).html(contentShown);
+                }
+            });
+
+            //hidden characters for the description
+            $('.read-more-content').each(function() {
+                var content = $(this).html();
+                var contentHidden = '';
+                //if description length is more than default (255) characters
+                if(content.length > showChar) {
+                    //set the hidden text of description based on above created visible text
+                    var contentHidden = content.substr(showChar+1, content.length - showChar);
+                    $('.hiddenText').before(' Read More ')
+                    //hide the display of the excess string of the description
+                    $(".hiddenText").css("display","none");
+                }
+                else {
+                    //if description is less than 255 characters, then we do not need the hidden part
+                    $(".read-more-show").css("display","none");
+
+                }
+                $(this).html(contentHidden);
+            });
+
+
+
+            // Set up the toggle effect:
+            $('.read-more-show').on('click', function(e) {
+                $(this).next('.read-more-content').removeClass('hide');
+                $(this).addClass('hide');
+                e.preventDefault();
+            });
+
+            // Changes contributed by on click of the Read More link
+            $('.read-more-hide').on('click', function(e) {
+                var para = $(this).parent('.read-more-content');
+                para.addClass('hide');
+                para.prev('.read-more-show').removeClass('hide'); // Hide only the preceding "Read More"
+                e.preventDefault();
+            });
+        });
+    </script>
+    <style >
+        a:visited {
+            color:black;
+        }
+
+        .hide {
+            display: none;
+        }
+
+
+        .read-more-content {
+            font-size: 1.2em;
+            font-family: "letter_one",Arial,sans-serif;
+        }
+
+        .read-more-show {
+            font-size: 1.2em;
+            font-family: "letter_one",Arial,sans-serif;
+            color:black;
+        }
+        .read-more-hide {
+            font-size: 1.05em;
+            font-family: "letter_one",Arial,sans-serif;
+            color:black;
+        }
+    </style>
+</apex:page>

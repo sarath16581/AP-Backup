@@ -1,0 +1,45 @@
+<!--
+    2020-04-01 nathan.franklin@auspost.com.au Created
+-->
+<template>
+
+	<c-happy-parcel-card title="In-transit Redirection / Merchant Recall" icon-name="utility:undo" loading={loading} variant="stretch" help-text={helpText}>
+		<div class="slds-grid content-grid slds-grow animated pulse" style={animationCss}>
+			<template if:true={hasInTransitRedirect}>
+				<div class="slds-m-right_small">
+					<c-happy-parcel-custom-icon icon="warning" size="medium"></c-happy-parcel-custom-icon>
+				</div>
+				<div class="slds-grow slds-m-horizontal_small">
+					<div class="slds-text-heading_medium">From:</div>
+					<p>
+						{redirectFromLine1}
+						<template if:true={redirectFromLine2}>
+							<br>{redirectFromLine2}
+						</template>
+						<template if:true={redirectFromSuburbPostcode}>
+							<br>{redirectFromSuburbPostcode}
+						</template>
+					</p>
+				</div>
+				<div class="slds-grow slds-m-horizontal_small">
+					<div class="slds-text-heading_medium">To:</div>
+					<p>
+						{redirectToLine1}
+						<template if:true={redirectToLine2}>
+							<br>{redirectToLine2}
+						</template>
+						<template if:true={redirectToSuburbPostcode}>
+							<br>{redirectToSuburbPostcode}
+						</template>
+					</p>
+				</div>
+			</template>
+			<template if:false={hasInTransitRedirect}>
+				<div class="slds-align_absolute-center">
+					<lightning-icon icon-name="utility:dash" size="medium"></lightning-icon>
+				</div>
+			</template>
+		</div>
+	</c-happy-parcel-card>
+
+</template>

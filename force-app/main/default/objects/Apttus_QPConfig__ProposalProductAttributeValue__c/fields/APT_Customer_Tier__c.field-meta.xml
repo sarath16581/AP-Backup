@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Customer_Tier__c</fullName>
+    <externalId>false</externalId>
+    <label>Tier (ex Gst)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>TIER 4</fullName>
+                <default>false</default>
+                <label>TIER 4 ($20,000.00 - $49,999.99)</label>
+            </value>
+            <value>
+                <fullName>TIER 5</fullName>
+                <default>false</default>
+                <label>TIER 5 ($50,000.00 - $124,999.99)</label>
+            </value>
+            <value>
+                <fullName>TIER 6</fullName>
+                <default>false</default>
+                <label>TIER 6 ($125,000.00 - $249,999.99)</label>
+            </value>
+            <value>
+                <fullName>TIER 7</fullName>
+                <default>false</default>
+                <label>TIER 7 ($250,000.00 - $499,999.99)</label>
+            </value>
+            <value>
+                <fullName>TIER 8</fullName>
+                <default>false</default>
+                <label>TIER 8 ($500,000.00+)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

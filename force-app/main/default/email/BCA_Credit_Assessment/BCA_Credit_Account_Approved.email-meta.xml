@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>BCA Credit Account Approved</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>BCA Credit Account Approved</name>
+    <style>none</style>
+    <subject>Your business credit account application</subject>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

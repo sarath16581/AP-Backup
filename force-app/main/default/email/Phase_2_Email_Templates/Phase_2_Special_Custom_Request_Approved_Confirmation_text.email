@@ -1,0 +1,11 @@
+Dear {!Custom_Pricing_Request__c.CreatedBy},
+
+Your Custom Pricing Request {!Custom_Pricing_Request__c.Name} for Opportunity {!Custom_Pricing_Request__c.Opportunity__c} has been Approved.   
+
+Click the below link to access the request:
+
+{!Custom_Pricing_Request__c.Link}
+
+Thank you,
+ 
+salesforce.com

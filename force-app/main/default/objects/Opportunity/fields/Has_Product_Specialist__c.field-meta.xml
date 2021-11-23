@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Has_Product_Specialist__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>STP: Indicates if an opportunity record has any Opportunity Team Member record with Role as Product Specialist</description>
+    <externalId>false</externalId>
+    <label>Has Product Specialist</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

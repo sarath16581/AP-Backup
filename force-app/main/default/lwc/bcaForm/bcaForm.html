@@ -1,0 +1,272 @@
+<!--
+* @author Victor.Cheng@auspost.com.au
+* @date 2020-10-12
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Business Creidit Application Main Form
+* @changelog
+* 2020-10-12 Victor.Cheng@auspost.com.au  Created
+* 2021-07-13 avula.jansirani@auspost.com.au  Updates  Direct debit details Page first sentence [STP-6405]
+-->
+
+<!-- Bca Form -->
+<template>
+    <div>
+        <div class="form-full-width">
+            <div class="form-title">
+                <div class="form-title-container">
+                    Business Credit Account Application
+                </div>
+            </div>
+        </div>
+
+        <template if:true={underMaintenance}>
+            <div class="slds-col form-page">
+                <c-bca-message-box header="Under Maintenance"
+                    rich-text-msg="Form is currently unavailable - we're working to bring it back online. <br/> Please try again later">
+                </c-bca-message-box>
+            </div>
+        </template>
+        <template if:true={showCreateBCAForm}>
+            <!-- Header Title-->
+            <c-bca-wizard variant="base" show-sections="true" oncomplete={onCompleteForm}
+                finish-label={finishLabel}>
+                <div class="slds-col form-page">
+                    <!-- Error messages -->
+                    <template if:true={errorMessages}>
+                        <div slot="error"
+                            class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-m-top_medium">
+                            <div>
+                                <p>{errorMessages}&nbsp;</p>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- STEPS -->
+                    <c-bca-wizard-step section={SECTION1} label="" next-button-label="Start" hide-sections="true">
+                        <div class="form-outer-box">
+                            <div class="form-inner-box-wide">
+                                <c-bca-welcome body={welcomeText}></c-bca-welcome>
+                            </div>
+                        </div>
+                    </c-bca-wizard-step>
+                    <c-bca-wizard-step section={SECTION1} label="Business registration details" page-id={PAGE_IDS.abn} hide-next-button={hideNextButton}
+                        sub-label="Please enter and confirm the Australian Business Number (ABN) associated with the business you’d like to open a credit account for.<br/>"
+                        before-change={validateABN}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <c-bca-step-abn credit-assessment={creditAssessment}></c-bca-step-abn>
+                    </c-bca-wizard-step>
+
+                    <!-- template if:true={showTrustDeed}-->
+                        <c-bca-wizard-step section={SECTION1} label="Trust details" data-page-type="trust" page-id={PAGE_IDS.trust} hide-next-button={hideNextButton}
+                            sub-label="Please upload a copy of the trust deed that confirms the identity of the trustee. If you don’t have one, your accountant or financial advisor should be able to help. <br/><br/>You can upload up to five documents.<br/>"
+                            before-change={validateTrustDetails}>
+                            <p slot="blurb">{standardBlurb}</p>
+                            <div class="form-outer-box">
+                                <div class="form-inner-box-wide">
+                                    <c-bca-step-trust-details credit-assessment={creditAssessment}></c-bca-step-trust-details>
+                                </div>
+                            </div>
+                        </c-bca-wizard-step>
+                    <!--/template-->
+
+                    <c-bca-wizard-step section={SECTION1} label="Business address details" page-id={PAGE_IDS.businessAddress}
+                        sub-label=""
+                        before-change={validateBusinessAddressDetails}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <div class="form-outer-box">
+                            <div class="form-inner-box">
+                                <c-bca-step-business-address-details credit-assessment={creditAssessment}></c-bca-step-business-address-details>
+                            </div>
+                        </div>  
+                    </c-bca-wizard-step>
+
+                    <c-bca-wizard-step section={SECTION1} label="Business type details" page-id={PAGE_IDS.businessType}
+                        sub-label=""
+                        before-change={validateBusinessTypeDetails}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <div class="form-outer-box">
+                            <div class="form-inner-box">
+                                <c-bca-step-business-type-details  entity-type-group={entityTypeGroup} trust-type={trustType}></c-bca-step-business-type-details>
+                            </div>
+                        </div>
+                    </c-bca-wizard-step>
+
+                    <!-- SECTION - Director Details -->
+
+                    <!--
+                    <c-bca-wizard-step section={SECTION2} label={directorTitle} page-id={PAGE_IDS.directorDetails}
+                                       sub-label="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra tortor a porta porta. Maecenas laoreet neque eu nunc volutpat mollis."
+                        before-change={validateDirectors}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <c-bca-step-directors credit-assessment={creditAssessment}></c-bca-step-directors>
+                    </c-bca-wizard-step>
+                    -->
+
+
+
+                    <c-bca-wizard-step section={SECTION2} label={directorTitle} page-id={PAGE_IDS.digitalId}
+                                       hide-next-button={hideNextButton} hide-previous-button={hideNextButton}
+                                       sub-label={directorBlurb}
+                                       before-change={validateDigitalId}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <c-bca-step-digital-id credit-assessment={creditAssessment} ></c-bca-step-digital-id>
+                    </c-bca-wizard-step>
+
+                    <c-bca-wizard-step section={SECTION2} label="" page-id={PAGE_IDS.notVerified}
+                                       hide-next-button={hideNextButton} hide-previous-button={hideNextButton} hide-sections="true">
+                        <c-bca-step-not-verified credit-assessment={creditAssessment} ></c-bca-step-not-verified>
+                    </c-bca-wizard-step>
+
+                    <c-bca-wizard-step section={SECTION2} label={directorTitle} page-id={PAGE_IDS.businessPerson1}
+                                       sub-label={directorBlurb}
+                        before-change={validatePerson1}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <c-bca-step-business-person credit-assessment={creditAssessment} data-index="1" person-index="1"></c-bca-step-business-person>
+                    </c-bca-wizard-step>
+
+                    <c-bca-wizard-step section={SECTION2} label="Partner details (2 of 2)" page-id={PAGE_IDS.businessPerson2}
+                                       sub-label={directorBlurb}
+                                       before-change={validatePerson2}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <c-bca-step-business-person credit-assessment={creditAssessment} data-index="2" person-index="2"></c-bca-step-business-person>
+                    </c-bca-wizard-step>
+
+                    <c-bca-wizard-step section={SECTION2} label="Partner summary" page-id={PAGE_IDS.businessPersonsList}
+                                       sub-label="Please confirm the partner details below. Click the edit buttons to make any changes, or click Continue to proceed."
+                                       before-change={onNextStep}>
+                        <c-bca-step-person-list credit-assessment={creditAssessment} page-prefix='businessPerson'></c-bca-step-person-list>
+                    </c-bca-wizard-step>
+
+
+                    <c-bca-wizard-step section={SECTION2} label="Business contact person" page-id={PAGE_IDS.businessContact}
+                        sub-label="Who should we contact to discuss your credit application and account?<br/>"
+                        before-change={validateBusinessContact}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <div class="form-outer-box">
+                            <div class="form-inner-box-wide">
+                                <template if:true={showBusinessContact}>
+                                    <c-bca-step-business-contact contact-person-options={contactPersonOptions} selected-contact={selectedContact} directors={directors}></c-bca-step-business-contact>
+                                </template>
+                            </div>
+                        </div>        
+                    </c-bca-wizard-step>
+
+                    <c-bca-wizard-step section={SECTION2} label="Email address for invoices" page-id={PAGE_IDS.emailCorrespondence}
+                        sub-label="What’s the best email address for us to send your business credit account statement and other official correspondence to?<br/>"
+                        before-change={validateEmailAddForCorrespondence}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <div class="form-outer-box">
+                            <div class="form-inner-box">
+                                <c-bca-step-email-add-for-correspondence credit-assessment={creditAssessment}></c-bca-step-email-add-for-correspondence>
+                            </div>
+                        </div>    
+                    </c-bca-wizard-step>
+
+                    <!-- SECTION - Credit Amount -->
+                    <c-bca-wizard-step section={SECTION3} label="Credit limit" page-id={PAGE_IDS.creditAmount}
+                        sub-label="How much are you currently spending each month with Australia Post? This should include standard postage and Express Post, courier services, packaging, and other Australia Post services.<br/>"
+                        before-change={validateCreditAmount}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <div class="form-outer-box">
+                            <div class="form-inner-box">
+                                <template if:true={showCreditAmount}>
+                                    <c-bca-step-credit-amount credit-assessment={creditAssessment}></c-bca-step-credit-amount>
+                                </template>
+                            </div>
+                        </div>        
+                    </c-bca-wizard-step>
+
+                    <c-bca-wizard-step section={SECTION3} label="" page-id={PAGE_IDS.creditEnd}
+                        before-change={validateCreditAmount}>
+                        <div class="form-outer-box">
+                            <div class="form-inner-box-wide">
+                                <c-bca-step-credit-end credit-assessment={creditAssessment}></c-bca-step-credit-end>
+                            </div>
+                        </div>
+                    </c-bca-wizard-step>
+
+
+                    <c-bca-wizard-step section={SECTION3} label="Direct debit request" page-id={PAGE_IDS.directDebit}
+                        sub-label="Please provide the details of the bank account you’d like us to debit. Your account will be debited on the due date as stated on your invoice, for the full invoice amount.<br/>
+                        I/we request and authorise The AUSTRALIAN POSTAL CORPORATION (User ID 063802) to arrange, a debit to your nominated account to pay for goods and services supplied by the above.<br/>
+                        This debit or charge will be arranged by Australian Postal Corporation’s financial institution and made through the Bulk Electronic Clearing System (BECS) from your nominated account and will be subject to the terms and conditions of the Direct Debit Request Service Agreement.<br/>"
+                        before-change={validateDirectDebit}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <c-bca-step-direct-debit credit-assessment={creditAssessment}></c-bca-step-direct-debit>
+                            
+                    </c-bca-wizard-step>
+
+
+                    <!-- references -->
+                    <c-bca-wizard-step section={SECTION3} label="Business reference (1 of 3)" page-id="businessReference1"
+                        sub-label="Please provide the details for three businesses you currently hold credit accounts with.<br/>"
+                        before-change={validateReference1}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <c-bca-step-reference credit-assessment={creditAssessment} data-index="1" person-index="1"></c-bca-step-reference>
+                    </c-bca-wizard-step>
+                    <c-bca-wizard-step section={SECTION3} label="Business reference (2 of 3)" page-id="businessReference2"
+                        sub-label="Please provide the details for three businesses you currently hold credit accounts with.<br/>"
+                        before-change={validateReference2}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <c-bca-step-reference credit-assessment={creditAssessment} data-index="2" person-index="2"></c-bca-step-reference>
+                    </c-bca-wizard-step>
+                    <c-bca-wizard-step section={SECTION3} label="Business reference (3 of 3)" page-id="businessReference3"
+                        sub-label="Please provide the details for three businesses you currently hold credit accounts with.<br/>"
+                        before-change={validateReference3}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <c-bca-step-reference credit-assessment={creditAssessment} data-index="3" person-index="3"></c-bca-step-reference>
+                    </c-bca-wizard-step>
+
+
+                    <c-bca-wizard-step section={SECTION3} label="Business reference summary" page-id={PAGE_IDS.businessReferenceList}
+                                       sub-label="Please confirm the reference details below. Click the edit buttons to make any changes, or click Continue to proceed."
+                                       before-change={onNextStep}>
+                        <c-bca-step-reference-list credit-assessment={creditAssessment} page-prefix='businessReference'></c-bca-step-reference-list>
+                    </c-bca-wizard-step>
+
+
+                   
+                    <!-- SECTION - Postal Outlets -->
+                    <c-bca-wizard-step section={SECTION4} label="Preferred postal outlets" page-id={PAGE_IDS.postalOutlets}
+                        sub-label="Please choose up to four lodgement points that will be authorised to accept your credit account. You’ll be able to charge eligible services at these locations to your account.<br/>"
+                        before-change={validatePostalOutlets}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <template if:true={showPostalOutlets}>
+                            <c-bca-step-postal-outlets credit-assessment={creditAssessment}></c-bca-step-postal-outlets>       
+                        </template>
+                    </c-bca-wizard-step>
+                   
+                    <!-- SECTION - Review and Submit -->
+                    <c-bca-wizard-step section={SECTION5} label="Review application details" page-id={PAGE_IDS.review}
+                        hide-css="hide-print"
+                        sub-label="Please review all your application details before clicking Submit. Incorrect information might lead to your application being declined.
+                        <br/><br/>You won’t be able to edit these details once you click Submit.<br/>" next-button-label="Submit" show-loader={showSpinner}
+                        before-change={onSubmit}>
+                        <p slot="blurb">{standardBlurb}</p>
+                        <template if:true={showReview}>
+                            <c-bca-review-and-submit credit-assessment={creditAssessment}></c-bca-review-and-submit>
+                        </template>
+                    </c-bca-wizard-step>
+
+                    <!-- SECTION - Success / Failure-->
+                    <c-bca-wizard-step section={SECTION5} label="" hide-sections="true" page-id={PAGE_IDS.success} 
+                        hide-next-button='true' hide-previous-button={hidePrevButtonForSubmitResults}>
+                        <template if:true={showSubmitResults}>
+                            <c-bca-submit-status ca-submit-results={caSubmitResults}></c-bca-submit-status>     
+                        </template>
+                    </c-bca-wizard-step>
+                </div>
+            </c-bca-wizard>
+        </template>
+
+        <template if:true={showExistingUserForm}>
+            <c-bca-message-box header={msgHeaderForExistingBillingAccOrInprogressCA} rich-text-msg={msgBodyForExistingBillingAccOrInprogressCA}></c-bca-message-box>
+        </template>
+
+        <!-- show spinner
+        <template if:true={showSpinner}>
+            <c-bsp-loading></c-bsp-loading> 
+        </template>-->
+    </div>
+</template>

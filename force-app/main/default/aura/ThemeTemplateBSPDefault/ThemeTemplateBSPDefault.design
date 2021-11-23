@@ -1,0 +1,11 @@
+<design:component label='BSP - Custom Default Theme Layout'>
+    <design:attribute name="showSearch" label="Show Search Box" />
+    <design:attribute name="showNavigation" label="Show Navigation Bar" />
+    <design:attribute name="showProfileMenu" label="Show Profile Menu" />
+    <design:attribute name="showHeader" label="Show Header" />
+    <design:attribute name="showHero" label="Show Hero" />
+    <design:attribute name="showLiveAgent" label="Show Live Agent" />
+    <design:attribute name="layoutWidth" label="Layout Width" datasource="contained,wide" />
+    <design:attribute name="cssClass" label="Additional Css Classes" />
+    
+</design:component>

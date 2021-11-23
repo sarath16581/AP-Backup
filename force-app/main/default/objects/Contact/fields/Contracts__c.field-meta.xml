@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contracts__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Checking this field indicates that the Contact will receive information about Contracts.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Notify this Contact about any Contract issues affecting  their Organisation.</inlineHelpText>
+    <label>Contracts</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

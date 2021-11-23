@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PSR</fullName>
+    <active>true</active>
+    <description>Parcel Sending Rewards Asset</description>
+    <label>PSR</label>
+    <picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inactive</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Tier_Type__c</picklist>
+        <values>
+            <fullName>Assigned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transactional</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

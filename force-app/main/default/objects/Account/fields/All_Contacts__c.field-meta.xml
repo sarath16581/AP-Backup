@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Contacts__c</fullName>
+    <description>used by contactsummer trigger</description>
+    <externalId>false</externalId>
+    <inlineHelpText>All contacts (with any status) related to this organisation.</inlineHelpText>
+    <label>All Contacts</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,48 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><span style="color: rgb(0, 0, 0); font-family: 'AP Letter'; font-size: 12pt; line-height: 107%;">Hi&nbsp;<o:p></o:p></span><font face="AP Letter"><span style="line-height: 17.1199989318848px;">{!Case.Requestor__c}</span></font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="mso-bidi-font-size:10.0pt;line-height:107%;font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+mso-fareast-language:EN-AU;mso-no-proof:yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="color: rgb(0, 0, 0); font-family: 'AP Letter'; font-size: 12pt; line-height: 107%;">This customer has requested a
+credit limit of $xx,000. As the company was only created on DD-MM-YYYY</span><span style="color: rgb(0, 0, 0); font-family: 'AP Letter'; font-size: 12pt; line-height: 107%;">&nbsp;according to the Australian Business Register and is therefore less than 12
+months old, Australia Post credit policy specifies that the maximum credit
+limit we can offer is $5,000. Once the customer has been trading for close to
+12 months, they can apply to have their credit limit increased by directly
+emailing </span><a href="mailto:CreditLimitIncreases@auspost.com.au" style="font-family: arial; font-size: 12pt;"><span style="line-height: 107%; font-family: 'AP Letter';"><font color="#3333ff">CreditLimitIncreases@auspost.com.au</font></span></a><span style="color: rgb(0, 0, 0); font-family: 'AP Letter'; font-size: 12pt; line-height: 107%;">.</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="mso-bidi-font-size:10.0pt;line-height:107%;font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+mso-fareast-language:EN-AU;mso-no-proof:yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="mso-bidi-font-size:10.0pt;line-height:107%;font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+mso-fareast-language:EN-AU;mso-no-proof:yes">Alternatively, the customer can
+pay a security deposit for the requested credit limit, which will be retained
+by Australia Post. This amount cannot be used to pay ongoing account charges.
+After around 12 months of trading, the customer can apply to have their credit
+limit released, which will be at the discretion of the Credit department. If
+the customer selects this method, I will send the relevant information to the
+customer and cc you on the email.<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="mso-bidi-font-size:10.0pt;line-height:107%;font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+mso-fareast-language:EN-AU;mso-no-proof:yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="mso-bidi-font-size:10.0pt;line-height:107%;font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+mso-fareast-language:EN-AU;mso-no-proof:yes">Please advise which option we
+should choose.<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="mso-bidi-font-size:10.0pt;line-height:107%;font-family:&quot;AP Letter&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;
+mso-fareast-language:EN-AU;mso-no-proof:yes">&nbsp;</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt;"><span style="font-family:&quot;AP Letter&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:minor-fareast;mso-fareast-language:EN-AU;mso-no-proof:
+yes">Regards<o:p></o:p></span></p><p class="MsoNormal" style="margin-bottom: 0.0001pt;"><font face="AP Letter">{!Case.OwnerFullName}</font></p>]]></td>
+</tr>
+</table>

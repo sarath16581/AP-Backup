@@ -1,0 +1,41 @@
+<aura:component controller="brideas_IdeasCtrl" implements="forceCommunity:availableForAllPageTypes" access="global">
+
+    <aura:attribute name="itemsPerPage" type="Integer" default="5" access="global" />
+    <aura:attribute name="orderBy" type="String" default="Popular" access="global" />
+    <aura:attribute name="searchQuery" type="String" />
+    <aura:attribute name="listItems" type="brideas_IdeaWrapper[]" />
+    <aura:attribute name="itemsCount" type="Integer" default="0" />
+    <aura:attribute name="listLoading" type="Boolean" default="false" />
+
+    <aura:attribute name="configSearchString" type="String" default="{searchString}" access="global" />
+    <aura:attribute name="configDisplayIdeasCount" type="Boolean" default="false" access="global" />
+    <aura:attribute name="configPageUrl" type="String" default="" access="global" />
+
+    <aura:registerEvent name="ideasErrorEvent" type="c:brideas_Error" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="ideasErrorEvent" event="c:brideas_Error" action="{!c.handleErrorEvent}" />
+
+    <div class="slds lght-ideas">
+        <div class="listTab uiTabset--base uiTabset--default uiTabset forceCommunityResultsList">
+            <div role="application tablist" class="uiTabBar">
+                <ul class="tabs__nav" role="presentation">
+                    <li class="record-feed tabs__item active uiTabItem" role="presentation"  data-aura-class="uiTabItem" data-original-width="115">
+                        <a class="tabHeader" aria-selected="true" data-tab-name="ideas" tabindex="0" role="tab"  title="Ideas" href="javascript:void(0);">
+                            <span class="title">{!$Label.c.ideasGlobalSearchListTitle}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <section class="record-feed tabs__content active uiTab" aria-expanded="true" role="tabpanel" data-aura-class="uiTab">
+                <div class="ideas-list slds-m-top--large">
+                    <aura:iteration items="{!v.listItems}" var="i">
+                        <c:brideas_GlobalSearchResultItem aura:id="listItemCustom" item="{#i}" pageUrl="{#v.configPageUrl}" />
+                        <div class="slds-m-top--medium"></div>
+                    </aura:iteration>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</aura:component>

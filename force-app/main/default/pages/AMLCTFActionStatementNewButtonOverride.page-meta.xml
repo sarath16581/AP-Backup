@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>37.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Invisible VF created to override &quot;New&quot; standard button in Action Statement related list.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+    <label>AMLCTFActionStatementNewButtonOverride</label>
+</ApexPage>

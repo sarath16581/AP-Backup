@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProductDowntrading__c</fullName>
+    <description>Main product where revenue is dropping</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Main product where revenue is dropping</inlineHelpText>
+    <label>Product Downtrading</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

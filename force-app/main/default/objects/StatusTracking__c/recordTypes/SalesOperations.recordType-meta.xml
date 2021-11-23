@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SalesOperations</fullName>
+    <active>true</active>
+    <description>Case Tracking for the Sales Operations Case Types</description>
+    <label>Sales Operations</label>
+    <picklistValues>
+        <picklist>FieldsChanged__c</picklist>
+        <values>
+            <fullName>Owner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Status</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

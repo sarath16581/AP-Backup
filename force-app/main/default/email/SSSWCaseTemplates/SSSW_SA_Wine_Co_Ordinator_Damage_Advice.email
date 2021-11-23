@@ -1,0 +1,148 @@
+<style>
+	html {
+		font-family: Helvetica,Sans-Serif,Arial;
+		font-size: 12px;
+	}
+	h1 {
+		color: #111111;
+		font-weight: bold;
+		font-family: Arial,Helvetica,sans-serif;
+		font-size: 22px;
+		line-height: 30px;
+		text-align: left;
+		display: inline;
+		padding-left: 20px;
+	}
+	h3 {
+		font-family: Arial,Helvetica,sans-serif;
+		font-size: 14px;
+		line-height: 16px;
+		text-align: left;
+	}
+	.red {
+		color: #DF1027;
+	}
+	.bold {
+		font-weight: bold;
+	}
+	.outer {
+		background: #FFEDBA;
+		padding: 20px;
+	}
+	.header {
+		background: #FFFFFF;
+		padding: 20px;
+		margin: 20px;
+	}
+	.content {
+		background: #FFFFFF;
+		margin: 20px;
+		padding: 20px;
+	}
+	.footer {
+		margin: 20px;
+		padding: 20px;  
+	}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+padding: 10px;
+		font-family: Arial,Helvetica,sans-serif;
+		font-size: 12px;
+}
+.instructions {
+background-color:#FFDA75; 
+padding: 10px;
+}
+</style>
+
+<div class="outer">
+	<div class="header">
+<img align="left" style="outline:none;background-color:#DE1730;" src="http://static.auspost.com.au/ap/css/images/auspost.png" alt="AusPost" title="AusPost">
+<h1 class="red">&nbsp;Wine Customer has provided instructions for a damaged article</h1>
+<br/>
+<!--<h1>Case {!Case.CaseNumber}</h1>-->
+	</div>
+	<div class="content">
+		<h3 class="red">Case {!Case.CaseNumber} has been created for {!Contact.LastName}.</h3>
+        <p><b>Reference ID:</b> {!Case.ReferenceID__c}<br/>
+		<b>Please click this link to view the Case:</b> {!Case.Link}
+
+<br/>
+<br/>
+The eParcel Damages Team has received and logged a damaged report for the following article:<br/>
+<br/>
+<br/>
+<table>
+  <tr>
+    <td>Sender Name</td>
+    <td>{!Case.Primary_Name__c}</td> 
+    <td>Addressee Name</td>
+    <td>{!Case.Secondary_Contact__c}</td> 
+  </tr>
+ <tr>
+    <td>Sender Company</td>
+    <td> {!Case.Primary_Company__c}</td>
+    <td>Addressee Company</td>
+    <td>{!Case.Secondary_Companry__c}</td>
+  </tr>
+  <tr>
+    <td>Address</td>
+    <td>{!Case.Address1__c}</td>
+    <td>Address</td>
+    <td>{!Case.Address2__c}</td>
+  </tr>
+</table>
+<br/>
+<br/>
+<b>Details of the Damage</b>
+<br/>
+<br/>
+<table>
+  <tr>
+    <td>Total number of bottles</td>
+    <td>[&nbsp;&nbsp;&nbsp;&nbsp;]</td> 
+    <td>Label Damage</td>
+    <td>[&nbsp;&nbsp;&nbsp;&nbsp;]</td>
+  </tr>
+  <tr>
+    <td>Bottles broken</td>
+    <td>[&nbsp;&nbsp;&nbsp;&nbsp;]</td>
+    <td>Cap / Top Damage</td>
+    <td>[&nbsp;&nbsp;&nbsp;&nbsp;]</td>
+  </tr>
+  <tr>
+    <td colspan="4">Type of Wine</td>
+  </tr>
+</table>
+<br/>
+<br/>
+<br/>
+<b>Instructions</b>
+<div class="instructions">
+<table>
+  <tr>
+    <td>[&nbsp;&nbsp;&nbsp;&nbsp;]</td>
+    <td>The customer would like to claim for the broken bottles only.</td>
+  </tr>
+  <tr>
+    <td>[&nbsp;&nbsp;&nbsp;&nbsp;]</td>
+    <td>The customer would like to claim for the broken bottles and label damages</td>
+  </tr>
+  <tr>
+    <td>[&nbsp;&nbsp;&nbsp;&nbsp;]</td>
+    <td>The customer would like to claim for all damages.</td>
+  </tr>
+</table>
+</div>
+<br/>
+<br/>
+Regards,
+<br/>
+<br/>
+	<span class="red bold">Australia Post Customer Contact Centre</span><br/>
+	<span style="color:#FFFFFF;">{!Case.EmailThreadID__c}</span></p>
+<br/>
+<br/>
+</div>
+</div>

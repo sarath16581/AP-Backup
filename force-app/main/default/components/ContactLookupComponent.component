@@ -1,0 +1,87 @@
+<apex:component controller="ContactLookupComponentController">
+	<apex:attribute name="id" type="string" assignto="{!componentId}"
+		description="The id to identify the controls in this component"
+		required="true" />
+	<apex:attribute name="assignTo" type="string"
+		assignto="{!assignToElement}"
+		description="The id of the element to set the select account number to"
+		required="true" />
+	<apex:attribute name="onselect" type="string"
+		assignto="{!onSelectFunctionCallback}"
+		description="The function to call upon selection" required="false" />
+	<style>
+.ui-autocomplete-contactType {
+	font-weight: bold;
+	padding: .2em .4em;
+	margin: .8em 0 .2em;
+	line-height: 1.5;
+}
+</style>
+
+	<script>
+        var $j_{!componentId} = jQuery.noConflict();
+        
+        $j_{!componentId}.widget("custom.groupedAutoomplete_{!componentId}", $j_{!componentId}.ui.autocomplete, {
+            _renderMenu : function(ul, items) {
+                var that = this, currentContactType = "";
+                $j_{!componentId}.each(items, function(index, item) {
+                    if (item.contactType != currentContactType) {
+                        ul.append("<li class='ui-autocomplete-contactType'>"
+                                + item.contactType + "</li>");
+                        currentContactType = item.contactType;
+                    }
+                    that._renderItemData(ul, item);
+                });
+            }
+        });
+        
+        function {!componentId}_onselect(value) {
+            var functionName = "{!onSelectFunctionCallback}";
+            if(functionName.trim() != "")
+                {!onSelectFunctionCallback}(value);
+        }
+
+        var cache_{!componentId} = {};
+        
+        $j_{!componentId}(function() {
+            var elementToBindTo = $j_{!componentId}('[class^="{!assignToElement}"]');       
+            if(elementToBindTo.length <= 0) {
+                elementToBindTo = $j_{!componentId}('[id$="{!assignToElement}"]');
+            }
+            
+            window.console&&console.log(elementToBindTo);
+            
+            elementToBindTo.groupedAutoomplete_{!componentId}(
+                            {
+                                minLength : 3,
+                                delay : 0,
+                                select : function(event, ui) {
+                                    if(ui.item && ui.item.value) {
+                                       	{!componentId}_onselect(ui.item.contactId);
+                                    }
+                                },
+                                source : function(request, response) {
+                                    var term = request.term;
+                                    if (term in cache_{!componentId}) {
+                                    	window.console&&console.log('George says: returning from cache....');
+                                        response(cache_{!componentId}[term]);
+                                    } else {
+                                    	ContactLookupComponentController.getData(
+                                            request.term, function(result,
+                                                    event) {
+                                                if (event.status) {
+                                                    cache_{!componentId}[term] = result;
+                                                    window.console&&console.log('George says: new result - ' + result);
+                                                    response(result);
+                                                } else {
+                                                    alert(event.message);
+                                                    return;
+                                                }
+                                            });
+                                    }
+                                }                               
+                            });
+        });
+    </script>
+	<input type="hidden" id="hf{!componentId}_ContactId" />
+</apex:component>

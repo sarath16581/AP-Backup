@@ -1,0 +1,54 @@
+<!-- 2018-06-01 clint.dsilva@auspost.com.au created -->
+<!--2020-09-13  lija.jawahar@auspost.com.au modified getVFBaseURL- Stabilize URLs for Visualforce -->
+
+
+<apex:page id="AsynchApexContinuation" showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" controller="AsynchApexContinuationController">
+    <html>
+
+    <head>
+
+        <script>
+			var lcBaseURL = "";
+			// Listen for messages from the Lightning Component
+			window.addEventListener("message", function (event) {
+                lcBaseURL = event.origin;
+			    console.log('event.origin=' + event.origin + ',lcBaseURL=' + lcBaseURL );
+                if (! (event.origin.includes("auspostbusiness") || (event.origin.includes("https://auspost") && ((event.origin.includes(".visualforce.com") || event.origin.includes(".lightning.force.com")  ) )))) {
+                // Not the expected origin: reject message
+					return;
+				}
+				// Only handle messages we are interested in
+				if (event.data.topic === "com.myImg.message") {
+				    var className = event.data.className;
+					var methodName = event.data.methodName;
+					var methodParams = event.data.methodParams;
+					var useAsynchCallout = event.data.useAsynchCallout;
+					if(methodParams == null){
+					    methodParams = [];
+                    } else if(!Array.isArray(methodParams)){
+                        methodParams  = [methodParams];
+                    }
+					console.log('className='  + className + ', methodName=' + methodName + ' , methodParams' + methodParams + ', useAsynchCallout=' + useAsynchCallout);
+					Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.AsynchApexContinuationController.invoke}',className,methodName, methodParams,useAsynchCallout, function (result,evt) {
+						// Send result to Lightning Component
+						console.log('AsynchApexContinuation page: result=' + JSON.stringify(result) );
+						var rtnRslt = {};
+						if(evt.status){
+                            rtnRslt = result;
+                        }else{
+                            rtnRslt = {"error":evt.message};
+                        }
+                        var message = {};
+                        message = {
+						    invocationId: event.data.invocationId,
+							topic: "com.myImg.message",
+							result: rtnRslt
+						    };
+						parent.postMessage(message, lcBaseURL);
+					});
+				}
+			}, false);
+		</script>
+    </head>
+    </html>
+</apex:page>

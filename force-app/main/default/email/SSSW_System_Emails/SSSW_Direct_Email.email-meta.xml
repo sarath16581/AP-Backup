@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SSSW - Used to handle direct Email Cases</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Direct Email</name>
+    <style>none</style>
+    <subject>Australia Post - Auto Reply - Please visit Help &amp; Support</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Sorry, we couldn’t find a match!
+
+This means that:
+
+you’ve sent us a new request, which cannot be supported via this email address
+the original email you replied to has been modified or cropped
+your enquiry has been closed
+
+If you have any additional enquiries, please visit Help &amp; Support to:
+
+contact our support teams
+find answers to many commonly asked questions
+
+
+Thank you,
+
+Australia Post
+[{!Case.Thread_Id}]
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

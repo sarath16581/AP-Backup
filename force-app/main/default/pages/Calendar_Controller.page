@@ -1,0 +1,88 @@
+<apex:page controller="Calendar_Controller"
+           showHeader="true">
+    
+
+    <link href="{!URLFOR($Resource.FullCalendar,'fullcalendar-2.7.3/fullcalendar.css')}" rel="stylesheet" />
+    <link href="{!URLFOR($Resource.FullCalendar,'fullcalendar-2.7.3/fullcalendar.print.css')}" rel="stylesheet" media="print"/>
+    <script src="{!URLFOR($Resource.FullCalendar,'fullcalendar-2.7.3/lib/jquery.min.js')}"></script>
+    <script src="{!URLFOR($Resource.FullCalendar,'fullcalendar-2.7.3/lib/moment.min.js')}"></script>
+    <script src="{!URLFOR($Resource.FullCalendar,'fullcalendar-2.7.3/fullcalendar.min.js')}"></script>
+    <script src="{!URLFOR($Resource.FullCalendar,'fullcalendar-2.7.3/lang/en-au.js')}"></script>
+     
+    <script>
+
+
+        function getEventData() {                         // records are retrieved from soql database
+            Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.Calendar_Controller.eventdata}',  // controller and method names
+                    '{!selecteduserId}',
+                    <!--'{!includeMyEvents}',-->
+                    function(result, event){
+                        if (event.status) {
+                            evt =  JSON.parse(result);
+                            $('#calendar').fullCalendar({       // html element and library name
+                                header: {
+                                    left: 'prev,next today',
+                                    center: 'title',
+                                    right: 'month,agendaWeek,agendaDay'
+                                },
+                                editable: false,
+                                weekends: false,
+                                events: evt
+                            })
+                        } else if (event.type === 'exception') {
+                            console.log(event.message);
+                        } else {
+                            console.log(event.message);
+                        }
+                    },
+                    {escape: false}
+            );
+        }
+        $(document).ready(function() {
+            getEventData();
+        });
+
+
+    </script>
+
+    <style>
+        #cal-options {float:left;}
+        #cal-legend { float:right;}
+        #cal-legend ul {margin:0;padding:0;list-style:none;}
+        #cal-legend ul li {margin:0;padding:5px;float:left;}
+        #cal-legend ul li span {display:block; height:16px; width:16px; margin-right:4px; float:left; border-radius:4px;}
+        #calendar {margin-top:20px;}
+        #calendar a:hover {color:#fff !important;}
+         
+        .fc-event-inner {padding:3px;}
+        .event-birthday {background:#56458c;border-color:#56458c;}
+        .event-personal {background:#1797c0;border-color:#1797c0;}
+        .event-future {background:#cc9933;border-color:#cc9933;}
+        .event-personal-late {background:#ff0000;border-color:#1797c0;}
+        .event-personal-completed {background:#00FF00;border-color:#1797c0;}
+    </style>
+     
+    <apex:sectionHeader title="Event Status and Schedule"/>
+    <apex:outputPanel id="calPanel">
+        <apex:form >
+            <div id="cal-options">
+                <apex:selectList value="{!selecteduserId}" size="1" multiselect="false"  >
+                    <apex:actionSupport event="onchange" action="{!showTeamMemberEvents}"/>
+                    <apex:selectOptions value="{!ListOfUser}" />
+                </apex:selectList>
+            </div>
+
+            <div id="cal-legend">
+                <ul>
+                    <li><span class="event-future"></span>Future Events</li>
+                    <li><span class="event-personal-late"></span>Missed Events</li>
+                    <li><span class="event-personal-completed"></span>Completed Events</li>
+                </ul>
+                <div style="clear:both;"><!--fix floats--></div>
+            </div>
+            <div style="clear:both;"><!--fix floats--></div>
+            <div id="calendar"></div>
+        </apex:form>
+    </apex:outputPanel>
+</apex:page>

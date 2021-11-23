@@ -1,0 +1,89 @@
+<apex:component controller="APT_SendInstanceURL" access="global" allowDML="true">
+<apex:attribute name="APT_Id" type="String" description="test" assignTo="{!ProposalId}" />
+<apex:attribute name="APT_Name" type="String" description="test" assignTO="{!proposalNotComplete}"/>
+ <p>
+    <apex:outputPanel rendered="{!(SingleCreditAssessments || DeclinedCreditAssessments) && proposal.APT_Credit_Referred_Manually__c == false}">
+         Charge account - {!proposal.Apttus_Proposal__Account__r.Name} Assessment has been <b><apex:outputPanel rendered="{!OR(proposal.APT_Credit_Assessment_Status__c== 'DECLINE' , proposal.APT_Credit_Assessment_Status__c== 'Rejected')}">Rejected</apex:outputPanel><apex:outputPanel rendered="{!proposal.APT_Credit_Assessment_Status__c== 'Referred'}">referred</apex:outputPanel></b>. 
+    </apex:outputPanel>  
+    <apex:outputPanel rendered="{!(SingleCreditAssessments || DeclinedCreditAssessments) && proposal.APT_Credit_Referred_Manually__c == true}">
+         Charge account - {!proposal.Apttus_Proposal__Account__r.Name} Assessment has been <b><apex:outputPanel rendered="{!OR(proposal.APT_Credit_Assessment_Status__c== 'DECLINE' , proposal.APT_Credit_Assessment_Status__c== 'Rejected')}">Rejected</apex:outputPanel><apex:outputPanel rendered="{!proposal.APT_Credit_Assessment_Status__c== 'Referred'}">referred</apex:outputPanel></b> by the seller.
+    </apex:outputPanel> 
+     
+    <apex:outputPanel rendered="{!(DeclinedCreditAssessments && !proposal.APT_Credit_Referred_Manually__c && proposal.APT_Credit_Rejected_By_Veda__c) || (proposal.APT_Credit_Assessment_Status_Details__c == null && proposal.APT_Credit_Referred_Manually__c == false && proposal.APT_Credit_Rejected_By_Veda__c)}">
+         This outcome has been returned from the Veda system. 
+    </apex:outputPanel>  
+    
+    <apex:outputPanel rendered="{!(DeclinedCreditAssessments && !proposal.APT_Credit_Rejected_By_Veda__c)}">
+         This outcome has been returned from the Credit Assessment Team. 
+    </apex:outputPanel> 
+    
+      <apex:outputPanel rendered="{!(SingleCreditAssessments && Not(GreaterThan25K)) && proposal.APT_Credit_Assessment_Status_Details__c != null}">
+        This outcome is due to {!proposal.APT_Credit_Assessment_Status_Details__c}
+    </apex:outputPanel>
+    
+    <apex:outputPanel rendered="{!SingleCreditAssessments && GreaterThan25K}">
+        This is due to credit limit requested. 
+    </apex:outputPanel>
+         
+    
+    
+    <apex:outputPanel rendered="{! (multipleCreditAssessments && Not(DeclinedCreditAssessments)) && proposal.APT_Credit_Referred_Manually__c == true}">
+        Charge account - {!proposal.Apttus_Proposal__Account__r.Name} Assessment has been <b>{!proposal.APT_Credit_Assessment_Status__c}</b> by the seller. This is due to multiple customer records found and the seller is unable to identify the correct customer to perform credit assessment for.   
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{! (multipleCreditAssessments && Not(DeclinedCreditAssessments)) && proposal.APT_Credit_Referred_Manually__c == false}">
+        Charge account - {!proposal.Apttus_Proposal__Account__r.Name} Assessment has been <b>{!proposal.APT_Credit_Assessment_Status__c}</b>. This is due to multiple customer records found and the seller is unable to identify the correct customer to perform credit assessment for.   
+    </apex:outputPanel>
+    
+    
+ </p>
+ <p>
+     <apex:outputPanel rendered="{!AssessmentNotComplete}">
+        <Strong>  Account Assessment is not Complete for the current charge account. </Strong>
+    </apex:outputPanel>
+ </p>
+ 
+ <p>
+    <strong>Customer Details:</strong><br/>
+    
+    <apex:outputText value="Legal Entity Name: "></apex:outputText>                
+    <apex:outputText value="{!proposal.Apttus_Proposal__Account__r.Name}"></apex:outputText>
+    <br/>
+   
+    <apex:outputText value="Customer number: "></apex:outputText>                
+    <apex:outputText value="{!proposal.Apttus_Proposal__Account__r.Customer_Number__c}"></apex:outputText>
+    <br/>
+   
+    <apex:outputText value="Opportunity Number: "></apex:outputText>                
+    <apex:outputText value="{!proposal.Apttus_Proposal__Opportunity__r.Opportunity_Number__c}"></apex:outputText>
+    <br/>
+    <apex:outputText value="Proposal ID: "></apex:outputText>                
+    <apex:outputText value="{!proposal.Name}"></apex:outputText>
+    <br/>
+ </p>
+ 
+ <p>
+     <strong>Your Action:</strong><br/>
+     <apex:outputPanel rendered="{!SingleCreditAssessments}">
+     Click on the Proposal ID and Related List of Credit Assessments<br/>
+         <ol>
+            <li>If required, follow the current manual process to contact customer for any further discussion</li>
+            <li>To change the credit status, log into Salesforce system and access the Proposal</li>
+        </ol>
+    </apex:outputPanel>
+        
+    <apex:outputPanel rendered="{!multipleCreditAssessments}">
+        <ol>
+            <li>Click on the Proposal ID and Related List of Credit Assessments</li>
+            <li>Follow the current manual process to perform the credit assessment</li>
+        </ol>
+    </apex:outputPanel>
+    
+ </p>
+ 
+ <p>
+     Click on the link below: <br/>
+     <apex:outputLink value="{!baseURL}/{!proposal.Id}">{!baseURL}/{!proposal.Id}</apex:outputLink> 
+     
+ </p>
+    
+</apex:component>

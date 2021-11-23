@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_Primary_Document__c</fullName>
+    <description>Active primary Agreement Document count</description>
+    <externalId>false</externalId>
+    <label>Active Primary Document</label>
+    <summaryFilterItems>
+        <field>Agreement_Document__c.Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Agreement_Document__c.Primary_Agreement_Flag__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Agreement_Document__c.Licence__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

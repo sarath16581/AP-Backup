@@ -1,0 +1,4 @@
+<design:component label="cpTrendingTopicsView">
+     <design:attribute label="Number of Topics" name="cppageSize" description="No. of Records per page"/> 
+	
+</design:component>

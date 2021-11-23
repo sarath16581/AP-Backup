@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hidden_Lead_Creator_First_Name_Text__c</fullName>
+    <description>Use a workflow to populate the value in this text from the lead creator first name formula field as mapping cannot be done due to field length issues</description>
+    <externalId>false</externalId>
+    <label>{Hidden} Lead Creator First Name Text</label>
+    <length>50</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

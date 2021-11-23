@@ -1,0 +1,62 @@
+<style>
+	html {
+		font-family: Arial,Helvetica,sans-serif;
+		font-size: 12px;
+	}
+	h1 {
+		color: #111111;
+		font-weight: bold;
+		font-family: Arial,Helvetica,sans-serif;
+		font-size: 22px;
+		line-height: 30px;
+		text-align: left;
+		display: inline;
+		padding-left: 20px;
+	}
+	h3 {
+		font-family: Arial,Helvetica,sans-serif;
+		font-size: 14px;
+		line-height: 16px;
+		text-align: left;
+	}
+	.red {
+		color: #DF1027;
+	}
+	.bold {
+		font-weight: bold;
+	}
+	.outer {
+		background: #FFEDBA;
+		padding: 20px;
+	}
+	.header {
+		background: #FFFFFF;
+		padding: 20px;
+		margin: 20px;
+	}
+	.content {
+		background: #FFFFFF;
+		margin: 20px;
+		padding: 20px;
+	}
+	.footer {
+		margin: 20px;
+		padding: 20px;  
+	}
+</style>
+
+<div class="outer">
+	<div class="header">
+		<img align="left" style="outline:none;background-color:#DE1730;" src="http://static.auspost.com.au/ap/css/images/auspost.png" alt="AusPost" title="AusPost">
+		<h1>{!Case.NetworkName__c} has been assigned a case.</h1><br/>
+		<h1 class="red">Case {!Case.CaseNumber}</h1>
+	</div>
+	<div class="content">
+		<h3 class="red">Case {!Case.CaseNumber} has been created for {!Case.NetworkName__c}.</h3>
+        <b>Reference ID:</b> {!Case.ReferenceID__c}<br/>
+		<b>Please click this link to view the Case:</b> {!Case.Link}<br/><br/><br/>
+		Regards,<br/>
+	<span class="red bold">Australia Post Customer Services</span><br/>
+	<span style="color:#FFFFFF;">{!Case.EmailThreadID__c}</span>
+	</div>
+</div>

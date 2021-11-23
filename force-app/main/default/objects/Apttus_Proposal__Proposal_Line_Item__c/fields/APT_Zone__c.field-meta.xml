@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Zone__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( APT_New__c =true &amp;&amp; APT_Price_Structure__c&lt;&gt;null,APT_Price_Structure__c+&apos; true&apos;,APT_Price_Structure__c+&apos; false&apos;)</formula>
+    <label>Zone</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

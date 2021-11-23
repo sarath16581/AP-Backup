@@ -1,0 +1,19 @@
+<apex:component controller="PUD_LocationConfirmationController" access="global" layout="none">
+  <apex:attribute name="locationid" type="string" access="global" assignTo="{!locationRecordId}"  required="true" description="The id of Location Record" />
+<html>
+ <body>
+  <center>
+  <p><b>PUD Booking Location Notice</b></p>
+  </center>
+     <p>A Booking Location got Created/Updated.Please find details Below:</p>
+  <p><b>Location Name :</b>{!locationRecord.Name}</p>
+  <p><b>Company :</b>{!locationRecord.Customer__r.name}</p>
+  <p><b>Address :</b>{!locationRecord.Street__c}&nbsp;{!locationRecord.City__c}&nbsp;{!locationRecord.State__c}&nbsp;{!locationRecord.Post_Code__c}</p>
+  <p><b>Billing Account :</b>{!locationRecord.Billing_Account__r.LEGACY_ID__c}</p>
+  <p><b>Duty Number :</b>{!locationRecord.Route__r.Name}</p>
+  <p><b>Account Manager :</b>{!locationRecord.Customer__r.Owner.Name}</p>
+  <p><b>Contact Name :</b>{!locationRecord.Contact_Name__c}</p>
+  <p><b>Contact Phone :</b>{!locationRecord.Contact_Phone_Number__c}</p>
+</body> 
+</html>
+</apex:component>

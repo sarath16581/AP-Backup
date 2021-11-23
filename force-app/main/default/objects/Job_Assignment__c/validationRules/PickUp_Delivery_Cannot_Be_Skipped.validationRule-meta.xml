@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PickUp_Delivery_Cannot_Be_Skipped</fullName>
+    <active>true</active>
+    <description>Pick Up and Delivery Job Assignments cannot be skipped</description>
+    <errorConditionFormula>AND(OR(ISPICKVAL(Type__c, &apos;Pick Up&apos;), ISPICKVAL(Type__c, &apos;Delivery&apos;)), Skip__c = True)</errorConditionFormula>
+    <errorDisplayField>Skip__c</errorDisplayField>
+    <errorMessage>Pick Up and Delivery Job Assignments cannot be skipped.</errorMessage>
+</ValidationRule>

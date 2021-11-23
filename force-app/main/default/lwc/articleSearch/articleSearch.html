@@ -1,0 +1,28 @@
+<template>
+    <div class="container">
+        <lightning-input 
+            class="lookup"
+            name={name} 
+            label={label}
+            placeholder={placeholder}
+            required={required}
+            onchange={handleArticleNumberChange} 
+            value={articleNumber} 
+            variant={variant}
+            field-level-help={fieldLevelHelp}
+        ></lightning-input>
+        <template if:true={verified}>
+            <lightning-button-icon icon-name="utility:check" variant="border" class="slds-m-left_x-small slds-m-top_large verified-icon"
+                alternative-text="Verified">
+            </lightning-button-icon>
+        </template>
+        <template if:false={verified}>
+            <lightning-button-icon icon-name="utility:search" variant="border" class="slds-m-left_x-small slds-m-top_large" onclick={searchArticle} alternative-text="click to search">
+            </lightning-button-icon>
+        </template>
+        <lightning-button class="slds-m-left_x-small slds-m-top_large" variant="brand" label="Update Form" onclick={updateParentForm} disabled={formUpdateDisabled}></lightning-button>
+        <template if:true={loading}>
+            <lightning-spinner alternative-text="Loading"></lightning-spinner>
+        </template>
+    </div>
+</template>

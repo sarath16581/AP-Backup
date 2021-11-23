@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEPARC__Enable_Logo__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If checked, DataArchiva&apos;s logo will be displayed in detail and related lists.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If checked, DataArchiva&apos;s logo will be displayed in detail and related lists.</inlineHelpText>
+    <label>Enable Logo?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

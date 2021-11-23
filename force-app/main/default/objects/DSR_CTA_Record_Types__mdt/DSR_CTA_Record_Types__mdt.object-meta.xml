@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This holds the DSR CTA record types ID</description>
+    <label>DSR CTA Record Type</label>
+    <pluralLabel>DSR CTA Record Types</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

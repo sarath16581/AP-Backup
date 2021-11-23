@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Process_Selection_Field__c</fullName>
+    <defaultValue>&quot;Type&quot;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This value allows an administrator to control which opportunity field to reference to determine which sales process will be selected.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This value allows an administrator to control which opportunity field to reference to determine which sales process will be selected.</inlineHelpText>
+    <label>Process Selection Field</label>
+    <length>200</length>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

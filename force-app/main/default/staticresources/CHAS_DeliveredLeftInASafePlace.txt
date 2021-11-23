@@ -1,0 +1,144 @@
+{
+    "articles": [
+        {
+            "href": "/consignment/v2/articles/2JD280270501000935008",
+            "id": "2JD280270501000935008",
+            "code": "2JD280270501000935008",
+            "consignmentId": "nUBOMo5rQ1sAJsghY8b2EPwIuFjP6QL6L8ti8-J9HN2gyGwd_vo=",
+            "consignmentCode": "2JD2802705",
+            "fullBarcode": "0199312650999998912JD280270501000935008|4206430|9256725916|8008200629111606",
+            "shortBarcode": "0199312650999998912JD280270501000935008",
+            "isRegisteredByAP": true,
+            "isReceivedByAP": false,
+            "lastModifiedOn": "2020-08-25T06:14:04+00:00",
+            "dispatchedOn": "2020-06-29T02:02:10+00:00",
+            "etag": "3621f413c1eb11466ba342f7f4290899",
+            "expectedDelivery": {
+                "on": "2020-06-30T00:00:00+00:00",
+                "onChanged": false,
+                "between": {
+                    "from": "2020-06-30T00:00:00+00:00",
+                    "to": "2020-07-02T00:00:00+00:00"
+                }
+            },
+            "service": {
+                "productId": "146",
+                "productType": "Parcel Post",
+                "subProductId": "93",
+                "subProductType": "Parcel Post"
+            },
+            "milestone": {
+                "on": "2020-07-01T20:45:44+00:00",
+                "name": "Delivered",
+                "description": null,
+                "progressPercentage": 100
+            },
+            "destinationAddress": {
+                "line1": "111 BOURKE ST",
+                "line2": null,
+                "line3": null,
+                "suburb": "PICCADILLY",
+                "state": "WA",
+                "postcode": "6430",
+                "countryCode": "AU",
+                "deliveryPoint": {
+                    "href": "/locations/v2/points/deliverypoints/56725916",
+                    "id": "56725916"
+                }
+            },
+            "deliveryInstructions": {
+                "signatureOnDelivery": {
+                    "required": true,
+                    "instruction": {
+                        "code": "SIG_REQUEST_ATL"
+                    }
+                },
+                "redirect": {
+                    "status": "RD_STATUS_REQUEST_DISABLED",
+                    "redirectChange": {
+                        "allowed": false,
+                        "reasonCode": "RD_ELIG_TOO_LATE"
+                    }
+                },
+                "safeDrop": {
+                    "status": "SD_STATUS_ELIGIBLE",
+                    "location": null,
+                    "locationChange": {
+                        "allowed": true,
+                        "reasonCode": null
+                    }
+                }
+            },
+            "deliverySummary": {
+                "signedFor": false,
+                "redirect": null,
+                "safeDrop": {
+                    "on": "2020-06-29T12:02:10+00:00",
+                    "image": {
+                        "href": "/ATLImage/d2b85736-816c-4e78-8eb6-b32cf9c00d21",
+                        "id": "d2b85736-816c-4e78-8eb6-b32cf9c00d21"
+                    }
+                }
+            },
+            "returnInstructions": {
+                "returnToSender": false
+            },
+            "consignmentCount": 1,
+            "consignments": {
+                "items": [
+                    {
+                        "href": "/consignment/v2/consignments/@nUBOMo5rQ1sAJsghY8b2EPwIuFjP6QL6L8ti8-J9HN2gyGwd_vo=",
+                        "id": "nUBOMo5rQ1sAJsghY8b2EPwIuFjP6QL6L8ti8-J9HN2gyGwd_vo=",
+                        "code": "2JD2802705",
+                        "primary": true
+                    }
+                ]
+            },
+            "foundByTrackingReferences": [
+                {
+                    "id": "2JD280270501000935008",
+                    "type": "IDTYPE_ARTICLE_CODE"
+                }
+            ],
+            "eventCount": 4,
+            "trackingEvents": {
+                "href": "/consignment/v2/articles/2JD280270501000935008?expand=articles,events",
+                "items": [
+                    {
+                        "id": "2JD280270501000935008",
+                        "code": "ADMIN-ER44",
+                        "on": "2020-08-07T11:23:51+00:00",
+                        "message": "Customer enquiry lodged",
+                        "location": "MELBOURNE VIC, 3000",
+                        "workCentreId": "111894"
+                    },
+                    {
+                        "id": "2JD280270501000935008",
+                        "code": "DD-ER15",
+                        "on": "2020-07-01T20:45:44+00:00",
+                        "message": "Delivered - Left in a safe place",
+                        "location": "LEUMEAH NSW, 2560",
+                        "workCentreId": "242157"
+                    },
+                    {
+                        "id": "2JD280270501000935008",
+                        "code": "NSS-ER42",
+                        "on": "2020-06-29T21:20:39+00:00",
+                        "message": "Item processed at facility",
+                        "location": "GOSNELLS WA, 6110",
+                        "workCentreId": "634986"
+                    },
+                    {
+                        "id": "2JD280270501000935008",
+                        "code": "ADMIN-ER39",
+                        "on": "2020-06-29T11:16:15+00:00",
+                        "message": "Shipping information received by Australia Post",
+                        "location": null,
+                        "workCentreId": "285640"
+                    }
+                ]
+            }
+        }
+    ],
+    "errors": []
+}

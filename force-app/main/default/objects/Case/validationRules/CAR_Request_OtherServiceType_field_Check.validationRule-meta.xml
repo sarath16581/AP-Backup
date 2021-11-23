@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CAR_Request_OtherServiceType_field_Check</fullName>
+    <active>true</active>
+    <description>CAR Request validation rule to ensure that the &apos;Other Service Type&apos; field is filled when the user chooses the option as other in &apos;Products &amp; Services&apos;.</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName =&apos;CAR_Request&apos;,  INCLUDES( Products_Services__c, &apos;Other&apos;), ISBLANK(Other_Service_Type__c))</errorConditionFormula>
+    <errorDisplayField>Other_Service_Type__c</errorDisplayField>
+    <errorMessage>Please enter the value of Other Products &amp; Service Type.</errorMessage>
+</ValidationRule>

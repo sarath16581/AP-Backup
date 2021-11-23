@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_benefit__c</fullName>
+    <externalId>false</externalId>
+    <label>Business benefit</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Improved Data Hygiene</fullName>
+                <default>false</default>
+                <label>Improved Data Hygiene</label>
+            </value>
+            <value>
+                <fullName>Supports Process</fullName>
+                <default>false</default>
+                <label>Supports Process</label>
+            </value>
+            <value>
+                <fullName>Support job function</fullName>
+                <default>false</default>
+                <label>Support job function</label>
+            </value>
+            <value>
+                <fullName>Efficiency Improvement</fullName>
+                <default>false</default>
+                <label>Efficiency Improvement</label>
+            </value>
+            <value>
+                <fullName>Improved Useability</fullName>
+                <default>false</default>
+                <label>Improved Useability</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

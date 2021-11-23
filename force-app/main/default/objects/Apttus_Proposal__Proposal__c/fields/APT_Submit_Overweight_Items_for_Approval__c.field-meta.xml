@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Submit_Overweight_Items_for_Approval__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (
+  AND( 
+     APT_Domestic_Overweight_Flag__c = TRUE,  
+     APT_Dangerous_Goods_Flag__c  = False, 
+     ISPICKVAL(APT_Overweight_Approval_Status__c, &apos;&apos;),    
+     ISPICKVAL(APT_Dangerous_Goods_Status__c, &apos;&apos;), 
+     NOT(ISPICKVAL( Apttus_QPApprov__Approval_Status__c, &apos;Pending Approval&apos;)),
+     NOT(ISNULL(Apttus_QPConfig__ConfigurationFinalizedDate__c)) 
+  ), HYPERLINK(&quot;/apex/Apttus_Approval__ApprovalContextSubmit?sObjectType=Apttus_Proposal__Proposal__c&amp;sObjectId=&quot;&amp;Id&amp;&quot;&amp;enableAttachments=true&quot;, IMAGE(&quot;/resource/APT_Overweight_items&quot;, &quot;Submit Overweight items for Approval&quot;),&quot;_self&quot;), NULL)</formula>
+    <inlineHelpText>Button won&apos;t be available if pricing approvals are pending.</inlineHelpText>
+    <label>Submit Overweight Items for Approval</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

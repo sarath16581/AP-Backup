@@ -1,0 +1,10 @@
+A new Answer to a Question has been updated, below are the Answer details. 
+
+Answer Number: {!Solution.Id}
+
+Answer Title: {!Solution.SolutionName}
+
+Answer Details: 
+{!Solution.SolutionNote}
+
+To view this solution in more details please follow this link {!Solution.Link}

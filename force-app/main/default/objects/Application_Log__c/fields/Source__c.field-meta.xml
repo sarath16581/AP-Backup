@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Source__c</fullName>
+    <description>The name of the utility class or trigger that the message originated from</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The name of the utility class or trigger that the message originated from</inlineHelpText>
+    <label>Source</label>
+    <length>150</length>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,15 @@
+/**
+ * 2021-01-22 - Ranjeewa Silva - Created.
+ */
+svg {
+    display: block;
+}
+
+svg.small {
+    width: 20px;
+    height: 20px;
+}
+
+.bulkuploadrequest-grid {
+    max-height: 480px;
+}

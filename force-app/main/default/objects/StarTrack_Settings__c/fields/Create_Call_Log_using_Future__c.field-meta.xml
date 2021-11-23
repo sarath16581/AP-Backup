@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Create_Call_Log_using_Future__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Determine if call log record will be created via @future annotation or not.</description>
+    <externalId>false</externalId>
+    <label>Create Call Log using Future</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

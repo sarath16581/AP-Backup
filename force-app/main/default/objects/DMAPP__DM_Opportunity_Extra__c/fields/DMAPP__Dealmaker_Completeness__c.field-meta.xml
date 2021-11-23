@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Dealmaker_Completeness__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Simple average of completeness scores.</description>
+    <externalId>false</externalId>
+    <formula>if(
+	NOT(ISBLANK($Setup.DMAPP__Dealmaker_Smart_OM_Settings__c.DMAPP__MadeToMeasureType__c))
+		, DMAPP__Calculated_Completeness__c
+		, if(
+  			$Setup.DMAPP__Dealmaker_Smart_OM_Settings__c.DMAPP__Show_Assessment__c ||
+  			$Setup.DMAPP__Dealmaker_Smart_OM_Settings__c.DMAPP__Show_Collaboration_Map__c ||
+  			$Setup.DMAPP__Dealmaker_Smart_OM_Settings__c.DMAPP__Show_Decision_Criteria__c ||
+  			$Setup.DMAPP__Dealmaker_Smart_OM_Settings__c.DMAPP__Show_Political_Map__c ||
+  			$Setup.DMAPP__Dealmaker_Smart_OM_Settings__c.DMAPP__Show_Prime_Actions__c ||
+  			$Setup.DMAPP__Dealmaker_Smart_OM_Settings__c.DMAPP__Show_Competitive_Strategy__c
+			, (DMAPP__Assessment_Completeness__c * 0.3) + (DMAPP__Collaboration_Map_Completeness__c * 0.15) + (DMAPP__Decision_Criteria_Completeness__c * 0.15) + (DMAPP__Political_Map_Completeness__c * 0.2) + (DMAPP__PRIME_Completeness__c * 0.05) + (DMAPP__Strategy_Completeness__c * 0.15) /
+			(if($Setup.DMAPP__Dealmaker_Smart_OM_Settings__c.DMAPP__Show_Assessment__c,0.3,0) + if($Setup.DMAPP__Dealmaker_Smart_OM_Settings__c.DMAPP__Show_Collaboration_Map__c,0.15,0) + if($Setup.DMAPP__Dealmaker_Smart_OM_Settings__c.DMAPP__Show_Decision_Criteria__c,0.15,0) + if($Setup.DMAPP__Dealmaker_Smart_OM_Settings__c.DMAPP__Show_Political_Map__c,0.2,0) + if($Setup.DMAPP__Dealmaker_Smart_OM_Settings__c.DMAPP__Show_Prime_Actions__c,0.05,0) + if($Setup.DMAPP__Dealmaker_Smart_OM_Settings__c.DMAPP__Show_Competitive_Strategy__c,0.15,0))
+			, 0
+		)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Dealmaker Completeness</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

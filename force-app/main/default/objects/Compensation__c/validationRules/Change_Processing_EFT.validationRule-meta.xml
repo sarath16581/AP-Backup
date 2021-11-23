@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Change_Processing_EFT</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( ISCHANGED(Status__c) ,ISPICKVAL( PRIORVALUE( Status__c ), &quot;Processing&quot;),
+NOT(ISPICKVAL(Status__c, &quot;Processed Successfully&quot;) || ISPICKVAL(Status__c, &quot;EFT Rejected&quot;)))</errorConditionFormula>
+    <errorMessage>Cannot Change a Processing EFT</errorMessage>
+</ValidationRule>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Opportunity_Small_Amount__c</fullName>
+    <defaultValue>20000</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field allows an administrator to specify a value below which Dealmaker Coach Rules will consider the opportunity to be a small opportunity</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field allows an administrator to specify a value below which Dealmaker Coach Rules will consider the opportunity to be a small opportunity</inlineHelpText>
+    <label>Opportunity Small Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

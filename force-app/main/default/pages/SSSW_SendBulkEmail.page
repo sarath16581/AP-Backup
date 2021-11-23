@@ -1,0 +1,169 @@
+<!--
+    @Author      :  kalpita.talwadekar@auspost.com.au    
+    @Date        :  12/09/2016
+    @Description :  Visualforce page to allow SSSW Admin retreieve cases based on condition and send bulk emails
+    
+    Revision History:
+
+    2020-10-22 neha.mehta@auspost.com.au   REQ2286193 - SSSW - Expose the Case originator field as a filter in the Bulk send email tool
+    -->
+<apex:page standardController="case" extensions="SSSW_SendBulkEmailContr" action="{!initialize}" showHeader="false" sidebar="false">
+  
+    <apex:includeScript value="{!$Resource.jQuery111}" />
+    <apex:includeScript value="{!$Resource.jQuery111}" />
+    <apex:includeScript value="{!$Resource.bootstrapJS}" />
+    <apex:stylesheet value="{!$Resource.bootstrapCSS}" /> 
+    <apex:stylesheet value="{!$Resource.bootstrapThemesCSS}" />
+    <apex:includeScript value="/support/console/31.0/integration.js" />
+    <apex:includeScript value="/canvas/sdk/js/publisher.js" />
+    <apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-1.10.2.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-ui-1.10.3.custom.min.js')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.JQueryUI, '/css/ui-lightness/jquery-ui-1.10.3.custom.min.css')}" />  
+    
+    <apex:form styleClass="form-horizontal">
+    <style type="text/css">
+       body input.btn {
+            font-family: Arial;
+            font-size: 1.08em;
+            background-color: #8ab529;
+            border: 1px solid #6c8049;
+            background-image: -ms-linear-gradient(top,#8AB529 0,#87AC31 100%);
+            background-image: -moz-linear-gradient(top,#8AB529 0,#87AC31 100%);
+            background-image: -webkit-linear-gradient(top,#8AB529 0,#87AC31 100%);
+            background-image: linear-gradient(top,#8AB529 0,#87AC31 100%);
+            display: inline-block;
+            padding-top: 0;
+            padding-bottom: 1px;
+            padding-left: 10px;
+            padding-right: 10px;
+            height: 30px;
+            color: #fff;
+            -moz-border-radius: 3px;
+            border-radius: 2px;
+            -moz-box-shadow: 0 1px 2px 0 #adadad;
+            -webkit-box-shadow: 0 1px 2px 0 #adadad;
+            box-shadow: 0 1px 2px 0 #adadad;
+            margin: 0;
+        }
+        
+        header {
+            background: #A8D8FB;
+        }
+    </style>
+    <apex:pageBlock >
+    
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="#">Case Follow up emails to Customers</a>
+            </div>
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Case Filter</a></li>
+            </ul>
+          </div>
+        </nav>
+        
+        <div class="col-xs-10 col-md-10 col-lg-10 " style="font-family: Arial;"><br/>
+            <apex:pageMessages id="errMsg"/>
+            <apex:actionRegion >
+            <!-- section holding all fields and allow user to select conditions for cases to fit in -->
+            <apex:pageBlockSection collapsible="false"  title="Case Field Filters" columns="2" id="fields" showHeader="false" >
+                <apex:repeat value="{!fOpList}" var="f">
+                    <apex:outputPanel >
+                    <div class="col-xs-offset-4 col-xs-8">
+                        <apex:outputLabel style="display: inline-block;margin-bottom: 5px;font-size:12px"> {!f.fieldLabel} </apex:outputLabel>    
+                        <apex:selectList value="{!f.operator}" size="1"  >
+                            <apex:selectoption itemValue="=" itemLabel="="  />
+                            <apex:selectoption itemValue=">" itemLabel=">"  />
+                            <apex:selectoption itemValue="<" itemLabel="<"  />
+                            <apex:selectoption itemValue=">=" itemLabel=">="/>    
+                            <apex:selectoption itemValue="<" itemLabel="<=" />
+                        </apex:selectList>    
+                        <apex:inputField value="{!cse[f.fieldName]}" styleClass="form-control col-xs-6" required="false" rendered="{!NOT(f.fieldCheck)}"/>
+                        <apex:inputField value="{!Rangecse[f.fieldName]}" styleClass="form-control col-xs-6" required="false" rendered="{!f.fieldCheck}"/>
+                    </div>
+                    </apex:outputPanel>
+                </apex:repeat> 
+                
+                <!-- apex:repeat value="{!fOpList_selList}" var="f">
+                    <apex:outputPanel >
+                    <div class="col-xs-offset-4 col-xs-8">
+                        <apex:outputLabel style="display: inline-block;margin-bottom: 5px;font-size:12px"> {!f.fieldLabel} </apex:outputLabel>
+                        <apex:selectList value="{!f.fieldValueList}" label="{!f.fieldLabel}" size="4" multiselect="true" styleClass="form-control">
+                           <apex:SelectOptions value="{!f.optList}"></apex:SelectOptions>
+                        </apex:selectList> 
+                        <!--apex:commandLink>  <img src="/img/permissions_deny16.gif"  height="15" width="15"/> </apex:commandLink 
+                    </div>
+                    </apex:outputPanel>
+                </apex:repeat --> 
+                <apex:inputcheckbox value="{!showNoTask}" label="Never Contacted Customer" />
+                <Apex:outputText ></Apex:outputText>
+                <apex:selectList value="{!statusList}" label="Status" size="4" multiselect="true" styleClass="form-control">
+                   <apex:SelectOptions value="{!status}"></apex:SelectOptions>
+                </apex:selectList> 
+                <apex:selectList value="{!queueList}" label="Queue Name" size="4" multiselect="true" styleClass="form-control">
+                   <apex:SelectOptions value="{!queueNames}"></apex:SelectOptions>
+                </apex:selectList> 
+                <apex:selectList value="{!typList }"  label="Type" styleClass="form-control" multiselect="true" size="4">
+                   <apex:SelectOptions value="{!type}"></apex:SelectOptions>
+                </apex:selectList> 
+                <apex:selectList value="{!prdCtList }" label="Product Category" styleClass="form-control" multiselect="true" size="4">
+                   <apex:SelectOptions value="{!prodCat}"></apex:SelectOptions>
+                </apex:selectList> 
+                <apex:selectList value="{!prdSubCtList }" label="Product Sub Category" styleClass="form-control" multiselect="true" size="4">
+                   <apex:SelectOptions value="{!prodSubCat}"></apex:SelectOptions>
+                </apex:selectList> 
+                <apex:selectList value="{!enqSubCtList }" label="Enquiry Sub type" styleClass="form-control" multiselect="true" size="4">
+                   <apex:SelectOptions value="{!EnqySubType}"></apex:SelectOptions>
+                </apex:selectList> 
+                <!--apex:inputCheckbox value="{!custWIthEmail}"  title="Contacts with email addresses only" label="Contacts with email addresses only"/ -->                                                         
+                <apex:selectList value="{!templateId }" styleClass="form-control" size="1" label="Select Template">
+                   <apex:SelectOptions value="{!emailTemplates}"></apex:SelectOptions>
+                </apex:selectList>
+                <!--  Added by Neha Mehta for Request REQ2286193 start-->
+                <apex:selectList value="{!caseOriginatorList}" styleClass="form-control" label="Case Originator" multiselect="true" size="4">
+                   <apex:SelectOptions value="{!CaseOriginator}"></apex:SelectOptions>
+                </apex:selectList>
+                <!--  Added by Neha Mehta for Request REQ2286193 end-->
+            </apex:pageBlockSection>
+            <br/>
+            <!-- custom buttons for users to hit inorder to get results -->
+            <center>        
+                <apex:commandButton value="Reset" action="{!initialize}"  styleClass="btn" status="actStatusId" immediate="false"  reRender="fields,caseList,result,btn3,errMsg"/>    
+                <apex:commandButton value="Get Cases" action="{!getCases}" styleClass="btn"  status="actStatusId" immediate="false"  reRender="caseList,result,btn3,errMsg"/> 
+                <apex:commandButton value="Send Email" styleClass="btn" onclick="confirm('Email will be sent out to customers')" 
+                            action="{!sendEmail}"  status="actStatusId" immediate="false" id="btn3" 
+                            reRender="fields,caseList,result,btn3,errMsg" disabled="{!caseList.size==0}"/>
+                <br/>
+                <apex:actionStatus id="actStatusId" style="align:center;">
+                     <apex:facet name="start" >
+                         <img src="/img/loading.gif"  height="20" width="20"/> 
+                     </apex:facet>
+                </apex:actionStatus> 
+            </center><br/><br/>
+            </apex:actionRegion>
+            <!-- output cases table (5 cases at a time and rest is count of total cases)-->
+            <apex:outputPanel id="result">
+                <center><apex:outputText rendered="{!isSuccess}">
+                        <b><font color="green">Email(s) Sent Out Successfully!</font></b>
+                        </apex:outputText>
+                </center><br/>
+                <h4><center><b>Sample Cases ( {!caseList.size} )</b></center></h4><br/>
+                 <apex:pageBlockTable columns="5" title="Retrieved Classes" value="{!caseList2}" var="cse" id="caseList" styleClass="table table-hover col-xs-offset-1" headerClass="header">
+                    <apex:column headerValue="Case Number" value="{!cse.CaseNumber}"/>
+                    <apex:column headerValue="Status" value="{!cse.Status}"/>
+                    <apex:column headerValue="Subject" value="{!cse.Subject}"/>            
+                    <apex:column headerValue="Customer Email" value="{!cse.Contact.Email}"/>  
+                    <apex:column headerValue="Owner" value="{!cse.Owner.Name}"/>
+                </apex:pageBlockTable>
+                <center>
+                    <apex:outputText rendered="{!caseList.size > caseList2.size}" 
+                            styleClass="col-xs-offset-4">+ More Cases </apex:outputText>
+                </center>
+                <br/> 
+            </apex:outputPanel>
+        </div>
+        
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,51 @@
+<!--2021.09.30 Change made by seth.heang@auspost.com.au Uplift SF API version to 52 -->
+<apex:page controller="ContactFilteringSearchCon" sidebar="False" showHeader="False">
+<style>
+.errorMsg { color: red; font-weight: strong;}
+</style> 
+<script type="text/javascript">
+   function updateParent(fieldName,fieldId,fromPage)
+   {
+
+       if (fromPage=='RPM' )
+       {
+            window.opener.document.getElementById('page:form:pb1:ps1:pbs1:searchText').value = fieldName;
+            window.opener.document.getElementById('page:form:Individual__c').value = fieldId;
+       }
+       else if (fromPage=='opportunity')
+       {
+            window.opener.document.getElementById('page:form:pb1:ps1:pbs2:searchText').value = fieldName;
+            window.opener.document.getElementById('page:form:Personal_Account__c').value = fieldId;
+       }
+       else if (fromPage=='PainChain')
+       {
+            window.opener.document.getElementById('page:form:pb1:ps1:pbs1:searchText').value = fieldName;
+            window.opener.document.getElementById('page:form:Key_Contact__c').value = fieldId;
+       }
+       self.close(); 
+   }
+</script>
+<apex:form >
+<apex:messages styleClass="errorMsg"/>
+<apex:pageBlock >
+    <apex:pageBlockSection >
+    <apex:outputPanel layout="block" style="overflow:auto; height:600px;margin: 0 2px" >
+         <apex:pageBlockTable value="{!contacts}" var="contact" columns="3" cellpadding="1" cellspacing="1" id="detail" >
+            <apex:column style="width:400px">
+                <apex:facet name="header">Name<b></b></apex:facet>
+                <a href="javascript: void(0)" onclick="updateParent('{!contact.name}','{!contact.id}','{!fromPage}');">{!contact.name}</a>                        
+            </apex:column>
+            <apex:column style="width:500px">
+                <apex:facet name="header">Job Title</apex:facet>
+                <apex:outputText value="{!contact.Title}"/>
+            </apex:column>
+            <apex:column style="width:300px">
+                <apex:facet name="header">Status</apex:facet>
+                <apex:outputText value="{!contact.Status__c}"/>
+            </apex:column>
+        </apex:pageBlockTable>
+        </apex:outputPanel>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

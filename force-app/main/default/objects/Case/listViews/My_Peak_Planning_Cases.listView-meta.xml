@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Peak_Planning_Cases</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Completed_Customer_Conversion__c</columns>
+    <columns>Resolution__c</columns>
+    <columns>Lodgement_Facility__c</columns>
+    <columns>Operational_Contact__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>Support_Work_Type__c</field>
+        <operation>equals</operation>
+        <value>Peak Planning</value>
+    </filters>
+    <filters>
+        <field>CASES.CREATED_DATE</field>
+        <operation>greaterThan</operation>
+        <value>7/1/2019 12:00 AM</value>
+    </filters>
+    <label>My Peak Planning Cases</label>
+    <language>en_US</language>
+    <sharedTo>
+        <role>CEO_EGM</role>
+        <roleAndSubordinatesInternal>SalesOperations</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

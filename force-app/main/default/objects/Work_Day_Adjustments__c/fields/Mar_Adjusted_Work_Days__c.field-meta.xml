@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mar_Adjusted_Work_Days__c</fullName>
+    <description>Mar Work Days – Mar Leave Adjustment</description>
+    <externalId>false</externalId>
+    <formula>FiscalYear__r.Mar_Work_Days_Value__c  - (Mar_Leave_Adjustment__c +  Holiday__r.March__c )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Mar Work Days – Mar Leave Adjustment</inlineHelpText>
+    <label>Mar Adjusted Work Days</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

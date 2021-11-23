@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Administrative_fee__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( ISPICKVAL(  Apttus_CMConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Domestic_Customer__c  , &apos;Yes&apos;) , &apos;N/A&apos;,&apos;$45.45&apos;)</formula>
+    <label>Administrative fee</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

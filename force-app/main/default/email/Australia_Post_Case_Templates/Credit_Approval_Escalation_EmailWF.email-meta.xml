@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Credit Approval Escalation Email WF</name>
+    <style>none</style>
+    <subject>Notification of credit approval escalation for Case {!Approval_Workflow__c.CaseNumber__c} - {!Approval_Workflow__c.BillingAccountName__c} - {!Approval_Workflow__c.ProposedCredit__c}</subject>
+    <textOnly>StartTrack
+
+Approval Request
+
+Dear Delegated Approver,
+
+Please review the following credit claim and approve/reject this request within 2 business days to ensure a timely resolution can be achieved for our customer.
+
+Case Details
+Case type: {!Credit_Approval__c.Case_Type__c}
+Case number: {!Credit_Approval__c.Case__c}
+Billing Account Name: {!Credit_Approval__c.Billing_Account__c}
+Product family: {!Credit_Approval__c.Product_Family__c}
+Sub-product: {!Credit_Approval__c.Product_Sub_Category__c}
+Total proposed credit: {!Credit_Approval__c.CreditAmountExclusiveGST__c}
+Proposed credit requiring your approval: {!Credit_Approval__c.Total_Claim_Amount__c}  (this amount will only be different if claim relates to multiple product families)
+Case summary:
+{!Credit_Approval__c.Case_Summary__c}
+
+Click here to view the full credit claim details in Salesforce.
+
+Please approve/reject this credit claim by clicking on the link provided above or replying to this email with the words &quot;Approve&quot; or &quot;Reject&quot; in the first line of the email message.
+
+If replying via email, you can also add comments on the second line or otherwise add comments directly into the case whilst in Salesforce.
+
+For any questions about this credit claim, please contact the Customer Resolution Team via the email provided below.
+
+
+Regards,
+Customer Resolution Team
+Australia Post &amp; StarTrack
+customer.resolutions@auspost.com.au
+
+
+Australia Post will never send you an email asking for your password, credit card details or account information.
+
+
+This email was sent by Australia Post, 									  111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don&apos;t think you should have received this email, 									  please call us on 13 13 18. 									  Visit auspost.com.au for further information on our online security.
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.
+
+Help &amp; Support | Terms &amp; Conditions | Privacy Policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

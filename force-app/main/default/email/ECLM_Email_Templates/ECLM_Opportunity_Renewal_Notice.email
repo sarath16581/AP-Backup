@@ -1,0 +1,5 @@
+{!Opportunity.OwnerFullName},
+
+An opportunity where you are the owner is up for renewal within 90 days. Please click on link below to view opportunity.
+
+{!Opportunity.Link}

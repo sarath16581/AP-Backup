@@ -1,0 +1,14 @@
+<!--
+    Generic component for pushing adobe analytics track events
+    NOTE: version 39.0 to bypass locker service to get access to global 'analytics' variable
+
+    2019-08-30 nathan.franklin@auspost.com.au Created
+
+    This script should be embeded outside of the lightning component (either in a community HEAD declaration or the calling visualforce page (with lightning out)
+    //assets.adobedtm.com/bfecad1ae7e5d7a2b8a9353b2d496d9b392db768/satelliteLib-9c215febcba74f72ca4a2cc8370a7f4b70048c28.js
+-->
+<design:component label="Adobe Analytics Interface Component">
+    <design:attribute name="sitePrefix" label="Track Page View" description="This component should trigger a page view call to Adobe Analytics"/>
+    <design:attribute name="trackCommunityLoggedInStatus" label="Track Logged In Status" description="Adds specific tracking about logged in status to every interaction." />
+    <design:attribute name="trackCommunityLoggedInAPCN" label="Track APCN" description="Adds APCN if the community user is logged in." />
+</design:component>

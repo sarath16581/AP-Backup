@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <description>SSSW - Used to notify the Network when the Case has been escalated.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW Network Escalation Warning</name>
+    <style>none</style>
+    <subject>{!Case.NetworkName__c} - Case: {!Case.CaseNumber} requires your attention.</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference {!Case.CaseNumber}
+
+Hi {!Case.NetworkName__c}.
+
+Case {!Case.CaseNumber} requires your attention.
+
+Case Type: {!Case.Type}
+
+{!Case.CaseDetails__c}
+
+
+
+Please respond with this information ASAP, to ensure we can assist with your enquiry.
+
+Thank you.
+
+Regards,
+Australia Post Customer Services
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_Steps</fullName>
+    <columns>MasterLabel</columns>
+    <columns>Group__c</columns>
+    <columns>Step_ID__c</columns>
+    <columns>Image__c</columns>
+    <columns>Label__c</columns>
+    <columns>Sub_Label__c</columns>
+    <columns>Display_Order__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>isActive__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Active Steps</label>
+    <language>en_US</language>
+</ListView>

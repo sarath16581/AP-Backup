@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CaptureID_receiveronly__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Captured ID of addressed receiver only</description>
+    <externalId>false</externalId>
+    <label>Capture ID (addressed receiver only)</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

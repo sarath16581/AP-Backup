@@ -1,0 +1,84 @@
+<!--
+    Description: This page is used to support a custom Tasking Publisher Action for StarTrack.
+    
+    History:
+    SEP.7.2016     Jen Karen Tan    Created
+-->
+<apex:page id="page" standardController="Case" extensions="StarTrackNoDataConsignmentPAController" docType="html-5.0" showHeader="false" sidebar="false">
+    <apex:pageMessages id="pageMessages"/>
+    <apex:includeScript value="/support/console/34.0/integration.js"/>
+    <apex:includeScript value="/support/api/34.0/interaction.js"/>
+    <apex:includeScript value="/canvas/sdk/js/publisher.js"/>
+    <apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}"/>
+    <style type="text/css">
+    .bPageBlock .detailList tr td.dataCol, 
+    .bPageBlock .detailList tr th.labelCol {
+        border-bottom:2px solid #FFFFFF;
+    }
+    </style>
+    <apex:outputPanel id="redirectPanel">
+    <script type="text/javascript">
+        function publishandclose(){
+            if({!validation}){
+                sforce.interaction.entityFeed.refreshObject('{!Case.Id}', true, true, true);
+                sforce.interaction.entityFeed.reloadFrame();
+                Sfdc.canvas.publisher.publish({name : 'publisher.refresh', payload :{feed: true, objectRelatedLists: {}}});
+                Sfdc.canvas.publisher.publish({name:"publisher.selectAction",payload:{actionName:"Case.Closed"}});
+                
+            }
+        }
+    </script>
+    </apex:outputPanel>
+
+    <script type="text/javascript">
+        function resizePA(){
+            Sfdc.canvas.publisher.resize();
+        }
+    </script>
+
+    <div class="slds">
+        <apex:actionstatus id="counterStatus">
+        <apex:facet name="start">
+            <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb; height:100%; width:100%; opacity:0.65;">
+                <div class="waitingHolder" style="top: 40%; width: 50%;">
+                    <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                    <span class="waitingDescription">Loading...</span>
+                </div>
+            </div>
+        </apex:facet>
+    </apex:actionstatus>
+    <apex:form >
+        <apex:actionFunction name="update" action="{!updateRecord}" rerender="pageMessages, output, redirectPanel" oncomplete="publishandclose(); resizePA();" status="counterStatus"/>
+        <apex:outputPanel id="output">
+            <apex:pageBlock tabStyle="Case" mode="maindetail" id="theBlock">
+                <apex:pageBlockSection columns="2">
+                    <apex:repeat value="{!$ObjectType.Case.FieldSets.No_Data_Consignment}" var="ndcFieldName">
+                        <apex:inputField styleClass="slds-input" value="{!existingCase[ndcFieldName]}" required="{!noDataConsignment && (ndcFieldName == 'Address4Postcode__c' || ndcFieldName == 'Address4Suburb__c')}"/>
+                    </apex:repeat>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Delivery Type"/>
+                        <apex:outputPanel >
+                            <apex:outputPanel rendered="{!noDataConsignment}">
+                            <div class="requiredInput">
+                                <div class="requiredBlock"></div>
+                                <apex:selectList size="1" value="{!selectedDeliveryType}" styleClass="slds-select">
+                                    <apex:selectOptions value="{!deliveryTypeValues}"/>  
+                                </apex:selectList>  
+                            </div>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(noDataConsignment)}">
+                                <apex:selectList size="1" value="{!selectedDeliveryType}" styleClass="slds-select">
+                                    <apex:selectOptions value="{!deliveryTypeValues}"/>  
+                                </apex:selectList>  
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:outputPanel>
+        <apex:outputPanel id="searchIcon" style="float: right; bottom:0px;">       
+            <apex:commandButton style="right: 7px;" styleClass="slds-button slds-button--brand slds-button--small" oncomplete="chatter.getPublisher().submit();" value="Update" onclick="update();"/>
+        </apex:outputPanel>
+    </apex:form>
+    </div>
+</apex:page>

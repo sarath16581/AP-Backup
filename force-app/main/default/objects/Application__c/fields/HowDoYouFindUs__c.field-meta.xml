@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HowDoYouFindUs__c</fullName>
+    <description>Drop down box to select - use the following:
+- auspost.com.au website
+- SecurePay
+- Existing Australia Post customer notified over the new service
+- Financial Institutions
+- Online search
+- Word of mouth</description>
+    <externalId>false</externalId>
+    <inlineHelpText>How did you hear about SecurePay Online Payments?</inlineHelpText>
+    <label>How Do You Find Us?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Auspost.com.au</fullName>
+                <default>false</default>
+                <label>Auspost.com.au</label>
+            </value>
+            <value>
+                <fullName>SecurePay.com.au</fullName>
+                <default>false</default>
+                <label>SecurePay.com.au</label>
+            </value>
+            <value>
+                <fullName>Existing Australia Post customer</fullName>
+                <default>false</default>
+                <label>Existing Australia Post customer</label>
+            </value>
+            <value>
+                <fullName>Financial Institutions</fullName>
+                <default>false</default>
+                <label>Financial Institutions</label>
+            </value>
+            <value>
+                <fullName>Online search</fullName>
+                <default>false</default>
+                <label>Online search</label>
+            </value>
+            <value>
+                <fullName>Word of mouth</fullName>
+                <default>false</default>
+                <label>Word of mouth</label>
+            </value>
+            <value>
+                <fullName>Social Media</fullName>
+                <default>false</default>
+                <label>Social Media</label>
+            </value>
+            <value>
+                <fullName>Web Developer</fullName>
+                <default>false</default>
+                <label>Web Developer</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

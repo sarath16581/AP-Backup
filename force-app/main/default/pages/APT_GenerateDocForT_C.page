@@ -1,0 +1,15 @@
+<apex:page controller="APT_GenerateDocForTermsANDCondition" action="{!generate}" sidebar="false" showHeader="false">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+        <script>
+            $( document ).ready(function() {
+                document.getElementById('LoadingImg').style.display = 'inline';
+                
+            });
+        </script>
+      
+  
+        <div id="LoadingImg" class="loading-container" style="display:none;">
+            <!-- <img src="{!$Resource.Loading_Image}" style="margin-left: 50%;margin-top:22%"/><br /> -->
+        </div>    
+<apex:pageMessages />
+</apex:page>

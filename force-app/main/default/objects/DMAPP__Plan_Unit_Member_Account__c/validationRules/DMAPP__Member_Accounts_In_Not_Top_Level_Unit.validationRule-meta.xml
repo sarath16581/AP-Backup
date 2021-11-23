@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Member_Accounts_In_Not_Top_Level_Unit</fullName>
+    <active>false</active>
+    <errorConditionFormula>FALSE</errorConditionFormula>
+    <errorMessage>You can only create a member account within top level rows</errorMessage>
+</ValidationRule>

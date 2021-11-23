@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Case__c</columns>
+    <columns>Agent__c</columns>
+    <columns>CaseCreationDateTime__c</columns>
+    <columns>Category__c</columns>
+    <columns>ResponseDateTime__c</columns>
+    <columns>IsAgentFirstResponse__c</columns>
+    <columns>IsCaseFirstResponse__c</columns>
+    <columns>ActualDuration__c</columns>
+    <columns>BusinessDuration__c</columns>
+    <columns>SourceId__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+    <language>en_US</language>
+</ListView>

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Function_Group__c</fullName>
+    <description>Phase 1 - List of Function Groups.  Dependent picklist will be Function Group Code</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Used by Marketing to categorise contacts. Select the most appropriate option from the picklist.</inlineHelpText>
+    <label>Title Group</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Accountant</fullName>
+                <default>false</default>
+                <label>Accountant</label>
+            </value>
+            <value>
+                <fullName>Account Payable</fullName>
+                <default>false</default>
+                <label>Account Payable</label>
+            </value>
+            <value>
+                <fullName>Admin/Office Manager</fullName>
+                <default>false</default>
+                <label>Admin/Office Manager</label>
+            </value>
+            <value>
+                <fullName>Admin/Office Staff</fullName>
+                <default>false</default>
+                <label>Admin/Office Staff</label>
+            </value>
+            <value>
+                <fullName>Adver/Prom/PR Mgr</fullName>
+                <default>false</default>
+                <label>Adver/Prom/PR Mgr</label>
+            </value>
+            <value>
+                <fullName>Adver/Prom/PR Staff</fullName>
+                <default>false</default>
+                <label>Adver/Prom/PR Staff</label>
+            </value>
+            <value>
+                <fullName>AR Contact</fullName>
+                <default>false</default>
+                <label>AR Contact</label>
+            </value>
+            <value>
+                <fullName>Bus/Comm/Dev Manager</fullName>
+                <default>false</default>
+                <label>Bus/Comm/Dev Manager</label>
+            </value>
+            <value>
+                <fullName>Bus/Comm/Dev Staff</fullName>
+                <default>false</default>
+                <label>Bus/Comm/Dev Staff</label>
+            </value>
+            <value>
+                <fullName>Communications Mgr</fullName>
+                <default>false</default>
+                <label>Communications Mgr</label>
+            </value>
+            <value>
+                <fullName>Communications Staff</fullName>
+                <default>false</default>
+                <label>Communications Staff</label>
+            </value>
+            <value>
+                <fullName>Company Secretary</fullName>
+                <default>false</default>
+                <label>Company Secretary</label>
+            </value>
+            <value>
+                <fullName>Contact Left Company</fullName>
+                <default>false</default>
+                <label>Contact Left Company</label>
+            </value>
+            <value>
+                <fullName>Cust Services Manager</fullName>
+                <default>false</default>
+                <label>Cust Services Manager</label>
+            </value>
+            <value>
+                <fullName>Cust Services Staff</fullName>
+                <default>false</default>
+                <label>Cust Services Staff</label>
+            </value>
+            <value>
+                <fullName>Deadmail</fullName>
+                <default>false</default>
+                <label>Deadmail</label>
+            </value>
+            <value>
+                <fullName>Desp/Whse/Mroom Mgr</fullName>
+                <default>false</default>
+                <label>Desp/Whse/Mroom Mgr</label>
+            </value>
+            <value>
+                <fullName>Desp/Whse Mroom Staff</fullName>
+                <default>false</default>
+                <label>Desp/Whse Mroom Staff</label>
+            </value>
+            <value>
+                <fullName>Direct Marketing Mgr</fullName>
+                <default>false</default>
+                <label>Direct Marketing Mgr</label>
+            </value>
+            <value>
+                <fullName>Direct Marketing Staff</fullName>
+                <default>false</default>
+                <label>Direct Marketing Staff</label>
+            </value>
+            <value>
+                <fullName>Director</fullName>
+                <default>false</default>
+                <label>Director</label>
+            </value>
+            <value>
+                <fullName>Executive Board</fullName>
+                <default>false</default>
+                <label>Executive Board</label>
+            </value>
+            <value>
+                <fullName>Finance Manager</fullName>
+                <default>false</default>
+                <label>Finance Manager</label>
+            </value>
+            <value>
+                <fullName>Finance Staff</fullName>
+                <default>false</default>
+                <label>Finance Staff</label>
+            </value>
+            <value>
+                <fullName>General Manager</fullName>
+                <default>false</default>
+                <label>General Manager</label>
+            </value>
+            <value>
+                <fullName>HR Manager</fullName>
+                <default>false</default>
+                <label>HR Manager</label>
+            </value>
+            <value>
+                <fullName>HR Staff</fullName>
+                <default>false</default>
+                <label>HR Staff</label>
+            </value>
+            <value>
+                <fullName>IT Manager</fullName>
+                <default>false</default>
+                <label>IT Manager</label>
+            </value>
+            <value>
+                <fullName>Legal Personnel</fullName>
+                <default>false</default>
+                <label>Legal Personnel</label>
+            </value>
+            <value>
+                <fullName>Manager</fullName>
+                <default>false</default>
+                <label>Manager</label>
+            </value>
+            <value>
+                <fullName>Marketing Manager</fullName>
+                <default>false</default>
+                <label>Marketing Manager</label>
+            </value>
+            <value>
+                <fullName>Marketing Staff</fullName>
+                <default>false</default>
+                <label>Marketing Staff</label>
+            </value>
+            <value>
+                <fullName>MD/CEO</fullName>
+                <default>false</default>
+                <label>MD/CEO</label>
+            </value>
+            <value>
+                <fullName>Op/Work/Grp/Proj/Staff</fullName>
+                <default>false</default>
+                <label>Op/Work/Grp/Proj/Staff</label>
+            </value>
+            <value>
+                <fullName>Op/Work/Grp/Proj Mgr</fullName>
+                <default>false</default>
+                <label>Op/Work/Grp/Proj Mgr</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Partner</fullName>
+                <default>false</default>
+                <label>Partner</label>
+            </value>
+            <value>
+                <fullName>PDCC Contact</fullName>
+                <default>false</default>
+                <label>PDCC Contact</label>
+            </value>
+            <value>
+                <fullName>Politician - Federal</fullName>
+                <default>false</default>
+                <label>Politician - Federal</label>
+            </value>
+            <value>
+                <fullName>Politician - Local</fullName>
+                <default>false</default>
+                <label>Politician - Local</label>
+            </value>
+            <value>
+                <fullName>Politician - State</fullName>
+                <default>false</default>
+                <label>Politician - State</label>
+            </value>
+            <value>
+                <fullName>Principal - School</fullName>
+                <default>false</default>
+                <label>Principal - School</label>
+            </value>
+            <value>
+                <fullName>Proprietor/Owner</fullName>
+                <default>false</default>
+                <label>Proprietor/Owner</label>
+            </value>
+            <value>
+                <fullName>Purch/Supply/Log Mgr</fullName>
+                <default>false</default>
+                <label>Purch/Supply/Log Mgr</label>
+            </value>
+            <value>
+                <fullName>Purch/Supply/Log Staff</fullName>
+                <default>false</default>
+                <label>Purch/Supply/Log Staff</label>
+            </value>
+            <value>
+                <fullName>Sales Manager</fullName>
+                <default>false</default>
+                <label>Sales Manager</label>
+            </value>
+            <value>
+                <fullName>Sales Staff</fullName>
+                <default>false</default>
+                <label>Sales Staff</label>
+            </value>
+            <value>
+                <fullName>Secretary/Recepnst/PA</fullName>
+                <default>false</default>
+                <label>Secretary/Recepnst/PA</label>
+            </value>
+            <value>
+                <fullName>State/Reg/Br/Div Mgr</fullName>
+                <default>false</default>
+                <label>State/Reg/Br/Div Mgr</label>
+            </value>
+            <value>
+                <fullName>State/Reg/Br/Div Staff</fullName>
+                <default>false</default>
+                <label>State/Reg/Br/Div Staff</label>
+            </value>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+                <label>Unknown</label>
+            </value>
+            <value>
+                <fullName>Doctor</fullName>
+                <default>false</default>
+                <label>Doctor</label>
+            </value>
+            <value>
+                <fullName>Chief Engineer</fullName>
+                <default>false</default>
+                <label>Chief Engineer</label>
+            </value>
+            <value>
+                <fullName>Chief Financial Officer</fullName>
+                <default>false</default>
+                <label>Chief Financial Officer</label>
+            </value>
+            <value>
+                <fullName>Analyst</fullName>
+                <default>false</default>
+                <label>Analyst</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

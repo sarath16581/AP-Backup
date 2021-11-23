@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_DoV_Product__c</fullName>
+    <description>.</description>
+    <externalId>false</externalId>
+    <label>DoV Product</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>APT_DoV_Type__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Express eParcel</fullName>
+                <default>false</default>
+                <label>Express eParcel</label>
+            </value>
+            <value>
+                <fullName>eParcel</fullName>
+                <default>false</default>
+                <label>eParcel</label>
+            </value>
+            <value>
+                <fullName>Parcel Post</fullName>
+                <default>false</default>
+                <label>Parcel Post</label>
+            </value>
+            <value>
+                <fullName>International</fullName>
+                <default>false</default>
+                <label>International</label>
+            </value>
+            <value>
+                <fullName>Letters</fullName>
+                <default>false</default>
+                <label>Letters</label>
+            </value>
+            <value>
+                <fullName>Returns</fullName>
+                <default>false</default>
+                <label>Returns Packaging</label>
+            </value>
+            <value>
+                <fullName>UMS</fullName>
+                <default>false</default>
+                <label>UMS</label>
+            </value>
+            <value>
+                <fullName>Print Post</fullName>
+                <default>false</default>
+                <label>Print Post</label>
+            </value>
+            <value>
+                <fullName>Post Billpay</fullName>
+                <default>false</default>
+                <label>Post Billpay</label>
+            </value>
+            <value>
+                <fullName>SecurePay Online Payments</fullName>
+                <default>false</default>
+                <label>SecurePay Online Payments</label>
+            </value>
+            <value>
+                <fullName>Other product</fullName>
+                <default>false</default>
+                <label>Other product</label>
+            </value>
+            <value>
+                <fullName>Courier</fullName>
+                <default>false</default>
+                <label>Courier</label>
+            </value>
+            <value>
+                <fullName>Local Pickup and Delivery Services</fullName>
+                <default>false</default>
+                <label>Local Pickup and Delivery Services</label>
+            </value>
+            <value>
+                <fullName>StarTrack</fullName>
+                <default>false</default>
+                <label>StarTrack</label>
+            </value>
+            <value>
+                <fullName>ST Additional Charges</fullName>
+                <default>false</default>
+                <label>ST Additional Charges</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Open Ended</controllingFieldValue>
+            <controllingFieldValue>Fixed Term</controllingFieldValue>
+            <valueName>Express eParcel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Open Ended</controllingFieldValue>
+            <controllingFieldValue>Fixed Term</controllingFieldValue>
+            <valueName>eParcel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Open Ended</controllingFieldValue>
+            <controllingFieldValue>Fixed Term</controllingFieldValue>
+            <valueName>International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Open Ended</controllingFieldValue>
+            <controllingFieldValue>Fixed Term</controllingFieldValue>
+            <valueName>UMS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Open Ended</controllingFieldValue>
+            <controllingFieldValue>Fixed Term</controllingFieldValue>
+            <valueName>Print Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Open Ended</controllingFieldValue>
+            <controllingFieldValue>Fixed Term</controllingFieldValue>
+            <valueName>Courier</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Open Ended</controllingFieldValue>
+            <controllingFieldValue>Fixed Term</controllingFieldValue>
+            <valueName>Local Pickup and Delivery Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Open Ended</controllingFieldValue>
+            <controllingFieldValue>Fixed Term</controllingFieldValue>
+            <valueName>StarTrack</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Open Ended</controllingFieldValue>
+            <controllingFieldValue>Fixed Term</controllingFieldValue>
+            <valueName>ST Additional Charges</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fixed Term</controllingFieldValue>
+            <valueName>Returns</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fixed Term</controllingFieldValue>
+            <valueName>Post Billpay</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

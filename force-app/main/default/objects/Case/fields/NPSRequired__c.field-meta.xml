@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NPSRequired__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This is used to flag if a case requires NPS to be sent out</description>
+    <externalId>false</externalId>
+    <label>NPS Required</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

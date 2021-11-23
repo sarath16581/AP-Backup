@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="GlueTest.css" />
+    </head>
+    <body>
+        <div class="login-card">
+            <div id="version"></div>
+            <input type="text" id="username" data-i18n="[placeholder]login.username"/>
+            <input type="password" id="password" data-i18n="[placeholder]login.password"/>
+            <input type="text" id="place" data-i18n="[placeholder]login.place"/>
+            <input type="submit" id="login" class="login login-submit" data-i18n="[value]login.login"/>
+        </div>
+        <script type="text/javascript" src="lib/require.min.js"></script>
+        <script>
+            require.config({
+                paths: {
+                    'util': 'lib/util',
+                    'jquery': 'lib/jquery-2.1.4.min',
+                    'org/cometd': 'lib/cometd-jquery/org/cometd.min',
+                    'jquery.cometd': 'lib/cometd-jquery/jquery/jquery.cometd.min',
+                    'moment': 'lib/moment.min',
+                    'i18next': 'lib/i18next.min',
+                    'jqueryI18next': 'lib/jquery-i18next.min',
+                    'i18nextXHRBackend': 'lib/i18next-xhr-backend.min',
+                    'integration': 'lib/sfdc_testharness',
+                    'interaction': 'lib/sfdc_testharness'
+                },
+                shim: {
+                    'jquery': {
+                        exports: '$'
+                    }
+                }
+            });
+
+            require(['SFDC/sfdc', 'SFDC/package'], function(sfdc, packageInfo) {
+                $('#version').text(packageInfo.NAME + ' v' + packageInfo.VERSION);
+                sfdc.initialize('').done();
+            });
+        </script>
+    </body>
+</html>

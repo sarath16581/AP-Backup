@@ -1,0 +1,15 @@
+<!--
+* @author Andrew Judd ajudd@salesforce.com 
+* @date 2020-07-01
+* @domain Field Service 
+* @description  Form to post a new chatter message to a driver from the FSL Gantt
+*                   Available from the 'Send Message' Action from the SR record and from a Scheduled Service Appointment in the Gantt
+*                   This version has the publisher displayed to ensure a new post is created to commence the messaging.
+*
+* @changelog 
+* 2020-07-01 - Andrew Judd - Created 
+-->
+<apex:page docType="html-5.0" controller="TDF_MessageFeedController" >
+    <apex:pageMessages />
+    <chatter:feed entityId="{!woId}" showPublisher="true" feedItemType="TextPost"/>
+</apex:page>

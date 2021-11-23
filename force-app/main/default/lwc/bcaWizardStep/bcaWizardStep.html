@@ -1,0 +1,52 @@
+<!--
+ /*
+* @author Victor.Cheng@auspost.com.au
+* @date 2021-02-05
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Modified wizard framework step component
+* @changelog
+* 2020-12-10 Victor.Cheng@auspost.com.au  Created
+*
+*/
+ -->
+
+<!-- Bca Wizard Step -->
+<template>
+    <template if:true={isInit}>
+        <div class="slds-col slds-size_1-of-1">
+            <div class="back-button">
+                <template if:false={shouldHidePreviousButton}>
+                    <button class="slds-col slds-text-align_left back-button" onclick={previousStep}>{labels.previous}
+                        <c-bsp-custom-icons icon="back-arrow" size="10-xsmall"></c-bsp-custom-icons>
+                    </button>                    
+                </template>
+            </div>
+
+            <div class={hidePrintDivClass}>
+                <h1 class="form-body-header">{label}</h1>
+                <template if:true={subLabel}>
+                    <lightning-formatted-rich-text class="sublabel" value={subLabel}></lightning-formatted-rich-text>
+                </template>
+                <div class="form-body-small"><slot name="blurb"></slot></div>
+            </div>
+            
+            <slot onnavupdated={updateNavFromStep} onstepjumped={jumpFromStep} onnextstep={nextFromStep}></slot>
+            
+            <div class="slds-p-vertical_x-large slds-grid">
+                <div class="slds-col slds-col_bump-left slds-text-align_left">
+                    <div class="slds-button-group slds-grid slds-grid_align-spread slds-wrap">
+                        <slot name="actions"></slot>
+                        <template if:false={hideNextButton}>
+                            <button class={nextBtnClass} onclick={nextStep} title={nextLabel}  aria-label={nextLabel}>{nextLabel}</button>
+                        </template>
+                          
+                        <template if:false={hidePrintButton}>
+                            <button class="button-row slds-button slds-button_secondary-brand hide-print" onclick={printScreen} title={printLabel}  aria-label={printLabel}>{printLabel}</button>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</template>

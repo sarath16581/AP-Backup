@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>kfsell__Blue_Sheet_Used__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Last Blue sheet used in the self guided journey</description>
+    <externalId>false</externalId>
+    <label>Blue Sheet Used</label>
+    <referenceTo>kfsell__Blue_Sheet__c</referenceTo>
+    <relationshipLabel>Self Guided Journeys</relationshipLabel>
+    <relationshipName>Self_Guided_Journeys</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

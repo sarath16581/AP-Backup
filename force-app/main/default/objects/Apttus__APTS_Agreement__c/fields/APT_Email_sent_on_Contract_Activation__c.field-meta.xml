@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Email_sent_on_Contract_Activation__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check box to determine whether an email has been sent on activating a contract</description>
+    <externalId>false</externalId>
+    <label>Email sent on Contract Activation</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

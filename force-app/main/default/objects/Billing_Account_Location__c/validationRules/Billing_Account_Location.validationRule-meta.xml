@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Billing_Account_Location</fullName>
+    <active>true</active>
+    <description>Location should belong to the Billing Account of the Customer.</description>
+    <errorConditionFormula>Location__r.Organisation__r.Id  !=  Billing_Account_Id__r.Organisation__r.Id</errorConditionFormula>
+    <errorMessage>Only locations that belong the Billing Account customer can be selected</errorMessage>
+</ValidationRule>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FF_Execute__c</fullName>
+    <description>Activates the agreement</description>
+    <externalId>false</externalId>
+    <formula>IF (OR(ISPICKVAL(Status_Category__c,&quot;In Signatures&quot;), ISPICKVAL(Status_Category__c,&quot;In Filing&quot;), AND(ISPICKVAL(Status_Category__c,&quot;In Authoring&quot;),ISPICKVAL(Source__c,&quot;Other Party Paper&quot;))), HYPERLINK(&quot;/apex/Apttus__AgreementActivate?id=&quot; &amp;Id, IMAGE(&quot;/resource/Apttus__Button_Activate&quot;, &quot;Activate&quot;),&quot;_self&quot;),NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Activates the conract</inlineHelpText>
+    <label>Activate</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

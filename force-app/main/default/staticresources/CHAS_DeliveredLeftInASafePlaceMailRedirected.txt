@@ -1,0 +1,125 @@
+{
+    "articles": [
+        {
+            "href": "/consignment/v2/articles/2JD280381201000935002",
+            "id": "2JD280381201000935002",
+            "code": "2JD280381201000935002",
+            "consignmentId": "nUBOMo5rQ1sAJsghYsb1EfwIuFjP6eUy1aT2mDpN4EKLjufQnVg=",
+            "consignmentCode": "2JD2803812",
+            "fullBarcode": "0199312650999998912JD280381201000935002|4203029|9244481778|8008200715144717",
+            "shortBarcode": "0199312650999998912JD280381201000935002",
+            "isRegisteredByAP": true,
+            "isReceivedByAP": false,
+            "lastModifiedOn": "2020-08-25T06:16:14+00:00",
+            "dispatchedOn": "2020-07-15T04:48:04+00:00",
+            "etag": "fea18fe9e89e4225abc38f89f6b63608",
+            "expectedDelivery": {
+                "on": null,
+                "onChanged": false,
+                "between": null
+            },
+            "service": {
+                "productId": "146",
+                "productType": "Parcel Post",
+                "subProductId": "93",
+                "subProductType": "Parcel Post"
+            },
+            "milestone": {
+                "on": "2020-07-16T02:04:44+00:00",
+                "name": "Delivered",
+                "description": null,
+                "progressPercentage": 100
+            },
+            "destinationAddress": {
+                "line1": "30 BRIDGEWATER WAY",
+                "line2": null,
+                "line3": null,
+                "suburb": "TRUGANINA",
+                "state": "VIC",
+                "postcode": "3029",
+                "countryCode": "AU",
+                "deliveryPoint": {
+                    "href": "/locations/v2/points/deliverypoints/44481778",
+                    "id": "44481778"
+                }
+            },
+            "deliveryInstructions": {
+                "signatureOnDelivery": {
+                    "required": true,
+                    "instruction": {
+                        "code": "SIG_REQUEST_ATL"
+                    }
+                },
+                "redirect": {
+                    "status": "RD_STATUS_REQUEST_DISABLED",
+                    "redirectChange": {
+                        "allowed": false,
+                        "reasonCode": "RD_ELIG_TOO_LATE"
+                    }
+                },
+                "safeDrop": {
+                    "status": "SD_STATUS_ELIGIBLE",
+                    "location": null,
+                    "locationChange": {
+                        "allowed": true,
+                        "reasonCode": null
+                    }
+                }
+            },
+            "deliverySummary": {
+                "signedFor": false,
+                "redirect": null,
+                "safeDrop": {
+                    "on": "2020-07-15T14:47:38+00:00",
+                    "image": {
+                        "href": "/ATLImage/d2b85736-816c-4e78-8eb6-b32cf9c00d21",
+                        "id": "d2b85736-816c-4e78-8eb6-b32cf9c00d21"
+                    }
+                }
+            },
+            "returnInstructions": {
+                "returnToSender": false
+            },
+            "consignmentCount": 1,
+            "consignments": {
+                "items": [
+                    {
+                        "href": "/consignment/v2/consignments/@nUBOMo5rQ1sAJsghYsb1EfwIuFjP6eUy1aT2mDpN4EKLjufQnVg=",
+                        "id": "nUBOMo5rQ1sAJsghYsb1EfwIuFjP6eUy1aT2mDpN4EKLjufQnVg=",
+                        "code": "2JD2803812",
+                        "primary": true
+                    }
+                ]
+            },
+            "foundByTrackingReferences": [
+                {
+                    "id": "2JD280381201000935002",
+                    "type": "IDTYPE_ARTICLE_CODE"
+                }
+            ],
+            "eventCount": 2,
+            "trackingEvents": {
+                "href": "/consignment/v2/articles/2JD280381201000935002?expand=articles,events",
+                "items": [
+                    {
+                        "id": "2JD280381201000935002",
+                        "code": "DD-ER15",
+                        "on": "2020-07-16T02:04:44+00:00",
+                        "message": "Delivered - Left in a safe place",
+                        "location": "LEUMEAH NSW, 2560",
+                        "workCentreId": "242157"
+                    },
+                    {
+                        "id": "2JD280381201000935002",
+                        "code": "ADMIN-ER39",
+                        "on": "2020-07-15T14:47:38+00:00",
+                        "message": "Shipping information received by Australia Post",
+                        "location": null,
+                        "workCentreId": "285640"
+                    }
+                ]
+            }
+        }
+    ],
+    "errors": []
+}

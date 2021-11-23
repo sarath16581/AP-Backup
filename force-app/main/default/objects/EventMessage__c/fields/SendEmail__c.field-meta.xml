@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SendEmail__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(
+&quot;/_ui/core/email/author/EmailAuthor?template_id=00XO0000000QXPm&amp;p24=&quot; &amp; Facility__r.Email__c &amp; &quot;&amp;isdtp=vw&amp;p3_lkid=&quot;&amp; Case__c,
+&quot;Email&quot;, 
+&quot;_self&quot; 
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Send Email</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

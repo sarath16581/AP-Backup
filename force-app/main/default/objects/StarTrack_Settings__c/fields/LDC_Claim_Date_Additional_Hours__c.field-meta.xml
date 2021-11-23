@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LDC_Claim_Date_Additional_Hours__c</fullName>
+    <description>This field will capture number of hour/s to be added to manual LDC Claim Date value for LDC System Reject Reason calculation.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field will capture number of hour/s to be added to manual LDC Claim Date value for LDC System Reject Reason calculation.</inlineHelpText>
+    <label>LDC Claim Date Additional Hours</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

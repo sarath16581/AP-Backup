@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Are_Multicurrency_Details_Sent__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This is a new field to accommodate email functionality for Multi currency feature  in Secure Pay Project.</description>
+    <externalId>false</externalId>
+    <label>Are Multicurrency Details Sent?</label>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

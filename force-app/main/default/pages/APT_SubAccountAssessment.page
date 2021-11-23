@@ -1,0 +1,168 @@
+<apex:page standardController="Account" extensions="APT_SubAccountAssessmentController" sidebar="false">
+
+<script>
+         var newWin=null;
+         function openLookupPopup(name, id, quoteId, source)
+         {        
+          var inputval = document.getElementById(name).value;          
+          var url="/apex/C__APT_ManageLodgementPointLookup?namefield=" + name + "&idfield=" + id +"&enteredAccVal=" + inputval + "&quoteId=" + quoteId + "&source=" + source;
+          newWin=window.open(url, 'Popup','height=500,width=600,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+          if (window.focus) 
+          {
+           newWin.focus();          
+            }
+            
+             return false;
+            }               
+         function closeLookupPopup()
+         {
+            if (null!=newWin)
+            {
+               newWin.close();
+            }  
+         }
+         
+         <!-- 1551 -->
+        function noEnter(ev)  {
+            if (window.event && window.event.keyCode == 13 || ev.which == 13) {         
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>    
+<c:APT_WaitComponent />
+<apex:actionStatus id="ajaxStatus" onstart="wait(true)" onstop="wait(false)" />
+<apex:form id="formId">    
+    <apex:sectionHeader title="{!strGetValTitle}" />
+    <apex:pageBlock >
+        <apex:pageMessages id="errorMessageSection"/>
+        <apex:pageBlockSection title="{!strGetValTitleDetails}" collapsible="false">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!strGetValAccName}"></apex:outputLabel>
+                <apex:inputField value="{!subAccount.Name}" required="true" onkeypress="return noEnter(event);"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!strGetValBranch}"></apex:outputLabel>
+                <apex:inputField value="{!subAccount.APT_Branch__c}" onkeypress="return noEnter(event);"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!strGetValAccContactName}"></apex:outputLabel>
+                <apex:inputField value="{!subAccount.APT_Sub_Account_Contact_Name__c}" onkeypress="return noEnter(event);"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!strGetValAccContactTel}"></apex:outputLabel>
+                <apex:inputField value="{!subAccount.APT_Sub_Account_Contact_Telephone__c}" onkeypress="return noEnter(event);"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!strGetValAccContactEmail}"></apex:outputLabel>
+                <apex:inputField value="{!subAccount.APT_Sub_Account_Contact_Email_Address__c}" onkeypress="return noEnter(event);"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!strGetValAccContactFax}"></apex:outputLabel>
+                <apex:inputField value="{!subAccount.APT_Sub_Account_Contact_Fax_Number__c}" onkeypress="return noEnter(event);"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >eParcel Enabled</apex:outputLabel>
+                <apex:inputField value="{!subAccount.APT_eParcel_Enabled__c}" onkeypress="return noEnter(event);"/>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >eLMS Enabled</apex:outputLabel>
+                <apex:inputField value="{!subAccount.APT_eLMS_Enabled__c}" onkeypress="return noEnter(event);"/>
+            </apex:pageBlockSectionItem>
+            
+            
+            <apex:pageBlockSectionItem rendered="{!isExistingCustomer || !isAccountFlow}">
+                <apex:outputPanel > Billing Account
+                <img style="opacity: 0.8" src="/resource/APT_HelpTextIcon" 
+                        title="{!$Label.APT_Use_this_lookup_to_select_Existing_Account}" height="13" width="13"/>
+                </apex:outputPanel> 
+                <apex:outputPanel > 
+                <apex:InputHidden value="{!subAccount.APT_Billing_Account__c}" id="bAccId"/>  
+                    <apex:inputText value="{!billingAcc}" id="bAccName" disabled="false" label="{!$Label.APT_Billing_Account}" onkeypress="return noEnter(event);"/> 
+                    <a href="#" onclick="openLookupPopup('{!$Component.bAccName}', '{!$Component.bAccId}', '{!subAccount.APT_Quote_Proposal__c}' ,'billingAccountCLM'); return false">
+                    <img src="/s.gif"  class="lookupIcon" onmouseout="this.className='lookupIcon';" alt="{$Label.APT_Account_Name_Lookup_New_Window}" onmouseover="this.className='lookupIconOn';"/></a>         
+                </apex:outputPanel> 
+            </apex:pageBlockSectionItem>      
+                   
+             <apex:pageBlockSectionItem rendered="{!isExistingCustomer || !isAccountFlow}">
+                 <apex:outputPanel > Charge Account
+                    <img style="opacity: 0.8" src="/resource/APT_HelpTextIcon" 
+                            title="{!$Label.APT_Use_this_lookup_to_select_the_New_Account}" height="13" width="13"/>
+                    
+                </apex:outputPanel> 
+                <apex:outputPanel >
+                     <apex:outputPanel rendered="{!Not(ChargeAccountEmptyFlag)}">
+                            <apex:outputField value="{!subAccount.APT_Charge_Account__c}" />
+                    </apex:outputPanel>
+                     <apex:outputPanel rendered="{!ChargeAccountEmptyFlag}">
+                      <apex:InputHidden value="{!subAccount.APT_Charge_Account__c}" id="chargeAccId"/>   
+                      <apex:inputText value="{!chargeAcc}" id="chargeAccName" onkeypress="return noEnter(event);" disabled="false"/> <a href="#" onclick="openLookupPopup('{!$Component.chargeAccName}', '{!$Component.chargeAccId}', '{!subAccount.APT_Quote_Proposal__c}' ,'chargeAccountCLM'); return false"><img src="/s.gif"  class="lookupIcon" onmouseout="this.className='lookupIcon';" alt="{$Label.APT_Account_Name_Lookup_New_Window}" onmouseover="this.className='lookupIconOn';"/></a>         
+                     </apex:outputPanel>
+                 </apex:outputPanel> 
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!strGetValOrg}"></apex:outputLabel>
+                <apex:outputField value="{!subAccount.APT_Organisation__c}"/>
+            </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="{!strGetValAddr}" collapsible="false">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Unit Number"></apex:outputLabel>
+                <apex:inputField value="{!subAccount.APT_Postal_Address_Unit_Number__c}" onkeypress="return noEnter(event);"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+            </apex:pageblocksectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Street Number"></apex:outputLabel>
+                <apex:inputField value="{!subAccount.APT_Postal_Address_Street_Number__c}" onkeypress="return noEnter(event);"/>
+            </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+            </apex:pageblocksectionItem>
+            <apex:pageBlockSectionItem >
+                <c:APT_AddressComponent address="{!mailingaddress}"  legend=""  />
+            </apex:pageblocksectionItem>
+            
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="{!strGetValStreet}" collapsible="false">
+
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Unit Number"></apex:outputLabel>
+                <apex:inputField value="{!subAccount.APT_Street_Address_Unit_Number__c}" onkeypress="return noEnter(event);"/>
+            </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+            </apex:pageblocksectionItem> 
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Street Number"></apex:outputLabel>
+                <apex:inputField value="{!subAccount.APT_Street_Address_Street_Number__c}" onkeypress="return noEnter(event);"/>
+            </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem >
+            </apex:pageblocksectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <c:APT_AddressComponent address="{!physicaladdress}"  legend="" />
+            </apex:pageblocksectionItem>
+            
+        </apex:pageBlockSection>
+           
+        
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandButton value="{!strGetValSaveClose}" action="{!saveAndClose}" reRender="formId" status="ajaxStatus"/>
+            
+            <apex:commandButton value="{!strGetValSaveNew}" action="{!saveAndNew}" reRender="formId" status="ajaxStatus"/>
+            
+            <apex:commandButton value="{!strGetValCancel}" action="{!backToProposal}" immediate="true"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

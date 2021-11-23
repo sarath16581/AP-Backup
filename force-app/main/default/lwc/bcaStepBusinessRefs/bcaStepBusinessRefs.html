@@ -1,0 +1,79 @@
+<!--
+* @author Victor.Cheng@auspost.com.au
+* @date 2021-01-11
+* @channel Business Credit Account
+* @tag Business Credit Account
+* @description: Step in Credit Application Form to input Business Reference details
+* @changelog
+* 2021-01-11 Victor.Cheng@auspost.com.au  Created
+*
+-->
+
+<!-- Bca Step Ref -->
+<template>
+    <div>
+        <template if:true={showEditing}>
+            <div class="form-outer-box">
+                <div class="form-inner-box">
+                    <div class="slds-p-bottom_large">
+                        <lightning-input label="Business name" name="businessName" data-id="businessName"
+                                        type="text" value={editingRef.businessName} placeholder="eg. Acme Inc"
+                                        required="true" 
+                                        onchange={onChangeField}></lightning-input>
+                        <lightning-input label="Contact person's full name" name="fullName" data-id="fullName"
+                                        type="text" value={editingRef.fullName} placeholder="eg. Clark Kent" class="slds-p-top_large"
+                                        onchange={onChangeField}></lightning-input>
+                        <lightning-input label="Position title" name="positionTitle" data-id="positionTitle"
+                                        type="text" value={editingRef.positionTitle} placeholder="eg. CEO" class="slds-p-top_large"
+                                        onchange={onChangeField}></lightning-input>
+                        <lightning-input label="Phone number" name="phone" data-id="phone"
+                                        type="tel" value={editingRef.phone} placeholder="eg. 0400123456" class="slds-p-top_large slds-col slds-size_1-of-1 slds-medium-size_6-of-12"
+                                        onchange={onChangeField}></lightning-input> 
+                        </div>
+
+                        <lightning-button label="Save" variant="brand" 
+                                    onclick={closeEditing}></lightning-button>
+                    
+                </div>
+            </div>                  
+        </template>
+        <template if:false={showEditing}>
+            <!-- SUMMARY -->
+            <template for:each={_businessRefs} for:item="ref">
+                <div key={ref.index} class="form-summary-box slds-m-bottom_medium">
+                    <div class="slds-m-horizontal_large">
+                        <template if:true={ref.fullName}>
+                            <h3>{ref.fullName} {ref.positionTitle} of {ref.businessName}</h3>
+                        </template>
+                        <template if:false={ref.fullName}>
+                            <h3>Untitled</h3>
+                        </template>
+                        
+                        <span>
+                            <button class="slds-button slds-button_icon slds-button_icon-border no-border" data-id={ref.index} onclick={editRef}>
+                                <c-bsp-custom-icons icon="edit-pencil" size="small"></c-bsp-custom-icons>
+                                
+                            </button>  
+                        </span>
+                        
+                        <!--<template if:false={onlyOneDirector}-->
+                        
+                        <span class="slds-p-left_x-small">
+                            <button class="slds-button slds-button_icon slds-button_icon-border no-border" data-id={ref.index} onclick={deleteRef}>
+                                <c-bsp-custom-icons icon="bin" size="small"></c-bsp-custom-icons>
+                                
+                            </button>  
+                        </span>
+                        <!--/template-->
+
+                    </div>
+                </div>
+            </template>
+
+            <button name="Add reference" class="form-summary-box-button" onclick={clickAdd}>
+                <h3>Add Reference</h3>
+                <c-bsp-custom-icons icon="plus" size="small"></c-bsp-custom-icons>
+            </button>
+        </template>
+    </div>
+</template>

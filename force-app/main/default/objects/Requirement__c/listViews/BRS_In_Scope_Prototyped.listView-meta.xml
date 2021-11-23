@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BRS_In_Scope_Prototyped</fullName>
+    <columns>Requirement_ID__c</columns>
+    <columns>Status__c</columns>
+    <columns>Workshop_Group__c</columns>
+    <columns>Requirement_Statement__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Requirement__c.REQ_BRS_Requirement</value>
+    </filters>
+    <filters>
+        <field>Prototyped__c</field>
+        <operation>equals</operation>
+        <value>Yes</value>
+    </filters>
+    <label>BRS - In Scope Prototyped</label>
+</ListView>

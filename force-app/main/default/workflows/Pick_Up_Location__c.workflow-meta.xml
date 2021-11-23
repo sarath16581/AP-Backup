@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Rejected_Pick_Up_Location</fullName>
+        <description>Rejected Pick Up Location</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>CSQ/Rejected_Pick_Up_Location</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Location_Approved</fullName>
+        <field>Pick_up_Location_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Location Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Location_Status</fullName>
+        <field>Site_Inspection_Status__c</field>
+        <literalValue>In Progress</literalValue>
+        <name>Location Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Pick_up_Location_Status</fullName>
+        <field>Pick_up_Location_Status__c</field>
+        <literalValue>Submitted for Approval</literalValue>
+        <name>Pick up Location Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Pick_up_Location_Status_Approved</fullName>
+        <field>Pick_up_Location_Status__c</field>
+        <literalValue>Draft</literalValue>
+        <name>Pick up Location Status</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Rejected</fullName>
+        <field>Pick_up_Location_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Draft</fullName>
+        <field>Pick_up_Location_Status__c</field>
+        <literalValue>Draft</literalValue>
+        <name>Status: Draft</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Draft_Pick_Up_Location</fullName>
+        <field>Pick_up_Location_Status__c</field>
+        <literalValue>Draft</literalValue>
+        <name>Status Draft Pick Up Location</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Submit_for_approval</fullName>
+        <field>Submit_for_Approval__c</field>
+        <literalValue>0</literalValue>
+        <name>Submit for approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Submit_for_approval_checkbox</fullName>
+        <field>Submit_for_Approval__c</field>
+        <literalValue>0</literalValue>
+        <name>Submit for approval Checkbox</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>New Record Status</fullName>
+        <actions>
+            <name>Status_Draft_Pick_Up_Location</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Pick_Up_Location__c.State__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Submit for approval Draft</fullName>
+        <actions>
+            <name>Submit_for_approval</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Pick_Up_Location__c.Pick_up_Location_Status__c</field>
+            <operation>equals</operation>
+            <value>Draft,Rejected</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

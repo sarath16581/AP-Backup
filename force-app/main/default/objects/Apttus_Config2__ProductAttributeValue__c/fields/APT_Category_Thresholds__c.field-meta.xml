@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Category_Thresholds__c</fullName>
+    <defaultValue>&quot;CAT1 - 1000 to 1999&quot; + BR() +
+&quot;CAT2 - 2000 to 4999&quot; + BR() +
+&quot;CAT3 - 5000 to 9999&quot; + BR()+
+&quot;CAT4 - 10000 to 19999&quot; + BR()+
+&quot;CAT5 - 20000 to 49999&quot; + BR()+
+&quot;CAT6 - Above 50000&quot;</defaultValue>
+    <externalId>false</externalId>
+    <label>Category Thresholds</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

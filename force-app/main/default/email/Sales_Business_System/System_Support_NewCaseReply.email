@@ -1,0 +1,22 @@
+<font size="2" font face="ap letter">
+Hello 
+<br/><br/>
+Your request has been received and logged as case {!Case.CaseNumber}.
+<br/><br/>
+One of the User Support Team will be in contact shortly.
+<br/><br/>
+Please reply to this email with any comments/questions.
+<br/><br/>
+Alternatively if you have Salesforce access, you can add case comments on the link below.
+<br/><br/>
+ {!Case.Link}
+<br/><br/>
+Cheers
+<br/><br/>
+The Salesforce User Support Team<br/>
+Australia Post 
+<font size="2" color="white">  {!Case.Thread_Id}</font>
+<br/><br/>
+-----------------------------------------------------------------------------------------
+<br/><br/>
+{!Case.Description}

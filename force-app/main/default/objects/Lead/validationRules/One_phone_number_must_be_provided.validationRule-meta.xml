@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>One_phone_number_must_be_provided</fullName>
+    <active>true</active>
+    <description>StarTrack: One phone number field must be populated</description>
+    <errorConditionFormula>AND(ISBLANK(MobilePhone), ISBLANK(Phone),$RecordType.DeveloperName = &quot;StarTrack_Lead&quot;)</errorConditionFormula>
+    <errorMessage>Please provide one phone number value</errorMessage>
+</ValidationRule>

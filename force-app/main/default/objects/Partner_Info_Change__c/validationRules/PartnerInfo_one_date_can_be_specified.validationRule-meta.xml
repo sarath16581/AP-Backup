@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerInfo_one_date_can_be_specified</fullName>
+    <active>true</active>
+    <description>Only one field from Assigned From Date, Suspend Start and Suspend End can be specified at a time.</description>
+    <errorConditionFormula>OR( 
+
+(NOT(ISBLANK(Interrupted_Start_Date__c)) &amp;&amp; NOT(ISBLANK(Interrupted_End_Date__c))), 
+
+(NOT(ISBLANK(Interrupted_Start_Date__c)) &amp;&amp; NOT(ISBLANK(Assignment_Effective_To_Date__c))), 
+
+(NOT(ISBLANK(Interrupted_End_Date__c)) &amp;&amp; NOT(ISBLANK(Assignment_Effective_To_Date__c))) 
+
+)</errorConditionFormula>
+    <errorMessage>Assigned From Date, Suspend Start and Suspend End, only one field can be specified at a time.</errorMessage>
+</ValidationRule>

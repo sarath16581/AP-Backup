@@ -1,0 +1,76 @@
+<!-- 
+Created By: Adrian Recio
+Date: 28/2/2017
+Description: Document Preview Page using embedded flash.
+-->
+
+<apex:page standardController="Credit_Approval__c" docType="html-5.0" extensions="DocumentPreviewController"
+           showHeader="false" sidebar="false" standardStylesheets="false">
+   
+    <!-- APIs -->
+    <apex:includeScript value="{!$Resource.jquery214}"/>
+    <apex:includeScript value="{!$Resource.bootstrapJS}"/>
+    <apex:styleSheet value="{!$Resource.bootstrapCSS}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.Enterprise_Credit_Claim_CSS,'css/Enterprise_Credit_Claim_CSS.css')}"/>
+    
+    <style> 
+        html{
+        	min-height:100% !important;
+        	min-width:100% !important;
+        	position:relative !important;
+        }
+        body{
+            height:100% !important;
+        	width:100% !important;
+        }        
+    </style>
+    
+    <script type="text/javascript">
+      $(document).ready(function(){
+          fadeCap();
+      });
+    
+  	  function fadeCap(){
+        $('.fadeDiv').hide();
+      	$('.fadeDiv').show();
+        $('.fadeDiv').fadeOut( 2000);
+      }
+   </script> 
+        
+   <div Id="conDiv" class="conDiv container">
+      <div id="myCarousel" data-interval="false" class="conDiv carousel slide" data-ride="carousel">
+        <div class="carousel-inner" style="width:100%;height:100%;" role="listbox" >
+          <apex:repeat value="{!Photos}" var="p">
+              <div class="item {!p.active}" style="width:100%;height:100%;">
+                  <embed src="/_swf/192001/sfc/flex/DocViewer.swf" flashvars="{!p.urlAdobe}" 
+                          style="position:relative !important;width:100% !important;height:100% !important;" align="middle" id="renditionLarge" 
+                         quality="high" bgcolor="#ffffff" name="renditionLarge" 
+                         allowscriptaccess="sameDomain" allowfullscreen="true" 
+                         pluginspage="http://www.adobe.com/go/getflashplayer" 
+                         wmode="opaque" type="application/x-shockwave-flash"/>  
+                  
+                
+                  <div class="carousel-caption" onmouseover="$('.fadeDiv').show();" onmouseout="$('.fadeDiv').hide();"> 
+                      <div class="fadeDiv">
+                          <h3 Id="capDiv{!p.Id}">
+                              <span class="label label-success" >{!p.name}</span>
+                          </h3>
+                      </div>
+                  </div> 
+              </div>       
+          </apex:repeat>
+        </div>
+    
+        <!-- Left and right controls -->
+        <a onclick="fadeCap();" style="margin-left:10% !important;" class="navPreview left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <apex:outputText style="color:black !important; font-size:50px !important;" value="<"></apex:outputText>
+        </a> 
+        <a onclick="fadeCap();" style="margin-right:10% !important;" class="navPreview right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <apex:outputText style="color:black !important; font-size:50px !important;" value=">"></apex:outputText>
+        </a>
+      </div>
+    </div>
+        
+          
+    
+</apex:page>

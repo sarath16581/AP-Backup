@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TEAMReasonCode__c</fullName>
+    <description>Reason Code to send to TEAM ,</description>
+    <externalId>false</externalId>
+    <formula>Case (
+				Reason__c,
+	&apos;Cash Transfer&apos;,&apos;70&apos;,
+&apos;Duplicate Cash Receipts&apos;,&apos;71&apos;,
+&apos;Receiver Reversal&apos;,&apos;73&apos;,
+&apos;General Ledger Adjustment&apos;,&apos;76&apos;,
+&apos;Refund Credit Balance&apos;,&apos;74&apos;,
+&apos;Data Entry Error&apos;,&apos;80&apos;,
+&apos;Incorrect Miscellaneous Charge&apos;,&apos;5A&apos;,
+&apos;Duplicate Billing&apos;,&apos;87&apos;,
+&apos;CWC Recovery&apos;,&apos;68&apos;,
+&apos;Unable to supply consignment note copy&apos;,&apos;32&apos;,
+&apos;Consignment note Transfer&apos;,&apos;46&apos;,
+&apos;Subdocket Charge&apos;,&apos;59&apos;,
+&apos;International Charge Error&apos;,&apos;96&apos;,
+&apos;Despatch ID Error&apos;,&apos;34&apos;,
+&apos;Manual Connote Surcharge&apos;,&apos;39&apos;,
+&apos;Incorrect Pricing&apos;,&apos;33&apos;,
+&apos;Non Consolidation&apos;,&apos;36&apos;,
+&apos;Annual Price Review Rollback&apos;,&apos;38&apos;,
+&apos;Special Services&apos;,&apos;25&apos;,
+&apos;Incorrect Cubic Data(Operations)&apos;,&apos;50&apos;,
+&apos;Incorrect Cubic Data(Customer)&apos;,&apos;44&apos;,	
+&apos;Incorrect Weight (Customer)&apos;,&apos;43&apos;,
+&apos;Incorrect service&apos;,&apos;42&apos;,
+&apos;Second Delivery Charge&apos;,&apos;5B&apos;,
+&apos;Returns Charge&apos;,&apos;55&apos;,
+&apos;Misdirect&apos;,&apos;56&apos;,
+&apos;Late Delivery Claim&apos;,&apos;58&apos;,
+&apos;Consignment Raised not Sent&apos;,&apos;41&apos;,
+&apos;No Proof Of Delivery Available&apos;,&apos;57&apos;,
+&apos;No Track &amp; Trace Scans&apos;,&apos;5X &apos;,
+&apos;CCM ExGratia&apos;,&apos;10&apos;,
+&apos;CCM Late Delivery Claim&apos;,&apos;23&apos;,
+&apos;CCM Damages&apos;,&apos;24&apos;,
+&apos;Cubic Leopard scan&apos;,&apos;53&apos;,
+&apos;Incorrect Cube Data&apos;,&apos;50&apos;,
+&apos;Incorrect Weight (Operations)&apos;,&apos;51&apos;,
+&apos;Product Return (Commercial)&apos;,&apos;94&apos;,
+&apos;Satchel Migration&apos;,&apos;95&apos;,
+&apos;Rebate Not Applied&apos;,&apos;98&apos;,
+&apos;Write Off&apos;,&apos;79&apos;,
+&apos;Small Debt Write Off&apos;,&apos;91&apos;,
+&apos;Bad Debt Write Off&apos;,&apos;90&apos;,
+&apos;CCM -Sales Director&apos;,&apos;11&apos;,
+&apos;Manual Handling Surcharge&apos;,&apos;52&apos;,
+&apos;Fee Refund Applied&apos;,&apos;49&apos;,
+&apos;Schedule Rates&apos;,&apos;37&apos;,
+&apos;CHQ Handling Fee Reversal&apos;,&apos;7X&apos;,
+&apos;Un-manifested Fee Refund&apos;,&apos;45&apos;,
+&apos;Manifest Correction Fee Credit&apos;,&apos;40&apos;,
+&apos; &apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>TEAM Reason Code</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

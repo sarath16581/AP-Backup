@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AutoApprove__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates approval is provided automatically on submission.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Indicates approval is provided automatically on submission.</inlineHelpText>
+    <label>Auto Approve</label>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

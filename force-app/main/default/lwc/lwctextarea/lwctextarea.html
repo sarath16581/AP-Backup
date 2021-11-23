@@ -1,0 +1,15 @@
+<!-- 
+    Custom LWC wrapping an HTML textarea addressing limitation of custom height
+-->
+<template>
+    <label>{fieldlabel}</label>
+    <textarea 
+        name = {name} 
+        placeholder = {placeholder} 
+        rows = {rows} 
+        onchange = {handleChange}
+        required = {required}
+        disabled = {disabled}
+        maxlength = {mxlength}>
+    </textarea> 
+</template>

@@ -1,0 +1,127 @@
+.tooltiptext {
+	visibility: hidden;
+	width: 250px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	position: absolute;
+	z-index: 6;             
+	font-size: 12px;
+	top: 120%;
+	left: 22%; 
+	margin-left: -30px;  
+	padding: 5px 5px 5px 5px;
+}
+
+.tooltiptext:after {
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	left: 22%; 
+	margin-left:  55px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent black transparent;
+}
+
+.col-sm-9:hover  .tooltiptext {
+	visibility: visible;
+}
+
+
+.invoiceNumberTooltiptext {
+	visibility: hidden;
+	width: 230px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	position: absolute;
+	z-index: 6;             
+	font-size: 12px;
+	top: 23%;
+	left: 60.5px;
+	margin-left: -30px;  
+	padding: 5px 5px 5px 5px;
+}
+
+.invoiceNumberTooltiptext:after {
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	left: 22%; 
+	margin-left:  55px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent black transparent;
+}
+
+
+.connoteTooltiptext {
+	visibility: hidden;
+	width: 230px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	position: absolute;
+	z-index: 6;             
+	font-size: 12px;
+	top: 23%;
+	left: 320px;
+	margin-left: -30px;  
+	padding: 5px 5px 5px 5px;
+}
+
+.connoteTooltiptext:after {
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	left: 50%; 
+	margin-left:  -10px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent black transparent;
+}            
+
+.transactionTooltiptext {
+	visibility: hidden;
+	width: 230px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	position: absolute;
+	z-index: 6;             
+	font-size: 12px;
+	top: 23%;
+	left: 320px;
+	margin-left: -30px;  
+	padding: 5px 5px 5px 5px;
+}
+
+.transactionTooltiptext:after {
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	left: 50%; 
+	margin-left:  -10px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent black transparent;
+} 
+
+.invoiceNumber:hover  .invoiceNumberTooltiptext {
+	visibility: visible;
+}
+.invoiceNumber:hover  .connoteTooltiptext {
+	visibility: visible;
+}
+.invoiceNumber:hover  .transactionTooltiptext {
+	visibility: visible;
+}

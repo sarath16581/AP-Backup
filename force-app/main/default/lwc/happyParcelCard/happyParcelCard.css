@@ -1,0 +1,70 @@
+/*
+    2020-04-01 nathan.franklin@auspost.com.au Created
+    2021-10-18 - Nathan Franklin - added no-flex style
+*/
+
+:host {
+    height: 100%;
+}
+
+.slds-card.selectable {
+    cursor: pointer;
+}
+
+.slds-card.selectable:hover {
+    background-color: #dee4ed;
+}
+
+.slds-card.selectable.selected {
+    background-color: var(--lwc-colorBackground, rgb(244, 246, 249));
+}
+
+/* EDGE hack for centering content */
+slot {
+    width: 100%;
+}
+
+.slds-card.vanilla > .slds-card__body,
+.slds-card.vanilla-stretch > .slds-card__body,
+.slds-card.vanilla > .slds-card__body_inner,
+.slds-card.vanilla-stretch > .slds-card__body_inner {
+    margin: 0;
+    padding: 0;
+}
+
+:host(.stretch),
+.stretch,
+.slds-card.vanilla-stretch,
+.slds-card.stretch {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+:host(.no-flex),
+.no-flex,
+.slds-card.no-flex {
+    display: block;
+    height: auto;
+}
+
+.slds-card.vanilla-stretch .slds-card__header,
+.slds-card.stretch .slds-card__header {
+    flex: 0 1 auto;
+}
+
+/* This allows content of the card to stretch out to it's containers height.
+    This is used to vertically position content in the centre of the box
+    We do this because there may be multiple 'boxes' across a single row in the flex row
+    */
+.slds-card.vanilla-stretch .slds-card__body,
+.slds-card.stretch .slds-card__body {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.slds-card.no-flex .slds-card__body {
+    flex: none;
+    display: block;
+}

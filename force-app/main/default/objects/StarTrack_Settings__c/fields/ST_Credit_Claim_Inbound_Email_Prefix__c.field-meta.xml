@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ST_Credit_Claim_Inbound_Email_Prefix__c</fullName>
+    <description>StarTrack field to capture prefix to be appended to invalid inbound credit claim emails.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field will capture prefix text to be appended to invalid inbound credit claim emails.</inlineHelpText>
+    <label>Invalid ST Credit Inbound Email Prefix</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

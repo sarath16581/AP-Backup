@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CAT1_Base_Per_Kg_Z30_Melbourne_V1</fullName>
+    <columns>NAME</columns>
+    <columns>APT_Category__c</columns>
+    <columns>APT_Lodgement_Zone_Code__c</columns>
+    <columns>APT_Destination_Zone__c</columns>
+    <columns>APT_Destination_Zone_Code__c</columns>
+    <columns>APT_Network_Type__c</columns>
+    <columns>APT_Price_Structure__c</columns>
+    <columns>APT_Weight_Range_Code__c</columns>
+    <columns>APT_Weight_Range_Code_Description__c</columns>
+    <columns>APT_Base_Rate__c</columns>
+    <columns>APT_Per_Kg_Rate__c</columns>
+    <columns>APT_Subsequent_Rate__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>APT_Category__c</field>
+        <operation>equals</operation>
+        <value>CAT1</value>
+    </filters>
+    <filters>
+        <field>APT_Price_Structure__c</field>
+        <operation>equals</operation>
+        <value>BASE+PER_KG {Z30}</value>
+    </filters>
+    <filters>
+        <field>APT_Lodgement_Zone_Code__c</field>
+        <operation>equals</operation>
+        <value>V1</value>
+    </filters>
+    <filters>
+        <field>APT_Network_Type__c</field>
+        <operation>equals</operation>
+        <value>Standard</value>
+    </filters>
+    <label>CAT1 Base Per Kg Z30 Melbourne V1 S</label>
+    <language>en_US</language>
+</ListView>

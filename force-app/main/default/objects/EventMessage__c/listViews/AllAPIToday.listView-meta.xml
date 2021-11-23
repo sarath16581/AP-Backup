@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllAPIToday</fullName>
+    <columns>Article__c</columns>
+    <columns>EventID__c</columns>
+    <columns>ActualDateTime__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>EventDescription__c</columns>
+    <columns>CommentText__c</columns>
+    <columns>NAME</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <filters>
+        <field>CREATEDBY_USER.ALIAS</field>
+        <operation>equals</operation>
+        <value>TIBCO</value>
+    </filters>
+    <label>All API Today</label>
+</ListView>

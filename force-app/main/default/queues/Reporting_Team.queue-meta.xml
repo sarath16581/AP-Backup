@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>wayne.mcneice@auspost.com.au</email>
+    <name>Reporting Team</name>
+    <queueMembers>
+        <users>
+            <user>alison.bennett@auspost.com.au</user>
+            <user>carlos.torres@startrack.com.au</user>
+            <user>gary.zhou2@auspost.com.au</user>
+            <user>hanh.tran2@auspost.com.au</user>
+            <user>janice.chung@auspost.com.au</user>
+            <user>kiran.mohan@auspost.com.au</user>
+            <user>nafiz.chowdhury@auspost.com.au</user>
+            <user>sabita.parida@auspost.com.au</user>
+            <user>salvatore.chironi@auspost.com.au</user>
+            <user>sandralee.sugden@auspost.com.au</user>
+            <user>simranjit.sokhi@auspost.com.au</user>
+            <user>vanbach.chironi@startrack.com.au</user>
+            <user>wayne.mcneice@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

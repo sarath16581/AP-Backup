@@ -1,0 +1,51 @@
+<!--
+    STP:20/02/2020: 
+    This componet for displaying the progress bar and the current active step in the Guided Qualification process
+-->
+<aura:component >
+    
+    <aura:attribute name="currentProgressStep" type="Integer" />
+    <aura:attribute name="hasErrorInCurrentStep" type="String" />
+  
+    <!-- Dynamic updation of currentstep is not working , so added 4 blocks for prototype -->
+    <aura:if isTrue='{!v.currentProgressStep == 1}'>
+        <lightning:progressIndicator currentStep="1" type="base" hasError="{!v.hasErrorInCurrentStep}" variant="base">
+            <lightning:progressStep label="Discovery" value="1"/>
+            <lightning:progressStep label="Customer Needs Categories" value="2"/>
+            <lightning:progressStep label="Customer Needs Questions" value="3"/>
+            <lightning:progressStep label="Review &amp; Finish" value="4"/>
+        </lightning:progressIndicator>
+    </aura:if>
+    <aura:if isTrue='{!v.currentProgressStep == 2}'>
+        <lightning:progressIndicator currentStep="2" type="base" hasError="{!v.hasErrorInCurrentStep}" variant="base">
+            <lightning:progressStep label="Discovery" value="1"/>
+            <lightning:progressStep label="Customer Needs Categories" value="2"/>
+            <lightning:progressStep label="Customer Needs Questions" value="3"/>
+            <lightning:progressStep label="Review &amp; Finish" value="4"/>
+        </lightning:progressIndicator>
+    </aura:if>
+    <aura:if isTrue='{!v.currentProgressStep == 3}'>
+        <lightning:progressIndicator currentStep="3" type="base" hasError="{!v.hasErrorInCurrentStep}" variant="base">
+            <lightning:progressStep label="Discovery" value="1"/>
+            <lightning:progressStep label="Customer Needs Categories" value="2"/>
+            <lightning:progressStep label="Customer Needs Questions" value="3"/>
+            <lightning:progressStep label="Review &amp; Finish" value="4"/>
+        </lightning:progressIndicator>
+        </aura:if>
+        <aura:if isTrue='{!v.currentProgressStep == 4}'>
+            <lightning:progressIndicator currentStep="4" type="base" hasError="{!v.hasErrorInCurrentStep}" variant="base">
+                <lightning:progressStep label="Discovery" value="1"/>
+                <lightning:progressStep label="Customer Needs Categories" value="2"/>
+                <lightning:progressStep label="Customer Needs Questions" value="3"/>
+                <lightning:progressStep label="Review &amp; Finish" value="4"/>
+            </lightning:progressIndicator>
+        </aura:if>
+        <aura:if isTrue='{!v.currentProgressStep == 5}'>
+            <lightning:progressIndicator currentStep="5" type="base" hasError="{!v.hasErrorInCurrentStep}" variant="base">
+                <lightning:progressStep label="Discovery" value="1"/>
+                <lightning:progressStep label="Customer Needs Categories" value="2"/>
+                <lightning:progressStep label="Customer Needs Questions" value="3"/>
+                <lightning:progressStep label="Review &amp; Finish" value="4"/>
+            </lightning:progressIndicator>
+        </aura:if>
+</aura:component>

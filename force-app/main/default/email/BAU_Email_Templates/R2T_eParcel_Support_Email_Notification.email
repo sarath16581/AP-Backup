@@ -1,0 +1,23 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#edeae6; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b><span style="font-family:&quot;AP Letter Light&quot;">Dear
+eParcel&nbsp;</span></b><span style="font-family:&quot;AP Letter Light&quot;"><o:p></o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-family: &quot;AP Letter Light&quot;; font-size: 12pt;">This is to
+notify that the below new eParcel Customer has signed up.&nbsp;</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b style="font-family: &quot;AP Letter Light&quot;; font-size: 12pt;">Organisation
+Name:</b><span style="font-family: &quot;AP Letter Light&quot;; font-size: 12pt;">&nbsp;{!Apttus__APTS_Agreement__c.Apttus__Account__c}</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b style="font-family: &quot;AP Letter Light&quot;; font-size: 12pt;">Account
+Number:&nbsp;</b><span style="font-family: 'AP Letter Light'; font-size: 12pt;">{!Apttus__APTS_Agreement__c.hidden_Billing_account__c}</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b style="font-family: &quot;AP Letter Light&quot;; font-size: 12pt;">Name of
+Operator:</b><span style="font-family: &quot;AP Letter Light&quot;; font-size: 12pt;">&nbsp;{!Apttus__APTS_Agreement__c.APT_System_User__c}</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b style="font-family: &quot;AP Letter Light&quot;; font-size: 12pt;">Phone
+No:</b><span style="font-family: &quot;AP Letter Light&quot;; font-size: 12pt;">&nbsp;{!Apttus__APTS_Agreement__c.hiddensysusernumber__c}</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b style="font-family: &quot;AP Letter Light&quot;; font-size: 12pt;">Email
+Address:&nbsp;</b><span style="font-family: &quot;AP Letter Light&quot;; font-size: 12pt;">{!Apttus__APTS_Agreement__c.hiddensysuseremail__c}</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b style="font-family: &quot;AP Letter Light&quot;; font-size: 12pt;">Sales Account Manager:</b><span style="font-family: &quot;AP Letter Light&quot;; font-size: 12pt;">&nbsp;{!Apttus__APTS_Agreement__c.Apttus__Requestor__c}</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-family:&quot;AP Letter Light&quot;">&nbsp;</span></p>]]></td>
+</tr>
+</table>

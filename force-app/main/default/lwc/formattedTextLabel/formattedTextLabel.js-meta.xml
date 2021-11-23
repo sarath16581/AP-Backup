@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <description>Provides a label/value output based on the format that was passed in</description>
+    <isExposed>false</isExposed>
+    <masterLabel>Formatted Text Label</masterLabel>
+</LightningComponentBundle>

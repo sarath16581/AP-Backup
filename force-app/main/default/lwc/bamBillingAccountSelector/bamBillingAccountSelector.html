@@ -1,0 +1,122 @@
+<!--
+2020-05-25 - Nathan Franklin - Added ability to search billing accounts for selection for Merchant Portal
+-->
+<template>
+
+	<div class="slds-m-bottom_large slds-small-size_1-of-1 slds-medium-size_1-of-2">
+        <lightning-input type="search"
+                         label=""
+                         disabled={isDisabled}
+                         class="search-filter"
+                         placeholder="Search for accounts."
+                         onchange={handleSearchChange}
+        ></lightning-input>
+	</div>
+
+
+	<div class="slds-m-bottom_small">
+		<template if:false={isDisabled}>
+			<template if:true={hasFilteredResults}>
+				<div onclick={handleToggleOn} class="slds-m-right_small slds-form-element slds-show_inline-block" style="cursor:pointer;vertical-align: middle;">
+					<label class="slds-checkbox_toggle slds-grid toggle-locked">
+						<input type="checkbox" class="toggle-locked" checked />
+						<span class="slds-checkbox_faux_container" aria-live="assertive">
+				      <span class="slds-checkbox_faux"></span>
+				      <span class="slds-checkbox_on">Select All</span>
+				    </span>
+					</label>
+				</div>
+				<div onclick={handleToggleOff} class="slds-form-element slds-m-right_xx-large slds-show_inline-block" style="cursor:pointer;vertical-align: middle;">
+					<label class="slds-checkbox_toggle slds-grid toggle-locked">
+						<input type="checkbox" class="toggle-locked" />
+						<span class="slds-checkbox_faux_container" aria-live="assertive">
+				      <span class="slds-checkbox_faux"></span>
+				      <span class="slds-checkbox_off">Delselect All</span>
+				    </span>
+					</label>
+				</div>
+			</template>
+		</template>
+
+		<div class="slds-form-element slds-show_inline-block" style="vertical-align: middle;margin-top:-11px;">
+			{selectedText}
+		</div>
+	</div>
+
+	<div class="table-container slds-m-bottom_large" style={tableWrapperStyles}>
+		<template if:true={filteringDataset}>
+			<div class="slds-spinner_container">
+				<lightning-spinner size="small" variant="brand" alternative-text="loading data..."></lightning-spinner>
+			</div>
+		</template>
+
+		<table class={tableClasses}>
+			<thead>
+				<tr class="slds-line-height_reset">
+					<th class="sticky" scope="col" style="width:4rem;padding-left:0.5rem;"></th>
+					<th class="sticky account-name-header" scope="col">
+						<div class="slds-truncate" title="Name">Name</div>
+					</th>
+					<th class="account-number-header slds-show_small sticky  account-name" scope="col">
+						<div class="slds-truncate" title="Account No.">Account No.</div>
+					</th>
+					<th class="mlid-header slds-show_small sticky" scope="col">
+						<div class="slds-truncate" title="MLID">MLID</div>
+					</th>
+					<th class="suburb-header slds-show_medium sticky" scope="col">
+						<div class="slds-truncate" title="Suburb">Suburb</div>
+					</th>
+					<th class="state-header slds-show_medium sticky" scope="col">
+						<div class="slds-truncate" title="State">State</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- table -->
+				<template for:each={computedBillingAccounts} for:item="billingAccount">
+					<tr class="slds-hint-parent" key={billingAccount.Id} data-accountid={billingAccount.Id} style={trIsDisabledStyle}>
+						<td style="width:4rem;padding-left:0.5rem;" class="toggle">
+							<lightning-input label="" message-toggle-active="" disabled={isDisabled} message-toggle-inactive="" variant="label-hidden" checked={billingAccount.selected} onchange={handleSelectionToggle} data-accountid={billingAccount.Id} type="toggle"></lightning-input>
+						</td>
+						<td class="account-name-data slds-align-top slds-cell-wrap" title={billingAccount.Name} data-accountid={billingAccount.Id} onclick={handleSelectionToggle}>
+							{billingAccount.Name}
+
+							<div class="slds-hide_small" title={billingAccount.LEGACY_ID__c}>
+								{billingAccount.LEGACY_ID__c}
+								<template if:true={billingAccount.MLID__c}> - {billingAccount.MLID__c}</template>
+							</div>
+
+							<div class="slds-hide_medium" title={billingAccount.suburbState}>
+								{billingAccount.suburbState}
+							</div>
+
+						</td>
+						<td class="account-number-data slds-show_small slds-align-top" data-accountid={billingAccount.Id} onclick={handleSelectionToggle}>
+							<div class="slds-truncate" title={billingAccount.LEGACY_ID__c}>{billingAccount.LEGACY_ID__c}</div>
+						</td>
+						<td class="mlid-data slds-show_small slds-align-top" data-accountid={billingAccount.Id} onclick={handleSelectionToggle}>
+							<div class="slds-truncate" title={billingAccount.MLID__c}>{billingAccount.MLID__c}</div>
+						</td>
+						<td class="suburb-data slds-show_medium slds-align-top" data-accountid={billingAccount.Id} onclick={handleSelectionToggle}>
+							<div class="slds-truncate" title={billingAccount.Suburb__c}>{billingAccount.Suburb__c}</div>
+						</td>
+						<td class="state-data slds-show_medium slds-align-top" data-accountid={billingAccount.Id} onclick={handleSelectionToggle}>
+							<div class="slds-truncate" title={billingAccount.State__c}>{billingAccount.State__c}</div>
+						</td>
+					</tr>
+				</template>
+				<!-- END TABLE -->
+
+				<template if:false={hasFilteredResults}>
+					<tr class="slds-hint-parent">
+						<td role="gridcell" colspan="6" style="text-align:center;">
+							No Results Found
+						</td>
+					</tr>
+				</template>
+
+			</tbody>
+		</table>
+	</div>
+
+</template>

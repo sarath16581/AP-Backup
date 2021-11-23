@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Completed_Customer_Conversion__c</fullName>
+    <description>Completed Customer Conversation - name changed by request from Andrew Van Der Putten</description>
+    <externalId>false</externalId>
+    <label>Completed Customer Conversation</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Peak Planning</fullName>
+                <default>false</default>
+                <label>Peak Planning</label>
+            </value>
+            <value>
+                <fullName>CoR</fullName>
+                <default>false</default>
+                <label>CoR</label>
+            </value>
+            <value>
+                <fullName>Freight Presentation</fullName>
+                <default>false</default>
+                <label>Freight Presentation</label>
+            </value>
+            <value>
+                <fullName>Loose Load</fullName>
+                <default>false</default>
+                <label>Loose Load</label>
+            </value>
+            <value>
+                <fullName>Streaming</fullName>
+                <default>false</default>
+                <label>Streaming</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>3</visibleLines>
+</CustomField>

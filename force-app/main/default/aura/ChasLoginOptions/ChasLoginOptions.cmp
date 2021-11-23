@@ -1,0 +1,22 @@
+<!--
+@changeLog: Hara.sahoo@auspost.com.au  24-11-2020  - Created : Presents the user with login options authenticated or un-authenticated.
+-->
+<aura:component description="Presents the user with login options authenticated or un-authenticated">
+    <aura:registerevent name="chasmyPostLogin" type="c:ChasMyPostLogin"></aura:registerevent>     
+    
+    <aura:attribute name="label" type="String" />
+    <aura:attribute name="subLabel" type="String" />
+    <aura:attribute name="darkTheme" type="Boolean" default="false" />
+    <aura:attribute name="myPostLogin" type="String" default="false" />
+    <aura:attribute name="displaymyPostLoginForm" type="Boolean" default="false" />
+    
+    <div>
+        <p class="labelStyle">{! v.label }</p>
+        <aura:if isTrue="{!v.myPostLogin == 'true'}">
+            <p class="sub-label"><a onclick="{!c.loginMyPost}">Log in now </a>{! v.subLabel}</p>
+            <aura:set attribute="else">
+                <p class="sub-label">{! v.subLabel}</p>
+            </aura:set>
+        </aura:if>
+    </div>
+</aura:component>

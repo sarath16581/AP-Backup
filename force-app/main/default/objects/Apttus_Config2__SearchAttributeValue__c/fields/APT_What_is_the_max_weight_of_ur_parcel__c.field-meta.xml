@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_What_is_the_max_weight_of_ur_parcel__c</fullName>
+    <externalId>false</externalId>
+    <label>What is the max weight of your parcel?</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Less than 2 Kg</fullName>
+                <default>false</default>
+                <label>Less than 2 Kg</label>
+            </value>
+            <value>
+                <fullName>2 - 20 Kg</fullName>
+                <default>false</default>
+                <label>2 - 20 Kg</label>
+            </value>
+            <value>
+                <fullName>Greater than 20 Kg</fullName>
+                <default>false</default>
+                <label>Greater than 20 Kg</label>
+            </value>
+            <value>
+                <fullName>Upto 20 Kg</fullName>
+                <default>false</default>
+                <label>Upto 20 Kg</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

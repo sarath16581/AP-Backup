@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Smart_Sales_Kit__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field is deprecated. Access to the Smart Library in Dealmaker Align is controlled by license allocation.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field is deprecated. Access to the Smart Library in Dealmaker Align is controlled by license allocation.</inlineHelpText>
+    <label>Smart Sales Kit (Deprecated)</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

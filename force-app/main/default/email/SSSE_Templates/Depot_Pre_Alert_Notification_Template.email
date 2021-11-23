@@ -1,0 +1,4 @@
+<p>
+<span style="font-weight: bold; color: red; font-size: 24px;">ATT:  Please check Salesforce for new '{!Job__c.Job_Type__c}' pick up task ({!Job__c.Name})</span><br><br>
+<span style="font-weight: bold; color: red; font-size: 24px;">({!Job__c.Link})</span>
+</p>

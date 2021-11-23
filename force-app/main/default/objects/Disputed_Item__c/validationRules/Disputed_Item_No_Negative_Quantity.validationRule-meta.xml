@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disputed_Item_No_Negative_Quantity</fullName>
+    <active>true</active>
+    <description>You can not put a negative quantity value.</description>
+    <errorConditionFormula>Quantity__c &lt; 0</errorConditionFormula>
+    <errorDisplayField>Quantity__c</errorDisplayField>
+    <errorMessage>You can not have a negative quantity.</errorMessage>
+</ValidationRule>

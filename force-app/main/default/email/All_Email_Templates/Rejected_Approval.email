@@ -1,0 +1,3 @@
+Please note that {!Opportunity.Name} has been rejected for the {!ApprovalRequest.Process_Name} for the reasons below:
+
+{!ApprovalRequest.Comments}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack PUD</fullName>
+    <description>StarTrack case status fields for Delivery Enquiry</description>
+    <isActive>true</isActive>
+    <values>
+        <fullName>Awaiting Investigation</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Closed</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Monitoring for Closure</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>New</fullName>
+        <default>true</default>
+    </values>
+    <values>
+        <fullName>Reopened</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Waiting on customer</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Waiting on operations</fullName>
+        <default>false</default>
+    </values>
+</BusinessProcess>

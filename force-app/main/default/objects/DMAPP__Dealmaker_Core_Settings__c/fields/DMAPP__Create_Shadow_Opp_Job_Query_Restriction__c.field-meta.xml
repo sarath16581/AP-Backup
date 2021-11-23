@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Create_Shadow_Opp_Job_Query_Restriction__c</fullName>
+    <defaultValue>&apos;&apos;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field allows us to specify  query where clause which restricts which opportunities are considered by the Create Shadow Opp Bulk Job. By default the batch job creates shadow opportunities for all open opportunities , if shadow opportunity creation is enabled for opportunity owner.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field allows us to specify  query where clause which restricts which opportunities are considered by the Create Shadow Opp Bulk Job. By default the batch job creates shadow opportunities for all open opportunities , if shadow opportunity creation is</inlineHelpText>
+    <label>Bulk enable - advanced query settings</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

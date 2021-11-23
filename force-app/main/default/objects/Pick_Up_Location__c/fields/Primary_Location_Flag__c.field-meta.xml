@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Location_Flag__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Primary_Pick_Up_Location__c, IMAGE(&quot;/img/msg_icons/confirm16.png&quot;, &quot;Primary Pick-Up Location&quot;),
+&quot;&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>If marked as ‘primary’, this Pick Up Location Address will be reflected as the physical address in the StarTrack Leader Account</inlineHelpText>
+    <label>Primary Pick-Up Location</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

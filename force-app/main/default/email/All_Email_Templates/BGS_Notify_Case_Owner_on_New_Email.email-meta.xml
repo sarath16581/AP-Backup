@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notify Case Owner on New Email</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>BGS Notify Case Owner on New Email</name>
+    <style>none</style>
+    <subject>New Email Received on Case # {!Case.CaseNumber} - {!Case.Status}</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

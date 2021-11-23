@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>The trigger for this email is any new lead that is submitted via Snap It for Employee</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Lead Seeker - New Lead received-Snap It</name>
+    <style>none</style>
+    <subject>Australia Post product or service enquiry - {!Lead.Lead_Number__c}</subject>
+    <textOnly>Australia Post product or service enquiry - {!Lead.Lead_Number__c}
+
+Having trouble viewing this email? View online.
+
+Dear {!Lead.Name_of_lead_creator__c}
+
+The sales lead you raised through Snap It is currently being verified in Seeker.
+
+We will contact the customer within two business days.
+
+The Seeker lead referral program applies for new leads that are submitted through Snap It with points earned for new business sales. The more leads you submit, the more points you can collect and the more fantastic rewards you can claim.
+
+You will need to register for Seeker before you can start earning points. Register for Seeker here
+
+Thank you,
+Australia Post
+
+Contact us: If this email has been incorrectly sent to you or the information contained within isn’t correct, please let us know at seekerrewards@auspost.com.au
+
+If you do not wish to receive such information you can unsubscribe at any time.
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

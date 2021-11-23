@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <applicationVisibilities>
+        <application>Customer_Cognition</application>
+        <visible>true</visible>
+    </applicationVisibilities>
+    <classAccesses>
+        <apexClass>AsynchApexContinuationController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Cognition_APICommons</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Cognition_Controller</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Cognition_DataModel</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <description>Allows AusPost Internal users to access Customer Cognition VF page.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Cognition User</label>
+    <license>Salesforce</license>
+    <pageAccesses>
+        <apexPage>AsynchApexContinuation</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>Cognition_GoogleMap</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>Cognition_ReportData</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>cognitionVF</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <recordTypeVisibilities>
+        <recordType>Authorization_Rule__c.Cognition_Rules</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <tabSettings>
+        <tab>Customer_Cognition</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+</PermissionSet>

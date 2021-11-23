@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Percentage_check_RP</fullName>
+    <active>true</active>
+    <errorConditionFormula>DMAPP__Rock_Percentage__c &gt; 1 || DMAPP__Rock_Percentage__c &lt; 0</errorConditionFormula>
+    <errorDisplayField>DMAPP__Rock_Percentage__c</errorDisplayField>
+    <errorMessage>Only 0-100% is valid</errorMessage>
+</ValidationRule>

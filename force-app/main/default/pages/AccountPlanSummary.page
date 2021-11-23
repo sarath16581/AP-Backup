@@ -1,0 +1,309 @@
+<apex:page standardController="Account_Plan__c" extensions="AccountPlanExCon" cache="false" renderAs="pdf" standardStylesheets="false" contenttype="application/pdf" sidebar="false" showheader="false">
+        <style> 
+            
+            @page {
+                size: A4 landscape;
+                @bottom-right { /* page numbers */
+                    content: "Page " counter(page);
+                }
+            }
+            body {
+                font: 9px Verdana,Geneva,sans-serif;
+                word-wrap: break-word;
+                }
+            
+            h1 {color: #B20000;}
+        
+            .summary_table {
+                border: 0.5px solid black;
+                border-collapse:collapse;
+                width: 100%;                
+                margin-top: 20px;                   
+                clear:both;
+            }
+        
+            .summary_table th, .summary_table td {
+                border: 1px solid #555;
+                padding: 5px;
+            }
+        
+            .summary_table_header1 {
+                background-color: #B20000; 
+                color: #FFF;
+            }
+        
+            .summary_table_header2 {
+                background-color: #E0FFFF;
+            }
+        
+            .page_title {
+                float:left;
+            }
+        
+            .logo {
+                float:right;
+            }
+        
+            .logo img {
+                width:100px;
+            }
+        </style>
+                
+    <div style="page-break-after:always;">
+        <div class="page_title"><h1>Account Plan</h1></div>
+        <div class="logo"><img src="{!URLFOR($Resource.auspost_logo)}"/></div>
+        
+        <table class="summary_table">
+        <tr>
+            <th colspan="9" class="summary_table_header1">Account Details</th>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">Type</th>
+            <th class="summary_table_header2">Account Number</th>
+            <th class="summary_table_header2">Growth Rate</th>
+            <th class="summary_table_header2">Target Markets</th>
+            <th class="summary_table_header2">Key Business Drivers </th>
+            <th class="summary_table_header2">Situation</th>   
+            <th class="summary_table_header2">Challenge</th>  
+            <th class="summary_table_header2">Opportunity</th>
+            <th class="summary_table_header2">Financial Impact</th>  
+        </tr>
+        <tr>
+            <td>{!Account_Plan__c.Account__r.Type}</td>
+            <td>{!Account_Plan__c.Account__r.AccountNumber}</td>
+            <td><apex:outputText value="{0, number, ###,###.00}%" id="GrowthRate">
+                    <apex:param value="{!Account_Plan__c.Account__r.Growth_Rate__c}" />
+                </apex:outputText>
+            </td>
+            <td>{!Account_Plan__c.Account__r.Target_Markets__c}</td>
+            <td>{!Account_Plan__c.Account__r.Key_Business_Drivers__c}</td>
+            <td>{!Account_Plan__c.Account__r.Situation__c}</td>
+            <td>{!Account_Plan__c.Account__r.Challenge__c}</td>
+            <td>{!Account_Plan__c.Account__r.Opportunity__c}</td>
+            <td>{!Account_Plan__c.Account__r.Financial_Impact__c}</td>
+        </tr>
+    </table>    
+       
+     <table class="summary_table">
+        <tr>
+            <th colspan="5" class="summary_table_header1">Plan of Attack - Event List</th>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">Subject</th>
+            <th class="summary_table_header2">Due Date</th>
+            <th class="summary_table_header2">Location</th>
+            <th class="summary_table_header2">Description</th>
+            <th class="summary_table_header2">Assign To</th> 
+        </tr>
+     
+        <apex:repeat value="{!events}" var="evts">
+        <tr>
+            <td>{!evts.Subject}</td>
+            <td>
+                <apex:outputText value="{0,date, dd'/'MM'/'yyyy HH:mm:ss}" id="eventDueDate">
+                    <apex:param value="{!evts.ActivityDateTime}" />
+                </apex:outputText>
+            </td>
+            <td>{!evts.Location}</td>
+            <td>{!evts.Description}</td>
+            <td>{!evts.Owner.FirstName} {!evts.Owner.LastName}</td>
+        </tr>
+        </apex:repeat>
+    </table>   
+    
+    <table class="summary_table">
+        <tr>
+            <th colspan="9" class="summary_table_header1">Plan of Attack - Task List</th>
+        </tr>
+        <tr> 
+            <th class="summary_table_header2">Subject</th>
+            <th class="summary_table_header2">Status</th>
+            <th class="summary_table_header2">Priority</th>
+            <th class="summary_table_header2">Due Date</th>
+            <th class="summary_table_header2">Assign To</th>          
+        </tr>
+     
+        <apex:repeat value="{!tasks}" var="tks">
+        <tr>
+            <td>{!tks.Subject}</td>
+            <td>{!tks.Status}</td>
+            <td>{!tks.Priority}</td>
+            <td>
+                <apex:outputText value="{0,date, dd'/'MM'/'yyyy}" id="taskDueDate">
+                    <apex:param value="{!tks.ActivityDate}" />
+                </apex:outputText>
+            </td>
+            <td>{!tks.Owner.FirstName} {!tks.Owner.LastName}</td>
+        </tr>
+        </apex:repeat>
+
+    </table>  
+    
+    <table class="summary_table">
+        <tr>
+            <th colspan="6" class="summary_table_header1">Account Plan Details</th>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">Customer Name</th>
+            <th class="summary_table_header2">Start Date</th>
+            <th class="summary_table_header2">End Date</th>
+            <th class="summary_table_header2">Target</th>
+            <th class="summary_table_header2">Opportunity Value</th>
+            <th class="summary_table_header2">Gap</th>   
+        </tr>
+        <tr>
+            <td>{!Account_Plan__c.Account__r.Name}</td>
+            
+            <td><apex:outputText value="{0,date,dd'/'MM'/'yyyy}" id="theStartDate">
+                    <apex:param value="{!Account_Plan__c.Start_Date__c}" />
+                </apex:outputText>
+            </td>
+            <td><apex:outputText value="{0,date,dd'/'MM'/'yyyy}" id="theEndDate">
+                    <apex:param value="{!Account_Plan__c.End_Date__c}" />
+                </apex:outputText>
+            </td>
+            <td><apex:outputText value="${0, number, ###,###.00}" id="theTarget">
+                    <apex:param value="{!Account_Plan__c.Target__c}" />
+                </apex:outputText>
+            </td>
+            <td><apex:outputText value="${0, number, ###,###.00}" id="theValue">
+                    <apex:param value="{!Account_Plan__c.Opportunity_Value__c}" />
+                </apex:outputText>
+            </td>
+            <td>
+                <apex:outputText value="${0, number, ###,###.00}" id="theGap">
+                    <apex:param value="{!Account_Plan__c.Gap__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+    </table>
+    
+    <table class="summary_table">
+        <tr>
+            <th colspan="6" class="summary_table_header1">Opportunity Details</th>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">Name</th>
+            <th class="summary_table_header2">Stage Name</th>
+            <th class="summary_table_header2">Amount</th>
+            <th class="summary_table_header2">Probability</th>
+            <th class="summary_table_header2">Expected Revenue</th>
+            <th class="summary_table_header2">Expected Start Date</th>   
+        </tr>
+        <apex:repeat value="{!Account_Plan__c.Opportunities__r}" var="opps">
+        <tr>
+            <td>{!opps.name}</td>
+            <td>{!opps.stagename}</td>
+            <td>
+                <apex:outputText value="${0, number, ###,###.00}">
+                    <apex:param value="{!opps.amount}" />
+                </apex:outputText>
+            </td>
+            <td>{!opps.probability}</td>
+            <td>
+                <apex:outputText value="${0, number, ###,###.00}">
+                    <apex:param value="{!opps.Expected_Revenue_P_A__c}"/>
+                </apex:outputText>
+            </td>
+            <td>
+                <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                    <apex:param value="{!opps.Expected_Start_Date__c}" />
+                </apex:outputText>
+            </td>
+        </tr>
+        </apex:repeat>
+    </table>
+    
+    <table class="summary_table">
+        <tr>
+            <th colspan="4" class="summary_table_header1">Opportunity Pain Chains</th>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">Opportunity Name</th>
+            <th class="summary_table_header2">Name</th>
+            <th class="summary_table_header2">Key Contact</th>
+            <th class="summary_table_header2">Internal Stakeholder Impact</th>   
+        </tr>
+        <apex:repeat value="{!painpts}" var="ppts">
+        <tr>
+            <td>{!ppts.Opportunity__r.Name}</td>
+            <td>{!ppts.name}</td>
+            <td>{!ppts.KeyContact__r.Name}</td>
+            <td>{!ppts.Internal_Stakeholder_Impact__c}</td>
+        </tr>
+        </apex:repeat>
+    </table>
+    
+    <table class="summary_table">
+        <tr>
+            <th colspan="5" class="summary_table_header1">Opportunity Competitors</th>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">Opportunity Name</th>
+            <th class="summary_table_header2">Competitor Name</th>
+            <th class="summary_table_header2">Incumbent?</th>
+            <th class="summary_table_header2">Incumbent Reason</th>
+            <th class="summary_table_header2">Competitive Advantage</th>   
+        </tr>
+        <apex:repeat value="{!competitors}" var="comps">
+        <tr>
+            <td>{!comps.OpportunityId__r.Name}</td>
+            <td>{!comps.AccountId__r.Name}</td>
+            <td>{!comps.Incumbents__c}</td>
+            <td>{!comps.Incumbent_Reason__c}</td>
+            <td>{!comps.Competitive_Advantage__c}</td>
+        </tr>
+        </apex:repeat>
+    </table>
+    
+    <table class="summary_table">
+        <tr>
+            <th colspan="4" class="summary_table_header1">Contacts</th>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">Contact Name</th>
+            <th class="summary_table_header2">Job Title</th>
+            <th class="summary_table_header2">Email</th>
+            <th class="summary_table_header2">Phone</th>   
+        </tr>
+        <apex:repeat value="{!contacts}" var="contact">
+        <tr>
+            <td>{!contact.Name}</td>
+            <td>{!contact.Title}</td>
+            <td>{!contact.Email}</td>
+            <td>{!contact.Phone}</td>
+        </tr>
+        </apex:repeat>
+    </table>
+        
+    <table class="summary_table">
+        <tr>
+            <th colspan="5" class="summary_table_header1">Service History Details</th>
+        </tr>
+        <tr>
+            <th class="summary_table_header2">Product</th>
+            <th class="summary_table_header2">Product Family</th>
+            <th class="summary_table_header2">Last Year</th>
+            <th class="summary_table_header2">Renewal Date</th>
+            <th class="summary_table_header2">Forecast</th>   
+        </tr>
+        <apex:repeat value="{!Account_Plan__c.Service_History__r}" var="svcs">
+        <tr>
+            <td>{!svcs.Product_Name__c}</td>
+            <td>{!svcs.Product_Family__c}</td>
+            <td>
+                <apex:outputText value="{0, number, ###,###.00}">
+                    <apex:param value="{!svcs.Last_Year__c}"/>
+                </apex:outputText>
+            </td>
+            <td>
+                <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                    <apex:param value="{!svcs.Renewal_Date__c}" />
+                </apex:outputText>
+            </td>
+            <td>{!svcs.Forecast__c}</td>
+        </tr>
+        </apex:repeat>
+    </table>
+    </div>
+</apex:page>

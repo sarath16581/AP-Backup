@@ -1,0 +1,5 @@
+<aura:event type="COMPONENT" description="Event template">
+    <aura:attribute name="relatedQuestions" type="Object"/>    
+    <aura:attribute name="ParentQuestionUniqueKey" type="String"/>
+    <aura:attribute name="relatedResponseIds" type="Set"/>
+</aura:event>

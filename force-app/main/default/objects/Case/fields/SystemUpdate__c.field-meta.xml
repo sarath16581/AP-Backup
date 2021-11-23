@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SystemUpdate__c</fullName>
+    <externalId>false</externalId>
+    <label>System Update</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Tracking Update</fullName>
+                <default>false</default>
+                <label>Tracking Update</label>
+            </value>
+            <value>
+                <fullName>Customer Email</fullName>
+                <default>false</default>
+                <label>Customer Email</label>
+            </value>
+            <value>
+                <fullName>Network Email</fullName>
+                <default>false</default>
+                <label>Network Email</label>
+            </value>
+            <value>
+                <fullName>Child Case Update</fullName>
+                <default>false</default>
+                <label>Child Case Update</label>
+            </value>
+            <value>
+                <fullName>Customer Comment</fullName>
+                <default>false</default>
+                <label>Customer Comment</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

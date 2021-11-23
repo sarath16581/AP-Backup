@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_F_Reference_ID</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(  ReferenceID__c   = NULL, 
+      NOT(ISPICKVAL( EnquirySubType__c , &quot;Damage to Property&quot;)), 
+      NOT(ISPICKVAL( Origin , &quot;Web&quot;)),
+      NOT(ISPICKVAL( Origin , &quot;Portal&quot;)),
+      NOT(ISPICKVAL( Origin , &quot;Internal form&quot;)),
+      NOT(ISNEW()),
+      ISBLANK(TEXT(CCUEnquiryType__c)),
+      CONTAINS( RecordType.DeveloperName, &quot;SSSWDelivery&quot;), 
+      Bypass_Data_enforcement__c = FALSE,
+      Email_Bypass_Data_enforcement__c = FALSE,
+      $Profile.Name &lt;&gt; &apos;SNNAP Integration&apos;, 
+OR ( 
+AND ( ISPICKVAL (ProductCategory__c, &quot;Domestic Parcels&quot;), 
+OR( 
+ISPICKVAL( ProductSubCategory__c , &quot;Parcel Post&quot;),  
+ISPICKVAL( ProductSubCategory__c , &quot;Express&quot;), 
+ISPICKVAL( ProductSubCategory__c , &quot;eParcel - Regular&quot;), 
+ISPICKVAL( ProductSubCategory__c , &quot;eParcel - Express&quot;), 
+ISPICKVAL( ProductSubCategory__c , &quot;Courier Post&quot;), 
+ISPICKVAL( ProductSubCategory__c , &quot;Cash on Delivery&quot;), 
+ISPICKVAL( ProductSubCategory__c , &quot;Mail redirection&quot;), 
+ISPICKVAL( ProductSubCategory__c , &quot;Mail hold&quot;))), 
+
+AND ( ISPICKVAL (ProductCategory__c, &quot;Domestic Letters&quot;), 
+OR( 
+ISPICKVAL( ProductSubCategory__c , &quot;Express Post&quot;),   
+ISPICKVAL( ProductSubCategory__c , &quot;Cash on Delivery&quot;), 
+ISPICKVAL( ProductSubCategory__c , &quot;Registered Post&quot;), 
+ISPICKVAL( ProductSubCategory__c , &quot;Tracked Letter&quot;),
+ISPICKVAL( ProductSubCategory__c , &quot;Mail hold&quot;), 
+ISPICKVAL( ProductSubCategory__c , &quot;Mail redirection&quot;))), 
+
+AND ( ISPICKVAL (ProductCategory__c, &quot;International Letters&quot;),
+      ISPICKVAL( ProductSubCategory__c , &quot;Mail Redirection&quot;)),
+
+AND ( OR (ISPICKVAL (ProductCategory__c, &quot;International Parcels&quot;),ISPICKVAL (ProductCategory__c, &quot;International Letters&quot;)), 
+OR( 
+ISPICKVAL( ProductSubCategory__c , &quot;ECI&quot;),
+ISPICKVAL( ProductSubCategory__c , &quot;Global Logistics&quot;),
+ISPICKVAL( ProductSubCategory__c , &quot;ECI Platinum&quot;), 
+ISPICKVAL( ProductSubCategory__c , &quot;Registered Post International&quot;), 
+ISPICKVAL( ProductSubCategory__c , &quot;Express Post International&quot;), 
+ISPICKVAL( ProductSubCategory__c , &quot;Pack &amp; Track International&quot;))  
+
+)))</errorConditionFormula>
+    <errorMessage>You must populate the field &apos;Reference ID&apos;</errorMessage>
+</ValidationRule>

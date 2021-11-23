@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Secondary_Competitor__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Who is the secondary competitor that that the organisation uses in relation to this service requirement?</inlineHelpText>
+    <label>Secondary Competitor</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Service__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Aae</fullName>
+                <default>false</default>
+                <label>Aae</label>
+            </value>
+            <value>
+                <fullName>Access Prepaid</fullName>
+                <default>false</default>
+                <label>Access Prepaid</label>
+            </value>
+            <value>
+                <fullName>Allied Express</fullName>
+                <default>false</default>
+                <label>Allied Express</label>
+            </value>
+            <value>
+                <fullName>Amex</fullName>
+                <default>false</default>
+                <label>Amex</label>
+            </value>
+            <value>
+                <fullName>ANZ</fullName>
+                <default>false</default>
+                <label>ANZ</label>
+            </value>
+            <value>
+                <fullName>ATM</fullName>
+                <default>false</default>
+                <label>ATM</label>
+            </value>
+            <value>
+                <fullName>ATO Clearing house</fullName>
+                <default>false</default>
+                <label>ATO Clearing house</label>
+            </value>
+            <value>
+                <fullName>Australian National Couriers</fullName>
+                <default>false</default>
+                <label>Australian National Couriers</label>
+            </value>
+            <value>
+                <fullName>Banks</fullName>
+                <default>false</default>
+                <label>Banks</label>
+            </value>
+            <value>
+                <fullName>Blue Star</fullName>
+                <default>false</default>
+                <label>Blue Star</label>
+            </value>
+            <value>
+                <fullName>Bonds Couriers</fullName>
+                <default>false</default>
+                <label>Bonds Couriers</label>
+            </value>
+            <value>
+                <fullName>Bpay</fullName>
+                <default>false</default>
+                <label>Bpay</label>
+            </value>
+            <value>
+                <fullName>Bpoint</fullName>
+                <default>false</default>
+                <label>Bpoint</label>
+            </value>
+            <value>
+                <fullName>Capital Transport</fullName>
+                <default>false</default>
+                <label>Capital Transport</label>
+            </value>
+            <value>
+                <fullName>Cards</fullName>
+                <default>false</default>
+                <label>Cards</label>
+            </value>
+            <value>
+                <fullName>Cash</fullName>
+                <default>false</default>
+                <label>Cash</label>
+            </value>
+            <value>
+                <fullName>Cash Passport</fullName>
+                <default>false</default>
+                <label>Cash Passport</label>
+            </value>
+            <value>
+                <fullName>CBA</fullName>
+                <default>false</default>
+                <label>CBA</label>
+            </value>
+            <value>
+                <fullName>Civic Transport</fullName>
+                <default>false</default>
+                <label>Civic Transport</label>
+            </value>
+            <value>
+                <fullName>Computershare</fullName>
+                <default>false</default>
+                <label>Computershare</label>
+            </value>
+            <value>
+                <fullName>Converga</fullName>
+                <default>false</default>
+                <label>Converga</label>
+            </value>
+            <value>
+                <fullName>Couriers Please</fullName>
+                <default>false</default>
+                <label>Couriers Please</label>
+            </value>
+            <value>
+                <fullName>DHL</fullName>
+                <default>false</default>
+                <label>DHL</label>
+            </value>
+            <value>
+                <fullName>DHL International</fullName>
+                <default>false</default>
+                <label>DHL International</label>
+            </value>
+            <value>
+                <fullName>Digital Delivery</fullName>
+                <default>false</default>
+                <label>Digital Delivery</label>
+            </value>
+            <value>
+                <fullName>Direct Couriers</fullName>
+                <default>false</default>
+                <label>Direct Couriers</label>
+            </value>
+            <value>
+                <fullName>Direct Freight Express (DFE)</fullName>
+                <default>false</default>
+                <label>Direct Freight Express (DFE)</label>
+            </value>
+            <value>
+                <fullName>Edentiti</fullName>
+                <default>false</default>
+                <label>Edentiti</label>
+            </value>
+            <value>
+                <fullName>Fastway</fullName>
+                <default>false</default>
+                <label>Fastway</label>
+            </value>
+            <value>
+                <fullName>Federal Express</fullName>
+                <default>false</default>
+                <label>Federal Express</label>
+            </value>
+            <value>
+                <fullName>FedEx</fullName>
+                <default>false</default>
+                <label>FedEx</label>
+            </value>
+            <value>
+                <fullName>FedEx International</fullName>
+                <default>false</default>
+                <label>FedEx International</label>
+            </value>
+            <value>
+                <fullName>Fuji Xerox</fullName>
+                <default>false</default>
+                <label>Fuji Xerox</label>
+            </value>
+            <value>
+                <fullName>Green ID</fullName>
+                <default>false</default>
+                <label>Green ID</label>
+            </value>
+            <value>
+                <fullName>Internal Fulfillment</fullName>
+                <default>false</default>
+                <label>Internal Fulfillment</label>
+            </value>
+            <value>
+                <fullName>Internt Banking</fullName>
+                <default>false</default>
+                <label>Internt Banking</label>
+            </value>
+            <value>
+                <fullName>Iron Mountain</fullName>
+                <default>false</default>
+                <label>Iron Mountain</label>
+            </value>
+            <value>
+                <fullName>Jet Couriers</fullName>
+                <default>false</default>
+                <label>Jet Couriers</label>
+            </value>
+            <value>
+                <fullName>Kings</fullName>
+                <default>false</default>
+                <label>Kings</label>
+            </value>
+            <value>
+                <fullName>Kings Transport</fullName>
+                <default>false</default>
+                <label>Kings Transport</label>
+            </value>
+            <value>
+                <fullName>Mail Call</fullName>
+                <default>false</default>
+                <label>Mail Call</label>
+            </value>
+            <value>
+                <fullName>NAB</fullName>
+                <default>false</default>
+                <label>NAB</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Other Clearing House</fullName>
+                <default>false</default>
+                <label>Other Clearing House</label>
+            </value>
+            <value>
+                <fullName>PMP</fullName>
+                <default>false</default>
+                <label>PMP</label>
+            </value>
+            <value>
+                <fullName>Quantium</fullName>
+                <default>false</default>
+                <label>Quantium</label>
+            </value>
+            <value>
+                <fullName>Salmat</fullName>
+                <default>false</default>
+                <label>Salmat</label>
+            </value>
+            <value>
+                <fullName>Smart Send</fullName>
+                <default>false</default>
+                <label>Smart Send</label>
+            </value>
+            <value>
+                <fullName>Star Track</fullName>
+                <default>false</default>
+                <label>Star Track</label>
+            </value>
+            <value>
+                <fullName>Super Funds Administrations</fullName>
+                <default>false</default>
+                <label>Super Funds Administrations</label>
+            </value>
+            <value>
+                <fullName>Temando</fullName>
+                <default>false</default>
+                <label>Temando</label>
+            </value>
+            <value>
+                <fullName>TNT</fullName>
+                <default>false</default>
+                <label>TNT</label>
+            </value>
+            <value>
+                <fullName>TNT International</fullName>
+                <default>false</default>
+                <label>TNT International</label>
+            </value>
+            <value>
+                <fullName>Toll</fullName>
+                <default>false</default>
+                <label>Toll</label>
+            </value>
+            <value>
+                <fullName>Toll IPEC</fullName>
+                <default>false</default>
+                <label>Toll IPEC</label>
+            </value>
+            <value>
+                <fullName>Toll Priority</fullName>
+                <default>false</default>
+                <label>Toll Priority</label>
+            </value>
+            <value>
+                <fullName>UPS</fullName>
+                <default>false</default>
+                <label>UPS</label>
+            </value>
+            <value>
+                <fullName>UPS International</fullName>
+                <default>false</default>
+                <label>UPS International</label>
+            </value>
+            <value>
+                <fullName>Veda</fullName>
+                <default>false</default>
+                <label>Veda</label>
+            </value>
+            <value>
+                <fullName>Westpac</fullName>
+                <default>false</default>
+                <label>Westpac</label>
+            </value>
+            <value>
+                <fullName>World Reach Freight</fullName>
+                <default>false</default>
+                <label>World Reach Freight</label>
+            </value>
+            <value>
+                <fullName>Zip ID</fullName>
+                <default>false</default>
+                <label>Zip ID</label>
+            </value>
+            <value>
+                <fullName>Experion</fullName>
+                <default>false</default>
+                <label>Experion</label>
+            </value>
+            <value>
+                <fullName>Border Express</fullName>
+                <default>false</default>
+                <label>Border Express</label>
+            </value>
+            <value>
+                <fullName>Broker/3PL/FF (please specify)</fullName>
+                <default>false</default>
+                <label>Broker/3PL/FF (please specify)</label>
+            </value>
+            <value>
+                <fullName>Direct Freight</fullName>
+                <default>false</default>
+                <label>Direct Freight</label>
+            </value>
+            <value>
+                <fullName>Other (please specify in comments)</fullName>
+                <default>false</default>
+                <label>Other (please specify in comments)</label>
+            </value>
+            <value>
+                <fullName>Toll Express</fullName>
+                <default>false</default>
+                <label>Toll Express</label>
+            </value>
+            <value>
+                <fullName>Toll Group</fullName>
+                <default>false</default>
+                <label>Toll Group</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Government, Agency &amp; Identity Services</controllingFieldValue>
+            <valueName>Edentiti</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Government, Agency &amp; Identity Services</controllingFieldValue>
+            <valueName>Green ID</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Government, Agency &amp; Identity Services</controllingFieldValue>
+            <controllingFieldValue>Addressed Mail Services</controllingFieldValue>
+            <controllingFieldValue>Unaddressed Mail Services</controllingFieldValue>
+            <valueName>Internal Fulfillment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Government, Agency &amp; Identity Services</controllingFieldValue>
+            <valueName>Veda</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Government, Agency &amp; Identity Services</controllingFieldValue>
+            <valueName>Zip ID</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Addressed Mail Services</controllingFieldValue>
+            <controllingFieldValue>Unaddressed Mail Services</controllingFieldValue>
+            <valueName>Digital Delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Addressed Mail Services</controllingFieldValue>
+            <controllingFieldValue>Unaddressed Mail Services</controllingFieldValue>
+            <valueName>PMP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Addressed Mail Services</controllingFieldValue>
+            <controllingFieldValue>Business &amp; Payment Services</controllingFieldValue>
+            <controllingFieldValue>Unaddressed Mail Services</controllingFieldValue>
+            <valueName>Salmat</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business &amp; Payment Services</controllingFieldValue>
+            <valueName>Computershare</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business &amp; Payment Services</controllingFieldValue>
+            <valueName>Converga</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business &amp; Payment Services</controllingFieldValue>
+            <valueName>Fuji Xerox</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business &amp; Payment Services</controllingFieldValue>
+            <valueName>Iron Mountain</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business &amp; Payment Services</controllingFieldValue>
+            <controllingFieldValue>Courier Services</controllingFieldValue>
+            <controllingFieldValue>International Parcel Services</controllingFieldValue>
+            <valueName>Toll</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business &amp; Payment Services</controllingFieldValue>
+            <controllingFieldValue>Domestic Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Express Post Services</controllingFieldValue>
+            <controllingFieldValue>Star Track Services</controllingFieldValue>
+            <valueName>Toll IPEC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business &amp; Payment Services</controllingFieldValue>
+            <controllingFieldValue>Domestic Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Express Post Services</controllingFieldValue>
+            <controllingFieldValue>Star Track Services</controllingFieldValue>
+            <valueName>Toll Priority</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Services</controllingFieldValue>
+            <valueName>Allied Express</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Services</controllingFieldValue>
+            <valueName>Australian National Couriers</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Services</controllingFieldValue>
+            <valueName>Bonds Couriers</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Services</controllingFieldValue>
+            <valueName>Capital Transport</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Services</controllingFieldValue>
+            <valueName>Civic Transport</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Services</controllingFieldValue>
+            <controllingFieldValue>Domestic Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Express Post Services</controllingFieldValue>
+            <controllingFieldValue>Star Track Services</controllingFieldValue>
+            <valueName>Couriers Please</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Services</controllingFieldValue>
+            <valueName>Direct Couriers</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Services</controllingFieldValue>
+            <controllingFieldValue>Domestic Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Express Post Services</controllingFieldValue>
+            <controllingFieldValue>Star Track Services</controllingFieldValue>
+            <valueName>Fastway</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Services</controllingFieldValue>
+            <valueName>Jet Couriers</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Services</controllingFieldValue>
+            <valueName>Kings Transport</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Services</controllingFieldValue>
+            <valueName>Mail Call</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Services</controllingFieldValue>
+            <controllingFieldValue>Domestic Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Express Post Services</controllingFieldValue>
+            <controllingFieldValue>International Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Star Track Services</controllingFieldValue>
+            <valueName>TNT</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Courier Services</controllingFieldValue>
+            <controllingFieldValue>Digital Services</controllingFieldValue>
+            <controllingFieldValue>Domestic Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Express Post Services</controllingFieldValue>
+            <controllingFieldValue>International Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Star Track Services</controllingFieldValue>
+            <controllingFieldValue>Unaddressed Mail Services</controllingFieldValue>
+            <controllingFieldValue>Consumer &amp; Financial Services</controllingFieldValue>
+            <valueName>Other (please specify in comments)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Services</controllingFieldValue>
+            <valueName>Bpay</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Services</controllingFieldValue>
+            <valueName>Internt Banking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Express Post Services</controllingFieldValue>
+            <controllingFieldValue>Star Track Services</controllingFieldValue>
+            <valueName>DHL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Express Post Services</controllingFieldValue>
+            <controllingFieldValue>Star Track Services</controllingFieldValue>
+            <valueName>FedEx</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Express Post Services</controllingFieldValue>
+            <controllingFieldValue>International Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Star Track Services</controllingFieldValue>
+            <valueName>UPS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Express Post Services</controllingFieldValue>
+            <controllingFieldValue>Star Track Services</controllingFieldValue>
+            <valueName>Border Express</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Express Post Services</controllingFieldValue>
+            <controllingFieldValue>Star Track Services</controllingFieldValue>
+            <valueName>Broker/3PL/FF (please specify)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Express Post Services</controllingFieldValue>
+            <controllingFieldValue>Star Track Services</controllingFieldValue>
+            <valueName>Direct Freight</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Express Post Services</controllingFieldValue>
+            <controllingFieldValue>Star Track Services</controllingFieldValue>
+            <valueName>Toll Express</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcel Services</controllingFieldValue>
+            <controllingFieldValue>Express Post Services</controllingFieldValue>
+            <controllingFieldValue>Star Track Services</controllingFieldValue>
+            <valueName>Toll Group</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcel Services</controllingFieldValue>
+            <valueName>DHL International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcel Services</controllingFieldValue>
+            <valueName>FedEx International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcel Services</controllingFieldValue>
+            <valueName>Quantium</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcel Services</controllingFieldValue>
+            <valueName>TNT International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcel Services</controllingFieldValue>
+            <valueName>UPS International</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>International Parcel Services</controllingFieldValue>
+            <valueName>World Reach Freight</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

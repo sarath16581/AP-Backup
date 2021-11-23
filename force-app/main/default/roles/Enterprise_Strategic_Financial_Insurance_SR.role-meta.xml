@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Edit</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>Enterprise &amp; Strategic Financial &amp; Insurance</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>Enterprise &amp; Strategic Financial &amp; Insurance - SR</name>
+    <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    <parentRole>Enterprise_Strategic_Financial_Insurance_Director_Sales</parentRole>
+</Role>

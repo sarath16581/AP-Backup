@@ -1,0 +1,269 @@
+/*********************** ICAMS Addons ******************************
+Australia Post
+
+DATE: 2013
+
+/***********************************************************************/
+/************************ Global DELOITTE FIXES ************************/
+/***********************************************************************/
+
+/************************** GENERAL ************************************/
+/* Default min-height for all page templates globally - this covers short error and success pages for forms and apps */
+.content-panel {
+    min-height: 500px;
+}
+
+/************************** FORMS **************************************/
+/* Form success styling
+/* Remove old green box globally 
+NOTE: This applies the old green colour and style from previous refresh - need these rules removed from global and class name updated to 'form-success' as 'success' class will be used in applications and forms for h1 and h2 colour styling*/
+.success {
+    padding: 0px !important;
+    border: 0px !important;
+    -webkit-border-radius: 5px !important;
+    border-radius: 0px !important;
+}
+/* Updated form success styling to apply globally - this applies correct green to corder and uses a new class name */
+.form-success {
+    padding: 15px 18px 15px 18px;
+    margin: 20px 0;
+    border: 2px solid #067a3d;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color: #067a3d;
+}
+/* Applies h3 styling for success box titles like error boxes */
+.form-success h3 {
+    font: 700 13px/20px Arial, sans-serif;
+    color: #067a3d;
+    margin: 0 0 6px 0;
+}
+/* New rule to cater for a success box without extra content and just a title */
+.form-success h3.only {
+    font: 700 13px/20px Arial, sans-serif;
+    color: #067a3d;
+    margin: 0;
+}
+/* Auto float left for individual form button controls and elements */
+.form-buttons a,.form-buttons input[type="submit"],.form-buttons input[type="button"],.form-buttons button {
+    float: left;
+}
+/* Auto float right for form controls and buttons */
+.actions .buttons {
+    float: right;
+}
+.formText {
+	clear:both;
+}
+/* Lists within form success boxes */
+.form-success ul li, .content-list li {
+    margin-left: 15px;
+}
+/* Form actions cancel link spacing */
+a.cancel-link {
+    margin: 15px 20px 0 0 !important;
+}
+/* Text links within labels and content of forms need to have underline as per body content */
+.form a {
+    text-decoration: underline;
+}
+/* Links with button style need to have underline removed */
+.form a.primary-cta,.form a.secondary-cta {
+    text-decoration: none !important;
+}
+/* Used for success page and thank you page headings */
+ h1.success, h2.success {
+    color: #067a3d;
+}
+/*** Forms elements */
+select {
+    padding: 1px 10px 7px 10px !important;
+} 
+/* Form label hint textt */
+span.label-note {
+    color: #A79A9A;
+}
+/* Global date picker icon */
+.input.dates input, .dates input {
+    background: #edeae6 url("images/icon-calendar.png") no-repeat 98% 4px;
+    cursor: pointer;
+}
+/* Global back link style - currently used in applications and new tools */
+.back-link {
+    font-size: 12px;
+    font-weight: 700;
+    color: #5E514D;
+    line-height: 13px;
+    background-position: 0 -54px;
+    background: url('images/icons-32bit-s2b77e50e7e.png') 0 -53px no-repeat;
+    height: 10px;
+    display: inline-block;
+    padding-left: 20px;
+}
+/* Loading spinner within field */
+input[type='text'].ui-autocomplete-loading {
+    background: url('/images/auspost-loading.gif') no-repeat right center;
+}
+.input-medium {
+    width: 248px !important;
+}
+.second-line {
+	margin-top: 10px; 
+}
+.input-regular label, .input-regular input, .input-regular select {
+	width: 235px;
+}
+.input-columns .input-options li {
+	width: 33% !important;
+}
+.link-disabled {
+    opacity: .5;
+    cursor: default;
+}
+.error {
+    color: #dc1928;
+}
+
+/******************************************************************/
+/************************ Global overrides ************************/
+/******************************************************************/
+input.cancel-link {
+    font-family: Arial,sans-serif;
+    font-size: 13px;
+    color: #dc1928;
+    text-decoration: underline; 
+    background: none;
+    border: none;
+    font-weight: normal;
+}
+input.cancel-link:hover {
+    background: none;
+    border:none;
+}
+/* Global form stepper */
+.stepNav {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px/3px;
+    -khtml-border-radius: 3px/3px;
+    border-radius: 3px;
+    background: #F3F1EE;
+    height: 67px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #e2dfda;
+}
+.stepNav li {
+    width: 312px;
+    padding: 10px 50px;
+    margin: 0;
+    color: #807370;
+    background: transparent url("images/step-nav-arrow.png") no-repeat;
+}
+.stepNav li.selected, .stepNav li.selected span.step {
+    color: #dc1928;
+}
+.stepNav li:first-child {
+    background: transparent;
+}
+.stepNav li.completed a, .stepNav li.completed span {
+    background: transparent url("images/step-nav-complete.png") no-repeat center right;
+    padding-right: 50px;
+    color: #807370;
+    text-decoration: none;
+}
+.stepNav li h3 {
+    font-size: 26px;
+    font-weight: bold;
+    margin: 0;
+    color: #807370;
+}
+.stepNav li.selected h3, .stepNav li.selected a, .stepNav li.selected {
+    color: #dc1928;
+    text-decoration: none;
+}
+.four-step ul.stepNav li {
+    width: auto;
+    padding: 10px 40px !important;
+}
+a.step, .step {
+    font-family: "Letter_one";
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none !important;
+    color: #807370;
+}
+a.step:visited {
+    color: #807370;
+}
+/* END Global form stepper */
+
+/* Landing page category heading style - new heading style developed for CSSO landing page, need to be able to use this on landing page/category page templates in the CMS with ability to change images */
+.grid-heading {
+    padding: 20px;
+    background: #E2DFDA;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+}
+.grid-heading h2 {
+    margin-bottom: 0 !important;
+}
+.grid-heading span.mini-vector {
+    float: right;
+    margin-top: -15px !important;
+}
+/* CSSO fancybox - Thanks confirmation steps and also used for MRSO error pages ***************/
+.two-step .step-callout {
+    width: 285px;
+    float: left;
+}
+.step-callout {
+    margin-right: 20px;
+}
+.step-callout h1,.step-callout h2 {
+    color: #DC1928;
+}
+.step-callout h1 {
+    margin-bottom: 0 !important;
+}
+.step-callout-container .last {
+    margin-right: 0 !important;
+}
+/* Thankyou pages green text and heading content width - only used when full width application template used: currently in MRSO */
+.thanks-intro {
+    width: 600px;
+}
+/* Summary data style *******************************************************************************************************************/
+/* Used for showing summary data fields that are not editable in forms and apps: currently used in MRSO, CSSO, Postbillpay and edentity */
+.input-group-summary {
+    display: inline-block;
+    position: relative;
+    margin-top: 15px;
+}
+.input-group-summary .summary-data {
+    float: left !important;
+    margin: 0 10px 0 0;
+    position: static;
+}
+.summary-data {
+    margin-top: 15px;
+    width: 250px;
+}
+.summary-data span.long {
+    width: 450px;
+}
+.summary-data-first {
+    margin-top: 0px;
+    width: 250px;
+}
+span.data-value {
+    font: normal 16px/26px "letter_one", Arial, sans-serif;
+    color: #5E514D;
+    display: block;
+}
+.actions a.cta-link {
+    text-decoration: none;
+}
+.actions a.cta-link:hover {
+    text-decoration: underline;
+}

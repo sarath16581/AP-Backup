@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Conclusion_Date__c</fullName>
+    <defaultValue>DATE(YEAR(TODAY())+1,10,31)</defaultValue>
+    <description>Conclusion Date</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The APR conclusion date that has been agreed to following a negotiation with the customer. Based on the selection in the Status field, this field may auto-populate with a standard date.</inlineHelpText>
+    <label>Conclusion Date</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

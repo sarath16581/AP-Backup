@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cases_to_transfer_for_Sat_OT</fullName>
+    <booleanFilter>1 AND 2 AND 3 AND 4 AND 5</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CaseLocality__c</columns>
+    <columns>ProductCategory__c</columns>
+    <columns>ProductSubCategory__c</columns>
+    <columns>EnquirySubType__c</columns>
+    <columns>SLATargetDate__c</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <columns>CASES.ORIGIN</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>equals</operation>
+        <value>Awaiting Customer Response,Customer Responded,Network Responded</value>
+    </filters>
+    <filters>
+        <field>EnquirySubType__c</field>
+        <operation>equals</operation>
+        <value>Disputed delivery scan,Missing Item</value>
+    </filters>
+    <filters>
+        <field>CASES.ORIGIN</field>
+        <operation>notEqual</operation>
+        <value>AP Retail (PM26)</value>
+    </filters>
+    <filters>
+        <field>ProductSubCategory__c</field>
+        <operation>equals</operation>
+        <value>Parcel Post</value>
+    </filters>
+    <filters>
+        <field>CaseLocality__c</field>
+        <operation>equals</operation>
+        <value>Domestic</value>
+    </filters>
+    <label>SSSW Sat OT Transfer</label>
+    <language>en_US</language>
+    <queue>SSSWConsumerBackOffice</queue>
+    <sharedTo>
+        <role>SSSW_Management</role>
+    </sharedTo>
+</ListView>

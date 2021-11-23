@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ST_Resolution_Code_Exclusion_List__c</fullName>
+    <description>This will store all the resolution code values to excluded for automated customer notification.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Please encode separate multiple values by a comma (e.g. &apos;Closed - Duplicate,Closed - Spam&apos;)</inlineHelpText>
+    <label>Resolution Code Exclusion List</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

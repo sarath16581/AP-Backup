@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>eParcel Onboarding no commencement date</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Aus_Post_Sales_Academy</letterhead>
+    <name>CME eParcel Onboarding - No commencement date</name>
+    <style>freeForm</style>
+    <subject>No commencement date - {!Case.Account} - Case {!Case.CaseNumber}</subject>
+    <textOnly>Hi {!Case.Requestor__c}
+
+
+I can see that this contract has been signed, but unfortunately I cannot enter the rates into SAP. When you prepared this contract, you did not include a commencement date, which makes the contract invalid according to our legal department.
+
+
+To correct this error, please send the following paragraph to the customer:
+
+
+It appears that in error, the contract that we recently signed did not include a commencement date in item 1 of the Details Schedule.
+
+
+However, the date of the latest signature is recorded as DAY MONTH 2016.  With your consent, I am proposing to insert DAY MONTH 2016 in item 1 of the Details Schedule.
+
+
+Could you confirm you agree with this approach to correct this error?
+
+
+Once you receive the customer’s response, please attach it to this case so that I can commence the entry of rates.
+
+
+You can access your case online by following the link below:
+
+
+
+{!Case.Link}
+
+
+
+
+Regards
+
+{!Case.OwnerFullName}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

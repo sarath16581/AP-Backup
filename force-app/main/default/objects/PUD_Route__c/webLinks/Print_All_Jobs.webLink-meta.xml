@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Print_All_Jobs</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <height>1000</height>
+    <linkType>page</linkType>
+    <masterLabel>Print  All Jobs</masterLabel>
+    <openType>sidebar</openType>
+    <page>PUD_JobPrint</page>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+</WebLink>

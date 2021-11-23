@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Legal_Team_View</fullName>
+    <columns>Apttus__Type__c</columns>
+    <columns>NAME</columns>
+    <columns>Apttus__Agreement_Types__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Apttus__IsActive__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Apttus__Type__c</field>
+        <operation>equals</operation>
+        <value>Agreement,Proposal</value>
+    </filters>
+    <label>Legal Team View</label>
+    <sharedTo>
+        <group>Apttus_Templates_Group</group>
+        <group>Legal_Team</group>
+    </sharedTo>
+</ListView>

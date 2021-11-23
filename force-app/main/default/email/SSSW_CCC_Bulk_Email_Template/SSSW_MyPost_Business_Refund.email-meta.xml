@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>June 2019: Template for bulk send to MyPost Business cases for alert of incorrect transaction</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>SSSW MyPost Business Refund</name>
+    <style>none</style>
+    <subject>Australia Post - Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference {!Case.CaseNumber}
+
+Update for Case enquiry - {!Case.CaseNumber}
+
+
+Thank you for contacting us in relation to the payment/technical issue you experienced on the 29th May 2019.
+
+
+Sadly, we experienced a system-wide technical error with our SecurePay service provider where this error was identified and a fix was implemented shortly after 10am but it resulted in money being withdrawn from payment accounts and not being transferred to the MyPost Business platform.
+
+We have identified that you&apos;ve made a payment that did not get transferred to MyPost Business and have processed a reversal of this charge back onto your method of payment. You should see this refund appear back on your payment account over the next 1 to 5 business days.
+
+We sincerely apologise for any inconvenience caused by this technical issue and if you continue to experience issues, please reach out to us via Help &amp; Support.
+
+Please enjoy the rest of your week.
+
+Regards,
+
+Australia Post
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

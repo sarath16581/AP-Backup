@@ -1,0 +1,11 @@
+/*@changeLog: 20-07-2020 Modified the radio button styling as per the new designs, as part of the Help and support form uplifts
+*/
+.THIS aside.chas-body_small {
+  margin-bottom: 32px;
+  font-size: 12px;
+}
+@media (max-width: 680px) {
+    .THIS aside.chas-body_small {
+    margin-bottom: 24px;
+  }
+}

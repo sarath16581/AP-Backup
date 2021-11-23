@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EBTName_12_Digits</fullName>
+    <active>true</active>
+    <description>2014-10 APMS</description>
+    <errorConditionFormula>AND
+(
+  (NOT ISBLANK(EBTName__c)),
+  OR 
+  (
+    (NOT ISNUMBER(EBTName__c)),
+    (LEN(EBTName__c)&lt;12),
+    (CONTAINS(EBTName__c, &quot;.&quot;)) 
+  )
+)</errorConditionFormula>
+    <errorDisplayField>EBTName__c</errorDisplayField>
+    <errorMessage>ReD Fraud Segmentation Code must contain 12 digits.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>BAMUpdateContactAppUniqueKeyField</fullName>
+        <description>Updates the Unique Key field with the Contact/Application values. This field is a unique key field to ensure duplicate records are prevented.</description>
+        <field>UniqueKey__c</field>
+        <formula>IF(ISBLANK(Application__c) || ISBLANK(Contact__c), &quot;&quot;, CASESAFEID(Application__c) &amp; CASESAFEID(Contact__c))</formula>
+        <name>BAM Update Contact App UniqueKey Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateContactApplicationAppKey</fullName>
+        <description>Update Application App Key. This is necessary since sharing rules do not currently support formula fields and certain teams require edit access to their respective records.</description>
+        <field>AppKey__c</field>
+        <formula>Application__r.AppKey__c</formula>
+        <name>UpdateContactApplicationAppKey</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>BAMContactApplicationCopyAppKey</fullName>
+        <actions>
+            <name>UpdateContactApplicationAppKey</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Used to trigger an update to the App Key field when application is updated. This is necessary since sharing rules do not currently support formula fields and certain teams require edit access to their respective Contact Application records.</description>
+        <formula>ISNEW() || ISCHANGED(Application__c) || ISCHANGED(Contact__c)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>BAMUniqueContactApplication</fullName>
+        <actions>
+            <name>BAMUpdateContactAppUniqueKeyField</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Rule to ensure that duplicate Contact/Application records can not be added</description>
+        <formula>ISNEW() || (ISCHANGED( Application__c ) || ISCHANGED ( Contact__c ))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

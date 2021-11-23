@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TDF_CollectFromOrDeliverToJobRequired</fullName>
+    <active>true</active>
+    <description>Either a Collect From or Deliver To job must be specified</description>
+    <errorConditionFormula>AND(ISBLANK( Collect_From_Job_Template__c ),
+    ISBLANK( Deliver_To_Job_Template__c )
+)</errorConditionFormula>
+    <errorMessage>A Collect From or Deliver To Job Template must be specified</errorMessage>
+</ValidationRule>

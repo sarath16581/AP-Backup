@@ -1,0 +1,24 @@
+<!--
+  * @author       : Jansi Rani. jansi.rani@auspost.com.au
+  * @date         : 13/08/2020
+  * @description  : Component for create enquiry tile.
+--------------------------------------- History --------------------------------------------------
+13.08.2020    Jansi Rani   Created
+-->
+<template>
+    <lightning-card>
+        <div slot="title">
+            <c-bsp-custom-icons icon={iconName} size="medium" iconclass="icon-inline"></c-bsp-custom-icons>
+            <lightning-formatted-rich-text class="slds-m-left_small" style="font-size: 1.2rem;" value={tileHeaderText}>
+            </lightning-formatted-rich-text>
+            <div class="slds-float_right enquiry-card-mobile">
+                <lightning-button class="brand-secondary-button" data-id={buttonDataId} variant="destructive-text" label={buttonLabel} slot="actions"
+                    onclick={handleClick}>
+                </lightning-button>
+            </div>
+        </div>
+        <p class="slds-p-horizontal_small">
+            <lightning-formatted-rich-text value={tileSubText}></lightning-formatted-rich-text>
+        </p>
+    </lightning-card>
+</template>

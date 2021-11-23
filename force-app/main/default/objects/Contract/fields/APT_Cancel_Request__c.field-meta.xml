@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Cancel_Request__c</fullName>
+    <description>Custom version of OOB Cancel Request button, the button will be hidden in Cancellation Reason is empty</description>
+    <externalId>false</externalId>
+    <formula>IF (AND(
+NOT( ISPICKVAL( APT_Cancellation_Reason__c , &quot;&quot;) ),
+OR(ISPICKVAL(Status_Category__c,&quot;Request&quot;), 
+ISPICKVAL(Status_Category__c,&quot;In Authoring&quot;), 
+AND(ISPICKVAL(Status_Category__c,&quot;In Signatures&quot;), NOT(ISPICKVAL(Status__c,&quot;Fully Signed&quot;))), 
+ISPICKVAL(Status_Category__c,&quot;In Filing&quot;)),
+NOT(ISPICKVAL(Status__c,&quot;Cancelled Request&quot;))), HYPERLINK(&quot;/apex/Apttus__AgreementCancel?id=&quot; &amp;Id, IMAGE(&quot;/resource/Apttus__Button_CancelRequest&quot;, &quot;Cancel Request&quot;), &quot;_self&quot;), NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Please select &apos;Cancellation Reason&apos; to enable this function. If &apos;Mark Opportunity as Lost&apos; is also selected, system will change Opportunity Stage accordingly.</inlineHelpText>
+    <label>Cancel Contract Request</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

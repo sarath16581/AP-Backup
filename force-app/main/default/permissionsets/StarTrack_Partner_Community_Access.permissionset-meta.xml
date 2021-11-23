@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>AsynchApexContinuationController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>stp_ConsignmentSearch</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>stp_CreateCase</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>stp_TaskSearch</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>stp_chatterFeedItemController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <description>Provide access to the StarTrack Partner Community - for internal users</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>StarTrack Partner Community Access</label>
+    <license>Salesforce</license>
+</PermissionSet>

@@ -1,0 +1,106 @@
+<style>
+	html {
+		font-family: Helvetica,Sans-Serif,Arial;
+		font-size: 12px;
+	}
+	h1 {
+		color: #111111;
+		font-weight: bold;
+		font-family: Arial,Helvetica,sans-serif;
+		font-size: 22px;
+		line-height: 30px;
+		text-align: left;
+		display: inline;
+		padding-left: 20px;
+	}
+	h3 {
+		font-family: Arial,Helvetica,sans-serif;
+		font-size: 14px;
+		line-height: 16px;
+		text-align: left;
+	}
+	.red {
+		color: #DF1027;
+	}
+	.bold {
+		font-weight: bold;
+	}
+	.outer {
+		background: #FFEDBA;
+		padding: 20px;
+	}
+	.header {
+		background: #FFFFFF;
+		padding: 20px;
+		margin: 20px;
+	}
+	.content {
+		background: #FFFFFF;
+		margin: 20px;
+		padding: 20px;
+	}
+	.footer {
+		margin: 20px;
+		padding: 20px;  
+	}
+</style>
+
+<div class="outer">
+	<div class="header">
+		<img align="left" style="outline:none;background-color:#DE1730;" src="http://static.auspost.com.au/ap/css/images/auspost.png" alt="AusPost" title="AusPost">
+		<h1 class="red">&nbsp;Wine Customer has requested RTS of a partial article via Netley PDC</h1><br/>
+		<!--<h1>Case {!Case.CaseNumber}</h1>-->
+	</div>
+	<div class="content">
+		<h3 class="red">Case {!Case.CaseNumber} has been created for {!Contact.LastName}.</h3>
+        <p><b>Reference ID:</b> {!Case.ReferenceID__c}<br/>
+		<b>Please click this link to view the Case:</b> {!Case.Link}<br/><br/>
+
+Thank you for reporting the damaged parcel {!Case.ReferenceID__c} to the eParcel Damages Team. The sender has requested that only the damaged article be delivered to the address detailed below.
+<br/>
+<br/>
+<br/>
+<b>INSTRUCTIONS</b>
+<br/>
+<br/>
+1. If this is a multi consignment please deliver all remaining undamaged boxes to the addressee.
+<br/>
+<br/>
+2. Please attach the yellow 'Damaged article - not for delivery' stickers to the damaged article and record the reference number {!Case.CaseNumber}.
+<br/>
+<br/>
+3. Ensure that the appropriate Damaged and Deliver event scans are recorded in EM prior to dispatch.
+<br/>
+<br/>
+4. Repack the damaged carton (ensure addressee labels are included), print this Case.
+<br/>
+<br/>
+5. Fold where indicated below and affix address label to return parcel.
+<br/>
+<br/>
+<br/>
+Regards,
+<br/>
+<br/>
+<span class="red bold">Australia Post Customer Contact Centre</span><br/>
+<br/>
+<br/>
+<b>FOR YOUR CONVENIENCE FOLD OR CUT HERE AND TAPE TO DAMAGED CARTON</b>
+<br/>
+<br/>
+<br/>
+<hr style="border-top: dotted 1px;" />
+<br/>
+<h2>
+SA WINE Co-ordinator<br/>
+Netley Parcel Delivery Centre<br/>
+Attn:  David Marshall<br/>
+368 Richmond Road<br/>
+NETLEY SA 5037<br/>
+</h2>
+<br/>
+<br/>
+<hr style="border-top: dotted 1px;" />
+	</div>
+<span style="color:#FFFFFF;">{!Case.EmailThreadID__c}</span></p>
+</div>

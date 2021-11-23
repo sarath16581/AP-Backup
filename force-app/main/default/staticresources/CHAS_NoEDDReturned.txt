@@ -1,0 +1,89 @@
+{
+    "articles": [
+        {
+            "href": "/consignment/v2/articles/JDQ020406901000605006",
+            "id": "JDQ020406901000605006",
+            "code": "JDQ020406901000605006",
+            "consignmentId": "4DQvMoxrR1sHLcokYcTyH5h4uFjKGCghEk416Cu2eTi64ng49Q==",
+            "consignmentCode": "JDQ0204069",
+            "fullBarcode": null,
+            "shortBarcode": null,
+            "isRegisteredByAP": false,
+            "isReceivedByAP": false,
+            "lastModifiedOn": null,
+            "dispatchedOn": null,
+            "etag": "3104b78deeb006e13fd424f0bf5a128d",
+            "expectedDelivery": {
+                "on": null,
+                "onChanged": false,
+                "between": null
+            },
+            "service": {
+                "productId": "94",
+                "productType": "eParcel",
+                "subProductId": "60",
+                "subProductType": null
+            },
+            "milestone": {
+                "on": "2020-10-06T12:19:57+00:00",
+                "name": "Pending",
+                "description": null,
+                "progressPercentage": null
+            },
+            "destinationAddress": {
+                "line1": null,
+                "line2": null,
+                "line3": null,
+                "suburb": null,
+                "state": null,
+                "postcode": null,
+                "countryCode": null,
+                "deliveryPoint": null
+            },
+            "deliveryInstructions": {
+                "redirect": {
+                    "status": null,
+                    "redirectChange": {
+                        "allowed": false,
+                        "reasonCode": null
+                    }
+                },
+                "safeDrop": {
+                    "status": null,
+                    "location": null,
+                    "locationChange": {
+                        "allowed": false,
+                        "reasonCode": null
+                    }
+                }
+            },
+            "deliverySummary": null,
+            "returnInstructions": {
+                "returnToSender": false
+            },
+            "consignmentCount": 1,
+            "consignments": {
+                "items": [
+                    {
+                        "href": "/consignment/v2/consignments/@4DQvMoxrR1sHLcokYcTyH5h4uFjKGCghEk416Cu2eTi64ng49Q==",
+                        "id": "4DQvMoxrR1sHLcokYcTyH5h4uFjKGCghEk416Cu2eTi64ng49Q==",
+                        "code": "JDQ0204069",
+                        "primary": true
+                    }
+                ]
+            },
+            "foundByTrackingReferences": [
+                {
+                    "id": "JDQ020406901000605006",
+                    "type": "IDTYPE_ARTICLE_CODE"
+                }
+            ],
+            "eventCount": 0,
+            "trackingEvents": {
+                "href": "/consignment/v2/articles/JDQ020406901000605006?expand=articles,events",
+                "items": []
+            }
+        }
+    ],
+    "errors": []
+}

@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Child</fullName>
+    <active>true</active>
+    <description>This is to segment each migration by integration type.</description>
+    <label>Child</label>
+    <picklistValues>
+        <picklist>Account_Manager_Involvement__c</picklist>
+        <values>
+            <fullName>Actively Lead Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Milestone Updates</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Weekly Updates</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Contract_Signed__c</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Started</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_Migration_Requirements__c</picklist>
+        <values>
+            <fullName>AAE to ST100 Product Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>API standard integration testing support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Custom Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Despatch ID Creation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>End to end testing support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reporting %28Bespoke or Standard%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STEXP to ST100 Product Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TEAM Account Creation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_Readiness__c</picklist>
+        <values>
+            <fullName>Prepared To Migrate Immediately</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prepared To Migrate In The Future</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resistant to Migration %28may require escalation%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Key_Drivers_Against_Lodgement_Migration__c</picklist>
+        <values>
+            <fullName>Complex Solution Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Features Does Not Meet Customer Needs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Integration Costs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No In House IT Capability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Applicable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Timing For Integration</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Key_Drivers_For_Lodgement_Migration__c</picklist>
+        <values>
+            <fullName>Label Compliance Issues</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manifest Data Issues</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Need Access To Full Product Suite %28Auspost%2FStarTrack%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Need Single Lodgement Solution %28AusPost%2FStarTrack%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Applicable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reduce Lodgement Integration Complexity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reporting Issues</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Using Old StarTrack Products %28STEXP%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Using StarTrack Retail %28Peoplesoft %E2%80%93 Freight Master%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Migration_Name__c</picklist>
+        <values>
+            <fullName>Full Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Part 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Part 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Part 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Part 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Part 5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Part 6</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Name__c</picklist>
+        <values>
+            <fullName>BulkShipper %28Integrated%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Despatcher %28Thick%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FMU %28Online%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Freight Master %28Thick%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Integrated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MOS %28Integrated%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MyStarTrack %28Thick%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MyStarTrack Online</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Third Party Integrators</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web Despatch %28Online%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel %28Integrated%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel Web %28Online%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Other_AusPost_Integration_Type_s__c</picklist>
+        <values>
+            <fullName>Despatcher</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Freight Master</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MyStarTrack</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Other_StarTrack_Integration_Type_s__c</picklist>
+        <values>
+            <fullName>FMU %28Online%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MyStarTrack Online</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web Despatch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel Web</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Other__c</picklist>
+        <values>
+            <fullName>3rd Party Integrator %28PeopleSoft%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3rd Party Integrator %28SAP%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3rd Party Integrator %28TEAM%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manual</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown %28Peoplesoft%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown %28TEAM%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel %28Unmanifested%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Pricing_Approved__c</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer to accept</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Started</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing analysis</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Primary_Integration_Type_s__c</picklist>
+        <values>
+            <fullName>BulkShipper</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MOS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Send a Parcel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel %28Integrated%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Product_Family_Used__c</picklist>
+        <values>
+            <fullName>Courier</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Premium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Road Express</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_For_Deferral__c</picklist>
+        <values>
+            <fullName>Customer Requested</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Risk_Of_Loss_Of_Business__c</picklist>
+        <values>
+            <fullName>Current Business Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Potential Risk</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Cohort Analysis</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirm Customer Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Commitment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deferred</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Legacy Accounts %26 Products Discontinued</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Migration In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Migration Planning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moved to 3PL account</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

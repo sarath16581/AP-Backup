@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Line_Manager_1__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Owner 1&apos;s line manager</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Owner 1&apos;s line manager</inlineHelpText>
+    <label>Line Manager</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Entertainment_Events1</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

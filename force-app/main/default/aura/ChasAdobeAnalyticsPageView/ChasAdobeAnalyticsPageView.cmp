@@ -1,0 +1,5 @@
+<aura:component>
+    <aura:attribute name="pageName" type="String" default="Home"/>
+    <aura:attribute name="step" type="String" default=""/>
+    <aura:attribute name="stage" type="String" default=""/>
+</aura:component>

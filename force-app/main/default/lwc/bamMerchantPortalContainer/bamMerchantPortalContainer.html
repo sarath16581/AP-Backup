@@ -1,0 +1,17 @@
+<!-- Bam Merchant Portal Container -->
+<template>
+
+    <template if:true={loaded}>
+        <template if:true={contactIsActive}>
+            <slot></slot>
+        </template>
+        <template if:false={contactIsActive}>
+
+            <h1 class="slds-text-heading_large">An Error Occurred</h1>
+
+            <c-community-custom-error error-message="You do not have access to view this page"></c-community-custom-error>
+
+        </template>
+    </template>
+
+</template>

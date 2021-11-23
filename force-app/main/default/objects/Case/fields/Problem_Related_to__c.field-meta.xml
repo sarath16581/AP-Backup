@@ -1,0 +1,1564 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Problem_Related_to__c</fullName>
+    <description>Problem Related to</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Problem Related to</inlineHelpText>
+    <label>Problem Related to</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>ProductSubCategory__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Access issues</fullName>
+                <default>false</default>
+                <label>Access issues</label>
+            </value>
+            <value>
+                <fullName>Account Issues</fullName>
+                <default>false</default>
+                <label>Account Issues</label>
+            </value>
+            <value>
+                <fullName>Advice emails</fullName>
+                <default>false</default>
+                <label>Advice emails</label>
+            </value>
+            <value>
+                <fullName>Armaguard Remittance</fullName>
+                <default>false</default>
+                <label>Armaguard Remittance</label>
+            </value>
+            <value>
+                <fullName>Bcard order status</fullName>
+                <default>false</default>
+                <label>Bcard order status</label>
+            </value>
+            <value>
+                <fullName>Bpay and DE Traces</fullName>
+                <default>false</default>
+                <label>Bpay and DE Traces</label>
+            </value>
+            <value>
+                <fullName>Bulk Money Order</fullName>
+                <default>false</default>
+                <label>Bulk Money Order</label>
+            </value>
+            <value>
+                <fullName>Cash as cheque</fullName>
+                <default>false</default>
+                <label>Cash as cheque</label>
+            </value>
+            <value>
+                <fullName>Cash Processed as Cheque</fullName>
+                <default>false</default>
+                <label>Cash Processed as Cheque</label>
+            </value>
+            <value>
+                <fullName>CBA Voucher Request</fullName>
+                <default>false</default>
+                <label>CBA Voucher Request</label>
+            </value>
+            <value>
+                <fullName>CBA Vouchers</fullName>
+                <default>false</default>
+                <label>CBA Vouchers</label>
+            </value>
+            <value>
+                <fullName>Change/Update Details</fullName>
+                <default>false</default>
+                <label>Change/Update Details</label>
+            </value>
+            <value>
+                <fullName>Chargeback</fullName>
+                <default>false</default>
+                <label>Chargeback</label>
+            </value>
+            <value>
+                <fullName>Charges</fullName>
+                <default>false</default>
+                <label>Charges</label>
+            </value>
+            <value>
+                <fullName>Cheque Extraction</fullName>
+                <default>false</default>
+                <label>Cheque Extraction</label>
+            </value>
+            <value>
+                <fullName>Cheque Fraud</fullName>
+                <default>false</default>
+                <label>Cheque Fraud</label>
+            </value>
+            <value>
+                <fullName>Cheque Processed as Cash</fullName>
+                <default>false</default>
+                <label>Cheque Processed as Cash</label>
+            </value>
+            <value>
+                <fullName>Consignment Cancellation</fullName>
+                <default>false</default>
+                <label>Consignment Cancellation</label>
+            </value>
+            <value>
+                <fullName>Contact Detail Updates</fullName>
+                <default>false</default>
+                <label>Contact Detail Updates</label>
+            </value>
+            <value>
+                <fullName>Contact Updates</fullName>
+                <default>false</default>
+                <label>Contact Updates</label>
+            </value>
+            <value>
+                <fullName>Contract Issue</fullName>
+                <default>false</default>
+                <label>Contract Issue</label>
+            </value>
+            <value>
+                <fullName>Copy</fullName>
+                <default>false</default>
+                <label>Copy</label>
+            </value>
+            <value>
+                <fullName>Copy (Accounts Payable)</fullName>
+                <default>false</default>
+                <label>Copy (Accounts Payable)</label>
+            </value>
+            <value>
+                <fullName>Copy (Payments Support)</fullName>
+                <default>false</default>
+                <label>Copy (Payments Support)</label>
+            </value>
+            <value>
+                <fullName>Copy of Money Order</fullName>
+                <default>false</default>
+                <label>Copy of Money Order</label>
+            </value>
+            <value>
+                <fullName>Copy of TRMF/TSMF Request</fullName>
+                <default>false</default>
+                <label>Copy of TRMF/TSMF Request</label>
+            </value>
+            <value>
+                <fullName>Copy TRMF/TSMF Request</fullName>
+                <default>false</default>
+                <label>Copy TRMF/TSMF Request</label>
+            </value>
+            <value>
+                <fullName>Credit Issues</fullName>
+                <default>false</default>
+                <label>Credit Issues</label>
+            </value>
+            <value>
+                <fullName>Customers</fullName>
+                <default>false</default>
+                <label>Customers</label>
+            </value>
+            <value>
+                <fullName>Daily Settlement Advice</fullName>
+                <default>false</default>
+                <label>Daily Settlement Advice</label>
+            </value>
+            <value>
+                <fullName>De-licence</fullName>
+                <default>false</default>
+                <label>De-licence</label>
+            </value>
+            <value>
+                <fullName>De-license</fullName>
+                <default>false</default>
+                <label>De-license</label>
+            </value>
+            <value>
+                <fullName>Deposit Book Order</fullName>
+                <default>false</default>
+                <label>Deposit Book Order</label>
+            </value>
+            <value>
+                <fullName>Deposit Book Request</fullName>
+                <default>false</default>
+                <label>Deposit Book Request</label>
+            </value>
+            <value>
+                <fullName>Deposited to NAB Account</fullName>
+                <default>false</default>
+                <label>Deposited to NAB Account</label>
+            </value>
+            <value>
+                <fullName>Deposit not processed</fullName>
+                <default>false</default>
+                <label>Deposit not processed</label>
+            </value>
+            <value>
+                <fullName>Deposit processed as Withdrawal</fullName>
+                <default>false</default>
+                <label>Deposit processed as Withdrawal</label>
+            </value>
+            <value>
+                <fullName>Dishonoured Cheque</fullName>
+                <default>false</default>
+                <label>Dishonoured Cheque</label>
+            </value>
+            <value>
+                <fullName>Dishonoured Cheque Advice</fullName>
+                <default>false</default>
+                <label>Dishonoured Cheque Advice</label>
+            </value>
+            <value>
+                <fullName>Dispute/chargeback</fullName>
+                <default>false</default>
+                <label>Dispute/chargeback</label>
+            </value>
+            <value>
+                <fullName>Dispute Stock Receipt Discrepancy</fullName>
+                <default>false</default>
+                <label>Dispute Stock Receipt Discrepancy</label>
+            </value>
+            <value>
+                <fullName>Document Retrieval</fullName>
+                <default>false</default>
+                <label>Document Retrieval</label>
+            </value>
+            <value>
+                <fullName>Duplicate Payment</fullName>
+                <default>false</default>
+                <label>Duplicate Payment</label>
+            </value>
+            <value>
+                <fullName>Eftpos Dispute</fullName>
+                <default>false</default>
+                <label>Eftpos Dispute</label>
+            </value>
+            <value>
+                <fullName>Encoding Error</fullName>
+                <default>false</default>
+                <label>Encoding Error</label>
+            </value>
+            <value>
+                <fullName>Enquiry Form</fullName>
+                <default>false</default>
+                <label>Enquiry Form</label>
+            </value>
+            <value>
+                <fullName>Error message clarifications</fullName>
+                <default>false</default>
+                <label>Error message clarifications</label>
+            </value>
+            <value>
+                <fullName>Error Notice</fullName>
+                <default>false</default>
+                <label>Error Notice</label>
+            </value>
+            <value>
+                <fullName>Error Notice (Agency)</fullName>
+                <default>false</default>
+                <label>Error Notice (Agency)</label>
+            </value>
+            <value>
+                <fullName>Error Notice (Banking)</fullName>
+                <default>false</default>
+                <label>Error Notice (Banking)</label>
+            </value>
+            <value>
+                <fullName>Error Notice (Cheques)</fullName>
+                <default>false</default>
+                <label>Error Notice (Cheques)</label>
+            </value>
+            <value>
+                <fullName>Error Notice (FAP 150)</fullName>
+                <default>false</default>
+                <label>Error Notice (FAP 150)</label>
+            </value>
+            <value>
+                <fullName>Error notifications</fullName>
+                <default>false</default>
+                <label>Error notifications</label>
+            </value>
+            <value>
+                <fullName>General Enquiry</fullName>
+                <default>false</default>
+                <label>General Enquiry</label>
+            </value>
+            <value>
+                <fullName>General Query</fullName>
+                <default>false</default>
+                <label>General Query</label>
+            </value>
+            <value>
+                <fullName>Generating Mailing Statements</fullName>
+                <default>false</default>
+                <label>Generating Mailing Statements</label>
+            </value>
+            <value>
+                <fullName>How to re-manifest</fullName>
+                <default>false</default>
+                <label>How to re-manifest</label>
+            </value>
+            <value>
+                <fullName>Image Request</fullName>
+                <default>false</default>
+                <label>Image Request</label>
+            </value>
+            <value>
+                <fullName>Importing</fullName>
+                <default>false</default>
+                <label>Importing</label>
+            </value>
+            <value>
+                <fullName>Incorrect / Duplicate Payment</fullName>
+                <default>false</default>
+                <label>Incorrect / Duplicate Payment</label>
+            </value>
+            <value>
+                <fullName>Incorrect Amount Paid</fullName>
+                <default>false</default>
+                <label>Incorrect Amount Paid</label>
+            </value>
+            <value>
+                <fullName>Incorrect Amount Processed</fullName>
+                <default>false</default>
+                <label>Incorrect Amount Processed</label>
+            </value>
+            <value>
+                <fullName>Incorrect Vendor or Amount Paid</fullName>
+                <default>false</default>
+                <label>Incorrect Vendor or Amount Paid</label>
+            </value>
+            <value>
+                <fullName>Information request</fullName>
+                <default>false</default>
+                <label>Information request</label>
+            </value>
+            <value>
+                <fullName>Internet Billpayment Query</fullName>
+                <default>false</default>
+                <label>Internet Billpayment Query</label>
+            </value>
+            <value>
+                <fullName>Inter-office Remittance</fullName>
+                <default>false</default>
+                <label>Inter-office Remittance</label>
+            </value>
+            <value>
+                <fullName>Invoice enquiry</fullName>
+                <default>false</default>
+                <label>Invoice enquiry</label>
+            </value>
+            <value>
+                <fullName>Key Issues</fullName>
+                <default>false</default>
+                <label>Key Issues</label>
+            </value>
+            <value>
+                <fullName>Labels</fullName>
+                <default>false</default>
+                <label>Labels</label>
+            </value>
+            <value>
+                <fullName>Letter Of Explanation</fullName>
+                <default>false</default>
+                <label>Letter Of Explanation</label>
+            </value>
+            <value>
+                <fullName>Link/Delink</fullName>
+                <default>false</default>
+                <label>Link/Delink</label>
+            </value>
+            <value>
+                <fullName>Mailing Statement Search</fullName>
+                <default>false</default>
+                <label>Mailing Statement Search</label>
+            </value>
+            <value>
+                <fullName>Mailing Statement Status Issues (Pricing Check, SSF, CCF)</fullName>
+                <default>false</default>
+                <label>Mailing Statement Status Issues (Pricing Check, SSF, CCF)</label>
+            </value>
+            <value>
+                <fullName>Manifest Issues</fullName>
+                <default>false</default>
+                <label>Manifest Issues</label>
+            </value>
+            <value>
+                <fullName>Manifest Line Item Reports</fullName>
+                <default>false</default>
+                <label>Manifest Line Item Reports</label>
+            </value>
+            <value>
+                <fullName>Manifests</fullName>
+                <default>false</default>
+                <label>Manifests</label>
+            </value>
+            <value>
+                <fullName>Manual Correction Status</fullName>
+                <default>false</default>
+                <label>Manual Correction Status</label>
+            </value>
+            <value>
+                <fullName>Missing Cheque</fullName>
+                <default>false</default>
+                <label>Missing Cheque</label>
+            </value>
+            <value>
+                <fullName>Missing Lodgement Point</fullName>
+                <default>false</default>
+                <label>Missing Lodgement Point</label>
+            </value>
+            <value>
+                <fullName>Missing Payment</fullName>
+                <default>false</default>
+                <label>Missing Payment</label>
+            </value>
+            <value>
+                <fullName>NAB deposit cheque</fullName>
+                <default>false</default>
+                <label>NAB deposit cheque</label>
+            </value>
+            <value>
+                <fullName>Negative Adjustment</fullName>
+                <default>false</default>
+                <label>Negative Adjustment</label>
+            </value>
+            <value>
+                <fullName>New Application</fullName>
+                <default>false</default>
+                <label>New Application</label>
+            </value>
+            <value>
+                <fullName>New Setups</fullName>
+                <default>false</default>
+                <label>New Setups</label>
+            </value>
+            <value>
+                <fullName>Non-Complaint</fullName>
+                <default>false</default>
+                <label>Non-Complaint</label>
+            </value>
+            <value>
+                <fullName>Not Goods Receipted</fullName>
+                <default>false</default>
+                <label>Not Goods Receipted</label>
+            </value>
+            <value>
+                <fullName>Notification for Discrepancy</fullName>
+                <default>false</default>
+                <label>Notification for Discrepancy</label>
+            </value>
+            <value>
+                <fullName>Not Received</fullName>
+                <default>false</default>
+                <label>Not Received</label>
+            </value>
+            <value>
+                <fullName>Offline deposit query</fullName>
+                <default>false</default>
+                <label>Offline deposit query</label>
+            </value>
+            <value>
+                <fullName>Offline Withdrawal Query</fullName>
+                <default>false</default>
+                <label>Offline Withdrawal Query</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Other (Agency)</fullName>
+                <default>false</default>
+                <label>Other (Agency)</label>
+            </value>
+            <value>
+                <fullName>Other (AP)</fullName>
+                <default>false</default>
+                <label>Other (AP)</label>
+            </value>
+            <value>
+                <fullName>Other (Banking)</fullName>
+                <default>false</default>
+                <label>Other (Banking)</label>
+            </value>
+            <value>
+                <fullName>Other (BCard)</fullName>
+                <default>false</default>
+                <label>Other (BCard)</label>
+            </value>
+            <value>
+                <fullName>Other (Cheques)</fullName>
+                <default>false</default>
+                <label>Other (Cheques)</label>
+            </value>
+            <value>
+                <fullName>Other (Fixed Assets)</fullName>
+                <default>false</default>
+                <label>Other (Fixed Assets)</label>
+            </value>
+            <value>
+                <fullName>Other (Inventory Control)</fullName>
+                <default>false</default>
+                <label>Other (Inventory Control)</label>
+            </value>
+            <value>
+                <fullName>Other (Invoice)</fullName>
+                <default>false</default>
+                <label>Other (Invoice)</label>
+            </value>
+            <value>
+                <fullName>Other (Petty Cash)</fullName>
+                <default>false</default>
+                <label>Other (Petty Cash)</label>
+            </value>
+            <value>
+                <fullName>Other (Western Union)</fullName>
+                <default>false</default>
+                <label>Other (Western Union)</label>
+            </value>
+            <value>
+                <fullName>Others</fullName>
+                <default>false</default>
+                <label>Others</label>
+            </value>
+            <value>
+                <fullName>Outstanding Payment</fullName>
+                <default>false</default>
+                <label>Outstanding Payment</label>
+            </value>
+            <value>
+                <fullName>Over the Counter Billpayment Query</fullName>
+                <default>false</default>
+                <label>Over the Counter Billpayment Query</label>
+            </value>
+            <value>
+                <fullName>Paid before Issue</fullName>
+                <default>false</default>
+                <label>Paid before Issue</label>
+            </value>
+            <value>
+                <fullName>Password</fullName>
+                <default>false</default>
+                <label>Password</label>
+            </value>
+            <value>
+                <fullName>Password Required</fullName>
+                <default>false</default>
+                <label>Password Required</label>
+            </value>
+            <value>
+                <fullName>Payment Blocked</fullName>
+                <default>false</default>
+                <label>Payment Blocked</label>
+            </value>
+            <value>
+                <fullName>Payment Dispute Issues</fullName>
+                <default>false</default>
+                <label>Payment Dispute Issues</label>
+            </value>
+            <value>
+                <fullName>Payment Enquiry</fullName>
+                <default>false</default>
+                <label>Payment Enquiry</label>
+            </value>
+            <value>
+                <fullName>Payment Trace</fullName>
+                <default>false</default>
+                <label>Payment Trace</label>
+            </value>
+            <value>
+                <fullName>Petty Cash Register/Deregister custodian query</fullName>
+                <default>false</default>
+                <label>Petty Cash Register/Deregister custodian query</label>
+            </value>
+            <value>
+                <fullName>Petty Cash Report Discrepancy of amount received</fullName>
+                <default>false</default>
+                <label>Petty Cash Report Discrepancy of amount received</label>
+            </value>
+            <value>
+                <fullName>Phone/Internet Billpay</fullName>
+                <default>false</default>
+                <label>Phone/Internet Billpay</label>
+            </value>
+            <value>
+                <fullName>Phone Billpayment Query</fullName>
+                <default>false</default>
+                <label>Phone Billpayment Query</label>
+            </value>
+            <value>
+                <fullName>Platforms</fullName>
+                <default>false</default>
+                <label>Platforms</label>
+            </value>
+            <value>
+                <fullName>Production - Customer Query</fullName>
+                <default>false</default>
+                <label>Production - Customer Query</label>
+            </value>
+            <value>
+                <fullName>Production - Platform Query</fullName>
+                <default>false</default>
+                <label>Production - Platform Query</label>
+            </value>
+            <value>
+                <fullName>Products</fullName>
+                <default>false</default>
+                <label>Products</label>
+            </value>
+            <value>
+                <fullName>Query</fullName>
+                <default>false</default>
+                <label>Query</label>
+            </value>
+            <value>
+                <fullName>Query/Dispute Stock Take Report</fullName>
+                <default>false</default>
+                <label>Query/Dispute Stock Take Report</label>
+            </value>
+            <value>
+                <fullName>Reconciliation</fullName>
+                <default>false</default>
+                <label>Reconciliation</label>
+            </value>
+            <value>
+                <fullName>Register/Deregister custodian query</fullName>
+                <default>false</default>
+                <label>Register/Deregister custodian query</label>
+            </value>
+            <value>
+                <fullName>Registration</fullName>
+                <default>false</default>
+                <label>Registration</label>
+            </value>
+            <value>
+                <fullName>Reimbursement for Personal Use</fullName>
+                <default>false</default>
+                <label>Reimbursement for Personal Use</label>
+            </value>
+            <value>
+                <fullName>Reissue Petty Cash Money Order</fullName>
+                <default>false</default>
+                <label>Reissue Petty Cash Money Order</label>
+            </value>
+            <value>
+                <fullName>Remittance Advice</fullName>
+                <default>false</default>
+                <label>Remittance Advice</label>
+            </value>
+            <value>
+                <fullName>Report Discrepancy of amount received</fullName>
+                <default>false</default>
+                <label>Report Discrepancy of amount received</label>
+            </value>
+            <value>
+                <fullName>Reports</fullName>
+                <default>false</default>
+                <label>Reports</label>
+            </value>
+            <value>
+                <fullName>Reprint of Stock Take Report</fullName>
+                <default>false</default>
+                <label>Reprint of Stock Take Report</label>
+            </value>
+            <value>
+                <fullName>Request for Information</fullName>
+                <default>false</default>
+                <label>Request for Information</label>
+            </value>
+            <value>
+                <fullName>Resend Money Order</fullName>
+                <default>false</default>
+                <label>Resend Money Order</label>
+            </value>
+            <value>
+                <fullName>Returns Reporting</fullName>
+                <default>false</default>
+                <label>Returns Reporting</label>
+            </value>
+            <value>
+                <fullName>Reversal Request</fullName>
+                <default>false</default>
+                <label>Reversal Request</label>
+            </value>
+            <value>
+                <fullName>Reversal Request (Agency)</fullName>
+                <default>false</default>
+                <label>Reversal Request (Agency)</label>
+            </value>
+            <value>
+                <fullName>Reversal Request (Outlet)</fullName>
+                <default>false</default>
+                <label>Reversal Request (Outlet)</label>
+            </value>
+            <value>
+                <fullName>Self Service Terminal</fullName>
+                <default>false</default>
+                <label>Self Service Terminal</label>
+            </value>
+            <value>
+                <fullName>Send A Parcel-Card</fullName>
+                <default>false</default>
+                <label>Send A Parcel-Card</label>
+            </value>
+            <value>
+                <fullName>Settlement</fullName>
+                <default>false</default>
+                <label>Settlement</label>
+            </value>
+            <value>
+                <fullName>Settlement Query</fullName>
+                <default>false</default>
+                <label>Settlement Query</label>
+            </value>
+            <value>
+                <fullName>Status of application</fullName>
+                <default>false</default>
+                <label>Status of application</label>
+            </value>
+            <value>
+                <fullName>Stock on Hand Discrepancy</fullName>
+                <default>false</default>
+                <label>Stock on Hand Discrepancy</label>
+            </value>
+            <value>
+                <fullName>Stolen from Outlet</fullName>
+                <default>false</default>
+                <label>Stolen from Outlet</label>
+            </value>
+            <value>
+                <fullName>Stolen from Post Office</fullName>
+                <default>false</default>
+                <label>Stolen from Post Office</label>
+            </value>
+            <value>
+                <fullName>Summary Lodgement Reports</fullName>
+                <default>false</default>
+                <label>Summary Lodgement Reports</label>
+            </value>
+            <value>
+                <fullName>System Issue</fullName>
+                <default>false</default>
+                <label>System Issue</label>
+            </value>
+            <value>
+                <fullName>System Issues</fullName>
+                <default>false</default>
+                <label>System Issues</label>
+            </value>
+            <value>
+                <fullName>Tech Concerns</fullName>
+                <default>false</default>
+                <label>Tech Concerns</label>
+            </value>
+            <value>
+                <fullName>Test - Customer Query</fullName>
+                <default>false</default>
+                <label>Test - Customer Query</label>
+            </value>
+            <value>
+                <fullName>Test - Platform Query</fullName>
+                <default>false</default>
+                <label>Test - Platform Query</label>
+            </value>
+            <value>
+                <fullName>Tests</fullName>
+                <default>false</default>
+                <label>Tests</label>
+            </value>
+            <value>
+                <fullName>Trace Request</fullName>
+                <default>false</default>
+                <label>Trace Request</label>
+            </value>
+            <value>
+                <fullName>Tracking Applications</fullName>
+                <default>false</default>
+                <label>Tracking Applications</label>
+            </value>
+            <value>
+                <fullName>Tracking Parcels</fullName>
+                <default>false</default>
+                <label>Tracking Parcels</label>
+            </value>
+            <value>
+                <fullName>Unmanifested Queries</fullName>
+                <default>false</default>
+                <label>Unmanifested Queries</label>
+            </value>
+            <value>
+                <fullName>Vendor Changes</fullName>
+                <default>false</default>
+                <label>Vendor Changes</label>
+            </value>
+            <value>
+                <fullName>Withdrawal/Deposit not processed</fullName>
+                <default>false</default>
+                <label>Withdrawal/Deposit not processed</label>
+            </value>
+            <value>
+                <fullName>Withdrawal not processed</fullName>
+                <default>false</default>
+                <label>Withdrawal not processed</label>
+            </value>
+            <value>
+                <fullName>Withdrawal processed as Deposit</fullName>
+                <default>false</default>
+                <label>Withdrawal processed as Deposit</label>
+            </value>
+            <value>
+                <fullName>Wrongful Cheque Negotiation</fullName>
+                <default>false</default>
+                <label>Wrongful Cheque Negotiation</label>
+            </value>
+            <value>
+                <fullName>Wrongful Negotiations</fullName>
+                <default>false</default>
+                <label>Wrongful Negotiations</label>
+            </value>
+            <value>
+                <fullName>Wrong Vendor Paid</fullName>
+                <default>false</default>
+                <label>Wrong Vendor Paid</label>
+            </value>
+            <value>
+                <fullName>All Other Queries</fullName>
+                <default>false</default>
+                <label>All Other Queries</label>
+            </value>
+            <value>
+                <fullName>Business Banking</fullName>
+                <default>false</default>
+                <label>Business Banking</label>
+            </value>
+            <value>
+                <fullName>Link charge to account</fullName>
+                <default>false</default>
+                <label>Link charge to account</label>
+            </value>
+            <value>
+                <fullName>Reissue invoice</fullName>
+                <default>false</default>
+                <label>Reissue invoice</label>
+            </value>
+            <value>
+                <fullName>Dispute charge</fullName>
+                <default>false</default>
+                <label>Dispute charge</label>
+            </value>
+            <value>
+                <fullName>National Police Check</fullName>
+                <default>false</default>
+                <label>National Police Check</label>
+            </value>
+            <value>
+                <fullName>Reprint Pricing Statement</fullName>
+                <default>false</default>
+                <label>Reprint Pricing Statement</label>
+            </value>
+            <value>
+                <fullName>Reprint Tax Invoice</fullName>
+                <default>false</default>
+                <label>Reprint Tax Invoice</label>
+            </value>
+            <value>
+                <fullName>Cash Entry Error</fullName>
+                <default>false</default>
+                <label>Cash Entry Error</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Post Office Accounting</controllingFieldValue>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <valueName>Deposit processed as Withdrawal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Accounting</controllingFieldValue>
+            <controllingFieldValue>Merchant Services</controllingFieldValue>
+            <valueName>Dispute/chargeback</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Accounting</controllingFieldValue>
+            <controllingFieldValue>Bank@Post</controllingFieldValue>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <valueName>Eftpos Dispute</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Accounting</controllingFieldValue>
+            <controllingFieldValue>Bank@Post</controllingFieldValue>
+            <controllingFieldValue>Armaguard</controllingFieldValue>
+            <controllingFieldValue>Manual Post Office (Non-EPOS)</controllingFieldValue>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <controllingFieldValue>Cheques</controllingFieldValue>
+            <controllingFieldValue>FAP 150</controllingFieldValue>
+            <valueName>Error Notice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Accounting</controllingFieldValue>
+            <valueName>Error Notice (Banking)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Accounting</controllingFieldValue>
+            <controllingFieldValue>Bank@Post</controllingFieldValue>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <valueName>Manual Correction Status</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Accounting</controllingFieldValue>
+            <controllingFieldValue>Bank@Post</controllingFieldValue>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <valueName>Offline deposit query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Accounting</controllingFieldValue>
+            <valueName>Other (Banking)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Accounting</controllingFieldValue>
+            <valueName>Phone/Internet Billpay</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Accounting</controllingFieldValue>
+            <valueName>Self Service Terminal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Accounting</controllingFieldValue>
+            <valueName>Withdrawal/Deposit not processed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Post Office Accounting</controllingFieldValue>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <valueName>Withdrawal processed as Deposit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>UPMS</controllingFieldValue>
+            <valueName>General Query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>UPMS</controllingFieldValue>
+            <controllingFieldValue>Cheques</controllingFieldValue>
+            <valueName>Image Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>UPMS</controllingFieldValue>
+            <valueName>Link charge to account</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>UPMS</controllingFieldValue>
+            <valueName>Reissue invoice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>UPMS</controllingFieldValue>
+            <valueName>Dispute charge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Access Maintenance</controllingFieldValue>
+            <valueName>Access issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Access Maintenance</controllingFieldValue>
+            <valueName>Contact Updates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Access Maintenance</controllingFieldValue>
+            <controllingFieldValue>Go Online Returns</controllingFieldValue>
+            <valueName>New Setups</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Access Maintenance</controllingFieldValue>
+            <valueName>Password</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Printing</controllingFieldValue>
+            <valueName>Labels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Printing</controllingFieldValue>
+            <valueName>Manifests</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Manifests</controllingFieldValue>
+            <valueName>Manifest Issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Manifests</controllingFieldValue>
+            <valueName>Unmanifested Queries</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Tracking Applications</controllingFieldValue>
+            <valueName>Tracking Applications</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Contract/Credit Issues</controllingFieldValue>
+            <controllingFieldValue>Contract/Account Issue</controllingFieldValue>
+            <controllingFieldValue>Customer Account Issues</controllingFieldValue>
+            <valueName>Contract Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Contract/Credit Issues</controllingFieldValue>
+            <valueName>Credit Issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel Assistance/Training</controllingFieldValue>
+            <controllingFieldValue>Parcel Send Assistance/Training</controllingFieldValue>
+            <valueName>Consignment Cancellation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel Assistance/Training</controllingFieldValue>
+            <controllingFieldValue>Parcel Send Assistance/Training</controllingFieldValue>
+            <valueName>Contact Detail Updates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel Assistance/Training</controllingFieldValue>
+            <controllingFieldValue>Parcel Send Assistance/Training</controllingFieldValue>
+            <valueName>Importing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eParcel Assistance/Training</controllingFieldValue>
+            <controllingFieldValue>Parcel Send Assistance/Training</controllingFieldValue>
+            <valueName>Tracking Parcels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reports</controllingFieldValue>
+            <valueName>Manifest Line Item Reports</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reports</controllingFieldValue>
+            <valueName>Returns Reporting</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reports</controllingFieldValue>
+            <valueName>Summary Lodgement Reports</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Barcodes</controllingFieldValue>
+            <valueName>Tests</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>API Key Issues</controllingFieldValue>
+            <valueName>Production - Customer Query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>API Key Issues</controllingFieldValue>
+            <valueName>Production - Platform Query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>API Key Issues</controllingFieldValue>
+            <valueName>Test - Customer Query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>API Key Issues</controllingFieldValue>
+            <valueName>Test - Platform Query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bank@Post</controllingFieldValue>
+            <controllingFieldValue>LPS API Requests</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable</controllingFieldValue>
+            <controllingFieldValue>Fixed Assets</controllingFieldValue>
+            <controllingFieldValue>Inventory Control</controllingFieldValue>
+            <controllingFieldValue>Invoice</controllingFieldValue>
+            <controllingFieldValue>Petty Cash</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Contract/Account Issue</controllingFieldValue>
+            <valueName>Account Issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Contract/Account Issue</controllingFieldValue>
+            <controllingFieldValue>Customer Account Issues</controllingFieldValue>
+            <valueName>Missing Lodgement Point</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Choice</controllingFieldValue>
+            <controllingFieldValue>LPS API Requests</controllingFieldValue>
+            <valueName>Key Issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Delivery Choice</controllingFieldValue>
+            <controllingFieldValue>LPS API Requests</controllingFieldValue>
+            <valueName>Registration</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eLMS Assistance/Training</controllingFieldValue>
+            <valueName>Generating Mailing Statements</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>eLMS Assistance/Training</controllingFieldValue>
+            <valueName>Products</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>LPS API Requests</controllingFieldValue>
+            <valueName>Others</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Mailing Statement Queries</controllingFieldValue>
+            <valueName>Mailing Statement Search</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Mailing Statement Queries</controllingFieldValue>
+            <valueName>Mailing Statement Status Issues (Pricing Check, SSF, CCF)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Mailing Statement Queries</controllingFieldValue>
+            <valueName>Reports</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Registrations/Access</controllingFieldValue>
+            <valueName>Customers</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Registrations/Access</controllingFieldValue>
+            <valueName>Platforms</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Send A Parcel-Card</controllingFieldValue>
+            <valueName>Send A Parcel-Card</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice</controllingFieldValue>
+            <valueName>Advice emails</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice</controllingFieldValue>
+            <controllingFieldValue>Billed</controllingFieldValue>
+            <valueName>Charges</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice</controllingFieldValue>
+            <controllingFieldValue>Billed</controllingFieldValue>
+            <valueName>Error message clarifications</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice</controllingFieldValue>
+            <controllingFieldValue>Billed</controllingFieldValue>
+            <valueName>How to re-manifest</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>KeyPass</controllingFieldValue>
+            <controllingFieldValue>FAP 150</controllingFieldValue>
+            <controllingFieldValue>MMM</controllingFieldValue>
+            <valueName>General Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>KeyPass</controllingFieldValue>
+            <valueName>Non-Complaint</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>KeyPass</controllingFieldValue>
+            <valueName>Status of application</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billed</controllingFieldValue>
+            <valueName>Error notifications</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <controllingFieldValue>SCR</controllingFieldValue>
+            <valueName>Cheque Extraction</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable</controllingFieldValue>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <controllingFieldValue>SCR</controllingFieldValue>
+            <valueName>Document Retrieval</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <controllingFieldValue>SCR</controllingFieldValue>
+            <valueName>Duplicate Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <controllingFieldValue>SCR</controllingFieldValue>
+            <valueName>Incorrect Amount Paid</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <controllingFieldValue>SCR</controllingFieldValue>
+            <valueName>Incorrect Amount Processed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <controllingFieldValue>Invoice</controllingFieldValue>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <controllingFieldValue>SCR</controllingFieldValue>
+            <valueName>Outstanding Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable</controllingFieldValue>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <controllingFieldValue>SCR</controllingFieldValue>
+            <valueName>Payment Blocked</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>SCR</controllingFieldValue>
+            <valueName>Petty Cash Register/Deregister custodian query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>SCR</controllingFieldValue>
+            <valueName>Petty Cash Report Discrepancy of amount received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>SCR</controllingFieldValue>
+            <valueName>Reissue Petty Cash Money Order</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <controllingFieldValue>SCR</controllingFieldValue>
+            <valueName>Remittance Advice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <controllingFieldValue>SCR</controllingFieldValue>
+            <valueName>Vendor Changes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <controllingFieldValue>SCR</controllingFieldValue>
+            <valueName>Wrong Vendor Paid</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable AP</controllingFieldValue>
+            <controllingFieldValue>Accounts Payable ST</controllingFieldValue>
+            <controllingFieldValue>APMS</controllingFieldValue>
+            <controllingFieldValue>Armaguard</controllingFieldValue>
+            <controllingFieldValue>Manual Post Office (Non-EPOS)</controllingFieldValue>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <controllingFieldValue>BCard</controllingFieldValue>
+            <controllingFieldValue>Cheques</controllingFieldValue>
+            <controllingFieldValue>Money Order</controllingFieldValue>
+            <controllingFieldValue>Western Union</controllingFieldValue>
+            <controllingFieldValue>SCR</controllingFieldValue>
+            <controllingFieldValue>ATO</controllingFieldValue>
+            <valueName>All Other Queries</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>APMS</controllingFieldValue>
+            <valueName>Chargeback</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>APMS</controllingFieldValue>
+            <valueName>Daily Settlement Advice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>APMS</controllingFieldValue>
+            <controllingFieldValue>ATO</controllingFieldValue>
+            <valueName>Request for Information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>APMS</controllingFieldValue>
+            <valueName>Settlement Query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Armaguard</controllingFieldValue>
+            <valueName>Armaguard Remittance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Armaguard</controllingFieldValue>
+            <valueName>Inter-office Remittance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Armaguard</controllingFieldValue>
+            <valueName>Notification for Discrepancy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Refund</controllingFieldValue>
+            <valueName>National Police Check</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Payable</controllingFieldValue>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>Incorrect Vendor or Amount Paid</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Agency</controllingFieldValue>
+            <valueName>Internet Billpayment Query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Agency</controllingFieldValue>
+            <valueName>Negative Adjustment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Agency</controllingFieldValue>
+            <valueName>Over the Counter Billpayment Query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Agency</controllingFieldValue>
+            <valueName>Phone Billpayment Query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Agency</controllingFieldValue>
+            <valueName>Reversal Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Agency</controllingFieldValue>
+            <controllingFieldValue>Merchant Services</controllingFieldValue>
+            <valueName>Settlement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Agency</controllingFieldValue>
+            <valueName>Cash Entry Error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <valueName>CBA Voucher Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <valueName>Deposit Book Order</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <valueName>Deposit not processed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <valueName>Offline Withdrawal Query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <valueName>Withdrawal not processed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Banking</controllingFieldValue>
+            <valueName>Business Banking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BCard</controllingFieldValue>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>Bcard order status</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BCard</controllingFieldValue>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>Payment Dispute Issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BCard</controllingFieldValue>
+            <valueName>Reimbursement for Personal Use</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BCard</controllingFieldValue>
+            <valueName>System Issues</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CEPOS</controllingFieldValue>
+            <valueName>Invoice enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cheques</controllingFieldValue>
+            <valueName>Cash Processed as Cheque</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cheques</controllingFieldValue>
+            <valueName>Cheque Fraud</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cheques</controllingFieldValue>
+            <valueName>Cheque Processed as Cash</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cheques</controllingFieldValue>
+            <valueName>Deposited to NAB Account</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cheques</controllingFieldValue>
+            <valueName>Dishonoured Cheque</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cheques</controllingFieldValue>
+            <valueName>Dishonoured Cheque Advice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cheques</controllingFieldValue>
+            <valueName>Encoding Error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cheques</controllingFieldValue>
+            <valueName>Missing Cheque</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cheques</controllingFieldValue>
+            <valueName>Trace Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cheques</controllingFieldValue>
+            <valueName>Wrongful Cheque Negotiation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fixed Assets</controllingFieldValue>
+            <valueName>Query/Dispute Stock Take Report</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fixed Assets</controllingFieldValue>
+            <valueName>Reprint of Stock Take Report</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Inventory Control</controllingFieldValue>
+            <valueName>Dispute Stock Receipt Discrepancy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Inventory Control</controllingFieldValue>
+            <valueName>Password Required</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Inventory Control</controllingFieldValue>
+            <valueName>Stock on Hand Discrepancy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Invoice</controllingFieldValue>
+            <controllingFieldValue>Remittance Advice</controllingFieldValue>
+            <valueName>Copy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Invoice</controllingFieldValue>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>Incorrect / Duplicate Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Invoice</controllingFieldValue>
+            <valueName>Not Goods Receipted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Merchant Services</controllingFieldValue>
+            <valueName>Reconciliation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money Order</controllingFieldValue>
+            <valueName>Bpay and DE Traces</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money Order</controllingFieldValue>
+            <valueName>Bulk Money Order</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money Order</controllingFieldValue>
+            <valueName>Copy of Money Order</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money Order</controllingFieldValue>
+            <valueName>Enquiry Form</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money Order</controllingFieldValue>
+            <valueName>Paid before Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money Order</controllingFieldValue>
+            <valueName>Stolen from Post Office</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <controllingFieldValue>Vendor</controllingFieldValue>
+            <valueName>Change/Update Details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>Copy (Accounts Payable)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>Copy (Payments Support)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>Not Received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>Other (AP)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>Other (BCard)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>Other (Invoice)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>Other (Petty Cash)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <controllingFieldValue>Petty Cash</controllingFieldValue>
+            <valueName>Query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <controllingFieldValue>Petty Cash</controllingFieldValue>
+            <valueName>Register/Deregister custodian query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <controllingFieldValue>Petty Cash</controllingFieldValue>
+            <valueName>Report Discrepancy of amount received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <controllingFieldValue>Petty Cash</controllingFieldValue>
+            <valueName>Resend Money Order</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment</controllingFieldValue>
+            <valueName>System Issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Receivable</controllingFieldValue>
+            <valueName>Reprint Pricing Statement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Accounts Receivable</controllingFieldValue>
+            <valueName>Reprint Tax Invoice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Western Union</controllingFieldValue>
+            <valueName>Copy TRMF/TSMF Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Western Union</controllingFieldValue>
+            <valueName>Letter Of Explanation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ATO</controllingFieldValue>
+            <valueName>Missing Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ATO</controllingFieldValue>
+            <valueName>Payment Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>MMM</controllingFieldValue>
+            <valueName>De-licence</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>MMM</controllingFieldValue>
+            <valueName>Link/Delink</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>MMM</controllingFieldValue>
+            <valueName>New Application</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

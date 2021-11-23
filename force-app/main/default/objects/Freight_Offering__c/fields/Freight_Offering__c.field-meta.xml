@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Freight_Offering__c</fullName>
+    <externalId>false</externalId>
+    <label>Freight Offering</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cartons</fullName>
+                <default>false</default>
+                <label>Cartons</label>
+            </value>
+            <value>
+                <fullName>Break Bulk Pallets</fullName>
+                <default>false</default>
+                <label>Break Bulk Pallets</label>
+            </value>
+            <value>
+                <fullName>Bulk Pallets</fullName>
+                <default>false</default>
+                <label>Bulk Pallets</label>
+            </value>
+            <value>
+                <fullName>Satchels</fullName>
+                <default>false</default>
+                <label>Satchels</label>
+            </value>
+            <value>
+                <fullName>Incompatible Freight</fullName>
+                <default>false</default>
+                <label>Incompatible Freight</label>
+            </value>
+            <value>
+                <fullName>Dangerous Goods</fullName>
+                <default>false</default>
+                <label>Dangerous Goods</label>
+            </value>
+            <value>
+                <fullName>Additional Freight Presentation</fullName>
+                <default>false</default>
+                <label>Additional Freight Presentation</label>
+            </value>
+            <value>
+                <fullName>Service Requirements</fullName>
+                <default>false</default>
+                <label>Service Requirements</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

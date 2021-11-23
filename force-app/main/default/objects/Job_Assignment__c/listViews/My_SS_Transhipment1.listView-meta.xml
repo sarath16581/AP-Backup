@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_SS_Transhipment1</fullName>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Depot__c</columns>
+    <columns>Job__c</columns>
+    <columns>Receivers_Name__c</columns>
+    <columns>Status__c</columns>
+    <columns>Type__c</columns>
+    <columns>RECORDTYPE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Logged_In_User_Primary_Depot__c</field>
+        <operation>equals</operation>
+        <value>First Transshipment</value>
+    </filters>
+    <filters>
+        <field>Type__c</field>
+        <operation>equals</operation>
+        <value>Trans-shipment 1</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Job_Assignment__c.Special_Services</value>
+    </filters>
+    <filters>
+        <field>Parent_Job_Status__c</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>Parent_Job_Status__c</field>
+        <operation>notEqual</operation>
+        <value>Cancelled</value>
+    </filters>
+    <label>My SS Transhipment1</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>Special_Services</group>
+        <group>Special_Services_Security_Express</group>
+        <role>SSSE_Co_Ordinator</role>
+    </sharedTo>
+</ListView>

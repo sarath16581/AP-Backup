@@ -1,0 +1,13 @@
+<!--
+    Description: This page is used to support a custom Tasking Publisher Action for StarTrack. On completion redirects
+    to a blank Publisher Action (Closed) as there is currently no way to have a custom VF PA adhere to auto-close feed setting.
+    History:  AUG.23.2015 PAUL FAYLE Modified
+    AUG.20.2015 DAVID CATINDOY(CloudSherpas) Created
+    AUG.28.2015 Patrick James Franco - Added validation before closing the publisher action
+    NOV.05.2015 Patrick James Franco - Added rendered filter to Is Bulk Task to hide it for Pickup Booking Enquiry Cases
+    NOV.16.2015 Patrick James Franco - Renamed Parent_Network_Facility references to Parent_Network
+    NOV.25.2015 Patrick James Franco - Content replaced by StarTrackCreateTask component
+-->
+<apex:page id="page" standardController="Case" docType="html-5.0" showHeader="false" sidebar="false">
+    <c:StarTrackCreateTask case="{!Case}"/>
+</apex:page>

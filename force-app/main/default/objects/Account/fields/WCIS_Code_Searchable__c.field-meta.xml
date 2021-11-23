@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>WCIS_Code_Searchable__c</fullName>
+    <description>This field is used in a workflow &quot;RFFC - Update WCIS Code&quot; field update to populate the WCIS code from the Network object. Reason to use this field as a searchable field in the search filter when use click &quot;Legal Entity Name&quot; Lookup field.</description>
+    <externalId>false</externalId>
+    <label>WCIS Code - Searchable</label>
+    <length>8</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

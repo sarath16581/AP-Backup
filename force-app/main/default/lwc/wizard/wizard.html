@@ -1,0 +1,42 @@
+<!--
+	Display a guided flow with multiple steps, only one is visible at a time. The progress is shown on the header along
+    with a current step indicator.
+
+    Based on the components published in https://github.com/jmpisson/lightning-wizard.
+
+    Features
+    - Define wizard with Lightning Web components declaratively.
+    - Override standard Navigation buttons defining specific step actions.
+    - Customize flow using JavaScript function for step validation and post-processing.
+    - Modify flow steps using standard LWC templates.
+
+    Changelog:
+    2020-10-05 - Ranjeewa Silva - Created.
+-->
+<template>
+    <div class="slds-card">
+        <div id="header" class="slds-card_header">
+            <slot name="header">
+                <div class="slds-text-align_center slds-p-around_small slds-text-heading_small">
+                    {header}
+                </div>
+            </slot>
+            <lightning-progress-indicator type={progressIndicatorType} has-error={hasError}
+                                          variant={progressIndicatorVariant} current-step={currentStep}>
+                <template for:each={flow} for:item="step">
+                    <lightning-progress-step key={step.name} label={step.label} value={step.name}></lightning-progress-step>
+                </template>
+            </lightning-progress-indicator>
+
+            <slot name="error">
+                <template if:true={hasError}>
+                    <div class="slds-container_fluid slds-theme_error">
+                        <span>{_errorMessages}</span>
+                    </div>
+                </template>
+            </slot>
+        </div>
+
+        <slot onslotchange={slotChange} onstepregistered={registerStep}></slot>
+    </div>
+</template>

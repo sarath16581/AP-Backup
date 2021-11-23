@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Current_Month_Utilisation</fullName>
+    <columns>NAME</columns>
+    <columns>Month_Indicator__c</columns>
+    <columns>Monthly_Resolve_Hours__c</columns>
+    <columns>Monthly_Utilisation_Resolve_Time__c</columns>
+    <columns>Monthly_Work_Hours__c</columns>
+    <columns>OWNER.FIRST_NAME</columns>
+    <columns>OWNER.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Month_Indicator__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>THIS_MONTH</value>
+    </filters>
+    <filters>
+        <field>Month_Indicator__c</field>
+        <operation>lessThan</operation>
+        <value>NEXT_MONTH</value>
+    </filters>
+    <label>Current Month Utilisation</label>
+    <sharedTo>
+        <group>Sales_Business_System_Team</group>
+    </sharedTo>
+</ListView>

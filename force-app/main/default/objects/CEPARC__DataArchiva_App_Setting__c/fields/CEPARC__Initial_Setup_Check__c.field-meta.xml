@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEPARC__Initial_Setup_Check__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Check if you would like to show all the archived records (preferred for admin users) irrespective of record accessibility.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check if you would like to show all the archived records (preferred for admin users) irrespective of record accessibility.</inlineHelpText>
+    <label>Show All Records?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

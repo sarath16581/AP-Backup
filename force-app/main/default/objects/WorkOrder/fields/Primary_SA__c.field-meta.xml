@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_SA__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Primary Service Appointment. Added to provide report type path of SA &gt; WO.  Set on creation of Service Appointment</description>
+    <externalId>false</externalId>
+    <label>Primary SA</label>
+    <referenceTo>ServiceAppointment</referenceTo>
+    <relationshipLabel>Work Orders (Primary SA)</relationshipLabel>
+    <relationshipName>Work_Orders</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

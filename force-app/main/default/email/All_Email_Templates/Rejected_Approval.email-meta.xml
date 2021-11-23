@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Template for Reject Opportunity Approvals</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Rejected Opportunity Approval</name>
+    <style>none</style>
+    <subject>Opportunity Approval Rejected</subject>
+    <textOnly>Please note that {!Opportunity.Name} has been rejected for the {!ApprovalRequest.Process_Name} for the reasons below:
+
+{!ApprovalRequest.Comments}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_DealMgr__ProductId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>ID of the product associated with the rule. Only applicable to Line Guidance Types</description>
+    <externalId>false</externalId>
+    <inlineHelpText>ID of the product associated with the rule. Only applicable to Line Guidance Types</inlineHelpText>
+    <label>Product</label>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>Deal Guidance Rules</relationshipLabel>
+    <relationshipName>DealGuidanceRules</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

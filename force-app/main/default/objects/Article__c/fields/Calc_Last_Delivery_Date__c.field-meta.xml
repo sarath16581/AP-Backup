@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Calc_Last_Delivery_Date__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(NOT(ISNULL(Last_Delivery_Event_Date__c)),
+TEXT(DAY(DATEVALUE(TEXT(Last_Delivery_Event_Date__c)))) + &apos;/&apos; +
+CASE(MONTH(DATEVALUE(TEXT(Last_Delivery_Event_Date__c))), 
+1,&apos;01&apos;, 
+2,&apos;02&apos;, 
+3,&apos;03&apos;, 
+4,&apos;04&apos;, 
+5,&apos;05&apos;, 
+6,&apos;06&apos;, 
+7,&apos;07&apos;, 
+8,&apos;08&apos;, 
+9,&apos;09&apos;, 
+10,&apos;10&apos;, 
+11,&apos;11&apos;,
+12,&apos;12&apos;,
+NULL) + &apos;/&apos; + 
+TEXT(YEAR(DATEVALUE(TEXT(Last_Delivery_Event_Date__c)))) + &apos; &apos; +
+IF(VALUE(MID(TEXT(Last_Delivery_Event_Date__c), 12, 2))&gt;12, TEXT(VALUE(MID(TEXT(Last_Delivery_Event_Date__c), 12, 2))-12), MID(TEXT(Last_Delivery_Event_Date__c), 12, 2)) +
+MID(TEXT(Last_Delivery_Event_Date__c), 14, 3) + &apos; &apos; + 
+IF(VALUE(MID(TEXT(Last_Delivery_Event_Date__c), 12, 2))&lt;12, &apos;AM&apos;, &apos;PM&apos;), &apos;&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Latest Delivery Event Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

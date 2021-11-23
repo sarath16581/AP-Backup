@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X3rd_Party_systems__c</fullName>
+    <externalId>false</externalId>
+    <label>3rd Party systems</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>IT_Integration_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>eCargo</fullName>
+                <default>false</default>
+                <label>eCargo</label>
+            </value>
+            <value>
+                <fullName>Move It Net</fullName>
+                <default>false</default>
+                <label>Move It Net</label>
+            </value>
+            <value>
+                <fullName>StarShipIT</fullName>
+                <default>false</default>
+                <label>StarShipIT</label>
+            </value>
+            <value>
+                <fullName>EzySend</fullName>
+                <default>false</default>
+                <label>EzySend</label>
+            </value>
+            <value>
+                <fullName>MyFreight</fullName>
+                <default>false</default>
+                <label>MyFreight</label>
+            </value>
+            <value>
+                <fullName>TDX</fullName>
+                <default>false</default>
+                <label>TDX</label>
+            </value>
+            <value>
+                <fullName>FMS</fullName>
+                <default>false</default>
+                <label>FMS</label>
+            </value>
+            <value>
+                <fullName>Neto</fullName>
+                <default>false</default>
+                <label>Neto</label>
+            </value>
+            <value>
+                <fullName>Termando</fullName>
+                <default>false</default>
+                <label>Termando</label>
+            </value>
+            <value>
+                <fullName>IFS</fullName>
+                <default>false</default>
+                <label>IFS</label>
+            </value>
+            <value>
+                <fullName>NetSuite</fullName>
+                <default>false</default>
+                <label>NetSuite</label>
+            </value>
+            <value>
+                <fullName>LSI</fullName>
+                <default>false</default>
+                <label>LSI</label>
+            </value>
+            <value>
+                <fullName>ShippIt</fullName>
+                <default>false</default>
+                <label>ShippIt</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>3rd Party System</controllingFieldValue>
+            <valueName>eCargo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3rd Party System</controllingFieldValue>
+            <valueName>Move It Net</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3rd Party System</controllingFieldValue>
+            <valueName>StarShipIT</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3rd Party System</controllingFieldValue>
+            <valueName>EzySend</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3rd Party System</controllingFieldValue>
+            <valueName>MyFreight</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3rd Party System</controllingFieldValue>
+            <valueName>TDX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3rd Party System</controllingFieldValue>
+            <valueName>FMS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3rd Party System</controllingFieldValue>
+            <valueName>Neto</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3rd Party System</controllingFieldValue>
+            <valueName>Termando</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3rd Party System</controllingFieldValue>
+            <valueName>IFS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3rd Party System</controllingFieldValue>
+            <valueName>NetSuite</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3rd Party System</controllingFieldValue>
+            <valueName>LSI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3rd Party System</controllingFieldValue>
+            <valueName>ShippIt</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3rd Party System</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

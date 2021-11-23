@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EnableReportDownload__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Allow or disable Download of Reports</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Allow or disable Download of Reports</inlineHelpText>
+    <label>Enable Report Download</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

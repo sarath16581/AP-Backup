@@ -1,0 +1,67 @@
+<apex:component controller="ContactProductChartComponentCont">
+	<apex:attribute name="contactId" description="the selected contactid" type="string" required="true" assignTo="{!contId}"/>
+
+	<apex:includeScript value="/support/console/29.0/integration.js"/>
+	
+	<apex:includeScript value="{!URLFOR($Resource.JQueryUI, '/js/jquery-1.10.2.min.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.Flot, '/js/jquery.flot.min.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.Flot, '/js/jquery.flot.pie.js')}" />
+	
+	<script type="text/javascript">
+	    var $j = jQuery.noConflict();
+		
+		$j(document).ready(function() {
+			$j.plot('#product-category-mix', {!productChartData}, {
+			    series: {
+			        pie: {
+			            show: true,
+			            radius: 1,
+			            label: {
+			                show: true,
+			                radius: 3/5,
+			                formatter: labelFormatter,
+			                background: {
+			                    opacity: 0.5
+			                },
+			                threshold: 0.1
+			            }
+			        }
+			    },
+			    legend: {
+			        show: false
+			    },
+			    grid: {
+			    	hoverable: true,
+			    }
+			});
+			
+			$j("<div id='case-chart-tooltip'></div>").css({
+				position: "absolute",
+				display: "none",
+				border: "1px solid #fdd",
+				padding: "2px",
+				"background-color": "#fee",
+				opacity: 0.80
+			}).appendTo("body");
+			
+			$j("#product-category-mix").on("plothover", function (event, pos, item) {
+				if (item) {
+					$j("#case-chart-tooltip")
+						.html(Math.round(item.series.percent) + "% " + item.series.label)
+						.css({top: pos.pageY-20, left: pos.pageX+5})
+						.fadeIn(200);
+				} else {
+					$j("#case-chart-tooltip").hide();
+				}
+				
+				$j(this).css({cursor: "pointer"});
+			});				
+		});
+		
+		function labelFormatter(label, series) {
+			return "<div style='font-size:6pt; text-align:center; padding:2px; color:white;'>" + Math.round(series.percent) + "%</div>";
+		}
+	</script>
+	<div id="product-category-mix" class="chart"></div>
+		
+</apex:component>

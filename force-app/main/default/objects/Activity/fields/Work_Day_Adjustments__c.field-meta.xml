@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Work_Day_Adjustments__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Lookup to the Work Day Adjustment Record. Updated in code</description>
+    <externalId>false</externalId>
+    <label>Work Day Adjustments</label>
+    <referenceTo>Work_Day_Adjustments__c</referenceTo>
+    <relationshipLabel>Activities</relationshipLabel>
+    <relationshipName>Activities</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Overlay_Type__c</fullName>
+    <description>Roles for Opportunity Team Member .</description>
+    <externalId>false</externalId>
+    <label>Overlay Type</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Direct Contribution</fullName>
+                <default>false</default>
+                <label>Direct Contribution</label>
+            </value>
+            <value>
+                <fullName>Solution Consultant</fullName>
+                <default>false</default>
+                <label>Solution Consultant</label>
+            </value>
+            <value>
+                <fullName>Partnerships</fullName>
+                <default>false</default>
+                <label>Partnerships</label>
+            </value>
+            <value>
+                <fullName>Product Specialist</fullName>
+                <default>false</default>
+                <label>Product Specialist</label>
+            </value>
+            <value>
+                <fullName>Sales Specialist</fullName>
+                <default>false</default>
+                <label>Sales Specialist</label>
+            </value>
+            <value>
+                <fullName>International Specialist</fullName>
+                <default>false</default>
+                <label>International Specialist</label>
+            </value>
+            <value>
+                <fullName>Solution Specialist</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Solution Specialist</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

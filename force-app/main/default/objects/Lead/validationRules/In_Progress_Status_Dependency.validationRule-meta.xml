@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>In_Progress_Status_Dependency</fullName>
+    <active>true</active>
+    <description>In Progress Status cannot be blank when Lead Status is selected</description>
+    <errorConditionFormula>AND(
+
+  (RecordType.DeveloperName = &apos;SecurePay&apos;),
+  ISPICKVAL(Status, &apos;In progress&apos;),
+  ISPICKVAL(In_Progress_Status__c, &apos;&apos;) 
+
+)</errorConditionFormula>
+    <errorDisplayField>In_Progress_Status__c</errorDisplayField>
+    <errorMessage>In Progress Status cannot be blank when Lead Status is In progress</errorMessage>
+</ValidationRule>

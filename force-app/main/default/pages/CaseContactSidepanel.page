@@ -1,0 +1,330 @@
+<!--
+    2017-09-17 nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
+    2018-10-01 nathan.franklin@auspost.com.au added support for click to dial
+	2019-09-30 saiswetha.pingali@auspost.com.au INC1350909 - Set nofocus on load 
+-->
+<apex:page standardController="Case" extensions="CaseContactSidepanelContExt" standardStylesheets="false" showHeader="true" sidebar="false">
+	<!-- showHeader="true" is required to support clickToDial -->
+
+	<c:ScriptLoader jsLibraries="jquery,ssswconsole,interaction,integration,bootstrap"
+					cssLibraries="bootstrap,ssswconsole" />
+
+	<apex:stylesheet value="{!URLFOR($Resource.AddressValidation, '/AddressValidationScript/AddressValidationStylesheet.css')}"/>
+
+	<script type="text/javascript">
+    
+        function setFocusOnLoad() {}
+        
+    
+        var j$ = jQuery.noConflict();
+        
+        j$(document).ready(function() {
+            initButtons();
+            initRecordLinks();
+            initAddressFields();
+            initTables();
+            addHyperlinkToMap();
+            changePageBlockButtonStyles();
+            
+            onChangeCustomerType();
+            //if({!lockFields}){
+                //j$('input[name$="2:inp"]').attr('disabled','disabled');
+                //j$('input[name$="3:inp"]').attr('disabled','disabled');}
+            //formatting error messages
+            j$('input.error,select.error')
+                .parents('.form-group')
+                .addClass('has-error');
+            j$('form div.errorMsg')
+                .addClass('text-danger');
+            j$('div.has-error label')
+                .addClass('text-danger');
+        });
+        
+        function onChangeCustomerType() {
+            
+            var lblAccountNo = j$('[id$="lblAccountNo"]');
+            var lblAccountName = j$('[id$="lblAccountName"]');
+            var txtAccountName = j$('[id$="txtAccountName"]');
+            var ddlCustomerTypes = j$('[id$="ddlCustomerTypes"]');
+
+            if (ddlCustomerTypes.val() == 'Consumer') {
+                lblAccountNo.text('APCN');
+                lblAccountName.hide();
+                txtAccountName.hide();
+                txtAccountName.val('');
+
+                if (cptAccountLookupByNumber_enable)
+                    cptAccountLookupByNumber_enable(false);
+
+            } else {
+                lblAccountNo.text('Account No. / ABN / APCN');
+                lblAccountName.show();
+                txtAccountName.show();
+
+                if (cptAccountLookupByNumber_enable)
+                    cptAccountLookupByNumber_enable(true);
+
+            }
+        }
+        
+        //opens the primary tab and the sub tab in that primary tab. 
+        //if the primaryTabUrl is null, opens the sub tab in the enclosing primary tab
+        function openSubTabInPrimaryTab(subtabUrl, primaryTabUrl) {
+            if (typeof primaryTabUrl === 'undefined') {
+                sforce.console.getEnclosingPrimaryTabId(function(result) {  
+                    sforce.console.openSubtab(result.id, subtabUrl, true, '', null);
+                });
+            } else {
+                sforce.console.openPrimaryTab(null, primaryTabUrl, true, '', function(result) {
+                    sforce.console.openSubtab(result.id, subtabUrl, true, '', null);
+                });
+            }
+        }
+        
+        function openPrimaryTab(primaryTabUrl) {
+            sforce.console.openPrimaryTab(null, primaryTabUrl, true, '');
+        }
+        
+        function initButtons() {
+            j$("[id*='savebtn']")
+                //.addClass("btn btn-sm btn-success")
+                .addClass("btn btn-sm")
+                .hide();
+            j$("[id*='cancelbtn']")
+                //.addClass("btn btn-sm btn-danger")
+                .addClass("btn btn-sm")
+                .hide();
+            sforce.console.getFocusedSubtabId(function(result){
+                if(window.tabUnsavedChanges) {
+                	sforce.console.setTabUnsavedChanges(false, tabUnsavedChanges, result.id);
+                } else {
+                    sforce.console.setTabUnsavedChanges(false, function() { }, result.id);
+                }
+            }); 
+            
+            if ({!ErrorsPresent}) {
+                markAsChanged();
+            }
+        }
+        function setAccountNumber(value) {
+            var txtAccountNo = j$('[id$="txtAccountNo"]');
+            txtAccountNo.val(value);
+        }
+        
+        function setAccountName(value) {
+            var txtAccountName = j$('[id$="txtAccountName"]');
+            txtAccountName.val(value);
+        }
+        function initRecordLinks() {
+            j$(".linkedField")
+                .attr("data-title", function(i, val) {//copying title to data-title to use in  the click event later
+                    return j$(this).attr("title");
+                })
+                .click(function() {
+                    var itemId = j$(this).attr("data-title");
+                    if (itemId.match('^500.*')) {//checking if case id. need to find a more elegant way of checking
+                        sforce.console.openPrimaryTab(null, '/' + itemId, true);
+                    } else {
+                        openSubTabInPrimaryTab('/' + itemId, '/{!caseContact.Id}');
+                    }
+                    return false;
+                })
+                .removeAttr("title");//to stop showing the id on hover over the link
+        }
+        
+        function initAddressFields() {
+            j$(".addressInput")
+                .change(markAsChanged)
+                .keydown(markAsChanged);
+        }
+        
+        function initTables() {
+            j$("table.list")
+                .addClass("table table-bordered table-hover");
+        }
+        
+        function addHyperlinkToMap() {
+            j$("#contactMap")
+                .click(function() {
+                    //openSubTabInPrimaryTab('/apex/facilitysearch?id={!caseContact.Id}', '/{!caseContact.Id}');
+                    sforce.console.openPrimaryTab(null, '/{!caseContact.Id}', true, '', function(result) {
+                        sforce.console.addEventListener('ContactLoaded', listener);
+                    });
+                })
+                .hover(function() {
+                    j$(this).css({cursor: "pointer"});
+                });
+        }
+        
+        function changePageBlockButtonStyles() {
+            j$("td.pbButton input[type='button']")
+                .addClass("btn-sm btn-default");
+        }
+        
+        var listener = function (result) {
+            if (result.message == '{!caseContact.Id}'.substring(0, 15)) {
+                sforce.console.fireEvent('OpenFacilities', '{!caseContact.Id}'.substring(0, 15), callback);
+            }
+        };
+                     
+        var callback = function(result) {
+            if (result.success) {
+                //window.console&&console.log('OpenFacilities fired!');
+            } else {
+                //window.console&&console.log('OpenFacilities could not be fired!');
+            } 
+        };        
+        
+        function markAsChanged() {
+            j$("[id*='savebtn']")
+                .show();
+            j$("[id*='cancelbtn']")
+                .show();
+                
+            saveOnEnter();
+        }
+        
+         function refreshPrimaryTab(hasErrorMessages) {
+            if (!hasErrorMessages) {
+                sforce.console.getEnclosingPrimaryTabId(function(result){
+                    sforce.console.getFocusedPrimaryTabObjectId(function(res) {
+                        sforce.console.openPrimaryTab(result.id, '/' + res.id, true, '', null);
+                    });
+                    //sforce.console.openPrimaryTab(result.id, '/{!case.ID}', true, '', null); 
+                    //sforce.console.refreshPrimaryTabById(result.id, true);
+                });
+            }
+        }
+        
+        function saveOnEnter() {
+            j$(".contactFrm input").keypress(function (e) {
+                if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+                    j$("[id*='savebtn']").click();
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+        }
+
+	</script>
+
+	<style>
+        td.pbTitle h3 {
+            display : none;/*to hide the section title if the hide buttons is false in the CaseContactSidePanelTabSettings__c custom setting */
+        }
+        
+        td.pbButton input[type='button'] {
+            margin-bottom : 5px;/*to add some margin after the button if the hide buttons is false in the CaseContactSidePanelTabSettings__c custom setting */
+        }
+
+	</style>
+
+	<apex:form styleClass="contactFrm" id="contFrm">
+		<c:LoadingSpinnerComponent showFunctionName="showProgress" hideFunctionName="hideProgress"/>
+		<c:AccountLookupComponent id="cptAccountLookupByNumber"
+								  assignTo="txtAccountNo" displayAccountNumber="true"
+								  onselect="setAccountName"/>
+		<c:AccountLookupComponent id="cptAccountLookupByName"
+								  assignTo="txtAccountName" onselect="setAccountNumber"/>
+
+		<div class="page-header" style="margin-top:10px;">
+			<table>
+				<tr>
+					<td>
+						<h3 style="margin-top:10px">Contact</h3>
+					</td>
+					<td style="width:90px; text-align:right">
+						<apex:commandButton action="{!cancel}" value="Cancel" id="cancelbtn"/>
+					</td>
+					<td>
+						<apex:commandButton action="{!view}" value="View"
+											onClick="openPrimaryTab('/{!caseContact.Id}');return false;"
+											styleClass="btn" rendered="{!NOT(ISBLANK(caseContact.Id))}"/>
+					</td>
+					<td>
+						<apex:commandButton action="{!save}" value="Save" onclick="showProgress();" id="savebtn"
+											oncomplete="hideProgress();refreshPrimaryTab({!ErrorsPresent});"
+											reRender="msg"/>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<apex:outputPanel id="msg">
+			<apex:messages styleClass="alert alert-danger"/>
+		</apex:outputPanel>
+
+			<table class="contact-table">
+				<apex:repeat value="{!$ObjectType.Contact.FieldSets.CaseContactDetails}" var="f">
+					<tr>
+						<th class="contact-label">
+							<apex:outputLabel value="{!f.Label}"
+											  styleClass="{!IF(OR(f.DBRequired || f.Required),"required","")}"
+											  for="inp"/>
+						</th>
+						<td class="contact-field">
+							<apex:inputField value="{!caseContact[f]}" onChange="markAsChanged()"
+											 onkeydown="markAsChanged()"
+											 required="{!f.DBRequired || f.Required}"
+											 styleClass="form-control input-sm master {!f.type}" id="inp"/>
+
+							<apex:outputPanel rendered="{!f.Type == 'phone' && !ISBLANK(caseContact[f])}">
+								<br/>
+								<support:clickToDial number="{!caseContact[f]}" entityId="{!caseContact.Id}" params="{!"CaseNumber:" & Case.CaseNumber}" />
+							</apex:outputPanel>
+
+						</td>
+					</tr>
+				</apex:repeat>
+				<tr>
+					<th class="contact-label">
+						<apex:outputLabel value="Account Name" for="txtAccountName"
+										  id="lblAccountName" rendered="{!showAccName}"/>
+					</th>
+					<td class="contact-field">
+						<apex:inputtext value="{!strAccountName}" id="txtAccountName" onchange="markAsChanged()"
+
+										styleClass="form-control input-sm string" rendered="{!isEditable}"/>
+
+						<apex:outputtext value="{!strAccountName}" id="txtAccountName2"
+
+										 styleClass="form-control input-sm string" rendered="{!isReadOnly}"/>
+					</td>
+				</tr>
+
+			</table>
+			<br/>
+			<div id="someId">
+				<c:AddressComponentV1 address="{!mailingAddress}" onchange="markAsChanged"
+									  legend="Mailing Address"/>
+			</div>
+			<br/>
+			<table class="contact-table">
+				<tr>
+					<th class="contact-label">
+						<apex:outputLabel value="{!$Label.VerifiedName}" for="txtLegalName"
+										  id="lblLegalName"/>
+					</th>
+					<td class="contact-field">
+						<apex:outputtext value="{!caseContact.LegalFirstName__c} {!caseContact.LegalLastName__c}"
+										 id="txtLegalName"
+										 styleClass="form-control input-sm string"/>
+					</td>
+				</tr>
+				<tr>
+					<th class="contact-label">
+						<apex:outputLabel value="{!$Label.VerifiedMobile}" for="txtVerifiedMobile"
+										  id="lblVerifiedMobile"/>
+					</th>
+					<td class="contact-field">
+						<apex:outputtext value="{!caseContact.VerifiedMobile__c}" id="txtVerifiedMobile"
+										 styleClass="form-control input-sm string"/>
+					</td>
+				</tr>
+			</table>
+
+	</apex:form>
+	<br/>
+	<hr/>
+
+</apex:page>

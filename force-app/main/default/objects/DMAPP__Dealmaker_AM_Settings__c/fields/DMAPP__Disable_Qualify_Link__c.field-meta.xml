@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Disable_Qualify_Link__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Setting this to true will disable the qualify link on the potential tab of the Opportunity Map intersection dialog in AM.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Setting this to true will disable the qualify link on the potential tab of the Opportunity Map intersection dialog in AM.</inlineHelpText>
+    <label>Disable Qualify Link</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

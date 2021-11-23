@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Event to register the click on chasLoginOptions">
+    <aura:attribute name="displaymyPostLoginForm" type="Boolean" default="false" />
+</aura:event>

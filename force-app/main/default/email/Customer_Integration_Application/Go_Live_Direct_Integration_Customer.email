@@ -1,0 +1,45 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoPlainText" style=""><table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="0" style="width:1141.1pt;margin-left:7.1pt;border-collapse:collapse;mso-yfti-tbllook:
+ 1184;mso-padding-alt:0cm 0cm 0cm 0cm">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+  height:30.55pt">
+  <td width="3" valign="top" style="width:1.0pt;padding:0cm 0cm 0cm 0cm;height:
+  30.55pt">
+  <p class="MsoNormal"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+  </td>
+  <td width="1519" style="width:573.1pt;padding:0cm 0cm 0cm 0cm;height:30.55pt">
+  <p class="MsoPlainText"><font face="Arial, sans-serif" size="2">Hi {!Contact.FirstName},<o:p></o:p></font></p>
+  <p class="MsoPlainText"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+  <p class="MsoPlainText"><font face="Arial, sans-serif" size="2">We’re
+  pleased to advise that the sample Label and Order Summary you provided has
+  been validated and complies with our minimum standards. <o:p></o:p></font></p>
+  <p class="MsoPlainText"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+  <p class="MsoPlainText"><font face="Arial, sans-serif" size="2">Your unique
+  10 digit account number is: <b style="mso-bidi-font-weight:normal">XXXXXXXXXX
+  <o:p></o:p></b></font></p>
+  <p class="MsoPlainText"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+  <p class="MsoPlainText"><font face="Arial, sans-serif" size="2">We want to
+  make this as easy as possible for you, so we’ve attached a step-by-step guide
+  on how to register and access the Australia Post Shipping and Tracking APIs. <o:p></o:p></font></p>
+  <p class="MsoPlainText"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+  <p class="MsoPlainText"><font face="Arial, sans-serif" size="2">In the
+  event of service degradation or outages, you can go to the Australia Post
+  Developer Centre-API Status website at <a href="https://status.developers.auspost.com.au/">https://status.developers.auspost.com.au/</a> to monitor the status of the
+  application or subscribe to receive status updates.<o:p></o:p></font></p>
+  <p class="MsoPlainText"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+  <p class="MsoPlainText"><font face="Arial, sans-serif" size="2">We’re here
+  to help, so if you have any questions get in touch with us at <a href="mailto:customer_connectivity@auspost.com.au">customer_connectivity@auspost.com.au</a>.<o:p></o:p></font></p>
+  <p class="MsoNormal" style="margin-bottom:3.0pt"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+  <p class="MsoNormal" style="margin-bottom:3.0pt"><font face="Arial, sans-serif" size="2">Regards<o:p></o:p></font></p>
+  <p class="MsoNormal" style="margin-bottom:3.0pt"><font face="Arial, sans-serif" size="2">Lodgement
+  &amp; APIs Team<o:p></o:p></font></p>
+  <p class="MsoNormal" style="margin-bottom:3.0pt"><font face="Arial, sans-serif" size="2">Parcels,
+  eCommerce and Digital<o:p></o:p></font></p>
+  <p class="MsoNormal"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+  </td>
+ </tr>
+</tbody></table><br></p>]]></td>
+</tr>
+</table>

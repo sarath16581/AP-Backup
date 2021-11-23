@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Manager_changes__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Checking this field indicates that the Contact will receive information about Account Manager changes.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Notify this Contact about any Account Manager changes affecting  their Organisation.</inlineHelpText>
+    <label>Account Manager changes</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

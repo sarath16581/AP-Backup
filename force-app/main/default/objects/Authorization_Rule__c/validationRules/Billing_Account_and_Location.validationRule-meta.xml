@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Billing_Account_and_Location</fullName>
+    <active>true</active>
+    <description>An Auth rule should not have both Billing Account and Location associated to it.</description>
+    <errorConditionFormula>!ISBLANK( Billing_Account__c ) &amp;&amp; !ISBLANK( Location__c )</errorConditionFormula>
+    <errorMessage>You can only specify either Billing Account or Location.</errorMessage>
+</ValidationRule>

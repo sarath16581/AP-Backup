@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unassigned_Credit_Management_Requests</fullName>
+    <booleanFilter>3 AND 4 AND (5 OR (6 AND 2 AND 1))</booleanFilter>
+    <columns>NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>Credit_Work_Type__c</columns>
+    <columns>Stage__c</columns>
+    <columns>Status__c</columns>
+    <columns>Credit_Representative__c</columns>
+    <columns>Credit_Person_Code__c</columns>
+    <columns>KPI_SLA__c</columns>
+    <columns>Has_Closure_SLA_been_exceeded__c</columns>
+    <columns>Sub_Account_Checkbox__c</columns>
+    <columns>Billing_Account__c</columns>
+    <columns>Organisation__c</columns>
+    <columns>Requestor__c</columns>
+    <columns>Priority__c</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>Billing_Account_Change_of_Details_Type__c</field>
+        <operation>notEqual</operation>
+        <value>Company Structure Details</value>
+    </filters>
+    <filters>
+        <field>Credit_Work_Type__c</field>
+        <operation>notEqual</operation>
+        <value>Credit assessment query,Credit limit review</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Submitted,Received Information,Completed,In Progress</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Deal_Support_Request__c.Credit_Management_Request</value>
+    </filters>
+    <filters>
+        <field>Invalid_Credit_Person_Code__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Credit_Person_Code__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>Unassigned Credit Management Requests</label>
+    <language>en_US</language>
+    <queue>Unassigned_Credit_Management_Requests</queue>
+    <sharedTo>
+        <group>Credit_DSR_Management_Request_Team</group>
+        <group>Deal_Enablement_Centre_Team</group>
+    </sharedTo>
+</ListView>

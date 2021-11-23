@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>[Developer Centre and API registration - new platform customer]</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>CIA_Lodgement</letterhead>
+    <name>CIA - Developer Centre and API registration</name>
+    <style>freeForm</style>
+    <subject>[Developer Centre and API registration - new platform customer]</subject>
+    <textOnly>Thank you for your recent enquiry in to Australia Post business services.
+
+To use our Shipping and Tracking APIs you will first need to go to our Developer Centre and complete both the following tasks:
+
+
+1)  Login or Create an account  and   2) Register your interest
+
+
+
+Once you have registered we will contact you with further information.
+
+Please Note: You must complete both of the above tasks so we can contact you with further information to enable you to utilise our APIs via your platform as quickly and conveniently as possible.
+
+If you have any queries regarding this information, please don’t hesitate to contact us at customer_connectivity@auspost.com.au
+
+Regards
+
+Lodgement &amp; APIs Team
+
+Parcels, eCommerce and Digital</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

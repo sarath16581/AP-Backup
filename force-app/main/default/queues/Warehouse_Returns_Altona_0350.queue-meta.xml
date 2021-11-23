@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>dlhqplinventorycontrol@auspost.com.au</email>
+    <name>Warehouse Returns – Altona (0350)</name>
+    <queueMembers>
+        <roles>
+            <role>Retail_Merchandise_Supply_Chain</role>
+        </roles>
+        <users>
+            <user>ap.qsm@dhl.com</user>
+            <user>gaston.musafiri@dhl.com</user>
+            <user>auspostreturns.altona@dhl.com</user>
+            <user>kunoor.thaker@dhl.com</user>
+            <user>melissa.campbell@dhl.supplychain</user>
+            <user>regina.balchan@dhl.com</user>
+            <user>rowena.ferrer@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

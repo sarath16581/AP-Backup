@@ -1,0 +1,137 @@
+.THIS .chas-case-tile {
+  padding: 23px 16px;
+  box-shadow: 0 1px 0 0 #e2dfda;
+  border-bottom: 1px solid #e2dfda;
+}
+
+.THIS .chas-case-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.THIS dl div {
+  display: flex;
+  padding: 5px 0;
+}
+
+.THIS .chas-case-tile img {
+  width: 12px;
+  height: 12px;
+}
+
+.THIS dt {
+  width: 107px;
+  min-width: 107px;
+  font-size: 12px;
+  font-family: APTypeText, helvetica, arial, sans-serif;
+}
+
+.THIS dd {
+  font-size: 14px;
+}
+
+/*  **********************************************
+    Below from ChasCaseDetails
+    ***********************************************
+*/
+
+.THIS .status {
+  display: inline-block;
+  padding: 1px 13px;
+  border-radius: 0px;
+  font-family: APTypeText, helvetica, arial, sans-serif;
+  text-transform:uppercase;
+  font-size: 11px;
+  letter-spacing: 0.25px;
+  background-color: #1064a3;
+  color: white;
+}
+
+.THIS .status.black {
+  background-color: #31313D;
+}
+
+.THIS .status.green {
+  background-color: #158744;
+}
+
+.THIS .status.red {
+  background-color: #bc111e;
+}
+
+.THIS .status.blue {
+  background-color: #1F78D1;
+}
+
+/*  **********************************************
+    Above from ChasCaseDetails
+    ***********************************************
+*/
+
+@media (min-width: 680px) {
+  .THIS .chas-mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 679px) {
+  .THIS .chas-desktop {
+    display: none;
+  }
+}
+
+.THIS .chas-table-box {
+  padding: 48px 31px;
+}
+
+.THIS .chas-table-head {
+  background-color: #f9f8f7;
+  height: 60px;
+}
+
+.THIS tr {
+  border: solid 1px #e2dfda;
+  font-size: 16px;
+  height: 60px;
+}
+
+.THIS th {
+  font-size: 14px;
+}
+
+.THIS .chas-table-row:hover {
+  cursor: pointer;
+  background: #f3f1ee;
+}
+
+.THIS .chas-table-row:hover a {
+  text-decoration: none;
+}
+
+.THIS .chas-desktop a, .THIS .chas-desktop a.hover {
+  text-decoration: underline;
+  color: #382F2D;
+}
+
+.THIS .chas-mobile a, .THIS .chas-mobile a.hover {
+  text-decoration: none;
+  color: #382F2D;
+}
+
+.THIS th:first-child, .THIS td:first-child {
+  padding: 18px 0 18px 30px
+}
+
+.THIS td.status {
+  margin-top: 15px;
+}
+
+.THIS .empty-row td:after {
+  content: "";
+  border: 5px solid #e2dfda;
+  width: 60%;
+  display: block;
+  border-radius: 5px;
+}

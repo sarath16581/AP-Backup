@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <actionCalls>
+        <name>NavigateToOpportunity</name>
+        <label>NavigateToOpportunity</label>
+        <locationX>908</locationX>
+        <locationY>1587</locationY>
+        <actionName>c:navigateToRecord</actionName>
+        <actionType>component</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>sObject</name>
+            <value>
+                <stringValue>Opportunity</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>recordId</name>
+            <value>
+                <elementReference>NewOpportunityId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>mode</name>
+            <value>
+                <stringValue>view</stringValue>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>49.0</apiVersion>
+    <assignments>
+        <name>Assign_Type_to_Existing_Customer</name>
+        <label>Assign Type to Existing Customer</label>
+        <locationX>1159</locationX>
+        <locationY>811</locationY>
+        <assignmentItems>
+            <assignToReference>RoleTypeLogic</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Existing Customer</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>choice_Type</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>choice_ExistingCustomer</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_New_Opportunity_Screen</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Type_to_New_Customer</name>
+        <label>Assign Type to New Customer</label>
+        <locationX>696</locationX>
+        <locationY>812</locationY>
+        <assignmentItems>
+            <assignToReference>RoleTypeLogic</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>New Customer</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>choice_Type</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>choice_NewCustomer</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_New_Opportunity_Screen</targetReference>
+        </connector>
+    </assignments>
+    <choices>
+        <name>choice_ExistingCustomer</name>
+        <choiceText>Existing Customer</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Existing Customer</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>choice_NewCustomer</name>
+        <choiceText>New Customer</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>New Customer</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>choice_Stage_Identify</name>
+        <choiceText>Identify</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Identify</stringValue>
+        </value>
+    </choices>
+    <decisions>
+        <name>Check_if_Org_Role_is_Existing_Customer_or_New_Customer</name>
+        <label>Check if Org Role is Existing Customer or New Customer</label>
+        <locationX>897</locationX>
+        <locationY>813</locationY>
+        <defaultConnector>
+            <targetReference>Create_New_Opportunity_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Existing_Customer</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>OrgRole</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Customer</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Type_to_Existing_Customer</targetReference>
+            </connector>
+            <label>Existing Customer</label>
+        </rules>
+        <rules>
+            <name>New_Customer</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>OrgRole</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Customer</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Type_to_New_Customer</targetReference>
+            </connector>
+            <label>New Customer</label>
+        </rules>
+    </decisions>
+    <description>The flow is launched from a button on the Organisation layout to create a new opportunity or &apos;Simple&apos; record type.
+Then, navigate to new opportunity record.</description>
+    <dynamicChoiceSets>
+        <name>LPO_Product_Interested_Choice_Set</name>
+        <dataType>Multipicklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Products__c</picklistField>
+        <picklistObject>Lead</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>LPO_Stage_Choice</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>StageName</picklistField>
+        <picklistObject>Opportunity</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>NextStep_ChoiceList</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Next_Step__c</picklistField>
+        <picklistObject>Opportunity</picklistObject>
+    </dynamicChoiceSets>
+    <formulas>
+        <description>This formula trim the technical details from the standard Salesforce error message to return a more user friendly message on the UI.</description>
+        <name>userFaultMessage</name>
+        <dataType>String</dataType>
+        <expression>MID(
+{!$Flow.FaultMessage},
+ FIND(&apos;FIELD_CUSTOM_VALIDATION_EXCEPTION: &apos;, {!$Flow.FaultMessage} )+34,
+ (
+   LEN({!$Flow.FaultMessage} ) - 
+   (FIND(&apos;FIELD_CUSTOM_VALIDATION_EXCEPTION: &apos;, {!$Flow.FaultMessage} )+34)
+ ) -
+ (
+   LEN({!$Flow.FaultMessage} ) - 
+   FIND(&apos;. You can look up ExceptionCode values&apos;, {!$Flow.FaultMessage} )
+ )  
+)</expression>
+    </formulas>
+    <interviewLabel>Create New Opportunity From Organisation {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Create New Opportunity From Organisation</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_a_New_Opportunity</name>
+        <label>Create a New Opportunity</label>
+        <locationX>908</locationX>
+        <locationY>1381</locationY>
+        <assignRecordIdToReference>NewOpportunityId</assignRecordIdToReference>
+        <connector>
+            <targetReference>NavigateToOpportunity</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Create_New_Opportunity_Screen</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Amount</field>
+            <value>
+                <elementReference>Total_Opportunity_Value</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CloseDate</field>
+            <value>
+                <elementReference>Close_Date</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>Opportunity_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Next_Step__c</field>
+            <value>
+                <elementReference>Next_Step</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>SimpleRecTypeID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <elementReference>choice_Stage_Identify</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type</field>
+            <value>
+                <elementReference>RoleTypeLogic</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_Simple_Record_Type</name>
+        <label>Get Simple Record Type</label>
+        <locationX>904</locationX>
+        <locationY>628</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_if_Org_Role_is_Existing_Customer_or_New_Customer</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Simple</stringValue>
+            </value>
+        </filters>
+        <object>RecordType</object>
+        <outputAssignments>
+            <assignToReference>SimpleRecTypeID</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <name>LPO_Get_Account</name>
+        <label>Get Account</label>
+        <locationX>646</locationX>
+        <locationY>628</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Simple_Record_Type</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <object>Account</object>
+        <outputAssignments>
+            <assignToReference>OrgName</assignToReference>
+            <field>Name</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>OrgRole</assignToReference>
+            <field>Role_Type_Roll_Up__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <screens>
+        <name>Create_New_Opportunity_Screen</name>
+        <label>Create New Opportunity Screen</label>
+        <locationX>908</locationX>
+        <locationY>1121</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Create_a_New_Opportunity</targetReference>
+        </connector>
+        <fields>
+            <name>LPO_Lead_Organisation_2</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Legal Entity Name: &lt;/span&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;{!OrgName}&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Create_New_Opportunity_Screen_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Create_New_Opportunity_Screen_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Opportunity_Name</name>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>Opportunity_Name</elementReference>
+                    </defaultValue>
+                    <fieldText>Opportunity Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>Type_ExistingCustomer</name>
+                    <choiceReferences>choice_ExistingCustomer</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Type</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <helpText>&lt;p&gt;Type of opportunity (e.g.Existing Customer or New Customer)&lt;/p&gt;</helpText>
+                    <isRequired>true</isRequired>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>RoleTypeLogic</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>Existing Customer</stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>Type_NewCustomer</name>
+                    <choiceReferences>choice_NewCustomer</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Type</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <helpText>&lt;p&gt;Type of opportunity (e.g.Existing Customer or New Customer)&lt;/p&gt;</helpText>
+                    <isRequired>true</isRequired>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>RoleTypeLogic</leftValueReference>
+                            <operator>NotEqualTo</operator>
+                            <rightValue>
+                                <stringValue>Existing Customer</stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>Next_Step</name>
+                    <choiceReferences>NextStep_ChoiceList</choiceReferences>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>Next_Step</elementReference>
+                    </defaultValue>
+                    <fieldText>Next Step</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <helpText>&lt;p&gt;Related to the Sales Stage, this field identifies the next step required to be completed to progress the opportunity.&lt;/p&gt;</helpText>
+                    <isRequired>true</isRequired>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Create_New_Opportunity_Screen_Section1_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Stage</name>
+                    <choiceReferences>choice_Stage_Identify</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Stage</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <helpText>&lt;p&gt;Current stage of opportunity.(e.g. Values are: Identify, Qualify, Propose, Negotiate, Closed Won, Closed Lost, and Closed Disqualified.)&lt;/p&gt;</helpText>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>Close_Date</name>
+                    <dataType>Date</dataType>
+                    <defaultValue>
+                        <elementReference>Close_Date</elementReference>
+                    </defaultValue>
+                    <fieldText>Close Date</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <helpText>&lt;p&gt;Date when you plan to close the opportunity. When you set an open opportunity&apos;s Stage to a type of “Closed/Won,” the Close Date is set to the current date.&lt;/p&gt;</helpText>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>Total_Opportunity_Value</name>
+                    <dataType>Currency</dataType>
+                    <defaultValue>
+                        <elementReference>Total_Opportunity_Value</elementReference>
+                    </defaultValue>
+                    <fieldText>Total Opportunity Value</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <helpText>&lt;p&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;Forecast a value at the start of the sales process. At later stages, the value will be calculated as the sum of the total price of each product attached to the Opportunity.&lt;/span&gt;&lt;/p&gt;</helpText>
+                    <isRequired>false</isRequired>
+                    <scale>2</scale>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>displayError</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;{!userFaultMessage}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>228</locationX>
+        <locationY>609</locationY>
+        <connector>
+            <targetReference>LPO_Get_Account</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>choice_Type</name>
+        <dataType>Picklist</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>NewOpportunityId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>OrgName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>OrgRole</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>RoleTypeLogic</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>SimpleRecTypeID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vOpptyId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vOwnerId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,199 @@
+/* 
+2020-07-06 Hara Sahoo:  Added styling for safe drop missing item project
+Go Back button now sits on the top of the page with UI changes
+*/
+.THIS .box-border{
+    /* UI / White */
+    
+    background: #FFFFFF;
+    /* UI / Smoke */
+    
+    border: 2px solid #E2E2E2;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+@media(min-width: 480px) {
+    .THIS .outerBox {
+        width : 592px;
+    }
+}
+.THIS .outerBox {
+    font-size: 16px;
+    background: #FFFFFF;
+    border: 1px solid #d0d5d8;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding: 20px;
+}
+@media(min-width: 480px) {
+    .THIS .inner-box {
+        width : 550px;
+    }
+}
+.THIS .inner-box {
+    font-size: 16px;
+    margin-top: 20px;
+    padding: 20px;
+    background: #F5F5F5;
+    border-radius: 5px;
+    padding-bottom: 50px;
+}
+.THIS .outerBox > h3.box-header,
+.THIS .outer-box-fonts > h3.box-header {
+    padding-top: 0;
+    padding-bottom: 0px;
+    margin-bottom: 5px;
+}
+
+.THIS .outer-box-border-bottom {
+    margin-bottom: 20px;
+}
+
+.THIS .outer-box-thick-boarder {
+    background: #FFFFFF;
+    border: 2px solid #E2E2E2;
+    border-radius: 5px;
+}
+.THIS .box-header {
+    padding-bottom: 8px;
+    padding-top: 8px;
+}
+
+.THIS .box-seperator-gap {
+    margin-top: 32px;
+}
+@media (max-width: 480px) {
+    .THIS .box-seperator-gap {
+        margin-top: 24px;
+    } 
+}
+
+.THIS .man-icon {
+    margin-top: 20px;
+    /*Removed explicit dimensions*/
+    /*width: 44px;
+    height: 44px;*/
+    
+}
+.THIS .item-main-line {
+    margin-top: -40px;
+    margin-left: 60px
+}
+.THIS .item-sub-lines {
+    padding-left: 50px;
+    padding-top: 7px;
+}
+.THIS .item-sub-line {
+    margin-left: 15px;
+}
+
+.THIS .label-content {
+    font-size: .875rem;
+    font-weight: bold;
+    display: block;
+}
+
+.THIS .seperator-gap {
+    height: 0.875rem
+}
+
+.THIS .text-blue-medium {
+    line-height: 30px;
+    color: #1F78D1;
+}
+
+.THIS .text-brown-medium {
+    line-height: 30px;
+    margin-bottom: 5px;
+    color: #B66100;
+}
+.THIS .text-green-medium  {
+    line-height: 30px;
+    color: #158744;
+}
+
+.THIS .text-black-link {
+    font-size: 16px;
+    color: #212129;
+    text-decoration: underline;
+}
+.THIS .sub-header { 
+    padding-bottom:32px;
+}
+@media (max-width: 680px) {
+    .THIS .sub-header {
+        padding-bottom:32px;
+    }
+}
+
+.THIS .item-label{
+    font-size: 20px;
+    letter-spacing: 0.8px;
+    border-bottom: 1px solid #e2dfda;
+    padding-bottom: 8px;
+    margin-bottom:32px
+}
+@media (min-width: 480px) {
+    .THIS .item-label{
+        width:592px;
+    }
+}
+
+.THIS .goBack{
+    font-size: 10px;
+    line-height: 14px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #DC1928;
+    padding-bottom:30px;
+}
+@media (max-width: 680px) {
+    .THIS .goBack{
+        padding-bottom:22px;
+    }
+}
+.THIS .card-layout { 
+    padding:32px 176px 32px 32px;
+    max-width: 656px;
+    background-color: #ffffff
+}
+
+@media (max-width: 680px) {
+    .THIS .card-layout {
+        background-color: #ffffff;
+        padding: 32px 16px 32px 16px;
+    }
+}
+.THIS .chas-button-box {
+    border-top: none;
+    padding-top:0px !important;
+    display:block;
+    flex-direction: row;
+}
+
+.THIS .slds-grid-address{
+        display:flex;
+    }
+.THIS .state-col-width,.THIS .postcode-col-width
+{
+    width:50%;
+}
+@media (min-width: 480px) {
+    .THIS .col-separator{
+        padding-left:16px;
+    }
+}
+/* Mobile view*/
+@media (max-width: 480px) {
+    .THIS .state-col-width , .THIS .postcode-col-width
+    {
+        width:100%;
+    }
+    .THIS .slds-grid-address{
+        display:block;
+    }
+}
+.THIS .form-input-container{
+    max-width:none;
+    margin-bottom:0;
+}

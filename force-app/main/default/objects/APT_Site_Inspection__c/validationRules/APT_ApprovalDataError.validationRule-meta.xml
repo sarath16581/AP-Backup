@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_ApprovalDataError</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT ISBLANK( APT_Date_Site_Inspection_Approved__c ) &amp;&amp;  NOT  ISPICKVAL( APT_Site_Inspection_Approved__c , &apos;Approved&apos;)</errorConditionFormula>
+    <errorMessage>If you are marking Site Inspection as Approved, please enter date when it was approved. If you are entering date of approval, please make sure to change status of approval to &apos;Approved&apos;</errorMessage>
+</ValidationRule>

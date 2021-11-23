@@ -1,0 +1,61 @@
+<apex:component controller="bspCaseFieldset">
+
+    <div class="form-errors hidden">
+                                <h3>We have encountered the following error(s). Please see below.</h3>
+                            </div>
+
+ 
+       <apex:attribute name="control" type="bspEnquiry" assignTo="{!topController}" description="VF page controller"/>
+       <apex:attribute name="enquiryParams" type="string" assignTo="{!enquiryParamsValue}" description="Enquiry Parameters"/>
+    <apex:repeat value="{!members}" var="member" id="membersId">
+        <div id="{!member.myName}">
+            <apex:repeat value="{!member.members}" var="f" id="memberId">
+            
+
+
+                <div class="bw-fieldset-field {!f.fieldSetMem.FieldPath} {!f.fieldSetMem.type}">
+                    <apex:outputLabel styleClass="{!IF(OR(f.required, f.dbRequired),"required","")}" value="{!f.myLabel}" />
+                    <apex:outputText rendered="{!f.fieldSetMem.FieldPath=='CCUYourReference__c'}" value="(You can use a name or number for your records)" styleClass="bw-req-note"/>
+
+
+<!--                     <span class="{!IF(CONTAINS(f.fieldSetMem.type, 'datetime'),'',f.fieldSetMem.type)}"> -->
+                        <apex:inputField styleClass="bw-input-field {!f.fieldSetMem.type} {!IF(AND(CONTAINS(f.fieldSetMem.FieldPath,'Address'),NOT(CONTAINS(f.fieldSetMem.FieldPath,'Email'))),'addressValidation','')}" 
+                                         rendered="{!AND(NOT(CONTAINS(f.fieldSetMem.FieldPath,'.')),f.fieldSetMem.FieldPath!='ArticleType__c',NOT(CONTAINS(f.fieldSetMem.FieldPath,'State__c')),NOT(CONTAINS(f.fieldSetMem.FieldPath,'ServiceUsed__c')),NOT(CONTAINS(f.fieldSetMem.FieldPath,'ItemContents__c')))}"
+
+
+
+                                         style="{!IF(AND(NOT(topController.enq[f.fieldSetMem]=''), f.fieldSetMem.type='reference'), 'text-decoration:underline;', '')}"
+                                         value="{!topController.enq[f.fieldSetMem]}" 
+                                         type="{!IF(f.fieldSetMem.type=='date','date','')}"
+                                         required="{!OR(f.required, f.dbRequired)}" />
+<!--                     </span> -->
+                    
+                    
+                    <apex:selectRadio value="{!topController.enq[f.fieldSetMem]}" rendered="{!f.fieldSetMem.FieldPath=='ArticleType__c'}">
+                        <apex:selectoptions value="{!articleTypes}"/>
+                    </apex:selectRadio>
+                    
+                    <apex:selectList styleClass="bw-input-field" value="{!topController.enq[f.fieldSetMem]}" size="1" rendered="{!CONTAINS(f.fieldSetMem.FieldPath,'State__c')}" >
+                        <apex:selectOptions value="{!states}"/>  
+                    </apex:selectList> 
+
+                    <apex:selectList styleClass="bw-input-field" value="{!topController.enq[f.fieldSetMem]}" size="1" rendered="{!CONTAINS(f.fieldSetMem.FieldPath,'ServiceUsed__c')}" >
+                        <apex:selectOptions value="{!ServiceUsed}"/>  
+                    </apex:selectList> 
+
+                    <apex:selectList styleClass="bw-input-field" value="{!topController.enq[f.fieldSetMem]}" size="1" rendered="{!CONTAINS(f.fieldSetMem.FieldPath,'ItemContents__c')}" >
+                        <apex:selectOptions value="{!ItemContents}"/>  
+                    </apex:selectList>                                         
+                    
+                    <apex:outputText styleClass="bw-input-field {!f.fieldSetMem.type}" rendered="{!CONTAINS(f.fieldSetMem.FieldPath,'.')}" value="{!topController.enq[f.fieldSetMem]}" />
+                </div>
+            </apex:repeat> 
+        </div>
+
+    </apex:repeat>
+
+
+
+
+
+</apex:component>

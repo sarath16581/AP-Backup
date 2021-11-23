@@ -1,0 +1,33 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal" style="margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" size="2" style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"><span class="normaltextrun" style=""><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">Organisation Name:<font face="arial" style="font-size: 12pt;">&nbsp;</font></span></span></font><span style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; background-color: rgb(255, 255, 255);"><font face="Arial, sans-serif" size="2">{!Membership__c.Account__c}&nbsp;</font></span><font face="Arial, sans-serif" size="2">{!Membership__c.Name}</font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" style="" size="2"><br></font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" style="" size="2">Dear
+Licensee,<o:p></o:p></font></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" style="" size="2"><font style="">Your
+Western Union Reregistration application has been&nbsp;assessed&nbsp;and
+submitted to Western Union on </font><font style="">{!Membership__c.Resubmitted_to_WU_date2__c}.&nbsp;<o:p></o:p></font></font></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" size="2">Western
+Union will now complete their&nbsp;assessment&nbsp;and submit&nbsp;your
+application&nbsp;to AUSTRAC for final approval.&nbsp;<o:p></o:p></font></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" size="2">Once
+AUSTRAC&nbsp;approved, your outlet will be&nbsp;reregistered,&nbsp;and&nbsp;you
+will receive an email advising of this.&nbsp;<o:p></o:p></font></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><o:p><font face="Arial, sans-serif" size="2">&nbsp;</font></o:p></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" size="2">Kind regards,<o:p></o:p></font></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" size="2">&nbsp;<o:p></o:p></font></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" style="" size="2">Workforce Due Diligence</font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" style="" size="4"><br></font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt; margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline;"><font face="Arial, sans-serif" style="" size="4"><br></font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial;"><font face="Arial, sans-serif" style="" size="1">Australia Post will never send you an email asking for your password, credit card details or account information.<o:p></o:p></font></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial;"><font face="Arial, sans-serif" size="1">This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don't think you should have received this email, please email&nbsp;<i><span style="color: red;"><a href="mailto:aml.dataentry@auspost.com.au">aml.dataentry@auspost.com.au</a></span></i>. Visit&nbsp;<a href="https://ourpost.com.au/">ourpost.com.au</a>&nbsp;for further information on our online&nbsp;<a href="https://click.email.auspost.com.au/?qs=455c57c9530710d2475b12276ffd2236bfad87124e119e19dab83bd1b975750aebdac0b52852d4372cae01e4226746ab651d6ed4df5ca8ec">security</a>.<o:p></o:p></font></p><p class="MsoNormal" align="center" style="color: rgb(0, 0, 0); font-family: arial; text-align: center;"><o:p><font face="Arial, sans-serif" size="1">&nbsp;</font></o:p></p><p class="MsoListParagraphCxSpLast" style="color: rgb(0, 0, 0); font-family: arial; margin-left: 0cm;"></p><p class="MsoNormal" align="center" style="color: rgb(0, 0, 0); font-family: arial; text-align: center;"><font face="Arial, sans-serif" style="" size="1"><a href="https://ourpost.com.au/people-resources/help-and-support.html" style="">Help &amp; Support</a>&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;<a href="https://auspost.com.au/terms-conditions?ilink=global-footer-terms-link" style="">Terms &amp; Conditions</a>&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://auspost.com.au/privacy" style="">Privacy Policy</a></font></p>]]></td>
+</tr>
+</table>

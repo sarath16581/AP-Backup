@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pricing_Schedule_pdf_Attached__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Field to indicate that the pricing schedule .pdf has been attached</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Please check when pricing schedule .pdf has been attached to the request</inlineHelpText>
+    <label>Pricing Schedule (.pdf) Attached?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

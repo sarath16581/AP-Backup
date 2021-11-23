@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Spend</fullName>
+    <active>true</active>
+    <description>Primary Spend must be less than Total Spend</description>
+    <errorConditionFormula>Primary_Competitor_Spend_FY__c  &gt;    Total_estimated_spend_on_this_Service__c</errorConditionFormula>
+    <errorDisplayField>Primary_Competitor_Spend_FY__c</errorDisplayField>
+    <errorMessage>Primary Competitor Spend must be less than Total Spend</errorMessage>
+</ValidationRule>

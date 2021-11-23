@@ -1,0 +1,1201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Lead_Seeker_Information_Only_Email_Alert</fullName>
+        <description>Lead Seeker - Information Only Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_Information_Only_Lead</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Seeker_Lead_Disqualified_Email_Alert</fullName>
+        <description>Lead Seeker - Lead Disqualified Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_Disqualified_Lead</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Seeker_Lead_Disqualified_Existing_or_LPO_customer</fullName>
+        <description>Lead Seeker - Lead Disqualified Existing or LPO customer</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_Lead_Disqualified_Existing_or_LPO_Customer</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Seeker_Lead_Duplicate_Email_Alert</fullName>
+        <description>Lead Seeker - Lead Duplicate Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_Duplicate_Lead</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Seeker_Lead_Duplicate_or_Disqualified_Email_Alert</fullName>
+        <description>Lead Seeker - Lead Duplicate or Disqualified Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_Lead_Disqualified_or_Duplicate</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Seeker_Lead_Verified_Email_Alert</fullName>
+        <description>Lead Seeker - Lead Verified Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Seeker_MyPost_Business</fullName>
+        <description>Lead Seeker - MyPost Business</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_MyPost_Business</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Seeker_New_Lead_MyPost_Business_Customer_Email_Alert</fullName>
+        <description>Lead Seeker - New Lead - MyPost Business Customer Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_New_Lead_received_MyPost_Business_Customer</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Seeker_New_Lead_Received_Email_Alert2</fullName>
+        <description>Lead Seeker - New Lead Received Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_New_Lead_received1</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Seeker_New_Lead_Received_Email_Alert_MPB</fullName>
+        <description>Lead Seeker - New Lead Received Email Alert MPB</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_New_Lead_received_MPB</template>
+    </alerts>
+    <alerts>
+        <fullName>Lead_Seeker_Verified_and_Disqualified_Existing_or_LPO_Customer</fullName>
+        <description>Lead Seeker - Verified Existing or LPO Customer</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Verified_Existing_or_LPO_Customer</template>
+    </alerts>
+    <alerts>
+        <fullName>New_Lead_Digital_ID_Product_Interest</fullName>
+        <ccEmails>DLdigitalidsalesforceleads@auspost.com.au</ccEmails>
+        <description>New Lead - Digital ID - Product Interest</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>margo.stephen@auspost.com.au</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Email_Templates/New_Lead_The_Digital_iD_Product</template>
+    </alerts>
+    <alerts>
+        <fullName>Retail_SMB_Lead_verified</fullName>
+        <description>Retail SMB - Lead verified</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker</template>
+    </alerts>
+    <alerts>
+        <fullName>Retail_SMB_Send_Email_to_Lead_on_Verification</fullName>
+        <description>Retail SMB - Send Email to Lead when closed and won</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/RetailSMB_LeadClosed_Customer</template>
+    </alerts>
+    <alerts>
+        <fullName>Retail_SMB_Send_email_alert_to_Lead</fullName>
+        <description>Retail SMB - Send email alert to Lead</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/RetailSMB_LeadCreated_Customer</template>
+    </alerts>
+    <alerts>
+        <fullName>Retail_SMB_Send_email_alert_to_Postal_Manager</fullName>
+        <description>Retail SMB _ Send email alert to Postal Manager</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>no-reply-sop@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/RetailSMB_LeadCreated_PostalManager</template>
+    </alerts>
+    <alerts>
+        <fullName>Retail_SMB_Send_email_alert_to_Postal_Manager_when_lead_is_closed_Won</fullName>
+        <description>Retail SMB Send email alert to Postal Manager when lead is closed Won</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/RetailSMB_LeadClosedWon_PostalManager</template>
+    </alerts>
+    <alerts>
+        <fullName>Retail_SMB_Send_email_alert_to_Postal_Manager_when_lead_is_closed_lost</fullName>
+        <description>Retail SMB Send email alert to Postal Manager when lead is closed lost</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/RetailSMB_LeadClosedLost_PostalManager</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_an_email_alert_to_lead_and_postmaster_address</fullName>
+        <description>Retail SMB - Send an email alert to lead and postmaster address</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_New_Lead_received1</template>
+    </alerts>
+    <alerts>
+        <fullName>Snap_It_Lead_Seeker_New_Lead_Received_Email_Alert</fullName>
+        <description>Snap It (Lead Seeker) - New Lead Received Email Alert</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Lead_Creator_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>seekerrewards@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_New_Lead_received_Snap_It</template>
+    </alerts>
+    <alerts>
+        <fullName>Snap_It_Lead_Seeker_New_Lead_Received_Email_Alert_Customer</fullName>
+        <description>Snap It (Lead Seeker) - New Lead Received Email Alert -Customer</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Lead_Seeker_New_Lead_received_Snap_It_Customer</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>BAU_Lead_Nurture_queue</fullName>
+        <field>OwnerId</field>
+        <lookupValue>EC_G_Lead_Nurture_Program</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>BAU Lead Nurture queue</name>
+        <notifyAssignee>true</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Change_Lead_status_to_Qualified</fullName>
+        <description>Change Lead status to Qualified</description>
+        <field>Status</field>
+        <literalValue>Qualified</literalValue>
+        <name>Change Lead status to Qualified</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Closing_Lead_Owner_Role</fullName>
+        <description>Captures the current role of the lead owner at the time of creation and every time the status is updated.</description>
+        <field>Closing_Lead_Owner_Role__c</field>
+        <formula>Owner:User.UserRole.Name</formula>
+        <name>Closing Lead Owner Role</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Do_Not_Call_to_TRUE</fullName>
+        <field>DoNotCall</field>
+        <literalValue>1</literalValue>
+        <name>Do Not Call to TRUE</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Email_Electronic_Opt_In_No</fullName>
+        <field>Email_Electronic_Opt_In__c</field>
+        <literalValue>NO</literalValue>
+        <name>Email/Electronic Opt-In: No</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Email_Electronic_Opt_In_Yes</fullName>
+        <field>Email_Electronic_Opt_In__c</field>
+        <literalValue>YES</literalValue>
+        <name>Email / Electronic Opt In: Yes</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Lead_BRR_update_owner</fullName>
+        <field>OwnerId</field>
+        <lookupValue>Inside_Sales_Team</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>Lead -BRR update owner</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Move_to_Closed_Lead_Queue</fullName>
+        <description>When the Lead status is changed to disqualified change the Lead owner to Closed Lead Queue</description>
+        <field>OwnerId</field>
+        <lookupValue>ClosedLeads</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>Move to Closed Lead Queue</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Populate_Lead_Creator_First_Name_text</fullName>
+        <field>Hidden_Lead_Creator_First_Name_Text__c</field>
+        <formula>First_Name_Formula__c</formula>
+        <name>Populate Lead Creator First Name text</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Privacy_Marketing_Opt_out_to_YES</fullName>
+        <field>Privacy_Marketing_Opt_Out__c</field>
+        <literalValue>YES</literalValue>
+        <name>Privacy-Marketing Opt-out to YES</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Lead_Seeker_Field</fullName>
+        <field>Lead_Seeker__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Lead Seeker Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Lead_Title</fullName>
+        <description>write the pick list value from Custom field Job Title to the Standard (hidden) field Title</description>
+        <field>Title</field>
+        <formula>TEXT(Job_Title__c)</formula>
+        <name>Update Lead Title</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Lead_owner_to_MPB_Seeker_Leads</fullName>
+        <field>OwnerId</field>
+        <lookupValue>MPB_Seeker_Leads</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>Update Lead owner to MPB Seeker Leads</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Qualified</fullName>
+        <description>Update Status of Lead to Qualified</description>
+        <field>Status</field>
+        <literalValue>Qualified</literalValue>
+        <name>Update Status to Qualified</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Updated_Email_From_User</fullName>
+        <description>This sources the current users email from their user record</description>
+        <field>Lead_Creator_Email__c</field>
+        <formula>$User.Email</formula>
+        <name>Updated Email From User</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Updated_Employee_Number_From_User</fullName>
+        <description>This sources the current users employee number from their user record</description>
+        <field>APS_Number__c</field>
+        <formula>$User.EmployeeNumber</formula>
+        <name>Updated Employee Number From User</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Updated_Name_From_User</fullName>
+        <description>This sources the current users name from their user record</description>
+        <field>Name_of_lead_creator__c</field>
+        <formula>$User.FirstName &amp; &quot; &quot; &amp; $User.LastName</formula>
+        <name>Updated Name From User</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>copy_description</fullName>
+        <field>Copy_of_Description__c</field>
+        <formula>Description</formula>
+        <name>copy description</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_DNC_to_False</fullName>
+        <field>DoNotCall</field>
+        <literalValue>0</literalValue>
+        <name>update do not call to False</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_Email_Opt_Out_False</fullName>
+        <field>HasOptedOutOfEmail</field>
+        <literalValue>0</literalValue>
+        <name>update Email Opt Out: False</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_Marketing_Opt_Out_field</fullName>
+        <field>Privacy_Marketing_Opt_Out__c</field>
+        <literalValue>NO</literalValue>
+        <name>update Marketing Opt Out field to NO</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_email_opt_in_no</fullName>
+        <field>Email_Electronic_Opt_In__c</field>
+        <literalValue>NO</literalValue>
+        <name>update email opt in: No</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_email_opt_in_to_yes</fullName>
+        <field>HasOptedOutOfEmail</field>
+        <literalValue>0</literalValue>
+        <name>update email opt in to yes</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_fax_opt_out_to_false</fullName>
+        <field>HasOptedOutOfFax</field>
+        <literalValue>0</literalValue>
+        <name>update fax opt out to false</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_sys_call_opt_out_true</fullName>
+        <field>DoNotCall</field>
+        <literalValue>1</literalValue>
+        <name>update sys call opt out: True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_sys_email_opt_field_True</fullName>
+        <field>HasOptedOutOfEmail</field>
+        <literalValue>1</literalValue>
+        <name>update sys email opt field: True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>update_sys_fax_opt_out</fullName>
+        <field>HasOptedOutOfFax</field>
+        <literalValue>1</literalValue>
+        <name>update Fax Opt Out: True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>BAU-Lead Nurture Assignment</fullName>
+        <actions>
+            <name>BAU_Lead_Nurture_queue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>EC&amp;G Lead Nurture Program</value>
+        </criteriaItems>
+        <description>Assign lead nurture related leads to Lead nurture queue</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>BRR  - Assignment</fullName>
+        <actions>
+            <name>Lead_BRR_update_owner</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>This rule has been created to assign BRRs to a specific queue. Note this has been done to allow flexibility without updating all assignment allocations.</description>
+        <formula>Campaign.Parent.Webform_ID__c = &quot;70190000000QJIw&quot;</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Email%2FElectronic Opt-In%3A Yes</fullName>
+        <actions>
+            <name>update_DNC_to_False</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>update_Email_Opt_Out_False</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>update_fax_opt_out_to_false</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Email_Electronic_Opt_In__c</field>
+            <operation>equals</operation>
+            <value>YES</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>LEAD%3A Update Job Title</fullName>
+        <actions>
+            <name>Update_Lead_Title</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Job_Title__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>The rule updates the Standard (hidden) field Title with the pick-list value from the Custom field Job Title so it can be mapped through to the Contact record on conversion</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead - Update owner for Disqualified leads</fullName>
+        <actions>
+            <name>Move_to_Closed_Lead_Queue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>User.ProfileId</field>
+            <operation>equals</operation>
+            <value>SSSW - Service Agent</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Disqualified</value>
+        </criteriaItems>
+        <description>When the lead status is changed to Disqualified by the lead verification team ( Profile	SSSW - Service Agent), this WF is to update the lead owner as Closed Leads</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - Information Only Lead</fullName>
+        <actions>
+            <name>Lead_Seeker_Information_Only_Email_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Lead_Seeker__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Information only</value>
+        </criteriaItems>
+        <description>When the lead seeker check box is ticket and the lead status is changed to Information Only, this email alert workflow is triggered</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - Lead Disqualified</fullName>
+        <actions>
+            <name>Lead_Seeker_Lead_Disqualified_Email_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Move_to_Closed_Lead_Queue</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Lead_Seeker__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Disqualified</value>
+        </criteriaItems>
+        <description>When the lead seeker check box is ticket and the lead status is changed to Lead Disqualified, this email alert workflow is triggered</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - Lead Disqualified Existing or LPO Customer</fullName>
+        <actions>
+            <name>Lead_Seeker_Lead_Disqualified_Existing_or_LPO_customer</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Lead_Seeker__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Disqualified</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Disqualified_Lead_Reason__c</field>
+            <operation>equals</operation>
+            <value>Existing or LPO customer</value>
+        </criteriaItems>
+        <description>When the Lead Seeker checkbox is ticked and the lead status = Disqualified with the Disqualified Lead Reason = Existing or LPO customer, this workflow is triggered</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - Lead Duplicate</fullName>
+        <actions>
+            <name>Lead_Seeker_Lead_Duplicate_Email_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Lead_Seeker__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Duplicate lead</value>
+        </criteriaItems>
+        <description>When the lead seeker check box is ticket and the lead status is changed to Lead Duplicate, this email alert workflow is triggered</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - Lead Seeker field SSSW</fullName>
+        <actions>
+            <name>Update_Lead_Seeker_Field</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>National Contact Centre – Phone,Other website</value>
+        </criteriaItems>
+        <description>Change for SSSW page layout.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - Lead Verified Existing or LPO trigger</fullName>
+        <actions>
+            <name>Lead_Seeker_Verified_and_Disqualified_Existing_or_LPO_Customer</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Lead_Seeker__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Verified - Existing or LPO Customer</value>
+        </criteriaItems>
+        <description>When the lead seeker checkbox is ticked and Lead status is changed to Verified Existing or LPO customer, this workflow is triggered</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - Lead Verified trigger</fullName>
+        <actions>
+            <name>Lead_Seeker_Lead_Verified_Email_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Lead_Seeker__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Verified</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.IsConverted</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <description>When the lead seeker checkbox is ticked &amp; the lead status is changed to verified, this email alert is generated</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - MyPost Business</fullName>
+        <actions>
+            <name>Lead_Seeker_MyPost_Business</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Lead_Seeker__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>MyPost Business</value>
+        </criteriaItems>
+        <description>When the lead seeker check box is ticket and the lead status is changed to MyPost Business, this email alert workflow is triggered</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - New Lead received</fullName>
+        <actions>
+            <name>Lead_Seeker_New_Lead_Received_Email_Alert2</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Lead_Seeker__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Products__c</field>
+            <operation>excludes</operation>
+            <value>MyPost Business</value>
+        </criteriaItems>
+        <description>Lead Seeker - New Lead received</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - New Lead received MPB</fullName>
+        <actions>
+            <name>Lead_Seeker_New_Lead_Received_Email_Alert_MPB</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Lead_Seeker__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Products__c</field>
+            <operation>includes</operation>
+            <value>MyPost Business</value>
+        </criteriaItems>
+        <description>Lead Seeker - New Lead received</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - Populate lead creator text field</fullName>
+        <actions>
+            <name>Populate_Lead_Creator_First_Name_text</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.First_Name_Formula__c</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <description>populate the lead creator first name (hidden) field when the formula field of the lead creator first name is populated.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - Send Email Alert to MyPost Business Customers</fullName>
+        <actions>
+            <name>Lead_Seeker_New_Lead_MyPost_Business_Customer_Email_Alert</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 AND 2 AND (3 OR 4 OR 5)</booleanFilter>
+        <criteriaItems>
+            <field>Lead.Products__c</field>
+            <operation>includes</operation>
+            <value>MyPost Business</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Seeker__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>Snap It</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>National Contact Centre – Phone</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>Other website</value>
+        </criteriaItems>
+        <description>This sends email alerts to MyPost Business customers</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead Seeker - Updates Owner to MPB Seeker Leads</fullName>
+        <actions>
+            <name>Update_Lead_owner_to_MPB_Seeker_Leads</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Update_Status_to_Qualified</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <booleanFilter>1 AND 2 AND (3 OR 4 OR 5)</booleanFilter>
+        <criteriaItems>
+            <field>Lead.Products__c</field>
+            <operation>includes</operation>
+            <value>MyPost Business</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Seeker__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>Snap It</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>National Contact Centre – Phone</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>Other website</value>
+        </criteriaItems>
+        <description>This Updates the lead owner to MPB Seeker Leads when MyPost Business is included on Product Interested</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead%3A Update Closing Lead Owner Role</fullName>
+        <active>false</active>
+        <description>When a lead is created and everytime the status is changed, capture the lead owner role.</description>
+        <formula>ISNEW() ||  ISCHANGED( Status )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead%3AMarketing form opt in</fullName>
+        <actions>
+            <name>Email_Electronic_Opt_In_Yes</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>update_DNC_to_False</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>update_Marketing_Opt_Out_field</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>update_email_opt_in_to_yes</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>update_fax_opt_out_to_false</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>based on a form field, this rule updates a picklist field.</description>
+        <formula>AND(  Legal_Marketing_Opt_In__c = true,  PRIORVALUE(Legal_Marketing_Opt_In__c ) = false)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lead%3Acopy description</fullName>
+        <actions>
+            <name>copy_description</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Description</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>copies std description field to a custom field that can then be mapped to Oppty</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Legal Marketing Opt-In Changed to FALSE %28Unsubscribe%29</fullName>
+        <actions>
+            <name>Do_Not_Call_to_TRUE</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Email_Electronic_Opt_In_No</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Privacy_Marketing_Opt_out_to_YES</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>update_sys_email_opt_field_True</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>update_sys_fax_opt_out</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND( Legal_Marketing_Opt_In__c = false, PRIORVALUE(Legal_Marketing_Opt_In__c) = true )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>New Lead - Digital ID Product</fullName>
+        <actions>
+            <name>New_Lead_Digital_ID_Product_Interest</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Products__c</field>
+            <operation>includes</operation>
+            <value>Digital ID</value>
+        </criteriaItems>
+        <description>notify Digital ID team members when a Lead record is created with &quot;Product Interested&quot; = &quot;Digital ID&quot; or</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>New Lead created from the ST users</fullName>
+        <actions>
+            <name>Update_Lead_Seeker_Field</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Updated_Email_From_User</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Updated_Employee_Number_From_User</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Updated_Name_From_User</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>(1 AND 2) OR 3 OR 4</booleanFilter>
+        <criteriaItems>
+            <field>User.ProfileId</field>
+            <operation>contains</operation>
+            <value>StarTrack</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>Email,Phone</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>User.UserRoleId</field>
+            <operation>equals</operation>
+            <value>Service Federal Government - Service Partner,Service State Government - Service Partner,Service State Government - Service Manager,Service Federal Government - Service Manager</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>User.UserRoleId</field>
+            <operation>equals</operation>
+            <value>Service Government North - Service Manager,Service Government North - Service Partner</value>
+        </criteriaItems>
+        <description>To update the employee number, name and email onto the lead record &amp; set &apos;lead seeker&apos; as TRUE.
+To capture into the lead seeker program for possible reward points.
+REQ2268744 added additional logic for &apos;Service Partner&apos;
+REQ2276204 added Service Manager</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Privacy Marketing Opt Out %3A Yes</fullName>
+        <actions>
+            <name>update_email_opt_in_no</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>update_sys_call_opt_out_true</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>update_sys_email_opt_field_True</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>update_sys_fax_opt_out</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>If a contact opts out of marketing comms, then must ensure all comms flags are set to &apos;do not contact&apos;</description>
+        <formula>AND( ISPICKVAL(Privacy_Marketing_Opt_Out__c,&quot;YES&quot;), NOT(ISPICKVAL(PRIORVALUE(Privacy_Marketing_Opt_Out__c),&quot;YES&quot;)) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Retail SMB - Lead Completed</fullName>
+        <actions>
+            <name>Retail_SMB_Lead_verified</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>Retail SMB</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Verified</value>
+        </criteriaItems>
+        <description>Email alert when a lead is qualified and closed.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Retail SMB - Lead Disqualified</fullName>
+        <actions>
+            <name>Retail_SMB_Send_email_alert_to_Postal_Manager_when_lead_is_closed_lost</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>Retail SMB</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Disqualified</value>
+        </criteriaItems>
+        <description>Email alert when a lead is disqualified and closed.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Retail SMB - Lead Qualified</fullName>
+        <actions>
+            <name>Retail_SMB_Send_Email_to_Lead_on_Verification</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Retail_SMB_Send_email_alert_to_Postal_Manager_when_lead_is_closed_Won</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>Retail SMB</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Status</field>
+            <operation>equals</operation>
+            <value>Verified</value>
+        </criteriaItems>
+        <description>Email alert when a lead is qualified and closed.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Retail SMB - New Lead Created</fullName>
+        <actions>
+            <name>Retail_SMB_Send_email_alert_to_Lead</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Retail_SMB_Send_email_alert_to_Postal_Manager</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Send_an_email_alert_to_lead_and_postmaster_address</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>Retail SMB</value>
+        </criteriaItems>
+        <description>Send an email when a new lead is created</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Snap It Send Email to Customer Lead</fullName>
+        <actions>
+            <name>Snap_It_Lead_Seeker_New_Lead_Received_Email_Alert_Customer</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>Snap It</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Lead_Seeker__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Email</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Products__c</field>
+            <operation>excludes</operation>
+            <value>MyPost Business</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

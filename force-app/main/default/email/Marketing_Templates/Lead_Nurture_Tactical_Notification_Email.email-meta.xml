@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Tactical Notification Email</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>ExternalContactEmail</letterhead>
+    <name>Lead Nurture Tactical Notification Email</name>
+    <style>freeForm</style>
+    <subject>Customer request for a call - Lead Nurture Program</subject>
+    <textOnly>Hi, {!et4ae5__IndividualEmailResult__c.First_Name_of_Account_Manager__c}
+
+Re: Customer follow up required, as part of the Lead Nurture Program.
+
+This follow up task has been generated as part of the EC&amp;G Lead Nurture Program.
+
+
+
+When your customer,{!et4ae5__IndividualEmailResult__c.et4ae5__Contact__c}, from {!et4ae5__IndividualEmailResult__c.Account_Name__c}, visited the landing page when gaining access to the content/information assets we shared with them relating to how we might help address a challenge, they described their role in the project relating to the topic as {!et4ae5__IndividualEmailResult__c.Project_Authority__c}. They also indicated that the timing of the project is {!et4ae5__IndividualEmailResult__c.Project_Timing__c}.
+
+Based on the responses provided, your customer may be in an active buying cycle. Therefore, contact is required by you to determine whether they are potentially in solution seeking mode and require engagement from you as their Account Manager.
+
+
+
+To view and complete your open activity in Salesforce, Click Here and scroll to the bottom of the page.  Below is a summary of information your contact accessed at the time of seeking a phone call.
+
+
+
+Internal Email &amp; Audience Reference: {!et4ae5__IndividualEmailResult__c.Name}
+Email Subject Line: {!et4ae5__IndividualEmailResult__c.et4ae5__SubjectLine__c}
+Information/Content Link: {!et4ae5__IndividualEmailResult__c.Asset_URL__c}
+Solution Area: {!et4ae5__IndividualEmailResult__c.Solution_Area__c}
+
+If you have any questions or would like to know more, contact Nicky Hamilton on 03 9106 8168 or nicky.hamilton@auspost.com.au</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

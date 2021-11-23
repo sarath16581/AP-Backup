@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Only_hosts_can_create_guests</fullName>
+    <active>true</active>
+    <description>only event hosts can create guests for that events</description>
+    <errorConditionFormula>isnew() &amp;&amp; (not( $User.Id = Event__r.OwnerId || 
+
+$User.Id = Event__r.Owner_2__r.Id)) &amp;&amp;  $Profile.Name &lt;&gt;&quot;Marketing Event Controller&quot;</errorConditionFormula>
+    <errorMessage>Only hosts can create guests for the event</errorMessage>
+</ValidationRule>

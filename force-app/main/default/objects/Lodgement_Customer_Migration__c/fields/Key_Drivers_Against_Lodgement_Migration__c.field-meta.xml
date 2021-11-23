@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Key_Drivers_Against_Lodgement_Migration__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Identify the potential issues the migration may cause for the customer</inlineHelpText>
+    <label>Key Customer Impediments</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Integration Costs</fullName>
+                <default>false</default>
+                <label>Integration Costs</label>
+            </value>
+            <value>
+                <fullName>Timing For Integration</fullName>
+                <default>false</default>
+                <label>Timing For Integration</label>
+            </value>
+            <value>
+                <fullName>No In House IT Capability</fullName>
+                <default>false</default>
+                <label>No In House IT Capability</label>
+            </value>
+            <value>
+                <fullName>Complex Solution Required</fullName>
+                <default>false</default>
+                <label>Complex Solution Required</label>
+            </value>
+            <value>
+                <fullName>Features Does Not Meet Customer Needs</fullName>
+                <default>false</default>
+                <label>Features Does Not Meet Customer Needs</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+                <label>Not Applicable</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

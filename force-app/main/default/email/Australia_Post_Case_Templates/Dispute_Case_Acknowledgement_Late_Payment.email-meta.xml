@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Disputed Case Created Acknowledgement Email to the Customer for Late Payment</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Dispute Case Acknowledgement Late Payment</name>
+    <style>none</style>
+    <subject>Case Acknowledgement {!Case.CaseNumber}</subject>
+    <textOnly>StartTrack
+
+We&apos;re looking into your credit enquiry
+
+Dear {!Case.Name__c},
+
+Thanks for taking the time to contact us.
+
+This is confirmation that we have received your enquiry. Just so you’re aware, it may take up to 10 business days before you hear back from us so thanks in advance for your patience.
+
+We will try to resolve this as quickly as possible and will be in touch once we have an outcome.
+
+In the meantime, if you have any questions, please contact your credit officer listed on your most recent tax invoice, including your &apos;Case Number&apos; in the subject line.
+
+Please do not reply to this email; this is an automated message.
+
+Kind regards,
+
+Credit Management
+Australia Post &amp; StarTrack
+
+
+Australia Post will never send you an email asking for your password, credit card details or account information.
+
+
+This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don&apos;t think you should have received this email, please call us on 13 13 18. Visit auspost.com.au for further information on our online security.
+
+Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.
+
+Help &amp; Support | Terms &amp; Conditions | Privacy Policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

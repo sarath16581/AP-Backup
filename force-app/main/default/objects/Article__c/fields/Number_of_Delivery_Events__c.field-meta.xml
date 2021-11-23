@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Number_of_Delivery_Events__c</fullName>
+    <description>StarTrack field used to count the number of &quot;delivery&quot; related scan events that have occured for a given consignment record</description>
+    <externalId>false</externalId>
+    <label>Number of Delivery Events</label>
+    <summaryFilterItems>
+        <field>EventMessage__c.RecordTypeId</field>
+        <operation>equals</operation>
+        <value>StarTrack Delivery/ATL/NHCL/Manifest Event</value>
+    </summaryFilterItems>
+    <summaryForeignKey>EventMessage__c.Article__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tuggerah_Routes</fullName>
+    <columns>NAME</columns>
+    <columns>Depot__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Depot__c</field>
+        <operation>startsWith</operation>
+        <value>Tugg</value>
+    </filters>
+    <label>Tuggerah Routes</label>
+    <sharedTo>
+        <group>TUGGERAH_VAN_OPS</group>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Template for PA Annual Review Final Reminder</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Partner Addendum Annual Review Final Reminder</name>
+    <style>none</style>
+    <subject>Annual Review - {!Partner_Addendum__c.Licence__c} – FINAL REMINDER</subject>
+    <textOnly>Annual Review
+
+Good Morning
+
+This is a final reminder.
+
+Licence Record {!Partner_Addendum__c.Licence__c} has a Partner Addendum due to expire.
+
+If this PA is not extended by the end of month it will be ceased.
+
+Click here to view Partner Addendum.
+
+Regards</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

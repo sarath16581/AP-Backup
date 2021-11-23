@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>46.0</apiVersion>
+    <available>true</available>
+    <description>BSP Welcome Email Template with support for customised content for Merchant Portal signup</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Welcome Email BSP w/ Merchant Portal</name>
+    <style>none</style>
+    <subject>Welcome to {!Community_Name}</subject>
+    <type>visualforce</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

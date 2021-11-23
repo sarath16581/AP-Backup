@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Task_Reminder_Date__c</fullName>
+    <defaultValue>CASE( MOD( DATEVALUE( now()) - DATE( 1900, 1, 7 ), 7 ), 
+0, now()+ 1 + 2, /* Sun: now()+ 1 wknd day + 2 days */ 
+4, now()+ 2 + 2, /* Thurs: now()+ 2 wknd days + 2 days */ 
+5, now()+ 2 + 2, /* Fri: now()+ 2 wknd days + 2 days */ 
+6, now()+ 2 + 2, /* Sat: now() + 2 wknd days + 2 days */ 
+now()+ 2 /* Default (Mon/Tue/Wed): now()+ 2 days */ 
+)</defaultValue>
+    <description>Date used to drive the reminder date</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Date used to drive the reminder date</inlineHelpText>
+    <label>Task Reminder Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

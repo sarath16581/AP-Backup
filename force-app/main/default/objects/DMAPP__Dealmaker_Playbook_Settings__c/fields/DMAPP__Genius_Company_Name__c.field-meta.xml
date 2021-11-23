@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DMAPP__Genius_Company_Name__c</fullName>
+    <deprecated>false</deprecated>
+    <description>DO NOT EDIT. This stores the chosen value for the Company Name that is used when generating the Qualifiers.This is set the first time Genius is run and should not be subsequently updated.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This stores the chosen value for the Company Name that is used when generating the Qualifiers. This is set the first time Genius is run and should not be subsequently updated.</inlineHelpText>
+    <label>Genius Company Name</label>
+    <length>100</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

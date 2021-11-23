@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Resolution_Note_On_Verified_Claim</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+				ISPICKVAL( Status__c ,&apos;Verified Claim&apos;) , 
+				ISBLANK( Resolution_Code__c ))</errorConditionFormula>
+    <errorDisplayField>Resolution_Code__c</errorDisplayField>
+    <errorMessage>Please provide a resolution not when verifying the claim.</errorMessage>
+</ValidationRule>

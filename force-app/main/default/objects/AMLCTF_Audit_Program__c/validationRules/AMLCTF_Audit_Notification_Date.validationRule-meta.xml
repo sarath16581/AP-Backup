@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AMLCTF_Audit_Notification_Date</fullName>
+    <active>true</active>
+    <description>Checks that a value is supplied in the Pre-Audit Notification Date field if the Pre-Audit Notification Required checkbox is checked.</description>
+    <errorConditionFormula>AMLCTF_PreAudit_Notification_Required__c  =  true  &amp;&amp;  ISBLANK( AMLCTF_PreAudit_Notification_Date__c )</errorConditionFormula>
+    <errorDisplayField>AMLCTF_PreAudit_Notification_Date__c</errorDisplayField>
+    <errorMessage>A value is required for the Pre-audit Notification Date field if the Pre-Audit Notification Required? field is checked.</errorMessage>
+</ValidationRule>

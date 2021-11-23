@@ -1,0 +1,197 @@
+<!-- Created by conrad.c.v.borbon on 06/22/2018 -->
+
+<messaging:emailTemplate recipientType="User"
+relatedToType="Membership__c"
+subject=" Membership Application Approved: {!relatedTo.Name} - {!relatedTo.Licensee_Type__c}"
+replyTo="customerservice@testauspost.com.au" >
+
+
+<!-- HTML -->
+
+
+<messaging:htmlEmailBody >
+
+<table>
+<tbody>
+<tr>
+<td>&nbsp;</td>
+<td>{!DAY(DATEVALUE(relatedTo.LastModifiedDate))}
+{!CASE(MONTH(DATEVALUE(relatedTo.LastModifiedDate)),
+1, "January",
+2, "February",
+3, "March", 
+4, "April", 
+5, "May", 
+6, "June",
+7, "July",
+8, "August",
+9, "September",
+10, "October",
+11, "November",
+12, "December",
+"None")}, {!YEAR(DATEVALUE(relatedTo.LastModifiedDate))}</td>
+</tr>
+<tr>
+<td><apex:image id="APLACLogo" value="https://auspost--c.ap15.content.force.com/servlet/servlet.ImageServer?id=0159000000ERRvK&amp;oid=00D30000001GGce&amp;lastMod=1531985641000" width="165" height="172"/></td>
+<td><strong>Licensee Advisory Council Membership</strong></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+  
+<table role="presentation">
+<tbody>
+<tr role="navigation">
+<td>
+<div>
+<p>Hi {!relatedTo.Contact__r.FirstName},</p>
+
+<p><strong>Congratulations</strong> on becoming a member of the Australia Post Licensee Advisory Council.</p>
+<p>Please find attached a membership certificate which may be framed and displayed in your Licensed Post Office.</p>
+<p>APLAC Documentation can be located on the Post Office Portal (POP) by <strong>visiting </strong><strong>POP | Knowledge Hub | LPO | APLAC.</strong> Here you will find all of the required information on APLAC including;</p>
+<ul>
+<li>The annual APLAC Board Plan</li>
+<li>Contact Details for National and State APLAC Representatives</li>
+<li>National and State Bulletins providing an overview on quarterly meeting content and upcoming meeting dates.</li>
+<li>General Information including a summary of the APLAC Constitution.</li>
+</ul>
+<p>Alternatively, if you don&rsquo;t have access to POP, you will receive a copy of the Quarterly Bulletin in the mail and can obtain copies of the above by emailing <a href="mailto:APLAC@auspost.com.au">APLAC@auspost.com.au</a> if required.</p>
+<p>A reminder that APLAC aims to:</p>
+<ul>
+<li>Facilitate improved two-way communications between Licensees and Australia Post</li>
+<li>Promote constructive Licensee input into revenue opportunities and operational improvements for the mutual benefit of Licensees and Australia Post</li>
+<li>Develop new product and marketing ideas consistent with the Australia Post brand and ideas</li>
+</ul>
+<p>for improving sales of Post products and services for mutual benefit</p>
+<ul>
+<li>Provide constructive assistance to Australia Post in the development of the Post brand and network</li>
+</ul>
+<p>If you have any suggestions that you feel may contribute to the development of new products or services, marketing and sales opportunities or ways we can improve our business relationship, then forward your feedback via the <strong>Notification of Revenue Opportunity/Operational Improvement</strong> <strong>form</strong> attached or download a copy directly on POP.</p>
+<p>Finally, to ensure you receive APLAC updates, please advise on any changes to your contact information as required. Updates can be completed by downloading a copy of the membership form on POP, circle &lsquo;update existing membership&rsquo; and note the new details in the comments section. A copy of the membership form is included for your reference or alternatively, please contact us at APLAC@auspost.com.au</p>
+<p>I look forward to working closely with you in the near future.</p>
+<p>Yours sincerely</p>
+
+
+
+<table>
+<tbody>
+<tr>
+<td><apex:image id="ChairPersonSignature" value="https://auspost--c.ap15.content.force.com/servlet/servlet.ImageServer?id=0152v00000G4Xlm&amp;oid=00D30000001GGce&amp;lastMod=1554700958000" width="264" height="80"/></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</td>
+<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</td>
+<td><div align="right">
+<apex:image id="APLAC_Attachments" value="https://auspost--c.ap15.content.force.com/servlet/servlet.ImageServer?id=0159000000ERRvL&oid=00D30000001GGce&lastMod=1531985641000"/>
+</div></td>
+</tr>
+<tr>
+<td>
+<p>Scott Burnham</p>
+<p>APLAC Chairperson</p>
+</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+
+
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</messaging:htmlEmailBody>
+
+
+
+<!-- Plain Text -->
+
+<messaging:plainTextEmailBody >
+Hi {!relatedTo.Contact__r.FirstName},
+
+ 
+
+ 
+
+Congratulations on becoming a member of the Australia Post Licensee Advisory Council.
+
+Please find attached a membership certificate which may be framed and displayed in your Licensed Post Office.
+
+ 
+
+APLAC Documentation can be located on the Post Office Portal (POP) by visiting POP | Knowledge Hub | LPO | APLAC. Here you will find all of the required information on APLAC including;
+
+ 
+
+The annual APLAC Board Plan
+Contact Details for National and State APLAC Representatives
+National and State Bulletins providing an overview on quarterly meeting content and upcoming meeting dates.
+General Information including a summary of the APLAC Constitution.
+ 
+
+Alternatively, if you don’t have access to POP, you will receive a copy of the Quarterly Bulletin in the mail and can obtain copies of the above by emailing APLAC@auspost.com.au if required.
+
+ 
+
+A reminder that APLAC aims to:
+
+ 
+
+Facilitate improved two-way communications between Licensees and Australia Post
+Promote constructive Licensee input into revenue opportunities and operational improvements for the mutual benefit of Licensees and Australia Post
+Develop new product and marketing ideas consistent with the Australia Post brand and ideas
+for improving sales of Post products and services for mutual benefit
+
+Provide constructive assistance to Australia Post in the development of the Post brand and network
+ 
+
+If you have any suggestions that you feel may contribute to the development of new products or services, marketing and sales opportunities or ways we can improve our business relationship, then forward your feedback via the Notification of Revenue Opportunity/Operational Improvement form attached or download a copy directly on POP.
+
+ 
+
+Finally, to ensure you receive APLAC updates, please advise on any changes to your contact information as required. Updates can be completed by downloading a copy of the membership form on POP, circle ‘update existing membership’ and note the new details in the comments section. A copy of the membership form is included for your reference or alternatively, please contact us at APLAC@auspost.com.au
+
+ 
+
+I look forward to working closely with you in the near future.
+
+
+
+Yours sincerely
+
+Scott Burnham
+</messaging:plainTextEmailBody>
+
+
+<!-- Attachment -->
+
+<messaging:attachment renderAs="pdf" filename="APLAC Member Certificate.pdf">
+<html>
+<div style="text-align:center">
+<apex:image url="{!$Resource.APLACLogo2}"/>
+</div>
+<p style="text-align: center;"><span style="font-size: 14.0pt; line-height: 115%; font-family: 'AP Letter Light';">Recognises</span></p>
+<br></br>
+<p style="text-align: center;"><strong><span style="font-size: 18.0pt; line-height: 115%; font-family: 'AP Letter Light';"> {!relatedTo.Contact__r.FirstName} {!relatedTo.Contact__r.LastName} </span></strong></p>
+<p style="text-align: center;"><span style="font-size: 14.0pt; line-height: 115%; font-family: 'AP Letter Light';">As the licensee representative for the</span></p>
+<br></br>
+<p style="text-align: center;"><strong><span style="font-size: 14.0pt; line-height: 115%; font-family: 'Bradley Hand ITC';"> {!relatedTo.Account__r.Facility__r.Name} </span></strong></p>
+<div style="text-align:center">
+<apex:image url="{!$Resource.APLAC_Signature_Chairman_Title}" width="115" height="119" style="vertical-align:left"/>
+</div>
+<br></br>
+<br></br>
+<p style="text-align: center;"><span style="font-size: 14.0pt; line-height: 115%; font-family: 'AP Letter Light';">Date {!DAY(relatedTo.APLAC_MembershipDate__c)}/{!MONTH(relatedTo.APLAC_MembershipDate__c)}/{!YEAR(relatedTo.APLAC_MembershipDate__c)} </span></p>
+</html>
+</messaging:attachment>
+
+
+</messaging:emailTemplate>

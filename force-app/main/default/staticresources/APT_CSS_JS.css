@@ -1,0 +1,383 @@
+.sidebar--configure-product .summary-pane {
+	overflow: auto !important;
+}
+
+.charge-label {
+	height: 1.5rem;
+	clear: both;
+}
+.aptCurrency {
+	width: 100% !important;
+}
+
+.main-cart-totals--overflow .main-cart-totals-container {
+    margin-left: 20.5rem;
+    height: 0;	
+}
+
+.sidebar--configure-product .configure-product__price-value {
+    font-size: 1.1rem;
+    display: none;
+}
+
+.product-row.main-block__listings {
+    width: 100%;
+}
+
+.charge-type-text {
+    max-width: 90%;
+    display: block;
+    float: left;
+    white-space: normal !important;
+    text-overflow: inherit !important;
+    overflow: hidden;
+    margin-top: 0.2rem;
+	line-height: 1.0rem;
+}
+
+.layout--rightcol .sidebar--configure-product .configure-product__price-name {
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    -ms-flex: none;
+    flex: none;
+    font-family: ProximaNovaSoft-Semibold;
+    font-size: .9rem;
+    width: 75%;
+}
+
+.guidance-stop-light {
+    height: 20px;
+    width: 20px !important;
+    border-radius: 50%;
+    margin: auto;
+}
+
+
+.display-actions-block-bottom {
+    background: #2093DA;
+    //height: 3.2rem;
+}
+
+.display-actions-block-bottom button {
+    background: #F0F1F2;
+    color: #28492C;
+    margin: .4rem .25rem;
+}
+
+/*       --------Custom CSS Cart Panel override---------         */
+/*       ----override the TotalSection of cart Panel----         */
+
+MainColor:-- #1797c0   |-- For Main color theme change that is used in buttons, main overlay bars, section headers and text and category hover color
+	DarkColor:-- #085B76   |-- for secondary Search bar panel on the Catalog page which is used as dark color;
+
+/* 
+	Prevent to apply only to Override Cart Panel by selector 'div.apt-main-content.apt-page-content'
+*/
+/* Prevent to apply for main cart section */
+div.apt-main-content.apt-page-content  div.aptRoundedDiv.aptPageTitleBarPanel{
+	display:block !important; 
+}
+
+/*Prevent to apply Line Items Section of Cart Panel */
+div.apt-main-content.apt-page-content  div.idResultStatsPanel.aptRoundedDiv{
+	display:block !important;
+}
+
+/* Apply to only Total Panel of Cart panel */
+div.apt-main-content.apt-page-content div.aptRoundedDiv {
+	display:none;
+}
+/* Hide options detaila in attribute page */
+
+recursive.ng-scope.summary-opt-group {
+    display: none;
+}
+
+.option-group.ng-binding {
+    display: none;
+}
+.option-group-itemize {
+    display: none !important;
+    font-size: 15px;
+    color: #333;
+    font-weight: bold;
+    height: 20px;
+    line-height: 20px;
+}
+
+/* CASE: 00104221 Apply Text color changes to Catalog name and 'Save for later' button in product catalog page*/
+
+/*.catalog-category-name {
+	color: #DC1928;
+    font-weight: bold;
+}
+
+
+.main-block__listings .ands-btn.ands-primary  {
+	border-color: #DC1928;
+    background-color: #DC1928;
+}
+
+.main-block__listings .ands-btn.ands-primary:hover
+{       border-color: #99030f !important;
+	    background-color: #99030f !important ;
+}
+
+.catalog-category-name:hover {
+	color: #99030f;
+    
+}*/
+/* CASE: 00104221 Apply Text color changes to Catalog name and 'Save for later' button in product catalog page*/
+
+
+/* CASE: 00105865 - START Change product link in the catalog page */
+
+/*.main-product-catalog a {
+    color: #DC1928;
+}*/
+
+/* CASE: 00105865 - END Change product link in the catalog page */
+
+/* Search Lookup Dialog height increased so that search results can be seen clearly */
+.search-lookup-dialog {
+    min-height: 67% !important;
+    max-height: 67% !important;
+}
+
+/*CI-52 changes for increasing APPC Attributes help text width*/
+.tooltip .tooltiptext {
+	width: 37rem !important;
+	word-break: break-word !important;
+}
+
+/*Hide Search Field and Search Icon on Cart*/
+.grid-cart-search
+{
+	display: none !important;
+}
+
+div.cart-filter
+{
+	display: none !important;
+}
+/*Hide Mass Update button on Cart*/
+#gridCartUpdateButtonGroup > span:nth-child(3)
+{
+	display: none !important;
+}
+
+/*Hide Elipsis next to Copy, Favourites Button*/
+#gridCartUpdateButtonGroup > md-menu
+{
+	display: none !important;
+}
+
+/*Hide Toatl Section on Cart*/
+.action-summary-grand-total
+{
+	display: none !important;
+}
+
+/*Catalog UI Changes*/
+.layout--leftcol .sidebar
+{
+	width: 20% !important;
+}
+.layout--leftcol .main-content
+{
+	width: 80% !important
+}
+
+/*Catalog Page Hide Left Section Browse Catalog*/
+div.block-choose-categories
+{
+	display: none !important;
+}
+div.block-refine-subcategories
+{
+	display: none !important;
+}
+div.block-refine-subcategories__children
+{
+	display: none !important;
+}
+div.filter-search-block
+{
+	display: none !important;
+}
+
+/*Catalog Page Left section alignment*/
+.block-refine-search{
+    margin-top: 45px !important;
+    border-radius: 5px !important;
+}
+
+/*Catalog Page Resize Product Popup*/
+.product-dialog-height {
+    max-height: 23rem !important;
+}
+
+.sidebar--configure-product {
+    display: none !important;
+}
+
+.layout--rightcol .sidebar {
+    display: none !important;
+}
+
+.layout--rightcol .main-content {
+	width: 100% !important
+}
+/* Catalog Page - To add underline for Product Name*/
+.catalog-category-name{
+	text-decoration: underline;
+	color: #006dcc;
+	background-color: transparent;
+}
+.browse-catalog{
+	display: none;
+}
+/*.main-block__listing-trail__item{
+	display : none;
+}*/
+.form-element-container.three-column{
+	width : 23.5rem;
+}
+.main-block__listings .listing-actions .listing-actions-area button{
+	font-size: 12.5px;
+}
+.product-summary__info-list__label{
+	color:black;
+	font-weight: 750;
+}
+/*Make Buttons same across all the Pages in Shopping Cart */
+/*.md-btn.ands-secondary, .ands-btn.ands-secondary{
+	border-color: #DC1928 !important;
+	background-color: #DC1928 !important;
+	color:#FFFFFF !important;
+}
+.md-btn.ands-secondary, .ands-btn.ands-secondary:hover{
+	border-color: #99030fÂ !important;
+	background-color: #99030fÂ !important;
+	color:#FFFFFF;
+}
+.md-btn.ands-primary, .ands-btn.ands-primary{
+	border-color: #DC1928 !important;
+	background-color: #DC1928 !important;
+	color:#FFFFFF !important;
+}
+.md-btn.ands-primary, .ands-btn.ands-primary:hover{
+	border-color: #99030fÂ !important;
+	background-color: #99030fÂ !important;
+	color:#FFFFFF !important; 
+}
+.menu-toggle{
+	border-color: #DC1928 !important;
+	background-color: #DC1928 !important;
+}
+.fa fa-angle-double-down{
+	border-color: #DC1928 !important;
+	background-color: #DC1928 !important;
+}*/
+.product-dialog-height{
+	min-height:85% !important;
+	min-width:85% !important;
+}
+.ui-grid-cell{
+	padding-top:5px;
+}
+.grid-product-name{
+	font-size:14.5px;
+}
+/*Make Buttons same across all the Pages in Shopping Cart */
+/*.md-btn.ands-secondary, .ands-btn.ands-secondary{
+	border-color: #005fb2 !important;
+	background-color: #005fb2 !important;
+	color:#FFFFFF !important;
+}
+.md-btn.ands-secondary, .ands-btn.ands-secondary:hover{
+	border-color: #005fb2Â !important;
+	background-color: #005fb2Â !important;
+	color:#FFFFFF;
+}*/
+/*.md-btn.ands-primary, .ands-btn.ands-primary{
+	border-color: #005fb2 !important;
+	background-color: ##005fb2 !important;
+	color:#FFFFFF !important;
+}
+.md-btn.ands-primary, .ands-btn.ands-primary:hover{
+	border-color: #005fb2Â !important;
+	background-color: #005fb2Â !important;
+	color:#FFFFFF !important; 
+}
+.menu-toggle{
+	border-color: #005fb2 !important;
+	background-color: #005fb2 !important;
+}
+.fa fa-angle-double-down{
+	border-color: #005fb2 !important;
+	background-color: #005fb2 !important;
+}*/
+.main-block__listings .ands-btn.ands-primary  {
+	border-color: #005fb2;
+    background-color: #005fb2;
+}
+
+.main-block__listings .ands-btn.ands-primary:hover
+{       border-color: #005fb2 !important;
+	    background-color: #005fb2 !important ;
+}
+.md-btn.ands-primary, .ands-btn.ands-primary{
+	border-color: #005fb2 !important;
+	background-color: #005fb2 !important;
+	color:#FFFFFF !important;
+}
+.md-btn.ands-primary, .ands-btn.ands-primary:hover{
+	border-color: #005fb2Â !important;
+	background-color: #005fb2Â !important;
+	color: #FFFFFF !important; 
+}
+.menu-toggle{
+	border-color: #005fb2 !important;
+	background-color: #005fb2 !important;
+}
+.fa fa-angle-double-down{
+	border-color: #005fb2 !important;
+	background-color: #005fb2 !important;
+}
+.catalog-category-name{
+	font-weight: bold;
+}
+.main-product-listings__header{
+	font-weight:bold;
+}
+.block-refine-search__heading{
+	font-weight:bold;
+}
+.context-menu-container li:nth-child(1){
+	display: none;
+}
+.context-menu-container li:nth-child(3){
+	display: none;
+}
+.favorite-summary__info-list__label{
+	font-weight: bold;
+	color:#000000;
+}
+.product-attribute__group__table__label,.favorite-summary__info-list__label,.product-summary__info-list__label{
+	color:#616e7b;
+}
+.GoToPricing{
+	color: #FFFFFF !important;
+    background-color: #005fb2 !important;
+}
+.mini-cart__items__item--grand-total{
+	display:none;
+}
+.mini-cart__items__item__price{
+	display:none;
+}
+.mini-cart__items .header-title.netprice{
+	color:#FFFFFF;
+}
+

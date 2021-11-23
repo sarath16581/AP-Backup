@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>Classification_c__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Classification_c__c</field>
+        <operation>equals</operation>
+        <value>One Off</value>
+    </filters>
+    <label>All</label>
+</ListView>

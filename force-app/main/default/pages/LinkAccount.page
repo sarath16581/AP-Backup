@@ -1,0 +1,34 @@
+<apex:page standardController="Billing_Account__c" extensions="BillingAccountLinkExCon">
+    <apex:sectionHeader title="Billing Account" subtitle="{!Billing_Account__c.Name}"/>
+    <apex:form >
+    	<apex:detail subject="{!Billing_Account__c.Id}" relatedList="false" title="false"/>
+        <apex:pageblock title="Specify Customer" id="searchCustomer">
+            <apex:pageBlockSection title="Search Criteria" collapsible="false" id="search" columns="1">
+                <apex:outputPanel layout="searchBlock" style="padding:5px 0px;margin-bottom:5px;background-color:#D9D9D9">
+                    <apex:outputLabel style="padding:0px 5px;font-size:95%;font-weight:bold;font-family: 'Verdana','Geneva',sans-serif;" value="Enter Search Information:" for="searchText"/>
+                    <apex:inputText id="searchText" value="{!searchText}"/>
+                    <apex:commandButton value="Search" action="{!doSearch}" rerender="SearchResults" status="status"/>
+                    <apex:actionStatus id="status" startText="requesting..."/>
+                </apex:outputPanel> 
+            </apex:pageblocksection>
+            <apex:pageblocksection title="Search Results" collapsible="false" id="SearchResults">
+                <apex:pageBlockTable value="{!results}" var="c" id="theCustomer" >    
+                    <apex:column headerValue="Action"> 
+                      <apex:commandLink action="{!SelectCustomer}" value="Select">
+                        <apex:param name="a" assignTo="{!CustId}" value="{!c.Id}"/>
+                      </apex:commandLink>
+                    </apex:column>
+                    <apex:column headerValue="Id" value="{!c.Id}"/>           
+                    <apex:column headerValue="Customer Name" value="{!c.Name}"/>
+                    <apex:column headerValue="Type" value="{!c.Type}"/>
+                    <apex:column headerValue="Alternate Name" value="{!c.Organisation_Alternate_Name__c}"/>
+                    <apex:column headerValue="ABN" value="{!c.ABN__c}"/>
+                    <apex:column headerValue="ACN" value="{!c.ACN__c}"/>
+                    <apex:column headerValue="Phone" value="{!c.Phone}"/>
+                    <apex:column headerValue="Role Type" value="{!c.Role_Type_Roll_Up__c}"/>
+                </apex:pageBlockTable>
+            </apex:pageblocksection>
+            <!--<apex:commandButton value="Close Page" id="theCloseButton" action="{!URLFOR($Action.Billing_Account__c.List, $ObjectType.Billing_Account__c)}"/>-->
+        </apex:pageblock>   
+    </apex:form>
+</apex:page>

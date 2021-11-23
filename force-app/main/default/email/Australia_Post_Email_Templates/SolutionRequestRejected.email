@@ -1,0 +1,9 @@
+<FONT FACE="Ap Letter" font size="2" >Hello {!Sales_Solution_Request__c.CreatedBy}<br/><br/>
+Your Sales Solution Request <b/> {!Sales_Solution_Request__c.Name}</b>
+has not been approved at this time based on your details in the request. 
+<br/><br/>You can review feedback and  business recommendations via the link below.<a href={!Sales_Solution_Request__c.Link}>
+<br/><br/>Click To Open The Request</a>
+<br/><br/>
+Regards
+<br/><br/>
+{!Sales_Solution_Request__c.RecordType} Team<br/>

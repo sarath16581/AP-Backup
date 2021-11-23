@@ -1,0 +1,4 @@
+<design:component label="cpTrendingDiscussionView">
+	<design:attribute label="Page Size" name="cppageSize" description="No. of Records per page"/>
+	<design:attribute label="Record Sorting Parameter" name="cpSortingParam" datasource="CreatedDateDesc,LastModifiedDateDesc,MostViewed,Relevance"  description="Record Sorting Parameter"/>
+</design:component>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Data_Quality_Score_Individual__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(  FirstName )||ISBLANK(LastName ),0, 10)+
+IF(ISBLANK(   Title  ),0, 5)+
+IF(ISBLANK(TEXT(   Function_Group__c )  ),0, 5)+
+IF(LEN(Phone) = 0, 0,10) + 
+IF(ISBLANK(  Email ),0, 10)+
+IF(ISBLANK(   MailingStreet  &amp; MailingCity&amp; MailingState&amp; MailingPostalCode  ),0, 5)+
+IF(ISBLANK(  OtherStreet &amp; OtherCity&amp; OtherState&amp; OtherPostalCode  ),0, 10)+
+IF(ISBLANK(  MobilePhone ),0, 5)+
+IF(ISBLANK(   Fax ), 0, 3)+
+IF(ISBLANK(   text(Status__c)  ),0, 3)+
+IF(ISBLANK(   AccountId  ),0, 5)+
+IF(ISBLANK(   text(Privacy_Marketing_Opt_Out__c )),0, 5)+
+IF(ISBLANK(   text(Email_Electronic_Opt_In__c) ),0, 3)+
+IF(  DoNotCall  ,3,0)+
+IF(Do_Not_Mail__c ,3, 0)+
+IF( HasOptedOutOfFax, 3,0)+
+IF(ISBLANK(   Birthdate  ),0, 4)+
+IF(ISBLANK(   text(Gender__c ) ),0, 4)+
+IF(ISBLANK(    Hidden_Description__c  ),0, 4)</formula>
+    <label>Data Quality Score-Individual</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

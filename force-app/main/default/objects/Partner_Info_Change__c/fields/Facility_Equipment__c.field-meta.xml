@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Facility_Equipment__c</fullName>
+    <description>Equipment that the outlet owns, but is not charged for</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Equipment that the outlet owns, but is not charged for</inlineHelpText>
+    <label>Facility Equipment</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Safe</fullName>
+                <default>false</default>
+                <label>Safe</label>
+            </value>
+            <value>
+                <fullName>TLCC</fullName>
+                <default>false</default>
+                <label>TLCC</label>
+            </value>
+            <value>
+                <fullName>Mail Sorting Desk</fullName>
+                <default>false</default>
+                <label>Mail Sorting Desk</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

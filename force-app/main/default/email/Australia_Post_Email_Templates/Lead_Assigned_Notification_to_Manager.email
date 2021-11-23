@@ -1,0 +1,5 @@
+Lead: {!Lead.Name}, {!Lead.Company} has been assigned to you.
+
+To view the details of this lead, click on the following link:
+
+{!Lead.Link}

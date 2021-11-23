@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Field_Name__c</fullName>
+    <externalId>false</externalId>
+    <label>Field Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Assignment Effective From Date</fullName>
+                <default>false</default>
+                <label>Assignment Effective From Date</label>
+            </value>
+            <value>
+                <fullName>License Status</fullName>
+                <default>false</default>
+                <label>License Status</label>
+            </value>
+            <value>
+                <fullName>Interrupted Start Date</fullName>
+                <default>false</default>
+                <label>Interrupted Start Date</label>
+            </value>
+            <value>
+                <fullName>Interrupted End Date</fullName>
+                <default>false</default>
+                <label>Interrupted End Date</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

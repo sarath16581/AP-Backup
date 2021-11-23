@@ -1,0 +1,6 @@
+<FONT FACE="Ap Letter" font size="2" >Hello<br/><br/>
+A request was created {!Sales_Solution_Request__c.CreatedDate} and the status doesn't appear to have changed <b/> {!Sales_Solution_Request__c.Name}</b>
+<br/><br/>
+<a href={!Sales_Solution_Request__c.Link}>
+Click To Open The Request</a>
+<br/><br/>Regards

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Standard_Address_Field__c</fullName>
+    <description>If a compound address field exists on the object, can be used for direct mapping</description>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>If a validation rule has been triggered and the field picklist disappeared, please re-select the object.</inlineHelpText>
+    <label>Standard Address Field</label>
+    <metadataRelationshipControllingField>Address_Fields_Mapping__mdt.Object__c</metadataRelationshipControllingField>
+    <referenceTo>FieldDefinition</referenceTo>
+    <relationshipLabel>Address_Fields_Mappings2</relationshipLabel>
+    <relationshipName>Address_Fields_Mappings2</relationshipName>
+    <required>false</required>
+    <type>MetadataRelationship</type>
+    <unique>true</unique>
+</CustomField>

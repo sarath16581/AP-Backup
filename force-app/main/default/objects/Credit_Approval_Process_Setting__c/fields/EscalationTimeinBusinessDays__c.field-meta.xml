@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EscalationTimeinBusinessDays__c</fullName>
+    <defaultValue>2</defaultValue>
+    <description>Business days in which the approval process step will auto approve and escalate to the next approver</description>
+    <externalId>false</externalId>
+    <label>Escalation Time in Business Days</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

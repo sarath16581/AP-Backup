@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Validate_Address_State_for_LocalPick</fullName>
+    <active>true</active>
+    <description>Validate if the Address state from and to are same for Local Pickup and Delivery product.</description>
+    <errorConditionFormula>TEXT(APT_To_Address_State__c) != TEXT(APT_From_Address_State__c)</errorConditionFormula>
+    <errorMessage>&apos;Address State&apos; must be same under &apos;Collection address From&apos; and &apos;Delivery Address To&apos;!</errorMessage>
+</ValidationRule>

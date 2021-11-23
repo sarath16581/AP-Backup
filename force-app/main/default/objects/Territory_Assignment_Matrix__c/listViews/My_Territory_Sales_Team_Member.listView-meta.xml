@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Territory_Sales_Team_Member</fullName>
+    <columns>Post_Code__c</columns>
+    <columns>Sales_Team__c</columns>
+    <columns>Sales_Team_Member__c</columns>
+    <columns>NAME</columns>
+    <columns>Low_Threshold_Amount__c</columns>
+    <columns>High_Threshold_amount__c</columns>
+    <columns>Suburb__c</columns>
+    <filterScope>Mine</filterScope>
+    <label>My Territory: Sales Team Member</label>
+</ListView>

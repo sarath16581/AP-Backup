@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Agency_Contracts__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>REQ1415701</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Notify this contact about any changes to Agency contracts associated to their Organisation.</inlineHelpText>
+    <label>Agency Contracts</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

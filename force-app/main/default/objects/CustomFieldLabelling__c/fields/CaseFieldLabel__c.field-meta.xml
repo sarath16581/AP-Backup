@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CaseFieldLabel__c</fullName>
+    <description>The New label that you prefer</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The New label that you prefer</inlineHelpText>
+    <label>Case Field Label</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

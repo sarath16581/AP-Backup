@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Termination_Reason__c</fullName>
+    <description>The reason codes for why a License has terminated with POST</description>
+    <externalId>false</externalId>
+    <label>Termination Reason</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Assignment</fullName>
+                <default>false</default>
+                <label>New Assignment</label>
+            </value>
+            <value>
+                <fullName>Franchised business ceased to operate</fullName>
+                <default>false</default>
+                <label>Franchised business ceased to operate</label>
+            </value>
+            <value>
+                <fullName>Franchise terminated by franchisor</fullName>
+                <default>false</default>
+                <label>Franchise terminated by franchisor</label>
+            </value>
+            <value>
+                <fullName>Franchise terminated by franchisee</fullName>
+                <default>false</default>
+                <label>Franchise terminated by franchisee</label>
+            </value>
+            <value>
+                <fullName>Franchise not renewed when expired</fullName>
+                <default>false</default>
+                <label>Franchise not renewed when expired</label>
+            </value>
+            <value>
+                <fullName>Franchise business bought back by franchisor</fullName>
+                <default>false</default>
+                <label>Franchise business bought back by franchisor</label>
+            </value>
+            <value>
+                <fullName>Franchise terminated and franchised business acquired by franchisor</fullName>
+                <default>false</default>
+                <label>Franchise terminated and franchised business acquired by franchisor</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

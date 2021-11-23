@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_of_days_in_current_status__c</fullName>
+    <description>To show how many days the status has been sitting in the current selection</description>
+    <externalId>false</externalId>
+    <formula>CASE(TEXT(Status__c), 
+&quot;New&quot;, TODAY() - DATEVALUE(CreatedDate),
+&quot;Pack Sent to LPO&quot;, TODAY() - Sent_to_LPO_date2__c,
+&quot;Received from LPO&quot;, TODAY() - Received_from_LPO_date2__c,
+&quot;Awaiting Workforce Verification&quot;, TODAY() - Awaiting_Workforce_Verification_Date__c,
+&quot;Missing Information&quot;, TODAY() - Missing_Information_Date2__c,
+&quot;Received Missing Info Back&quot;, TODAY() - Received_Missing_Info_date2__c,
+&quot;Submitted to WU&quot;, TODAY() - Submitted_to_WU_date2__c,
+&quot;Review WU Return&quot;,TODAY() - Review_WU_Return_Date__c,
+&quot;Return from WU&quot;, TODAY() - Returned_from_WU_Date2__c,
+&quot;Resubmitted to WU&quot;, TODAY() - Resubmitted_to_WU_date2__c,
+0)</formula>
+    <inlineHelpText>Shows how many days the status has been sitting in the current selection</inlineHelpText>
+    <label>No of days in current status</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

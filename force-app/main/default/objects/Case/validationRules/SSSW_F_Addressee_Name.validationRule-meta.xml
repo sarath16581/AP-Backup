@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SSSW_F_Addressee_Name</fullName>
+    <active>false</active>
+    <description>REQ2347041</description>
+    <errorConditionFormula>AND(
+(
+Secondary_Contact__c = NULL
+),
+NOT(ISNEW()),
+NOT ( AND
+(
+ISPICKVAL( EnquirySubType__c , &quot;Missing Item&quot;),
+ISPICKVAL( Origin , &quot;MyPost Business&quot;),
+$User.ProfileId =&apos;00e90000001PfHp&apos;)),
+OR (
+ISPICKVAL ( CHASEnquiryType__c,&quot;&quot; ),
+ISPICKVAL (EnquirySubType__c,&quot;Item transfer&quot;)
+),
+ISBLANK(TEXT(CCUEnquiryType__c)),
+CONTAINS( RecordType.DeveloperName, &quot;SSSWDelivery&quot;),
+Bypass_Data_enforcement__c = FALSE,
+Email_Bypass_Data_enforcement__c = FALSE,
+$User.IsExcludedFromValidationRules__c = false,
+$Profile.Name &lt;&gt; &apos;DDC Consumer Community User&apos;,
+$Profile.Name &lt;&gt; &apos;SNNAP Integration&apos;,
+TEXT(Status) &lt;&gt; &apos;Awaiting Customer Response&apos;,
+OR (
+ISPICKVAL (ProductCategory__c, &quot;Domestic Parcels&quot;),
+ISPICKVAL (ProductCategory__c, &quot;Domestic Letters&quot;),
+ISPICKVAL (ProductCategory__c, &quot;International Parcels&quot;),
+ISPICKVAL (ProductCategory__c, &quot;International Letters&quot;)
+)
+)</errorConditionFormula>
+    <errorMessage>You must populate the &apos;Addressee Name&apos; field before you can save the record</errorMessage>
+</ValidationRule>

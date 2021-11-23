@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Legal_Support_Closed</fullName>
+    <columns>NAME</columns>
+    <columns>DateOpened__c</columns>
+    <columns>Legal_Entity__c</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Status__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Rejected,Closed</value>
+    </filters>
+    <label>Legal Support - Closed</label>
+    <language>en_US</language>
+</ListView>

@@ -1,0 +1,11 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#edeae6; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<div style="color: rgb(0, 0, 0);"><font face="Arial, sans-serif"><font style="font-size: small;">Hello&nbsp;</font><font style="font-size: small;">Team Leader</font><font style="font-size: small;">,</font></font></div><div style="color: rgb(0, 0, 0);"><font size="2" face="Arial, sans-serif"><br></font></div><div style="color: rgb(0, 0, 0);"><p class="MsoNormal"><b><span style="font-size: 12pt;"><font face="Arial, sans-serif">Action Required – SLA has been breached<o:p></o:p></font></span></b></p></div><div style="color: rgb(0, 0, 0);"><font size="2" face="Arial, sans-serif"><br></font></div><div><p class="MsoNormal" style="color: rgb(0, 0, 0);"><font size="2" face="Arial, sans-serif">Attention
+Retail Fulfilment Call Centre Team Leader <o:p></o:p></font></p>
+
+<p class="MsoNormal"><font size="2"><font face="Arial, sans-serif">Salesforce
+case reference number <b>{!Case.CaseNumber}</b> has passed its SLA of 48 hours since
+creation and immediate action is required to resolve this query.</font><font face="AP Letter"><o:p></o:p></font></font></p></div><div style="color: rgb(0, 0, 0); font-family: arial;"><br></div><div style="color: rgb(0, 0, 0); font-family: arial;"><font face="Arial, sans-serif" size="2"><br></font></div><div style="color: rgb(0, 0, 0); font-family: arial;"><font face="Arial, sans-serif" size="2">{!Case.Thread_Id}</font></div>]]></td>
+</tr>
+</table>

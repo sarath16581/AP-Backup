@@ -1,0 +1,166 @@
+<apex:page controller="CaseListCtr" standardStylesheets="true" showHeader="false">
+
+ <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+        
+        <!-- Bootstrap -->
+        <!-- link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet" media="screen"/
+        -->
+
+ <script type="text/javascript">
+
+        function runScript(e) {
+            if (e.keyCode == 13) {
+              console.log('enter');
+              callSearchString();
+                return false;
+            }
+        }
+
+        function updateSort(sortBy){
+            console.log('update for '+sortBy);
+            updateSortJS(sortBy);
+        }
+        //
+        function callSearchString(){
+          console.log($('#searchText').val());
+            searchStringJs($('#searchText').val());
+        }
+        
+        
+        function resetSearchString(){
+          console.log($('#searchText').val());
+          $('#searchText').val('');
+            searchStringJs('');
+        }
+        
+        function assignSelection(aId){
+            window.opener.selectThisCase(aId);
+            self.close();
+        }
+
+    </script>
+
+<apex:form >
+
+ 
+
+
+  
+
+<apex:pageBlock id="pb"  title="Case List">
+              
+
+ 
+    <div class="input-group">
+       <input id="searchText" type="text" class="form-control" placeholder="Search" onkeypress="return runScript(event)" value="{!option}"/>
+       
+        <button id="searchBtn" onclick="javascript:callSearchString()" type="button" class="btn btn-default search-Case-btn">submit</button>
+      
+   </div>
+
+
+ 
+
+
+
+  <apex:outputpanel >
+        <apex:actionstatus id="fetchStatus2">
+            <apex:facet name="start">
+                <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
+                       height: 100%;opacity:0.65;width:100%;">
+                    <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="loading" />
+                        <span class="waitingDescription">loading</span>
+                    </div>
+                </div>
+            </apex:facet>
+        </apex:actionstatus>
+    </apex:outputpanel>
+
+
+
+
+        <apex:pageBlockTable id="clist" value="{!Cases}" var="a">
+<!-- CaseNumber,Name,Type, Owner
+
+  -->
+
+<!-- Case Number Col   -->
+ <apex:column onclick="assignSelection('{!a.id}')" rendered="{!$ObjectType.Case.fields.CaseNumber.Accessible}" styleClass="col-md-1" >
+     <apex:facet name="header">
+        <apex:commandLink status="fetchStatus2" value="{!$ObjectType.Case.fields.CaseNumber.label}" id="sortCaseNumber"
+                action="{!updateSort}" rerender="pb,clist">
+        <apex:param name="sortBy" assignTo="{!sortBy}" value="CaseNumber" />
+        </apex:commandLink>
+
+     </apex:facet>
+     {!a.CaseNumber}
+ </apex:column>
+
+
+<!-- Subject  Col -->
+ <apex:column onclick="assignSelection('{!a.id}')" rendered="{!$ObjectType.Case.fields.Subject.Accessible}"  styleClass="col-md-1">
+     <apex:facet name="header">
+        <apex:commandLink status="fetchStatus2" value="{!$ObjectType.Case.fields.Subject.label}" id="sortBySubject"
+                action="{!updateSort}" rerender="pb,clist">
+        <apex:param name="sortBy" assignTo="{!sortBy}" value="Name" />
+        </apex:commandLink>
+
+     </apex:facet>
+    <apex:outputText value="{!a.Subject}" id="SubjectCol" />
+ </apex:column>
+
+
+<!-- Type Col -->
+ <apex:column onclick="assignSelection('{!a.id}')" headerValue="{!$ObjectType.Case.fields.Type.label}" rendered="{!$ObjectType.Case.fields.Type.Accessible}"  styleClass="col-md-5">
+    {!a.Type}
+ </apex:column>
+
+<!-- Owner.Name Col  -->
+ <apex:column onclick="assignSelection('{!a.id}')" rendered="{!$ObjectType.Case.fields.OwnerID.Accessible}"  styleClass="col-md-2">
+     <apex:facet name="header">
+        <apex:commandLink status="fetchStatus2" value="{!$ObjectType.Case.fields.OwnerID.label}" id="sortByOwner"
+                action="{!updateSort}" rerender="pb,clist">
+        <apex:param name="sortBy" assignTo="{!sortBy}" value="OwnerId" />
+        </apex:commandLink>
+
+     </apex:facet>
+
+     {!a.Owner.Name}
+
+ </apex:column>
+
+
+</apex:pageBlockTable>
+
+
+ 
+    <apex:pageBlockButtons location="bottom" >
+        <apex:commandButton status="fetchStatus2" disabled="{!NOT(hasPrevious)}" reRender="pb" value="First" action="{!first}"  title="First Page" styleClass="{!IF(!hasPrevious, 'btn btn-primary','btn btn-primary')}" />
+
+        <apex:commandButton status="fetchStatus2" disabled="{!NOT(hasPrevious)}" reRender="pb" value="Previous" action="{!previous}" title="Previous Page" styleClass="{!IF(!hasPrevious, 'btn btn-primary','btn btn-primary')}" />
+
+        <apex:commandButton status="fetchStatus2" disabled="{!NOT(hasNext)}" reRender="pb" value="Next" action="{!next}" title="Next Page" styleClass="{!IF(!hasNext, 'btn btn-primary','btn btn-primary')}" />
+
+        <apex:commandButton status="fetchStatus2" disabled="{!NOT(hasNext)}" reRender="pb" value="Last" action="{!last}" title="Next Page" styleClass="{!IF(!hasNext, 'btn btn-primary','btn btn-primary')}" />
+
+      <apex:outputText >{!(pageNumber * size)+1-size}-{!IF((pageNumber * size)>noOfRecords, noOfRecords,(pageNumber * size))} of {!noOfRecords}</apex:outputText>
+  
+    </apex:pageBlockButtons>
+
+
+
+</apex:pageBlock>
+
+
+
+    <apex:actionFunction status="fetchStatus2"  action="{!searchString}" name="searchStringJs" rerender="pb,clist" >
+        <apex:param name="option" assignTo="{!option}" value="" />
+    </apex:actionFunction>
+
+    </apex:form>
+
+
+
+
+</apex:page>

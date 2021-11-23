@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_Sub_Category__c</fullName>
+    <externalId>false</externalId>
+    <label>Product Sub Category</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Product__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Local marketplaces</fullName>
+                <default>false</default>
+                <label>Local marketplaces</label>
+            </value>
+            <value>
+                <fullName>Tmall subscriptions</fullName>
+                <default>false</default>
+                <label>Tmall subscriptions</label>
+            </value>
+            <value>
+                <fullName>International Products</fullName>
+                <default>false</default>
+                <label>International Products</label>
+            </value>
+            <value>
+                <fullName>International Postal/Parcels</fullName>
+                <default>false</default>
+                <label>International Postal/Parcels</label>
+            </value>
+            <value>
+                <fullName>eCommerce scorecard</fullName>
+                <default>false</default>
+                <label>eCommerce scorecard</label>
+            </value>
+            <value>
+                <fullName>Parcel Post Commercial &amp; Customer</fullName>
+                <default>false</default>
+                <label>Parcel Post Commercial &amp; Customer</label>
+            </value>
+            <value>
+                <fullName>Premium, Next Flight</fullName>
+                <default>false</default>
+                <label>Premium, Next Flight</label>
+            </value>
+            <value>
+                <fullName>ST Express Product (ST)</fullName>
+                <default>false</default>
+                <label>ST Express Product (ST)</label>
+            </value>
+            <value>
+                <fullName>3PL</fullName>
+                <default>false</default>
+                <label>3PL</label>
+            </value>
+            <value>
+                <fullName>Decipha Product and Solutions</fullName>
+                <default>false</default>
+                <label>Decipha Product and Solutions</label>
+            </value>
+            <value>
+                <fullName>Payment Processing / SecurePay</fullName>
+                <default>false</default>
+                <label>Payment Processing / SecurePay</label>
+            </value>
+            <value>
+                <fullName>Manage My Finances / PostBillPay</fullName>
+                <default>false</default>
+                <label>Manage My Finances / PostBillPay</label>
+            </value>
+            <value>
+                <fullName>Banking Services (Bank@Post)</fullName>
+                <default>false</default>
+                <label>Banking Services (Bank@Post)</label>
+            </value>
+            <value>
+                <fullName>Financial Services</fullName>
+                <default>false</default>
+                <label>Financial Services</label>
+            </value>
+            <value>
+                <fullName>Retail Financial Products - Cards</fullName>
+                <default>false</default>
+                <label>Retail Financial Products - Cards</label>
+            </value>
+            <value>
+                <fullName>Retail Financial Products - Insurance</fullName>
+                <default>false</default>
+                <label>Retail Financial Products - Insurance</label>
+            </value>
+            <value>
+                <fullName>Retail Financial Products - Cash Services (Money Orders/FX)</fullName>
+                <default>false</default>
+                <label>Retail Financial Products - Cash Services (Money Orders/FX)</label>
+            </value>
+            <value>
+                <fullName>Retail Financial Products - Store-in-Store</fullName>
+                <default>false</default>
+                <label>Retail Financial Products - Store-in-Store</label>
+            </value>
+            <value>
+                <fullName>Financial Services - Alpha</fullName>
+                <default>false</default>
+                <label>Financial Services - Alpha</label>
+            </value>
+            <value>
+                <fullName>Data &amp; Insights</fullName>
+                <default>false</default>
+                <label>Data &amp; Insights</label>
+            </value>
+            <value>
+                <fullName>Government and Agency Services (Federal Services/Marketplaces)</fullName>
+                <default>false</default>
+                <label>Government and Agency Services (Federal Services/Marketplaces)</label>
+            </value>
+            <value>
+                <fullName>Emerging Identity Services</fullName>
+                <default>false</default>
+                <label>Emerging Identity Services</label>
+            </value>
+            <value>
+                <fullName>Consumer Identity Services (Police Checks)</fullName>
+                <default>false</default>
+                <label>Consumer Identity Services (Police Checks)</label>
+            </value>
+            <value>
+                <fullName>Identity Services - Fraud Management</fullName>
+                <default>false</default>
+                <label>Identity Services - Fraud Management</label>
+            </value>
+            <value>
+                <fullName>Government &amp; State Services</fullName>
+                <default>false</default>
+                <label>Government &amp; State Services</label>
+            </value>
+            <value>
+                <fullName>Trusted Solutions Centre - Emerging Products</fullName>
+                <default>false</default>
+                <label>Trusted Solutions Centre - Emerging Products</label>
+            </value>
+            <value>
+                <fullName>Trusted Solutions Centre - Manage my Details</fullName>
+                <default>false</default>
+                <label>Trusted Solutions Centre - Manage my Details</label>
+            </value>
+            <value>
+                <fullName>Trusted Solutions Centre - Manage my Storage &amp; Comms</fullName>
+                <default>false</default>
+                <label>Trusted Solutions Centre - Manage my Storage &amp; Comms</label>
+            </value>
+            <value>
+                <fullName>Trusted Solutions Centre</fullName>
+                <default>false</default>
+                <label>Trusted Solutions Centre</label>
+            </value>
+            <value>
+                <fullName>Trusted Solutions Centre - AP Digital Mailbox</fullName>
+                <default>false</default>
+                <label>Trusted Solutions Centre - AP Digital Mailbox</label>
+            </value>
+            <value>
+                <fullName>Trusted Solutions Centre - Manage My Details / MRS / COAN</fullName>
+                <default>false</default>
+                <label>Trusted Solutions Centre - Manage My Details / MRS / COAN</label>
+            </value>
+            <value>
+                <fullName>Digital iD - Digital ID Services</fullName>
+                <default>false</default>
+                <label>Digital iD - Digital ID Services</label>
+            </value>
+            <value>
+                <fullName>Mail Channel &amp; Product</fullName>
+                <default>false</default>
+                <label>Mail Channel &amp; Product</label>
+            </value>
+            <value>
+                <fullName>Product &amp; Regulatory Analysis &amp; Planning</fullName>
+                <default>false</default>
+                <label>Product &amp; Regulatory Analysis &amp; Planning</label>
+            </value>
+            <value>
+                <fullName>Product Network Interface</fullName>
+                <default>false</default>
+                <label>Product Network Interface</label>
+            </value>
+            <value>
+                <fullName>Reply Paid</fullName>
+                <default>false</default>
+                <label>Reply Paid</label>
+            </value>
+            <value>
+                <fullName>Unaddressed Mail</fullName>
+                <default>false</default>
+                <label>Unaddressed Mail</label>
+            </value>
+            <value>
+                <fullName>Post Card</fullName>
+                <default>false</default>
+                <label>Post Card</label>
+            </value>
+            <value>
+                <fullName>Direct Entry Letters</fullName>
+                <default>false</default>
+                <label>Direct Entry Letters</label>
+            </value>
+            <value>
+                <fullName>International Outward Letters</fullName>
+                <default>false</default>
+                <label>International Outward Letters</label>
+            </value>
+            <value>
+                <fullName>Ordinary &amp; Other Letters</fullName>
+                <default>false</default>
+                <label>Ordinary &amp; Other Letters</label>
+            </value>
+            <value>
+                <fullName>Presort Letters</fullName>
+                <default>false</default>
+                <label>Presort Letters</label>
+            </value>
+            <value>
+                <fullName>Print Post</fullName>
+                <default>false</default>
+                <label>Print Post</label>
+            </value>
+            <value>
+                <fullName>Late Payment Charge</fullName>
+                <default>false</default>
+                <label>Late Payment Charge</label>
+            </value>
+            <value>
+                <fullName>Intermediaries</fullName>
+                <default>false</default>
+                <label>Intermediaries</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Parcels</controllingFieldValue>
+            <valueName>Local marketplaces</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcels</controllingFieldValue>
+            <valueName>Tmall subscriptions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcels</controllingFieldValue>
+            <valueName>International Products</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcels</controllingFieldValue>
+            <valueName>International Postal/Parcels</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcels</controllingFieldValue>
+            <valueName>eCommerce scorecard</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcels</controllingFieldValue>
+            <valueName>Parcel Post Commercial &amp; Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcels</controllingFieldValue>
+            <valueName>Premium, Next Flight</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcels</controllingFieldValue>
+            <valueName>ST Express Product (ST)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcels</controllingFieldValue>
+            <valueName>3PL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Parcels</controllingFieldValue>
+            <valueName>Intermediaries</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letters</controllingFieldValue>
+            <valueName>Unaddressed Mail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letters</controllingFieldValue>
+            <valueName>Direct Entry Letters</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letters</controllingFieldValue>
+            <valueName>International Outward Letters</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letters</controllingFieldValue>
+            <valueName>Ordinary &amp; Other Letters</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letters</controllingFieldValue>
+            <valueName>Presort Letters</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Letters</controllingFieldValue>
+            <valueName>Print Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Decipha Product and Solutions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Payment Processing / SecurePay</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Manage My Finances / PostBillPay</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Banking Services (Bank@Post)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Financial Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Retail Financial Products - Cards</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Retail Financial Products - Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Retail Financial Products - Cash Services (Money Orders/FX)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Retail Financial Products - Store-in-Store</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Financial Services - Alpha</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Data &amp; Insights</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Government and Agency Services (Federal Services/Marketplaces)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Emerging Identity Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Consumer Identity Services (Police Checks)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Identity Services - Fraud Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Government &amp; State Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Trusted Solutions Centre - Emerging Products</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Trusted Solutions Centre - Manage my Details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Trusted Solutions Centre - Manage my Storage &amp; Comms</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Trusted Solutions Centre</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Trusted Solutions Centre - AP Digital Mailbox</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Trusted Solutions Centre - Manage My Details / MRS / COAN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trusted Services</controllingFieldValue>
+            <valueName>Digital iD - Digital ID Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Credit Account Facilities</controllingFieldValue>
+            <valueName>Late Payment Charge</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

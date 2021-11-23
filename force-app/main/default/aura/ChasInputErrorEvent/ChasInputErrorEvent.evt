@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="DEPRECATED" >
+    <aura:attribute name="name" type="String"/>
+    <aura:attribute name="label" type="String"/>
+    <aura:attribute name="error" type="String"/>
+</aura:event>

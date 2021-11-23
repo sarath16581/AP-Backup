@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lodgement_Rules</fullName>
+    <active>true</active>
+    <label>Lodgement Rules</label>
+    <picklistValues>
+        <picklist>AccessRole__c</picklist>
+        <values>
+            <fullName>Contract UI User</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Send a Parcel UI User</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack Case Administrator</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack Case Manager</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inactive</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Legal_Support_Cancellation_Validation</fullName>
+    <active>true</active>
+    <description>This rule is to enforce addition of Rejection Reason by Deal Support User when Closing and cancelling a request</description>
+    <errorConditionFormula>AND
+(
+$Permission.BG_Deal_Support,
+ RecordType.DeveloperName =&apos;Legal_Support_Request&apos;,
+ISPICKVAL(Stage__c,&quot;Closed&quot;),
+ISPICKVAL(Status__c, &quot;Cancelled&quot;),
+ISBLANK(TEXT(RejectionReason__c))
+)</errorConditionFormula>
+    <errorMessage>Reason is required if the request is being cancelled.Please populate the value in Rejected reason field and then cancel the request</errorMessage>
+</ValidationRule>

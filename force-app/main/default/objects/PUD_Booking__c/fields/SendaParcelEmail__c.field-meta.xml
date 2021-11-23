@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SendaParcelEmail__c</fullName>
+    <defaultValue>&quot;SendaParcel-Pickups@auspost.com.au&quot;</defaultValue>
+    <description>This field contains default value as SendaParcel-Pickups@auspost.com.au and will be used for sending the booking confirmation email. Since salesforce Email alert reciepnt type limitation , we have to come up with this  tactical approach and will be replaced in future.</description>
+    <externalId>false</externalId>
+    <label>SendaParcelEmail</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Email</type>
+    <unique>false</unique>
+</CustomField>

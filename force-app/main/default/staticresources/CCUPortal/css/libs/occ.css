@@ -1,0 +1,242 @@
+/* CSS Document */
+
+/* Overwrite Global Style */
+.l-occ {
+	top: 0;
+}
+.l-occ .tabs-is-solid .nav {
+	height: 38px !important;
+	-webkit-border-top-right-radius: 0 !important;
+	-webkit-border-top-left-radius: 0 !important;
+	border-top-left-radius: 0 !important;
+	border-top-right-radius: 0 !important;
+}
+.l-occ .tabs-is-solid .nav .active a span {
+	background: white !important;
+}
+.l-occ .tabs-is-solid .nav a span {
+	height: 27px !important;
+}
+.l-occ .tabs-is-solid .nav a span::before {
+	height: 28px !important;
+	top: 5px !important;
+}
+
+
+/* New Style for OCC */
+.l-occ #alert {
+ display:block;
+}
+.l-occ .tabs-container {
+	background: #382F2D
+}
+.l-occ .tabs-container .horizontal li {
+	width: 20%;
+	text-align: center;
+}
+.l-occ .tabs-container .horizontal li.first-child {
+	padding-left:90px;
+}
+.l-occ .tabs-container .horizontal li.tab-notification a span {
+	background: #382F2D url("../images/icons/notification.png") no-repeat 155px 9px; /* New image for notification background */
+}
+.l-occ .tabs-container .horizontal li.tab-notification .tab-notification-label{
+	margin-top: -29px;
+	position: absolute;
+	height: 22px;
+	width: 22px;
+	font-weight: bold;
+	color: white;
+	z-index: 1;
+	margin-left: 153px;
+}
+.l-occ .tabs-is-solid .nav .active a span {
+	margin: 0 auto;
+}
+.l-occ .nav-container {
+	width: 980px;
+	margin: 0 auto;
+}
+.l-occ .overview-container {
+	padding: 10px 0;
+	height: 240px;
+}
+.l-occ .overview-container h1 {
+	color: #dc1928;
+	margin-top: 29px;
+}
+.l-occ .overview-container h3 {
+	color: #382f2d;
+	margin-bottom: 5px;
+}
+.l-occ .overview-container h1 b {
+	color: #ffffff;
+	font-weight: 700;
+}
+.l-occ .overview-container .block {
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	float: left;
+}
+.l-occ .overview-container .block .inner {
+	padding: 10px 20px;
+}
+.l-occ .overview-container #welcome {
+	width: 370px;
+	height: 240px;
+	background: #382f2d;
+	margin: 0 5px 0 0;
+}
+.l-occ .overview-container #welcome h3,
+.l-occ .overview-container #welcome a.cta-link {
+	color: #ffffff;
+}
+.l-occ .overview-container #welcome p {
+	margin-top: 58px;
+}
+.l-occ .overview-container #manage-cards {
+	width: 285px;
+	height: 240px;
+	background: #e2dfda;
+	margin: 0 5px;
+}
+.l-occ .overview-container #manage-cards h1 span {
+	color: #807370;
+	font-size: 13px;
+	font-weight: bold;
+	font-family: Arial, sans-serif;
+}
+.l-occ .overview-container #manage-cards p.first-child {
+	margin-top: 29px;
+}
+.l-occ .overview-container #expiring-cards {
+	width: 285px;
+	height: 115px;
+	background: #a79a9a;
+	margin: 0 0 5px 5px;
+}
+.l-occ .overview-container #locked-cards {
+	width: 285px;
+	height: 115px;
+	background: #cdc6c5;
+	margin: 5px 0 0 5px;
+}
+.l-occ .overview-container #manage-cards h1,
+.l-occ .overview-container #expiring-cards h1,
+.l-occ .overview-container #locked-cards h1 {
+	margin:0 !important;
+}
+.l-occ .promo-banner {
+	padding: 15px 30px 5px 60px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	position:relative;
+	display: none;
+}
+.l-occ .promo-banner h2 {
+	margin-bottom: 0 !important;
+}
+.l-occ .promo-banner h3 .cta-link {
+	color: #DC1928 !important;
+}
+.l-occ .promo-banner p {
+	margin:0 !important;
+}
+.l-occ .promo-banner span.mini-vector {
+	float: right;
+	margin-top: 6px;
+	margin-right: 10px;
+}
+.l-occ .tint-yellow {
+	background-color: #FFEDBA;
+}
+.l-occ .promo-banner-corner{
+	background-image: url("images/promo-banner-corner.png");
+	background-repeat: no-repeat;
+}
+.l-occ .promo-banner .hide {
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	text-indent: -999px;
+	overflow: hidden;
+	background: url("../images/icons/close.png") no-repeat 20px 10px;
+}
+.l-occ .o-l-panel-container form {
+	margin: 10px 0 !important;
+}
+.l-occ .o-l-panel-container .form a.cta-link {
+	text-decoration: none;
+}
+.l-occ .o-l-panel-container .form a.cta-link:hover {
+	text-decoration: underline;
+}
+.l-occ .o-l-panel-container h3 {
+	margin-bottom: 5px;
+}
+.l-occ .o-l-panel-container h3.important-msg {
+	color: #DC1928;
+}
+.l-occ .o-l-panel-container table {
+	margin:15px 0;
+	border-left: 1px solid #E2DFDA;
+	border-right: 1px solid #E2DFDA;
+}
+.l-occ .o-l-panel-container table th,
+.l-occ .o-l-panel-container table td {
+	border-right: none !important;
+	border-left: none !important;
+	text-align: left;
+	vertical-align: top;
+	white-space:nowrap;
+}
+.l-occ .o-l-panel-container table td span {
+	color: #DC1928;
+}
+.l-occ .o-l-panel-container .o-l-panel {
+	float: left;
+	width: 73%;
+	padding-right: 2%;
+}
+.l-occ .o-l-panel-container .o-r-panel {
+	float: right;
+	width: 23%;
+	padding-left: 2%;
+	min-height: 180px; /* To push the primary button to left */
+	border-left: 1px solid #D9D5CE;
+}
+
+.l-occ .o-l-panel-container .o-r-panel a {
+	text-decoration: none;
+}
+
+.l-occ .o-l-panel-container .o-r-panel .input-medium{
+	width: 205px !important;
+}
+
+.l-occ .o-l-panel-container .o-r-panel .input-medium input{
+	width: 185px;
+}
+.l-occ .o-l-panel-container .o-r-panel .input-medium select{
+	width: 205px;
+}
+
+.l-occ .notification {
+	display: block !important;
+}
+.l-occ .notification > div {
+	width: auto !important;
+}
+
+/* IE8 Fixes */
+
+.lt-ie9 .l-occ .o-l-panel-container .o-r-panel {
+	width: 21%;
+}
+
+.lt-ie9 .l-occ .tabs-is-solid .nav a span::before {
+	top: -5px !important;
+}

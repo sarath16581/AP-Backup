@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APT_Reasons_for_extension_request__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Why an extension has been requested?</inlineHelpText>
+    <label>Reasons for extension requests</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>The seller has left it too late to address the renewal</fullName>
+                <default>false</default>
+                <label>The seller has left it too late to address the renewal</label>
+            </value>
+            <value>
+                <fullName>Portfolio changes - The previous Account Manager did not renew.</fullName>
+                <default>false</default>
+                <label>Portfolio changes - The previous Account Manager did not renew.</label>
+            </value>
+            <value>
+                <fullName>The customer needs more time to sign due to either negotiations taking longer than planned  or customer request</fullName>
+                <default>false</default>
+                <label>The customer needs more time to sign due to either negotiations taking longer than planned  or customer request</label>
+            </value>
+            <value>
+                <fullName>Aligning different expiry dates on separate domestic and international agreements to a single date.</fullName>
+                <default>false</default>
+                <label>Aligning different expiry dates on separate domestic and international agreements to a single date.</label>
+            </value>
+            <value>
+                <fullName>Internal delays - e.g. Product &amp; Pricing; Legal; Contract Management.</fullName>
+                <default>false</default>
+                <label>Internal delays - e.g. Product &amp; Pricing; Legal; Contract Management.</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

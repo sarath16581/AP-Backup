@@ -1,0 +1,95 @@
+<!--
+2018-06-01      clint.dsilva@auspost.com.au         created
+2020-01-22      lija.jawahar@auspost.com.au         modified        Feed Security and UI updates
+-->
+<aura:component  description="Startrack Partner Portal Chatter feedItem" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:hasRecordId,force:appHostable,force:lightningQuickAction" access="global"
+                	controller="stp_chatterFeedItemController">
+    <aura:attribute name="taskReference" type="Id" required = "true" default = "wrong" />
+    <aura:attribute name="feedItemList" type="stp_chatterFeedItemController.feedItemListWrapper[]"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <div aura:id="feedContainer" class="feed-container">
+        
+        <!-- custom force chatter view is implemented since standard forceChatter:feed isn't available for portal user -->
+        <!-- <forceChatter:feed subjectId="{!v.taskReference}" type="Record"/> -->
+        
+        <aura:iteration items="{!v.feedItemList}" var="feedRec">
+
+                <!-- view if the feed type is of a post -->
+                <aura:if isTrue="{!feedRec.feed.Type == 'TextPost'}">
+                    <div class="slds-media slds-no-space slds-grow slds-p-around--small">
+                      <div class="slds-media__figure">
+                        <span class="slds-avatar slds-avatar_medium">
+                          <lightning:avatar variant="circle" src="{!feedRec.photoURL}" />
+                        </span>
+                      </div>
+                      <div class="slds-media__body">
+                        <p>{!feedRec.feed.InsertedBy.Name}</p>
+                        <p>{!feedRec.feedCreatedDate}</p>
+                      </div>
+                    </div>
+                    <div class="slds-text-body_regular slds-p-left--small">{!feedRec.feed.Body}</div><br/>
+                </aura:if>
+                    
+                <!-- view if the feed is when a feild is updated -->
+                <aura:if isTrue="{!feedRec.feed.Type == 'TrackedChange'}">
+                    <div class="slds-media slds-no-space slds-grow slds-p-around--small">
+                          <div class="slds-media__figure">
+                                <span class="slds-avatar slds-avatar_medium">
+                                    <lightning:avatar variant="circle" src="{!feedRec.photoURL}" />
+                                </span>
+                          </div>
+                          <div class="slds-media__body">
+                              <p>{!feedRec.feed.InsertedBy.Name} updated this record.</p>
+                              <p>{!feedRec.feedCreatedDate}</p>
+                          </div>
+                    </div>
+                    <div class="slds-text-body_regular slds-p-left--small">
+                        <aura:iteration items="{!feedRec.feedTrackChanges}" var="trackChanges">
+                            <p>{!trackChanges.fieldName}</p>
+                            {!trackChanges.oldValue} to {!trackChanges.newValue}
+                        </aura:iteration>
+                    </div><br/>
+                </aura:if>
+                    
+                <!-- view if the feed is when a record is created -->
+                <aura:if isTrue="{!feedRec.feed.Type == 'CreateRecordEvent'}">
+                    <div class="slds-media slds-no-space slds-grow slds-p-around--small">
+                          <div class="slds-media__figure">
+                                <span class="slds-avatar slds-avatar_medium">
+                                    <lightning:avatar variant="circle" src="{!feedRec.photoURL}" />
+                                </span>
+                          </div>
+                          <div class="slds-text-body_regular ">
+                                <p>{!feedRec.feed.InsertedBy.Name} created this task.</p>
+                                <p>{!feedRec.feedCreatedDate}</p>
+                          </div>
+                    </div>
+                    <div class="slds-text-body_regular slds-p-left--small">
+                        {!feedRec.feed.Parent.Name}
+                    </div><br/>
+                </aura:if>
+                    
+                <!-- Iterate and display feed comments -->
+
+                <div class="commentDivStyle">
+                <aura:iteration items="{!feedRec.feedComments}" var="feedCom">
+                    <div class="slds-media slds-no-space slds-grow slds-p-around--small">
+                          <div class="slds-media__figure">
+                                <span class="slds-avatar slds-avatar_medium">
+                                    <lightning:avatar variant="circle" src="{!feedCom.feedCommentCreatedOrEditedByPhotoURL}" />
+                                </span>
+                          </div>
+                          <div class="slds-media__body ">
+                                <p>{!feedCom.feedCommentCreatedOrEditedBy}</p>
+                                <p>{!feedCom.feedCommentBody}</p>
+                                <p>{!feedCom.feedCommentCreatedOrEditedDate}</p>
+                      </div>
+                    </div><br/>
+                </aura:iteration>
+                </div>
+
+    	</aura:iteration>
+                
+    </div>
+</aura:component>

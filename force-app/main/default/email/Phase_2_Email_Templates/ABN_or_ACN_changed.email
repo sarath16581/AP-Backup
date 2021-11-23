@@ -1,0 +1,7 @@
+Customer: {!Account.Name}
+
+ABN old value: {!Account.Hidden_ABN_Old_Value__c}
+ABN new value: {!Account.ABN__c}
+
+ABN old value: {!Account.Hidden_ACN_Old_Value__c}
+ABN new value: {!Account.ACN__c}

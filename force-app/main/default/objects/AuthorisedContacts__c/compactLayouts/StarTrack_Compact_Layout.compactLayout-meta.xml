@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StarTrack_Compact_Layout</fullName>
+    <fields>Calc_First_Name__c</fields>
+    <fields>Calc_Last_Name__c</fields>
+    <fields>Pref_Method_of_Contact__c</fields>
+    <fields>Calc_Contact_Email__c</fields>
+    <fields>Calc_Contact_Mobile_Number__c</fields>
+    <fields>Calc_Contact_Phone_Number__c</fields>
+    <fields>Contact_Type__c</fields>
+    <fields>Notification_Required__c</fields>
+    <fields>Initial_Contact__c</fields>
+    <label>StarTrack Compact Layout</label>
+</CompactLayout>

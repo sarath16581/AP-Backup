@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Version 2 -Registration confirmation: Australia Post - VOI for Property Transfers over the counter service</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>ExternalContactEmail</letterhead>
+    <name>Registration confirmation: Australia Post - VOI for Property Transfers over the</name>
+    <style>freeForm</style>
+    <subject>Registration confirmation: Australia Post - VOI for Property Transfers OTC Service - {!Lead.FirstName} {!Lead.LastName}</subject>
+    <textOnly>Dear {!Contact.FirstName},
+
+We are pleased to advise that you are now able to also use the Australia Post Verification of Identity (VOI) over the counter service for Property Transfers, to have your clients’ identity verified by Australia Post at our participating post offices.
+
+Please find attached a customised Property Transfers VOI form containing your unique five-digit practitioner ID (CLMID). This form needs to be presented by your clients at participating Post Offices (auspost.com.au/find/landtitle) in order to have their identity verified.
+
+Reports for all VOI checks completed by either yourself using the do it yourself VOI tool, or over the counter by Australia Post, are stored in the VOI Report Portal at https://ltdia.com.au. You can access the portal using your existing login details. For your reference, a copy of the instructions for the VOI Report Portal are also attached.
+
+If you require any assistance please contact us via email LandTitleVOI@auspost.com.au or call us on 1300 364 543.
+
+Kind regards,
+
+Australia Post Property Transfers VOI team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

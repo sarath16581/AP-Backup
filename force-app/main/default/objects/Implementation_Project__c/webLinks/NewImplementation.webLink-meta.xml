@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NewImplementation</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>New Implementation</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>/a0X/e?&amp;
+CF00N90000003UrV0={!Opportunity.Name}&amp;CF00N90000003UrV0_lkid={!Opportunity.Id}
+&amp;CF00N90000003UrVD={!Opportunity.Account}&amp;CF00N90000003UrVD_lkid={!Opportunity.AccountId}
+&amp;CF00N90000003UrV9={!Opportunity.OwnerFullName}&amp;CF00N90000003UrV9_lkid={!Opportunity.OwnerId}</url>
+</WebLink>

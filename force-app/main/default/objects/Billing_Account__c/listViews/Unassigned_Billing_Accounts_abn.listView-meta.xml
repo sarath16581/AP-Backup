@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unassigned_Billing_Accounts_abn</fullName>
+    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+    <columns>NAME</columns>
+    <columns>PAYER_ACCOUNT_ID__c</columns>
+    <columns>Credit_Limit_Formula__c</columns>
+    <columns>ABN__c</columns>
+    <columns>Credit_Person__c</columns>
+    <columns>Credit_Person_Code__c</columns>
+    <columns>Organisation__c</columns>
+    <columns>Customer_Name_2__c</columns>
+    <columns>LEGACY_ID__c</columns>
+    <columns>Search_Term__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Organisation__c</field>
+        <operation>equals</operation>
+        <value>TEMPORARY CUSTOMER</value>
+    </filters>
+    <filters>
+        <field>ABN__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>ABN__c</field>
+        <operation>equals</operation>
+        <value>99999999999</value>
+    </filters>
+    <label>Unassigned Billing Accounts with ABN</label>
+    <sharedTo>
+        <group>CustomerDataTeam</group>
+    </sharedTo>
+</ListView>

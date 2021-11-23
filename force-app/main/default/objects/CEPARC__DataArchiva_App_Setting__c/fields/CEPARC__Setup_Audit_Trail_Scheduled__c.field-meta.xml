@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CEPARC__Setup_Audit_Trail_Scheduled__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Whether salesforce&apos;s standard Setup Audit Trail archive is scheduled or not.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Whether salesforce&apos;s standard Setup Audit Trail archive is scheduled or not.</inlineHelpText>
+    <label>Setup Audit Trail Scheduled?</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

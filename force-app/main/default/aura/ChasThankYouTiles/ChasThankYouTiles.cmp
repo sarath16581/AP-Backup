@@ -1,0 +1,51 @@
+<aura:component description="Dynamic tiles displayed for each flow">
+
+    <aura:attribute name="tileMap" type="Map" default="{ 
+        digital-id: { label: 'Digital iD', body: 'Prove who you are from your smartphone.', url: 'https://www.digitalid.com/personal', image: '/chas-icons/pngs/Cross-sell-illustrations/illustration-digital-id.png'}, 
+        safe-drop: { label: 'Leave it in a safe place', body: 'Not going to be home? Have your eligible deliveries left in a safe place.', url: 'https://auspost.com.au/receiving/manage-deliveries-in-transit/safe-drop', image: '/chas-icons/pngs/Cross-sell-illustrations/illustration-safe-drop.png'}, 
+        my-post: { label: 'MyPost', body: 'Manage your deliveries so you get them when and where you want.', url: 'https://auspost.com.au/delivery-options', image: '/chas-icons/pngs/Cross-sell-illustrations/illustration-mypost.png'}, 
+        extra-cover: { label: 'Extra cover', body: 'Peace of mind when sending valuable items.', url: 'https://auspost.com.au/sending/send-within-australia/optional-extras-domestic', image: '/chas-icons/pngs/Cross-sell-illustrations/illustration-extra-cover.png'}, 
+        po-boxes: { label: 'PO Boxes &amp; Private Bags', body: 'Keep items safe and collect them when it suits you.', url: 'https://auspost.com.au/receiving/manage-your-mail/po-boxes-and-private-bags', image: '/chas-icons/pngs/Cross-sell-illustrations/illustration-po-box.png'}, 
+        }" />    
+    <aura:attribute name="tileList" type="List" />
+
+    <!-- Work around since you can't access a map use iternation variable. -->
+    <aura:attribute name="computedTileList" type="List" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <div class="component">
+        <div class="chas-thanks-tiles-outer">
+            <div class="chas-thanks-tiles-inner">
+                
+                <div class="thanks-header slds-text-align_center">
+                    <h2>While you wait...</h2>
+                    <p>You might like to check out these Australia Post products and services.</p>
+                </div>
+                
+                <div class="chas-thanks-tile-box">       
+                    <aura:iteration items="{!v.computedTileList}" var="item"  >
+
+                        <a class="thanks-tile slds-m-around_small" data-url="{! item.url }" onclick="{!c.goToDestination}">
+                            <div class="thanks-image-box">
+                                <img class="" src="{!$Resource.ChasIcons + item.image }"/>
+                            </div>
+                            <div class="thanks-tile-text">
+                                <img class="" src="{!$Resource.ChasIcons + '/chas-icons/pngs/UI/icons/ic_chevron.png'}"/>
+                                <div>
+                                    <aura:if isTrue="{! item.label == 'Digital iD' }">
+                                        <h3 class="chas-heading_medium">{! item.label }<sup>TM</sup></h3>
+                                        <aura:set attribute="else">
+                                            <h3 class="chas-heading_medium">{! item.label }</h3>
+                                        </aura:set>
+                                    </aura:if>
+                                    <p class="">{! item.body }</p>
+                                </div>
+                            </div>
+                        </a>
+
+                    </aura:iteration>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

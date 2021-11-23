@@ -1,0 +1,12 @@
+<!-- changelog
+@date: 22-07-2020 Hara.sahoo@auspost.com.au Changed the heading text to <h2>
+-->
+<aura:component description="Styled header at the top of all wizards">
+	<aura:attribute name="headingText" type="String"/>
+
+	<div class="outer">
+		<div class="inner heading-inner">
+			<legend class="chas-heading_small">{!v.headingText}</legend>
+		</div>
+	</div>
+</aura:component>
