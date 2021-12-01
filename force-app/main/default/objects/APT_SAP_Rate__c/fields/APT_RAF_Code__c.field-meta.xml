@@ -5,6 +5,7 @@
     <label>RAF Code</label>
     <length>25</length>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

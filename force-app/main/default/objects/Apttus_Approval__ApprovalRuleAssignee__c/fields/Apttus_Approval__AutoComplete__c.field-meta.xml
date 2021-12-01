@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Flag to indicate if the request should be auto approved</inlineHelpText>
     <label>Auto Complete</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

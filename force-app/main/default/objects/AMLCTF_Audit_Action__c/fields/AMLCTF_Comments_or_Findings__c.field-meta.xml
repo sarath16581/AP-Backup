@@ -6,6 +6,7 @@
     <inlineHelpText>Auditor&apos;s Observations / Issues Identified needing Licensee to action upon.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
     <label>Observations or Issues Identified</label>
     <length>131072</length>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

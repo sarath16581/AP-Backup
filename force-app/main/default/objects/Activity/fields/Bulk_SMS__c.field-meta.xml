@@ -5,5 +5,6 @@
     <description>This will determine if SMS task was created in bulk or not.</description>
     <externalId>false</externalId>
     <label>Bulk SMS?</label>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
 </CustomField>

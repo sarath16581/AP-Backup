@@ -5,6 +5,7 @@
     <inlineHelpText>This will be derived from the Hub Catchment Reference table after a Post Code is added in the Physical Address.</inlineHelpText>
     <label>Local Area Market</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

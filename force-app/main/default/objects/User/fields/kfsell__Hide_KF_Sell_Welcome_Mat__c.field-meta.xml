@@ -8,7 +8,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Disables KF Sell Welcome Mat when view a Blue Sheet</inlineHelpText>
     <label>Hide KF Sell Welcome Mat</label>
-    <securityClassification>Public</securityClassification>
+    <securityClassification>PUBLIC</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>
 </CustomField>

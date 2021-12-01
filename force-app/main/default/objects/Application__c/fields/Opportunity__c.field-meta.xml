@@ -7,6 +7,7 @@
     <referenceTo>Opportunity</referenceTo>
     <relationshipName>Applications</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

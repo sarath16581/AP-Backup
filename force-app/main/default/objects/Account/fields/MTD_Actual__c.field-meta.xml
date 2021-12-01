@@ -4,6 +4,7 @@
     <description>Phase 2 - This field is to be used for Reporting Purposes.</description>
     <externalId>false</externalId>
     <label>Revenue $</label>
+    <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Budget_and_Revenue__c.MTDActual__c</summarizedField>
     <summaryForeignKey>Budget_and_Revenue__c.Organisation__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

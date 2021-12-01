@@ -5,6 +5,7 @@
     <formula>IF(ISBLANK(CaseObject__c), &apos;&apos; , TEXT(CaseObject__r.Status))</formula>
     <label>Case Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

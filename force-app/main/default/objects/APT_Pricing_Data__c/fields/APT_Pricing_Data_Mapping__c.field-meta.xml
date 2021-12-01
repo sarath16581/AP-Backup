@@ -8,6 +8,7 @@
     <relationshipLabel>Pricing Data</relationshipLabel>
     <relationshipName>Pricing_Data</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -24,6 +24,7 @@
     <inlineHelpText>Use this button to launch the Composer QuickMerge Solution. Only available when the Button ID field is populated.</inlineHelpText>
     <label>Launch</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

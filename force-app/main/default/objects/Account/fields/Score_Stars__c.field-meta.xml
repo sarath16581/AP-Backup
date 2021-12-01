@@ -19,6 +19,7 @@ CASE(  CEILING( Data_Quality_Score__c/10),
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Data Quality Rating</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

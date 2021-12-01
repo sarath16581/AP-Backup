@@ -7,6 +7,7 @@
     <label>Merchant Bank Account Number</label>
     <length>9</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Sub Account Contact Email Address</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Email</type>
     <unique>false</unique>

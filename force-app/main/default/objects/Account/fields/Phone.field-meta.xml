@@ -3,6 +3,7 @@
     <fullName>Phone</fullName>
     <inlineHelpText>Telephone (landline and/or mobile) number that the Organisation or Individual may be contacted on. 
 Users can edit this field (regardless of whether the organisation is a Prospect or Customer) without having to raise a case to the Data Quality team.</inlineHelpText>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
 </CustomField>

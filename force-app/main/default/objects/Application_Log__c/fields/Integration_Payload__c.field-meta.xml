@@ -6,6 +6,7 @@
     <inlineHelpText>The payload for integration messages</inlineHelpText>
     <label>Integration Payload</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>20</visibleLines>

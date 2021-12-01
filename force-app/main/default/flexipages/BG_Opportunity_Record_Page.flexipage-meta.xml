@@ -1064,21 +1064,6 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentName>kfsell:bestActionWidgetAuraWrapper</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>kfsell:blueSheetProgressWidget</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>kfsell:kfLearnLink</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-02c3554f-de48-4009-b6c8-53c459ec152e</value>
@@ -1107,6 +1092,21 @@
                         <rightValue>true</rightValue>
                     </criteria>
                 </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>kfsell:bestActionWidgetAuraWrapper</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>kfsell:blueSheetProgressWidget</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>kfsell:kfLearnLink</componentName>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

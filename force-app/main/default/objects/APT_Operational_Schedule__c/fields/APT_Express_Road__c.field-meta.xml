@@ -5,6 +5,7 @@
     <description>Checked if the product is Startrack express road</description>
     <externalId>false</externalId>
     <label>Road Express</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

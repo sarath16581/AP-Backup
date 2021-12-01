@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>DL 1 Up Level email address</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Email</type>
     <unique>false</unique>

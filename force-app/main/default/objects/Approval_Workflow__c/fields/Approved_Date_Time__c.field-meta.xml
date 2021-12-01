@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Approved Date/Time</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>

@@ -6,6 +6,7 @@
     <inlineHelpText>The status of the APR record, this is to be updated by the Account Manager responsible for the APR negotiation.</inlineHelpText>
     <label>Status</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

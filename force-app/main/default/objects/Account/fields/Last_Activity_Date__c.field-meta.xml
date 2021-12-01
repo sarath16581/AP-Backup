@@ -6,6 +6,7 @@
     <inlineHelpText>Automatically generated date based on the date of last activity (task/event) on the organisation</inlineHelpText>
     <label>Last Activity Date_old</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Date</type>

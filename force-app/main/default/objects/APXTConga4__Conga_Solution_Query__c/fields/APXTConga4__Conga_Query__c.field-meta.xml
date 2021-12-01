@@ -9,6 +9,7 @@
     <relationshipLabel>Conga Solution Queries</relationshipLabel>
     <relationshipName>Conga_Solution_Queries</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

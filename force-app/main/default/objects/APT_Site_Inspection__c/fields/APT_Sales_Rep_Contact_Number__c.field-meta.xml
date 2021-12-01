@@ -5,6 +5,7 @@
     <formula>APT_Organisation__r.Owner.Phone</formula>
     <label>Sales Rep Contact Number</label>
     <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

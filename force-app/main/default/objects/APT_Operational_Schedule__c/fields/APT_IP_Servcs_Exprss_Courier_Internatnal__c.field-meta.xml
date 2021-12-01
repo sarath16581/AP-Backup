@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <inlineHelpText>IP Services Express Courier International</inlineHelpText>
     <label>IPS Express Courier International</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

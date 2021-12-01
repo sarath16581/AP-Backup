@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>I have read and accept the Australia Post</inlineHelpText>
     <label>Consent - Read And Accept</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

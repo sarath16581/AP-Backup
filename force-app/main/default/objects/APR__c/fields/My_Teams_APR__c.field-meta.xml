@@ -17,6 +17,7 @@ Legal_Entity_Name_LookUp__r.Owner.Manager.Id = $User.Id ,
 )</formula>
     <label>My Teams APR</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

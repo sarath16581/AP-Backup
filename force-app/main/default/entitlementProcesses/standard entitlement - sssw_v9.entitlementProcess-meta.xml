@@ -102,16 +102,16 @@
         <milestoneName>Charter</milestoneName>
         <minutesToComplete>1200</minutesToComplete>
         <timeTriggers>
+            <timeLength>-4</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
             <actions>
                 <name>SSSW_Set_Case_as_Escalated</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>1</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <timeLength>-4</timeLength>
-            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>true</useCriteriaStartTime>
     </milestones>

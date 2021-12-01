@@ -7,6 +7,7 @@
     <referenceTo>Apttus_Proposal__Proposal_Line_Item__c</referenceTo>
     <relationshipName>Quote_Lodgement_Point</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

@@ -5,6 +5,7 @@
     <formula>TEXT(Post_Office_Assigned__r.LBP_Retail_relationship_type_network__c)</formula>
     <label>Retail Relationship Type</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

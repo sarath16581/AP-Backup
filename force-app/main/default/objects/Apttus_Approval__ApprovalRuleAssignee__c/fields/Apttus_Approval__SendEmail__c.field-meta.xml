@@ -6,6 +6,7 @@
     <description>Indicates whether an email notification should be sent to the assignee</description>
     <externalId>false</externalId>
     <label>Send Email</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

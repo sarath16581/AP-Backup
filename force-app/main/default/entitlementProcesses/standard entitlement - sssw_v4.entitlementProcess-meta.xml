@@ -113,10 +113,6 @@
         <milestoneName>Charter</milestoneName>
         <minutesToComplete>1200</minutesToComplete>
         <timeTriggers>
-            <timeLength>-4</timeLength>
-            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
             <actions>
                 <name>Reassign_Case_to_Queue</name>
                 <type>FieldUpdate</type>
@@ -127,6 +123,10 @@
             </actions>
             <timeLength>1</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <timeLength>-4</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>true</useCriteriaStartTime>
     </milestones>
@@ -191,10 +191,6 @@
         <milestoneName>Charter</milestoneName>
         <minutesToComplete>6000</minutesToComplete>
         <timeTriggers>
-            <timeLength>-2</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
             <actions>
                 <name>Reassign_Case_to_Queue</name>
                 <type>FieldUpdate</type>
@@ -205,6 +201,10 @@
             </actions>
             <timeLength>1</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <timeLength>-2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>true</useCriteriaStartTime>
     </milestones>
@@ -431,6 +431,10 @@
         <milestoneName>Network Tier 5</milestoneName>
         <minutesCustomClass>CalculateMilestoneTime</minutesCustomClass>
         <timeTriggers>
+            <timeLength>2</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
             <actions>
                 <name>Reassign_Case_to_Queue</name>
                 <type>FieldUpdate</type>
@@ -452,10 +456,6 @@
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>1</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <timeLength>2</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>true</useCriteriaStartTime>

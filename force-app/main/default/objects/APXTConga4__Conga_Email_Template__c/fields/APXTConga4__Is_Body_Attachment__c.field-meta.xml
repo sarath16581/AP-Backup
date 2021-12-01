@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>When enabled, Conga Composer stores the body of the HTML template as an attachment, rather than in the Rich Text field.</inlineHelpText>
     <label>Use attachment for template body</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

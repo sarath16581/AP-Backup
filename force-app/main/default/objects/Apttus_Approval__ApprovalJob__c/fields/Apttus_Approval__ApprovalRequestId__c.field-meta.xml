@@ -11,6 +11,7 @@
     <relationshipLabel>Approval Jobs</relationshipLabel>
     <relationshipName>Approval_Jobs</relationshipName>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

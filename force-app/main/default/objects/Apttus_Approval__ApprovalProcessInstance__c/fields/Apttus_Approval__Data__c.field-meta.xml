@@ -7,6 +7,7 @@
     <inlineHelpText>Approval Data Cache</inlineHelpText>
     <label>Data</label>
     <length>131072</length>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

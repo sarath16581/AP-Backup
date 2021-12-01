@@ -2,9 +2,6 @@
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <customButtons>APT_Export_Accounts</customButtons>
     <customButtons>BAM_Configure_Apps</customButtons>
-    <excludeButtons>DataDotComAccountInsights</excludeButtons>
-    <excludeButtons>DataDotComClean</excludeButtons>
-    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
     <excludeButtons>DisableCustomerPortalAccount</excludeButtons>
     <excludeButtons>DisablePartnerPortalAccount</excludeButtons>
     <excludeButtons>IncludeOffline</excludeButtons>
@@ -713,6 +710,7 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>kfsell__FOP_Name__c</fields>
         <relatedList>kfsell__Gold_Sheet__c.kfsell__Account__c</relatedList>
     </relatedLists>
     <relatedLists>
