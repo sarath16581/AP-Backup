@@ -14,6 +14,7 @@ pipelines:
   custom:
     get-ptest:
       - step:
+          size: 2x
           script:
             - apt-get update && apt-get install --no-install-recommends -y jq curl git
             - cd /tmp && mkdir pipelines && cd /tmp/pipelines && git clone https://$PIPELINE_REPO_USER:$PIPELINE_REPO_PASS@bitbucket.org/customersystemsteam/pipeline-tools-sfdx.git .
