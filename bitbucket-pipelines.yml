@@ -16,7 +16,7 @@ pipelines:
       - step:
           size: 2x
           script:
-            - apt-get update && apt-get install --no-install-recommends -y jq curl git
+            - apt-get update && apt-get install --no-install-recommends -y jq curl git procps
             - cd /tmp && mkdir pipelines && cd /tmp/pipelines && git clone https://$PIPELINE_REPO_USER:$PIPELINE_REPO_PASS@bitbucket.org/customersystemsteam/pipeline-tools-sfdx.git .
             # allows us to write back to repository where branch permissions are enabled
             - export access_token=$(curl -s -X POST -u "${BITBUCKET_OAUTH_CLIENT_ID}:${BITBUCKET_OAUTH_CLIENT_SECRET}" https://bitbucket.org/site/oauth2/access_token -d grant_type=client_credentials -d scopes="repository"| jq --raw-output '.access_token')
